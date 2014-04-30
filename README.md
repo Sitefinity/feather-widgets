@@ -1,7 +1,7 @@
 The Feather Project
 =======
 
-Custom MVC widgets which are part of the Feather project.
+This repository contains custom MVC widgets which are part of the Feather project. Note that the current implementation is not final, that it is a subject to changes as well as breaking API changes and should not be used in production.
 
 # License Information
 
