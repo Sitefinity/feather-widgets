@@ -1,7 +1,7 @@
 The Feather Project
 =======
 
-The Frontend Widgets for the Sitefinity Feather project.
+Custom MVC widgets which are part of the Feather project.
 
 # License Information
 
