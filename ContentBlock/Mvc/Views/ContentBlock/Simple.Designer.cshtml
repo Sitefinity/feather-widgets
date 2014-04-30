@@ -1,0 +1,5 @@
+<div ng-show="IsShared" class="alert alert-warning">
+    <b>This content is shared.</b> Any changes will be reflected everywhere it is shared
+</div>
+
+<textarea id ="contentEditor" kendo-editor k-value="ContentProperty.PropertyValue" k-on-change="contentChange(kendoEvent)"></textarea>

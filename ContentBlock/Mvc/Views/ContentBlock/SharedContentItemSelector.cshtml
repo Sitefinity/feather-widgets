@@ -1,0 +1,72 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+@model ContentBlock.Mvc.Models.ContentBlockModel
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
+<!-- Optional theme -->
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
+
+<script src='@Url.WidgetContent("Mvc/Scripts/ShareContentService.js")'></script>
+<script src='@Url.WidgetContent("Mvc/Scripts/Selectors/ProviderSelectorModule.js")'></script>
+<script src='@Url.WidgetContent("Mvc/Scripts/SharedContentItemSelectorModule.js")'></script>
+<script type="text/javascript">
+    //This is the place where we bootstrap the data passed by the controller. We do that by creating a angular service which will return the data object
+    angular.module('shareContentServices').factory('HelperDataService', function () {
+        return {
+            contentItemsServiceUrl: '@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'
+        };
+    });
+
+    angular.module('providerSelectorModule').factory("UrlHelperService", function () {
+        return {
+            defaultProviderName: '@Html.DefaultProviderName(Model.ContentManager)',
+            providersDataServiceUrl: '@Url.Content("~/Sitefinity/Services/DataSourceService/")'
+        };
+    });
+
+    angular.bootstrap($("#sharedContentSelectorDialog"), ['sharedContentSelecorModule']);
+
+</script>
+
+<div id="sharedContentSelectorDialog" ng-controller="SharedContentSelectorDialogCtrl">
+    <script type="text/ng-template" id="sharedContentSelector" >
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="Cancel()" aria-hidden="true">&times;</button>
+            <h1 class="modal-title">Select shared content</h1>
+        </div>
+        <div class="modal-body">
+            <div ng-show="ShowError" class="alert alert-danger">
+                <a class="close" data-dismiss="alert">x</a>
+                <strong>Error!</strong> <span ng-bind="ErrorMessage"></span>
+            </div>
+
+            <provider-selector manager-type="Telerik.Sitefinity.Modules.GenericContent.ContentManager"></provider-selector>
+        
+            <div ng-show="ShowLoadingIndicator" class="s-loading m-bottom-sm"></div>
+
+            <div ng-show="IsListEmpty" class="alert alert-info">No items have been created yet</div>
+            <div ng-hide="IsListEmpty">
+                <div class="input-group m-bottom-sm">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                    <input type="text" name="search" ng-model="search" class="form-control" placeholder="Narrow by typing..." />
+                </div>
+                <div class="list-group s-items-list-wrp">
+                    <a href="#" data-ng-repeat="item in filteredContentItems = (ContentItems | filter:search)" 
+                            ng-class="{'list-group-item':true, 'active': item.Id==SelectedCBId }" 
+                            ng-click="ContentItemClicked($index, item)"> 
+                        <span ng-bind="item.Title"></span>
+                    </a>
+                </div>
+                <div ng-hide="filteredContentItems.length">No items found</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ng-hide="IsListEmpty" class="btn btn-primary" ng-click="SelectSharedContent()">Done selecting</button>
+            <button type="button" class="btn btn-link" ng-click="Cancel()">@this.Label("Cancel")</button>
+        </div>
+    </script>
+</div>

@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentBlock", "ContentBlock\ContentBlock.csproj", "{827B5C1E-619A-4080-A7F1-10D103C38CFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialShare", "SocialShare\SocialShare.csproj", "{33171BB5-9918-41BE-B06D-0D8347846B0C}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfs.telerik.com:8082/defaultcollection
+		SccProjectUniqueName0 = ContentBlock\\ContentBlock.csproj
+		SccProjectName0 = ContentBlock
+		SccAuxPath0 = http://tfs.telerik.com:8082/defaultcollection
+		SccLocalPath0 = ContentBlock
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = SocialShare\\SocialShare.csproj
+		SccProjectName1 = SocialShare
+		SccAuxPath1 = http://tfs.telerik.com:8082/defaultcollection
+		SccLocalPath1 = SocialShare
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = FeatherWidgets.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{827B5C1E-619A-4080-A7F1-10D103C38CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{827B5C1E-619A-4080-A7F1-10D103C38CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{827B5C1E-619A-4080-A7F1-10D103C38CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{827B5C1E-619A-4080-A7F1-10D103C38CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
