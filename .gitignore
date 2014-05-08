@@ -108,3 +108,5 @@ Backup*/
 UpgradeLog*.XML
 
 ReferenceAssemblies
+
+.nuget/NuGet.exe
