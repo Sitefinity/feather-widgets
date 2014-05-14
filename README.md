@@ -3,6 +3,10 @@ The Feather Project
 
 This repository contains custom MVC widgets which are part of the Feather project. Note that the current implementation is not final, that it is a subject to changes as well as breaking API changes and should not be used in production.
 
+# Related Repositories
+
+[feather](https://github.com/Sitefinity/feather) - This repository contains the core infrastructure related to the Feather project.
+
 # License Information
 
 This project has been released under the Apache License, version 2.0, the text of which is included below. This license applies ONLY to the project-specific source of each repository and does not extend to Telerik Sitefinity CMS itself, or any other 3rd party libraries used in a repository. For licensing information about Telerik Sitefinity CMS, see the [License Agreements page](http://www.sitefinity.com/purchase/license-agreement) at [Sitefinity.com](http://www.sitefinity.com/).
