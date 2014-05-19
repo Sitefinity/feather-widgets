@@ -2,36 +2,8 @@
 
 @model ContentBlock.Mvc.Models.ContentBlockModel
 
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
-<!-- Optional theme -->
-<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
-
-<script src='@Url.WidgetContent("Mvc/Scripts/ShareContentService.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/Selectors/ProviderSelectorModule.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/SharedContentItemSelectorModule.js")'></script>
-<script type="text/javascript">
-    //This is the place where we bootstrap the data passed by the controller. We do that by creating a angular service which will return the data object
-    angular.module('shareContentServices').factory('HelperDataService', function () {
-        return {
-            contentItemsServiceUrl: '@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'
-        };
-    });
-
-    angular.module('providerSelectorModule').factory("UrlHelperService", function () {
-        return {
-            defaultProviderName: '@Html.DefaultProviderName(Model.ContentManager)',
-            providersDataServiceUrl: '@Url.Content("~/Sitefinity/Services/DataSourceService/")'
-        };
-    });
-
-    angular.bootstrap($("#sharedContentSelectorDialog"), ['sharedContentSelecorModule']);
-
-</script>
-
-<div id="sharedContentSelectorDialog" ng-controller="SharedContentSelectorDialogCtrl">
-    <script type="text/ng-template" id="sharedContentSelector" >
+<div class="dialog" modal>
+    <script type="text/ng-template" id="dialog-template" >
         <div class="modal-header">
             <button type="button" class="close" ng-click="Cancel()" aria-hidden="true">&times;</button>
             <h1 class="modal-title">Select shared content</h1>
@@ -70,3 +42,32 @@
         </div>
     </script>
 </div>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
+<!-- Optional theme -->
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
+
+<script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/shared-content-services.js")'></script>
+<script src='@Url.WidgetContent("Mvc/Scripts/data-providers.js")'></script>
+<script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/content-selector.js")'></script>
+
+<script type="text/javascript">
+    (function ($) {
+        //This is the place where we bootstrap the data passed by the controller. We do that by creating a angular service which will return the data object
+        angular.module('sharedContentServices').factory('descriptorService', function () {
+            return {
+                contentItemsServiceUrl: '@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'
+            };
+        });
+
+        angular.module('dataProviders').factory('urlService', function () {
+            return {
+                defaultProviderName: '@Html.DefaultProviderName(Model.ContentManager)',
+                providersDataServiceUrl: '@Url.Content("~/Sitefinity/Services/DataSourceService/")'
+            };
+        });
+
+        angular.bootstrap($('.dialog'), ['contentSelector']);
+    })(jQuery);
+</script>

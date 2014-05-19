@@ -1,28 +1,5 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
-<!-- Optional theme -->
-<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
-<!-- Latest compiled and minified JavaScript -->
-
-<script src='@Url.WidgetContent("Mvc/Scripts/ShareDialogModule.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/ShareContentService.js")'></script>
-
-<script type="text/javascript">
-    //This is the place where we bootstrap the data passed by the controller. We do that by creating a angular service which will return the data object
-    angular.module('shareContentServices').factory('HelperDataService', function () {
-        return {
-            contentItemsServiceUrl: '@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")',
-            blankDataItem: '@Html.Raw(ViewBag.BlankDataItem)'
-        };
-    });
-
-    angular.bootstrap($("#shareDialog"), ['shareDialog']);
-   
-</script>
-
 <div id="shareDialog" ng-controller="ShareDialogCtrl">
     <script type="text/ng-template" id="shareDialogContent" >
          <div class="modal-header">
@@ -48,3 +25,25 @@
          </div>
     </script>
 </div>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
+<!-- Optional theme -->
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
+
+<script src='@Url.WidgetContent("Mvc/Scripts/ShareDialogModule.js")'></script>
+<script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/shared-content-services.js")'></script>
+
+<script type="text/javascript">
+    (function ($) {
+        //This is the place where we bootstrap the data passed by the controller. We do that by creating a angular service which will return the data object
+        angular.module('sharedContentServices').factory('descriptorService', function () {
+            return {
+                contentItemsServiceUrl: '@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")',
+                blankDataItem: '@Html.Raw(ViewBag.BlankDataItem)'
+            };
+        });
+
+        angular.bootstrap($("#shareDialog"), ['shareDialog']);
+    })(jQuery);
+</script>

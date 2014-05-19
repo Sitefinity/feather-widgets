@@ -1,57 +1,58 @@
-﻿(function () {
+﻿(function ($) {
 
     //angular controller responsible for the Share dialog module mode logic
-    var shareDialogModule = angular.module('shareDialog', ['ui.bootstrap', 'shareContentServices', 'controlPropertyServices']);
+    var shareDialogModule = angular.module('shareDialog', ['ui.bootstrap', 'shareContentServices', 'pageEditorServices']);
 
-    //controller for the share "$modalInstance"
-    var ShareDialogContentCtrl = function ($scope, $modalInstance, $http, ShareContentService) {
-        $scope.Title = "";
-        $scope.IsTitleValid = true;
-        $scope.ShowLoadingIndicator = false;
-        $scope.ShowError = false;
-        $scope.ErrorMessage = "";
+    shareDialogModule.controller('sharedContentDialogCtrl', ['$scope', '$modalInstance', '$http', 'sharedContentService',
+        function ($scope, $modalInstance, $http, sharedContentService) {
+            $scope.Title = '';
+            $scope.IsTitleValid = true;
+            $scope.ShowLoadingIndicator = false;
+            $scope.ShowError = false;
+            $scope.ErrorMessage = '';
 
-        $scope.ShareContent = function () {
+            $scope.ShareContent = function () {
 
-            var onShareSuccess = function (data) {
-                $scope.ShowLoadingIndicator = false;
-                $scope.ShowError = false;
-                $scope.ErrorMessage = "";
+                var onShareSuccess = function (data) {
+                    $scope.ShowLoadingIndicator = false;
+                    $scope.ShowError = false;
+                    $scope.ErrorMessage = '';
 
-                $modalInstance.close();
+                    $modalInstance.close();
 
-                if (typeof ($telerik) != "undefined") {
-                    $telerik.$(document).trigger("modalDialogClosed");
+                    if (typeof ($telerik) != 'undefined') {
+                        $telerik.$(document).trigger('modalDialogClosed');
+                    }
+                };
+
+                var onShareError = function (data, status, headers, config) {
+                    $scope.ShowLoadingIndicator = false;
+                    $scope.ShowError = true;
+                    if(data)
+                        $scope.ErrorMessage = data.Detail;
                 }
+
+                //validate title and send request to share the content block
+                if ($.trim(this.Title) != '') {
+                    this.IsTitleValid = true;
+                    $scope.ShowLoadingIndicator = true;
+                    sharedContentService.share(this.Title, onShareSuccess, onShareError);
+                }
+                else
+                    this.IsTitleValid = false;
+
             };
+            $scope.Cancel = function () {
+                if ($modalInstance) {
+                    $modalInstance.dismiss('cancel');
 
-            var onShareError = function (data, status, headers, config) {
-                $scope.ShowLoadingIndicator = false;
-                $scope.ShowError = true;
-                if(data)
-                    $scope.ErrorMessage = data.Detail;
-            }
-
-            //validate title and send request to share the content block
-            if (jQuery.trim(this.Title) != "") {
-                this.IsTitleValid = true;
-                $scope.ShowLoadingIndicator = true;
-                ShareContentService.shareContent(this.Title, onShareSuccess, onShareError);
-            }
-            else
-                this.IsTitleValid = false;
-
-        };
-        $scope.Cancel = function () {
-            if ($modalInstance) {
-                $modalInstance.dismiss('cancel');
-
-                if (typeof ($telerik) != "undefined") {
-                    $telerik.$(document).trigger("modalDialogClosed");
+                    if (typeof ($telerik) != "undefined") {
+                        $telerik.$(document).trigger("modalDialogClosed");
+                    }
                 }
             }
         }
-    };
+    ]);
 
     //controller for the unshare "$modalInstance"
     var UnshareDialogContentCtrl = function ($scope, $modalInstance, $http, ShareContentService, PropertyDataService, PageControlDataService) {
