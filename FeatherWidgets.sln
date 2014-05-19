@@ -14,25 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5EEBCA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{61445BD5-A99E-4F27-B523-5331BE82291F}"
 	ProjectSection(SolutionItems) = preProject
+		FeatherWidgets.vsmdi = FeatherWidgets.vsmdi
 		TestSettings.testsettings = TestSettings.testsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}"
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://tfs.telerik.com:8082/defaultcollection
-		SccProjectUniqueName0 = ContentBlock\\ContentBlock.csproj
-		SccProjectName0 = ContentBlock
-		SccAuxPath0 = http://tfs.telerik.com:8082/defaultcollection
-		SccLocalPath0 = ContentBlock
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName1 = SocialShare\\SocialShare.csproj
-		SccProjectName1 = SocialShare
-		SccAuxPath1 = http://tfs.telerik.com:8082/defaultcollection
-		SccLocalPath1 = SocialShare
-		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = FeatherWidgets.vsmdi
 	EndGlobalSection
@@ -49,6 +37,10 @@ Global
 		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33171BB5-9918-41BE-B06D-0D8347846B0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
