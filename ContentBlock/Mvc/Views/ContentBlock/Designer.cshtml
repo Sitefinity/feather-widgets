@@ -1,6 +1,6 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
-<div class="designer" modal>
+<div class="designer" modal dialog-controller="dialogCtrl">
     <script type="text/ng-template" id="dialog-template">
          <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Cancel($event)">&times;</button>
@@ -48,12 +48,12 @@
 @*  Optional theme *@
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
 
+<script src='@Url.WidgetContent("Mvc/Scripts/Designer/modal-dialog.js")'></script>
 <script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/designer-extensions.js")'></script>
 <script src='@Url.WidgetContent("Mvc/Scripts/Designer/designer.js")'></script>
 <script src='@Url.WidgetContent("Mvc/Scripts/Designer/property-grid.js")'></script>
 <script src='@Url.WidgetContent("Mvc/Scripts/breadcrumb.js")'></script>
 <script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/simple-designer.js")'></script>
-
 <script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/shared-content-services.js")'></script>
 
 <script type="text/javascript">
@@ -65,6 +65,6 @@
     });
 
     (function ($) {
-        angular.bootstrap($(".designer"), ['designer']);
+        angular.bootstrap($('.designer'), ['designer']);
     })(jQuery);
 </script>

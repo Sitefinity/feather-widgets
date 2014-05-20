@@ -23,7 +23,7 @@ var designerExtensions = {
     /**
      * Dependencies of the designer module.
      */
-    dependencies: ['pageEditorServices', 'breadcrumb', 'ngRoute', 'ui.bootstrap', 'kendo.directives']
+    dependencies: ['pageEditorServices', 'breadcrumb', 'ngRoute', 'modalDialog', 'kendo.directives']
 };
 
 (function ($) {
@@ -157,6 +157,7 @@ var designerExtensions = {
                 $telerik.$(document).trigger('controlPropertiesLoaded', [{ 'Items': params.Items }]);
             }
         };
+
         var onGetContentBlockError = function () {
             for (var i = 0; i < params.Items.length; i++) {
                 if (params.Items[i].PropertyName === 'Content')

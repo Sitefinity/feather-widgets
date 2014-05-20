@@ -1,6 +1,6 @@
 ﻿(function ($) {
 
-    var contentSelectorModule = angular.module('contentSelector', ['ui.bootstrap', 'sharedContentServices', 'dataProviders']);
+    var contentSelectorModule = angular.module('contentSelector', ['modalDialog', 'sharedContentServices', 'dataProviders']);
 
     contentSelectorModule.controller('contentSelectorCtrl', ['$scope', '$modalInstance', 'sharedContentService', 'propertyService', 'widgetContext', 'providerService',
         function ($scope, $modalInstance, sharedContentService, propertyService, widgetContext, providerService) {
@@ -160,19 +160,5 @@
 
         }
     ]);
-
-    contentSelectorModule.directive('modal', function ($modal) {
-        return {
-            restrict: 'A',
-            link: function (scope, elem, attrs) {
-                var modalInstance = $modal.open({
-                    backdrop: 'static',
-                    templateUrl: 'dialog-template',
-                    controller: 'contentSelectorCtrl',
-                    windowClass: 'sf-designer-dlg'
-                });
-            }
-        };
-    });
 
 })(jQuery);

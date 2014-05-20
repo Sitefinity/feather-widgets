@@ -60,42 +60,55 @@
 		};
 
 		//creates new content block item with the provided title
-		var share = function (title, onsuccess, onerror) {
-			var sharedContentIdProperty;
+		var share = function (title) {
+			
+		    var sharedContentIdProperty,
+			    deferred = $q.defer();
 
-			var onPublishContentSuccess = function (xhrData, status, headers, config) {
+			var onPublishContentSuccess = function (data) {
 				//change the SharedContentId property of the widget
-				sharedContentIdProperty.PropertyValue = xhrData.Item.Id;
+				sharedContentIdProperty.PropertyValue = data.Item.Id;
 
-				var modifiedProperties = [];
-				modifiedProperties.push(sharedContentIdProperty);
+				var modifiedProperties = [sharedContentIdProperty];
 
 				//The type of save that should be performed. 0 - default, 1 - all translations, 2 - currently translation only
 				var currentSaveMode = widgetContext.culture ? 1 : 0;
-				propertyService.save(currentSaveMode, modifiedProperties).then(onsuccess, onerror);
+
+				propertyService.save(currentSaveMode, modifiedProperties).then(function (data) {
+				    deferred.resolve(data);
+				}, 
+				function (data) {
+				    deferred.reject(data);
+				});
 			};
 
-			var onGetPropertiesSuccess = function (xhrData, status, headers, config) {
+			var onGetPropertiesSuccess = function (data) {
 				var content;
 				var provider;
-				if (xhrData) {
-					for (var i = 0; i < xhrData.Items.length; i++) {
-						if (xhrData.Items[i].PropertyName === 'SharedContentID')
+				if (data) {
+				    for (var i = 0; i < data.Items.length; i++) {
+				        if (data.Items[i].PropertyName === 'SharedContentID')
 							sharedContentIdProperty = xhrData.Items[i];
-						if (xhrData.Items[i].PropertyName === 'Content')
-							content = xhrData.Items[i].PropertyValue;
-						if (xhrData.Items[i].PropertyName === 'ProviderName')
-							provider = xhrData.Items[i].PropertyValue;
+				        if (data.Items[i].PropertyName === 'Content')
+				            content = data.Items[i].PropertyValue;
+				        if (data.Items[i].PropertyName === 'ProviderName')
+				            provider = data.Items[i].PropertyValue;
 					}
 				}
 				//check whether content is already shared
 				if (sharedContentIdProperty.PropertyValue !== EMPTY_GUID)
 					content = '';
 
-				publish(title, content, provider, onPublishContentSuccess, onerror);
+				publish(title, content, provider).then(onPublishContentSuccess, function (data) {
+				    deferred.reject(data);
+				});
 			};
 
-			propertyService.get().then(onGetPropertiesSuccess, onerror);
+			propertyService.get().then(onGetPropertiesSuccess, function (data) {
+				deferred.reject(data);
+			});
+
+			return deferred.promise;
 		};
 
 		//updates content of the content block item
