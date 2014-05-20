@@ -5,16 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Reflection;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
-using Telerik.Sitefinity.Web.Utilities;
 
 namespace ContentBlock.Mvc.Controllers
 {
@@ -22,19 +22,8 @@ namespace ContentBlock.Mvc.Controllers
     [Localization(typeof(ContentBlockResources))]
     public class ContentBlockController : Controller, IZoneEditorReloader, ICustomWidgetVisualization, ICustomWidgetTitlebar, IHasEditCommands, IContentItemControl
     {
-
-        #region Proeprties
-
-        ///// <summary>
-        ///// Gets or sets a value indicating which content filters will be active when the
-        ///// Content Block widget is used. This property overrides AppearanceConfig settings.
-        ///// </summary>
-        //public EditorFilters? ContentEditorFilters
-        //{
-        //    get;
-        //    set;
-        //}
-
+       
+        #region Properties
 
         /// <summary>
         /// Gets or sets the HTML content to be displayed by the ContentBlock control.
@@ -94,19 +83,17 @@ namespace ContentBlock.Mvc.Controllers
         /// <value>
         /// The model.
         /// </value>
-        protected ContentBlockModel Model {
-            get 
+        protected IContentBlockModel Model
+        {
+            get
             {
-                if (model == null)
-                    model = new ContentBlockModel();
-                return model;
-            }
-            set 
-            { 
-                model = value; 
+                if (this.model == null)
+                {
+                    this.model = this.InitializeModel();
+                }
+                return this.model;
             }
         }
-
 
         #endregion
 
@@ -117,40 +104,40 @@ namespace ContentBlock.Mvc.Controllers
         /// </summary>
         public ActionResult Index()
         {
-            Model.SharedContentID = this.SharedContentID;
+            this.IsEmpty = string.IsNullOrEmpty(this.Model.Content);
+            this.SharedContentID = this.Model.SharedContentID;
+            this.InitializeCommands();
 
-            var content = model.GetContentHtmlValue();
-            if (!model.isContentLoadedCorrectly || content != String.Empty)
-                this.Content = content;
-
-            Model.Content = LinkParser.ResolveLinks(this.Content, DynamicLinksParser.GetContentUrl, null,
-                SystemManager.IsInlineEditingMode); 
-            this.IsEmpty = string.IsNullOrEmpty(model.Content);
-            this.SharedContentID = model.SharedContentID;
-            Model.EnableSocialSharing = this.EnableSocialSharing;
-
-            InitializeCommands();
-
-          
-            return View("Default", model); 
+            return View("Default", this.Model);
         }
 
+        /// <summary>
+        /// Shares the ContentItem
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Share()
         {
-            ViewBag.BlankDataItem = JsonConvert.SerializeObject(Model.CreateBlankDataItem());
+            ViewBag.BlankDataItem = JsonConvert.SerializeObject(this.Model.CreateBlankDataItem());
             return View("Share");
         }
 
+        /// <summary>
+        /// Making the content item not shared
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Unshare()
-        {          
-             return View("UnshareAlert");
+        {
+            return View("UnshareAlert");
         }
 
+        /// <summary>
+        /// Uses the shared content item.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UseSharedContentItem()
         {
-            return View("SharedContentItemSelector", Model);
+            return View("SharedContentItemSelector", this.Model);
         }
-
 
         #endregion
 
@@ -244,6 +231,12 @@ namespace ContentBlock.Mvc.Controllers
 
         #region IHasEditCommands Members
 
+        /// <summary>
+        /// Gets or sets the commands.
+        /// </summary>
+        /// <value>
+        /// The commands.
+        /// </value>
         [Browsable(false)]
         public IList<WidgetMenuItem> Commands
         {
@@ -251,11 +244,14 @@ namespace ContentBlock.Mvc.Controllers
             set;
         }
 
-        private void InitializeCommands()
+        /// <summary>
+        /// Initializes the commands.
+        /// </summary>
+        protected virtual void InitializeCommands()
         {
-            var shareActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.actionTemplate, "Share"), UrlResolveOptions.Rooted);
-            var unshareActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.actionTemplate, "Unshare"), UrlResolveOptions.Rooted);
-            var useSharedActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.actionTemplate, "UseSharedContentItem"), UrlResolveOptions.Rooted);
+            var shareActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Share"), UrlResolveOptions.Rooted);
+            var unshareActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Unshare"), UrlResolveOptions.Rooted);
+            var useSharedActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "UseSharedContentItem"), UrlResolveOptions.Rooted);
 
             this.Commands = new List<WidgetMenuItem>();
             this.Commands.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Delete", Res.CurrentBackendCulture), CommandName = "beforedelete", CssClass = "sfDeleteItm" });
@@ -268,17 +264,46 @@ namespace ContentBlock.Mvc.Controllers
             this.Commands.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Permissions", Res.CurrentBackendCulture), CommandName = "permissions", CssClass = "sfPermItm" });
         }
 
-        #endregion 
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Initializes the model.
+        /// </summary>
+        /// <returns></returns>
+        private IContentBlockModel InitializeModel()
+        {
+            var assemblies = new List<Assembly>();
+            var contentBlockControllerAssembly = typeof(ContentBlockController).Assembly;
+            var currentAssembly = this.GetType().Assembly;
+            
+            assemblies.Add(currentAssembly);
+            if (!contentBlockControllerAssembly.Equals(currentAssembly))
+                assemblies.Add(contentBlockControllerAssembly);
+
+            var constructorParameters = new Dictionary<string, object> 
+                        {
+                           {"providerName", this.ProviderName},
+                           {"content", this.content},
+                           {"enableSocialSharing", this.EnableSocialSharing},
+                           {"sharedContentId", this.SharedContentID}
+                        };
+
+
+            return ControllerModelFactory.GetModel<IContentBlockModel>(assemblies, constructorParameters) as IContentBlockModel;
+        }
+
+        #endregion
 
         #region Private fields
 
         private bool isEmpty = true;
         private string content = "";
-        private ContentBlockModel model;
+        private IContentBlockModel model;
         private const string contentItemsServiceUrl = "~/Sitefinity/Services/Content/ContentItemService.svc/";
-        internal const string actionTemplate = "ContentBlock/ContentBlock/{0}";
+        internal const string ActionTemplate = "ContentBlock/ContentBlock/{0}";
 
         #endregion
-
     }
 }

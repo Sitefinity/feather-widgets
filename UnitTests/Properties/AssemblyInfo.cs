@@ -1,16 +1,18 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ContentBlock")]
-[assembly: AssemblyCompany("Telerik")]
-[assembly: AssemblyProduct("Telerik Sitefinity CMS")]
-[assembly: AssemblyCopyright("Copyright © Telerik 2014")]
-[assembly: AssemblyTrademark("Sitefinity")]
+[assembly: AssemblyTitle("UnitTests")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("UnitTests")]
+[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -18,7 +20,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4b66e568-f225-4166-94cc-dd13e7f9616f")]
+[assembly: Guid("d810b399-2397-4a87-97a6-55c9c2f0e2dc")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -30,9 +32,5 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.1000.1")]
-[assembly: AssemblyFileVersion("0.1.1000.1")]
-
-[assembly: ControllerContainer(typeof(ContentBlock.Initializer), "Initialize")]
-
-[assembly: InternalsVisibleTo("UnitTests")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

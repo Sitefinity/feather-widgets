@@ -46,6 +46,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.5.9\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -95,8 +98,9 @@
     <Reference Include="Telerik.Sitefinity">
       <HintPath>..\packages\Telerik.Sitefinity.Core.7.0.5100.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.0.1.1.1\lib\net40\Telerik.Sitefinity.Frontend.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.Frontend, Version=0.1.1000.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <HintPath>..\packages\Telerik.Sitefinity.Core.7.0.5100.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
@@ -130,9 +134,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Mvc\Controllers\ContentBlockController.cs" />
     <Compile Include="Mvc\Models\ContentBlockModel.cs" />
+    <Compile Include="Mvc\Models\IContentBlockModel.cs" />
     <Compile Include="Mvc\StringResources\ContentBlockResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

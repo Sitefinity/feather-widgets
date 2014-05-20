@@ -16,7 +16,17 @@ namespace SocialShare.Mvc.Models
         /// <summary>
         /// The social buttons
         /// </summary>
-        public List<SocialButtonModel> SocialButtons = new List<SocialButtonModel>();
+        public List<SocialButtonModel> SocialButtons
+        {
+            get
+            {
+                if (this.socialButtons == null)
+                {
+                    this.socialButtons = new List<SocialButtonModel>();
+                }
+                return this.socialButtons;
+            }
+        }
 
         #endregion
 
@@ -35,7 +45,7 @@ namespace SocialShare.Mvc.Models
         /// </summary>
         internal void GetBasicSettingsSocialShare()
         {
-            var settings = GetSocialShareSection();
+            var settings = this.GetSocialShareSection();
             var properties = typeof(ISocialShareSettings).GetProperties().Where(p => p.PropertyType.Equals(typeof(Boolean)) && p.Name != "DisplayCounters");
             bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
             bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
@@ -43,15 +53,17 @@ namespace SocialShare.Mvc.Models
             foreach (var property in properties)
             {
                 if ((bool)property.GetValue(settings, null))
-                    SocialButtons.Add(new SocialButtonModel(property.Name.ToPascalCase(), addText, displayCounters, bigSize));
+                    this.SocialButtons.Add(new SocialButtonModel(property.Name.ToPascalCase(), addText, displayCounters, bigSize));
             }
         }
 
-        internal static ISocialShareSettings GetSocialShareSection()
+        internal ISocialShareSettings GetSocialShareSection()
         {
             return SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
         }
 
         #endregion
+
+        private List<SocialButtonModel> socialButtons;
     }
 }
