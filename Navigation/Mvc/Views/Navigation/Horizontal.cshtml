@@ -1,0 +1,9 @@
+@model Navigation.Mvc.Models.INavigationModel
+@using Telerik.Sitefinity.Web.UI.NavigationControls;
+
+<div class="@Model.CssClass">
+    @foreach (var node in Model.Nodes)
+    {
+        <a href="@NavigationUtilities.ResolveUrl(node)" target="@NavigationUtilities.GetLinkTarget(node)">@node.Title</a>
+    }
+</div>
