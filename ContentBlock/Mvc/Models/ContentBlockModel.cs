@@ -153,11 +153,7 @@ namespace ContentBlock.Mvc.Models
         /// <returns></returns>
         protected virtual bool IsShared()
         {
-            if (this.SharedContentID != Guid.Empty && this.ContentManager != null)
-            {
-                return true;
-            }
-            return false;
+            return this.SharedContentID != Guid.Empty && this.ContentManager != null;
         }
 
         /// <summary>
