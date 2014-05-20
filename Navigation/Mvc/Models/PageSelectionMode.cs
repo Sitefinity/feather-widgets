@@ -12,7 +12,7 @@ namespace Navigation.Mvc.Models
     /// <remarks>
     /// Each option describes different selection of sitemap nodes that will be included while rendering the Navigation widget.
     /// </remarks>
-    public enum PageSelectionModes
+    public enum PageSelectionMode
     {
         /// <summary>
         /// Refers to top-level pages and all their child pages

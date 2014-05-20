@@ -18,7 +18,7 @@ namespace Navigation.Mvc.Models
         /// <value>
         /// The nodes.
         /// </value>
-        List<SiteMapNode> Nodes { get; }
+        IList<NodeViewModel> Nodes { get; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the NavigationWidget (if such is presented).

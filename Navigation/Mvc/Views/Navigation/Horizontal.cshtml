@@ -1,9 +1,135 @@
 @model Navigation.Mvc.Models.INavigationModel
-@using Telerik.Sitefinity.Web.UI.NavigationControls;
+@using Navigation.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-<div class="@Model.CssClass">
+@* Latest compiled and minified CSS *@
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js" ></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" ></script>
+
+<div class="dropdown @Model.CssClass">
     @foreach (var node in Model.Nodes)
     {
-        <a href="@NavigationUtilities.ResolveUrl(node)" target="@NavigationUtilities.GetLinkTarget(node)">@node.Title</a>
+        if (node.IsCurrentlyOpened)
+        {
+            @RenderSelectedRootLevelNode(node);
+        }
+        else
+        {
+            @RenderRootLevelNode(node);
+        } 
     }
 </div>
+
+@*Here is specified the rendering for the root level*@
+@helper RenderRootLevelNode(NodeViewModel node)
+{
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+        <a href="@node.Url">@node.Title</a>
+        @if (node.ChildNodes.Count > 0)
+        {
+            <span class="caret"></span>
+        }
+        </button>
+        @if (node.ChildNodes.Count > 0)
+        {
+            <ul class="dropdown-menu multi-level" role="menu" >
+                @RenderSubLevelsRecursive(node)
+            </ul>            
+        }
+    </div>      
+}
+
+@*Here is specified the rendering for the currently opened node in the root level*@
+@helper RenderSelectedRootLevelNode(NodeViewModel node)
+{
+    <div class="btn-group">
+         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <a href="@node.Url">@node.Title</a>
+            @if (node.ChildNodes.Count > 0)
+            {
+                <span class="caret"></span>
+            }
+        </button>
+        @if (node.ChildNodes.Count > 0)
+        {
+            <ul class="dropdown-menu multi-level" role="menu">
+                @RenderSubLevelsRecursive(node)
+            </ul>            
+        }
+    </div>    
+}
+
+@*Here is specified the rendering for all child levels*@
+@helper RenderSubLevelsRecursive(NodeViewModel node)
+{       
+    foreach (var childNode in node.ChildNodes)
+    {
+        if(childNode.ChildNodes.Count > 0)
+        {
+            <li class="dropdown-submenu">
+                <a href="@childNode.Url" >@childNode.Title</a>
+                <ul class="dropdown-menu">
+                    @RenderSubLevelsRecursive(childNode)
+                </ul>
+            </li>
+        }   
+        else
+        {
+            <li>
+                <a href="@childNode.Url" >@childNode.Title</a>
+            </li>
+            }            
+        }
+}
+
+<style>
+    .dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+</style>

@@ -33,7 +33,7 @@ namespace Navigation.Mvc.Controllers
         /// Gets or sets the page links to display selection mode.
         /// </summary>
         /// <value>The page display mode.</value>
-        public PageSelectionModes SelectionMode
+        public PageSelectionMode SelectionMode
         {
             get;
             set;

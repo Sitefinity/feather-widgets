@@ -55,7 +55,8 @@
     <Compile Include="Mvc\Controllers\NavigationController.cs" />
     <Compile Include="Mvc\Models\INavigationModel.cs" />
     <Compile Include="Mvc\Models\NavigationModel.cs" />
-    <Compile Include="Mvc\Models\PageSelectionModes.cs" />
+    <Compile Include="Mvc\Models\NodeViewModel.cs" />
+    <Compile Include="Mvc\Models\PageSelectionMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
