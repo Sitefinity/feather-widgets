@@ -23,7 +23,7 @@ namespace Navigation.Mvc.Controllers
         /// Gets the name of the template that will be displayed.
         /// </summary>
         /// <value></value>
-        protected string LayoutTemplateName
+        public string TemplateName
         {
             get;
             set;
@@ -47,15 +47,6 @@ namespace Navigation.Mvc.Controllers
             get;
             set;
         }
-
-        ///// <summary>
-        ///// Gets or sets the starting node URL.
-        ///// </summary>
-        //public string StartingNodeUrl
-        //{
-        //    get;
-        //    set;
-        //}
 
         /// <summary>
         /// Gets or sets the levels to include.
@@ -106,13 +97,15 @@ namespace Navigation.Mvc.Controllers
         #region Actions
 
         /// <summary>
-        /// Renders appropriate view depending on the <see cref="LayoutTemplateName"/>
+        /// Renders appropriate view depending on the <see cref="TemplateName"/>
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
         {
-            this.LayoutTemplateName = "Horizontal";
-            return View(this.LayoutTemplateName, this.Model);
+            if (this.TemplateName.IsNullOrEmpty())
+                return Content("TemplateName property should be set to the name of existing template.");
+            else 
+                return View(this.TemplateName, this.Model);
         }
 
         #endregion

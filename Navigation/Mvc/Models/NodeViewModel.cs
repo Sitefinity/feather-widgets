@@ -18,12 +18,13 @@ namespace Navigation.Mvc.Models
             this.ChildNodes = new List<NodeViewModel>();
         }
 
-        public NodeViewModel(string title, string url, bool isCurrentlyOpened)
+        public NodeViewModel(string title, string url, bool isCurrentlyOpened, bool hasChildOpen)
         {
             this.Title = title;
             this.Url = url;
             this.ChildNodes = new List<NodeViewModel>();
             this.IsCurrentlyOpened = isCurrentlyOpened;
+            this.HasChildOpen = hasChildOpen;
         }
 
         #endregion
@@ -53,6 +54,15 @@ namespace Navigation.Mvc.Models
         ///   <c>true</c> if page node is currently opened; otherwise, <c>false</c>.
         /// </value>
         public bool IsCurrentlyOpened { set; get; }
+
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the currently opened page is a descendent of this node.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if currently opened page is descendent of this node; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasChildOpen { get; set; }
 
         /// <summary>
         /// Gets or sets the child nodes.

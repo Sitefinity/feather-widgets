@@ -4,10 +4,8 @@
 
 @* Latest compiled and minified CSS *@
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>
-<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" ></script>
 
-<ul class="nav nav-pills @Model.CssClass">
+<ul class="nav nav-sitemap @Model.CssClass">
     @foreach (var node in Model.Nodes)
     {
         @RenderRootLevelNode(node);
@@ -16,65 +14,39 @@
 
 @*Here is specified the rendering for the root level*@
 @helper RenderRootLevelNode(NodeViewModel node)
-{        
-    <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle @GetClass(node)">
-            @node.Title
-            @if (node.ChildNodes.Count > 0)
-            {
-                <span class="caret"></span>
-            }
-        </a>
+{
+    <li>
+        <a href="@node.Url"><b>@node.Title</b></a>
         @if (node.ChildNodes.Count > 0)
         {
-            <ul class="dropdown-menu" id="menu1" >
-                @RenderSubLevelsRecursive(node)
+            <ul>
+                @foreach (var childNode in node.ChildNodes)
+                {
+                    @RenderSubLevelsRecursive(childNode)
+                }
             </ul>            
         }
     </li>      
 }
 
-@*Here is specified the rendering for all child levels*@
+@*Here is specified the rendering for the sub levels*@
 @helper RenderSubLevelsRecursive(NodeViewModel node)
-{       
-    foreach (var childNode in node.ChildNodes)
-    {
-        if(childNode.ChildNodes.Count > 0)
-        {
-            <li>
-                <a href="@childNode.Url" class="@GetClass(childNode)">@childNode.Title
-                    <span class="caret" />
-                </a>
-                <ul class="dropdown-menu sub-menu">
-                    @RenderSubLevelsRecursive(childNode)
-                </ul>
-            </li>
-        }   
-        else
-        {
-            <li>
-                <a href="@childNode.Url" class="@GetClass(childNode)">@childNode.Title</a>
-            </li>
-        }            
-    }
-}
-
-@*Resolves the class that will be added for each node depending whether it is selected*@
-@helper GetClass(NodeViewModel node)
 {
-
-    if (node.IsCurrentlyOpened)
-    {
-        @Html.Raw("btn btn-primary");
-    }
-    else if (node.HasChildOpen)
-    {
-        @Html.Raw("active");
-    }
+    <li>
+        <a href="@node.Url">@node.Title</a>
+        @if (node.ChildNodes.Count > 0)
+        {
+            <ul>
+                @foreach (var childNode in node.ChildNodes)
+                {
+                    @RenderSubLevelsRecursive(childNode)
+                }
+            </ul>            
+        }
+    </li>      
 }
 
-
-<style type="text/css">
+    <style type="text/css">
         html body {
             background-color: #fff;
             padding: 20px;

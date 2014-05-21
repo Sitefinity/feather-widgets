@@ -162,10 +162,11 @@ namespace Navigation.Mvc.Models
         }
 
         /// <summary>
-        /// Adds the child nodes recursive.
+        /// Adds the child nodes to the <see cref="Nodes"/> collection.
         /// </summary>
         /// <param name="currentNode">The current node.</param>
         /// <param name="addParentNode">if set to <c>true</c> adds parent node.</param>
+        /// <param name="levelsToInclude">The levels to include.</param>
         private void AddChildNodes(SiteMapNode currentNode, bool addParentNode, int? levelsToInclude)
         {
             if (levelsToInclude != 0)
@@ -194,12 +195,19 @@ namespace Navigation.Mvc.Models
         }
 
 
+        /// <summary>
+        /// Creates the <see cref="NodeViewModel"/> from the SiteMapNode and populates recursive their child nodes.
+        /// </summary>
+        /// <param name="currentSiteMapNode">The current site map node.</param>
+        /// <param name="levelsToInclude">The levels to include.</param>
+        /// <returns></returns>
         private NodeViewModel CreateNodeViewModelRecursive(SiteMapNode currentSiteMapNode, int? levelsToInclude)
         {
             if (levelsToInclude != 0 && RouteHelper.CheckSiteMapNode(currentSiteMapNode))
             {
                 var isSelectedPage = this.SiteMap.CurrentNode.Key == currentSiteMapNode.Key;
-                var nodeViewModel = new NodeViewModel(currentSiteMapNode.Title, NavigationUtilities.ResolveUrl(currentSiteMapNode), isSelectedPage);
+                var nodeViewModel = new NodeViewModel(currentSiteMapNode.Title, NavigationUtilities.ResolveUrl(currentSiteMapNode),
+                    isSelectedPage, this.HasSelectedChild(currentSiteMapNode));
                 levelsToInclude--;
 
                 var directChildren = currentSiteMapNode.ChildNodes;
@@ -214,6 +222,17 @@ namespace Navigation.Mvc.Models
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Determines whether the current node is descendant of the <see cref="SiteMapNode"/> instance.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns></returns>
+        private bool HasSelectedChild(SiteMapNode node)
+        {
+            var currentNode = this.SiteMap.CurrentNode;
+            return currentNode != null && currentNode.IsDescendantOf(node);
         }
 
         /// <summary>
