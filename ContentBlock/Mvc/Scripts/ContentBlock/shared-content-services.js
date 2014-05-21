@@ -112,7 +112,7 @@
 		};
 
 		//updates content of the content block item
-		var update = function (itemData, content, providerName, onsuccess, onerror) {
+		var update = function (itemData, content, providerName) {
 			var currentItem = itemData.Item;
 			var putUrl = descriptorService.contentItemsServiceUrl;
 			var key = currentItem.Id;
@@ -125,9 +125,17 @@
 			currentItem.Content.PersistedValue = content;
 			itemData['Item'] = currentItem;
 
+			var deferred = $q.defer();
+
 			$http.put(putUrl, itemData, requestOptions())
-				.success(onsuccess)
-				.error(onerror);
+				.success(function (data) {
+				    deferred.resolve(data);
+				})
+				.error(function (data) {
+				    deferred.reject(data);
+				});
+
+			return deferred.promise;
 		};
 
 		//gets the content block depending on the provided shareContentId

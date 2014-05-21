@@ -42,12 +42,9 @@ var designerExtensions = {
     };
 
     var unlockContentItem = function () {
-        var onUnlockContentBlockSuccess = function () { };
-        var onUnlockContentBlockError = function () { };
-
         //unlock the item
         if (sharedContentIdPropertyValue && sharedContentIdPropertyValue != EMPTY_GUID) {
-            getSharedContentService().deleteTemp(sharedContentIdPropertyValue).then(onUnlockContentBlockSuccess, onUnlockContentBlockError);
+            getSharedContentService().deleteTemp(sharedContentIdPropertyValue);
         }
     };
 
@@ -103,8 +100,8 @@ var designerExtensions = {
                 if (providerProperty.PropertyValue == providerName &&
                     sharedContentIdPropertyValue == newSharedContentIdPropertyValue
                     && newContentPropertyValue != contentPropertyValue) {
-                    getSharedContentService().updateContent(contentBlockItem, newContentPropertyValue,
-                            providerName, onSaveContentBlockSuccess, onSaveContentBlockError);
+                    getSharedContentService().update(contentBlockItem, newContentPropertyValue,
+                            providerName).then(onSaveContentBlockSuccess, onSaveContentBlockError);
                 }
                 else {//if shared content id is modified.
                     unlockContentItem();
