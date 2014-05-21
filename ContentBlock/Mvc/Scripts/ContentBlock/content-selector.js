@@ -15,7 +15,6 @@
 
             //invoked when the control properties are extracted
             var onGetPropertiesSuccess = function (data) {
-
                 if (data) {
                     for (var i = 0; i < data.Items.length; i++) {
                         if (data.Items[i].PropertyName === 'SharedContentID')

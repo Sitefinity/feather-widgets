@@ -12,10 +12,7 @@ var designerExtensions = {
             .when('/property-grid', {
                 templateUrl: 'property-grid-view', controller: 'propertyGridCtrl'
             })
-            .when('/simple', {
-                templateUrl: 'simple-view', controller: 'simpleCtrl'
-            })
-            .when('/', {
+            .otherwise({
                 templateUrl: 'simple-view', controller: 'simpleCtrl'
             });
     },

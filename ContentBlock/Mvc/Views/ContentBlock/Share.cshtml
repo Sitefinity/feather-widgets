@@ -4,24 +4,24 @@
     <script type="text/ng-template" id="dialog-template" >
          <div class="modal-header">
              <button type="button" class="close" ng-click="Cancel()" aria-hidden="true">&times;</button>
-             <h1 class="modal-title">Share content block</h1>
+             <h1 class="modal-title">@Html.SfRes("ShareContentBlock")</h1>
          </div>
          <div class="modal-body">
             <div ng-show="ShowError" class="alert alert-danger">
                 <a class="close" data-dismiss="alert">x</a>
-                <strong>Error!</strong> <span ng-bind="ErrorMessage"></span>
+                <strong>@Html.SfRes("Error")</strong> <span ng-bind="ErrorMessage"></span>
             </div>
 
             <div ng-show="ShowLoadingIndicator" class="s-loading m-bottom-sm"></div>
             <div ng-class="{'form-group':true, 'has-error': !IsTitleValid}">
-                <label for="sharedContentTitle" class="control-label">@this.Label("Title")</label>
+                <label for="sharedContentTitle" class="control-label">@Html.SfRes("Title")</label>
                 <input id="sharedContentTitle" type="text" class="form-control" ng-model="Title" />
-                <p ng-hide="IsTitleValid" class="text-danger">Title is required!</p>
+                <p ng-hide="IsTitleValid" class="text-danger">@Html.SfRes("TitleRequired")</p>
             </div>
          </div>
          <div class="modal-footer">
-             <button type="button" class="btn btn-primary" ng-click="ShareContent()">@this.Label("ShareContent")</button>
-             <button type="button" class="btn btn-link" ng-click="Cancel()">@this.Label("Cancel")</button>
+             <button type="button" class="btn btn-primary" ng-click="ShareContent()">@Html.SfRes("ShareContent")</button>
+             <button type="button" class="btn btn-link" ng-click="Cancel()">@Html.SfRes("Cancel")</button>
          </div>
     </script>
 </div>
@@ -45,6 +45,6 @@
             };
         });
 
-        angular.bootstrap($(".dialog"), ['shareDialog']);
+        angular.bootstrap($('.dialog'), ['shareDialog']);
     })(jQuery);
 </script>

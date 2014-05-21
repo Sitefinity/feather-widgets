@@ -9,7 +9,7 @@
          <div class="modal-body">
             <div ng-show="ShowError" class="alert alert-danger">
                 <a class="close" data-dismiss="alert">x</a>
-                <strong>Error!</strong> <span ng-bind="ErrorMessage"></span>
+                <strong>@Html.SfRes("Error")</strong> <span ng-bind="ErrorMessage"></span>
             </div>
 
             <div ng-show="ShowLoadingIndicator" class="s-loading m-bottom-sm"></div>
@@ -18,12 +18,12 @@
            
          </div>
          <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="Save(false)">Save</button>
-            <button class="btn btn-default" ng-click="Save(true)" ng-hide="HideSaveAllTranslations">Save All Translations</button>
-            <a class="btn btn-link" data-dismiss="modal" ng-click="Cancel($event)">Cancel</a>
+            <button class="btn btn-primary" ng-click="Save(false)">@Html.SfRes("Save")</button>
+            <button class="btn btn-default" ng-click="Save(true)" ng-hide="HideSaveAllTranslations">@Html.SfRes("SaveAllTranslations")</button>
+            <a class="btn btn-link" data-dismiss="modal" ng-click="Cancel($event)">@Html.SfRes("Cancel")</a>
 
-            <a class="btn btn-default btn-xs pull-right m-top-xs" ng-click="ChangeView()" ng-show="IsSimpleVisible" href="#/simple">Simple</a>
-            <a class="btn btn-default btn-xs pull-right m-top-xs" ng-click="ChangeView()" ng-hide="IsSimpleVisible" href="#/advanced">Advanced</a>
+            <a class="btn btn-default btn-xs pull-right m-top-xs" ng-click="ChangeView()" ng-show="IsSimpleVisible" href="#/">@Html.SfRes("Simple")</a>
+            <a class="btn btn-default btn-xs pull-right m-top-xs" ng-click="ChangeView()" ng-hide="IsSimpleVisible" href="#/property-grid">@Html.SfRes("Advanced")</a>
          </div>
     </script>
    
@@ -64,7 +64,5 @@
         };
     });
 
-    (function ($) {
-        angular.bootstrap($('.designer'), ['designer']);
-    })(jQuery);
+    angular.bootstrap(jQuery('.designer'), ['designer']);
 </script>

@@ -1,6 +1,6 @@
 ﻿(function ($) {
 
-    //angular controller responsible for the Share dialog module mode logic
+    //angular controller responsible for the Share dialog module logic
     var shareDialogModule = angular.module('shareDialog', ['modalDialog', 'sharedContentServices', 'pageEditorServices']);
 
     shareDialogModule.controller('shareDialogCtrl', ['$scope', '$modalInstance', '$http', 'sharedContentService',
@@ -55,8 +55,8 @@
         }
     ]);
 
-    shareDialogModule.controller('unshareDialogCtrl', ['$scope', '$modalInstance', '$http', '$q', 'sharedContentService', 'propertiesService', 'widgetContext',
-        function ($scope, $modalInstance, $http, $q, sharedContentService, propertiesService, widgetContext) {
+    shareDialogModule.controller('unshareDialogCtrl', ['$scope', '$modalInstance', '$http', '$q', 'sharedContentService', 'propertyService', 'widgetContext',
+        function ($scope, $modalInstance, $http, $q, sharedContentService, propertyService, widgetContext) {
 
             //change SharedContentId and content of the content block widget       
             var updateWidgetOnSharedContentIdChange = function (sharedContentId) {
@@ -81,7 +81,7 @@
                     modifiedProperties.push(contentProperty);
 
                     var currentSaveMode = widgetContext.culture ? 1 : 0;
-                    propertiesService.save(currentSaveMode, modifiedProperties).then(function (data) {
+                    propertyService.save(currentSaveMode, modifiedProperties).then(function (data) {
                         deferred.resolve(data);
                     }, function (data) {
                         deferred.reject(data);
@@ -92,7 +92,7 @@
                     if (data) {
                         for (var i = 0; i < data.Items.length; i++) {
                             if (data.Items[i].PropertyName === 'SharedContentID')
-                                shareContentIdProperty = data.Items[i];
+                                sharedContentIdProperty = data.Items[i];
                             if (data.Items[i].PropertyName === 'Content')
                                 contentProperty = data.Items[i];
                             if (data.Items[i].PropertyName === 'ProviderName')
@@ -106,7 +106,7 @@
                         });
                 };
 
-                propertiesService.get().then(onGetPropertiesSuccess, function (data) {
+                propertyService.get().then(onGetPropertiesSuccess, function (data) {
                     deferred.reject(data);
                 });
 

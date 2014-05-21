@@ -206,5 +206,200 @@ namespace ContentBlock.Mvc.StringResources
                 return this["ContentBlockResourcesDescription"];
             }
         }
+
+        /// <summary>
+        /// Error!
+        /// </summary>
+        [ResourceEntry("Error",
+            Value = "Error!",
+            Description = "Error!",
+            LastModified = "2014/05/20")]
+        public string Error
+        {
+            get
+            {
+                return this["Error"];
+            }
+        }
+
+        /// <summary>
+        /// Share content block
+        /// </summary>
+        [ResourceEntry("ShareContentBlock",
+            Value = "Share content block",
+            Description = "Share content block",
+            LastModified = "2014/05/20")]
+        public string ShareContentBlock
+        {
+            get
+            {
+                return this["ShareContentBlock"];
+            }
+        }
+
+        /// <summary>
+        /// Title is required!
+        /// </summary>
+        [ResourceEntry("TitleRequired",
+            Value = "Title is required!",
+            Description = "Title is required!",
+            LastModified = "2014/05/20")]
+        public string TitleRequired
+        {
+            get
+            {
+                return this["TitleRequired"];
+            }
+        }
+
+        /// <summary>
+        /// Simple
+        /// </summary>
+        [ResourceEntry("Simple",
+            Value = "Simple",
+            Description = "Simple",
+            LastModified = "2014/05/20")]
+        public string Simple
+        {
+            get
+            {
+                return this["Simple"];
+            }
+        }
+
+        /// <summary>
+        /// Advanced
+        /// </summary>
+        [ResourceEntry("Advanced",
+            Value = "Advanced",
+            Description = "Advanced",
+            LastModified = "2014/05/20")]
+        public string Advanced
+        {
+            get
+            {
+                return this["Advanced"];
+            }
+        }
+
+        /// <summary>
+        /// Select shared content
+        /// </summary>
+        [ResourceEntry("SelectSharedContent",
+            Value = "Select shared content",
+            Description = "Select shared content",
+            LastModified = "2014/05/21")]
+        public string SelectSharedContent
+        {
+            get
+            {
+                return this["SelectSharedContent"];
+            }
+        }
+
+        /// <summary>
+        /// No items found
+        /// </summary>
+        [ResourceEntry("NoItemsFound",
+            Value = "No items found",
+            Description = "No items found",
+            LastModified = "2014/05/21")]
+        public string NoItemsFound
+        {
+            get
+            {
+                return this["NoItemsFound"];
+            }
+        }
+
+        /// <summary>
+        /// No items have been created yet
+        /// </summary>
+        [ResourceEntry("NoItemsHaveBeedCreatedYet",
+            Value = "No items have been created yet",
+            Description = "No items have been created yet",
+            LastModified = "2014/05/21")]
+        public string NoItemsHaveBeedCreatedYet
+        {
+            get
+            {
+                return this["NoItemsHaveBeedCreatedYet"];
+            }
+        }
+
+        /// <summary>
+        /// Narrow by typing...
+        /// </summary>
+        [ResourceEntry("NarrowByTyping",
+            Value = "Narrow by typing...",
+            Description = "Narrow by typing...",
+            LastModified = "2014/05/21")]
+        public string NarrowByTyping
+        {
+            get
+            {
+                return this["NarrowByTyping"];
+            }
+        }
+
+        /// <summary>
+        /// Done selecting
+        /// </summary>
+        [ResourceEntry("DoneSelecting",
+            Value = "Done selecting",
+            Description = "Done selecting",
+            LastModified = "2014/05/21")]
+        public string DoneSelecting
+        {
+            get
+            {
+                return this["DoneSelecting"];
+            }
+        }
+
+        /// <summary>
+        /// This content is shared.
+        /// </summary>
+        [ResourceEntry("ThisContentIsShared",
+            Value = "This content is shared.",
+            Description = "This content is shared.",
+            LastModified = "2014/05/21")]
+        public string ThisContentIsShared
+        {
+            get
+            {
+                return this["ThisContentIsShared"];
+            }
+        }
+
+        /// <summary>
+        /// Any changes will be reflected everywhere it is shared.
+        /// </summary>
+        [ResourceEntry("SharedContentWarning",
+            Value = "Any changes will be reflected everywhere it is shared.",
+            Description = "Any changes will be reflected everywhere it is shared.",
+            LastModified = "2014/05/21")]
+        public string SharedContentWarning
+        {
+            get
+            {
+                return this["SharedContentWarning"];
+            }
+        }
+
+        /// <summary>
+        /// Unshare content block
+        /// </summary>
+        [ResourceEntry("UnshareContentBlock",
+            Value = "Unshare content block",
+            Description = "Unshare content block",
+            LastModified = "2014/05/21")]
+        public string UnshareContentBlock
+        {
+            get
+            {
+                return this["UnshareContentBlock"];
+            }
+        }
     }
 }

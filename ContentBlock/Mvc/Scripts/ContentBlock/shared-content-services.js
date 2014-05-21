@@ -88,7 +88,7 @@
 				if (data) {
 				    for (var i = 0; i < data.Items.length; i++) {
 				        if (data.Items[i].PropertyName === 'SharedContentID')
-							sharedContentIdProperty = xhrData.Items[i];
+							sharedContentIdProperty = data.Items[i];
 				        if (data.Items[i].PropertyName === 'Content')
 				            content = data.Items[i].PropertyValue;
 				        if (data.Items[i].PropertyName === 'ProviderName')

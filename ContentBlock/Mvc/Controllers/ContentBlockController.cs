@@ -118,7 +118,7 @@ namespace ContentBlock.Mvc.Controllers
         public ActionResult Share()
         {
             ViewBag.BlankDataItem = JsonConvert.SerializeObject(this.Model.CreateBlankDataItem());
-            return View("Share");
+            return View();
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace ContentBlock.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Unshare()
         {
-            return View("UnshareAlert");
+            return View();
         }
 
         /// <summary>
