@@ -2,8 +2,8 @@
 @using Navigation.Mvc.Models;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-@* Latest compiled and minified CSS *@
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/Navigation.css")'>
 
 <ul class="nav nav-sitemap @Model.CssClass">
     @foreach (var node in Model.Nodes)
@@ -45,59 +45,3 @@
         }
     </li>      
 }
-
-    <style type="text/css">
-        html body {
-            background-color: #fff;
-            padding: 20px;
-        }
-
-        body h1 {
-            margin: 20px 0;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .group {
-            margin-left: 20px;
-        }
-
-        .sfVertical .group {
-            margin-left: 15px;
-        }
-
-        .nav-sitemap > li {
-            float: left;
-        }
-
-            .nav-sitemap > li > ul {
-                list-style-type: none;
-                padding-left: 0;
-            }
-
-                .nav-sitemap > li > ul ul {
-                    margin-left: 20px;
-                }
-
-        .nav-sitemap a {
-            display: block;
-            padding: 10px 15px;
-        }
-
-        .dropdown-menu .sub-menu {
-            left: 100%;
-            position: absolute;
-            visibility: hidden;
-            top: 0;
-        }
-
-        .dropdown-menu li {
-            position: relative;
-        }
-
-            .dropdown-menu li:hover > .sub-menu {
-                visibility: visible;
-                display: block;
-            }
-
-    </style>

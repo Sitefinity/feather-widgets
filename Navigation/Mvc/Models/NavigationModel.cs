@@ -22,7 +22,7 @@ namespace Navigation.Mvc.Models
         /// </summary>
         public NavigationModel()
         {
-            this.InitializeSiteMapDataSource();
+            this.InitializeNavigationWidgetSettings();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Navigation.Mvc.Models
             this.ShowParentPage = showParentPage;
             this.CssClass = cssClass;
 
-            this.InitializeSiteMapDataSource();
+            this.InitializeNavigationWidgetSettings();
         }
 
         #endregion
@@ -107,7 +107,7 @@ namespace Navigation.Mvc.Models
         /// <value>
         /// The site map.
         /// </value>
-        public SiteMapBase SiteMap
+        public virtual SiteMapBase SiteMap
         {
             get
             {
@@ -128,9 +128,9 @@ namespace Navigation.Mvc.Models
         #region Methods
 
         /// <summary>
-        /// Initializes the site map data source.
+        /// Initializes the settings for the navigation widget.
         /// </summary>
-        private void InitializeSiteMapDataSource()
+        private void InitializeNavigationWidgetSettings()
         {
             this.Nodes = new List<NodeViewModel>() { };
 
