@@ -25,7 +25,7 @@
         </Browser>
       </WebTestRunConfiguration>
     </TestTypeSpecific>
-    <AgentRule name="LocalMachineDefaultRole">
+    <AgentRule name="AllAgentsDefaultRole">
     </AgentRule>
   </Execution>
 </TestSettings>
