@@ -270,15 +270,15 @@ namespace ContentBlock.Mvc.StringResources
         /// <summary>
         /// Advanced
         /// </summary>
-        [ResourceEntry("Advanced",
+        [ResourceEntry("PropertyGrid",
             Value = "Advanced",
             Description = "Advanced",
-            LastModified = "2014/05/20")]
-        public string Advanced
+            LastModified = "2014/05/23")]
+        public string PropertyGrid
         {
             get
             {
-                return this["Advanced"];
+                return this["PropertyGrid"];
             }
         }
 

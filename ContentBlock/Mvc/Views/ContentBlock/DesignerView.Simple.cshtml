@@ -1,0 +1,9 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<div ng-controller="simpleCtrl">
+    <div ng-show="IsShared" class="alert alert-warning">
+        <b>@Html.SfRes("ThisContentIsShared")</b> @Html.SfRes("SharedContentWarning")
+    </div>
+
+    <textarea id ="contentEditor" kendo-editor k-value="Properties.Content.PropertyValue" k-on-change="contentChange(kendoEvent)"></textarea>
+</div>

@@ -146,10 +146,7 @@
     <EmbeddedResource Include="Mvc\Views\ContentBlock\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\Designer.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\Simple.Designer.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Simple.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\simple-designer.js" />
@@ -173,6 +170,7 @@
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\content-selector.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\Designer.ClientReferences.cshtml" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>

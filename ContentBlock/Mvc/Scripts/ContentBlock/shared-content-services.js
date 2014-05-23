@@ -2,10 +2,11 @@
 	var sharedContentServices = angular.module('sharedContentServices', ['pageEditorServices']);
 
 	//this is the service responsible for managing the properties data for all interested parties
-	sharedContentServices.factory('sharedContentService', function ($http, $q, descriptorService, propertyService, widgetContext) {
+	sharedContentServices.factory('sharedContentService', ['$http', '$q', 'propertyService', 'widgetContext', function ($http, $q, propertyService, widgetContext) {
 
 		var CULTURE_HEADER = 'SF_UI_CULTURE',
-			EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
+			EMPTY_GUID = '00000000-0000-0000-0000-000000000000',
+		    serviceUrl = $('input#contentItemServiceUrl').val();
 
 		/**
 		 * Generates the headers dictionary for the HTTP request
@@ -25,10 +26,8 @@
 		var publish = function (title, content, providerName) {
 			var deferred = $q.defer();
 
-			var blankItem = $.parseJSON(descriptorService.blankDataItem);
-			putUrl = descriptorService.contentItemsServiceUrl;
-			var key = blankItem.Id;
-			putUrl += key + '/';
+			var blankItem = $.parseJSON($('input#blankDataItem').val());
+			var putUrl = serviceUrl + blankItem.Id + '/';
 
 			if (providerName)
 				putUrl += '?provider=' + providerName;
@@ -114,9 +113,7 @@
 		//updates content of the content block item
 		var update = function (itemData, content, providerName) {
 			var currentItem = itemData.Item;
-			var putUrl = descriptorService.contentItemsServiceUrl;
-			var key = currentItem.Id;
-			putUrl += key + '/?draftPageId=' + widgetContext.PageId;
+			var putUrl = serviceUrl + currentItem.Id + '/?draftPageId=' + widgetContext.PageId;
 
 			if (providerName)
 				putUrl += '&provider=' + providerName;
@@ -140,7 +137,7 @@
 
 		//gets the content block depending on the provided shareContentId
 		var get = function (sharedContentId, providerName, ifCheckOut) {
-			var getUrl = descriptorService.contentItemsServiceUrl + sharedContentId + '/?published=true&checkOut=' + ifCheckOut;
+			var getUrl = serviceUrl + sharedContentId + '/?published=true&checkOut=' + ifCheckOut;
 
 			if (providerName)
 				getUrl += '&provider=' + providerName;
@@ -160,7 +157,7 @@
 		//get all content items for particular provider
 		var getAll = function (providerName) {
 
-			var getUrl = descriptorService.contentItemsServiceUrl
+			var getUrl = serviceUrl
 				+ '?itemType=Telerik.Sitefinity.GenericContent.Model.Content'
 				+ '&itemSurrogateType=Telerik.Sitefinity.GenericContent.Model.Content'
 				+ '&skip=0'
@@ -188,8 +185,7 @@
 
 		//deletes the temp item for a content with the provided id
 		var deleteTemp = function (id) {
-			var deleteUrl = descriptorService.contentItemsServiceUrl
-				+ 'temp/' + id + '/';
+			var deleteUrl = serviceUrl + 'temp/' + id + '/';
 
 			var deferred = $q.defer();
 			$http.delete(deleteUrl, requestOptions())
@@ -211,6 +207,6 @@
 			share: share,
 			deleteTemp: deleteTemp
 		};
-	});
+	}]);
 
 })(jQuery);

@@ -271,17 +271,8 @@ namespace ContentBlock.Mvc.Controllers
         /// <summary>
         /// Initializes the model.
         /// </summary>
-        /// <returns></returns>
         private IContentBlockModel InitializeModel()
         {
-            var assemblies = new List<Assembly>();
-            var contentBlockControllerAssembly = typeof(ContentBlockController).Assembly;
-            var currentAssembly = this.GetType().Assembly;
-            
-            assemblies.Add(currentAssembly);
-            if (!contentBlockControllerAssembly.Equals(currentAssembly))
-                assemblies.Add(contentBlockControllerAssembly);
-
             var constructorParameters = new Dictionary<string, object> 
                         {
                            {"providerName", this.ProviderName},
@@ -291,7 +282,7 @@ namespace ContentBlock.Mvc.Controllers
                         };
 
 
-            return ControllerModelFactory.GetModel<IContentBlockModel>(assemblies, constructorParameters) as IContentBlockModel;
+            return ControllerModelFactory.GetModel<IContentBlockModel>(typeof(ContentBlockController), constructorParameters);
         }
 
         #endregion

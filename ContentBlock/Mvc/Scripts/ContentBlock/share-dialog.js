@@ -1,4 +1,9 @@
 ﻿(function ($) {
+    if (typeof ($telerik) != 'undefined') {
+        $telerik.$(document).one('dialogRendered', function () {
+            angular.bootstrap($('.dialog'), ['shareDialog']);
+        });
+    }
 
     //angular controller responsible for the Share dialog module logic
     var shareDialogModule = angular.module('shareDialog', ['modalDialog', 'sharedContentServices', 'pageEditorServices']);

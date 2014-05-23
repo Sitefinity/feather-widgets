@@ -29,26 +29,16 @@
 
             var updateScopeVariables = function (currentItems, applyScopeChanges) {
                 $scope.Items = currentItems;
-                for (var i = 0; i < currentItems.length; i++) {
-                    if (currentItems[i].PropertyName === 'Content') {
-                        $scope.ContentProperty = currentItems[i];
-                        if ($('#contentEditor')) {
-                            var kendoEditor = $('#contentEditor').data('kendoEditor');
-                            if (kendoEditor)
-                                kendoEditor.value($scope.ContentProperty.PropertyValue);
-                        }
-                    }
-                    if (currentItems[i].PropertyName === 'SharedContentID') {
-                        var sharedContentIdProperty = currentItems[i];
-                        if (sharedContentIdProperty.PropertyValue != '00000000-0000-0000-0000-000000000000')
-                            $scope.IsShared = true;
-                        else
-                            $scope.IsShared = false;                           
-                    }
-                }
+                $scope.Properties = propertyService.toAssociativeArray(currentItems);
+                $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != '00000000-0000-0000-0000-000000000000';
 
-                if(applyScopeChanges)
-                    $scope.$apply();
+                //k-value does not set the kendo editor value when the value is deferred so we do this manually
+                //when we have the data.
+                if ($('#contentEditor')) {
+                    var kendoEditor = $('#contentEditor').data('kendoEditor');
+                    if (kendoEditor)
+                        kendoEditor.value($scope.Properties.Content.PropertyValue);
+                }
             };
 
             // ------------------------------------------------------------------------
@@ -56,9 +46,10 @@
             // ------------------------------------------------------------------------
 
             $scope.IsShared = false;
+            $scope.ShowLoadingIndicator = true;
 
             $scope.contentChange = function (e) {
-                $scope.ContentProperty.PropertyValue = e.sender.value();
+                $scope.Properties.Content.PropertyValue = e.sender.value();
 
                 propertyService.set($scope.Items);
             };
@@ -70,8 +61,7 @@
 
             propertyService.get().then(onGetPropertiesSuccess, onGetError);
 
-            $scope.ShowLoadingIndicator = true;
-
+            //Fixes a bug for modal dialogs with iframe in them for IE.
             $scope.$on('$destroy', function () {
                 var kendoContent = $('#viewsPlaceholder iframe.k-content');
                 if (kendoContent.length > 0)

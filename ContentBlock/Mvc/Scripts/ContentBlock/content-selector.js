@@ -1,4 +1,9 @@
 ﻿(function ($) {
+    if (typeof ($telerik) != 'undefined') {
+        $telerik.$(document).one('dialogRendered', function () {
+            angular.bootstrap($('.dialog'), ['contentSelector']);
+        });
+    }
 
     var contentSelectorModule = angular.module('contentSelector', ['modalDialog', 'sharedContentServices', 'dataProviders']);
 

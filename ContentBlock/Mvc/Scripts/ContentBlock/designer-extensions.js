@@ -1,28 +1,4 @@
 ﻿
-/**
- * Override this object to create a custom configuration for the designer AngularJs module or to register additional dependencies.
- */
-var designerExtensions = {
-    /**
-     * Configuration function of the designer module.
-     */
-    config: function ($routeProvider) {
-        $routeProvider
-            //the route points to a MVC controller action that returns a proper view
-            .when('/property-grid', {
-                templateUrl: 'property-grid-view', controller: 'propertyGridCtrl'
-            })
-            .otherwise({
-                templateUrl: 'simple-view', controller: 'simpleCtrl'
-            });
-    },
-
-    /**
-     * Dependencies of the designer module.
-     */
-    dependencies: ['pageEditorServices', 'breadcrumb', 'ngRoute', 'modalDialog', 'kendo.directives']
-};
-
 (function ($) {
     if (typeof ($telerik) == 'undefined')
         return;
