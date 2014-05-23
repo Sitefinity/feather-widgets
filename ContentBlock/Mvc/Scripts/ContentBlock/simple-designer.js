@@ -2,7 +2,7 @@
     var designerModule = angular.module('designer');
 
     //basic controller for the simple designer view
-    designerModule.controller('simpleCtrl', ['$scope', 'propertyService',
+    designerModule.controller('SimpleCtrl', ['$scope', 'propertyService',
         function ($scope, propertyService) {
             // ------------------------------------------------------------------------
             // event handlers

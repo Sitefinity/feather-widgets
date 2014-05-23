@@ -281,8 +281,7 @@ namespace ContentBlock.Mvc.Controllers
                            {"sharedContentId", this.SharedContentID}
                         };
 
-
-            return ControllerModelFactory.GetModel<IContentBlockModel>(typeof(ContentBlockController), constructorParameters);
+            return ControllerModelFactory.GetModel<IContentBlockModel>(this.GetType(), constructorParameters);
         }
 
         #endregion
