@@ -268,21 +268,6 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Advanced
-        /// </summary>
-        [ResourceEntry("PropertyGrid",
-            Value = "Advanced",
-            Description = "Advanced",
-            LastModified = "2014/05/23")]
-        public string PropertyGrid
-        {
-            get
-            {
-                return this["PropertyGrid"];
-            }
-        }
-
-        /// <summary>
         /// Select shared content
         /// </summary>
         [ResourceEntry("SelectSharedContent",
