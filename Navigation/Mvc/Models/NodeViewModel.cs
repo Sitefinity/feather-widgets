@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using Telerik.Sitefinity.Web.UI.NavigationControls;
 
 namespace Navigation.Mvc.Models
 {
@@ -13,15 +15,25 @@ namespace Navigation.Mvc.Models
     {
         #region Constructor
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NodeViewModel"/> class.
+        /// </summary>
         public NodeViewModel()
         {
             this.ChildNodes = new List<NodeViewModel>();
         }
 
-        public NodeViewModel(string title, string url, bool isCurrentlyOpened, bool hasChildOpen)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NodeViewModel" /> class.
+        /// </summary>
+        /// <param name="node">The original SiteMapNode.</param>
+        /// <param name="isCurrentlyOpened">if set to <c>true</c> is currently opened.</param>
+        /// <param name="hasChildOpen">if set to <c>true</c> currently opened page is descendent of this node.</param>
+        public NodeViewModel(SiteMapNode node, bool isCurrentlyOpened, bool hasChildOpen)
         {
-            this.Title = title;
-            this.Url = url;
+            this.Title = node.Title;
+            this.Url = NavigationUtilities.ResolveUrl(node);
+            this.LinkTarget = NavigationUtilities.GetLinkTarget(node);
             this.ChildNodes = new List<NodeViewModel>();
             this.IsCurrentlyOpened = isCurrentlyOpened;
             this.HasChildOpen = hasChildOpen;
@@ -48,6 +60,14 @@ namespace Navigation.Mvc.Models
         public string Url { set; get; }
 
         /// <summary>
+        /// Gets or sets the link target.
+        /// </summary>
+        /// <value>
+        /// The link target.
+        /// </value>
+        public string LinkTarget { set; get; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this node represents currently opened page
         /// </summary>
         /// <value>
@@ -62,7 +82,15 @@ namespace Navigation.Mvc.Models
         /// <value>
         ///   <c>true</c> if currently opened page is descendent of this node; otherwise, <c>false</c>.
         /// </value>
-        public bool HasChildOpen { get; set; }
+        public bool HasChildOpen { set; get; }
+
+        /// <summary>
+        /// Gets or sets the original site map node.
+        /// </summary>
+        /// <value>
+        /// The original site map node.
+        /// </value>
+        public SiteMapNode OriginalSiteMapNode { set; get; }
 
         /// <summary>
         /// Gets or sets the child nodes.

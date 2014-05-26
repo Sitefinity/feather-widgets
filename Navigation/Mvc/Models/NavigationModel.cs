@@ -206,7 +206,7 @@ namespace Navigation.Mvc.Models
             if (levelsToInclude != 0 && RouteHelper.CheckSiteMapNode(currentSiteMapNode))
             {
                 var isSelectedPage = this.SiteMap.CurrentNode.Key == currentSiteMapNode.Key;
-                var nodeViewModel = new NodeViewModel(currentSiteMapNode.Title, NavigationUtilities.ResolveUrl(currentSiteMapNode),
+                var nodeViewModel = new NodeViewModel(currentSiteMapNode,
                     isSelectedPage, this.HasSelectedChild(currentSiteMapNode));
                 levelsToInclude--;
 

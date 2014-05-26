@@ -5,7 +5,7 @@
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/Navigation.css")'>
 
-@if (!SitefinityContext.IsBackend())
+@if (!SitefinityContext.IsBackend)
 {
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>
 }
@@ -21,19 +21,19 @@
 @*Here is specified the rendering for the root level*@
 @helper RenderRootLevelNode(NodeViewModel node)
 {        
-    <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle @GetClass(node)">
-            @node.Title
-            @if (node.ChildNodes.Count > 0)
-            {
-                <span class="caret"></span>
-            }
-        </a>
+    <li class="dropdown">        
         @if (node.ChildNodes.Count > 0)
         {
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle @GetClass(node)">@node.Title
+                <span class="caret"></span>
+            </a>
             <ul class="dropdown-menu" id="menu1" >
                 @RenderSubLevelsRecursive(node)
-            </ul>            
+            </ul>  
+        }
+        else
+        {
+            <a href="@node.Url" target="@node.LinkTarget" class="@GetClass(node)">@node.Title</a>
         }
     </li>      
 }
@@ -46,7 +46,7 @@
         if(childNode.ChildNodes.Count > 0)
         {
             <li>
-                <a href="@childNode.Url" class="@GetClass(childNode)">@childNode.Title
+                <a href="@childNode.Url" target="@childNode.LinkTarget" class="@GetClass(childNode)">@childNode.Title
                     <span class="caret" />
                 </a>
                 <ul class="dropdown-menu sub-menu">
@@ -57,7 +57,7 @@
         else
         {
             <li>
-                <a href="@childNode.Url" class="@GetClass(childNode)">@childNode.Title</a>
+                <a href="@childNode.Url" target="@childNode.LinkTarget" class="@GetClass(childNode)">@childNode.Title</a>
             </li>
         }            
     }

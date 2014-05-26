@@ -19,7 +19,7 @@
         @foreach(var node in nodes)
         {
             <li class="@GetClass(node)">        
-                <a href="@node.Url">@node.Title</a>
+                <a href="@node.Url" target="@node.LinkTarget">@node.Title</a>
             </li>
         }
     </ul>      
@@ -36,7 +36,7 @@
             @foreach (var node in selectedNode.ChildNodes)
             {
                 <li class="@GetClass(node)">        
-                    <a href="@node.Url">@node.Title</a>
+                    <a href="@node.Url" target="@node.LinkTarget">@node.Title</a>
                 </li>
             }
         </ul>

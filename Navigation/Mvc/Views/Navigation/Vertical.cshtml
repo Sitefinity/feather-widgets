@@ -16,7 +16,7 @@
 @helper RenderSubLevelsRecursive(NodeViewModel node)
 {
     <li>
-        <a class="@GetClass(node)" href="@node.Url">@node.Title</a>
+        <a class="@GetClass(node)" href="@node.Url" target="@node.LinkTarget">@node.Title</a>
 
         @if (node.ChildNodes.Count > 0)
         {

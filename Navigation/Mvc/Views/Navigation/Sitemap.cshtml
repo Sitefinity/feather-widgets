@@ -16,7 +16,7 @@
 @helper RenderRootLevelNode(NodeViewModel node)
 {
     <li>
-        <a href="@node.Url"><b>@node.Title</b></a>
+        <a href="@node.Url" target="@node.LinkTarget"><b>@node.Title</b></a>
         @if (node.ChildNodes.Count > 0)
         {
             <ul>
@@ -33,7 +33,7 @@
 @helper RenderSubLevelsRecursive(NodeViewModel node)
 {
     <li>
-        <a href="@node.Url">@node.Title</a>
+        <a href="@node.Url" target ="@node.LinkTarget">@node.Title</a>
         @if (node.ChildNodes.Count > 0)
         {
             <ul>
