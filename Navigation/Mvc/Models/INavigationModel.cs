@@ -27,5 +27,13 @@ namespace Navigation.Mvc.Models
         /// The CSS class.
         /// </value>
         string CssClass { set; get; }
+
+        /// <summary>
+        /// Gets the current site map node.
+        /// </summary>
+        /// <value>
+        /// The current site map node.
+        /// </value>
+        SiteMapNode CurrentSiteMapNode { get; }
     }
 }

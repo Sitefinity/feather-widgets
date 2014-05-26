@@ -1,0 +1,73 @@
+@model Navigation.Mvc.Models.INavigationModel
+@using Navigation.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/Navigation.css")'>
+
+@if (!SitefinityContext.IsBackend)
+{
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>
+}
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" ></script>
+
+
+<div class="navbar nav navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse in" style="height: auto;">
+                <ul class="nav navbar-nav @Model.CssClass">
+                    @foreach (var node in Model.Nodes)
+                    {
+                        @RenderSubLevelsRecursive(node);
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+@*Here is specified the rendering for the sub levels*@
+@helper RenderSubLevelsRecursive(NodeViewModel node)
+{    
+    if (node.ChildNodes.Count > 0)
+    {
+        <li class="dropdown">
+            <a href="@node.Url" target="@node.LinkTarget" class="dropdown-toggle @GetClass(node)" data-toggle="dropdown">@node.Title
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu sub-menu" >
+                @foreach (var childNode in node.ChildNodes)
+                {
+                    @RenderSubLevelsRecursive(childNode)
+                }
+            </ul>                   
+        </li>
+    }
+    else
+    {
+        <li>
+            <a href="@node.Url" target="@node.LinkTarget" class="@GetClass(node)" >@node.Title </a>
+        </li>
+    }
+}
+
+@*Resolves the class that will be added for each node depending whether it is selected*@
+@helper GetClass(NodeViewModel node)
+{
+    if (node.IsCurrentlyOpened)
+    {
+        @Html.Raw("btn-primary");
+    }
+    else if (node.HasChildOpen)
+    {
+        @Html.Raw("active");
+    }
+}

@@ -108,6 +108,17 @@ namespace Navigation.Mvc.Controllers
                 return View(this.TemplateName, this.Model);
         }
 
+        /// <summary>
+        /// Gets the view with provided name.
+        /// </summary>
+        /// <param name="viewName">Name of the view.</param>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        public ActionResult GetView(string viewName, INavigationModel model)
+        {
+            return PartialView(viewName, model);
+        }
+
         #endregion
 
         #region Private methods

@@ -5,12 +5,18 @@
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/Navigation.css")'>
 
-<ul class="nav nav-pills nav-stacked sfVertical @Model.CssClass">
-    @foreach (var node in Model.Nodes)
-    {
-        @RenderSubLevelsRecursive(node);
-    }
-</ul>
+<div class="@Model.CssClass">
+
+    @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
+    @Html.Action("GetView", new { viewName = "Toggle",  model= Model})
+
+    <ul class="nav nav-pills nav-stacked sfVertical @Model.CssClass">
+        @foreach (var node in Model.Nodes)
+        {
+            @RenderSubLevelsRecursive(node);
+        }
+    </ul>
+</div>
 
 @*Here is specified the rendering for the sub levels*@
 @helper RenderSubLevelsRecursive(NodeViewModel node)

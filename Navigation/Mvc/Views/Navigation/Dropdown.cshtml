@@ -1,0 +1,63 @@
+@model Navigation.Mvc.Models.INavigationModel
+@using Navigation.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/Navigation.css")'>
+
+@if (!SitefinityContext.IsBackend)
+{
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>
+}
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" ></script>
+
+<div class="btn-group">
+ <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      @Model.CurrentSiteMapNode.Title
+      <span class="caret"></span>
+</button>
+<ul class="dropdown-menu @Model.CssClass">
+    @foreach (var node in Model.Nodes)
+    {
+        @RenderSubLevelsRecursive(node, "");
+    }
+</ul>
+</div>
+
+@*Here is specified the rendering for the sub levels*@
+@helper RenderSubLevelsRecursive(NodeViewModel node, string prefix)
+{
+    <li>
+        <a class="@GetClass(node)" href="@node.Url" target="@node.LinkTarget">@(prefix + " " + node.Title)</a>
+    </li>
+     
+    prefix += "—";
+
+    foreach (var childNode in node.ChildNodes)
+    {
+        @RenderSubLevelsRecursive(childNode, prefix);
+    }
+}
+
+@*Resolves the class that will be added for each node depending whether it is selected*@
+@helper GetClass(NodeViewModel node)
+{
+    if (node.IsCurrentlyOpened)
+    {
+        @Html.Raw("btn-primary");
+    }
+    else if (node.HasChildOpen)
+    {
+        @Html.Raw("active");
+    }
+}
+
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery(".dropdown-menu li a").click(function () {
+            var selectedText = jQuery(this).text();
+            var parentGroup = $(this).parents(".btn-group");
+            jQuery(parentGroup).find(".btn:first-child").text(selectedText);
+        });
+    });
+</script>

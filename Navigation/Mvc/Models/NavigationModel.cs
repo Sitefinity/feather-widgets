@@ -116,6 +116,20 @@ namespace Navigation.Mvc.Models
         }
 
         /// <summary>
+        /// Gets the current site map node.
+        /// </summary>
+        /// <value>
+        /// The current site map node.
+        /// </value>
+        public SiteMapNode CurrentSiteMapNode
+        {
+            get 
+            {
+                return this.SiteMap.CurrentNode;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the list of site map nodes that will be displayed in the navigation widget.
         /// </summary>
         /// <value>
@@ -135,7 +149,6 @@ namespace Navigation.Mvc.Models
             this.Nodes = new List<NodeViewModel>() { };
 
             var siteMapProvider = this.GetProvider();
-            var currentNode = this.SiteMap.CurrentNode;
 
             switch (this.SelectionMode)
             {
@@ -144,14 +157,14 @@ namespace Navigation.Mvc.Models
                     break;
                 case PageSelectionMode.CurrentPageChildren:
 
-                    if (currentNode != null)
-                        this.AddChildNodes(currentNode, this.ShowParentPage, this.LevelsToInclude);
+                    if (this.CurrentSiteMapNode != null)
+                        this.AddChildNodes(this.CurrentSiteMapNode, this.ShowParentPage, this.LevelsToInclude);
 
                     break;
                 case PageSelectionMode.CurrentPageSiblings:
-                    if (currentNode != null)
+                    if (this.CurrentSiteMapNode != null)
                     {
-                        var parentNodeTemp = currentNode.ParentNode;
+                        var parentNodeTemp = this.CurrentSiteMapNode.ParentNode;
 
                         if (parentNodeTemp != null)
                             this.AddChildNodes(parentNodeTemp, this.ShowParentPage, this.LevelsToInclude);
@@ -164,24 +177,24 @@ namespace Navigation.Mvc.Models
         /// <summary>
         /// Adds the child nodes to the <see cref="Nodes"/> collection.
         /// </summary>
-        /// <param name="currentNode">The current node.</param>
+        /// <param name="startNode">The start node.</param>
         /// <param name="addParentNode">if set to <c>true</c> adds parent node.</param>
         /// <param name="levelsToInclude">The levels to include.</param>
-        private void AddChildNodes(SiteMapNode currentNode, bool addParentNode, int? levelsToInclude)
+        private void AddChildNodes(SiteMapNode startNode, bool addParentNode, int? levelsToInclude)
         {
             if (levelsToInclude != 0)
             {
-                if (addParentNode && RouteHelper.CheckSiteMapNode(currentNode)
-                    && currentNode.Key != SiteInitializer.CurrentFrontendRootNodeId.ToString().ToUpperInvariant())
+                if (addParentNode && RouteHelper.CheckSiteMapNode(startNode)
+                    && startNode.Key != SiteInitializer.CurrentFrontendRootNodeId.ToString().ToUpperInvariant())
                 {
-                    var nodeViewModel = this.CreateNodeViewModelRecursive(currentNode, levelsToInclude);
+                    var nodeViewModel = this.CreateNodeViewModelRecursive(startNode, levelsToInclude);
 
                     if(nodeViewModel!=null)
                         this.Nodes.Add(nodeViewModel);
                 }
                 else
                 {
-                    var directChildren = currentNode.ChildNodes;
+                    var directChildren = startNode.ChildNodes;
 
                     foreach (SiteMapNode childNode in directChildren)
                     {
@@ -198,19 +211,19 @@ namespace Navigation.Mvc.Models
         /// <summary>
         /// Creates the <see cref="NodeViewModel"/> from the SiteMapNode and populates recursive their child nodes.
         /// </summary>
-        /// <param name="currentSiteMapNode">The current site map node.</param>
+        /// <param name="node">The original site map node.</param>
         /// <param name="levelsToInclude">The levels to include.</param>
         /// <returns></returns>
-        private NodeViewModel CreateNodeViewModelRecursive(SiteMapNode currentSiteMapNode, int? levelsToInclude)
+        private NodeViewModel CreateNodeViewModelRecursive(SiteMapNode node, int? levelsToInclude)
         {
-            if (levelsToInclude != 0 && RouteHelper.CheckSiteMapNode(currentSiteMapNode))
+            if (levelsToInclude != 0 && RouteHelper.CheckSiteMapNode(node))
             {
-                var isSelectedPage = this.SiteMap.CurrentNode.Key == currentSiteMapNode.Key;
-                var nodeViewModel = new NodeViewModel(currentSiteMapNode,
-                    isSelectedPage, this.HasSelectedChild(currentSiteMapNode));
+                var isSelectedPage = this.CurrentSiteMapNode.Key == node.Key;
+                var nodeViewModel = new NodeViewModel(node,
+                    isSelectedPage, this.HasSelectedChild(node));
                 levelsToInclude--;
 
-                var directChildren = currentSiteMapNode.ChildNodes;
+                var directChildren = node.ChildNodes;
                 foreach (SiteMapNode childNode in directChildren)
                 {
                     var childViewModel = this.CreateNodeViewModelRecursive(childNode, levelsToInclude);
@@ -231,8 +244,7 @@ namespace Navigation.Mvc.Models
         /// <returns></returns>
         private bool HasSelectedChild(SiteMapNode node)
         {
-            var currentNode = this.SiteMap.CurrentNode;
-            return currentNode != null && currentNode.IsDescendantOf(node);
+            return this.CurrentSiteMapNode != null && this.CurrentSiteMapNode.IsDescendantOf(node);
         }
 
         /// <summary>

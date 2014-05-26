@@ -7,6 +7,9 @@
 
 <div class="@Model.CssClass">
 
+    @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
+    @Html.Action("GetView", new { viewName = "Toggle",  model= Model})
+
     @RenderRootLevelNode(@Model.Nodes)
 
     @RenderSubLevelsRecursive(@Model.Nodes)

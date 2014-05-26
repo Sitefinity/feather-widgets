@@ -73,6 +73,8 @@
     <EmbeddedResource Include="Mvc\Views\Navigation\Vertical.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\Tabs.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\Sitemap.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Navigation\Toggle.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Navigation\Dropdown.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

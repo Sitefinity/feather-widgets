@@ -11,12 +11,18 @@
 }
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" ></script>
 
-<ul class="nav nav-pills @Model.CssClass">
-    @foreach (var node in Model.Nodes)
-    {
-        @RenderRootLevelNode(node);
-    }
-</ul>
+<div class="@Model.CssClass">
+
+    @Html.Action("GetView", new { viewName = "Dropdown", model= Model, style = "display:none"})
+    @Html.Action("GetView", new { viewName = "Toggle",  model= Model})
+
+    <ul class="nav nav-pills">
+        @foreach (var node in Model.Nodes)
+        {
+            @RenderRootLevelNode(node);
+        }
+    </ul>
+</div>
 
 @*Here is specified the rendering for the root level*@
 @helper RenderRootLevelNode(NodeViewModel node)
