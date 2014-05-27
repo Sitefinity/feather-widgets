@@ -118,7 +118,7 @@ namespace ContentBlock.Mvc.Controllers
         public ActionResult Share()
         {
             ViewBag.BlankDataItem = JsonConvert.SerializeObject(this.Model.CreateBlankDataItem());
-            return View("Share");
+            return View();
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace ContentBlock.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Unshare()
         {
-            return View("UnshareAlert");
+            return View();
         }
 
         /// <summary>
@@ -271,17 +271,8 @@ namespace ContentBlock.Mvc.Controllers
         /// <summary>
         /// Initializes the model.
         /// </summary>
-        /// <returns></returns>
         private IContentBlockModel InitializeModel()
         {
-            var assemblies = new List<Assembly>();
-            var contentBlockControllerAssembly = typeof(ContentBlockController).Assembly;
-            var currentAssembly = this.GetType().Assembly;
-            
-            assemblies.Add(currentAssembly);
-            if (!contentBlockControllerAssembly.Equals(currentAssembly))
-                assemblies.Add(contentBlockControllerAssembly);
-
             var constructorParameters = new Dictionary<string, object> 
                         {
                            {"providerName", this.ProviderName},
@@ -290,8 +281,7 @@ namespace ContentBlock.Mvc.Controllers
                            {"sharedContentId", this.SharedContentID}
                         };
 
-
-            return ControllerModelFactory.GetModel<IContentBlockModel>(assemblies, constructorParameters) as IContentBlockModel;
+            return ControllerModelFactory.GetModel<IContentBlockModel>(this.GetType(), constructorParameters);
         }
 
         #endregion
