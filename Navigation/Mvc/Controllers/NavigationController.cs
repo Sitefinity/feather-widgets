@@ -129,14 +129,6 @@ namespace Navigation.Mvc.Controllers
          /// <returns></returns>
         private INavigationModel InitializeModel()
         {
-            var assemblies = new List<Assembly>();
-            var contentBlockControllerAssembly = typeof(NavigationController).Assembly;
-            var currentAssembly = this.GetType().Assembly;
-
-            assemblies.Add(currentAssembly);
-            if (!contentBlockControllerAssembly.Equals(currentAssembly))
-                assemblies.Add(contentBlockControllerAssembly);
-
             var constructorParameters = new Dictionary<string, object> 
                          {
                             {"selectionMode", this.SelectionMode},
@@ -145,8 +137,7 @@ namespace Navigation.Mvc.Controllers
                             {"cssClass", this.CssClass}
                          };
 
-
-            return ControllerModelFactory.GetModel<INavigationModel>(assemblies, constructorParameters) as INavigationModel;
+            return ControllerModelFactory.GetModel<INavigationModel>(this.GetType(), constructorParameters);
         }
  
         #endregion
