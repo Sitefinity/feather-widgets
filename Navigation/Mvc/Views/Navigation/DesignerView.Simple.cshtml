@@ -1,0 +1,54 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<h3>@Html.Resource("Display")</h3> 
+<ul>
+    <li>
+        <input id="rbTopLevelPages" type="radio" ng-model="Properties.SelectionMode.PropertyValue" value="TopLevelPages" />
+        <label for="rbTopLevelPages">@Html.Resource("TopLevelPages")</label>
+    </li>
+    <li>
+        <input id="rbCurrentPageChildren" type="radio" ng-model="Properties.SelectionMode.PropertyValue" value="CurrentPageChildren" />
+        <label for="rbCurrentPageChildren">@Html.Resource("CurrentPageChildren") </label>
+    </li>
+    <li>
+        <input id="rbCurrentPageSiblings" type="radio" ng-model="Properties.SelectionMode.PropertyValue" value="CurrentPageSiblings" />
+        <label for="rbCurrentPageSiblings">@Html.Resource("CurrentPageSiblings")</label>
+    </li>
+
+</ul>
+
+<div>
+    <b>@Html.Resource("LevelsToInclude")</b> 
+
+    <select ng-model="Properties.LevelsToInclude.PropertyValue">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="-1">All</option>
+    </select>
+</div>
+
+<div>
+    <b>@Html.Resource("Template")</b> 
+
+     <select ng-model="Properties.TemplateName.PropertyValue">
+         @foreach (var viewName in Html.GetViewNames("Navigation", "NavigationView.*"))
+         { 
+             <option value="@viewName"> @viewName.Substring(viewName.IndexOf('.') + 1)</option>
+         }
+      </select>
+</div>
+
+<div>
+    <b>@Html.Resource("ResponsiveDesignSectionTitle")</b>
+    <p>@Html.Raw(@Html.Resource("ResponsiveDesignDescription"))</p>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div>
+        <b>@Html.Resource("CssClasses")</b>
+        <input type="text" ng-model="Properties.CssClass.PropertyValue" />
+    </div>
+</expander>

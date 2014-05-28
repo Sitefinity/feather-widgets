@@ -1,4 +1,5 @@
 ﻿using Navigation.Mvc.Models;
+using Navigation.Mvc.StringResources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
 
 namespace Navigation.Mvc.Controllers
@@ -15,6 +17,7 @@ namespace Navigation.Mvc.Controllers
     /// This class represents the controller of Navigation widget.
     /// </summary>
     [ControllerToolboxItem(Name = "Navigation", Title = "Navigation", SectionName = "MvcWidgets")]
+    [Localization(typeof(NavigationResources))]
     public class NavigationController : Controller
     {
         #region Properties
@@ -25,8 +28,14 @@ namespace Navigation.Mvc.Controllers
         /// <value></value>
         public string TemplateName
         {
-            get;
-            set;
+            get
+            {
+                return this.templateName;
+            }
+            set
+            {
+                this.templateName = value;
+            }
         }
 
         /// <summary>
@@ -97,15 +106,12 @@ namespace Navigation.Mvc.Controllers
         #region Actions
 
         /// <summary>
-        /// Renders appropriate view depending on the <see cref="TemplateName"/>
+        /// Renders appropriate view depending on the <see cref="TemplateName" />
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
         {
-            if (this.TemplateName.IsNullOrEmpty())
-                return Content("TemplateName property should be set to the name of existing template.");
-            else 
-                return View(this.TemplateName, this.Model);
+            return View(this.TemplateName, this.Model);
         }
 
         /// <summary>
@@ -146,6 +152,7 @@ namespace Navigation.Mvc.Controllers
 
         private INavigationModel model;
         private int? levelsToInclude = 1;
+        private string templateName = "NavigationView.Horizontal";
 
         #endregion
     }
