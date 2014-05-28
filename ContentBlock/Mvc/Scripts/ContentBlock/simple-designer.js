@@ -1,54 +1,58 @@
 ﻿(function ($) {
+    var EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
     var designerModule = angular.module('designer');
 
+    designerModule.factory('contentBlockService', ['dialogFeedbackService', 'sharedContentService', function (dialogFeedbackService, sharedContentService) {
+        var contentItem;
+        var properties;
+
+        var unlockContentItem = function () {
+            return sharedContentService.deleteTemp(properties.SharedContentID.PropertyValue);
+        };
+
+        var updateContentItem = function () {
+            return sharedContentService.update(contentItem, properties.Content.PropertyValue, properties.ProviderName.PropertyValue);
+        };
+
+        return function (data) {
+            properties = data;
+
+            var isShared = properties.SharedContentID.PropertyValue != EMPTY_GUID;
+
+            if (isShared && !contentItem) {
+                var checkOut = true;
+                return sharedContentService.get(properties.SharedContentID.PropertyValue, properties.ProviderName.PropertyValue, checkOut)
+                    .then(function (data) {
+                        contentItem = data;
+                        if (contentItem) {
+                            properties.Content.PropertyValue = contentItem.Item.Content.Value;
+                            dialogFeedbackService.SavingPromise = dialogFeedbackService.SavingPromise.then(updateContentItem);
+                            dialogFeedbackService.CancelingPromise = dialogFeedbackService.CancelingPromise.then(unlockContentItem);
+                        }
+                    });
+            }
+        };
+    }]);
+
     //basic controller for the simple designer view
-    designerModule.controller('SimpleCtrl', ['$scope', '$q', 'propertyService', 'sharedContentService', 'dialogFeedbackService',
-        function ($scope, $q, propertyService, sharedContentService, dialogFeedbackService) {
+    designerModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sharedContentService', 'dialogFeedbackService', 'contentBlockService',
+        function ($scope, propertyService, sharedContentService, dialogFeedbackService, contentBlockService) {
+            var contentItem;
+
             // ------------------------------------------------------------------------
             // event handlers
             // ------------------------------------------------------------------------
 
             var onGetPropertiesSuccess = function (data) {
-                if (data.Items) {
-                    updateScopeVariables(data.Items, false);
-                }
-
-                var deferred = $q.defer();
-                if ($scope.IsShared) {
-                    var checkOut = true;
-                    return sharedContentService.get($scope.Properties.SharedContentID.PropertyValue, $scope.Properties.ProviderName.PropertyValue, checkOut);
-                }
-                else {
-                    deferred.resolve(null);
-                    return deferred.promise;
-                }
-            };
-
-            var onGetContentItemSuccess = function (data) {
-                if (data)
-                    $scope.Properties.Content.PropertyValue = data.Item.Content.Value;
-            };
-
-            var onGetError = function (data) {
-                $scope.Feedback.ShowError = true;
-                if (data)
-                    $scope.Feedback.ErrorMessage = data.Detail;
-            };
-
-            // ------------------------------------------------------------------------
-            // helper methods
-            // ------------------------------------------------------------------------
-
-            var updateScopeVariables = function (currentItems, applyScopeChanges) {
-                $scope.Items = currentItems;
-                $scope.Properties = propertyService.toAssociativeArray(currentItems);
-                $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != '00000000-0000-0000-0000-000000000000';
+                $scope.Items = data.Items;
+                $scope.Properties = propertyService.toAssociativeArray(data.Items);
+                $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != EMPTY_GUID;
 
                 kendo.bind();
-            };
 
-            var hideLoadingIndicator = function () {
-                $scope.Feedback.ShowLoadingIndicator = false;
+                if ($scope.IsShared) {
+                    return contentBlockService($scope.Properties);
+                }
             };
 
             // ------------------------------------------------------------------------
@@ -56,13 +60,20 @@
             // ------------------------------------------------------------------------
 
             $scope.Feedback = dialogFeedbackService;
-            $scope.IsShared = false;
             $scope.Feedback.ShowLoadingIndicator = true;
 
+            $scope.IsShared = false;
+
             propertyService.get()
-                .then(onGetPropertiesSuccess, onGetError)
-                .then(onGetContentItemSuccess, onGetError)
-                .then(hideLoadingIndicator, hideLoadingIndicator);
+                .then(onGetPropertiesSuccess)
+                .catch(function (data) {
+                    $scope.Feedback.ShowError = true;
+                    if (data)
+                        $scope.Feedback.ErrorMessage = data.Detail;
+                })
+                .finally(function () {
+                    $scope.Feedback.ShowLoadingIndicator = false;
+                });
 
             //Fixes a bug for modal dialogs with iframe in them for IE.
             $scope.$on('$destroy', function () {

@@ -113,14 +113,14 @@
 		//updates content of the content block item
 		var update = function (itemData, content, providerName) {
 			var currentItem = itemData.Item;
-			var putUrl = serviceUrl + currentItem.Id + '/?draftPageId=' + widgetContext.PageId;
+			var putUrl = serviceUrl + currentItem.Id + '/?draftPageId=' + widgetContext.pageId;
 
 			if (providerName)
 				putUrl += '&provider=' + providerName;
 
 			currentItem.Content.Value = content;
 			currentItem.Content.PersistedValue = content;
-			itemData['Item'] = currentItem;
+			itemData.Item = currentItem;
 
 			var deferred = $q.defer();
 
