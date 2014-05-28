@@ -218,7 +218,7 @@ namespace Navigation.Mvc.Models
         {
             if (levelsToInclude != 0 && RouteHelper.CheckSiteMapNode(node))
             {
-                var isSelectedPage = this.CurrentSiteMapNode.Key == node.Key;
+                var isSelectedPage = this.CurrentSiteMapNode != null && this.CurrentSiteMapNode.Key == node.Key;
                 var nodeViewModel = new NodeViewModel(node,
                     isSelectedPage, this.HasSelectedChild(node));
                 levelsToInclude--;
