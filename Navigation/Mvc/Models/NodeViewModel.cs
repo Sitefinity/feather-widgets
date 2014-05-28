@@ -31,6 +31,7 @@ namespace Navigation.Mvc.Models
         /// <param name="hasChildOpen">if set to <c>true</c> currently opened page is descendent of this node.</param>
         public NodeViewModel(SiteMapNode node, bool isCurrentlyOpened, bool hasChildOpen)
         {
+            this.OriginalSiteMapNode = node;
             this.Title = node.Title;
             this.Url = NavigationUtilities.ResolveUrl(node);
             this.LinkTarget = NavigationUtilities.GetLinkTarget(node);

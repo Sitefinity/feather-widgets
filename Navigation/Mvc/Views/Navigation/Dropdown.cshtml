@@ -11,27 +11,25 @@
 }
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" ></script>
 
-<div class="btn-group">
- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      @Model.CurrentSiteMapNode.Title
-      <span class="caret"></span>
-</button>
-<ul class="dropdown-menu @Model.CssClass">
+<select class="sfNavSelect @Model.CssClass">
     @foreach (var node in Model.Nodes)
     {
         @RenderSubLevelsRecursive(node, "");
     }
-</ul>
-</div>
+</select>
 
 @*Here is specified the rendering for the sub levels*@
 @helper RenderSubLevelsRecursive(NodeViewModel node, string prefix)
 {
-    <li>
-        <a class="@GetClass(node)" href="@node.Url" target="@node.LinkTarget">@(prefix + " " + node.Title)</a>
-    </li>
-     
+    var selectedAttribute = "";
     prefix += "—";
+    
+    if(Model.CurrentSiteMapNode.Key == node.OriginalSiteMapNode.Key)
+    {
+        selectedAttribute = "selected";
+    }
+  
+    <option class="@GetClass(node)" value="@node.Url" @selectedAttribute>@(prefix + " " + node.Title)</option>
 
     foreach (var childNode in node.ChildNodes)
     {
@@ -52,12 +50,12 @@
     }
 }
 
+
 <script type="text/javascript">
-    jQuery(function () {
-        jQuery(".dropdown-menu li a").click(function () {
-            var selectedText = jQuery(this).text();
-            var parentGroup = $(this).parents(".btn-group");
-            jQuery(parentGroup).find(".btn:first-child").text(selectedText);
+    (function ($) {
+        $('.sfNavSelect').change(function () {
+            var val = $(this).find("option:selected").val();
+            window.location.replace(val);
         });
-    });
+    })(jQuery);
 </script>
