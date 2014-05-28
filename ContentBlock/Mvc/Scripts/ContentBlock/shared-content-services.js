@@ -136,8 +136,8 @@
 		};
 
 		//gets the content block depending on the provided shareContentId
-		var get = function (sharedContentId, providerName, ifCheckOut) {
-			var getUrl = serviceUrl + sharedContentId + '/?published=true&checkOut=' + ifCheckOut;
+		var get = function (sharedContentId, providerName, checkOut) {
+			var getUrl = serviceUrl + sharedContentId + '/?published=true&checkOut=' + checkOut;
 
 			if (providerName)
 				getUrl += '&provider=' + providerName;

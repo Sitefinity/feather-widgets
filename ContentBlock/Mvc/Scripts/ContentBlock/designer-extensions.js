@@ -76,8 +76,8 @@
                 if (providerProperty.PropertyValue == providerName &&
                     sharedContentIdPropertyValue == newSharedContentIdPropertyValue
                     && newContentPropertyValue != contentPropertyValue) {
-                    getSharedContentService().update(contentBlockItem, newContentPropertyValue,
-                            providerName).then(onSaveContentBlockSuccess, onSaveContentBlockError);
+                    getSharedContentService().update(contentBlockItem, newContentPropertyValue, providerName)
+                        .then(onSaveContentBlockSuccess, onSaveContentBlockError);
                 }
                 else {//if shared content id is modified.
                     unlockContentItem();
@@ -100,52 +100,6 @@
     $telerik.$(document).one('controlPropertiesUpdateCanceling', function (e, params) {
         unlockContentItem();
         resetHelperProperties();
-    });
-
-    $telerik.$(document).one('controlPropertiesLoad', function (e, params) {
-
-        for (var i = 0; i < params.Items.length; i++) {
-            if (params.Items[i].PropertyName === 'SharedContentID')
-                sharedContentIdPropertyValue = params.Items[i].PropertyValue;
-            if (params.Items[i].PropertyName === 'Content') {
-                contentPropertyValue = params.Items[i].PropertyValue;
-            }
-            if (params.Items[i].PropertyName === 'ProviderName')
-                providerName = params.Items[i].PropertyValue;
-        }
-
-        var onGetContentBlockSuccess = function (data) {
-            contentBlockItem = data;
-            if (data && data.Item) {
-                for (var i = 0; i < params.Items.length; i++) {
-                    if (params.Items[i].PropertyName === 'Content') {
-                        contentPropertyValue = data.Item.Content.Value;
-                        params.Items[i].PropertyValue = contentPropertyValue;
-                    }
-                }
-
-                $telerik.$(document).trigger('controlPropertiesLoaded', [{ 'Items': params.Items }]);
-            }
-        };
-
-        var onGetContentBlockError = function () {
-            for (var i = 0; i < params.Items.length; i++) {
-                if (params.Items[i].PropertyName === 'Content')
-                    params.Items[i].PropertyValue = '';
-                if (params.Items[i].PropertyName === 'ProviderName')
-                    params.Items[i].PropertyValue = '';
-                if (params.Items[i].PropertyName === 'SharedContentID') {
-                    sharedContentIdPropertyValue = EMPTY_GUID;
-                    params.Items[i].PropertyValue = sharedContentIdPropertyValue;
-                }
-            }
-
-            $telerik.$(document).trigger('controlPropertiesLoaded', [{ 'Items': params.Items }]);
-        };
-
-        if (sharedContentIdPropertyValue != EMPTY_GUID) {
-            getSharedContentService().get(sharedContentIdPropertyValue, providerName, true).then(onGetContentBlockSuccess, onGetContentBlockError);
-        }
     });
 
 })(jQuery);

@@ -2,8 +2,8 @@
     var designerModule = angular.module('designer');
 
     //basic controller for the simple designer view
-    designerModule.controller('SimpleCtrl', ['$scope', 'propertyService',
-        function ($scope, propertyService) {
+    designerModule.controller('SimpleCtrl', ['$scope', '$q', 'propertyService', 'sharedContentService', 'dialogFeedbackService',
+        function ($scope, $q, propertyService, sharedContentService, dialogFeedbackService) {
             // ------------------------------------------------------------------------
             // event handlers
             // ------------------------------------------------------------------------
@@ -12,15 +12,27 @@
                 if (data.Items) {
                     updateScopeVariables(data.Items, false);
                 }
-                $scope.ShowLoadingIndicator = false;
+
+                var deferred = $q.defer();
+                if ($scope.IsShared) {
+                    var checkOut = true;
+                    return sharedContentService.get($scope.Properties.SharedContentID.PropertyValue, $scope.Properties.ProviderName.PropertyValue, checkOut);
+                }
+                else {
+                    deferred.resolve(null);
+                    return deferred.promise;
+                }
             };
 
-            var onGetError = function (data, status, headers, config) {
-                $scope.ShowError = true;
+            var onGetContentItemSuccess = function (data) {
                 if (data)
-                    $scope.ErrorMessage = data.Detail;
+                    $scope.Properties.Content.PropertyValue = data.Item.Content.Value;
+            };
 
-                $scope.ShowLoadingIndicator = false;
+            var onGetError = function (data) {
+                $scope.Feedback.ShowError = true;
+                if (data)
+                    $scope.Feedback.ErrorMessage = data.Detail;
             };
 
             // ------------------------------------------------------------------------
@@ -32,34 +44,25 @@
                 $scope.Properties = propertyService.toAssociativeArray(currentItems);
                 $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != '00000000-0000-0000-0000-000000000000';
 
-                //k-value does not set the kendo editor value when the value is deferred so we do this manually
-                //when we have the data.
-                if ($('#contentEditor')) {
-                    var kendoEditor = $('#contentEditor').data('kendoEditor');
-                    if (kendoEditor)
-                        kendoEditor.value($scope.Properties.Content.PropertyValue);
-                }
+                kendo.bind();
+            };
+
+            var hideLoadingIndicator = function () {
+                $scope.Feedback.ShowLoadingIndicator = false;
             };
 
             // ------------------------------------------------------------------------
             // scope variables and set up
             // ------------------------------------------------------------------------
 
+            $scope.Feedback = dialogFeedbackService;
             $scope.IsShared = false;
-            $scope.ShowLoadingIndicator = true;
+            $scope.Feedback.ShowLoadingIndicator = true;
 
-            $scope.contentChange = function (e) {
-                $scope.Properties.Content.PropertyValue = e.sender.value();
-
-                propertyService.set($scope.Items);
-            };
-
-            $telerik.$(document).one('controlPropertiesLoaded', function (e, params) {
-                if (params.Items)
-                    updateScopeVariables(params.Items, true);
-            });
-
-            propertyService.get().then(onGetPropertiesSuccess, onGetError);
+            propertyService.get()
+                .then(onGetPropertiesSuccess, onGetError)
+                .then(onGetContentItemSuccess, onGetError)
+                .then(hideLoadingIndicator, hideLoadingIndicator);
 
             //Fixes a bug for modal dialogs with iframe in them for IE.
             $scope.$on('$destroy', function () {

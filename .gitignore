@@ -108,3 +108,4 @@ Backup*/
 UpgradeLog*.XML
 
 .nuget/NuGet.exe
+*.jmconfig
