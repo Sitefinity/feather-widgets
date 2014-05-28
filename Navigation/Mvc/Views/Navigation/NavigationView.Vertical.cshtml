@@ -2,15 +2,21 @@
 @using Navigation.Mvc.Models;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
+@*Add scripts and stylesheets*@
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/Navigation.css")'>
+@if (!SitefinityContext.IsBackend)
+{
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>
+}
+<script type="text/javascript" src='@Url.WidgetContent("Mvc/Scripts/Navigation.js")'></script>
 
 <div class="@Model.CssClass">
 
+    <button type="button" class="sfNavToggle"></button>
     @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
-    @Html.Action("GetView", new { viewName = "Toggle",  model= Model})
 
-    <ul class="nav nav-pills nav-stacked sfVertical @Model.CssClass">
+    <ul class="nav nav-pills nav-stacked sfVertical sfNav">
         @foreach (var node in Model.Nodes)
         {
             @RenderSubLevelsRecursive(node);
