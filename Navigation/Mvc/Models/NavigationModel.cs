@@ -22,7 +22,6 @@ namespace Navigation.Mvc.Models
         /// </summary>
         public NavigationModel()
         {
-            this.InitializeNavigationWidgetSettings();
         }
 
         /// <summary>
@@ -121,7 +120,7 @@ namespace Navigation.Mvc.Models
         /// <value>
         /// The current site map node.
         /// </value>
-        public SiteMapNode CurrentSiteMapNode
+        public virtual SiteMapNode CurrentSiteMapNode
         {
             get 
             {
@@ -135,7 +134,16 @@ namespace Navigation.Mvc.Models
         /// <value>
         /// The nodes.
         /// </value>
-        public IList<NodeViewModel> Nodes { private set; get; }
+        public IList<NodeViewModel> Nodes 
+        {
+            get 
+            {
+                if (this.nodes == null)
+                    nodes = new List<NodeViewModel>();
+
+                return nodes;
+            }
+        }
 
         #endregion
 
@@ -146,8 +154,6 @@ namespace Navigation.Mvc.Models
         /// </summary>
         private void InitializeNavigationWidgetSettings()
         {
-            this.Nodes = new List<NodeViewModel>() { };
-
             var siteMapProvider = this.GetProvider();
 
             switch (this.SelectionMode)
@@ -180,12 +186,12 @@ namespace Navigation.Mvc.Models
         /// <param name="startNode">The start node.</param>
         /// <param name="addParentNode">if set to <c>true</c> adds parent node.</param>
         /// <param name="levelsToInclude">The levels to include.</param>
-        private void AddChildNodes(SiteMapNode startNode, bool addParentNode, int? levelsToInclude)
+        protected void AddChildNodes(SiteMapNode startNode, bool addParentNode, int? levelsToInclude)
         {
             if (levelsToInclude != 0)
             {
-                if (addParentNode && RouteHelper.CheckSiteMapNode(startNode)
-                    && startNode.Key != SiteInitializer.CurrentFrontendRootNodeId.ToString().ToUpperInvariant())
+                if (addParentNode && this.CheckSiteMapNode(startNode)
+                    && startNode.Key != this.GetRootNodeId().ToString().ToUpperInvariant())
                 {
                     var nodeViewModel = this.CreateNodeViewModelRecursive(startNode, levelsToInclude);
 
@@ -207,7 +213,6 @@ namespace Navigation.Mvc.Models
             }
         }
 
-
         /// <summary>
         /// Creates the <see cref="NodeViewModel"/> from the SiteMapNode and populates recursive their child nodes.
         /// </summary>
@@ -219,7 +224,9 @@ namespace Navigation.Mvc.Models
             if (levelsToInclude != 0 && RouteHelper.CheckSiteMapNode(node))
             {
                 var isSelectedPage = this.CurrentSiteMapNode != null && this.CurrentSiteMapNode.Key == node.Key;
-                var nodeViewModel = new NodeViewModel(node,
+                var url = this.ResolveUrl(node);
+                var target = this.GetLinkTarget(node);
+                var nodeViewModel = new NodeViewModel(node, url, target,
                     isSelectedPage, this.HasSelectedChild(node));
                 levelsToInclude--;
 
@@ -235,6 +242,45 @@ namespace Navigation.Mvc.Models
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Gets the root node identifier.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Guid GetRootNodeId()
+        {
+            return SiteInitializer.CurrentFrontendRootNodeId;
+        }
+
+        /// <summary>
+        /// Checks the site map node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns></returns>
+        protected virtual bool CheckSiteMapNode(SiteMapNode node)
+        {
+            return RouteHelper.CheckSiteMapNode(node);
+        }
+
+        /// <summary>
+        /// Resolves the URL.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns></returns>
+        protected virtual string ResolveUrl(SiteMapNode node)
+        {
+            return NavigationUtilities.ResolveUrl(node);
+        }
+
+        /// <summary>
+        /// Gets the link target.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns></returns>
+        protected virtual string GetLinkTarget(SiteMapNode node)
+        {
+            return NavigationUtilities.GetLinkTarget(node);
         }
 
         /// <summary>
@@ -273,6 +319,7 @@ namespace Navigation.Mvc.Models
         private string siteMapProviderName = SiteMapBase.DefaultSiteMapProviderName;
         private SiteMapProvider provider;
         private SiteMapBase siteMap;
+        private IList<NodeViewModel> nodes;
 
         #endregion
     }

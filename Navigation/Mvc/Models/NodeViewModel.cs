@@ -27,14 +27,16 @@ namespace Navigation.Mvc.Models
         /// Initializes a new instance of the <see cref="NodeViewModel" /> class.
         /// </summary>
         /// <param name="node">The original SiteMapNode.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="target">The target.</param>
         /// <param name="isCurrentlyOpened">if set to <c>true</c> is currently opened.</param>
         /// <param name="hasChildOpen">if set to <c>true</c> currently opened page is descendent of this node.</param>
-        public NodeViewModel(SiteMapNode node, bool isCurrentlyOpened, bool hasChildOpen)
+        public NodeViewModel(SiteMapNode node, string url, string target, bool isCurrentlyOpened, bool hasChildOpen)
         {
             this.OriginalSiteMapNode = node;
             this.Title = node.Title;
-            this.Url = NavigationUtilities.ResolveUrl(node);
-            this.LinkTarget = NavigationUtilities.GetLinkTarget(node);
+            this.Url = url;
+            this.LinkTarget = target;
             this.ChildNodes = new List<NodeViewModel>();
             this.IsCurrentlyOpened = isCurrentlyOpened;
             this.HasChildOpen = hasChildOpen;
