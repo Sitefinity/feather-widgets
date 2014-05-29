@@ -9,7 +9,7 @@
 }
 <script type="text/javascript" src='@Url.WidgetContent("Mvc/Scripts/Navigation.js")'></script>
 
-<select class="nav-select @Model.CssClass">
+<select class="nav-select">
     @foreach (var node in Model.Nodes)
     {
         @RenderSubLevelsRecursive(node, "");
@@ -20,7 +20,7 @@
 @helper RenderSubLevelsRecursive(NodeViewModel node, string prefix)
 {
     var selectedAttribute = "";
-    prefix += "—";
+    prefix += "ï¿½";
 
     if (Model.CurrentSiteMapNode != null && Model.CurrentSiteMapNode.Key == node.OriginalSiteMapNode.Key)
     {
