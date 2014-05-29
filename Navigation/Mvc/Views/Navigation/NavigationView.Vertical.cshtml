@@ -3,8 +3,6 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 @*Add scripts and stylesheets*@
-<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
-<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/Navigation.css")'>
 @if (!SitefinityContext.IsBackend)
 {
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>
@@ -13,10 +11,10 @@
 
 <div class="@Model.CssClass">
 
-    <button type="button" class="sfNavToggle"></button>
+    <button type="button" class="nav-toggle glyphicon glyphicon-align-justify"></button>
     @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
 
-    <ul class="nav nav-pills nav-stacked sfVertical sfNav">
+      <ul class="nav nav-pills nav-stacked">
         @foreach (var node in Model.Nodes)
         {
             @RenderSubLevelsRecursive(node);
@@ -27,8 +25,8 @@
 @*Here is specified the rendering for the sub levels*@
 @helper RenderSubLevelsRecursive(NodeViewModel node)
 {
-    <li>
-        <a class="@GetClass(node)" href="@node.Url" target="@node.LinkTarget">@node.Title</a>
+     <li class="@GetClass(node)">
+        <a href="@node.Url" target="@node.LinkTarget">@node.Title</a>
 
         @if (node.ChildNodes.Count > 0)
         {
@@ -47,7 +45,7 @@
 {
     if (node.IsCurrentlyOpened)
     {
-        @Html.Raw("btn-primary");
+        @Html.Raw("active");
     }
     else if (node.HasChildOpen)
     {

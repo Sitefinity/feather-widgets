@@ -1,9 +1,10 @@
 ﻿(function ($) {
-    $('.sfNavToggle').bind("click", function () {
-        $(this).siblings(".sfNav").toggle();
+    $('.nav-toggle').bind("click", function () {
+        $(this).siblings(".nav").toggle();
+        $(this).toggleClass("active");
     });
 
-    $('.sfNavSelect').change(function () {
+    $('.nav-select').change(function () {
         var val = $(this).find("option:selected").val();
         window.location.replace(val);
     });
