@@ -32,7 +32,7 @@
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">@node.Title
                 <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu" id="menu1" >
+            <ul class="dropdown-menu">
                 @RenderSubLevelsRecursive(node)
             </ul>  
         }
@@ -52,7 +52,7 @@
         {
              <li class="@GetClass(childNode)">
                 <a href="@childNode.Url" target="@childNode.LinkTarget">@childNode.Title
-                    <span class="right-caret" />
+                    <span class="right-caret"></span>
                 </a>
                 <ul class="dropdown-menu sub-menu">
                     @RenderSubLevelsRecursive(childNode)
