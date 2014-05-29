@@ -8,7 +8,7 @@
         </div>
         <div class="modal-body">
             <div ng-show="ShowError" class="alert alert-danger">
-                <a class="close" data-dismiss="alert">x</a>
+                <a class="close" data-dismiss="alert" ng-click="HideError()">x</a>
                 <strong>@Html.Resource("Error")</strong> <span ng-bind="ErrorMessage"></span>
             </div>
             <div ng-show="ShowLoadingIndicator" class="s-loading m-bottom-sm"></div>

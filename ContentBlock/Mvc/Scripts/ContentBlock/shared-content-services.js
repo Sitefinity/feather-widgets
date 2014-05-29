@@ -155,7 +155,7 @@
 		};
 
 		//get all content items for particular provider
-		var getAll = function (providerName) {
+		var getAll = function (providerName, filter) {
 
 			var getUrl = serviceUrl
 				+ '?itemType=Telerik.Sitefinity.GenericContent.Model.Content'
@@ -166,7 +166,10 @@
 
 			var culture = widgetContext.culture;
 			if (culture)
-				getUrl += 'AND Culture == ' + culture;
+				getUrl += ' AND Culture == ' + culture;
+
+			if (filter)
+			    getUrl += ' AND (Title.ToUpper().Contains("' + filter + '".ToUpper()))';
 
 			if (providerName)
 				getUrl += '&allProviders=false&provider=' + providerName;
