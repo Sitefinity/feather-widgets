@@ -37,7 +37,7 @@
                 if ($.trim($scope.model.Title)) {
                     $scope.IsTitleValid = true;
                     $scope.ShowLoadingIndicator = true;
-                    sharedContentService.share($scope.Title)
+                    sharedContentService.share($scope.model.Title)
                         .then(dialogClose, onError)
                         .finally(function () {
                             $scope.ShowLoadingIndicator = false;
@@ -51,6 +51,11 @@
 
             $scope.Cancel = function () {
                 dialogClose();
+            };
+
+            $scope.HideError = function () {
+                $scope.ShowError = false;
+                $scope.ErrorMessage = null;
             };
         }
     ]);
@@ -118,8 +123,8 @@
             };
 
             $scope.HideError = function () {
-                $scope.Feedback.ShowError = false;
-                $scope.Feedback.ErrorMessage = null;
+                $scope.ShowError = false;
+                $scope.ErrorMessage = null;
             };
         }
     ]);

@@ -46,8 +46,8 @@
 			blankItem.DateCreated = '\/Date(' + new Date(blankItem.DateCreated).getTime() + ')\/';
 			blankItem.PublicationDate = '\/Date(' + new Date(blankItem.PublicationDate).getTime() + ')\/';
 			var itemContext = {
-			    Item: blankItem,
-			    ItemType: 'Telerik.Sitefinity.GenericContent.Model.ContentItem'
+				Item: blankItem,
+				ItemType: 'Telerik.Sitefinity.GenericContent.Model.ContentItem'
 			};
 
 			$http.put(putUrl, itemContext, requestOptions())
@@ -63,54 +63,28 @@
 
 		//creates new content block item with the provided title
 		var share = function (title) {
-			
-			var sharedContentIdProperty,
-				deferred = $q.defer();
+		    var properties;
 
-			var onPublishContentSuccess = function (data) {
+			var saveProperties = function (data) {
 				//change the SharedContentId property of the widget
-				sharedContentIdProperty.PropertyValue = data.Item.Id;
+				properties.SharedContentID.PropertyValue = data.Item.Id;
 
-				var modifiedProperties = [sharedContentIdProperty];
-
+				var modifiedProperties = [properties.SharedContentID];
 				//The type of save that should be performed. 0 - default, 1 - all translations, 2 - currently translation only
 				var currentSaveMode = widgetContext.culture ? 1 : 0;
 
-				propertyService.save(currentSaveMode, modifiedProperties).then(function (data) {
-					deferred.resolve(data);
-				}, 
-				function (data) {
-					deferred.reject(data);
-				});
+				return propertyService.save(currentSaveMode, modifiedProperties);
 			};
 
-			var onGetPropertiesSuccess = function (data) {
-				var content;
-				var provider;
-				if (data) {
-					for (var i = 0; i < data.Items.length; i++) {
-						if (data.Items[i].PropertyName === 'SharedContentID')
-							sharedContentIdProperty = data.Items[i];
-						if (data.Items[i].PropertyName === 'Content')
-							content = data.Items[i].PropertyValue;
-						if (data.Items[i].PropertyName === 'ProviderName')
-							provider = data.Items[i].PropertyValue;
-					}
-				}
-				//check whether content is already shared
-				if (sharedContentIdProperty.PropertyValue !== EMPTY_GUID)
-					content = '';
+			return propertyService.get()
+				.then(function (data) {
+				    properties = propertyService.toAssociativeArray(data.Items);
+				    var content = properties.Content.PropertyValue;
+				    var provider = properties.ProviderName.PropertyValue;
 
-				publish(title, content, provider).then(onPublishContentSuccess, function (data) {
-					deferred.reject(data);
-				});
-			};
-
-			propertyService.get().then(onGetPropertiesSuccess, function (data) {
-				deferred.reject(data);
-			});
-
-			return deferred.promise;
+				    return publish(title, content, provider);
+				})
+		        .then(saveProperties);
 		};
 
 		//updates content of the content block item
@@ -191,18 +165,18 @@
 
 		//deletes the temp item for a content with the provided id
 		var deleteTemp = function (id) {
-		    var deleteUrl = serviceUrl + 'temp/' + id + '/';
+			var deleteUrl = serviceUrl + 'temp/' + id + '/';
 
-		    var deferred = $q.defer();
-		    $http.delete(deleteUrl, requestOptions())
+			var deferred = $q.defer();
+			$http.delete(deleteUrl, requestOptions())
 				.success(function (data) {
-				    deferred.resolve(data);
+					deferred.resolve(data);
 				})
 				.error(function (data) {
-				    deferred.reject(data);
+					deferred.reject(data);
 				});
 
-		    return deferred.promise;
+			return deferred.promise;
 		};
 
 		//the public interface of the service
