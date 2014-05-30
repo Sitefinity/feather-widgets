@@ -84,9 +84,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Styles\Navigation.css" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Navigation.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
