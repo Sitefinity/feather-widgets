@@ -109,3 +109,5 @@ UpgradeLog*.XML
 
 .nuget/NuGet.exe
 *.jmconfig
+
+node_modules
