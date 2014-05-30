@@ -49,13 +49,13 @@ namespace UnitTests.Navigation
         {
             //Arrange
             DummyNavigationController controller = new DummyNavigationController();
-            controller.TemplateName = "NavigationView.Vertical";
+            controller.TemplateName = "Vertical";
 
             //Act
             var view = controller.Index() as ViewResult;
 
             //Assert
-            Assert.AreEqual(controller.TemplateName, view.ViewName, "The view name is not correct.");
+            Assert.AreEqual("NavigationView.Vertical", view.ViewName, "The view name is not correct.");
         }
 
         [TestMethod]

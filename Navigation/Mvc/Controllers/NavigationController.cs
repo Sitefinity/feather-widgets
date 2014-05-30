@@ -111,7 +111,8 @@ namespace Navigation.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View(this.TemplateName, this.Model);
+            var fullTemplateName = templateNamePrefix + this.TemplateName;
+            return View(fullTemplateName, this.Model);
         }
 
         /// <summary>
@@ -152,7 +153,8 @@ namespace Navigation.Mvc.Controllers
 
         private INavigationModel model;
         private int? levelsToInclude = 1;
-        private string templateName = "NavigationView.Horizontal";
+        private string templateName = "Horizontal";
+        private string templateNamePrefix = "NavigationView.";
 
         #endregion
     }
