@@ -9,7 +9,7 @@ using Telerik.Sitefinity.Abstractions;
 namespace ContentBlock
 {
     /// <summary>
-    /// This class presents initialzier for the ContentBlock.
+    /// This class presents initializer for the ContentBlock.
     /// </summary>
     public static class Initializer
     {
@@ -18,7 +18,7 @@ namespace ContentBlock
         /// </summary>
         public static void Initialize()
         {
-             Bootstrapper.MVC.MapRoute("MvcContentBlock", "ContentBlock/{controller}/{action}",
+            RouteTable.Routes.MapRoute("MvcContentBlock", "ContentBlock/{controller}/{action}",
                     new { controller = "ContentBlock", action = "Index" });
         }
     }
