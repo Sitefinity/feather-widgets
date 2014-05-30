@@ -8,8 +8,22 @@
     //angular controller responsible for the Share dialog module logic
     var shareDialogModule = angular.module('shareDialog', ['modalDialog', 'sharedContentServices', 'pageEditorServices']);
 
-    shareDialogModule.controller('shareDialogCtrl', ['$scope', '$modalInstance', '$http', 'sharedContentService',
-        function ($scope, $modalInstance, $http, sharedContentService) {
+    shareDialogModule.controller('shareDialogCtrl', ['$scope', '$modalInstance', 'sharedContentService',
+        function ($scope, $modalInstance, sharedContentService) {
+            var dialogClose = function () {
+                $modalInstance.close();
+
+                if (typeof ($telerik) != 'undefined') {
+                    $telerik.$(document).trigger('modalDialogClosed');
+                }
+            };
+
+            var onError = function (data) {
+                $scope.ShowError = true;
+                if (data)
+                    $scope.ErrorMessage = data.Detail;
+            };
+
             $scope.Title = '';
             $scope.IsTitleValid = true;
             $scope.ShowLoadingIndicator = false;
@@ -17,105 +31,67 @@
             $scope.ErrorMessage = '';
 
             $scope.ShareContent = function () {
-
-                var onShareSuccess = function (data) {
-                    $scope.ShowLoadingIndicator = false;
-                    $scope.ShowError = false;
-                    $scope.ErrorMessage = '';
-
-                    $modalInstance.close();
-
-                    if (typeof ($telerik) != 'undefined') {
-                        $telerik.$(document).trigger('modalDialogClosed');
-                    }
-                };
-
-                var onShareError = function (data, status, headers, config) {
-                    $scope.ShowLoadingIndicator = false;
-                    $scope.ShowError = true;
-                    if(data)
-                        $scope.ErrorMessage = data.Detail;
-                }
-
                 //validate title and send request to share the content block
-                if ($.trim(this.Title) != '') {
-                    this.IsTitleValid = true;
+                if ($.trim($scope.Title) != '') {
+                    $scope.IsTitleValid = true;
                     $scope.ShowLoadingIndicator = true;
-                    sharedContentService.share(this.Title).then(onShareSuccess, onShareError);
+                    sharedContentService.share($scope.Title)
+                        .then(dialogClose, onError)
+                        .finally(function () {
+                            $scope.ShowLoadingIndicator = false;
+                        });
                 }
-                else
-                    this.IsTitleValid = false;
+                else {
+                    $scope.IsTitleValid = false;
+                }
 
             };
 
             $scope.Cancel = function () {
-                if ($modalInstance) {
-                    $modalInstance.dismiss('cancel');
-
-                    if (typeof ($telerik) != 'undefined') {
-                        $telerik.$(document).trigger('modalDialogClosed');
-                    }
-                }
+                dialogClose();
             }
         }
     ]);
 
-    shareDialogModule.controller('unshareDialogCtrl', ['$scope', '$modalInstance', '$http', '$q', 'sharedContentService', 'propertyService', 'widgetContext',
-        function ($scope, $modalInstance, $http, $q, sharedContentService, propertyService, widgetContext) {
+    shareDialogModule.controller('unshareDialogCtrl', ['$scope', '$modalInstance', 'sharedContentService', 'propertyService', 'widgetContext',
+        function ($scope, $modalInstance, sharedContentService, propertyService, widgetContext) {
+
+            var dialogClose = function () {
+                $modalInstance.close();
+
+                if (typeof ($telerik) != 'undefined') {
+                    $telerik.$(document).trigger('modalDialogClosed');
+                }
+            };
+
+            var onError = function (data) {
+                $scope.ShowError = true;
+                if (data)
+                    $scope.ErrorMessage = data.Detail;
+
+                $scope.ShowLoadingIndicator = false;
+            };
+
+            var getContentBlock = function (data) {
+                $scope.Properties = propertyService.toAssociativeArray(data.Items);
+
+                //get the updated content for the current shareContentId
+                var checkout = false;
+                return sharedContentService.get($scope.Properties.SharedContentID.PropertyValue, $scope.Properties.ProviderName.PropertyValue, checkout);
+            };
 
             //change SharedContentId and content of the content block widget       
-            var updateWidgetOnSharedContentIdChange = function (sharedContentId) {
+            var updateProperties = function (contentBlock) {
+                var EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
 
-                var sharedContentIdProperty,
-                    contentProperty,
-                    providerProperty,
-                    deferred = $q.defer();
+                $scope.Properties.SharedContentID.PropertyValue = EMPTY_GUID;
+                $scope.Properties.ProviderName.PropertyValue = '';
+                if (contentBlock && contentBlock.Item)
+                    $scope.Properties.Content.PropertyValue = contentBlock.Item.Content.Value;
 
-                var onGetContentBlockSuccess = function (data) {
-                    //change SharedContentID property value
-                    var modifiedProperties = [];
-
-                    sharedContentIdProperty.PropertyValue = sharedContentId;
-                    modifiedProperties.push(sharedContentIdProperty);
-                    providerProperty.PropertyValue = '';
-                    modifiedProperties.push(providerProperty);
-
-                    if (data && data.Item)
-                        contentProperty.PropertyValue = data.Item.Content.Value;
-
-                    modifiedProperties.push(contentProperty);
-
-                    var currentSaveMode = widgetContext.culture ? 1 : 0;
-                    propertyService.save(currentSaveMode, modifiedProperties).then(function (data) {
-                        deferred.resolve(data);
-                    }, function (data) {
-                        deferred.reject(data);
-                    });
-                };
-
-                var onGetPropertiesSuccess = function (data) {
-                    if (data) {
-                        for (var i = 0; i < data.Items.length; i++) {
-                            if (data.Items[i].PropertyName === 'SharedContentID')
-                                sharedContentIdProperty = data.Items[i];
-                            if (data.Items[i].PropertyName === 'Content')
-                                contentProperty = data.Items[i];
-                            if (data.Items[i].PropertyName === 'ProviderName')
-                                providerProperty = data.Items[i];
-                        }
-                    }
-                    //get the updated content for the current shareContentId
-                    sharedContentService.get(sharedContentIdProperty.PropertyValue, providerProperty.PropertyValue,
-                        false).then(onGetContentBlockSuccess, function (data) {
-                            deferred.reject(data);
-                        });
-                };
-
-                propertyService.get().then(onGetPropertiesSuccess, function (data) {
-                    deferred.reject(data);
-                });
-
-                return deferred.promise;
+                var modifiedProperties = [$scope.Properties.SharedContentID, $scope.Properties.ProviderName, $scope.Properties.Content];
+                var currentSaveMode = widgetContext.culture ? 1 : 0;
+                return propertyService.save(currentSaveMode, modifiedProperties);
             };
 
             $scope.ShowLoadingIndicator = false;
@@ -125,36 +101,24 @@
             $scope.UnshareContent = function () {
                 $scope.ShowLoadingIndicator = true;
 
-                var onUnshareSuccess = function (data) {
-                    $scope.ShowLoadingIndicator = false;
-                    $modalInstance.close();
-
-                    if (typeof ($telerik) != 'undefined') {
-                        $telerik.$(document).trigger('modalDialogClosed');
-                    }
-                };
-
-                var onUnshareError = function (data, status, headers, config) {
-                    $scope.ShowError = true;
-                    if (data)
-                        $scope.ErrorMessage = data.Detail;
-
-                    $scope.ShowLoadingIndicator = false;
-                };
-
-                updateWidgetOnSharedContentIdChange('00000000-0000-0000-0000-000000000000').then(onUnshareSuccess, onUnshareError);
-
+                propertyService.get()
+                    .then(getContentBlock)
+                    .then(updateProperties)
+                    .then(dialogClose)
+                    .catch(onError)
+                    .finally(function () {
+                        $scope.ShowLoadingIndicator = false;
+                    });
             };
 
             $scope.Cancel = function () {
-                if ($modalInstance) {
-                    $modalInstance.dismiss('cancel');
+                dialogClose();
+            };
 
-                    if (typeof ($telerik) != 'undefined') {
-                        $telerik.$(document).trigger('modalDialogClosed');
-                    }
-                }
-            }
+            $scope.HideError = function () {
+                $scope.Feedback.ShowError = false;
+                $scope.Feedback.ErrorMessage = null;
+            };
         }
     ]);
 

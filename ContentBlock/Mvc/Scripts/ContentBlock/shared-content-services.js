@@ -113,14 +113,14 @@
 		//updates content of the content block item
 		var update = function (itemData, content, providerName) {
 			var currentItem = itemData.Item;
-			var putUrl = serviceUrl + currentItem.Id + '/?draftPageId=' + widgetContext.PageId;
+			var putUrl = serviceUrl + currentItem.Id + '/?draftPageId=' + widgetContext.pageId;
 
 			if (providerName)
 				putUrl += '&provider=' + providerName;
 
 			currentItem.Content.Value = content;
 			currentItem.Content.PersistedValue = content;
-			itemData['Item'] = currentItem;
+			itemData.Item = currentItem;
 
 			var deferred = $q.defer();
 
@@ -136,8 +136,8 @@
 		};
 
 		//gets the content block depending on the provided shareContentId
-		var get = function (sharedContentId, providerName, ifCheckOut) {
-			var getUrl = serviceUrl + sharedContentId + '/?published=true&checkOut=' + ifCheckOut;
+		var get = function (sharedContentId, providerName, checkOut) {
+			var getUrl = serviceUrl + sharedContentId + '/?published=true&checkOut=' + checkOut;
 
 			if (providerName)
 				getUrl += '&provider=' + providerName;
@@ -155,7 +155,7 @@
 		};
 
 		//get all content items for particular provider
-		var getAll = function (providerName) {
+		var getAll = function (providerName, filter) {
 
 			var getUrl = serviceUrl
 				+ '?itemType=Telerik.Sitefinity.GenericContent.Model.Content'
@@ -166,7 +166,10 @@
 
 			var culture = widgetContext.culture;
 			if (culture)
-				getUrl += 'AND Culture == ' + culture;
+				getUrl += ' AND Culture == ' + culture;
+
+			if (filter)
+			    getUrl += ' AND (Title.ToUpper().Contains("' + filter + '".ToUpper()))';
 
 			if (providerName)
 				getUrl += '&allProviders=false&provider=' + providerName;

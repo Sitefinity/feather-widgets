@@ -3,18 +3,21 @@
 @model ContentBlock.Mvc.Models.ContentBlockModel
 
 <div class="dialog" modal dialog-controller="contentSelectorCtrl">
-    <script type="text/ng-template" id="dialog-template" >
+    <script type="text/ng-template" id="dialog-template">
         <div class="modal-header">
             <button type="button" class="close" ng-click="Cancel()" aria-hidden="true">&times;</button>
             <h1 class="modal-title">@Html.Resource("SelectSharedContent")</h1>
         </div>
         <div class="modal-body">
             <div ng-show="ShowError" class="alert alert-danger">
-                <a class="close" data-dismiss="alert">x</a>
+                <a class="close" data-dismiss="alert" ng-click="HideError()">x</a>
                 <strong>@Html.Resource("Error")</strong> <span ng-bind="ErrorMessage"></span>
             </div>
 
-            <provider-selector manager-type="Telerik.Sitefinity.Modules.GenericContent.ContentManager"></provider-selector>
+            <provider-selector manager-type="Telerik.Sitefinity.Modules.GenericContent.ContentManager" 
+                provider-label='@Html.Resource("Provider")'
+                ng-model="filter.providerName">
+            </provider-selector>
         
             <div ng-show="ShowLoadingIndicator" class="s-loading m-bottom-sm"></div>
 
@@ -24,16 +27,16 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-search"></i>
                     </span>
-                    <input type="text" name="search" ng-model="search" class="form-control" placeholder='@Html.Resource("NarrowByTyping")' />
+                    <input type="text" ng-model="filter.search" class="form-control" placeholder='@Html.Resource("NarrowByTyping")' />
                 </div>
                 <div class="list-group s-items-list-wrp">
-                    <a href="#" data-ng-repeat="item in filteredContentItems = (ContentItems | filter:search)" 
-                            ng-class="{'list-group-item':true, 'active': item.Id==SelectedCBId }" 
+                    <a href="#" ng-repeat="item in ContentItems"
+                            ng-class="{'list-group-item':true, 'active': item.Id==SelectedContentItem.Id }" 
                             ng-click="ContentItemClicked($index, item)"> 
                         <span ng-bind="item.Title"></span>
                     </a>
                 </div>
-                <div ng-hide="filteredContentItems.length">@Html.Resource("NoItemsFound")</div>
+                <div ng-hide="ContentItems.length">@Html.Resource("NoItemsFound")</div>
             </div>
         </div>
         <div class="modal-footer">

@@ -1,43 +1,56 @@
 ﻿(function ($) {
+    var EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
     var designerModule = angular.module('designer');
 
+    designerModule.factory('contentBlockService', ['dialogFeedbackService', 'sharedContentService', function (dialogFeedbackService, sharedContentService) {
+        var contentItem;
+        var properties;
+
+        var unlockContentItem = function () {
+            return sharedContentService.deleteTemp(properties.SharedContentID.PropertyValue);
+        };
+
+        var updateContentItem = function () {
+            return sharedContentService.update(contentItem, properties.Content.PropertyValue, properties.ProviderName.PropertyValue);
+        };
+
+        return function (data) {
+            properties = data;
+
+            var isShared = properties.SharedContentID.PropertyValue != EMPTY_GUID;
+
+            if (isShared && !contentItem) {
+                var checkOut = true;
+                return sharedContentService.get(properties.SharedContentID.PropertyValue, properties.ProviderName.PropertyValue, checkOut)
+                    .then(function (data) {
+                        contentItem = data;
+                        if (contentItem) {
+                            properties.Content.PropertyValue = contentItem.Item.Content.Value;
+                            dialogFeedbackService.SavingPromise = dialogFeedbackService.SavingPromise.then(updateContentItem);
+                            dialogFeedbackService.CancelingPromise = dialogFeedbackService.CancelingPromise.then(unlockContentItem);
+                        }
+                    });
+            }
+        };
+    }]);
+
     //basic controller for the simple designer view
-    designerModule.controller('SimpleCtrl', ['$scope', 'propertyService',
-        function ($scope, propertyService) {
+    designerModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sharedContentService', 'dialogFeedbackService', 'contentBlockService',
+        function ($scope, propertyService, sharedContentService, dialogFeedbackService, contentBlockService) {
+            var contentItem;
+
             // ------------------------------------------------------------------------
             // event handlers
             // ------------------------------------------------------------------------
 
             var onGetPropertiesSuccess = function (data) {
-                if (data.Items) {
-                    updateScopeVariables(data.Items, false);
-                }
-                $scope.ShowLoadingIndicator = false;
-            };
+                $scope.Properties = propertyService.toAssociativeArray(data.Items);
+                $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != EMPTY_GUID;
 
-            var onGetError = function (data, status, headers, config) {
-                $scope.ShowError = true;
-                if (data)
-                    $scope.ErrorMessage = data.Detail;
+                kendo.bind();
 
-                $scope.ShowLoadingIndicator = false;
-            };
-
-            // ------------------------------------------------------------------------
-            // helper methods
-            // ------------------------------------------------------------------------
-
-            var updateScopeVariables = function (currentItems, applyScopeChanges) {
-                $scope.Items = currentItems;
-                $scope.Properties = propertyService.toAssociativeArray(currentItems);
-                $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != '00000000-0000-0000-0000-000000000000';
-
-                //k-value does not set the kendo editor value when the value is deferred so we do this manually
-                //when we have the data.
-                if ($('#contentEditor')) {
-                    var kendoEditor = $('#contentEditor').data('kendoEditor');
-                    if (kendoEditor)
-                        kendoEditor.value($scope.Properties.Content.PropertyValue);
+                if ($scope.IsShared) {
+                    return contentBlockService($scope.Properties);
                 }
             };
 
@@ -45,21 +58,21 @@
             // scope variables and set up
             // ------------------------------------------------------------------------
 
+            $scope.Feedback = dialogFeedbackService;
+            $scope.Feedback.ShowLoadingIndicator = true;
+
             $scope.IsShared = false;
-            $scope.ShowLoadingIndicator = true;
 
-            $scope.contentChange = function (e) {
-                $scope.Properties.Content.PropertyValue = e.sender.value();
-
-                propertyService.set($scope.Items);
-            };
-
-            $telerik.$(document).one('controlPropertiesLoaded', function (e, params) {
-                if (params.Items)
-                    updateScopeVariables(params.Items, true);
-            });
-
-            propertyService.get().then(onGetPropertiesSuccess, onGetError);
+            propertyService.get()
+                .then(onGetPropertiesSuccess)
+                .catch(function (data) {
+                    $scope.Feedback.ShowError = true;
+                    if (data)
+                        $scope.Feedback.ErrorMessage = data.Detail;
+                })
+                .finally(function () {
+                    $scope.Feedback.ShowLoadingIndicator = false;
+                });
 
             //Fixes a bug for modal dialogs with iframe in them for IE.
             $scope.$on('$destroy', function () {

@@ -1,7 +1,7 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
-<input type="hidden" id="additionalDependencies" value='["kendo.directives"]' />
+<input type="hidden" id="additionalDependencies" value='["kendo.directives", "sharedContentServices"]' />
 <input type="hidden" id="defaultView" value='Simple' />
 <input type="hidden" id="contentItemServiceUrl" value='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")' />
 
@@ -11,7 +11,6 @@
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
 
 <script src='@Url.WidgetContent("Mvc/Scripts/Designer/modal-dialog.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/designer-extensions.js")'></script>
 <script src='@Url.WidgetContent("Mvc/Scripts/Designer/designer.js")'></script>
 <script src='@Url.WidgetContent("Mvc/Scripts/Designer/property-grid.js")'></script>
 <script src='@Url.WidgetContent("Mvc/Scripts/breadcrumb.js")'></script>
