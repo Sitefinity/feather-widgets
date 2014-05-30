@@ -44,7 +44,6 @@
             // ------------------------------------------------------------------------
 
             var onGetPropertiesSuccess = function (data) {
-                $scope.Items = data.Items;
                 $scope.Properties = propertyService.toAssociativeArray(data.Items);
                 $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != EMPTY_GUID;
 
