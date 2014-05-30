@@ -18,8 +18,11 @@ namespace ContentBlock
         /// </summary>
         public static void Initialize()
         {
-            RouteTable.Routes.MapRoute("MvcContentBlock", "ContentBlock/{controller}/{action}",
-                    new { controller = "ContentBlock", action = "Index" });
+            if (RouteTable.Routes["MvcContentBlock"] == null)
+            {
+                RouteTable.Routes.MapRoute("MvcContentBlock", "ContentBlock/{controller}/{action}",
+                        new { controller = "ContentBlock", action = "Index" });
+            }
         }
     }
 }
