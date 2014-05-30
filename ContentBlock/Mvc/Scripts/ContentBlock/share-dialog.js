@@ -24,7 +24,9 @@
                     $scope.ErrorMessage = data.Detail;
             };
 
-            $scope.Title = '';
+            $scope.model = {
+                Title: ''
+            };
             $scope.IsTitleValid = true;
             $scope.ShowLoadingIndicator = false;
             $scope.ShowError = false;
@@ -32,7 +34,7 @@
 
             $scope.ShareContent = function () {
                 //validate title and send request to share the content block
-                if ($.trim($scope.Title) != '') {
+                if ($.trim($scope.model.Title)) {
                     $scope.IsTitleValid = true;
                     $scope.ShowLoadingIndicator = true;
                     sharedContentService.share($scope.Title)
@@ -49,7 +51,7 @@
 
             $scope.Cancel = function () {
                 dialogClose();
-            }
+            };
         }
     ]);
 

@@ -15,7 +15,7 @@
             <div ng-show="ShowLoadingIndicator" class="s-loading m-bottom-sm"></div>
             <div ng-class="{'form-group':true, 'has-error': !IsTitleValid}">
                 <label for="sharedContentTitle" class="control-label">@Html.Resource("Title")</label>
-                <input id="sharedContentTitle" type="text" class="form-control" ng-model="Title" />
+                <input id="sharedContentTitle" type="text" class="form-control" ng-model="model.Title" />
                 <p ng-hide="IsTitleValid" class="text-danger">@Html.Resource("TitleRequired")</p>
             </div>
          </div>

@@ -20,7 +20,7 @@
 
                     providerService.setDefaultProviderName($scope.filter.providerName);
                 }
-            }
+            };
 
             //invoked when the content blocks for a provider are loaded
             var onLoadedSuccess = function (data) {
