@@ -162,7 +162,7 @@ namespace Navigation.Mvc.StringResources
         /// The description of the Responsive design section.
         /// </summary>
         [ResourceEntry("ResponsiveDesignDescription",
-            Value = "You can define how navigation is transformed for different screens and devices in the template package. <a>Learn more</a>",
+            Value = "You can define how navigation is transformed for different screens and devices in the template package. Check your package documentation for more information.",
             Description = "The description of the Responsive design section",
             LastModified = "2014/05/27")]
         public string ResponsiveDesignDescription
