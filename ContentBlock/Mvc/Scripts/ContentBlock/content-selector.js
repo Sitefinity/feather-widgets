@@ -9,78 +9,57 @@
 
     contentSelectorModule.controller('contentSelectorCtrl', ['$scope', '$modalInstance', 'sharedContentService', 'propertyService', 'widgetContext', 'providerService',
         function ($scope, $modalInstance, sharedContentService, propertyService, widgetContext, providerService) {
-
-            var sharedContentIdProperty,
-                contentProperty,
-                providerProperty;
-
             // ------------------------------------------------------------------------
             // Event handlers
             // ------------------------------------------------------------------------
 
-            //invoked when the control properties are extracted
             var onGetPropertiesSuccess = function (data) {
                 if (data) {
-                    for (var i = 0; i < data.Items.length; i++) {
-                        if (data.Items[i].PropertyName === 'SharedContentID')
-                            sharedContentIdProperty = data.Items[i];
-                        if (data.Items[i].PropertyName === 'Content')
-                            contentProperty = data.Items[i];
-                        if (data.Items[i].PropertyName === 'ProviderName')
-                            providerProperty = data.Items[i];
-                    }
+                    $scope.Properties = propertyService.toAssociativeArray(data.Items);
+                    $scope.filter.providerName = $scope.Properties.ProviderName.PropertyValue;
 
-                    providerService.setDefaultProviderName(providerProperty.PropertyValue);
+                    providerService.setDefaultProviderName($scope.filter.providerName);
                 }
-            }
+            };
 
-            //invoked when the content blocks for a provider are extracted
-            var onGetSuccess = function (data) {
-                if (data && data.Items && data.Items.length != 0) {
-                    $scope.IsListEmpty = false;
+            //invoked when the content blocks for a provider are loaded
+            var onLoadedSuccess = function (data) {
+                if (data && data.Items) {
                     $scope.ContentItems = data.Items;
-                    //select current cotnentBlock if exist
-                    if (sharedContentIdProperty)
-                        for (var i = 0; i < data.Items.length; i++) {
-                            if (data.Items[i].Id == sharedContentIdProperty.PropertyValue) {
-                                $scope.SelectedContentItem = data.Items[i];
-                                $scope.SelectedCBId = data.Items[i].Id;
-                            }
+
+                    //select current cotnentBlock if it exists
+                    for (var i = 0; i < data.Items.length; i++) {
+                        if (data.Items[i].Id == $scope.Properties.SharedContentID.PropertyValue) {
+                            $scope.SelectedContentItem = data.Items[i];
                         }
+                    }
                 }
-                else {
-                    $scope.IsListEmpty = true;
-                }
-                $scope.ShowLoadingIndicator = false;
+
+                $scope.IsListEmpty = $scope.ContentItems.length === 0 && !$scope.filter.search;
             };
 
             var onError = function () {
-                $scope.ShowLoadingIndicator = false;
                 var errorMessage = '';
                 if (data)
                     errorMessage = data.Detail;
 
-                showError(errorMessage);
-            };
-
-            //invoked after the widget properties are persisted
-            var onSavePropertiesSuccess = function () {
-                $scope.ShowLoadingIndicator = false;
-                dialogClose();
-            };
-
-            //invoked after the user selects content block item and press save
-            var onGetContentBlockSuccess = function (data) {
-                $scope.ShowLoadingIndicator = true;
-                var contentItem = data.Item
-                var providerName = $scope.SelectedContentItem.ProviderName;
-                if (contentItem)
-                    savePropertiesOnSharedContentIdChange(contentItem.Id, contentItem.Content.Value, providerName);
+                $scope.ShowError = true;
+                $scope.ErrorMessage = errorMessage;
             };
 
             // ------------------------------------------------------------------------
             // helper methods
             // ------------------------------------------------------------------------
+
+            var saveProperties = function (data) {
+                $scope.Properties.SharedContentID.PropertyValue = data.Item.Id;
+                $scope.Properties.ProviderName.PropertyValue = $scope.SelectedContentItem.ProviderName;
+                $scope.Properties.Content.PropertyValue = data.Item.Content.Value;
+
+                var modifiedProperties = [$scope.Properties.SharedContentID, $scope.Properties.ProviderName, $scope.Properties.Content];
+                var currentSaveMode = widgetContext.culture ? 1 : 0;
+                return propertyService.save(currentSaveMode, modifiedProperties);
+            };
 
             var dialogClose = function () {
                 if ($modalInstance) {
@@ -92,76 +71,75 @@
                 }
             };
 
-            var showError = function (message) {
-                $scope.ShowError = true;
-                $scope.ErrorMessage = message;
+            var loadContentItems = function () {
+                return sharedContentService.getAll($scope.filter.providerName, $scope.filter.search)
+                    .then(onLoadedSuccess, onError);
             };
 
-            var savePropertiesOnSharedContentIdChange = function (sharedContentId, content, providerName) {
-
-                //change SharedContentID property value
-                var modifiedProperties = [];
-                sharedContentIdProperty.PropertyValue = sharedContentId;
-                modifiedProperties.push(sharedContentIdProperty);
-                providerProperty.PropertyValue = providerName;
-                modifiedProperties.push(providerProperty);
-                if (content) {
-                    contentProperty.PropertyValue = content;
-                    modifiedProperties.push(contentProperty);
+            var reloadContentItems = function (newValue, oldValue) {
+                if (newValue != oldValue) {
+                    $scope.ShowLoadingIndicator = true;
+                    loadContentItems().finally(hideLoadingIndicator);
                 }
+            };
 
-                var currentSaveMode = widgetContext.culture ? 1 : 0;
-                propertyService.save(currentSaveMode, modifiedProperties).then(onSavePropertiesSuccess, onError);
+            var hideLoadingIndicator = function () {
+                $scope.ShowLoadingIndicator = false;
             };
 
             // ------------------------------------------------------------------------
             // Scope variables and setup
             // ------------------------------------------------------------------------
 
-            $scope.ShowLoadingIndicator = true;
             $scope.ShowError = false;
             $scope.IsListEmpty = true;
+            $scope.ContentItems = [];
+            $scope.filter = {
+                providerName: null,
+                search: null
+            };
 
             $scope.ContentItemClicked = function (index, item) {
                 $scope.SelectedContentItem = item;
-                $scope.SelectedCBId = item.Id;
             };
 
             $scope.SelectSharedContent = function () {
                 if ($scope.SelectedContentItem) {
                     var selectedContentItemId = $scope.SelectedContentItem.Id;
                     var providerName = $scope.SelectedContentItem.ProviderName;
-                    sharedContentService.get(selectedContentItemId, providerName, false).then(onGetContentBlockSuccess, onError);
+                    var checkout = false;
+
+                    $scope.ShowLoadingIndicator = true;
+                    sharedContentService.get(selectedContentItemId, providerName, checkout)
+                        .then(saveProperties)
+                        .then(dialogClose)
+                        .catch(onError)
+                        .finally(hideLoadingIndicator);
                 }
                 else {
                     dialogClose();
                 }
             };
+
             $scope.Cancel = function () {
                 dialogClose();
             };
 
-            $scope.$on('providerSelectionChanged', function (event, args) {
-                $scope.ShowLoadingIndicator = true;
-                var providerName;
-                if (args)
-                    providerName = args.providerName;
+            $scope.HideError = function () {
+                $scope.Feedback.ShowError = false;
+                $scope.Feedback.ErrorMessage = null;
+            };
 
-                sharedContentService.getAll(providerName).then(onGetSuccess, onError);
-            });
-
-            $scope.$on('errorOccurred', function (event, args) {
-                $scope.ShowLoadingIndicator = false;
-                var errorMessage;
-                if (args)
-                    errorMessage = args.message;
-
-                showError(errorMessage);
-            });
-
-            //get widget properties to define the selected item
-            propertyService.get().then(onGetPropertiesSuccess, onError);
-
+            $scope.ShowLoadingIndicator = true;
+            propertyService.get()
+                .then(onGetPropertiesSuccess)
+                .then(loadContentItems)
+                .then(function () {
+                    $scope.$watch('filter.search', reloadContentItems);
+                    $scope.$watch('filter.providerName', reloadContentItems);
+                })
+                .catch(onError)
+                .finally(hideLoadingIndicator);
         }
     ]);
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Telerik.Sitefinity.Localization;
+﻿using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Data;
 
 namespace ContentBlock.Mvc.StringResources
@@ -13,10 +9,7 @@ namespace ContentBlock.Mvc.StringResources
     [ObjectInfo(typeof(ContentBlockResources), Title = "ContentBlockResourcesTitle", Description = "ContentBlockResourcesDescription")]
     public class ContentBlockResources : Resource
     {
-        #region Constructions
-        static ContentBlockResources()
-        {
-        }
+        #region Constructors
 
         /// <summary>
         /// Initializes new instance of <see cref="ContentBlockResources"/> class with the default <see cref="ResourceDataProvider"/>.
@@ -33,6 +26,7 @@ namespace ContentBlock.Mvc.StringResources
             : base(dataProvider)
         {
         }
+
         #endregion
 
 
@@ -384,6 +378,21 @@ namespace ContentBlock.Mvc.StringResources
             get
             {
                 return this["UnshareContentBlock"];
+            }
+        }
+
+        /// <summary>
+        /// Provider
+        /// </summary>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "Provider",
+            LastModified = "2014/05/29")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
             }
         }
     }
