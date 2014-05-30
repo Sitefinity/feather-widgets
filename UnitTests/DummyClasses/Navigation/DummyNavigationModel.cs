@@ -52,9 +52,9 @@ namespace UnitTests.DummyClasses.Navigation
         /// <param name="node">The node.</param>
         /// <param name="addParent">if set to <c>true</c> adds the parent node.</param>
         /// <param name="levelsToInclude">The levels to include.</param>
-        public void PublicAddChildNodes(SiteMapNode node, bool addParent, int? levelsToInclude)
+        public void PublicAddChildNodes(SiteMapNode node, bool addParent)
         {
-            this.AddChildNodes(node, addParent, levelsToInclude);
+            this.AddChildNodes(node, addParent);
         }
 
         #endregion 

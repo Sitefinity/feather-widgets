@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Navigation.Mvc.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UnitTests.DummyClasses.Navigation;
@@ -16,15 +17,12 @@ namespace UnitTests.Navigation
         [TestInitialize]
         public void TestInitialize()
         {
-            model = new DummyNavigationModel(PageSelectionMode.CurrentPageChildren, 2, true, "MyClass");
             siteMapNode = this.CreateParentSiteMapNode(2);
-            model.CurrentNode = siteMapNode;
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            model = null;
             siteMapNode = null;
         }
 
@@ -34,13 +32,16 @@ namespace UnitTests.Navigation
         [Owner("EGaneva")]
         [Description("Checks whether the PublicAddChildNodes restricts the node collection depending of the levelsToInclude.")]
         public void PublicAddChildNodes_LevelsToInclude_RestrictsNodeCollectionToTheLevel()
-        { 
+        {
+            var model = new DummyNavigationModel(PageSelectionMode.CurrentPageChildren, 2, true, "MyClass");
+            model.CurrentNode = siteMapNode;
+
             //Act
-            model.PublicAddChildNodes(siteMapNode, true, 2);
+            model.PublicAddChildNodes(siteMapNode, true);
 
             //Assert
             var resultParentNode = model.Nodes.First();
-            this.AssertParentNode(resultParentNode);
+            this.AssertParentNode(resultParentNode, model.Nodes);
 
             for (int i = 0; i < DummySiteMapProvider.childNodesCount; i++)
             {
@@ -56,12 +57,15 @@ namespace UnitTests.Navigation
         [Description("Checks whether the PublicAddChildNodes returns whole node collection when levelsToInclude is set to negative integer.")]
         public void PublicAddChildNodes_AllLevelsToInclude_ReturnsWholeNodeCollection()
         {
+            var model = new DummyNavigationModel(PageSelectionMode.CurrentPageChildren, -1, true, "MyClass");
+            model.CurrentNode = siteMapNode;
+
             //Act
-            model.PublicAddChildNodes(siteMapNode, true, -1);
+            model.PublicAddChildNodes(siteMapNode, true);
 
             //Assert
             var resultParentNode = model.Nodes.First();
-            this.AssertParentNode(resultParentNode);
+            this.AssertParentNode(resultParentNode, model.Nodes);
 
             for (int i = 0; i < DummySiteMapProvider.childNodesCount; i++)
             {
@@ -85,8 +89,11 @@ namespace UnitTests.Navigation
         [Description("Checks whether the PublicAddChildNodes doesn't include parent node when addParent is set to false.")]
         public void PublicAddChildNodes_WithoutParentNode_RestrictsNodeCollectionWhitoutParentNode()
         {
+            var model = new DummyNavigationModel(PageSelectionMode.CurrentPageChildren, 2, true, "MyClass");
+            model.CurrentNode = siteMapNode;
+
             //Act
-            model.PublicAddChildNodes(siteMapNode, false, 2);
+            model.PublicAddChildNodes(siteMapNode, false);
 
             //Assert
             Assert.IsNotNull(model.Nodes, "The node collection is not initialized.");
@@ -128,10 +135,10 @@ namespace UnitTests.Navigation
         /// Asserts the parent node.
         /// </summary>
         /// <param name="resultParentNode">The result parent node.</param>
-        private void AssertParentNode(NodeViewModel resultParentNode)
+        private void AssertParentNode(NodeViewModel resultParentNode, IEnumerable<NodeViewModel> nodes)
         {
-            Assert.IsNotNull(model.Nodes, "The node collection is not initialized.");
-            Assert.AreEqual(1, model.Nodes.Count(), "The node collection should contain 1 node at the parent level.");
+            Assert.IsNotNull(nodes, "The node collection is not initialized.");
+            Assert.AreEqual(1, nodes.Count(), "The node collection should contain 1 node at the parent level.");
             Assert.AreEqual(siteMapNode, resultParentNode.OriginalSiteMapNode, "The OriginalSiteMapNode property of the first node is not populated correctly.");
             Assert.AreEqual(DummySiteMapProvider.childNodesCount, resultParentNode.ChildNodes.Count(), "The count of the child nodes of the parent node is not correct.");
         }
@@ -156,7 +163,6 @@ namespace UnitTests.Navigation
 
         #region Private fields and constants
 
-        DummyNavigationModel model;
         SiteMapNode siteMapNode;
 
         #endregion 

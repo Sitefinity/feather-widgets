@@ -159,12 +159,12 @@ namespace Navigation.Mvc.Models
             switch (this.SelectionMode)
             {
                 case PageSelectionMode.TopLevelPages:
-                    this.AddChildNodes(siteMapProvider.RootNode, false, this.LevelsToInclude);
+                    this.AddChildNodes(siteMapProvider.RootNode, false);
                     break;
                 case PageSelectionMode.CurrentPageChildren:
 
                     if (this.CurrentSiteMapNode != null)
-                        this.AddChildNodes(this.CurrentSiteMapNode, this.ShowParentPage, this.LevelsToInclude);
+                        this.AddChildNodes(this.CurrentSiteMapNode, this.ShowParentPage);
 
                     break;
                 case PageSelectionMode.CurrentPageSiblings:
@@ -173,7 +173,7 @@ namespace Navigation.Mvc.Models
                         var parentNodeTemp = this.CurrentSiteMapNode.ParentNode;
 
                         if (parentNodeTemp != null)
-                            this.AddChildNodes(parentNodeTemp, this.ShowParentPage, this.LevelsToInclude);
+                            this.AddChildNodes(parentNodeTemp, this.ShowParentPage);
                     }
 
                     break;
@@ -186,14 +186,14 @@ namespace Navigation.Mvc.Models
         /// <param name="startNode">The start node.</param>
         /// <param name="addParentNode">if set to <c>true</c> adds parent node.</param>
         /// <param name="levelsToInclude">The levels to include.</param>
-        protected void AddChildNodes(SiteMapNode startNode, bool addParentNode, int? levelsToInclude)
+        protected void AddChildNodes(SiteMapNode startNode, bool addParentNode)
         {
-            if (levelsToInclude != 0)
+            if (this.LevelsToInclude != 0)
             {
                 if (addParentNode && this.CheckSiteMapNode(startNode)
                     && startNode.Key != this.GetRootNodeId().ToString().ToUpperInvariant())
                 {
-                    var nodeViewModel = this.CreateNodeViewModelRecursive(startNode, levelsToInclude);
+                    var nodeViewModel = this.CreateNodeViewModelRecursive(startNode, this.LevelsToInclude);
 
                     if(nodeViewModel!=null)
                         this.Nodes.Add(nodeViewModel);
@@ -204,7 +204,7 @@ namespace Navigation.Mvc.Models
 
                     foreach (SiteMapNode childNode in directChildren)
                     {
-                        var nodeViewModel = this.CreateNodeViewModelRecursive(childNode, levelsToInclude);
+                        var nodeViewModel = this.CreateNodeViewModelRecursive(childNode, this.LevelsToInclude);
 
                         if (nodeViewModel != null)
                             this.Nodes.Add(nodeViewModel);
@@ -221,7 +221,7 @@ namespace Navigation.Mvc.Models
         /// <returns></returns>
         private NodeViewModel CreateNodeViewModelRecursive(SiteMapNode node, int? levelsToInclude)
         {
-            if (levelsToInclude != 0 && RouteHelper.CheckSiteMapNode(node))
+            if (levelsToInclude != 0 && this.CheckSiteMapNode(node))
             {
                 var isSelectedPage = this.CurrentSiteMapNode != null && this.CurrentSiteMapNode.Key == node.Key;
                 var url = this.ResolveUrl(node);
@@ -240,8 +240,10 @@ namespace Navigation.Mvc.Models
 
                 return nodeViewModel;
             }
-
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

@@ -15,10 +15,6 @@ namespace Navigation.Mvc.StringResources
     {
         #region Constructions
 
-        static NavigationResources()
-        {
-        }
-
         /// <summary>
         /// Initializes new instance of <see cref="NavigationResources"/> class with the default <see cref="ResourceDataProvider"/>.
         /// </summary>
@@ -35,7 +31,6 @@ namespace Navigation.Mvc.StringResources
         {
         }
         #endregion
-
 
         /// <summary>
         /// Title for the Navigation widget resources class.
