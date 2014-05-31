@@ -1,11 +1,11 @@
-﻿(function ($) {
-    $('.nav-toggle').bind('click', function () {
-        $(this).siblings('.nav').toggle();
-        $(this).toggleClass('active');
-    });
-
-    $('.nav-select').change(function () {
-        var val = $(this).find('option:selected').val();
+﻿jQuery(document).ready(function () {
+    jQuery('.nav-select').change(function () {
+        var val = jQuery(this).find('option:selected').val();
         window.location.replace(val);
     });
-})(jQuery);
+});
+
+jQuery('.nav-toggle').bind('click', function () {
+    jQuery(this).siblings('.nav').toggle();
+    jQuery(this).toggleClass('active');
+});
