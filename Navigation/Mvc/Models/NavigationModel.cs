@@ -282,7 +282,12 @@ namespace Navigation.Mvc.Models
         /// <returns></returns>
         protected virtual string GetLinkTarget(SiteMapNode node)
         {
-            return NavigationUtilities.GetLinkTarget(node);
+            var target = NavigationUtilities.GetLinkTarget(node);
+
+            if (target.IsNullOrEmpty())
+                target = "_self";
+
+            return target;
         }
 
         /// <summary>
