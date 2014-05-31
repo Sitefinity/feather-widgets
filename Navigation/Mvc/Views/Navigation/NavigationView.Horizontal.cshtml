@@ -5,10 +5,11 @@
 @*Add scripts and stylesheets*@
 @if (!SitefinityContext.IsBackend)
 {
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.3.min.js" ></script>
+    @Html.Script("https://code.jquery.com/jquery-1.8.3.min.js")
 }
-<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" ></script>
-<script type="text/javascript" src='@Url.WidgetContent("Mvc/Scripts/Navigation.js")'></script>
+
+@Html.Script("http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js")
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"))
 
 <div class="@Model.CssClass">
     
