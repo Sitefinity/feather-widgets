@@ -7,7 +7,7 @@ This repository contains custom MVC widgets which are part of the Feather projec
 
 [feather](https://github.com/Sitefinity/feather) - This repository contains the core infrastructure related to the Feather project.
 
-[feather-packages](https://github.com/Sitefinity/feather-packages) - This repository contains front-end package for Feather project. The package is based on [Bootstrap](http://getbootstrap.com/) front-end framework.
+[feather-packages](https://github.com/Sitefinity/feather-packages) - This repository contains front-end packages for the Feather project.
 
 # Documentation
 
