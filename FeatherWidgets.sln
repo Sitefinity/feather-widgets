@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation", "Navigation\Navigation.csproj", "{FC694955-3DF4-4A35-AD3E-A6954D6243B1}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestIntegration", "FeatherWidgets.TestIntegration\FeatherWidgets.TestIntegration.csproj", "{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UITests", "UITests", "{EB73BDA8-73B7-4EC8-8707-853B53C40992}"
@@ -49,6 +50,10 @@ Global
 		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC694955-3DF4-4A35-AD3E-A6954D6243B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU

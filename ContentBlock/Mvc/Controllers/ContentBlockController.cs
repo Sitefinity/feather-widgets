@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Mvc;
@@ -119,7 +120,7 @@ namespace ContentBlock.Mvc.Controllers
         public ActionResult Share()
         {
             ViewBag.BlankDataItem = JsonConvert.SerializeObject(this.Model.CreateBlankDataItem());
-            return View("Share");
+            return View();
         }
 
         /// <summary>
@@ -128,7 +129,7 @@ namespace ContentBlock.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Unshare()
         {
-            return View("Unshare");
+            return View();
         }
 
         /// <summary>
@@ -250,9 +251,10 @@ namespace ContentBlock.Mvc.Controllers
         /// </summary>
         protected virtual IList<WidgetMenuItem> InitializeCommands()
         {
-            var shareActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Share"), UrlResolveOptions.Rooted);
-            var unshareActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Unshare"), UrlResolveOptions.Rooted);
-            var useSharedActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "UseSharedContentItem"), UrlResolveOptions.Rooted);
+            var packageManager = new PackageManager();
+            var shareActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Share"), UrlResolveOptions.Rooted));
+            var unshareActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Unshare"), UrlResolveOptions.Rooted));
+            var useSharedActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "UseSharedContentItem"), UrlResolveOptions.Rooted));
 
             var commandsList = new List<WidgetMenuItem>();
             commandsList.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Delete", Res.CurrentBackendCulture), CommandName = "beforedelete", CssClass = "sfDeleteItm" });
@@ -273,17 +275,8 @@ namespace ContentBlock.Mvc.Controllers
         /// <summary>
         /// Initializes the model.
         /// </summary>
-        /// <returns></returns>
         private IContentBlockModel InitializeModel()
         {
-            var assemblies = new List<Assembly>();
-            var contentBlockControllerAssembly = typeof(ContentBlockController).Assembly;
-            var currentAssembly = this.GetType().Assembly;
-
-            assemblies.Add(currentAssembly);
-            if (!contentBlockControllerAssembly.Equals(currentAssembly))
-                assemblies.Add(contentBlockControllerAssembly);
-
             var constructorParameters = new Dictionary<string, object> 
                         {
                            {"providerName", this.ProviderName},
@@ -292,8 +285,7 @@ namespace ContentBlock.Mvc.Controllers
                            {"sharedContentId", this.SharedContentID}
                         };
 
-
-            return ControllerModelFactory.GetModel<IContentBlockModel>(assemblies, constructorParameters) as IContentBlockModel;
+            return ControllerModelFactory.GetModel<IContentBlockModel>(this.GetType(), constructorParameters);
         }
 
         #endregion

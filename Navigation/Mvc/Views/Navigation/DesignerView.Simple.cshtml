@@ -1,0 +1,54 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<h2 class="h4">@Html.Resource("Display")</h2> 
+<ul class="form-group">
+    <li class="radio">
+        <input id="rbTopLevelPages" type="radio" ng-model="Properties.SelectionMode.PropertyValue" value="TopLevelPages" />
+        <label for="rbTopLevelPages">@Html.Resource("TopLevelPages")</label>
+    </li>
+    <li class="radio">
+        <input id="rbCurrentPageChildren" type="radio" ng-model="Properties.SelectionMode.PropertyValue" value="CurrentPageChildren" />
+        <label for="rbCurrentPageChildren">@Html.Resource("CurrentPageChildren") </label>
+    </li>
+    <li class="radio">
+        <input id="rbCurrentPageSiblings" type="radio" ng-model="Properties.SelectionMode.PropertyValue" value="CurrentPageSiblings" />
+        <label for="rbCurrentPageSiblings">@Html.Resource("CurrentPageSiblings")</label>
+    </li>
+
+</ul>
+
+<div class="form-group">
+    <label for="navLevelsToInclude">@Html.Resource("LevelsToInclude")</label> 
+
+    <select id="navLevelsToInclude" ng-model="Properties.LevelsToInclude.PropertyValue" class="form-control">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="-1">All</option>
+    </select>
+</div>
+
+<div  class="form-group">
+    <label for="navTemplateName">@Html.Resource("Template")</label> 
+
+     <select id="navTemplateName" ng-model="Properties.TemplateName.PropertyValue" class="form-control">
+         @foreach (var viewName in Html.GetViewNames("Navigation", @"NavigationView\.(?<viewName>\w*)$"))
+         { 
+             <option value="@viewName"> @viewName</option>
+         }
+      </select>
+</div>
+
+<div class="form-group small">
+    <b>@Html.Resource("ResponsiveDesignSectionTitle")</b>
+    <p>@Html.Raw(@Html.Resource("ResponsiveDesignDescription"))</p>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <label for="navCssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="navCssClass" ng-model="Properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>

@@ -1,0 +1,16 @@
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<input type="hidden" id="additionalDependencies" value='["expander"]' />
+<input type="hidden" id="defaultView" value='Simple' />
+
+@* Latest compiled and minified CSS *@
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
+@*  Optional theme *@
+<link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Designer/modal-dialog.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Designer/designer.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Designer/property-grid.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/breadcrumb.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/expander.js"))

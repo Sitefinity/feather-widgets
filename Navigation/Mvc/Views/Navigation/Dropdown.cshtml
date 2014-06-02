@@ -1,0 +1,50 @@
+@model Navigation.Mvc.Models.INavigationModel
+@using Navigation.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+@*Add scripts and stylesheets*@
+@if (!SitefinityContext.IsBackend)
+{
+    @Html.Script("https://code.jquery.com/jquery-1.8.3.min.js")
+}
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"))
+
+<select class="nav-select">
+    @foreach (var node in Model.Nodes)
+    {
+        @RenderSubLevelsRecursive(node, "");
+    }
+</select>
+
+@*Here is specified the rendering for the sub levels*@
+@helper RenderSubLevelsRecursive(NodeViewModel node, string prefix)
+{
+    var selectedAttribute = "";
+    prefix += "-";
+
+    if (Model.CurrentSiteMapNode != null && Model.CurrentSiteMapNode.Key == node.OriginalSiteMapNode.Key)
+    {
+        selectedAttribute = "selected";
+    }
+  
+    <option class="@GetClass(node)" value="@node.Url" @selectedAttribute>@(prefix + " " + node.Title)</option>
+
+    foreach (var childNode in node.ChildNodes)
+    {
+        @RenderSubLevelsRecursive(childNode, prefix);
+    }
+}
+
+@*Resolves the class that will be added for each node depending whether it is selected*@
+@helper GetClass(NodeViewModel node)
+{
+    if (node.IsCurrentlyOpened)
+    {
+        @Html.Raw("active");
+    }
+    else if (node.HasChildOpen)
+    {
+        @Html.Raw("active");
+    }
+}

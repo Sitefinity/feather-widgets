@@ -1,0 +1,57 @@
+@model Navigation.Mvc.Models.INavigationModel
+@using Navigation.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+@*Add scripts and stylesheets*@
+@if (!SitefinityContext.IsBackend)
+{
+    @Html.Script("https://code.jquery.com/jquery-1.8.3.min.js")
+}
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"))
+
+<div class="@Model.CssClass">
+
+    <button type="button" class="nav-toggle glyphicon glyphicon-align-justify"></button>
+    @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
+
+    <ul class="nav nav-sitemap">
+        @foreach (var node in Model.Nodes)
+        {
+            @RenderRootLevelNode(node);
+        }
+    </ul>
+</div>
+@*Here is specified the rendering for the root level*@
+@helper RenderRootLevelNode(NodeViewModel node)
+{
+    <li>
+        <a href="@node.Url" target="@node.LinkTarget"><b>@node.Title</b></a>
+        @if (node.ChildNodes.Count > 0)
+        {
+            <ul>
+                @foreach (var childNode in node.ChildNodes)
+                {
+                    @RenderSubLevelsRecursive(childNode)
+                }
+            </ul>            
+        }
+    </li>      
+}
+
+@*Here is specified the rendering for the sub levels*@
+@helper RenderSubLevelsRecursive(NodeViewModel node)
+{
+    <li>
+        <a href="@node.Url" target ="@node.LinkTarget">@node.Title</a>
+        @if (node.ChildNodes.Count > 0)
+        {
+            <ul>
+                @foreach (var childNode in node.ChildNodes)
+                {
+                    @RenderSubLevelsRecursive(childNode)
+                }
+            </ul>            
+        }
+    </li>      
+}

@@ -146,36 +146,29 @@
     <EmbeddedResource Include="Mvc\Views\ContentBlock\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\Master.Designer.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Simple.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\Simple.Designer.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\SimpleDesignerModule.js" />
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\simple-designer.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\ContentBlock\Share.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\ShareDialogModule.js" />
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\share-dialog.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\ShareContentService.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\Unshare.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\MasterDesignerCtrlExtended.js" />
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\shared-content-services.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\ContentBlock\SharedContentItemSelector.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\SharedContentItemSelectorModule.js" />
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\content-selector.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\Designer.ClientReferences.cshtml" />
+    <None Include="Mvc\Views\ContentBlock\Unshare.cshtml" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>
