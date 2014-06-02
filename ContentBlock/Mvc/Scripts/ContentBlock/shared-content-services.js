@@ -134,14 +134,12 @@
 			return deferred.promise;
 		};
 
-		//get all content items for particular provider
-		var getAll = function (providerName, filter) {
+		//get content items for particular provider
+		var getItems = function (providerName, skip, take, filter) {
 
 			var getUrl = serviceUrl +
 				'?itemType=Telerik.Sitefinity.GenericContent.Model.Content' +
 				'&itemSurrogateType=Telerik.Sitefinity.GenericContent.Model.Content' +
-				'&skip=0' +
-				'&take=50' +
 				'&filter=Visible==true AND Status==Live';
 
 			var culture = widgetContext.culture;
@@ -149,7 +147,13 @@
 				getUrl += ' AND Culture == ' + culture;
 
 			if (filter)
-				getUrl += ' AND (Title.ToUpper().Contains("' + filter + '".ToUpper()))';
+			    getUrl += ' AND (Title.ToUpper().Contains("' + filter + '".ToUpper()))';
+
+			if (skip)
+			    getUrl += '&skip=' + skip;
+
+			if (take)
+			    getUrl += '&take=' + take;
 
 			if (providerName)
 				getUrl += '&allProviders=false&provider=' + providerName;
@@ -184,7 +188,7 @@
 
 		//the public interface of the service
 		return {
-			getAll: getAll,
+		    getItems: getItems,
 			get: get,
 			update: update,
 			share: share,

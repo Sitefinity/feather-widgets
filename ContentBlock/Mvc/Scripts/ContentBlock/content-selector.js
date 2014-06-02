@@ -26,6 +26,7 @@
             var onLoadedSuccess = function (data) {
                 if (data && data.Items) {
                     $scope.ContentItems = data.Items;
+                    $scope.filter.paging.set_totalItems(data.TotalCount);
 
                     //select current cotnentBlock if it exists
                     for (var i = 0; i < data.Items.length; i++) {
@@ -72,7 +73,10 @@
             };
 
             var loadContentItems = function () {
-                return sharedContentService.getAll($scope.filter.providerName, $scope.filter.search)
+                var skip = $scope.filter.paging.get_itemsToSkip();
+                var take = $scope.filter.paging.itemsPerPage;
+
+                return sharedContentService.getItems($scope.filter.providerName, skip, take, $scope.filter.search)
                     .then(onLoadedSuccess, onError);
             };
 
@@ -96,7 +100,20 @@
             $scope.ContentItems = [];
             $scope.filter = {
                 providerName: null,
-                search: null
+                search: null,
+                paging: {
+                    totalItems: 0,
+                    currentPage: 1,
+                    itemsPerPage: 50,
+                    get_itemsToSkip: function () {
+                        return (this.currentPage - 1) * this.itemsPerPage;
+                    },
+                    set_totalItems: function (itemsCount) {
+                        this.totalItems = itemsCount;
+                        this.isVisible = this.totalItems > this.itemsPerPage;
+                    },
+                    isVisible: false
+                }
             };
 
             $scope.ContentItemClicked = function (index, item) {
@@ -137,6 +154,7 @@
                 .then(function () {
                     $scope.$watch('filter.search', reloadContentItems);
                     $scope.$watch('filter.providerName', reloadContentItems);
+                    $scope.$watch('filter.paging.currentPage', reloadContentItems);
                 })
                 .catch(onError)
                 .finally(hideLoadingIndicator);
