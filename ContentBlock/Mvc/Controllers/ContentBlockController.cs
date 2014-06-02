@@ -18,11 +18,13 @@ using Telerik.Sitefinity.Web.UI;
 
 namespace ContentBlock.Mvc.Controllers
 {
+    /// <summary>
+    /// The content block controller
+    /// </summary>
     [ControllerToolboxItem(Name = "ContentBlock", Title = "ContentBlock", SectionName = "MvcWidgets")]
     [Localization(typeof(ContentBlockResources))]
     public class ContentBlockController : Controller, IZoneEditorReloader, ICustomWidgetVisualization, ICustomWidgetTitlebar, IHasEditCommands, IContentItemControl
     {
-       
         #region Properties
 
         /// <summary>
@@ -105,9 +107,8 @@ namespace ContentBlock.Mvc.Controllers
         public ActionResult Index()
         {
             this.IsEmpty = string.IsNullOrEmpty(this.Model.Content);
-            this.SharedContentID = this.Model.SharedContentID;
-            this.InitializeCommands();
 
+            this.Commands = this.InitializeCommands();
             return View("Default", this.Model);
         }
 
@@ -127,7 +128,7 @@ namespace ContentBlock.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Unshare()
         {
-            return View("UnshareAlert");
+            return View("Unshare");
         }
 
         /// <summary>
@@ -208,7 +209,7 @@ namespace ContentBlock.Mvc.Controllers
         #region ICustomWidgetTitlebar Members
 
         /// <summary>
-        /// Gets a list with custom messages which will be applied to dock titlebar.
+        /// Gets a list with custom messages which will be applied to dock title bar.
         /// </summary>
         /// <value>The custom messages.</value>
         [Browsable(false)]
@@ -247,21 +248,22 @@ namespace ContentBlock.Mvc.Controllers
         /// <summary>
         /// Initializes the commands.
         /// </summary>
-        protected virtual void InitializeCommands()
+        protected virtual IList<WidgetMenuItem> InitializeCommands()
         {
             var shareActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Share"), UrlResolveOptions.Rooted);
             var unshareActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Unshare"), UrlResolveOptions.Rooted);
             var useSharedActionLink = RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "UseSharedContentItem"), UrlResolveOptions.Rooted);
 
-            this.Commands = new List<WidgetMenuItem>();
-            this.Commands.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Delete", Res.CurrentBackendCulture), CommandName = "beforedelete", CssClass = "sfDeleteItm" });
-            this.Commands.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Duplicate", Res.CurrentBackendCulture), CommandName = "duplicate", CssClass = "sfDuplicateItm" });
+            var commandsList = new List<WidgetMenuItem>();
+            commandsList.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Delete", Res.CurrentBackendCulture), CommandName = "beforedelete", CssClass = "sfDeleteItm" });
+            commandsList.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Duplicate", Res.CurrentBackendCulture), CommandName = "duplicate", CssClass = "sfDuplicateItm" });
             if (this.SharedContentID == Guid.Empty)
-                this.Commands.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().Share, ActionUrl = shareActionLink, NeedsModal = true });
+                commandsList.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().Share, ActionUrl = shareActionLink, NeedsModal = true });
             else
-                this.Commands.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().Unshare, ActionUrl = unshareActionLink, NeedsModal = true });
-            this.Commands.Add(new WidgetMenuItem() { Text = "Use Shared", ActionUrl = useSharedActionLink, NeedsModal = true });
-            this.Commands.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Permissions", Res.CurrentBackendCulture), CommandName = "permissions", CssClass = "sfPermItm" });
+                commandsList.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().Unshare, ActionUrl = unshareActionLink, NeedsModal = true });
+            commandsList.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().UseShared, ActionUrl = useSharedActionLink, NeedsModal = true });
+            commandsList.Add(new WidgetMenuItem() { Text = Res.Get<Labels>("Permissions", Res.CurrentBackendCulture), CommandName = "permissions", CssClass = "sfPermItm" });
+            return commandsList;
         }
 
         #endregion
@@ -277,7 +279,7 @@ namespace ContentBlock.Mvc.Controllers
             var assemblies = new List<Assembly>();
             var contentBlockControllerAssembly = typeof(ContentBlockController).Assembly;
             var currentAssembly = this.GetType().Assembly;
-            
+
             assemblies.Add(currentAssembly);
             if (!contentBlockControllerAssembly.Equals(currentAssembly))
                 assemblies.Add(contentBlockControllerAssembly);

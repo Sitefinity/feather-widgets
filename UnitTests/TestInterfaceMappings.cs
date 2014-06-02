@@ -17,7 +17,7 @@ namespace UnitTests
         /// </summary>
         public override void Load()
         {
-            Bind<IContentBlockModel>().To<DummyContentBlockModel>().When( request => true);
+            this.Bind<IContentBlockModel>().To<DummyContentBlockModel>().When( request => true);
         }
     }
 }

@@ -164,7 +164,7 @@
     <EmbeddedResource Include="Mvc\Scripts\ShareContentService.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\UnshareAlert.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\Unshare.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\MasterDesignerCtrlExtended.js" />

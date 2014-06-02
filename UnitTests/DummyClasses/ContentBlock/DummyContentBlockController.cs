@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace UnitTests.DummyClasses.ContentBlock
 {
-    class DummyContentBlockController : ContentBlockController
+    public class DummyContentBlockController : ContentBlockController
     {
-        protected override void InitializeCommands()
+        protected override System.Collections.Generic.IList<Telerik.Sitefinity.Web.UI.WidgetMenuItem> InitializeCommands()
         {
+            return null;
         }
+
+
     }
 }

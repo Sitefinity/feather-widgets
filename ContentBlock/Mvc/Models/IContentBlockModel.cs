@@ -8,7 +8,7 @@ namespace ContentBlock.Mvc.Models
     public interface IContentBlockModel
     {
         /// <summary>
-        /// Gets or sets the html.
+        /// Gets or sets the HTML.
         /// </summary>
         string Content { get; set; }
 

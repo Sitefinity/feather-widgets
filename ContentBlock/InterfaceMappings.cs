@@ -17,7 +17,7 @@ namespace ContentBlock
         /// </summary>
         public override void Load()
         {
-            Bind<IContentBlockModel>().To<ContentBlockModel>();
+            this.Bind<IContentBlockModel>().To<ContentBlockModel>();
         }
     }
 }
