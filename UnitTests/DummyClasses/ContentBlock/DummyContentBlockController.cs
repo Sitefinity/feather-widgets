@@ -5,13 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.Sitefinity.Web.UI;
 
 namespace UnitTests.DummyClasses.ContentBlock
 {
-    class DummyContentBlockController : ContentBlockController
+    public class DummyContentBlockController : ContentBlockController
     {
-        protected override void InitializeCommands()
+        public IList<WidgetMenuItem> InitializeCommands()
         {
-        }
+            return base.InitializeCommands();
+        }   
     }
 }

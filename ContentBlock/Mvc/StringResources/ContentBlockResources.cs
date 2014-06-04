@@ -153,6 +153,18 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
+        [ResourceEntry("UseShared",
+            Value = "Use shared",
+            Description = "phrase: Use shared",
+            LastModified = "2014/03/10")]
+        public string UseShared
+        {
+            get
+            {
+                return this["UseShared"];
+            }
+        }
+
         [ResourceEntry("Unshare",
             Value = "Unshare",
             Description = "word: Unshare",
