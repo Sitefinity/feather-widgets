@@ -5,7 +5,10 @@ using Telerik.Sitefinity.Abstractions;
 
 namespace UnitTests
 {
-     public sealed class ObjectFactoryContainerRegion : IDisposable
+    /// <summary>
+    /// Sets the Container and QueryableExtension properties of the ObjectFactory. Can be used to avoid the initialization.
+    /// </summary>
+    public sealed class ObjectFactoryContainerRegion : IDisposable
     {
         private FieldInfo containerField;
         private FieldInfo queryableQueryableExtensionField;
@@ -52,5 +55,4 @@ namespace UnitTests
             this.queryableQueryableExtensionField.SetValue(null, this.previousQueryableExtension);
         }
     }
-
 }

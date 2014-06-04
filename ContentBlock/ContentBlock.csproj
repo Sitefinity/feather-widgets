@@ -168,7 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\ContentBlock\Designer.ClientReferences.cshtml" />
-    <None Include="Mvc\Views\ContentBlock\Unshare.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\Unshare.cshtml" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -11,7 +11,7 @@ using Telerik.Sitefinity.Web.Utilities;
 namespace ContentBlock.Mvc.Models
 {
     /// <summary>
-    /// This class is used as a model for the content block controller
+    /// This class is used as a model for the content block controller.
     /// </summary>
     public class ContentBlockModel : IContentBlockModel
     {
@@ -80,7 +80,7 @@ namespace ContentBlock.Mvc.Models
         /// <value>
         /// The content manager.
         /// </value>
-        protected virtual ContentManager ContentManager
+        public virtual ContentManager ContentManager
         {
             get
             {
@@ -141,7 +141,7 @@ namespace ContentBlock.Mvc.Models
         }
 
         /// <summary>
-        /// Gets the content HTML value from a shared content item if such is available
+        /// Gets the content HTML value from a shared content item if such is available.
         /// </summary>
         /// <returns></returns>
         protected virtual bool TryGetContentHtmlValue(out string content)
@@ -157,7 +157,7 @@ namespace ContentBlock.Mvc.Models
                     object tempItem;
                     if (Telerik.Sitefinity.ContentLocations.ContentLocatableViewExtensions.TryGetItemWithRequestedStatus(sharedContent, this.ContentManager, out tempItem))
                     {
-                        sharedContent = tempItem as ContentItem;
+                        sharedContent = (ContentItem)tempItem;
                         isContentItemAvailable = true;
                     }
                     content = sharedContent.Content;
