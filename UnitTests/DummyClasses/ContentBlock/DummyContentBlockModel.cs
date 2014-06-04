@@ -34,16 +34,24 @@ namespace UnitTests.DummyClasses.ContentBlock
             this.SharedContentID = sharedContentId;
         }
 
-        public override object CreateBlankDataItem()
-        {
-            var contentItem = new DummyContentItem();
-            contentItem.Content = "DummyContent";
-            return contentItem;
-        }
-
+        /// <summary>
+        /// Check if the model is shared.
+        /// </summary>
+        /// <returns></returns>
         public bool PublicIsShared()
         {
             return this.IsShared();
+        }
+
+        /// <summary>
+        /// Creates the blank data item.
+        /// </summary>
+        /// <returns></returns>
+        public override object CreateBlankDataItem()
+        {
+            var dummyContent =  new DummyContentItem();
+            dummyContent.Content = "DummyContent";
+            return dummyContent;
         }
     }
 }

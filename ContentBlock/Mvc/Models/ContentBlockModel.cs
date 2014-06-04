@@ -1,12 +1,8 @@
-﻿using ContentBlock.Mvc.StringResources;
-using System;
+﻿using System;
 using System.Configuration;
-using System.Text.RegularExpressions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.InlineEditing.Attributes;
-using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitefinityExceptions;
@@ -42,8 +38,8 @@ namespace ContentBlock.Mvc.Models
             this.EnableSocialSharing = enableSocialSharing;
             this.SharedContentID = sharedContentId;
 
-            var htmlContent = this.GetContentHtmlValue();
-            if (!this.isContentItemAvailable || htmlContent != String.Empty)
+            string htmlContent;
+            if (this.TryGetContentHtmlValue(out htmlContent))
                 content = htmlContent;
 
             this.Content = LinkParser.ResolveLinks(content, DynamicLinksParser.GetContentUrl, null,
@@ -134,7 +130,7 @@ namespace ContentBlock.Mvc.Models
 
         #region Protected members
 
-       
+
         /// <summary>
         /// Determines whether this content block is shared.
         /// </summary>
@@ -145,42 +141,40 @@ namespace ContentBlock.Mvc.Models
         }
 
         /// <summary>
-        /// Gets the content HTML value depending whether it is shared.
+        /// Gets the content HTML value from a shared content item if such is available
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetContentHtmlValue()
+        protected virtual bool TryGetContentHtmlValue(out string content)
         {
-            if (this.IsShared())
+            content = string.Empty;
+            bool isContentItemAvailable = false;
+            try
             {
-                this.ContentType = typeof(ContentItem).FullName;
-                try
+                if (this.IsShared())
                 {
+                    this.ContentType = typeof(ContentItem).FullName;
                     var sharedContent = this.ContentManager.GetContent(this.SharedContentID);
                     object tempItem;
                     if (Telerik.Sitefinity.ContentLocations.ContentLocatableViewExtensions.TryGetItemWithRequestedStatus(sharedContent, this.ContentManager, out tempItem))
                     {
                         sharedContent = tempItem as ContentItem;
-                        this.isContentItemAvailable = true;
+                        isContentItemAvailable = true;
                     }
-
-                    return sharedContent.Content;
+                    content = sharedContent.Content;
                 }
-                catch (UnauthorizedAccessException)
+                else
                 {
-                    this.isContentItemAvailable = false;
-                }
-                catch (ItemNotFoundException ex)
-                {
-                    this.SharedContentID = Guid.Empty;
-                    this.isContentItemAvailable = false;
+                    this.ContentType = typeof(Telerik.Sitefinity.Pages.Model.PageDraftControl).FullName;
                 }
             }
-            else
+            catch (ItemNotFoundException ex)
             {
-                this.ContentType = typeof(Telerik.Sitefinity.Pages.Model.PageDraftControl).FullName;
+                this.SharedContentID = Guid.Empty;
             }
-
-            return String.Empty;
+            catch (Exception ex)
+            {
+            }
+            return isContentItemAvailable;
         }
 
         #endregion
@@ -188,11 +182,6 @@ namespace ContentBlock.Mvc.Models
         #region Private fields
 
         private ContentManager contentManager;
-
-        /// <summary>
-        /// Shows if the content item is available
-        /// </summary>
-        private bool isContentItemAvailable = true;
 
         #endregion
     }
