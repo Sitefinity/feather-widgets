@@ -107,7 +107,9 @@ namespace ContentBlock.Mvc.Models
         }
 
         /// <summary>
-        /// Returns the cache dependency keys that should invalidate any cached response that uses this model.
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>. 
+        /// The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for notification. 
+        /// When notified, all cached objects with dependency on the provided keys will expire. 
         /// </summary>
         public virtual IList<CacheDependencyKey> GetKeysOfDependentObjects()
         {
