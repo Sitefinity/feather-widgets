@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Modules.GenericContent;
 
 namespace ContentBlock.Mvc.Models
 {
     /// <summary>
     /// This interface is used as a model for the ContentBlockController.
     /// </summary>
-    public interface IContentBlockModel
+    public interface IContentBlockModel : ICacheDependable
     {
         /// <summary>
         /// Gets or sets the HTML.
@@ -27,6 +30,14 @@ namespace ContentBlock.Mvc.Models
         /// </summary>
         /// <value>The name of the provider.</value>
         string ProviderName { get; set; }
+
+        /// <summary>
+        /// Gets the content manager.
+        /// </summary>
+        /// <value>
+        /// The content manager.
+        /// </value>
+        ContentManager ContentManager { get; }
 
         /// <summary>
         /// Gets or sets the type of the content. If shared it should be ContentItem otherwise PageDraftControl

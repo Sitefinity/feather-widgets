@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Reflection;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -13,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
@@ -113,6 +113,10 @@ namespace ContentBlock.Mvc.Controllers
         public ActionResult Index()
         {
             this.Commands = this.InitializeCommands();
+
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects());
+
             return View("Default", this.Model);
         }
 

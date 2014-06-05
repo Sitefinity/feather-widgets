@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.InlineEditing.Attributes;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -51,35 +53,21 @@ namespace ContentBlock.Mvc.Models
 
         #region Properties
 
-        /// <summary>
-        /// Gets or sets the HTML.
-        /// </summary>
+        /// <inheritdoc />
         [DynamicLinksContainer]
         [FieldInfo("Content", "LongText")]
         public string Content { get; set; }
 
-        /// <summary>
-        /// Gets or sets the current mode of the control.
-        /// </summary>
+        /// <inheritdoc />
         public bool EnableSocialSharing { get; set; }
 
-        /// <summary>
-        /// Gets or sets the ID of the ContentBlockItem if the HTML is shared across multiple controls
-        /// </summary>
+        /// <inheritdoc />
         public Guid SharedContentID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the provider.
-        /// </summary>
-        /// <value>The name of the provider.</value>
+        /// <inheritdoc />
         public string ProviderName { get; set; }
 
-        /// <summary>
-        /// Gets the content manager.
-        /// </summary>
-        /// <value>
-        /// The content manager.
-        /// </value>
+        /// <inheritdoc />
         public virtual ContentManager ContentManager
         {
             get
@@ -99,22 +87,14 @@ namespace ContentBlock.Mvc.Models
             }
         }
 
-        /// <summary>
-        /// Gets or sets the type of the content. If shared it should be ContentItem otherwise PageDraftControl
-        /// </summary>
-        /// <value>
-        /// The type of the content.
-        /// </value>
+        /// <inheritdoc />
         public string ContentType { get; set; }
 
         #endregion
 
         #region Public methods
 
-        /// <summary>
-        /// Creates the blank data item.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public virtual object CreateBlankDataItem()
         {
             ContentItem item;
@@ -126,10 +106,23 @@ namespace ContentBlock.Mvc.Models
 
         }
 
+        /// <summary>
+        /// Returns the cache dependency keys that should invalidate any cached response that uses this model.
+        /// </summary>
+        public virtual IList<CacheDependencyKey> GetKeysOfDependentObjects()
+        {
+            var result = new List<CacheDependencyKey>(1);
+            if (this.IsShared())
+            {
+                result.Add(new CacheDependencyKey() { Key = this.SharedContentID.ToString(), Type = typeof(ContentItem) });
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Protected members
-
 
         /// <summary>
         /// Determines whether this content block is shared.
@@ -137,7 +130,7 @@ namespace ContentBlock.Mvc.Models
         /// <returns></returns>
         protected virtual bool IsShared()
         {
-            return this.SharedContentID != Guid.Empty && this.ContentManager != null;
+            return this.SharedContentID != Guid.Empty;
         }
 
         /// <summary>
@@ -154,13 +147,13 @@ namespace ContentBlock.Mvc.Models
                 {
                     this.ContentType = typeof(ContentItem).FullName;
                     var sharedContent = this.ContentManager.GetContent(this.SharedContentID);
+
                     object tempItem;
-                    if (Telerik.Sitefinity.ContentLocations.ContentLocatableViewExtensions.TryGetItemWithRequestedStatus(sharedContent, this.ContentManager, out tempItem))
-                    {
-                        sharedContent = (ContentItem)tempItem;
-                        isContentItemAvailable = true;
-                    }
+                    ContentLocatableViewExtensions.TryGetItemWithRequestedStatus(sharedContent, this.ContentManager, out tempItem);
+                    sharedContent = (ContentItem)tempItem;
+
                     content = sharedContent.Content;
+                    isContentItemAvailable = true;
                 }
                 else
                 {
