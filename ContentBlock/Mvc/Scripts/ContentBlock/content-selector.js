@@ -96,7 +96,7 @@
             // ------------------------------------------------------------------------
 
             $scope.ShowError = false;
-            $scope.IsListEmpty = true;
+            $scope.IsListEmpty = false;
             $scope.ContentItems = [];
             $scope.filter = {
                 providerName: null,
