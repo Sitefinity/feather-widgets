@@ -141,6 +141,9 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Share
+        /// </summary>
         [ResourceEntry("Share",
             Value = "Share",
             Description = "word: Share",
@@ -153,6 +156,24 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Use shared
+        /// </summary>
+        [ResourceEntry("UseShared",
+            Value = "Use shared",
+            Description = "phrase: Use shared",
+            LastModified = "2014/06/04")]
+        public string UseShared
+        {
+            get
+            {
+                return this["UseShared"];
+            }
+        }
+
+        /// <summary>
+        /// Unshare
+        /// </summary>
         [ResourceEntry("Unshare",
             Value = "Unshare",
             Description = "word: Unshare",
@@ -165,6 +186,9 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// This content is shared. Any changes will be reflected everywhere it is shared.
+        /// </summary>
         [ResourceEntry("SharedContentEditWarning",
             Value = "This content is shared. Any changes will be reflected everywhere it is shared.",
             Description = "This message will pop in the ContentBlock widget when trying to edit shared content.",
@@ -177,6 +201,9 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Content block widget resources
+        /// </summary>
         [ResourceEntry("ContentBlockResourcesTitle",
             Value = "Content block widget resources",
             Description = "Title for the content block widget resources class.",
@@ -189,6 +216,9 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Localizable strings for the Content block widget.
+        /// </summary>
         [ResourceEntry("ContentBlockResourcesDescription",
             Value = "Localizable strings for the Content block widget.",
             Description = "Description for the content block widget resources class.",

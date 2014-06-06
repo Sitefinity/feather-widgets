@@ -1,12 +1,10 @@
-﻿using ContentBlock.Mvc.StringResources;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
-using System.Text.RegularExpressions;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.InlineEditing.Attributes;
-using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitefinityExceptions;
@@ -15,7 +13,7 @@ using Telerik.Sitefinity.Web.Utilities;
 namespace ContentBlock.Mvc.Models
 {
     /// <summary>
-    /// This class is used as a model for the content block controller
+    /// This class is used as a model for the content block controller.
     /// </summary>
     public class ContentBlockModel : IContentBlockModel
     {
@@ -42,8 +40,8 @@ namespace ContentBlock.Mvc.Models
             this.EnableSocialSharing = enableSocialSharing;
             this.SharedContentID = sharedContentId;
 
-            var htmlContent = this.GetContentHtmlValue();
-            if (!this.IsContentItemAvailable || htmlContent != String.Empty)
+            string htmlContent;
+            if (this.TryGetContentHtmlValue(out htmlContent))
                 content = htmlContent;
 
             this.Content = LinkParser.ResolveLinks(content, DynamicLinksParser.GetContentUrl, null,
@@ -55,64 +53,49 @@ namespace ContentBlock.Mvc.Models
 
         #region Properties
 
-        /// <summary>
-        /// Gets or sets the html.
-        /// </summary>
+        /// <inheritdoc />
         [DynamicLinksContainer]
         [FieldInfo("Content", "LongText")]
         public string Content { get; set; }
 
-        /// <summary>
-        /// Gets or sets the current mode of the control.
-        /// </summary>
+        /// <inheritdoc />
         public bool EnableSocialSharing { get; set; }
 
-        /// <summary>
-        /// Gets or sets the ID of the ContentBlockItem if the HTML is shared across multiple controls
-        /// </summary>
+        /// <inheritdoc />
         public Guid SharedContentID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the provider.
-        /// </summary>
-        /// <value>The name of the provider.</value>
+        /// <inheritdoc />
         public string ProviderName { get; set; }
 
-        /// <summary>
-        /// Gets the content manager.
-        /// </summary>
-        /// <value>
-        /// The content manager.
-        /// </value>
-        public ContentManager ContentManager
+        /// <inheritdoc />
+        public virtual ContentManager ContentManager
         {
             get
             {
                 if (this.contentManager == null)
                 {
-                    this.contentManager = this.InitializeManager();
+                    try
+                    {
+                        this.contentManager = ContentManager.GetManager(this.ProviderName);
+                    }
+                    catch (ConfigurationErrorsException)
+                    {
+                        return null;
+                    }
                 }
                 return this.contentManager;
             }
         }
 
-        /// <summary>
-        /// Gets or sets the type of the content. If shared it should be ContentItem otherwise PageDraftControl
-        /// </summary>
-        /// <value>
-        /// The type of the content.
-        /// </value>
+        /// <inheritdoc />
         public string ContentType { get; set; }
 
         #endregion
 
         #region Public methods
 
-        /// <summary>
-        /// Creates the blank data item.
-        /// </summary>
-        /// <returns></returns>
-        public object CreateBlankDataItem()
+        /// <inheritdoc />
+        public virtual object CreateBlankDataItem()
         {
             ContentItem item;
             using (new ElevatedModeRegion(this.ContentManager))
@@ -123,29 +106,25 @@ namespace ContentBlock.Mvc.Models
 
         }
 
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>. 
+        /// The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for notification. 
+        /// When notified, all cached objects with dependency on the provided keys will expire. 
+        /// </summary>
+        public virtual IList<CacheDependencyKey> GetKeysOfDependentObjects()
+        {
+            var result = new List<CacheDependencyKey>(1);
+            if (this.IsShared())
+            {
+                result.Add(new CacheDependencyKey() { Key = this.SharedContentID.ToString(), Type = typeof(ContentItem) });
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Protected members
-
-        /// <summary>
-        /// Initializes the content manager.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual ContentManager InitializeManager()
-        {
-            if (this.contentManager == null)
-            {
-                try
-                {
-                    this.contentManager = ContentManager.GetManager(this.ProviderName);
-                }
-                catch (ConfigurationErrorsException)
-                {
-                    return null;
-                }
-            }
-            return this.contentManager;
-        }
 
         /// <summary>
         /// Determines whether this content block is shared.
@@ -153,46 +132,44 @@ namespace ContentBlock.Mvc.Models
         /// <returns></returns>
         protected virtual bool IsShared()
         {
-            return this.SharedContentID != Guid.Empty && this.ContentManager != null;
+            return this.SharedContentID != Guid.Empty;
         }
 
         /// <summary>
-        /// Gets the content HTML value depending whether it is shared.
+        /// Gets the content HTML value from a shared content item if such is available.
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetContentHtmlValue()
+        protected virtual bool TryGetContentHtmlValue(out string content)
         {
-            if (this.IsShared())
+            content = string.Empty;
+            bool isContentItemAvailable = false;
+            try
             {
-                this.ContentType = typeof(ContentItem).FullName;
-                try
+                if (this.IsShared())
                 {
+                    this.ContentType = typeof(ContentItem).FullName;
                     var sharedContent = this.ContentManager.GetContent(this.SharedContentID);
+
                     object tempItem;
-                    if (Telerik.Sitefinity.ContentLocations.ContentLocatableViewExtensions.TryGetItemWithRequestedStatus(sharedContent, this.ContentManager, out tempItem))
-                    {
-                        sharedContent = tempItem as ContentItem;
-                        this.IsContentItemAvailable = true;
-                    }
+                    ContentLocatableViewExtensions.TryGetItemWithRequestedStatus(sharedContent, this.ContentManager, out tempItem);
+                    sharedContent = (ContentItem)tempItem;
 
-                    return sharedContent.Content;
+                    content = sharedContent.Content;
+                    isContentItemAvailable = true;
                 }
-                catch (UnauthorizedAccessException)
+                else
                 {
-                    this.IsContentItemAvailable = false;
-                }
-                catch (ItemNotFoundException ex)
-                {
-                    this.SharedContentID = Guid.Empty;
-                    this.IsContentItemAvailable = false;
+                    this.ContentType = typeof(Telerik.Sitefinity.Pages.Model.PageDraftControl).FullName;
                 }
             }
-            else
+            catch (ItemNotFoundException ex)
             {
-                this.ContentType = typeof(Telerik.Sitefinity.Pages.Model.PageDraftControl).FullName;
+                this.SharedContentID = Guid.Empty;
             }
-
-            return String.Empty;
+            catch (Exception ex)
+            {
+            }
+            return isContentItemAvailable;
         }
 
         #endregion
@@ -200,11 +177,6 @@ namespace ContentBlock.Mvc.Models
         #region Private fields
 
         private ContentManager contentManager;
-
-        /// <summary>
-        /// Shows if the content item is available
-        /// </summary>
-        internal bool IsContentItemAvailable = true;
 
         #endregion
     }
