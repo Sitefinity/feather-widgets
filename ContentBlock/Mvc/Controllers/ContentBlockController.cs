@@ -98,6 +98,7 @@ namespace ContentBlock.Mvc.Controllers
                 {
                     this.model = this.InitializeModel();
                     this.isEmpty = string.IsNullOrEmpty(this.model.Content);
+                    this.SharedContentID = this.model.SharedContentID;
                 }
                 return this.model;
             }

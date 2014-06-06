@@ -29,6 +29,9 @@
                             dialogFeedbackService.SavingPromise = dialogFeedbackService.SavingPromise.then(updateContentItem);
                             dialogFeedbackService.CancelingPromise = dialogFeedbackService.CancelingPromise.then(unlockContentItem);
                         }
+                    }, function () {
+                        properties.Content.PropertyValue = "";
+                        properties.SharedContentID.PropertyValue = EMPTY_GUID;
                     });
             }
         };
@@ -71,6 +74,7 @@
                         $scope.Feedback.ErrorMessage = data.Detail;
                 })
                 .finally(function () {
+                    $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != EMPTY_GUID;
                     $scope.Feedback.ShowLoadingIndicator = false;
                 });
 

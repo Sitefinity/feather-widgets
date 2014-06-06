@@ -40,9 +40,7 @@ namespace ContentBlock.Mvc.Models
             this.EnableSocialSharing = enableSocialSharing;
             this.SharedContentID = sharedContentId;
 
-            string htmlContent;
-            if (this.TryGetContentHtmlValue(out htmlContent))
-                content = htmlContent;
+            content = this.GetContentHtmlValue(content);
 
             this.Content = LinkParser.ResolveLinks(content, DynamicLinksParser.GetContentUrl, null,
                 SystemManager.IsInlineEditingMode);
@@ -139,23 +137,20 @@ namespace ContentBlock.Mvc.Models
         /// Gets the content HTML value from a shared content item if such is available.
         /// </summary>
         /// <returns></returns>
-        protected virtual bool TryGetContentHtmlValue(out string content)
-        {
-            content = string.Empty;
-            bool isContentItemAvailable = false;
+        protected virtual string GetContentHtmlValue(string content)
+        {         
             try
             {
                 if (this.IsShared())
                 {
+                    content = string.Empty;
                     this.ContentType = typeof(ContentItem).FullName;
                     var sharedContent = this.ContentManager.GetContent(this.SharedContentID);
 
                     object tempItem;
                     ContentLocatableViewExtensions.TryGetItemWithRequestedStatus(sharedContent, this.ContentManager, out tempItem);
                     sharedContent = (ContentItem)tempItem;
-
                     content = sharedContent.Content;
-                    isContentItemAvailable = true;
                 }
                 else
                 {
@@ -169,7 +164,7 @@ namespace ContentBlock.Mvc.Models
             catch (Exception ex)
             {
             }
-            return isContentItemAvailable;
+            return content;
         }
 
         #endregion
