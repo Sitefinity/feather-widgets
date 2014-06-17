@@ -5,12 +5,12 @@
 @*Add scripts and stylesheets*@
 @if (!SitefinityContext.IsBackend)
 {
-    @Html.Script("https://code.jquery.com/jquery-1.8.3.min.js")
+    @Html.Script("//code.jquery.com/jquery-1.8.3.min.js")
 }
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"))
 
-<select class="nav-select">
+<select class="nav-select form-control">
     @foreach (var node in Model.Nodes)
     {
         @RenderSubLevelsRecursive(node, "");
@@ -27,7 +27,7 @@
     {
         selectedAttribute = "selected";
     }
-  
+
     <option class="@GetClass(node)" value="@node.Url" @selectedAttribute>@(prefix + " " + node.Title)</option>
 
     foreach (var childNode in node.ChildNodes)
