@@ -85,6 +85,7 @@
     <EmbeddedResource Include="Mvc\Views\Navigation\Dropdown.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\Designer.ClientReferences.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Navigation\NavigationView.Pills.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
