@@ -9,6 +9,8 @@ This repository contains custom MVC widgets which are part of the [Feather proje
 
 [feather-packages](https://github.com/Sitefinity/feather-packages) - This repository contains front-end packages for the Feather project.
 
+[feather-samples](https://github.com/Sitefinity/feather-samples) - This repository contains code samples related to the Feather project.
+
 # Documentation
 
 [How to enable responsive transformations for Navigation widget ](https://github.com/Sitefinity/feather-widgets/wiki/How-to-enable-responsive-transformations-for-Navigation-widget)
