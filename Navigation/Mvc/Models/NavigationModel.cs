@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,22 +23,6 @@ namespace Navigation.Mvc.Models
         /// </summary>
         public NavigationModel()
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NavigationModel"/> class.
-        /// </summary>
-        /// <param name="selectionMode">The selection mode.</param>
-        /// <param name="levelsToInclude">The levels to include.</param>
-        /// <param name="showParentPage">if set to <c>true</c> adds parent page.</param>
-        public NavigationModel(PageSelectionMode selectionMode, int? levelsToInclude, bool showParentPage, string cssClass)
-        {
-            this.SelectionMode = selectionMode;
-            this.LevelsToInclude = levelsToInclude;
-            this.ShowParentPage = showParentPage;
-            this.CssClass = cssClass;
-
-            this.InitializeNavigationWidgetSettings();
         }
 
         #endregion
@@ -70,8 +55,14 @@ namespace Navigation.Mvc.Models
         /// </summary>
         public virtual int? LevelsToInclude
         {
-            get;
-            set;
+            get 
+            {
+                return this.levelsToInclude;
+            }
+            set 
+            {
+                this.levelsToInclude = value;
+            }
         }
 
         /// <summary>
@@ -139,9 +130,9 @@ namespace Navigation.Mvc.Models
             get 
             {
                 if (this.nodes == null)
-                    nodes = new List<NodeViewModel>();
+                    this.RecaluclateNodesCollection();
 
-                return nodes;
+                return this.nodes;
             }
         }
 
@@ -150,10 +141,12 @@ namespace Navigation.Mvc.Models
         #region Methods
 
         /// <summary>
-        /// Initializes the settings for the navigation widget.
+        /// Recalculates collection with page nodes <see cref="Nodes"/> depending on the settings of the navigation widget.
         /// </summary>
-        private void InitializeNavigationWidgetSettings()
+        public void RecaluclateNodesCollection()
         {
+            this.nodes = new List<NodeViewModel>();
+
             var siteMapProvider = this.GetProvider();
 
             switch (this.SelectionMode)
@@ -188,6 +181,9 @@ namespace Navigation.Mvc.Models
         /// <param name="levelsToInclude">The levels to include.</param>
         protected void AddChildNodes(SiteMapNode startNode, bool addParentNode)
         {
+            if(this.nodes == null)
+                this.nodes = new List<NodeViewModel>();
+
             if (this.LevelsToInclude != 0)
             {
                 if (addParentNode && this.CheckSiteMapNode(startNode)
@@ -196,7 +192,7 @@ namespace Navigation.Mvc.Models
                     var nodeViewModel = this.CreateNodeViewModelRecursive(startNode, this.LevelsToInclude);
 
                     if(nodeViewModel!=null)
-                        this.Nodes.Add(nodeViewModel);
+                        this.nodes.Add(nodeViewModel);
                 }
                 else
                 {
@@ -207,7 +203,7 @@ namespace Navigation.Mvc.Models
                         var nodeViewModel = this.CreateNodeViewModelRecursive(childNode, this.LevelsToInclude);
 
                         if (nodeViewModel != null)
-                            this.Nodes.Add(nodeViewModel);
+                            this.nodes.Add(nodeViewModel);
                     }
                 }
             }
@@ -327,6 +323,7 @@ namespace Navigation.Mvc.Models
         private SiteMapProvider provider;
         private SiteMapBase siteMap;
         private IList<NodeViewModel> nodes;
+        private int? levelsToInclude = 1;
 
         #endregion
     }

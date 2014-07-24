@@ -19,31 +19,6 @@ namespace UnitTests.Navigation
     {
         [TestMethod]
         [Owner("EGaneva")]
-        [Description("Checks whether the NavigationController properly creates its model and pass it to the Index action result.")]
-        public void CreateNavigation_CallTheIndexAction_EnsuresTheModelIsProperlyCreated()
-        {
-            //Arrange
-            DummyNavigationController controller = new DummyNavigationController();
-            controller.CssClass = "myClass";
-            controller.LevelsToInclude = 5;
-            controller.SelectionMode = PageSelectionMode.CurrentPageChildren;
-            controller.ShowParentPage = true;
-
-            //Act
-            var view = controller.Index() as ViewResult;
-            var model = view.Model;
-            var navigationModel = model as NavigationModel;
-
-            //Assert
-            Assert.IsNotNull(navigationModel, "The model is created correctly.");
-            Assert.AreEqual(controller.CssClass, navigationModel.CssClass, "The CssClass property is not passed correctly.");
-            Assert.AreEqual(controller.LevelsToInclude, navigationModel.LevelsToInclude, "The LevelsToInclude property is not passed correctly.");
-            Assert.AreEqual(controller.SelectionMode, navigationModel.SelectionMode, "The SelectionMode property is not passed correctly.");
-            Assert.AreEqual(controller.ShowParentPage, navigationModel.ShowParentPage, "The ShowParentPage property is not passed correctly.");
-        }
-
-        [TestMethod]
-        [Owner("EGaneva")]
         [Description("Checks whether the Index action returns the proper view.")]
         public void CreateNavigation_CallTheIndexAction_EnsuresTheProperViewIsReturned()
         {

@@ -2,6 +2,7 @@
 using Navigation.Mvc.StringResources;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -39,58 +40,13 @@ namespace Navigation.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the page links to display selection mode.
-        /// </summary>
-        /// <value>The page display mode.</value>
-        public PageSelectionMode SelectionMode
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets whether to show parent page
-        /// </summary>
-        public bool ShowParentPage
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the levels to include.
-        /// </summary>
-        public virtual int? LevelsToInclude
-        {
-            get 
-            {
-                return this.levelsToInclude;
-            }
-            set 
-            {
-                this.levelsToInclude = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the CSS class that will be applied on the wrapper div of the NavigationWidget (if such is presented).
-        /// </summary>
-        /// <value>
-        /// The CSS class.
-        /// </value>
-        public string CssClass
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets the Navigation widget model.
         /// </summary>
         /// <value>
         /// The model.
         /// </value>
-        protected INavigationModel Model 
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public INavigationModel Model 
         {
             get
             {
@@ -136,15 +92,7 @@ namespace Navigation.Mvc.Controllers
          /// <returns></returns>
         private INavigationModel InitializeModel()
         {
-            var constructorParameters = new Dictionary<string, object> 
-                         {
-                            {"selectionMode", this.SelectionMode},
-                            {"levelsToInclude", this.LevelsToInclude},
-                            {"showParentPage", this.ShowParentPage},
-                            {"cssClass", this.CssClass}
-                         };
-
-            return ControllerModelFactory.GetModel<INavigationModel>(this.GetType(), constructorParameters);
+            return ControllerModelFactory.GetModel<INavigationModel>(this.GetType());
         }
  
         #endregion
@@ -152,7 +100,6 @@ namespace Navigation.Mvc.Controllers
         #region Private fields and constants
 
         private INavigationModel model;
-        private int? levelsToInclude = 1;
         private string templateName = "Horizontal";
         private string templateNamePrefix = "NavigationView.";
 
