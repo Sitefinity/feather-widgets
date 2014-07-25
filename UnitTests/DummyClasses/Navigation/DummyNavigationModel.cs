@@ -18,6 +18,14 @@ namespace UnitTests.DummyClasses.Navigation
         /// <summary>
         /// Initializes a new instance of the <see cref="DummyNavigationModel"/> class.
         /// </summary>
+        public DummyNavigationModel()
+            : base()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DummyNavigationModel"/> class.
+        /// </summary>
         /// <param name="selectionMode">The selection mode.</param>
         /// <param name="levelsToInclude">The levels to include.</param>
         /// <param name="showParentPage">if set to <c>true</c> adds parent page.</param>
