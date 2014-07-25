@@ -1,6 +1,8 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 <div class="dialog" modal dialog-controller="unshareDialogCtrl">
+    <server-data content-item-service-url='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'></server-data>
+
     <script type="text/ng-template" id="dialog-template" >
         <div class="modal-header">
             <button type="button" class="close" ng-click="Cancel()" aria-hidden="true">&times;</button>
@@ -23,13 +25,12 @@
     </script>
 </div>
 
-<input type="hidden" id="contentItemServiceUrl" value='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")' />
-
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
 <!-- Optional theme -->
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
 
-<script src='@Url.WidgetContent("Mvc/Scripts/Designer/modal-dialog.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/share-dialog.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/shared-content-services.js")'></script>
+@Html.Script(Url.WidgetContent("Mvc/Scripts/server-data.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Designer/modal-dialog.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ContentBlock/share-dialog.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ContentBlock/shared-content-services.js"))

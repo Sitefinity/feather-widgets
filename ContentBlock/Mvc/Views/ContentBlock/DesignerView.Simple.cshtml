@@ -1,7 +1,9 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
-<div ng-show="IsShared" class="alert alert-warning">
+<server-data content-item-service-url='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'></server-data>
+
+<div ng-show="isShared" class="alert alert-warning">
     <b>@Html.Resource("ThisContentIsShared")</b> @Html.Resource("SharedContentWarning")
 </div>
 
-<textarea kendo-editor ng-model="Properties.Content.PropertyValue"></textarea>
+<textarea kendo-editor ng-model="properties.Content.PropertyValue"></textarea>

@@ -3,6 +3,10 @@
 @model ContentBlock.Mvc.Models.IContentBlockModel
 
 <div class="dialog" modal dialog-controller="contentSelectorCtrl">
+    <server-data content-item-service-url='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'
+        default-provider-name='@Html.DefaultProviderName(Model.ContentManager)'
+        provider-data-service-url='@Url.Content("~/Sitefinity/Services/DataSourceService/")'></server-data>
+
     <script type="text/ng-template" id="dialog-template">
         <div class="modal-header">
             <button type="button" class="close" ng-click="Cancel()" aria-hidden="true">&times;</button>
@@ -47,17 +51,13 @@
     </script>
 </div>
 
-<input type="hidden" id="contentItemServiceUrl" value='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")' />
-
-<input type="hidden" id="defaultProviderName" value='@Html.DefaultProviderName(Model.ContentManager)' />
-<input type="hidden" id="providerDataServiceUrl" value='@Url.Content("~/Sitefinity/Services/DataSourceService/")' />
-
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Scripts/Bootstrap/css/bootstrap.min.css")'>
 <!-- Optional theme -->
 <link rel="stylesheet" href='@Url.WidgetContent("Mvc/Styles/sitefinity-theme.min.css")'>
 
-<script src='@Url.WidgetContent("Mvc/Scripts/Designer/modal-dialog.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/shared-content-services.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/data-providers.js")'></script>
-<script src='@Url.WidgetContent("Mvc/Scripts/ContentBlock/content-selector.js")'></script>
+@Html.Script(Url.WidgetContent("Mvc/Scripts/server-data.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Designer/modal-dialog.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ContentBlock/shared-content-services.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/data-providers.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ContentBlock/content-selector.js"))

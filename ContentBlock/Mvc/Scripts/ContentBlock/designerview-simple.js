@@ -1,8 +1,10 @@
 ﻿(function ($) {
     var EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
-    var designerModule = angular.module('designer');
 
-    designerModule.factory('contentBlockService', ['dialogFeedbackService', 'sharedContentService', function (dialogFeedbackService, sharedContentService) {
+    var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sharedContentServices']);
+    angular.module('designer').requires.push('simpleViewModule');
+
+    simpleViewModule.factory('contentBlockService', ['dialogFeedbackService', 'sharedContentService', function (dialogFeedbackService, sharedContentService) {
         var contentItem;
         var properties;
 
@@ -38,7 +40,7 @@
     }]);
 
     //basic controller for the simple designer view
-    designerModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sharedContentService', 'dialogFeedbackService', 'contentBlockService',
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sharedContentService', 'dialogFeedbackService', 'contentBlockService',
         function ($scope, propertyService, sharedContentService, dialogFeedbackService, contentBlockService) {
             var contentItem;
 
@@ -47,13 +49,13 @@
             // ------------------------------------------------------------------------
 
             var onGetPropertiesSuccess = function (data) {
-                $scope.Properties = propertyService.toAssociativeArray(data.Items);
-                $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != EMPTY_GUID;
+                $scope.properties = propertyService.toAssociativeArray(data.Items);
+                $scope.isShared = $scope.properties.SharedContentID.PropertyValue != EMPTY_GUID;
 
                 kendo.bind();
 
-                if ($scope.IsShared) {
-                    return contentBlockService($scope.Properties);
+                if ($scope.isShared) {
+                    return contentBlockService($scope.properties);
                 }
             };
 
@@ -61,21 +63,21 @@
             // scope variables and set up
             // ------------------------------------------------------------------------
 
-            $scope.Feedback = dialogFeedbackService;
-            $scope.Feedback.ShowLoadingIndicator = true;
+            $scope.feedback = dialogFeedbackService;
+            $scope.feedback.showLoadingIndicator = true;
 
-            $scope.IsShared = false;
+            $scope.isShared = false;
 
             propertyService.get()
                 .then(onGetPropertiesSuccess)
                 .catch(function (data) {
-                    $scope.Feedback.ShowError = true;
+                    $scope.feedback.showError = true;
                     if (data)
-                        $scope.Feedback.ErrorMessage = data.Detail;
+                        $scope.feedback.errorMessage = data.Detail;
                 })
                 .finally(function () {
-                    $scope.IsShared = $scope.Properties.SharedContentID.PropertyValue != EMPTY_GUID;
-                    $scope.Feedback.ShowLoadingIndicator = false;
+                    $scope.isShared = $scope.properties.SharedContentID.PropertyValue != EMPTY_GUID;
+                    $scope.feedback.showLoadingIndicator = false;
                 });
 
             //Fixes a bug for modal dialogs with iframe in them for IE.

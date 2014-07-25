@@ -149,7 +149,7 @@
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Simple.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\simple-designer.js" />
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\ContentBlock\Share.cshtml" />
@@ -167,8 +167,8 @@
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\content-selector.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\Designer.ClientReferences.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ContentBlock\Unshare.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Simple.json" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>

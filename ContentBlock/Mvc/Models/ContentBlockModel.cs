@@ -21,7 +21,7 @@ namespace ContentBlock.Mvc.Models
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContentBlockModel"/> class.
-        /// This parameterless constructor is used for testing purposes
+        /// This parameterless constructor is used for testing purposes.
         /// </summary>
         protected ContentBlockModel()
         {

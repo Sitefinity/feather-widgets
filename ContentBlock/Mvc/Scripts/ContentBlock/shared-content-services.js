@@ -1,199 +1,200 @@
 ﻿(function ($) {
-	var sharedContentServices = angular.module('sharedContentServices', ['pageEditorServices']);
+	var sharedContentServices = angular.module('sharedContentServices', ['pageEditorServices', 'serverDataModule']);
 
 	//this is the service responsible for managing the properties data for all interested parties
-	sharedContentServices.factory('sharedContentService', ['$http', '$q', 'propertyService', 'widgetContext', function ($http, $q, propertyService, widgetContext) {
+	sharedContentServices.factory('sharedContentService', ['$http', '$q', 'propertyService', 'widgetContext', 'serverData',
+		function ($http, $q, propertyService, widgetContext, serverData) {
+		    var CULTURE_HEADER = 'SF_UI_CULTURE',
+			    EMPTY_GUID = '00000000-0000-0000-0000-000000000000',
+			    serviceUrl = serverData.get('contentItemServiceUrl');
 
-		var CULTURE_HEADER = 'SF_UI_CULTURE',
-			EMPTY_GUID = '00000000-0000-0000-0000-000000000000',
-			serviceUrl = $('input#contentItemServiceUrl').val();
+		    /**
+		     * Generates the headers dictionary for the HTTP request
+		     * to be performed. The headers will contain by default the
+		     * Sitefinity UI culture header.
+		     */
+		    var requestOptions = function () {
+			    var header = {};
 
-		/**
-		 * Generates the headers dictionary for the HTTP request
-		 * to be performed. The headers will contain by default the
-		 * Sitefinity UI culture header.
-		 */
-		var requestOptions = function () {
-			var header = {};
+			    if (widgetContext.culture)
+				    header[CULTURE_HEADER] = widgetContext.culture;
 
-			if (widgetContext.culture)
-			    header[CULTURE_HEADER] = widgetContext.culture;
+			    return {
+				    cache: false,
+				    headers: header
+			    };
+		    };
 
-			return {
-				cache: false,
-				headers: header
-			};
-		};
+		    //sends request for creating new content block item
+		    var publish = function (title, content, providerName) {
+			    var deferred = $q.defer();
+			    debugger;
+			    var blankItem = $.parseJSON(serverData.get('blankDataItem'));
+			    var putUrl = serviceUrl + blankItem.Id + '/';
 
-		//sends request for creating new content block item
-		var publish = function (title, content, providerName) {
-			var deferred = $q.defer();
+			    if (providerName)
+				    putUrl += '?provider=' + providerName;
 
-			var blankItem = $.parseJSON($('input#blankDataItem').val());
-			var putUrl = serviceUrl + blankItem.Id + '/';
+			    if (blankItem.PublicationDate)
+				    blankItemPublicationDate = new Date();
 
-			if (providerName)
-				putUrl += '?provider=' + providerName;
+			    blankItem.Title = {
+				    Value: title,
+				    PersistedValue: title
+			    };
+			    blankItem.Content = {
+				    Value: content,
+				    PersistedValue: content
+			    };
+			    blankItem.DateCreated = '\/Date(' + new Date(blankItem.DateCreated).getTime() + ')\/';
+			    blankItem.PublicationDate = '\/Date(' + new Date(blankItem.PublicationDate).getTime() + ')\/';
+			    var itemContext = {
+				    Item: blankItem,
+				    ItemType: 'Telerik.Sitefinity.GenericContent.Model.ContentItem'
+			    };
 
-			if (blankItem.PublicationDate)
-				blankItemPublicationDate = new Date();
+			    $http.put(putUrl, itemContext, requestOptions())
+				    .success(function (data) {
+					    deferred.resolve(data);
+				    })
+				    .error(function (data) {
+					    deferred.reject(data);
+				    });
 
-			blankItem.Title = {
-				Value: title,
-				PersistedValue: title
-			};
-			blankItem.Content = {
-				Value: content,
-				PersistedValue: content
-			};
-			blankItem.DateCreated = '\/Date(' + new Date(blankItem.DateCreated).getTime() + ')\/';
-			blankItem.PublicationDate = '\/Date(' + new Date(blankItem.PublicationDate).getTime() + ')\/';
-			var itemContext = {
-				Item: blankItem,
-				ItemType: 'Telerik.Sitefinity.GenericContent.Model.ContentItem'
-			};
+			    return deferred.promise;
+		    };
 
-			$http.put(putUrl, itemContext, requestOptions())
-				.success(function (data) {
-					deferred.resolve(data);
-				})
-				.error(function (data) {
-					deferred.reject(data);
-				});
+		    //creates new content block item with the provided title
+		    var share = function (title) {
+			    var properties;
 
-			return deferred.promise;
-		};
+			    var saveProperties = function (data) {
+				    //change the SharedContentId property of the widget
+				    properties.SharedContentID.PropertyValue = data.Item.Id;
 
-		//creates new content block item with the provided title
-		var share = function (title) {
-		    var properties;
+				    var modifiedProperties = [properties.SharedContentID];
+				    //The type of save that should be performed. 0 - default, 1 - all translations, 2 - currently translation only
+				    var currentSaveMode = widgetContext.culture ? 1 : 0;
 
-			var saveProperties = function (data) {
-				//change the SharedContentId property of the widget
-				properties.SharedContentID.PropertyValue = data.Item.Id;
+				    return propertyService.save(currentSaveMode, modifiedProperties);
+			    };
 
-				var modifiedProperties = [properties.SharedContentID];
-				//The type of save that should be performed. 0 - default, 1 - all translations, 2 - currently translation only
-				var currentSaveMode = widgetContext.culture ? 1 : 0;
+			    return propertyService.get()
+				    .then(function (data) {
+					    properties = propertyService.toAssociativeArray(data.Items);
+					    var content = properties.Content.PropertyValue;
+					    var provider = properties.ProviderName.PropertyValue;
 
-				return propertyService.save(currentSaveMode, modifiedProperties);
-			};
+					    return publish(title, content, provider);
+				    })
+				    .then(saveProperties);
+		    };
 
-			return propertyService.get()
-				.then(function (data) {
-				    properties = propertyService.toAssociativeArray(data.Items);
-				    var content = properties.Content.PropertyValue;
-				    var provider = properties.ProviderName.PropertyValue;
+		    //updates content of the content block item
+		    var update = function (itemData, content, providerName) {
+			    var currentItem = itemData.Item;
+			    var putUrl = serviceUrl + currentItem.Id + '/?draftPageId=' + widgetContext.pageId;
 
-				    return publish(title, content, provider);
-				})
-		        .then(saveProperties);
-		};
+			    if (providerName)
+				    putUrl += '&provider=' + providerName;
 
-		//updates content of the content block item
-		var update = function (itemData, content, providerName) {
-			var currentItem = itemData.Item;
-			var putUrl = serviceUrl + currentItem.Id + '/?draftPageId=' + widgetContext.pageId;
+			    currentItem.Content.Value = content;
+			    currentItem.Content.PersistedValue = content;
+			    itemData.Item = currentItem;
 
-			if (providerName)
-				putUrl += '&provider=' + providerName;
+			    var deferred = $q.defer();
 
-			currentItem.Content.Value = content;
-			currentItem.Content.PersistedValue = content;
-			itemData.Item = currentItem;
+			    $http.put(putUrl, itemData, requestOptions())
+				    .success(function (data) {
+					    deferred.resolve(data);
+				    })
+				    .error(function (data) {
+					    deferred.reject(data);
+				    });
 
-			var deferred = $q.defer();
+			    return deferred.promise;
+		    };
 
-			$http.put(putUrl, itemData, requestOptions())
-				.success(function (data) {
-					deferred.resolve(data);
-				})
-				.error(function (data) {
-					deferred.reject(data);
-				});
+		    //gets the content block depending on the provided shareContentId
+		    var get = function (sharedContentId, providerName, checkOut) {
+			    var getUrl = serviceUrl + sharedContentId + '/?published=true&checkOut=' + checkOut;
 
-			return deferred.promise;
-		};
+			    if (providerName)
+				    getUrl += '&provider=' + providerName;
 
-		//gets the content block depending on the provided shareContentId
-		var get = function (sharedContentId, providerName, checkOut) {
-			var getUrl = serviceUrl + sharedContentId + '/?published=true&checkOut=' + checkOut;
+			    var deferred = $q.defer();
+			    $http.get(getUrl, requestOptions())
+				    .success(function (data) {
+					    deferred.resolve(data);
+				    })
+				    .error(function (data) {
+					    deferred.reject(data);
+				    });
 
-			if (providerName)
-				getUrl += '&provider=' + providerName;
+			    return deferred.promise;
+		    };
 
-			var deferred = $q.defer();
-			$http.get(getUrl, requestOptions())
-				.success(function (data) {
-					deferred.resolve(data);
-				})
-				.error(function (data) {
-					deferred.reject(data);
-				});
+		    //get content items for particular provider
+		    var getItems = function (providerName, skip, take, filter) {
 
-			return deferred.promise;
-		};
+			    var getUrl = serviceUrl +
+				    '?itemType=Telerik.Sitefinity.GenericContent.Model.Content' +
+				    '&itemSurrogateType=Telerik.Sitefinity.GenericContent.Model.Content' +
+				    '&filter=Visible==true AND Status==Live';
 
-		//get content items for particular provider
-		var getItems = function (providerName, skip, take, filter) {
+			    var culture = widgetContext.culture;
+			    if (culture)
+				    getUrl += ' AND Culture == ' + culture;
 
-			var getUrl = serviceUrl +
-				'?itemType=Telerik.Sitefinity.GenericContent.Model.Content' +
-				'&itemSurrogateType=Telerik.Sitefinity.GenericContent.Model.Content' +
-				'&filter=Visible==true AND Status==Live';
+			    if (filter)
+				    getUrl += ' AND (Title.ToUpper().Contains("' + filter + '".ToUpper()))';
 
-			var culture = widgetContext.culture;
-			if (culture)
-				getUrl += ' AND Culture == ' + culture;
+			    if (skip)
+				    getUrl += '&skip=' + skip;
 
-			if (filter)
-			    getUrl += ' AND (Title.ToUpper().Contains("' + filter + '".ToUpper()))';
+			    if (take)
+				    getUrl += '&take=' + take;
 
-			if (skip)
-			    getUrl += '&skip=' + skip;
+			    if (providerName)
+				    getUrl += '&allProviders=false&provider=' + providerName;
 
-			if (take)
-			    getUrl += '&take=' + take;
+			    var deferred = $q.defer();
+			    $http.get(getUrl, requestOptions())
+				    .success(function (data) {
+					    deferred.resolve(data);
+				    })
+				    .error(function (data) {
+					    deferred.reject(data);
+				    });
 
-			if (providerName)
-				getUrl += '&allProviders=false&provider=' + providerName;
+			    return deferred.promise;
+		    };
 
-			var deferred = $q.defer();
-			$http.get(getUrl, requestOptions())
-				.success(function (data) {
-					deferred.resolve(data);
-				})
-				.error(function (data) {
-					deferred.reject(data);
-				});
+		    //deletes the temp item for a content with the provided id
+		    var deleteTemp = function (id) {
+			    var deleteUrl = serviceUrl + 'temp/' + id + '/';
 
-			return deferred.promise;
-		};
+			    var deferred = $q.defer();
+			    $http.delete(deleteUrl, requestOptions())
+				    .success(function (data) {
+					    deferred.resolve(data);
+				    })
+				    .error(function (data) {
+					    deferred.reject(data);
+				    });
 
-		//deletes the temp item for a content with the provided id
-		var deleteTemp = function (id) {
-			var deleteUrl = serviceUrl + 'temp/' + id + '/';
+			    return deferred.promise;
+		    };
 
-			var deferred = $q.defer();
-			$http.delete(deleteUrl, requestOptions())
-				.success(function (data) {
-					deferred.resolve(data);
-				})
-				.error(function (data) {
-					deferred.reject(data);
-				});
-
-			return deferred.promise;
-		};
-
-		//the public interface of the service
-		return {
-		    getItems: getItems,
-			get: get,
-			update: update,
-			share: share,
-			deleteTemp: deleteTemp
-		};
-	}]);
+		    //the public interface of the service
+		    return {
+			    getItems: getItems,
+			    get: get,
+			    update: update,
+			    share: share,
+			    deleteTemp: deleteTemp
+		    };
+		}
+	]);
 
 })(jQuery);
