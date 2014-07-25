@@ -27,10 +27,9 @@
 
 		    //sends request for creating new content block item
 		    var publish = function (title, content, providerName) {
-			    var deferred = $q.defer();
-			    debugger;
-			    var blankItem = $.parseJSON(serverData.get('blankDataItem'));
-			    var putUrl = serviceUrl + blankItem.Id + '/';
+			    var deferred = $q.defer(),
+			        blankItem = $.parseJSON(serverData.get('blankDataItem')),
+			        putUrl = serviceUrl + blankItem.Id + '/';
 
 			    if (providerName)
 				    putUrl += '?provider=' + providerName;

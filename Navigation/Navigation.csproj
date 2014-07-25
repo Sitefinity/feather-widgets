@@ -84,11 +84,14 @@
     <EmbeddedResource Include="Mvc\Views\Navigation\NavigationView.Sitemap.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\Dropdown.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Navigation\Designer.ClientReferences.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Navigation\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Navigation.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Navigation\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
