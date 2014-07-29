@@ -4,7 +4,7 @@
     var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sharedContentServices']);
     angular.module('designer').requires.push('simpleViewModule');
 
-    simpleViewModule.factory('contentBlockService', ['sharedContentService', function (dialogFeedbackService, sharedContentService) {
+    simpleViewModule.factory('contentBlockService', ['dialogFeedbackService', 'sharedContentService', function (dialogFeedbackService, sharedContentService) {
         var contentItem;
         var properties;
 

@@ -156,26 +156,26 @@
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Share.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\share-dialog.js" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\shared-content-services.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\SharedContentItemSelector.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\content-selector.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\Unshare.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Share.json" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.UseShared.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.UseShared.json" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Unshare.json" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Unshare.cshtml" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-share.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-useshared.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-unshare.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="OpenAccessNuget.targets" />

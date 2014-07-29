@@ -274,11 +274,11 @@ namespace ContentBlock.Mvc.Controllers
             }
             else
             {
-                var unshareActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Unshare"), UrlResolveOptions.Rooted));
+                var unshareActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.DesignerTemplate, "Unshare"), UrlResolveOptions.Rooted));
                 commandsList.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().Unshare, ActionUrl = unshareActionLink, NeedsModal = true });
             }
 
-            var useSharedActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "UseSharedContentItem"), UrlResolveOptions.Rooted));
+            var useSharedActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.DesignerTemplate, "UseShared"), UrlResolveOptions.Rooted));
             commandsList.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().UseShared, ActionUrl = useSharedActionLink, NeedsModal = true });
             commandsList.Add(new WidgetMenuItem() { Text = Res.Get<Labels>().Permissions, CommandName = "permissions", CssClass = "sfPermItm" });
             return commandsList;

@@ -1,0 +1,34 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<server-data content-item-service-url='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'
+        default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.GenericContent.ContentManager.GetManager())'
+        provider-data-service-url='@Url.Content("~/Sitefinity/Services/DataSourceService/")'></server-data>
+
+<provider-selector manager-type="Telerik.Sitefinity.Modules.GenericContent.ContentManager" 
+    provider-label='@Html.Resource("Provider")'
+    ng-model="filter.providerName">
+</provider-selector>
+
+<div ng-show="isListEmpty" class="alert alert-info">@Html.Resource("NoItemsHaveBeedCreatedYet")</div>
+<div ng-hide="isListEmpty">
+    <div class="input-group m-bottom-sm">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-search"></i>
+        </span>
+        <input type="text" ng-model="filter.search" class="form-control" placeholder='@Html.Resource("NarrowByTyping")' />
+    </div>
+    <div class="list-group s-items-list-wrp">
+        <a ng-repeat="item in contentItems"
+                ng-class="{'list-group-item':true, 'active': item.Id==selectedContentItem.Id }" 
+                ng-click="contentItemClicked($index, item)"> 
+            <span ng-bind="item.Title"></span>
+        </a>
+    </div>
+    <pagination ng-show="filter.paging.isVisible" items-per-page="filter.paging.itemsPerPage" total-items="filter.paging.totalItems" ng-model="filter.paging.currentPage"></pagination>
+    <div ng-hide="contentItems.length">@Html.Resource("NoItemsFound")</div>
+</div>
+
+<script type="text/ng-template" section="modal-footer">
+    <button type="button" ng-hide="isListEmpty" class="btn btn-primary" ng-click="selectSharedContent()">@Html.Resource("DoneSelecting")</button>
+    <button type="button" class="btn btn-link" ng-click="cancel()">@Html.Resource("Cancel")</button>
+</script>

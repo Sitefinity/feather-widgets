@@ -1,22 +1,17 @@
 ﻿(function ($) {
-    if (typeof ($telerik) != 'undefined') {
-        $telerik.$(document).one('dialogRendered', function () {
-            angular.bootstrap($('.dialog'), ['contentSelector']);
-        });
-    }
+    var contentSelectorModule = angular.module('contentSelector', ['sharedContentServices', 'dataProviders']);
+    angular.module('designer').requires.push('contentSelector');
 
-    var contentSelectorModule = angular.module('contentSelector', ['modalDialog', 'sharedContentServices', 'dataProviders']);
-
-    contentSelectorModule.controller('contentSelectorCtrl', ['$scope', '$modalInstance', 'sharedContentService', 'propertyService', 'widgetContext', 'providerService',
-        function ($scope, $modalInstance, sharedContentService, propertyService, widgetContext, providerService) {
+    contentSelectorModule.controller('UseSharedCtrl', ['$scope', 'sharedContentService', 'propertyService', 'widgetContext', 'providerService',
+        function ($scope, sharedContentService, propertyService, widgetContext, providerService) {
             // ------------------------------------------------------------------------
             // Event handlers
             // ------------------------------------------------------------------------
 
             var onGetPropertiesSuccess = function (data) {
                 if (data) {
-                    $scope.Properties = propertyService.toAssociativeArray(data.Items);
-                    $scope.filter.providerName = $scope.Properties.ProviderName.PropertyValue;
+                    $scope.properties = propertyService.toAssociativeArray(data.Items);
+                    $scope.filter.providerName = $scope.properties.ProviderName.PropertyValue;
 
                     providerService.setDefaultProviderName($scope.filter.providerName);
                 }
@@ -25,18 +20,18 @@
             //invoked when the content blocks for a provider are loaded
             var onLoadedSuccess = function (data) {
                 if (data && data.Items) {
-                    $scope.ContentItems = data.Items;
+                    $scope.contentItems = data.Items;
                     $scope.filter.paging.set_totalItems(data.TotalCount);
 
                     //select current cotnentBlock if it exists
                     for (var i = 0; i < data.Items.length; i++) {
-                        if (data.Items[i].Id == $scope.Properties.SharedContentID.PropertyValue) {
-                            $scope.SelectedContentItem = data.Items[i];
+                        if (data.Items[i].Id == $scope.properties.SharedContentID.PropertyValue) {
+                            $scope.selectedContentItem = data.Items[i];
                         }
                     }
                 }
 
-                $scope.IsListEmpty = $scope.ContentItems.length === 0 && !$scope.filter.search;
+                $scope.isListEmpty = $scope.contentItems.length === 0 && !$scope.filter.search;
             };
 
             var onError = function () {
@@ -44,8 +39,8 @@
                 if (data)
                     errorMessage = data.Detail;
 
-                $scope.ShowError = true;
-                $scope.ErrorMessage = errorMessage;
+                $scope.feedback.showError = true;
+                $scope.feedback.errorMessage = errorMessage;
             };
 
             // ------------------------------------------------------------------------
@@ -53,23 +48,13 @@
             // ------------------------------------------------------------------------
 
             var saveProperties = function (data) {
-                $scope.Properties.SharedContentID.PropertyValue = data.Item.Id;
-                $scope.Properties.ProviderName.PropertyValue = $scope.SelectedContentItem.ProviderName;
-                $scope.Properties.Content.PropertyValue = data.Item.Content.Value;
+                $scope.properties.SharedContentID.PropertyValue = data.Item.Id;
+                $scope.properties.ProviderName.PropertyValue = $scope.selectedContentItem.ProviderName;
+                $scope.properties.Content.PropertyValue = data.Item.Content.Value;
 
-                var modifiedProperties = [$scope.Properties.SharedContentID, $scope.Properties.ProviderName, $scope.Properties.Content];
+                var modifiedProperties = [$scope.properties.SharedContentID, $scope.properties.ProviderName, $scope.properties.Content];
                 var currentSaveMode = widgetContext.culture ? 1 : 0;
                 return propertyService.save(currentSaveMode, modifiedProperties);
-            };
-
-            var dialogClose = function () {
-                if ($modalInstance) {
-                    $modalInstance.dismiss('cancel');
-
-                    if (typeof ($telerik) != 'undefined') {
-                        $telerik.$(document).trigger('modalDialogClosed');
-                    }
-                }
             };
 
             var loadContentItems = function () {
@@ -82,22 +67,21 @@
 
             var reloadContentItems = function (newValue, oldValue) {
                 if (newValue != oldValue) {
-                    $scope.ShowLoadingIndicator = true;
-                    loadContentItems().finally(hideLoadingIndicator);
+                    loadContentItems();
                 }
             };
 
             var hideLoadingIndicator = function () {
-                $scope.ShowLoadingIndicator = false;
+                $scope.feedback.showLoadingIndicator = false;
             };
 
             // ------------------------------------------------------------------------
             // Scope variables and setup
             // ------------------------------------------------------------------------
 
-            $scope.ShowError = false;
-            $scope.IsListEmpty = false;
-            $scope.ContentItems = [];
+            $scope.feedback.showError = false;
+            $scope.isListEmpty = false;
+            $scope.contentItems = [];
             $scope.filter = {
                 providerName: null,
                 search: null,
@@ -116,38 +100,34 @@
                 }
             };
 
-            $scope.ContentItemClicked = function (index, item) {
-                $scope.SelectedContentItem = item;
+            $scope.contentItemClicked = function (index, item) {
+                $scope.selectedContentItem = item;
             };
 
-            $scope.SelectSharedContent = function () {
-                if ($scope.SelectedContentItem) {
-                    var selectedContentItemId = $scope.SelectedContentItem.Id;
-                    var providerName = $scope.SelectedContentItem.ProviderName;
+            $scope.selectSharedContent = function () {
+                if ($scope.selectedContentItem) {
+                    var selectedContentItemId = $scope.selectedContentItem.Id;
+                    var providerName = $scope.selectedContentItem.ProviderName;
                     var checkout = false;
 
-                    $scope.ShowLoadingIndicator = true;
+                    $scope.feedback.showLoadingIndicator = true;
                     sharedContentService.get(selectedContentItemId, providerName, checkout)
                         .then(saveProperties)
-                        .then(dialogClose)
+                        .then($scope.close)
                         .catch(onError)
                         .finally(hideLoadingIndicator);
                 }
                 else {
-                    dialogClose();
+                    $scope.close();
                 }
             };
 
-            $scope.Cancel = function () {
-                dialogClose();
+            $scope.hideError = function () {
+                $scope.feedback.showError = false;
+                $scope.feedback.errorMessage = null;
             };
 
-            $scope.HideError = function () {
-                $scope.Feedback.ShowError = false;
-                $scope.Feedback.ErrorMessage = null;
-            };
-
-            $scope.ShowLoadingIndicator = true;
+            $scope.feedback.showLoadingIndicator = true;
             propertyService.get()
                 .then(onGetPropertiesSuccess)
                 .then(loadContentItems)
