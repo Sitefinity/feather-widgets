@@ -282,7 +282,7 @@ namespace ContentBlock.Mvc.Controllers
         private bool isEmpty = true;
         private string content;
         private IContentBlockModel model;
-        internal const string ActionTemplate = "ContentBlock/ContentBlock/{0}";
+
         private const string DesignerTemplate = "Telerik.Sitefinity.Frontend/Designer/Master/ContentBlock?view={0}";
         private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
 
