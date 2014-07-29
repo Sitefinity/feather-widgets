@@ -137,6 +137,7 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Mvc\Controllers\ContentBlockController.cs" />
+    <Compile Include="Mvc\Helpers\ContentBlockHelpers.cs" />
     <Compile Include="Mvc\Models\ContentBlockModel.cs" />
     <Compile Include="Mvc\Models\IContentBlockModel.cs" />
     <Compile Include="Mvc\StringResources\ContentBlockResources.cs" />
@@ -152,7 +153,7 @@
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\ContentBlock\Share.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Share.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\share-dialog.js" />
@@ -169,8 +170,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\ContentBlock\Unshare.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Share.json" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-share.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="OpenAccessNuget.targets" />

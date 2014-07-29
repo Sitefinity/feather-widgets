@@ -262,21 +262,23 @@ namespace ContentBlock.Mvc.Controllers
         protected virtual IList<WidgetMenuItem> InitializeCommands()
         {
             var packageManager = new PackageManager();
-            var shareActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Share"), UrlResolveOptions.Rooted));
-            var unshareActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Unshare"), UrlResolveOptions.Rooted));
-            var useSharedActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "UseSharedContentItem"), UrlResolveOptions.Rooted));
+            var commandsList = new List<WidgetMenuItem>(5);
 
-            var commandsList = new List<WidgetMenuItem>();
             commandsList.Add(new WidgetMenuItem() { Text = Res.Get<Labels>().Delete, CommandName = "beforedelete", CssClass = "sfDeleteItm" });
             commandsList.Add(new WidgetMenuItem() { Text = Res.Get<Labels>().Duplicate, CommandName = "duplicate", CssClass = "sfDuplicateItm" });
+
             if (this.SharedContentID == Guid.Empty)
             {
+                var shareActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.DesignerTemplate, "Share"), UrlResolveOptions.Rooted));
                 commandsList.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().Share, ActionUrl = shareActionLink, NeedsModal = true });
             }
             else
             {
+                var unshareActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "Unshare"), UrlResolveOptions.Rooted));
                 commandsList.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().Unshare, ActionUrl = unshareActionLink, NeedsModal = true });
             }
+
+            var useSharedActionLink = packageManager.EnhanceUrl(RouteHelper.ResolveUrl(string.Format(ContentBlockController.ActionTemplate, "UseSharedContentItem"), UrlResolveOptions.Rooted));
             commandsList.Add(new WidgetMenuItem() { Text = Res.Get<ContentBlockResources>().UseShared, ActionUrl = useSharedActionLink, NeedsModal = true });
             commandsList.Add(new WidgetMenuItem() { Text = Res.Get<Labels>().Permissions, CommandName = "permissions", CssClass = "sfPermItm" });
             return commandsList;
@@ -310,6 +312,7 @@ namespace ContentBlock.Mvc.Controllers
         private string content;
         private IContentBlockModel model;
         internal const string ActionTemplate = "ContentBlock/ContentBlock/{0}";
+        private const string DesignerTemplate = "Telerik.Sitefinity.Frontend/Designer/Master/ContentBlock?view={0}";
         private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
 
         #endregion

@@ -4,7 +4,7 @@
     var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sharedContentServices']);
     angular.module('designer').requires.push('simpleViewModule');
 
-    simpleViewModule.factory('contentBlockService', ['dialogFeedbackService', 'sharedContentService', function (dialogFeedbackService, sharedContentService) {
+    simpleViewModule.factory('contentBlockService', ['sharedContentService', function (dialogFeedbackService, sharedContentService) {
         var contentItem;
         var properties;
 
@@ -28,8 +28,8 @@
                         contentItem = data;
                         if (contentItem) {
                             properties.Content.PropertyValue = contentItem.Item.Content.Value;
-                            dialogFeedbackService.SavingPromise = dialogFeedbackService.SavingPromise.then(updateContentItem);
-                            dialogFeedbackService.CancelingPromise = dialogFeedbackService.CancelingPromise.then(unlockContentItem);
+                            dialogFeedbackService.savingPromise = dialogFeedbackService.savingPromise.then(updateContentItem);
+                            dialogFeedbackService.cancelingPromise = dialogFeedbackService.cancelingPromise.then(unlockContentItem);
                         }
                     }, function () {
                         properties.Content.PropertyValue = "";
@@ -40,8 +40,8 @@
     }]);
 
     //basic controller for the simple designer view
-    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sharedContentService', 'dialogFeedbackService', 'contentBlockService',
-        function ($scope, propertyService, sharedContentService, dialogFeedbackService, contentBlockService) {
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sharedContentService', 'contentBlockService',
+        function ($scope, propertyService, sharedContentService, contentBlockService) {
             var contentItem;
 
             // ------------------------------------------------------------------------
@@ -63,7 +63,6 @@
             // scope variables and set up
             // ------------------------------------------------------------------------
 
-            $scope.feedback = dialogFeedbackService;
             $scope.feedback.showLoadingIndicator = true;
 
             $scope.isShared = false;

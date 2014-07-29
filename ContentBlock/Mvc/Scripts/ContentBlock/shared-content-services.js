@@ -5,8 +5,7 @@
 	sharedContentServices.factory('sharedContentService', ['$http', '$q', 'propertyService', 'widgetContext', 'serverData',
 		function ($http, $q, propertyService, widgetContext, serverData) {
 		    var CULTURE_HEADER = 'SF_UI_CULTURE',
-			    EMPTY_GUID = '00000000-0000-0000-0000-000000000000',
-			    serviceUrl = serverData.get('contentItemServiceUrl');
+			    EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
 
 		    /**
 		     * Generates the headers dictionary for the HTTP request
@@ -25,11 +24,15 @@
 			    };
 		    };
 
+		    var getServiceUrl = function () {
+		        return serverData.get('contentItemServiceUrl');
+		    };
+
 		    //sends request for creating new content block item
 		    var publish = function (title, content, providerName) {
 			    var deferred = $q.defer(),
-			        blankItem = $.parseJSON(serverData.get('blankDataItem')),
-			        putUrl = serviceUrl + blankItem.Id + '/';
+			        blankItem = $.parseJSON(serverData.get('blankContentItem')),
+			        putUrl = getServiceUrl() + blankItem.Id + '/';
 
 			    if (providerName)
 				    putUrl += '?provider=' + providerName;
@@ -65,6 +68,10 @@
 
 		    //creates new content block item with the provided title
 		    var share = function (title) {
+		        // Shared content service is initialized once for several views. 
+		        // We have to make sure that we have server data that is up to date.
+		        serverData.refresh();
+
 			    var properties;
 
 			    var saveProperties = function (data) {
@@ -91,8 +98,12 @@
 
 		    //updates content of the content block item
 		    var update = function (itemData, content, providerName) {
+		        // Shared content service is initialized once for several views. 
+		        // We have to make sure that we have server data that is up to date.
+		        serverData.refresh();
+
 			    var currentItem = itemData.Item;
-			    var putUrl = serviceUrl + currentItem.Id + '/?draftPageId=' + widgetContext.pageId;
+			    var putUrl = getServiceUrl() + currentItem.Id + '/?draftPageId=' + widgetContext.pageId;
 
 			    if (providerName)
 				    putUrl += '&provider=' + providerName;
@@ -116,7 +127,11 @@
 
 		    //gets the content block depending on the provided shareContentId
 		    var get = function (sharedContentId, providerName, checkOut) {
-			    var getUrl = serviceUrl + sharedContentId + '/?published=true&checkOut=' + checkOut;
+		        // Shared content service is initialized once for several views. 
+		        // We have to make sure that we have server data that is up to date.
+		        serverData.refresh();
+
+		        var getUrl = getServiceUrl() + sharedContentId + '/?published=true&checkOut=' + checkOut;
 
 			    if (providerName)
 				    getUrl += '&provider=' + providerName;
@@ -135,8 +150,11 @@
 
 		    //get content items for particular provider
 		    var getItems = function (providerName, skip, take, filter) {
+		        // Shared content service is initialized once for several views. 
+		        // We have to make sure that we have server data that is up to date.
+		        serverData.refresh();
 
-			    var getUrl = serviceUrl +
+		        var getUrl = getServiceUrl() +
 				    '?itemType=Telerik.Sitefinity.GenericContent.Model.Content' +
 				    '&itemSurrogateType=Telerik.Sitefinity.GenericContent.Model.Content' +
 				    '&filter=Visible==true AND Status==Live';
@@ -171,7 +189,11 @@
 
 		    //deletes the temp item for a content with the provided id
 		    var deleteTemp = function (id) {
-			    var deleteUrl = serviceUrl + 'temp/' + id + '/';
+		        // Shared content service is initialized once for several views. 
+		        // We have to make sure that we have server data that is up to date.
+		        serverData.refresh();
+
+		        var deleteUrl = getServiceUrl() + 'temp/' + id + '/';
 
 			    var deferred = $q.defer();
 			    $http.delete(deleteUrl, requestOptions())
