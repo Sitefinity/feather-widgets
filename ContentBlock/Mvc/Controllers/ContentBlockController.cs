@@ -121,35 +121,6 @@ namespace ContentBlock.Mvc.Controllers
             return View("Default", this.Model);
         }
 
-        /// <summary>
-        ///Provides a view for making the current content block shared. 
-        ///This way the content block becomes available for reuse.
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Share()
-        {
-            ViewBag.BlankDataItem = JsonConvert.SerializeObject(this.Model.CreateBlankDataItem());
-            return View("Share");
-        }
-
-        /// <summary>
-        /// Provides an option for making the current content block not shared. 
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Unshare()
-        {
-            return View("Unshare");
-        }
-
-        /// <summary>
-        /// Provides a view from which an already created content block item can be selected and used by this control.
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult UseSharedContentItem()
-        {
-            return View("SharedContentItemSelector", this.Model);
-        }
-
         #endregion
 
         #region IZoneEditorReloader

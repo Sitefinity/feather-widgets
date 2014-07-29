@@ -135,7 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InterfaceMappings.cs" />
-    <Compile Include="Initializer.cs" />
     <Compile Include="Mvc\Controllers\ContentBlockController.cs" />
     <Compile Include="Mvc\Helpers\ContentBlockHelpers.cs" />
     <Compile Include="Mvc\Models\ContentBlockModel.cs" />

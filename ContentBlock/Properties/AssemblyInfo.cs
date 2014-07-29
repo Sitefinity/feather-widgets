@@ -33,6 +33,6 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: AssemblyVersion("0.3.1000.4")]
 [assembly: AssemblyFileVersion("0.3.1000.4")]
 
-[assembly: ControllerContainer(typeof(ContentBlock.Initializer), "Initialize")]
+[assembly: ControllerContainer()]
 
 [assembly: InternalsVisibleTo("UnitTests")]
