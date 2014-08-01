@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    var shareDialogModule = angular.module('shareDialog', ['sharedContentServices']);
+    var shareDialogModule = angular.module('shareDialog', ['designer', 'sharedContentServices']);
     angular.module('designer').requires.push('shareDialog');
 
     shareDialogModule.controller('ShareCtrl', ['$scope', 'sharedContentService',

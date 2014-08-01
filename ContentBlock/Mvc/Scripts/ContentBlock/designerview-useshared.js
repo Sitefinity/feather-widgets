@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    var contentSelectorModule = angular.module('contentSelector', ['sharedContentServices', 'dataProviders']);
+    var contentSelectorModule = angular.module('contentSelector', ['designer', 'sharedContentServices', 'dataProviders']);
     angular.module('designer').requires.push('contentSelector');
 
     contentSelectorModule.controller('UseSharedCtrl', ['$scope', 'sharedContentService', 'propertyService', 'widgetContext', 'providerService',
