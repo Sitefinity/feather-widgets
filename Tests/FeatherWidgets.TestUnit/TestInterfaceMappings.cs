@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnitTests.DummyClasses.ContentBlock;
-using UnitTests.DummyClasses.Navigation;
+using FeatherWidgets.TestUnit.DummyClasses.ContentBlock;
+using FeatherWidgets.TestUnit.DummyClasses.Navigation;
 
-namespace UnitTests
+namespace FeatherWidgets.TestUnit
 {
     public class TestInterfaceMappings : NinjectModule
     {

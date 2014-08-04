@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using UnitTests.DummyClasses.Navigation;
+using FeatherWidgets.TestUnit.DummyClasses.Navigation;
 
-namespace UnitTests.Navigation
+namespace FeatherWidgets.TestUnit.Navigation
 {
     /// <summary>
     /// Tests methods for the NavigationModel

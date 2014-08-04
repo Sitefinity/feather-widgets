@@ -3,7 +3,7 @@ using System.Reflection;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 
-namespace UnitTests
+namespace FeatherWidgets.TestUnit
 {
     /// <summary>
     /// Sets the Container and QueryableExtension properties of the ObjectFactory. Can be used to avoid the initialization.

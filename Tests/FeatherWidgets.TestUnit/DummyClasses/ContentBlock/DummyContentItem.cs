@@ -8,7 +8,7 @@ using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Modules.GenericContent;
 
 
-namespace UnitTests.DummyClasses.ContentBlock
+namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
 {
     /// <summary>
     /// This class is used as a dummy content item

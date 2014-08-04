@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.Web.UI;
 
-namespace UnitTests.DummyClasses.ContentBlock
+namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
 {
     public class DummyContentBlockController : ContentBlockController
     {

@@ -35,4 +35,4 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 
 [assembly: ControllerContainer()]
 
-[assembly: InternalsVisibleTo("UnitTests")]
+[assembly: InternalsVisibleTo("FeatherWidgets.TestUnit")]

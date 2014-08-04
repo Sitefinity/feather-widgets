@@ -13,9 +13,9 @@ using Telerik.Sitefinity.Configuration.Data;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Configuration;
 using Telerik.Sitefinity.Project.Configuration;
-using UnitTests.DummyClasses;
+using FeatherWidgets.TestUnit.DummyClasses;
 
-namespace UnitTests.Resources
+namespace FeatherWidgets.TestUnit.Resources
 {
     [TestClass]
     public class ResourcesTests

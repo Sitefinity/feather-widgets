@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.Configuration.Data;
 
-namespace UnitTests.DummyClasses
+namespace FeatherWidgets.TestUnit.DummyClasses
 {
        /// <summary>
     /// This class represents dummy implementation of <see cref="Telerik.Sitefinity.Configuration.Data.XmlConfigProvider"/> used for test purposes only.

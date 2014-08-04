@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnitTests.DummyClasses.ContentBlock;
+using FeatherWidgets.TestUnit.DummyClasses.ContentBlock;
 using System.Web.Mvc;
 using ContentBlock.Mvc.Models;
 using Newtonsoft.Json;
@@ -11,14 +11,14 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Configuration.Data;
 using Telerik.Sitefinity.Localization.Configuration;
 using Telerik.Sitefinity.Project.Configuration;
-using UnitTests.DummyClasses;
+using FeatherWidgets.TestUnit.DummyClasses;
 using Telerik.Sitefinity.Localization;
 using System.Linq;
 using System.Reflection;
 using ContentBlock.Mvc.Controllers;
 
 
-namespace UnitTests.ContentBlock
+namespace FeatherWidgets.TestUnit.ContentBlock
 {
     /// <summary>
     /// Tests methods for the Content Block 

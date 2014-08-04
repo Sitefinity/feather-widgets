@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using UnitTests.DummyClasses.Navigation;
+using FeatherWidgets.TestUnit.DummyClasses.Navigation;
 
-namespace UnitTests.Navigation
+namespace FeatherWidgets.TestUnit.Navigation
 {
     /// <summary>
     /// Tests methods for the NavigationController

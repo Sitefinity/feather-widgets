@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTests.DummyClasses.Navigation
+namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
 {
     /// <summary>
     /// This class creates dummy <see cref="Navigation.Mvc.Controllers.NavigationController"/>
