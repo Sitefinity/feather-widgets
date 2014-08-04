@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestUI.TestCases", "FeatherWidgets.TestUI.TestCases\FeatherWidgets.TestUI.TestCases.csproj", "{E90A06CF-7889-4A32-A941-4FD76332C179}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2C81681A-30FC-4F70-9A7B-A477FC08DB02}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -13,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		UITestCasesLocal.testsettings = UITestCasesLocal.testsettings
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestUI.TestCases", "FeatherWidgets.TestUI.TestCases.csproj", "{E90A06CF-7889-4A32-A941-4FD76332C179}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

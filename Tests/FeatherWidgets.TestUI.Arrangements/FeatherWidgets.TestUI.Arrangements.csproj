@@ -41,10 +41,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Telerik.Sitefinity.TestArrangementService.Core">
-      <HintPath>..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.1\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.1\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities">
-      <HintPath>..\packages\Telerik.Sitefinity.TestUtilities.1.0.0.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.1.0.0.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
