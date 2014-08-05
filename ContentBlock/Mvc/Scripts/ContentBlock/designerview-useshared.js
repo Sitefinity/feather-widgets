@@ -11,9 +11,13 @@
             var onGetPropertiesSuccess = function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
-                    $scope.filter.providerName = $scope.properties.ProviderName.PropertyValue;
 
-                    providerService.setDefaultProviderName($scope.filter.providerName);
+                    if ($scope.properties.ProviderName.PropertyValue) {
+                        $scope.filter.providerName = $scope.properties.ProviderName.PropertyValue;
+                    }
+                    else {
+                        $scope.filter.providerName = providerService.getDefaultProviderName();
+                    }
                 }
             };
 
