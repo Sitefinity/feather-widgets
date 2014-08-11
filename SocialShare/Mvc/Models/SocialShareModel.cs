@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SiteSettings.Basic;
 using Telerik.Sitefinity.Web.Utilities;
 
 namespace SocialShare.Mvc.Models
 {
+    using System.Diagnostics.CodeAnalysis;
+
+    /// <summary>
+    /// Social Share Model
+    /// </summary>
     public class SocialShareModel
     {
         #region Public members
 
         /// <summary>
-        /// The social buttons
+        /// Gets the social buttons
         /// </summary>
         public List<SocialButtonModel> SocialButtons
         {
             get
             {
-                if (this.socialButtons == null)
-                {
-                    this.socialButtons = new List<SocialButtonModel>();
-                }
-                return this.socialButtons;
+                return this.socialButtons ?? (this.socialButtons = new List<SocialButtonModel>());
             }
         }
 
@@ -33,6 +32,7 @@ namespace SocialShare.Mvc.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SocialShareModel"/> class based on the Sitefinity basic settings.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         public SocialShareModel()
         {
             this.GetBasicSettingsSocialShare();
@@ -43,10 +43,11 @@ namespace SocialShare.Mvc.Models
         /// <summary>
         /// Gets the basic settings social share depending on the Sitefinity configurations.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         internal void GetBasicSettingsSocialShare()
         {
             var settings = this.GetSocialShareSection();
-            var properties = typeof(ISocialShareSettings).GetProperties().Where(p => p.PropertyType.Equals(typeof(Boolean)) && p.Name != "DisplayCounters");
+            var properties = typeof(ISocialShareSettings).GetProperties().Where(p => p.PropertyType.Equals(typeof(bool)) && p.Name != "DisplayCounters");
             bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
             bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
             bool displayCounters = settings.DisplayCounters && addText;

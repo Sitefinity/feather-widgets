@@ -1,30 +1,36 @@
-﻿using ContentBlock.Mvc.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.Sitefinity.Data;
-using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Modules.GenericContent;
+﻿using System;
+using ContentBlock.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
 {
+    /// <summary>
+    /// The dummy content block model.
+    /// </summary>
     public class DummyContentBlockModel : ContentBlockModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DummyContentBlockModel"/> class.
+        /// </summary>
         public DummyContentBlockModel()
             : base()
         {
-
         }
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="DummyContentBlockModel" /> class.
+        /// Initializes a new instance of the <see cref="DummyContentBlockModel"/> class.
         /// </summary>
-        /// <param name="providerName">Name of the provider.</param>
-        /// <param name="content">The content.</param>
-        /// <param name="enableSocialSharing">The enable social sharing.</param>
-        /// <param name="sharedContentId">The shared content id.</param>
+        /// <param name="providerName">
+        /// Name of the provider.
+        /// </param>
+        /// <param name="content">
+        /// The content.
+        /// </param>
+        /// <param name="enableSocialSharing">
+        /// The enable social sharing.
+        /// </param>
+        /// <param name="sharedContentId">
+        /// The shared content id.
+        /// </param>
         public DummyContentBlockModel(string providerName, string content, bool enableSocialSharing, Guid sharedContentId)
             : base()
         {
@@ -37,7 +43,9 @@ namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
         /// <summary>
         /// Check if the model is shared.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public bool PublicIsShared()
         {
             return this.IsShared();
@@ -46,11 +54,12 @@ namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
         /// <summary>
         /// Creates the blank data item.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The <see cref="object"/>.
+        /// </returns>
         public override object CreateBlankDataItem()
         {
-            var dummyContent =  new DummyContentItem();
-            dummyContent.Content = "DummyContent";
+            var dummyContent = new DummyContentItem { Content = "DummyContent" };
             return dummyContent;
         }
     }

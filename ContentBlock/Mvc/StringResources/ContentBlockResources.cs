@@ -12,6 +12,7 @@ namespace ContentBlock.Mvc.StringResources
         #region Constructors
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ContentBlockResources"/> class. 
         /// Initializes new instance of <see cref="ContentBlockResources"/> class with the default <see cref="ResourceDataProvider"/>.
         /// </summary>
         public ContentBlockResources()
@@ -19,9 +20,9 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Initializes new instance of <see cref="ContentBlockResources"/> class with the provided <see cref="ResourceDataProvider"/>.
+        /// Initializes a new instance of the <see cref="ContentBlockResources"/> class.
         /// </summary>
-        /// <param name="dataProvider"><see cref="ResourceDataProvider"/></param>
+        /// <param name="dataProvider">The data provider.</param>
         public ContentBlockResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
@@ -29,13 +30,12 @@ namespace ContentBlock.Mvc.StringResources
 
         #endregion
 
-
         /// <summary>
-        /// Resources for Comments
+        /// Gets Resources for Comments
         /// </summary>
-        [ResourceEntry("CreateContent",
-            Value = "Create Content",
-            Description = "The phrase that will show when the widget has no content.",
+        [ResourceEntry("CreateContent", 
+            Value = "Create Content", 
+            Description = "The phrase that will show when the widget has no content.", 
             LastModified = "2014/02/06")]
         public string CreateContent
         {
@@ -46,11 +46,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: You are not allowed to see this content. Contact administrator for more information
+        /// Gets phrase: You are not allowed to see this content. Contact administrator for more information
         /// </summary>
-        [ResourceEntry("NoViewPermissionsMessage",
-            Value = "You are not allowed to see this content. Contact administrator for more information",
-            Description = "phrase: You are not allowed to see this content. Contact administrator for more information",
+        [ResourceEntry("NoViewPermissionsMessage", 
+            Value = "You are not allowed to see this content. Contact administrator for more information", 
+            Description = "phrase: You are not allowed to see this content. Contact administrator for more information", 
             LastModified = "2014/02/06")]
         public string NoViewPermissionsMessage
         {
@@ -61,11 +61,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// word: Shared
+        /// Gets word: Shared
         /// </summary>
-        [ResourceEntry("Shared",
-            Value = "<span class='sfShared'>Shared</span>",
-            Description = "word: Shared",
+        [ResourceEntry("Shared", 
+            Value = "<span class='sfShared'>Shared</span>", 
+            Description = "word: Shared", 
             LastModified = "2014/02/06")]
         public string Shared
         {
@@ -75,9 +75,12 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
-        [ResourceEntry("Cancel",
-            Value = "Cancel",
-            Description = "word: Cancel",
+        /// <summary>
+        /// Gets the cancel.
+        /// </summary>
+        [ResourceEntry("Cancel", 
+            Value = "Cancel", 
+            Description = "word: Cancel", 
             LastModified = "2014/03/05")]
         public string Cancel
         {
@@ -87,9 +90,12 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
-        [ResourceEntry("Title",
-            Value = "Title",
-            Description = "word: Title",
+        /// <summary>
+        /// Gets the title.
+        /// </summary>
+        [ResourceEntry("Title", 
+            Value = "Title", 
+            Description = "word: Title", 
             LastModified = "2014/03/05")]
         public string Title
         {
@@ -99,9 +105,12 @@ namespace ContentBlock.Mvc.StringResources
             }
         }
 
-        [ResourceEntry("ShareContent",
-            Value = "Share this content",
-            Description = "phrase: Share this content",
+        /// <summary>
+        /// Gets the share content.
+        /// </summary>
+        [ResourceEntry("ShareContent", 
+            Value = "Share this content", 
+            Description = "phrase: Share this content", 
             LastModified = "2014/03/05")]
         public string ShareContent
         {
@@ -112,11 +121,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: This content will not be shared anymore. The changes you make will not affect other pages. Are you sure you want to Unshare this content?
+        /// Gets phrase: This content will not be shared anymore. The changes you make will not affect other pages. Are you sure you want to Unshare this content?
         /// </summary>
-        [ResourceEntry("AreYouSureYouWantToUnshareThisContent",
-            Value = "<p>This content will not be shared anymore. The changes you make will not affect other pages.</p><p>Are you sure you want to unshare this content?</p>",
-            Description = "phrase: This content will not be shared anymore. The changes you make will not affect other pages. Are you sure you want to unshare this content?",
+        [ResourceEntry("AreYouSureYouWantToUnshareThisContent", 
+            Value = "<p>This content will not be shared anymore. The changes you make will not affect other pages.</p><p>Are you sure you want to unshare this content?</p>", 
+            Description = "phrase: This content will not be shared anymore. The changes you make will not affect other pages. Are you sure you want to unshare this content?", 
             LastModified = "2014/03/07")]
         public string AreYouSureYouWantToUnshareThisContent
         {
@@ -127,11 +136,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Yes, Unshare this content
+        /// Gets phrase: Yes, Unshare this content
         /// </summary>
-        [ResourceEntry("UnshareThisContent",
-            Value = "Yes, Unshare this content",
-            Description = "phrase: Yes, Unshare this content",
+        [ResourceEntry("UnshareThisContent", 
+            Value = "Yes, Unshare this content", 
+            Description = "phrase: Yes, Unshare this content", 
             LastModified = "2014/03/07")]
         public string UnshareThisContent
         {
@@ -142,11 +151,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Share
+        /// Gets Share
         /// </summary>
-        [ResourceEntry("Share",
-            Value = "Share",
-            Description = "word: Share",
+        [ResourceEntry("Share", 
+            Value = "Share", 
+            Description = "word: Share", 
             LastModified = "2014/03/10")]
         public string Share
         {
@@ -157,11 +166,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Use shared
+        /// Gets use shared
         /// </summary>
-        [ResourceEntry("UseShared",
-            Value = "Use shared",
-            Description = "phrase: Use shared",
+        [ResourceEntry("UseShared", 
+            Value = "Use shared", 
+            Description = "phrase: Use shared", 
             LastModified = "2014/06/04")]
         public string UseShared
         {
@@ -172,11 +181,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Unshare
+        /// Gets Unshare
         /// </summary>
-        [ResourceEntry("Unshare",
-            Value = "Unshare",
-            Description = "word: Unshare",
+        [ResourceEntry("Unshare", 
+            Value = "Unshare", 
+            Description = "word: Unshare", 
             LastModified = "2014/03/10")]
         public string Unshare
         {
@@ -187,11 +196,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// This content is shared. Any changes will be reflected everywhere it is shared.
+        /// Gets This content is shared. Any changes will be reflected everywhere it is shared.
         /// </summary>
-        [ResourceEntry("SharedContentEditWarning",
-            Value = "This content is shared. Any changes will be reflected everywhere it is shared.",
-            Description = "This message will pop in the ContentBlock widget when trying to edit shared content.",
+        [ResourceEntry("SharedContentEditWarning", 
+            Value = "This content is shared. Any changes will be reflected everywhere it is shared.", 
+            Description = "This message will pop in the ContentBlock widget when trying to edit shared content.", 
             LastModified = "2014/03/12")]
         public string SharedContentEditWarning
         {
@@ -202,11 +211,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Content block widget resources
+        /// Gets Content block widget resources
         /// </summary>
-        [ResourceEntry("ContentBlockResourcesTitle",
-            Value = "Content block widget resources",
-            Description = "Title for the content block widget resources class.",
+        [ResourceEntry("ContentBlockResourcesTitle", 
+            Value = "Content block widget resources", 
+            Description = "Title for the content block widget resources class.", 
             LastModified = "2014/03/17")]
         public string ContentBlockResourcesTitle
         {
@@ -217,11 +226,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Localizable strings for the Content block widget.
+        /// Gets Localizable strings for the Content block widget.
         /// </summary>
-        [ResourceEntry("ContentBlockResourcesDescription",
-            Value = "Localizable strings for the Content block widget.",
-            Description = "Description for the content block widget resources class.",
+        [ResourceEntry("ContentBlockResourcesDescription", 
+            Value = "Localizable strings for the Content block widget.", 
+            Description = "Description for the content block widget resources class.", 
             LastModified = "2014/03/17")]
         public string ContentBlockResourcesDescription
         {
@@ -232,11 +241,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Error!
+        /// Gets Error!
         /// </summary>
-        [ResourceEntry("Error",
-            Value = "Error!",
-            Description = "Error!",
+        [ResourceEntry("Error", 
+            Value = "Error!", 
+            Description = "Error!", 
             LastModified = "2014/05/20")]
         public string Error
         {
@@ -247,11 +256,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Share content block
+        /// Gets Share content block
         /// </summary>
-        [ResourceEntry("ShareContentBlock",
-            Value = "Share content block",
-            Description = "Share content block",
+        [ResourceEntry("ShareContentBlock", 
+            Value = "Share content block", 
+            Description = "Share content block", 
             LastModified = "2014/05/20")]
         public string ShareContentBlock
         {
@@ -262,11 +271,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Title is required!
+        /// Gets Title is required!
         /// </summary>
-        [ResourceEntry("TitleRequired",
-            Value = "Title is required!",
-            Description = "Title is required!",
+        [ResourceEntry("TitleRequired", 
+            Value = "Title is required!", 
+            Description = "Title is required!", 
             LastModified = "2014/05/20")]
         public string TitleRequired
         {
@@ -277,11 +286,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Simple
+        /// Gets Simple
         /// </summary>
-        [ResourceEntry("Simple",
-            Value = "Simple",
-            Description = "Simple",
+        [ResourceEntry("Simple", 
+            Value = "Simple", 
+            Description = "Simple", 
             LastModified = "2014/05/20")]
         public string Simple
         {
@@ -292,11 +301,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Select shared content
+        /// Gets Select shared content
         /// </summary>
-        [ResourceEntry("SelectSharedContent",
-            Value = "Select shared content",
-            Description = "Select shared content",
+        [ResourceEntry("SelectSharedContent", 
+            Value = "Select shared content", 
+            Description = "Select shared content", 
             LastModified = "2014/05/21")]
         public string SelectSharedContent
         {
@@ -307,11 +316,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// No items found
+        /// Gets No items found
         /// </summary>
-        [ResourceEntry("NoItemsFound",
-            Value = "No items found",
-            Description = "No items found",
+        [ResourceEntry("NoItemsFound", 
+            Value = "No items found", 
+            Description = "No items found", 
             LastModified = "2014/05/21")]
         public string NoItemsFound
         {
@@ -322,11 +331,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// No items have been created yet
+        /// Gets No items have been created yet
         /// </summary>
-        [ResourceEntry("NoItemsHaveBeedCreatedYet",
-            Value = "No items have been created yet",
-            Description = "No items have been created yet",
+        [ResourceEntry("NoItemsHaveBeedCreatedYet", 
+            Value = "No items have been created yet", 
+            Description = "No items have been created yet", 
             LastModified = "2014/05/21")]
         public string NoItemsHaveBeedCreatedYet
         {
@@ -337,11 +346,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Narrow by typing...
+        /// Gets Narrow by typing...
         /// </summary>
-        [ResourceEntry("NarrowByTyping",
-            Value = "Narrow by typing...",
-            Description = "Narrow by typing...",
+        [ResourceEntry("NarrowByTyping", 
+            Value = "Narrow by typing...", 
+            Description = "Narrow by typing...", 
             LastModified = "2014/05/21")]
         public string NarrowByTyping
         {
@@ -352,11 +361,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Done selecting
+        /// Gets Done selecting
         /// </summary>
-        [ResourceEntry("DoneSelecting",
-            Value = "Done selecting",
-            Description = "Done selecting",
+        [ResourceEntry("DoneSelecting", 
+            Value = "Done selecting", 
+            Description = "Done selecting", 
             LastModified = "2014/05/21")]
         public string DoneSelecting
         {
@@ -367,11 +376,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// This content is shared.
+        /// Gets This content is shared.
         /// </summary>
-        [ResourceEntry("ThisContentIsShared",
-            Value = "This content is shared.",
-            Description = "This content is shared.",
+        [ResourceEntry("ThisContentIsShared", 
+            Value = "This content is shared.", 
+            Description = "This content is shared.", 
             LastModified = "2014/05/21")]
         public string ThisContentIsShared
         {
@@ -382,11 +391,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Any changes will be reflected everywhere it is shared.
+        /// Gets Any changes will be reflected everywhere it is shared.
         /// </summary>
-        [ResourceEntry("SharedContentWarning",
-            Value = "Any changes will be reflected everywhere it is shared.",
-            Description = "Any changes will be reflected everywhere it is shared.",
+        [ResourceEntry("SharedContentWarning", 
+            Value = "Any changes will be reflected everywhere it is shared.", 
+            Description = "Any changes will be reflected everywhere it is shared.", 
             LastModified = "2014/05/21")]
         public string SharedContentWarning
         {
@@ -397,11 +406,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Unshare content block
+        /// Gets Unshared content block
         /// </summary>
-        [ResourceEntry("UnshareContentBlock",
-            Value = "Unshare content block",
-            Description = "Unshare content block",
+        [ResourceEntry("UnshareContentBlock", 
+            Value = "Unshare content block", 
+            Description = "Unshare content block", 
             LastModified = "2014/05/21")]
         public string UnshareContentBlock
         {
@@ -412,11 +421,11 @@ namespace ContentBlock.Mvc.StringResources
         }
 
         /// <summary>
-        /// Provider
+        /// Gets the Provider
         /// </summary>
-        [ResourceEntry("Provider",
-            Value = "Provider",
-            Description = "Provider",
+        [ResourceEntry("Provider", 
+            Value = "Provider", 
+            Description = "Provider", 
             LastModified = "2014/05/29")]
         public string Provider
         {

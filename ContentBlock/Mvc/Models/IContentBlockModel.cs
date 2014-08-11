@@ -1,4 +1,5 @@
 using System;
+
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Modules.GenericContent;
 
@@ -15,8 +16,11 @@ namespace ContentBlock.Mvc.Models
         string Content { get; set; }
 
         /// <summary>
-        /// Gets or sets the current mode of the control.
+        /// Gets or sets a value indicating whether [enable social sharing].
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enable social sharing]; otherwise, <c>false</c>.
+        /// </value>
         bool EnableSocialSharing { get; set; }
 
         /// <summary>
@@ -49,7 +53,9 @@ namespace ContentBlock.Mvc.Models
         /// <summary>
         /// Creates the blank data item.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The <see cref="object"/>.
+        /// </returns>
         object CreateBlankDataItem();
     }
 }

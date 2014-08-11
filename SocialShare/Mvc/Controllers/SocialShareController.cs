@@ -1,29 +1,27 @@
-﻿using SocialShare.Mvc.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using SocialShare.Mvc.Models;
 
 namespace SocialShare.Mvc.Controllers
 {
+    /// <summary>
+    /// Social Share
+    /// </summary>
     public class SocialShareController : Controller
     {
         #region Actions
-
         /// <summary>
-        /// This is the default Action.
+        /// Default Action
         /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public ActionResult Index()
         {
             var model = new SocialShareModel();
 
-            return View("SocialShare", model);
+            return this.View("SocialShare", model);
         }
 
-
         #endregion
-
     }
 }

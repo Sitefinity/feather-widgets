@@ -1,17 +1,14 @@
-﻿using ContentBlock;
-using ContentBlock.Mvc.Models;
-using Navigation.Mvc.Models;
-using Ninject.Modules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ContentBlock.Mvc.Models;
 using FeatherWidgets.TestUnit.DummyClasses.ContentBlock;
 using FeatherWidgets.TestUnit.DummyClasses.Navigation;
+using Navigation.Mvc.Models;
+using Ninject.Modules;
 
 namespace FeatherWidgets.TestUnit
 {
+    /// <summary>
+    /// TestInterface Mappings
+    /// </summary>
     public class TestInterfaceMappings : NinjectModule
     {
         /// <summary>
@@ -19,7 +16,7 @@ namespace FeatherWidgets.TestUnit
         /// </summary>
         public override void Load()
         {
-            Bind<IContentBlockModel>().To<DummyContentBlockModel>().When( request => true);
+            Bind<IContentBlockModel>().To<DummyContentBlockModel>().When(request => true);
             Bind<INavigationModel>().To<DummyNavigationModel>().When(request => true);
         }
     }

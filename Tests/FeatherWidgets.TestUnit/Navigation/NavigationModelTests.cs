@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Navigation.Mvc.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using FeatherWidgets.TestUnit.DummyClasses.Navigation;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Navigation.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit.Navigation
 {
@@ -14,99 +14,110 @@ namespace FeatherWidgets.TestUnit.Navigation
     [TestClass]
     public class NavigationModelTests
     {
+        /// <summary>
+        /// Tests the initialize.
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
-            siteMapNode = this.CreateParentSiteMapNode(2);
+            this.siteMapNode = this.CreateParentSiteMapNode(2);
         }
 
+        /// <summary>
+        /// Tests the cleanup.
+        /// </summary>
         [TestCleanup]
         public void TestCleanup()
         {
-            siteMapNode = null;
+            this.siteMapNode = null;
         }
 
         #region AddChildNodes mehtod
 
+        /// <summary>
+        /// Publics the add child nodes_ levels to include_ restricts node collection to the level.
+        /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
         [Description("Checks whether the PublicAddChildNodes restricts the node collection depending of the levelsToInclude.")]
         public void PublicAddChildNodes_LevelsToInclude_RestrictsNodeCollectionToTheLevel()
         {
             var model = new DummyNavigationModel(PageSelectionMode.CurrentPageChildren, 2, true, "MyClass");
-            model.CurrentNode = siteMapNode;
+            model.CurrentNode = this.siteMapNode;
 
-            //Act
-            model.PublicAddChildNodes(siteMapNode, true);
+            // Act
+            model.PublicAddChildNodes(this.siteMapNode, true);
 
-            //Assert
+            // Assert
             var resultParentNode = model.Nodes.First();
             this.AssertParentNode(resultParentNode, model.Nodes);
 
-            for (int i = 0; i < DummySiteMapProvider.childNodesCount; i++)
+            for (int i = 0; i < DummySiteMapProvider.ChildNodesCount; i++)
             {
-                var title = String.Format(DummySiteMapProvider.childTitleFormat, i);
-                var url = String.Format(DummySiteMapProvider.childUrlFormat, i);
+                var title = string.Format(DummySiteMapProvider.ChildTitleFormat, i);
+                var url = string.Format(DummySiteMapProvider.ChildUrlFormat, i);
                 var resultNode = resultParentNode.ChildNodes[i];
                 this.AssertNodeViewModel(title, url, 0, resultNode);
             }
         }
 
+        /// <summary>
+        /// Publics the add child nodes_ all levels to include_ returns whole node collection.
+        /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
         [Description("Checks whether the PublicAddChildNodes returns whole node collection when levelsToInclude is set to negative integer.")]
         public void PublicAddChildNodes_AllLevelsToInclude_ReturnsWholeNodeCollection()
         {
             var model = new DummyNavigationModel(PageSelectionMode.CurrentPageChildren, -1, true, "MyClass");
-            model.CurrentNode = siteMapNode;
+            model.CurrentNode = this.siteMapNode;
 
-            //Act
-            model.PublicAddChildNodes(siteMapNode, true);
+            model.PublicAddChildNodes(this.siteMapNode, true);
 
-            //Assert
             var resultParentNode = model.Nodes.First();
             this.AssertParentNode(resultParentNode, model.Nodes);
 
-            for (int i = 0; i < DummySiteMapProvider.childNodesCount; i++)
+            for (int i = 0; i < DummySiteMapProvider.ChildNodesCount; i++)
             {
-                var title = String.Format(DummySiteMapProvider.childTitleFormat, i);
-                var url = String.Format(DummySiteMapProvider.childUrlFormat, i);
+                var title = string.Format(DummySiteMapProvider.ChildTitleFormat, i);
+                var url = string.Format(DummySiteMapProvider.ChildUrlFormat, i);
                 var resultNode = resultParentNode.ChildNodes[i];
-                this.AssertNodeViewModel(title, url, DummySiteMapProvider.childNodesCount, resultNode);
+                this.AssertNodeViewModel(title, url, DummySiteMapProvider.ChildNodesCount, resultNode);
 
-                for (int j = 0; j < DummySiteMapProvider.childNodesCount; j++)
+                for (int j = 0; j < DummySiteMapProvider.ChildNodesCount; j++)
                 {
-                    var childTitle = String.Format(DummySiteMapProvider.childTitleFormat, j);
-                    var childUrl = String.Format(DummySiteMapProvider.childUrlFormat, j);
+                    var childTitle = string.Format(DummySiteMapProvider.ChildTitleFormat, j);
+                    var childUrl = string.Format(DummySiteMapProvider.ChildUrlFormat, j);
                     var childResultNode = resultNode.ChildNodes[j];
                     this.AssertNodeViewModel(childTitle, childUrl, 0, childResultNode);
                 }
             }
         }
 
+        /// <summary>
+        /// Publics the add child nodes_ without parent node_ restricts node collection without parent node.
+        /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
         [Description("Checks whether the PublicAddChildNodes doesn't include parent node when addParent is set to false.")]
         public void PublicAddChildNodes_WithoutParentNode_RestrictsNodeCollectionWhitoutParentNode()
         {
             var model = new DummyNavigationModel(PageSelectionMode.CurrentPageChildren, 2, true, "MyClass");
-            model.CurrentNode = siteMapNode;
+            model.CurrentNode = this.siteMapNode;
 
-            //Act
-            model.PublicAddChildNodes(siteMapNode, false);
+            model.PublicAddChildNodes(this.siteMapNode, false);
 
-            //Assert
             Assert.IsNotNull(model.Nodes, "The node collection is not initialized.");
-            Assert.AreEqual(DummySiteMapProvider.childNodesCount, model.Nodes.Count(), "The node collection should contain 3 node at the parent level.");
+            Assert.AreEqual(DummySiteMapProvider.ChildNodesCount, model.Nodes.Count(), "The node collection should contain 3 node at the parent level.");
 
-            for (int i = 0; i < DummySiteMapProvider.childNodesCount; i++)
+            for (int i = 0; i < DummySiteMapProvider.ChildNodesCount; i++)
             {
                 var resultParentNode = model.Nodes[i];
 
-                for (int j = 0; j < DummySiteMapProvider.childNodesCount; j++)
+                for (int j = 0; j < DummySiteMapProvider.ChildNodesCount; j++)
                 {
-                    var title = String.Format(DummySiteMapProvider.childTitleFormat, j);
-                    var url = String.Format(DummySiteMapProvider.childUrlFormat, j);
+                    var title = string.Format(DummySiteMapProvider.ChildTitleFormat, j);
+                    var url = string.Format(DummySiteMapProvider.ChildUrlFormat, j);
                     var resultNode = resultParentNode.ChildNodes[j];
                     this.AssertNodeViewModel(title, url, 0, resultNode);
                 }
@@ -135,25 +146,26 @@ namespace FeatherWidgets.TestUnit.Navigation
         /// Asserts the parent node.
         /// </summary>
         /// <param name="resultParentNode">The result parent node.</param>
+        /// <param name="nodes">The nodes.</param>
         private void AssertParentNode(NodeViewModel resultParentNode, IEnumerable<NodeViewModel> nodes)
         {
             Assert.IsNotNull(nodes, "The node collection is not initialized.");
             Assert.AreEqual(1, nodes.Count(), "The node collection should contain 1 node at the parent level.");
-            Assert.AreEqual(siteMapNode, resultParentNode.OriginalSiteMapNode, "The OriginalSiteMapNode property of the first node is not populated correctly.");
-            Assert.AreEqual(DummySiteMapProvider.childNodesCount, resultParentNode.ChildNodes.Count(), "The count of the child nodes of the parent node is not correct.");
+            Assert.AreEqual(this.siteMapNode, resultParentNode.OriginalSiteMapNode, "The OriginalSiteMapNode property of the first node is not populated correctly.");
+            Assert.AreEqual(DummySiteMapProvider.ChildNodesCount, resultParentNode.ChildNodes.Count(), "The count of the child nodes of the parent node is not correct.");
         }
 
         /// <summary>
         /// Creates the parent site map node.
         /// </summary>
         /// <param name="levelsToCreate">The levels to create.</param>
-        /// <returns></returns>
+        /// <returns>CreateParentSiteMap Node</returns>
         private SiteMapNode CreateParentSiteMapNode(int levelsToCreate)
         {
             var provider = new DummySiteMapProvider();
             provider.SiteMapLevelsToCreate = levelsToCreate;
             provider.Initialize("dummyProvider", null);
-            var parentKey = DummySiteMapProvider.levelPrefix + 0 + DummySiteMapProvider.nodeIndexPrefix + 0;
+            var parentKey = DummySiteMapProvider.LevelPrefix + 0 + DummySiteMapProvider.NodeIndexPrefix + 0;
             var parentNode = new SiteMapNode(provider, parentKey);
 
             return parentNode;
@@ -163,9 +175,8 @@ namespace FeatherWidgets.TestUnit.Navigation
 
         #region Private fields and constants
 
-        SiteMapNode siteMapNode;
+        private SiteMapNode siteMapNode;
 
         #endregion 
-
     }
 }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Web;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
 {
     /// <summary>
     /// This class creates dummy <see cref="System.Web.SiteMapProvider"/>
     /// </summary>
-    class DummySiteMapProvider : SiteMapProvider
+    public class DummySiteMapProvider : SiteMapProvider
     {
         #region Public properties 
 
@@ -20,7 +15,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// <value>
         /// The site map levels to create.
         /// </value>
-        public int SiteMapLevelsToCreate { set; get; }
+        public int SiteMapLevelsToCreate { get; set; }
 
         #endregion
 
@@ -32,6 +27,15 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
             return null;
         }
 
+        /// <summary>
+        /// The get child nodes.
+        /// </summary>
+        /// <param name="node">
+        /// The node.
+        /// </param>
+        /// <returns>
+        /// The <see cref="SiteMapNodeCollection"/>.
+        /// </returns>
         public override SiteMapNodeCollection GetChildNodes(SiteMapNode node)
         {
             SiteMapNodeCollection collection = new SiteMapNodeCollection();
@@ -41,11 +45,11 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
             {
                 currentLevel++;
 
-                for (int i = 0; i < DummySiteMapProvider.childNodesCount; i++)
+                for (int i = 0; i < DummySiteMapProvider.ChildNodesCount; i++)
                 {
-                    var key = DummySiteMapProvider.levelPrefix + currentLevel + DummySiteMapProvider.nodeIndexPrefix + i;
-                    var title = String.Format(DummySiteMapProvider.childTitleFormat, i);
-                    var url = String.Format(DummySiteMapProvider.childUrlFormat, i);
+                    var key = DummySiteMapProvider.LevelPrefix + currentLevel + DummySiteMapProvider.NodeIndexPrefix + i;
+                    var title = string.Format(DummySiteMapProvider.ChildTitleFormat, i);
+                    var url = string.Format(DummySiteMapProvider.ChildUrlFormat, i);
                     var childnode = new SiteMapNode(this, key, url, title);
                     collection.Add(childnode);
                 }
@@ -73,14 +77,18 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// <summary>
         /// Gets the node level.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         private int GetNodeLevel(string key)
         {
-            var nodeNumber = key.IndexOf(DummySiteMapProvider.nodeIndexPrefix);
-            var level = key.Substring(DummySiteMapProvider.levelPrefix.Length, nodeNumber - DummySiteMapProvider.levelPrefix.Length);
+            var nodeNumber = key.IndexOf(DummySiteMapProvider.NodeIndexPrefix);
+            var level = key.Substring(DummySiteMapProvider.LevelPrefix.Length, nodeNumber - DummySiteMapProvider.LevelPrefix.Length);
 
-            return Int32.Parse(level);
+            return int.Parse(level);
         }
 
         #endregion 
@@ -90,27 +98,27 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// <summary>
         /// The child nodes title format
         /// </summary>
-        public const string childTitleFormat = "childTitle{0}";
+        public const string ChildTitleFormat = "childTitle{0}";
 
         /// <summary>
         /// The child nodes URL format
         /// </summary>
-        public const string childUrlFormat = "childUrl{0}";
+        public const string ChildUrlFormat = "childUrl{0}";
 
         /// <summary>
         /// The level prefix. Used for calculating the level of the current node.
         /// </summary>
-        public const string levelPrefix = "level";
+        public const string LevelPrefix = "level";
 
         /// <summary>
         /// The node index prefix. Used for calculating the level of the current node.
         /// </summary>
-        public const string nodeIndexPrefix = "nodeIndex";
+        public const string NodeIndexPrefix = "nodeIndex";
 
         /// <summary>
         /// The number of child nodes that will be created for every node.
         /// </summary>
-        public const int childNodesCount = 3;
+        public const int ChildNodesCount = 3;
 
         #endregion
     }

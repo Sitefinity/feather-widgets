@@ -1,16 +1,18 @@
-﻿using ContentBlock.Mvc.Controllers;
-using ContentBlock.Mvc.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
 {
+    /// <summary>
+    /// DummyContentBlock Controller
+    /// </summary>
     public class DummyContentBlockController : ContentBlockController
     {
+        /// <summary>
+        /// Initializes the widget commands.
+        /// </summary>
+        /// <returns>WidgetMenu items</returns>
         public IList<WidgetMenuItem> InitializeCommands()
         {
             return base.InitializeCommands();

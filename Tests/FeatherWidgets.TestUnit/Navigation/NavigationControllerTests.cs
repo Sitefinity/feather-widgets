@@ -1,13 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Navigation.Mvc.Controllers;
-using Navigation.Mvc.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using FeatherWidgets.TestUnit.DummyClasses.Navigation;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Navigation.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit.Navigation
 {
@@ -17,24 +11,27 @@ namespace FeatherWidgets.TestUnit.Navigation
     [TestClass]
     public class NavigationControllerTests
     {
+        /// <summary>
+        /// The create navigation_ call the index action_ ensures the model is properly created.
+        /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
         [Description("Checks whether the NavigationController properly creates its model and pass it to the Index action result.")]
         public void CreateNavigation_CallTheIndexAction_EnsuresTheModelIsProperlyCreated()
         {
-            //Arrange
-            DummyNavigationController controller = new DummyNavigationController();
+            // Arrange
+            var controller = new DummyNavigationController();
             controller.CssClass = "myClass";
             controller.LevelsToInclude = 5;
             controller.SelectionMode = PageSelectionMode.CurrentPageChildren;
             controller.ShowParentPage = true;
 
-            //Act
+            // Act
             var view = controller.Index() as ViewResult;
             var model = view.Model;
             var navigationModel = model as NavigationModel;
 
-            //Assert
+            // Assert
             Assert.IsNotNull(navigationModel, "The model is created correctly.");
             Assert.AreEqual(controller.CssClass, navigationModel.CssClass, "The CssClass property is not passed correctly.");
             Assert.AreEqual(controller.LevelsToInclude, navigationModel.LevelsToInclude, "The LevelsToInclude property is not passed correctly.");
@@ -42,40 +39,46 @@ namespace FeatherWidgets.TestUnit.Navigation
             Assert.AreEqual(controller.ShowParentPage, navigationModel.ShowParentPage, "The ShowParentPage property is not passed correctly.");
         }
 
+        /// <summary>
+        /// The create navigation_ call the index action_ ensures the proper view is returned.
+        /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
         [Description("Checks whether the Index action returns the proper view.")]
         public void CreateNavigation_CallTheIndexAction_EnsuresTheProperViewIsReturned()
         {
-            //Arrange
+            // Arrange
             DummyNavigationController controller = new DummyNavigationController();
             controller.TemplateName = "Vertical";
 
-            //Act
+            // Act
             var view = controller.Index() as ViewResult;
 
-            //Assert
+            // Assert
             Assert.AreEqual("NavigationView.Vertical", view.ViewName, "The view name is not correct.");
         }
 
+        /// <summary>
+        /// The create navigation_ call the get view action_ ensures the view is created properly.
+        /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
         [Description("Checks whether the NavigationController GetView method creates view correctly.")]
         public void CreateNavigation_CallTheGetViewAction_EnsuresTheViewIsCreatedProperly()
         {
-            //Arrange
+            // Arrange
             var viewName = "Toggle";
             DummyNavigationController controller = new DummyNavigationController();
             NavigationModel model = new NavigationModel();
             model.CssClass = "myClass";
             model.LevelsToInclude = 5;
 
-            //Act
+            // Act
             var view = controller.GetView(viewName, model) as PartialViewResult;
             var resultModel = view.Model;
             var resultNavigationModel = model as NavigationModel;
 
-            //Assert
+            // Assert
             Assert.AreEqual(viewName, view.ViewName, "The view name is not correct.");
             Assert.AreEqual(model, resultNavigationModel, "The model hasn't been passed to the view correctly.");
         }

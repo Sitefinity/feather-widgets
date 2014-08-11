@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web;
 
 namespace Navigation.Mvc.Models
@@ -13,7 +9,7 @@ namespace Navigation.Mvc.Models
     public interface INavigationModel
     {
         /// <summary>
-        /// Gets or sets the list of site map nodes that will be displayed in the navigation widget.
+        /// Gets the list of site map nodes that will be displayed in the navigation widget.
         /// </summary>
         /// <value>
         /// The nodes.
@@ -26,7 +22,7 @@ namespace Navigation.Mvc.Models
         /// <value>
         /// The CSS class.
         /// </value>
-        string CssClass { set; get; }
+        string CssClass { get; set; }
 
         /// <summary>
         /// Gets the current site map node.

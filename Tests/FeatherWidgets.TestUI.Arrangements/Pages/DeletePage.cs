@@ -5,7 +5,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Sample arragement that Creates and deletes a page.
+    /// Sample arrangement that Creates and deletes a page.
     /// </summary>
     public class DeletePage : ITestArrangement
     {

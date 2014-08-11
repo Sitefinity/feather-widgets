@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Telerik.Sitefinity.Localization;
+﻿using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Data;
 
 namespace Navigation.Mvc.StringResources
@@ -16,16 +12,16 @@ namespace Navigation.Mvc.StringResources
         #region Constructions
 
         /// <summary>
-        /// Initializes new instance of <see cref="NavigationResources"/> class with the default <see cref="ResourceDataProvider"/>.
+        /// Initializes a new instance of the <see cref="NavigationResources"/> class.
         /// </summary>
         public NavigationResources()
         {
         }
 
         /// <summary>
-        /// Initializes new instance of <see cref="NavigationResources"/> class with the provided <see cref="ResourceDataProvider"/>.
+        /// Initializes a new instance of the <see cref="NavigationResources"/> class.
         /// </summary>
-        /// <param name="dataProvider"><see cref="ResourceDataProvider"/></param>
+        /// <param name="dataProvider">The data provider.</param>
         public NavigationResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
@@ -33,7 +29,7 @@ namespace Navigation.Mvc.StringResources
         #endregion
 
         /// <summary>
-        /// Title for the Navigation widget resources class.
+        /// Gets Title for the Navigation widget resources class.
         /// </summary>
         [ResourceEntry("NavigationResourcesTitle",
             Value = "Navigation widget resources",
@@ -48,7 +44,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// Description for the Navigation widget resources class.
+        /// Gets Description for the Navigation widget resources class.
         /// </summary>
         [ResourceEntry("NavigationResourcesDescription",
             Value = "Localizable strings for the Navigation widget.",
@@ -62,10 +58,12 @@ namespace Navigation.Mvc.StringResources
             }
         }
 
-
         /// <summary>
-        /// word : Display
+        /// Gets the display.
         /// </summary>
+        /// <value>
+        /// The display.
+        /// </value>
         [ResourceEntry("Display",
             Value = "Display",
             Description = "word : Display",
@@ -79,8 +77,11 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// Description for the SelectionMode option TopLevelPages.
+        /// Gets the top level pages.
         /// </summary>
+        /// <value>
+        /// The top level pages.
+        /// </value>
         [ResourceEntry("TopLevelPages",
             Value = "Top-level pages (and their child-pages if template allows)",
             Description = "Description for the SelectionMode option TopLevelPages.",
@@ -94,8 +95,11 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// Description for the SelectionMode option CurrentPageChildren.
+        /// Gets the current page children.
         /// </summary>
+        /// <value>
+        /// The current page children.
+        /// </value>
         [ResourceEntry("CurrentPageChildren",
             Value = "All pages under currently opened page",
             Description = "Description for the SelectionMode option CurrentPageChildren.",
@@ -109,7 +113,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// Description for the SelectionMode option CurrentPageSiblings.
+        /// Gets Description for the SelectionMode option CurrentPageSiblings.
         /// </summary>
         [ResourceEntry("CurrentPageSiblings",
             Value = "All sibling pages of currently opened page",
@@ -124,7 +128,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase : Levels to include
+        /// Gets phrase : Levels to include
         /// </summary>
         [ResourceEntry("LevelsToInclude",
             Value = "Levels to include",
@@ -139,7 +143,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase : Responsive design
+        /// Gets phrase : Responsive design
         /// </summary>
         [ResourceEntry("ResponsiveDesignSectionTitle",
             Value = "Responsive design",
@@ -154,7 +158,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// The description of the Responsive design section.
+        /// Gets the description of the Responsive design section.
         /// </summary>
         [ResourceEntry("ResponsiveDesignDescription",
             Value = "You can define how navigation is transformed for different screens and devices in the template package. Check your package documentation for more information.",
@@ -169,7 +173,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase : More options
+        /// Gets phrase : More options
         /// </summary>
         [ResourceEntry("MoreOptions",
             Value = "More options",
@@ -184,7 +188,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase : CSS classes
+        /// Gets phrase : CSS classes
         /// </summary>
         [ResourceEntry("CssClasses",
             Value = "CSS classes",
@@ -199,7 +203,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// word : Template
+        /// Gets word : Template
         /// </summary>
         [ResourceEntry("Template",
             Value = "Template",
@@ -214,7 +218,7 @@ namespace Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// Simple
+        /// Gets Simple
         /// </summary>
         [ResourceEntry("Simple",
             Value = "Simple",

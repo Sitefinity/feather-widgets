@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SocialShare.Mvc.Models
+﻿namespace SocialShare.Mvc.Models
 {
+    /// <summary>
+    /// SocialButton Model
+    /// </summary>
     public class SocialButtonModel
     {
         #region Public members
@@ -16,7 +13,7 @@ namespace SocialShare.Mvc.Models
         /// <value>
         /// The name of the button.
         /// </value>
-        public string ButtonName { set; get; }
+        public string ButtonName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [add text].
@@ -24,7 +21,7 @@ namespace SocialShare.Mvc.Models
         /// <value>
         ///   <c>true</c> if [add text]; otherwise, <c>false</c>.
         /// </value>
-        public bool AddText { set; get; }
+        public bool AddText { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [big size].
@@ -32,7 +29,7 @@ namespace SocialShare.Mvc.Models
         /// <value>
         ///   <c>true</c> if [big size]; otherwise, <c>false</c>.
         /// </value>
-        public bool BigSize { set; get; }
+        public bool BigSize { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [display counters].
@@ -40,7 +37,7 @@ namespace SocialShare.Mvc.Models
         /// <value>
         ///   <c>true</c> if [display counters]; otherwise, <c>false</c>.
         /// </value>
-        public bool DisplayCounters { set; get; }
+        public bool DisplayCounters { get; set; }
 
         #endregion 
 
@@ -56,8 +53,8 @@ namespace SocialShare.Mvc.Models
         /// </summary>
         /// <param name="buttonName">Name of the button.</param>
         /// <param name="addText">if set to <c>true</c> [add text].</param>
-        /// <param name="bigSize">if set to <c>true</c> [big size].</param>
         /// <param name="displayCounters">if set to <c>true</c> [display counters].</param>
+        /// <param name="bigSize">if set to <c>true</c> [big size].</param>
         public SocialButtonModel(string buttonName, bool addText,  bool displayCounters, bool bigSize)
         {
             this.ButtonName = buttonName;

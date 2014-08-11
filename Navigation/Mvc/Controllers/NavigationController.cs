@@ -1,12 +1,9 @@
-﻿using Navigation.Mvc.Models;
-using Navigation.Mvc.StringResources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+
+using Navigation.Mvc.Models;
+using Navigation.Mvc.StringResources;
+
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
@@ -23,7 +20,7 @@ namespace Navigation.Mvc.Controllers
         #region Properties
 
         /// <summary>
-        /// Gets the name of the template that will be displayed.
+        /// Gets or sets the name of the template that will be displayed.
         /// </summary>
         /// <value></value>
         public string TemplateName
@@ -32,6 +29,7 @@ namespace Navigation.Mvc.Controllers
             {
                 return this.templateName;
             }
+
             set
             {
                 this.templateName = value;
@@ -49,13 +47,12 @@ namespace Navigation.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets whether to show parent page
+        /// Gets or sets a value indicating whether [show parent page].
         /// </summary>
-        public bool ShowParentPage
-        {
-            get;
-            set;
-        }
+        /// <value>
+        ///   <c>true</c> if [show parent page]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowParentPage { get; set; }
 
         /// <summary>
         /// Gets or sets the levels to include.
@@ -66,6 +63,7 @@ namespace Navigation.Mvc.Controllers
             {
                 return this.levelsToInclude;
             }
+
             set 
             {
                 this.levelsToInclude = value;
@@ -106,24 +104,32 @@ namespace Navigation.Mvc.Controllers
         #region Actions
 
         /// <summary>
-        /// Renders appropriate view depending on the <see cref="TemplateName" />
+        /// Renders appropriate view depending on the <see cref="TemplateName"/>
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public ActionResult Index()
         {
-            var fullTemplateName = templateNamePrefix + this.TemplateName;
-            return View(fullTemplateName, this.Model);
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+            return this.View(fullTemplateName, this.Model);
         }
 
         /// <summary>
         /// Gets the view with provided name.
         /// </summary>
-        /// <param name="viewName">Name of the view.</param>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
+        /// <param name="viewName">
+        /// Name of the view.
+        /// </param>
+        /// <param name="model">
+        /// The model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public ActionResult GetView(string viewName, INavigationModel model)
         {
-            return PartialView(viewName, model);
+            return this.PartialView(viewName, model);
         }
 
         #endregion
@@ -133,15 +139,17 @@ namespace Navigation.Mvc.Controllers
         /// <summary>
         /// Initializes the model.
         /// </summary>
-         /// <returns></returns>
+        /// <returns>
+        /// The <see cref="INavigationModel"/>.
+        /// </returns>
         private INavigationModel InitializeModel()
         {
             var constructorParameters = new Dictionary<string, object> 
                          {
-                            {"selectionMode", this.SelectionMode},
-                            {"levelsToInclude", this.LevelsToInclude},
-                            {"showParentPage", this.ShowParentPage},
-                            {"cssClass", this.CssClass}
+                            { "selectionMode", this.SelectionMode }, 
+                            { "levelsToInclude", this.LevelsToInclude }, 
+                            { "showParentPage", this.ShowParentPage }, 
+                            { "cssClass", this.CssClass }
                          };
 
             return ControllerModelFactory.GetModel<INavigationModel>(this.GetType(), constructorParameters);

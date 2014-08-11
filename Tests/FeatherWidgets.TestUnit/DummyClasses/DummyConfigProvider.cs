@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.Configuration.Data;
 
 namespace FeatherWidgets.TestUnit.DummyClasses
@@ -12,11 +9,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses
     public class DummyConfigProvider : XmlConfigProvider
     {
         /// <inheritdoc />
-        protected override void Initialize(string providerName, System.Collections.Specialized.NameValueCollection config, Type managerType)
-        {
-        }
-
-        /// <inheritdoc />
         public override bool LoadSection(Telerik.Sitefinity.Configuration.ConfigSection section, Telerik.Sitefinity.Configuration.ConfigPolicyHandler policyHandler, string policyName)
         {
             return true;
@@ -24,6 +16,11 @@ namespace FeatherWidgets.TestUnit.DummyClasses
 
         /// <inheritdoc />
         public override void SaveSection(Telerik.Sitefinity.Configuration.ConfigSection section)
+        {
+        }
+
+        /// <inheritdoc />
+        protected override void Initialize(string providerName, System.Collections.Specialized.NameValueCollection config, Type managerType)
         {
         }
     }

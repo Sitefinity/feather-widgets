@@ -1,17 +1,13 @@
-﻿using Navigation.Mvc.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Web;
+using Navigation.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
 {
     /// <summary>
     /// This class creates dummy <see cref="Navigation.Mvc.Models.NavigationModel"/>
     /// </summary>
-    public class DummyNavigationModel: NavigationModel
+    public class DummyNavigationModel : NavigationModel
     {
         #region Constructors 
 
@@ -21,8 +17,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// <param name="selectionMode">The selection mode.</param>
         /// <param name="levelsToInclude">The levels to include.</param>
         /// <param name="showParentPage">if set to <c>true</c> adds parent page.</param>
-        /// <param name="cssClass"></param>
-        public DummyNavigationModel(PageSelectionMode selectionMode, int? levelsToInclude, bool showParentPage, string cssClass): base()
+        /// <param name="cssClass">css class</param>
+        public DummyNavigationModel(PageSelectionMode selectionMode, int? levelsToInclude, bool showParentPage, string cssClass) : base()
         {
             this.SelectionMode = selectionMode;
             this.LevelsToInclude = levelsToInclude;
@@ -40,7 +36,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// <value>
         /// The current node.
         /// </value>
-        public SiteMapNode CurrentNode { set; get; }
+        public SiteMapNode CurrentNode { get; set; }
 
         #endregion 
 
@@ -51,7 +47,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// </summary>
         /// <param name="node">The node.</param>
         /// <param name="addParent">if set to <c>true</c> adds the parent node.</param>
-        /// <param name="levelsToInclude">The levels to include.</param>
         public void PublicAddChildNodes(SiteMapNode node, bool addParent)
         {
             this.AddChildNodes(node, addParent);
@@ -65,7 +60,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// Checks the site map node.
         /// </summary>
         /// <param name="node">The node.</param>
-        /// <returns></returns>
+        /// <returns>boolean result</returns>
         protected override bool CheckSiteMapNode(SiteMapNode node)
         {
             return true;
@@ -88,7 +83,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// <summary>
         /// Gets dummy root node identifier.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Guid result</returns>
         protected override Guid GetRootNodeId()
         {
             return Guid.NewGuid();
@@ -98,7 +93,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// Dummies the resolving of the URL.
         /// </summary>
         /// <param name="node">The node.</param>
-        /// <returns></returns>
+        /// <returns>url result</returns>
         protected override string ResolveUrl(SiteMapNode node)
         {
             return node.Url;
@@ -108,7 +103,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// Dummies the link target.
         /// </summary>
         /// <param name="node">The node.</param>
-        /// <returns></returns>
+        /// <returns>link result</returns>
         protected override string GetLinkTarget(SiteMapNode node)
         {
             return "_blank";

@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUnit
         public ObjectFactoryContainerRegion() :
             this(new UnityContainer(), new QueryableContainerExtension())
         {
-            this.container.AddExtension(queryableExtension);
+            this.container.AddExtension(this.queryableExtension);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUnit
 
             this.queryableQueryableExtensionField = typeof(ObjectFactory).GetField("queryableContainerExtension", BindingFlags.Static | BindingFlags.NonPublic);
             this.previousQueryableExtension = (QueryableContainerExtension)this.queryableQueryableExtensionField.GetValue(null);
-            this.queryableQueryableExtensionField.SetValue(null, queryableExtension);
+            this.queryableQueryableExtensionField.SetValue(null, this.queryableExtension);
         }
 
         /// <summary>

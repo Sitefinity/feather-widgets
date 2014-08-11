@@ -1,12 +1,18 @@
-﻿using MbUnit.Framework;
-using System;
+﻿using System;
+using MbUnit.Framework;
 
 namespace FeatherWidgets.TestIntegration.Sample
 {
+    /// <summary>
+    /// This is a sample class with a test that always passes.
+    /// </summary>
     [TestFixture]
     [Description("This is a sample class with a test that always passes.")]
     public class SampleTestsThatAlwaysPasses
     {
+        /// <summary>
+        /// Samples the test that always passes.
+        /// </summary>
         [Test]
         [Category(TestCategories.Samples)]
         [Author("idimitrov")]

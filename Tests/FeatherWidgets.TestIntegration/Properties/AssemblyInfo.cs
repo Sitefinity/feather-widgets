@@ -35,4 +35,4 @@ using Telerik.WebTestRunner.Server.Attributes;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.4.1000.2")]
 [assembly: AssemblyFileVersion("0.4.1000.2")]
-[assembly: IntegrationTests()]
+[assembly: IntegrationTests]

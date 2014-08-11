@@ -33,6 +33,6 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: AssemblyVersion("0.4.1000.2")]
 [assembly: AssemblyFileVersion("0.4.1000.2")]
 
-[assembly: ControllerContainer()]
+[assembly: ControllerContainer]
 
 [assembly: InternalsVisibleTo("FeatherWidgets.TestUnit")]
