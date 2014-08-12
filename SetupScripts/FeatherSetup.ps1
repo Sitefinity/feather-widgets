@@ -51,6 +51,13 @@ function InstallFeatherWidgets($featherWidgetsBinDirectory)
     InstallFeather $featherBinDirectory
 }
 
+function InstallFeatherNavigationWidget($featherWidgetsBinDirectory)
+{
+    Write-Output "Deploying feather widgets assembly to '$websiteBinariesDirectory'..."
+    Get-ChildItem Navigation.dll -recurse  -path $featherWidgetsBinDirectory | Copy-Item -destination $websiteBinariesDirectory
+    InstallFeather $featherBinDirectory
+}
+
 function InstallFeatherPackages($featherPackageDirectory)
 {
 	Write-Output "----- Create Resource Packages directory in SitefinityWebApp ------"
