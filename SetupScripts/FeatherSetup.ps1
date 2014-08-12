@@ -50,3 +50,16 @@ function InstallFeatherWidgets($featherWidgetsBinDirectory)
     Get-ChildItem ContentBlock.dll -recurse  -path $featherWidgetsBinDirectory | Copy-Item -destination $websiteBinariesDirectory
     InstallFeather $featherBinDirectory
 }
+
+function InstallFeatherPackages($featherPackageDirectory)
+{
+	Write-Output "----- Create Resource Packages directory in SitefinityWebApp ------"
+	
+	$resourcePackagesFolder = $defaultWebsiteRootDirectory + "\ResourcePackages"
+	if(!(Test-Path -Path $resourcePackagesFolder )){
+		New-Item -ItemType directory -Path $resourcePackagesFolder
+	}
+	
+	Write-Output "----- Copy package ------"
+	Copy-Item $featherPackageDirectory $resourcePackagesFolder -recurse
+}
