@@ -3,8 +3,9 @@ using System.Linq;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FeatherWidgets.TestUI.TestCases;
 
-namespace FeatherWidgets.TestUI.TestCases.Pages
+namespace FeatherWidgets.TestUI
 {
     /// <summary>
     /// This is a sample test class.
@@ -18,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Pages
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+          BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace FeatherWidgets.TestUI.TestCases.Pages
         public void HandleDeletePageDialog()
         {
             var confirmDeleteButtons = ActiveBrowser.Find.AllByAttributes("class=sfLinkBtn sfDelete");
-            var deleteSingleItemButton = confirmDeleteButtons.Where(c => c.InnerText == "Yes, Delete this item").FirstOrDefault().As<HtmlAnchor>();
+            var deleteSingleItemButton = confirmDeleteButtons.Where(c => c.InnerText == "Yes, Move to the Recycle Bin").FirstOrDefault().As<HtmlAnchor>();
             Assert.IsNotNull(deleteSingleItemButton, "The confirm button was not found");
             deleteSingleItemButton.Click();
         }
