@@ -39,10 +39,6 @@
       <Private>True</Private>
       <HintPath>packages\UITests.Core.1.4.9\lib\net45\ArtOfTest.WebAii.dll</HintPath>
     </Reference>
-    <Reference Include="Feather.Widgets.TestUI.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Feather.Widgets.TestUI.Framework\bin\Debug\Feather.Widgets.TestUI.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
@@ -108,7 +104,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Feather.Widgets.TestUI.Framework\Feather.Widgets.TestUI.Framework.csproj">
+      <Project>{bb0b3eee-e3fa-4e2c-a8d9-0de455ab84b7}</Project>
+      <Name>Feather.Widgets.TestUI.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
