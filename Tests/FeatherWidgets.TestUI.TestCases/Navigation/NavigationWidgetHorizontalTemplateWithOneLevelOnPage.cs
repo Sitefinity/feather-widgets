@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using Telerik.WebAii.Controls.Html;
 using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
 
-namespace FeatherWidgets.TestUI.TestCases.Navigation
+namespace FeatherWidgets.TestUI
 {
     /// <summary>
     /// This is a sample test class.
@@ -17,6 +18,14 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
     [TestClass]
     public class NavigationWidgetHorizontalTemplateWithOneLevelOnPage_ : FeatherTestCase
     {
+        /// <summary>
+        /// Performs clean up and clears all data created by the test.
+        /// </summary>
+        protected override void ServerCleanup()
+        {
+            BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
         [TestMethod,
       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
       TestCategory(FeatherTestCategories.PagesAndContent)]

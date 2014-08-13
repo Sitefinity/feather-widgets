@@ -12,7 +12,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     {
         public void FillContentToContentBlockWidget(string content)
         {
-            HtmlDiv placeholder = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagname=div", "id=viewsPlaceholder")
+            HtmlDiv placeholder = ActiveBrowser.GetControl<HtmlDiv>("tagname=div", "id=viewsPlaceholder")
               .AssertIsPresent("Placeholder");
 
             HtmlTable table = placeholder.Find.ByExpression<HtmlTable>("tagname=table", "class=k-widget k-editor k-header k-editor-widget")

@@ -50,8 +50,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlDiv lastRadZone = radDockZone.ChildNodes.Where(p => p.InnerText.Contains("Contentplaceholder1")).FirstOrDefault().As<HtmlDiv>();
             lastRadZone.AssertIsPresent("Contentplaceholder1");
 
-            // HtmlDiv widget = this.GetWidgetByName(widgetName);
-
             HtmlDiv widget = this.GetWidgetByName(widgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, lastRadZone);
         }
@@ -69,7 +67,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                               .AssertIsPresent("edit link");
             editLink.Focus();
             editLink.Click();
+            ActiveBrowser.WaitForElementWithCssClass("modal-content");
         }
-
     }
 }
