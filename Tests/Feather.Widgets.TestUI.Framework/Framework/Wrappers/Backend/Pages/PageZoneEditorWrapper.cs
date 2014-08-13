@@ -67,7 +67,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                               .AssertIsPresent("edit link");
             editLink.Focus();
             editLink.Click();
-            ActiveBrowser.WaitForElementWithCssClass("modal-content");
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
         }
     }
 }
