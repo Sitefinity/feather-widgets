@@ -11,15 +11,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
     public class ServerOperationsFeather
     {
         /// <summary>
-        /// Entry point for ContentBlocks operations.
-        /// </summary>
-        /// <returns>ContentBlockOperations instance</returns>
-        public static ContentBlockOperations ContentBlocks()
-        {
-            return new ContentBlockOperations();
-        }
-
-        /// <summary>
         /// Entry point for Pages operations.
         /// </summary>
         /// <returns>PagesOperations instance</returns>
