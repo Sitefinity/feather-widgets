@@ -72,5 +72,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlButton>("tagname=button", "InnerText=Share this content");
             }
         }
+
+        /// <summary>
+        /// Provides access to unshare button.
+        /// </summary>
+        public HtmlButton UnshareButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "InnerText=Yes, Unshare this content");
+            }
+        }
+
+        /// <summary>
+        /// Provides access to Content block wlist with shared content blocks.
+        /// </summary>
+        public HtmlDiv ContentBlockList
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=list-group s-items-list-wrp");
+            }
+        }
+
+        /// <summary>
+        /// Provides access to done selecting button.
+        /// </summary>
+        public HtmlButton DoneSelectingButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "InnerText=Done selecting");
+            }
+        }
     }
 }

@@ -28,5 +28,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             .AssertIsPresent("Share button");
             shareButton.Click();
         }
+
+        public void UnshareButton()
+        {
+            HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.UnshareButton
+            .AssertIsPresent("Unshare button");
+            shareButton.Click();
+        }
+
+        public void DoneSelectingButton()
+        {
+            HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.DoneSelectingButton
+            .AssertIsPresent("Done selecting button");
+            shareButton.Click();
+        }
+
+        public void SelectContentBlock(string sharedContentTitle)
+        {
+            HtmlDiv sharedContentBlockList = EM.GenericContent.ContentBlockWidget.ContentBlockList
+            .AssertIsPresent("Shared content list");
+            var itemSpan = sharedContentBlockList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + sharedContentTitle);
+            itemSpan.ScrollToVisible();
+            itemSpan.MouseClick();
+            this.DoneSelectingButton();
+        }
     }
 }

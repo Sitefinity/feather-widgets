@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI
     /// This is a sample test class.
     /// </summary>
     [TestClass]
-    public class ShareContentBlockFromPage_ : FeatherTestCase
+    public class UseSharedContentBlockFromPage_ : FeatherTestCase
     {
         // <summary>
         /// Pefroms Server Setup and prepare the system with needed data.
@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+        //    BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -30,27 +30,28 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+         //   BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void ShareContentBlockFromPage()
+        public void UseSharedContentBlockFromPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().FillContentBlockTitle(ContentBlockName);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().ShareButton();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().SelectContentBlock(ContentBlockTitle);
             this.VerifyIfSharedLabelExist();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().Modules().ContentBlocks();
-            this.VerifyIfContentBlockExist(ContentBlockName);
+            this.VerifyIfContentBlockExist(ContentBlockTitle);
             this.VerifyLinkUsedOfContentBlockOnPage();
             this.ClickLinkUsedOfContentBlockOnPage();
-            BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyUsedPagesMessage(ExpectedCountMessage);
-            this.VerifyPagesThatUseSharedContentBlock();     
+            BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyUsedPagesMessage(ExpectedCount);
+            this.VerifyPagesThatUseSharedContentBlock();
+            this.NavigatePageOnTheFrontend(PageName);
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOnTheFrontend(ContentBlockContent);
         }
 
         private void VerifyIfSharedLabelExist()
@@ -61,18 +62,18 @@ namespace FeatherWidgets.TestUI
 
         public void VerifyIfContentBlockExist(string contentBlockName)
         {
-           BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().GetContentBlockRowByTitle(contentBlockName);
+            BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().GetContentBlockRowByTitle(contentBlockName);
         }
 
         public void VerifyLinkUsedOfContentBlockOnPage()
         {
-            HtmlTableCell cellUsedOnPage = BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FindUsedOnPageCell(ContentBlockName);
+            HtmlTableCell cellUsedOnPage = BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FindUsedOnPageCell(ContentBlockTitle);
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyTheLinkUsedOfContentBlockOnPage(cellUsedOnPage, ExpectedCount);
         }
 
         public void ClickLinkUsedOfContentBlockOnPage()
         {
-            HtmlTableCell cellUsedOnPage = BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FindUsedOnPageCell(ContentBlockName);
+            HtmlTableCell cellUsedOnPage = BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FindUsedOnPageCell(ContentBlockTitle);
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickTheLinkUsedOfContentBlockOnPage(cellUsedOnPage);
         }
 
@@ -86,12 +87,17 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyPagesWithStatusesThatUseSharedContentBlock(pages);
         }
 
+        public void NavigatePageOnTheFrontend(string pageName)
+        {
+            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+        }
+
         private const string PageName = "ContentBlock";
-        private const string ContentBlockName = "Content block title";
-        private const string WidgetName = "ContentBlock";
-        private const string OperationName = "Share";
+        private const string OperationName = "Use shared";
+        private const string ContentBlockTitle = "ContentBlockTitle";
         private const string PageStatus = "Published";
         private const string ExpectedCount = "1 page";
-        private const string ExpectedCountMessage = "1 page uses this group"; 
+        private const string ContentBlockContent = "Test content";
     }
 }

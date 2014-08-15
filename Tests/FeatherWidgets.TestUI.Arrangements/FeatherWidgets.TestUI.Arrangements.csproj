@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\ShareContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\UnshareContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Pages\DeletePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

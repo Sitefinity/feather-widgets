@@ -70,5 +70,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
         }
+
+        public bool VerifyContentBlockWidgetSharedLabel()
+        {
+            bool hasLabel = true;
+            HtmlDiv titleBar = BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().GetWidgetTitleContainer("ContentBlock");
+            HtmlSpan sharedLabel = titleBar.Find.ByExpression<HtmlSpan>("class=sfShared");
+
+            if (sharedLabel == null)
+            {
+                hasLabel = false;
+            }
+
+            return hasLabel;
+        }
     }
 }
