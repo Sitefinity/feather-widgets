@@ -12,5 +12,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             return new ContentBlockWidgetEditWrapper();
         }
+
+        public ContentBlockWidgetShareWrapper ContentBlocksShareWrapper()
+        {
+            return new ContentBlockWidgetShareWrapper();
+        }
     }
 }

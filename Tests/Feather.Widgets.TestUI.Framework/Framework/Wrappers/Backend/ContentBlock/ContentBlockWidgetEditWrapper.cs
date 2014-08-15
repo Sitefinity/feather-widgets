@@ -12,14 +12,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     {
         public void FillContentToContentBlockWidget(string content)
         {
-            HtmlDiv placeholder = ActiveBrowser.GetControl<HtmlDiv>("tagname=div", "id=viewsPlaceholder")
-              .AssertIsPresent("Placeholder");
-
-            HtmlTable table = placeholder.Find.ByExpression<HtmlTable>("tagname=table", "class=k-widget k-editor k-header k-editor-widget")
-                .AssertIsPresent("Table");
-
-            HtmlTableCell editable = table.Find.ByExpression<HtmlTableCell>("tagname=td", "class=k-editable-area")
-                .AssertIsPresent("Cell");
+            HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
+                .AssertIsPresent("Editable area");
 
             editable.ScrollToVisible();
             editable.Focus();
@@ -30,10 +24,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
         public void SaveChanges()
         {
-            HtmlDiv footer = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagname=div", "class=modal-footer ng-scope")
-            .AssertIsPresent("Footer");
-
-            var saveButton = footer.Find.ByExpression<HtmlButton>("InnerText=Save")
+            HtmlButton saveButton = EM.GenericContent.ContentBlockWidget.SaveChangesButton
             .AssertIsPresent("Save button");
             saveButton.Click();
         }

@@ -40,7 +40,6 @@ namespace FeatherWidgets.TestUI
        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void ContentBlockWidgetOnPage()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
@@ -59,7 +58,7 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string PageName = "ContentBlock";
-        private const string ContentBlockContent = "test";
+        private const string ContentBlockContent = "Test content";
         private const string WidgetName = "ContentBlock";
     }
 }

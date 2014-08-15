@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeatherWidgets.TestUtilities.CommonOperations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Sample arrangement that Creates and deletes a page.
     /// </summary>
-    public class ContentBlockWidgetOnPage : ITestArrangement
+    public class ShareContentBlockFromPage : ITestArrangement
     {
         /// <summary>
         /// Sets up.
@@ -19,8 +20,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.Pages().CreatePage(PageName);
-
+            Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, Content);
         }
 
         /// <summary>
@@ -30,8 +31,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.ContentBlocks().DeleteAllContentBlocks();
         }
 
         private const string PageName = "ContentBlock";
+        private const string Content = "Test content";
     }
 }
