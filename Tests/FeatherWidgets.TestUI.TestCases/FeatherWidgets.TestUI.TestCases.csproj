@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
+    <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\DuplicateContentBlockWidgetFromPage.cs" />
     <Compile Include="ContentBlocks\EditContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\EditSharedContentBlockFromPage.cs" />
