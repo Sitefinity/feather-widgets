@@ -13,8 +13,8 @@ namespace FeatherWidgets.TestUI
     /// This is a sample test class.
     /// </summary>
     [TestClass]
-    public class EditContentBlockFromPage_ : FeatherTestCase
-    {
+    public class EditSharedContentBlockFromPage_ : FeatherTestCase
+    { 
         // <summary>
         /// Pefroms Server Setup and prepare the system with needed data.
         /// </summary>
@@ -35,14 +35,15 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void EditContentBlockFromPage()
+        public void EditSharedContentBlockFromPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(EditContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage(); 
+            this.VerifyIfSharedContentIsModified(ExpectedContent, ContentBlockTitle);
             this.NavigatePageOnTheFrontend(PageName);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ExpectedContent);
         }
@@ -53,9 +54,20 @@ namespace FeatherWidgets.TestUI
             ActiveBrowser.WaitUntilReady();
         }
 
+        public void VerifyIfSharedContentIsModified(string newContentBlockContent, string contentBlockTitle)
+        {
+            BAT.Macros().NavigateTo().Modules().ContentBlocks();
+            BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickOnContentBlockTitle(contentBlockTitle);
+            string content = BAT.Wrappers().Backend().ContentBlocks().ContentBlocksEditWrapper().GetContent();
+            Assert.AreEqual(newContentBlockContent, content, "Content was not modified. ");
+            BAT.Wrappers().Backend().ContentBlocks().ContentBlocksEditWrapper().SaveChanges();
+            BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickOkButtonOnScreenContentSuccessfullyUpdated();
+        }
+
         private const string PageName = "ContentBlock";
         private const string WidgetName = "ContentBlock";
         private const string EditContent = " edited";
         private const string ExpectedContent = "Test content edited";
+        private const string ContentBlockTitle = "ContentBlockTitle";
     }
 }
