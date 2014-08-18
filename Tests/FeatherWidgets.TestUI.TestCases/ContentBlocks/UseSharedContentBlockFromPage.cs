@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyUsedPagesMessage(ExpectedCount);
             this.VerifyPagesThatUseSharedContentBlock();
             this.NavigatePageOnTheFrontend(PageName);
-            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOnTheFrontend(ContentBlockContent);
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 
         private void VerifyIfSharedLabelExist()
