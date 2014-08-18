@@ -49,7 +49,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
+    <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\DuplicateContentBlockWidgetFromPage.cs" />
+    <Compile Include="ContentBlocks\EditContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\EditSharedContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\OldAndNewContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\ShareContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\UnshareContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
+    <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Pages\DeletePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

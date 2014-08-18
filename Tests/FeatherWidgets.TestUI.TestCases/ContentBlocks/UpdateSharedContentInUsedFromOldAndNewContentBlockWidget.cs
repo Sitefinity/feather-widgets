@@ -1,14 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ArtOfTest.WebAii.Core;
+﻿using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArtOfTest.WebAii.Controls.HtmlControls;
-using Telerik.WebAii.Controls;
-using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
 
 namespace FeatherWidgets.TestUI
 {
@@ -16,7 +13,7 @@ namespace FeatherWidgets.TestUI
     /// This is a sample test class.
     /// </summary>
     [TestClass]
-    public class ContentBlockWidgetOnPage_ : FeatherTestCase
+    public class UpdateSharedContentInUsedFromOldAndNewContentBlockWidget_ : FeatherTestCase
     {
         // <summary>
         /// Pefroms Server Setup and prepare the system with needed data.
@@ -38,17 +35,19 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void ContentBlockWidgetOnPage()
+        public void UpdateSharedContentInUsedFromOldAndNewContentBlockWidget()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(NewContentBlockWidget);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(EditContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(NewContentBlockWidget, ExpectedContent);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(OldContentBlockWidget, ExpectedContent);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.NavigatePageOnTheFrontend(PageName);
-            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ExpectedContent);
+            BAT.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ExpectedContent);
         }
 
         public void NavigatePageOnTheFrontend(string pageName)
@@ -58,7 +57,9 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string PageName = "ContentBlock";
-        private const string ContentBlockContent = "Test content";
-        private const string WidgetName = "ContentBlock";
+        private const string NewContentBlockWidget = "ContentBlock";
+        private const string OldContentBlockWidget = "Content block";
+        private const string EditContent = " edited";
+        private const string ExpectedContent = "Test content edited";
     }
 }

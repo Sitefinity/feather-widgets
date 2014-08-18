@@ -10,12 +10,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
     public class ContentBlockWrapper : BaseWrapper
     {
-        public void VerifyContentOnTheFrontend(string content)
+        public void VerifyContentOfContentBlockOnThePageFrontend(string contentBlockContent)
         {
-            HtmlDiv publicWrapper = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagname=div", "class=sfPublicWrapper")
-            .AssertIsPresent("Public wrapper");
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            Assert.IsTrue(publicWrapper.InnerText.Equals(content), "Unexpected content");
+            List<HtmlDiv> contentBlockCount = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "data-sf-field=Content").ToList<HtmlDiv>();
+
+            for (int i = 0; i < contentBlockCount.Count; i++)
+            {
+                var isContained = contentBlockCount[i].InnerText.Contains(contentBlockContent);
+                Assert.IsTrue(isContained, String.Concat("Expected ", contentBlockContent, " but found [", contentBlockCount[i].InnerText, "]"));
+            }
         }
     }
 }
