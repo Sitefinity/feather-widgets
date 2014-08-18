@@ -17,6 +17,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     {
         public HtmlDiv GetWidgetByName(string widgetLabelName)
         {
+            ActiveBrowser.RefreshDomTree();
             RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("ctl00_ControlToolboxContainer");
             //dockZone.Refresh();
             foreach (var item in toolbox.AllItems)
@@ -74,7 +75,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public bool VerifyContentBlockWidgetSharedLabel()
         {
             bool hasLabel = true;
-            HtmlDiv titleBar = BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().GetWidgetTitleContainer("ContentBlock");
+            HtmlDiv titleBar = BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().GetWidgetTitleContainer("ContentBlock")
+                .AssertIsPresent("Title bar");
+
             HtmlSpan sharedLabel = titleBar.Find.ByExpression<HtmlSpan>("class=sfShared");
 
             if (sharedLabel == null)

@@ -27,6 +27,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.ShareButton
             .AssertIsPresent("Share button");
             shareButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
         }
 
         public void UnshareButton()
