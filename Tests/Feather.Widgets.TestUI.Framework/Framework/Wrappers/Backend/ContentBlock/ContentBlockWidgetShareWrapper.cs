@@ -43,13 +43,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.DoneSelectingButton
             .AssertIsPresent("Done selecting button");
             shareButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
         }
 
         public void SelectContentBlock(string sharedContentTitle)
         {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+
             HtmlDiv sharedContentBlockList = EM.GenericContent.ContentBlockWidget.ContentBlockList
             .AssertIsPresent("Shared content list");
+
             var itemSpan = sharedContentBlockList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + sharedContentTitle);
+
+            itemSpan.Wait.ForVisible();
             itemSpan.ScrollToVisible();
             itemSpan.MouseClick();
             this.DoneSelectingButton();
