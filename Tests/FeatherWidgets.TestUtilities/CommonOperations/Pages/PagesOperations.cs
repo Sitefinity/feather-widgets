@@ -7,7 +7,6 @@ using System.Text;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
