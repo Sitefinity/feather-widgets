@@ -5,27 +5,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
+namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
 {
-    public class ContentMap
+    public class NavigationMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContentMap" /> class.
+        /// Initializes a new instance of the <see cref="NavigationMap" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
-        public ContentMap(Find find)
+        public NavigationMap(Find find)
         {
             this.find = find;
         }
 
         /// <summary>
-        /// Gets the content block widget backend
+        /// Gets the naviagtion widget backend
         /// </summary>
-        public ContentBlockWidgetScreen ContentBlockWidget
+        public NavigationWidgetEditScreen NavigationWidgetEditScreen
         {
             get
             {
-                return new ContentBlockWidgetScreen(this.find);
+                return new NavigationWidgetEditScreen(this.find);
             }
         }
 

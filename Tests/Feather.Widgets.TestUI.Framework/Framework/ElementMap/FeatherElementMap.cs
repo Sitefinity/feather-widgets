@@ -1,5 +1,6 @@
 ﻿using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets or sets the events element map.
+        /// It contains the finding expressions for all back-end events screens.
+        /// </summary>
+        /// <value>An initialized instance of events element map.</value>
+        public NavigationMap Navigation
+        {
+            get
+            {
+                if (this.navigationMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.navigationMap = new NavigationMap(this.find);
+                }
+                return navigationMap;
+            }
+            private set
+            {
+                navigationMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -58,5 +81,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
 
         private Find find;
         private ContentMap contentMap;
+        private NavigationMap navigationMap;
     }
 }

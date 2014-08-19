@@ -9,6 +9,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
+    /// <summary>
+    /// Sample arrangement that Creates and deletes a page.
+    /// </summary>
     public class SeveralContentBlockWidgetsOnTheSamePage : ITestArrangement
     {
         /// <summary>

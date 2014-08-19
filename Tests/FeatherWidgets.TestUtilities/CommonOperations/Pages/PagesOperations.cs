@@ -7,6 +7,8 @@ using System.Text;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -67,31 +69,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             });
             var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
             draftControlDefault.Caption = "ContentBlock";
-            pageManager.SetControlDefaultPermissions(draftControlDefault);
-            page.Controls.Add(draftControlDefault);
-
-            pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
-            pageManager.SaveChanges();
-        }
-
-        /// <summary>
-        /// Adds navigation Mvc widget to existing page
-        /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="controllerType"></param>
-        /// <param name="widgetName"></param>
-        public void AddNavigationWidgetToPage(Guid pageId)
-        {
-            PageManager pageManager = PageManager.GetManager();
-            pageManager.Provider.SuppressSecurityChecks = true;
-            var pageDataId = pageManager.GetPageNode(pageId).PageId;
-            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
-
-            var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy();
-
-            mvcWidget.ControllerName = "Navigation.Mvc.Controllers.NavigationController";
-            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
-            draftControlDefault.Caption = "Navigation";
             pageManager.SetControlDefaultPermissions(draftControlDefault);
             page.Controls.Add(draftControlDefault);
 

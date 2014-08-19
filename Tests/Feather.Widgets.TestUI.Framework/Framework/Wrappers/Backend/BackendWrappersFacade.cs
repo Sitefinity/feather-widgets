@@ -18,5 +18,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             return new ContentBlocksWrapperFacade();
         }
+
+        public NavigationWidgetEditWrapper Navigation()
+        {
+            return new NavigationWidgetEditWrapper();
+        }
     }
 }
