@@ -61,6 +61,7 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAllPagesUnderCurrentlyOpenedPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Pages\DeletePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
