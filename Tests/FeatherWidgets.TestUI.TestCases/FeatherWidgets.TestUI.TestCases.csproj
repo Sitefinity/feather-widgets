@@ -98,6 +98,7 @@
     <Compile Include="ContentBlocks\EditContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\EditSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\OldAndNewContentBlockWidgetOnTheSamePage.cs" />
+    <Compile Include="ContentBlocks\SeveralContentBlockWidgetsOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\ShareContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\UnshareContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
