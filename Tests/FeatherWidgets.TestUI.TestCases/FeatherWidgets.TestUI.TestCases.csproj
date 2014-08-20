@@ -106,6 +106,7 @@
     <Compile Include="Navigation\NavigationWidgetAllPagesUnderCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Pages\DeletePageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
