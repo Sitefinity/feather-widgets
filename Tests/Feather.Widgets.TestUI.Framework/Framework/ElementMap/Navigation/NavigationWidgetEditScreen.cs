@@ -37,5 +37,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
                 return this.Get<HtmlButton>("tagname=button", "InnerText=Save");
             }
         }
+
+        /// <summary>
+        /// Provides access to template selector.
+        /// </summary>
+        public HtmlSelect TemplateSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagname=select", "id=navTemplateName");
+            }
+        }
     }
 }
