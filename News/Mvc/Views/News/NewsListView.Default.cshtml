@@ -1,0 +1,19 @@
+@model News.Mvc.Models.INewsModel
+
+@using News.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+
+List template
+
+<div class="@Model.ListCssClass">
+    <ul >
+        @foreach (var item in Model.News)
+        {
+            <li>
+                @{string detailUrl = String.Format("{0:yyyy/MM/dd}/{1}", item.PublicationDate, item.UrlName);}
+                @Html.ActionLink(item.Title, detailUrl)      
+            </li>
+        }
+    </ul>
+</div>
