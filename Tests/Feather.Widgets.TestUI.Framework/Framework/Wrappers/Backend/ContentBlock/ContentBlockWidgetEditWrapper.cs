@@ -27,6 +27,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlButton saveButton = EM.GenericContent.ContentBlockWidget.SaveChangesButton
             .AssertIsPresent("Save button");
             saveButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
         }
     }
 }
