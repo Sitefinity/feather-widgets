@@ -10,11 +10,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
     public class NavigationWrapper : BaseWrapper
     {
-        public void VerifyNavigationOnThePageFrontend(string cssClass, string[] pages)
+        public List<HtmlDiv> ListWithNavigationDiv()
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            List<HtmlDiv> navigationCount = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "id=bs-example-navbar-collapse-1").ToList<HtmlDiv>();
+            List<HtmlDiv> navigationList = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "id=bs-example-navbar-collapse-1").ToList<HtmlDiv>();
+
+            return navigationList;
+        }
+
+        public void VerifyNavigationOnThePageFrontend(string cssClass, string[] pages)
+        {
+            List<HtmlDiv> navigationCount = this.ListWithNavigationDiv();
 
             for (int i = 0; i < navigationCount.Count; i++)
             {
@@ -27,6 +34,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                     Assert.IsTrue(navList.InnerText.Contains(page), "Navigation does not contain the expected page " + page);
                 }
             }
+        }
+
+        public void VerifyNavigationCountOnThePageFrontend(int expectedCount)
+        {
+            List<HtmlDiv> navigationCount = this.ListWithNavigationDiv();
+            Assert.AreEqual<int>(expectedCount, navigationCount.Count, "unexpected number");
         }
     }
 }

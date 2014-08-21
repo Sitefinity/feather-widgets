@@ -1,4 +1,5 @@
-﻿using Feather.Widgets.TestUI.Framework;
+﻿using ArtOfTest.WebAii.Controls.HtmlControls;
+using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -13,7 +14,7 @@ namespace FeatherWidgets.TestUI
     /// This is a sample test class.
     /// </summary>
     [TestClass]
-    public class DuplicateNavigationWidgetFromPage_ : FeatherTestCase
+    public class DeleteNavigationWidgetFromPage_ : FeatherTestCase
     {
         // <summary>
         /// Pefroms Server Setup and prepare the system with needed data.
@@ -35,14 +36,18 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void DuplicateNavigationWidgetFromPage()
+        public void DeleteNavigationWidgetFromPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNavigationOnTheFrontend();
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            this.VerifyNavigationCountOnTheFrontend();
         }
 
         public void VerifyNavigationOnTheFrontend()
@@ -52,14 +57,21 @@ namespace FeatherWidgets.TestUI
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationCountOnThePageFrontend(ExpectedCount);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
+        }
+
+        public void VerifyNavigationCountOnTheFrontend()
+        {
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            ActiveBrowser.WaitUntilReady();
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationCountOnThePageFrontend(ExpectedCount);
         }
 
         private const string PageName = "ParentPage";
         private const string WidgetName = "Navigation";
-        private const string OperationName = "Duplicate";
+        private const string OperationName = "Delete";
         private const string NavTemplateClass = "nav navbar-nav";
-        private const int ExpectedCount = 2;
+        private const int ExpectedCount = 0;
     }
 }

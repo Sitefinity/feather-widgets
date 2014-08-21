@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI
     /// This is a sample test class.
     /// </summary>
     [TestClass]
-    public class DuplicateNavigationWidgetFromPage_ : FeatherTestCase
+    public class NavigationWidgetTabsTemplateWithOneLevelOnPage_ : FeatherTestCase
     {
         // <summary>
         /// Pefroms Server Setup and prepare the system with needed data.
@@ -35,31 +35,39 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void DuplicateNavigationWidgetFromPage()
+        public void NavigationWidgetTabsTemplateWithOneLevelOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Navigation().SelectWidgetListTemplate(NavWidgetTemplate);
+            BATFeather.Wrappers().Backend().Navigation().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNavigationOnTheFrontend();
+            this.SelectPageFromNavigation();
         }
 
         public void VerifyNavigationOnTheFrontend()
         {
-            string[] parentPages = new string[] { PageName };
+            string[] parentPages = new string[] { PageName, SiblingPageName };
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationCountOnThePageFrontend(ExpectedCount);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
         }
 
+        public void SelectPageFromNavigation()
+        {
+            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().SelectPageFromNavigationByText(NavTemplateClass, SiblingPageName);
+            ActiveBrowser.WaitForUrl("/" + SiblingPageName.ToLower(), true, 60000);
+        }
+
         private const string PageName = "ParentPage";
+        private const string SiblingPageName = "SiblingPage";
         private const string WidgetName = "Navigation";
-        private const string OperationName = "Duplicate";
-        private const string NavTemplateClass = "nav navbar-nav";
-        private const int ExpectedCount = 2;
+        private const string NavTemplateClass = "nav nav-tabs";
+        private const string NavWidgetTemplate = "Tabs";
     }
 }
