@@ -169,8 +169,8 @@
         {
             get
             {
-                string id = this.SharedContentID.ToString("N", CultureInfo.InvariantCulture);
-                string key = string.Format(IZoneEditorReloaderKeyStringFormat, id);
+                var id = this.SharedContentID.ToString("N", CultureInfo.InvariantCulture);
+                var key = string.Format(CultureInfo.InvariantCulture, IZoneEditorReloaderKeyStringFormat, id);
                 return key;
             }
         }
@@ -226,6 +226,19 @@
 
         #region Explicit Interface Methods
 
+
+        /// <summary>
+        ///     Defines whether controls of same key will be
+        ///     reloaded when this control is updated in the ZoneEditor
+        /// </summary>
+        /// <returns>True if a reload is required</returns>
+        [Browsable(false)]
+        bool ShouldReloadControlsWithSameKey()
+        {
+            return this.ShouldReloadControlsWithSameKey();
+        }
+
+
         /// <summary>
         ///     Defines whether controls of same key will be
         ///     reloaded when this control is updated in the ZoneEditor
@@ -269,9 +282,9 @@
 
             if (this.SharedContentID == Guid.Empty)
             {
-                string shareActionLink =
+                var shareActionLink =
                     packageManager.EnhanceUrl(
-                        RouteHelper.ResolveUrl(string.Format(DesignerTemplate, "Share"), UrlResolveOptions.Rooted));
+                        RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "Share"), UrlResolveOptions.Rooted));
                 commandsList.Add(
                     new WidgetMenuItem
                         {
@@ -282,9 +295,9 @@
             }
             else
             {
-                string unshareActionLink =
+                var unshareActionLink =
                     packageManager.EnhanceUrl(
-                        RouteHelper.ResolveUrl(string.Format(DesignerTemplate, "Unshare"), UrlResolveOptions.Rooted));
+                        RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "Unshare"), UrlResolveOptions.Rooted));
                 commandsList.Add(
                     new WidgetMenuItem
                         {
@@ -294,9 +307,9 @@
                         });
             }
 
-            string useSharedActionLink =
+            var useSharedActionLink =
                 packageManager.EnhanceUrl(
-                    RouteHelper.ResolveUrl(string.Format(DesignerTemplate, "UseShared"), UrlResolveOptions.Rooted));
+                    RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "UseShared"), UrlResolveOptions.Rooted));
             commandsList.Add(
                 new WidgetMenuItem
                     {

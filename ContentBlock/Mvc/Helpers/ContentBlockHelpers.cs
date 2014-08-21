@@ -22,14 +22,18 @@ namespace ContentBlock.Mvc.Helpers
         public static string GetBlankContentItem(this HtmlHelper html)
         {
             ContentItem blankContentItem;
+
             var manager = ContentManager.GetManager();
+
             using (new ElevatedModeRegion(manager))
             {
                 blankContentItem = manager.CreateContent(Guid.Empty);
+
+                var serialized = JsonConvert.SerializeObject(blankContentItem);
+                return serialized;
             }
 
-            var serialized = JsonConvert.SerializeObject(blankContentItem);
-            return serialized;
+
         }
     }
 }

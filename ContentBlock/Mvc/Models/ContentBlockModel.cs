@@ -173,11 +173,11 @@
                     this.ContentType = typeof(PageDraftControl).FullName;
                 }
             }
-            catch (ItemNotFoundException ex)
+            catch (ItemNotFoundException)
             {
                 this.SharedContentID = Guid.Empty;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
 
