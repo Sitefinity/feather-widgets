@@ -30,5 +30,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }
+
+        public void CreateContentLink()
+        {
+            HtmlAnchor createContent = EM.GenericContent.ContentBlockWidget.CreateContent
+            .AssertIsPresent("Create content");
+            createContent.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
     }
 }

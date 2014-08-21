@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
     <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />

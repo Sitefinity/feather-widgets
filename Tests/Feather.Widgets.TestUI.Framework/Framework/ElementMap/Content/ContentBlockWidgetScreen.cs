@@ -105,5 +105,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlButton>("tagname=button", "InnerText=Done selecting");
             }
         }
+
+        /// <summary>
+        /// Provides access to create content.
+        /// </summary>
+        public HtmlAnchor CreateContent
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "class=sfAddContentLnk");
+            }
+        }
     }
 }
