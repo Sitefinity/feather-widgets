@@ -45,5 +45,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
             ActiveBrowser.WaitForAsyncOperations();
         }
+
+        public void SelectLevelsToInclude(string levelsToInclude)
+        {
+            var templateSelector = EM.Navigation.NavigationWidgetEditScreen.LevelesToIncludeSelector
+              .AssertIsPresent("Template selector drop-down");
+            templateSelector.SelectByValue(levelsToInclude);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            ActiveBrowser.WaitForAsyncOperations();
+        }
     }
 }

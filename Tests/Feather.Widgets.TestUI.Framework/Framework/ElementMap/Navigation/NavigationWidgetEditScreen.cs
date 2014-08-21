@@ -48,5 +48,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
                 return this.Get<HtmlSelect>("tagname=select", "id=navTemplateName");
             }
         }
+
+        /// <summary>
+        /// Provides access to levels to include.
+        /// </summary>
+        public HtmlSelect LevelesToIncludeSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagname=select", "id=navLevelsToInclude");
+            }
+        }
     }
 }

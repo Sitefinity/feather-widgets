@@ -41,5 +41,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             List<HtmlDiv> navigationCount = this.ListWithNavigationDiv();
             Assert.AreEqual<int>(expectedCount, navigationCount.Count, "unexpected number");
         }
+
+        public void VerifyChildPagesFrontEndNavigation(string cssClass, string[] pages)
+        {
+            HtmlUnorderedList navList = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=" + cssClass)
+                .AssertIsPresent("Navigation with selected class");
+
+            Assert.AreEqual(pages.Count(), navList.ChildNodes.Count(), "Unexpected number of pages");
+
+            foreach (string page in pages)
+            {
+                Assert.IsTrue(navList.InnerText.Contains(page), "Navigation does not contain the expected page " + page);
+            }
+        }
     }
 }
