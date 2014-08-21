@@ -64,10 +64,10 @@ namespace FeatherWidgets.TestUI
         {
             string[] selectedPages = new string[] { PageName };
 
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesFrontEndNavigation(NavTemplateClass, selectedPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, selectedPages);
         }
 
-        private const string PageName = "boot";
+        private const string PageName = "ParentPage";
         private const string WidgetName = "Navigation";
         private const string NavTemplateClass = "nav navbar-nav";
         private const string PageTemplateName = "Bootstrap.default";

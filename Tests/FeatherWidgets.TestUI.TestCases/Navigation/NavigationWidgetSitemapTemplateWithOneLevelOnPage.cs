@@ -44,15 +44,8 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Navigation().SelectWidgetListTemplate(NavWidgetTemplate);
             BATFeather.Wrappers().Backend().Navigation().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend(PageName);
             this.VerifyNavigationOnTheFrontend();
             this.SelectPageFromNavigation();
-        }
-
-        public void NavigatePageOnTheFrontend(string pageName)
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
         }
 
         public void VerifyNavigationOnTheFrontend()
@@ -62,7 +55,7 @@ namespace FeatherWidgets.TestUI
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesFrontEndNavigation(NavTemplateClass, parentPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
         }
 
         public void SelectPageFromNavigation()
