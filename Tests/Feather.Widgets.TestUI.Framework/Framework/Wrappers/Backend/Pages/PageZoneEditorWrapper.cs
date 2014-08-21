@@ -48,11 +48,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?RadDockZoneContentplaceholder1")
                 .AssertIsPresent<HtmlDiv>("RadDockZoneContentplaceholder1");
 
-            HtmlDiv lastRadZone = radDockZone.ChildNodes.Where(p => p.InnerText.Contains("Contentplaceholder1")).FirstOrDefault().As<HtmlDiv>();
-            lastRadZone.AssertIsPresent("Contentplaceholder1");
-
             HtmlDiv widget = this.GetWidgetByName(widgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, lastRadZone);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
         }
 
         public void EditWidget(string widgetName, int dropZoneIndex = 0)
