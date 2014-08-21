@@ -113,7 +113,6 @@
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
-    <Compile Include="Pages\DeletePageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeatherTestCase.cs" />
     <Compile Include="FeatherTestCategories.cs" />

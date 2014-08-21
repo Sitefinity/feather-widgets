@@ -71,7 +71,6 @@
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
-    <Compile Include="Pages\DeletePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
