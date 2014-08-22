@@ -1,31 +1,26 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ArtOfTest.WebAii.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using Telerik.WebAii.Controls.Html;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.WebAii.Controls.Html;
 
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// This is a sample test class.
+    /// NavigationWidgetHorizontalTemplateWithOneLevelOnPage test class.
     /// </summary>
     [TestClass]
     public class NavigationWidgetHorizontalTemplateWithOneLevelOnPage_ : FeatherTestCase
     {
         /// <summary>
-        /// Performs clean up and clears all data created by the test.
+        /// UI test NavigationWidgetHorizontalTemplateWithOneLevelOnPage
         /// </summary>
-        protected override void ServerCleanup()
-        {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
-        }
-
         [TestMethod,
       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
       TestCategory(FeatherTestCategories.PagesAndContent)]
@@ -36,10 +31,14 @@ namespace FeatherWidgets.TestUI
             this.CreatePageWithTemplate(PageName, PageTemplateName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend(PageName);
             this.VerifyNavigationOnTheFrontend();
         }
 
+        /// <summary>
+        /// Create page with template
+        /// </summary>
+        /// <param name="pageName">Page name</param>
+        /// <param name="templateName">Template name</param>
         public void CreatePageWithTemplate(string pageName, string templateName)
         {
             var createPageLink = BAT.Wrappers().Backend().Pages().PagesWrapper().GetCreatePageFromDecisionScreen();
@@ -54,17 +53,25 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().WaitUntilReady();
         }
 
-        public void NavigatePageOnTheFrontend(string pageName)
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-        }
-
+        /// <summary>
+        /// Verify navigation widget on the frontend
+        /// </summary>
         public void VerifyNavigationOnTheFrontend()
         {
             string[] selectedPages = new string[] { PageName };
 
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, selectedPages);
+        }
+
+        /// <summary>
+        /// Performs clean up and clears all data created by the test.
+        /// </summary>
+        protected override void ServerCleanup()
+        {
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "ParentPage";

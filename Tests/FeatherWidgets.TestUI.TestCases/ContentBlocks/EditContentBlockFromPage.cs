@@ -1,37 +1,23 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// This is a sample test class.
+    /// EditContentBlockFromPage test class.
     /// </summary>
     [TestClass]
     public class EditContentBlockFromPage_ : FeatherTestCase
     {
-        // <summary>
-        /// Pefroms Server Setup and prepare the system with needed data.
-        /// </summary>
-        protected override void ServerSetup()
-        {
-            BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
-        }
-
         /// <summary>
-        /// Performs clean up and clears all data created by the test.
+        /// UI test EditContentBlockFromPage
         /// </summary>
-        protected override void ServerCleanup()
-        {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
-        }
-
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
@@ -47,10 +33,31 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ExpectedContent);
         }
 
+        /// <summary>
+        /// Navigate page on the front end
+        /// </summary>
+        /// <param name="pageName">Page name</param>
         public void NavigatePageOnTheFrontend(string pageName)
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
             ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Performs Server Setup and prepare the system with needed data.
+        /// </summary>
+        protected override void ServerSetup()
+        {
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.TestName).ExecuteSetUp();
+        }
+
+        /// <summary>
+        /// Performs clean up and clears all data created by the test.
+        /// </summary>
+        protected override void ServerCleanup()
+        {
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "ContentBlock";

@@ -1,22 +1,58 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// This is a sample test class.
+    /// NavigationWidgetAllPagesType test class.
     /// </summary>
     [TestClass]
     public class NavigationWidgetAllPagesType_ : FeatherTestCase
     {
-        // <summary>
-        /// Pefroms Server Setup and prepare the system with needed data.
+        /// <summary>
+        /// UI test NavigationWidgetAllPagesType
+        /// </summary>
+        [TestMethod,
+       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+       TestCategory(FeatherTestCategories.PagesAndContent)]
+        public void NavigationWidgetAllPagesType()
+        {
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            this.VerifyNavigationOnTheFrontend();
+        }
+
+        /// <summary>
+        /// Verify navigation widget on the frontend
+        /// </summary>
+        public void VerifyNavigationOnTheFrontend()
+        {
+            string[] parentPages = new string[] 
+                                    { 
+                                        PageName, Page2Redirect, Page1Redirect, PageGroup
+                                    };
+            string[] childPages = new string[] 
+                                    { 
+                                        ChildPage1, ChildPage2, UnpublishPage, PageDraft, Page2Group
+                                    };
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+
+            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesNotPresentFrontEndNavigation(NavTemplateClass, childPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
+        }
+
+        /// <summary>
+        /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
         protected override void ServerSetup()
         {
@@ -32,30 +68,6 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void NavigationWidgetAllPagesType()
-        {
-            BAT.Macros().NavigateTo().Pages();
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNavigationOnTheFrontend();
-        }
-
-        public void VerifyNavigationOnTheFrontend()
-        {
-            string[] parentPages = new string[] { PageName, Page2Redirect, Page1Redirect, PageGroup};
-            string[] childPages = new string[] { ChildPage1, ChildPage2, UnpublishPage, PageDraft, Page2Group};
-
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesNotPresentFrontEndNavigation(NavTemplateClass, childPages);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
-        }
-  
         private const string WidgetName = "Navigation";
         private const string NavTemplateClass = "nav navbar-nav";
         private const string PageName = "ParentPage";
