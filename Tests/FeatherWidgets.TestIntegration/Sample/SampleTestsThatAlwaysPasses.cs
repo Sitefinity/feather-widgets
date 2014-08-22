@@ -1,14 +1,14 @@
 ﻿using System;
-using MbUnit.Framework;
-using Telerik.Sitefinity.TestIntegration.Data.Content;
-using Navigation.Mvc.Models;
+using System.Collections.Generic;
 using System.Web;
-using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
+using MbUnit.Framework;
+using Navigation.Mvc.Models;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Fluent.Pages;
-using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Services;
-using System.Collections.Generic;
+using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
+using Telerik.Sitefinity.TestIntegration.Data.Content;
+using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.Sample
 {
@@ -20,7 +20,10 @@ namespace FeatherWidgets.TestIntegration.Sample
     public class SampleTestsThatAlwaysPasses
     {
         private List<Guid> createdPageIDs = new List<Guid>();
-
+        
+        /// <summary>
+        /// Clean up method
+        /// </summary>
         [TearDown]
         public void Clean()
         {
@@ -29,7 +32,7 @@ namespace FeatherWidgets.TestIntegration.Sample
             fluentPages.Page().PageManager.Provider.SuppressSecurityChecks = true;
             for (int i = this.createdPageIDs.Count - 1; i >= 0; i--)
             {
-                fluentPages.Page(createdPageIDs[i])
+                fluentPages.Page(this.createdPageIDs[i])
                     .Delete()
                     .SaveChanges();
             }
@@ -59,7 +62,7 @@ namespace FeatherWidgets.TestIntegration.Sample
         public void NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage()
         {
             string pageNamePrefix1 = "NavigationPage1";
-            string pageTitlePrefix1 ="Navigation Page1";
+            string pageTitlePrefix1 = "Navigation Page1";
             string urlNamePrefix1 = "navigation-page1";
 
             string pageNamePrefix2 = "NavigationPage2";
@@ -67,20 +70,18 @@ namespace FeatherWidgets.TestIntegration.Sample
             string urlNamePrefix2 = "navigation-page2";
 
             var fluent = App.WorkWith();
-            var page1Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageNamePrefix1,
-                                      pageTitlePrefix1, urlNamePrefix1, null, false);
+            var page1Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageNamePrefix1, pageTitlePrefix1, urlNamePrefix1, null, false);
 
-            createdPageIDs.Add(page1Key);
+            this.createdPageIDs.Add(page1Key);
 
-            var page2Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageNamePrefix2,
-                      pageTitlePrefix2, urlNamePrefix2, null, false);
+            var page2Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageNamePrefix2, pageTitlePrefix2, urlNamePrefix2, null, false);
 
-            createdPageIDs.Add(page2Key);
+            this.createdPageIDs.Add(page2Key);
 
             var page1Node = SitefinitySiteMap.GetCurrentProvider().FindSiteMapNodeFromKey(page1Key.ToString());
             SystemManager.CurrentHttpContext.Items[SiteMapBase.CurrentNodeKey] = page1Node;
 
-            var navModel = new NavigationModel(PageSelectionMode.CurrentPageSiblings, -1, true, "");
+            var navModel = new NavigationModel(PageSelectionMode.CurrentPageSiblings, -1, true, string.Empty);
 
             var expectedCount = 2;
             var actualCount = navModel.Nodes.Count;
