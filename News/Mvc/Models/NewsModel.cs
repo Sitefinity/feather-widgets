@@ -61,16 +61,10 @@ namespace News.Mvc.Models
         }
 
         /// <inheritdoc />
-        public IList<NewsItem> SelectedNews
+        public Guid SelectedNewsId
         {
-            get 
-            {
-                return this.selectedNews;
-            }
-            private set 
-            {
-                this.selectedNews = value;
-            }
+            get;
+            set;
         }
 
         /// <inheritdoc />
@@ -190,11 +184,12 @@ namespace News.Mvc.Models
         /// <returns></returns>
         private IQueryable<NewsItem> GetNewsItems()
         {
-            IQueryable<NewsItem> newsItems = null;
+            IQueryable<NewsItem> newsItems;
 
             if (this.SelectionMode == NewsSelectionMode.SelectedNews)
             {
-                newsItems = this.SelectedNews.AsQueryable<NewsItem>();
+                var selectedItems = new List<NewsItem>() { this.manager.GetNewsItem(this.SelectedNewsId) };
+                newsItems = selectedItems.AsQueryable<NewsItem>();
             }
             else if (this.SelectionMode == NewsSelectionMode.AllNews)
             {
@@ -300,7 +295,6 @@ namespace News.Mvc.Models
 
         #region Privte properties and constants
 
-        private IList<NewsItem> selectedNews = new List<NewsItem>();
         private IList<NewsItem> news = new List<NewsItem>();
         private int? itemsPerPage = 2;
         private string sortExpression = "PublicationDate DESC";

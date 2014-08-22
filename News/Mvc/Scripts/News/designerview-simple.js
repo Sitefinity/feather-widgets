@@ -1,3 +1,3 @@
 ﻿(function () {
-    angular.module('designer').requires.push('expander');
+    angular.module('designer').requires.push('expander', 'selectors');
 })();

@@ -13,19 +13,23 @@
 
         <ul class="form-group">
             <li class="radio">
-                <input id="allNews" type="radio" ng-model="properties.Model.SelectionMode.PropertyValue" value="AllNews" />
+                <input id="allNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllNews" />
                 <label for="allNews">@Html.Resource("AllPublishedNews")</label>
             </li>
             <li class="radio">
-                <input id="selectedNews" type="radio" ng-model="properties.Model.SelectionMode.PropertyValue" value="SelectedNews" />
+                <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedNews" />
                 <label for="selectedNews">@Html.Resource("SelectedNews")</label>
+                <content-selector item-type="Telerik.Sitefinity.News.NewsItem" 
+                                  item-provider="properties.ProviderName.PropertyValue"
+                                  selected-item-id ="properties.SelectedNewsId.PropertyValue"
+                                  selected-item=""></content-selector>
             </li>
             <li class="radio">
-                <input id="filterNews" type="radio" ng-model="properties.Model.SelectionMode.PropertyValue" value="FilteredNews" />
+                <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredNews" />
                 <label for="filterNews">@Html.Resource("NarrowSelection")</label>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> @Html.Resource("Tags")
+                        <input type="checkbox"> @Html.Resource("Tags")</input>
                     </label>
                 </div>
             </li>
@@ -36,19 +40,19 @@
     <div class="tab-pane" id="listSettings">
         <ul class="form-group">
             <li class="radio">
-                <input id="usePaging" type="radio" ng-model="properties.Model.DisplayMode.PropertyValue" value="Paging" />
+                <input id="usePaging" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Paging" />
                 <label for="usePaging">@Html.Resource("UsePaging")</label>
                 <span>@Html.Raw(String.Format(Html.Resource("DivideToItemPerPage"),
-                    "<input type='text' ng-model='properties.Model.ItemsPerPage.PropertyValue'/>"))</span>
+                    "<input type='text' ng-model='properties.ItemsPerPage.PropertyValue'/>"))</span>
             </li>
             <li class="radio">
-                <input id="useLimit" type="radio" ng-model="properties.Model.DisplayMode.PropertyValue" value="Limit" />
+                <input id="useLimit" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Limit" />
                 <label for="useLimit">@Html.Resource("UseLimit")</label>
                 <span>@Html.Raw(String.Format(Html.Resource("ShowLimitedItems"),
-                    "<input type='text' ng-model='properties.Model.ItemsPerPage.PropertyValue'/>"))</span>
+                    "<input type='text' ng-model='properties.ItemsPerPage.PropertyValue'/>"))</span>
             </li>
             <li class="radio">
-                <input id="allItems" type="radio" ng-model="properties.Model.DisplayMode.PropertyValue" value="All" />
+                <input id="allItems" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="All" />
                 <label for="allItems">@Html.Resource("NoLimitPaging")</label>
                 <span>@Html.Resource("ShowAllItems")</span>
             </li>
@@ -57,7 +61,7 @@
         <div  class="form-group">
             <label for="sortOptions">@Html.Resource("SortPressReleases")</label> 
 
-            <select id="sortOptions" ng-model="properties.Model.SortExpression.PropertyValue" class="form-control">
+            <select id="sortOptions" ng-model="properties.SortExpression.PropertyValue" class="form-control">
                 <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
                 <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
                 <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
@@ -79,7 +83,7 @@
         <expander expander-title='@Html.Resource("MoreOptions")'>
             <div class="form-group">
                 <label for="navCssClass">@Html.Resource("CssClasses")</label>
-                <input type="text" id="navCssClass" ng-model="properties.Model.ListCssClass.PropertyValue" class="form-control" />
+                <input type="text" id="navCssClass" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </div>
@@ -99,7 +103,7 @@
         <expander expander-title='@Html.Resource("MoreOptions")'>
             <div class="form-group">
                 <label for="newsCssClass">@Html.Resource("CssClasses")</label>
-                <input type="text" id="newsCssClass" ng-model="properties.Model.DetailCssClass.PropertyValue" class="form-control" />
+                <input type="text" id="newsCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </div>

@@ -29,7 +29,7 @@ namespace News.Mvc.Models
         /// The selected news items.
         /// </value>
         [Browsable(false)]
-        IList<NewsItem> SelectedNews { get; }
+        Guid SelectedNewsId { get; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the NewsWidget when it is in List view.
