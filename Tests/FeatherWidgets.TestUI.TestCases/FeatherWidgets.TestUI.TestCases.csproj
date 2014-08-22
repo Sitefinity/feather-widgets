@@ -106,6 +106,7 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetAddChangeRemoveCSSClass.cs" />
     <Compile Include="Navigation\NavigationWidgetAllLevelsToInclude.cs" />
     <Compile Include="Navigation\NavigationWidgetAllPagesType.cs" />
     <Compile Include="Navigation\NavigationWidgetAllPagesUnderCurrentlyOpenedPage.cs" />

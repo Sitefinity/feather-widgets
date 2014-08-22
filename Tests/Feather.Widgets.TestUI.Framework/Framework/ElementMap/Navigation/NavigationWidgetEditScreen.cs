@@ -59,5 +59,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
                 return this.Get<HtmlSelect>("tagname=select", "id=navLevelsToInclude");
             }
         }
+
+        /// <summary>
+        /// Provides access to css class.
+        /// </summary>
+        public HtmlInputText CSSClass
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=navCssClass");
+            }
+        }
+
+        /// <summary>
+        /// Provides access to More options.
+        /// </summary>
+        public HtmlSpan MoreOptions
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("tagname=span", "InnerText=More options");
+            }
+        }
     }
 }

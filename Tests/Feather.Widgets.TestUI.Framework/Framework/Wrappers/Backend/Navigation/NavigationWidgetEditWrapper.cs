@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.Common.UnitTesting;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -53,6 +54,47 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             templateSelector.SelectByValue(levelsToInclude);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            ActiveBrowser.WaitForAsyncOperations();
+        }
+
+        public void MoreOptions()
+        {
+            HtmlSpan moreOptions = EM.Navigation.NavigationWidgetEditScreen.MoreOptions
+                .AssertIsPresent("Css class");
+
+            moreOptions.ScrollToVisible();
+            moreOptions.Focus();
+            moreOptions.MouseClick();
+        }
+
+        public void FillCSSClass(string cssClass)
+        {
+            HtmlInputText input = EM.Navigation.NavigationWidgetEditScreen.CSSClass
+                .AssertIsPresent("Css class");
+
+            input.ScrollToVisible();
+            input.Focus();
+            input.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.TypeText(cssClass);
+        }
+
+        public void VerifyCSSClass(string expectedCssClass)
+        {
+            HtmlInputText input = EM.Navigation.NavigationWidgetEditScreen.CSSClass
+                .AssertIsPresent("Css class");
+
+            string actualText = input.Text;
+            Assert.AreEqual(actualText, expectedCssClass, "CSS classes are not equal");
+        }
+
+        public void RemoveCSSClass()
+        {
+            HtmlInputText input = EM.Navigation.NavigationWidgetEditScreen.CSSClass
+                .AssertIsPresent("Css class");
+
+            input.Text = "";
+            input.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
             ActiveBrowser.WaitForAsyncOperations();
         }
     }
