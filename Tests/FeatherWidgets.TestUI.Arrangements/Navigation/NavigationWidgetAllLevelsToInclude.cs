@@ -9,12 +9,12 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Sample arrangement that Creates and deletes a page.
+    /// NavigationWidgetAllLevelsToInclude arrangement class.
     /// </summary>
     public class NavigationWidgetAllLevelsToInclude : ITestArrangement
     {
         /// <summary>
-        /// Sets up.
+        /// Server side set up.
         /// </summary>
         [ServerSetUp]
         public void SetUp()
