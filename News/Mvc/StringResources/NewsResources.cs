@@ -6,7 +6,7 @@ namespace News.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the News widget
     /// </summary>
-    [ObjectInfo(typeof(NewsResources), Title = "NewsResourcesTitle", Description = "NewsResourcesDescription")]
+    [ObjectInfo(typeof(NewsResources), Name = "News", Title = "NewsResourcesTitle", Description = "NewsResourcesDescription")]
     public class NewsResources : Resource
     {
         #region Constructions
@@ -107,17 +107,17 @@ namespace News.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets word : Template
+        /// Gets word : by
         /// </summary>
-        [ResourceEntry("Template",
-            Value = "Template",
-            Description = "word : Template",
-            LastModified = "2014/08/20")]
-        public string Template
+        [ResourceEntry("By",
+            Value = "by",
+            Description = "word: by",
+            LastModified = "2014/08/22")]
+        public string By
         {
             get
             {
-                return this["Template"];
+                return this["By"];
             }
         }
     }

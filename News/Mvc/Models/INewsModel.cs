@@ -4,9 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.News.Model;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace News.Mvc.Models
 {
+    /// <summary>
+    /// Classes that implement this interface could be used as model for the News widget.
+    /// </summary>
     public interface INewsModel
     {
         /// <summary>
@@ -53,6 +57,12 @@ namespace News.Mvc.Models
         string DetailCssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets which news to be displayed in the list view.
+        /// </summary>
+        /// <value>The page display mode.</value>
+        NewsSelectionMode SelectionMode { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to enable social sharing.
         /// </summary>
         /// <value>
@@ -80,12 +90,46 @@ namespace News.Mvc.Models
         /// <value>
         /// The items per page.
         /// </value>
-        int ItemsPerPage { get; set; }
+        int? ItemsPerPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total pages count.
+        /// </summary>
+        /// <value>
+        /// The total pages count.
+        /// </value>
+        [Browsable(false)]
+        int? TotalPagesCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current page.
+        /// </summary>
+        /// <value>
+        /// The current page.
+        /// </value>
+        [Browsable(false)]
+        int CurrentPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>
+        /// The sort expression.
+        /// </value>
+        string SortExpression { get; set; }
+
+        /// <summary>
+        /// Gets or sets the additional filter expression.
+        /// </summary>
+        /// <value>
+        /// The filter expression.
+        /// </value>
+        string FilterExpression { get; set; }
 
         /// <summary>
         /// Populates the news.
         /// </summary>
         /// <param name="page">The page.</param>
-        void PopulateNews(int? page);
+        void PopulateNews(ITaxon taxonFilter, int? page);
     }
 }

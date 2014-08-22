@@ -16,6 +16,11 @@
         /// <summary>
         /// Refers to custom selection of pages.
         /// </summary>
-        SelectedNews
+        SelectedNews,
+
+        /// <summary>
+        /// The filtered news.
+        /// </summary>
+        FilteredNews
     }
 }

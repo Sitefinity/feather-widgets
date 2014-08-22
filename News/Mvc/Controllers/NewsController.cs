@@ -55,6 +55,12 @@ namespace News.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets the template for the URL of the List view that will be used with higher priority.
+        /// </summary>
+        /// <value>
+        /// The master route template.
+        /// </value>
         public string MasterRouteTemplate
         {
             get 
@@ -67,6 +73,7 @@ namespace News.Mvc.Controllers
             }
         }
 
+        /// <inheritdoc />
         public IUrlParamsMapper UrlParamsMapper
         {
             get 
@@ -76,7 +83,10 @@ namespace News.Mvc.Controllers
                     this.urlParamsMapper = new DetailActionParamsMapper<NewsItem>(this);
 
                     this.urlParamsMapper
-                        .SetNext(new CustomActionParamsMapper(this, () => this.MasterRouteTemplate, "Index"))
+                        .SetNext(new CustomActionParamsMapper(this, () => this.MasterRouteTemplate, "ListByTaxon"))
+                        .SetNext(new CustomActionParamsMapper(this, () => "/{taxonFilter:category,tag}/{page}", "ListByTaxon"))
+                        .SetNext(new CustomActionParamsMapper(this, () => "/{taxonFilter:category,tag}", "ListByTaxon"))
+                        .SetNext(new CustomActionParamsMapper(this, () => "/{page}", "Index"))
                         .SetNext(new DefaultUrlParamsMapper(this));
                 }
 
@@ -107,20 +117,38 @@ namespace News.Mvc.Controllers
         #region Actions
 
         /// <summary>
-        /// Renders appropriate list view depending on the <see cref="ListTemplateName"/>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
         /// </summary>
+        /// <param name="page">The page.</param>
         /// <returns>
-        /// The <see cref="ActionResult"/>.
+        /// The <see cref="ActionResult" />.
         /// </returns>
         public ActionResult Index(int? page)
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            this.ViewBag.RedirectPageUrlTemplate = "/{0}";
 
-            this.Model.PopulateNews(page);
+            this.Model.PopulateNews(null, page);
 
             return this.View(fullTemplateName, this.Model);
         }
 
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// </summary>
+        /// <param name="taxonFilter">The taxonomy filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
+        {
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            this.ViewBag.RedirectPageUrlTemplate = "/" + taxonFilter.Name + "/{0}";
+            this.Model.PopulateNews(taxonFilter, page);
+
+            return this.View(fullTemplateName, this.Model);
+        }
 
         /// <summary>
         /// Renders appropriate list view depending on the <see cref="DetailTemplateName"/>
@@ -162,8 +190,7 @@ namespace News.Mvc.Controllers
         private string detailTemplateName = "Default";
         private string detailTemplateNamePrefix = "NewsDetailView.";
 
-        //private string masterRouteTemplate = "/{filter:category,tag}/{page}";
-        private string masterRouteTemplate = "/{page}";
+        private string masterRouteTemplate = "/{taxonFilter:category,tag}/{page}";
         private IUrlParamsMapper urlParamsMapper;
 
         #endregion

@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.News.Model;
+using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Data.Linq.Dynamic;
+using System.Globalization;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Modules;
+using Telerik.Sitefinity.Data;
 
 namespace News.Mvc.Models
 {
@@ -12,6 +19,8 @@ namespace News.Mvc.Models
     /// </summary>
     public class NewsModel : INewsModel
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsModel"/> class.
         /// </summary>
@@ -20,8 +29,11 @@ namespace News.Mvc.Models
             this.InitializeManager();
         }
 
+        #endregion
+
         #region Properties
 
+        /// <inheritdoc />
         public IList<NewsItem> News
         {
             get
@@ -34,18 +46,21 @@ namespace News.Mvc.Models
             }
         }
 
+        /// <inheritdoc />
         public string ListCssClass
         {
             get;
             set;
         }
 
+        /// <inheritdoc />
         public string DetailCssClass
         {
             get;
             set;
         }
 
+        /// <inheritdoc />
         public IList<NewsItem> SelectedNews
         {
             get 
@@ -58,54 +73,57 @@ namespace News.Mvc.Models
             }
         }
 
+        /// <inheritdoc />
         public NewsItem DetailNews
         {
             get;
             set;
         }
 
+        /// <inheritdoc />
         public bool EnableSocialSharing 
         { 
             get; 
             set; 
         }
 
+        /// <inheritdoc />
         public string ProviderName 
         { 
             get;
             set; 
         }
 
-
-        /// <summary>
-        /// Gets or sets which news to be displayed in the list view.
-        /// </summary>
-        /// <value>The page display mode.</value>
+        /// <inheritdoc />
         public NewsSelectionMode SelectionMode
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether paging should be enabled.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> when should enable paging; otherwise, <c>false</c>.
-        /// </value>
+        /// <inheritdoc />
         public bool EnablePaging
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// Gets or sets the items count per page.
-        /// </summary>
-        /// <value>
-        /// The items per page.
-        /// </value>
-        public int ItemsPerPage
+        /// <inheritdoc />
+        public int? TotalPagesCount
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public int CurrentPage
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public int? ItemsPerPage
         {
             get
             {
@@ -117,33 +135,49 @@ namespace News.Mvc.Models
             }
         }
 
+        /// <inheritdoc />
+        public string SortExpression
+        {
+            get
+            {
+                return this.sortExpression;
+            }
+            set
+            {
+                this.sortExpression = value;
+            }
+        }
+
+        /// <inheritdoc />
+        public string FilterExpression
+        {
+            get;
+            set;
+        }
+
+        public Dictionary<string, IList<Guid>> TaxonomyFilter
+        {
+            get;
+            set;
+        }
+
         #endregion 
 
         #region Public methods
 
-        public void PopulateNews(int? page)
+        /// <inheritdoc />
+        public void PopulateNews(ITaxon taxonFilter, int? page)
         {
             this.EnablePaging = true;
 
-            IQueryable<NewsItem> newsItems = null; 
+            IQueryable<NewsItem> newsItems = this.GetNewsItems();
 
-            if (this.SelectionMode == NewsSelectionMode.SelectedNews)
-            {
-                newsItems = this.SelectedNews.AsQueryable<NewsItem>();
-            }
-            else
-            {
-                newsItems = this.manager.GetNewsItems()
-                    .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true);
-            }
-            if (page == null || page < 1)
-                page = 1;
+            if (taxonFilter != null)
+                newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonFilter.Taxonomy.Name).Contains(taxonFilter.Id));
 
-            if (this.EnablePaging)
-            {
-                var itemsToSkip = (page.Value - 1) * this.ItemsPerPage;
-                newsItems = newsItems.Skip(itemsToSkip).Take(this.ItemsPerPage);
-            }
+            this.AdaptMultilingualFilterExpression();
+
+            this.ApplyListSettings(page, ref newsItems);
 
             this.News = newsItems.ToArray();
         }
@@ -152,6 +186,87 @@ namespace News.Mvc.Models
 
         #region Private methods
 
+        /// <summary>
+        /// Gets the news items depending on the Content section of the property editor.
+        /// </summary>
+        /// <returns></returns>
+        private IQueryable<NewsItem> GetNewsItems()
+        {
+            IQueryable<NewsItem> newsItems = null;
+
+            if (this.SelectionMode == NewsSelectionMode.SelectedNews)
+            {
+                newsItems = this.SelectedNews.AsQueryable<NewsItem>();
+            }
+            else if (this.SelectionMode == NewsSelectionMode.AllNews)
+            {
+                newsItems = this.manager.GetNewsItems()
+                    .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true);
+            }
+            else 
+            {
+                newsItems = this.manager.GetNewsItems()
+                    .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true);
+
+                if (this.TaxonomyFilter!=null)
+                {
+                    foreach(var taxonFilter in this.TaxonomyFilter)
+                    {
+                        newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonFilter.Key).Intersect(taxonFilter.Value).Any());
+                    }
+                }
+            }
+
+            return newsItems;
+        }
+
+        /// <summary>
+        /// Applies the list settings.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="newsItems">The news items.</param>
+        private void ApplyListSettings(int? page, ref IQueryable<NewsItem> newsItems)
+        {
+            if (page == null || page < 1)
+                page = 1;
+
+            int? itemsToSkip = ((page.Value - 1) * this.ItemsPerPage);
+            itemsToSkip = this.EnablePaging? ((page.Value - 1) * this.ItemsPerPage) : null ;
+            int? totalCount = 0;
+
+            newsItems = DataProviderBase.SetExpressions(
+                newsItems,
+                this.FilterExpression,
+                this.SortExpression,
+                itemsToSkip,
+                this.ItemsPerPage,
+                ref totalCount);
+
+            double itemsPerPage = this.ItemsPerPage.Value;
+            this.TotalPagesCount = (int)Math.Ceiling((double)(totalCount.Value / itemsPerPage));
+            this.TotalPagesCount = this.EnablePaging ? this.TotalPagesCount : null;
+            this.CurrentPage = page.Value;
+        }
+
+        /// <summary>
+        /// Adapts the filter expression in multilingual.
+        /// </summary>
+        private void AdaptMultilingualFilterExpression()
+        {
+            CultureInfo uiCulture = null;
+
+            if (SystemManager.CurrentContext.AppSettings.Multilingual)
+            {
+                uiCulture = System.Globalization.CultureInfo.CurrentUICulture;
+            }
+
+            //the filter is adapted to the implementation of ILifecycleDataItemGeneric, so the culture is taken in advance when filtering published items.
+            this.FilterExpression = ContentHelper.AdaptMultilingualFilterExpressionRaw(this.FilterExpression, uiCulture);
+        }
+
+        /// <summary>
+        /// Initializes the manager.
+        /// </summary>
         private void InitializeManager()
         {
             NewsManager manager;
@@ -166,6 +281,11 @@ namespace News.Mvc.Models
             this.manager = manager;
         }
 
+        /// <summary>
+        /// Resolves the manager with provider.
+        /// </summary>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <returns></returns>
         private NewsManager ResolveManagerWithProvider(string providerName)
         {
             try
@@ -174,7 +294,6 @@ namespace News.Mvc.Models
             }
             catch (Exception)
             {
-                // DynamicModuleManager with this provider cannot be resolved 
                 return null;
             }
         }
@@ -185,10 +304,12 @@ namespace News.Mvc.Models
 
         private IList<NewsItem> selectedNews = new List<NewsItem>();
         private IList<NewsItem> news = new List<NewsItem>();
-        private int itemsPerPage = 2;
+        private int? itemsPerPage = 2;
+        public string sortExpression = "PublicationDate DESC";
 
         private NewsManager manager;
 
         #endregion
+
     }
 }

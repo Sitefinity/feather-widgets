@@ -1,9 +1,7 @@
-@model News.Mvc.Models.INewsModel
+@model News.Mvc.Models.NewsModel
 @using News.Mvc.Models;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-
-
-Detail template
+@using Telerik.Sitefinity.Web.DataResolving;
 
 <div class="@Model.DetailCssClass">
 @{
@@ -13,12 +11,20 @@ Detail template
             @Html.TextField("Title", Model.DetailNews.Title, "ShortText")
         </h1>
         <div>
+            <span>@Model.DetailNews.PublicationDate.ToString("MMM d, yyyy, hh:mm tt")</span>
+            <label>By</label>
+            <span>@DataResolver.Resolve(@Model.DetailNews, "Author", null)</span>
+        </div>
+        <div>
+            @Html.TextField( "Summary", Model.DetailNews.Summary, "LongText")
+        </div>
+        <div>
             @Html.TextField( "Content", Model.DetailNews.Content, "LongText")
         </div>
     
         if (Model.EnableSocialSharing)
         {
-            @Html.SocialShareOptions();
+            @Html.SocialShareOptions()
         }
     }
 }

@@ -1,19 +1,36 @@
-@model News.Mvc.Models.INewsModel
+@model News.Mvc.Models.NewsModel
 
 @using News.Mvc.Models;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Web.DataResolving;
 
-
-List template
+<link rel="stylesheet" href='@Url.WidgetContent("//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")' type="text/css" />
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <div class="@Model.ListCssClass">
     <ul >
         @foreach (var item in Model.News)
         {
             <li>
-                @{string detailUrl = String.Format("{0:yyyy/MM/dd}/{1}", item.PublicationDate, item.UrlName);}
-                @Html.ActionLink(item.Title, detailUrl)      
+                <h2>
+                    @{string detailUrl = String.Format("{0:yyyy/MM/dd}/{1}", item.PublicationDate, item.UrlName);}
+                    @Html.ActionLink(item.Title, detailUrl)    
+                </h2>
+                <div>
+                    <span>@item.PublicationDate.ToString("MMM d, yyyy, hh:mm tt")</span>
+                    <label>By</label>
+                    <span>@DataResolver.Resolve(item, "Author", null)</span>
+                </div>
+                <div>@Html.Raw(item.Summary)</div>
             </li>
         }
     </ul>
+
+    @if (Model.EnablePaging && Model.TotalPagesCount != null && Model.TotalPagesCount>1)
+    {
+        @Html.Action("Index", "ContentPager", new { currentPage = Model.CurrentPage, 
+                        totalPagesCount = Model.TotalPagesCount.Value, 
+                        redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate })
+    }
+
 </div>
