@@ -77,12 +77,12 @@ namespace News.Mvc.Models
         string ProviderName { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to enable paging.
+        /// Gets or sets a value indicating whether to divide items in the list.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if paging is enabled; otherwise, <c>false</c>.
+        /// The display mode.
         /// </value>
-        bool EnablePaging { get; set; }
+        ListDisplayMode DisplayMode { get; set; }
 
         /// <summary>
         /// Gets or sets the items count per page.

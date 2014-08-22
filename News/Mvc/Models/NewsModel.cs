@@ -102,7 +102,7 @@ namespace News.Mvc.Models
         }
 
         /// <inheritdoc />
-        public bool EnablePaging
+        public ListDisplayMode DisplayMode
         {
             get;
             set;
@@ -168,8 +168,6 @@ namespace News.Mvc.Models
         /// <inheritdoc />
         public void PopulateNews(ITaxon taxonFilter, int? page)
         {
-            this.EnablePaging = true;
-
             IQueryable<NewsItem> newsItems = this.GetNewsItems();
 
             if (taxonFilter != null)
@@ -231,20 +229,20 @@ namespace News.Mvc.Models
                 page = 1;
 
             int? itemsToSkip = ((page.Value - 1) * this.ItemsPerPage);
-            itemsToSkip = this.EnablePaging? ((page.Value - 1) * this.ItemsPerPage) : null ;
+            itemsToSkip = this.DisplayMode==ListDisplayMode.Paging? ((page.Value - 1) * this.ItemsPerPage) : null ;
             int? totalCount = 0;
+            int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ?  null: this.ItemsPerPage;
 
             newsItems = DataProviderBase.SetExpressions(
                 newsItems,
                 this.FilterExpression,
                 this.SortExpression,
                 itemsToSkip,
-                this.ItemsPerPage,
+                itemsPerPage,
                 ref totalCount);
 
-            double itemsPerPage = this.ItemsPerPage.Value;
-            this.TotalPagesCount = (int)Math.Ceiling((double)(totalCount.Value / itemsPerPage));
-            this.TotalPagesCount = this.EnablePaging ? this.TotalPagesCount : null;
+            this.TotalPagesCount = (int)Math.Ceiling((double)(totalCount.Value / (double)this.ItemsPerPage.Value));
+            this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? this.TotalPagesCount : null;
             this.CurrentPage = page.Value;
         }
 
@@ -305,7 +303,7 @@ namespace News.Mvc.Models
         private IList<NewsItem> selectedNews = new List<NewsItem>();
         private IList<NewsItem> news = new List<NewsItem>();
         private int? itemsPerPage = 2;
-        public string sortExpression = "PublicationDate DESC";
+        private string sortExpression = "PublicationDate DESC";
 
         private NewsManager manager;
 

@@ -74,20 +74,26 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\NewsController.cs" />
     <Compile Include="Mvc\Models\INewsModel.cs" />
+    <Compile Include="Mvc\Models\ListDisplayMode.cs" />
     <Compile Include="Mvc\Models\NewsModel.cs" />
     <Compile Include="Mvc\Models\NewsSelectionMode.cs" />
-    <Compile Include="Mvc\StringResources\NewsResources.cs" />
+    <Compile Include="Mvc\StringResources\NewsWidgetResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\News\NewsListView.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\News\List.NewsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\News\NewsDetailView.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\News\Detail.DetailPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Mvc\Views\News\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\News\DesignerView.Simple.json" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\News\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

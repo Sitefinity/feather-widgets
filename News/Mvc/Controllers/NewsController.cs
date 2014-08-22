@@ -16,7 +16,7 @@ namespace News.Mvc.Controllers
     /// This class represents the controller of News widget.
     /// </summary>
     [ControllerToolboxItem(Name = "News", Title = "News", SectionName = "MvcWidgetsNews")]
-    [Localization(typeof(NewsResources))]
+    [Localization(typeof(NewsWidgetResources))]
     public class NewsController : Controller, IUrlMappingController
     {
         #region Properties
@@ -185,10 +185,10 @@ namespace News.Mvc.Controllers
         #region Private fields and constants
 
         private INewsModel model;
-        private string listTemplateName = "Default";
-        private string listTemplateNamePrefix = "NewsListView.";
-        private string detailTemplateName = "Default";
-        private string detailTemplateNamePrefix = "NewsDetailView.";
+        private string listTemplateName = "NewsList";
+        private string listTemplateNamePrefix = "List.";
+        private string detailTemplateName = "DetailPage";
+        private string detailTemplateNamePrefix = "Detail.";
 
         private string masterRouteTemplate = "/{taxonFilter:category,tag}/{page}";
         private IUrlParamsMapper urlParamsMapper;

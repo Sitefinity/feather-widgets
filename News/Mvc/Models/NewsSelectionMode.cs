@@ -4,7 +4,7 @@
     /// The rendering options for the News widget. 
     /// </summary>
     /// <remarks>
-    /// Each option describes different selection of sitemap nodes that will be included while rendering the News widget.
+    /// Each option describes different selection of items that will be included while rendering the News widget.
     /// </remarks>
     public enum NewsSelectionMode
     {
