@@ -19,7 +19,7 @@
             <li class="radio">
                 <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedNews" />
                 <label for="selectedNews">@Html.Resource("SelectedNews")</label>
-                <content-selector item-type="Telerik.Sitefinity.News.NewsItem" 
+                <content-selector item-type="Telerik.Sitefinity.News.Model.NewsItem" 
                                   item-provider="properties.ProviderName.PropertyValue"
                                   selected-item-id ="properties.SelectedNewsId.PropertyValue"
                                   selected-item=""></content-selector>
