@@ -1,17 +1,20 @@
-﻿using ArtOfTest.WebAii.Core;
-using Feather.Widgets.TestUI.Framework.Framework.ElementMap;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers
 {
+    /// <summary>
+    /// This is the entry point class for base wrappers.
+    /// </summary>
     public class BaseWrapper
     {
         /// <summary>
-        /// Provides unified access to the ActiveBrowser object
+        /// Gets the ActiveBrowser object
         /// </summary>
         public Browser ActiveBrowser
         {
@@ -22,18 +25,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers
         }
 
         /// <summary>
-        /// Provides unified access to the ActiveBrowser object
+        /// Gets the FeatherElementMap object
         /// </summary>
         public virtual FeatherElementMap EM
         {
             get
             {
-                return new FeatherElementMap(ActiveBrowser.Find);
+                return new FeatherElementMap(this.ActiveBrowser.Find);
             }
         }
 
         /// <summary>
-        /// Provides unified access to the Log object
+        /// Gets the Log object
         /// </summary>
         public Log Log
         {

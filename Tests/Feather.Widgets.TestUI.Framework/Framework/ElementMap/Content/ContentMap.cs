@@ -1,12 +1,15 @@
-﻿using ArtOfTest.WebAii.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
 {
+    /// <summary>
+    /// This class contains references to the elements contained in the Feather Content block widget back-end screens.
+    /// </summary>
     public class ContentMap
     {
         /// <summary>

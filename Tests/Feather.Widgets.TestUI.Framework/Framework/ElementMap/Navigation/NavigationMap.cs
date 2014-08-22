@@ -1,12 +1,15 @@
-﻿using ArtOfTest.WebAii.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
 {
+    /// <summary>
+    /// This class contains references to the elements contained in the Feather navigation widget back-end screens.
+    /// </summary>
     public class NavigationMap
     {
         /// <summary>
@@ -19,7 +22,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
-        /// Gets the naviagtion widget backend
+        /// Gets the navigation widget backend
         /// </summary>
         public NavigationWidgetEditScreen NavigationWidgetEditScreen
         {

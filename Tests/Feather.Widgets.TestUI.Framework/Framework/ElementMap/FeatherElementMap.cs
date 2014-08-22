@@ -1,25 +1,28 @@
-﻿using ArtOfTest.WebAii.Core;
-using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
-using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
 {
+    /// <summary>
+    /// This is the entry point class for all Feather element maps.
+    /// </summary>
     public class FeatherElementMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SitefinityElementMap" /> class.
+        /// Initializes a new instance of the <see cref="FeatherElementMap" /> class.
         /// </summary>
         public FeatherElementMap()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SitefinityElementMap" /> class.
+        /// Initializes a new instance of the <see cref="FeatherElementMap" /> class.
         /// </summary>
         /// <param name="find">The find object used to get the elements/controls.</param>
         public FeatherElementMap(Find find)
@@ -28,8 +31,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         }
 
         /// <summary>
-        /// Gets or sets the events element map.
-        /// It contains the finding expressions for all back-end events screens.
+        /// Gets the events element map.
         /// </summary>
         /// <value>An initialized instance of events element map.</value>
         public ContentMap GenericContent
@@ -41,17 +43,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
                     this.EnsureFindIsInitialized();
                     this.contentMap = new ContentMap(this.find);
                 }
-                return contentMap;
+
+                return this.contentMap;
             }
+
             private set
             {
-                contentMap = value;
+                this.contentMap = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets the events element map.
-        /// It contains the finding expressions for all back-end events screens.
+        /// Gets the events element map.
         /// </summary>
         /// <value>An initialized instance of events element map.</value>
         public NavigationMap Navigation
@@ -63,11 +66,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
                     this.EnsureFindIsInitialized();
                     this.navigationMap = new NavigationMap(this.find);
                 }
-                return navigationMap;
+
+                return this.navigationMap;
             }
+
             private set
             {
-                navigationMap = value;
+                this.navigationMap = value;
             }
         }
 

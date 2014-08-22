@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
+    /// <summary>
+    /// This is the entry point class for pages backend wrappers.
+    /// </summary>
     public class PagesWrapperFacade
     {
+        /// <summary>
+        /// Provides unified access to the PageZoneEditorWrapper
+        /// </summary>
+        /// <returns>Returns the PageZoneEditorWrapper</returns>
         public PageZoneEditorWrapper PageZoneEditorWrapper()
         {
             return new PageZoneEditorWrapper();

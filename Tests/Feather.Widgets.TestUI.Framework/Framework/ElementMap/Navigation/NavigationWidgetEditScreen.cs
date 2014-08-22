@@ -1,23 +1,30 @@
-﻿using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.TestTemplates;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.TestTemplates;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
 {
+    /// <summary>
+    /// Provides access to navigation widget screen
+    /// </summary>
     public class NavigationWidgetEditScreen : HtmlElementContainer
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NavigationWidgetEditScreen" /> class.
+        /// </summary>
+        /// <param name="find">The find.</param>
         public NavigationWidgetEditScreen(Find find)
             : base(find)
         {
         }
 
         /// <summary>
-        /// Provides access to display mode list.
+        /// Gets display mode list.
         /// </summary>
         public HtmlUnorderedList DislayModeList
         {
@@ -28,7 +35,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
-        /// Provides access to Save changes button.
+        /// Gets Save changes button.
         /// </summary>
         public HtmlButton SaveChangesButton
         {
@@ -39,7 +46,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
-        /// Provides access to template selector.
+        /// Gets template selector.
         /// </summary>
         public HtmlSelect TemplateSelector
         {
@@ -50,7 +57,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
-        /// Provides access to levels to include.
+        /// Gets levels to include.
         /// </summary>
         public HtmlSelect LevelesToIncludeSelector
         {
@@ -61,7 +68,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
-        /// Provides access to css class.
+        /// Gets css class.
         /// </summary>
         public HtmlInputText CSSClass
         {
@@ -72,7 +79,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
-        /// Provides access to More options.
+        /// Gets More options.
         /// </summary>
         public HtmlSpan MoreOptions
         {

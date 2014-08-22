@@ -1,24 +1,39 @@
-﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
+    /// <summary>
+    /// This is the entry point class for all backend wrappers.
+    /// </summary>
     public class BackendWrappersFacade
     {
+        /// <summary>
+        /// Provides unified access to the pages
+        /// </summary>
+        /// <returns>Returns the PagesWrapperFacade</returns>
         public PagesWrapperFacade Pages()
         {
             return new PagesWrapperFacade();
         }
 
+        /// <summary>
+        /// Provides unified access to the content block
+        /// </summary>
+        /// <returns>Returns the ContentBlocksWrapperFacade</returns>
         public ContentBlocksWrapperFacade ContentBlocks()
         {
             return new ContentBlocksWrapperFacade();
         }
 
+        /// <summary>
+        /// Provides unified access to the navigation
+        /// </summary>
+        /// <returns>Returns the NavigationWidgetEditWrapper</returns>
         public NavigationWidgetEditWrapper Navigation()
         {
             return new NavigationWidgetEditWrapper();
