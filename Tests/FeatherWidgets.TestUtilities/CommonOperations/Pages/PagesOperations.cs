@@ -1,9 +1,9 @@
-﻿using ContentBlock.Mvc.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
@@ -11,13 +11,16 @@ using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
+    /// <summary>
+    /// This class provides access to page operations
+    /// </summary>
     public class PagesOperations
     {
         /// <summary>
-        /// Adds Mvc widget to existing page
+        /// Adds content block widget to existing page
         /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="html"></param>
+        /// <param name="pageId">Page id value</param>
+        /// <param name="html">Html value</param>
         public void AddContentBlockWidgetToPage(Guid pageId, string html)
         {
             PageManager pageManager = PageManager.GetManager();
@@ -42,10 +45,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
-        /// Adds Mvc widget to existing page
+        /// Add shared content block widget to the page
         /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="html"></param>
+        /// <param name="pageId">Page id value</param>
+        /// <param name="contentBlockTitle">Content block title</param>
         public void AddSharedContentBlockWidgetToPage(Guid pageId, string contentBlockTitle)
         {
             PageManager pageManager = PageManager.GetManager();
