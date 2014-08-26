@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
             this.ProviderName = providerName;
             this.Content = content;
             this.EnableSocialSharing = enableSocialSharing;
-            this.SharedContentID = sharedContentId;
+            this.SharedContentId = sharedContentId;
         }
 
         /// <summary>

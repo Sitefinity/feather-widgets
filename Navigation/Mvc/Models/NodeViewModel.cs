@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Navigation.Mvc.Models
@@ -38,13 +39,16 @@ namespace Navigation.Mvc.Models
         /// </param>
         public NodeViewModel(SiteMapNode node, string url, string target, bool isCurrentlyOpened, bool hasChildOpen)
         {
-            this.OriginalSiteMapNode = node;
-            this.Title = node.Title;
-            this.Url = url;
-            this.LinkTarget = target;
-            this.ChildNodes = new List<NodeViewModel>();
-            this.IsCurrentlyOpened = isCurrentlyOpened;
-            this.HasChildOpen = hasChildOpen;
+            if (node != null)
+            {
+                this.OriginalSiteMapNode = node;
+                this.Title = node.Title;
+                this.Url = url;
+                this.LinkTarget = target;
+                this.ChildNodes = new List<NodeViewModel>();
+                this.IsCurrentlyOpened = isCurrentlyOpened;
+                this.HasChildOpen = hasChildOpen;
+            }
         }
 
         #endregion

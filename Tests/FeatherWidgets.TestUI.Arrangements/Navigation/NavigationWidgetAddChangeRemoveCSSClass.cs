@@ -9,9 +9,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// NavigationWidgetAddChangeRemoveCSSClass arrangement class.
+    /// NavigationWidgetAddChangeRemoveCssClass arrangement class.
     /// </summary>
-    public class NavigationWidgetAddChangeRemoveCSSClass : ITestArrangement
+    public class NavigationWidgetAddChangeRemoveCssClass : ITestArrangement
     {
         /// <summary>
         /// Server side set up.

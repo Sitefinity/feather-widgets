@@ -8,7 +8,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
     /// <summary>
     /// Provides common server operations
     /// </summary>
-    public class ServerOperationsFeather
+    public static class ServerOperationsFeather
     {
         /// <summary>
         /// Entry point for Pages operations.

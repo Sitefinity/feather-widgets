@@ -28,20 +28,17 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var pageDataId = pageManager.GetPageNode(pageId).PageId;
             var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
 
-            var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy();
-
-            mvcWidget.ControllerName = "ContentBlock.Mvc.Controllers.ContentBlockController";
-            mvcWidget.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new ContentBlockController()
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
             {
-                Content = html
-            });
-            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
-            draftControlDefault.Caption = "ContentBlock";
-            pageManager.SetControlDefaultPermissions(draftControlDefault);
-            page.Controls.Add(draftControlDefault);
+                mvcWidget.ControllerName = "ContentBlock.Mvc.Controllers.ContentBlockController";
 
-            pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
-            pageManager.SaveChanges();
+                mvcWidget.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new ContentBlockController()
+                {
+                    Content = html
+                });
+
+                this.CreateControl(pageManager, page, mvcWidget);
+            }
         }
 
         /// <summary>
@@ -61,21 +58,36 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             .Where(c => c.Title == contentBlockTitle)
             .Get().Single();
 
-            var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy();
-
-            mvcWidget.ControllerName = "ContentBlock.Mvc.Controllers.ContentBlockController";
-            mvcWidget.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new ContentBlockController()
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
             {
-                Content = content.Content.Value,
-                SharedContentID = content.Id
-            });
+                mvcWidget.ControllerName = "ContentBlock.Mvc.Controllers.ContentBlockController";
+                mvcWidget.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new ContentBlockController()
+                {
+                    Content = content.Content.Value,
+                    SharedContentID = content.Id
+                });
+
+                this.CreateControl(pageManager, page, mvcWidget);
+            }
+        }
+
+        /// <summary>
+        /// Creates the mvcWidget control.
+        /// </summary>
+        /// <param name="pageManager">The page manager.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="mvcWidget">The MVC widget.</param>
+        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget)
+        {
             var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
-            draftControlDefault.Caption = "ContentBlock";
+            draftControlDefault.Caption = this.ContentBlockCaption;
             pageManager.SetControlDefaultPermissions(draftControlDefault);
             page.Controls.Add(draftControlDefault);
 
             pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
             pageManager.SaveChanges();
         }
+
+        private string ContentBlockCaption = "ContentBlock";
     }
 }

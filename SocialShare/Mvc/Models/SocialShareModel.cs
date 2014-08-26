@@ -19,7 +19,7 @@ namespace SocialShare.Mvc.Models
         /// <summary>
         /// Gets the social buttons
         /// </summary>
-        public List<SocialButtonModel> SocialButtons
+        public ICollection<SocialButtonModel> SocialButtons
         {
             get
             {

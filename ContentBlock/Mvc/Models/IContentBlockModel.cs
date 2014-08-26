@@ -26,7 +26,7 @@ namespace ContentBlock.Mvc.Models
         /// <summary>
         /// Gets or sets the ID of the ContentBlockItem if the HTML is shared across multiple controls
         /// </summary>
-        Guid SharedContentID { get; set; }
+        Guid SharedContentId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the provider.

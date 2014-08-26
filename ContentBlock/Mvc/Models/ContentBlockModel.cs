@@ -40,7 +40,7 @@
         {
             this.ProviderName = providerName;
             this.EnableSocialSharing = enableSocialSharing;
-            this.SharedContentID = sharedContentId;
+            this.SharedContentId = sharedContentId;
 
             content = this.GetContentHtmlValue(content);
 
@@ -99,7 +99,7 @@
         public string ProviderName { get; set; }
 
         /// <inheritdoc />
-        public Guid SharedContentID { get; set; }
+        public Guid SharedContentId { get; set; }
 
         #endregion
 
@@ -131,7 +131,7 @@
             var result = new List<CacheDependencyKey>(1);
             if (this.IsShared())
             {
-                result.Add(new CacheDependencyKey { Key = this.SharedContentID.ToString(), Type = typeof(ContentItem) });
+                result.Add(new CacheDependencyKey { Key = this.SharedContentId.ToString(), Type = typeof(ContentItem) });
             }
 
             return result;
@@ -158,7 +158,7 @@
                 {
                     content = string.Empty;
                     this.ContentType = typeof(ContentItem).FullName;
-                    ContentItem sharedContent = this.ContentManager.GetContent(this.SharedContentID);
+                    ContentItem sharedContent = this.ContentManager.GetContent(this.SharedContentId);
 
                     object tempItem;
                     ContentLocatableViewExtensions.TryGetItemWithRequestedStatus(
@@ -175,7 +175,7 @@
             }
             catch (ItemNotFoundException)
             {
-                this.SharedContentID = Guid.Empty;
+                this.SharedContentId = Guid.Empty;
             }
             catch (Exception)
             {
@@ -192,7 +192,7 @@
         /// </returns>
         protected virtual bool IsShared()
         {
-            return this.SharedContentID != Guid.Empty;
+            return this.SharedContentId != Guid.Empty;
         }
 
         #endregion

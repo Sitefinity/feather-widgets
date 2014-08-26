@@ -193,7 +193,7 @@
                 {
                     this.model = this.InitializeModel();
                     this.isEmpty = string.IsNullOrEmpty(this.model.Content);
-                    this.SharedContentID = this.model.SharedContentID;
+                    this.SharedContentID = this.model.SharedContentId;
                 }
 
                 return this.model;

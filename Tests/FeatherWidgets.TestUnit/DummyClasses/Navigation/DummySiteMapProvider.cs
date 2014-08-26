@@ -48,8 +48,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
                 for (int i = 0; i < DummySiteMapProvider.ChildNodesCount; i++)
                 {
                     var key = DummySiteMapProvider.LevelPrefix + currentLevel + DummySiteMapProvider.NodeIndexPrefix + i;
-                    var title = string.Format(DummySiteMapProvider.ChildTitleFormat, i);
-                    var url = string.Format(DummySiteMapProvider.ChildUrlFormat, i);
+                    var title = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildTitleFormat, i);
+                    var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildUrlFormat, i);
                     var childnode = new SiteMapNode(this, key, url, title);
                     collection.Add(childnode);
                 }

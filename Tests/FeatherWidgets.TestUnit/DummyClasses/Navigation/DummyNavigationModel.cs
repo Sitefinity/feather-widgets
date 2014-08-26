@@ -84,9 +84,12 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// Gets dummy root node identifier.
         /// </summary>
         /// <returns>Guid result</returns>
-        protected override Guid GetRootNodeId()
+        protected override Guid RootNodeId
         {
-            return Guid.NewGuid();
+            get 
+            {
+                return Guid.NewGuid();
+            }
         }
 
         /// <summary>
@@ -96,7 +99,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
         /// <returns>url result</returns>
         protected override string ResolveUrl(SiteMapNode node)
         {
-            return node.Url;
+            return node != null ? node.Url : string.Empty;
         }
 
         /// <summary>

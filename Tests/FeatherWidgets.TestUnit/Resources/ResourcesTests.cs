@@ -70,10 +70,10 @@ namespace FeatherWidgets.TestUnit.Resources
                     var attribute = prop.GetCustomAttributes(typeof(ResourceEntryAttribute), false).FirstOrDefault() as ResourceEntryAttribute;
                     Assert.IsNotNull(attribute, "The resource property does not have the required resource attribute.");
                     var resource = prop.GetValue(resourceClass) as string;
-                    Assert.IsFalse(string.IsNullOrEmpty(resource), string.Format("The resource string for the {0} property cannot be found,", prop.Name));
-                    Assert.AreEqual(prop.Name, attribute.Key, "The resource key does not match the property name,");
-                    Assert.AreEqual(resource, attribute.Value, string.Format("The resource string for the {0} property cannot be found,", prop.Name));
-                    Assert.IsFalse(string.IsNullOrEmpty(attribute.Description), "The description of the resource cannot be empty string.");
+                    Assert.IsFalse(string.IsNullOrEmpty(resource), string.Format(System.Globalization.CultureInfo.InvariantCulture, "The resource string for the {0} property cannot be found,", prop.Name));
+                    Assert.AreEqual(prop.Name, attribute.Key, "The resource key does not match the property name,", System.Globalization.CultureInfo.InvariantCulture);
+                    Assert.AreEqual(resource, attribute.Value, string.Format(System.Globalization.CultureInfo.InvariantCulture, "The resource string for the {0} property cannot be found,", prop.Name));
+                    Assert.IsFalse(string.IsNullOrEmpty(attribute.Description), "The description of the resource cannot be empty string.", System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
         }

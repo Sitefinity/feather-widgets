@@ -37,7 +37,7 @@ namespace SocialShare.SocialShareHelpers
             else
                 buttonTypeAttribute = "data-type='icon'";
 
-            var htmlString = string.Format(@"<div class='fb-share-button' data-href='{0}' {1}></div>", shareUrl, buttonTypeAttribute);
+            var htmlString = string.Format(System.Globalization.CultureInfo.InvariantCulture, @"<div class='fb-share-button' data-href='{0}' {1}></div>", shareUrl, buttonTypeAttribute);
 
             var scriptString = @"<div id='fb-root'></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];  if (d.getElementById(id)) return;  js = d.createElement(s); js.id = id;  js.src = '//connect.facebook.net/en_EN/all.js#xfbml=1';  fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>";
 
@@ -55,7 +55,7 @@ namespace SocialShare.SocialShareHelpers
         /// <returns>
         /// TwitterButton Html
         /// </returns>
-        public static System.Web.Mvc.MvcHtmlString TwitterButton(this System.Web.Mvc.HtmlHelper helper, bool showCount, bool isLarge, bool addText, string textToShare = "")
+        public static System.Web.Mvc.MvcHtmlString TwitterButton(this System.Web.Mvc.HtmlHelper helper, bool showCount, bool isLarge, bool addText, string textToShare)
         {
             var shareUrl = string.Empty;
 
@@ -78,6 +78,7 @@ namespace SocialShare.SocialShareHelpers
                 text = "Tweet";
 
             var htmlString = string.Format(
+                System.Globalization.CultureInfo.InvariantCulture,
                 @"<a href='https://twitter.com/share' title='Share on Twitter' class='twitter-share-button' data-url={0} data-text={1} {2} {3}>{4}</a>",
                 shareUrl, 
                 textToShare, 
@@ -88,6 +89,21 @@ namespace SocialShare.SocialShareHelpers
             var scriptString = @"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
 
             return new System.Web.Mvc.MvcHtmlString(htmlString + scriptString);
+        }
+
+        /// <summary>
+        /// Twitter Button HTML
+        /// </summary>
+        /// <param name="helper">The helper.</param>
+        /// <param name="showCount">if set to <c>true</c> shows count.</param>
+        /// <param name="isLarge">if set to <c>true</c> is large.</param>
+        /// <param name="addText">if set to <c>true</c> adds text.</param>
+        /// <returns>
+        /// TwitterButton Html
+        /// </returns>
+        public static System.Web.Mvc.MvcHtmlString TwitterButton(this System.Web.Mvc.HtmlHelper helper, bool showCount, bool isLarge, bool addText)
+        {
+            return SocialShareButtons.TwitterButton(helper, showCount, isLarge, addText, string.Empty);
         }
 
         /// <summary>
@@ -109,8 +125,7 @@ namespace SocialShare.SocialShareHelpers
             if (showCount)
                 countAttribute = "data-counter='right'";
 
-            var scriptString = string.Format(
-                @"<script src='//platform.linkedin.com/in.js' type='text/javascript'>lang: en_US</script><script type='IN/Share' data-url='{0}' {1}></script>",
+            var scriptString = string.Format(System.Globalization.CultureInfo.InvariantCulture, @"<script src='//platform.linkedin.com/in.js' type='text/javascript'>lang: en_US</script><script type='IN/Share' data-url='{0}' {1}></script>",
                 shareUrl, 
                 countAttribute);
 
@@ -142,6 +157,7 @@ namespace SocialShare.SocialShareHelpers
                 sizeAttribute = "data-size='small'";
 
             var htmlString = string.Format(
+                                    System.Globalization.CultureInfo.InvariantCulture,
                                     @"<div class='g-plusone' {0} {1}></div>",
                                     sizeAttribute, 
                                     countAttribute);
@@ -314,15 +330,15 @@ namespace SocialShare.SocialShareHelpers
                 title = currentNode.Title;
             }
 
-            var url = string.Format(baseUrl, Uri.EscapeUriString(shareUrl), Uri.EscapeUriString(title));
-            var clickScript = string.Format(@"window.open('{0}', '{1}','toolbar=no,width=550,height=550'); return false", url, linkText);
+            var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, baseUrl, Uri.EscapeUriString(shareUrl), Uri.EscapeUriString(title));
+            var clickScript = string.Format(System.Globalization.CultureInfo.InvariantCulture, @"window.open('{0}', '{1}','toolbar=no,width=550,height=550'); return false", url, linkText);
 
             var text = string.Empty;
 
             if (addText)
                 text = linkText;
 
-            var htmlString = string.Format(@"<a onclick=""{0}"" title=""{1}""><span class=""{3}""></span>{2}</a>", clickScript, tooltipText, text, cssClass);
+            var htmlString = string.Format(System.Globalization.CultureInfo.InvariantCulture, @"<a onclick=""{0}"" title=""{1}""><span class=""{3}""></span>{2}</a>", clickScript, tooltipText, text, cssClass);
             return htmlString;
         }
     }

@@ -161,7 +161,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Share"];
+                return this["Share", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -333,15 +333,15 @@ namespace ContentBlock.Mvc.StringResources
         /// <summary>
         /// Gets No items have been created yet
         /// </summary>
-        [ResourceEntry("NoItemsHaveBeedCreatedYet", 
+        [ResourceEntry("NoItemsHaveBeenCreatedYet", 
             Value = "No items have been created yet", 
             Description = "No items have been created yet", 
-            LastModified = "2014/05/21")]
-        public string NoItemsHaveBeedCreatedYet
+            LastModified = "2014/8/22")]
+        public string NoItemsHaveBeenCreatedYet
         {
             get
             {
-                return this["NoItemsHaveBeedCreatedYet", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NoItemsHaveBeenCreatedYet", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 

@@ -166,9 +166,12 @@
                 {
                     this.provider = SiteMapBase.GetSiteMapProvider(this.SiteMapProviderName);
                 }
-                catch (Exception)
+                catch(Exception)
                 {
                     this.provider = null;
+
+                    /// TODO: handle exception
+                    throw;
                 }
             }
 
@@ -186,10 +189,9 @@
         /// </param>
         protected void AddChildNodes(SiteMapNode startNode, bool addParentNode)
         {
-            if (this.LevelsToInclude != 0)
+            if (this.LevelsToInclude != 0 && startNode != null)
             {
-                if (addParentNode && this.CheckSiteMapNode(startNode)
-                    && startNode.Key != this.GetRootNodeId().ToString().ToUpperInvariant())
+                if (addParentNode && this.CheckSiteMapNode(startNode) && startNode.Key != this.RootNodeId.ToString().ToUpperInvariant())
                 {
                     var nodeViewModel = this.CreateNodeViewModelRecursive(startNode, this.LevelsToInclude);
 
@@ -256,9 +258,12 @@
         /// <returns>
         ///     The <see cref="Guid" />.
         /// </returns>
-        protected virtual Guid GetRootNodeId()
+        protected virtual Guid RootNodeId
         {
-            return SiteInitializer.CurrentFrontendRootNodeId;
+            get
+            {
+                return SiteInitializer.CurrentFrontendRootNodeId;
+            }
         }
 
         /// <summary>
