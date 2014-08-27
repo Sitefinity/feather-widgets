@@ -1,6 +1,7 @@
 @model News.Mvc.Models.NewsModel
 
 @using News.Mvc.Models;
+@using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Web.DataResolving;
 
@@ -11,17 +12,20 @@
     <ul >
         @foreach (var item in Model.News)
         {
-            <li>
-                <h2>
-                    @Html.ActionLink(item.Title, item.ItemDefaultUrl)    
-                </h2>
-                <div>
-                    <span>@item.PublicationDate.ToString("MMM d, yyyy, hh:mm tt")</span>
-                    <span>@Html.Resource("By")</span>
-                    <span>@DataResolver.Resolve(item, "Author", null)</span>
-                </div>
-                <div>@Html.Raw(Html.TextField( "Summary", item.Summary, "LongText"))</div>
-            </li>
+            using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id))
+            {
+                <li>
+                    <h2>
+                        @Html.ActionLink(item.Title, item.ItemDefaultUrl)    
+                    </h2>
+                    <div>
+                        <span>@item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")</span>
+                        <span>@Html.Resource("By")</span>
+                        <span>@DataResolver.Resolve(item, "Author", null)</span>
+                    </div>
+                    <div>@Html.Raw(Html.TextField("Summary", item.Summary, "LongText"))</div>
+                </li>
+            }
         }
     </ul>
 

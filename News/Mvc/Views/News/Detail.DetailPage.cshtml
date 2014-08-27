@@ -1,7 +1,10 @@
 @model News.Mvc.Models.NewsModel
+
 @using News.Mvc.Models;
+@using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Web.DataResolving;
+
 
 <div class="@Model.DetailCssClass">
 @{
@@ -11,7 +14,7 @@
             @Html.TextField("Title", Model.DetailNews.Title, "ShortText")
         </h1>
         <div>
-            <span>@Model.DetailNews.PublicationDate.ToString("MMM d, yyyy, hh:mm tt")</span>
+            <span>@Model.DetailNews.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")</span>
             <span>@Html.Resource("By")</span>
             <span>@DataResolver.Resolve(@Model.DetailNews, "Author", null)</span>
         </div>
