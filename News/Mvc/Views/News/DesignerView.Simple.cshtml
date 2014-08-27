@@ -1,9 +1,9 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 <ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#content" role="tab" data-toggle="tab">Content</a></li>
-  <li><a href="#listSettings" role="tab" data-toggle="tab">List settings</a></li>
-  <li><a href="#itemSettings" role="tab" data-toggle="tab">Single item settings</a></li>
+  <li class="active"><a href="#content" role="tab" data-toggle="tab">@Html.Resource("Content")</a></li>
+  <li><a href="#listSettings" role="tab" data-toggle="tab">@Html.Resource("ListSettings")</a></li>
+  <li><a href="#itemSettings" role="tab" data-toggle="tab">@Html.Resource("SingleItemSettings")</a></li>
 </ul>
 
 <div class="tab-content">
@@ -18,20 +18,22 @@
             </li>
             <li class="radio">
                 <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedNews" />
-                <label for="selectedNews">@Html.Resource("SelectedNews")</label>
-                <content-selector item-type="Telerik.Sitefinity.News.Model.NewsItem" 
-                                  item-provider="properties.ProviderName.PropertyValue"
-                                  selected-item-id ="properties.SelectedNewsId.PropertyValue"
-                                  selected-item=""></content-selector>
+                <label for="selectedNews">@Html.Resource("SelectedNews")
+                    <content-selector item-type="Telerik.Sitefinity.News.Model.NewsItem"
+                                      item-provider="properties.ProviderName.PropertyValue"
+                                      selected-item-id ="properties.SelectedNewsId.PropertyValue"></content-selector>
+                </label>
             </li>
             <li class="radio">
                 <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredNews" />
-                <label for="filterNews">@Html.Resource("NarrowSelection")</label>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> @Html.Resource("Tags")</input>
-                    </label>
-                </div>
+                <label for="filterNews">@Html.Resource("NarrowSelection")
+                    <div class="checkbox">
+                        <input id="tagFilter" type="checkbox" ng-disabled="properties.SelectionMode.PropertyValue!='FilteredNews'"/>
+                        <label for="tagFilter">  
+                             @Html.Resource("Tags")     
+                        </label>
+                    </div>
+                </label>
             </li>
         </ul>
     </div>
@@ -43,13 +45,13 @@
                 <input id="usePaging" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Paging" />
                 <label for="usePaging">@Html.Resource("UsePaging")</label>
                 <span>@Html.Raw(String.Format(Html.Resource("DivideToItemPerPage"),
-                    "<input type='text' ng-model='properties.ItemsPerPage.PropertyValue'/>"))</span>
+                    "<input type='text' ng-disabled='properties.DisplayMode.PropertyValue!=\"Paging\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))</span>
             </li>
             <li class="radio">
                 <input id="useLimit" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Limit" />
                 <label for="useLimit">@Html.Resource("UseLimit")</label>
                 <span>@Html.Raw(String.Format(Html.Resource("ShowLimitedItems"),
-                    "<input type='text' ng-model='properties.ItemsPerPage.PropertyValue'/>"))</span>
+                    "<input type='text' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))</span>
             </li>
             <li class="radio">
                 <input id="allItems" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="All" />

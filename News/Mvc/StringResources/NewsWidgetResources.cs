@@ -107,6 +107,51 @@ namespace News.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : Content
+        /// </summary>
+        [ResourceEntry("Content",
+            Value = "Content",
+            Description = "word: Content",
+            LastModified = "2014/08/22")]
+        public string Content
+        {
+            get
+            {
+                return this["Content"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : List settings
+        /// </summary>
+        [ResourceEntry("ListSettings",
+            Value = "List settings",
+            Description = "phrase : List settings",
+            LastModified = "2014/08/22")]
+        public string ListSettings
+        {
+            get
+            {
+                return this["ListSettings"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Single item settings
+        /// </summary>
+        [ResourceEntry("SingleItemSettings",
+            Value = "Single item settings",
+            Description = "phrase : Single item settings",
+            LastModified = "2014/08/22")]
+        public string SingleItemSettings
+        {
+            get
+            {
+                return this["SingleItemSettings"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : List template
         /// </summary>
         [ResourceEntry("ListTemplate",

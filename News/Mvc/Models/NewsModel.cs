@@ -11,6 +11,8 @@ using System.Globalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Taxonomies;
+using ServiceStack.Text;
 
 namespace News.Mvc.Models
 {
@@ -27,6 +29,12 @@ namespace News.Mvc.Models
         public NewsModel()
         {
             this.InitializeManager();
+
+            if (this.SerializedTaxonomyFilter.IsNullOrEmpty())
+            {
+                this.PopulateTaxonomyFilter();
+                this.SerializedTaxonomyFilter = JsonSerializer.SerializeToString<Dictionary<string, IList<Guid>>>(this.TaxonomyFilter);
+            }
         }
 
         #endregion
@@ -155,12 +163,18 @@ namespace News.Mvc.Models
             set;
         }
 
+        public string SerializedTaxonomyFilter
+        {
+            get;
+            set;
+        }
+
         #endregion 
 
         #region Public methods
 
         /// <inheritdoc />
-        public void PopulateNews(ITaxon taxonFilter, int? page)
+        public virtual void PopulateNews(ITaxon taxonFilter, int? page)
         {
             IQueryable<NewsItem> newsItems = this.GetNewsItems();
 
@@ -200,6 +214,8 @@ namespace News.Mvc.Models
             {
                 newsItems = this.manager.GetNewsItems()
                     .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true);
+
+                this.TaxonomyFilter = JsonSerializer.DeserializeFromString<Dictionary<string, IList<Guid>>>(this.SerializedTaxonomyFilter);
 
                 if (this.TaxonomyFilter!=null)
                 {
@@ -288,6 +304,19 @@ namespace News.Mvc.Models
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+
+        private void PopulateTaxonomyFilter()
+        {
+            TaxonomyManager manager = TaxonomyManager.GetManager();
+            var flatTaxonomies = manager.GetTaxonomies<FlatTaxonomy>().ToList<FlatTaxonomy>();
+            this.TaxonomyFilter = new Dictionary<string, IList<Guid>>();
+
+            foreach (FlatTaxonomy taxonomy in flatTaxonomies)
+            {
+                this.TaxonomyFilter.Add(taxonomy.Name, new List<Guid>());
             }
         }
 

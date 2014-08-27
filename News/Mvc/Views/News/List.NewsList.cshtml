@@ -13,8 +13,7 @@
         {
             <li>
                 <h2>
-                    @{string detailUrl = String.Format("{0:yyyy/MM/dd}/{1}", item.PublicationDate, item.UrlName);}
-                    @Html.ActionLink(item.Title, detailUrl)    
+                    @Html.ActionLink(item.Title, item.ItemDefaultUrl)    
                 </h2>
                 <div>
                     <span>@item.PublicationDate.ToString("MMM d, yyyy, hh:mm tt")</span>

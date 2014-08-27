@@ -28,8 +28,7 @@ namespace News.Mvc.Models
         /// <value>
         /// The selected news items.
         /// </value>
-        [Browsable(false)]
-        Guid SelectedNewsId { get; }
+        Guid SelectedNewsId { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the NewsWidget when it is in List view.
@@ -117,6 +116,14 @@ namespace News.Mvc.Models
         /// The sort expression.
         /// </value>
         string SortExpression { get; set; }
+
+        /// <summary>
+        /// Gets or sets the taxonomy filter.
+        /// </summary>
+        /// <value>
+        /// The taxonomy filter.
+        /// </value>
+        string SerializedTaxonomyFilter { get; set; }
 
         /// <summary>
         /// Gets or sets the additional filter expression.
