@@ -20,23 +20,25 @@ namespace FeatherWidgets.TestUnit.Navigation
         public void CreateNavigation_CallTheIndexAction_EnsuresTheModelIsProperlyCreated()
         {
             // Arrange
-            var controller = new DummyNavigationController();
-            controller.CssClass = "myClass";
-            controller.LevelsToInclude = 5;
-            controller.SelectionMode = PageSelectionMode.CurrentPageChildren;
-            controller.ShowParentPage = true;
+            using (var controller = new DummyNavigationController())
+            {
+                controller.CssClass = "myClass";
+                controller.LevelsToInclude = 5;
+                controller.SelectionMode = PageSelectionMode.CurrentPageChildren;
+                controller.ShowParentPage = true;
 
-            // Act
-            var view = controller.Index() as ViewResult;
-            var model = view.Model;
-            var navigationModel = model as NavigationModel;
+                // Act
+                var view = controller.Index() as ViewResult;
+                var model = view.Model;
+                var navigationModel = model as NavigationModel;
 
-            // Assert
-            Assert.IsNotNull(navigationModel, "The model is created correctly.");
-            Assert.AreEqual(controller.CssClass, navigationModel.CssClass, "The CssClass property is not passed correctly.");
-            Assert.AreEqual(controller.LevelsToInclude, navigationModel.LevelsToInclude, "The LevelsToInclude property is not passed correctly.");
-            Assert.AreEqual(controller.SelectionMode, navigationModel.SelectionMode, "The SelectionMode property is not passed correctly.");
-            Assert.AreEqual(controller.ShowParentPage, navigationModel.ShowParentPage, "The ShowParentPage property is not passed correctly.");
+                // Assert
+                Assert.IsNotNull(navigationModel, "The model is created correctly.");
+                Assert.AreEqual(controller.CssClass, navigationModel.CssClass, "The CssClass property is not passed correctly.");
+                Assert.AreEqual(controller.LevelsToInclude, navigationModel.LevelsToInclude, "The LevelsToInclude property is not passed correctly.");
+                Assert.AreEqual(controller.SelectionMode, navigationModel.SelectionMode, "The SelectionMode property is not passed correctly.");
+                Assert.AreEqual(controller.ShowParentPage, navigationModel.ShowParentPage, "The ShowParentPage property is not passed correctly.");
+            }
         }
 
         /// <summary>
@@ -48,14 +50,16 @@ namespace FeatherWidgets.TestUnit.Navigation
         public void CreateNavigation_CallTheIndexAction_EnsuresTheProperViewIsReturned()
         {
             // Arrange
-            DummyNavigationController controller = new DummyNavigationController();
-            controller.TemplateName = "Vertical";
+            using (var controller = new DummyNavigationController())
+            {
+                controller.TemplateName = "Vertical";
 
-            // Act
-            var view = controller.Index() as ViewResult;
+                // Act
+                var view = controller.Index() as ViewResult;
 
-            // Assert
-            Assert.AreEqual("NavigationView.Vertical", view.ViewName, "The view name is not correct.");
+                // Assert
+                Assert.AreEqual("NavigationView.Vertical", view.ViewName, "The view name is not correct.");
+            }
         }
 
         /// <summary>
@@ -68,19 +72,20 @@ namespace FeatherWidgets.TestUnit.Navigation
         {
             // Arrange
             var viewName = "Toggle";
-            DummyNavigationController controller = new DummyNavigationController();
-            NavigationModel model = new NavigationModel();
-            model.CssClass = "myClass";
-            model.LevelsToInclude = 5;
+            using (var controller = new DummyNavigationController())
+            {
+                NavigationModel model = new NavigationModel();
+                model.CssClass = "myClass";
+                model.LevelsToInclude = 5;
 
-            // Act
-            var view = controller.GetView(viewName, model) as PartialViewResult;
-            var resultModel = view.Model;
-            var resultNavigationModel = model as NavigationModel;
+                // Act
+                var view = controller.GetView(viewName, model) as PartialViewResult;
+                var resultNavigationModel = model as NavigationModel;
 
-            // Assert
-            Assert.AreEqual(viewName, view.ViewName, "The view name is not correct.");
-            Assert.AreEqual(model, resultNavigationModel, "The model hasn't been passed to the view correctly.");
+                // Assert
+                Assert.AreEqual(viewName, view.ViewName, "The view name is not correct.");
+                Assert.AreEqual(model, resultNavigationModel, "The model hasn't been passed to the view correctly.");
+            }
         }
     }
 }

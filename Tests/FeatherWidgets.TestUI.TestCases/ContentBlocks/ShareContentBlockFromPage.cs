@@ -1,38 +1,24 @@
-﻿using ArtOfTest.WebAii.Controls.HtmlControls;
-using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// This is a sample test class.
+    /// ShareContentBlockFromPage test class.
     /// </summary>
     [TestClass]
     public class ShareContentBlockFromPage_ : FeatherTestCase
     {
-        // <summary>
-        /// Pefroms Server Setup and prepare the system with needed data.
-        /// </summary>
-        protected override void ServerSetup()
-        {
-            BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
-        }
-
         /// <summary>
-        /// Performs clean up and clears all data created by the test.
+        /// UI test ShareContentBlockFromPage
         /// </summary>
-        protected override void ServerCleanup()
-        {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
-        }
-
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
@@ -53,37 +39,72 @@ namespace FeatherWidgets.TestUI
             this.VerifyPagesThatUseSharedContentBlock();     
         }
 
-        private void VerifyIfSharedLabelExist()
+        /// <summary>
+        /// Verify if shared label exist
+        /// </summary>
+        public void VerifyIfSharedLabelExist()
         {
             bool isExist = BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyContentBlockWidgetSharedLabel();
             Assert.IsTrue(isExist, "Shared label doesn't exist!");
         }
 
+        /// <summary>
+        /// Verify if content block exist
+        /// </summary>
+        /// <param name="contentBlockName">Content block name</param>
         public void VerifyIfContentBlockExist(string contentBlockName)
         {
            BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().GetContentBlockRowByTitle(contentBlockName);
         }
 
+        /// <summary>
+        /// Verify link in used
+        /// </summary>
         public void VerifyLinkUsedOfContentBlockOnPage()
         {
             HtmlTableCell cellUsedOnPage = BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FindUsedOnPageCell(ContentBlockName);
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyTheLinkUsedOfContentBlockOnPage(cellUsedOnPage, ExpectedCount);
         }
 
+        /// <summary>
+        /// Click link in used of content block
+        /// </summary>
         public void ClickLinkUsedOfContentBlockOnPage()
         {
             HtmlTableCell cellUsedOnPage = BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FindUsedOnPageCell(ContentBlockName);
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().ClickTheLinkUsedOfContentBlockOnPage(cellUsedOnPage);
         }
 
+        /// <summary>
+        /// Verify pages that use shared content block
+        /// </summary>
         public void VerifyPagesThatUseSharedContentBlock()
         {
             Dictionary<string, string> pages = new Dictionary<string, string>()
             {
-                {PageName, PageStatus}
+                {
+                    PageName, PageStatus
+                }
             };
 
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyPagesWithStatusesThatUseSharedContentBlock(pages);
+        }
+
+        /// <summary>
+        /// Performs Server Setup and prepare the system with needed data.
+        /// </summary>
+        protected override void ServerSetup()
+        {
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.TestName).ExecuteSetUp();
+        }
+
+        /// <summary>
+        /// Performs clean up and clears all data created by the test.
+        /// </summary>
+        protected override void ServerCleanup()
+        {
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "ContentBlock";

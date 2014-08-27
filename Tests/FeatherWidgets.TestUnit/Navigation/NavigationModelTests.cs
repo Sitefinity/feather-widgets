@@ -54,8 +54,8 @@ namespace FeatherWidgets.TestUnit.Navigation
 
             for (int i = 0; i < DummySiteMapProvider.ChildNodesCount; i++)
             {
-                var title = string.Format(DummySiteMapProvider.ChildTitleFormat, i);
-                var url = string.Format(DummySiteMapProvider.ChildUrlFormat, i);
+                var title = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildTitleFormat, i);
+                var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildUrlFormat, i);
                 var resultNode = resultParentNode.ChildNodes[i];
                 this.AssertNodeViewModel(title, url, 0, resultNode);
             }
@@ -79,15 +79,15 @@ namespace FeatherWidgets.TestUnit.Navigation
 
             for (int i = 0; i < DummySiteMapProvider.ChildNodesCount; i++)
             {
-                var title = string.Format(DummySiteMapProvider.ChildTitleFormat, i);
-                var url = string.Format(DummySiteMapProvider.ChildUrlFormat, i);
+                var title = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildTitleFormat, i);
+                var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildUrlFormat, i);
                 var resultNode = resultParentNode.ChildNodes[i];
                 this.AssertNodeViewModel(title, url, DummySiteMapProvider.ChildNodesCount, resultNode);
 
                 for (int j = 0; j < DummySiteMapProvider.ChildNodesCount; j++)
                 {
-                    var childTitle = string.Format(DummySiteMapProvider.ChildTitleFormat, j);
-                    var childUrl = string.Format(DummySiteMapProvider.ChildUrlFormat, j);
+                    var childTitle = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildTitleFormat, j);
+                    var childUrl = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildUrlFormat, j);
                     var childResultNode = resultNode.ChildNodes[j];
                     this.AssertNodeViewModel(childTitle, childUrl, 0, childResultNode);
                 }
@@ -100,7 +100,7 @@ namespace FeatherWidgets.TestUnit.Navigation
         [TestMethod]
         [Owner("EGaneva")]
         [Description("Checks whether the PublicAddChildNodes doesn't include parent node when addParent is set to false.")]
-        public void PublicAddChildNodes_WithoutParentNode_RestrictsNodeCollectionWhitoutParentNode()
+        public void PublicAddChildNodes_WithoutParentNode_RestrictsNodeCollectionWithoutParentNode()
         {
             var model = new DummyNavigationModel(PageSelectionMode.CurrentPageChildren, 2, true, "MyClass");
             model.CurrentNode = this.siteMapNode;
@@ -116,8 +116,8 @@ namespace FeatherWidgets.TestUnit.Navigation
 
                 for (int j = 0; j < DummySiteMapProvider.ChildNodesCount; j++)
                 {
-                    var title = string.Format(DummySiteMapProvider.ChildTitleFormat, j);
-                    var url = string.Format(DummySiteMapProvider.ChildUrlFormat, j);
+                    var title = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildTitleFormat, j);
+                    var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DummySiteMapProvider.ChildUrlFormat, j);
                     var resultNode = resultParentNode.ChildNodes[j];
                     this.AssertNodeViewModel(title, url, 0, resultNode);
                 }

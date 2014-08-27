@@ -91,6 +91,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
     <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />
@@ -103,10 +104,18 @@
     <Compile Include="ContentBlocks\UnshareContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
+    <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
+    <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetAddChangeRemoveCSSClass.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllLevelsToInclude.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllPagesType.cs" />
     <Compile Include="Navigation\NavigationWidgetAllPagesUnderCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetAndContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
-    <Compile Include="Pages\DeletePageTest.cs" />
+    <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeatherTestCase.cs" />
     <Compile Include="FeatherTestCategories.cs" />

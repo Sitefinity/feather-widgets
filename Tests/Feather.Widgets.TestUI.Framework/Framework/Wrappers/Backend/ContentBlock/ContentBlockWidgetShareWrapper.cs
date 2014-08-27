@@ -1,15 +1,22 @@
-﻿using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
+    /// <summary>
+    /// This is the entry point class for content block share wrapper.
+    /// </summary>
     public class ContentBlockWidgetShareWrapper : BaseWrapper
     {
+        /// <summary>
+        /// Fill content block title
+        /// </summary>
+        /// <param name="title">The title of the content block</param>
         public void FillContentBlockTitle(string title)
         {
             HtmlInputText input = EM.GenericContent.ContentBlockWidget.ShareContentTitle
@@ -22,6 +29,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.Desktop.KeyBoard.TypeText(title);
         }
 
+        /// <summary>
+        /// Provide access to share button
+        /// </summary>
         public void ShareButton()
         {
             HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.ShareButton
@@ -31,6 +41,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncRequests();
         }
 
+        /// <summary>
+        /// Provide access to unshare button
+        /// </summary>
         public void UnshareButton()
         {
             HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.UnshareButton
@@ -38,6 +51,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             shareButton.Click();
         }
 
+        /// <summary>
+        /// Provide access to done button
+        /// </summary>
         public void DoneSelectingButton()
         {
             HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.DoneSelectingButton
@@ -47,6 +63,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncRequests();
         }
 
+        /// <summary>
+        /// Select shared content block
+        /// </summary>
+        /// <param name="sharedContentTitle">The title of the shared content</param>
         public void SelectContentBlock(string sharedContentTitle)
         {
             ActiveBrowser.WaitUntilReady();

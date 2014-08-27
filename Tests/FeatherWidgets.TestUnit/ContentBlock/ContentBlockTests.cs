@@ -39,23 +39,26 @@ namespace FeatherWidgets.TestUnit.ContentBlock
             {
                 this.RegisterResourceClasses();
 
-                DummyContentBlockController controller = new DummyContentBlockController();
-                controller.Content = "Fake controller";
-                controller.ProviderName = "Fake provider";
-                controller.SharedContentID = Guid.NewGuid();
-                controller.EnableSocialSharing = true;
+                using (var controller = new DummyContentBlockController())
+                {
+                    controller.Content = "Fake controller";
+                    controller.ProviderName = "Fake provider";
+                    controller.SharedContentID = Guid.NewGuid();
+                    controller.EnableSocialSharing = true;
 
-                // Act: Call the Index action and get the model from the ActionResult 
-                var res = controller.Index() as ViewResult;
-                var model = res.Model;
-                var contentBlockModel = model as IContentBlockModel;
+                    // Act: Call the Index action and get the model from the ActionResult 
+                    var res = controller.Index() as ViewResult;
+                    var model = res.Model;
+                    var contentBlockModel = model as IContentBlockModel;
 
-                // Assert: ensures the model is properly created and all its properties are properly populated
-                Assert.IsNotNull(contentBlockModel, "The model is null or its not implementing the IContentBlockInterface");
-                Assert.AreEqual(controller.Content, contentBlockModel.Content, "The Content property of the model is not properly set");
-                Assert.AreEqual(controller.ProviderName, contentBlockModel.ProviderName, "The provider name is not properly set");
-                Assert.AreEqual(controller.SharedContentID, contentBlockModel.SharedContentID, "The Id of the shared content item is not properly set");
-                Assert.AreEqual(controller.EnableSocialSharing, contentBlockModel.EnableSocialSharing, "The indicator which shows if the content block allows the social share options is not properly set");
+                    // Assert: ensures the model is properly created and all its properties are properly populated
+                    Assert.IsNotNull(contentBlockModel, "The model is null or its not implementing the IContentBlockInterface");
+                    Assert.AreEqual(controller.Content, contentBlockModel.Content, "The Content property of the model is not properly set");
+                    Assert.AreEqual(controller.ProviderName, contentBlockModel.ProviderName, "The provider name is not properly set");
+                    Assert.AreEqual(controller.SharedContentID, contentBlockModel.SharedContentId, "The Id of the shared content item is not properly set");
+                    Assert.AreEqual(controller.EnableSocialSharing, contentBlockModel.EnableSocialSharing, "The indicator which shows if the content block allows the social share options is not properly set");
+                }
+
             }
         }
 
@@ -65,24 +68,27 @@ namespace FeatherWidgets.TestUnit.ContentBlock
         [TestMethod]
         [Owner("Bonchev")]
         [Description("The test ensures that the Index action of the ContentBlockController uses the right view name")]
-        public void CreateContentBlockController_IndexAction_EnsuresTheActionusesTheRightViewName()
+        public void CreateContentBlockController_IndexAction_EnsuresTheActionUsesTheRightViewName()
         {
             // Arrange: Create a dummy controller and set fake property values
             using (new ObjectFactoryContainerRegion())
             {
                 this.RegisterResourceClasses();
-                DummyContentBlockController controller = new DummyContentBlockController();
-                controller.Content = "Fake controller";
-                controller.ProviderName = "Fake provider";
-                controller.SharedContentID = Guid.NewGuid();
-                controller.EnableSocialSharing = true;
+                using (var controller = new DummyContentBlockController())
+                {
+                    controller.Content = "Fake controller";
+                    controller.ProviderName = "Fake provider";
+                    controller.SharedContentID = Guid.NewGuid();
+                    controller.EnableSocialSharing = true;
 
-                // Act: Call the Index action and get the model from the ActionResult 
-                var res = controller.Index() as ViewResult;
-                var viewName = res.ViewName;
+                    // Act: Call the Index action and get the model from the ActionResult 
+                    var res = controller.Index() as ViewResult;
+                    var viewName = res.ViewName;
 
-                // Assert: the action uses the right view name
-                Assert.AreEqual(viewName, "Default", "The requested view does not have the right name");
+                    // Assert: the action uses the right view name
+                    Assert.AreEqual(viewName, "Default", "The requested view does not have the right name");
+                }
+
             }
         }
 
@@ -118,16 +124,18 @@ namespace FeatherWidgets.TestUnit.ContentBlock
                 this.RegisterResourceClasses();
 
                 // Act:Instantiate a controller and initialize the commands
-                DummyContentBlockController controller = new DummyContentBlockController();
-                var commands = controller.InitializeCommands();
+                using (var controller = new DummyContentBlockController())
+                {
+                    var commands = controller.InitializeCommands();
 
-                // Assert:Ensures the commands list is properly created
-                Assert.IsTrue(commands.Count >= 5, "Commands are less then expected.");
-                Assert.IsTrue(commands.Where(c => c.Text == Res.Get<Labels>().Delete).Count() == 1, "Commands list does not contain the Delete command.");
-                Assert.IsTrue(commands.Where(c => c.Text == Res.Get<Labels>().Duplicate).Count() == 1, "Commands list does not contain the Duplicate command.");
-                Assert.IsTrue(commands.Where(c => c.Text == Res.Get<ContentBlockResources>().Share).Count() == 1, "Commands list does not contain the Share command.");
-                Assert.IsTrue(commands.Where(c => c.Text == Res.Get<ContentBlockResources>().UseShared).Count() == 1, "Commands list does not contain the Delete command.");
-                Assert.IsTrue(commands.Where(c => c.Text == Res.Get<Labels>().Permissions).Count() == 1, "Commands list does not contain the Delete command.");
+                    // Assert:Ensures the commands list is properly created
+                    Assert.IsTrue(commands.Count >= 5, "Commands are less then expected.");
+                    Assert.IsTrue(commands.Where(c => c.Text == Res.Get<Labels>().Delete).Count() == 1, "Commands list does not contain the Delete command.");
+                    Assert.IsTrue(commands.Where(c => c.Text == Res.Get<Labels>().Duplicate).Count() == 1, "Commands list does not contain the Duplicate command.");
+                    Assert.IsTrue(commands.Where(c => c.Text == Res.Get<ContentBlockResources>().Share).Count() == 1, "Commands list does not contain the Share command.");
+                    Assert.IsTrue(commands.Where(c => c.Text == Res.Get<ContentBlockResources>().UseShared).Count() == 1, "Commands list does not contain the Delete command.");
+                    Assert.IsTrue(commands.Where(c => c.Text == Res.Get<Labels>().Permissions).Count() == 1, "Commands list does not contain the Delete command.");
+                }
             }
         }
 
@@ -145,17 +153,19 @@ namespace FeatherWidgets.TestUnit.ContentBlock
                 this.RegisterResourceClasses();
 
                 // Act:Instantiate a controller and initialize the commands
-                var controller = new DummyContentBlockController();
-                controller.SharedContentID = Guid.NewGuid();
-                var commands = controller.InitializeCommands();
+                using (var controller = new DummyContentBlockController())
+                {
+                    controller.SharedContentID = Guid.NewGuid();
+                    var commands = controller.InitializeCommands();
 
-                // Assert:Ensures the commands list is properly created
-                Assert.IsTrue(commands.Count >= 5, "Commands are less than expected.");
-                Assert.IsTrue(commands.Count(c => c.Text == Res.Get<Labels>().Delete) == 1, "Commands list does not contain the Delete command.");
-                Assert.IsTrue(commands.Count(c => c.Text == Res.Get<Labels>().Duplicate) == 1, "Commands list does not contain the Duplicate command.");
-                Assert.IsTrue(commands.Count(c => c.Text == Res.Get<ContentBlockResources>().Unshare) == 1, "Commands list does not contain the Unshare command.");
-                Assert.IsTrue(commands.Count(c => c.Text == Res.Get<ContentBlockResources>().UseShared) == 1, "Commands list does not contain the Delete command.");
-                Assert.IsTrue(commands.Count(c => c.Text == Res.Get<Labels>().Permissions) == 1, "Commands list does not contain the Delete command.");
+                    // Assert:Ensures the commands list is properly created
+                    Assert.IsTrue(commands.Count >= 5, "Commands are less than expected.");
+                    Assert.IsTrue(commands.Count(c => c.Text == Res.Get<Labels>().Delete) == 1, "Commands list does not contain the Delete command.");
+                    Assert.IsTrue(commands.Count(c => c.Text == Res.Get<Labels>().Duplicate) == 1, "Commands list does not contain the Duplicate command.");
+                    Assert.IsTrue(commands.Count(c => c.Text == Res.Get<ContentBlockResources>().Unshare) == 1, "Commands list does not contain the Unshare command.");
+                    Assert.IsTrue(commands.Count(c => c.Text == Res.Get<ContentBlockResources>().UseShared) == 1, "Commands list does not contain the Delete command.");
+                    Assert.IsTrue(commands.Count(c => c.Text == Res.Get<Labels>().Permissions) == 1, "Commands list does not contain the Delete command.");
+                }
             }
         }
 

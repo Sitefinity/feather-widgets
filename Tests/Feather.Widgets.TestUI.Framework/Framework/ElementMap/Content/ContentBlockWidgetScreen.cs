@@ -1,25 +1,31 @@
-﻿using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.TestTemplates;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.TestTemplates;
 using Telerik.TestUI.Core.ElementMap;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
 {
+    /// <summary>
+    /// Provides access to content block widget screen
+    /// </summary>
     public class ContentBlockWidgetScreen : HtmlElementContainer
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentBlockWidgetScreen" /> class.
+        /// </summary>
+        /// <param name="find">The find.</param>
         public ContentBlockWidgetScreen(Find find)
             : base(find)
         {
-
         }
 
         /// <summary>
-        /// Provides access to Content block widget body.
+        /// Gets Content block widget body.
         /// </summary>
         public HtmlDiv ContentBlockWidgetPlaceholder
         {
@@ -30,7 +36,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Provides access to Save changes button.
+        /// Gets changes button.
         /// </summary>
         public HtmlButton SaveChangesButton
         {
@@ -41,7 +47,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Provides access to editable area.
+        /// Gets editable area.
         /// </summary>
         public HtmlTableCell EditableArea
         {
@@ -52,7 +58,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Provides access to share content title.
+        /// Gets share content title.
         /// </summary>
         public HtmlInputText ShareContentTitle
         {
@@ -63,7 +69,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Provides access to share button.
+        /// Gets share button.
         /// </summary>
         public HtmlButton ShareButton
         {
@@ -74,7 +80,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Provides access to unshare button.
+        /// Gets unshare button.
         /// </summary>
         public HtmlButton UnshareButton
         {
@@ -85,7 +91,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Provides access to Content block wlist with shared content blocks.
+        /// Gets Content block list with shared content blocks.
         /// </summary>
         public HtmlDiv ContentBlockList
         {
@@ -96,13 +102,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Provides access to done selecting button.
+        /// Gets done selecting button.
         /// </summary>
         public HtmlButton DoneSelectingButton
         {
             get
             {
                 return this.Get<HtmlButton>("tagname=button", "InnerText=Done selecting");
+            }
+        }
+
+        /// <summary>
+        /// Gets create content.
+        /// </summary>
+        public HtmlAnchor CreateContent
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "class=sfAddContentLnk");
             }
         }
     }

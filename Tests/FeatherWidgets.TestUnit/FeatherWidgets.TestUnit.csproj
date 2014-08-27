@@ -27,6 +27,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\Feather.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -106,6 +108,7 @@
     <Compile Include="DummyClasses\Navigation\DummyNavigationController.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationModel.cs" />
     <Compile Include="DummyClasses\Navigation\DummySiteMapProvider.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\NavigationControllerTests.cs" />
     <Compile Include="Navigation\NavigationModelTests.cs" />
     <Compile Include="ObjectFactoryContainerRegion.cs" />

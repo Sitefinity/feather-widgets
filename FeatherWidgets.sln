@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentBlock", "ContentBlock\ContentBlock.csproj", "{827B5C1E-619A-4080-A7F1-10D103C38CFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialShare", "SocialShare\SocialShare.csproj", "{33171BB5-9918-41BE-B06D-0D8347846B0C}"
@@ -14,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5EEBCA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{61445BD5-A99E-4F27-B523-5331BE82291F}"
 	ProjectSection(SolutionItems) = preProject
+		Feather.ruleset = Feather.ruleset
 		FeatherWidgets.vsmdi = FeatherWidgets.vsmdi
 		Tests\TestSettings.testsettings = Tests\TestSettings.testsettings
 	EndProjectSection
@@ -33,9 +36,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News", "News\News.csproj", "{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = FeatherWidgets.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -79,5 +79,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B02EF644-7756-41FA-BBA8-63F4F44C652B} = {EB73BDA8-73B7-4EC8-8707-853B53C40992}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = FeatherWidgets.vsmdi
 	EndGlobalSection
 EndGlobal

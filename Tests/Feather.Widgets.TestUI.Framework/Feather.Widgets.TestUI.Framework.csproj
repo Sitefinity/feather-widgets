@@ -97,6 +97,8 @@
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FrontendWrappesFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Navigation\NavigationWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Navigation\NavigationWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\WrappersFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -105,9 +107,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Framework\Wrappers\Frontend\Navigation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
