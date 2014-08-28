@@ -76,6 +76,7 @@ namespace News.Mvc.Controllers
         }
 
         /// <inheritdoc />
+        [Browsable(false)]
         public IUrlParamsMapper UrlParamsMapper
         {
             get 
