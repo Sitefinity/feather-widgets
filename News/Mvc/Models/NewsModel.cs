@@ -179,7 +179,7 @@ namespace News.Mvc.Models
             IQueryable<NewsItem> newsItems = this.GetNewsItems();
 
             if (taxonFilter != null)
-                newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonFilter.Taxonomy.Name).Contains(taxonFilter.Id));
+                newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonFilter.Taxonomy.TaxonName).Contains(taxonFilter.Id));
 
             this.AdaptMultilingualFilterExpression();
 
