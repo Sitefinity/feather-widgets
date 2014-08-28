@@ -19,7 +19,8 @@
             <li class="radio">
                 <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedNews" />
                 <label for="selectedNews">@Html.Resource("SelectedNews")
-                    <content-selector item-type="Telerik.Sitefinity.News.Model.NewsItem"
+                    <content-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedNews'"
+                                      item-type="Telerik.Sitefinity.News.Model.NewsItem"
                                       item-provider="properties.ProviderName.PropertyValue"
                                       selected-item-id ="properties.SelectedNewsId.PropertyValue"></content-selector>
                 </label>
@@ -61,7 +62,7 @@
         </ul>
 
         <div  class="form-group">
-            <label for="sortOptions">@Html.Resource("SortPressReleases")</label> 
+            <label for="sortOptions">@Html.Resource("SortNews")</label> 
 
             <select id="sortOptions" ng-model="properties.SortExpression.PropertyValue" class="form-control">
                 <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>

@@ -203,7 +203,7 @@ namespace News.Mvc.Models
             if (this.SelectionMode == NewsSelectionMode.SelectedNews)
             {
                 var selectedItems = new List<NewsItem>() { this.manager.GetNewsItem(this.SelectedNewsId) };
-                newsItems = selectedItems.AsQueryable<NewsItem>();
+                newsItems = selectedItems.Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true).AsQueryable();
             }
             else if (this.SelectionMode == NewsSelectionMode.AllNews)
             {

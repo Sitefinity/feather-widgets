@@ -347,17 +347,17 @@ namespace News.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Sort press releases
+        /// Gets phrase : Sort news
         /// </summary>
-        [ResourceEntry("SortPressReleases",
-            Value = "Sort press releases",
-            Description = "phrase : Sort press releases",
+        [ResourceEntry("SortNews",
+            Value = "Sort news",
+            Description = "phrase : Sort news",
             LastModified = "2014/08/22")]
-        public string SortPressReleases
+        public string SortNews
         {
             get
             {
-                return this["SortPressReleases"];
+                return this["SortNews"];
             }
         }
 
