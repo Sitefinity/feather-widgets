@@ -1,20 +1,17 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.News.Model;
-using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Data.Linq.Dynamic;
-using System.Globalization;
 using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Modules;
-using Telerik.Sitefinity.Data;
-using Telerik.Sitefinity.Taxonomies;
-using ServiceStack.Text;
-using System.Text;
-using System.ComponentModel;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace News.Mvc.Models
 {
@@ -175,6 +172,9 @@ namespace News.Mvc.Models
         public virtual void PopulateNews(ITaxon taxonFilter, string taxonField, int? page)
         {
             this.InitializeManager();
+
+            if (this.manager == null)
+                return;
 
             IQueryable<NewsItem> newsItems = this.GetNewsItems();
 
