@@ -176,6 +176,9 @@ namespace News.Mvc.Models
         /// <inheritdoc />
         public virtual void PopulateNews(ITaxon taxonFilter, int? page)
         {
+            if (this.manager == null)
+                return;
+
             IQueryable<NewsItem> newsItems = this.GetNewsItems();
 
             if (taxonFilter != null)

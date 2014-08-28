@@ -5,7 +5,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Web.DataResolving;
 
-@if (!SitefinityContext.IsBackend)
+@if (!SitefinityContext.IsBackend && !Telerik.Sitefinity.Services.SystemManager.IsInlineEditingMode)
 {
     @Html.Script("//code.jquery.com/jquery-1.8.3.min.js")
 }
@@ -28,7 +28,7 @@
                         <span>@Html.Resource("By")</span>
                         <span>@DataResolver.Resolve(item, "Author", null)</span>
                     </div>
-                    <div>@Html.Raw(Html.TextField("Summary", item.Summary, "LongText"))</div>
+                    <div>@Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))</div>
                 </li>
             }
         }
