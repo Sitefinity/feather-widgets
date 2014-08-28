@@ -13,6 +13,8 @@ using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Taxonomies;
 using ServiceStack.Text;
+using System.Text;
+using System.ComponentModel;
 
 namespace News.Mvc.Models
 {
@@ -21,24 +23,6 @@ namespace News.Mvc.Models
     /// </summary>
     public class NewsModel : INewsModel
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NewsModel"/> class.
-        /// </summary>
-        public NewsModel()
-        {
-            this.InitializeManager();
-
-            if (this.SerializedTaxonomyFilter.IsNullOrEmpty())
-            {
-                this.PopulateTaxonomyFilter();
-                this.SerializedTaxonomyFilter = JsonSerializer.SerializeToString<Dictionary<string, IList<Guid>>>(this.TaxonomyFilter);
-            }
-        }
-
-        #endregion
-
         #region Properties
 
         /// <inheritdoc />
@@ -157,6 +141,7 @@ namespace News.Mvc.Models
             set;
         }
 
+        [Browsable(false)]
         public Dictionary<string, IList<Guid>> TaxonomyFilter
         {
             get;
@@ -165,8 +150,21 @@ namespace News.Mvc.Models
 
         public string SerializedTaxonomyFilter
         {
-            get;
-            set;
+            get
+            {
+                return this.serializedTaxonomyFilter;
+            }
+            set
+            {
+                if (this.serializedTaxonomyFilter != value)
+                {
+                    this.serializedTaxonomyFilter = value;
+                    if (!this.serializedTaxonomyFilter.IsNullOrEmpty())
+                    {
+                        this.TaxonomyFilter = JsonSerializer.DeserializeFromString<Dictionary<string, IList<Guid>>>(this.serializedTaxonomyFilter);
+                    }
+                }
+            }
         }
 
         #endregion 
@@ -174,18 +172,47 @@ namespace News.Mvc.Models
         #region Public methods
 
         /// <inheritdoc />
-        public virtual void PopulateNews(ITaxon taxonFilter, int? page)
+        public virtual void PopulateNews(ITaxon taxonFilter, string taxonField, int? page)
         {
+            this.InitializeManager();
+
             IQueryable<NewsItem> newsItems = this.GetNewsItems();
 
-            if (taxonFilter != null)
-                newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonFilter.Taxonomy.TaxonName).Contains(taxonFilter.Id));
+            if (taxonFilter != null && !taxonField.IsNullOrEmpty())
+                newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonField).Contains(taxonFilter.Id));
 
             this.AdaptMultilingualFilterExpression();
 
             this.ApplyListSettings(page, ref newsItems);
 
             this.News = newsItems.ToArray();
+        }
+
+        /// <inheritdoc />
+        public virtual string CompileFilterExpression()
+        {
+            var elements = new List<string>();
+
+            if (this.SelectionMode == NewsSelectionMode.FilteredNews)
+            {
+                var taxonomyFilterExpression = string.Join(
+                    " AND ",
+                    this.TaxonomyFilter
+                        .Where(tf => tf.Value.Count > 0)
+                        .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")")
+                );
+                if (!taxonomyFilterExpression.IsNullOrEmpty())
+                {
+                    elements.Add("(" + taxonomyFilterExpression + ")");
+                }
+            }
+
+            if (!this.FilterExpression.IsNullOrEmpty())
+            {
+                elements.Add("(" + this.FilterExpression + ")");
+            }
+
+            return string.Join(" AND ", elements);
         }
 
         #endregion
@@ -205,25 +232,10 @@ namespace News.Mvc.Models
                 var selectedItems = new List<NewsItem>() { this.manager.GetNewsItem(this.SelectedNewsId) };
                 newsItems = selectedItems.AsQueryable<NewsItem>();
             }
-            else if (this.SelectionMode == NewsSelectionMode.AllNews)
-            {
-                newsItems = this.manager.GetNewsItems()
-                    .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true);
-            }
             else 
             {
                 newsItems = this.manager.GetNewsItems()
                     .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true);
-
-                this.TaxonomyFilter = JsonSerializer.DeserializeFromString<Dictionary<string, IList<Guid>>>(this.SerializedTaxonomyFilter);
-
-                if (this.TaxonomyFilter!=null)
-                {
-                    foreach(var taxonFilter in this.TaxonomyFilter)
-                    {
-                        newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonFilter.Key).Intersect(taxonFilter.Value).Any());
-                    }
-                }
             }
 
             return newsItems;
@@ -244,9 +256,10 @@ namespace News.Mvc.Models
             int? totalCount = 0;
             int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ?  null: this.ItemsPerPage;
 
+            var compiledFilterExpression = this.CompileFilterExpression();
             newsItems = DataProviderBase.SetExpressions(
                 newsItems,
-                this.FilterExpression,
+                compiledFilterExpression,
                 this.SortExpression,
                 itemsToSkip,
                 itemsPerPage,
@@ -307,19 +320,6 @@ namespace News.Mvc.Models
             }
         }
 
-
-        private void PopulateTaxonomyFilter()
-        {
-            TaxonomyManager manager = TaxonomyManager.GetManager();
-            var flatTaxonomies = manager.GetTaxonomies<FlatTaxonomy>().ToList<FlatTaxonomy>();
-            this.TaxonomyFilter = new Dictionary<string, IList<Guid>>();
-
-            foreach (FlatTaxonomy taxonomy in flatTaxonomies)
-            {
-                this.TaxonomyFilter.Add(taxonomy.Name, new List<Guid>());
-            }
-        }
-
         #endregion 
 
         #region Privte properties and constants
@@ -329,6 +329,7 @@ namespace News.Mvc.Models
         private string sortExpression = "PublicationDate DESC";
 
         private NewsManager manager;
+        private string serializedTaxonomyFilter;
 
         #endregion
 

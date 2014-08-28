@@ -111,6 +111,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\NavigationControllerTests.cs" />
     <Compile Include="Navigation\NavigationModelTests.cs" />
+    <Compile Include="News\NewsModelTests.cs" />
     <Compile Include="ObjectFactoryContainerRegion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResourcesTests.cs" />
@@ -127,6 +128,10 @@
     <ProjectReference Include="..\..\Navigation\Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
       <Name>Navigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\News\News.csproj">
+      <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
+      <Name>News</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\SocialShare\SocialShare.csproj">
       <Project>{33171bb5-9918-41be-b06d-0d8347846b0c}</Project>

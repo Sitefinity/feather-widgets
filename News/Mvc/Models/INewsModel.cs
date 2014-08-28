@@ -136,7 +136,15 @@ namespace News.Mvc.Models
         /// <summary>
         /// Populates the news.
         /// </summary>
+        /// <param name="taxonFilter">The taxon that should be contained in the items.</param>
+        /// <param name="taxonField">The taxon field.</param>
         /// <param name="page">The page.</param>
-        void PopulateNews(ITaxon taxonFilter, int? page);
+        void PopulateNews(ITaxon taxonFilter, string taxonField, int? page);
+
+        /// <summary>
+        /// Compiles a filter expression based on the widget settings.
+        /// </summary>
+        /// <returns>Filter expression that will be applied on the query.</returns>
+        string CompileFilterExpression();
     }
 }
