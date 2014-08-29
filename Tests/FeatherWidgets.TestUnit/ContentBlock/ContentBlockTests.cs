@@ -88,7 +88,6 @@ namespace FeatherWidgets.TestUnit.ContentBlock
                     // Assert: the action uses the right view name
                     Assert.AreEqual(viewName, "Default", "The requested view does not have the right name");
                 }
-
             }
         }
 
