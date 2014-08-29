@@ -422,6 +422,21 @@ namespace News.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets the Provider
+        /// </summary>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "Provider",
+            LastModified = "2014/08/29")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider", System.Globalization.CultureInfo.InvariantCulture];
+            }
+        }
+
+        /// <summary>
         /// Gets word : by
         /// </summary>
         [ResourceEntry("By",
