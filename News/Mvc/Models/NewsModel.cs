@@ -195,24 +195,27 @@ namespace News.Mvc.Models
 
             if (this.SelectionMode == NewsSelectionMode.FilteredNews)
             {
-                var taxonomyFilterExpression = string.Join(
-                    " AND ",
-                    this.TaxonomyFilter
-                        .Where(tf => tf.Value.Count > 0)
-                        .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")")
-                );
+                var taxonomyFilterExpression = this.GetTaxonomyFilterExpression();
                 if (!taxonomyFilterExpression.IsNullOrEmpty())
                 {
-                    elements.Add("(" + taxonomyFilterExpression + ")");
+                    elements.Add(taxonomyFilterExpression);
+                }
+            }
+            else if (this.SelectionMode == NewsSelectionMode.SelectedNews)
+            {
+                var selectedItemsFilterExpression = this.GetSelectedItemsFilterExpression();
+                if (!selectedItemsFilterExpression.IsNullOrEmpty())
+                {
+                    elements.Add(selectedItemsFilterExpression);
                 }
             }
 
             if (!this.FilterExpression.IsNullOrEmpty())
             {
-                elements.Add("(" + this.FilterExpression + ")");
+                elements.Add(this.FilterExpression);
             }
 
-            return string.Join(" AND ", elements);
+            return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
         }
 
         #endregion
@@ -225,18 +228,8 @@ namespace News.Mvc.Models
         /// <returns></returns>
         private IQueryable<NewsItem> GetNewsItems()
         {
-            IQueryable<NewsItem> newsItems;
-
-            if (this.SelectionMode == NewsSelectionMode.SelectedNews)
-            {
-                var selectedItems = new List<NewsItem>() { this.manager.GetNewsItem(this.SelectedNewsId) };
-                newsItems = selectedItems.Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true).AsQueryable();
-            }
-            else 
-            {
-                newsItems = this.manager.GetNewsItems()
-                    .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible == true);
-            }
+            var newsItems = this.manager.GetNewsItems()
+                    .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible);
 
             return newsItems;
         }
@@ -318,6 +311,26 @@ namespace News.Mvc.Models
             {
                 return null;
             }
+        }
+
+        private string GetTaxonomyFilterExpression()
+        {
+            var taxonomyFilterExpression = string.Join(
+                " AND ",
+                this.TaxonomyFilter
+                    .Where(tf => tf.Value.Count > 0)
+                    .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")")
+            );
+
+            return taxonomyFilterExpression;
+        }
+
+        private string GetSelectedItemsFilterExpression()
+        {
+            var selectedItemIds = new List<Guid>() { this.SelectedNewsId };
+
+            var selectedItemsFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "Id = " + id));
+            return selectedItemsFilterExpression;
         }
 
         #endregion 
