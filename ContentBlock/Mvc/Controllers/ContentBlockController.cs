@@ -226,7 +226,6 @@
 
         #region Explicit Interface Methods
 
-
         /// <summary>
         ///     Defines whether controls of same key will be
         ///     reloaded when this control is updated in the ZoneEditor
@@ -237,7 +236,6 @@
         {
             return this.ShouldReloadControlsWithSameKey();
         }
-
 
         /// <summary>
         ///     Defines whether controls of same key will be
