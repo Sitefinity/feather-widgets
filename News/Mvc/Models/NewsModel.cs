@@ -176,12 +176,10 @@ namespace News.Mvc.Models
             if (this.manager == null)
                 return;
 
-            IQueryable<NewsItem> newsItems = this.GetNewsItems();
+            var newsItems = this.manager.GetNewsItems();
 
             if (taxonFilter != null && !taxonField.IsNullOrEmpty())
                 newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonField).Contains(taxonFilter.Id));
-
-            this.AdaptMultilingualFilterExpression();
 
             this.ApplyListSettings(page, ref newsItems);
 
@@ -223,18 +221,6 @@ namespace News.Mvc.Models
         #region Private methods
 
         /// <summary>
-        /// Gets the news items depending on the Content section of the property editor.
-        /// </summary>
-        /// <returns></returns>
-        private IQueryable<NewsItem> GetNewsItems()
-        {
-            var newsItems = this.manager.GetNewsItems()
-                    .Where(n => n.Status == ContentLifecycleStatus.Live && n.Visible);
-
-            return newsItems;
-        }
-
-        /// <summary>
         /// Applies the list settings.
         /// </summary>
         /// <param name="page">The page.</param>
@@ -250,6 +236,9 @@ namespace News.Mvc.Models
             int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ?  null: this.ItemsPerPage;
 
             var compiledFilterExpression = this.CompileFilterExpression();
+            compiledFilterExpression = this.AddLiveFilterExpression(compiledFilterExpression);
+            compiledFilterExpression = this.AdaptMultilingualFilterExpression(compiledFilterExpression);
+
             newsItems = DataProviderBase.SetExpressions(
                 newsItems,
                 compiledFilterExpression,
@@ -263,10 +252,26 @@ namespace News.Mvc.Models
             this.CurrentPage = page.Value;
         }
 
+        private string AddLiveFilterExpression(string filterExpression)
+        {
+            if (filterExpression.IsNullOrEmpty())
+            {
+                filterExpression = "Visible = true AND Status = Live";
+            }
+            else
+            {
+                filterExpression = filterExpression + " AND Visible = true AND Status = Live";
+            }
+
+            return filterExpression;
+        }
+
         /// <summary>
-        /// Adapts the filter expression in multilingual.
+        /// Adapts a filter expression in multilingual.
         /// </summary>
-        private void AdaptMultilingualFilterExpression()
+        /// <param name="filterExpression">The filter expression.</param>
+        /// <returns>Multilingual filter expression.</returns>
+        private string AdaptMultilingualFilterExpression(string filterExpression)
         {
             CultureInfo uiCulture = null;
 
@@ -276,7 +281,7 @@ namespace News.Mvc.Models
             }
 
             //the filter is adapted to the implementation of ILifecycleDataItemGeneric, so the culture is taken in advance when filtering published items.
-            this.FilterExpression = ContentHelper.AdaptMultilingualFilterExpressionRaw(this.FilterExpression, uiCulture);
+            return ContentHelper.AdaptMultilingualFilterExpressionRaw(filterExpression, uiCulture);
         }
 
         /// <summary>
