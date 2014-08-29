@@ -121,15 +121,15 @@ namespace Navigation.Mvc.Controllers
         /// <param name="viewName">
         /// Name of the view.
         /// </param>
-        /// <param name="viewModel">
+        /// <param name="model">
         /// The model.
         /// </param>
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
-        public ActionResult GetView(string viewName, INavigationModel viewModel)
+        public ActionResult GetView(string viewName, INavigationModel model)
         {
-            return this.PartialView(viewName, viewModel);
+            return this.PartialView(viewName, model);
         }
 
         #endregion

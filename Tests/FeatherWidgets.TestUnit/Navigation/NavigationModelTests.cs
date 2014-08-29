@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUnit.Navigation
     public class NavigationModelTests
     {
         /// <summary>
-        /// Tests the initialize.
+        /// Initializes the tests.
         /// </summary>
         [TestInitialize]
         public void TestInitialize()
@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUnit.Navigation
         }
 
         /// <summary>
-        /// Tests the cleanup.
+        /// Cleanup after tests.
         /// </summary>
         [TestCleanup]
         public void TestCleanup()
@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUnit.Navigation
         #region AddChildNodes mehtod
 
         /// <summary>
-        /// Publics the add child nodes_ levels to include_ restricts node collection to the level.
+        /// Checks whether the PublicAddChildNodes restricts the node collection depending of the levelsToInclude.
         /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestUnit.Navigation
         }
 
         /// <summary>
-        /// Publics the add child nodes_ all levels to include_ returns whole node collection.
+        /// Checks whether the PublicAddChildNodes returns whole node collection when levelsToInclude is set to negative integer.
         /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
@@ -95,7 +95,7 @@ namespace FeatherWidgets.TestUnit.Navigation
         }
 
         /// <summary>
-        /// Publics the add child nodes_ without parent node_ restricts node collection without parent node.
+        /// Checks whether the PublicAddChildNodes doesn't include parent node when addParent is set to false.
         /// </summary>
         [TestMethod]
         [Owner("EGaneva")]
