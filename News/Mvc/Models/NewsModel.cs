@@ -343,7 +343,7 @@ namespace News.Mvc.Models
         #region Privte properties and constants
 
         private IList<NewsItem> news = new List<NewsItem>();
-        private int? itemsPerPage = 2;
+        private int? itemsPerPage = 20;
         private string sortExpression = "PublicationDate DESC";
 
         private NewsManager manager;
