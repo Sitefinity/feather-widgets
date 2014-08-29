@@ -1,5 +1,8 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.News.NewsManager.GetManager())'>
+</server-data>
+
 <ul class="nav nav-tabs" role="tablist">
   <li class="active"><a href="#content" role="tab" data-toggle="tab">@Html.Resource("Content")</a></li>
   <li><a href="#listSettings" role="tab" data-toggle="tab">@Html.Resource("ListSettings")</a></li>
@@ -9,6 +12,11 @@
 <div class="tab-content">
 
     <div class="tab-pane active" id="content">
+        <provider-selector manager-type="Telerik.Sitefinity.Modules.News.NewsManager" 
+            provider-label='@Html.Resource("Provider")'
+            ng-model="properties.ProviderName.PropertyValue">
+        </provider-selector>
+
         <h2>@Html.Resource("NewsToDisplay")</h2>
 
         <ul class="form-group">
