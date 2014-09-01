@@ -289,16 +289,16 @@ namespace News.Mvc.Models
         /// </summary>
         private void InitializeManager()
         {
-            NewsManager manager;
+            NewsManager newsManager;
 
             // try to resolve manager with control definition provider
-            manager = this.ResolveManagerWithProvider(this.ProviderName);
-            if (manager == null)
+            newsManager = this.ResolveManagerWithProvider(this.ProviderName);
+            if (newsManager == null)
             {
-                manager = this.ResolveManagerWithProvider(null);
+                newsManager = this.ResolveManagerWithProvider(null);
             }
 
-            this.manager = manager;
+            this.manager = newsManager;
         }
 
         /// <summary>
@@ -314,6 +314,7 @@ namespace News.Mvc.Models
             }
             catch (Exception)
             {
+                // TODO: Do not catch general exception types
                 return null;
             }
         }

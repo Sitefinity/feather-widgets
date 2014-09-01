@@ -39,7 +39,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NewsResourcesTitle"];
+                return this["NewsResourcesTitle", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -54,7 +54,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NewsResourcesDescription"];
+                return this["NewsResourcesDescription", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -72,7 +72,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["Display"];
+                return this["Display", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -87,7 +87,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["MoreOptions"];
+                return this["MoreOptions", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -102,7 +102,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["CssClasses"];
+                return this["CssClasses", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -117,7 +117,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["Content"];
+                return this["Content", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -132,7 +132,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ListSettings"];
+                return this["ListSettings", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -147,7 +147,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["SingleItemSettings"];
+                return this["SingleItemSettings", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -162,7 +162,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ListTemplate"];
+                return this["ListTemplate", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -177,7 +177,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["DetailTemplate"];
+                return this["DetailTemplate", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -192,7 +192,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NewsToDisplay"];
+                return this["NewsToDisplay", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -207,7 +207,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["AllPublishedNews"];
+                return this["AllPublishedNews", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -222,7 +222,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["SelectedNews"];
+                return this["SelectedNews", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -237,7 +237,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NarrowSelection"];
+                return this["NarrowSelection", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -252,7 +252,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["Tags"];
+                return this["Tags", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -267,7 +267,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["UsePaging"];
+                return this["UsePaging", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -282,7 +282,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["UseLimit"];
+                return this["UseLimit", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -297,7 +297,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NoLimitPaging"];
+                return this["NoLimitPaging", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -312,7 +312,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["DivideToItemPerPage"];
+                return this["DivideToItemPerPage", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -327,7 +327,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ShowLimitedItems"];
+                return this["ShowLimitedItems", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -342,7 +342,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ShowAllItems"];
+                return this["ShowAllItems", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -357,7 +357,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["SortNews"];
+                return this["SortNews", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -372,7 +372,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["LastPublished"];
+                return this["LastPublished", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -387,7 +387,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["LastModified"];
+                return this["LastModified", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -402,7 +402,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ByTitleAZ"];
+                return this["ByTitleAZ", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -417,7 +417,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ByTitleZA"];
+                return this["ByTitleZA", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -447,7 +447,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["By"];
+                return this["By", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
     }
