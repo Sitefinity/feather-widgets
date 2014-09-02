@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArtOfTest.WebAii.Controls.HtmlControls;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,23 +10,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// DragAndDropNewsWidgetOnPage test class.
+    /// DeleteNewsWidgetFromPage test class.
     /// </summary>
     [TestClass]
-    public class DragAndDropNewsWidgetOnPage_ : FeatherTestCase
+    public class DeleteNewsWidgetFromPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DragAndDropNewsWidgetOnPage
+        /// UI test DeleteNewsWidgetFromPage
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void DragAndDropNewsWidgetOnPage()
+        public void DeleteNewsWidgetFromPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
         }
@@ -39,7 +37,7 @@ namespace FeatherWidgets.TestUI
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
-            Assert.IsTrue(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(NewsTitle), "Page content is not as expected");
+            Assert.IsTrue(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(EmptyPage), "Page is not empty");
         }
 
         /// <summary>
@@ -60,7 +58,7 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string PageName = "News";
-        private const string WidgetName = "News";
-        private const string NewsTitle = "NewsTitle";
+        private const string EmptyPage = "";
+        private const string OperationName = "Delete";
     }
 }

@@ -72,23 +72,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
-        /// Creates the mvcWidget control.
-        /// </summary>
-        /// <param name="pageManager">The page manager.</param>
-        /// <param name="page">The page.</param>
-        /// <param name="mvcWidget">The MVC widget.</param>
-        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget)
-        {
-            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
-            draftControlDefault.Caption = this.ContentBlockCaption;
-            pageManager.SetControlDefaultPermissions(draftControlDefault);
-            page.Controls.Add(draftControlDefault);
-
-            pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
-            pageManager.SaveChanges();
-        }
-
-        /// <summary>
         /// Adds news widget to existing page
         /// </summary>
         /// <param name="pageId">Page id value</param>
@@ -105,6 +88,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
                 this.CreateControl(pageManager, page, mvcWidget);
             }
+        }
+
+        /// <summary>
+        /// Creates the mvcWidget control.
+        /// </summary>
+        /// <param name="pageManager">The page manager.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="mvcWidget">The MVC widget.</param>
+        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget)
+        {
+            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
+            draftControlDefault.Caption = this.ContentBlockCaption;
+            pageManager.SetControlDefaultPermissions(draftControlDefault);
+            page.Controls.Add(draftControlDefault);
+
+            pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
+            pageManager.SaveChanges();
         }
 
         private string ContentBlockCaption = "ContentBlock";

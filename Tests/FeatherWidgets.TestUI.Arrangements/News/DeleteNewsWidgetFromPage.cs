@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// DragAndDropNewsWidgetOnPage arrangement class.
+    /// DeleteNewsWidgetFromPage arrangement class.
     /// </summary>
-    public class DragAndDropNewsWidgetOnPage : ITestArrangement
+    public class DeleteNewsWidgetFromPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -20,9 +20,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-            ServerOperations.Pages().CreatePage(PageName, templateId);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, NewsProvider);
+            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
         }
 
         /// <summary>
@@ -39,6 +39,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
         private const string NewsProvider = "Default News";
-        private const string PageTemplateName = "Bootstrap.default";
     }
 }
