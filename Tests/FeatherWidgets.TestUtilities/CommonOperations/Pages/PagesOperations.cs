@@ -88,6 +88,25 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             pageManager.SaveChanges();
         }
 
+        /// <summary>
+        /// Adds news widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        public void AddNewsWidgetToPage(Guid pageId)
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = "News.Mvc.Controllers.NewsController";
+
+                this.CreateControl(pageManager, page, mvcWidget);
+            }
+        }
+
         private string ContentBlockCaption = "ContentBlock";
     }
 }
