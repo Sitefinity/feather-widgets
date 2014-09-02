@@ -28,11 +28,11 @@
                         contentItem = data;
                         if (contentItem) {
                             properties.Content.PropertyValue = contentItem.Item.Content.Value;
-                            dialogFeedbackService.savingPromise = dialogFeedbackService.savingPromise.then(updateContentItem);
-                            dialogFeedbackService.cancelingPromise = dialogFeedbackService.cancelingPromise.then(unlockContentItem);
+                            dialogFeedbackService.savingHandlers.push(updateContentItem);
+                            dialogFeedbackService.cancelingHandlers.push(unlockContentItem);
                         }
                     }, function () {
-                        properties.Content.PropertyValue = "";
+                        properties.Content.PropertyValue = '';
                         properties.SharedContentID.PropertyValue = EMPTY_GUID;
                     });
             }
