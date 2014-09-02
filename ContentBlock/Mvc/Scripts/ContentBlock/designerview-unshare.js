@@ -20,7 +20,7 @@
                 return sharedContentService.get($scope.properties.SharedContentID.PropertyValue, $scope.properties.ProviderName.PropertyValue, checkout);
             };
 
-            //change SharedContentId and content of the content block widget       
+            //change SharedContentID and content of the content block widget       
             var updateProperties = function (contentBlock) {
                 var EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
 

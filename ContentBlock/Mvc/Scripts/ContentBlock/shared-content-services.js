@@ -75,7 +75,7 @@
 			    var properties;
 
 			    var saveProperties = function (data) {
-				    //change the SharedContentId property of the widget
+				    //change the SharedContentID property of the widget
 				    properties.SharedContentID.PropertyValue = data.Item.Id;
 
 				    var modifiedProperties = [properties.SharedContentID];
