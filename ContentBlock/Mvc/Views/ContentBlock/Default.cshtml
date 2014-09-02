@@ -3,7 +3,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 @{
-    using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType, Model.SharedContentId))
+    using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType, Model.SharedContentID))
     {
         @Html.TextField(Model, "Content")
         if (Model.EnableSocialSharing)

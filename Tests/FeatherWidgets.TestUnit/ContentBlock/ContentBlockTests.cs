@@ -55,7 +55,7 @@ namespace FeatherWidgets.TestUnit.ContentBlock
                     Assert.IsNotNull(contentBlockModel, "The model is null or its not implementing the IContentBlockInterface");
                     Assert.AreEqual(controller.Content, contentBlockModel.Content, "The Content property of the model is not properly set");
                     Assert.AreEqual(controller.ProviderName, contentBlockModel.ProviderName, "The provider name is not properly set");
-                    Assert.AreEqual(controller.SharedContentID, contentBlockModel.SharedContentId, "The Id of the shared content item is not properly set");
+                    Assert.AreEqual(controller.SharedContentID, contentBlockModel.SharedContentID, "The Id of the shared content item is not properly set");
                     Assert.AreEqual(controller.EnableSocialSharing, contentBlockModel.EnableSocialSharing, "The indicator which shows if the content block allows the social share options is not properly set");
                 }
 
