@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -99,7 +96,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget)
         {
             var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
-            draftControlDefault.Caption = this.ContentBlockCaption;
+            draftControlDefault.Caption = this.contentBlockCaption;
             pageManager.SetControlDefaultPermissions(draftControlDefault);
             page.Controls.Add(draftControlDefault);
 
@@ -107,6 +104,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             pageManager.SaveChanges();
         }
 
-        private string ContentBlockCaption = "ContentBlock";
+        private string contentBlockCaption = "ContentBlock";
     }
 }

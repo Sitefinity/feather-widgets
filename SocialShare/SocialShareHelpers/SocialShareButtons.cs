@@ -125,9 +125,11 @@ namespace SocialShare.SocialShareHelpers
             if (showCount)
                 countAttribute = "data-counter='right'";
 
-            var scriptString = string.Format(System.Globalization.CultureInfo.InvariantCulture, @"<script src='//platform.linkedin.com/in.js' type='text/javascript'>lang: en_US</script><script type='IN/Share' data-url='{0}' {1}></script>",
-                shareUrl, 
-                countAttribute);
+            var scriptString = string.Format(
+                                System.Globalization.CultureInfo.InvariantCulture,
+                                @"<script src='//platform.linkedin.com/in.js' type='text/javascript'>lang: en_US</script><script type='IN/Share' data-url='{0}' {1}></script>",
+                                shareUrl, 
+                                countAttribute);
 
             return new System.Web.Mvc.MvcHtmlString(scriptString);
         }

@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.Mvc;
 using News.Mvc.Models;
 using News.Mvc.StringResources;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Mvc;
-using System.ComponentModel;
-using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
-using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Modules.News;
+using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.News.Model;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace News.Mvc.Controllers
 {
@@ -69,6 +69,7 @@ namespace News.Mvc.Controllers
             {
                 return this.masterRouteTemplate;
             }
+
             set 
             {
                 this.masterRouteTemplate = value;
@@ -108,6 +109,7 @@ namespace News.Mvc.Controllers
             {
                 return this.disableCanonicalUrlMetaTag;
             }
+
             set
             {
                 this.disableCanonicalUrlMetaTag = value;

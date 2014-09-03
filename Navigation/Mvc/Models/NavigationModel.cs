@@ -166,7 +166,7 @@
                 {
                     this.provider = SiteMapBase.GetSiteMapProvider(this.SiteMapProviderName);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     this.provider = null;
 
