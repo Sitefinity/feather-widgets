@@ -85,12 +85,16 @@
     <Compile Include="Framework\ElementMap\FeatherElementMap.cs" />
     <Compile Include="Framework\ElementMap\Navigation\NavigationMap.cs" />
     <Compile Include="Framework\ElementMap\Navigation\NavigationWidgetEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\News\NewsMap.cs" />
+    <Compile Include="Framework\ElementMap\News\NewsWidgetContentScreen.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlocksWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockWidgetEditWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockWidgetShareWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Navigation\NavigationWidgetEditWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Navigation\NavigationWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\News\NewsWidgetEditContentScreenWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\News\NewsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Pages\PagesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Pages\PageZoneEditorWrapper.cs" />
     <Compile Include="Framework\Wrappers\BaseWrapper.cs" />
@@ -99,6 +103,8 @@
     <Compile Include="Framework\Wrappers\Frontend\FrontendWrappesFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Navigation\NavigationWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Navigation\NavigationWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\News\NewsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\News\NewsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\WrappersFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

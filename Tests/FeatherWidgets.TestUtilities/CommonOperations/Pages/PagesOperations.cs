@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using ContentBlock.Mvc.Controllers;
+using News.Mvc.Controllers;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
@@ -37,7 +38,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                     Content = html
                 });
 
-                this.CreateControl(pageManager, page, mvcWidget);
+                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock");
             }
         }
 
@@ -67,7 +68,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                     SharedContentID = content.Id
                 });
 
-                this.CreateControl(pageManager, page, mvcWidget);
+                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock");
             }
         }
 
@@ -86,7 +87,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             {
                 mvcWidget.ControllerName = "News.Mvc.Controllers.NewsController";
 
-                this.CreateControl(pageManager, page, mvcWidget);
+                this.CreateControl(pageManager, page, mvcWidget, "News");
             }
         }
 
@@ -96,17 +97,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <param name="pageManager">The page manager.</param>
         /// <param name="page">The page.</param>
         /// <param name="mvcWidget">The MVC widget.</param>
-        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget)
+        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget, string widgetCaption)
         {
             var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
-            draftControlDefault.Caption = this.ContentBlockCaption;
+            draftControlDefault.Caption = widgetCaption;
             pageManager.SetControlDefaultPermissions(draftControlDefault);
             page.Controls.Add(draftControlDefault);
 
             pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
             pageManager.SaveChanges();
         }
-
-        private string ContentBlockCaption = "ContentBlock";
     }
 }

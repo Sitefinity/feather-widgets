@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArtOfTest.WebAii.Controls.HtmlControls;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,23 +6,26 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// DragAndDropNewsWidgetOnPage test class.
+    /// SelectNewsItemInNewsWidgetFromPage_ test class.
     /// </summary>
     [TestClass]
-    public class DragAndDropNewsWidgetOnPage_ : FeatherTestCase
+    public class SelectNewsItemInNewsWidgetFromPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DragAndDropNewsWidgetOnPage
+        /// UI test SelectNewsItemInNewsWidgetFromPage
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void DragAndDropNewsWidgetOnPage()
+        public void SelectNewsItemInNewsWidgetFromPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectNewsItem(NewsTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
         }
@@ -60,8 +58,9 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string PageName = "News";
+        private const string NewsTitle1 = "NewsTitle1";
         private const string WidgetName = "News";
-        private const string NewsTitle = "NewsTitle";
-        private string[] newsTitles = new string[] { NewsTitle };
+        private const string WhichNewsToDisplay = "Selected news";
+        private string[] newsTitles = new string[] { NewsTitle1 };
     }
 }

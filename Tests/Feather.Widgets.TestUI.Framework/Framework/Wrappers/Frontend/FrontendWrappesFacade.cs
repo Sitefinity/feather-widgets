@@ -28,5 +28,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             return new NavigationWrapperFacade();
         }
+
+        /// <summary>
+        /// Provides unified access to the NewsWrapperFacade 
+        /// </summary>
+        /// <returns>Returns the NewsWrapperFacade</returns>
+        public NewsWrapperFacade News()
+        {
+            return new NewsWrapperFacade();
+        }
     }
 }

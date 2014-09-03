@@ -34,9 +34,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Provides unified access to the navigation
         /// </summary>
         /// <returns>Returns the NavigationWidgetEditWrapper</returns>
-        public NavigationWidgetEditWrapper Navigation()
+        public NavigationWrapperFacade Navigation()
         {
-            return new NavigationWidgetEditWrapper();
+            return new NavigationWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides unified access to the navigation
+        /// </summary>
+        /// <returns>Returns the NavigationWidgetEditWrapper</returns>
+        public NewsWrapperFacade News()
+        {
+            return new NewsWrapperFacade();
         }
     }
 }

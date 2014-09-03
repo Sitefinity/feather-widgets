@@ -27,9 +27,9 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Navigation().SelectLevelsToInclude(LevelsToInclude);
-            BATFeather.Wrappers().Backend().Navigation().SelectWidgetListTemplate(NavWidgetTemplate);
-            BATFeather.Wrappers().Backend().Navigation().SaveChanges();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectLevelsToInclude(LevelsToInclude);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectWidgetListTemplate(NavWidgetTemplate);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNavigationOnTheFrontend();
             this.SelectPageFromNavigation();
