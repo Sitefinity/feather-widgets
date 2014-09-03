@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
-using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.News;
@@ -29,6 +28,7 @@ namespace News.Mvc.Models
             {
                 return this.news;
             }
+
             private set
             {
                 this.news = value;
@@ -112,6 +112,7 @@ namespace News.Mvc.Models
             {
                 return this.itemsPerPage;
             }
+
             set
             {
                 this.itemsPerPage = value;
@@ -125,6 +126,7 @@ namespace News.Mvc.Models
             {
                 return this.sortExpression;
             }
+
             set
             {
                 this.sortExpression = value;
@@ -151,6 +153,7 @@ namespace News.Mvc.Models
             {
                 return this.serializedTaxonomyFilter;
             }
+
             set
             {
                 if (this.serializedTaxonomyFilter != value)
@@ -230,10 +233,10 @@ namespace News.Mvc.Models
             if (page == null || page < 1)
                 page = 1;
 
-            int? itemsToSkip = ((page.Value - 1) * this.ItemsPerPage);
-            itemsToSkip = this.DisplayMode==ListDisplayMode.Paging? ((page.Value - 1) * this.ItemsPerPage) : null ;
+            int? itemsToSkip = (page.Value - 1) * this.ItemsPerPage;
+            itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.ItemsPerPage) : null;
             int? totalCount = 0;
-            int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ?  null: this.ItemsPerPage;
+            int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ? null : this.ItemsPerPage;
 
             var compiledFilterExpression = this.CompileFilterExpression();
             compiledFilterExpression = this.AddLiveFilterExpression(compiledFilterExpression);
@@ -280,7 +283,7 @@ namespace News.Mvc.Models
                 uiCulture = System.Globalization.CultureInfo.CurrentUICulture;
             }
 
-            //the filter is adapted to the implementation of ILifecycleDataItemGeneric, so the culture is taken in advance when filtering published items.
+            // the filter is adapted to the implementation of ILifecycleDataItemGeneric, so the culture is taken in advance when filtering published items.
             return ContentHelper.AdaptMultilingualFilterExpressionRaw(filterExpression, uiCulture);
         }
 
@@ -325,8 +328,7 @@ namespace News.Mvc.Models
                 " AND ",
                 this.TaxonomyFilter
                     .Where(tf => tf.Value.Count > 0)
-                    .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")")
-            );
+                    .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")"));
 
             return taxonomyFilterExpression;
         }
@@ -351,6 +353,5 @@ namespace News.Mvc.Models
         private string serializedTaxonomyFilter;
 
         #endregion
-
     }
 }
