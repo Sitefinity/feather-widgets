@@ -51,13 +51,14 @@ namespace FeatherWidgets.TestIntegration.News
             string urlNamePrefix = testName + "news-page";
             int index = 1;
             string index2 = "/2";
+            int itemsPerPage = 3;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
             string url2 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index2);
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.ItemsPerPage = 3;
+            newsController.Model.ItemsPerPage = itemsPerPage;
             mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(newsController);
 
             try
@@ -135,6 +136,49 @@ namespace FeatherWidgets.TestIntegration.News
                 string responseContent = this.ExecuteWebRequest(url);
 
                 for (int i = 1; i <= newsCount; i++)
+                    Assert.IsTrue(responseContent.Contains(NewsTitle + i), "The news with this title was not found!");
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
+                this.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// News widget - test Use limit functionality 
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        public void NewsWidget_VerifyUseLimitFunctionality()
+        {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
+            int index = 1;
+            int itemsPerPage = 3;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.DisplayMode = ListDisplayMode.Limit;
+            newsController.Model.ItemsPerPage = itemsPerPage;
+            mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(newsController);
+
+            try
+            {
+                this.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                int newsCount = 5;
+
+                for (int i = 1; i <= newsCount; i++)
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle + i);
+
+                string responseContent = this.ExecuteWebRequest(url);
+
+                for (int i = 5; i <= itemsPerPage; i--)
                     Assert.IsTrue(responseContent.Contains(NewsTitle + i), "The news with this title was not found!");
             }
             finally
