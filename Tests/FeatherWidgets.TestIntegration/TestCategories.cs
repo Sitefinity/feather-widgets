@@ -9,5 +9,7 @@
         /// Specifies the name of the category of tests related to Feather modules.
         /// </summary>
         public const string Samples = "Samples";
+        public const string Navigation = "Navigation";
+        public const string News = "News";
     }
 }
