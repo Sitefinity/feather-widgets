@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.UI;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
+using News.Mvc.Models;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.Web;
@@ -94,6 +95,47 @@ namespace FeatherWidgets.TestIntegration.News
                         Assert.IsFalse(responseContent2.Contains(NewsTitle + i), "The news with this title was found!");
                     }
                 }
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
+                this.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// News widget - test No limit and paging functionality 
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        public void NewsWidget_VerifyNoLimitAndPagingFunctionality()
+        {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.DisplayMode = ListDisplayMode.All;
+            mvcProxy.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(newsController);
+
+            try
+            {
+                this.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                int newsCount = 25;
+
+                for (int i = 1; i <= newsCount; i++)
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle + i);
+
+                string responseContent = this.ExecuteWebRequest(url);
+
+                for (int i = 1; i <= newsCount; i++)
+                    Assert.IsTrue(responseContent.Contains(NewsTitle + i), "The news with this title was not found!");
             }
             finally
             {
