@@ -275,20 +275,6 @@ namespace News.Mvc.Controllers
             return taxon.Taxonomy.Name;
         }
 
-        private string GetCurrentPageUrl()
-        {
-            var currentSiteMap = (SiteMapBase)SitefinitySiteMap.GetCurrentProvider();
-            var currentNode = currentSiteMap.CurrentNode;
-            var url = string.Empty;
-
-            if (currentNode != null)
-            {
-                url = UrlPath.ResolveUrl(currentNode.Url, true, true);
-            }
-
-            return url;
-        }
-
         #endregion
 
         #region Private fields and constants
