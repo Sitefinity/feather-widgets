@@ -422,6 +422,51 @@ namespace News.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Open single item in...
+        /// </summary>
+        [ResourceEntry("OpenSingleItem",
+            Value = "Open single item in...",
+            Description = "phrase : Open single item in...",
+            LastModified = "2014/09/08")]
+        public string OpenSingleItem
+        {
+            get
+            {
+                return this["OpenSingleItem", System.Globalization.CultureInfo.InvariantCulture];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Auto-generated page (with the same layout as the list page)
+        /// </summary>
+        [ResourceEntry("ShowInSamePage",
+            Value = "Auto-generated page (with the same layout as the list page)",
+            Description = "phrase : Auto-generated page (with the same layout as the list page)",
+            LastModified = "2014/09/08")]
+        public string ShowInSamePage
+        {
+            get
+            {
+                return this["ShowInSamePage", System.Globalization.CultureInfo.InvariantCulture];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Selected existing page...
+        /// </summary>
+        [ResourceEntry("ShowInExistingPage",
+            Value = "Selected existing page...",
+            Description = "phrase : Selected existing page...",
+            LastModified = "2014/09/08")]
+        public string ShowInExistingPage
+        {
+            get
+            {
+                return this["ShowInExistingPage", System.Globalization.CultureInfo.InvariantCulture];
+            }
+        }
+
+        /// <summary>
         /// Gets the Provider
         /// </summary>
         [ResourceEntry("Provider",

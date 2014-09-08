@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using News.Mvc.Models;
+using News.Mvc.StringResources;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
-using News.Mvc.Models;
-using News.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web;
 
 namespace News.Mvc.Controllers
 {
@@ -117,6 +118,45 @@ namespace News.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether detail view for a news item should be opened in the same page.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if details link should redirect to custom selected page; otherwise, (if should be opened in the same page)<c>false</c>.
+        /// </value>
+        public bool ShouldRedirectDetails
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the page URL where will be displayed details view for selected news item.
+        /// </summary>
+        /// <value>
+        /// The page URL where will be displayed details view for selected news item.
+        /// </value>
+        public string DetailsPageUrl
+        {
+            get
+            {
+                if (this.ShouldRedirectDetails)
+                {
+                    return this.detailsPageUrl;
+                }
+                else
+                {
+                    var url = this.GetCurrentPageUrl();
+                    return url;
+                }
+            }
+
+            set
+            {
+                this.detailsPageUrl = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the News widget model.
         /// </summary>
         /// <value>
@@ -149,6 +189,7 @@ namespace News.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.RedirectPageUrlTemplate = "/{0}";
+            this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
 
             this.Model.PopulateNews(null, null, page);
 
@@ -168,6 +209,8 @@ namespace News.Mvc.Controllers
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             var fieldName = this.GetExpectedTaxonFieldName(taxonFilter);
             this.ViewBag.RedirectPageUrlTemplate = "/" + fieldName + "/{0}";
+            this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
+
             this.Model.PopulateNews(taxonFilter, fieldName, page);
 
             return this.View(fullTemplateName, this.Model);
@@ -232,6 +275,20 @@ namespace News.Mvc.Controllers
             return taxon.Taxonomy.Name;
         }
 
+        private string GetCurrentPageUrl()
+        {
+            var currentSiteMap = (SiteMapBase)SitefinitySiteMap.GetCurrentProvider();
+            var currentNode = currentSiteMap.CurrentNode;
+            var url = string.Empty;
+
+            if (currentNode != null)
+            {
+                url = UrlPath.ResolveUrl(currentNode.Url, true, true);
+            }
+
+            return url;
+        }
+
         #endregion
 
         #region Private fields and constants
@@ -245,6 +302,7 @@ namespace News.Mvc.Controllers
         private string masterRouteTemplate = "/{taxonFilter:category,tag}/{page}";
         private IUrlParamsMapper urlParamsMapper;
         private bool? disableCanonicalUrlMetaTag;
+        private string detailsPageUrl;
 
         #endregion
     }

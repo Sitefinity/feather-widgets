@@ -21,7 +21,7 @@
             {
                 <li>
                     <h2>
-                        @Html.ActionLink(item.Title, item.ItemDefaultUrl)    
+                        <a href="@(ViewBag.DetailsPageUrl + item.ItemDefaultUrl)">@item.Title</a>
                     </h2>
                     <div>
                         <span>@item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")</span>
