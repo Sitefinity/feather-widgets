@@ -3,7 +3,7 @@ using ContentBlock.Mvc.StringResources;
 using FeatherWidgets.TestUnit.DummyClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Navigation.Mvc.StringResources;
-
+using News.Mvc.StringResources;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
@@ -42,6 +42,18 @@ namespace FeatherWidgets.TestUnit.Resources
         {
             // Act & Assert: Iterate over each resource property and verify its correctness 
             this.TestResourceType<NavigationResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that news widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that news widget resources are correct.")]
+        public void NewsWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<NewsWidgetResources>();
         }
 
         /// <summary>
