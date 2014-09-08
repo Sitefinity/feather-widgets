@@ -1,8 +1,8 @@
-﻿using News.Mvc.Models;
-using News.Mvc.StringResources;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+using News.Mvc.Models;
+using News.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -135,6 +135,7 @@ namespace News.Mvc.Controllers
         /// <value>
         /// The page URL where will be displayed details view for selected news item.
         /// </value>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public string DetailsPageUrl
         {
             get
