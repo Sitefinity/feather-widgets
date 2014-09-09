@@ -1,8 +1,6 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
-<server-data content-item-service-url='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'
-        default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.GenericContent.ContentManager.GetManager())'>
-</server-data>
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.GenericContent.ContentManager.GetManager())'></server-data>
 
 <provider-selector manager-type="Telerik.Sitefinity.Modules.GenericContent.ContentManager" 
     provider-label='@Html.Resource("Provider")'
