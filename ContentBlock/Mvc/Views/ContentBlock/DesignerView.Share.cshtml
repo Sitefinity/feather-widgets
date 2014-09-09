@@ -1,7 +1,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 @using ContentBlock.Mvc.Helpers
 
-<server-data content-item-service-url='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")' blank-content-item='@Html.GetBlankContentItem()'></server-data>
+<server-data blank-content-item='@Html.GetBlankContentItem()'></server-data>
 
 <div ng-class="{'form-group':true, 'has-error': !isTitleValid}">
     <label for="sharedContentTitle" class="control-label">@Html.Resource("Title")</label>

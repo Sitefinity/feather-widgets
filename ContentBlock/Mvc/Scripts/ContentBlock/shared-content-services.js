@@ -25,7 +25,7 @@
 		    };
 
 		    var getServiceUrl = function () {
-		        return serverData.get('contentItemServiceUrl');
+		        return sitefinity.services.getContentItemServiceUrl();
 		    };
 
 		    //sends request for creating new content block item
