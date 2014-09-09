@@ -1,19 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web.UI;
 using ContentBlock.Mvc.Controllers;
-using News.Mvc.Controllers;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.TestIntegration.Data.Content;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
     /// <summary>
     /// This class provides access to page operations
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class PagesOperations
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "3#")]
+        public void CreatePageWithControl(Control control, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index)
+        {
+            var controls = new List<System.Web.UI.Control>();
+            controls.Add(control);
+
+            this.locationGenerator = new PageContentGenerator();
+            var pageId = this.locationGenerator.CreatePage(
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageNamePrefix, index.ToString(CultureInfo.InvariantCulture)),
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageTitlePrefix, index.ToString(CultureInfo.InvariantCulture)),
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", urlNamePrefix, index.ToString(CultureInfo.InvariantCulture)));
+
+            PageContentGenerator.AddControlsToPage(pageId, controls);
+        }
+
         /// <summary>
         /// Adds content block widget to existing page
         /// </summary>
@@ -89,6 +107,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Deletes the pages.
+        /// </summary>
+        public void DeletePages()
+        {
+            this.locationGenerator.Dispose();
+        }
+
+        /// <summary>
         /// Creates the mvcWidget control.
         /// </summary>
         /// <param name="pageManager">The page manager.</param>
@@ -104,5 +130,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             pageManager.PublishPageDraft(page, CultureInfo.CurrentUICulture);
             pageManager.SaveChanges();
         }
+
+        private PageContentGenerator locationGenerator;
     }
 }

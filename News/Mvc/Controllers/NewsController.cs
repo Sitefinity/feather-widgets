@@ -121,12 +121,19 @@ namespace News.Mvc.Controllers
         /// Gets or sets a value indicating whether detail view for a news item should be opened in the same page.
         /// </summary>
         /// <value>
-        /// <c>true</c> if details link should redirect to custom selected page; otherwise, (if should be opened in the same page)<c>false</c>.
+        /// <c>true</c> if details link should be opened in the same page; otherwise, (if should redirect to custom selected page)<c>false</c>.
         /// </value>
-        public bool ShouldRedirectDetails
+        public bool OpenInSamePage
         {
-            get;
-            set;
+            get
+            {
+                return this.openInSamePage;
+            }
+
+            set
+            {
+                this.openInSamePage = value;
+            }
         }
 
         /// <summary>
@@ -140,7 +147,7 @@ namespace News.Mvc.Controllers
         {
             get
             {
-                if (this.ShouldRedirectDetails)
+                if (this.OpenInSamePage)
                 {
                     return this.detailsPageUrl;
                 }
@@ -299,6 +306,7 @@ namespace News.Mvc.Controllers
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
+        private bool openInSamePage = true;
 
         private string masterRouteTemplate = "/{taxonFilter:category,tag}/{page}";
         private IUrlParamsMapper urlParamsMapper;
