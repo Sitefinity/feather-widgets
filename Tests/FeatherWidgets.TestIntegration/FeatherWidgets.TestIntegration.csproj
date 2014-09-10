@@ -159,7 +159,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContentBlock\ContentBlockWidgetAdvancedSettings.cs" />
+    <Compile Include="ContentBlock\ContentBlockWidget.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="News\NewsWidgetContentTests.cs" />
