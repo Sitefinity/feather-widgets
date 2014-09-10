@@ -30,25 +30,73 @@ namespace ContentBlock.Mvc.Controllers
                                           IHasEditCommands, 
                                           IContentItemControl
     {
-        #region Constants
-        
-        private const string DesignerTemplate = "Telerik.Sitefinity.Frontend/Designer/Master/ContentBlock?view={0}";
+        #region Explicit Interface Properties
 
-        private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
+        /// <summary>
+        ///     Gets unique reload data (i.e. all controls with the same key will get reloaded)
+        /// </summary>
+        /// <value></value>
+        [Browsable(false)]
+        string IZoneEditorReloader.Key
+        {
+            get
+            {
+                var id = this.SharedContentID.ToString("N", CultureInfo.InvariantCulture);
+                var key = string.Format(CultureInfo.InvariantCulture, IZoneEditorReloaderKeyStringFormat, id);
+                return key;
+            }
+        }
 
-        #endregion
+        /// <summary>
+        ///     Gets the empty link text.
+        /// </summary>
+        /// <value>The empty link text.</value>
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get
+            {
+                return Res.Get<ContentBlockResources>().CreateContent;
+            }
+        }
 
-        #region Fields
+        /// <summary>
+        ///     Gets or sets a value indicating whether this instance is empty.
+        /// </summary>
+        /// <value><c>true</c> if this instance is empty; otherwise, <c>false</c>.</value>
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get
+            {
+                return this.isEmpty;
+            }
 
-        private string content;
+            protected set
+            {
+                this.isEmpty = value;
+            }
+        }
 
-        private bool isEmpty = true;
+        /// <summary>
+        ///     Gets a list with custom messages which will be applied to dock title bar.
+        /// </summary>
+        /// <value>The custom messages.</value>
+        [Browsable(false)]
+        [TypeConverter(typeof(StringListConverter))]
+        public virtual IList<string> CustomMessages
+        {
+            get
+            {
+                var messages = new List<string>();
+                if (this.SharedContentID != Guid.Empty)
+                {
+                    messages.Add(Res.Get<ContentBlockResources>().Shared);
+                }
 
-        private IContentBlockModel model;
-
-        #endregion
-
-        #region Public Properties
+                return messages;
+            }
+        }
 
         /// <summary>
         ///     Gets or sets the widget commands.
@@ -58,6 +106,21 @@ namespace ContentBlock.Mvc.Controllers
         /// </value>
         [Browsable(false)]
         public IList<WidgetMenuItem> Commands { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the name of the provider.
+        /// </summary>
+        /// <value>The name of the provider.</value>
+        public string ProviderName { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the ID of the ContentBlockItem if the Content is shared across multiple controls
+        /// </summary>
+        public Guid SharedContentID { get; set; }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         ///     Gets or sets the HTML content to be displayed by the ContentBlock control.
@@ -85,97 +148,12 @@ namespace ContentBlock.Mvc.Controllers
         public int ContentVersion { get; set; }
 
         /// <summary>
-        ///     Gets a list with custom messages which will be applied to dock title bar.
-        /// </summary>
-        /// <value>The custom messages.</value>
-        [Browsable(false)]
-        [TypeConverter(typeof(StringListConverter))]
-        public virtual IList<string> CustomMessages
-        {
-            get
-            {
-                var messages = new List<string>();
-                if (this.SharedContentID != Guid.Empty)
-                {
-                    messages.Add(Res.Get<ContentBlockResources>().Shared);
-                }
-
-                return messages;
-            }
-        }
-
-        /// <summary>
-        ///     Gets the empty link text.
-        /// </summary>
-        /// <value>The empty link text.</value>
-        [Browsable(false)]
-        public string EmptyLinkText
-        {
-            get
-            {
-                return Res.Get<ContentBlockResources>().CreateContent;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [enable social sharing].
+        /// Gets or sets a value indicating whether should enable social sharing buttons.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [enable social sharing]; otherwise, <c>false</c>.
+        ///   <c>true</c> if social sharing buttons should be displayed; otherwise, <c>false</c>.
         /// </value>
         public bool EnableSocialSharing { get; set; }
-
-        /// <summary>
-        ///     Gets or sets a value indicating whether this instance is empty.
-        /// </summary>
-        /// <value><c>true</c> if this instance is empty; otherwise, <c>false</c>.</value>
-        [Browsable(false)]
-        public bool IsEmpty
-        {
-            get
-            {
-                return this.isEmpty;
-            }
-
-            protected set
-            {
-                this.isEmpty = value;
-            }
-        }
-
-        /// <summary>
-        ///     Gets or sets the name of the provider.
-        /// </summary>
-        /// <value>The name of the provider.</value>
-        public string ProviderName { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the ID of the ContentBlockItem if the Content is shared across multiple controls
-        /// </summary>
-        public Guid SharedContentID { get; set; }
-
-        #endregion
-
-        #region Explicit Interface Properties
-
-        /// <summary>
-        ///     Gets unique reload data (i.e. all controls with the same key will get reloaded)
-        /// </summary>
-        /// <value></value>
-        [Browsable(false)]
-        string IZoneEditorReloader.Key
-        {
-            get
-            {
-                var id = this.SharedContentID.ToString("N", CultureInfo.InvariantCulture);
-                var key = string.Format(CultureInfo.InvariantCulture, IZoneEditorReloaderKeyStringFormat, id);
-                return key;
-            }
-        }
-
-        #endregion
-
-        #region Properties
 
         /// <summary>
         /// Gets the model.
@@ -200,7 +178,7 @@ namespace ContentBlock.Mvc.Controllers
 
         #endregion
 
-        #region Public Methods and Operators
+        #region Cotnroller Actions
 
         /// <summary>
         /// This is the default Action.
@@ -248,7 +226,7 @@ namespace ContentBlock.Mvc.Controllers
 
         #endregion
 
-        #region Methods
+        #region Helper Methods
 
         /// <summary>
         /// Initializes the widget commands.
@@ -344,6 +322,16 @@ namespace ContentBlock.Mvc.Controllers
 
             return ControllerModelFactory.GetModel<IContentBlockModel>(this.GetType(), constructorParameters);
         }
+
+        #endregion
+
+        #region Private fields and constants
+
+        private const string DesignerTemplate = "Telerik.Sitefinity.Frontend/Designer/Master/ContentBlock?view={0}";
+        private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
+        private string content;
+        private bool isEmpty = true;
+        private IContentBlockModel model;
 
         #endregion
     }
