@@ -11,5 +11,6 @@
         public const string Samples = "Samples";
         public const string Navigation = "Navigation";
         public const string News = "News";
+        public const string ContentBlock = "ContentBlock";
     }
 }
