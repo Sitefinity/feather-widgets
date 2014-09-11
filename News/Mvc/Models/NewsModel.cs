@@ -140,6 +140,12 @@ namespace News.Mvc.Models
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the taxonomy filter.
+        /// </summary>
+        /// <value>
+        /// The taxonomy filter.
+        /// </value>
         [Browsable(false)]
         public Dictionary<string, IList<Guid>> TaxonomyFilter
         {
@@ -147,6 +153,7 @@ namespace News.Mvc.Models
             set;
         }
 
+        /// <inheritdoc />
         public string SerializedTaxonomyFilter
         {
             get
@@ -167,6 +174,7 @@ namespace News.Mvc.Models
             }
         }
 
+        /// <inheritdoc />
         public string SerializedSelectedTaxonomies
         {
             get

@@ -44,19 +44,8 @@
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredNews" />
 
                     @Html.Resource("NarrowSelection")
-                    <div class="checkbox" ng-repeat="taxonomy in allTaxonomies">
-                        <label for="{{taxonomy.Name}}">
-                            <input id="{{taxonomy.Name}}" type="checkbox" ng-disabled="properties.SelectionMode.PropertyValue!='FilteredNews'"
-                                ng-click="toggleTaxonomySelection(taxonomy.Name)" value="{{taxonomy.Name}}"
-                                ng-checked="selectedTaxonomies.indexOf(taxonomy.Name) > -1" />
-
-                             @Html.Resource("Tags")
-                        </label>
-
-                        <flat-selector taxon-selector ng-show="selectedTaxonomies.indexOf(taxonomy.Name) > -1"
-                                  provider="properties.ProviderName.PropertyValue"
-                                  selected-item-id ="taxonFilters[taxonomy.Name][0]"></flat-selector>
-                    </div>
+                    <taxon-filter taxon-filters="taxonFilters" selected-taxonomies="selectedTaxonomies" 
+                        provider="properties.ProviderName.PropertyValue"></taxon-filter>
                 </label>
             </li>
         </ul>
