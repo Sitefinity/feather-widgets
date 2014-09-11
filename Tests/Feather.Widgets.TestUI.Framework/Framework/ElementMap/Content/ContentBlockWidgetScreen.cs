@@ -122,5 +122,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlAnchor>("tagname=a", "class=sfAddContentLnk");
             }
         }
+
+        /// <summary>
+        /// Gets the select provider dropdown.
+        /// </summary>
+        /// <value>The select provider dropdown.</value>
+        public HtmlAnchor SelectProviderDropdown
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=btn btn-default dropdown-toggle ng-binding");
+            }
+        }
     }
 }

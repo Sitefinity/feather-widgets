@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -73,6 +74,37 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editLink.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
+        }
+
+        /// <summary>
+        /// Selects "an extra option" (option from the 'More' menu)
+        /// for a given widget
+        /// </summary>
+        /// <param name="extraOption">The option to be clicked</param>
+        /// <param name="dropZoneIndex">The dropZone(location) of the widget</param>
+        public void SelectExtraOptionForWidget(string extraOption, int dropZoneIndex = 0)
+        {
+            ActiveBrowser.WaitForAsyncOperations();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var widgetHeader = Manager.Current
+                                      .ActiveBrowser
+                                      .Find
+                                      .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar"))[dropZoneIndex]
+                                      .AssertIsPresent("Widget at position: " + dropZoneIndex);
+            widgetHeader.ScrollToVisible();
+            HtmlAnchor moreLink = widgetHeader.Find
+                                              .ByCustom<HtmlAnchor>(a => a.TagName == "a" && a.Title.Equals("More"))
+                                              .AssertIsPresent("more link");
+            moreLink.Focus();
+            moreLink.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            HtmlDiv menuDiv = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagName=div", "id=RadContextMenu1_detached")
+                .AssertIsPresent<HtmlDiv>("More options menu");
+
+            menuDiv.Find.ByCustom<HtmlSpan>(x => x.InnerText.Contains(extraOption))
+                .AssertIsPresent<HtmlSpan>("option " + extraOption)
+                .Click();
         }
 
         /// <summary>

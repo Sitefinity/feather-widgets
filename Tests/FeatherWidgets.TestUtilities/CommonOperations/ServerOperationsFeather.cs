@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeatherWidgets.TestUtilities.CommonOperations.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public static PagesOperations Pages()
         {
             return new PagesOperations();
+        }
+
+        /// <summary>
+        /// Contents the block operations.
+        /// </summary>
+        /// <returns></returns>
+        public static ContentBlockOperations ContentBlockOperations()
+        {
+            return new ContentBlockOperations();
         }
     }
 }
