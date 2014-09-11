@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Net;
-using System.Web.UI;
+﻿using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
 using News.Mvc.Models;
 using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.News
@@ -15,9 +10,8 @@ namespace FeatherWidgets.TestIntegration.News
     /// <summary>
     /// This is a class with News tests.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly"), TestFixture]
-    [Description("This is a class with News tests for list settings.")]
-    public class NewsWidgetListSettingsTests : IDisposable
+    [TestFixture]
+    public class NewsWidgetListSettingsTests
     {
         /// <summary>
         /// Set up method
@@ -25,17 +19,16 @@ namespace FeatherWidgets.TestIntegration.News
         [SetUp]
         public void Setup()
         {
-            this.locationGenerator = new PageContentGenerator();
+            this.pageOperations = new PagesOperations();
         }
 
         /// <summary>
-        /// Clean up method
+        /// Tears down.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-        public void Dispose()
+        [TearDown]
+        public void TearDown()
         {
-            this.locationGenerator.Dispose();
-            GC.SuppressFinalize(this);
+            this.pageOperations.DeletePages();
         }
 
         /// <summary>
@@ -63,15 +56,15 @@ namespace FeatherWidgets.TestIntegration.News
 
             try
             {
-                this.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
                 int newsCount = 5;
 
                 for (int i = 1; i <= newsCount; i++)
                     Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle + i);
 
-                string responseContent = this.ExecuteWebRequest(url);
-                string responseContent2 = this.ExecuteWebRequest(url2);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+                string responseContent2 = PageInvoker.ExecuteWebRequest(url2);
 
                 for (int i = 1; i <= newsCount; i++)
                 {
@@ -100,7 +93,6 @@ namespace FeatherWidgets.TestIntegration.News
             finally
             {
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
-                this.Dispose();
             }
         }
 
@@ -126,14 +118,14 @@ namespace FeatherWidgets.TestIntegration.News
 
             try
             {
-                this.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
                 int newsCount = 25;
 
                 for (int i = 1; i <= newsCount; i++)
                     Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle + i);
 
-                string responseContent = this.ExecuteWebRequest(url);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
 
                 for (int i = 1; i <= newsCount; i++)
                     Assert.IsTrue(responseContent.Contains(NewsTitle + i), "The news with this title was not found!");
@@ -141,7 +133,6 @@ namespace FeatherWidgets.TestIntegration.News
             finally
             {
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
-                this.Dispose();
             }
         }
 
@@ -169,14 +160,14 @@ namespace FeatherWidgets.TestIntegration.News
 
             try
             {
-                this.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
                 int newsCount = 5;
 
                 for (int i = 1; i <= newsCount; i++)
                     Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle + i);
 
-                string responseContent = this.ExecuteWebRequest(url);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
 
                 for (int i = 5; i <= itemsPerPage; i--)
                     Assert.IsTrue(responseContent.Contains(NewsTitle + i), "The news with this title was not found!");
@@ -184,65 +175,13 @@ namespace FeatherWidgets.TestIntegration.News
             finally
             {
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
-                this.Dispose();
             }
         }
-
-        #region Helper methods
-
-        /// <summary>
-        /// Executes the web request.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <returns>The response content</returns>
-        private string ExecuteWebRequest(string url)
-        {
-            var webResponse = this.GetResponse(url);
-
-            return this.GetResponseContent(webResponse);
-        }
-
-        private string GetResponseContent(WebResponse webResponse)
-        {
-            string responseContent;
-
-            using (var sr = new System.IO.StreamReader(webResponse.GetResponseStream(), System.Text.Encoding.UTF8))
-            {
-                responseContent = sr.ReadToEnd();
-            }
-
-            return responseContent;
-        }
-
-        private WebResponse GetResponse(string url)
-        {
-            var webRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
-            webRequest.Timeout = 120 * 1000; // 120 sec
-            webRequest.CachePolicy = new System.Net.Cache.RequestCachePolicy();
-            var webResponse = (System.Net.HttpWebResponse)webRequest.GetResponse();
-
-            return webResponse;
-        }
-
-        private void CreatePageWithControl(Control control, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index)
-        {
-            var controls = new List<System.Web.UI.Control>();
-            controls.Add(control);
-
-            var pageId = this.locationGenerator.CreatePage(
-                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageNamePrefix, index.ToString(CultureInfo.InvariantCulture)),
-                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageTitlePrefix, index.ToString(CultureInfo.InvariantCulture)),
-                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", urlNamePrefix, index.ToString(CultureInfo.InvariantCulture)));
-
-            PageContentGenerator.AddControlsToPage(pageId, controls);
-        }
-
-        #endregion
 
         #region Fields and constants
 
-        private PageContentGenerator locationGenerator;
         private const string NewsTitle = "Title";
+        private PagesOperations pageOperations;
 
         #endregion
     }
