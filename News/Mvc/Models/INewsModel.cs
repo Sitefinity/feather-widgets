@@ -126,6 +126,14 @@ namespace News.Mvc.Models
         string SerializedTaxonomyFilter { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized selected taxonomies.
+        /// </summary>
+        /// <value>
+        /// The serialized selected taxonomies.
+        /// </value>
+        string SerializedSelectedTaxonomies { get; set; }
+
+        /// <summary>
         /// Gets or sets the additional filter expression.
         /// </summary>
         /// <value>

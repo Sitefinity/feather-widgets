@@ -6,7 +6,10 @@
 	"Mvc/Scripts/Angular/angular-resource.min.js",
 	"Services/services.js",
 	"Services/generic-data-service.js",
+	"Services/flat-taxon-service.js",
 	"Selectors/selectors.js",
-	"Selectors/content-selector.js"
+	"Selectors/flat-selector.js",
+	"Selectors/content-selector.js",
+	"Selectors/taxon-selector.js"
   ]
 }

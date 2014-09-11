@@ -167,6 +167,26 @@ namespace News.Mvc.Models
             }
         }
 
+        public string SerializedSelectedTaxonomies
+        {
+            get
+            {
+                return this.serializedSelectedTaxonomies;
+            }
+
+            set
+            {
+                if (this.serializedSelectedTaxonomies != value)
+                {
+                    this.serializedSelectedTaxonomies = value;
+                    if (!this.serializedSelectedTaxonomies.IsNullOrEmpty())
+                    {
+                        this.selectedTaxonomies = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedTaxonomies);
+                    }
+                }
+            }
+        }
+
         #endregion 
 
         #region Public methods
@@ -327,7 +347,7 @@ namespace News.Mvc.Models
             var taxonomyFilterExpression = string.Join(
                 " AND ",
                 this.TaxonomyFilter
-                    .Where(tf => tf.Value.Count > 0)
+                    .Where(tf => (tf.Value.Count > 0 && this.selectedTaxonomies.Contains(tf.Key)))
                     .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")"));
 
             return taxonomyFilterExpression;
@@ -351,6 +371,8 @@ namespace News.Mvc.Models
 
         private NewsManager manager;
         private string serializedTaxonomyFilter;
+        private string serializedSelectedTaxonomies;
+        private IList<string> selectedTaxonomies = new List<string>();
 
         #endregion
     }

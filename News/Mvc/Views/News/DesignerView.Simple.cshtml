@@ -33,22 +33,29 @@
 
                     @Html.Resource("SelectedNews")
                 </label>
-                <content-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedNews'"
+
+                <flat-selector content-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedNews'"
                                   item-type="Telerik.Sitefinity.News.Model.NewsItem"
-                                  item-provider="properties.ProviderName.PropertyValue"
-                                  selected-item-id ="properties.SelectedNewsId.PropertyValue"></content-selector>
+                                  provider="properties.ProviderName.PropertyValue"
+                                  selected-item-id ="properties.SelectedNewsId.PropertyValue"></flat-selector>
             </li>
             <li class="radio">
                 <label for="filterNews">
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredNews" />
 
                     @Html.Resource("NarrowSelection")
-                    <div class="checkbox">
-                        <label for="tagFilter">
-                            <input id="tagFilter" type="checkbox" ng-disabled="properties.SelectionMode.PropertyValue!='FilteredNews'"/>
+                    <div class="checkbox" ng-repeat="taxonomy in allTaxonomies">
+                        <label for="{{taxonomy.Name}}">
+                            <input id="{{taxonomy.Name}}" type="checkbox" ng-disabled="properties.SelectionMode.PropertyValue!='FilteredNews'"
+                                ng-click="toggleTaxonomySelection(taxonomy.Name)" value="{{taxonomy.Name}}"
+                                ng-checked="selectedTaxonomies.indexOf(taxonomy.Name) > -1" />
 
                              @Html.Resource("Tags")
                         </label>
+
+                        <flat-selector taxon-selector ng-show="selectedTaxonomies.indexOf(taxonomy.Name) > -1"
+                                  provider="properties.ProviderName.PropertyValue"
+                                  selected-item-id ="taxonFilters[taxonomy.Name][0]"></flat-selector>
                     </div>
                 </label>
             </li>
