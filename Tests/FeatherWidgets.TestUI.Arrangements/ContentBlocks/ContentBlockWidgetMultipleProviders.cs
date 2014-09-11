@@ -1,11 +1,7 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -24,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.ContentBlocks().CreateSecondDataProvider();
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, Content);
-            ServerOperationsFeather.ContentBlockOperations().CreateContentBlock("Content Block 1", "Content 1");
+            ServerOperationsFeather.ContentBlockOperations().CreateContentBlock("Content Block 1", "Content 1", DefaultProviderName);
             ServerOperationsFeather.ContentBlockOperations().CreateContentBlock("Content Block 2", "Content 2", SecondProviderName);
         }
 
@@ -46,6 +42,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string PageName = "ContentBlock";
         private const string SecondProviderName = "ContentSecondDataProvider";
+        private const string DefaultProviderName = "OpenAccessDataProvider";
         private const string Content = "";
     }
 }
