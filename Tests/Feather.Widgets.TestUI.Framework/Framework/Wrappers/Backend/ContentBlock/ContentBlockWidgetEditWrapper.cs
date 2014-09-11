@@ -52,5 +52,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }
+
+        /// <summary>
+        /// Selects the content block in provider.
+        /// </summary>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <param name="contentBlockName">Name of the content block.</param>
+        public void SelectContentBlockInProvider(string providerName, string contentBlockName)
+        {
+            HtmlAnchor selectProvider = EM.GenericContent.ContentBlockWidget.SelectProviderDropdown
+            .AssertIsPresent("Provider dropdown");
+            selectProvider.Click();
+
+            var provider = ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=ng-binding", "InnerText=" + providerName).AssertIsPresent("Provider"); 
+            provider.Click();
+
+            HtmlDiv sharedContentBlockList = EM.GenericContent.ContentBlockWidget.ContentBlockList
+           .AssertIsPresent("Shared content list");
+
+            var itemSpan = sharedContentBlockList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + contentBlockName).AssertIsPresent("Content Block");
+            itemSpan.Click();
+            this.DoneSelectingButton();
+        }
+
+        /// <summary>
+        /// Provide access to done button
+        /// </summary>
+        public void DoneSelectingButton()
+        {
+            HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.DoneSelectingButton
+            .AssertIsPresent("Done selecting button");
+            shareButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
     }
 }

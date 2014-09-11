@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -13,6 +14,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     /// </summary>
     public class ContentBlockWrapper : BaseWrapper
     {
+        private Manager Manager
+        {
+            get
+            {
+                return Manager.Current;
+            }
+        }
+
         /// <summary>
         /// Verify content in content block widget on the frontend
         /// </summary>
@@ -28,6 +37,31 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 var isContained = contentBlockCount[i].InnerText.Contains(contentBlockContent);
                 Assert.IsTrue(isContained, string.Concat("Expected ", contentBlockContent, " but found [", contentBlockCount[i].InnerText, "]"));
             }
+        }
+
+        /// <summary>
+        /// Edit content block
+        /// </summary>
+        public void EditContentBlock()
+        {
+            HtmlDiv cb = ActiveBrowser.Find.ByCustom<HtmlDiv>(x => x.CssClass.Contains("sfFieldEditable"))
+                 .AssertIsPresent("ContentBlock");
+            cb.Focus();
+            cb.MouseClick();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+            ActiveBrowser.RefreshDomTree();
+            cb.MouseClick();
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+            var element = ActiveBrowser.Find.ByCustom<HtmlUnorderedList>(e => e.CssClass.Contains("k-editor-toolbar") && e.IsVisible() == true)
+             .AssertIsPresent("toolbar");
+
+            Manager.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.LControlKey);
+            Manager.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.LControlKey);
+            Manager.Desktop.KeyBoard.TypeText("edited content block", 20);
         }
     }
 }

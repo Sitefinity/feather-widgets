@@ -52,12 +52,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\DeactivateContentBlockModule.cs" />
     <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
     <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\DuplicateContentBlockWidgetFromPage.cs" />
     <Compile Include="ContentBlocks\EditContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\EditContentBlockWidgetViaInlineEditing.cs" />
     <Compile Include="ContentBlocks\EditSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\OldAndNewContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\SeveralContentBlockWidgetsOnTheSamePage.cs" />
@@ -65,6 +69,7 @@
     <Compile Include="ContentBlocks\UnshareContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
+    <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />

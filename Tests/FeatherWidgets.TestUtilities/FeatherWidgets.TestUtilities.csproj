@@ -112,6 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\ActionFilters\ActionExecutionRegister.cs" />
     <Compile Include="CommonOperations\ActionFilters\ActionInfo.cs" />
     <Compile Include="CommonOperations\ActionFilters\ExecutionRegistrationFilterAttribute.cs" />
