@@ -150,12 +150,12 @@ namespace News.Mvc.Controllers
             {
                 if (this.OpenInSamePage)
                 {
-                    return this.detailsPageUrl;
+                    var url = this.GetCurrentPageUrl();
+                    return url;
                 }
                 else
                 {
-                    var url = this.GetCurrentPageUrl();
-                    return url;
+                    return this.detailsPageUrl;
                 }
             }
 

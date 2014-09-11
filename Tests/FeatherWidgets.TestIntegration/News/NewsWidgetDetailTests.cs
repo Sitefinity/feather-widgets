@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.OpenInSamePage = false;
+            newsController.OpenInSamePage = true;
             mvcProxy.Settings = new ControllerSettings(newsController);
 
             this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
@@ -96,7 +96,7 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.OpenInSamePage = true;
+            newsController.OpenInSamePage = false;
             newsController.DetailsPageUrl = secondPageUrl;
             mvcProxy.Settings = new ControllerSettings(newsController);
 
