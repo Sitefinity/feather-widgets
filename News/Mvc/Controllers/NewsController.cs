@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
 
@@ -200,6 +201,7 @@ namespace News.Mvc.Controllers
             this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
 
             this.Model.PopulateNews(null, null, page);
+            this.AddCacheDependencies();
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -220,6 +222,7 @@ namespace News.Mvc.Controllers
             this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
 
             this.Model.PopulateNews(taxonFilter, fieldName, page);
+            this.AddCacheDependencies();
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -235,6 +238,7 @@ namespace News.Mvc.Controllers
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
             this.Model.DetailNews = newsItem;
             this.ViewBag.Title = newsItem.Title;
+            this.AddCacheDependencies();
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -273,6 +277,17 @@ namespace News.Mvc.Controllers
         private INewsModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<INewsModel>(this.GetType());
+        }
+
+        /// <summary>
+        /// Adds the cache dependencies.
+        /// </summary>
+        private void AddCacheDependencies()
+        {
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects());
+            }
         }
  
         private string GetExpectedTaxonFieldName(ITaxon taxon)
