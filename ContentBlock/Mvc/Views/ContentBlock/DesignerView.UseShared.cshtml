@@ -1,15 +1,13 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
-<server-data content-item-service-url='@Url.Content("~/Sitefinity/Services/Content/ContentItemService.svc/")'
-        default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.GenericContent.ContentManager.GetManager())'
-        provider-data-service-url='@Url.Content("~/Sitefinity/Services/DataSourceService/")'></server-data>
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.GenericContent.ContentManager.GetManager())'></server-data>
 
 <provider-selector manager-type="Telerik.Sitefinity.Modules.GenericContent.ContentManager" 
     provider-label='@Html.Resource("Provider")'
     ng-model="filter.providerName">
 </provider-selector>
 
-<div ng-show="isListEmpty" class="alert alert-info">@Html.Resource("NoItemsHaveBeedCreatedYet")</div>
+<div ng-show="isListEmpty" class="alert alert-info">@Html.Resource("NoItemsHaveBeenCreatedYet")</div>
 <div ng-hide="isListEmpty">
     <div class="input-group m-bottom-sm">
         <span class="input-group-addon">

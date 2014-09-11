@@ -32,8 +32,6 @@ namespace ContentBlock.Mvc.Helpers
                 var serialized = JsonConvert.SerializeObject(blankContentItem);
                 return serialized;
             }
-
-
         }
     }
 }

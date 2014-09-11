@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.News;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
 {
@@ -31,7 +32,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         }
 
         /// <summary>
-        /// Gets the events element map.
+        /// Gets the content element map.
         /// </summary>
         /// <value>An initialized instance of events element map.</value>
         public ContentMap GenericContent
@@ -54,7 +55,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         }
 
         /// <summary>
-        /// Gets the events element map.
+        /// Gets the navigation element map.
         /// </summary>
         /// <value>An initialized instance of events element map.</value>
         public NavigationMap Navigation
@@ -76,6 +77,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the news element map.
+        /// </summary>
+        /// <value>An initialized instance of events element map.</value>
+        public NewsMap News
+        {
+            get
+            {
+                if (this.newsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.newsMap = new NewsMap(this.find);
+                }
+
+                return this.newsMap;
+            }
+
+            private set
+            {
+                this.newsMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -87,5 +111,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private Find find;
         private ContentMap contentMap;
         private NavigationMap navigationMap;
+        private NewsMap newsMap;
     }
 }

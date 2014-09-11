@@ -1,25 +1,23 @@
-﻿namespace ContentBlock.Mvc.Controllers
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.Web.Mvc;
+using ContentBlock.Mvc.Models;
+using ContentBlock.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Resources;
+using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI;
+
+namespace ContentBlock.Mvc.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Globalization;
-    using System.Web.Mvc;
-
-    using ContentBlock.Mvc.Models;
-    using ContentBlock.Mvc.StringResources;
-
-    using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
-    using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-    using Telerik.Sitefinity.Frontend.Resources;
-    using Telerik.Sitefinity.Localization;
-    using Telerik.Sitefinity.Modules.GenericContent;
-    using Telerik.Sitefinity.Mvc;
-    using Telerik.Sitefinity.Services;
-    using Telerik.Sitefinity.Utilities.TypeConverters;
-    using Telerik.Sitefinity.Web;
-    using Telerik.Sitefinity.Web.UI;
-
     /// <summary>
     ///     The content block controller
     /// </summary>
@@ -193,7 +191,7 @@
                 {
                     this.model = this.InitializeModel();
                     this.isEmpty = string.IsNullOrEmpty(this.model.Content);
-                    this.SharedContentID = this.model.SharedContentId;
+                    this.SharedContentID = this.model.SharedContentID;
                 }
 
                 return this.model;
@@ -226,18 +224,16 @@
 
         #region Explicit Interface Methods
 
-
         /// <summary>
         ///     Defines whether controls of same key will be
         ///     reloaded when this control is updated in the ZoneEditor
         /// </summary>
         /// <returns>True if a reload is required</returns>
         [Browsable(false)]
-        bool ShouldReloadControlsWithSameKey()
+        public bool ShouldReloadControlsWithSameKey()
         {
             return this.ShouldReloadControlsWithSameKey();
         }
-
 
         /// <summary>
         ///     Defines whether controls of same key will be

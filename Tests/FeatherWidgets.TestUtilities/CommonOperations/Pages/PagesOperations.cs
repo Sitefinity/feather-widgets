@@ -2,20 +2,36 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
+using System.Web.UI;
 using ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.Web.UI;
+using Telerik.Sitefinity.TestIntegration.Data.Content;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
     /// <summary>
     /// This class provides access to page operations
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class PagesOperations
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "3#")]
+        public void CreatePageWithControl(Control control, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index)
+        {
+            var controls = new List<System.Web.UI.Control>();
+            controls.Add(control);
+
+            this.locationGenerator = new PageContentGenerator();
+            var pageId = this.locationGenerator.CreatePage(
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageNamePrefix, index.ToString(CultureInfo.InvariantCulture)),
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", pageTitlePrefix, index.ToString(CultureInfo.InvariantCulture)),
+                                    string.Format(CultureInfo.InvariantCulture, "{0}{1}", urlNamePrefix, index.ToString(CultureInfo.InvariantCulture)));
+
+            PageContentGenerator.AddControlsToPage(pageId, controls);
+        }
+
         /// <summary>
         /// Adds content block widget to existing page
         /// </summary>
@@ -37,7 +53,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                     Content = html
                 });
 
-                this.CreateControl(pageManager, page, mvcWidget);
+                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock");
             }
         }
 
@@ -67,8 +83,35 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                     SharedContentID = content.Id
                 });
 
-                this.CreateControl(pageManager, page, mvcWidget);
+                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock");
             }
+        }
+
+        /// <summary>
+        /// Adds news widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        public void AddNewsWidgetToPage(Guid pageId)
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = "News.Mvc.Controllers.NewsController";
+
+                this.CreateControl(pageManager, page, mvcWidget, "News");
+            }
+        }
+
+        /// <summary>
+        /// Deletes the pages.
+        /// </summary>
+        public void DeletePages()
+        {
+            this.locationGenerator.Dispose();
         }
 
         /// <summary>
@@ -77,10 +120,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <param name="pageManager">The page manager.</param>
         /// <param name="page">The page.</param>
         /// <param name="mvcWidget">The MVC widget.</param>
-        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget)
+        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget, string widgetCaption)
         {
             var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
-            draftControlDefault.Caption = this.ContentBlockCaption;
+            draftControlDefault.Caption = widgetCaption;
             pageManager.SetControlDefaultPermissions(draftControlDefault);
             page.Controls.Add(draftControlDefault);
 
@@ -88,6 +131,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             pageManager.SaveChanges();
         }
 
-        private string ContentBlockCaption = "ContentBlock";
+        private PageContentGenerator locationGenerator;
     }
 }

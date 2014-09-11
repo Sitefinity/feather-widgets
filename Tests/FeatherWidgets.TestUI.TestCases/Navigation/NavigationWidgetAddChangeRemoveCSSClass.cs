@@ -27,23 +27,23 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Navigation().MoreOptions();
-            BATFeather.Wrappers().Backend().Navigation().FillCSSClass(CssClass);
-            BATFeather.Wrappers().Backend().Navigation().SaveChanges();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().MoreOptions();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().FillCSSClass(CssClass);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Navigation().MoreOptions();
-            BATFeather.Wrappers().Backend().Navigation().VerifyCSSClass(CssClass);
-            BATFeather.Wrappers().Backend().Navigation().FillCSSClass(NewCssClass);
-            BATFeather.Wrappers().Backend().Navigation().SaveChanges();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().MoreOptions();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().VerifyCSSClass(CssClass);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().FillCSSClass(NewCssClass);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Navigation().MoreOptions();
-            BATFeather.Wrappers().Backend().Navigation().VerifyCSSClass(EditedCssClass);
-            BATFeather.Wrappers().Backend().Navigation().RemoveCSSClass();
-            BATFeather.Wrappers().Backend().Navigation().SaveChanges();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().MoreOptions();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().VerifyCSSClass(EditedCssClass);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().RemoveCSSClass();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Navigation().MoreOptions();
-            BATFeather.Wrappers().Backend().Navigation().VerifyCSSClass(EmptyCssClass);
-            BATFeather.Wrappers().Backend().Navigation().SaveChanges();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().MoreOptions();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().VerifyCSSClass(EmptyCssClass);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
 
