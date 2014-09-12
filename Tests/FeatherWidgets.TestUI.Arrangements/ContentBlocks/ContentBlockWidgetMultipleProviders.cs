@@ -31,12 +31,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.ContentBlocks().DeleteAllContentBlocks(SecondProviderName);
-
-            // this deletes items from the default provider
             ServerOperations.ContentBlocks().DeleteAllContentBlocks();
-
             ServerOperations.Pages().DeleteAllPages();
-
             ServerOperations.ContentBlocks().RemoveSecondDataProvider();
         }
 
