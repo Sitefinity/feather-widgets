@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 
@@ -11,7 +12,7 @@ namespace News.Mvc.Models
     /// <summary>
     /// Classes that implement this interface could be used as model for the News widget.
     /// </summary>
-    public interface INewsModel
+    public interface INewsModel : ICacheDependable
     {
         /// <summary>
         /// Gets the list of news to be displayed inside the widget.

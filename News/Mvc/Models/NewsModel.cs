@@ -219,6 +219,30 @@ namespace News.Mvc.Models
             return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
         }
 
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        public virtual IList<CacheDependencyKey> GetKeysOfDependentObjects()
+        {
+            var result = new List<CacheDependencyKey>(1);
+            if (this.DetailNews != null && this.DetailNews.Id != Guid.Empty)
+            {
+                result.Add(new CacheDependencyKey { Key = this.DetailNews.Id.ToString(), Type = typeof(NewsItem) });
+            }
+            else
+            {
+                result.Add(new CacheDependencyKey { Key = null, Type = typeof(NewsItem) });
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Private methods
