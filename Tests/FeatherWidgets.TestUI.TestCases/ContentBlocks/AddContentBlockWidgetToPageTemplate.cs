@@ -31,26 +31,20 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().ClickOnCreateNewTemplateBtn();
             BAT.Wrappers().Backend().PageTemplates().PageTemplateCreateScreen().SetTemplateName(TemplateName);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateCreateScreen().ClickOnCreateTemplateAndGoToAddContentBtn();
-
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().DragAndDropContentWidget(WidgetName, new PageTemplateModifyWrapper.ContainerElement(0, 0));
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
-
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
-
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenCreatePageWindow();
             BAT.Wrappers().Backend().Pages().CreatePageWrapper().SetPageTitle(PageName);
             BAT.Wrappers().Backend().Pages().CreatePageWrapper().ClickSelectAnotherTemplateButton();
             BAT.Wrappers().Backend().Pages().SelectTemplateWrapper().SelectATemplate(TemplateName);
             BAT.Wrappers().Backend().Pages().SelectTemplateWrapper().ClickDoneButton();
-
             BAT.Wrappers().Backend().Pages().PagesWrapper().SavePageDataAndContinue();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().WaitUntilReady();
-
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-
             this.NavigatePageOnTheFrontend(PageName);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }

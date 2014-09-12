@@ -26,21 +26,13 @@ namespace FeatherWidgets.TestUI
        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void ContentBlockWidgetMultipleProviders()
         {
-            this.AddProviderToTheSiteInMultitenancy();
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectContentBlockInProvider(SecondProviderName, ContentBlockName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-        
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();       
             this.NavigatePageOnTheFrontend(PageName);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
-        }
-
-        private void AddProviderToTheSiteInMultitenancy()
-        {
-            string elementId = "_configureModulesView_change_Telerik_Sitefinity_Modules_GenericContent_ContentManager";
-            BAT.Wrappers().Backend().Multisite().MultisiteWrapper().AddProviderToSite(elementId, SecondProviderName, Manager.Current.Log);
         }
 
         /// <summary>
