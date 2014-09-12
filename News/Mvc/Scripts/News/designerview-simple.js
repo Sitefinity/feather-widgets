@@ -3,7 +3,7 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
-        $scope.taxonFilters = "";
+        $scope.taxonFilters = {};
         $scope.selectedTaxonomies = [];
 
         $scope.$watch(
