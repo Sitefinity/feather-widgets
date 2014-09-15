@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+
 using News.Mvc.Models;
 using News.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Web;
 
 namespace News.Mvc.Controllers
 {
@@ -21,7 +20,7 @@ namespace News.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "News", Title = "News", SectionName = "MvcWidgets")]
     [Localization(typeof(NewsWidgetResources))]
-    public class NewsController : Controller, IUrlMappingController, IContentLocatableView
+    public class NewsController : Controller, IContentLocatableView
     {
         #region Properties
 
@@ -56,47 +55,6 @@ namespace News.Mvc.Controllers
             set
             {
                 this.detailTemplateName = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the template for the URL of the List view that will be used with higher priority.
-        /// </summary>
-        /// <value>
-        /// The master route template.
-        /// </value>
-        public string MasterRouteTemplate
-        {
-            get 
-            {
-                return this.masterRouteTemplate;
-            }
-
-            set 
-            {
-                this.masterRouteTemplate = value;
-            }
-        }
-
-        /// <inheritdoc />
-        [Browsable(false)]
-        public IUrlParamsMapper UrlParamsMapper
-        {
-            get 
-            {
-                if (this.urlParamsMapper == null)
-                {
-                    this.urlParamsMapper = new DetailActionParamsMapper<NewsItem>(this);
-
-                    this.urlParamsMapper
-                        .SetNext(new CustomActionParamsMapper(this, () => this.MasterRouteTemplate, "ListByTaxon"))
-                        .SetNext(new CustomActionParamsMapper(this, () => "/{taxonFilter:category,tag}/{page}", "ListByTaxon"))
-                        .SetNext(new CustomActionParamsMapper(this, () => "/{taxonFilter:category,tag}", "ListByTaxon"))
-                        .SetNext(new CustomActionParamsMapper(this, () => "/{page}", "Index"))
-                        .SetNext(new DefaultUrlParamsMapper(this));
-                }
-
-                return this.urlParamsMapper;
             }
         }
 
@@ -166,6 +124,26 @@ namespace News.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets or sets the name of the provider.
+        /// </summary>
+        /// <value>
+        /// The name of the provider.
+        /// </value>
+        [Browsable(false)]
+        public string ProviderName
+        {
+            get
+            {
+                return this.Model.ProviderName;
+            }
+
+            set
+            {
+                this.Model.ProviderName = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the News widget model.
         /// </summary>
         /// <value>
@@ -218,7 +196,7 @@ namespace News.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             var fieldName = this.GetExpectedTaxonFieldName(taxonFilter);
-            this.ViewBag.RedirectPageUrlTemplate = "/" + fieldName + "/{0}";
+            this.ViewBag.RedirectPageUrlTemplate = "/" + taxonFilter.UrlName + "/{0}";
             this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
 
             this.Model.PopulateNews(taxonFilter, fieldName, page);
@@ -309,8 +287,6 @@ namespace News.Mvc.Controllers
         private string detailTemplateNamePrefix = "Detail.";
         private bool openInSamePage = true;
 
-        private string masterRouteTemplate = "/{taxonFilter:category,tag}/{page}";
-        private IUrlParamsMapper urlParamsMapper;
         private bool? disableCanonicalUrlMetaTag;
         private string detailsPageUrl;
 
