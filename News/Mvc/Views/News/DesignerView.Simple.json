@@ -9,7 +9,7 @@
 	"Services/flat-taxon-service.js",
 	"Services/taxonomy-service.js",
 	"Selectors/selectors.js",
-	"Selectors/flat-selector.js",
+	"Selectors/list-selector.js",
 	"Selectors/content-selector.js",
 	"Selectors/taxon-selector.js",
 	"Selectors/taxon-filter.js"
