@@ -115,6 +115,8 @@
         </div>
 
         <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name ="{{properties.ListTemplateName.PropertyValue}}"></style-dropdown>
+
             <div class="form-group">
                 <label for="navCssClass">@Html.Resource("CssClasses")</label>
                 <input type="text" id="navCssClass" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
@@ -157,7 +159,9 @@
             </select>
         </div>
 
-        <expander expander-title='@Html.Resource("MoreOptions")'>
+        <expander expander-title='@Html.Resource("MoreOptions")'>          
+            <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="{{properties.DetailTemplateName.PropertyValue}}"></style-dropdown>
+
             <div class="form-group">
                 <label for="newsCssClass">@Html.Resource("CssClasses")</label>
                 <input type="text" id="newsCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
