@@ -1,12 +1,10 @@
 @model Navigation.Mvc.Models.INavigationModel
 @using Navigation.Mvc.Models;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
 
 @*Add scripts and stylesheets*@
-@if (!SitefinityContext.IsBackend)
-{
-    @Html.Script("//code.jquery.com/jquery-1.8.3.min.js")
-}
+@Html.Script(ScriptRef.JQuery)
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"))
 
