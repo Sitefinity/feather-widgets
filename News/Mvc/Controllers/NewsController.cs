@@ -227,6 +227,7 @@ namespace News.Mvc.Controllers
         /// <returns>
         /// List of location info of the content that this control is able to show.
         /// </returns>
+        [NonAction]
         public IEnumerable<IContentLocationInfo> GetLocations()
         {
             var location = new ContentLocationInfo();

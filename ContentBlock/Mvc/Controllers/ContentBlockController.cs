@@ -208,6 +208,7 @@ namespace ContentBlock.Mvc.Controllers
         /// </summary>
         /// <returns>True if a reload is required</returns>
         [Browsable(false)]
+        [NonAction]
         public bool ShouldReloadControlsWithSameKey()
         {
             return this.ShouldReloadControlsWithSameKey();
