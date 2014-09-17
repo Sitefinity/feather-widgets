@@ -127,6 +127,7 @@ namespace Navigation.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
+        [ChildActionOnly]
         public ActionResult GetView(string viewName, INavigationModel model)
         {
             return this.PartialView(viewName, model);
