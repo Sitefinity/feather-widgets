@@ -34,8 +34,7 @@
                     @Html.Resource("SelectedNews")
                 </label>
 
-                <list-selector content-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedNews'"
-                                  item-type="Telerik.Sitefinity.News.Model.NewsItem"
+                <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedNews'"
                                   provider="properties.ProviderName.PropertyValue"
                                   selected-item-id ="properties.SelectedNewsId.PropertyValue"></list-selector>
             </li>
