@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using FeatherWidgets.TestUtilities.CommonOperations;
-using FeatherWidgets.TestUtilities.CommonOperations.ActionFilters;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
 using News.Mvc.Models;
+using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.ActionFilters;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.TestUtilities;
