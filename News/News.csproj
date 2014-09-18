@@ -70,9 +70,9 @@
     <Reference Include="Telerik.Sitefinity.Forums">
       <HintPath>..\packages\Telerik.Sitefinity.Content.7.1.5208.0\lib\net40\Telerik.Sitefinity.Forums.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=0.5.1000.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Frontend">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\feather\Telerik.Sitefinity.Frontend\bin\Debug\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <HintPath>..\packages\Telerik.Sitefinity.Core.7.1.5208.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
