@@ -3,16 +3,8 @@
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.News.NewsManager.GetManager())'>
 </server-data>
 
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#content" role="tab" data-toggle="tab">@Html.Resource("Content")</a></li>
-  <li><a href="#listSettings" role="tab" data-toggle="tab">@Html.Resource("ListSettings")</a></li>
-  <li><a href="#itemSettings" role="tab" data-toggle="tab">@Html.Resource("SingleItemSettings")</a></li>
-</ul>
-
-<div class="tab-content">
-
-    <div class="tab-pane active" id="content">
-
+<tabset>
+    <tab heading="@Html.Resource("Content")">
         <h4 class="m-top-md">@Html.Resource("NewsToDisplay")</h4>
 
         <provider-selector manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
@@ -49,9 +41,9 @@
                 </label>
             </li>
         </ul>
-    </div>
+    </tab>
 
-    <div class="tab-pane" id="listSettings">
+    <tab heading="@Html.Resource("ListSettings")">
         <ul class="form-group">
             <li class="radio">
                 <label for="usePaging">
@@ -118,9 +110,9 @@
                 <input type="text" id="navCssClass" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
-    </div>
+    </tab>
 
-    <div class="tab-pane" id="itemSettings">
+    <tab heading="@Html.Resource("SingleItemSettings")">
         <div>
             <strong>@Html.Resource("OpenSingleItem")</strong>
             <ul class="form-group">
@@ -163,6 +155,5 @@
                 <input type="text" id="newsCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
-    </div>
-
-</div>
+    </tab>
+</tabset>
