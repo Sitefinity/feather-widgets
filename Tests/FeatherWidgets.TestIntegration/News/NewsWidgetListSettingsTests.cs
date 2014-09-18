@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestIntegration.News
         [TearDown]
         public void TearDown()
         {
-            this.pageOperations.DeletePages();
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();            
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace FeatherWidgets.TestIntegration.News
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
+                this.pageOperations.DeletePages();
             }
         }
 
@@ -132,7 +132,7 @@ namespace FeatherWidgets.TestIntegration.News
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
+                this.pageOperations.DeletePages();
             }
         }
 
@@ -174,8 +174,32 @@ namespace FeatherWidgets.TestIntegration.News
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
+                this.pageOperations.DeletePages();
             }
+        }
+
+        /// <summary>
+        /// News widget - test Sort news functionality 
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        public void NewsWidget_VerifySortNewsFunctionality()
+        {
+            string sortExpession = "Title ASC";
+            string[] newsTitles = { "Cat", "Boat", "Angel" };
+
+            var newsController = new NewsController();
+            newsController.Model.DisplayMode = ListDisplayMode.Limit;
+            newsController.Model.SortExpression = sortExpession;
+
+            for (int i = 0; i < newsTitles.Length; i++)
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(newsTitles[i]);
+
+                newsController.Index(null);
+
+                for (int i = newsTitles.Length; i <= 1; i--)
+                    for (int j = 1; j >= newsController.Model.News.Count; j++)
+                       Assert.IsTrue(newsController.Model.News[j].Equals(newsTitles[i]), "The news with this title was not found!");
         }
 
         #region Fields and constants
