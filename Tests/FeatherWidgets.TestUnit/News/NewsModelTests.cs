@@ -28,6 +28,7 @@ namespace FeatherWidgets.TestUnit.News
             model.SelectionMode = NewsSelectionMode.FilteredNews;
             model.TaxonomyFilter = new Dictionary<string, IList<Guid>>();
             model.TaxonomyFilter["Tags"] = new List<Guid>() { tag1Id, tag2Id };
+            model.SerializedSelectedTaxonomies = "[\"Tags\"]";
             model.FilterExpression = "MyField = 5";
 
             var result = model.CompileFilterExpression();

@@ -33,23 +33,19 @@
 
                     @Html.Resource("SelectedNews")
                 </label>
-                <content-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedNews'"
-                                  item-type="Telerik.Sitefinity.News.Model.NewsItem"
-                                  item-provider="properties.ProviderName.PropertyValue"
-                                  selected-item-id ="properties.SelectedNewsId.PropertyValue"></content-selector>
+
+                <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedNews'"
+                                  provider="properties.ProviderName.PropertyValue"
+                                  selected-item-id ="properties.SelectedNewsId.PropertyValue"></list-selector>
             </li>
             <li class="radio">
                 <label for="filterNews">
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredNews" />
 
                     @Html.Resource("NarrowSelection")
-                    <div class="checkbox">
-                        <label for="tagFilter">
-                            <input id="tagFilter" type="checkbox" ng-disabled="properties.SelectionMode.PropertyValue!='FilteredNews'"/>
-
-                             @Html.Resource("Tags")
-                        </label>
-                    </div>
+                    <taxon-filter taxon-filters="taxonFilters" selected-taxonomies="selectedTaxonomies" 
+                        provider="properties.ProviderName.PropertyValue"
+                        ng-show="properties.SelectionMode.PropertyValue=='FilteredNews'"></taxon-filter>
                 </label>
             </li>
         </ul>
