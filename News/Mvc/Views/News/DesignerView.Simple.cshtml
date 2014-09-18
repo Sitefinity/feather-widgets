@@ -118,7 +118,7 @@
             <ul class="form-group">
                 <li class="radio">
                     <label for="samePage">
-                        <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
+                        <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
                         <span>
                             @Html.Resource("ShowInSamePage")
                         </span>
@@ -126,7 +126,7 @@
                 </li>
                 <li class="radio">
                     <label for="existingPage">
-                        <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
+                        <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
                         <span>
                             @Html.Resource("ShowInExistingPage")<br />
                             <input type="text" ng-model="properties.DetailsPageUrl.PropertyValue" />
