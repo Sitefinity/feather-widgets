@@ -6,8 +6,13 @@
 	"Mvc/Scripts/style-dropdown.js",
 	"Mvc/Scripts/Angular/angular-resource.min.js",
 	"Services/services.js",
-	"Services/generic-data-service.js",
+	"Services/news-item-service.js",
+	"Services/flat-taxon-service.js",
+	"Services/taxonomy-service.js",
 	"Selectors/selectors.js",
-	"Selectors/content-selector.js"
+	"Selectors/list-selector.js",
+	"Selectors/news-selector.js",
+	"Selectors/taxon-selector.js",
+	"Selectors/taxon-filter.js"
   ]
 }
