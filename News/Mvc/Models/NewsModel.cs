@@ -140,6 +140,12 @@ namespace News.Mvc.Models
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the taxonomy filter.
+        /// </summary>
+        /// <value>
+        /// The taxonomy filter.
+        /// </value>
         [Browsable(false)]
         public Dictionary<string, IList<Guid>> TaxonomyFilter
         {
@@ -147,6 +153,7 @@ namespace News.Mvc.Models
             set;
         }
 
+        /// <inheritdoc />
         public string SerializedTaxonomyFilter
         {
             get
@@ -162,6 +169,27 @@ namespace News.Mvc.Models
                     if (!this.serializedTaxonomyFilter.IsNullOrEmpty())
                     {
                         this.TaxonomyFilter = JsonSerializer.DeserializeFromString<Dictionary<string, IList<Guid>>>(this.serializedTaxonomyFilter);
+                    }
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public string SerializedSelectedTaxonomies
+        {
+            get
+            {
+                return this.serializedSelectedTaxonomies;
+            }
+
+            set
+            {
+                if (this.serializedSelectedTaxonomies != value)
+                {
+                    this.serializedSelectedTaxonomies = value;
+                    if (!this.serializedSelectedTaxonomies.IsNullOrEmpty())
+                    {
+                        this.selectedTaxonomies = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedTaxonomies);
                     }
                 }
             }
@@ -351,7 +379,7 @@ namespace News.Mvc.Models
             var taxonomyFilterExpression = string.Join(
                 " AND ",
                 this.TaxonomyFilter
-                    .Where(tf => tf.Value.Count > 0)
+                    .Where(tf => (tf.Value.Count > 0 && this.selectedTaxonomies.Contains(tf.Key)))
                     .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")"));
 
             return taxonomyFilterExpression;
@@ -375,6 +403,8 @@ namespace News.Mvc.Models
 
         private NewsManager manager;
         private string serializedTaxonomyFilter;
+        private string serializedSelectedTaxonomies;
+        private IList<string> selectedTaxonomies = new List<string>();
 
         #endregion
     }
