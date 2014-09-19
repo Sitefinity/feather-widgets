@@ -1,4 +1,4 @@
-@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.News.NewsManager.GetManager())'>
 </server-data>
@@ -35,7 +35,9 @@
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredNews" />
 
                     @Html.Resource("NarrowSelection")
-                    <taxon-filter taxon-filters="taxonFilters" selected-taxonomies="selectedTaxonomies" 
+                    <taxon-filter taxon-filters="taxonFilters" 
+                        taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
+                        selected-taxonomies="selectedTaxonomies"
                         provider="properties.ProviderName.PropertyValue"
                         ng-show="properties.SelectionMode.PropertyValue=='FilteredNews'"></taxon-filter>
                 </label>
