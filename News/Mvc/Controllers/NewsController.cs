@@ -124,26 +124,6 @@ namespace News.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the name of the provider.
-        /// </summary>
-        /// <value>
-        /// The name of the provider.
-        /// </value>
-        [Browsable(false)]
-        public string ProviderName
-        {
-            get
-            {
-                return this.Model.ProviderName;
-            }
-
-            set
-            {
-                this.Model.ProviderName = value;
-            }
-        }
-
-        /// <summary>
         /// Gets the News widget model.
         /// </summary>
         /// <value>

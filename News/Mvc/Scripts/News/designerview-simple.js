@@ -26,6 +26,17 @@
             true
         );
 
+        $scope.$watch(
+	        'properties.ProviderName.PropertyValue',
+	        function (newProviderName, oldProviderName) {
+	            if (newProviderName !== oldProviderName) {
+	                $scope.properties.SelectionMode.PropertyValue = 'AllNews';
+	                $scope.properties.SelectedNewsId.PropertyValue = null;
+	            }
+	        },
+	        true
+        );
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
