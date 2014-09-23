@@ -22,6 +22,11 @@
         <!--
             <PackageSource Include="https://my-nuget-source/nuget/" />
         -->
+
+      <!-- Feather: These are local feeds for our testing environment. -->
+      <PackageSource Include="http://localhost:8088/nuget/" />
+      <PackageSource Include="http://192.168.61.35:9090/nuget/" />
+
       <PackageSource Include="https://www.nuget.org/api/v2/" />
       <PackageSource Include="http://nuget.sitefinity.com/nuget/" />
     </ItemGroup>
