@@ -49,7 +49,7 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.AllNews;
+            newsController.Model.SelectionMode = NewsSelectionMode.AllItems;
             mvcProxy.Settings = new ControllerSettings(newsController);
 
             try

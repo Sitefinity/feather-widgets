@@ -198,8 +198,8 @@ namespace FeatherWidgets.TestIntegration.News
                 newsController.Index(null);
 
                 for (int i = newsTitles.Length; i <= 1; i--)
-                    for (int j = 1; j >= newsController.Model.News.Count; j++)
-                       Assert.IsTrue(newsController.Model.News[j].Equals(newsTitles[i]), "The news with this title was not found!");
+                    for (int j = 1; j >= newsController.Model.Items.Count; j++)
+                       Assert.IsTrue(newsController.Model.Items[j].Equals(newsTitles[i]), "The news with this title was not found!");
         }
 
         #region Fields and constants

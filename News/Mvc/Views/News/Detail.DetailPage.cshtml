@@ -8,21 +8,21 @@
 
 <div class="@Model.DetailCssClass">
 @{
-    using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", Model.DetailNews.Id))
+    using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", Model.DetailItem.Id))
     {
         <h1>
-            @Html.TextField("Title", Model.DetailNews.Title, "ShortText")
+            @Html.TextField("Title", Model.DetailItem.Title, "ShortText")
         </h1>
         <div>
-            <span>@Model.DetailNews.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")</span>
+            <span>@Model.DetailItem.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")</span>
             <span>@Html.Resource("By")</span>
-            <span>@DataResolver.Resolve(@Model.DetailNews, "Author", null)</span>
+            <span>@DataResolver.Resolve(@Model.DetailItem, "Author", null)</span>
         </div>
         <div>
-            @Html.Raw(Html.TextField( "Summary", Model.DetailNews.Summary, "LongText"))
+            @Html.Raw(Html.TextField( "Summary", Model.DetailItem.Summary, "LongText"))
         </div>
         <div>
-            @Html.Raw(Html.TextField( "Content", Model.DetailNews.Content, "LongText"))
+            @Html.Raw(Html.TextField( "Content", Model.DetailItem.Content, "LongText"))
         </div>
     
         if (Model.EnableSocialSharing)

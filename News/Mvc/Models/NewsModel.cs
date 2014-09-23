@@ -22,16 +22,16 @@ namespace News.Mvc.Models
         #region Properties
 
         /// <inheritdoc />
-        public IList<NewsItem> News
+        public IList<NewsItem> Items
         {
             get
             {
-                return this.news;
+                return this.items;
             }
 
             private set
             {
-                this.news = value;
+                this.items = value;
             }
         }
 
@@ -50,14 +50,14 @@ namespace News.Mvc.Models
         }
 
         /// <inheritdoc />
-        public Guid SelectedNewsId
+        public Guid SelectedItemId
         {
             get;
             set;
         }
 
         /// <inheritdoc />
-        public NewsItem DetailNews
+        public NewsItem DetailItem
         {
             get;
             set;
@@ -200,7 +200,7 @@ namespace News.Mvc.Models
         #region Public methods
 
         /// <inheritdoc />
-        public virtual void PopulateNews(ITaxon taxonFilter, string taxonField, int? page)
+        public virtual void PopulateItems(ITaxon taxonFilter, string taxonField, int? page)
         {
             this.InitializeManager();
 
@@ -214,7 +214,7 @@ namespace News.Mvc.Models
 
             this.ApplyListSettings(page, ref newsItems);
 
-            this.News = newsItems.ToArray();
+            this.Items = newsItems.ToArray();
         }
 
         /// <inheritdoc />
@@ -222,7 +222,7 @@ namespace News.Mvc.Models
         {
             var elements = new List<string>();
 
-            if (this.SelectionMode == NewsSelectionMode.FilteredNews)
+            if (this.SelectionMode == NewsSelectionMode.FilteredItems)
             {
                 var taxonomyFilterExpression = this.GetTaxonomyFilterExpression();
                 if (!taxonomyFilterExpression.IsNullOrEmpty())
@@ -230,7 +230,7 @@ namespace News.Mvc.Models
                     elements.Add(taxonomyFilterExpression);
                 }
             }
-            else if (this.SelectionMode == NewsSelectionMode.SelectedNews)
+            else if (this.SelectionMode == NewsSelectionMode.SelectedItems)
             {
                 var selectedItemsFilterExpression = this.GetSelectedItemsFilterExpression();
                 if (!selectedItemsFilterExpression.IsNullOrEmpty())
@@ -259,9 +259,9 @@ namespace News.Mvc.Models
         public virtual IList<CacheDependencyKey> GetKeysOfDependentObjects()
         {
             var result = new List<CacheDependencyKey>(1);
-            if (this.DetailNews != null && this.DetailNews.Id != Guid.Empty)
+            if (this.DetailItem != null && this.DetailItem.Id != Guid.Empty)
             {
-                result.Add(new CacheDependencyKey { Key = this.DetailNews.Id.ToString(), Type = typeof(NewsItem) });
+                result.Add(new CacheDependencyKey { Key = this.DetailItem.Id.ToString(), Type = typeof(NewsItem) });
             }
             else
             {
@@ -387,7 +387,7 @@ namespace News.Mvc.Models
 
         private string GetSelectedItemsFilterExpression()
         {
-            var selectedItemIds = new List<Guid>() { this.SelectedNewsId };
+            var selectedItemIds = new List<Guid>() { this.SelectedItemId };
 
             var selectedItemsFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "Id = " + id));
             return selectedItemsFilterExpression;
@@ -397,7 +397,7 @@ namespace News.Mvc.Models
 
         #region Privte properties and constants
 
-        private IList<NewsItem> news = new List<NewsItem>();
+        private IList<NewsItem> items = new List<NewsItem>();
         private int? itemsPerPage = 20;
         private string sortExpression = "PublicationDate DESC";
 

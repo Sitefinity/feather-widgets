@@ -30,8 +30,8 @@
 	        'properties.ProviderName.PropertyValue',
 	        function (newProviderName, oldProviderName) {
 	            if (newProviderName !== oldProviderName) {
-	                $scope.properties.SelectionMode.PropertyValue = 'AllNews';
-	                $scope.properties.SelectedNewsId.PropertyValue = null;
+	                $scope.properties.SelectionMode.PropertyValue = 'AllItems';
+	                $scope.properties.SelectedItemId.PropertyValue = null;
 	            }
 	        },
 	        true

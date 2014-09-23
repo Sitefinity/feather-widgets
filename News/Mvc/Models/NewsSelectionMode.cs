@@ -1,26 +1,26 @@
 ﻿namespace News.Mvc.Models
 {
     /// <summary>
-    /// The rendering options for the News widget. 
+    /// The rendering options for the widget. 
     /// </summary>
     /// <remarks>
-    /// Each option describes different selection of items that will be included while rendering the News widget.
+    /// Each option describes different selection of items that will be included while rendering the widget.
     /// </remarks>
     public enum NewsSelectionMode
     {
         /// <summary>
-        /// Refers to all News items.
+        /// Refers to all items.
         /// </summary>
-        AllNews, 
+        AllItems, 
 
         /// <summary>
-        /// Refers to custom selection of pages.
+        /// Refers to custom selection of items.
         /// </summary>
-        SelectedNews,
+        SelectedItems,
 
         /// <summary>
-        /// The filtered news.
+        /// Refers to filtered items based on a custom criteria.
         /// </summary>
-        FilteredNews
+        FilteredItems
     }
 }

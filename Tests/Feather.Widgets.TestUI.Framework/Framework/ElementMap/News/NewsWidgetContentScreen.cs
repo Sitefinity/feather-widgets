@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         {
             get
             {
-                return this.Get<HtmlUnorderedList>("tagname=ul", "class=form-group");
+                return this.Get<HtmlUnorderedList>("tagname=ul", "class=form-group ng-scope");
             }
         }
 
@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         {
             get
             {
-                return this.Get<HtmlButton>("tagname=button", "InnerText=Select");
+                return this.Get<HtmlButton>("tagname=button", "class=btn btn-xs btn-default openSelectorBtn");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         {
             get
             {
-                return this.Get<HtmlDiv>("tagname=div", "class=list-group s-items-list-wrp");
+                return this.Get<HtmlDiv>("tagname=div", "class=list-group s-items-list-wrp endlessScroll");
             }
         }
 

@@ -68,9 +68,9 @@ namespace FeatherWidgets.TestIntegration.News
 
             newsController.Index(1);
 
-            Assert.AreEqual(this.newsCount, newsController.Model.News.Count, "The count of the news item is not as expected");
+            Assert.AreEqual(this.newsCount, newsController.Model.Items.Count, "The count of the news item is not as expected");
 
-            var expectedDetailNews = newsController.Model.News[0];
+            var expectedDetailNews = newsController.Model.Items[0];
             string detailNewsUrl = pageUrl + expectedDetailNews.ItemDefaultUrl;
 
             ActionExecutionRegister.ExecutedActionInfos.Clear();
@@ -106,9 +106,9 @@ namespace FeatherWidgets.TestIntegration.News
             newsController.Index(1);
 
             Assert.AreEqual(secondPageUrl, newsController.ViewBag.DetailsPageUrl, "The second page URL is not provided correctly to the list view");
-            Assert.AreEqual(this.newsCount, newsController.Model.News.Count, "The count of the news item is not as expected");
+            Assert.AreEqual(this.newsCount, newsController.Model.Items.Count, "The count of the news item is not as expected");
 
-            var expectedDetailNews = newsController.Model.News[0];
+            var expectedDetailNews = newsController.Model.Items[0];
             string detailNewsUrl = secondPageUrl + expectedDetailNews.ItemDefaultUrl;
 
             ActionExecutionRegister.ExecutedActionInfos.Clear();
@@ -128,7 +128,7 @@ namespace FeatherWidgets.TestIntegration.News
             Assert.IsNotNull(newsItem, "The news item is not provided correctly.");
             Assert.AreEqual(expectedDetailNews.Id, newsItem.Id, "The correct news item is not provided");
             var viewModel = (actionInfo.Result as ViewResult).Model as INewsModel;
-            Assert.AreEqual(expectedDetailNews.Id, viewModel.DetailNews.Id, "The news item id is not provided correctly to the DetailNews property");
+            Assert.AreEqual(expectedDetailNews.Id, viewModel.DetailItem.Id, "The news item id is not provided correctly to the DetailNews property");
         }
 
         #endregion

@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUnit.News
             var tag2Id = new Guid("cb4009e1-e971-49c6-9024-c7d41050639d");
 
             var model = new NewsModel();
-            model.SelectionMode = NewsSelectionMode.FilteredNews;
+            model.SelectionMode = NewsSelectionMode.FilteredItems;
             model.TaxonomyFilter = new Dictionary<string, IList<Guid>>();
             model.TaxonomyFilter["Tags"] = new List<Guid>() { tag1Id, tag2Id };
             model.SerializedSelectedTaxonomies = "[\"Tags\"]";
