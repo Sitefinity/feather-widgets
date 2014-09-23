@@ -3,11 +3,10 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
-        $scope.taxonFilters = {};
-        $scope.selectedTaxonomies = [];
+        $scope.taxonSelector = { selectedTaxonomies: [] , taxonFilters :{}};
 
         $scope.$watch(
-            'taxonFilters',
+            'taxonSelector.taxonFilters',
             function (newTaxonFilters, oldTaxonFilters) {
                 if (newTaxonFilters !== oldTaxonFilters) {
                     $scope.properties.SerializedTaxonomyFilter.PropertyValue = JSON.stringify(newTaxonFilters);
@@ -17,7 +16,7 @@
         );
 
         $scope.$watch(
-            'selectedTaxonomies',
+            'taxonSelector.selectedTaxonomies',
             function (newSelectedTaxonomies, oldSelectedTaxonomies) {
                 if (newSelectedTaxonomies !== oldSelectedTaxonomies) {
                     $scope.properties.SerializedSelectedTaxonomies.PropertyValue = JSON.stringify(newSelectedTaxonomies);
@@ -42,11 +41,11 @@
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    $scope.selectedTaxonomies = $.parseJSON($scope.properties.SerializedSelectedTaxonomies.PropertyValue);
+                    $scope.taxonSelector.selectedTaxonomies = $.parseJSON($scope.properties.SerializedSelectedTaxonomies.PropertyValue);
                     var taxonFilters = $.parseJSON($scope.properties.SerializedTaxonomyFilter.PropertyValue);
 
                     if (taxonFilters) {
-                        $scope.taxonFilters = taxonFilters;
+                        $scope.taxonSelector.taxonFilters = taxonFilters;
                     }
                 }
             },
