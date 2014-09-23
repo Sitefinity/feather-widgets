@@ -15,31 +15,31 @@
         <ul class="form-group">
             <li class="radio">
                 <label for="allNews">
-                    <input id="allNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllNews" />
+                    <input id="allNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
                     @Html.Resource("AllPublishedNews")
                 </label>
             </li>
             <li class="radio">
                 <label for="selectedNews">
-                    <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedNews" />
+                    <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
 
                     @Html.Resource("SelectedNews")
                 </label>
 
-                <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedNews'"
+                <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
                                   provider="properties.ProviderName.PropertyValue"
-                                  selected-item-id ="properties.SelectedNewsId.PropertyValue"></list-selector>
+                                  selected-item-id ="properties.SelectedItemId.PropertyValue"></list-selector>
             </li>
             <li class="radio">
                 <label for="filterNews">
-                    <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredNews" />
+                    <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
                     <taxon-filter taxon-filters="taxonFilters" 
                         taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
                         selected-taxonomies="selectedTaxonomies"
                         provider="properties.ProviderName.PropertyValue"
-                        ng-show="properties.SelectionMode.PropertyValue=='FilteredNews'"></taxon-filter>
+                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></taxon-filter>
                 </label>
             </li>
         </ul>

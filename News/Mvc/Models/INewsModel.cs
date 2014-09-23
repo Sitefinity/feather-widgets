@@ -15,13 +15,13 @@ namespace News.Mvc.Models
     public interface INewsModel : ICacheDependable
     {
         /// <summary>
-        /// Gets the list of news to be displayed inside the widget.
+        /// Gets the list of items to be displayed inside the widget.
         /// </summary>
         /// <value>
-        /// The news collection.
+        /// The items collection.
         /// </value>
         [Browsable(false)]
-        IList<NewsItem> News { get; }
+        IList<NewsItem> Items { get; }
 
         /// <summary>
         /// Gets the list of news to be displayed inside the widget when option "Selected news" is enabled.
@@ -29,10 +29,10 @@ namespace News.Mvc.Models
         /// <value>
         /// The selected news items.
         /// </value>
-        Guid SelectedNewsId { get; set; }
+        Guid SelectedItemId { get; set; }
 
         /// <summary>
-        /// Gets or sets the CSS class that will be applied on the wrapper div of the NewsWidget when it is in List view.
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.
         /// </summary>
         /// <value>
         /// The CSS class.
@@ -40,16 +40,16 @@ namespace News.Mvc.Models
         string ListCssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets the detail news.
+        /// Gets or sets the detail item.
         /// </summary>
         /// <value>
         /// The detail news.
         /// </value>
         [Browsable(false)]
-        NewsItem DetailNews { get; set; }
+        NewsItem DetailItem { get; set; }
 
         /// <summary>
-        /// Gets or sets the CSS class that will be applied on the wrapper div of the NewsWidget when it is in Details view.
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in Details view.
         /// </summary>
         /// <value>
         /// The CSS class.
@@ -148,7 +148,7 @@ namespace News.Mvc.Models
         /// <param name="taxonFilter">The taxon that should be contained in the items.</param>
         /// <param name="taxonField">The taxon field.</param>
         /// <param name="page">The page.</param>
-        void PopulateNews(ITaxon taxonFilter, string taxonField, int? page);
+        void PopulateItems(ITaxon taxonFilter, string taxonField, int? page);
 
         /// <summary>
         /// Compiles a filter expression based on the widget settings.

@@ -158,7 +158,7 @@ namespace News.Mvc.Controllers
             this.ViewBag.RedirectPageUrlTemplate = "/{0}";
             this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
 
-            this.Model.PopulateNews(null, null, page);
+            this.Model.PopulateItems(null, null, page);
             this.AddCacheDependencies();
 
             return this.View(fullTemplateName, this.Model);
@@ -179,7 +179,7 @@ namespace News.Mvc.Controllers
             this.ViewBag.RedirectPageUrlTemplate = "/" + taxonFilter.UrlName + "/{0}";
             this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
 
-            this.Model.PopulateNews(taxonFilter, fieldName, page);
+            this.Model.PopulateItems(taxonFilter, fieldName, page);
             this.AddCacheDependencies();
 
             return this.View(fullTemplateName, this.Model);
@@ -194,7 +194,7 @@ namespace News.Mvc.Controllers
         public ActionResult Details(NewsItem newsItem)
         {
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
-            this.Model.DetailNews = newsItem;
+            this.Model.DetailItem = newsItem;
             this.ViewBag.Title = newsItem.Title;
             this.AddCacheDependencies();
 
