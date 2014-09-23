@@ -18,7 +18,7 @@ namespace News.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of News widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "News", Title = "News", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "News", Title = "News", SectionName = "MvcWidgets", ModuleName = "News")]
     [Localization(typeof(NewsWidgetResources))]
     public class NewsController : Controller, IContentLocatableView
     {
