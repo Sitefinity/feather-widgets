@@ -1,7 +1,7 @@
 The Feather Project
 =======
 
-This repository contains custom MVC widgets which are part of the [Feather project](http://projectfeather.sitefinity.com).
+This repository contains custom MVC widgets which are part of [Project Feather](http://projectfeather.sitefinity.com).
 
 # Related Repositories
 
