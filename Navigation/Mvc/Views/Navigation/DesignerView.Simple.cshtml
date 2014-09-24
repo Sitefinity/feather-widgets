@@ -47,6 +47,8 @@
 </div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name ="properties.TemplateName.PropertyValue"></style-dropdown>
+
     <div class="form-group">
         <label for="navCssClass">@Html.Resource("CssClasses")</label>
         <input type="text" id="navCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
