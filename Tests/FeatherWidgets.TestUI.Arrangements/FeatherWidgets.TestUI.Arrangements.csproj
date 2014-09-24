@@ -48,7 +48,7 @@
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.7.2.5300\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.7.2.5300.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
