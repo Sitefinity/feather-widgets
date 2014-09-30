@@ -62,6 +62,10 @@ function InstallFeatherPackages($featherPackageDirectory)
 		New-Item -ItemType directory -Path $resourcePackagesFolder
 	}
 	
-	Write-Output "----- Copy package ------"
-	Copy-Item $featherPackageDirectory $resourcePackagesFolder -recurse
+	Write-Output "----- Copy packages ------"
+	Get-ChildItem Bootstrap -path $featherPackagesDirectory | Copy-Item -destination $resourcePackagesFolder -recurse
+	Get-ChildItem Foundation -path $featherPackagesDirectory | Copy-Item -destination $resourcePackagesFolder -recurse
+	Get-ChildItem SemanticUI -path $featherPackagesDirectory | Copy-Item -destination $resourcePackagesFolder -recurse
+
+    Write-Output "----- Feather packages successfully installed ------"
 }
