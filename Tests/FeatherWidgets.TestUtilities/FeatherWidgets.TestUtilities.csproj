@@ -116,6 +116,7 @@
     <Compile Include="CommonOperations\PageInvoker.cs" />
     <Compile Include="CommonOperations\Pages\PagesOperations.cs" />
     <Compile Include="CommonOperations\ServerOperationsFeather.cs" />
+    <Compile Include="CommonOperations\Templates\TemplateOperations.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
