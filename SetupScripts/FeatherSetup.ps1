@@ -44,12 +44,12 @@ function InstallFeather($featherBinDirectory)
     Write-Output "----- Feather successfully installed ------"
 }
 
-function InstallFeatherWidgets($featherWidgetsBinDirectory, $featherNavigationWidgetBinDirectory, $featherNewsWidgetBinDirectory)
+function InstallFeatherWidgets($featherWidgetsDirectory)
 {
     Write-Output "Deploying feather widgets assembly to '$websiteBinariesDirectory'..."
-    Get-ChildItem ContentBlock.dll -recurse  -path $featherWidgetsBinDirectory | Copy-Item -destination $websiteBinariesDirectory
-	Get-ChildItem Navigation.dll -recurse  -path $featherNavigationWidgetBinDirectory | Copy-Item -destination $websiteBinariesDirectory
-	Get-ChildItem News.dll -recurse  -path $featherNewsWidgetBinDirectory | Copy-Item -destination $websiteBinariesDirectory
+    Get-ChildItem ContentBlock.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+	Get-ChildItem Navigation.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+	Get-ChildItem News.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
     InstallFeather $featherBinDirectory
 }
 
