@@ -99,15 +99,24 @@ namespace FeatherWidgets.TestIntegration.News
             var newsController = new NewsController();
             mvcProxy.Settings = new ControllerSettings(newsController);
 
+            PageManager pageManager = PageManager.GetManager();
+            int templatesCount = pageManager.GetTemplates().Count();
+
             var layoutTemplatePath = Path.Combine(this.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
             var newLayoutTemplatePath = Path.Combine(this.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
           
             try
             {               
                 File.Copy(layoutTemplatePath, newLayoutTemplatePath);
+                
+                ////Waitng to generate new page template
+                for (int i = 50; i > 0; --i)
+                {
+                    if (pageManager.GetTemplates().Count() == templatesCount + 1)
+                        break;
 
-                ////Waiting to generate template
-                Thread.Sleep(1000);
+                    Thread.Sleep(TimeSpan.FromMilliseconds(1000));
+                }
 
                 Guid templateId = this.GetTemplateIdByTitle(templateName);
 
