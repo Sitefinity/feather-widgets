@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.Model;
 
 namespace News.Mvc.Models
 {
@@ -147,7 +148,7 @@ namespace News.Mvc.Models
         /// The taxonomy filter.
         /// </value>
         [Browsable(false)]
-        public Dictionary<string, IList<Guid>> TaxonomyFilter
+        public QueryData TaxonomyFilter
         {
             get;
             set;
@@ -168,7 +169,7 @@ namespace News.Mvc.Models
                     this.serializedTaxonomyFilter = value;
                     if (!this.serializedTaxonomyFilter.IsNullOrEmpty())
                     {
-                        this.TaxonomyFilter = JsonSerializer.DeserializeFromString<Dictionary<string, IList<Guid>>>(this.serializedTaxonomyFilter);
+                        this.TaxonomyFilter = JsonSerializer.DeserializeFromString<QueryData>(this.serializedTaxonomyFilter);
                     }
                 }
             }
@@ -224,10 +225,11 @@ namespace News.Mvc.Models
 
             if (this.SelectionMode == NewsSelectionMode.FilteredItems)
             {
-                var taxonomyFilterExpression = this.GetTaxonomyFilterExpression();
-                if (!taxonomyFilterExpression.IsNullOrEmpty())
+                //var taxonomyFilterExpression = this.GetTaxonomyFilterExpression();
+                if (this.TaxonomyFilter != null)
                 {
-                    elements.Add(taxonomyFilterExpression);
+                    var queryExpression = Telerik.Sitefinity.Data.QueryBuilder.LinqTranslator.ToDynamicLinq(this.TaxonomyFilter);
+                    elements.Add(queryExpression);
                 }
             }
             else if (this.SelectionMode == NewsSelectionMode.SelectedItems)
@@ -374,16 +376,16 @@ namespace News.Mvc.Models
             }
         }
 
-        private string GetTaxonomyFilterExpression()
-        {
-            var taxonomyFilterExpression = string.Join(
-                " AND ",
-                this.TaxonomyFilter
-                    .Where(tf => (tf.Value.Count > 0 && this.selectedTaxonomies.Contains(tf.Key)))
-                    .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")"));
+        //private string GetTaxonomyFilterExpression()
+        //{
+        //    var taxonomyFilterExpression = string.Join(
+        //        " AND ",
+        //        this.TaxonomyFilter
+        //            .Where(tf => (tf.Value.Count > 0 && this.selectedTaxonomies.Contains(tf.Key)))
+        //            .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")"));
 
-            return taxonomyFilterExpression;
-        }
+        //    return taxonomyFilterExpression;
+        //}
 
         private string GetSelectedItemsFilterExpression()
         {
@@ -404,6 +406,7 @@ namespace News.Mvc.Models
         private NewsManager manager;
         private string serializedTaxonomyFilter;
         private string serializedSelectedTaxonomies;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         private IList<string> selectedTaxonomies = new List<string>();
 
         #endregion

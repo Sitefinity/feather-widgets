@@ -35,11 +35,10 @@
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
-                    <taxon-filter taxon-filters="taxonSelector.taxonFilters" 
+                    <filter-selector additional-filters="taxonSelector.taxonFilters" 
                         taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
-                        selected-taxonomies="taxonSelector.selectedTaxonomies"
                         provider="properties.ProviderName.PropertyValue"
-                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></taxon-filter>
+                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></filter-selector>
                 </label>
             </li>
         </ul>
