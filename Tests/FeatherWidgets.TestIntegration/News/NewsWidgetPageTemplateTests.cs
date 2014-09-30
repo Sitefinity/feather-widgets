@@ -104,10 +104,8 @@ namespace FeatherWidgets.TestIntegration.News
 
             var layoutTemplatePath = Path.Combine(this.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
             var newLayoutTemplatePath = Path.Combine(this.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
-          
-            try
-            {               
-                File.Copy(layoutTemplatePath, newLayoutTemplatePath);
+
+            File.Copy(layoutTemplatePath, newLayoutTemplatePath);
                 
                 ////Waitng to generate new page template
                 for (int i = 50; i > 0; --i)
@@ -120,24 +118,26 @@ namespace FeatherWidgets.TestIntegration.News
 
                 Guid templateId = this.GetTemplateIdByTitle(templateName);
 
-                this.templateOperation.AddControlToTemplate(templateId, mvcProxy, placeHolder, captionNews);
-                Guid pageId = this.locationGenerator.CreatePage(pageNamePrefix, pageTitlePrefix, urlNamePrefix, null, null);
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().SetTemplateToPage(pageId, templateId);
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle);
+                try
+                {
+                    this.templateOperation.AddControlToTemplate(templateId, mvcProxy, placeHolder, captionNews);
+                    Guid pageId = this.locationGenerator.CreatePage(pageNamePrefix, pageTitlePrefix, urlNamePrefix, null, null);
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().SetTemplateToPage(pageId, templateId);
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle);
 
-                string responseContent = PageInvoker.ExecuteWebRequest(url);
+                    string responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                Assert.IsTrue(responseContent.Contains(NewsTitle), "The news with this title was not found!");
-            }
-            finally
-            {
-                Guid templateId = this.GetTemplateIdByTitle(templateName);
+                    Assert.IsTrue(responseContent.Contains(NewsTitle), "The news with this title was not found!");
+                }
+                finally
+                {
+                    this.GetTemplateIdByTitle(templateName);
 
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
 
-                File.Delete(newLayoutTemplatePath);
-            }
+                    File.Delete(newLayoutTemplatePath);
+                }
         }
 
         private string SfPath
