@@ -53,7 +53,7 @@ function InstallFeatherWidgets($featherWidgetsDirectory)
     InstallFeather $featherBinDirectory
 }
 
-function InstallFeatherPackages($featherPackageDirectory)
+function InstallFeatherPackages($featherPackagesDirectory)
 {
 	Write-Output "----- Create Resource Packages directory in SitefinityWebApp ------"
 	
