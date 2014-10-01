@@ -113,10 +113,11 @@
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
     <Compile Include="News\DuplicateNewsWidgetFromPage.cs" />
-    <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
+    <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeatherTestCase.cs" />
     <Compile Include="FeatherTestCategories.cs" />

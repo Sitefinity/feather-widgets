@@ -24,5 +24,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new ContentBlockOperations();
         }
+
+        /// <summary>
+        /// Newses the operations.
+        /// </summary>
+        /// <returns></returns>
+        public static NewsOperations NewsOperations()
+        {
+            return new NewsOperations();
+        }
     }
 }

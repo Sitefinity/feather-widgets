@@ -67,6 +67,10 @@
     <Reference Include="Telerik.Sitefinity">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.2.5300.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.ContentModules, Version=7.2.5300.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.7.2.5300.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.2.5300.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
@@ -114,6 +118,7 @@
   <ItemGroup>
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />
+    <Compile Include="CommonOperations\Pages\NewsOperations.cs" />
     <Compile Include="CommonOperations\Pages\PagesOperations.cs" />
     <Compile Include="CommonOperations\ServerOperationsFeather.cs" />
     <Compile Include="GlobalSuppressions.cs" />
