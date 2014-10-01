@@ -32,6 +32,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Selects the taxonomy.
+        /// </summary>
+        /// <param name="taxonomy">The taxonomy.</param>
+        public void SelectTaxonomy(string taxonomy)
+        {
+            ActiveBrowser.WaitForAsyncOperations();
+
+            HtmlInputCheckBox optionButton = ActiveBrowser.Find.ByExpression<HtmlInputCheckBox>("id=" + taxonomy)
+                .AssertIsPresent("Taxonomy option");
+
+            optionButton.Click();
+
+            ActiveBrowser.WaitForAsyncOperations();
+        }
+
+        /// <summary>
         /// Provide access to done button
         /// </summary>
         public void DoneSelectingButton()
@@ -47,11 +63,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Select news item
         /// </summary>
         /// <param name="newsTitle">The title of the news item</param>
-        public void SelectNewsItem(string newsTitle)
+        public void SelectItem(string newsTitle)
         {
-            HtmlButton selectButton = EM.News.NewsWidgetContentScreen.SelectButton
-            .AssertIsPresent("Select button");
-            selectButton.Click();
+            var selectButtons = ActiveBrowser.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
+            foreach (var button in selectButtons)
+            {
+                if (button.IsVisible())
+                {
+                    button.Click();
+                    break;
+                }
+            }
 
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();

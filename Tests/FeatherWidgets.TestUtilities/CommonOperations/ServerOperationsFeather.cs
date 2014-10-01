@@ -34,5 +34,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new TemplateOperations();
         }
+
+        /// <summary>
+        /// Newses the operations.
+        /// </summary>
+        /// <returns></returns>
+        public static NewsOperations NewsOperations()
+        {
+            return new NewsOperations();
+        }
     }
 }
