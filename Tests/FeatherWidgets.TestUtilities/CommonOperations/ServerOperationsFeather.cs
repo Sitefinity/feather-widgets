@@ -1,4 +1,5 @@
 ﻿using FeatherWidgets.TestUtilities.CommonOperations.Pages;
+using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -23,6 +24,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public static ContentBlockOperations ContentBlockOperations()
         {
             return new ContentBlockOperations();
+        }
+
+        /// <summary>
+        /// Entry point for Templates operations.
+        /// </summary>
+        /// <returns>TemplateOperations instance</returns>
+        public static TemplateOperations TemplateOperations()
+        {
+            return new TemplateOperations();
         }
 
         /// <summary>
