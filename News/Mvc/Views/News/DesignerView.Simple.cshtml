@@ -42,7 +42,7 @@
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
-                    <filter-selector additional-filters="taxonSelector.taxonFilters" 
+                    <filter-selector additional-filters="additionalFilters" 
                         taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
                         provider="properties.ProviderName.PropertyValue"
                         ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></filter-selector>

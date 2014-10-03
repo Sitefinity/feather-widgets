@@ -3,13 +3,12 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
-        $scope.taxonSelector = { taxonFilters :{}};
 
         $scope.$watch(
-            'taxonSelector.taxonFilters',
-            function (newTaxonFilters, oldTaxonFilters) {
-                if (newTaxonFilters !== oldTaxonFilters) {
-                    $scope.properties.SerializedTaxonomyFilter.PropertyValue = JSON.stringify(newTaxonFilters);
+            'additionalFilters',
+            function (newAdditionalFilters, oldAdditionalFilters) {
+                if (newAdditionalFilters !== oldAdditionalFilters) {
+                    $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
                 }
             },
             true
@@ -31,11 +30,8 @@
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    var taxonFilters = $.parseJSON($scope.properties.SerializedTaxonomyFilter.PropertyValue);
-
-                    if (taxonFilters) {
-                        $scope.taxonSelector.taxonFilters = taxonFilters;
-                    }
+                    var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue);
+                    $scope.additionalFilters = additionalFilters;
                 }
             },
             function (data) {
