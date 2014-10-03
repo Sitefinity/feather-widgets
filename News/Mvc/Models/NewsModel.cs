@@ -245,10 +245,7 @@ namespace News.Mvc.Models
             if (this.manager == null)
                 return;
 
-            if (this.AdditionalFilters == null)
-            {
-                this.TranslateTaxonFiltersToQueryData();
-            }
+            this.TranslateTaxonFiltersToQueryData();
 
             var newsItems = this.manager.GetNewsItems();
 
@@ -258,58 +255,6 @@ namespace News.Mvc.Models
             this.ApplyListSettings(page, ref newsItems);
 
             this.Items = newsItems.ToArray();
-        }
-
-        /// <summary>
-        /// Translates the filter data from the obsolete TaxonomyFilter property to query data.
-        /// </summary>
-        private void TranslateTaxonFiltersToQueryData()
-        {
-            if (this.selectedTaxonomies == null || this.selectedTaxonomies.Count < 0)
-                return;
-
-            this.AdditionalFilters = new QueryData();
-            List<QueryItem> queryItems = new List<QueryItem>();
-            for (int i = 0; i < this.selectedTaxonomies.Count;i++ )
-            {
-                var groupItem = new QueryItem()
-                    {
-                        Id = Guid.Empty,
-                        IsGroup = true,
-                        ItemPath = "_" + i,
-                        Join = "AND",
-                        Name = this.selectedTaxonomies[i]
-                    };
-                queryItems.Add(groupItem);
-                var groupChildItems = this.TaxonomyFilter[this.selectedTaxonomies[i]];
-
-                if (groupChildItems != null)
-                {
-                    for (int j = 0; j < groupChildItems.Count; j++)
-                    {
-                        var childItem = new QueryItem()
-                        {
-                            Id = Guid.Empty,
-                            IsGroup = false,
-                            Ordinal = j,
-                            ItemPath = "_" + i + "_" + j,
-                            Join = "OR",
-                            Name = this.selectedTaxonomies[i],
-                            Value = groupChildItems.ToString(),
-                            Condition = new Condition()
-                            {
-                                FieldName = this.selectedTaxonomies[i],
-                                FieldType = typeof(Guid).FullName,
-                                Operator = "Contains",
-                            },
-                        };
-                        queryItems.Add(childItem);
-                    }
-                }
-            }
-
-            this.AdditionalFilters.QueryItems = queryItems.ToArray();
-            this.SerializedAdditionalFilters = JsonSerializer.SerializeToString<QueryData>(this.AdditionalFilters);
         }
 
         /// <inheritdoc />
@@ -369,6 +314,61 @@ namespace News.Mvc.Models
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Translates the filter data from the obsolete TaxonomyFilter property to query data.
+        /// </summary>
+        private void TranslateTaxonFiltersToQueryData()
+        {
+            if (this.AdditionalFilters == null)
+            {
+                if (this.selectedTaxonomies == null || this.selectedTaxonomies.Count < 1)
+                    return;
+
+                this.AdditionalFilters = new QueryData();
+                List<QueryItem> queryItems = new List<QueryItem>();
+                for (int i = 0; i < this.selectedTaxonomies.Count; i++)
+                {
+                    var groupItem = new QueryItem()
+                    {
+                        Id = Guid.Empty,
+                        IsGroup = true,
+                        ItemPath = "_" + i,
+                        Join = "AND",
+                        Name = this.selectedTaxonomies[i]
+                    };
+                    queryItems.Add(groupItem);
+                    var groupChildItems = this.TaxonomyFilter[this.selectedTaxonomies[i]];
+
+                    if (groupChildItems != null)
+                    {
+                        for (int j = 0; j < groupChildItems.Count; j++)
+                        {
+                            var childItem = new QueryItem()
+                            {
+                                Id = Guid.Empty,
+                                IsGroup = false,
+                                Ordinal = j,
+                                ItemPath = "_" + i + "_" + j,
+                                Join = "OR",
+                                Name = this.selectedTaxonomies[i],
+                                Value = groupChildItems[j].ToString(),
+                                Condition = new Condition()
+                                {
+                                    FieldName = this.selectedTaxonomies[i],
+                                    FieldType = typeof(Guid).FullName,
+                                    Operator = "Contains",
+                                },
+                            };
+                            queryItems.Add(childItem);
+                        }
+                    }
+                }
+
+                this.AdditionalFilters.QueryItems = queryItems.ToArray();
+                this.SerializedAdditionalFilters = JsonSerializer.SerializeToString<QueryData>(this.AdditionalFilters);
+            }
+        }
 
         /// <summary>
         /// Applies the list settings.

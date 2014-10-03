@@ -25,13 +25,34 @@
 	        true
         );
 
+        var translateTaxonFilterData = function (selectedTaxonomies, taxonFilters) {
+            var queryData = new Telerik.Sitefinity.Web.UI.QueryData();
+            for (var i = 0; i < selectedTaxonomies.length; i++) {
+                var taxonomyName = selectedTaxonomies[i];
+                var groupItem = queryData.addGroup(taxonomyName, "AND");
+
+                for (var j = 0; j < taxonFilters[taxonomyName].length; j++) {
+                    queryData.addChildToGroup(groupItem, taxonomyName, "OR", taxonomyName,
+                        'System.Guid', 'Contains', taxonFilters[taxonomyName][j]);
+                }
+            }
+        };
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                     var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue);
-                    $scope.additionalFilters = additionalFilters;
+
+                    if (additionalFilters) {
+                        $scope.additionalFilters = additionalFilters;
+                    }
+                    else {
+                        var selectedTaxonomies = $.parseJSON($scope.properties.SerializedSelectedTaxonomies.PropertyValue);
+                        var taxonFilters = $.parseJSON($scope.properties.SerializedTaxonomyFilter.PropertyValue);
+                        translateTaxonFilterData(selectedTaxonomies, taxonFilters);
+                    }
                 }
             },
             function (data) {
