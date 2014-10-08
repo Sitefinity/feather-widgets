@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             {
                 ServerOperations.Taxonomies().CreateTag(tg);
                 var tag = new List<string> { tg };
-                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + index, NewsContent, "AuthorName", "SourceName", tags: tag);
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + index, NewsContent, "AuthorName", "SourceName", null, tag, null);
                 index++;
             }
 

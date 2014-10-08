@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.News.Model;
+using Telerik.Sitefinity.SitefinityExceptions;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.TestUtilities.Utilities;
@@ -40,21 +42,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             }
         }
 
-        private NewsItem CreateNewsWithBasicProperties(NewsManager manager, string title, string content, string author, string sourceName)
-        {
-            var newsItem = manager.CreateNewsItem();
-            newsItem.Title = title;
-            newsItem.DateCreated = DateTime.UtcNow;
-            newsItem.PublicationDate = DateTime.UtcNow.AddDays(1);
-            newsItem.ExpirationDate = DateTime.UtcNow.AddDays(30);
-            newsItem.Author = author;
-            newsItem.Content = content;
-            newsItem.SourceName = sourceName;
-            newsItem.UrlName = ServerArrangementUtilities.GetFormatedUrlName(title);
-
-            return newsItem;
-        }
-
         /// <summary>
         /// Creates published news item
         /// </summary>
@@ -66,7 +53,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         /// <param name="tags">news tags</param>
         /// <param name="providerTitle">provider name</param>
         /// <returns>news master id</returns>
-        public Guid CreatePublishedNewsItem(string title, string content, string author, string sourceName, IEnumerable<string> categories = null, IEnumerable<string> tags = null, string providerTitle = null)
+        public Guid CreatePublishedNewsItem(string title, string content, string author, string sourceName, IEnumerable<string> categories, IEnumerable<string> tags, string providerTitle)
         {
             NewsManager newsManager = null;
             if (providerTitle.IsNullOrEmpty())
@@ -76,15 +63,17 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             else
             {
                 newsManager = NewsManager.GetManager();
-                var provider = newsManager.ProviderInfos.SingleOrDefault(p => providerTitle.Equals(p.ProviderTitle, StringComparison.InvariantCultureIgnoreCase));
+                var provider = newsManager.ProviderInfos.SingleOrDefault(p => providerTitle.Equals(p.ProviderTitle, StringComparison.OrdinalIgnoreCase));
                 newsManager = NewsManager.GetManager(provider.ProviderName);
             }
 
-            var newsItem = CreateNewsWithBasicProperties(newsManager, title, content, author, sourceName);
+            var newsItem = this.CreateNewsWithBasicProperties(newsManager, title, content, author, sourceName);
+
             if (providerTitle.IsNullOrEmpty())
             {
-                this.AddTaxonsToNews(newsItem.Id, categories, tags);
+                this.AddTaxonomiesToNews(newsItem.Id, categories, tags);
             }
+
             newsItem.SetWorkflowStatus(newsManager.Provider.ApplicationName, "Published");
             newsManager.Publish(newsItem);
             newsManager.SaveChanges();
@@ -93,18 +82,18 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         }
 
         /// <summary>
-        /// Adds the taxons to news.
+        /// Adds the taxonomies to news.
         /// </summary>
         /// <param name="newsItemId">The news item id.</param>
         /// <param name="categories">The categories.</param>
         /// <param name="tags">The tags.</param>
-        public void AddTaxonsToNews(Guid newsItemId, IEnumerable<string> categories, IEnumerable<string> tags)
+        public void AddTaxonomiesToNews(Guid newsItemId, IEnumerable<string> categories, IEnumerable<string> tags)
         {
             var newsManager = Telerik.Sitefinity.Modules.News.NewsManager.GetManager();
             NewsItem newsItem = newsManager.GetNewsItem(newsItemId);
             if (newsItem == null)
             {
-                throw new Exception(string.Format("NewsItem with id {0} was not found.", newsItemId));
+                throw new ItemNotFoundException(string.Format(CultureInfo.CurrentCulture, "News item with id {0} was not found.", newsItemId));
             }
 
             var taxonomyManager = TaxonomyManager.GetManager();
@@ -133,7 +122,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
                     }
                 }
             }
+
             newsManager.SaveChanges();
+        }
+
+        private NewsItem CreateNewsWithBasicProperties(NewsManager manager, string title, string content, string author, string sourceName)
+        {
+            var newsItem = manager.CreateNewsItem();
+            newsItem.Title = title;
+            newsItem.DateCreated = DateTime.UtcNow;
+            newsItem.PublicationDate = DateTime.UtcNow.AddDays(1);
+            newsItem.ExpirationDate = DateTime.UtcNow.AddDays(30);
+            newsItem.Author = author;
+            newsItem.Content = content;
+            newsItem.SourceName = sourceName;
+            newsItem.UrlName = ServerArrangementUtilities.GetFormatedUrlName(title);
+
+            return newsItem;
         }
     }
 }
