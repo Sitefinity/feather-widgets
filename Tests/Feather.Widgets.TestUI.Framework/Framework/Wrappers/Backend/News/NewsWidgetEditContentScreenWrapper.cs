@@ -65,7 +65,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="newsTitle">The title of the news item</param>
         public void SelectItem(string newsTitle)
         {
-            var selectButtons = ActiveBrowser.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
+            var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
             foreach (var button in selectButtons)
             {
                 if (button.IsVisible())

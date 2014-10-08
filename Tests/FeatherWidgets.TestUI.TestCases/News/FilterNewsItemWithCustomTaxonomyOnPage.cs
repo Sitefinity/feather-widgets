@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI
 
         private const string PageName = "News";
         private const string TaxonTitle1 = "MyFlatTaxon1";
-        private const string TaxonTitle2 = "MyFlatTaxon1";
+        private const string TaxonTitle2 = "MyFlatTaxon2";
         private const string NewsTitle1 = "NewsTitle1";
         private const string NewsTitle2 = "NewsTitle2";
         private const string WidgetName = "News";

@@ -77,5 +77,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlButton>("tagname=button", "InnerText=Save");
             }
         }
+
+         /// <summary>
+        /// Gets Save changes button.
+        /// </summary>
+        public ICollection<HtmlButton> SelectButtons
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
+            }
+        }
     }
 }

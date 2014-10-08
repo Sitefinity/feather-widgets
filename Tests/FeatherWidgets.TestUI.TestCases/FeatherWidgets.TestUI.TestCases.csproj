@@ -113,6 +113,8 @@
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\SearchFromFromTagInTagSelector.cs" />
+    <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
@@ -123,7 +125,9 @@
     <Compile Include="FeatherTestCategories.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
