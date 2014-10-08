@@ -36,6 +36,8 @@
                         'System.Guid', 'Contains', taxonFilters[taxonomyName][j]);
                 }
             }
+
+            return queryData;
         };
 
         propertyService.get()
@@ -51,7 +53,7 @@
                     else {
                         var selectedTaxonomies = $.parseJSON($scope.properties.SerializedSelectedTaxonomies.PropertyValue);
                         var taxonFilters = $.parseJSON($scope.properties.SerializedTaxonomyFilter.PropertyValue);
-                        translateTaxonFilterData(selectedTaxonomies, taxonFilters);
+                        $scope.additionalFilters = translateTaxonFilterData(selectedTaxonomies, taxonFilters);
                     }
                 }
             },

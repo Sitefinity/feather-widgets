@@ -16,6 +16,7 @@
 	"Selectors/taxon-filter.js",
 	"Selectors/date-filter.js",
 	"Selectors/filter-selector.js",
-	"Selectors/timespan-selector.js"
+	"Selectors/timespan-selector.js",
+	"Selectors/date-time-picker.js"
   ]
 }
