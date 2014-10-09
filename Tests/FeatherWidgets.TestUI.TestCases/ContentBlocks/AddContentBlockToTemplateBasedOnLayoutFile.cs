@@ -33,8 +33,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
 
-            BAT.Arrange(this.TestName).ExecuteArrangement("CreatePage");
-
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             ActiveBrowser.WaitUntilReady();
 

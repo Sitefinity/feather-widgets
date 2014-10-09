@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
@@ -35,16 +36,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void GetTemplateId()
         {
-            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
+            var templateId = ServerOperationsFeather.TemplateOperations().GetTemplateIdByTitle(TemplateTitle);
+            ServerOperations.Pages().CreatePage(PageName, templateId);
 
             ServerArrangementContext.GetCurrent().Values.Add("templateId", templateId.ToString());
-        }
-
-        [ServerArrangement]
-        public void CreatePage()
-        {
-            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
-            ServerOperations.Pages().CreatePage(PageName, templateId);
         }
 
         /// <summary>

@@ -56,6 +56,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             }
         }
 
+        /// <summary>
+        /// Returns the template Id by given title 
+        /// </summary>
+        /// <param name="templateTitle">the template title</param>
+        /// <returns></returns>
+        public Guid GetTemplateIdByTitle(string templateTitle)
+        {
+            var pageManager = PageManager.GetManager();
+            var template = pageManager.GetTemplates().Where(t => t.Title == templateTitle).First();
+
+            if (template != null)
+            {
+                return template.Id;
+            }
+            else
+            {
+                throw new ArgumentException("Template was not found");
+            }
+        }
+
         private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
         {
             var id = Guid.Empty;
