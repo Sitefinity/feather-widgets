@@ -24,6 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         public void AddContentBlockWidgetToTemplateBasedOnLayoutFile()
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();
+            Assert.IsTrue(BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().IsItemPresentInGridView(TemplateTitle));
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateTitle);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToSelectedPlaceHolder(WidgetName, PlaceHolder);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -59,7 +60,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         }
 
         private const string PageName = "FeatherPage";
-        private const string TemplateTitle = "TestLayout";
+        private const string TemplateTitle = "Layout";
         private const string ContentBlockContent = "Test content";
         private const string WidgetName = "ContentBlock";
         private const string PlaceHolder = "TestPlaceHolder";
