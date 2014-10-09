@@ -1,11 +1,13 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Backend.PageTemplates;
+using System.Threading;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -24,8 +26,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         public void AddContentBlockWidgetToTemplateBasedOnLayoutFile()
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();
-            Assert.IsTrue(BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().IsItemPresentInGridView(TemplateTitle));
-            BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().OpenTemplateEditor(TemplateTitle);
+            this.OpenTemplateEditor();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToSelectedPlaceHolder(WidgetName, PlaceHolder);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
@@ -40,6 +41,16 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             Assert.IsFalse(ActiveBrowser.ContainsText(ServerErrorMessage), "Server error was found on the page");
             Assert.IsTrue(ActiveBrowser.ContainsText(ContentBlockContent),"Content block content was not found on the page");
             Assert.IsTrue(ActiveBrowser.ContainsText(LayoutText), "Layout template text was not found");
+        }
+
+        private void OpenTemplateEditor()
+        {
+            var templateId = BAT.Arrange(this.TestName).ExecuteArrangement("GetTemplateId").Result.Values["templateId"];
+
+            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Template/" + templateId, false);
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();        
         }
 
         /// <summary>
@@ -60,7 +71,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         }
 
         private const string PageName = "FeatherPage";
-        private const string TemplateTitle = "Layout";
+        private const string TemplateTitle = "TestLayout";
         private const string ContentBlockContent = "Test content";
         private const string WidgetName = "ContentBlock";
         private const string PlaceHolder = "TestPlaceHolder";

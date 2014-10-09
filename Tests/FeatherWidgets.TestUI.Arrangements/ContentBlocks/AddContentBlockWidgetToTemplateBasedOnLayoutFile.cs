@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -27,6 +29,15 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             string filePath = Path.Combine(folderPath, LayoutFileName);
             FeatherServerOperations.ResourcePackages().AddNewResource(LayoutFileResource, filePath);
+            Thread.Sleep(1000);
+        }
+
+        [ServerArrangement]
+        public void GetTemplateId()
+        {
+            var templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
+
+            ServerArrangementContext.GetCurrent().Values.Add("templateId", templateId.ToString());
         }
 
         [ServerArrangement]
