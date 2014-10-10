@@ -77,9 +77,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             {
                 this.templateOperation.GetTemplateIdByTitle(TemplateName);
 
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
-                File.Delete(newLayoutTemplatePath);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();           
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
+                File.Delete(newLayoutTemplatePath);
             }
         }
 
@@ -139,9 +139,10 @@ namespace FeatherWidgets.TestIntegration.Navigation
             {
                 this.templateOperation.GetTemplateIdByTitle(TemplateName);
 
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
-                File.Delete(newLayoutTemplatePath);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();              
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
+
+                File.Delete(newLayoutTemplatePath);
             }
         }
 
