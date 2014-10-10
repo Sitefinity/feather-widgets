@@ -40,6 +40,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifyUsePagingFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -105,6 +106,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifyNoLimitAndPagingFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -145,6 +147,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifyUseLimitFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -187,6 +190,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifySortNewsAscending()
         {
             string sortExpession = "Title ASC";
@@ -211,6 +215,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifySortNewsDescending()
         {
             string sortExpession = "Title DESC";
@@ -235,6 +240,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifySortNewsPublicationDateDescending()
         {
             string sortExpession = "PublicationDate DESC";
@@ -263,6 +269,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifySortNewsLastModifiedDateDescending()
         {
             string sortExpession = "LastModified DESC";

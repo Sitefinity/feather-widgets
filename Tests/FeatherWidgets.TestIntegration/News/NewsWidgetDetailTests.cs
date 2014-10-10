@@ -81,7 +81,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [Test]
         [Category(TestCategories.News)]
-        [Author(TestAuthor.Team2)]
+        [Author("FeatherTeam")]
         [Description("Verifies that open single item in the existing page functionality resolves the correct page.")]
         public void NewsWidget_VerifyOpenSingleItemInCustomPage()
         {
