@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -57,8 +57,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             }
         }
 
-        private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
-        public Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
         /// <summary>
         /// Returns the template Id by given title 
         /// </summary>
@@ -77,27 +75,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             {
                 throw new ArgumentException("Template was not found");
             }
-        }
-
-        private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
-        {
-            var id = Guid.Empty;
-            TemplateDraftControl control;
-
-            var controls = new List<TemplateDraftControl>(template.Controls.Where(c => c.PlaceHolder == placeHolder));
-
-            while (controls.Count > 0)
-            {
-                control = controls.Where(c => c.SiblingId == id).SingleOrDefault();
-                if (control != null)
-                {
-                    id = control.Id;
-
-                    controls.Remove(control);
-                }
-            }
-
-            return id;
         }
 
         public string GenerateUniqueControlIdForTemplate(TemplateDraft template)
@@ -120,21 +97,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             }
         }
 
-        public Guid GetTemplateIdByTitle(string templateTitle)
-        {
-            var pageManager = PageManager.GetManager();
-            var template = pageManager.GetTemplates().Where(t => t.Title.Contains(templateTitle)).FirstOrDefault();
-
-            if (template != null)
-            {
-                return template.Id;
-            }
-            else
-            {
-                throw new ArgumentException("Template was not found");
-            }
-        }
-
         public void WaitForTemplatesCountToIncrease(int primaryCount, int increment)
         {
             PageManager pageManager = PageManager.GetManager();
@@ -146,6 +108,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
 
                 Thread.Sleep(TimeSpan.FromMilliseconds(100));
             }
+        }
+
+        private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
+        {
+            var id = Guid.Empty;
+            TemplateDraftControl control;
+
+            var controls = new List<TemplateDraftControl>(template.Controls.Where(c => c.PlaceHolder == placeHolder));
+
+            while (controls.Count > 0)
+            {
+                control = controls.Where(c => c.SiblingId == id).SingleOrDefault();
+                if (control != null)
+                {
+                    id = control.Id;
+
+                    controls.Remove(control);
+                }
+            }
+
+            return id;
         }
     }
 }
