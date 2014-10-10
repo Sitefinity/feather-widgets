@@ -104,6 +104,32 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             Assert.IsTrue(responseContent.Contains(ContentBlockContentEdited), "The content block with this title was not found!");
         }
 
+        [Test]
+        [Category(TestCategories.ContentBlock)]
+        [Author(TestAuthor.Team2)]
+        public void ContentBlockWidget_SocialShareButtonsFunctionality()
+        {
+            string pageNamePrefix = "ContentBlockPage";
+            string pageTitlePrefix = "Content Block";
+            string urlNamePrefix = "content-block";
+            int pageIndex = 1;
+            string socialShare = "list-inline s-social-share-list";
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(ContentBlockController).FullName;
+            var contentBlockController = new ContentBlockController();
+            contentBlockController.Content = ContentBlockContent;
+            contentBlockController.EnableSocialSharing = true;
+            mvcProxy.Settings = new ControllerSettings(contentBlockController);
+
+            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+            Assert.IsTrue(responseContent.Contains(socialShare), "Social share button was not found!");
+        }
+
         #region Fields and constants
 
         private PagesOperations pageOperations;

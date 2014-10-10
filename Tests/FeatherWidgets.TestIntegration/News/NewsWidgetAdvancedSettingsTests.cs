@@ -6,7 +6,9 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
 using News.Mvc.Models;
+using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.News
@@ -19,38 +21,16 @@ namespace FeatherWidgets.TestIntegration.News
     public class NewsWidgetAdvancedSettingsTests
     {
         /// <summary>
-        /// Set up method
-        /// </summary>
-        [SetUp]
-        public void Setup()
-        {
-            this.pageOperations = new PagesOperations();
-        }
-
-        /// <summary>
-        /// Tears down.
-        /// </summary>
-        [TearDown]
-        public void TearDown()
-        {
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
-        }
-
-        /// <summary>
         /// News widget - Social share functionality
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
         public void NewsWidget_SocialShareButtonsFunctionality()
         {
-            string pageNamePrefix = "NewsPage";
-            string pageTitlePrefix = "News Page";
-            string urlNamePrefix = "news-page";
-            string newsTitle1 = "Title1";
-            string newsTitle2 = "Title2";
             string socialShare = "list-inline s-social-share-list";
             int index = 1;
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+            var newsManager = NewsManager.GetManager();
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + index);
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
@@ -60,30 +40,33 @@ namespace FeatherWidgets.TestIntegration.News
 
             try
             {
-                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, index);
 
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(newsTitle1);
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(newsTitle2);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle);
 
-                newsController.Index(1);
-                var expectedDetailNews = newsController.Model.Items[1];
-                string detailNewsUrl = url + expectedDetailNews.ItemDefaultUrl;
+                NewsItem newsItem = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == NewsTitle).FirstOrDefault();
+
+                string detailNewsUrl = url + newsItem.ItemDefaultUrl;
 
                 string responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
 
                 Assert.IsTrue(responseContent.Contains(socialShare), "Social share button was not found!");
-                Assert.IsTrue(responseContent.Contains(newsTitle1), "The news with this title was not found!");
-                Assert.IsFalse(responseContent.Contains(newsTitle2), "The news with this title button was found!");
+                Assert.IsTrue(responseContent.Contains(NewsTitle), "The news with this title was not found!");
             }
             finally
             {
                 this.pageOperations.DeletePages();
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
             }
         }
 
         #region Fields and constants
-
-        private PagesOperations pageOperations;
+        
+        private const string PageNamePrefix = "NewsPage";
+        private const string PageTitlePrefix = "News Page";
+        private const string UrlNamePrefix = "news-page";
+        private const string NewsTitle = "Title";
+        private PagesOperations pageOperations = new PagesOperations();
 
         #endregion
     }
