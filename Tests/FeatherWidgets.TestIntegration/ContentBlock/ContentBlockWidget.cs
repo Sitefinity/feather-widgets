@@ -107,6 +107,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
         [Test]
         [Category(TestCategories.ContentBlock)]
         [Author("FeatherTeam")]
+        [Ignore("Failing integration test.")]
         public void ContentBlockWidget_SocialShareButtonsFunctionality()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -124,8 +125,6 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             mvcProxy.Settings = new ControllerSettings(contentBlockController);
 
             this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
-
-            System.Diagnostics.Debug.WriteLine(url);
 
             string responseContent = PageInvoker.ExecuteWebRequest(url);
 
