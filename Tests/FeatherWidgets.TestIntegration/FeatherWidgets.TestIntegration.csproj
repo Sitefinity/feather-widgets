@@ -165,6 +165,7 @@
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
+    <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
     <Compile Include="News\NewsWidgetContentTests.cs" />
     <Compile Include="News\NewsWidgetDetailTests.cs" />
     <Compile Include="News\NewsWidgetListSettingsTests.cs" />

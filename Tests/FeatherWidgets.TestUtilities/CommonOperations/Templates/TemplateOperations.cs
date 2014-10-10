@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web.UI;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Modules.Pages;
@@ -56,7 +57,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             }
         }
 
-        private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
+        public Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)
         {
             var id = Guid.Empty;
             TemplateDraftControl control;
@@ -77,7 +78,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             return id;
         }
 
-        private string GenerateUniqueControlIdForTemplate(TemplateDraft template)
+        public string GenerateUniqueControlIdForTemplate(TemplateDraft template)
         {
             int controlsCount = 0;
 
@@ -87,6 +88,42 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             }
 
             return string.Format(CultureInfo.InvariantCulture, "T" + controlsCount.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
+        }
+
+        public string SfPath
+        {
+            get
+            {
+                return System.Web.Hosting.HostingEnvironment.MapPath("~/");
+            }
+        }
+
+        public Guid GetTemplateIdByTitle(string templateTitle)
+        {
+            var pageManager = PageManager.GetManager();
+            var template = pageManager.GetTemplates().Where(t => t.Title.Contains(templateTitle)).FirstOrDefault();
+
+            if (template != null)
+            {
+                return template.Id;
+            }
+            else
+            {
+                throw new ArgumentException("Template was not found");
+            }
+        }
+
+        public void WaitForTemplatesCountToIncrease(int primaryCount, int increment)
+        {
+            PageManager pageManager = PageManager.GetManager();
+
+            for (int i = 50; i > 0; --i)
+            {
+                if (pageManager.GetTemplates().Count() == primaryCount + increment)
+                    break;
+
+                Thread.Sleep(TimeSpan.FromMilliseconds(100));
+            }
         }
     }
 }

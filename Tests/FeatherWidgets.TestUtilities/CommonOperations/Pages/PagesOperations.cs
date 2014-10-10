@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
     public class PagesOperations
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "3#")]
-        public void CreatePageWithControl(Control control, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index)
+        public Guid CreatePageWithControl(Control control, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index)
         {
             var controls = new List<System.Web.UI.Control>();
             controls.Add(control);
@@ -30,6 +30,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                                     string.Format(CultureInfo.InvariantCulture, "{0}{1}", urlNamePrefix, index.ToString(CultureInfo.InvariantCulture)));
 
             PageContentGenerator.AddControlsToPage(pageId, controls);
+
+            return pageId;
         }
 
         /// <summary>
