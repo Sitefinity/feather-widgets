@@ -55,6 +55,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Add widget by name to certain placeholder.
+        /// </summary>
+        /// <param name="widgetName">The widget name.</param>
+        /// <param name="placeHolder">The placeholder name.</param>
+        public void AddWidgetToSelectedPlaceHolder(string widgetName, string placeHolder)
+        {
+            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?"+placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
+
+            HtmlDiv widget = this.GetWidgetByName(widgetName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
+        }
+
+        /// <summary>
         /// Edit widget by name
         /// </summary>
         /// <param name="widgetName">The widget name</param>
