@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
         public Guid GetTemplateIdByTitle(string templateTitle)
         {
             var pageManager = PageManager.GetManager();
-            var template = pageManager.GetTemplates().Where(t => t.Title == templateTitle).First();
+            var template = pageManager.GetTemplates().Where(t => t.Title == templateTitle).FirstOrDefault();
 
             if (template != null)
             {
