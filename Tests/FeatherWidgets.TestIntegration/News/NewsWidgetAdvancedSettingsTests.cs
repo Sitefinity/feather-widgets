@@ -49,6 +49,8 @@ namespace FeatherWidgets.TestIntegration.News
 
                 string detailNewsUrl = url + newsItem.ItemDefaultUrl;
 
+                System.Diagnostics.Debug.WriteLine(detailNewsUrl);
+                
                 string responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
 
                 Assert.IsTrue(responseContent.Contains(socialShare), "Social share button was not found!");

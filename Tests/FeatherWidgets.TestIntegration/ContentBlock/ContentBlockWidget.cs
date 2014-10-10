@@ -125,6 +125,8 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
             this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
 
+            System.Diagnostics.Debug.WriteLine(url);
+
             string responseContent = PageInvoker.ExecuteWebRequest(url);
 
             Assert.IsTrue(responseContent.Contains(socialShare), "Social share button was not found!");
