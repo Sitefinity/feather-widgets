@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestIntegration.News
         [Category(TestCategories.News)]
         public void NewsWidget_OnBootstrapPageTemplate()
         {
-            string templateName = "defaultNew";
+            string templateName = "Bootstrap.defaultNew";
             string placeHolder = "Contentplaceholder1";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
 

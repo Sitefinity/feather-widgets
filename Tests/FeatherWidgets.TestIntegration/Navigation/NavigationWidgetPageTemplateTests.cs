@@ -152,7 +152,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private const string PageTitlePrefix = "Navigation Page";
         private const string UrlNamePrefix = "navigation-page";
         private const string SiblingPage = "Sibling Page";
-        private const string TemplateName = "defaultNew";
+        private const string TemplateName = "Bootstrap.defaultNew";
         private const string PlaceHolder = "Contentplaceholder1";
         private const string CaptionNavigation = "Navigation";
         private const string Template = "Bootstrap";
