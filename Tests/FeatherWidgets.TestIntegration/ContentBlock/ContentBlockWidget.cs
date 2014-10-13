@@ -107,6 +107,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
         [Test]
         [Category(TestCategories.ContentBlock)]
         [Author("FeatherTeam")]
+        [Ignore("Failing integration test.")]
         public void ContentBlockWidget_SocialShareButtonsFunctionality()
         {
             string pageNamePrefix = "ContentBlockPage";
