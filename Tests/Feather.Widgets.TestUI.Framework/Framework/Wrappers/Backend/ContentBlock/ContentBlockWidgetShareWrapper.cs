@@ -41,6 +41,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncRequests();
         }
 
+        public void VerifyMessageTitleIsrequired()
+        {
+            HtmlControl contentBlockPlaceholder = EM.GenericContent.ContentBlockWidget.TitleIsRequired
+           .AssertIsPresent("Title is required");
+        }
+
         /// <summary>
         /// Provide access to unshare button
         /// </summary>
@@ -61,6 +67,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             shareButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Provide access to cancel button
+        /// </summary>
+        public void CancelButton()
+        {
+            HtmlAnchor cancelButton = EM.GenericContent.ContentBlockWidget.CancelButton
+            .AssertIsPresent("Cancel button");
+            cancelButton.Click();
         }
 
         /// <summary>
