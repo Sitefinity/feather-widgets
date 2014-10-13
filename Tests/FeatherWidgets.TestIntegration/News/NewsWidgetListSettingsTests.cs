@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
 using News.Mvc.Models;
@@ -32,7 +34,7 @@ namespace FeatherWidgets.TestIntegration.News
         [TearDown]
         public void TearDown()
         {
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();            
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
         }
 
         /// <summary>
@@ -303,10 +305,59 @@ namespace FeatherWidgets.TestIntegration.News
             Assert.IsTrue(newsController.Model.Items[2].Title.Value.Equals(newsTitles[0]), "The news with this title was not found!");
         }
 
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_SelectListTemplate()
+        {
+            int pageIndex = 1;
+            string gridTextEdited = "<p> Test paragraph </p>";
+            string paragraphText = "Test paragraph";
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + pageIndex);
+
+            string gridVirtualPath = "NewsListNew";
+            var listTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "News", "List.NewsList.cshtml");
+            var newListTemplatePath = Path.Combine(this.templateOperation.SfPath, "MVC", "Views", "Shared", "List.NewsListNew.cshtml");
+
+            try
+            {
+                File.Copy(listTemplatePath, newListTemplatePath);
+
+                using (StreamWriter output = File.AppendText(newListTemplatePath))
+                {
+                    output.WriteLine(gridTextEdited);
+                }
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                newsController.ListTemplateName = gridVirtualPath;
+                mvcProxy.Settings = new ControllerSettings(newsController);
+
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, pageIndex);
+
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(paragraphText), "The news with this title was not found!");
+            }
+            finally
+            {
+                Assert.IsTrue(true);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
+                File.Delete(newListTemplatePath);
+            }
+        }
+
         #region Fields and constants
 
         private const string NewsTitle = "Title";
+        private const string PageNamePrefix = "NewsPage";
+        private const string PageTitlePrefix = "News Page";
+        private const string UrlNamePrefix = "news-page";
         private PagesOperations pageOperations;
+        private TemplateOperations templateOperation = new TemplateOperations();
         
         #endregion
     }

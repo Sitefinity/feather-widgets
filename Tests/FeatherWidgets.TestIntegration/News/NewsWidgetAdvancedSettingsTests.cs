@@ -26,7 +26,6 @@ namespace FeatherWidgets.TestIntegration.News
         [Test]
         [Category(TestCategories.News)]
         [Author("FeatherTeam")]
-        [Ignore("Failing integration test.")]
         public void NewsWidget_SocialShareButtonsFunctionality()
         {
             string socialShare = "list-inline s-social-share-list";
