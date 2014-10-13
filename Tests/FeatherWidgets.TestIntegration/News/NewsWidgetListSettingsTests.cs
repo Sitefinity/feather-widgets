@@ -311,11 +311,11 @@ namespace FeatherWidgets.TestIntegration.News
         public void NewsWidget_SelectListTemplate()
         {
             int pageIndex = 1;
-            string gridTextEdited = "<p> Test paragraph </p>";
+            string textEdited = "<p> Test paragraph </p>";
             string paragraphText = "Test paragraph";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + pageIndex);
 
-            string gridVirtualPath = "NewsListNew";
+            string listTemplate = "NewsListNew";
             var listTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "News", "List.NewsList.cshtml");
             var newListTemplatePath = Path.Combine(this.templateOperation.SfPath, "MVC", "Views", "Shared", "List.NewsListNew.cshtml");
 
@@ -325,13 +325,13 @@ namespace FeatherWidgets.TestIntegration.News
 
                 using (StreamWriter output = File.AppendText(newListTemplatePath))
                 {
-                    output.WriteLine(gridTextEdited);
+                    output.WriteLine(textEdited);
                 }
 
                 var mvcProxy = new MvcControllerProxy();
                 mvcProxy.ControllerName = typeof(NewsController).FullName;
                 var newsController = new NewsController();
-                newsController.ListTemplateName = gridVirtualPath;
+                newsController.ListTemplateName = listTemplate;
                 mvcProxy.Settings = new ControllerSettings(newsController);
 
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle);
@@ -340,11 +340,10 @@ namespace FeatherWidgets.TestIntegration.News
 
                 string responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                Assert.IsTrue(responseContent.Contains(paragraphText), "The news with this title was not found!");
+                Assert.IsTrue(responseContent.Contains(paragraphText), "The news with this template was not found!");
             }
             finally
             {
-                Assert.IsTrue(true);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
                 File.Delete(newListTemplatePath);
             }
