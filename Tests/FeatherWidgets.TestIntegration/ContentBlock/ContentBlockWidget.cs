@@ -107,13 +107,13 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
         [Test]
         [Category(TestCategories.ContentBlock)]
         [Author("FeatherTeam")]
-        [Ignore("Failing integration test.")]
         public void ContentBlockWidget_SocialShareButtonsFunctionality()
         {
             string pageNamePrefix = "ContentBlockPage";
             string pageTitlePrefix = "Content Block";
             string urlNamePrefix = "content-block";
             int pageIndex = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
             string socialShare = "list-inline s-social-share-list";
 
             var mvcProxy = new MvcControllerProxy();
@@ -123,9 +123,9 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             contentBlockController.EnableSocialSharing = true;
             mvcProxy.Settings = new ControllerSettings(contentBlockController);
 
-            Guid pageId = this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
 
-            string responseContent = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.Pages().GetPageContent(pageId);
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
 
             Assert.IsTrue(responseContent.Contains(socialShare), "Social share button was not found!");
         }
