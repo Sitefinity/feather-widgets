@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
+    <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
