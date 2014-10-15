@@ -1,5 +1,6 @@
 ﻿using FeatherWidgets.TestUtilities.CommonOperations.Pages;
 using FeatherWidgets.TestUtilities.CommonOperations.Templates;
+using FeatherWidgets.TestUtilities.CommonOperations.Users;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -42,6 +43,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public static NewsOperations NewsOperations()
         {
             return new NewsOperations();
+        }
+
+        /// <summary>
+        /// Entry point for Users operations.
+        /// </summary>
+        /// <returns>UsersOperations instance.</returns>
+        public static UsersOperations Users()
+        {
+            return new UsersOperations();
         }
     }
 }

@@ -75,5 +75,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 Assert.IsTrue(navList.InnerText.Contains(page), "Navigation does not contain the expected page " + page);
             }
         }
+
+        /// <summary>
+        /// Verify that a list of pages is NOT present in the frontend navigation
+        /// </summary>
+        /// <param name="cssClass"></param>
+        /// <param name="pages"></param>
+        public void VerifyPagesNotPresentFrontEndNavigation(string cssClass, string[] pages)
+        {
+            HtmlUnorderedList navList = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=^" + cssClass)
+                .AssertIsPresent("Navigation with selected css class");
+
+            for (int i = 0; i < navList.ChildNodes.Count; i++)
+            {
+                foreach (string page in pages)
+                {
+                    Assert.IsFalse(navList.ChildNodes[i].InnerText.Contains(page), "Navigation contains this page " + page);
+                }
+            }
+        }
     }
 }
