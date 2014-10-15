@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             List<string> tags = new List<string>();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 tags.Add(TaxonTitle + i);
             }
