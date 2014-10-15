@@ -119,7 +119,7 @@
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPagePermissions.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
-    <Compile Include="News\SearchFromFromTagInTagSelector.cs" />
+    <Compile Include="News\DeleteSelectedTag.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />

@@ -6,19 +6,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// SelectNewsItemInNewsWidgetFromPage_ test class.
+    /// DeleteSelectedTag test class.
     /// </summary>
     [TestClass]
-    public class SearchFromFromTagInTagSelector_ : FeatherTestCase
+    public class DeleteSelectedTag_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test FilterNewsItemWithCustomTaxonomyOnPage
+        /// UI test DeleteSelectedTag
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       Ignore,
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void SearchFromFromTagInTagSelector()
+        public void DeleteSelectedTag()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
