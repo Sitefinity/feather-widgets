@@ -2,52 +2,51 @@
 
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.News.NewsManager.GetManager())'>
 </server-data>
-
 <tabset>
     <tab heading="@Html.Resource("Content")">
-        <h4 class="m-top-md">@Html.Resource("NewsToDisplay")</h4>
+        <h4>@Html.Resource("NewsToDisplay")</h4>
 
         <provider-selector manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
             provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
         </provider-selector>
 
-        <ul class="form-group">
-            <li class="radio">
+        <div class="form-group">
+            <div class="radio">
                 <label for="allNews">
                     <input id="allNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
                     @Html.Resource("AllPublishedNews")
                 </label>
-            </li>
-            <li class="radio">
+            </div>
+            <div class="radio">
                 <label for="selectedNews">
                     <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
 
                     @Html.Resource("SelectedNews")
-                </label>
 
-                <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                    <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
                                   provider="properties.ProviderName.PropertyValue"
                                   selected-item-id ="properties.SelectedItemId.PropertyValue"></list-selector>
-            </li>
-            <li class="radio">
+                </label>
+            </div>
+            <div class="radio">
                 <label for="filterNews">
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
-                    <taxon-filter taxon-filters="taxonSelector.taxonFilters" 
+                    <taxon-filter taxon-filters="taxonSelector.taxonFilters"
                         taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
                         selected-taxonomies="taxonSelector.selectedTaxonomies"
                         provider="properties.ProviderName.PropertyValue"
                         ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></taxon-filter>
                 </label>
-            </li>
-        </ul>
+            </div>
+        </div>
     </tab>
 
     <tab heading="@Html.Resource("ListSettings")">
-        <ul class="form-group">
-            <li class="radio">
+        <div class="form-group">
+            <div class="radio">
                 <label for="usePaging">
                     <input id="usePaging" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Paging" />
 
@@ -58,8 +57,8 @@
                         "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Paging\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
                     </span>
                 </label>
-            </li>
-            <li class="radio">
+            </div>
+            <div class="radio">
                 <label for="useLimit">
                     <input id="useLimit" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Limit" />
 
@@ -70,8 +69,8 @@
                         "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
                     </span>
                 </label>
-            </li>
-            <li class="radio">
+            </div>
+            <div class="radio">
                 <label for="allItems">
                     <input id="allItems" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="All" />
 
@@ -79,33 +78,42 @@
 
                     <span>@Html.Resource("ShowAllItems")</span>
                 </label>
-            </li>
-        </ul>
-
-        <div  class="form-group">
-            <label for="sortOptions">@Html.Resource("SortNews")</label>
-
-            <select id="sortOptions" ng-model="properties.SortExpression.PropertyValue" class="form-control">
-                <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
-                <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
-                <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
-                <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
-            </select>
+            </div>
         </div>
 
         <div  class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label for="sortOptions">@Html.Resource("SortNews")</label>
+
+
+                    <select id="sortOptions" ng-model="properties.SortExpression.PropertyValue" class="form-control">
+                        <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
+                        <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
+                        <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
+                        <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="newsTemplateName">@Html.Resource("ListTemplate")</label>
 
-            <select id="newsTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                 @foreach (var viewName in Html.GetViewNames("News", @"List\.(?<viewName>\w*)$"))
-                 {
-                     <option value="@viewName"> @viewName</option>
-                 }
-            </select>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="newsTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames("News", @"List\.(?<viewName>\w*)$"))
+                         {
+                             <option value="@viewName"> @viewName</option>
+                         }
+                    </select>
+                </div>
+            </div>
         </div>
 
         <expander expander-title='@Html.Resource("MoreOptions")'>
-            <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name ="properties.ListTemplateName.PropertyValue"></style-dropdown>
+            <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
                 <label for="navCssClass">@Html.Resource("CssClasses")</label>
@@ -115,41 +123,41 @@
     </tab>
 
     <tab heading="@Html.Resource("SingleItemSettings")">
-        <div>
+        <div class="form-group">
             <strong>@Html.Resource("OpenSingleItem")</strong>
-            <ul class="form-group">
-                <li class="radio">
-                    <label for="samePage">
-                        <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
-                        <span>
-                            @Html.Resource("ShowInSamePage")
-                        </span>
-                    </label>
-                </li>
-                <li class="radio">
-                    <label for="existingPage">
-                        <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
-                        <span>
-                            @Html.Resource("ShowInExistingPage")<br />
-                            <input type="text" ng-model="properties.DetailsPageUrl.PropertyValue" />
-                        </span>
-                    </label>
-                </li>
-            </ul>
+            <div class="radio">
+                <label for="samePage">
+                    <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
+                    <span>
+                        @Html.Resource("ShowInSamePage")
+                    </span>
+                </label>
+            </div>
+            <div class="radio">
+                <label for="existingPage">
+                    <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
+                    <span>
+                        @Html.Resource("ShowInExistingPage")<br />
+                        <input type="text" ng-model="properties.DetailsPageUrl.PropertyValue" class="form-control" />
+                    </span>
+                </label>
+            </div>
         </div>
 
-        <div  class="form-group m-top-md">
-            <label for="newsTemplateName">@Html.Resource("DetailTemplate")</label>
+        <div  class="form-group m-top-md row">
+            <div class="col-xs-6">
+                <label for="newsTemplateName">@Html.Resource("DetailTemplate")</label>
 
-            <select id="newsTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                 @foreach (var viewName in Html.GetViewNames("News", @"Detail\.(?<viewName>\w*)$"))
-                 {
-                     <option value="@viewName"> @viewName</option>
-                 }
-            </select>
+                <select id="newsTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames("News", @"Detail\.(?<viewName>\w*)$"))
+                     {
+                         <option value="@viewName"> @viewName</option>
+                     }
+                </select>
+            </div>
         </div>
 
-        <expander expander-title='@Html.Resource("MoreOptions")'>          
+        <expander expander-title='@Html.Resource("MoreOptions")'>
             <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">

@@ -2,7 +2,7 @@
 
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.GenericContent.ContentManager.GetManager())'></server-data>
 
-<provider-selector manager-type="Telerik.Sitefinity.Modules.GenericContent.ContentManager" 
+<provider-selector manager-type="Telerik.Sitefinity.Modules.GenericContent.ContentManager"
     provider-label='@Html.Resource("Provider")'
     ng-model="filter.providerName">
 </provider-selector>
@@ -17,8 +17,8 @@
     </div>
     <div class="list-group s-items-list-wrp">
         <a ng-repeat="item in contentItems"
-                ng-class="{'list-group-item':true, 'active': item.Id==selectedContentItem.Id }" 
-                ng-click="contentItemClicked($index, item)"> 
+                ng-class="{'list-group-item':true, 'active': item.Id==selectedContentItem.Id }"
+                ng-click="contentItemClicked($index, item)">
             <span ng-bind="item.Title"></span>
         </a>
     </div>
@@ -27,6 +27,6 @@
 </div>
 
 <script type="text/ng-template" section="modal-footer">
-    <button type="button" ng-hide="isListEmpty" class="btn btn-primary" ng-click="selectSharedContent()">@Html.Resource("DoneSelecting")</button>
+    <button type="button" ng-hide="isListEmpty" class="btn btn-primary pull-left" ng-click="selectSharedContent()">@Html.Resource("DoneSelecting")</button>
     <button type="button" class="btn btn-link" ng-click="cancel()">@Html.Resource("Cancel")</button>
 </script>
