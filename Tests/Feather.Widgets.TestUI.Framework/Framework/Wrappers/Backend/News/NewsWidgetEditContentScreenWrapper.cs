@@ -65,24 +65,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="newsTitle">The title of the news item</param>
         public void SelectItem(string newsTitle)
         {
-            var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
-            foreach (var button in selectButtons)
-            {
-                if (button.IsVisible())
-                {
-                    button.Click();
-                    break;
-                }
-            }
+            this.SelectTags();
 
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
+            HtmlDiv newsList = EM.News.NewsWidgetContentScreen.NewsList
+            .AssertIsPresent("News list");
 
-            HtmlDiv sharedContentBlockList = EM.News.NewsWidgetContentScreen.NewsList
-            .AssertIsPresent("Shared content list");
-
-            var itemSpan = sharedContentBlockList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + newsTitle);
+            var itemSpan = newsList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + newsTitle);
 
             itemSpan.Wait.ForVisible();
             itemSpan.ScrollToVisible();
@@ -98,6 +86,47 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlButton saveButton = EM.News.NewsWidgetContentScreen.SaveChangesButton
             .AssertIsPresent("Save button");
             saveButton.Click();
+        }
+
+        /// <summary>
+        /// Select tag by title
+        /// </summary>
+        public void SelectTags()
+        {
+            var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
+            foreach (var button in selectButtons)
+            {
+                if (button.IsVisible())
+                {
+                    button.Click();
+                    break;
+                }
+            }
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+
+        }
+
+        /// <summary>
+        /// Search tag by title
+        /// </summary>
+        /// <param name="title">The title of the tag</param>
+        public void SearchTagByTitle(string title)
+        {
+            this.SelectTags();
+            HtmlDiv inputDiv = EM.News.NewsWidgetContentScreen.SearchByTypingDiv
+                .AssertIsPresent("Search field div");
+
+            HtmlInputText input = inputDiv.Find.ByExpression<HtmlInputText>("class=form-control ng-pristine ng-valid")
+            .AssertIsPresent("Search field");
+
+            input.ScrollToVisible();
+            input.Focus();
+            input.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.TypeText(title);
         }
     }
 }

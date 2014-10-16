@@ -93,7 +93,7 @@
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
-    <Compile Include="News\DeleteSelectedTag.cs" />
+    <Compile Include="News\SearchAndSelectNewsByTag.cs" />
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />

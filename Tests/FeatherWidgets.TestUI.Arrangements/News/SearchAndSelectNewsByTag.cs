@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// DeleteSelectedTag arrangement class.
+    /// SearchAndSelectNewsByTag arrangement class.
     /// </summary>
-    public class DeleteSelectedTag : ITestArrangement
+    public class SearchAndSelectNewsByTag : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             List<string> tags = new List<string>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 tags.Add(TaxonTitle + i);
             }
@@ -38,12 +38,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             }
 
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
-        }
-
-        [ServerArrangement]
-        public void DeleteTag()
-        {
-            ServerOperations.Taxonomies().DeleteTags("Tag1");
         }
 
         /// <summary>

@@ -88,5 +88,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
             }
         }
+
+        /// <summary>
+        /// Gets search div.
+        /// </summary>
+        public HtmlDiv SearchByTypingDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=input-group m-bottom-sm");
+            }
+        }
     }
 }
