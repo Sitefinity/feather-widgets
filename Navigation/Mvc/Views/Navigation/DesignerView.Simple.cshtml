@@ -1,49 +1,62 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
-<h2 class="h4">@Html.Resource("Display")</h2> 
-<ul class="form-group">
-    <li class="radio">
-        <input id="rbTopLevelPages" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="TopLevelPages" />
-        <label for="rbTopLevelPages">@Html.Resource("TopLevelPages")</label>
-    </li>
-    <li class="radio">
-        <input id="rbCurrentPageChildren" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="CurrentPageChildren" />
-        <label for="rbCurrentPageChildren">@Html.Resource("CurrentPageChildren") </label>
-    </li>
-    <li class="radio">
-        <input id="rbCurrentPageSiblings" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="CurrentPageSiblings" />
-        <label for="rbCurrentPageSiblings">@Html.Resource("CurrentPageSiblings")</label>
-    </li>
-
-</ul>
+<h4>@Html.Resource("Display")</h4>
+<div class="form-group">
+    <div class="radio">
+        <label for="rbTopLevelPages">
+          <input id="rbTopLevelPages" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="TopLevelPages" />
+          @Html.Resource("TopLevelPages")
+        </label>
+    </div>
+    <div class="radio">
+        <label for="rbCurrentPageChildren">
+          <input id="rbCurrentPageChildren" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="CurrentPageChildren" />
+          @Html.Resource("CurrentPageChildren")
+        </label>
+    </div>
+    <div class="radio">
+        <label for="rbCurrentPageSiblings">
+          <input id="rbCurrentPageSiblings" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="CurrentPageSiblings" />
+          @Html.Resource("CurrentPageSiblings")
+        </label>
+    </div>
+</div>
 
 <div class="form-group">
-    <label for="navLevelsToInclude">@Html.Resource("LevelsToInclude")</label> 
+    <label for="navLevelsToInclude">@Html.Resource("LevelsToInclude")</label>
 
-    <select id="navLevelsToInclude" ng-model="properties.LevelsToInclude.PropertyValue" class="form-control">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="-1">All</option>
-    </select>
+    <div class="row">
+      <div class="col-xs-2">
+        <select id="navLevelsToInclude" ng-model="properties.LevelsToInclude.PropertyValue" class="form-control">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="-1">All</option>
+        </select>
+      </div>
+    </div>
 </div>
 
-<div  class="form-group">
-    <label for="navTemplateName">@Html.Resource("Template")</label> 
+<div class="form-group">
+    <div class="row">
+      <div class="col-xs-6">
+        <label for="navTemplateName">@Html.Resource("Template")</label>
 
-     <select id="navTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-         @foreach (var viewName in Html.GetViewNames("Navigation", @"NavigationView\.(?<viewName>\w*)$"))
-         { 
-             <option value="@viewName"> @viewName</option>
-         }
-      </select>
+        <select id="navTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+           @foreach (var viewName in Html.GetViewNames("Navigation", @"NavigationView\.(?<viewName>\w*)$"))
+           {
+               <option value="@viewName"> @viewName</option>
+           }
+        </select>
+      </div>
+    </div>
 </div>
 
-<div class="form-group small">
-    <b>@Html.Resource("ResponsiveDesignSectionTitle")</b>
-    <p>@Html.Raw(@Html.Resource("ResponsiveDesignDescription"))</p>
+<div class="form-group">
+    <label>@Html.Resource("ResponsiveDesignSectionTitle")</label>
+    <p class="text-muted">@Html.Raw(@Html.Resource("ResponsiveDesignDescription"))</p>
 </div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
