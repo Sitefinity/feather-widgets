@@ -54,12 +54,6 @@
 
                 kendo.bind();
 
-                // kendo.data("kendoEditor").focus();
-
-                // console.log(kendo);
-                // console.info(kendo.bind());
-                // console.info($scope);
-
                 if ($scope.isShared) {
                     return contentBlockService($scope.properties);
                 }
