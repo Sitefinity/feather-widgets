@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+       TestCategory(FeatherTestCategories.PagesAndContent), Ignore]
         public void DeleteTagAndEditNewsWidget()
         {
             BAT.Macros().NavigateTo().Pages();
