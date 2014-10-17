@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -78,8 +79,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="newsTitle">The title of the news item</param>
         public void SelectItem(string newsTitle)
         {
-            this.SelectTags();
-
             HtmlDiv newsList = EM.News.NewsWidgetContentScreen.NewsList
             .AssertIsPresent("News list");
 
@@ -119,7 +118,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
-
         }
 
         /// <summary>
@@ -129,19 +127,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SearchTagByTitle(string title)
         {
             this.SelectTags();
+
             HtmlDiv inputDiv = EM.News.NewsWidgetContentScreen.SearchByTypingDiv
                 .AssertIsPresent("Search field div");
 
             HtmlInputText input = inputDiv.Find.ByExpression<HtmlInputText>("class=form-control ng-pristine ng-valid")
             .AssertIsPresent("Search field");
 
-            input.ScrollToVisible();
-            input.Focus();
-            input.MouseClick();
-
-            ////input.SimulateTextTyping(title);
-
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick,input.GetRectangle());
             Manager.Current.Desktop.KeyBoard.TypeText(title);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
     }
 }
