@@ -52,13 +52,13 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
-        /////// <summary>
-        /////// Performs clean up and clears all data created by the test.
-        /////// </summary>
-        ////protected override void ServerCleanup()
-        ////{
-        ////    BAT.Arrange(this.TestName).ExecuteTearDown();
-        ////}
+        /// <summary>
+        /// Performs clean up and clears all data created by the test.
+        /// </summary>
+        protected override void ServerCleanup()
+        {
+            BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
 
         private const string PageName = "News";
         private const string TaxonTitle1 = "Tag1";
