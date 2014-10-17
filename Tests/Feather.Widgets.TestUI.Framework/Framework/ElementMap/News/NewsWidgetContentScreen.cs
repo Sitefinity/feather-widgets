@@ -26,11 +26,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         /// <summary>
         /// Gets which news to display.
         /// </summary>
-        public HtmlUnorderedList WhichNewsToDisplayList
+        public HtmlDiv WhichNewsToDisplayList
         {
             get
             {
-                return this.Get<HtmlUnorderedList>("tagname=ul", "class=form-group ng-scope");
+                return this.Get<HtmlDiv>("tagname=div", "class=tab-pane ng-scope active");
             }
         }
 

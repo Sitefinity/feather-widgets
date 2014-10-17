@@ -19,13 +19,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="mode">Which news to display</param>
         public void SelectWhichNewsToDisplay(string mode)
         {
-            HtmlUnorderedList optionsList = EM.News.NewsWidgetContentScreen.WhichNewsToDisplayList
+            int position;
+            HtmlDiv optionsDiv = EM.News.NewsWidgetContentScreen.WhichNewsToDisplayList
                 .AssertIsPresent("Which news to display options list");
 
-            HtmlListItem option = optionsList.AllItems.Where(a => a.InnerText.Contains(mode)).FirstOrDefault()
-                .AssertIsPresent("Which news to display option" + mode);
+            List<HtmlDiv> newsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
-            HtmlInputRadioButton optionButton = option.Find.ByExpression<HtmlInputRadioButton>("tagname=input")
+            if (mode.Contains("Selected"))
+            {
+                position = 1;
+            }
+            else if (mode.Contains("Narrow"))
+            {
+                position = 2;
+            }
+            else 
+            {
+                position = 0;
+            }
+
+            HtmlInputRadioButton optionButton = newsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                 .AssertIsPresent("Which news to display option radio button");
 
             optionButton.Click();
