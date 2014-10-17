@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+       TestCategory(FeatherTestCategories.PagesAndContent), Ignore]
         public void SearchAndSelectNewsByTag()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -49,7 +49,7 @@ namespace FeatherWidgets.TestUI
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            ////BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            ////BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "News";

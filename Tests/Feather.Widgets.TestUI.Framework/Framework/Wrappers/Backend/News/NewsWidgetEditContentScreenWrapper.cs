@@ -139,6 +139,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             input.Focus();
             input.MouseClick();
 
+            ////input.SimulateTextTyping(title);
+
             Manager.Current.Desktop.KeyBoard.TypeText(title);
         }
     }
