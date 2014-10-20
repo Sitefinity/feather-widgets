@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
+using ArtOfTest.Common.UnitTesting;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -139,6 +140,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.WaitUntilReady();
             Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
             Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// No news items found
+        /// </summary>
+        public void NoItemsFound()
+        {
+            HtmlDiv noItemsFound = EM.News.NewsWidgetContentScreen.NoItemsFoundDiv
+            .AssertIsPresent("No items found div");
+
+            var isContained = noItemsFound.InnerText.Contains("No items found");
+            Assert.IsTrue(isContained, "Message not found");
         }
     }
 }

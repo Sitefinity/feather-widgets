@@ -99,5 +99,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlDiv>("tagname=div", "class=input-group m-bottom-sm");
             }
         }
+
+        /// <summary>
+        /// Gets no items div.
+        /// </summary>
+        public HtmlDiv NoItemsFoundDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=No items found");
+            }
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncRequests();
         }
 
-        public void VerifyMessageTitleIsrequired()
+        public void VerifyMessageTitleIsRequired()
         {
             HtmlControl contentBlockPlaceholder = EM.GenericContent.ContentBlockWidget.TitleIsRequired
            .AssertIsPresent("Title is required");
