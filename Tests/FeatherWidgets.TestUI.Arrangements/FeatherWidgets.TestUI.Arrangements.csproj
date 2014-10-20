@@ -88,6 +88,7 @@
     <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAndContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetResponsiveDesignTransformations.cs" />
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
