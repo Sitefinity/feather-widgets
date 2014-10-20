@@ -88,6 +88,7 @@
     <Compile Include="Framework\ElementMap\FeatherElementMap.cs" />
     <Compile Include="Framework\ElementMap\Navigation\NavigationMap.cs" />
     <Compile Include="Framework\ElementMap\Navigation\NavigationWidgetEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\Navigation\NavigationWidgetFrontend.cs" />
     <Compile Include="Framework\ElementMap\News\NewsMap.cs" />
     <Compile Include="Framework\ElementMap\News\NewsWidgetContentScreen.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
