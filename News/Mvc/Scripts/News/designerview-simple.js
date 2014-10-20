@@ -3,9 +3,10 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
+        $scope.additionalFilters = {};
 
         $scope.$watch(
-            'additionalFilters',
+            'additionalFilters.value',
             function (newAdditionalFilters, oldAdditionalFilters) {
                 if (newAdditionalFilters !== oldAdditionalFilters) {
                     $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
@@ -25,21 +26,6 @@
 	        true
         );
 
-        var translateTaxonFilterData = function (selectedTaxonomies, taxonFilters) {
-            var queryData = new Telerik.Sitefinity.Web.UI.QueryData();
-            for (var i = 0; i < selectedTaxonomies.length; i++) {
-                var taxonomyName = selectedTaxonomies[i];
-                var groupItem = queryData.addGroup(taxonomyName, "AND");
-
-                for (var j = 0; j < taxonFilters[taxonomyName].length; j++) {
-                    queryData.addChildToGroup(groupItem, taxonomyName, "OR", taxonomyName,
-                        'System.Guid', 'Contains', taxonFilters[taxonomyName][j]);
-                }
-            }
-
-            return queryData;
-        };
-
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -47,14 +33,7 @@
 
                     var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue);
 
-                    if (additionalFilters) {
-                        $scope.additionalFilters = additionalFilters;
-                    }
-                    else {
-                        var selectedTaxonomies = $.parseJSON($scope.properties.SerializedSelectedTaxonomies.PropertyValue);
-                        var taxonFilters = $.parseJSON($scope.properties.SerializedTaxonomyFilter.PropertyValue);
-                        $scope.additionalFilters = translateTaxonFilterData(selectedTaxonomies, taxonFilters);
-                    }
+                    $scope.additionalFilters.value = additionalFilters;
                 }
             },
             function (data) {
