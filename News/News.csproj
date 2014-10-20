@@ -129,7 +129,9 @@
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\News\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\News\DesignerView.Simple.json" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\News\designerview-simple.js" />

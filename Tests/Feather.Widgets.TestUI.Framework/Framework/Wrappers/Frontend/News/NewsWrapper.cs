@@ -17,16 +17,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Verify title in news widget on the frontend
         /// </summary>
         /// <param name="contentBlockContent">The content value</param>
-        public void VerifyContentOfContentBlockOnThePageFrontend(string[] newsTitle)
+        public void VerifyNewsTitlesOnThePageFrontend(string[] newsTitle)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            List<HtmlDiv> newsBlock = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "data-sf-type=Telerik.Sitefinity.News.Model.NewsItem").ToList<HtmlDiv>();
+            List<HtmlDiv> newsDiv = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "data-sf-type=Telerik.Sitefinity.News.Model.NewsItem").ToList<HtmlDiv>();
 
-            for (int i = 0; i < newsBlock.Count; i++)
+            for (int i = 0; i < newsDiv.Count; i++)
             {
-                var isContained = newsBlock[i].InnerText.Contains(newsTitle[i]);
-                Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle, " but found [", newsBlock[i].InnerText, "]"));
+                var isContained = newsDiv[i].InnerText.Contains(newsTitle[i]);
+                Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle[i], " but found [", newsDiv[i].InnerText, "]"));
             }
         }
     }

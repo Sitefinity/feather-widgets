@@ -1,8 +1,11 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using System;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
 using News.Mvc.Models;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.News
@@ -29,7 +32,7 @@ namespace FeatherWidgets.TestIntegration.News
         [TearDown]
         public void TearDown()
         {
-            this.pageOperations.DeletePages();
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
         }
 
         /// <summary>
@@ -37,6 +40,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifyAllNewsFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -68,9 +72,50 @@ namespace FeatherWidgets.TestIntegration.News
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
+                this.pageOperations.DeletePages();
             }
         }
+
+        /// <summary>
+        /// News widget - test select by tag functionality 
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_SelectByTagNewsFunctionality()
+        {
+            int newsCount = 2;
+            Guid[] taxonId = new Guid[newsCount];
+            Guid[] newsId = new Guid[newsCount];
+            string newsTitle = "News ";
+            string tagTitle = "Tag ";
+            var newsController = new NewsController();
+            string[] tagTitles = new string[newsCount];
+
+            try
+            {
+                for (int i = 0; i < newsCount; i++)
+                {
+                    taxonId[i] = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().CreateFlatTaxon(Telerik.Sitefinity.TestUtilities.CommonOperations.TaxonomiesConstants.TagsTaxonomyId, tagTitle + i);
+                    tagTitles[i] = tagTitle + i;
+                    newsId[i] = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(newsTitle + i);
+                    Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().AssignTaxonToNewsItem(newsId[i], "Tags", taxonId[i]);
+                }
+
+                for (int i = 0; i < newsCount; i++)
+                {
+                    ITaxon taxonomy = TaxonomyManager.GetManager().GetTaxon(taxonId[i]);
+                    newsController.ListByTaxon(taxonomy, null);
+
+                    for (int j = 0; j < newsController.Model.Items.Count; j++)
+                       Assert.IsTrue(newsController.Model.Items[j].Title.Equals(newsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");
+                }
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(tagTitles);
+            }
+         }
 
         #region Fields and constants
 

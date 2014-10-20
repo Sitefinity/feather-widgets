@@ -1,9 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using System.IO;
+using System.Linq;
+using System.Web.Mvc;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
 using News.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.ActionFilters;
+using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.TestUtilities;
@@ -81,7 +85,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [Test]
         [Category(TestCategories.News)]
-        [Author(TestAuthor.Team2)]
+        [Author("FeatherTeam")]
         [Description("Verifies that open single item in the existing page functionality resolves the correct page.")]
         public void NewsWidget_VerifyOpenSingleItemInCustomPage()
         {
@@ -117,6 +121,48 @@ namespace FeatherWidgets.TestIntegration.News
             this.AssertDetailActionInvokation(expectedDetailNews);
         }
 
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_SelectDetailTemplate()
+        {
+            int pageIndex = 1;
+            string textEdited = "<p> Test paragraph </p>";
+            string paragraphText = "Test paragraph";
+            var newsManager = NewsManager.GetManager();
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + pageIndex);
+
+            string detailTemplate = "DetailPageNew";
+            var detailTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "News", "Detail.DetailPage.cshtml");
+            var newDetailTemplatePath = Path.Combine(this.templateOperation.SfPath, "MVC", "Views", "Shared", "Detail.DetailPageNew.cshtml");
+
+            try
+            {
+                File.Copy(detailTemplatePath, newDetailTemplatePath);
+                this.EditFile(newDetailTemplatePath, textEdited);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                newsController.DetailTemplateName = detailTemplate;
+                mvcProxy.Settings = new ControllerSettings(newsController);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, pageIndex);
+
+                NewsItem newsItem = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == NewsTitleDetail).FirstOrDefault();
+                string detailNewsUrl = url + newsItem.ItemDefaultUrl;
+
+                string responseContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
+
+                Assert.IsTrue(responseContent.Contains(NewsTitleDetail), "The news with this title was not found!");
+                Assert.IsTrue(responseContent.Contains(paragraphText), "The news with this template was not found!");
+            }
+            finally
+            {
+                File.Delete(newDetailTemplatePath);
+            }
+        }
+
         #region Helper methods
 
         private void AssertDetailActionInvokation(NewsItem expectedDetailNews)
@@ -131,14 +177,27 @@ namespace FeatherWidgets.TestIntegration.News
             Assert.AreEqual(expectedDetailNews.Id, viewModel.DetailItem.Id, "The news item id is not provided correctly to the DetailNews property");
         }
 
+        private void EditFile(string newDetailTemplatePath, string textEdited)
+        {
+            using (StreamWriter output = File.AppendText(newDetailTemplatePath))
+            {
+                output.WriteLine(textEdited);
+            }        
+        }
+
         #endregion
 
         #region Fields and constants
 
         private ExecutionRegistrationFilterAttribute actionFilter;
         private const string NewsTitle = "Title";
+        private const string NewsTitleDetail = "Title1";
+        private const string PageNamePrefix = "NewsPage";
+        private const string PageTitlePrefix = "News Page";
+        private const string UrlNamePrefix = "news-page";
         private int newsCount = 3;
         private PagesOperations pageOperations;
+        private TemplateOperations templateOperation = new TemplateOperations();
 
         #endregion
     }

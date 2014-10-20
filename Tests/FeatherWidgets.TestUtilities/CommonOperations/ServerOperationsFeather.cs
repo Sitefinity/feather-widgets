@@ -1,4 +1,6 @@
 ﻿using FeatherWidgets.TestUtilities.CommonOperations.Pages;
+using FeatherWidgets.TestUtilities.CommonOperations.Templates;
+using FeatherWidgets.TestUtilities.CommonOperations.Users;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -23,6 +25,33 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public static ContentBlockOperations ContentBlockOperations()
         {
             return new ContentBlockOperations();
+        }
+
+        /// <summary>
+        /// Entry point for Templates operations.
+        /// </summary>
+        /// <returns>TemplateOperations instance</returns>
+        public static TemplateOperations TemplateOperations()
+        {
+            return new TemplateOperations();
+        }
+
+        /// <summary>
+        /// Newses the operations.
+        /// </summary>
+        /// <returns></returns>
+        public static NewsOperations NewsOperations()
+        {
+            return new NewsOperations();
+        }
+
+        /// <summary>
+        /// Entry point for Users operations.
+        /// </summary>
+        /// <returns>UsersOperations instance.</returns>
+        public static UsersOperations Users()
+        {
+            return new UsersOperations();
         }
     }
 }

@@ -43,6 +43,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.TestArrangementService.Core">
       <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.1\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
     </Reference>
@@ -53,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
+    <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
+    <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
@@ -66,11 +71,14 @@
     <Compile Include="ContentBlocks\OldAndNewContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\SeveralContentBlockWidgetsOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\ShareContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\ShareContentBlockWithoutTitleFromPage.cs" />
     <Compile Include="ContentBlocks\UnshareContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
+    <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAddChangeRemoveCSSClass.cs" />
@@ -80,13 +88,19 @@
     <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAndContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetResponsiveDesignTransformations.cs" />
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
+    <Compile Include="News\SearchAndSelectNewsByTag.cs" />
+    <Compile Include="News\SearchForNotExistingTag.cs" />
+    <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
     <Compile Include="News\DuplicateNewsWidgetFromPage.cs" />
-    <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
+    <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

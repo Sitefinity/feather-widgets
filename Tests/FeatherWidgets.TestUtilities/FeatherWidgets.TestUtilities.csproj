@@ -39,6 +39,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
@@ -66,6 +67,10 @@
     </Reference>
     <Reference Include="Telerik.Sitefinity">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.2.5300.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.ContentModules, Version=7.2.5300.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.7.2.5300.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <SpecificVersion>False</SpecificVersion>
@@ -114,8 +119,11 @@
   <ItemGroup>
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />
+    <Compile Include="CommonOperations\Pages\NewsOperations.cs" />
     <Compile Include="CommonOperations\Pages\PagesOperations.cs" />
     <Compile Include="CommonOperations\ServerOperationsFeather.cs" />
+    <Compile Include="CommonOperations\Templates\TemplateOperations.cs" />
+    <Compile Include="CommonOperations\Users\UsersOperations.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

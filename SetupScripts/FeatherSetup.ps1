@@ -44,16 +44,17 @@ function InstallFeather($featherBinDirectory)
     Write-Output "----- Feather successfully installed ------"
 }
 
-function InstallFeatherWidgets($featherWidgetsBinDirectory, $featherNavigationWidgetBinDirectory, $featherNewsWidgetBinDirectory)
+function InstallFeatherWidgets($featherWidgetsDirectory)
 {
     Write-Output "Deploying feather widgets assembly to '$websiteBinariesDirectory'..."
-    Get-ChildItem ContentBlock.dll -recurse  -path $featherWidgetsBinDirectory | Copy-Item -destination $websiteBinariesDirectory
-	Get-ChildItem Navigation.dll -recurse  -path $featherNavigationWidgetBinDirectory | Copy-Item -destination $websiteBinariesDirectory
-	Get-ChildItem News.dll -recurse  -path $featherNewsWidgetBinDirectory | Copy-Item -destination $websiteBinariesDirectory
+    Get-ChildItem ContentBlock.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+	Get-ChildItem Navigation.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+	Get-ChildItem News.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+	Get-ChildItem SocialShare.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
     InstallFeather $featherBinDirectory
 }
 
-function InstallFeatherPackages($featherPackageDirectory)
+function InstallFeatherPackages($featherPackagesDirectory)
 {
 	Write-Output "----- Create Resource Packages directory in SitefinityWebApp ------"
 	
@@ -62,6 +63,10 @@ function InstallFeatherPackages($featherPackageDirectory)
 		New-Item -ItemType directory -Path $resourcePackagesFolder
 	}
 	
-	Write-Output "----- Copy package ------"
-	Copy-Item $featherPackageDirectory $resourcePackagesFolder -recurse
+	Write-Output "----- Copy packages ------"
+	Get-ChildItem Bootstrap -path $featherPackagesDirectory | Copy-Item -destination $resourcePackagesFolder -recurse
+	Get-ChildItem Foundation -path $featherPackagesDirectory | Copy-Item -destination $resourcePackagesFolder -recurse
+	Get-ChildItem SemanticUI -path $featherPackagesDirectory | Copy-Item -destination $resourcePackagesFolder -recurse
+
+    Write-Output "----- Feather packages successfully installed ------"
 }
