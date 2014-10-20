@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);            
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().ShareButton();
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().VerifyMessageTitleIsrequired();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().VerifyMessageTitleIsRequired();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksShareWrapper().CancelButton();
             this.VerifyIfSharedLabelExist();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

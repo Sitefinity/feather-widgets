@@ -1,44 +1,51 @@
-﻿using System;
-using Feather.Widgets.TestUI.Framework;
+﻿using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// SelectNewsItemInNewsWidgetFromPage_ test class.
+    /// SearchForNotExistingTag test class.
     /// </summary>
     [TestClass]
-    public class DeleteTagAndEditNewsWidget_ : FeatherTestCase
+    public class SearchForNotExistingTag_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test FilterNewsItemWithCustomTaxonomyOnPage
+        /// UI test SearchForNotExistingTag
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent), Ignore]
-        public void DeleteTagAndEditNewsWidget()
+       TestCategory(FeatherTestCategories.PagesAndContent)]
+        public void SearchForNotExistingTag()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectTaxonomy(TaxonomyName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(TaxonTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchTagByTitle(TaxonTitle);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().NoItemsFound();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelectingButton();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle1);
+            this.VerifyNewsOnTheBackend();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
+        }
 
-            this.DeleteTag();
-
-            BAT.Macros().NavigateTo().Pages();
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(TaxonTitle2);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle2);
+        /// <summary>
+        /// Verify news widget on the backend
+        /// </summary>
+        public void VerifyNewsOnTheBackend()
+        {
+            for (int i = 0; i < newsTitles.Length; i++)
+            {
+                BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[i]);
+            }
         }
 
         /// <summary>
@@ -48,7 +55,7 @@ namespace FeatherWidgets.TestUI
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(newsTitles);
         }
 
         /// <summary>
@@ -60,11 +67,6 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
-        protected void DeleteTag()
-        {
-            BAT.Arrange(this.TestName).ExecuteArrangement("DeleteTag");
-        }
-
         /// <summary>
         /// Performs clean up and clears all data created by the test.
         /// </summary>
@@ -74,13 +76,10 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string PageName = "News";
-        private const string TaxonTitle1 = "Tag1";
-        private const string TaxonTitle2 = "Tag2";
-        private const string NewsTitle1 = "NewsTitle1";
-        private const string NewsTitle2 = "NewsTitle2";
+        private const string TaxonTitle = "NotExistingTag";
+        private string[] newsTitles = new string[] { "NewsTitle4", "NewsTitle3", "NewsTitle2", "NewsTitle1", "NewsTitle0" };
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Tags";
-        private string[] newsTitles = new string[] { NewsTitle1 };
     }
 }
