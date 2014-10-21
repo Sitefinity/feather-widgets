@@ -11,7 +11,7 @@
 	"Selectors/selectors.js",
 	"Selectors/list-selector.js",
 	"Selectors/news-selector.js",
-	"Selectors/sf-taxon-selector.js",
+	"Selectors/taxon-selector.js",
 	"Selectors/sf-taxon-filter.js",
 	"Selectors/sf-date-filter.js",
 	"Selectors/sf-filter-selector.js",
