@@ -25,8 +25,9 @@
                     @Html.Resource("SelectedNews")
 
                     <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                                  multiselect="true"
                                   provider="properties.ProviderName.PropertyValue"
-                                  selected-item-id ="properties.SelectedItemId.PropertyValue"></list-selector>
+                                  selected-ids ="newsSelector.selectedItemsIds"></list-selector>
                 </label>
             </div>
             <div class="radio">

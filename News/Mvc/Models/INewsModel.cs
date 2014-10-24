@@ -29,7 +29,7 @@ namespace News.Mvc.Models
         /// <value>
         /// The selected news items.
         /// </value>
-        Guid SelectedItemId { get; set; }
+        string SerializedSelectedItemsIds { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.

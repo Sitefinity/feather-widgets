@@ -13,6 +13,7 @@
 	"Selectors/list-selector.js",
 	"Selectors/news-selector.js",
 	"Selectors/taxon-selector.js",
-	"Selectors/taxon-filter.js"
+	"Selectors/taxon-filter.js",
+	"Selectors/selected-items-view.js"
   ]
 }
