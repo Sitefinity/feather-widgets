@@ -52,14 +52,17 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), "Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassSmall).ExecuteArrangement(this.ArrangementMethod);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             this.ResizeBrowserWindow(800);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), "Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassMedium).ExecuteArrangement(this.ArrangementMethod);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             this.ResizeBrowserWindow(1000);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), "Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassLarge).ExecuteArrangement(this.ArrangementMethod);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             this.ResizeBrowserWindow(1300);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), "Navigation is visible");
         }
@@ -100,6 +103,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassMedium).ExecuteArrangement(this.ArrangementMethod);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             this.ResizeBrowserWindow(1000);
             Assert.IsTrue(
                 BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().
@@ -107,6 +111,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassLarge).ExecuteArrangement(this.ArrangementMethod);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             this.ResizeBrowserWindow(1300);
             Assert.IsTrue(
                 BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().
@@ -146,8 +151,6 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             Rectangle rect = new Rectangle(200, 200, width, 500);
 
             ActiveBrowser.ResizeContent(rect);
-            ActiveBrowser.Refresh();
-            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
         }
 
