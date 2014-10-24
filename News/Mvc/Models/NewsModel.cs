@@ -261,24 +261,25 @@ namespace News.Mvc.Models
                 if (this.AdditionalFilters != null)
                 {
                     var queryExpression = Telerik.Sitefinity.Data.QueryBuilder.LinqTranslator.ToDynamicLinq(this.AdditionalFilters);
-                    elements.Add(queryExpression);
+
+                    if (!string.IsNullOrEmpty(queryExpression))
+                        elements.Add(queryExpression);
                 }
             }
             else if (this.SelectionMode == NewsSelectionMode.SelectedItems)
             {
                 var selectedItemsFilterExpression = this.GetSelectedItemsFilterExpression();
-                if (!selectedItemsFilterExpression.IsNullOrEmpty())
-                {
+
+                if (!string.IsNullOrEmpty(selectedItemsFilterExpression))
                     elements.Add(selectedItemsFilterExpression);
-                }
             }
 
-            if (!this.FilterExpression.IsNullOrEmpty())
-            {
+            if (!string.IsNullOrEmpty(this.FilterExpression))
                 elements.Add(this.FilterExpression);
-            }
 
-            return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
+            var compiledExpression = string.Join(" AND ", elements.Select(el => "(" + el + ")"));
+
+            return compiledExpression;
         }
 
         /// <summary>
