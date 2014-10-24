@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+       TestCategory(FeatherTestCategories.PagesAndContent), Ignore]
         public void FilterNewsItemWithCustomTaxonomyOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyContentOfContentBlockOnThePageFrontend(this.newsTitles);
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI
 
         private const string PageName = "News";
         private const string TaxonTitle1 = "MyFlatTaxon1";
-        private const string TaxonTitle2 = "MyFlatTaxon1";
+        private const string TaxonTitle2 = "MyFlatTaxon2";
         private const string NewsTitle1 = "NewsTitle1";
         private const string NewsTitle2 = "NewsTitle2";
         private const string WidgetName = "News";

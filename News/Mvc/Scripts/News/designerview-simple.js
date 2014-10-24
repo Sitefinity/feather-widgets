@@ -3,24 +3,14 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
-        $scope.taxonSelector = { selectedTaxonomies: [], taxonFilters: {} };
+        $scope.additionalFilters = {};
         $scope.newsSelector = { selectedItemsIds: [] };
 
         $scope.$watch(
-            'taxonSelector.taxonFilters',
-            function (newTaxonFilters, oldTaxonFilters) {
-                if (newTaxonFilters !== oldTaxonFilters) {
-                    $scope.properties.SerializedTaxonomyFilter.PropertyValue = JSON.stringify(newTaxonFilters);
-                }
-            },
-            true
-        );
-
-        $scope.$watch(
-            'taxonSelector.selectedTaxonomies',
-            function (newSelectedTaxonomies, oldSelectedTaxonomies) {
-                if (newSelectedTaxonomies !== oldSelectedTaxonomies) {
-                    $scope.properties.SerializedSelectedTaxonomies.PropertyValue = JSON.stringify(newSelectedTaxonomies);
+            'additionalFilters.value',
+            function (newAdditionalFilters, oldAdditionalFilters) {
+                if (newAdditionalFilters !== oldAdditionalFilters) {
+                    $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
                 }
             },
             true
@@ -42,9 +32,9 @@
             function (newSelectedItemsIds, oldSelectedItemsIds) {
                 if (newSelectedItemsIds !== oldSelectedItemsIds) {
                     $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
-                }
-            },
-            true
+	            }
+	        },
+	        true
         );
 
         propertyService.get()
@@ -52,12 +42,9 @@
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    $scope.taxonSelector.selectedTaxonomies = $.parseJSON($scope.properties.SerializedSelectedTaxonomies.PropertyValue);
-                    var taxonFilters = $.parseJSON($scope.properties.SerializedTaxonomyFilter.PropertyValue);
+                    var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue);
 
-                    if (taxonFilters) {
-                        $scope.taxonSelector.taxonFilters = taxonFilters;
-                    }
+                    $scope.additionalFilters.value = additionalFilters;
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue);
 

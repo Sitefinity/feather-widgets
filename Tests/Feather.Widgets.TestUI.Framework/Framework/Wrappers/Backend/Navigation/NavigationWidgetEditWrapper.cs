@@ -21,13 +21,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="mode">Navigation display mode</param>
         public void SelectNavigationWidgetDisplayMode(string mode)
         {
-            HtmlUnorderedList optionsList = EM.Navigation.NavigationWidgetEditScreen.DislayModeList 
-                .AssertIsPresent("Display options list");
+            int position = 0;
+            HtmlDiv optionsDiv = EM.Navigation.NavigationWidgetEditScreen.DislayModeList 
+                .AssertIsPresent("Navigation div");
 
-            HtmlListItem option = optionsList.AllItems.Where(a => a.InnerText.Contains(mode)).FirstOrDefault()
-                .AssertIsPresent("Display option" + mode);
+            List<HtmlDiv> navDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
-            HtmlInputRadioButton optionButton = option.Find.ByExpression<HtmlInputRadioButton>("tagname=input")
+            if (mode.Contains("All pages under"))
+            {
+                position = 1;
+            }
+            else if (mode.Contains("All sibling pages"))
+            {
+                position = 2;
+            }
+
+            HtmlInputRadioButton optionButton = navDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                 .AssertIsPresent("Display option radio button");
 
             optionButton.Click();

@@ -1,5 +1,12 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
+
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryData.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryDataItem.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryItem.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryGroup.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryBuilder.js")
+
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.News.NewsManager.GetManager())'>
 </server-data>
 <tabset>
@@ -13,13 +20,13 @@
 
         <div class="form-group">
             <div class="radio">
-                <label for="allNews">
+                <label for="allNews" class="full-width">
                     <input id="allNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
                     @Html.Resource("AllPublishedNews")
                 </label>
             </div>
             <div class="radio">
-                <label for="selectedNews">
+                <label for="selectedNews" class="full-width">
                     <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
 
                     @Html.Resource("SelectedNews")
@@ -31,15 +38,14 @@
                 </label>
             </div>
             <div class="radio">
-                <label for="filterNews">
+                <label for="filterNews" class="full-width">
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
-                    <taxon-filter taxon-filters="taxonSelector.taxonFilters"
+					<sf-filter-selector query-data="additionalFilters.value" 
                         taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
-                        selected-taxonomies="taxonSelector.selectedTaxonomies"
                         provider="properties.ProviderName.PropertyValue"
-                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></taxon-filter>
+                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
                 </label>
             </div>
         </div>

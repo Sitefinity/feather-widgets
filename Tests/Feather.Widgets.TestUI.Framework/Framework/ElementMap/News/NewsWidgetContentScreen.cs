@@ -26,11 +26,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         /// <summary>
         /// Gets which news to display.
         /// </summary>
-        public HtmlUnorderedList WhichNewsToDisplayList
+        public HtmlDiv WhichNewsToDisplayList
         {
             get
             {
-                return this.Get<HtmlUnorderedList>("tagname=ul", "class=form-group ng-scope");
+                return this.Get<HtmlDiv>("tagname=div", "class=tab-pane ng-scope active");
             }
         }
 
@@ -75,6 +75,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
             get
             {
                 return this.Get<HtmlButton>("tagname=button", "InnerText=Save");
+            }
+        }
+
+         /// <summary>
+        /// Gets Save changes button.
+        /// </summary>
+        public ICollection<HtmlButton> SelectButtons
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
+            }
+        }
+
+        /// <summary>
+        /// Gets search div.
+        /// </summary>
+        public HtmlDiv SearchByTypingDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=input-group m-bottom-sm");
+            }
+        }
+
+        /// <summary>
+        /// Gets no items div.
+        /// </summary>
+        public HtmlDiv NoItemsFoundDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=No items found");
             }
         }
     }

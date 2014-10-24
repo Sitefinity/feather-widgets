@@ -75,5 +75,72 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 Assert.IsTrue(navList.InnerText.Contains(page), "Navigation does not contain the expected page " + page);
             }
         }
+
+        /// <summary>
+        /// Verify that a list of pages is NOT present in the frontend navigation
+        /// </summary>
+        /// <param name="cssClass"></param>
+        /// <param name="pages"></param>
+        public void VerifyPagesNotPresentFrontEndNavigation(string cssClass, string[] pages)
+        {
+            HtmlUnorderedList navList = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=^" + cssClass)
+                .AssertIsPresent("Navigation with selected css class");
+
+            for (int i = 0; i < navList.ChildNodes.Count; i++)
+            {
+                foreach (string page in pages)
+                {
+                    Assert.IsFalse(navList.ChildNodes[i].InnerText.Contains(page), "Navigation contains this page " + page);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Opens the toggle navigation menu
+        /// </summary>
+        public void OpenNavigationToggleMenu()
+        {
+            HtmlButton toggleButton = this.EM.Navigation.NavigationWidgetFrontend.ToggleButton
+                .AssertIsPresent<HtmlButton>("Toggle Button");
+
+            toggleButton.Click();
+        }
+
+        /// <summary>
+        /// Gets the page html anchor link by title.
+        /// </summary>
+        /// <param name="pageTitle">The page title.</param>
+        /// <returns></returns>
+        public HtmlAnchor GetPageLinkByTitleFromNavigation(string pageTitle)
+        {
+            HtmlUnorderedList list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=nav navbar-nav");
+            list.AssertIsNotNull("list");
+
+            HtmlListItem listItem = list.ChildNodes.Where(i => i.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlListItem>();
+            listItem.AssertIsPresent<HtmlListItem>("List Item");
+
+            HtmlAnchor link = listItem.Find.ByExpression<HtmlAnchor>("InnerText=" + pageTitle);
+
+            if (link == null || !link.IsVisible())
+            {
+                throw new ArgumentNullException("Link not found");
+            }
+
+            else return link;
+        }
+
+        /// <summary>
+        /// Clicks on a page link from the Mvc navigation on the frontend.
+        /// </summary>
+        /// <param name="pageTitle">The page title.</param>
+        public void ClickOnPageLinkFromNavigationMenu(string pageTitle)
+        {
+            HtmlAnchor pageLink = this.GetPageLinkByTitleFromNavigation(pageTitle);
+            pageLink.Click();
+            ActiveBrowser.WaitForUrl("/" + pageTitle.ToLower(), true, TimeOut);
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        private const int TimeOut = 60000;
     }
 }

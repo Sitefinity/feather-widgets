@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.jQuery;
+using ArtOfTest.Common.UnitTesting;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -19,13 +21,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="mode">Which news to display</param>
         public void SelectWhichNewsToDisplay(string mode)
         {
-            HtmlUnorderedList optionsList = EM.News.NewsWidgetContentScreen.WhichNewsToDisplayList
+            int position;
+            HtmlDiv optionsDiv = EM.News.NewsWidgetContentScreen.WhichNewsToDisplayList
                 .AssertIsPresent("Which news to display options list");
 
-            HtmlListItem option = optionsList.AllItems.Where(a => a.InnerText.Contains(mode)).FirstOrDefault()
-                .AssertIsPresent("Which news to display option" + mode);
+            List<HtmlDiv> newsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
-            HtmlInputRadioButton optionButton = option.Find.ByExpression<HtmlInputRadioButton>("tagname=input")
+            if (mode.Contains("Selected"))
+            {
+                position = 1;
+            }
+            else if (mode.Contains("Narrow"))
+            {
+                position = 2;
+            }
+            else 
+            {
+                position = 0;
+            }
+
+            HtmlInputRadioButton optionButton = newsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                 .AssertIsPresent("Which news to display option radio button");
 
             optionButton.Click();
@@ -65,24 +80,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="newsTitle">The title of the news item</param>
         public void SelectItem(string newsTitle)
         {
-            var selectButtons = ActiveBrowser.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
-            foreach (var button in selectButtons)
-            {
-                if (button.IsVisible())
-                {
-                    button.Click();
-                    break;
-                }
-            }
+            HtmlDiv newsList = EM.News.NewsWidgetContentScreen.NewsList
+            .AssertIsPresent("News list");
 
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
-
-            HtmlDiv sharedContentBlockList = EM.News.NewsWidgetContentScreen.NewsList
-            .AssertIsPresent("Shared content list");
-
-            var itemSpan = sharedContentBlockList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + newsTitle);
+            var itemSpan = newsList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + newsTitle);
 
             itemSpan.Wait.ForVisible();
             itemSpan.ScrollToVisible();
@@ -98,6 +99,59 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlButton saveButton = EM.News.NewsWidgetContentScreen.SaveChangesButton
             .AssertIsPresent("Save button");
             saveButton.Click();
+        }
+
+        /// <summary>
+        /// Select tag by title
+        /// </summary>
+        public void SelectTags()
+        {
+            var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
+            foreach (var button in selectButtons)
+            {
+                if (button.IsVisible())
+                {
+                    button.Click();
+                    break;
+                }
+            }
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Search tag by title
+        /// </summary>
+        /// <param name="title">The title of the tag</param>
+        public void SearchTagByTitle(string title)
+        {
+            this.SelectTags();
+
+            HtmlDiv inputDiv = EM.News.NewsWidgetContentScreen.SearchByTypingDiv
+                .AssertIsPresent("Search field div");
+
+            HtmlInputText input = inputDiv.Find.ByExpression<HtmlInputText>("class=form-control ng-pristine ng-valid")
+            .AssertIsPresent("Search field");
+
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick,input.GetRectangle());
+            Manager.Current.Desktop.KeyBoard.TypeText(title);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// No news items found
+        /// </summary>
+        public void NoItemsFound()
+        {
+            HtmlDiv noItemsFound = EM.News.NewsWidgetContentScreen.NoItemsFoundDiv
+            .AssertIsPresent("No items found div");
+
+            var isContained = noItemsFound.InnerText.Contains("No items found");
+            Assert.IsTrue(isContained, "Message not found");
         }
     }
 }

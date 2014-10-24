@@ -124,6 +124,7 @@ namespace News.Mvc.Models
         /// <value>
         /// The taxonomy filter.
         /// </value>
+        [Obsolete("Use SerializedAdditionalFilters instead")]
         string SerializedTaxonomyFilter { get; set; }
 
         /// <summary>
@@ -132,7 +133,16 @@ namespace News.Mvc.Models
         /// <value>
         /// The serialized selected taxonomies.
         /// </value>
+        [Obsolete("Use SerializedAdditionalFilters instead.")]
         string SerializedSelectedTaxonomies { get; set; }
+
+        /// <summary>
+        /// Gets or sets the serialized additional filters.
+        /// </summary>
+        /// <value>
+        /// The serialized additional filters.
+        /// </value>
+        string SerializedAdditionalFilters { get; set; }
 
         /// <summary>
         /// Gets or sets the additional filter expression.

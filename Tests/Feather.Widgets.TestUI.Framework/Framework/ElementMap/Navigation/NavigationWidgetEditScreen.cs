@@ -26,11 +26,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         /// <summary>
         /// Gets display mode list.
         /// </summary>
-        public HtmlUnorderedList DislayModeList
+        public HtmlDiv DislayModeList
         {
             get
             {
-                return this.Get<HtmlUnorderedList>("tagname=ul", "class=form-group ng-scope");
+                return this.Get<HtmlDiv>("tagname=div", "class=form-group ng-scope");
             }
         }
 
