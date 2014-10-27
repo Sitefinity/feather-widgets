@@ -65,6 +65,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="newsTitle">The title of the news item</param>
         public void SelectItem(string newsTitle)
         {
+            HtmlDiv sharedContentBlockList = EM.News.NewsWidgetContentScreen.NewsList
+            .AssertIsPresent("Shared content list");
+
+            var itemSpan = sharedContentBlockList.Find.ByExpression<HtmlSpan>("class=~ng-binding", "InnerText=" + newsTitle);
+
+            itemSpan.Wait.ForVisible();
+            itemSpan.ScrollToVisible();
+            itemSpan.MouseClick();
+            this.DoneSelectingButton();
+
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+            itemSpan.AssertIsPresent("Selected item");
+        }
+ 
+        /// <summary>
+        /// Opens the selector.
+        /// </summary>
+        public void OpenSelector()
+        {
             var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
             foreach (var button in selectButtons)
             {
@@ -75,19 +95,53 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 }
             }
 
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.WaitForAsyncOperations();
             ActiveBrowser.RefreshDomTree();
+        }
 
-            HtmlDiv sharedContentBlockList = EM.News.NewsWidgetContentScreen.NewsList
-            .AssertIsPresent("Shared content list");
+        /// <summary>
+        /// Sets a text to search in t he search input.
+        /// </summary>
+        /// <param name="text">The text to be searched for.</param>
+        public void SetSearchText(string text)
+        {
+            HtmlInputText input = EM.News.NewsWidgetContentScreen.SearchInput
+                                      .AssertIsPresent("input");
 
-            var itemSpan = sharedContentBlockList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + newsTitle);
+            input.ScrollToVisible();
+            input.Focus();
+            input.MouseClick();
+            input.MouseClick();
 
-            itemSpan.Wait.ForVisible();
-            itemSpan.ScrollToVisible();
-            itemSpan.MouseClick();
-            this.DoneSelectingButton();
+            Manager.Current.Desktop.KeyBoard.TypeText(text);
+
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Waits for items count to appear.
+        /// </summary>
+        /// <param name="expectedCount">The expected items count.</param>
+        public void WaitForItemsToAppear(int expectedCount)
+        {
+            Manager.Current.Wait.For(() => this.CountItems(expectedCount), 50000);
+        }
+      
+        /// <summary>
+        /// Counts the items.
+        /// </summary>
+        /// <param name="expected">The expected.</param>
+        /// <returns></returns>
+        public bool CountItems(int expected)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlDiv scroller = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=list-group s-items-list-wrp endlessScroll")
+                .AssertIsPresent("Scroller");
+            scroller.MouseClick(MouseClickType.LeftDoubleClick);
+            Manager.Current.Desktop.Mouse.TurnWheel(1000, MouseWheelTurnDirection.Backward);
+            var items = EM.News.NewsWidgetContentScreen.SelectorItems;
+            return expected == items.Count;
         }
 
         /// <summary>
