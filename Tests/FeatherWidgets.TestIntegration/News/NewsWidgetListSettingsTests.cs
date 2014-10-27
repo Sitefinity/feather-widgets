@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
+
 using FeatherWidgets.TestUtilities.CommonOperations;
 using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
-using News.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;

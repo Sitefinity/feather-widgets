@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.News.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 
-namespace News.Mvc.Models
+namespace DynamicContent.Mvc.Model
 {
-    /// <summary>
-    /// Classes that implement this interface could be used as model for the News widget.
-    /// </summary>
-    public interface INewsModel : ICacheDependable
+    public interface IDynamicContentModel : ICacheDependable
     {
+        /// <summary>
+        /// Gets or sets the type of the content.
+        /// </summary>
+        /// <value>
+        /// The type of the content.
+        /// </value>
+        string ContentType { get; set; }
+
         /// <summary>
         /// Gets the list of items to be displayed inside the widget.
         /// </summary>
@@ -22,13 +25,13 @@ namespace News.Mvc.Models
         /// The items collection.
         /// </value>
         [Browsable(false)]
-        IList<NewsItem> Items { get; }
+        IList<IDataItem> Items { get; }
 
         /// <summary>
-        /// Gets the list of news to be displayed inside the widget when option "Selected news" is enabled.
+        /// Gets or sets the id of the selected item.
         /// </summary>
         /// <value>
-        /// The selected news items.
+        /// The selected items.
         /// </value>
         Guid SelectedItemId { get; set; }
 
@@ -44,10 +47,10 @@ namespace News.Mvc.Models
         /// Gets or sets the detail item.
         /// </summary>
         /// <value>
-        /// The detail news.
+        /// The detail item.
         /// </value>
         [Browsable(false)]
-        NewsItem DetailItem { get; set; }
+        dynamic DetailItem { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in Details view.
@@ -58,10 +61,10 @@ namespace News.Mvc.Models
         string DetailCssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets which news to be displayed in the list view.
+        /// Gets or sets which items to be displayed in the list view.
         /// </summary>
         /// <value>The page display mode.</value>
-        NewsSelectionMode SelectionMode { get; set; }
+        SelectionMode SelectionMode { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to enable social sharing.
@@ -120,24 +123,6 @@ namespace News.Mvc.Models
         string SortExpression { get; set; }
 
         /// <summary>
-        /// Gets or sets the taxonomy filter.
-        /// </summary>
-        /// <value>
-        /// The taxonomy filter.
-        /// </value>
-        [Obsolete("Use SerializedAdditionalFilters instead")]
-        string SerializedTaxonomyFilter { get; set; }
-
-        /// <summary>
-        /// Gets or sets the serialized selected taxonomies.
-        /// </summary>
-        /// <value>
-        /// The serialized selected taxonomies.
-        /// </value>
-        [Obsolete("Use SerializedAdditionalFilters instead.")]
-        string SerializedSelectedTaxonomies { get; set; }
-
-        /// <summary>
         /// Gets or sets the serialized additional filters.
         /// </summary>
         /// <value>
@@ -154,7 +139,7 @@ namespace News.Mvc.Models
         string FilterExpression { get; set; }
 
         /// <summary>
-        /// Populates the news.
+        /// Populates the items.
         /// </summary>
         /// <param name="taxonFilter">The taxon that should be contained in the items.</param>
         /// <param name="taxonField">The taxon field.</param>

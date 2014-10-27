@@ -113,7 +113,6 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\NewsController.cs" />
     <Compile Include="Mvc\Models\INewsModel.cs" />
-    <Compile Include="Mvc\Models\ListDisplayMode.cs" />
     <Compile Include="Mvc\Models\NewsModel.cs" />
     <Compile Include="Mvc\Models\NewsSelectionMode.cs" />
     <Compile Include="Mvc\StringResources\NewsWidgetResources.cs" />

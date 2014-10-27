@@ -1,31 +1,32 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-
-using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules;
-using Telerik.Sitefinity.Modules.News;
-using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web.Model;
 
-namespace News.Mvc.Models
+namespace DynamicContent.Mvc.Model
 {
     /// <summary>
-    /// This class represents model used for News widget.
+    /// This class represents model used for DynamicContent widget.
     /// </summary>
-    public class NewsModel : INewsModel
+    public class DynamicContentModel : IDynamicContentModel
     {
         #region Properties
 
         /// <inheritdoc />
-        public IList<NewsItem> Items
+        public string ContentType { get; set; }
+
+        /// <inheritdoc />
+        public IList<IDataItem> Items
         {
             get
             {
@@ -60,28 +61,28 @@ namespace News.Mvc.Models
         }
 
         /// <inheritdoc />
-        public NewsItem DetailItem
+        public dynamic DetailItem
         {
             get;
             set;
         }
 
         /// <inheritdoc />
-        public bool EnableSocialSharing 
-        { 
-            get; 
-            set; 
-        }
-
-        /// <inheritdoc />
-        public string ProviderName 
-        { 
+        public bool EnableSocialSharing
+        {
             get;
-            set; 
+            set;
         }
 
         /// <inheritdoc />
-        public NewsSelectionMode SelectionMode
+        public string ProviderName
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public SelectionMode SelectionMode
         {
             get;
             set;
@@ -177,80 +178,29 @@ namespace News.Mvc.Models
             }
         }
 
-        /// <summary>
-        /// Gets or sets the taxonomy filter.
-        /// </summary>
-        /// <value>
-        /// The taxonomy filter.
-        /// </value>
-        [Browsable(false)]
-        [Obsolete("Use SerializedAdditionalFilters instead.")]
-        public Dictionary<string, IList<Guid>> TaxonomyFilter
-        {
-            get;
-            set;
-        }
-
-        /// <inheritdoc />
-        [Obsolete("Use SerializedAdditionalFilters instead.")]
-        public string SerializedTaxonomyFilter
-        {
-            get
-            {
-                return this.serializedTaxonomyFilter;
-            }
-
-            set
-            {
-                if (this.serializedTaxonomyFilter != value)
-                {
-                    this.serializedTaxonomyFilter = value;
-                    if (!this.serializedTaxonomyFilter.IsNullOrEmpty())
-                    {
-                        this.TaxonomyFilter = JsonSerializer.DeserializeFromString<Dictionary<string, IList<Guid>>>(this.serializedTaxonomyFilter);
-                    }
-                }
-            }
-        }
-
-        /// <inheritdoc />
-        [Obsolete("Use SerializedAdditionalFilters instead.")]
-        public string SerializedSelectedTaxonomies
-        {
-            get
-            {
-                return this.serializedSelectedTaxonomies;
-            }
-
-            set
-            {
-                if (this.serializedSelectedTaxonomies != value)
-                {
-                    this.serializedSelectedTaxonomies = value;
-                }
-            }
-        }
-
-        #endregion 
+        #endregion
 
         #region Public methods
 
         /// <inheritdoc />
         public virtual void PopulateItems(ITaxon taxonFilter, string taxonField, int? page)
         {
+            if (this.ContentType.IsNullOrEmpty())
+                return;
+
             this.InitializeManager();
 
             if (this.manager == null)
                 return;
 
-            var newsItems = this.manager.GetNewsItems();
+            var items = this.manager.GetDataItems(Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(this.ContentType));
 
             if (taxonFilter != null && !taxonField.IsNullOrEmpty())
-                newsItems = newsItems.Where(n => n.GetValue<IList<Guid>>(taxonField).Contains(taxonFilter.Id));
+                items = items.Where(n => n.GetValue<IList<Guid>>(taxonField).Contains(taxonFilter.Id));
 
-            this.ApplyListSettings(page, ref newsItems);
+            this.ApplyListSettings(page, ref items);
 
-            this.Items = newsItems.ToArray();
+            this.Items = items.ToArray();
         }
 
         /// <inheritdoc />
@@ -258,7 +208,7 @@ namespace News.Mvc.Models
         {
             var elements = new List<string>();
 
-            if (this.SelectionMode == NewsSelectionMode.FilteredItems)
+            if (this.SelectionMode == SelectionMode.FilteredItems)
             {
                 if (this.AdditionalFilters != null)
                 {
@@ -266,7 +216,7 @@ namespace News.Mvc.Models
                     elements.Add(queryExpression);
                 }
             }
-            else if (this.SelectionMode == NewsSelectionMode.SelectedItems)
+            else if (this.SelectionMode == SelectionMode.SelectedItems)
             {
                 var selectedItemsFilterExpression = this.GetSelectedItemsFilterExpression();
                 if (!selectedItemsFilterExpression.IsNullOrEmpty())
@@ -294,17 +244,25 @@ namespace News.Mvc.Models
         /// </returns>
         public virtual IList<CacheDependencyKey> GetKeysOfDependentObjects()
         {
-            var result = new List<CacheDependencyKey>(1);
-            if (this.DetailItem != null && this.DetailItem.Id != Guid.Empty)
+            if (!this.ContentType.IsNullOrEmpty())
             {
-                result.Add(new CacheDependencyKey { Key = this.DetailItem.Id.ToString(), Type = typeof(NewsItem) });
+                var contentResolvedType = Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(this.ContentType);
+                var result = new List<CacheDependencyKey>(1);
+                if (this.DetailItem != null && this.DetailItem.Id != Guid.Empty)
+                {
+                    result.Add(new CacheDependencyKey { Key = this.DetailItem.Id.ToString(), Type = contentResolvedType });
+                }
+                else
+                {
+                    result.Add(new CacheDependencyKey { Key = null, Type = contentResolvedType });
+                }
+
+                return result;
             }
             else
             {
-                result.Add(new CacheDependencyKey { Key = null, Type = typeof(NewsItem) });
+                return new List<CacheDependencyKey>(0);
             }
-
-            return result;
         }
 
         #endregion
@@ -315,8 +273,8 @@ namespace News.Mvc.Models
         /// Applies the list settings.
         /// </summary>
         /// <param name="page">The page.</param>
-        /// <param name="newsItems">The news items.</param>
-        private void ApplyListSettings(int? page, ref IQueryable<NewsItem> newsItems)
+        /// <param name="items">The items.</param>
+        private void ApplyListSettings(int? page, ref IQueryable<Telerik.Sitefinity.DynamicModules.Model.DynamicContent> items)
         {
             if (page == null || page < 1)
                 page = 1;
@@ -330,8 +288,8 @@ namespace News.Mvc.Models
             compiledFilterExpression = this.AddLiveFilterExpression(compiledFilterExpression);
             compiledFilterExpression = this.AdaptMultilingualFilterExpression(compiledFilterExpression);
 
-            newsItems = DataProviderBase.SetExpressions(
-                newsItems,
+            items = DataProviderBase.SetExpressions(
+                items,
                 compiledFilterExpression,
                 this.SortExpression,
                 itemsToSkip,
@@ -380,28 +338,28 @@ namespace News.Mvc.Models
         /// </summary>
         private void InitializeManager()
         {
-            NewsManager newsManager;
+            DynamicModuleManager dynamicManager;
 
             // try to resolve manager with control definition provider
-            newsManager = this.ResolveManagerWithProvider(this.ProviderName);
-            if (newsManager == null)
+            dynamicManager = this.ResolveManagerWithProvider(this.ProviderName);
+            if (dynamicManager == null)
             {
-                newsManager = this.ResolveManagerWithProvider(null);
+                dynamicManager = this.ResolveManagerWithProvider(null);
             }
 
-            this.manager = newsManager;
+            this.manager = dynamicManager;
         }
 
         /// <summary>
         /// Resolves the manager with provider.
         /// </summary>
         /// <param name="providerName">Name of the provider.</param>
-        /// <returns></returns>
-        private NewsManager ResolveManagerWithProvider(string providerName)
+        /// <returns>A manager instance using a provider with the given name.</returns>
+        private DynamicModuleManager ResolveManagerWithProvider(string providerName)
         {
             try
             {
-                return NewsManager.GetManager(providerName);
+                return DynamicModuleManager.GetManager(providerName);
             }
             catch (Exception)
             {
@@ -418,15 +376,15 @@ namespace News.Mvc.Models
             return selectedItemsFilterExpression;
         }
 
-        #endregion 
+        #endregion
 
         #region Privte properties and constants
 
-        private IList<NewsItem> items = new List<NewsItem>();
+        private IList<IDataItem> items = new List<IDataItem>();
         private int? itemsPerPage = 20;
         private string sortExpression = "PublicationDate DESC";
 
-        private NewsManager manager;
+        private DynamicModuleManager manager;
         private string serializedAdditionalFilters;
         private string serializedSelectedTaxonomies;
         private string serializedTaxonomyFilter;

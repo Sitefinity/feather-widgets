@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentBlock", "ContentBlock\ContentBlock.csproj", "{827B5C1E-619A-4080-A7F1-10D103C38CFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialShare", "SocialShare\SocialShare.csproj", "{33171BB5-9918-41BE-B06D-0D8347846B0C}"
@@ -34,7 +32,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestUI.Arran
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News", "News\News.csproj", "{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicContent", "DynamicContent\DynamicContent.csproj", "{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}"
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = FeatherWidgets.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -72,14 +75,15 @@ Global
 		{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B02EF644-7756-41FA-BBA8-63F4F44C652B} = {EB73BDA8-73B7-4EC8-8707-853B53C40992}
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = FeatherWidgets.vsmdi
 	EndGlobalSection
 EndGlobal
