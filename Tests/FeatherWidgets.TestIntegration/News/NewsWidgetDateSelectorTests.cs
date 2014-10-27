@@ -46,6 +46,41 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
+        /// News widget - test date selector - any time
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        [Description("Verifies that the date selector - any time resolves the correct news.")]
+        public void NewsWidget_VerifyDateSelectorAnyTimeOption()
+        {
+            var newsManager = NewsManager.GetManager();
+            int newsCount = 3;
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SerializedAdditionalFilters = "{\"QueryItems\":[]}";
+
+            mvcProxy.Settings = new ControllerSettings(newsController);
+
+            DateTime publicationDate = DateTime.UtcNow.AddYears(-2);
+
+            NewsItem modified = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == "Boat").FirstOrDefault();
+            newsManager.Lifecycle.PublishWithSpecificDate(modified, publicationDate);
+            newsManager.SaveChanges();
+
+            newsController.Index(null);
+
+            Assert.AreEqual(newsCount, newsController.Model.Items.Count, "The count of the news item is not as expected");
+
+            Assert.IsTrue(newsController.Model.Items[0].Title.Value.Equals(this.newsTitles[1]), "The news with this title was not found!");
+            Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(this.newsTitles[0]), "The news with this title was not found!");
+            Assert.IsTrue(newsController.Model.Items[2].Title.Value.Equals(this.newsTitles[2]), "The news with this title was not found!");
+        }
+
+        /// <summary>
         /// News widget - test date selector -last 1 day
         /// </summary>
         [Test]
