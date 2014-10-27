@@ -31,10 +31,10 @@
 
                     @Html.Resource("SelectedNews")
 
-                    <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                    <sf-list-selector sf-news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
                                   multiselect="true"
                                   provider="properties.ProviderName.PropertyValue"
-                                  selected-ids ="newsSelector.selectedItemsIds"></list-selector>
+                                  selected-ids ="newsSelector.selectedItemsIds"></sf-list-selector>
                 </label>
             </div>
             <div class="radio">
