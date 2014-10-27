@@ -136,11 +136,35 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlInputText input = inputDiv.Find.ByExpression<HtmlInputText>("placeholder=Narrow by typing")
             .AssertIsPresent("Search field");
 
-            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick,input.GetRectangle());
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, input.GetRectangle());
             Manager.Current.Desktop.KeyBoard.TypeText(title);
             Manager.Current.ActiveBrowser.WaitUntilReady();
             Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
             Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
+        /// <summary>
+        /// Waits for items count to appear.
+        /// </summary>
+        /// <param name="expectedCount">The expected items count.</param>
+        public void WaitForItemsToAppear(int expectedCount)
+        {
+            Manager.Current.Wait.For(() => this.CountItems(expectedCount), 50000);
+        }
+      
+        /// <summary>
+        /// Counts the items.
+        /// </summary>
+        /// <param name="expected">The expected.</param>
+        /// <returns></returns>
+        public bool CountItems(int expected)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlDiv scroller = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=list-group s-items-list-wrp endlessScroll")
+                .AssertIsPresent("Scroller");
+            scroller.MouseClick(MouseClickType.LeftDoubleClick);
+            Manager.Current.Desktop.Mouse.TurnWheel(1000, MouseWheelTurnDirection.Backward);
+            var items = EM.News.NewsWidgetContentScreen.SelectorItems;
+            return expected == items.Count;
         }
 
         /// <summary>

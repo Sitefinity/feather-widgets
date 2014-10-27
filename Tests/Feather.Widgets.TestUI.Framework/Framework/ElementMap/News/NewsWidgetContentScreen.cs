@@ -110,5 +110,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlDiv>("tagname=div", "InnerText=No items found");
             }
         }
+
+        /// <summary>
+        /// Gets the selector items.
+        /// </summary>
+        /// <value>The selector items.</value>
+        public ICollection<HtmlAnchor> SelectorItems
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
+            }
+        }
+
+        /// <summary>
+        /// Gets the search input.
+        /// </summary>
+        /// <value>The search input.</value>
+        public HtmlInputText SearchInput
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("ng-model=filter.search");
+            }
+        }
     }
 }
