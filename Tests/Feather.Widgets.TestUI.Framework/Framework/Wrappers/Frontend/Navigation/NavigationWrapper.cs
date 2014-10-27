@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 
@@ -139,6 +137,54 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             pageLink.Click();
             ActiveBrowser.WaitForUrl("/" + pageTitle.ToLower(), true, TimeOut);
             ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Asserts that toggle button is visible.
+        /// </summary>
+        /// <returns>True or False depending on the button visibility.</returns>
+        public bool AssertToggleButtonIsVisible()
+        {
+            HtmlButton toggleButton = this.EM.Navigation.NavigationWidgetFrontend.ToggleButton;
+
+            if (toggleButton.IsVisible())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Asserts that navigation menu is visible on the frontend.
+        /// </summary>
+        /// <returns>true or false depending on the navigation visibility.</returns>
+        public bool AssertNavigationIsVisible()
+        {
+            HtmlUnorderedList nav = this.EM.Navigation.NavigationWidgetFrontend.Navigation;
+
+            if (nav.IsVisible())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Asserts if the dropdown navigation is visible.
+        /// </summary>
+        /// <returns>true or false</returns>
+        public bool AsserNavigationDropDownMenuIsVisible()
+        {
+            HtmlSelect menu = this.EM.Navigation.NavigationWidgetFrontend.NavigationDropDown;
+
+            if (menu.IsVisible())
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private const int TimeOut = 60000;

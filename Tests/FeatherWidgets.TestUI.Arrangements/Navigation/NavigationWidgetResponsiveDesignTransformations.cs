@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -28,6 +30,17 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().CreatePage(Page2);
 
             FeatherServerOperations.Pages().AddMvcWidgetToPage(pageId, ControllerType, WidgetCaption, PlaceHolderId);
+        }
+
+        /// <summary>
+        /// Adds css class to navigation widget.
+        /// </summary>
+        /// <param name="cssClass">the css class.</param>
+        [ServerArrangement]
+        public void ChangeCssClass()
+        {
+            var args = ServerArrangementContext.GetCurrent().Values;
+            ServerOperationsFeather.Navigation().ChangeCssClassMvcNavigationWidget(PageName, args["cssClass"]);
         }
 
         /// <summary>

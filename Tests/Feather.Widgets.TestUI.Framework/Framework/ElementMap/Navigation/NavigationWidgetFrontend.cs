@@ -34,5 +34,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
                 return this.Get<HtmlButton>("class=^navbar-toggle", "InnerText=~Toggle navigation");
             }
         }
+
+        /// <summary>
+        /// Gets the Navigation unordered list element on the frontend.
+        /// </summary>
+        public HtmlUnorderedList Navigation
+        {
+            get
+            {
+                return this.Get<HtmlUnorderedList>("class=nav navbar-nav");
+            }
+        }
+
+        /// <summary>
+        /// Gets the navigation select element
+        /// </summary>
+        public HtmlSelect NavigationDropDown
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("class=nav-select form-control");
+            }
+        }
     }
 }

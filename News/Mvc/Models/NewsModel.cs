@@ -239,13 +239,9 @@ namespace News.Mvc.Models
                 if (this.serializedSelectedTaxonomies != value)
                 {
                     this.serializedSelectedTaxonomies = value;
-                    if (!this.serializedSelectedTaxonomies.IsNullOrEmpty())
-                    {
-                        this.selectedTaxonomies = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedTaxonomies);
                     }
                 }
             }
-        }
 
         #endregion 
 
@@ -258,8 +254,6 @@ namespace News.Mvc.Models
 
             if (this.manager == null)
                 return;
-
-            this.TranslateTaxonFiltersToQueryData();
 
             var newsItems = this.manager.GetNewsItems();
 
@@ -281,24 +275,25 @@ namespace News.Mvc.Models
                 if (this.AdditionalFilters != null)
                 {
                     var queryExpression = Telerik.Sitefinity.Data.QueryBuilder.LinqTranslator.ToDynamicLinq(this.AdditionalFilters);
+
+                    if (!string.IsNullOrEmpty(queryExpression))
                     elements.Add(queryExpression);
                 }
             }
             else if (this.SelectionMode == NewsSelectionMode.SelectedItems)
             {
                 var selectedItemsFilterExpression = this.GetSelectedItemsFilterExpression();
-                if (!selectedItemsFilterExpression.IsNullOrEmpty())
-                {
+
+                if (!string.IsNullOrEmpty(selectedItemsFilterExpression))
                     elements.Add(selectedItemsFilterExpression);
                 }
-            }
 
-            if (!this.FilterExpression.IsNullOrEmpty())
-            {
+            if (!string.IsNullOrEmpty(this.FilterExpression))
                 elements.Add(this.FilterExpression);
-            }
 
-            return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
+            var compiledExpression = string.Join(" AND ", elements.Select(el => "(" + el + ")"));
+
+            return compiledExpression;
         }
 
         /// <summary>
@@ -328,61 +323,6 @@ namespace News.Mvc.Models
         #endregion
 
         #region Private methods
-
-        /// <summary>
-        /// Translates the filter data from the obsolete TaxonomyFilter property to query data.
-        /// </summary>
-        private void TranslateTaxonFiltersToQueryData()
-        {
-            if (this.AdditionalFilters == null)
-            {
-                if (this.selectedTaxonomies == null || this.selectedTaxonomies.Count < 1)
-                    return;
-
-                this.AdditionalFilters = new QueryData();
-                List<QueryItem> queryItems = new List<QueryItem>();
-                for (int i = 0; i < this.selectedTaxonomies.Count; i++)
-                {
-                    var groupItem = new QueryItem()
-                    {
-                        Id = Guid.Empty,
-                        IsGroup = true,
-                        ItemPath = "_" + i,
-                        Join = "AND",
-                        Name = this.selectedTaxonomies[i]
-                    };
-                    queryItems.Add(groupItem);
-                    var groupChildItems = this.TaxonomyFilter[this.selectedTaxonomies[i]];
-
-                    if (groupChildItems != null)
-                    {
-                        for (int j = 0; j < groupChildItems.Count; j++)
-                        {
-                            var childItem = new QueryItem()
-                            {
-                                Id = Guid.Empty,
-                                IsGroup = false,
-                                Ordinal = j,
-                                ItemPath = "_" + i + "_" + j,
-                                Join = "OR",
-                                Name = this.selectedTaxonomies[i],
-                                Value = groupChildItems[j].ToString(),
-                                Condition = new Condition()
-                                {
-                                    FieldName = this.selectedTaxonomies[i],
-                                    FieldType = typeof(Guid).FullName,
-                                    Operator = "Contains",
-                                },
-                            };
-                            queryItems.Add(childItem);
-                        }
-                    }
-                }
-
-                this.AdditionalFilters.QueryItems = queryItems.ToArray();
-                this.SerializedAdditionalFilters = JsonSerializer.SerializeToString<QueryData>(this.AdditionalFilters);
-            }
-        }
 
         /// <summary>
         /// Applies the list settings.
@@ -521,7 +461,6 @@ namespace News.Mvc.Models
         private string serializedSelectedTaxonomies;
         private string serializedTaxonomyFilter;
         private string serializedSelectedItemsIds;
-        private IList<string> selectedTaxonomies = new List<string>();
         private IList<string> selectedItemsIds = new List<string>();
 
         #endregion
