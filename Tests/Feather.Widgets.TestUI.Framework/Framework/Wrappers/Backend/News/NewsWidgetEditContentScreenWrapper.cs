@@ -83,11 +83,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlDiv newsList = EM.News.NewsWidgetContentScreen.NewsList
             .AssertIsPresent("News list");
 
-            var itemSpan = newsList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + newsTitle);
+            var itemDiv = newsList.Find.ByExpression<HtmlDiv>("class=ng-binding", "InnerText=" + newsTitle)
+                .AssertIsPresent("News with this title was not found");
 
-            itemSpan.Wait.ForVisible();
-            itemSpan.ScrollToVisible();
-            itemSpan.MouseClick();
+            itemDiv.Wait.ForVisible();
+            itemDiv.ScrollToVisible();
+            itemDiv.MouseClick();
             this.DoneSelectingButton();
         }
 
@@ -132,7 +133,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlDiv inputDiv = EM.News.NewsWidgetContentScreen.SearchByTypingDiv
                 .AssertIsPresent("Search field div");
 
-            HtmlInputText input = inputDiv.Find.ByExpression<HtmlInputText>("class=form-control ng-pristine ng-valid")
+            HtmlInputText input = inputDiv.Find.ByExpression<HtmlInputText>("placeholder=Narrow by typing")
             .AssertIsPresent("Search field");
 
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick,input.GetRectangle());

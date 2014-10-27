@@ -52,7 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         {
             get
             {
-                return this.Get<HtmlDiv>("tagname=div", "class=list-group s-items-list-wrp endlessScroll");
+                return this.Get<HtmlDiv>("tagname=div", "class=list-group list-group-endless ng-isolate-scope");
             }
         }
 
