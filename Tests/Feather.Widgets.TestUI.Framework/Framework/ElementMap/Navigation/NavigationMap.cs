@@ -32,6 +32,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
             }
         }
 
+        /// <summary>
+        /// Gets the navigation widget frontend.
+        /// </summary>
+        public NavigationWidgetFrontend NavigationWidgetFrontend
+        {
+            get
+            {
+                return new NavigationWidgetFrontend(this.find);
+            }
+        }
+
         private Find find;
     }
 }

@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+       TestCategory(FeatherTestCategories.PagesAndContent), Ignore]
         public void DeleteTagAndEditNewsWidget()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectTaxonomy(TaxonomyName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().OpenSelector();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectTags();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(TaxonTitle1);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle1);
@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().OpenSelector();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectTags();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(TaxonTitle2);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle2);
@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestUI
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyContentOfContentBlockOnThePageFrontend(this.newsTitles);
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-           BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "News";

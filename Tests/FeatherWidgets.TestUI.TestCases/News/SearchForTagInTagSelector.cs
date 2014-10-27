@@ -24,13 +24,13 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectTaxonomy(TaxonomyName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().OpenSelector();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectTags();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(200);
 
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SetSearchText(TaxonTitle);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchTagByTitle(TaxonTitle);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(0);
 
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SetSearchText(TaxonTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchTagByTitle(TaxonTitle1);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(1);
 
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(TaxonTitle1);

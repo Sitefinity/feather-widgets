@@ -162,15 +162,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
+    <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
+    <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
+    <Compile Include="News\NewsWidgetAdvancedSettingsTests.cs" />
     <Compile Include="News\NewsWidgetContentTests.cs" />
+    <Compile Include="News\NewsWidgetDateSelectorTests.cs" />
     <Compile Include="News\NewsWidgetDetailTests.cs" />
     <Compile Include="News\NewsWidgetListSettingsTests.cs" />
     <Compile Include="News\NewsWidgetPageTemplateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sample\SampleTestsThatAlwaysPasses.cs" />
     <Compile Include="TestCategories.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Navigation.Mvc.Controllers;
 using Navigation.Mvc.Models;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Fluent.Pages;
+using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
 using Telerik.Sitefinity.Web;
@@ -16,10 +18,8 @@ namespace FeatherWidgets.TestIntegration.Navigation
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly"), TestFixture]
     [Description("This is a class with Navigation tests.")]
-    public class NavigationWidgetPageSelectionModeTests 
+    public class NavigationWidgetPageSelectionModeTests
     {
-        private List<Guid> createdPageIDs = new List<Guid>();
-
         /// <summary>
         /// Clean up method
         /// </summary>
@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author("bogoeva")]
+        [Author("FeatherTeam")]
         public void NavigationWidget_AllSiblingPagesOfCurrentlyOpenedPage()
         {
             string pageNamePrefix1 = "NavigationPage1";
@@ -74,5 +74,188 @@ namespace FeatherWidgets.TestIntegration.Navigation
             Assert.AreEqual(expectedCount, actualCount);
             Assert.AreEqual(pageTitlePrefix1, navModel.Nodes[0].Title);
         }
+
+        /// <summary>
+        /// Navigation widget - Horizontal template and 5 levels to include
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author("FeatherTeam")]
+        public void NavigationWidget_HorizontalTemplate5LevelsToInclude()
+        {
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
+            string navigationClass = "navbar navbar-default";
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NavigationController).FullName;
+            var navigationController = new NavigationController();
+            navigationController.LevelsToInclude = 5;
+            navigationController.TemplateName = "Horizontal";
+            mvcProxy.Settings = new ControllerSettings(navigationController);
+
+            Guid paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
+            this.createdPageIDs.Add(paretnPageId);
+
+            for (int i = 1; i <= 6; i++)
+            {
+                this.createdPageIDs.Add(Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageTitlePrefix + i, Guid.NewGuid(), this.createdPageIDs[(i - 1)]));
+            }
+
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+            Assert.IsTrue(responseContent.Contains(navigationClass), "The navigation with this css class was not found!");
+
+            for (int i = 0; i <= 6; i++)
+            {
+                if (i <= 4)
+                {
+                    Assert.IsTrue(responseContent.Contains(PageTitlePrefix + i), "The page with this title was not found!");
+                }
+                else
+                {
+                    Assert.IsFalse(responseContent.Contains(PageTitlePrefix + i), "The page with this title was found!");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Navigation widget - Vertical template and 5 levels to include
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author("FeatherTeam")]
+        public void NavigationWidget_VerticalTemplate5LevelsToInclude()
+        {
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
+            string navigationClass = "nav nav-pills nav-stacked";
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NavigationController).FullName;
+            var navigationController = new NavigationController();
+            navigationController.LevelsToInclude = 5;
+            navigationController.TemplateName = "Vertical";
+            mvcProxy.Settings = new ControllerSettings(navigationController);
+
+            Guid paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
+            this.createdPageIDs.Add(paretnPageId);
+
+            for (int i = 1; i <= 6; i++)
+            {
+                this.createdPageIDs.Add(Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageTitlePrefix + i, Guid.NewGuid(), this.createdPageIDs[(i - 1)]));
+            }
+
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+            Assert.IsTrue(responseContent.Contains(navigationClass), "The navigation with this css class was not found!");
+
+            for (int i = 0; i <= 6; i++)
+            {
+                if (i <= 4)
+                {
+                    Assert.IsTrue(responseContent.Contains(PageTitlePrefix + i), "The page with this title was not found!");
+                }
+                else
+                {
+                    Assert.IsFalse(responseContent.Contains(PageTitlePrefix + i), "The page with this title was found!");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Navigation widget - Tabs template and 5 levels to include
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author("FeatherTeam")]
+        public void NavigationWidget_TabsTemplate5LevelsToInclude()
+        {
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
+            string navigationClass = "nav nav-tabs";
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NavigationController).FullName;
+            var navigationController = new NavigationController();
+            navigationController.LevelsToInclude = 5;
+            navigationController.TemplateName = "Tabs";
+            mvcProxy.Settings = new ControllerSettings(navigationController);
+
+            Guid paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
+            this.createdPageIDs.Add(paretnPageId);
+
+            for (int i = 1; i <= 6; i++)
+            {
+                this.createdPageIDs.Add(Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageTitlePrefix + i, Guid.NewGuid(), this.createdPageIDs[(i - 1)]));
+            }
+
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+            Assert.IsTrue(responseContent.Contains(navigationClass), "The navigation with this css class was not found!");
+
+            for (int i = 0; i <= 6; i++)
+            {
+                if (i <= 4)
+                {
+                    Assert.IsTrue(responseContent.Contains(PageTitlePrefix + i), "The page with this title was not found!");
+                }
+                else
+                {
+                    Assert.IsFalse(responseContent.Contains(PageTitlePrefix + i), "The page with this title was found!");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Navigation widget - Sitemap template and 5 levels to include
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author("FeatherTeam")]
+        public void NavigationWidget_SitemapTemplate5LevelsToInclude()
+        {
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
+            string navigationClass = "nav nav-sitemap";
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NavigationController).FullName;
+            var navigationController = new NavigationController();
+            navigationController.LevelsToInclude = 5;
+            navigationController.TemplateName = "Sitemap";
+            mvcProxy.Settings = new ControllerSettings(navigationController);
+
+            Guid paretnPageId = this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, Index);
+            this.createdPageIDs.Add(paretnPageId);
+
+            for (int i = 1; i <= 6; i++)
+            {
+                this.createdPageIDs.Add(Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageTitlePrefix + i, Guid.NewGuid(), this.createdPageIDs[(i - 1)]));
+            }
+
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+            Assert.IsTrue(responseContent.Contains(navigationClass), "The navigation with this css class was not found!");
+
+            for (int i = 0; i <= 6; i++)
+            {
+                if (i <= 4)
+                {
+                    Assert.IsTrue(responseContent.Contains(PageTitlePrefix + i), "The page with this title was not found!");
+                }
+                else
+                {
+                    Assert.IsFalse(responseContent.Contains(PageTitlePrefix + i), "The page with this title was found!");
+                }
+            }
+        }
+
+        #region Fields and constants
+
+        private List<Guid> createdPageIDs = new List<Guid>();
+        private PagesOperations pageOperations = new PagesOperations();
+        private const string PageNamePrefix = "NavigationPage";
+        private const string PageTitlePrefix = "Navigation Page";
+        private const string UrlNamePrefix = "navigation-page";
+        private const int Index = 0;
+
+        #endregion
     }
 }

@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web.Model;
 
 namespace News.Mvc.Models
 {
@@ -50,10 +51,24 @@ namespace News.Mvc.Models
         }
 
         /// <inheritdoc />
-        public Guid SelectedItemId
+        public string SerializedSelectedItemsIds
         {
-            get;
-            set;
+            get
+            {
+                return this.serializedSelectedItemsIds;
+        }
+
+            set
+            {
+                if (this.serializedSelectedItemsIds != value)
+                {
+                    this.serializedSelectedItemsIds = value;
+                    if (!this.serializedSelectedItemsIds.IsNullOrEmpty())
+                    {
+                        this.selectedItemsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedItemsIds);
+                    }
+                }
+            }
         }
 
         /// <inheritdoc />
@@ -141,12 +156,47 @@ namespace News.Mvc.Models
         }
 
         /// <summary>
+        /// Gets or sets the query data used for filtering of the news items.
+        /// </summary>
+        /// <value>
+        /// The additional filters.
+        /// </value>
+        [Browsable(false)]
+        public QueryData AdditionalFilters
+        {
+            get;
+            set;
+        }
+
+        /// <inheritdoc />
+        public string SerializedAdditionalFilters
+        {
+            get
+            {
+                return this.serializedAdditionalFilters;
+            }
+
+            set
+            {
+                if (this.serializedAdditionalFilters != value)
+                {
+                    this.serializedAdditionalFilters = value;
+                    if (!this.serializedAdditionalFilters.IsNullOrEmpty())
+                    {
+                        this.AdditionalFilters = JsonSerializer.DeserializeFromString<QueryData>(this.serializedAdditionalFilters);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the taxonomy filter.
         /// </summary>
         /// <value>
         /// The taxonomy filter.
         /// </value>
         [Browsable(false)]
+        [Obsolete("Use SerializedAdditionalFilters instead.")]
         public Dictionary<string, IList<Guid>> TaxonomyFilter
         {
             get;
@@ -154,6 +204,7 @@ namespace News.Mvc.Models
         }
 
         /// <inheritdoc />
+        [Obsolete("Use SerializedAdditionalFilters instead.")]
         public string SerializedTaxonomyFilter
         {
             get
@@ -175,6 +226,7 @@ namespace News.Mvc.Models
         }
 
         /// <inheritdoc />
+        [Obsolete("Use SerializedAdditionalFilters instead.")]
         public string SerializedSelectedTaxonomies
         {
             get
@@ -187,13 +239,9 @@ namespace News.Mvc.Models
                 if (this.serializedSelectedTaxonomies != value)
                 {
                     this.serializedSelectedTaxonomies = value;
-                    if (!this.serializedSelectedTaxonomies.IsNullOrEmpty())
-                    {
-                        this.selectedTaxonomies = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedTaxonomies);
                     }
                 }
             }
-        }
 
         #endregion 
 
@@ -224,27 +272,28 @@ namespace News.Mvc.Models
 
             if (this.SelectionMode == NewsSelectionMode.FilteredItems)
             {
-                var taxonomyFilterExpression = this.GetTaxonomyFilterExpression();
-                if (!taxonomyFilterExpression.IsNullOrEmpty())
+                if (this.AdditionalFilters != null)
                 {
-                    elements.Add(taxonomyFilterExpression);
+                    var queryExpression = Telerik.Sitefinity.Data.QueryBuilder.LinqTranslator.ToDynamicLinq(this.AdditionalFilters);
+
+                    if (!string.IsNullOrEmpty(queryExpression))
+                    elements.Add(queryExpression);
                 }
             }
             else if (this.SelectionMode == NewsSelectionMode.SelectedItems)
             {
                 var selectedItemsFilterExpression = this.GetSelectedItemsFilterExpression();
-                if (!selectedItemsFilterExpression.IsNullOrEmpty())
-                {
+
+                if (!string.IsNullOrEmpty(selectedItemsFilterExpression))
                     elements.Add(selectedItemsFilterExpression);
                 }
-            }
 
-            if (!this.FilterExpression.IsNullOrEmpty())
-            {
+            if (!string.IsNullOrEmpty(this.FilterExpression))
                 elements.Add(this.FilterExpression);
-            }
 
-            return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
+            var compiledExpression = string.Join(" AND ", elements.Select(el => "(" + el + ")"));
+
+            return compiledExpression;
         }
 
         /// <summary>
@@ -294,13 +343,20 @@ namespace News.Mvc.Models
             compiledFilterExpression = this.AddLiveFilterExpression(compiledFilterExpression);
             compiledFilterExpression = this.AdaptMultilingualFilterExpression(compiledFilterExpression);
 
+            string newsSortExpression = this.GetNewsSortExpression();
+
             newsItems = DataProviderBase.SetExpressions(
                 newsItems,
                 compiledFilterExpression,
-                this.SortExpression,
+                newsSortExpression,
                 itemsToSkip,
                 itemsPerPage,
                 ref totalCount);
+
+            if (this.SelectionMode == NewsSelectionMode.SelectedItems)
+            {
+                newsItems = newsItems.OrderBy(x => x.Id.ToString(), new NewsComparer(this.selectedItemsIds));
+            }
 
             this.TotalPagesCount = (int)Math.Ceiling((double)(totalCount.Value / (double)this.ItemsPerPage.Value));
             this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? this.TotalPagesCount : null;
@@ -374,38 +430,56 @@ namespace News.Mvc.Models
             }
         }
 
-        private string GetTaxonomyFilterExpression()
-        {
-            var taxonomyFilterExpression = string.Join(
-                " AND ",
-                this.TaxonomyFilter
-                    .Where(tf => (tf.Value.Count > 0 && this.selectedTaxonomies.Contains(tf.Key)))
-                    .Select(tf => "(" + string.Join(" OR ", tf.Value.Select(id => "{0}.Contains(({1}))".Arrange(tf.Key, id))) + ")"));
-
-            return taxonomyFilterExpression;
-        }
-
         private string GetSelectedItemsFilterExpression()
         {
-            var selectedItemIds = new List<Guid>() { this.SelectedItemId };
-
-            var selectedItemsFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "Id = " + id));
+            var selectedItemsFilterExpression = string.Join(" OR ", this.selectedItemsIds.Select(id => "Id = " + id));
             return selectedItemsFilterExpression;
+        }
+
+        private string GetNewsSortExpression()
+        {
+            if (this.SelectionMode == NewsSelectionMode.SelectedItems)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return this.SortExpression;
+            }
         }
 
         #endregion 
 
-        #region Privte properties and constants
+        #region Private properties and constants
 
         private IList<NewsItem> items = new List<NewsItem>();
         private int? itemsPerPage = 20;
         private string sortExpression = "PublicationDate DESC";
 
         private NewsManager manager;
-        private string serializedTaxonomyFilter;
+        private string serializedAdditionalFilters;
         private string serializedSelectedTaxonomies;
-        private IList<string> selectedTaxonomies = new List<string>();
+        private string serializedTaxonomyFilter;
+        private string serializedSelectedItemsIds;
+        private IList<string> selectedItemsIds = new List<string>();
 
         #endregion
+
+        private class NewsComparer : IComparer<string>
+        {
+            public NewsComparer(IList<string> orderedNews)
+            {
+                this.orderedNews = orderedNews;
+            }
+
+            public int Compare(string x, string y)
+            {
+                var index1 = this.orderedNews.IndexOf(x);
+                var index2 = this.orderedNews.IndexOf(y);
+                return index1.CompareTo(index2);
+            }
+
+            private readonly IList<string> orderedNews;
+        }
     }
 }

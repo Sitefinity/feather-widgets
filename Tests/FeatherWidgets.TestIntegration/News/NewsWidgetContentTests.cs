@@ -40,6 +40,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifyAllNewsFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -80,6 +81,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_SelectByTagNewsFunctionality()
         {
             int newsCount = 2;
