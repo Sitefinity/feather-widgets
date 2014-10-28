@@ -429,6 +429,68 @@ namespace FeatherWidgets.TestIntegration.News
             Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(this.newsTitles[1]), "The news with this title was not found!");
         }
 
+        /// <summary>
+        /// News widget - test date selector - custom range not existing
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        [Description("Verifies that the date selector - not existing custom range resolves the correct news.")]
+        public void NewsWidget_VerifyDateSelectorCustomRangeOptionNotExisting()
+        {
+            int newsCount = 0;
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SerializedAdditionalFilters = @"{
+            ""QueryItems"":[
+	            {
+		            ""IsGroup"":true,
+		            ""Ordinal"":0,
+		            ""Join"":""AND"",
+		            ""ItemPath"":""_0"",
+		            ""Value"":null,
+		            ""Condition"":null,
+		            ""Name"":""PublicationDate""
+	            },
+	            {
+		            ""IsGroup"":false,
+		            ""Ordinal"":0,
+		            ""Join"":""AND"",
+		            ""ItemPath"":""_0_0"",
+		            ""Value"":""Wed, 22 Oct 2014 21:00:00 GMT"",
+		            ""Condition"":
+			            {
+				            ""FieldName"":""PublicationDate"",
+				            ""FieldType"":""System.DateTime"",
+				            ""Operator"":"">""
+			            },
+		            ""Name"":""PublicationDate.Wed, 22 Oct 2014 21:00:00 GMT""
+	            },
+	            {
+		            ""IsGroup"":false,
+		            ""Ordinal"":1,
+		            ""Join"":""AND"",
+		            ""ItemPath"":""_0_1"",
+		            ""Value"":""Fri, 24 Oct 2014 21:00:00 GMT"",
+		            ""Condition"":
+			            {
+				            ""FieldName"":""PublicationDate"",
+				            ""FieldType"":""System.DateTime"",
+				            ""Operator"":""<""
+			            },
+		            ""Name"":""PublicationDate.Fri, 24 Oct 2014 21:00:00 GMT""
+	            }";
+
+            mvcProxy.Settings = new ControllerSettings(newsController);
+            newsController.Index(null);
+
+            var newsItemsCount = newsController.Model.Items.Count;
+            Assert.AreEqual(newsCount, newsItemsCount, "The count of the news item is not as expected");
+        }
+
         #region Fields and constants
 
         private string[] newsTitles = { "Cat", "Angel", "Boat" };
