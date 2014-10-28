@@ -32,7 +32,7 @@
                     @Html.Resource("SelectedNews")
 
                     <sf-list-selector sf-news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-                                  multiselect="true"
+                                  multiselect="true" sortable="true"
                                   provider="properties.ProviderName.PropertyValue"
                                   selected-ids ="newsSelector.selectedItemsIds"></sf-list-selector>
                 </label>
