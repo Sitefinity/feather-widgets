@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DeleteTagAndEditNewsWidget arrangement class.
     /// </summary>
-    public class SearchForTagInTagSelector : ITestArrangement
+    public class Load200TagsAndSearchInNewsWidget : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -22,16 +22,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 ServerOperations.Taxonomies().CreateTag(TaxonTitle + i);                
             }
 
-            //// var tag = new List<string> { "Tag125" };
-            //// ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 1, NewsContent, "AuthorName", "SourceName", null, tag, null);
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
-                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + i, NewsContent, "AuthorName", "SourceName", null, null, null);
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + i, NewsContent, "AuthorName", "SourceName", null, new List<string>() { TaxonTitle + i }, null);
             }
 
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);

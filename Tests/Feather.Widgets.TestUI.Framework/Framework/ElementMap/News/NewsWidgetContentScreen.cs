@@ -134,5 +134,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlInputText>("ng-model=filter.search");
             }
         }
+
+        /// <summary>
+        /// Gets the active tab.
+        /// </summary>
+        /// <value>The active tab.</value>
+        public HtmlDiv ActiveTab
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("class=~k-content k-state-active");
+            }
+        }
+
+        /// <summary>
+        /// Gets the selected tab.
+        /// </summary>
+        /// <value>The selected tab.</value>
+        public HtmlAnchor SelectedTab
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=k-link", "innertext=~Selected");
+            }
+        }
     }
 }
