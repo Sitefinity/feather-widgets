@@ -3,6 +3,7 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,42 +11,36 @@ using System.Threading.Tasks;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// SearchForNotExistingTag test class.
+    /// SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate test class.
     /// </summary>
     [TestClass]
-    public class SearchForNotExistingTag_ : FeatherTestCase
+    public class SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SearchForNotExistingTag
+        /// UI test SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void SearchForNotExistingTag()
+        public void SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectCheckBox(TaxonomyName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchTagByTitle(TaxonTitle);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().NoItemsFound();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectCheckBox(DateName);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectDisplayItemsPublishedIn(DisplayItemsPublishedIn);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SetFromDateByTyping(DayAgo);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SetToDateByDatePicker(DayForward);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelectingButton();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifyCustomDateFormat(DayAgo, DayForward);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
-            this.VerifyNewsOnTheBackend();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[0]);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[1]);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify news widget on the backend
-        /// </summary>
-        public void VerifyNewsOnTheBackend()
-        {
-            for (int i = 0; i < newsTitles.Length; i++)
-            {
-                BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[i]);
-            }
         }
 
         /// <summary>
@@ -75,11 +70,15 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "News";
-        private const string TaxonTitle = "NotExistingTag";
-        private string[] newsTitles = new string[] { "NewsTitle4", "NewsTitle3", "NewsTitle2", "NewsTitle1", "NewsTitle0" };
+        private const string PageName = "NewsPage";
+        private const string TaxonTitle1 = "Tag1";
+        private const string NewsTitle1 = "NewsTitle1";
         private const string WidgetName = "News";
+        private const string DisplayItemsPublishedIn = "Custom range...";
         private const string WhichNewsToDisplay = "Narrow selection by...";
-        private const string TaxonomyName = "Tags";
+        private const string DateName = "dateInput";
+        private const int DayAgo = -1;
+        private const int DayForward = 1;
+        private string[] newsTitles = { "Angel", "Cat" };
     }
 }
