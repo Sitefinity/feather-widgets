@@ -136,6 +136,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         }
 
         /// <summary>
+        /// Gets which news to display.
+        /// </summary>
+        public HtmlForm DisplayItemsPublishedIn
+        {
+            get
+            {
+                return this.Get<HtmlForm>("tagname=form", "name=periodSelection");
+            }
+        }
+
+        /// <summary>
+        /// Gets news selected items
+        /// </summary>
+        public HtmlSpan SelectedItemsSpan
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("tagname=span", "class=label label-taxon label-full ng-binding");
+            }
+        }
+
+        /// <summary>
         /// Gets the active tab.
         /// </summary>
         /// <value>The active tab.</value>
@@ -156,6 +178,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
             get
             {
                 return this.Get<HtmlAnchor>("class=k-link", "innertext=~Selected");
+            }
+        }
+
+        /// <summary>
+        /// Gets custom range div.
+        /// </summary>
+        public HtmlDiv CustomRangeDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=label-content");
             }
         }
     }
