@@ -437,17 +437,32 @@ namespace News.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Auto-generated page (with the same layout as the list page)
+        /// Gets phrase : Auto-generated page
         /// </summary>
         [ResourceEntry("ShowInSamePage",
-            Value = "Auto-generated page (with the same layout as the list page)",
+            Value = "Auto-generated page",
             Description = "phrase : Auto-generated page (with the same layout as the list page)",
-            LastModified = "2014/09/08")]
+            LastModified = "2014/10/29")]
         public string ShowInSamePage
         {
             get
             {
                 return this["ShowInSamePage", System.Globalization.CultureInfo.InvariantCulture];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : (with the same layout as the list page)
+        /// </summary>
+        [ResourceEntry("ShowInSamePageNote",
+            Value = "(with the same layout as the list page)",
+            Description = "phrase : (with the same layout as the list page)",
+            LastModified = "2014/10/29")]
+        public string ShowInSamePageNote
+        {
+            get
+            {
+                return this["ShowInSamePageNote", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
