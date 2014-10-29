@@ -7,6 +7,7 @@ using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
 using ArtOfTest.Common.UnitTesting;
+using System.Globalization;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -25,7 +26,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlDiv optionsDiv = EM.News
                                    .NewsWidgetContentScreen
                                    .WhichNewsToDisplayList
-                                   .AssertIsPresent("Which news to display options list");
+                .AssertIsPresent("Which news to display options list");
 
             List<HtmlDiv> newsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
@@ -43,7 +44,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
 
             HtmlInputRadioButton optionButton = newsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
-                                                                  .AssertIsPresent("Which news to display option radio button");
+                .AssertIsPresent("Which news to display option radio button");
 
             optionButton.Click();
         }
@@ -52,13 +53,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Selects the taxonomy.
         /// </summary>
         /// <param name="taxonomy">The taxonomy.</param>
-        public void SelectTaxonomy(string taxonomy)
+        public void SelectCheckBox(string taxonomy)
         {
             ActiveBrowser.WaitForAsyncOperations();
 
             HtmlInputCheckBox optionButton = ActiveBrowser.Find
                                                           .ByExpression<HtmlInputCheckBox>("id=" + taxonomy)
-                                                          .AssertIsPresent("Taxonomy option");
+                .AssertIsPresent("Taxonomy option");
 
             optionButton.Click();
 
@@ -73,7 +74,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlButton shareButton = EM.News
                                        .NewsWidgetContentScreen
                                        .DoneSelectingButton
-                                       .AssertIsPresent("Done selecting button");
+            .AssertIsPresent("Done selecting button");
             shareButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
@@ -88,7 +89,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlDiv newsList = EM.News
                                  .NewsWidgetContentScreen
                                  .NewsList
-                                 .AssertIsPresent("News list");
+            .AssertIsPresent("News list");
 
             var itemDiv = newsList.Find.ByExpression<HtmlDiv>("class=ng-binding", "InnerText=" + newsTitle)
                 .AssertIsPresent("News with this title was not found");
@@ -123,7 +124,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlButton saveButton = EM.News
                                       .NewsWidgetContentScreen
                                       .SaveChangesButton
-                                      .AssertIsPresent("Save button");
+            .AssertIsPresent("Save button");
             saveButton.Click();
         }
 
@@ -158,7 +159,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlDiv inputDiv = EM.News
                                  .NewsWidgetContentScreen
                                  .SearchByTypingDiv
-                                 .AssertIsPresent("Search field div");
+                .AssertIsPresent("Search field div");
 
             HtmlInputText input = inputDiv.Find.ByExpression<HtmlInputText>("placeholder=Narrow by typing")
             .AssertIsPresent("Search field");
@@ -212,7 +213,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             Manager.Current.Wait.For(() => this.CountItems(expectedCount), 50000);
         }
-
+      
         /// <summary>
         /// Waits for items to appear in selected tab.
         /// </summary>
@@ -239,7 +240,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 var items = activeDialog.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
                 if (items.Count() > 12)
                 {
-                    scroller.MouseClick(MouseClickType.LeftDoubleClick);
+            scroller.MouseClick(MouseClickType.LeftDoubleClick);
                     Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
                 }
                 items = activeDialog.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
@@ -273,48 +274,109 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlDiv noItemsFound = EM.News
                                      .NewsWidgetContentScreen
                                      .NoItemsFoundDiv
-                                     .AssertIsPresent("No items found div");
+            .AssertIsPresent("No items found div");
 
             var isContained = noItemsFound.InnerText.Contains("No items found");
             Assert.IsTrue(isContained, "Message not found");
         }
 
         /// <summary>
-        /// Verifies the selected item.
+        /// Selects display items published in
         /// </summary>
-        /// <param name="itemName">Name of the item.</param>
-        public void VerifySelectedItemInMultipleSelectors(string[] itemNames)
+        /// <param name="option">Selects display items published in</param>
+        public void SelectDisplayItemsPublishedIn(string option, string divClass = "radio")
         {
-            var divList = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
-            int divListCount = divList.Count;
+            int position;
+            HtmlForm optionsForm = EM.News.NewsWidgetContentScreen.DisplayItemsPublishedIn
+                .AssertIsPresent("Selects display items published in");
 
-            for (int i = 0; i < divListCount; i++)
+            List<HtmlDiv> newsDivs = optionsForm.Find.AllByExpression<HtmlDiv>("tagname=div", "class=" + divClass).ToList<HtmlDiv>();
+
+            if (option.Contains("Custom"))
             {
-                Assert.AreEqual(divList[i].InnerText, itemNames[i]);
-            }           
+                position = 1;
+            }
+            else
+            {
+                position = 0;
+            }
+
+            HtmlInputRadioButton optionButton = newsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
+                .AssertIsPresent("Which news to display option radio button");
+
+            optionButton.Click();
         }
 
         /// <summary>
-        /// Checks the notification in selected tab.
+        /// Set From date by typing
         /// </summary>
-        /// <param name="itemNames">The item names.</param>
-        public void CheckNotificationInSelectedTab(int expectedCout)
+        /// <param name="dayAgo">Day ago</param>
+        public void SetFromDateByTyping(int dayAgo)
         {
-            var span = this.EM.News.NewsWidgetContentScreen.Find.ByExpression<HtmlSpan>("class=badge ng-binding", string.Format("InnerText=~{0}", expectedCout));
-            span.AssertIsPresent("item name not present");
+            DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
+            String publicationDateStartFormat = publicationDateStart.ToString("dd-MMMM-yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+
+            HtmlDiv customRangeDiv = EM.News.NewsWidgetContentScreen.CustomRangeDiv
+                .AssertIsPresent("Custom range");
+            List<HtmlInputText> inputDate = customRangeDiv.Find.AllByExpression<HtmlInputText>("tagname=input", "id=fromInput").ToList<HtmlInputText>();
+            
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, inputDate[0].GetRectangle());
+            Manager.Current.Desktop.KeyBoard.TypeText(publicationDateStartFormat);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
-        /// Opens the selected tab.
+        /// Set To date by date picker 
         /// </summary>
-        public void OpenSelectedTab()
+        /// <param name="dayForward">Day forward</param>
+        public void SetToDateByDatePicker(int dayForward)
         {
-            HtmlAnchor selectedTab = this.EM.News.NewsWidgetContentScreen.SelectedTab
+            DateTime publicationDateEnd = DateTime.UtcNow.AddDays(dayForward);
+            String publicationDateEndFormat = publicationDateEnd.ToString("dd", CultureInfo.CreateSpecificCulture("en-US"));
 
-                                         .AssertIsPresent("selected tab");
-            selectedTab.Click();
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
+            HtmlDiv customRangeDiv = EM.News.NewsWidgetContentScreen.CustomRangeDiv
+                .AssertIsPresent("Custom range");
+
+            List<HtmlSpan> buttonDate = customRangeDiv.Find.AllByExpression<HtmlSpan>("tagname=span", "class=input-group-btn").ToList<HtmlSpan>();
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, buttonDate[1].GetRectangle());
+
+            List<HtmlTable> dateTable = customRangeDiv.Find.AllByExpression<HtmlTable>("tagname=table").ToList<HtmlTable>();
+            List<HtmlTableCell> toDay = dateTable[1].Find.AllByExpression<HtmlTableCell>("tagname=td", "InnerText=" + publicationDateEndFormat).ToList<HtmlTableCell>();
+            HtmlButton buttonToDay;
+
+            if (toDay.Count == 2)
+            {
+                buttonToDay = toDay[1].Find.ByExpression<HtmlButton>("tagname=button");
+            }
+            else
+            {
+                buttonToDay = toDay[0].Find.ByExpression<HtmlButton>("tagname=button");
+            }
+            
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, buttonToDay.GetRectangle());
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify date format
+        /// </summary>
+        /// <param name="dayAgo">Day ago</param>
+        /// <param name="dayForward">Day forward</param>
+        public void VerifyCustomDateFormat(int dayAgo, int dayForward)
+        {
+            DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
+            String publicationDateStartFormat = publicationDateStart.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+
+            DateTime publicationDateEnd = DateTime.UtcNow.AddDays(dayForward);
+            String publicationDateEndFormat = publicationDateEnd.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+
+            HtmlSpan selectedItemsSpan = EM.News.NewsWidgetContentScreen.SelectedItemsSpan
+                .AssertIsPresent("Date span");
+
+            var isContained = selectedItemsSpan.InnerText.Contains("From " + publicationDateStartFormat + " to " + publicationDateEndFormat);
+            Assert.IsTrue(isContained, "Date format is not as expected");
         }
     }
 }
