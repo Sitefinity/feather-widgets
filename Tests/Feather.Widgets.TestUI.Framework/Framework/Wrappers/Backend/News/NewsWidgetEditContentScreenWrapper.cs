@@ -23,7 +23,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectWhichNewsToDisplay(string mode)
         {
             int position;
-            HtmlDiv optionsDiv = EM.News.NewsWidgetContentScreen.WhichNewsToDisplayList
+            HtmlDiv optionsDiv = EM.News
+                                   .NewsWidgetContentScreen
+                                   .WhichNewsToDisplayList
                 .AssertIsPresent("Which news to display options list");
 
             List<HtmlDiv> newsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
@@ -55,7 +57,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             ActiveBrowser.WaitForAsyncOperations();
 
-            HtmlInputCheckBox optionButton = ActiveBrowser.Find.ByExpression<HtmlInputCheckBox>("id=" + taxonomy)
+            HtmlInputCheckBox optionButton = ActiveBrowser.Find
+                                                          .ByExpression<HtmlInputCheckBox>("id=" + taxonomy)
                 .AssertIsPresent("Taxonomy option");
 
             optionButton.Click();
@@ -66,9 +69,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Provide access to done button
         /// </summary>
-        public void DoneSelectingButton()
+        public void DoneSelecting()
         {
-            HtmlButton shareButton = EM.News.NewsWidgetContentScreen.DoneSelectingButton
+            HtmlButton shareButton = EM.News
+                                       .NewsWidgetContentScreen
+                                       .DoneSelectingButton
             .AssertIsPresent("Done selecting button");
             shareButton.Click();
             ActiveBrowser.WaitUntilReady();
@@ -81,7 +86,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="newsTitle">The title of the news item</param>
         public void SelectItem(string newsTitle)
         {
-            HtmlDiv newsList = EM.News.NewsWidgetContentScreen.NewsList
+            HtmlDiv newsList = EM.News
+                                 .NewsWidgetContentScreen
+                                 .NewsList
             .AssertIsPresent("News list");
 
             var itemDiv = newsList.Find.ByExpression<HtmlDiv>("class=ng-binding", "InnerText=" + newsTitle)
@@ -90,7 +97,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             itemDiv.Wait.ForVisible();
             itemDiv.ScrollToVisible();
             itemDiv.MouseClick();
-            this.DoneSelectingButton();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Selects the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectItemInMultipleSelector(params string[] itemNames)
+        {
+            foreach (var itemName in itemNames)
+            {
+                var div = this.EM.News.NewsWidgetContentScreen.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
+                div.AssertIsPresent(itemName + "not present");
+
+                div.Click();
+                ActiveBrowser.WaitForAsyncRequests();
+            }
         }
 
         /// <summary>
@@ -98,7 +121,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SaveChanges()
         {
-            HtmlButton saveButton = EM.News.NewsWidgetContentScreen.SaveChangesButton
+            HtmlButton saveButton = EM.News
+                                      .NewsWidgetContentScreen
+                                      .SaveChangesButton
             .AssertIsPresent("Save button");
             saveButton.Click();
         }
@@ -106,7 +131,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Select tag by title
         /// </summary>
-        public void ClickSelectButton()
+        public void SelectContent()
         {
             var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
             foreach (var button in selectButtons)
@@ -127,11 +152,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Search tag by title
         /// </summary>
         /// <param name="title">The title of the tag</param>
-        public void SearchTagByTitle(string title)
+        public void SearchItemByTitle(string title)
         {
-            this.ClickSelectButton();
+            this.SelectContent();
 
-            HtmlDiv inputDiv = EM.News.NewsWidgetContentScreen.SearchByTypingDiv
+            HtmlDiv inputDiv = EM.News
+                                 .NewsWidgetContentScreen
+                                 .SearchByTypingDiv
                 .AssertIsPresent("Search field div");
 
             HtmlInputText input = inputDiv.Find.ByExpression<HtmlInputText>("placeholder=Narrow by typing")
@@ -139,10 +166,45 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, input.GetRectangle());
             Manager.Current.Desktop.KeyBoard.TypeText(title);
-            Manager.Current.ActiveBrowser.WaitUntilReady();
             Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
             Manager.Current.ActiveBrowser.RefreshDomTree();
         }
+
+        /// <summary>
+        /// Sets a text to search in t he search input.
+        /// </summary>
+        /// <param name="text">The text to be searched for.</param>
+        public void ChangeSearchText(string text)
+        {
+            var inputList = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlInputText>("ng-model=filter.searchString");
+
+            foreach (var inputElement in inputList)
+            {
+                if (inputElement.IsVisible())
+                {
+                    inputElement.Focus();
+                    inputElement.MouseClick();
+                    if (text != "")
+                    {
+                        inputElement.Text = string.Empty;
+                        Manager.Current.Desktop.KeyBoard.TypeText(text);
+                    }
+                    else
+                    {
+                        //// select all and delete current text typing
+                        Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+                        Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+                        Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+                        Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Back);
+                    }
+                    break;
+                }
+            }
+
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
         /// <summary>
         /// Waits for items count to appear.
         /// </summary>
@@ -153,27 +215,65 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
       
         /// <summary>
-        /// Counts the items.
+        /// Waits for items to appear in selected tab.
         /// </summary>
-        /// <param name="expected">The expected.</param>
-        /// <returns></returns>
-        public bool CountItems(int expected)
+        /// <param name="expectedCount">The expected count.</param>
+        public void WaitForItemsToAppearInSelectedTab(int expectedCount)
+        {
+            Manager.Current.Wait.For(() => this.CountItems(expectedCount, true), 50000);
+        }
+
+        /// <summary>
+        /// Verifies if the items count is as expected.
+        /// </summary>
+        /// <param name="expected">The expected items count.</param>
+        /// <returns>True or false depending on the items count.</returns>
+        public bool CountItems(int expected, bool isSelectedTab = false)
         {
             ActiveBrowser.RefreshDomTree();
-            HtmlDiv scroller = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=list-group s-items-list-wrp endlessScroll")
-                .AssertIsPresent("Scroller");
+            var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
+            int actual = 0;
+            if (!isSelectedTab)
+            {
+                HtmlDiv scroller = ActiveBrowser.Find
+                                                .ByExpression<HtmlDiv>("class=list-group list-group-endless ng-isolate-scope");
+                var items = activeDialog.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
+                if (items.Count() > 12)
+                {
             scroller.MouseClick(MouseClickType.LeftDoubleClick);
-            Manager.Current.Desktop.Mouse.TurnWheel(1000, MouseWheelTurnDirection.Backward);
-            var items = EM.News.NewsWidgetContentScreen.SelectorItems;
-            return expected == items.Count;
+                    Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
+                }
+                items = activeDialog.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
+                actual = items.Count;
+
+            }
+            else
+            {
+                HtmlDiv scroller = ActiveBrowser.Find
+                                                .ByExpression<HtmlDiv>("class=list-group list-group-endless");
+                var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
+                if (items.Count() > 12)
+                {
+                    scroller.MouseClick(MouseClickType.LeftDoubleClick);
+                    Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
+                }
+                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
+                actual = items.Count;
+            }
+
+            bool isCountCorrect = expected == actual;
+            return isCountCorrect;
         }
+
 
         /// <summary>
         /// No news items found
         /// </summary>
         public void NoItemsFound()
         {
-            HtmlDiv noItemsFound = EM.News.NewsWidgetContentScreen.NoItemsFoundDiv
+            HtmlDiv noItemsFound = EM.News
+                                     .NewsWidgetContentScreen
+                                     .NoItemsFoundDiv
             .AssertIsPresent("No items found div");
 
             var isContained = noItemsFound.InnerText.Contains("No items found");
