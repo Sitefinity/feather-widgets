@@ -147,24 +147,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         }
 
         /// <summary>
-        /// Gets custom range div.
-        /// </summary>
-        public HtmlDiv CustomRangeDiv
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagname=div", "class=label-content");
-            }
-        }
-
-        /// <summary>
         /// Gets news selected items
         /// </summary>
         public HtmlSpan SelectedItemsSpan
         {
             get
             {
-                return this.Get<HtmlSpan>("tagname=span", "class=label label-taxon ng-binding");
+                return this.Get<HtmlSpan>("tagname=span", "class=label label-taxon label-full ng-binding");
             }
         }
     }

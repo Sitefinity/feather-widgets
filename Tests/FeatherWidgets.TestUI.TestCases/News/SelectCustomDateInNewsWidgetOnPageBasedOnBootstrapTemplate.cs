@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+       TestCategory(FeatherTestCategories.PagesAndContent), Ignore]
         public void SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -71,8 +71,6 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string PageName = "NewsPage";
-        private const string TaxonTitle1 = "Tag1";
-        private const string NewsTitle1 = "NewsTitle1";
         private const string WidgetName = "News";
         private const string DisplayItemsPublishedIn = "Custom range...";
         private const string WhichNewsToDisplay = "Narrow selection by...";
