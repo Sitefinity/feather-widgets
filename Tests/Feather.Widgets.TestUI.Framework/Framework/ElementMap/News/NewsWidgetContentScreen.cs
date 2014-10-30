@@ -180,16 +180,5 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlAnchor>("class=k-link", "innertext=~Selected");
             }
         }
-
-        /// <summary>
-        /// Gets custom range div.
-        /// </summary>
-        public HtmlDiv CustomRangeDiv
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagname=div", "class=label-content");
-            }
-        }
     }
 }
