@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using System.Drawing;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -109,10 +110,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         /// <param name="pageTitle">The page title.</param>
         /// <returns></returns>
-        public HtmlAnchor GetPageLinkByTitleFromNavigation(string pageTitle)
+        public HtmlAnchor GetPageLinkByTitleFromNavigation(string pageTitle, TemplateType templateType)
         {
-            HtmlUnorderedList list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=nav navbar-nav");
-            list.AssertIsNotNull("list");
+            HtmlUnorderedList list = null;
+
+            if (templateType == TemplateType.Bootstrap)
+            {
+                list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=nav navbar-nav");
+                list.AssertIsNotNull("list");
+            }
+
+            else if (templateType == TemplateType.Foundation)
+            {
+                HtmlControl section = ActiveBrowser.Find.ByExpression<HtmlControl>("tagname=section", "class=top-bar-section");
+                section.AssertIsNotNull("section");
+
+                list = section.Find.AllByTagName<HtmlUnorderedList>("ul").First();
+            }
 
             HtmlListItem listItem = list.ChildNodes.Where(i => i.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlListItem>();
             listItem.AssertIsPresent<HtmlListItem>("List Item");
@@ -131,9 +145,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Clicks on a page link from the Mvc navigation on the frontend.
         /// </summary>
         /// <param name="pageTitle">The page title.</param>
-        public void ClickOnPageLinkFromNavigationMenu(string pageTitle)
+        public void ClickOnPageLinkFromNavigationMenu(string pageTitle, TemplateType templateType)
         {
-            HtmlAnchor pageLink = this.GetPageLinkByTitleFromNavigation(pageTitle);
+            HtmlAnchor pageLink = this.GetPageLinkByTitleFromNavigation(pageTitle, templateType);
             pageLink.Click();
             ActiveBrowser.WaitForUrl("/" + pageTitle.ToLower(), true, TimeOut);
             ActiveBrowser.WaitUntilReady();
@@ -187,6 +201,60 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             return false;
         }
 
+        /// <summary>
+        /// Resizes the browser window to selected width.
+        /// </summary>
+        /// <param name="width">The window width.</param>
+        public void ResizeBrowserWindow(int width)
+        {
+            Rectangle rect = new Rectangle(200, 200, width, 500);
+
+            ActiveBrowser.ResizeContent(rect);
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Restores the browser window to default.
+        /// </summary>
+        public void RestoreBrowserWindow()
+        {
+            ActiveBrowser.Window.Restore();
+            ActiveBrowser.Window.Maximize();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Opens the toggle navigation menu in foundation template
+        /// </summary>
+        public void OpenToggleMenuForFoundationTemplate()
+        {
+            HtmlAnchor toggleButton = this.EM.Navigation.NavigationWidgetFrontend.FoundationMenuLink
+                .AssertIsPresent<HtmlAnchor>("Menu Button");
+
+            toggleButton.Click();
+        }
+
         private const int TimeOut = 60000;
     }
+}
+
+/// <summary>
+/// Different types of templates.
+/// </summary>
+public enum TemplateType
+{
+    /// <summary>
+    /// Bootstrap template.
+    /// </summary>
+    Bootstrap,
+
+    /// <summary>
+    /// Foundation template.
+    /// </summary>
+    Foundation,
+
+    /// <summary>
+    /// Semantic template.
+    /// </summary>
+    Semantic
 }

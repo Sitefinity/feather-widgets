@@ -14,5 +14,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Pages and content category
         /// </summary>
         public const string PagesAndContent = "PagesAndContent";
+
+        /// <summary>
+        /// Navigation category
+        /// </summary>
+        public const string Navigation = "Navigation";
     }
 }

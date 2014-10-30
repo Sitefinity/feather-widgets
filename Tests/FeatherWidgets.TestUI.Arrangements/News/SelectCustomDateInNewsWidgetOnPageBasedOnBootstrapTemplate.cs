@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
@@ -42,7 +43,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             newsManager.SaveChanges();
 
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
+            Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
+            pageId = ServerOperations.Pages().GetPageNodeId(pageId);
+
+            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId, "Contentplaceholder1");
         }
 
         /// <summary>

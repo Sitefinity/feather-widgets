@@ -20,7 +20,8 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void NavigationWidgetAllPagesType()
         {
             BAT.Macros().NavigateTo().Pages();

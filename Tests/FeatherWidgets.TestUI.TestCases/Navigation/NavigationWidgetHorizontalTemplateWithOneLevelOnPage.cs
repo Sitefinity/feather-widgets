@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-      TestCategory(FeatherTestCategories.PagesAndContent)]
+      TestCategory(FeatherTestCategories.Navigation)]
         public void NavigationWidgetHorizontalTemplateWithOneLevelOnPage()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();

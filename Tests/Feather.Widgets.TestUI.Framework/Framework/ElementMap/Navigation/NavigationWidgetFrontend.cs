@@ -56,5 +56,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
                 return this.Get<HtmlSelect>("class=nav-select form-control");
             }
         }
+
+        /// <summary>
+        /// Gets the menu link from transformation for Foundation template. 
+        /// </summary>
+        public HtmlAnchor FoundationMenuLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Menu");
+            }
+        }
     }
 }

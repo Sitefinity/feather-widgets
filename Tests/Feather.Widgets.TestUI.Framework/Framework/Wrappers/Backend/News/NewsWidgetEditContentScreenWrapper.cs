@@ -409,5 +409,64 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var isContained = selectedItemsSpan.InnerText.Contains("From " + publicationDateStartFormat + " to " + publicationDateEndFormat);
             Assert.IsTrue(isContained, "Date format is not as expected");
         }
+
+        /// <summary>
+        ///  Add hour
+        /// </summary>
+        /// <param name="hour">Hour value to select</param>
+        /// <param name="isFrom">Is from or to hour</param>
+        public void AddHour(string hour, bool isFrom)
+        {
+            List<HtmlAnchor> hourAnchor = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagname=a", "InnerText=Add hour").ToList<HtmlAnchor>();
+            int fromOrTo = 0;
+            
+            if (isFrom.Equals(false))
+            {
+                fromOrTo = 1;
+            }
+
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, hourAnchor[fromOrTo].GetRectangle());
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+
+            List<HtmlSelect> hoursSelector = ActiveBrowser.Find.AllByExpression<HtmlSelect>("tagname=select", "ng-change=updateHours(hstep)").ToList<HtmlSelect>();
+            hoursSelector[fromOrTo].SelectByValue(hour);
+            hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        ///  Add minute
+        /// </summary>
+        /// <param name="minute">Minute value to select</param>
+        /// <param name="isFrom">Is from or to minute</param>
+        public void AddMinute(string minute, bool isFrom)
+        {
+            List<HtmlAnchor> minutesAnchor = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagname=a", "InnerText=Add minutes").ToList<HtmlAnchor>();
+            int fromOrTo = 0;
+
+            if (isFrom.Equals(false))
+            {
+                fromOrTo = 1;
+            }
+
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, minutesAnchor[fromOrTo].GetRectangle());
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+
+            List<HtmlSelect> minutesSelector = ActiveBrowser.Find.AllByExpression<HtmlSelect>("tagname=select", "ng-change=updateMinutes(mstep)").ToList<HtmlSelect>();
+            minutesSelector[fromOrTo].Click();
+            minutesSelector[fromOrTo].SelectByValue(minute);
+            minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
     }
 }
