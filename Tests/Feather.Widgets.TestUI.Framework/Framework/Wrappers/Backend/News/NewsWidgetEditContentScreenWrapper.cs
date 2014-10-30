@@ -109,17 +109,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             foreach (var itemName in itemNames)
             {
-                var div = this.EM.News.NewsWidgetContentScreen.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
-                div.AssertIsPresent(itemName + "not present");
-
-                div.Click();
-                ActiveBrowser.WaitForAsyncRequests();
+                var divs = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
+                foreach (var div in divs)
+                {
+                    if (div.IsVisible())
+                    {
+                        div.Click();
+                        ActiveBrowser.WaitForAsyncRequests();
+                        break;
+                    }
+                }
             }
         }
 
-        /// <summary>
-        /// Save news widget
-        /// </summary>
+            /// <summary>
+            /// Save news widget
+            /// </summary>
         public void SaveChanges()
         {
             HtmlButton saveButton = EM.News
@@ -217,52 +222,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
       
         /// <summary>
-        /// Waits for items to appear in selected tab.
-        /// </summary>
-        /// <param name="expectedCount">The expected count.</param>
-        public void WaitForItemsToAppearInSelectedTab(int expectedCount)
-        {
-            Manager.Current.Wait.For(() => this.CountItems(expectedCount, true), 50000);
-        }
-
-        /// <summary>
         /// Verifies if the items count is as expected.
         /// </summary>
         /// <param name="expected">The expected items count.</param>
         /// <returns>True or false depending on the items count.</returns>
-        public bool CountItems(int expected, bool isSelectedTab = false)
+        public bool CountItems(int expected)
         {
             ActiveBrowser.RefreshDomTree();
             var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
-            int actual = 0;
-            if (!isSelectedTab)
+
+            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+
+            //// if items count is more than 12 elements, then you need to scroll
+            if (items.Count() > 12)
             {
-                HtmlDiv scroller = ActiveBrowser.Find
-                                                .ByExpression<HtmlDiv>("class=list-group list-group-endless ng-isolate-scope");
-                var items = activeDialog.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
-                if (items.Count() > 12)
-                {
-                    scroller.MouseClick(MouseClickType.LeftDoubleClick);
-                    Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
-                }
-                items = activeDialog.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
-                actual = items.Count;
-            }
-            else
-            {
-                HtmlDiv scroller = ActiveBrowser.Find
-                                                .ByExpression<HtmlDiv>("class=list-group list-group-endless");
-                var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
-                if (items.Count() > 12)
-                {
-                    scroller.MouseClick(MouseClickType.LeftDoubleClick);
-                    Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
-                }
-                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
-                actual = items.Count;
+                HtmlDiv scroller = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=~list-group list-group-endless");
+
+                scroller.MouseClick(MouseClickType.LeftDoubleClick);
+                Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
+                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
             }
 
-            bool isCountCorrect = expected == actual;
+            bool isCountCorrect = (expected == items.Count);
             return isCountCorrect;
         }
 
@@ -314,6 +295,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
                                          .AssertIsPresent("selected tab");
             selectedTab.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Opens the all tab.
+        /// </summary>
+        public void OpenAllTab()
+        {
+            HtmlAnchor allTab = this.EM.News.NewsWidgetContentScreen.AllTab
+                                    .AssertIsPresent("all tab");
+
+            allTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
         }
@@ -414,6 +408,65 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             
             var isContained = selectedItemsSpan.InnerText.Contains("From " + publicationDateStartFormat + " to " + publicationDateEndFormat);
             Assert.IsTrue(isContained, "Date format is not as expected");
+        }
+
+        /// <summary>
+        ///  Add hour
+        /// </summary>
+        /// <param name="hour">Hour value to select</param>
+        /// <param name="isFrom">Is from or to hour</param>
+        public void AddHour(string hour, bool isFrom)
+        {
+            List<HtmlAnchor> hourAnchor = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagname=a", "InnerText=Add hour").ToList<HtmlAnchor>();
+            int fromOrTo = 0;
+            
+            if (isFrom.Equals(false))
+            {
+                fromOrTo = 1;
+            }
+
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, hourAnchor[fromOrTo].GetRectangle());
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+
+            List<HtmlSelect> hoursSelector = ActiveBrowser.Find.AllByExpression<HtmlSelect>("tagname=select", "ng-change=updateHours(hstep)").ToList<HtmlSelect>();
+            hoursSelector[fromOrTo].SelectByValue(hour);
+            hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        ///  Add minute
+        /// </summary>
+        /// <param name="minute">Minute value to select</param>
+        /// <param name="isFrom">Is from or to minute</param>
+        public void AddMinute(string minute, bool isFrom)
+        {
+            List<HtmlAnchor> minutesAnchor = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagname=a", "InnerText=Add minutes").ToList<HtmlAnchor>();
+            int fromOrTo = 0;
+
+            if (isFrom.Equals(false))
+            {
+                fromOrTo = 1;
+            }
+
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, minutesAnchor[fromOrTo].GetRectangle());
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+
+            List<HtmlSelect> minutesSelector = ActiveBrowser.Find.AllByExpression<HtmlSelect>("tagname=select", "ng-change=updateMinutes(mstep)").ToList<HtmlSelect>();
+            minutesSelector[fromOrTo].Click();
+            minutesSelector[fromOrTo].SelectByValue(minute);
+            minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
     }
 }

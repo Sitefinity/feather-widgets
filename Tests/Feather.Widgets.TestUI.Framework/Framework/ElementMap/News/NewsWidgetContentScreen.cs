@@ -170,6 +170,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         }
 
         /// <summary>
+        /// Gets the all tab.
+        /// </summary>
+        /// <value>The all tab.</value>
+        public HtmlAnchor AllTab
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=k-link", "innertext=~All");
+            }
+        }
+
+        /// <summary>
         /// Gets the selected tab.
         /// </summary>
         /// <value>The selected tab.</value>

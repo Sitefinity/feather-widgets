@@ -18,28 +18,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         /// Creates news item with tag.
         /// </summary>
         /// <param name="newsTitle">The news title.</param>
-        public void AddCustomTaxonomyToNews(string taxonomyName)
+        public void AddCustomTaxonomyToNews(Guid newsItemId, string taxonomyName, IEnumerable<string> taxonNames)
         {
-            var newsManager = NewsManager.GetManager();
-            if (newsManager != null)
+            var newsManager = Telerik.Sitefinity.Modules.News.NewsManager.GetManager();
+            NewsItem newsItem = newsManager.GetNewsItem(newsItemId);
+            if (newsItem == null)
             {
-                var items = newsManager.GetNewsItems();
-
-                if (items.Count() > 0)
+                throw new ItemNotFoundException(string.Format(CultureInfo.CurrentCulture, "News item with id {0} was not found.", newsItemId));
+            }
+           
+            TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
+            foreach (var taxonName in taxonNames)
+            {
+                var taxon = taxonomyManager.GetTaxa<FlatTaxon>().Where(t => t.Title == taxonName).FirstOrDefault();
+                if (taxon != null)
                 {
-                    foreach (NewsItem item in items)
-                    {
-                        TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
-                        var taxon = taxonomyManager.GetTaxa<FlatTaxon>().Where(t => t.Taxonomy.Name == taxonomyName).FirstOrDefault();
-                        if (taxon != null)
-                        {
-                            item.Organizer.AddTaxa(taxonomyName, taxon.Id);                           
-                        }
-                    }
-
-                    newsManager.SaveChanges();
+                    newsItem.Organizer.AddTaxa(taxonomyName, taxon.Id);
                 }
             }
+
+            newsManager.SaveChanges();        
         }
 
         /// <summary>
@@ -72,6 +70,34 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             if (providerTitle.IsNullOrEmpty())
             {
                 this.AddTaxonomiesToNews(newsItem.Id, categories, tags);
+            }
+
+            newsItem.SetWorkflowStatus(newsManager.Provider.ApplicationName, "Published");
+            newsManager.Publish(newsItem);
+            newsManager.SaveChanges();
+
+            return newsItem.Id;
+        }
+
+        public Guid CreatePublishedNewsItemWithCustomTaxonomy(string title, string content, string author, string sourceName, string taxonomyName, IEnumerable<string> taxonNames, string providerTitle)
+        {
+            NewsManager newsManager = null;
+            if (providerTitle.IsNullOrEmpty())
+            {
+                newsManager = NewsManager.GetManager();
+            }
+            else
+            {
+                newsManager = NewsManager.GetManager();
+                var provider = newsManager.ProviderInfos.SingleOrDefault(p => providerTitle.Equals(p.ProviderTitle, StringComparison.OrdinalIgnoreCase));
+                newsManager = NewsManager.GetManager(provider.ProviderName);
+            }
+
+            var newsItem = this.CreateNewsWithBasicProperties(newsManager, title, content, author, sourceName);
+
+            if (providerTitle.IsNullOrEmpty())
+            {
+                this.AddCustomTaxonomyToNews(newsItem.Id, taxonomyName, taxonNames);
             }
 
             newsItem.SetWorkflowStatus(newsManager.Provider.ApplicationName, "Published");

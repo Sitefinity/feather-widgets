@@ -26,19 +26,23 @@ namespace FeatherWidgets.TestUI
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectCheckBox(DateName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectDisplayItemsPublishedIn(DisplayItemsPublishedIn);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SetFromDateByTyping(DayAgo);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().AddHour("10", true);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().AddMinute("2", true);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SetToDateByDatePicker(DayForward);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().AddHour("13", false);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().AddMinute("4", false);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
             
             ////There is bug in IE with date format
 
             ////BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifyCustomDateFormat(DayAgo, DayForward);
+
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[0]);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[1]);
