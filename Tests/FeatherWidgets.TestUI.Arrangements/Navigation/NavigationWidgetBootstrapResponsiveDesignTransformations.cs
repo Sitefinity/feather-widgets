@@ -12,9 +12,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Arrangement methods for NavigationWidgetResponsiveDesignTransformations
+    /// Arrangement methods for NavigationWidgetBootstrapResponsiveDesignTransformations
     /// </summary>
-    public class NavigationWidgetResponsiveDesignTransformations : ITestArrangement
+    public class NavigationWidgetBootstrapResponsiveDesignTransformations : ITestArrangement
     {
         /// <summary>
         /// Server side set up.

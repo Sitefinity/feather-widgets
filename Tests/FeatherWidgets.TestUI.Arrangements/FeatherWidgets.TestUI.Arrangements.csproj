@@ -101,8 +101,9 @@
     <Compile Include="Navigation\NavigationWidgetAllPagesUnderCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAndContentBlockWidgetOnTheSamePage.cs" />
+    <Compile Include="Navigation\NavigationWidgetFoundationResponsiveDesignTransformations.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
-    <Compile Include="Navigation\NavigationWidgetResponsiveDesignTransformations.cs" />
+    <Compile Include="Navigation\NavigationWidgetBootstrapResponsiveDesignTransformations.cs" />
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
