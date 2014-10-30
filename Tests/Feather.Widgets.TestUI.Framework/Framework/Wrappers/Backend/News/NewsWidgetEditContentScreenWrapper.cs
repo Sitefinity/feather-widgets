@@ -53,7 +53,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Selects the taxonomy.
         /// </summary>
         /// <param name="taxonomy">The taxonomy.</param>
-        public void SelectTaxonomy(string taxonomy)
+        public void SelectCheckBox(string taxonomy)
         {
             ActiveBrowser.WaitForAsyncOperations();
 
@@ -132,7 +132,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Select tag by title
         /// </summary>
-        public void SelectContent()
+        public void ClickSelectButton()
         {
             var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
             foreach (var button in selectButtons)
@@ -155,7 +155,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="title">The title of the tag</param>
         public void SearchItemByTitle(string title)
         {
-            this.SelectContent();
+            this.ClickSelectButton();
 
             HtmlDiv inputDiv = EM.News
                                  .NewsWidgetContentScreen
@@ -333,11 +333,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
             String publicationDateStartFormat = publicationDateStart.ToString("dd-MMMM-yyyy", CultureInfo.CreateSpecificCulture("en-US"));
 
-            HtmlDiv customRangeDiv = EM.News
-                                       .NewsWidgetContentScreen
-                                       .CustomRangeDiv
-                                       .AssertIsPresent("Custom range");
-            List<HtmlInputText> inputDate = customRangeDiv.Find.AllByExpression<HtmlInputText>("tagname=input", "id=fromInput").ToList<HtmlInputText>();
+            List<HtmlInputText> inputDate = ActiveBrowser.Find.AllByExpression<HtmlInputText>("tagname=input", "id=fromInput").ToList<HtmlInputText>();
 
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, inputDate[0].GetRectangle());
             Manager.Current.Desktop.KeyBoard.TypeText(publicationDateStartFormat);
@@ -355,15 +351,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             DateTime publicationDateEnd = DateTime.UtcNow.AddDays(dayForward);
             String publicationDateEndFormat = publicationDateEnd.ToString("dd", CultureInfo.CreateSpecificCulture("en-US"));
 
-            HtmlDiv customRangeDiv = EM.News
-                                       .NewsWidgetContentScreen
-                                       .CustomRangeDiv
-                                       .AssertIsPresent("Custom range");
-
-            List<HtmlSpan> buttonDate = customRangeDiv.Find.AllByExpression<HtmlSpan>("tagname=span", "class=input-group-btn").ToList<HtmlSpan>();
+            List<HtmlSpan> buttonDate = ActiveBrowser.Find.AllByExpression<HtmlSpan>("tagname=span", "class=input-group-btn").ToList<HtmlSpan>();
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, buttonDate[1].GetRectangle());
 
-            List<HtmlTable> dateTable = customRangeDiv.Find.AllByExpression<HtmlTable>("tagname=table").ToList<HtmlTable>();
+            List<HtmlTable> dateTable = ActiveBrowser.Find.AllByExpression<HtmlTable>("tagname=table", "role=grid").ToList<HtmlTable>();
             List<HtmlTableCell> toDay = dateTable[1].Find.AllByExpression<HtmlTableCell>("tagname=td", "InnerText=" + publicationDateEndFormat).ToList<HtmlTableCell>();
             HtmlButton buttonToDay;
 

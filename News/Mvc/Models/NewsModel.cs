@@ -239,9 +239,9 @@ namespace News.Mvc.Models
                 if (this.serializedSelectedTaxonomies != value)
                 {
                     this.serializedSelectedTaxonomies = value;
-                    }
                 }
             }
+        }
 
         #endregion 
 
@@ -253,6 +253,9 @@ namespace News.Mvc.Models
             this.InitializeManager();
 
             if (this.manager == null)
+                return;
+
+            if (this.SelectionMode == NewsSelectionMode.SelectedItems && this.selectedItemsIds.Count == 0)
                 return;
 
             var newsItems = this.manager.GetNewsItems();
