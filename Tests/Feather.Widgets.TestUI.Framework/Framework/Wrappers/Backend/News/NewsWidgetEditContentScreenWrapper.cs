@@ -109,17 +109,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             foreach (var itemName in itemNames)
             {
-                var div = this.EM.News.NewsWidgetContentScreen.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
-                div.AssertIsPresent(itemName + "not present");
-
-                div.Click();
-                ActiveBrowser.WaitForAsyncRequests();
+                var divs = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
+                foreach (var div in divs)
+                {
+                    if (div.IsVisible())
+                    {
+                        div.Click();
+                        ActiveBrowser.WaitForAsyncRequests();
+                        break;
+                    }
+                }
             }
         }
 
-        /// <summary>
-        /// Save news widget
-        /// </summary>
+            /// <summary>
+            /// Save news widget
+            /// </summary>
         public void SaveChanges()
         {
             HtmlButton saveButton = EM.News
@@ -242,7 +247,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             return isCountCorrect;
         }
 
-
         /// <summary>
         /// No news items found
         /// </summary>
@@ -291,6 +295,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
                                          .AssertIsPresent("selected tab");
             selectedTab.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Opens the all tab.
+        /// </summary>
+        public void OpenAllTab()
+        {
+            HtmlAnchor allTab = this.EM.News.NewsWidgetContentScreen.AllTab
+                                    .AssertIsPresent("all tab");
+
+            allTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
         }
