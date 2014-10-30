@@ -1,17 +1,24 @@
-﻿using DynamicContent.Mvc.Model;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+
+using DynamicContent.Mvc.Model;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Model;
-using System.Collections.Generic;
-using Telerik.Sitefinity.DynamicModules;
+using Telerik.Sitefinity.Frontend.Mvc.Controllers;
+using System;
+using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DynamicContent.Mvc.Controllers
 {
+    /// <summary>
+    /// This class represents a controller for Dynamic Content widget.
+    /// </summary>
     [ControllerToolboxItem(Name = "DynamicContent", Title = "DynamicContent", SectionName = "MvcWidgets")]
     public class DynamicContentController : Controller
     {
@@ -203,17 +210,24 @@ namespace DynamicContent.Mvc.Controllers
         [NonAction]
         public IEnumerable<IContentLocationInfo> GetLocations()
         {
-            var location = new ContentLocationInfo();
-            location.ContentType = Telerik.Sitefinity.Utilities.TypeConverters.TypeResolutionService.ResolveType(this.Model.ContentType);
-            location.ProviderName = DynamicModuleManager.GetManager(this.Model.ProviderName).Provider.Name;
+            return this.Model.GetLocations();
+        }
 
-            var filterExpression = this.Model.CompileFilterExpression();
-            if (!string.IsNullOrEmpty(filterExpression))
+        #endregion
+
+        #region Overrides
+
+        /// <summary>
+        /// Called before the action method is invoked.
+        /// </summary>
+        /// <param name="filterContext">Information about the current request and action.</param>
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var dynamicType = this.GetDynamicContentType();
+            if (dynamicType != null)
             {
-                location.Filters.Add(new BasicContentLocationFilter(filterExpression));
+                this.Model.ContentType = TypeResolutionService.ResolveType(dynamicType.GetFullTypeName());
             }
-
-            return new[] { location };
         }
 
         #endregion

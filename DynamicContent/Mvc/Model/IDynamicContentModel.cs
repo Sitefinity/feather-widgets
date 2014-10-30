@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
@@ -8,7 +10,7 @@ using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace DynamicContent.Mvc.Model
 {
-    public interface IDynamicContentModel : ICacheDependable
+    public interface IDynamicContentModel : ICacheDependable, IContentLocatableView
     {
         /// <summary>
         /// Gets or sets the type of the content.
@@ -16,7 +18,8 @@ namespace DynamicContent.Mvc.Model
         /// <value>
         /// The type of the content.
         /// </value>
-        string ContentType { get; set; }
+        [Browsable(false)]
+        Type ContentType { get; set; }
 
         /// <summary>
         /// Gets the list of items to be displayed inside the widget.
@@ -25,7 +28,7 @@ namespace DynamicContent.Mvc.Model
         /// The items collection.
         /// </value>
         [Browsable(false)]
-        IList<IDataItem> Items { get; }
+        IEnumerable<dynamic> Items { get; }
 
         /// <summary>
         /// Gets or sets the id of the selected item.
@@ -145,11 +148,5 @@ namespace DynamicContent.Mvc.Model
         /// <param name="taxonField">The taxon field.</param>
         /// <param name="page">The page.</param>
         void PopulateItems(ITaxon taxonFilter, string taxonField, int? page);
-
-        /// <summary>
-        /// Compiles a filter expression based on the widget settings.
-        /// </summary>
-        /// <returns>Filter expression that will be applied on the query.</returns>
-        string CompileFilterExpression();
     }
 }
