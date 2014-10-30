@@ -2,27 +2,28 @@
 using System.Drawing;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
     /// <summary>
-    /// This is a test class with tests related to navigation widget responsive design options
+    /// This is a test class with tests related to navigation widget responsive design options on Bootstrap template
     /// </summary>
     [TestClass]
-    public class NavigationWidgetResponsiveDesignTransformations : FeatherTestCase
+    public class NavigationWidgetBootstrapResponsiveDesignTransformations : FeatherTestCase
     {
         /// <summary>
         /// UI test NavigationWidgetBootstrapTemplateVerifyDefaultTransformation
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.Navigation)]
         public void NavigationWidgetBootstrapTemplateVerifyDefaultTransformation()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            this.ResizeBrowserWindow(500);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().OpenNavigationToggleMenu();           
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page1);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page1, TemplateType.Bootstrap);
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.Navigation)]
         public void NavigationWidgetBootstrapTemplateVerifyHiddenTransformation()
         {
             CssClass = "nav-xs-hidden";
@@ -46,18 +47,18 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            this.ResizeBrowserWindow(500);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertToggleButtonIsVisible(), CssClass + ":Toggle button is visible");
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), CssClass + ":Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassSmall).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            this.ResizeBrowserWindow(800);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(800);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), CssClassSmall + ":Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassMedium).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            this.ResizeBrowserWindow(1000);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(1000);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), CssClassMedium + ":Navigation is visible");
         }
 
@@ -66,7 +67,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.Navigation)]
         public void NavigationWidgetBootstrapTemplateVerifyDropDownTransformation()
         {
             CssClass = "nav-xs-dropdown";
@@ -82,14 +83,14 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            this.ResizeBrowserWindow(500);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
             Assert.IsTrue(
                 BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().
                 AsserNavigationDropDownMenuIsVisible(), CssClass + ":drop down menu not visible");
             
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassSmall).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            this.ResizeBrowserWindow(800);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(800);
             Assert.IsTrue(
                 BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().
                 AsserNavigationDropDownMenuIsVisible(), CssClassSmall + ":drop down menu not visible");
@@ -97,10 +98,43 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassMedium).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            this.ResizeBrowserWindow(1000);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(1000);
             Assert.IsTrue(
                 BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().
                 AsserNavigationDropDownMenuIsVisible(), CssClassMedium + ":drop down menu not visible");                     
+        }
+
+        /// <summary>
+        /// UI test NavigationWidgetBootstrapTemplateVerifyTransformationsWithSeveralCssClasses
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation)]
+        public void NavigationWidgetBootstrapTemplateVerifyTransformationsWithSeveralCssClasses()
+        {
+            StringBuilder allClasses = new StringBuilder()
+                .Append("nav-xs-dropdown")
+                .Append(" nav-md-hidden");
+
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().MoreOptions();
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().FillCSSClass(allClasses.ToString());
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
+            Assert.IsTrue(
+                BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().
+                AsserNavigationDropDownMenuIsVisible(), "drop down menu not visible");
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(1000);
+            Assert.IsFalse(
+                BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper()
+                .AssertNavigationIsVisible(), "navigation is visible but it shouldn't be");
         }
 
         /// <summary>
@@ -117,7 +151,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         protected override void ServerCleanup()
         {
-            this.RestoreBrowserWindow();
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().RestoreBrowserWindow();
             BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
         }
 
@@ -131,22 +165,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             get { return ArrangementMethodName; }
         }
 
-        private void ResizeBrowserWindow(int width)
-        {
-            Rectangle rect = new Rectangle(200, 200, width, 500);
-
-            ActiveBrowser.ResizeContent(rect);
-            ActiveBrowser.RefreshDomTree();
-        }
-
-        private void RestoreBrowserWindow()
-        {
-            ActiveBrowser.Window.Restore();
-            ActiveBrowser.Window.Maximize();
-            ActiveBrowser.RefreshDomTree();
-        }
-
-        private const string ArrangementClassName = "NavigationWidgetResponsiveDesignTransformations";
+        private const string ArrangementClassName = "NavigationWidgetBootstrapResponsiveDesignTransformations";
         private const string ArrangementMethodName = "ChangeCssClass";
         private const string PageName = "FeatherPage";
         private const string Page1 = "Page1";
