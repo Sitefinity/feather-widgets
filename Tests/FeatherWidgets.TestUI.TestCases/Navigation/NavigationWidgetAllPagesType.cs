@@ -24,18 +24,6 @@ namespace FeatherWidgets.TestUI
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void NavigationWidgetAllPagesType()
         {
-            BAT.Macros().NavigateTo().Pages();
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNavigationOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify navigation widget on the frontend
-        /// </summary>
-        public void VerifyNavigationOnTheFrontend()
-        {
             string[] parentPages = new string[] 
                                     { 
                                         PageName, Page2Redirect, Page1Redirect, PageGroup
