@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
     {
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.Navigation)]
         public void AddLightNavigationAndMvcNavigationOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages();

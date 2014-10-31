@@ -96,7 +96,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// Adds news widget to existing page
         /// </summary>
         /// <param name="pageId">Page id value</param>
-        public void AddNewsWidgetToPage(Guid pageId)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddNewsWidgetToPage(Guid pageId, string placeholder = "Body")
         {
             PageManager pageManager = PageManager.GetManager();
             pageManager.Provider.SuppressSecurityChecks = true;
@@ -107,7 +108,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             {
                 mvcWidget.ControllerName = "News.Mvc.Controllers.NewsController";
 
-                this.CreateControl(pageManager, page, mvcWidget, "News");
+                this.CreateControl(pageManager, page, mvcWidget, "News", placeholder);
             }
         }
 
@@ -199,9 +200,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <param name="pageManager">The page manager.</param>
         /// <param name="page">The page.</param>
         /// <param name="mvcWidget">The MVC widget.</param>
-        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget, string widgetCaption)
+        private void CreateControl(PageManager pageManager, PageDraft page, Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy mvcWidget, string widgetCaption, string placeholder = "Body")
         {
-            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, "Body");
+            var draftControlDefault = pageManager.CreateControl<PageDraftControl>(mvcWidget, placeholder);
             draftControlDefault.Caption = widgetCaption;
             pageManager.SetControlDefaultPermissions(draftControlDefault);
             page.Controls.Add(draftControlDefault);

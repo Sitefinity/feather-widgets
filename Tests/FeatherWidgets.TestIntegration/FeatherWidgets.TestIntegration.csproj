@@ -170,6 +170,7 @@
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
     <Compile Include="News\NewsWidgetAdvancedSettingsTests.cs" />
     <Compile Include="News\NewsWidgetContentTests.cs" />
+    <Compile Include="News\NewsWidgetDateSelectorTests.cs" />
     <Compile Include="News\NewsWidgetDetailTests.cs" />
     <Compile Include="News\NewsWidgetListSettingsTests.cs" />
     <Compile Include="News\NewsWidgetPageTemplateTests.cs" />
