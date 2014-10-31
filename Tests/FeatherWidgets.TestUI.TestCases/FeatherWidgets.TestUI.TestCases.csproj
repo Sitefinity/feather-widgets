@@ -118,6 +118,8 @@
     <Compile Include="Navigation\NavigationWidgetFoundationResponsiveDesignTransformations.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetBootstrapResponsiveDesignTransformations.cs" />
+    <Compile Include="Navigation\NavigationWidgetOnFoundationTemplate.cs" />
+    <Compile Include="Navigation\NavigationWidgetOnBootstrapTemplate.cs" />
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPagePermissions.cs" />

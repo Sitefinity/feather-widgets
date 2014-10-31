@@ -36,14 +36,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
-        /// Gets the Navigation unordered list element on the frontend.
+        /// Gets the Bootstrap Navigation unordered list element on the frontend.
         /// </summary>
-        public HtmlUnorderedList Navigation
+        public HtmlUnorderedList GetBootstrapNavigation(string cssClass)
         {
-            get
-            {
-                return this.Get<HtmlUnorderedList>("class=nav navbar-nav");
-            }
+            return this.Get<HtmlUnorderedList>("class=" + cssClass);          
+        }
+
+        /// <summary>
+        /// Gets the Foundation Navigation unordered list element on the frontend.
+        /// </summary>
+        public HtmlControl GetFoundationNavigation(string cssClass)
+        {
+            return this.Get<HtmlControl>("tagname=section", "class=" + cssClass);          
+        }
+
+        /// <summary>
+        /// Gets the Semantic Navigation unordered list element on the frontend.
+        /// </summary>
+        public HtmlControl GetSemanticNavigation(string cssClass)
+        {
+            return this.Get<HtmlControl>("tagname=nav", "class=" + cssClass);
         }
 
         /// <summary>

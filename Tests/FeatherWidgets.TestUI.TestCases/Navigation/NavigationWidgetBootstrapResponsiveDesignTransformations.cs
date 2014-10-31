@@ -23,15 +23,18 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().OpenNavigationToggleMenu();           
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page1, TemplateType.Bootstrap);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page1, TemplateType.Bootstrap, NavClass);
         }
 
         /// <summary>
         /// UI test NavigationWidgetBootstrapTemplateVerifyHiddenTransformation
+        /// Ignored due to infrastructural changes
+        /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Navigation)]
+        TestCategory(FeatherTestCategories.Navigation),
+        Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyHiddenTransformation()
         {
             CssClass = "nav-xs-hidden";
@@ -49,25 +52,28 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertToggleButtonIsVisible(), CssClass + ":Toggle button is visible");
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), CssClass + ":Navigation is visible");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass), CssClass + ":Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassSmall).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(800);
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), CssClassSmall + ":Navigation is visible");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass), CssClassSmall + ":Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassMedium).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(1000);
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(), CssClassMedium + ":Navigation is visible");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass), CssClassMedium + ":Navigation is visible");
         }
 
         /// <summary>
         /// UI test NavigationWidgetBootstrapTemplateVerifyDropDownTransformation
+        /// Ignored due to infrastructural changes
+        /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Navigation)]
+        TestCategory(FeatherTestCategories.Navigation),
+        Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyDropDownTransformation()
         {
             CssClass = "nav-xs-dropdown";
@@ -106,10 +112,13 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
         /// <summary>
         /// UI test NavigationWidgetBootstrapTemplateVerifyTransformationsWithSeveralCssClasses
+        /// Ignored due to infrastructural changes
+        /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Navigation)]
+        TestCategory(FeatherTestCategories.Navigation),
+        Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyTransformationsWithSeveralCssClasses()
         {
             StringBuilder allClasses = new StringBuilder()
@@ -134,7 +143,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(1000);
             Assert.IsFalse(
                 BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper()
-                .AssertNavigationIsVisible(), "navigation is visible but it shouldn't be");
+                .AssertNavigationIsVisible(NavClass), "navigation is visible but it shouldn't be");
         }
 
         /// <summary>
@@ -171,6 +180,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string Page1 = "Page1";
         private const string WidgetName = "Navigation";
         private const string key = "cssClass";
+        private const string NavClass = "nav navbar-nav";
 
         private string CssClass;
         private string CssClassSmall;

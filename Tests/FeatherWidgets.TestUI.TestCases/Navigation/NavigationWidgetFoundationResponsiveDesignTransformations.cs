@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
 
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().OpenToggleMenuForFoundationTemplate();
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page1, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page1, TemplateType.Foundation, NavClass);
         }
 
         /// <summary>
@@ -56,5 +56,6 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string ArrangementClassName = "NavigationWidgetFoundationResponsiveDesignTransformations";
         private const string PageName = "FeatherPage";
         private const string Page1 = "Page1";
+        private const string NavClass = "top-bar-section";
     }
 }
