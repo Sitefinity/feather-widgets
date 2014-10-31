@@ -1,11 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.Frontend.TestUtilities;
-using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Modules.News;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
@@ -24,14 +20,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            string templateFileOriginal = FileInjectHelper.GetDestinationFilePath(this.layoutTemplatePath);
-            string templateFileCopy = FileInjectHelper.GetDestinationFilePath(this.newLayoutTemplatePath);
-
-            PageManager pageManager = PageManager.GetManager();
-            int templatesCount = pageManager.GetTemplates().Count();
-            File.Copy(templateFileOriginal, templateFileCopy);
-            FeatherServerOperations.ResourcePackages().WaitForTemplatesCountToIncrease(templatesCount, 1);
-
             for (int i = 0; i < this.newsTitles.Length; i++)
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(this.newsTitles[i]);
 
@@ -58,17 +46,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
 
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
-
-            string templateFileCopy = FileInjectHelper.GetDestinationFilePath(this.newLayoutTemplatePath);
-            File.Delete(templateFileCopy);
-
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(PageTemplateName);
         }
 
         private const string PageName = "NewsPage";
-        private const string PageTemplateName = "Bootstrap.defaultNew";
-        private string layoutTemplatePath = Path.Combine("ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-        private string newLayoutTemplatePath = Path.Combine("ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
+        private const string PageTemplateName = "Bootstrap.default";
         private string[] newsTitles = { "Cat", "Angel", "Boat" };
     }
 }
