@@ -109,17 +109,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             foreach (var itemName in itemNames)
             {
-                var div = this.EM.News.NewsWidgetContentScreen.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
-                div.AssertIsPresent(itemName + "not present");
-
-                div.Click();
-                ActiveBrowser.WaitForAsyncRequests();
+                var divs = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
+                foreach (var div in divs)
+                {
+                    if (div.IsVisible())
+                    {
+                        div.Click();
+                        ActiveBrowser.WaitForAsyncRequests();
+                        break;
+                    }
+                }
             }
         }
 
-        /// <summary>
-        /// Save news widget
-        /// </summary>
+            /// <summary>
+            /// Save news widget
+            /// </summary>
         public void SaveChanges()
         {
             HtmlButton saveButton = EM.News
@@ -217,52 +222,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
       
         /// <summary>
-        /// Waits for items to appear in selected tab.
-        /// </summary>
-        /// <param name="expectedCount">The expected count.</param>
-        public void WaitForItemsToAppearInSelectedTab(int expectedCount)
-        {
-            Manager.Current.Wait.For(() => this.CountItems(expectedCount, true), 50000);
-        }
-
-        /// <summary>
         /// Verifies if the items count is as expected.
         /// </summary>
         /// <param name="expected">The expected items count.</param>
         /// <returns>True or false depending on the items count.</returns>
-        public bool CountItems(int expected, bool isSelectedTab = false)
+        public bool CountItems(int expected)
         {
             ActiveBrowser.RefreshDomTree();
             var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
-            int actual = 0;
-            if (!isSelectedTab)
+
+            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+
+            //// if items count is more than 12 elements, then you need to scroll
+            if (items.Count() > 12)
             {
-                HtmlDiv scroller = ActiveBrowser.Find
-                                                .ByExpression<HtmlDiv>("class=list-group list-group-endless ng-isolate-scope");
-                var items = activeDialog.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
-                if (items.Count() > 12)
-                {
-                    scroller.MouseClick(MouseClickType.LeftDoubleClick);
-                    Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
-                }
-                items = activeDialog.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
-                actual = items.Count;
-            }
-            else
-            {
-                HtmlDiv scroller = ActiveBrowser.Find
-                                                .ByExpression<HtmlDiv>("class=list-group list-group-endless");
-                var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
-                if (items.Count() > 12)
-                {
-                    scroller.MouseClick(MouseClickType.LeftDoubleClick);
-                    Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
-                }
-                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
-                actual = items.Count;
+                HtmlDiv scroller = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=~list-group list-group-endless");
+
+                scroller.MouseClick(MouseClickType.LeftDoubleClick);
+                Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
+                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
             }
 
-            bool isCountCorrect = expected == actual;
+            bool isCountCorrect = (expected == items.Count);
             return isCountCorrect;
         }
 
@@ -314,6 +295,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
                                          .AssertIsPresent("selected tab");
             selectedTab.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Opens the all tab.
+        /// </summary>
+        public void OpenAllTab()
+        {
+            HtmlAnchor allTab = this.EM.News.NewsWidgetContentScreen.AllTab
+                                    .AssertIsPresent("all tab");
+
+            allTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
         }
