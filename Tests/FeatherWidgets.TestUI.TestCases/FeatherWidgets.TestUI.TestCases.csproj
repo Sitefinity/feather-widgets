@@ -122,6 +122,7 @@
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPagePermissions.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\ActivateAndDeactivateNewsModule.cs" />
     <Compile Include="News\SearchAndSelectNewsByTag.cs" />
     <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
