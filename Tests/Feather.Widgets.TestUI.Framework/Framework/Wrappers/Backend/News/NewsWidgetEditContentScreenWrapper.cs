@@ -468,5 +468,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
             Manager.Current.ActiveBrowser.RefreshDomTree();
         }
+
+        public void CheckInactiveNewsWidget()
+        {
+            HtmlDiv optionsDiv = EM.News
+                                  .NewsWidgetContentScreen
+                                  .InactiveWidget
+                                  .AssertIsPresent("Inactive widget");
+            var isContained = optionsDiv.InnerText.Contains("This widget doesn't work, becauseNewsmodule has been deactivated.");
+            Assert.IsTrue(isContained, "Message not found");
+        }
     }
 }

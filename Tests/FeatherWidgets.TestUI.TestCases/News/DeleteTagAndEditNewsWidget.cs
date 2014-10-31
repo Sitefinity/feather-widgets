@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI
         /// UI test FilterNewsItemWithCustomTaxonomyOnPage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void DeleteTagAndEditNewsWidget()
         {

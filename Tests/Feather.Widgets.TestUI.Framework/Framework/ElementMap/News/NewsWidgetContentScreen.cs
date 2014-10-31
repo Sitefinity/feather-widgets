@@ -192,5 +192,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlAnchor>("class=k-link", "innertext=~Selected");
             }
         }
+
+        /// <summary>
+        /// Gets the inactive widget.
+        /// </summary>
+        /// <value>The inactive widget.</value>
+        public HtmlDiv InactiveWidget
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=sf_inactiveWidget");
+            }
+        }
     }
 }
