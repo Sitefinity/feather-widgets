@@ -19,7 +19,14 @@
             {
                 <li>
                     <h2>
-                        <a href="@(ViewBag.DetailsPageUrl + item.ItemDefaultUrl)">@item.Title</a>
+                        @if (ViewBag.OpenInSamePage)
+                        {
+                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
+                        }
+                        else
+                        {
+                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
+                        }
                     </h2>
                     <div>
                         <span>@item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")</span>
