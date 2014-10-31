@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI
     /// This is test class for MvcSelectMoreThanOneNewsItem.
     /// </summary>
     [TestClass]
-    public class SelectMoreThanOneNewsItem_ : FeatherTestCase
+    public class CheckSelectorsAfterUnpublishingNewsItem_ : FeatherTestCase
     {
         /// <summary>
         /// UI test MVCWidgetDefaultFeatherDesigner.
@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
         Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void SelectMoreThanOneNewsItem()
+        public void CheckSelectorsAfterUnpublishingNewsItem()
 
         {
             BAT.Macros().NavigateTo().Pages();
@@ -50,7 +50,6 @@ namespace FeatherWidgets.TestUI
 
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
 
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().OpenSelectedTab();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(5);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();

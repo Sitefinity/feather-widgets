@@ -152,6 +152,19 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             newsManager.SaveChanges();
         }
 
+        /// <summary>
+        /// Unpublishes the news item.
+        /// </summary>
+        /// <param name="newsItemId">The news item id.</param>
+        public void UNPublishNewsItem(Guid newsItemId)
+        {
+            var newsManager = NewsManager.GetManager();
+            var newsItem = newsManager.GetNewsItem(newsItemId);
+            var liveNewsItem = newsManager.Lifecycle.GetLive(newsItem);
+            newsManager.Lifecycle.Unpublish(liveNewsItem);
+            newsManager.SaveChanges();
+        }
+
         private NewsItem CreateNewsWithBasicProperties(NewsManager manager, string title, string content, string author, string sourceName)
         {
             var newsItem = manager.CreateNewsItem();
