@@ -8,7 +8,9 @@
 	"Services/services.js",
 	"Services/news-item-service.js",
 	"Services/flat-taxon-service.js",
+	"Services/page-service.js",
 	"Selectors/sf-selectors.js",
+	"Selectors/sf-items-tree.js",
 	"Selectors/sf-list-selector.js",
 	"Selectors/sf-news-selector.js",
 	"Selectors/sf-taxon-selector.js",
@@ -17,6 +19,7 @@
 	"Selectors/sf-filter-selector.js",
 	"Selectors/sf-timespan-selector.js",
 	"Selectors/sf-date-time-picker.js",
-	"Selectors/sf-selected-items-view.js"
+	"Selectors/sf-selected-items-view.js",
+	"Selectors/sf-page-selector.js"
   ]
 }
