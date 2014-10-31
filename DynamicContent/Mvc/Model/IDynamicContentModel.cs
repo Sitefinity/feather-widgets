@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -10,50 +9,24 @@ using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace DynamicContent.Mvc.Model
 {
-    public interface IDynamicContentModel : ICacheDependable, IContentLocatableView
+    /// <summary>
+    /// Classes that implement this interface provide business logic for getting DynamicContent.
+    /// </summary>
+    public interface IDynamicContentModel
     {
         /// <summary>
-        /// Gets or sets the type of the content.
+        /// Gets or sets the type of content that is loaded.
         /// </summary>
-        /// <value>
-        /// The type of the content.
-        /// </value>
         [Browsable(false)]
         Type ContentType { get; set; }
 
         /// <summary>
-        /// Gets the list of items to be displayed inside the widget.
-        /// </summary>
-        /// <value>
-        /// The items collection.
-        /// </value>
-        [Browsable(false)]
-        IEnumerable<dynamic> Items { get; }
-
-        /// <summary>
-        /// Gets or sets the id of the selected item.
-        /// </summary>
-        /// <value>
-        /// The selected items.
-        /// </value>
-        Guid SelectedItemId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.
+        /// Gets or sets the CSS class that will be applied on the wrapping element of the widget when it is in List view.
         /// </summary>
         /// <value>
         /// The CSS class.
         /// </value>
         string ListCssClass { get; set; }
-
-        /// <summary>
-        /// Gets or sets the detail item.
-        /// </summary>
-        /// <value>
-        /// The detail item.
-        /// </value>
-        [Browsable(false)]
-        dynamic DetailItem { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in Details view.
@@ -64,10 +37,12 @@ namespace DynamicContent.Mvc.Model
         string DetailCssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets which items to be displayed in the list view.
+        /// Gets a comma separated list of Ids of the items that should be displayed when filtering by preselected items.
         /// </summary>
-        /// <value>The page display mode.</value>
-        SelectionMode SelectionMode { get; set; }
+        /// <value>
+        /// The selected items.
+        /// </value>
+        string SelectedItemIds { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to enable social sharing.
@@ -82,6 +57,12 @@ namespace DynamicContent.Mvc.Model
         /// </summary>
         /// <value>The name of the provider.</value>
         string ProviderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets which items to be displayed in the list view.
+        /// </summary>
+        /// <value>The page display mode.</value>
+        SelectionMode SelectionMode { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to divide items in the list.
@@ -100,38 +81,12 @@ namespace DynamicContent.Mvc.Model
         int? ItemsPerPage { get; set; }
 
         /// <summary>
-        /// Gets or sets the total pages count.
-        /// </summary>
-        /// <value>
-        /// The total pages count.
-        /// </value>
-        [Browsable(false)]
-        int? TotalPagesCount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the current page.
-        /// </summary>
-        /// <value>
-        /// The current page.
-        /// </value>
-        [Browsable(false)]
-        int CurrentPage { get; set; }
-
-        /// <summary>
         /// Gets or sets the sort expression.
         /// </summary>
         /// <value>
         /// The sort expression.
         /// </value>
         string SortExpression { get; set; }
-
-        /// <summary>
-        /// Gets or sets the serialized additional filters.
-        /// </summary>
-        /// <value>
-        /// The serialized additional filters.
-        /// </value>
-        string SerializedAdditionalFilters { get; set; }
 
         /// <summary>
         /// Gets or sets the additional filter expression.
@@ -142,11 +97,51 @@ namespace DynamicContent.Mvc.Model
         string FilterExpression { get; set; }
 
         /// <summary>
-        /// Populates the items.
+        /// Gets or sets the serialized additional filters.
         /// </summary>
-        /// <param name="taxonFilter">The taxon that should be contained in the items.</param>
-        /// <param name="taxonField">The taxon field.</param>
-        /// <param name="page">The page.</param>
-        void PopulateItems(ITaxon taxonFilter, string taxonField, int? page);
+        /// <value>
+        /// The serialized additional filters.
+        /// </value>
+        string SerializedAdditionalFilters { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
+        /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
+        /// </summary>
+        /// <value>The disable canonical URLs.</value>
+        bool? DisableCanonicalUrlMetaTag { get; set; }
+
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        IEnumerable<IContentLocationInfo> GetLocations();
+
+        ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page);
+
+        ContentDetailsViewModel CreateDetailsViewModel(IDataItem item);
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel);
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentDetailsViewModel viewModel);
     }
 }

@@ -1,17 +1,8 @@
-﻿using ServiceStack.Text;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using Telerik.Sitefinity.Data;
+﻿using System.Linq;
+
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Modules;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Web.Model;
 
 namespace DynamicContent.Mvc.Model
 {
@@ -20,6 +11,7 @@ namespace DynamicContent.Mvc.Model
     /// </summary>
     public class DynamicContentModel : ContentModelBase, IDynamicContentModel
     {
+        /// <inheritdoc />
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             var manager = DynamicModuleManager.GetManager(this.ProviderName);
