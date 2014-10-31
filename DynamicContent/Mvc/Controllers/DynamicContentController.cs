@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 
@@ -11,7 +12,6 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Controllers;
-using System;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Data;
 
