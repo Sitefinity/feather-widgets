@@ -145,7 +145,10 @@
                     <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
                     <span>
                         @Html.Resource("ShowInExistingPage")<br />
-                        <input type="text" ng-model="properties.DetailsPageUrl.PropertyValue" class="form-control" />
+                        <sf-list-selector
+                            sf-page-selector
+                            selected-item-id="properties.DetailsPageId.PropertyValue"
+                            ng-hide="properties.OpenInSamePage.PropertyValue"></sf-list-selector>
                     </span>
                 </label>
             </div>
