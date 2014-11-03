@@ -127,11 +127,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SaveChanges()
         {
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+
             HtmlButton saveButton = EM.News
                                       .NewsWidgetContentScreen
                                       .SaveChangesButton
                                       .AssertIsPresent("Save button");
             saveButton.Click();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
