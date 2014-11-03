@@ -115,16 +115,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     if (div.IsVisible())
                     {
                         div.Click();
-                        ActiveBrowser.WaitForAsyncRequests();
+                        ActiveBrowser.RefreshDomTree();
                         break;
                     }
                 }
             }
         }
 
-            /// <summary>
-            /// Save news widget
-            /// </summary>
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
         public void SaveChanges()
         {
             HtmlButton saveButton = EM.News
