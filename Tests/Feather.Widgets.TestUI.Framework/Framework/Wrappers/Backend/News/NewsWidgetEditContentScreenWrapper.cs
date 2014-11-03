@@ -396,10 +396,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyCustomDateFormat(int dayAgo, int dayForward)
         {
             DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
-            String publicationDateStartFormat = publicationDateStart.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+            String publicationDateStartFormat = publicationDateStart.ToString("dd MMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"));
 
             DateTime publicationDateEnd = DateTime.UtcNow.AddDays(dayForward);
-            String publicationDateEndFormat = publicationDateEnd.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+            String publicationDateEndFormat = publicationDateEnd.ToString("dd MMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"));
 
             HtmlSpan selectedItemsSpan = EM.News
                                            .NewsWidgetContentScreen
