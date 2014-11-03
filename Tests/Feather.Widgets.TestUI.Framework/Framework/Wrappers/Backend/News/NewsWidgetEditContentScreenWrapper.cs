@@ -45,7 +45,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             HtmlInputRadioButton optionButton = newsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                                                                   .AssertIsPresent("Which news to display option radio button");
-
             optionButton.Click();
         }
 
@@ -62,7 +61,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                                           .AssertIsPresent("Taxonomy option");
 
             optionButton.Click();
-
             ActiveBrowser.WaitForAsyncOperations();
         }
 
@@ -109,7 +107,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             foreach (var itemName in itemNames)
             {
-                var divs = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
+                List<HtmlDiv> divs = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlDiv>("class=ng-binding", "InnerText=" + itemName).ToList<HtmlDiv>();  
                 foreach (var div in divs)
                 {
                     if (div.IsVisible())
@@ -297,7 +295,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void OpenSelectedTab()
         {
             HtmlAnchor selectedTab = this.EM.News.NewsWidgetContentScreen.SelectedTab
-
                                          .AssertIsPresent("selected tab");
             selectedTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
@@ -347,7 +344,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Set From date by typing
+        /// Set From date by typing to custom date selector
         /// </summary>
         /// <param name="dayAgo">Day ago</param>
         public void SetFromDateByTyping(int dayAgo)
@@ -365,7 +362,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Set To date by date picker
+        /// Set To date by date picker to custom date selector
         /// </summary>
         /// <param name="dayForward">Day forward</param>
         public void SetToDateByDatePicker(int dayForward)
@@ -394,7 +391,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        ///  Add hour
+        ///  Add hour to custom date selector
         /// </summary>
         /// <param name="hour">Hour value to select</param>
         /// <param name="isFrom">Is from or to hour</param>
@@ -423,7 +420,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        ///  Add minute
+        ///  Add minute to custom date selector
         /// </summary>
         /// <param name="minute">Minute value to select</param>
         /// <param name="isFrom">Is from or to minute</param>
@@ -452,6 +449,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
+        /// <summary>
+        /// Verify mesage in news widget - when News module is deactivated
+        /// </summary>
         public void CheckInactiveNewsWidget()
         {
             HtmlDiv optionsDiv = EM.News
