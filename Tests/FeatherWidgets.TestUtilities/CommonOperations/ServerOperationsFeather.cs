@@ -53,5 +53,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new UsersOperations();
         }
+
+        /// <summary>
+        /// Entry point for Navigation operations.
+        /// </summary>
+        /// <returns>NavigationOperations instance.</returns>
+        public static NavigationOperations Navigation()
+        {
+            return new NavigationOperations();
+        }
     }
 }

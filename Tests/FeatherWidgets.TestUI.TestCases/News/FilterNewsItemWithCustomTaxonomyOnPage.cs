@@ -14,30 +14,37 @@ namespace FeatherWidgets.TestUI
         /// <summary>
         /// UI test FilterNewsItemWithCustomTaxonomyOnPage
         /// </summary>
-        [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent), Ignore]
+       [TestMethod,
+       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
+       TestCategory(FeatherTestCategories.PagesAndContent)]
+
         public void FilterNewsItemWithCustomTaxonomyOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectTaxonomy(TaxonomyName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(TaxonTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectCheckBox(TaxonomyName);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemInMultipleSelector(TaxonTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle1);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle2);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
-
-/* Waiting for Bug Fix
+           
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(TaxonTitle2);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemInMultipleSelectors(new[] { TaxonTitle1 });
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().OpenAllTab();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(2);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemInMultipleSelector(TaxonTitle1, TaxonTitle2);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemInMultipleSelectors(new[] { TaxonTitle2 });
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, "");*/
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle2);
         }
 
         /// <summary>
@@ -64,7 +71,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-           BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "News";
@@ -75,6 +82,6 @@ namespace FeatherWidgets.TestUI
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "MyCustomFlatTaxonomy";
-        private string[] newsTitles = new string[] { NewsTitle2, NewsTitle1 };
+        private string[] newsTitles = new string[] { NewsTitle1 };
     }
 }

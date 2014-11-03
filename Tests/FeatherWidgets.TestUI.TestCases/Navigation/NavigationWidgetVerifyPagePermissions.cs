@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.Navigation)]
         public void NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged()
         {
             BAT.Macros().User().EnsureLoggedIn(User, Password);

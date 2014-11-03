@@ -34,5 +34,51 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
                 return this.Get<HtmlButton>("class=^navbar-toggle", "InnerText=~Toggle navigation");
             }
         }
+
+        /// <summary>
+        /// Gets the Bootstrap Navigation unordered list element on the frontend.
+        /// </summary>
+        public HtmlUnorderedList GetBootstrapNavigation(string cssClass)
+        {
+            return this.Get<HtmlUnorderedList>("class=" + cssClass);          
+        }
+
+        /// <summary>
+        /// Gets the Foundation Navigation unordered list element on the frontend.
+        /// </summary>
+        public HtmlControl GetFoundationNavigation(string cssClass)
+        {
+            return this.Get<HtmlControl>("tagname=section", "class=" + cssClass);          
+        }
+
+        /// <summary>
+        /// Gets the Semantic Navigation unordered list element on the frontend.
+        /// </summary>
+        public HtmlControl GetSemanticNavigation(string cssClass)
+        {
+            return this.Get<HtmlControl>("tagname=nav", "class=" + cssClass);
+        }
+
+        /// <summary>
+        /// Gets the navigation select element
+        /// </summary>
+        public HtmlSelect NavigationDropDown
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("class=nav-select form-control");
+            }
+        }
+
+        /// <summary>
+        /// Gets the menu link from transformation for Foundation template. 
+        /// </summary>
+        public HtmlAnchor FoundationMenuLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Menu");
+            }
+        }
     }
 }

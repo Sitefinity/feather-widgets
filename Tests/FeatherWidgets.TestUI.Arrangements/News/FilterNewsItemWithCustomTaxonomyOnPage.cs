@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
@@ -19,8 +20,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitle1, NewsContent1, NewsProvider);
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitle2, NewsContent2, NewsProvider);
+           /* Guid newsItemId1 = ServerOperations.News().CreatePublishedNewsItem(NewsTitle1, NewsContent1, NewsProvider);
+            Guid newsItemId2 = ServerOperations.News().CreatePublishedNewsItem(NewsTitle2, NewsContent2, NewsProvider);*/
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
 
             ServerOperations.Taxonomies().CreateFlatTaxonomy(this.customFlatTaxonomyName);
@@ -29,7 +30,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.CustomFields().AddCustomTaxonomyToContext(this.newsType, this.customFlatTaxonomyName, this.isHierarchicalTaxonomy);
             ServerOperations.SystemManager().RestartApplication(false);
 
-            ServerOperationsFeather.NewsOperations().AddCustomTaxonomyToNews(this.customFlatTaxonomyName);
+            var customTaxonName1 = new List<string> { this.customFlatTaxonName1 };
+            var customTaxonName2 = new List<string> { this.customFlatTaxonName2 };
+            ServerOperationsFeather.NewsOperations().CreatePublishedNewsItemWithCustomTaxonomy(NewsTitle1, NewsContent1, "AuthorName", "SourceName", this.customFlatTaxonomyName, customTaxonName1, null);
+            ServerOperationsFeather.NewsOperations().CreatePublishedNewsItemWithCustomTaxonomy(NewsTitle2, NewsContent2, "AuthorName", "SourceName", this.customFlatTaxonomyName, customTaxonName2, null);
         }
 
         /// <summary>
@@ -37,14 +41,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// </summary>
         [ServerTearDown]
         public void TearDown()
-        {
+        {           
             ServerOperations.Pages().DeleteAllPages();
-
+            ServerOperations.News().DeleteAllNews();
             ServerOperations.CustomFields().RemoveCustomFieldsFromContent(this.newsType, this.customFlatTaxonomyName);
             ServerOperations.SystemManager().RestartApplication(false);
             ServerOperations.CustomFields().InitializeManager("Telerik.Sitefinity.Modules.News.NewsManager");
+            ServerOperations.Taxonomies().DeleteFlatTaxonomy(this.customFlatTaxonomyName);
             ServerOperations.News().DeleteAllNews();
-            ServerOperations.Taxonomies().DeleteFlatTaxonomy(this.customFlatTaxonomyName);          
         }
         
         private const string PageName = "News";

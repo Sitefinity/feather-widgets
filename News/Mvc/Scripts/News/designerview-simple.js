@@ -1,9 +1,10 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('expander', 'selectors', 'dataProviders');
+    angular.module('designer').requires.push('expander', 'sfSelectors', 'dataProviders');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
+        $scope.newsSelector = { selectedItemsIds: [] };
 
         $scope.$watch(
             'additionalFilters.value',
@@ -20,7 +21,17 @@
 	        function (newProviderName, oldProviderName) {
 	            if (newProviderName !== oldProviderName) {
 	                $scope.properties.SelectionMode.PropertyValue = 'AllItems';
-	                $scope.properties.SelectedItemId.PropertyValue = null;
+	                $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+	            }
+	        },
+	        true
+        );
+
+        $scope.$watch(
+            'newsSelector.selectedItemsIds',
+            function (newSelectedItemsIds, oldSelectedItemsIds) {
+                if (newSelectedItemsIds !== oldSelectedItemsIds) {
+                    $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
 	            }
 	        },
 	        true
@@ -34,6 +45,12 @@
                     var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue);
 
                     $scope.additionalFilters.value = additionalFilters;
+
+                    var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue);
+
+                    if (selectedItemsIds) {
+                        $scope.newsSelector.selectedItemsIds = selectedItemsIds;
+                    }
                 }
             },
             function (data) {

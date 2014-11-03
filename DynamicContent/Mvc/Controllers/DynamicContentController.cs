@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 
@@ -11,8 +12,8 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Controllers;
-using System;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Data;
 
 namespace DynamicContent.Mvc.Controllers
 {
@@ -63,16 +64,17 @@ namespace DynamicContent.Mvc.Controllers
         /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
         /// </summary>
         /// <value>The disable canonical URLs.</value>
+        [Browsable(false)]
         public bool? DisableCanonicalUrlMetaTag
         {
             get
             {
-                return this.disableCanonicalUrlMetaTag;
+                return this.Model.DisableCanonicalUrlMetaTag;
             }
 
             set
             {
-                this.disableCanonicalUrlMetaTag = value;
+                this.Model.DisableCanonicalUrlMetaTag = value;
             }
         }
 
@@ -158,10 +160,11 @@ namespace DynamicContent.Mvc.Controllers
             this.ViewBag.RedirectPageUrlTemplate = "/{0}";
             this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
 
-            this.Model.PopulateItems(null, null, page);
-            this.AddCacheDependencies();
+            var viewModel = this.Model.CreateListViewModel(null, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            return this.View(fullTemplateName, this.Model);
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -175,14 +178,14 @@ namespace DynamicContent.Mvc.Controllers
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            var fieldName = this.GetExpectedTaxonFieldName(taxonFilter);
             this.ViewBag.RedirectPageUrlTemplate = "/" + taxonFilter.UrlName + "/{0}";
             this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
 
-            this.Model.PopulateItems(taxonFilter, fieldName, page);
-            this.AddCacheDependencies();
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            return this.View(fullTemplateName, this.Model);
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -194,11 +197,13 @@ namespace DynamicContent.Mvc.Controllers
         public ActionResult Details(Telerik.Sitefinity.DynamicModules.Model.DynamicContent item)
         {
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
-            this.Model.DetailItem = item;
-            this.ViewBag.Title = ((IHasTitle)item).GetTitle();
-            this.AddCacheDependencies();
 
-            return this.View(fullTemplateName, this.Model);
+            var viewModel = this.Model.CreateDetailsViewModel(item);
+            this.ViewBag.Title = ((IHasTitle)viewModel.Item).GetTitle();
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -243,25 +248,6 @@ namespace DynamicContent.Mvc.Controllers
         private IDynamicContentModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IDynamicContentModel>(this.GetType());
-        }
-
-        /// <summary>
-        /// Adds the cache dependencies.
-        /// </summary>
-        private void AddCacheDependencies()
-        {
-            if (SystemManager.CurrentHttpContext != null)
-            {
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects());
-            }
-        }
-
-        private string GetExpectedTaxonFieldName(ITaxon taxon)
-        {
-            if (taxon.Taxonomy.Name == "Categories")
-                return taxon.Taxonomy.TaxonName;
-
-            return taxon.Taxonomy.Name;
         }
 
         #endregion
