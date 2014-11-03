@@ -20,10 +20,16 @@ using Telerik.Sitefinity.Pages.Model;
 
 namespace DynamicContent
 {
+    /// <summary>
+    /// This class handles the behavior of the dynamic content widget when working with dynamic modules.
+    /// </summary>
     internal class MvcWidgetInstallationStrategy : IWidgetInstallationStrategy
     {
         #region Constructor
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MvcWidgetInstallationStrategy"/> class.
+        /// </summary>
         public MvcWidgetInstallationStrategy()
         {
             this.ActionProcessor = new Dictionary<string, Action<WidgetInstallationContext>>
@@ -41,6 +47,12 @@ namespace DynamicContent
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the action processor dictionary.
+        /// </summary>
+        /// <value>
+        /// The action processor dictionary.
+        /// </value>
         public Dictionary<string, Action<WidgetInstallationContext>> ActionProcessor
         {
             get;
@@ -51,6 +63,7 @@ namespace DynamicContent
 
         #region Methods
 
+        /// <inheritdoc/>
         public void Process(WidgetInstallationContext context)
         {
             this.pageManager = context.PageManager;
@@ -64,33 +77,56 @@ namespace DynamicContent
                 action(context);
         }
 
+        /// <summary>
+        /// Handles installation of the dynamic widget and its templates.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public virtual void Install(WidgetInstallationContext context)
         {
             this.RegisterTemplates(context.DynamicModule, context.DynamicModuleType);
             this.RegisterToolboxItem(context.DynamicModule, context.DynamicModuleType);
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Updates dynamic widget and its templates on update of the module.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public virtual void Update(WidgetInstallationContext context)
         {
             this.Install(context);
         }
 
+        /// <summary>
+        /// Uninstalls the dynamic widget.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public virtual void Uninstall(WidgetInstallationContext context)
         {
             this.UnregisterToolboxItem(context.ContentTypeName);
         }
 
+        /// <summary>
+        /// Handles removing of the templates.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public virtual void UnregisterTemplates(WidgetInstallationContext context)
         {
             this.UnregisterTemplates(context.ContentTypeName);
         }
 
+        /// <summary>
+        /// Registers the toolbox item.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public virtual void RegisterToolboxItem(WidgetInstallationContext context)
         {
             this.RegisterToolboxItem(context.DynamicModule, context.DynamicModuleType);
         }
 
+        /// <summary>
+        /// Validates the toolbox item template keys.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public virtual void ValidateToolboxItemTemplateKeys(WidgetInstallationContext context)
         {
             var defaultMasterTemplateId = context.DefaultMasterTemplateId;
@@ -107,6 +143,11 @@ namespace DynamicContent
             this.RegisterToolboxItem(context);
         }
 
+        /// <summary>
+        /// Registers the templates.
+        /// </summary>
+        /// <param name="dynamicModule">The dynamic module.</param>
+        /// <param name="dynamicModuleType">Type of the dynamic module.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "dynamicModule")]
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
@@ -117,6 +158,13 @@ namespace DynamicContent
             this.RegisterTemplate(resourceName, ".cshtml", content, dynamicTypeName + "_MVC");
         }
 
+        /// <summary>
+        /// Registers the template.
+        /// </summary>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <param name="resourceType">Type of the resource.</param>
+        /// <param name="content">The content.</param>
+        /// <param name="condition">The condition.</param>
         private void RegisterTemplate(string resourceName, string resourceType, string content, string condition)
         {
             var template = this.pageManager.CreatePresentationItem<ControlPresentation>();
@@ -127,6 +175,11 @@ namespace DynamicContent
             this.pageManager.SaveChanges();
         }
 
+        /// <summary>
+        /// Registers the toolbox item for the dynamic widget.
+        /// </summary>
+        /// <param name="dynamicModule">The dynamic module.</param>
+        /// <param name="moduleType">Type of the module.</param>
         private void RegisterToolboxItem(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
             this.UnregisterToolboxItem(moduleType.GetFullTypeName());
@@ -160,22 +213,36 @@ namespace DynamicContent
             }
         }
 
+        /// <summary>
+        /// Gets the toolbox section where the dynamic widget will be placed.
+        /// </summary>
+        /// <param name="toolboxesConfig">The toolboxes configuration.</param>
+        /// <returns></returns>
         private ToolboxSection GetToolboxSection(ToolboxesConfig toolboxesConfig)
         {
             var pageControls = toolboxesConfig.Toolboxes["PageControls"];
             var section = pageControls
                 .Sections
-                .Where<ToolboxSection>(e => e.Name == ToolboxesConfig.ContentToolboxSectionName)
+                .Where<ToolboxSection>(e => e.Name == "MvcWidgets")
                 .FirstOrDefault();
 
             return section;
         }
 
+        /// <summary>
+        /// Gets the name of the toolbox item.
+        /// </summary>
+        /// <param name="contentTypeName">Name of the content type.</param>
+        /// <returns></returns>
         private string GetToolboxItemName(string contentTypeName)
         {
             return contentTypeName + "_MVC";
         }
 
+        /// <summary>
+        /// Removes the toolbox item.
+        /// </summary>
+        /// <param name="contentTypeName">Name of the content type.</param>
         private void UnregisterToolboxItem(string contentTypeName)
         {
             var configurationManager = ConfigManager.GetManager();
@@ -193,6 +260,10 @@ namespace DynamicContent
             }
         }
 
+        /// <summary>
+        /// Removes widget templates.
+        /// </summary>
+        /// <param name="contentTypeName">Name of the content type.</param>
         private void UnregisterTemplates(string contentTypeName)
         {
             var templatesToDelete = this.pageManager.GetPresentationItems<ControlPresentation>()
