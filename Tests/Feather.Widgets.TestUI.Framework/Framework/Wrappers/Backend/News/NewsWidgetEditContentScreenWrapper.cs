@@ -167,8 +167,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="title">The title of the tag</param>
         public void SearchItemByTitle(string title)
         {
-            this.ClickSelectButton();
-
             HtmlDiv inputDiv = EM.News
                                  .NewsWidgetContentScreen
                                  .SearchByTypingDiv
@@ -393,28 +391,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, buttonToDay.GetRectangle());
             Manager.Current.ActiveBrowser.WaitUntilReady();
-        }
-
-        /// <summary>
-        /// Verify date format
-        /// </summary>
-        /// <param name="dayAgo">Day ago</param>
-        /// <param name="dayForward">Day forward</param>
-        public void VerifyCustomDateFormat(int dayAgo, int dayForward)
-        {
-            DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
-            String publicationDateStartFormat = publicationDateStart.ToString("dd MMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"));
-
-            DateTime publicationDateEnd = DateTime.UtcNow.AddDays(dayForward);
-            String publicationDateEndFormat = publicationDateEnd.ToString("dd MMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"));
-
-            HtmlSpan selectedItemsSpan = EM.News
-                                           .NewsWidgetContentScreen
-                                           .SelectedItemsSpan
-                                           .AssertIsPresent("Date span");
-            
-            var isContained = selectedItemsSpan.InnerText.Contains("From " + publicationDateStartFormat + " to " + publicationDateEndFormat);
-            Assert.IsTrue(isContained, "Date format is not as expected");
         }
 
         /// <summary>
