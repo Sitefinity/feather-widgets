@@ -36,4 +36,4 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: ControllerContainer]
+[assembly: ControllerContainer(typeof(DynamicContent.DynamicWidgetInitializer), "Initialize")]

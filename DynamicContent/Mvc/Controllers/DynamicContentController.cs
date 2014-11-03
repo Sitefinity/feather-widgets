@@ -20,7 +20,6 @@ namespace DynamicContent.Mvc.Controllers
     /// <summary>
     /// This class represents a controller for Dynamic Content widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "DynamicContent", Title = "DynamicContent", SectionName = "MvcWidgets")]
     public class DynamicContentController : Controller
     {
         #region Properties
