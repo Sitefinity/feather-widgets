@@ -129,6 +129,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editLink.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>

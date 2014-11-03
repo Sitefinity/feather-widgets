@@ -115,23 +115,30 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     if (div.IsVisible())
                     {
                         div.Click();
-                        ActiveBrowser.WaitForAsyncRequests();
+                        ActiveBrowser.RefreshDomTree();
                         break;
                     }
                 }
             }
         }
 
-            /// <summary>
-            /// Save news widget
-            /// </summary>
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
         public void SaveChanges()
         {
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
+
             HtmlButton saveButton = EM.News
                                       .NewsWidgetContentScreen
                                       .SaveChangesButton
                                       .AssertIsPresent("Save button");
             saveButton.Click();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -396,10 +403,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyCustomDateFormat(int dayAgo, int dayForward)
         {
             DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
-            String publicationDateStartFormat = publicationDateStart.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+            String publicationDateStartFormat = publicationDateStart.ToString("dd MMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"));
 
             DateTime publicationDateEnd = DateTime.UtcNow.AddDays(dayForward);
-            String publicationDateEndFormat = publicationDateEnd.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+            String publicationDateEndFormat = publicationDateEnd.ToString("dd MMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"));
 
             HtmlSpan selectedItemsSpan = EM.News
                                            .NewsWidgetContentScreen
