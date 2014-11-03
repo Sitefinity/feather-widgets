@@ -19,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Navigation)]
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.SemanticUI)]
         public void DragAndDropNavigationWidgetOnSemanticTemplate()
         {
             string[] parentPages = new string[] { Page1, Page2 };

@@ -20,7 +20,8 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Navigation)]
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetFoundationTemplateVerifyDefaultTransformation()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);

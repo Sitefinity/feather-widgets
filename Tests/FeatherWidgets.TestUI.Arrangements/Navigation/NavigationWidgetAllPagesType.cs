@@ -5,6 +5,7 @@ using System.Text;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -20,7 +21,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
+            string templateName = ServerArrangementContext.GetCurrent().Values["templateName"];
+
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
             Guid parentPageId = ServerOperations.Pages().CreatePage(PageName, templateId);
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(parentPageId);
 
@@ -57,7 +60,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageName = "ParentPage";
-        private const string PageTemplateName = "Bootstrap.default";
         private const string ChildPage1 = "ChildPage1";
         private const string ChildPage2 = "ChildPage2";
         private const string Page2Redirect = "Page2Redirect";

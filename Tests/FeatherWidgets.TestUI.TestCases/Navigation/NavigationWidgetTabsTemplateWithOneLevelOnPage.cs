@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI
         /// UI test NavigationWidgetTabsTemplateWithOneLevelOnPage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.Navigation)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetTabsTemplateWithOneLevelOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
