@@ -243,6 +243,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
                 scroller.MouseClick(MouseClickType.LeftDoubleClick);
                 Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
+                ActiveBrowser.RefreshDomTree();
                 items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
             }
 
