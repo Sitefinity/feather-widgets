@@ -5,3 +5,19 @@
 </div>
 
 <textarea id="editor" style="height: 340px;" kendo-editor ng-model="properties.Content.PropertyValue"></textarea>
+
+<script>
+// Focus the Kendo editor
+(function () {
+  var interval = window.setInterval(focus, 100);
+
+  function focus() {
+    var kendoEditor = $("#editor").data("kendoEditor");
+
+    if (kendoEditor) {
+      clearInterval(interval);
+      kendoEditor.focus();
+    }
+  }
+})();
+</script>
