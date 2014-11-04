@@ -116,8 +116,20 @@ namespace DynamicContent.Mvc.Model
         /// </summary>
         IEnumerable<IContentLocationInfo> GetLocations();
 
+        /// <summary>
+        /// Creates a view model for use in list views.
+        /// </summary>
+        /// <param name="taxonFilter">The taxon filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>A view model for use in list views.</returns>
+        /// <exception cref="System.ArgumentException">'page' argument has to be at least 1.;page</exception>
         ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page);
 
+        /// <summary>
+        /// Creates the details view model.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>A view model for use in detail views.</returns>
         ContentDetailsViewModel CreateDetailsViewModel(IDataItem item);
 
         /// <summary>
