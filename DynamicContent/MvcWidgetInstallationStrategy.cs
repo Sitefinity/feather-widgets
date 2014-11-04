@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
@@ -14,6 +15,7 @@ using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Resources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Pages.Model;
@@ -84,7 +86,7 @@ namespace DynamicContent
         public virtual void Install(WidgetInstallationContext context)
         {
             this.RegisterTemplates(context.DynamicModule, context.DynamicModuleType);
-            this.RegisterToolboxItem(context.DynamicModule, context.DynamicModuleType);
+            this.RegisterToolboxItem(context.DynamicModule, context.DynamicModuleType, context.ToolboxesConfig);
         }
 
         /// <summary>
@@ -120,7 +122,7 @@ namespace DynamicContent
         /// <param name="context">The context.</param>
         public virtual void RegisterToolboxItem(WidgetInstallationContext context)
         {
-            this.RegisterToolboxItem(context.DynamicModule, context.DynamicModuleType);
+            this.RegisterToolboxItem(context.DynamicModule, context.DynamicModuleType, context.ToolboxesConfig);
         }
 
         /// <summary>
@@ -139,8 +141,6 @@ namespace DynamicContent
                     this.RegisterTemplates(context.DynamicModule, context.DynamicModuleType);
                 }
             }
-
-            this.RegisterToolboxItem(context);
         }
 
         /// <summary>
@@ -182,13 +182,17 @@ namespace DynamicContent
         /// </summary>
         /// <param name="dynamicModule">The dynamic module.</param>
         /// <param name="moduleType">Type of the module.</param>
-        private void RegisterToolboxItem(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType moduleType)
+        private void RegisterToolboxItem(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType moduleType, ToolboxesConfig toolboxesConfig)
         {
             this.UnregisterToolboxItem(moduleType.GetFullTypeName());
-
             var configurationManager = ConfigManager.GetManager();
-            var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
-            var section = this.GetToolboxSection(toolboxesConfig);
+
+            if (toolboxesConfig == null)
+            {
+                toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
+            }
+
+            var section = this.GetModuleToolboxSection(dynamicModule, toolboxesConfig);
             if (section == null)
                 return;
 
@@ -218,15 +222,27 @@ namespace DynamicContent
         /// <summary>
         /// Gets the toolbox section where the dynamic widget will be placed.
         /// </summary>
+        /// <param name="dynamicModule">The dynamic module.</param>
         /// <param name="toolboxesConfig">The toolboxes configuration.</param>
         /// <returns></returns>
-        private ToolboxSection GetToolboxSection(ToolboxesConfig toolboxesConfig)
+        private ToolboxSection GetModuleToolboxSection(DynamicModule dynamicModule, ToolboxesConfig toolboxesConfig)
         {
             var pageControls = toolboxesConfig.Toolboxes["PageControls"];
-            var section = pageControls
-                .Sections
-                .Where<ToolboxSection>(e => e.Name == "MvcWidgets")
-                .FirstOrDefault();
+            var moduleSectionName = String.Concat(DynamicModuleType.defaultNamespace, ".", MvcWidgetInstallationStrategy.moduleNameValidationRegex.Replace(dynamicModule.Name, ""));            
+            ToolboxSection section = pageControls.Sections.Where<ToolboxSection>(e => e.Name == moduleSectionName).FirstOrDefault();
+
+            if (section == null)
+            {
+                var sectionDescription = string.Format(MvcWidgetInstallationStrategy.moduleSectionDescription, dynamicModule.GetTitle());
+                section = new ToolboxSection(pageControls.Sections)
+                {
+                    Name = moduleSectionName,
+                    Title = dynamicModule.Title,
+                    Description = sectionDescription
+                };
+
+                pageControls.Sections.Add(section);
+            }
 
             return section;
         }
@@ -249,17 +265,26 @@ namespace DynamicContent
         {
             var configurationManager = ConfigManager.GetManager();
             var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
-            var section = this.GetToolboxSection(toolboxesConfig);
-            if (section == null)
-                return;
-
-            var toolboxItemName = this.GetToolboxItemName(contentTypeName);
-            var toolboxItem = section.Tools.FirstOrDefault<ToolboxItem>(e => e.Name == toolboxItemName);
-            if (toolboxItem != null)
+            var pageControls = toolboxesConfig.Toolboxes["PageControls"];
+            var moduleSectionName = contentTypeName.Substring(0, contentTypeName.LastIndexOf('.'));
+           
+            var section = pageControls.Sections.Where<ToolboxSection>(e => e.Name == moduleSectionName).FirstOrDefault();
+            if (section != null)
             {
-                section.Tools.Remove(toolboxItem);
-                configurationManager.SaveSection(toolboxesConfig);
+                var itemToDelete = section.Tools.FirstOrDefault<ToolboxItem>(e => e.Name == this.GetToolboxItemName(contentTypeName));
+                
+                if (itemToDelete!=null)
+                {
+                    section.Tools.Remove(itemToDelete);
+                }
+
+                if (!section.Tools.Any<ToolboxItem>())
+                {
+                    pageControls.Sections.Remove(section);
+                }
             }
+
+            configurationManager.SaveSection(toolboxesConfig);
         }
 
         /// <summary>
@@ -285,6 +310,9 @@ namespace DynamicContent
         #region Private fields and constants
 
         private PageManager pageManager;
+        private ModuleBuilderManager moduleBuilderManager;
+        private const string moduleSectionDescription = "Holds all dynamic content widgets for the {0} module.";
+        internal static Regex moduleNameValidationRegex = new Regex(@"[^a-zA-Z0-9_.]+", RegexOptions.Compiled);
 
         #endregion
     }
