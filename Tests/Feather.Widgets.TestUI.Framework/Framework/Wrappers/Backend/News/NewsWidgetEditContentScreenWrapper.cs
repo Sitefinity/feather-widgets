@@ -107,7 +107,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             foreach (var itemName in itemNames)
             {
-                List<HtmlDiv> divs = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlDiv>("class=ng-binding", "InnerText=" + itemName).ToList<HtmlDiv>();  
+                var divs = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
                 foreach (var div in divs)
                 {
                     if (div.IsVisible())
