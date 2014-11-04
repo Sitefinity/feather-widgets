@@ -38,7 +38,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 position = 2;
             }
-            else 
+            else
             {
                 position = 0;
             }
@@ -125,9 +125,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SaveChanges()
         {
-            ActiveBrowser.RefreshDomTree();
-            ActiveBrowser.WaitUntilReady();
-
             HtmlButton saveButton = EM.News
                                       .NewsWidgetContentScreen
                                       .SaveChangesButton
@@ -221,15 +218,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="expectedCount">The expected items count.</param>
         public void WaitForItemsToAppear(int expectedCount)
         {
-            Manager.Current.Wait.For(() => this.CountItems(expectedCount), 50000);
+            Manager.Current.Wait.For(() => this.ScrollToLatestItemAndCountItems(expectedCount), 50000);
         }
-      
+
         /// <summary>
         /// Verifies if the items count is as expected.
         /// </summary>
         /// <param name="expected">The expected items count.</param>
         /// <returns>True or false depending on the items count.</returns>
-        public bool CountItems(int expected)
+        public bool ScrollToLatestItemAndCountItems(int expected)
         {
             ActiveBrowser.RefreshDomTree();
             var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
@@ -239,12 +236,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             //// if items count is more than 12 elements, then you need to scroll
             if (items.Count() > 12)
             {
-                HtmlDiv scroller = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=~list-group list-group-endless");
+                HtmlDiv newsList = EM.News
+                     .NewsWidgetContentScreen
+                     .NewsList
+                     .AssertIsPresent("News list");
 
-                scroller.MouseClick(MouseClickType.LeftDoubleClick);
-                Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
-                ActiveBrowser.RefreshDomTree();
-                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+                List<HtmlDiv> itemDiv = newsList.Find
+                                      .AllByExpression<HtmlDiv>("class=ng-scope list-group-item list-group-item-multiselect").ToList<HtmlDiv>();
+
+                int divsCount = itemDiv.Count;
+
+                itemDiv[divsCount - 1].Wait.ForVisible();
+                itemDiv[divsCount - 1].ScrollToVisible();
             }
 
             bool isCountCorrect = (expected == items.Count);
@@ -279,7 +282,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 Assert.AreEqual(divList[i].InnerText, itemNames[i]);
             }
         }
-         
+
         /// <summary>
         /// Checks the notification in selected tab.
         /// </summary>
@@ -400,7 +403,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             List<HtmlAnchor> hourAnchor = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagname=a", "InnerText=Add hour").ToList<HtmlAnchor>();
             int fromOrTo = 0;
-            
+
             if (isFrom.Equals(false))
             {
                 fromOrTo = 1;
