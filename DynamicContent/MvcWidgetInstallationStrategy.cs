@@ -209,7 +209,7 @@ namespace DynamicContent
                     Parameters = new NameValueCollection() 
                     { 
                         { "WidgetName", moduleType.TypeName },
-                        { "ControllerType", typeof(DynamicContentController).FullName}
+                        { "ControllerName", typeof(DynamicContentController).FullName}
                     }
                 };
 
