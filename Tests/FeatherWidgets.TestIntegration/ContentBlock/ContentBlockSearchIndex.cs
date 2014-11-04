@@ -1,8 +1,9 @@
 ﻿using System;
+
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Publishing.Configuration;
 using Telerik.Sitefinity.Publishing.Web.Services;
 using Telerik.Sitefinity.Services.Search;
@@ -79,8 +80,10 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
         private IResultSet Search(string catalogue, string query)
         {
             var service = this.GetService();
-            var searchQuery = service.BuildQuery(query, new[] { "Title", "Content" }, false);
-            return service.Search(catalogue, searchQuery, null, null);
+            var queryBuilder = ObjectFactory.Resolve<IQueryBuilder>();
+            var searchQuery = queryBuilder.BuildQuery(query, new[] { "Title", "Content" });
+            searchQuery.IndexName = catalogue;
+            return service.Search(searchQuery);
         }
 
         private ISearchService GetService()
