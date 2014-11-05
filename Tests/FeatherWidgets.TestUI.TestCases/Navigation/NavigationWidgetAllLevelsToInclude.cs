@@ -19,10 +19,17 @@ namespace FeatherWidgets.TestUI
         /// UI test NavigationWidgetAllLevelsToInclude
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.Navigation)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetAllLevelsToInclude()
         {
+            string pageTemplateName = "Bootstrap.default";
+            string navTemplateClass = "nav nav-pills nav-stacked";
+            string navTemplateChildClass = "group nav nav-pills nav-stacked";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -30,41 +37,89 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectWidgetListTemplate(NavWidgetTemplate);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNavigationOnTheFrontend();
-            this.SelectPageFromNavigation();
-        }
 
-        /// <summary>
-        /// Verify navigation widget on the frontend
-        /// </summary>
-        public void VerifyNavigationOnTheFrontend()
-        {
             string[] parentPages = new string[] { PageName };
             string[] childPages = new string[] { ChildPage1, ChildPage2 };
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(NavTemplateChildClass, childPages);
-        }
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, parentPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateChildClass, childPages);
 
-        /// <summary>
-        /// Select page from navigation widget
-        /// </summary>
-        public void SelectPageFromNavigation()
-        {
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().SelectPageFromNavigationByText(NavTemplateClass, ChildPage1);
+            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().SelectPageFromNavigationByText(navTemplateClass, ChildPage1);
             ActiveBrowser.WaitForUrl("/" + ChildPage1.ToLower(), true, 60000);
         }
 
         /// <summary>
-        /// Performs Server Setup and prepare the system with needed data.
+        /// UI test NavigationWidgetAllLevelsToIncludeFoundationTemplate
         /// </summary>
-        protected override void ServerSetup()
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
+        public void NavigationWidgetAllLevelsToIncludeFoundationTemplate()
         {
+            string pageTemplateName = "Foundation.default";
+            string navTemplateClass = "side-nav";
+            string navTemplateChildClass = "group nav nav-pills nav-stacked";
+
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteArrangement(this.ArrangementMethod);
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectLevelsToInclude(LevelsToInclude);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectWidgetListTemplate(NavWidgetTemplate);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            string[] parentPages = new string[] { PageName };
+            string[] childPages = new string[] { ChildPage1, ChildPage2 };
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, parentPages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateChildClass, childPages, TemplateType.Foundation);
+
+            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().SelectPageFromNavigationByText(navTemplateClass, ChildPage1);
+            ActiveBrowser.WaitForUrl("/" + ChildPage1.ToLower(), true, 60000);
+        }
+
+        /// <summary>
+        /// UI test NavigationWidgetAllLevelsToIncludeSemanticUITemplate
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.SemanticUI)]
+        public void NavigationWidgetAllLevelsToIncludeSemanticUITemplate()
+        {
+            string pageTemplateName = "SemanticUI.default";
+            string navTemplateClass = "ui orange vertical inverted menu";
+            string navTemplateChildClass = "menu";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteArrangement(this.ArrangementMethod);
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectLevelsToInclude(LevelsToInclude);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectWidgetListTemplate(NavWidgetTemplate);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            string[] parentPages = new string[] { PageName };
+            string[] childPages = new string[] { ChildPage1, ChildPage2 };
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, parentPages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateChildClass, childPages, TemplateType.Semantic);
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(ChildPage1, TemplateType.Semantic, navTemplateChildClass, false);
         }
 
         /// <summary>
@@ -72,7 +127,17 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
+        }
+
+        private string ArrangementClass
+        {
+            get { return ArrangementClassName; }
+        }
+
+        private string ArrangementMethod
+        {
+            get { return ArrangementMethodName; }
         }
 
         private const string PageName = "ParentPage";
@@ -81,7 +146,7 @@ namespace FeatherWidgets.TestUI
         private const string WidgetName = "Navigation";
         private const string LevelsToInclude = "-1";
         private const string NavWidgetTemplate = "Vertical";
-        private const string NavTemplateClass = "nav nav-pills nav-stacked";
-        private const string NavTemplateChildClass = "group nav nav-pills nav-stacked";
+        private const string ArrangementClassName = "NavigationWidgetAllLevelsToInclude";
+        private const string ArrangementMethodName = "SetUp";
     }
 }

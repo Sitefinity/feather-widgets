@@ -8,9 +8,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// SelectMoreThanOneNewsItem arragement.
+    /// SelectAndUnselectMoreThanOneNewsItem arragement.
     /// </summary>
-    public class SelectMoreThanOneNewsItem : ITestArrangement
+    public class SelectAndUnselectMoreThanOneNewsItem : ITestArrangement
     {
         [ServerSetUp]
         public void SetUp()

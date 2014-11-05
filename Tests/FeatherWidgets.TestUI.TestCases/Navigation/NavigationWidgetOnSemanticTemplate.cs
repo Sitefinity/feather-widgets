@@ -1,27 +1,27 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
     /// <summary>
-    /// UI tests for navigation widget on bootstrap template
+    /// UI tests for navigation widget on semantic UI template
     /// </summary>
     [TestClass]
-    public class NavigationWidgetOnFoundationTemplate : FeatherTestCase
+    public class NavigationWidgetOnSemanticTemplate : FeatherTestCase
     {
         /// <summary>
-        /// UI test DragAndDropNavigationWidgetOnFoundationTemplate
+        /// UI test DragAndDropNavigationWidgetOnSemanticTemplate
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
         TestCategory(FeatherTestCategories.Navigation),
-        TestCategory(FeatherTestCategories.Foundation)]
-        public void DragAndDropNavigationWidgetOnFoundationTemplate()
+        TestCategory(FeatherTestCategories.SemanticUI)]
+        public void DragAndDropNavigationWidgetOnSemanticTemplate()
         {
             string[] parentPages = new string[] { Page1, Page2 };
 
@@ -33,9 +33,9 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Arrange(this.ArrangementClass).ExecuteArrangement(this.ArrangementMethod);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + Page1.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages, TemplateType.Foundation);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page2, TemplateType.Foundation, NavTemplateClass);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(Page2, TemplateType.Semantic, NavTemplateClass);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages, TemplateType.Semantic);        
         }
 
         /// <summary>
@@ -65,12 +65,12 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             get { return ArrangementMethodName; }
         }
 
-        private const string Page1 = "FoundationPage1";
-        private const string Page2 = "FoundationPage2";
-        private const string PageTemplateName = "Foundation.defaultNew";
-        private const string ArrangementClassName = "NavigationWidgetOnFoundationTemplate";
+        private const string Page1 = "SemanticUIPage1";
+        private const string Page2 = "SemanticUIPage2";
+        private const string PageTemplateName = "SemanticUI.defaultNew";
+        private const string ArrangementClassName = "NavigationWidgetOnSemanticTemplate";
         private const string ArrangementMethodName = "CreatePages";
         private const string WidgetName = "Navigation";
-        private const string NavTemplateClass = "top-bar-section";
+        private const string NavTemplateClass = "ui menu purple inverted";
     }
 }

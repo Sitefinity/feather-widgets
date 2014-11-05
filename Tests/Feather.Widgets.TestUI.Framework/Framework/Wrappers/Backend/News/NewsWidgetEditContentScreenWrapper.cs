@@ -38,14 +38,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 position = 2;
             }
-            else 
+            else
             {
                 position = 0;
             }
 
             HtmlInputRadioButton optionButton = newsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                                                                   .AssertIsPresent("Which news to display option radio button");
-
             optionButton.Click();
         }
 
@@ -62,7 +61,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                                           .AssertIsPresent("Taxonomy option");
 
             optionButton.Click();
-
             ActiveBrowser.WaitForAsyncOperations();
         }
 
@@ -115,16 +113,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     if (div.IsVisible())
                     {
                         div.Click();
-                        ActiveBrowser.WaitForAsyncRequests();
+                        ActiveBrowser.RefreshDomTree();
                         break;
                     }
                 }
             }
         }
 
-            /// <summary>
-            /// Save news widget
-            /// </summary>
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
         public void SaveChanges()
         {
             HtmlButton saveButton = EM.News
@@ -132,6 +130,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                       .SaveChangesButton
                                       .AssertIsPresent("Save button");
             saveButton.Click();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -160,8 +162,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="title">The title of the tag</param>
         public void SearchItemByTitle(string title)
         {
-            this.ClickSelectButton();
-
             HtmlDiv inputDiv = EM.News
                                  .NewsWidgetContentScreen
                                  .SearchByTypingDiv
@@ -218,15 +218,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="expectedCount">The expected items count.</param>
         public void WaitForItemsToAppear(int expectedCount)
         {
-            Manager.Current.Wait.For(() => this.CountItems(expectedCount), 50000);
+            Manager.Current.Wait.For(() => this.ScrollToLatestItemAndCountItems(expectedCount), 50000);
         }
-      
+
         /// <summary>
         /// Verifies if the items count is as expected.
         /// </summary>
         /// <param name="expected">The expected items count.</param>
         /// <returns>True or false depending on the items count.</returns>
-        public bool CountItems(int expected)
+        public bool ScrollToLatestItemAndCountItems(int expected)
         {
             ActiveBrowser.RefreshDomTree();
             var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
@@ -236,11 +236,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             //// if items count is more than 12 elements, then you need to scroll
             if (items.Count() > 12)
             {
-                HtmlDiv scroller = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=~list-group list-group-endless");
+                HtmlDiv newsList = EM.News
+                     .NewsWidgetContentScreen
+                     .NewsList
+                     .AssertIsPresent("News list");
 
-                scroller.MouseClick(MouseClickType.LeftDoubleClick);
-                Manager.Current.Desktop.Mouse.TurnWheel(4000, MouseWheelTurnDirection.Backward);
-                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+                List<HtmlDiv> itemDiv = newsList.Find
+                                      .AllByExpression<HtmlDiv>("class=ng-scope list-group-item list-group-item-multiselect").ToList<HtmlDiv>();
+
+                int divsCount = itemDiv.Count;
+
+                itemDiv[divsCount - 1].Wait.ForVisible();
+                itemDiv[divsCount - 1].ScrollToVisible();
             }
 
             bool isCountCorrect = (expected == items.Count);
@@ -275,7 +282,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 Assert.AreEqual(divList[i].InnerText, itemNames[i]);
             }
         }
-         
+
         /// <summary>
         /// Checks the notification in selected tab.
         /// </summary>
@@ -292,7 +299,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void OpenSelectedTab()
         {
             HtmlAnchor selectedTab = this.EM.News.NewsWidgetContentScreen.SelectedTab
-
                                          .AssertIsPresent("selected tab");
             selectedTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
@@ -342,7 +348,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Set From date by typing
+        /// Set From date by typing to custom date selector
         /// </summary>
         /// <param name="dayAgo">Day ago</param>
         public void SetFromDateByTyping(int dayAgo)
@@ -360,7 +366,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Set To date by date picker
+        /// Set To date by date picker to custom date selector
         /// </summary>
         /// <param name="dayForward">Day forward</param>
         public void SetToDateByDatePicker(int dayForward)
@@ -389,29 +395,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Verify date format
-        /// </summary>
-        /// <param name="dayAgo">Day ago</param>
-        /// <param name="dayForward">Day forward</param>
-        public void VerifyCustomDateFormat(int dayAgo, int dayForward)
-        {
-            DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
-            String publicationDateStartFormat = publicationDateStart.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"));
-
-            DateTime publicationDateEnd = DateTime.UtcNow.AddDays(dayForward);
-            String publicationDateEndFormat = publicationDateEnd.ToString("dd MMM yyyy", CultureInfo.CreateSpecificCulture("en-US"));
-
-            HtmlSpan selectedItemsSpan = EM.News
-                                           .NewsWidgetContentScreen
-                                           .SelectedItemsSpan
-                                           .AssertIsPresent("Date span");
-            
-            var isContained = selectedItemsSpan.InnerText.Contains("From " + publicationDateStartFormat + " to " + publicationDateEndFormat);
-            Assert.IsTrue(isContained, "Date format is not as expected");
-        }
-
-        /// <summary>
-        ///  Add hour
+        ///  Add hour to custom date selector
         /// </summary>
         /// <param name="hour">Hour value to select</param>
         /// <param name="isFrom">Is from or to hour</param>
@@ -419,7 +403,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             List<HtmlAnchor> hourAnchor = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagname=a", "InnerText=Add hour").ToList<HtmlAnchor>();
             int fromOrTo = 0;
-            
+
             if (isFrom.Equals(false))
             {
                 fromOrTo = 1;
@@ -440,7 +424,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        ///  Add minute
+        ///  Add minute to custom date selector
         /// </summary>
         /// <param name="minute">Minute value to select</param>
         /// <param name="isFrom">Is from or to minute</param>
@@ -469,6 +453,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
+        /// <summary>
+        /// Verify mesage in news widget - when News module is deactivated
+        /// </summary>
         public void CheckInactiveNewsWidget()
         {
             HtmlDiv optionsDiv = EM.News

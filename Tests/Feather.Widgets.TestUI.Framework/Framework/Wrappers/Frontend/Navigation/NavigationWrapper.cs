@@ -38,18 +38,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             {
                 case TemplateType.Bootstrap:
                     navList = EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass);
+                    navList.AssertIsPresent("Navigation List");
+                    Assert.AreEqual(pages.Count(), navList.ChildNodes.Count(), "Unexpected number of pages");
                     break;
                 case TemplateType.Foundation:
-                    HtmlControl section = EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass);
-                    navList = section.Find.AllByTagName<HtmlControl>("ul").First();
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass);
+                    navList.AssertIsPresent("Navigation List");
+                    Assert.AreEqual(pages.Count(), navList.ChildNodes.Count(), "Unexpected number of pages");
                     break;
                 case TemplateType.Semantic:
                     navList = EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass);
+                    navList.AssertIsPresent("Navigation List");
+                    Assert.AreEqual(pages.Count(), navList.ChildNodes.Where(n=>n.TagName.Equals("a")).Count(), "Unexpected number of pages");
                     break;
             }
-
-            navList.AssertIsPresent("Navigation List");
-            Assert.AreEqual(pages.Count(), navList.ChildNodes.Count(), "Unexpected number of pages");
 
             foreach (string page in pages)
             {
@@ -72,16 +74,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         /// <param name="cssClass">The navigation css class</param>
         /// <param name="pages">Expected pages</param>
-        public void VerifyChildPagesFrontEndNavigation(string cssClass, string[] pages)
+        public void VerifyChildPagesFrontEndNavigation(string cssClass, string[] pages, TemplateType templateType = TemplateType.Bootstrap)
         {
-            HtmlUnorderedList navList = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=" + cssClass)
-                .AssertIsPresent("Navigation with selected class");
+            HtmlControl navList = null;
 
+            switch (templateType)
+            {
+                case TemplateType.Bootstrap:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass);
+                    break;
+                case TemplateType.Foundation:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass);
+                    break;
+                case TemplateType.Semantic:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigationChild(cssClass);
+                    break;
+            }
+
+            navList.AssertIsPresent("Navigation List");
             Assert.AreEqual(pages.Count(), navList.ChildNodes.Count(), "Unexpected number of pages");
 
             foreach (string page in pages)
             {
-                Assert.IsTrue(navList.InnerText.Contains(page), "Navigation does not contain the expected page " + page);
+                navList.AssertContainsText<HtmlControl>(page, "Navigation does not contain the expected page " + page);
             }
         }
 
@@ -90,10 +105,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         /// <param name="cssClass"></param>
         /// <param name="pages"></param>
-        public void VerifyPagesNotPresentFrontEndNavigation(string cssClass, string[] pages)
+        public void VerifyPagesNotPresentFrontEndNavigation(string cssClass, string[] pages, TemplateType templateType = TemplateType.Bootstrap)
         {
-            HtmlUnorderedList navList = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=^" + cssClass)
-                .AssertIsPresent("Navigation with selected css class");
+            HtmlControl navList = null;
+
+            switch (templateType)
+            {
+                case TemplateType.Bootstrap:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass);                   
+                    break;
+                case TemplateType.Foundation:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass);
+                    break;
+                case TemplateType.Semantic:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass);
+                    break;
+            }
+
+            navList.AssertIsPresent("Navigation List");
 
             for (int i = 0; i < navList.ChildNodes.Count; i++)
             {
@@ -135,10 +164,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
         private HtmlAnchor GetPageLinkByTitleFromFoundationNavigation(string cssClass, string pageTitle)
         {
-            HtmlControl section = this.EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass)
-                .AssertIsNotNull("section");
-
-            HtmlUnorderedList list = section.Find.AllByTagName<HtmlUnorderedList>("ul").First();
+            HtmlControl list = this.EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass)
+                .AssertIsNotNull("list");
 
             HtmlListItem listItem = list.ChildNodes.Where(i => i.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlListItem>()
                 .AssertIsPresent<HtmlListItem>("List Item");
@@ -153,11 +180,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             else return link;
         }
 
-        private HtmlAnchor GetPageLinkByTitleFromSemanticNavigation(string cssClass, string pageTitle)
+        private HtmlAnchor GetPageLinkByTitleFromSemanticNavigation(string cssClass, string pageTitle, bool isParentPage = true)
         {
-            HtmlControl nav = this.EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass)
-                .AssertIsNotNull("nav element");
+            HtmlControl nav = null;
 
+            if (isParentPage)
+            {
+                nav = this.EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass);
+            }
+
+            else
+            {
+                nav = this.EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigationChild(cssClass);
+            }
+
+            nav.AssertIsNotNull("Navigation");
             HtmlAnchor link = nav.ChildNodes.Where(n => n.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlAnchor>();
 
             if (link == null || !link.IsVisible())
@@ -172,7 +209,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Clicks on a page link from the Mvc navigation on the frontend.
         /// </summary>
         /// <param name="pageTitle">The page title.</param>
-        public void ClickOnPageLinkFromNavigationMenu(string pageTitle, TemplateType templateType, string cssClass)
+        public void ClickOnPageLinkFromNavigationMenu(string pageTitle, TemplateType templateType, string cssClass, bool isParentPage = true)
         {
             HtmlAnchor pageLink = null;
 
@@ -185,7 +222,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                     pageLink = this.GetPageLinkByTitleFromFoundationNavigation(cssClass, pageTitle);
                     break;
                 case TemplateType.Semantic:
-                    pageLink = this.GetPageLinkByTitleFromSemanticNavigation(cssClass, pageTitle);
+                    pageLink = this.GetPageLinkByTitleFromSemanticNavigation(cssClass, pageTitle, isParentPage);
                     break;
             }
 

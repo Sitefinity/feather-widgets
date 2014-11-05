@@ -44,6 +44,7 @@ namespace FeatherWidgets.TestIntegration.News
 
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
             this.pageOperations.DeletePages();
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
         }
 
         /// <summary>
@@ -99,17 +100,18 @@ namespace FeatherWidgets.TestIntegration.News
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
-            var newsController = new NewsController();
-            newsController.OpenInSamePage = false;
-            newsController.DetailsPageUrl = secondPageUrl;
-            mvcProxy.Settings = new ControllerSettings(newsController);
 
             this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, firstPageIndex);
-            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, secondPageIndex);
+            var secondPageId = this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, secondPageIndex);
+            
+            var newsController = new NewsController();
+            newsController.OpenInSamePage = false;
+            newsController.DetailsPageId = secondPageId;
+            mvcProxy.Settings = new ControllerSettings(newsController);
 
             newsController.Index(1);
 
-            Assert.AreEqual(secondPageUrl, newsController.ViewBag.DetailsPageUrl, "The second page URL is not provided correctly to the list view");
+            Assert.AreEqual(secondPageId, newsController.ViewBag.DetailsPageID, "The second page ID is not provided correctly to the list view");
             Assert.AreEqual(this.newsCount, newsController.Model.Items.Count, "The count of the news item is not as expected");
 
             var expectedDetailNews = newsController.Model.Items[0];
