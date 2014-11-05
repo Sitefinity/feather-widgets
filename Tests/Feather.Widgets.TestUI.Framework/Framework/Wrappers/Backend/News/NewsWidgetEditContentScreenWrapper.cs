@@ -137,11 +137,31 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Select tag by title
+        /// Click select button
         /// </summary>
         public void ClickSelectButton()
         {
             var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
+            foreach (var button in selectButtons)
+            {
+                if (button.IsVisible())
+                {
+                    button.Click();
+                    break;
+                }
+            }
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Click select button by date
+        /// </summary>
+        public void ClickSelectButtonByDate()
+        {
+            var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtonsDate;
             foreach (var button in selectButtons)
             {
                 if (button.IsVisible())
