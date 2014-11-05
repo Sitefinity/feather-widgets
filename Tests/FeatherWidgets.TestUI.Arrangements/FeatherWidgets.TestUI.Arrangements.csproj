@@ -118,7 +118,7 @@
     <Compile Include="News\SearchAndSelectNewsByTag.cs" />
     <Compile Include="News\SearchForNotExistingTag.cs" />
     <Compile Include="News\SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
-    <Compile Include="News\SelectMoreThanOneNewsItem.cs" />
+    <Compile Include="News\SelectAndUnselectMoreThanOneNewsItem.cs" />
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
