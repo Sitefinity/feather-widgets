@@ -29,5 +29,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle[i], " but found [", newsDiv[i].InnerText, "]"));
             }
         }
+
+        /// <summary>
+        /// Checks if a news title is present on the frontend.
+        /// </summary>
+        /// <param name="newsTitle">The news title.</param>
+        /// <returns>True or False depending on the news item presense.</returns>
+        public bool IsNewsTitlePresentOnTheFrontend(string newsTitle)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            List<HtmlDiv> newsDiv = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "data-sf-type=Telerik.Sitefinity.News.Model.NewsItem").ToList<HtmlDiv>();
+
+            for (int i = 0; i < newsDiv.Count; i++)
+            {
+                if (newsDiv[i].InnerText.Contains(newsTitle))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return true;
+        }
     }
 }
