@@ -30,7 +30,7 @@ namespace DynamicContent
         }
 
         /// <summary>
-        /// Registers templatable controls used by dynamic content types for usage in Sitefinity backend
+        /// Register MVC widgets used for dynamic content types as templatable controls
         /// </summary>
         private static void RegisterDynamicTemplatableControl()
         {

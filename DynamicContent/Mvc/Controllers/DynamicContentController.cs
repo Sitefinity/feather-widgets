@@ -15,6 +15,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 
 namespace DynamicContent.Mvc.Controllers
 {
