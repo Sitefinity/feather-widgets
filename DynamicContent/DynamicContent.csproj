@@ -149,10 +149,13 @@
     <Compile Include="Mvc\Controllers\DynamicContentController.cs" />
     <Compile Include="Mvc\Model\DynamicContentModel.cs" />
     <Compile Include="Mvc\Model\IDynamicContentModel.cs" />
+    <Compile Include="Mvc\StringResources\DynamicContentResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
