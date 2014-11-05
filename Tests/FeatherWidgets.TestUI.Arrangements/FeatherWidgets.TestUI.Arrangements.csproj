@@ -117,6 +117,7 @@
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
     <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
+    <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
     <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
     <Compile Include="News\SearchAndSelectNewsByTag.cs" />
     <Compile Include="News\SearchForNotExistingTag.cs" />

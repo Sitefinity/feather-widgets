@@ -90,6 +90,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         }
 
         /// <summary>
+        /// Gets Save changes button date.
+        /// </summary>
+        public ICollection<HtmlButton> SelectButtonsDate
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
+            }
+        }
+
+        /// <summary>
         /// Gets search div.
         /// </summary>
         public HtmlDiv SearchByTypingDiv

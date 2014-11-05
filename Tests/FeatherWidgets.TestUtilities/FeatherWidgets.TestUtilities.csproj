@@ -122,6 +122,7 @@
     <Compile Include="CommonOperations\Pages\NavigationOperations.cs" />
     <Compile Include="CommonOperations\Pages\NewsOperations.cs" />
     <Compile Include="CommonOperations\Pages\PagesOperations.cs" />
+    <Compile Include="CommonOperations\Pages\TagsOperations.cs" />
     <Compile Include="CommonOperations\ServerOperationsFeather.cs" />
     <Compile Include="CommonOperations\Templates\TemplateOperations.cs" />
     <Compile Include="CommonOperations\Users\UsersOperations.cs" />
