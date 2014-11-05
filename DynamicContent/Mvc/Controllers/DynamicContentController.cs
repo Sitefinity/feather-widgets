@@ -6,6 +6,7 @@ using DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -234,7 +235,7 @@ namespace DynamicContent.Mvc.Controllers
                 var errorMessage = string.Empty;
                 if (SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
                 { 
-                    errorMessage = "This widget is no longer available since the module providing its content is deleted  or deactivated.";
+                    errorMessage = Res.Get<DynamicContentResources>().DeletedModuleWarning;
                 }
 
                 filterContext.Result = new ContentResult()
