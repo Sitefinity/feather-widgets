@@ -113,6 +113,7 @@
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="News\ActivateAndDeactivateNewsModule.cs" />
+    <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
     <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
