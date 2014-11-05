@@ -62,5 +62,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new NavigationOperations();
         }
+
+        /// <summary>
+        /// Entry point for Tags operations.
+        /// </summary>
+        /// <returns>TagsOperations instance.</returns>
+        public static TagsOperations Tags()
+        {
+            return new TagsOperations();
+        }
     }
 }
