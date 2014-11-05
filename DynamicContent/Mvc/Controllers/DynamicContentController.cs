@@ -14,12 +14,14 @@ using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Mvc;
 
 namespace DynamicContent.Mvc.Controllers
 {
     /// <summary>
     /// This class represents a controller for Dynamic Content widget.
     /// </summary>
+    [ControllerMetadataAttribute(IsTemplatableControl = false)]
     public class DynamicContentController : Controller
     {
         #region Properties
