@@ -85,7 +85,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         {
             get
             {
-                return this.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
+                return this.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn ng-scope");
             }
         }
 
