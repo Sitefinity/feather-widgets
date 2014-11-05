@@ -19,7 +19,8 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Navigation)]
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
         public void DragAndDropNavigationWidgetOnFoundationTemplate()
         {
             string[] parentPages = new string[] { Page1, Page2 };

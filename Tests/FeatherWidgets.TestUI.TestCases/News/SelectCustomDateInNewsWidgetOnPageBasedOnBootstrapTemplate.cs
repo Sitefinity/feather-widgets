@@ -38,11 +38,6 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().AddHour("13", false);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().AddMinute("4", false);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
-            
-            ////There is bug in IE with date format
-
-            ////BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifyCustomDateFormat(DayAgo, DayForward);
-
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[0]);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[1]);

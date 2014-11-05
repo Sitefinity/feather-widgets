@@ -19,34 +19,66 @@ namespace FeatherWidgets.TestUI
         /// UI test NavigationWidgetAllPagesType
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+        Owner("Feather team"),
         TestCategory(FeatherTestCategories.Navigation),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetAllPagesType()
         {
-            string[] parentPages = new string[] 
-                                    { 
-                                        PageName, Page2Redirect, Page1Redirect, PageGroup
-                                    };
-            string[] childPages = new string[] 
-                                    { 
-                                        ChildPage1, ChildPage2, UnpublishPage, PageDraft, Page2Group
-                                    };
+            string pageTemplateName = "Bootstrap.default";
+            string navTemplateClass = "nav navbar-nav";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesNotPresentFrontEndNavigation(NavTemplateClass, childPages);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
+            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, NotVisiblePages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, VisiblePages);
         }
 
         /// <summary>
-        /// Performs Server Setup and prepare the system with needed data.
+        /// UI test NavigationWidgetAllPagesTypeFoundationTemplate
         /// </summary>
-        protected override void ServerSetup()
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
+        public void NavigationWidgetAllPagesTypeFoundationTemplate()
         {
+            string pageTemplateName = "Foundation.default";
+            string navTemplateClass = "top-bar-section";
+
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, NotVisiblePages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, VisiblePages, TemplateType.Foundation);
+        }
+
+        /// <summary>
+        /// UI test NavigationWidgetAllPagesTypeSemanticUITemplate
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.SemanticUI)]
+        public void NavigationWidgetAllPagesTypeSemanticUITemplate()
+        {
+            string pageTemplateName = "SemanticUI.default";
+            string navTemplateClass = "ui menu purple inverted";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, NotVisiblePages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, VisiblePages, TemplateType.Semantic);
         }
 
         /// <summary>
@@ -54,11 +86,25 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
+        }
+
+        private string ArrangementClass
+        {
+            get { return ArrangementClassName; }
+        }
+
+        private string[] VisiblePages
+        {
+            get { return new string[]{ PageName, Page2Redirect, Page1Redirect, PageGroup };}
+        }
+
+        private string[] NotVisiblePages
+        {
+            get { return new string[] { ChildPage1, ChildPage2, UnpublishPage, PageDraft, Page2Group }; }
         }
 
         private const string WidgetName = "Navigation";
-        private const string NavTemplateClass = "nav navbar-nav";
         private const string PageName = "ParentPage";
         private const string ChildPage1 = "ChildPage1";
         private const string ChildPage2 = "ChildPage2";
@@ -68,5 +114,6 @@ namespace FeatherWidgets.TestUI
         private const string PageDraft = "PageDraft";
         private const string Page2Group = "Page2Group";
         private const string PageGroup = "PageGroup";
+        private const string ArrangementClassName = "NavigationWidgetAllPagesType";
     }
 }

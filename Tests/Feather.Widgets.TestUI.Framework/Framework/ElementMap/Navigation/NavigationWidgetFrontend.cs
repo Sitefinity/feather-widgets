@@ -48,15 +48,37 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         /// </summary>
         public HtmlControl GetFoundationNavigation(string cssClass)
         {
-            return this.Get<HtmlControl>("tagname=section", "class=" + cssClass);          
+            HtmlControl section = this.Find.ByExpression<HtmlControl>("tagname=section", "class=" + cssClass);
+            HtmlUnorderedList list = null;
+
+            if ((section != null) && (section.IsVisible()))
+            {
+                list = section.Find.AllByTagName<HtmlUnorderedList>("ul").First();
+            }
+            else
+            {
+                list = this.Find.ByExpression<HtmlUnorderedList>("TagName=ul", "class=" + cssClass);
+            }
+
+            return list;          
         }
 
         /// <summary>
-        /// Gets the Semantic Navigation unordered list element on the frontend.
+        /// Gets the Semantic Navigation list on the frontend.
         /// </summary>
         public HtmlControl GetSemanticNavigation(string cssClass)
         {
             return this.Get<HtmlControl>("tagname=nav", "class=" + cssClass);
+        }
+
+        /// <summary>
+        /// Gets the Semantic Navigation list of child pages
+        /// </summary>
+        /// <param name="cssClass">The css class of the group of pages.</param>
+        /// <returns>The div element.</returns>
+        public HtmlDiv GetSemanticNavigationChild(string cssClass)
+        {
+            return this.Get<HtmlDiv>("tagname=div", "class=" + cssClass);
         }
 
         /// <summary>

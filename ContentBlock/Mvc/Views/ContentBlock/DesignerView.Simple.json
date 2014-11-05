@@ -1,6 +1,7 @@
 ﻿{
   "priority": 1,
   "scripts": [
-    "Mvc/Scripts/ContentBlock/shared-content-services.js"
+    "Mvc/Scripts/ContentBlock/shared-content-services.js",
+    "Mvc/Scripts/sf-loading.js"
   ]
 }

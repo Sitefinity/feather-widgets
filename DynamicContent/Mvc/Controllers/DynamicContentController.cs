@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
-
 using DynamicContent.Mvc.Model;
+using DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
-using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Data;
-using Telerik.Sitefinity.Localization;
 
 namespace DynamicContent.Mvc.Controllers
 {
     /// <summary>
     /// This class represents a controller for Dynamic Content widget.
     /// </summary>
+    [Localization(typeof(DynamicContentResources))]
     public class DynamicContentController : Controller
     {
         #region Properties

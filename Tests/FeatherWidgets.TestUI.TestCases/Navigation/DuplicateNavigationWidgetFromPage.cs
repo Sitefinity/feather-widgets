@@ -20,7 +20,8 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.Navigation)]
+       TestCategory(FeatherTestCategories.Navigation),
+       TestCategory(FeatherTestCategories.Bootstrap)]
         public void DuplicateNavigationWidgetFromPage()
         {
             BAT.Macros().NavigateTo().Pages();

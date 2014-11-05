@@ -19,5 +19,20 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Navigation category
         /// </summary>
         public const string Navigation = "Navigation";
+
+        /// <summary>
+        /// Bootstrap package test category
+        /// </summary>
+        public const string Bootstrap = "Bootstrap";
+
+        /// <summary>
+        /// Foundation package test category
+        /// </summary>
+        public const string Foundation = "Foundation";
+
+        /// <summary>
+        /// SemanticUI package test category
+        /// </summary>
+        public const string SemanticUI = "SemanticUI";
     }
 }
