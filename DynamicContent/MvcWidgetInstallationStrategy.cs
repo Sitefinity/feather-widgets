@@ -196,27 +196,24 @@ namespace DynamicContent
             if (section == null)
                 return;
 
-            if (moduleType.ParentModuleTypeId == Guid.Empty)
+            var toolboxItem = new ToolboxItem(section.Tools)
             {
-                var toolboxItem = new ToolboxItem(section.Tools)
-                {
-                    Name = moduleType.GetFullTypeName() + "_MVC",
-                    Title = PluralsResolver.Instance.ToPlural(moduleType.DisplayName) + " MVC",
-                    Description = string.Empty,
-                    ModuleName = dynamicModule.Name,
-                    ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
-                    ControllerType = typeof(DynamicContentController).FullName,
-                    Parameters = new NameValueCollection() 
+                Name = moduleType.GetFullTypeName() + "_MVC",
+                Title = PluralsResolver.Instance.ToPlural(moduleType.DisplayName) + " MVC",
+                Description = string.Empty,
+                ModuleName = dynamicModule.Name,
+                ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
+                ControllerType = typeof(DynamicContentController).FullName,
+                Parameters = new NameValueCollection() 
                     { 
                         { "WidgetName", moduleType.TypeName },
                         { "ControllerType", typeof(DynamicContentController).FullName}
                     }
-                };
+            };
 
-                section.Tools.Add(toolboxItem);
+            section.Tools.Add(toolboxItem);
 
-                configurationManager.SaveSection(toolboxesConfig);
-            }
+            configurationManager.SaveSection(toolboxesConfig);
         }
 
         /// <summary>
