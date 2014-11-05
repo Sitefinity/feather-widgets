@@ -23,28 +23,73 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged()
         {
-            BAT.Macros().User().EnsureLoggedIn(User, Password);
+            string pageTemplateName = "Bootstrap.default";
+            string mvcNavClass = "nav navbar-nav";
 
-            string[] pages = new string[] { TestPage };
-
-            BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(MvcNavClass, pages);
-
-            BAT.Arrange(this.TestName).ExecuteArrangement("ChangeUserRole");
-
-            string[] newPages = new string[] { HomePage, TestPage };
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
 
             BAT.Macros().User().EnsureLoggedIn(User, Password);
+
             BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(MvcNavClass, newPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, TestPages);
+
+            BAT.Arrange(this.ArrangementClass).ExecuteArrangement("ChangeUserRole");
+
+            BAT.Macros().User().EnsureLoggedIn(User, Password);
+            BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, NewPages);
         }
 
         /// <summary>
-        /// Performs Server Setup and prepare the system with needed data.
+        /// UI test NavigationWidgetFoundationVerifyPageWithUserNotAllowedAndRoleChanged
         /// </summary>
-        protected override void ServerSetup()
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
+        public void NavigationWidgetFoundationVerifyPageWithUserNotAllowedAndRoleChanged()
         {
-            BAT.Arrange(this.TestName).ExecuteSetUp();         
+            string pageTemplateName = "Foundation.default";
+            string mvcNavClass = "top-bar-section";
+
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
+            BAT.Macros().User().EnsureLoggedIn(User, Password);
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, TestPages, TemplateType.Foundation);
+
+            BAT.Arrange(this.ArrangementClass).ExecuteArrangement("ChangeUserRole");
+
+            BAT.Macros().User().EnsureLoggedIn(User, Password);
+            BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, NewPages, TemplateType.Foundation);
+        }
+
+        /// <summary>
+        /// UI test NavigationWidgetSemanticUIVerifyPageWithUserNotAllowedAndRoleChanged
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.SemanticUI)]
+        public void NavigationWidgetSemanticUIVerifyPageWithUserNotAllowedAndRoleChanged()
+        {
+            string pageTemplateName = "SemanticUI.default";
+            string mvcNavClass = "ui menu purple inverted";
+
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
+            BAT.Macros().User().EnsureLoggedIn(User, Password);
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, TestPages, TemplateType.Semantic);
+
+            BAT.Arrange(this.ArrangementClass).ExecuteArrangement("ChangeUserRole");
+
+            BAT.Macros().User().EnsureLoggedIn(User, Password);
+            BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, NewPages, TemplateType.Semantic);
         }
 
         /// <summary>
@@ -52,13 +97,34 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
+        }
+
+        private string ArrangementClass
+        {
+            get { return ArrangementClassName; }
+        }
+
+        private string[] TestPages
+        {
+            get
+            {
+                return new string[] { TestPage };
+            }
+        }
+
+        private string[] NewPages
+        {
+            get
+            {
+                return new string[] { HomePage, TestPage };
+            }
         }
 
         private const string HomePage = "HomePage";
         private const string TestPage = "TestPage";
-        private const string MvcNavClass = "nav navbar-nav";
         private const string User = "editor";
         private const string Password = "password";
+        private string ArrangementClassName = "NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged";
     }
 }

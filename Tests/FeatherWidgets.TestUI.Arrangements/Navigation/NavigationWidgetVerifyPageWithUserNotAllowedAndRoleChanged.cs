@@ -6,6 +6,7 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
@@ -21,11 +22,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUser, AdminPassword);
+            string templateName = ServerArrangementContext.GetCurrent().Values["templateName"];
+
+            AuthenticationHelper.AuthenticateUser(AdminUser, AdminPassword);           
 
             List<string> roles = new List<string>() { Editors, BackendUsers };
 
-            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(TemplateTitle);
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
             Guid pageId = ServerOperations.Pages().CreatePage(HomePage, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
 
@@ -69,7 +72,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string RoleProvider = "AppRoles";
         private const string HomePage = "HomePage";
         private const string TestPage = "TestPage";
-        private const string TemplateTitle = "Bootstrap.default";
         private const string WidgetCaption = "Navigation";
         private const string ControllerType = "Navigation.Mvc.Controllers.NavigationController";
         private const string PlaceHolderId = "Contentplaceholder1";
