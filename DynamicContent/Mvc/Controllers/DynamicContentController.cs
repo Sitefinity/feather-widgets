@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Localization;
 
 namespace DynamicContent.Mvc.Controllers
 {
@@ -231,6 +232,19 @@ namespace DynamicContent.Mvc.Controllers
             if (dynamicType != null)
             {
                 this.Model.ContentType = TypeResolutionService.ResolveType(dynamicType.GetFullTypeName());
+            }
+            else
+            {
+                var errorMessage = string.Empty;
+                if (SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
+                { 
+                    errorMessage = "This widget is no longer available since the module providing its content is deleted  or deactivated.";
+                }
+
+                filterContext.Result = new ContentResult()
+                {
+                    Content = errorMessage
+                };
             }
         }
 
