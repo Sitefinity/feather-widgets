@@ -29,6 +29,21 @@ namespace DynamicContent.Mvc.StringResources
         #endregion
 
         /// <summary>
+        /// phrase: This widget is no longer available since the module providing its content is deleted  or deactivated.
+        /// </summary>
+        [ResourceEntry("DeletedModuleWarning",
+            Value = "This widget is no longer available since the module providing its content is deleted  or deactivated.",
+            Description = "phrase:This widget is no longer available since the module providing its content is deleted or deactivated.",
+            LastModified = "2014/11/05")]
+        public string DeletedModuleWarning
+        {
+            get
+            {
+                return this["DeletedModuleWarning"];
+            }
+        }
+
+        /// <summary>
         /// Gets Title for the News widget resources class.
         /// </summary>
         [ResourceEntry("NewsResourcesTitle",
