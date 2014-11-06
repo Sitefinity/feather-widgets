@@ -44,32 +44,32 @@ namespace DynamicContent.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets Title for the News widget resources class.
+        /// Gets Title for the Dynamic content widget resources class.
         /// </summary>
-        [ResourceEntry("NewsResourcesTitle",
-            Value = "News widget resources",
-            Description = "Title for the News widget resources class.",
-            LastModified = "2014/08/20")]
-        public string NewsResourcesTitle
+        [ResourceEntry("DynamicContentResourcesTitle",
+            Value = "Dynamic content widget resources",
+            Description = "Title for the Dynamic content widget resources class.",
+            LastModified = "2014/11/06")]
+        public string DynamicContentResourcesTitle
         {
             get
             {
-                return this["NewsResourcesTitle", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DynamicContentResourcesTitle", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
         /// <summary>
-        /// Gets Description for the News widget resources class.
+        /// Gets Description for the Dynamic content widget resources class.
         /// </summary>
-        [ResourceEntry("NewsResourcesDescription",
-            Value = "Localizable strings for the News widget.",
-            Description = "Description for the News widget resources class.",
-            LastModified = "2014/08/20")]
-        public string NewsResourcesDescription
+        [ResourceEntry("DynamicContentResourcesDescription",
+            Value = "Localizable strings for the Dynamic content widget.",
+            Description = "Description for the Dynamic content widget resources class.",
+            LastModified = "2014/11/06")]
+        public string DynamicContentResourcesDescription
         {
             get
             {
-                return this["NewsResourcesDescription", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DynamicContentResourcesDescription", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -82,7 +82,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("Display",
             Value = "Display",
             Description = "word : Display",
-            LastModified = "2014/08/20")]
+            LastModified = "2014/11/06")]
         public string Display
         {
             get
@@ -97,7 +97,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("MoreOptions",
             Value = "More options",
             Description = "phrase : More options",
-            LastModified = "2014/08/20")]
+            LastModified = "2014/11/06")]
         public string MoreOptions
         {
             get
@@ -112,7 +112,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("CssClasses",
             Value = "CSS classes",
             Description = "phrase : CSS classes",
-            LastModified = "2014/08/20")]
+            LastModified = "2014/11/06")]
         public string CssClasses
         {
             get
@@ -127,7 +127,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("Content",
             Value = "Content",
             Description = "word: Content",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string Content
         {
             get
@@ -142,7 +142,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ListSettings",
             Value = "List settings",
             Description = "phrase : List settings",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string ListSettings
         {
             get
@@ -157,7 +157,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("SingleItemSettings",
             Value = "Single item settings",
             Description = "phrase : Single item settings",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string SingleItemSettings
         {
             get
@@ -172,7 +172,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ListTemplate",
             Value = "List template",
             Description = "phrase : List template",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string ListTemplate
         {
             get
@@ -187,7 +187,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("DetailTemplate",
             Value = "Detail template",
             Description = "phrase : Detail template",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string DetailTemplate
         {
             get
@@ -197,47 +197,47 @@ namespace DynamicContent.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Which news to display?
+        /// Gets phrase : Which {ModuleName} to display?
         /// </summary>
-        [ResourceEntry("NewsToDisplay",
-            Value = "Which news to display?",
-            Description = "phrase : Which news to display?",
-            LastModified = "2014/08/22")]
-        public string NewsToDisplay
+        [ResourceEntry("ItemsToDisplay",
+            Value = "Which {0} to display?",
+            Description = "phrase : Which {ModuleName} to display?",
+            LastModified = "2014/11/06")]
+        public string ItemsToDisplay
         {
             get
             {
-                return this["NewsToDisplay", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ItemsToDisplay", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
         /// <summary>
-        /// Gets phrase : All published news
+        /// Gets phrase : All published {ModuleName}
         /// </summary>
-        [ResourceEntry("AllPublishedNews",
-            Value = "All published news",
-            Description = "phrase : All published news",
-            LastModified = "2014/08/22")]
-        public string AllPublishedNews
+        [ResourceEntry("AllPublishedItems",
+            Value = "All published {0}",
+            Description = "phrase : All published {ModuleName}",
+            LastModified = "2014/11/06")]
+        public string AllPublishedItems
         {
             get
             {
-                return this["AllPublishedNews", System.Globalization.CultureInfo.InvariantCulture];
+                return this["AllPublishedItems", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Selected news
+        /// Gets phrase : Selected {ModuleName}
         /// </summary>
-        [ResourceEntry("SelectedNews",
-            Value = "Selected news",
-            Description = "phrase : Selected news",
-            LastModified = "2014/08/22")]
-        public string SelectedNews
+        [ResourceEntry("SelectedItems",
+            Value = "Selected {0}",
+            Description = "phrase : Selected {ModuleName}",
+            LastModified = "2014/11/06")]
+        public string SelectedItems
         {
             get
             {
-                return this["SelectedNews", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SelectedItems", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -247,7 +247,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("NarrowSelection",
             Value = "Narrow selection by...",
             Description = "phrase : Narrow selection by...",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string NarrowSelection
         {
             get
@@ -262,7 +262,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("Tags",
             Value = "Tags...",
             Description = "word : Tags",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string Tags
         {
             get
@@ -277,7 +277,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("UsePaging",
             Value = "Use paging",
             Description = "phrase : Use paging",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string UsePaging
         {
             get
@@ -292,7 +292,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("UseLimit",
             Value = "Use limit",
             Description = "phrase : Use limit",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string UseLimit
         {
             get
@@ -307,7 +307,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("NoLimitPaging",
             Value = "No limit and paging",
             Description = "phrase : No limit and paging",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string NoLimitPaging
         {
             get
@@ -322,7 +322,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("DivideToItemPerPage",
             Value = "Divide the list on pages up to {0} items per page",
             Description = "phrase : Divide the list on pages up to {0} items per page",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string DivideToItemPerPage
         {
             get
@@ -337,7 +337,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ShowLimitedItems",
             Value = "Show only limited number of items {0} items in total",
             Description = "phrase : Show only limited number of items {0} items in total",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string ShowLimitedItems
         {
             get
@@ -352,7 +352,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ShowAllItems",
             Value = "Show all published items at once",
             Description = "phrase : Show all published items at once",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string ShowAllItems
         {
             get
@@ -362,17 +362,17 @@ namespace DynamicContent.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Sort news
+        /// Gets phrase : Sort {ModuleName}
         /// </summary>
-        [ResourceEntry("SortNews",
-            Value = "Sort news",
-            Description = "phrase : Sort news",
-            LastModified = "2014/08/22")]
-        public string SortNews
+        [ResourceEntry("SortItems",
+            Value = "Sort {0}",
+            Description = "phrase : Sort {ModuleName}",
+            LastModified = "2014/11/06")]
+        public string SortItems
         {
             get
             {
-                return this["SortNews", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SortItems", System.Globalization.CultureInfo.InvariantCulture];
             }
         }
 
@@ -382,7 +382,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("LastPublished",
             Value = "Last published",
             Description = "phrase : Last published",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string LastPublished
         {
             get
@@ -397,7 +397,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("LastModified",
             Value = "Last modified",
             Description = "phrase : Last modified",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string LastModified
         {
             get
@@ -412,7 +412,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ByTitleAZ",
             Value = "By Title (A-Z)",
             Description = "phrase : By Title (A-Z)",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string ByTitleAZ
         {
             get
@@ -427,7 +427,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ByTitleZA",
             Value = "By Title (Z-A)",
             Description = "phrase : By Title (Z-A)",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string ByTitleZA
         {
             get
@@ -442,7 +442,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("OpenSingleItem",
             Value = "Open single item in...",
             Description = "phrase : Open single item in...",
-            LastModified = "2014/09/08")]
+            LastModified = "2014/11/06")]
         public string OpenSingleItem
         {
             get
@@ -457,7 +457,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ShowInSamePage",
             Value = "Auto-generated page",
             Description = "phrase : Auto-generated page (with the same layout as the list page)",
-            LastModified = "2014/10/29")]
+            LastModified = "2014/11/06")]
         public string ShowInSamePage
         {
             get
@@ -472,7 +472,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ShowInSamePageNote",
             Value = "(with the same layout as the list page)",
             Description = "phrase : (with the same layout as the list page)",
-            LastModified = "2014/10/29")]
+            LastModified = "2014/11/06")]
         public string ShowInSamePageNote
         {
             get
@@ -487,7 +487,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("ShowInExistingPage",
             Value = "Selected existing page...",
             Description = "phrase : Selected existing page...",
-            LastModified = "2014/09/08")]
+            LastModified = "2014/11/06")]
         public string ShowInExistingPage
         {
             get
@@ -502,7 +502,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("Provider",
             Value = "Provider",
             Description = "Provider",
-            LastModified = "2014/08/29")]
+            LastModified = "2014/11/06")]
         public string Provider
         {
             get
@@ -517,7 +517,7 @@ namespace DynamicContent.Mvc.StringResources
         [ResourceEntry("By",
             Value = "by",
             Description = "word: by",
-            LastModified = "2014/08/22")]
+            LastModified = "2014/11/06")]
         public string By
         {
             get
