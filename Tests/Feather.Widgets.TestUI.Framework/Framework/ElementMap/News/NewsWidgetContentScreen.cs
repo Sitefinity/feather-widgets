@@ -215,5 +215,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlDiv>("tagname=div", "class=sf_inactiveWidget");
             }
         }
+
+        /// <summary>
+        /// Gets the single item settings.
+        /// </summary>
+        public HtmlAnchor SingleItemSetting
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=ng-binding", "Innertext=Single item settings");
+            }
+        }
+
+        /// <summary>
+        /// Select detail template
+        /// </summary>
+        public HtmlSelect SelectDetailTemplate
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("id=newsTemplateName", "ng-model=properties.DetailTemplateName.PropertyValue");
+            }
+        }
     }
 }

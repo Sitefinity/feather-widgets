@@ -130,6 +130,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Data\NewsWidget\Detail.DetailPageRelatedData.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

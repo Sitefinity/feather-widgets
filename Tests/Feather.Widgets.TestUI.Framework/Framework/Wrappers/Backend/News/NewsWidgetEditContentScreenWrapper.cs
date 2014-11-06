@@ -485,5 +485,35 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var isContained = optionsDiv.InnerText.Contains("This widget doesn't work, becauseNewsmodule has been deactivated.");
             Assert.IsTrue(isContained, "Message not found");
         }
+
+        /// <summary>
+        /// Opens the Single item settings tab.
+        /// </summary>
+        public void SingleItemSettingsTab()
+        {
+            HtmlAnchor singleTab = this.EM.News.NewsWidgetContentScreen.SingleItemSetting
+                                    .AssertIsPresent("Single item settings tab");
+
+            singleTab.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Select detail template
+        /// </summary>
+        public void SelectDetailTemplate(string templateName)
+        {
+            HtmlSelect selectDetailTemplate = this.EM.News.NewsWidgetContentScreen.SelectDetailTemplate
+                                    .AssertIsPresent("Detail template select");
+
+            selectDetailTemplate.Click();
+            selectDetailTemplate.SelectByValue(templateName);
+            selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
     }
 }

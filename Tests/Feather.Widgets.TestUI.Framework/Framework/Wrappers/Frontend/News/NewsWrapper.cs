@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
+using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
@@ -52,6 +53,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Click news title on the frontend
+        /// </summary>
+        /// <param name="newsTitle">News title</param>
+        public void ClickNewsTitle(string newsTitle)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            HtmlAnchor newsAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + newsTitle)
+                      .AssertIsPresent("News with this title was not found");
+
+            newsAnchor.Wait.ForVisible();
+            newsAnchor.ScrollToVisible();
+            newsAnchor.MouseClick();
+        }
+
+        /// <summary>
+        /// Verify related news on the frontend
+        /// </summary>
+        /// <param name="newsTitle">News title</param>
+        public void VerifyRelatedNews(string newsTitle)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            HtmlDiv relatedNews = frontendPageMainDiv.Find.ByExpression<HtmlDiv>("tagname=div", "class=sfMultiRelatedItmsWrp")
+                      .AssertIsPresent("News with this title was not found");
+
+            var isContained = relatedNews.InnerText.Contains(newsTitle);
+            Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle, " but found [", relatedNews.InnerText, "]"));
         }
     }
 }

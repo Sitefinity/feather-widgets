@@ -128,6 +128,7 @@
     <Compile Include="Navigation\NavigationWidgetVerifyPagePermissions.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
+    <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
     <Compile Include="News\ActivateAndDeactivateNewsModule.cs" />
     <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />

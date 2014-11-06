@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Web.UI;
 using ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity;
-using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
-using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
@@ -192,7 +191,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var master = pm.PagesLifecycle.GetMaster(pageData);
             pm.PagesLifecycle.Publish(master);
             pm.SaveChanges();
-        } 
+        }
+
+        /// <summary>
+        /// Gets Test Utilities Assembly.
+        /// </summary>
+        /// <returns>The Test Utilities Assembly.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public Assembly GetTestUtilitiesAssembly()
+        {
+            var testUtilitiesAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetName().Name.Equals("FeatherWidgets.TestUtilities")).FirstOrDefault();
+            if (testUtilitiesAssembly == null)
+            {
+                throw new DllNotFoundException("Assembly wasn't found");
+            }
+
+            return testUtilitiesAssembly;
+        }
 
         /// <summary>
         /// Creates the mvcWidget control.
