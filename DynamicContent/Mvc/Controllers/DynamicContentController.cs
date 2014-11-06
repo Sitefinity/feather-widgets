@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 
-using DynamicContent.Mvc.Model;
+using DynamicContent.Mvc.Models;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;

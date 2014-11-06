@@ -1,4 +1,4 @@
-﻿using DynamicContent.Mvc.Model;
+﻿using DynamicContent.Mvc.Models;
 using Ninject.Modules;
 
 namespace DynamicContent
