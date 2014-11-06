@@ -1,22 +1,26 @@
 ﻿{
-  "priority": 1,
-  "scripts": [
-	"Mvc/Scripts/data-providers.js",
+    "priority": 1,
+    "scripts": [
+    "Mvc/Scripts/data-providers.js",
     "Mvc/Scripts/expander.js",
-	"Mvc/Scripts/style-dropdown.js",
-	"Mvc/Scripts/Angular/angular-resource.min.js",
-	"Services/services.js",
-	"Services/news-item-service.js",
-	"Services/flat-taxon-service.js",
-	"Selectors/sf-selectors.js",
-	"Selectors/sf-list-selector.js",
-	"Selectors/sf-news-selector.js",
-	"Selectors/sf-taxon-selector.js",
-	"Selectors/sf-taxon-filter.js",
-	"Selectors/sf-date-filter.js",
-	"Selectors/sf-filter-selector.js",
-	"Selectors/sf-timespan-selector.js",
-	"Selectors/sf-date-time-picker.js",
-	"Selectors/sf-selected-items-view.js"
-  ]
+    "Mvc/Scripts/sf-loading.js",
+    "Mvc/Scripts/style-dropdown.js",
+    "Mvc/Scripts/Angular/angular-resource.min.js",
+    "Services/services.js",
+    "Services/news-item-service.js",
+    "Services/flat-taxon-service.js",
+    "Services/page-service.js",
+    "Selectors/sf-selectors.js",
+    "Selectors/sf-items-tree.js",
+    "Selectors/sf-list-selector.js",
+    "Selectors/sf-news-selector.js",
+    "Selectors/sf-taxon-selector.js",
+    "Selectors/sf-taxon-filter.js",
+    "Selectors/sf-date-filter.js",
+    "Selectors/sf-filter-selector.js",
+    "Selectors/sf-timespan-selector.js",
+    "Selectors/sf-date-time-picker.js",
+    "Selectors/sf-selected-items-view.js",
+    "Selectors/sf-page-selector.js"
+    ]
 }

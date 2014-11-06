@@ -1,6 +1,0 @@
-﻿{
-  "priority": 1,
-  "scripts": [
-    "Mvc/Scripts/ContentBlock/shared-content-services.js"
-  ]
-}

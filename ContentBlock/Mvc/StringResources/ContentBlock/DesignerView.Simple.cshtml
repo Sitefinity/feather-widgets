@@ -1,0 +1,23 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<div ng-show="isShared" class="alert alert-warning">
+    <b>@Html.Resource("ThisContentIsShared")</b> @Html.Resource("SharedContentWarning")
+</div>
+
+<textarea id="editor" style="height: 340px;" kendo-editor ng-model="properties.Content.PropertyValue"></textarea>
+
+<script>
+// Focus the Kendo editor
+(function () {
+  var interval = window.setInterval(focus, 100);
+
+  function focus() {
+    var kendoEditor = $("#editor").data("kendoEditor");
+
+    if (kendoEditor) {
+      clearInterval(interval);
+      kendoEditor.focus();
+    }
+  }
+})();
+</script>

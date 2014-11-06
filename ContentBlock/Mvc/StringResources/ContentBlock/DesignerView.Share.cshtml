@@ -1,0 +1,15 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using ContentBlock.Mvc.Helpers
+
+<server-data blank-content-item='@Html.GetBlankContentItem()'></server-data>
+
+<div ng-class="{'form-group':true, 'has-error': !isTitleValid}">
+    <label for="sharedContentTitle" class="control-label">@Html.Resource("Title")</label>
+    <input id="sharedContentTitle" type="text" class="form-control" ng-model="model.title" />
+    <p ng-hide="isTitleValid" class="text-danger">@Html.Resource("TitleRequired")</p>
+</div>
+
+<script type="text/ng-template" section="modal-footer">
+    <button type="button" class="btn btn-primary pull-left" ng-click="shareContent()">@Html.Resource("ShareContent")</button>
+    <a class="btn btn-link" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Cancel")</a>
+</script>

@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI
         /// UI test NavigationWidgetAddChangeRemoveCSSClass
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.Navigation)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetAddChangeRemoveCSSClass()
         {
             BAT.Macros().NavigateTo().Pages();

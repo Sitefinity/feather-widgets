@@ -19,6 +19,8 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Versioning;
 
 namespace DynamicContent
 {
@@ -151,31 +153,74 @@ namespace DynamicContent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "dynamicModule")]
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
-            var area = string.Format("~/Frontend-Assembly/{0}/", this.GetType().Assembly.GetName().Name);
-            var resourceName = area + "Mvc/Views/{0}/List.DynamicContentList.cshtml".Arrange(dynamicModuleType.TypeName);
+            var area = dynamicModuleType.DisplayName;
+            var moduleTitle = dynamicModule.Title;
+            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(area);
+
+            var listTemplateName = string.Format("List.{0}", area);
+            //var nameList = string.Format("MVC List of {0}", pluralModuleTypeName.ToLowerInvariant());
+            var friendlyControlList = string.Format("MVC {0} - {1} - list", moduleTitle, pluralModuleTypeName);
+            var nameForDevelopersList = listTemplateName.Replace('.', '-');
+
+            var detailTemplateName = string.Format("Detail.{0}", area);
+            //var nameDetail = string.Format("MVC Full {0} content", area.ToLowerInvariant()); ;
+            var friendlyControlDetail = string.Format("MVC {0} - {1} - single", moduleTitle, pluralModuleTypeName);
+            var nameForDevelopersDetail = detailTemplateName.Replace('.', '-');
+
             var dynamicTypeName = dynamicModuleType.GetFullTypeName();
             var content = "<h1>Dynamic module template for <strong>{0}</strong>, installed in the database.</h1>".Arrange(dynamicTypeName);
 
-            this.RegisterTemplate(area, resourceName, ".cshtml", content, dynamicTypeName + "_MVC");
+            var controlType = typeof(DynamicContentController).FullName;
+
+            var versioningManager = VersionManager.GetManager();
+
+            var listTemplate = this.GetRegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, dynamicTypeName, controlType);
+            versioningManager.CreateVersion(listTemplate, true);
+
+            var detailTemplate = this.GetRegisteredTemplate(area, detailTemplateName, nameForDevelopersDetail, friendlyControlDetail, content, dynamicTypeName, controlType);
+            versioningManager.CreateVersion(detailTemplate, true);
+            
+            versioningManager.SaveChanges();
+        }
+
+        private Type GetControlTypeFromKey(string key)
+        {
+            int indexOfDash = key.IndexOf("-");
+            string typeName = (indexOfDash < 0) ? key : (key.Substring(0, indexOfDash));
+
+            return TypeResolutionService.ResolveType(typeName);
         }
 
         /// <summary>
-        /// Registers the template.
+        /// Get Registered Template
         /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <param name="resourceType">Type of the resource.</param>
-        /// <param name="content">The content.</param>
-        /// <param name="condition">The condition.</param>
-        private void RegisterTemplate(string area, string resourceName, string resourceType, string content, string condition)
+        /// <param name="area">the area name</param>
+        /// <param name="name">name for the widget</param>
+        /// <param name="nameForDevelopers">name for developers</param>
+        /// <param name="friendlyControlName">friendly control name</param>
+        /// <param name="content">content</param>
+        /// <param name="condition">condition</param>
+        /// <param name="controlType">controlType</param>
+        /// <returns>ControlPresentation</returns>
+        private ControlPresentation GetRegisteredTemplate(string area, string name, string nameForDevelopers, string friendlyControlName, string content, string condition, string controlType)
         {
             var template = this.pageManager.CreatePresentationItem<ControlPresentation>();
-            template.NameForDevelopers = resourceName;
             template.AreaName = area;
-            template.DataType = resourceType;
             template.Data = content;
             template.Condition = condition;
+            template.ControlType = controlType;
+            template.Name = name;
+            template.NameForDevelopers = nameForDevelopers;
+            template.FriendlyControlName = friendlyControlName;
+            template.IsDifferentFromEmbedded = true;
+            template.DataType = Presentation.AspNetTemplate;
+
             this.pageManager.SaveChanges();
+
+            return template;
         }
+
+
 
         /// <summary>
         /// Registers the toolbox item for the dynamic widget.
@@ -196,27 +241,24 @@ namespace DynamicContent
             if (section == null)
                 return;
 
-            if (moduleType.ParentModuleTypeId == Guid.Empty)
+            var toolboxItem = new ToolboxItem(section.Tools)
             {
-                var toolboxItem = new ToolboxItem(section.Tools)
-                {
-                    Name = moduleType.GetFullTypeName() + "_MVC",
-                    Title = PluralsResolver.Instance.ToPlural(moduleType.DisplayName) + " MVC",
-                    Description = string.Empty,
-                    ModuleName = dynamicModule.Name,
-                    ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
-                    ControllerType = typeof(DynamicContentController).FullName,
-                    Parameters = new NameValueCollection() 
+                Name = moduleType.GetFullTypeName() + "_MVC",
+                Title = PluralsResolver.Instance.ToPlural(moduleType.DisplayName) + " MVC",
+                Description = string.Empty,
+                ModuleName = dynamicModule.Name,
+                ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
+                ControllerType = typeof(DynamicContentController).FullName,
+                Parameters = new NameValueCollection() 
                     { 
                         { "WidgetName", moduleType.TypeName },
                         { "ControllerName", typeof(DynamicContentController).FullName}
                     }
-                };
+            };
 
-                section.Tools.Add(toolboxItem);
+            section.Tools.Add(toolboxItem);
 
-                configurationManager.SaveSection(toolboxesConfig);
-            }
+            configurationManager.SaveSection(toolboxesConfig);
         }
 
         /// <summary>
