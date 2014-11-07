@@ -134,6 +134,7 @@
     <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
     <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
     <Compile Include="News\NavigateDetailTemplateOfNewsOnPage.cs" />
+    <Compile Include="News\OldAndNewNewsWidgetOnTheSamePage.cs" />
     <Compile Include="News\SearchAndSelectNewsByTag.cs" />
     <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />

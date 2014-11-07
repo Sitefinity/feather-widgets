@@ -105,5 +105,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             return false;
         }
+
+        /// <summary>
+        /// Verify title in news widget on the frontend
+        /// </summary>
+        /// <param name="contentBlockContent">The content value</param>
+        public void VerifyNewsTitlesOnThePageFrontendOLDNewsWidget(string[] newsTitle)
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            HtmlUnorderedList newsList = frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=sfnewsList sfnewsListTitleDate sflist");
+
+            List<HtmlListItem> listItem = newsList.Find.AllByExpression<HtmlListItem>("tagname=li", "class=sfnewsListItem sflistitem").ToList<HtmlListItem>();
+
+            for (int i = 0; i < listItem.Count; i++)
+            {
+                var isContained = listItem[i].InnerText.Contains(newsTitle[i]);
+                Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle[i], " but found [", listItem[i].InnerText, "]"));
+            }
+        }
     }
 }
