@@ -29,10 +29,10 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.NavigatePageOnTheFrontend();
             BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(News1);
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnTheFrontend(News1);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnDetailMasterPage(News1));
             BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyRelatedNews(News2);
             BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(News2);
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnTheFrontend(News2);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnDetailMasterPage(News2));
         }
 
         /// <summary>

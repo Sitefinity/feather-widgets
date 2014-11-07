@@ -69,6 +69,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             newsAnchor.Wait.ForVisible();
             newsAnchor.ScrollToVisible();
             newsAnchor.MouseClick();
+            ActiveBrowser.WaitForUrl(newsTitle.ToLower());
         }
 
         /// <summary>
@@ -85,6 +86,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             var isContained = relatedNews.InnerText.Contains(newsTitle);
             Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle, " but found [", relatedNews.InnerText, "]"));
+        }
+
+        /// <summary>
+        /// Checks if a news title is present on the frontend.
+        /// </summary>
+        /// <param name="newsTitle">The news title.</param>
+        /// <returns>True or False depending on the news item presense.</returns>
+        public bool IsNewsTitlePresentOnDetailMasterPage(string newsTitle)
+        {
+            ActiveBrowser.RefreshDomTree();
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            if (frontendPageMainDiv.InnerText.Contains(newsTitle))
+            {
+               return true;
+            }
+
+            return false;
         }
     }
 }
