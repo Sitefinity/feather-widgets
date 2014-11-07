@@ -47,7 +47,17 @@ namespace DynamicContent.Mvc.Models
             return PluralsResolver.Instance.ToPlural(dynamicType.DisplayName).ToLower();
         }
 
-        private static DynamicModuleType ResolveDynamicModuleType(this Control control)
+        /// <summary>
+        /// Resolves the type of the dynamic module.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns>The dynamic module type.</returns>
+        /// <exception cref="System.ArgumentException">
+        /// This method should be used for control designers of Dynamic content MVC widgets.
+        /// or
+        /// This method should be used for DynamicContentController's designer only.
+        /// </exception>
+        public static DynamicModuleType ResolveDynamicModuleType(this Control control)
         {
             var mvcProxy = control as MvcWidgetProxy;
             if (mvcProxy == null)
