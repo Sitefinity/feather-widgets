@@ -31,6 +31,9 @@ namespace DynamicContent.Mvc.Controllers
         {
             get
             {
+                if (this.listTemplateName == null)
+                    this.listTemplateName = this.Model.ContentType != null ? this.Model.ContentType.Name : null;
+
                 return this.listTemplateName;
             }
 
@@ -48,6 +51,9 @@ namespace DynamicContent.Mvc.Controllers
         {
             get
             {
+                if (this.detailTemplateName == null)
+                    this.detailTemplateName = this.Model.ContentType != null ? this.Model.ContentType.Name : null;
+
                 return this.detailTemplateName;
             }
 
@@ -266,9 +272,9 @@ namespace DynamicContent.Mvc.Controllers
         #region Private fields and constants
 
         private IDynamicContentModel model;
-        private string listTemplateName = "DynamicContentList";
+        private string listTemplateName;
         private string listTemplateNamePrefix = "List.";
-        private string detailTemplateName = "DetailPage";
+        private string detailTemplateName;
         private string detailTemplateNamePrefix = "Detail.";
         private bool openInSamePage = true;
 
