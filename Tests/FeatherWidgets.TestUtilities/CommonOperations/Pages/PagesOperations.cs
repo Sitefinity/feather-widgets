@@ -66,7 +66,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="pageId">Page id value</param>
         /// <param name="contentBlockTitle">Content block title</param>
-        public void AddSharedContentBlockWidgetToPage(Guid pageId, string contentBlockTitle)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddSharedContentBlockWidgetToPage(Guid pageId, string contentBlockTitle, string placeholder = "Body")
         {
             PageManager pageManager = PageManager.GetManager();
             pageManager.Provider.SuppressSecurityChecks = true;
@@ -87,7 +88,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                     SharedContentID = content.Id
                 });
 
-                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock");
+                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock", placeholder);
             }
         }
 

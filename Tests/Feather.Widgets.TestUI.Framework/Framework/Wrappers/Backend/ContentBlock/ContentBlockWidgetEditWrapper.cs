@@ -86,5 +86,41 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }
+
+        /// <summary>
+        /// Provide access to advance button
+        /// </summary>
+        public void AdvanceButtonSelecting()
+        {
+            HtmlAnchor shareButton = EM.GenericContent.ContentBlockWidget.AdvancedButton
+            .AssertIsPresent("Advance selecting button");
+            shareButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Enable social share buttons
+        /// </summary>
+        /// <param name="isEnabled">Is social share buttons enabled</param>
+        public void EnableSocialShareButtons(string isEnabled)
+        {
+            HtmlInputText input = EM.GenericContent.ContentBlockWidget.EnableSocialSharing
+                .AssertIsPresent("Social share field");
+
+            input.ScrollToVisible();
+            input.Focus();
+            input.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            ActiveBrowser.WaitForAsyncOperations();
+
+            Manager.Current.Desktop.KeyBoard.TypeText(isEnabled);
+        }
     }
 }

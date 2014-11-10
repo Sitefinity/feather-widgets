@@ -93,6 +93,7 @@
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetVerifyPermissions.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap.cs" />
     <Compile Include="ContentBlocks\DeactivateContentBlockModule.cs" />
     <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
     <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />
