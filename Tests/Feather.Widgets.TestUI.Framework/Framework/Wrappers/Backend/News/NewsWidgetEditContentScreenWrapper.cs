@@ -252,6 +252,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
 
             var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+            int divsCount = items.Count;
 
             //// if items count is more than 12 elements, then you need to scroll
             if (items.Count() > 12)
@@ -262,17 +263,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                      .AssertIsPresent("News list");
 
                 List<HtmlDiv> itemDiv = newsList.Find
-                                      .AllByExpression<HtmlDiv>("class=ng-scope list-group-item list-group-item-multiselect").ToList<HtmlDiv>();
+                                      .AllByExpression<HtmlDiv>("class=~ng-scope list-group-item").ToList<HtmlDiv>();
 
-                int divsCount = itemDiv.Count;
+                divsCount = itemDiv.Count;
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
                 itemDiv[divsCount - 1].ScrollToVisible();
             }
 
-            bool isCountCorrect = (expected == items.Count);
+            bool isCountCorrect = (expected == divsCount);
             return isCountCorrect;
-        }
+        } 
 
         /// <summary>
         /// No news items found
