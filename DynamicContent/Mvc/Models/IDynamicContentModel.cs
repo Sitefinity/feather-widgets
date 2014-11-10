@@ -7,7 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 
-namespace DynamicContent.Mvc.Model
+namespace DynamicContent.Mvc.Models
 {
     /// <summary>
     /// Classes that implement this interface provide business logic for getting DynamicContent.
@@ -37,12 +37,12 @@ namespace DynamicContent.Mvc.Model
         string DetailCssClass { get; set; }
 
         /// <summary>
-        /// Gets a comma separated list of Ids of the items that should be displayed when filtering by preselected items.
+        /// Gets the list of items to be displayed inside the widget when option "Selected items" is enabled.
         /// </summary>
         /// <value>
-        /// The selected items.
+        /// The selected item ids.
         /// </value>
-        string SelectedItemIds { get; set; }
+        string SerializedSelectedItemsIds { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to enable social sharing.

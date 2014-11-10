@@ -1,5 +1,7 @@
-@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@model System.Web.UI.Control
 
+@using DynamicContent.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 @Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryData.js")
 @Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryDataItem.js")
@@ -7,44 +9,45 @@
 @Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryGroup.js")
 @Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryBuilder.js")
 
-<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.DynamicModules.DynamicModuleManager.GetManager(), "Fruit")'>
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.DynamicModules.DynamicModuleManager.GetManager(), Model.DynamicModuleName())' item-type="@Model.DynamicContentType().FullName">
 </server-data>
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
-        <h4>@Html.Resource("NewsToDisplay")</h4>
+        <h4>@Html.Resource("ItemsToDisplay").Arrange(Model.ContentTypeDisplayNamePluralLower())</h4>
 
-        <provider-selector manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
+        <provider-selector manager-type='@Model.DynamicModuleName()'
             provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
         </provider-selector>
 
         <div class="form-group">
             <div class="radio">
-                <label for="allNews" class="full-width">
-                    <input id="allNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
-                    @Html.Resource("AllPublishedNews")
+                <label for="allItems" class="full-width">
+                    <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                    @Html.Resource("AllPublishedItems").Arrange(Model.ContentTypeDisplayNamePluralLower())
                 </label>
             </div>
             <div class="radio">
-                <label for="selectedNews" class="full-width">
-                    <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
+                <label for="selectedItems" class="full-width">
+                    <input id="selectedItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
 
-                    @Html.Resource("SelectedNews")
+                    @Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePluralLower())
 
-                    <sf-list-selector sf-news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                    <sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
                                   multiselect="true" sortable="true"
                                   provider="properties.ProviderName.PropertyValue"
-                                  selected-ids ="newsSelector.selectedItemsIds"></sf-list-selector>
+                                  selected-ids="itemSelector.selectedItemsIds"
+                                  item-type="itemType"></sf-list-selector>
                 </label>
             </div>
             <div class="radio">
-                <label for="filterNews" class="full-width">
-                    <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+                <label for="filterItems" class="full-width">
+                    <input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
 					<sf-filter-selector query-data="additionalFilters.value"
-                        taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
+                        taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
                         provider="properties.ProviderName.PropertyValue"
                         ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
                 </label>
@@ -92,7 +95,7 @@
         <div  class="form-group">
             <div class="row">
                 <div class="col-xs-6">
-                    <label for="sortOptions">@Html.Resource("SortNews")</label>
+                    <label for="sortOptions">@Html.Resource("SortItems").Arrange(Model.ContentTypeDisplayNamePluralLower())</label>
 
 
                     <select id="sortOptions" ng-model="properties.SortExpression.PropertyValue" class="form-control">
@@ -106,12 +109,12 @@
         </div>
 
         <div class="form-group">
-            <label for="newsTemplateName">@Html.Resource("ListTemplate")</label>
+            <label for="listTemplateName">@Html.Resource("ListTemplate")</label>
 
             <div class="row">
                 <div class="col-xs-6">
-                    <select id="newsTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                         @foreach (var viewName in Html.GetViewNames("News", @"List\.(?<viewName>\w*)$"))
+                    <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>\w*)$"))
                          {
                              <option value="@viewName"> @viewName</option>
                          }
@@ -157,10 +160,10 @@
 
         <div  class="form-group m-top-md row">
             <div class="col-xs-6">
-                <label for="newsTemplateName">@Html.Resource("DetailTemplate")</label>
+                <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
 
-                <select id="newsTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("News", @"Detail\.(?<viewName>\w*)$"))
+                <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>\w*)$"))
                      {
                          <option value="@viewName"> @viewName</option>
                      }
@@ -172,8 +175,8 @@
             <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
-                <label for="newsCssClass">@Html.Resource("CssClasses")</label>
-                <input type="text" id="newsCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                <label for="cssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="cssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </tab>

@@ -4,7 +4,7 @@ using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 
-namespace DynamicContent.Mvc.Model
+namespace DynamicContent.Mvc.Models
 {
     /// <summary>
     /// This class represents model used for DynamicContent widget.

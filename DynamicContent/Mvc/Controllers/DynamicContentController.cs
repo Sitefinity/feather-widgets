@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
-using DynamicContent.Mvc.Model;
+
+using DynamicContent.Mvc.Models;
 using DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -30,6 +32,9 @@ namespace DynamicContent.Mvc.Controllers
         {
             get
             {
+                if (this.listTemplateName == null)
+                    this.listTemplateName = this.Model.ContentType != null ? this.Model.ContentType.Name : null;
+
                 return this.listTemplateName;
             }
 
@@ -47,6 +52,9 @@ namespace DynamicContent.Mvc.Controllers
         {
             get
             {
+                if (this.detailTemplateName == null)
+                    this.detailTemplateName = this.Model.ContentType != null ? this.Model.ContentType.Name : null;
+
                 return this.detailTemplateName;
             }
 
@@ -95,32 +103,10 @@ namespace DynamicContent.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the page URL where will be displayed details view for selected news item.
+        /// Gets or sets the id of the page where will be displayed details view for selected item.
         /// </summary>
-        /// <value>
-        /// The page URL where will be displayed details view for selected news item.
-        /// </value>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
-        public string DetailsPageUrl
-        {
-            get
-            {
-                if (this.OpenInSamePage)
-                {
-                    var url = this.GetCurrentPageUrl();
-                    return url;
-                }
-                else
-                {
-                    return this.detailsPageUrl;
-                }
-            }
-
-            set
-            {
-                this.detailsPageUrl = value;
-            }
-        }
+        /// <value>The details page id.</value>
+        public Guid DetailsPageId { get; set; }
 
         /// <summary>
         /// Gets the News widget model.
@@ -155,7 +141,9 @@ namespace DynamicContent.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.RedirectPageUrlTemplate = "/{0}";
-            this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
 
             var viewModel = this.Model.CreateListViewModel(null, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
@@ -176,7 +164,9 @@ namespace DynamicContent.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.RedirectPageUrlTemplate = "/" + taxonFilter.UrlName + "/{0}";
-            this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
@@ -265,9 +255,9 @@ namespace DynamicContent.Mvc.Controllers
         #region Private fields and constants
 
         private IDynamicContentModel model;
-        private string listTemplateName = "DynamicContentList";
+        private string listTemplateName;
         private string listTemplateNamePrefix = "List.";
-        private string detailTemplateName = "DetailPage";
+        private string detailTemplateName;
         private string detailTemplateNamePrefix = "Detail.";
         private bool openInSamePage = true;
 
