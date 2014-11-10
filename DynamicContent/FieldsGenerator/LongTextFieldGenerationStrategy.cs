@@ -7,8 +7,12 @@ using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace DynamicContent.FieldsGenerator
 {
+    /// <summary>
+    /// This class represents field generation strategy for long text dynamic fields.
+    /// </summary>
     public class LongTextFieldGenerationStrategy : FieldGenerationStrategy
     {
+        /// <inheritdoc/>
         public override bool GetFieldCondition(DynamicModuleField field)
         {
             var condition = base.GetFieldCondition(field)
@@ -18,6 +22,7 @@ namespace DynamicContent.FieldsGenerator
             return condition;
         }
 
+        /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
             var longTextMarkup = String.Format(LongTextFieldGenerationStrategy.fieldMarkupTempalte, field.Name);
@@ -25,6 +30,6 @@ namespace DynamicContent.FieldsGenerator
             return longTextMarkup;
         }
 
-        private const string fieldMarkupTempalte = "@Html.LongTextField(Model.Item.{0})";
+        private const string fieldMarkupTempalte = @"@Html.LongTextField((string)Model.Item.{0}, ""lngTxt"")";
     }
 }

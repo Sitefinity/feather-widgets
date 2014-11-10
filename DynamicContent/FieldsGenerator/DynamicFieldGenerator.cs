@@ -7,20 +7,27 @@ using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace DynamicContent.FieldsGenerator
 {
+    /// <summary>
+    /// This class generates the dynamic fields markup.
+    /// </summary>
     public class DynamicFieldGenerator
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DynamicFieldGenerator"/> class.
+        /// </summary>
+        /// <param name="moduleType">Type of the module.</param>
         public DynamicFieldGenerator(DynamicModuleType moduleType)
         {
             this.moduleType = moduleType;
 
-            fieldContexts.Add(new DynamicFieldContext("LongTextField", new LongTextFieldGenerationStrategy()));
+            FieldContexts.Add(new DynamicFieldContext("LongTextField", new LongTextFieldGenerationStrategy()));
             //fieldContexts.Add(new DynamicFieldContext("MediaTypeImagesSection"));
-            fieldContexts.Add(new DynamicFieldContext("ShortTextField", new ShortTextFieldGenerationStrategy(moduleType)));
+            FieldContexts.Add(new DynamicFieldContext("ShortTextField", new ShortTextFieldGenerationStrategy(moduleType)));
             //fieldContexts.Add(new DynamicFieldContext("MultipleChoiceSection"));
             //fieldContexts.Add(new DynamicFieldContext("YesNoSection"));
-            fieldContexts.Add(new DynamicFieldContext("DateField", new DateFieldGenerationStrategy()));
-            fieldContexts.Add(new DynamicFieldContext("NumberField", new NumberFieldGenerationStrategy()));
-            fieldContexts.Add(new DynamicFieldContext("PriceField", new PriceFieldGenerationStrategy()));
+            FieldContexts.Add(new DynamicFieldContext("DateField", new DateFieldGenerationStrategy()));
+            FieldContexts.Add(new DynamicFieldContext("NumberField", new NumberFieldGenerationStrategy()));
+            FieldContexts.Add(new DynamicFieldContext("PriceField", new PriceFieldGenerationStrategy()));
             //fieldContexts.Add(new DynamicFieldContext("LongFieldsTypeTextAreaSection"));
             //fieldContexts.Add(new DynamicFieldContext("MediaVideoSection"));
             //fieldContexts.Add(new DynamicFieldContext("MediaFilesSection"));
@@ -30,11 +37,15 @@ namespace DynamicContent.FieldsGenerator
             //fieldContexts.Add(new DynamicFieldContext("RelatedDataSection"));
         }
 
+        /// <summary>
+        /// Generates the detail dynamic field section markup.
+        /// </summary>
+        /// <returns></returns>
         protected internal virtual string GenerateDetailDynamicFieldSection()
         {
             StringBuilder fieldsSectionBuilder = new StringBuilder();
 
-            foreach (var fieldContext in this.fieldContexts)
+            foreach (var fieldContext in this.FieldContexts)
             {
                 var fieldsForType = this.moduleType.Fields.Where(fieldContext.FieldGenerationStrategy.GetFieldCondition);
                 if (fieldsForType.Count() != 0)
@@ -54,7 +65,10 @@ namespace DynamicContent.FieldsGenerator
             return fieldsSectionBuilder.ToString();
         }
 
-        public IList<DynamicFieldContext> fieldContexts = new List<DynamicFieldContext>();
+        /// <summary>
+        /// The field contexts
+        /// </summary>
+        public IList<DynamicFieldContext> FieldContexts = new List<DynamicFieldContext>();
         private static readonly string emptyLine = "\r\n";
 
         private DynamicModuleType moduleType;

@@ -1,16 +1,15 @@
 ﻿@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using DynamicContent.Mvc.Helpers;
 
 <div class="@Model.CssClass">
 @{
     using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id))
     {
         <h1>
-            @Html.TextField((string)Model.Item.Title, "ShortText")
-        </h1>@*    
-    
-        @Html.SfPublicationDateSection();*@
+            @Html.TextField("Title", (string)Model.Item.Title, "ShortText")
+        </h1>
 
         @DynamicFieldHelper.GenerateFieldsSection()
     

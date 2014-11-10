@@ -19,7 +19,14 @@
             {
                 <li>
                     <h2>
-                        <a href="@(ViewBag.DetailsPageUrl + item.ItemDefaultUrl)">@Html.TextField(item.Title, "ShortText")</a>
+                        @if (ViewBag.OpenInSamePage)
+                        {
+                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                        }
+                        else
+                        {
+                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                        }
                     </h2>
                 </li>@*
             

@@ -156,8 +156,8 @@
     <Compile Include="MvcWidgetInstallationStrategy.cs" />
     <Compile Include="Mvc\Controllers\DynamicContentController.cs" />
     <Compile Include="Mvc\Helpers\DynamicFieldHelper.cs" />
-    <Compile Include="Mvc\Model\DynamicContentModel.cs" />
-    <Compile Include="Mvc\Model\IDynamicContentModel.cs" />
+    <Compile Include="Mvc\Models\DynamicContentModel.cs" />
+    <Compile Include="Mvc\Models\IDynamicContentModel.cs" />
     <Compile Include="Mvc\Models\DesignerModelHelper.cs" />
     <Compile Include="Mvc\StringResources\DynamicContentResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

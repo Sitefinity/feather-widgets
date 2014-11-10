@@ -155,6 +155,7 @@ namespace DynamicContent
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
             var viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager);
+            viewGenerator.InstallDefaultMasterTemplate(dynamicModule, dynamicModuleType);
             viewGenerator.InstallDefaultDetailTemplate(dynamicModule, dynamicModuleType);
         }
 

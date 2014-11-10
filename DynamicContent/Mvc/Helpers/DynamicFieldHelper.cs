@@ -19,9 +19,10 @@ namespace DynamicContent.Mvc.Helpers
             return new MvcHtmlString(dynamicfieldHelper);
         }
 
-        public static MvcHtmlString LongTextField(this HtmlHelper helper, object dynamicFieldItem, string cssClass = "")
+        public static MvcHtmlString LongTextField(this HtmlHelper helper, string dynamicFieldItem, string cssClass = "")
         {
-            return System.Web.Mvc.Html.PartialExtensions.Partial(helper, "LongTextField", (string)dynamicFieldItem);
+            helper.ViewBag.CssClass = cssClass;
+            return ASP.PartialExtensions.Partial(helper, "LongTextField", dynamicFieldItem);
         }
     }
 }

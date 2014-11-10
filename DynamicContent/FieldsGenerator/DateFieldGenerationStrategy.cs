@@ -7,8 +7,12 @@ using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace DynamicContent.FieldsGenerator
 {
+    /// <summary>
+    /// This class represents field generation strategy for date time dynamic fields.
+    /// </summary>
     public class DateFieldGenerationStrategy : FieldGenerationStrategy
     {
+        /// <inheritdoc/>
         public override bool GetFieldCondition(DynamicModuleField field)
         {
             var condition = base.GetFieldCondition(field)
@@ -17,6 +21,7 @@ namespace DynamicContent.FieldsGenerator
             return condition;
         }
 
+        /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
             var markup = String.Format(DateFieldGenerationStrategy.fieldMarkupTempalte, field.Name);
