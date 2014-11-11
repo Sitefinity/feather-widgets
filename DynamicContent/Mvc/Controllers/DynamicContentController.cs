@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
@@ -105,32 +106,10 @@ namespace DynamicContent.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the page URL where will be displayed details view for selected news item.
+        /// Gets or sets the id of the page where will be displayed details view for selected item.
         /// </summary>
-        /// <value>
-        /// The page URL where will be displayed details view for selected news item.
-        /// </value>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
-        public string DetailsPageUrl
-        {
-            get
-            {
-                if (this.OpenInSamePage)
-                {
-                    var url = this.GetCurrentPageUrl();
-                    return url;
-                }
-                else
-                {
-                    return this.detailsPageUrl;
-                }
-            }
-
-            set
-            {
-                this.detailsPageUrl = value;
-            }
-        }
+        /// <value>The details page id.</value>
+        public Guid DetailsPageId { get; set; }
 
         /// <summary>
         /// Gets the News widget model.
@@ -165,7 +144,9 @@ namespace DynamicContent.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.RedirectPageUrlTemplate = "/{0}";
-            this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
 
             var viewModel = this.Model.CreateListViewModel(null, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
@@ -186,7 +167,9 @@ namespace DynamicContent.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.RedirectPageUrlTemplate = "/" + taxonFilter.UrlName + "/{0}";
-            this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)

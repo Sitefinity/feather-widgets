@@ -75,6 +75,9 @@ namespace DynamicContent
             if (this.pageManager == null)
                 this.pageManager = PageManager.GetManager();
 
+            if (this.moduleBuilderManager == null)
+                this.moduleBuilderManager = ModuleBuilderManager.GetManager();
+
             Action<WidgetInstallationContext> action;
 
             if (this.ActionProcessor.TryGetValue(context.ActionName, out action))
@@ -219,8 +222,6 @@ namespace DynamicContent
 
             return template;
         }
-
-
 
         /// <summary>
         /// Registers the toolbox item for the dynamic widget.

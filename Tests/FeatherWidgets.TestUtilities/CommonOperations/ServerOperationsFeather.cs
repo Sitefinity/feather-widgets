@@ -62,5 +62,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new NavigationOperations();
         }
+
+        /// <summary>
+        /// Entry point for Dynamic modules operations.
+        /// </summary>
+        /// <returns>DynamicModulesOperations instance.</returns>
+        public static DynamicModulesOperations DynamicModules()
+        {
+            return new DynamicModulesOperations();
+        }
     }
 }

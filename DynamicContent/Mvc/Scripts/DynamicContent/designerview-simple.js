@@ -5,7 +5,9 @@
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
         $scope.itemSelector = { selectedItemsIds: [] };
+        $scope.parentSelector = { selectedItemsIds: [] };
         $scope.itemType = serverData.get('itemType');
+        $scope.parentTypes = $.parseJSON(serverData.get('parentTypes'));
 
         $scope.$watch(
             'additionalFilters.value',
@@ -38,19 +40,51 @@
 	        true
         );
 
+        $scope.$watch(
+            'parentSelector.selectedItemsIds',
+            function (newSelectedItemsIds, oldSelectedItemsIds) {
+                if (newSelectedItemsIds !== oldSelectedItemsIds) {
+                    $scope.properties.SerializedSelectedParentsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                }
+            },
+            true
+        );
+
+        $scope.$watch(
+            'properties.ParentFilterMode.PropertyValue',
+            function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    if (newValue == 'NotApplicable') {
+                        $scope.properties.SelectionMode.PropertyValue = 'SelectedItems';
+                    }
+                    else if (oldValue == 'NotApplicable') {
+                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
+                    }
+                }
+            },
+            true
+        );
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
                     var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue);
-
                     $scope.additionalFilters.value = additionalFilters;
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue);
-
                     if (selectedItemsIds) {
                         $scope.itemSelector.selectedItemsIds = selectedItemsIds;
+                    }
+
+                    var selectedParentsIds = $.parseJSON($scope.properties.SerializedSelectedParentsIds.PropertyValue);
+                    if (selectedParentsIds) {
+                        $scope.parentSelector.selectedItemsIds = selectedParentsIds;
+                    }
+
+                    if ($scope.parentTypes.length > 0 && $scope.properties.CurrentlyOpenParentType && !$scope.properties.CurrentlyOpenParentType.PropertyValue) {
+                        $scope.properties.CurrentlyOpenParentType.PropertyValue = $scope.parentTypes[0].TypeName;
                     }
                 }
             },

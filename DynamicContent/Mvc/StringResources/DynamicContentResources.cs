@@ -54,7 +54,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["DynamicContentResourcesTitle", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DynamicContentResourcesTitle"];
             }
         }
 
@@ -69,7 +69,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["DynamicContentResourcesDescription", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DynamicContentResourcesDescription"];
             }
         }
 
@@ -87,7 +87,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["Display", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Display"];
             }
         }
 
@@ -102,7 +102,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["MoreOptions", System.Globalization.CultureInfo.InvariantCulture];
+                return this["MoreOptions"];
             }
         }
 
@@ -117,7 +117,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["CssClasses", System.Globalization.CultureInfo.InvariantCulture];
+                return this["CssClasses"];
             }
         }
 
@@ -132,7 +132,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["Content", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Content"];
             }
         }
 
@@ -147,7 +147,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ListSettings", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ListSettings"];
             }
         }
 
@@ -162,7 +162,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["SingleItemSettings", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SingleItemSettings"];
             }
         }
 
@@ -177,7 +177,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ListTemplate", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ListTemplate"];
             }
         }
 
@@ -192,7 +192,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["DetailTemplate", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DetailTemplate"];
             }
         }
 
@@ -207,7 +207,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ItemsToDisplay", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ItemsToDisplay"];
             }
         }
 
@@ -222,7 +222,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["AllPublishedItems", System.Globalization.CultureInfo.InvariantCulture];
+                return this["AllPublishedItems"];
             }
         }
 
@@ -237,7 +237,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["SelectedItems", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SelectedItems"];
             }
         }
 
@@ -252,7 +252,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["NarrowSelection", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NarrowSelection"];
             }
         }
 
@@ -267,7 +267,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["Tags", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Tags"];
             }
         }
 
@@ -282,7 +282,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["UsePaging", System.Globalization.CultureInfo.InvariantCulture];
+                return this["UsePaging"];
             }
         }
 
@@ -297,7 +297,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["UseLimit", System.Globalization.CultureInfo.InvariantCulture];
+                return this["UseLimit"];
             }
         }
 
@@ -312,7 +312,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["NoLimitPaging", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NoLimitPaging"];
             }
         }
 
@@ -327,7 +327,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["DivideToItemPerPage", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DivideToItemPerPage"];
             }
         }
 
@@ -342,7 +342,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ShowLimitedItems", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowLimitedItems"];
             }
         }
 
@@ -357,7 +357,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ShowAllItems", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowAllItems"];
             }
         }
 
@@ -372,7 +372,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["SortItems", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SortItems"];
             }
         }
 
@@ -387,7 +387,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["LastPublished", System.Globalization.CultureInfo.InvariantCulture];
+                return this["LastPublished"];
             }
         }
 
@@ -402,7 +402,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["LastModified", System.Globalization.CultureInfo.InvariantCulture];
+                return this["LastModified"];
             }
         }
 
@@ -417,7 +417,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ByTitleAZ", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ByTitleAZ"];
             }
         }
 
@@ -432,7 +432,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ByTitleZA", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ByTitleZA"];
             }
         }
 
@@ -447,7 +447,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["OpenSingleItem", System.Globalization.CultureInfo.InvariantCulture];
+                return this["OpenSingleItem"];
             }
         }
 
@@ -462,7 +462,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ShowInSamePage", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowInSamePage"];
             }
         }
 
@@ -477,7 +477,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ShowInSamePageNote", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowInSamePageNote"];
             }
         }
 
@@ -492,7 +492,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["ShowInExistingPage", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowInExistingPage"];
             }
         }
 
@@ -507,7 +507,7 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["Provider", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Provider"];
             }
         }
 
@@ -522,7 +522,67 @@ namespace DynamicContent.Mvc.StringResources
         {
             get
             {
-                return this["By", System.Globalization.CultureInfo.InvariantCulture];
+                return this["By"];
+            }
+        }
+
+        /// <summary>
+        /// Selection of {ModuleName}...
+        /// </summary>
+        [ResourceEntry("SelectionOfItems",
+            Value = "Selection of {0}...",
+            Description = "Selection of {ModuleName}...",
+            LastModified = "2014/11/10")]
+        public string SelectionOfItems
+        {
+            get
+            {
+                return this["SelectionOfItems"];
+            }
+        }
+
+        /// <summary>
+        /// From currently open
+        /// </summary>
+        [ResourceEntry("FromCurrentlyOpen",
+            Value = "From currently open",
+            Description = "From currently open",
+            LastModified = "2014/11/10")]
+        public string FromCurrentlyOpen
+        {
+            get
+            {
+                return this["FromCurrentlyOpen"];
+            }
+        }
+
+        /// <summary>
+        /// From all {ModuleName}
+        /// </summary>
+        [ResourceEntry("FromAll",
+            Value = "From all {0}",
+            Description = "From all {ModuleName}",
+            LastModified = "2014/11/10")]
+        public string FromAll
+        {
+            get
+            {
+                return this["FromAll"];
+            }
+        }
+
+        /// <summary>
+        /// From selected {ModuleName} only...
+        /// </summary>
+        [ResourceEntry("FromSelected",
+            Value = "From selected {0} only...",
+            Description = "From selected {ModuleName} only...",
+            LastModified = "2014/11/10")]
+        public string FromSelected
+        {
+            get
+            {
+                return this["FromSelected"];
             }
         }
     }

@@ -5,8 +5,10 @@ using System.Linq;
 using System.Web.UI;
 using ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
@@ -192,7 +194,61 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var master = pm.PagesLifecycle.GetMaster(pageData);
             pm.PagesLifecycle.Publish(master);
             pm.SaveChanges();
-        } 
+        }
+
+        /// <summary>
+        /// Asserts if widget is present in the toolbox config.
+        /// </summary>
+        /// <param name="sectionTitle">The name of the toolbox section.</param>
+        /// <param name="widgetTitle">The widget name.</param>
+        /// <returns></returns>
+        public bool IsWidgetPresentInToolbox(string sectionTitle, string widgetTitle)
+        {
+            var item = this.GetToolboxItem(sectionTitle, widgetTitle);
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Gets a toolbox item from the config section.
+        /// </summary>
+        /// <param name="widgetSectionTitle">The name of the section.</param>
+        /// <param name="widgetTitle">The name of the widget.</param>
+        /// <returns></returns>
+        public ToolboxItem GetToolboxItem(string widgetSectionTitle, string widgetTitle)
+        {
+            var section = this.GetDynamicWidgetToolboxSection(widgetSectionTitle);
+
+            if (section == null)
+            {
+                throw new ArgumentException("Section was not found");
+            }
+
+            var item = section.Tools.FirstOrDefault<ToolboxItem>(e => e.Title == widgetTitle);
+
+            return item;
+        }
+
+        /// <summary>
+        /// Gets the dynamic widget toolbox section.
+        /// </summary>
+        /// <param name="widgetSectionTitle">The section title.</param>
+        /// <returns></returns>
+        public ToolboxSection GetDynamicWidgetToolboxSection(string widgetSectionTitle)
+        {
+            ConfigManager configurationManager = ConfigManager.GetManager();
+            var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
+            var pageControls = toolboxesConfig.Toolboxes["PageControls"];
+
+            var section = pageControls.Sections.FirstOrDefault<ToolboxSection>(s => s.Title == widgetSectionTitle);
+
+            return section;
+        }
 
         /// <summary>
         /// Creates the mvcWidget control.
