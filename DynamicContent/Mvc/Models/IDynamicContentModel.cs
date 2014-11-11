@@ -112,6 +112,30 @@ namespace DynamicContent.Mvc.Models
         bool? DisableCanonicalUrlMetaTag { get; set; }
 
         /// <summary>
+        /// Gets or sets the parent selection mode.
+        /// </summary>
+        /// <value>
+        /// The parent selection mode.
+        /// </value>
+        ParentSelectionMode ParentSelectionMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the currently open parent.
+        /// </summary>
+        /// <value>
+        /// The type of the currently open parent.
+        /// </value>
+        string CurrentlyOpenParentType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the serialized selected parent ids.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
+        string SerializedSelectedParentsIds { get; set; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
         IEnumerable<IContentLocationInfo> GetLocations();

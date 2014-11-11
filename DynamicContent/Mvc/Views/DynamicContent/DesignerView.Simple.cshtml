@@ -21,38 +21,41 @@
             ng-model="properties.ProviderName.PropertyValue">
         </provider-selector>
 
-        <div class="form-group">
-            <div class="radio">
-                <label for="allItems" class="full-width">
-                    <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
-                    @Html.Resource("AllPublishedItems").Arrange(Model.ContentTypeDisplayNamePluralLower())
-                </label>
-            </div>
-            <div class="radio">
-                <label for="selectedItems" class="full-width">
-                    <input id="selectedItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
+        @if (Model.ResolveDynamicModuleType().ParentModuleType == null)
+        {
+            <div class="form-group">
+                <div class="radio">
+                    <label for="allItems" class="full-width">
+                        <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                        @Html.Resource("AllPublishedItems").Arrange(Model.ContentTypeDisplayNamePluralLower())
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="selectedItems" class="full-width">
+                        <input id="selectedItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
 
-                    @Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePluralLower())
+                        @Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePluralLower())
 
-                    <sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-                                  multiselect="true" sortable="true"
-                                  provider="properties.ProviderName.PropertyValue"
-                                  selected-ids="itemSelector.selectedItemsIds"
-                                  item-type="itemType"></sf-list-selector>
-                </label>
-            </div>
-            <div class="radio">
-                <label for="filterItems" class="full-width">
-                    <input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+                        <sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                                      multiselect="true" sortable="true"
+                                      provider="properties.ProviderName.PropertyValue"
+                                      selected-ids="itemSelector.selectedItemsIds"
+                                      item-type="itemType"></sf-list-selector>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="filterItems" class="full-width">
+                        <input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
-                    @Html.Resource("NarrowSelection")
-					<sf-filter-selector query-data="additionalFilters.value"
-                        taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
-                        provider="properties.ProviderName.PropertyValue"
-                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
-                </label>
+                        @Html.Resource("NarrowSelection")
+					    <sf-filter-selector query-data="additionalFilters.value"
+                            taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
+                            provider="properties.ProviderName.PropertyValue"
+                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
+                    </label>
+                </div>
             </div>
-        </div>
+        }
     </tab>
 
     <tab heading="@Html.Resource("ListSettings")">
