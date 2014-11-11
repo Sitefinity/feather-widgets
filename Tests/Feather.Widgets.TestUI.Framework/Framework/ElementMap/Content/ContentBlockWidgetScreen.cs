@@ -164,7 +164,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Advanced");
+                return this.Get<HtmlAnchor>("ng-hide=isCurrentView('PropertyGrid')");
             }
         }
 
