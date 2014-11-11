@@ -16,7 +16,7 @@
             <li class="media">
               @using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id))
               {
-                  <h4>
+                  <h3>
                             @if (ViewBag.OpenInSamePage)
                             {
                                 <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
@@ -25,14 +25,19 @@
                             {
                                 <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
                             }
-                  </h4>
+                  </3>
 
                   <div class="text-muted">
                       @item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")
                       @Html.Resource("By")
                       @DataResolver.Resolve(item, "Author", null)
                   </div>
-                    @Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))
+                  
+                  if (!String.IsNullOrEmpty(item.Summary))
+                  {
+                        @Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))
+                  }
+                  
                     <a href="@(ViewBag.DetailsPageUrl + item.ItemDefaultUrl)">Full story</a>
                 }
               </li>
