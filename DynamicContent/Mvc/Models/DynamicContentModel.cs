@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -28,6 +30,26 @@ namespace DynamicContent.Mvc.Models
 
             var manager = DynamicModuleManager.GetManager(this.ProviderName);
             return manager.GetDataItems(this.ContentType);
+        }
+
+        /// <inheritdoc />
+        protected override string CompileFilterExpression()
+        {
+            var baseExpression = base.CompileFilterExpression();
+
+            if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
+            {
+                var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
+                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "SystemParentId = " + id.Trim()));
+                if (baseExpression.IsNullOrEmpty())
+                    return "({0})".Arrange(parentFilterExpression);
+                else
+                    return "({0}) and ({1})".Arrange(baseExpression, parentFilterExpression);
+            }
+            else
+            {
+                return baseExpression;
+            }
         }
     }
 }
