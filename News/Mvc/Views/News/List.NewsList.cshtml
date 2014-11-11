@@ -7,42 +7,47 @@
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery)
-
-<link rel="stylesheet" href='@Url.WidgetContent("//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")' type="text/css" />
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+@Html.Script("http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js")
 
 <div class="@Model.ListCssClass">
-    <ul >
+    <ul class="list-unstyled">
         @foreach (var item in Model.Items)
         {
-            using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id))
-            {
-                <li>
-                    <h2>
-                        @if (ViewBag.OpenInSamePage)
-                        {
-                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
-                        }
-                        else
-                        {
-                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
-                        }
-                    </h2>
-                    <div>
-                        <span>@item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")</span>
-                        <span>@Html.Resource("By")</span>
-                        <span>@DataResolver.Resolve(item, "Author", null)</span>
-                    </div>
-                    <div>@Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))</div>
-                </li>
-            }
+            <li class="media">
+              @using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id))
+              {
+                  <h3>
+                            @if (ViewBag.OpenInSamePage)
+                            {
+                                <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
+                            }
+                            else
+                            {
+                                <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
+                            }
+                  </3>
+
+                  <div class="text-muted">
+                      @item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")
+                      @Html.Resource("By")
+                      @DataResolver.Resolve(item, "Author", null)
+                  </div>
+                  
+                  if (!String.IsNullOrEmpty(item.Summary))
+                  {
+                        @Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))
+                  }
+                  
+                    <a href="@(ViewBag.DetailsPageUrl + item.ItemDefaultUrl)">Full story</a>
+                }
+              </li>
         }
     </ul>
 
     @if (Model.DisplayMode == ListDisplayMode.Paging && Model.TotalPagesCount != null && Model.TotalPagesCount > 1)
     {
-        @Html.Action("Index", "ContentPager", new { currentPage = Model.CurrentPage, 
-                        totalPagesCount = Model.TotalPagesCount.Value, 
+        @Html.Action("Index", "ContentPager", new { currentPage = Model.CurrentPage,
+                        totalPagesCount = Model.TotalPagesCount.Value,
                         redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate })
     }
 
