@@ -34,7 +34,7 @@ namespace DynamicContent.FieldsGenerator
             //fieldContexts.Add(new DynamicFieldContext("AddressFieldSection"));
             FieldGenerators.Add(new ClassificationFieldGenerationStrategy());
             //fieldContexts.Add(new DynamicFieldContext("RelatedMediaSection"));
-            //fieldContexts.Add(new DynamicFieldContext("RelatedDataSection"));
+            FieldGenerators.Add(new RelatedDataFieldGenerationStrategy());
         }
 
         /// <summary>
