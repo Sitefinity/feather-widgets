@@ -117,6 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />
     <Compile Include="CommonOperations\Pages\NavigationOperations.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Data\DynamicModules\PressRelease.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
