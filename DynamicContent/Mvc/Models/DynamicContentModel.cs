@@ -12,6 +12,15 @@ namespace DynamicContent.Mvc.Models
     public class DynamicContentModel : ContentModelBase, IDynamicContentModel
     {
         /// <inheritdoc />
+        public ParentFilterMode ParentFilterMode { get; set; }
+
+        /// <inheritdoc />
+        public string CurrentlyOpenParentType { get; set; }
+
+        /// <inheritdoc />
+        public string SerializedSelectedParentsIds { get; set; }
+
+        /// <inheritdoc />
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             if (this.ContentType == null)

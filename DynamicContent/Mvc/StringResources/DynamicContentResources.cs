@@ -525,5 +525,65 @@ namespace DynamicContent.Mvc.StringResources
                 return this["By"];
             }
         }
+
+        /// <summary>
+        /// Selection of {ModuleName}...
+        /// </summary>
+        [ResourceEntry("SelectionOfItems",
+            Value = "Selection of {0}...",
+            Description = "Selection of {ModuleName}...",
+            LastModified = "2014/11/10")]
+        public string SelectionOfItems
+        {
+            get
+            {
+                return this["SelectionOfItems"];
+            }
+        }
+
+        /// <summary>
+        /// From currently open
+        /// </summary>
+        [ResourceEntry("FromCurrentlyOpen",
+            Value = "From currently open",
+            Description = "From currently open",
+            LastModified = "2014/11/10")]
+        public string FromCurrentlyOpen
+        {
+            get
+            {
+                return this["FromCurrentlyOpen"];
+            }
+        }
+
+        /// <summary>
+        /// From all {ModuleName}
+        /// </summary>
+        [ResourceEntry("FromAll",
+            Value = "From all {0}",
+            Description = "From all {ModuleName}",
+            LastModified = "2014/11/10")]
+        public string FromAll
+        {
+            get
+            {
+                return this["FromAll"];
+            }
+        }
+
+        /// <summary>
+        /// From selected {ModuleName} only...
+        /// </summary>
+        [ResourceEntry("FromSelected",
+            Value = "From selected {0} only...",
+            Description = "From selected {ModuleName} only...",
+            LastModified = "2014/11/10")]
+        public string FromSelected
+        {
+            get
+            {
+                return this["FromSelected"];
+            }
+        }
     }
 }

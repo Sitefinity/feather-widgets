@@ -73,6 +73,9 @@ namespace DynamicContent
             if (this.pageManager == null)
                 this.pageManager = PageManager.GetManager();
 
+            if (this.moduleBuilderManager == null)
+                this.moduleBuilderManager = ModuleBuilderManager.GetManager();
+
             Action<WidgetInstallationContext> action;
 
             if (this.ActionProcessor.TryGetValue(context.ActionName, out action))
@@ -151,30 +154,9 @@ namespace DynamicContent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "dynamicModule")]
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
-            var area = string.Format("~/Frontend-Assembly/{0}/", this.GetType().Assembly.GetName().Name);
-            var resourceName = area + "Mvc/Views/{0}/List.DynamicContentList.cshtml".Arrange(dynamicModuleType.TypeName);
-            var dynamicTypeName = dynamicModuleType.GetFullTypeName();
-            var content = "<h1>Dynamic module template for <strong>{0}</strong>, installed in the database.</h1>".Arrange(dynamicTypeName);
-
-            this.RegisterTemplate(area, resourceName, ".cshtml", content, dynamicTypeName + "_MVC");
-        }
-
-        /// <summary>
-        /// Registers the template.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <param name="resourceType">Type of the resource.</param>
-        /// <param name="content">The content.</param>
-        /// <param name="condition">The condition.</param>
-        private void RegisterTemplate(string area, string resourceName, string resourceType, string content, string condition)
-        {
-            var template = this.pageManager.CreatePresentationItem<ControlPresentation>();
-            template.NameForDevelopers = resourceName;
-            template.AreaName = area;
-            template.DataType = resourceType;
-            template.Data = content;
-            template.Condition = condition;
-            this.pageManager.SaveChanges();
+            var viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager);
+            viewGenerator.InstallDefaultMasterTemplate(dynamicModule, dynamicModuleType);
+            viewGenerator.InstallDefaultDetailTemplate(dynamicModule, dynamicModuleType);
         }
 
         /// <summary>
