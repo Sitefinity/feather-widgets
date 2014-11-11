@@ -92,9 +92,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void AdvanceButtonSelecting()
         {
-            HtmlAnchor shareButton = EM.GenericContent.ContentBlockWidget.AdvancedButton
+            HtmlDiv contentBlockFooter = EM.GenericContent.ContentBlockWidget.ContentBlockWidgetFooter
+                .AssertIsPresent("Footer");
+
+            HtmlAnchor advanceButton = contentBlockFooter.Find.ByExpression<HtmlAnchor>("class=btn btn-default btn-xs m-top-xs ng-scope", "InnerText=Advanced")
             .AssertIsPresent("Advance selecting button");
-            shareButton.Click();
+
+            advanceButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
