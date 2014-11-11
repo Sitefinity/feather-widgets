@@ -215,8 +215,8 @@ namespace News.Mvc.StringResources
         /// Gets phrase : Selected news
         /// </summary>
         [ResourceEntry("SelectedNews",
-            Value = "Selected news",
-            Description = "phrase : Selected news",
+            Value = "Selected news...",
+            Description = "phrase : Selected news...",
             LastModified = "2014/08/22")]
         public string SelectedNews
         {
@@ -230,8 +230,8 @@ namespace News.Mvc.StringResources
         /// Gets phrase : Narrow selection by...
         /// </summary>
         [ResourceEntry("NarrowSelection",
-            Value = "Narrow selection by...",
-            Description = "phrase : Narrow selection by...",
+            Value = "Filtered news by...",
+            Description = "phrase : Filtered news by...",
             LastModified = "2014/08/22")]
         public string NarrowSelection
         {
