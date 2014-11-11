@@ -34,5 +34,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// SemanticUI package test category
         /// </summary>
         public const string SemanticUI = "SemanticUI";
+
+        /// <summary>
+        /// New category for new tests
+        /// </summary>
+        public const string New = "New";
     }
 }

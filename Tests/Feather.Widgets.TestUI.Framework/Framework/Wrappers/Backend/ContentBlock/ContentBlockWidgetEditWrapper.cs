@@ -106,11 +106,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="isEnabled">Is social share buttons enabled</param>
         public void EnableSocialShareButtons(string isEnabled)
         {
-            List<HtmlInputText> input = ActiveBrowser.Find.AllByExpression<HtmlInputText>("tagname=input", "class=form-control ng-pristine ng-valid").ToList<HtmlInputText>();
+            HtmlInputText input = EM.GenericContent.ContentBlockWidget.EnableSocialSharing
+                .AssertIsPresent("Social share field");
 
-            input[1].ScrollToVisible();
-            input[1].Focus();
-            input[1].MouseClick();
+            input.Wait.ForExists();
+            input.ScrollToVisible();
+            input.Focus();
+            input.MouseClick();
 
             Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
