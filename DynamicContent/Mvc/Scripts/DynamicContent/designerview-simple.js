@@ -51,7 +51,7 @@
         );
 
         $scope.$watch(
-            'properties.ParentSelectionMode.PropertyValue',
+            'properties.ParentFilterMode.PropertyValue',
             function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     if (newValue == 'NotApplicable') {

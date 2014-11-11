@@ -112,12 +112,12 @@ namespace DynamicContent.Mvc.Models
         bool? DisableCanonicalUrlMetaTag { get; set; }
 
         /// <summary>
-        /// Gets or sets the parent selection mode.
+        /// Gets or sets the parent filtering mode.
         /// </summary>
         /// <value>
-        /// The parent selection mode.
+        /// The parent filtering mode.
         /// </value>
-        ParentSelectionMode ParentSelectionMode { get; set; }
+        ParentFilterMode ParentFilterMode { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the currently open parent.

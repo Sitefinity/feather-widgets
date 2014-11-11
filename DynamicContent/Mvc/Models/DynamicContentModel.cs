@@ -12,7 +12,7 @@ namespace DynamicContent.Mvc.Models
     public class DynamicContentModel : ContentModelBase, IDynamicContentModel
     {
         /// <inheritdoc />
-        public ParentSelectionMode ParentSelectionMode { get; set; }
+        public ParentFilterMode ParentFilterMode { get; set; }
 
         /// <inheritdoc />
         public string CurrentlyOpenParentType { get; set; }

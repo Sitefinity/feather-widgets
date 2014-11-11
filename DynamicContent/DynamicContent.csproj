@@ -151,7 +151,7 @@
     <Compile Include="Mvc\Models\DesignerModelHelper.cs" />
     <Compile Include="Mvc\Models\DynamicContentModel.cs" />
     <Compile Include="Mvc\Models\IDynamicContentModel.cs" />
-    <Compile Include="Mvc\Models\ParentSelectionMode.cs" />
+    <Compile Include="Mvc\Models\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\DynamicContentResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
