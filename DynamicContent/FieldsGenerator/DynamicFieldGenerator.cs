@@ -20,19 +20,19 @@ namespace DynamicContent.FieldsGenerator
         {
             this.moduleType = moduleType;
 
-            FieldContexts.Add(new DynamicFieldContext("LongTextField", new LongTextFieldGenerationStrategy()));
+            FieldGenerators.Add(new LongTextAreaFieldGenerationStrategy());
             //fieldContexts.Add(new DynamicFieldContext("MediaTypeImagesSection"));
-            FieldContexts.Add(new DynamicFieldContext("ShortTextField", new ShortTextFieldGenerationStrategy(moduleType)));
+            FieldGenerators.Add(new ShortTextFieldGenerationStrategy(moduleType));
             //fieldContexts.Add(new DynamicFieldContext("MultipleChoiceSection"));
             //fieldContexts.Add(new DynamicFieldContext("YesNoSection"));
-            FieldContexts.Add(new DynamicFieldContext("DateField", new DateFieldGenerationStrategy()));
-            FieldContexts.Add(new DynamicFieldContext("NumberField", new NumberFieldGenerationStrategy()));
-            FieldContexts.Add(new DynamicFieldContext("PriceField", new PriceFieldGenerationStrategy()));
+            FieldGenerators.Add(new DateFieldGenerationStrategy());
+            FieldGenerators.Add(new NumberFieldGenerationStrategy());
+            FieldGenerators.Add(new PriceFieldGenerationStrategy());
             //fieldContexts.Add(new DynamicFieldContext("LongFieldsTypeTextAreaSection"));
             //fieldContexts.Add(new DynamicFieldContext("MediaVideoSection"));
             //fieldContexts.Add(new DynamicFieldContext("MediaFilesSection"));
             //fieldContexts.Add(new DynamicFieldContext("AddressFieldSection"));
-            //fieldContexts.Add(new DynamicFieldContext("ClassificationSection"));
+            FieldGenerators.Add(new ClassificationFieldGenerationStrategy());
             //fieldContexts.Add(new DynamicFieldContext("RelatedMediaSection"));
             //fieldContexts.Add(new DynamicFieldContext("RelatedDataSection"));
         }
@@ -45,14 +45,14 @@ namespace DynamicContent.FieldsGenerator
         {
             StringBuilder fieldsSectionBuilder = new StringBuilder();
 
-            foreach (var fieldContext in this.FieldContexts)
+            foreach (var fieldGenerator in this.FieldGenerators)
             {
-                var fieldsForType = this.moduleType.Fields.Where(fieldContext.FieldGenerationStrategy.GetFieldCondition);
+                var fieldsForType = this.moduleType.Fields.Where(fieldGenerator.GetFieldCondition);
                 if (fieldsForType.Count() != 0)
                 {
                     foreach (DynamicModuleField currentField in fieldsForType)
                     {
-                        fieldsSectionBuilder.Append(fieldContext.FieldGenerationStrategy.GetFieldMarkup(currentField));
+                        fieldsSectionBuilder.Append(fieldGenerator.GetFieldMarkup(currentField));
                         fieldsSectionBuilder.Append(DynamicFieldGenerator.emptyLine);
                     }                   
                 }
@@ -66,9 +66,9 @@ namespace DynamicContent.FieldsGenerator
         }
 
         /// <summary>
-        /// The field contexts
+        /// The field generators
         /// </summary>
-        public IList<DynamicFieldContext> FieldContexts = new List<DynamicFieldContext>();
+        public IList<FieldGenerationStrategy> FieldGenerators = new List<FieldGenerationStrategy>();
         private static readonly string emptyLine = "\r\n";
 
         private DynamicModuleType moduleType;

@@ -1,10 +1,5 @@
-﻿using DynamicContent.FieldsGenerator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using DynamicContent.FieldsGenerator;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace DynamicContent.Mvc.Helpers
@@ -17,12 +12,6 @@ namespace DynamicContent.Mvc.Helpers
             var dynamicfieldHelper = generator.GenerateDetailDynamicFieldSection();
 
             return new MvcHtmlString(dynamicfieldHelper);
-        }
-
-        public static MvcHtmlString LongTextField(this HtmlHelper helper, string dynamicFieldItem, string cssClass = "")
-        {
-            helper.ViewBag.CssClass = cssClass;
-            return ASP.PartialExtensions.Partial(helper, "LongTextField", dynamicFieldItem);
-        }
+        }      
     }
 }

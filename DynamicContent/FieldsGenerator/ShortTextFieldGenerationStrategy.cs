@@ -40,6 +40,6 @@ namespace DynamicContent.FieldsGenerator
         }
 
         private DynamicModuleType moduleType;
-        private const string fieldMarkupTempalte = "@Html.Sitefinity.ShortTextField(Model.Item.{0})";
+        private const string fieldMarkupTempalte = "@Html.Sitefinity().ShortTextField(Model.Item.{0})";
     }
 }

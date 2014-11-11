@@ -29,6 +29,6 @@ namespace DynamicContent.FieldsGenerator
             return markup;
         }
 
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity.DateField(Model.Item.{0}, ""MMM d, yyyy, HH:mm tt"")";
+        private const string fieldMarkupTempalte = @"@Html.Sitefinity().DateField(Model.Item.{0}, ""MMM d, yyyy, HH:mm tt"")";
     }
 }

@@ -29,6 +29,6 @@ namespace DynamicContent.FieldsGenerator
             return markup;
         }
 
-        private const string fieldMarkupTempalte = "@Html.Sitefinity.NumberField(Model.Item.{0}, {1})";
+        private const string fieldMarkupTempalte = "@Html.Sitefinity().NumberField(Model.Item.{0}, {1})";
     }
 }

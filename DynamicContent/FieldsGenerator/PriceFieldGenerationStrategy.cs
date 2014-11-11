@@ -29,6 +29,6 @@ namespace DynamicContent.FieldsGenerator
             return markup;
         }
 
-        private const string fieldMarkupTempalte = "@Html.Sitefinity.PriceField(Model.Item.{0})";
+        private const string fieldMarkupTempalte = "@Html.Sitefinity().PriceField(Model.Item.{0})";
     }
 }

@@ -143,12 +143,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicFieldContext.cs" />
+    <Compile Include="FieldsGenerator\ClassificationFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\DateFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\DynamicFieldGenerator.cs" />
     <Compile Include="DynamicWidgetInitializer.cs" />
     <Compile Include="FieldsGenerator\FieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\LongTextFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\LongTextAreaFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\NumberFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\PriceFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\ShortTextFieldGenerationStrategy.cs" />
@@ -169,12 +169,9 @@
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Shared\Detail.DefaultDetailPage.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Shared\List.DefaultDynamicContentList.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\LongTextField.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mvc\Views\Shared\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\DynamicContent\designerview-simple.js" />
   </ItemGroup>
