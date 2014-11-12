@@ -117,6 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonOperations\DynamicModules\DynamicModulePressArticleOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />

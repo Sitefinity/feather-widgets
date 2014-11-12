@@ -71,5 +71,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new DynamicModulesOperations();
         }
+
+        /// <summary>
+        /// Entry point for Dynamic modules Press Article operations.
+        /// </summary>
+        /// <returns>DynamicModulePressArticleOperations instance.</returns>
+        public static DynamicModulePressArticleOperations DynamicModulePressArticle()
+        {
+            return new DynamicModulePressArticleOperations();
+        }
     }
 }
