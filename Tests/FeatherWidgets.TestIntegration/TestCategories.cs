@@ -12,5 +12,6 @@
         public const string Navigation = "Navigation";
         public const string News = "News";
         public const string ContentBlock = "ContentBlock";
+        public const string DynamicWidgets = "DynamicWidgets";
     }
 }

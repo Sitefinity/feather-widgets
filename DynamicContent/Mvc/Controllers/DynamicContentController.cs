@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
@@ -13,6 +13,8 @@ using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Frontend.Mvc;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 
 namespace DynamicContent.Mvc.Controllers
 {
@@ -20,6 +22,7 @@ namespace DynamicContent.Mvc.Controllers
     /// This class represents a controller for Dynamic Content widget.
     /// </summary>
     [Localization(typeof(DynamicContentResources))]
+    [ControllerMetadataAttribute(IsTemplatableControl = false)]
     public class DynamicContentController : Controller
     {
         #region Properties
