@@ -146,6 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FieldsGenerator\ClassificationFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\RelatedMediaFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\RelatedDataFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\DateFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\DynamicFieldGenerator.cs" />
     <Compile Include="DynamicWidgetInitializer.cs" />
