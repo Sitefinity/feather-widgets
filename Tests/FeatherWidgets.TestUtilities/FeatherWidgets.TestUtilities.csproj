@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data\DynamicModules\PressRelease.zip" />
+    <EmbeddedResource Include="Data\DynamicModules\HierarchicalModule.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

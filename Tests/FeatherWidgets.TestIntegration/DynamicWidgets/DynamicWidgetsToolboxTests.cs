@@ -6,8 +6,12 @@ using System.Reflection;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity;
+using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Builder;
+using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestIntegration.DynamicWidgets
 {
@@ -22,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         public void Setup()
         {
             ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, "Module Installations");
+            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
         }
 
         [Test]
@@ -31,10 +35,23 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyGeneratedWidgetInPageToolbox()
         {
-            Assert.IsTrue(ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(DynamicWidgetSection).Tools.Count.Equals(2), "Widgets count is unexpected.");
-            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(DynamicWidgetSection, DynamicWidgetMVCTitle), "Widget not found: " + DynamicWidgetMVCTitle);
-            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(DynamicWidgetSection, DynamicWidgetTitle), "Widget not found: " + DynamicWidgetTitle);
-        }      
+            string[] widgets = new string[] 
+            { 
+                DynamicWidgetMVCTitle, 
+                DynamicWidgetTitle, 
+                DynamicChild1WidgetTitle, 
+                DynamicChild1WidgetMVCTitle,
+                DynamicChild2WidgetTitle,
+                DynamicChild2WidgetMVCTitle
+            };
+
+            Assert.IsTrue(ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(DynamicWidgetSection).Tools.Count.Equals(6), "Widgets count is unexpected.");
+
+            foreach (var widget in widgets)
+            {
+                Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(DynamicWidgetSection, widget), "Widget not found: " + widget);
+            }
+        }
 
         [FixtureTearDown]
         public void Teardown()
@@ -42,11 +59,15 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, TransactionName);
         }
 
-        private const string ModuleName = "Press Release";
-        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
-        private const string DynamicWidgetSection = "Press Release";
-        private const string DynamicWidgetMVCTitle = "Press Articles MVC";
-        private const string DynamicWidgetTitle = "Press Articles";
+        private const string ModuleName = "Hierarchical Module";
+        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.HierarchicalModule.zip";
+        private const string DynamicWidgetSection = "Hierarchical Module";
+        private const string DynamicWidgetMVCTitle = "Root Content Types MVC";
+        private const string DynamicWidgetTitle = "Root Content Types";
+        private const string DynamicChild1WidgetTitle = "Child 1 Types";
+        private const string DynamicChild1WidgetMVCTitle = "Child 1 Types MVC";
+        private const string DynamicChild2WidgetTitle = "Child 2 Types";
+        private const string DynamicChild2WidgetMVCTitle = "Child 2 Types MVC";
         private const string TransactionName = "Module Installations";
     }        
 }
