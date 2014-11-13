@@ -585,5 +585,20 @@ namespace DynamicContent.Mvc.StringResources
                 return this["FromSelected"];
             }
         }
+
+        /// <summary>
+        /// Displays {ContentTypePlural} from the currently open {ParentTypeSingular}
+        /// </summary>
+        [ResourceEntry("DisplaysFromCurrentlyOpen",
+            Value = "Displays {0} from the currently open {1}",
+            Description = "Displays {ContentTypePlural} from the currently open {ParentTypeSingular}",
+            LastModified = "2014/11/12")]
+        public string DisplaysFromCurrentlyOpen
+        {
+            get
+            {
+                return this["DisplaysFromCurrentlyOpen"];
+            }
+        }
     }
 }

@@ -150,6 +150,15 @@ namespace DynamicContent.Mvc.Models
         ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page);
 
         /// <summary>
+        /// Creates a view model for use in list views.
+        /// </summary>
+        /// <param name="parentItem">Parent item filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>A view model for use in list views.</returns>
+        /// <exception cref="System.ArgumentException">'page' argument has to be at least 1.;page</exception>
+        ContentListViewModel CreateListViewModel(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int page);
+
+        /// <summary>
         /// Creates the details view model.
         /// </summary>
         /// <param name="item">The item.</param>
