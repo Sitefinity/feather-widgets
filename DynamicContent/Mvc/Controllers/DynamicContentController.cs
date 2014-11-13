@@ -31,7 +31,7 @@ namespace DynamicContent.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DynamicContentResources))]
     [ControllerMetadataAttribute(IsTemplatableControl = false)]
-    public class DynamicContentController : Controller, ISelfRoutingController
+    public class DynamicContentController : Controller, ISelfRoutingController, IContentLocatableView
     {
         #region Properties
 
