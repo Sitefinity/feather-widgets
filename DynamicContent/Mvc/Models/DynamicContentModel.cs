@@ -33,6 +33,23 @@ namespace DynamicContent.Mvc.Models
         }
 
         /// <inheritdoc />
+        public virtual ContentListViewModel CreateListViewModel(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int page)
+        {
+            if (page < 1)
+                throw new ArgumentException("'page' argument has to be at least 1.", "page");
+
+            var manager = DynamicModuleManager.GetManager(this.ProviderName);
+            var query = manager.GetItemSuccessors(parentItem, this.ContentType);
+            if (query == null)
+                return this.CreateListViewModelInstance();
+
+            var viewModel = this.CreateListViewModelInstance();
+            this.PopulateListViewModel(page, query, viewModel);
+
+            return viewModel;
+        }
+
+        /// <inheritdoc />
         protected override string CompileFilterExpression()
         {
             var baseExpression = base.CompileFilterExpression();
