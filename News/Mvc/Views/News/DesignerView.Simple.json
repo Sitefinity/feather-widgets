@@ -3,7 +3,6 @@
     "scripts": [
     "Mvc/Scripts/data-providers.js",
     "Mvc/Scripts/expander.js",
-    "Mvc/Scripts/sf-loading.js",
     "Mvc/Scripts/style-dropdown.js",
     "Mvc/Scripts/Angular/angular-resource.min.js",
     "Services/services.js",
