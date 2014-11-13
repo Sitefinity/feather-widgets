@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             mvcProxy.Settings = new ControllerSettings(dynamicController);
             mvcProxy.WidgetName = WidgetName;          
 
-           var modelItems = dynamicController.Model.CreateListViewModel(null, 1);
+           var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
            var dynamicItems = modelItems.Items.ToList();
            int itemsCount = dynamicItems.Count;
 
