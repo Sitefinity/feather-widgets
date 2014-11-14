@@ -1,4 +1,5 @@
-﻿using DynamicContent.Mvc.Helpers;
+﻿using DynamicContent.Mvc.Controllers;
+using DynamicContent.Mvc.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.Resources.Resolvers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
@@ -49,14 +51,22 @@ namespace DynamicContent
         /// <returns></returns>
         public Guid InstallDefaultMasterTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
-            var area = string.Format("~/Frontend-Assembly/{0}/", this.GetType().Assembly.GetName().Name);
-            var resourceName = area + "Mvc/Views/{0}/List.{1}.cshtml".Arrange(moduleType.TypeName, moduleType.TypeName);
+            var area = moduleType.DisplayName;
+            var moduleTitle = dynamicModule.Title;
+            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(area);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var content = this.GenerateMasterTemplate();
+            var controlType = typeof(DynamicContentController).FullName;
 
-            var templateId = this.RegisterTemplate(area, resourceName, ".cshtml", content, dynamicTypeName + "_MVC");
-            
-            return templateId;
+            var listTemplateName = string.Format("List.{0}", area);
+            //var nameList = string.Format("MVC List of {0}", pluralModuleTypeName.ToLowerInvariant());
+            var friendlyControlList = string.Format("MVC {0} - {1} - list", moduleTitle, pluralModuleTypeName);
+            var nameForDevelopersList = listTemplateName.Replace('.', '-');
+
+            var content = this.GenerateMasterTemplate();
+            var listTemplate = this.RegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, dynamicTypeName, controlType);
+
+
+            return listTemplate.Id;
         }
 
         /// <summary>
@@ -67,14 +77,21 @@ namespace DynamicContent
         /// <returns></returns>
         public Guid InstallDefaultDetailTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
-            var area = string.Format("~/Frontend-Assembly/{0}/", this.GetType().Assembly.GetName().Name);
-            var resourceName = area + "Mvc/Views/{0}/Detail.{1}.cshtml".Arrange(moduleType.TypeName, moduleType.TypeName);
+            var area = moduleType.DisplayName;
+            var moduleTitle = dynamicModule.Title;
+            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(area);
             var dynamicTypeName = moduleType.GetFullTypeName();
+            var controlType = typeof(DynamicContentController).FullName;
+
+            var detailTemplateName = string.Format("Detail.{0}", area);
+            //var nameDetail = string.Format("MVC Full {0} content", area.ToLowerInvariant()); ;
+            var friendlyControlDetail = string.Format("MVC {0} - {1} - single", moduleTitle, pluralModuleTypeName);
+            var nameForDevelopersDetail = detailTemplateName.Replace('.', '-');
+
             var content = this.GenerateDetailTemplate(moduleType);
+            var detailTemplate = this.RegisteredTemplate(area, detailTemplateName, nameForDevelopersDetail, friendlyControlDetail, content, dynamicTypeName, controlType);
 
-            var templateId = this.RegisterTemplate(area, resourceName, ".cshtml", content, dynamicTypeName + "_MVC");
-
-            return templateId;
+            return detailTemplate.Id;
         }
 
         /// <summary>
@@ -126,23 +143,36 @@ namespace DynamicContent
         }
 
         /// <summary>
-        /// Registers the template.
+        /// Get Registered Template
         /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <param name="resourceType">Type of the resource.</param>
-        /// <param name="content">The content.</param>
-        /// <param name="condition">The condition.</param>
-        private Guid RegisterTemplate(string area, string resourceName, string resourceType, string content, string condition)
+        /// <param name="area">the area name</param>
+        /// <param name="name">name for the widget</param>
+        /// <param name="nameForDevelopers">name for developers</param>
+        /// <param name="friendlyControlName">friendly control name</param>
+        /// <param name="content">content</param>
+        /// <param name="condition">condition</param>
+        /// <param name="controlType">controlType</param>
+        /// <returns>ControlPresentation</returns>
+        private ControlPresentation RegisteredTemplate(string area, string name, string nameForDevelopers, string friendlyControlName, string content, string condition, string controlType)
         {
+            var versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
+
             var template = this.pageManager.CreatePresentationItem<ControlPresentation>();
-            template.NameForDevelopers = resourceName;
             template.AreaName = area;
-            template.DataType = resourceType;
             template.Data = content;
             template.Condition = condition;
+            template.ControlType = controlType;
+            template.Name = name;
+            template.NameForDevelopers = nameForDevelopers;
+            template.FriendlyControlName = friendlyControlName;
+            template.IsDifferentFromEmbedded = true;
+            template.DataType = Presentation.AspNetTemplate;
+
             this.pageManager.SaveChanges();
 
-            return template.Id;
+            versioningManager.CreateVersion(template, true);
+            versioningManager.SaveChanges();
+            return template;
         }
 
         private readonly PageManager pageManager;
