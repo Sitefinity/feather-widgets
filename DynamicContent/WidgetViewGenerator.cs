@@ -51,13 +51,13 @@ namespace DynamicContent
         /// <returns></returns>
         public Guid InstallDefaultMasterTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
-            var area = moduleType.DisplayName;
             var moduleTitle = dynamicModule.Title;
-            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(area);
+            var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
+            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
             var controlType = typeof(DynamicContentController).FullName;
 
-            var listTemplateName = string.Format("List.{0}", area);
+            var listTemplateName = string.Format("List.{0}", moduleType.DisplayName);
             //var nameList = string.Format("MVC List of {0}", pluralModuleTypeName.ToLowerInvariant());
             var friendlyControlList = string.Format("MVC {0} - {1} - list", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersList = listTemplateName.Replace('.', '-');
@@ -77,13 +77,13 @@ namespace DynamicContent
         /// <returns></returns>
         public Guid InstallDefaultDetailTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
-            var area = moduleType.DisplayName;
             var moduleTitle = dynamicModule.Title;
-            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(area);
+            var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
+            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
             var controlType = typeof(DynamicContentController).FullName;
 
-            var detailTemplateName = string.Format("Detail.{0}", area);
+            var detailTemplateName = string.Format("Detail.{0}", moduleType.DisplayName);
             //var nameDetail = string.Format("MVC Full {0} content", area.ToLowerInvariant()); ;
             var friendlyControlDetail = string.Format("MVC {0} - {1} - single", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersDetail = detailTemplateName.Replace('.', '-');
