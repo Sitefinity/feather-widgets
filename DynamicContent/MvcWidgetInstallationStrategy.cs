@@ -156,73 +156,9 @@ namespace DynamicContent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "dynamicModule")]
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
-            var moduleTitle = dynamicModule.Title;
-
-            var area = string.Format("{0} - {1}", moduleTitle, dynamicModuleType.DisplayName);
-
-            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(dynamicModuleType.DisplayName);
-
-            var listTemplateName = string.Format("List.{0}", dynamicModuleType.DisplayName);
-            //var nameList = string.Format("MVC List of {0}", pluralModuleTypeName.ToLowerInvariant());
-            var friendlyControlList = string.Format("MVC {0} - {1} - list", moduleTitle, pluralModuleTypeName);
-            var nameForDevelopersList = listTemplateName.Replace('.', '-');
-
-            var detailTemplateName = string.Format("Detail.{0}", dynamicModuleType.DisplayName);
-            //var nameDetail = string.Format("MVC Full {0} content", area.ToLowerInvariant()); ;
-            var friendlyControlDetail = string.Format("MVC {0} - {1} - single", moduleTitle, pluralModuleTypeName);
-            var nameForDevelopersDetail = detailTemplateName.Replace('.', '-');
-
-            var dynamicTypeName = dynamicModuleType.GetFullTypeName();
-            var content = "<h1>Dynamic module template for <strong>{0}</strong>, installed in the database.</h1>".Arrange(dynamicTypeName);
-
-            var controlType = typeof(DynamicContentController).FullName;
-
-            var versioningManager = VersionManager.GetManager();
-
-            var listTemplate = this.GetRegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, dynamicTypeName, controlType);
-            versioningManager.CreateVersion(listTemplate, true);
-
-            var detailTemplate = this.GetRegisteredTemplate(area, detailTemplateName, nameForDevelopersDetail, friendlyControlDetail, content, dynamicTypeName, controlType);
-            versioningManager.CreateVersion(detailTemplate, true);
-            
-            versioningManager.SaveChanges();
-        }
-
-        /// <summary>
-        /// Get Registered Template
-        /// </summary>
-        /// <param name="area">the area name</param>
-        /// <param name="name">name for the widget</param>
-        /// <param name="nameForDevelopers">name for developers</param>
-        /// <param name="friendlyControlName">friendly control name</param>
-        /// <param name="content">content</param>
-        /// <param name="condition">condition</param>
-        /// <param name="controlType">controlType</param>
-        /// <returns>ControlPresentation</returns>
-        private ControlPresentation GetRegisteredTemplate(string area, string name, string nameForDevelopers, string friendlyControlName, string content, string condition, string controlType)
-        {
-            var template = this.pageManager.CreatePresentationItem<ControlPresentation>();
-            template.AreaName = area;
-            template.Data = content;
-            template.Condition = condition;
-            template.ControlType = controlType;
-            template.Name = name;
-            template.NameForDevelopers = nameForDevelopers;
-            template.FriendlyControlName = friendlyControlName;
-            template.IsDifferentFromEmbedded = true;
-            template.DataType = Presentation.AspNetTemplate;
-
-            this.pageManager.SaveChanges();
-
-            return template;
-        }
-
-        private Type GetControlTypeFromKey(string key)
-        {
-            int indexOfDash = key.IndexOf("-");
-            string typeName = (indexOfDash < 0) ? key : (key.Substring(0, indexOfDash));
-
-            return TypeResolutionService.ResolveType(typeName);
+            var viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager);
+            viewGenerator.InstallDefaultMasterTemplate(dynamicModule, dynamicModuleType);
+            viewGenerator.InstallDefaultDetailTemplate(dynamicModule, dynamicModuleType);
         }
 
         /// <summary>
