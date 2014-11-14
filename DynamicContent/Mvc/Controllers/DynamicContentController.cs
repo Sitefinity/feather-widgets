@@ -253,6 +253,16 @@ namespace DynamicContent.Mvc.Controllers
         [NonAction]
         public IEnumerable<IContentLocationInfo> GetLocations()
         {
+            // The IControlBehaviorResolver can set WidgetName. This information is persisted in the MVC proxy control.
+            if (this.ViewBag.WidgetName as string != null)
+            {
+                var dynamicType = this.GetDynamicContentType((string)this.ViewBag.WidgetName);
+                if (dynamicType != null)
+                {
+                    this.Model.ContentType = TypeResolutionService.ResolveType(dynamicType.GetFullTypeName());
+                }
+            }
+
             return this.Model.GetLocations();
         }
 
