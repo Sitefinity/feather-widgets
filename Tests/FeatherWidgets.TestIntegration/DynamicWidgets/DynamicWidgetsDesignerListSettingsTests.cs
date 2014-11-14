@@ -3,6 +3,7 @@ using DynamicContent.Mvc.Controllers;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
@@ -26,7 +27,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify all items per page.")]
+        [Description("Verify paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUsePagingFunctionality()
         {
             this.CreatePressArticleAndReturnTagId();
@@ -49,6 +50,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.Model.DisplayMode = ListDisplayMode.Paging;
             dynamicController.Model.ItemsPerPage = itemsPerPage;
             mvcProxy.Settings = new ControllerSettings(dynamicController);
             mvcProxy.WidgetName = WidgetName;
@@ -82,6 +84,93 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                             break;
                     }
                 } 
+            }
+            finally
+            {
+                this.pageOperations.DeletePages();
+                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify use limit functionality.")]
+        public void DynamicWidgetsDesignerListSettings_VerifyUseLimitFunctionality()
+        {
+            this.CreatePressArticleAndReturnTagId();
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+            this.pageOperations = new PagesOperations();
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "DynamicPage";
+            string pageTitlePrefix = testName + "Dynamic Page";
+            string urlNamePrefix = testName + "dynamic-page";
+            int index = 1;
+            int itemsPerPage = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            var mvcProxy = new MvcWidgetProxy();
+            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+            var dynamicController = new DynamicContentController();
+            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
+            dynamicController.Model.ItemsPerPage = itemsPerPage;
+            mvcProxy.Settings = new ControllerSettings(dynamicController);
+            mvcProxy.WidgetName = WidgetName;
+
+            try
+            {
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(this.dynamicTitles[2]), "The dynamic item with this title was not found!");
+                Assert.IsFalse(responseContent.Contains(this.dynamicTitles[0]), "The dynamic item with this title was found!");
+                Assert.IsFalse(responseContent.Contains(this.dynamicTitles[1]), "The dynamic item with this title was found!");
+            }
+            finally
+            {
+                this.pageOperations.DeletePages();
+                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify No limit and paging functionality.")]
+        public void DynamicWidgetsDesignerListSettings_VerifyNoLimitAndPagingFunctionality()
+        {
+            this.CreatePressArticleAndReturnTagId();
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+            this.pageOperations = new PagesOperations();
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "DynamicPage";
+            string pageTitlePrefix = testName + "Dynamic Page";
+            string urlNamePrefix = testName + "dynamic-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            var mvcProxy = new MvcWidgetProxy();
+            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+            var dynamicController = new DynamicContentController();
+            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.Model.DisplayMode = ListDisplayMode.All;
+            mvcProxy.Settings = new ControllerSettings(dynamicController);
+            mvcProxy.WidgetName = WidgetName;
+
+            try
+            {
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                {
+                    Assert.IsTrue(responseContent.Contains(this.dynamicTitles[i]), "The dynamic item with this title was not found!");
+                }
             }
             finally
             {
