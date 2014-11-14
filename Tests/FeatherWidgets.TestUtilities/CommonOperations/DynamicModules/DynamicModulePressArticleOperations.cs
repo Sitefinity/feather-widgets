@@ -132,5 +132,21 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // You need to call SaveChanges() in order for the items to be actually persisted to data store
             dynamicModuleManager.SaveChanges();
         }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
+        public void PublishPressArticleWithSpecificDate(DynamicContent pressArticleItem, DateTime specificDate)
+        {
+            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
+            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
+            var providerName = string.Empty;
+
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            
+            ////We can set a date and time in the future, for the item to be published
+            dynamicModuleManager.Lifecycle.PublishWithSpecificDate(pressArticleItem, specificDate);
+
+            // You need to call SaveChanges() in order for the items to be actually persisted to data store
+            dynamicModuleManager.SaveChanges();
+        }
     }
 }
