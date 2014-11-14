@@ -8,15 +8,16 @@ using Telerik.Sitefinity.DynamicModules.Builder.Model;
 namespace DynamicContent.FieldsGenerator
 {
     /// <summary>
-    /// This class represents field generation strategy for price dynamic fields.
+    /// This class represents field generation strategy for long rich text dynamic fields.
     /// </summary>
-    public class PriceFieldGenerationStrategy : FieldGenerationStrategy
+    public class LongRichTextFieldGenerationStrategy : FieldGenerationStrategy
     {
         /// <inheritdoc/>
         public override bool GetFieldCondition(DynamicModuleField field)
         {
             var condition = base.GetFieldCondition(field)
-                && field.FieldType == FieldType.Currency;
+                && field.FieldType == FieldType.LongText
+                && field.WidgetTypeName.EndsWith("TextField");
 
             return condition;
         }
@@ -24,12 +25,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(PriceFieldGenerationStrategy.fieldMarkupTempalte, field.Name, PriceFieldGenerationStrategy.currencyFormat);
+            var longTextMarkup = String.Format(LongRichTextFieldGenerationStrategy.fieldMarkupTempalte, field.Name);
 
-            return markup;
+            return longTextMarkup;
         }
 
-        private const string currencyFormat = "{0:C}";
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().PriceField((string)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemPrice"")";
+        private const string fieldMarkupTempalte = @"@Html.Sitefinity().LongRichTextField((string)Model.Item.{0}, ""{0}"", ""sfitemRichText"")";
     }
 }

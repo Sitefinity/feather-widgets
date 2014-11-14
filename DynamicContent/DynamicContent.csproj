@@ -146,6 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FieldsGenerator\ClassificationFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\ImagesFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\MultipleChoiceFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\YesNoFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\LongRichTextFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\RelatedMediaFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\RelatedDataFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\DateFieldGenerationStrategy.cs" />

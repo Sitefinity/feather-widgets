@@ -21,14 +21,14 @@ namespace DynamicContent.FieldsGenerator
             this.moduleType = moduleType;
 
             FieldGenerators.Add(new LongTextAreaFieldGenerationStrategy());
-            //fieldContexts.Add(new DynamicFieldContext("MediaTypeImagesSection"));
+            FieldGenerators.Add(new ImagesFieldGenerationStrategy());
             FieldGenerators.Add(new ShortTextFieldGenerationStrategy(moduleType));
-            //fieldContexts.Add(new DynamicFieldContext("MultipleChoiceSection"));
-            //fieldContexts.Add(new DynamicFieldContext("YesNoSection"));
+            FieldGenerators.Add(new MultipleChoiceFieldGenerationStrategy());
+            FieldGenerators.Add(new YesNoFieldGenerationStrategy());
             FieldGenerators.Add(new DateFieldGenerationStrategy());
             FieldGenerators.Add(new NumberFieldGenerationStrategy());
             FieldGenerators.Add(new PriceFieldGenerationStrategy());
-            //fieldContexts.Add(new DynamicFieldContext("LongFieldsTypeTextAreaSection"));
+            FieldGenerators.Add(new LongRichTextFieldGenerationStrategy());
             //fieldContexts.Add(new DynamicFieldContext("MediaVideoSection"));
             //fieldContexts.Add(new DynamicFieldContext("MediaFilesSection"));
             //fieldContexts.Add(new DynamicFieldContext("AddressFieldSection"));
@@ -54,11 +54,7 @@ namespace DynamicContent.FieldsGenerator
                     {
                         fieldsSectionBuilder.Append(fieldGenerator.GetFieldMarkup(currentField));
                         fieldsSectionBuilder.Append(DynamicFieldGenerator.emptyLine);
-                    }                   
-                }
-                else
-                {
-                    fieldsSectionBuilder.Append(DynamicFieldGenerator.emptyLine);
+                    }
                 }
             }
 

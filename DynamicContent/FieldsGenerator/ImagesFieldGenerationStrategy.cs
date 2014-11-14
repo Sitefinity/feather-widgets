@@ -8,15 +8,19 @@ using Telerik.Sitefinity.DynamicModules.Builder.Model;
 namespace DynamicContent.FieldsGenerator
 {
     /// <summary>
-    /// This class represents field generation strategy for price dynamic fields.
+    /// This class represents field generation strategy for image dynamic fields.
     /// </summary>
-    public class PriceFieldGenerationStrategy : FieldGenerationStrategy
+    /// <remarks>
+    /// Used for backward compatibility.
+    /// </remarks>
+    public class ImagesFieldGenerationStrategy : FieldGenerationStrategy
     {
         /// <inheritdoc/>
         public override bool GetFieldCondition(DynamicModuleField field)
         {
             var condition = base.GetFieldCondition(field)
-                && field.FieldType == FieldType.Currency;
+                && field.FieldType == FieldType.Media
+                && field.MediaType == "image";
 
             return condition;
         }
@@ -24,12 +28,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(PriceFieldGenerationStrategy.fieldMarkupTempalte, field.Name, PriceFieldGenerationStrategy.currencyFormat);
+            var markup = String.Format(ImagesFieldGenerationStrategy.fieldMarkupTempalte, field.Name, field.Title);
 
             return markup;
         }
 
-        private const string currencyFormat = "{0:C}";
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().PriceField((string)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemPrice"")";
+        private const string fieldMarkupTempalte = @"@Html.Sitefinity().ImageField((ContentLink)Model.Item.{0}.FirstOrDefault(), ""{0}"", ""{1}"")";
     }
 }
