@@ -4,19 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace DynamicContent.FieldsGenerator
 {
     /// <summary>
-    /// This class represents field generation strategy for price dynamic fields.
+    /// This class represents field generation strategy for yes/no dynamic fields.
     /// </summary>
-    public class PriceFieldGenerationStrategy : FieldGenerationStrategy
+    public class YesNoFieldGenerationStrategy : FieldGenerationStrategy
     {
         /// <inheritdoc/>
         public override bool GetFieldCondition(DynamicModuleField field)
         {
             var condition = base.GetFieldCondition(field)
-                && field.FieldType == FieldType.Currency;
+                && field.FieldType == FieldType.YesNo;
 
             return condition;
         }
@@ -24,12 +26,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(PriceFieldGenerationStrategy.fieldMarkupTempalte, field.Name, PriceFieldGenerationStrategy.currencyFormat);
+            var markup = string.Format(YesNoFieldGenerationStrategy.fieldMarkupTempalte, field.Name, field.Title);
 
             return markup;
         }
 
-        private const string currencyFormat = "{0:C}";
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().PriceField((string)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemPrice"")";
+        private const string fieldMarkupTempalte = @"@Html.Sitefinity().YesNoField((bool)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemChoices"")";
     }
 }

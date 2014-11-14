@@ -34,12 +34,12 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(ShortTextFieldGenerationStrategy.fieldMarkupTempalte, field.Name);
+            var markup = String.Format(ShortTextFieldGenerationStrategy.fieldMarkupTempalte, field.Name, field.Title);
 
             return markup;
         }
 
         private DynamicModuleType moduleType;
-        private const string fieldMarkupTempalte = "@Html.Sitefinity().ShortTextField(Model.Item.{0})";
+        private const string fieldMarkupTempalte = @"@Html.Sitefinity().ShortTextField((string)Model.Item.{0}, ""{0}"", ""{1}"",""sfitemShortTxtWrp"")";
     }
 }
