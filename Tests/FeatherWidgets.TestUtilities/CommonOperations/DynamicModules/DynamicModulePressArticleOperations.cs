@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <param name="dynamicValue">Dynamic guid</param>
         /// <param name="tag">Dynamic tag</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dynamicurl"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public void CreatePressArticle(string title, string dynamicurl, Taxon tag = null)
+        public void CreatePressArticle(string title, string dynamicurl, Guid tag)
         {
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             if (tag != null)
             {
-                pressArticleItem.Organizer.AddTaxa("Tags", tag.Id);
+                pressArticleItem.Organizer.AddTaxa("Tags", tag);
             }
 
             pressArticleItem.SetString("UrlName", dynamicurl);
@@ -114,6 +114,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var myCollection = dynamicModuleManager.GetDataItems(pressArticleType).ToList();
             //// At this point myCollection contains the items from type pressArticleType
             return myCollection;
-        }       
+        }
+
+        // Demonstrates how pressArticleItem is deleted
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
+        public void DeletePressArticle(List<DynamicContent> itemsToDelete)
+        {
+            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
+            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
+            var providerName = string.Empty;
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+           
+            for (int i = 0; i < itemsToDelete.Count; i++)
+            //// This is how you delete the pressArticleItem
+                dynamicModuleManager.DeleteDataItem(itemsToDelete[i]);
+
+            // You need to call SaveChanges() in order for the items to be actually persisted to data store
+            dynamicModuleManager.SaveChanges();
+        }
     }
 }
