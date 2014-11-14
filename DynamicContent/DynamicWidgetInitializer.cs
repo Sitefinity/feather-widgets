@@ -34,13 +34,13 @@ namespace DynamicContent
         /// </summary>
         private static void RegisterDynamicTemplatableControl()
         {
-            var dynamicContentTypeNames = DynamicWidgetInitializer.GetActiveDynamicModuleTypes().Select(x => x.DisplayName);
+            var dynamicContentType = DynamicWidgetInitializer.GetActiveDynamicModuleTypes();
 
             var dynamicContentControllerType = typeof(DynamicContentController);
 
-            foreach (var widgetName in dynamicContentTypeNames)
+            foreach (var dynamicType in dynamicContentType)
             {
-                var mvcWidgetName = string.Format(CultureInfo.InvariantCulture, "MVC {0}", widgetName);
+                var mvcWidgetName = string.Format(CultureInfo.InvariantCulture, "{0} - {1}", dynamicType.ModuleName, dynamicType.DisplayName);
 
                 Telerik.Sitefinity.Modules.ControlTemplates.ControlTemplates.RegisterTemplatableControl(dynamicContentControllerType, dynamicContentControllerType, string.Empty, mvcWidgetName, mvcWidgetName);
             }
