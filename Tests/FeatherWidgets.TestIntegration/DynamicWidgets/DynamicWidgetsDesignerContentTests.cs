@@ -14,7 +14,7 @@ using Telerik.Sitefinity.Web;
 namespace FeatherWidgets.TestIntegration.DynamicWidgets
 {
     /// <summary>
-    /// This is a test class with tests related to dynamic widgets in toolbox section.
+    /// This is a test class with tests related to dynamic widgets in Content section.
     /// </summary>
     [TestFixture]
     [Description("This is a test class with tests related to dynamic widgets designer Content section.")]
