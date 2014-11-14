@@ -41,7 +41,7 @@ namespace DynamicContent.FieldsGenerator
             return markup;
         }
 
-        private const string singleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((ContentLink)Model.Item.{0}.FirstOrDefault(), ""{0}"", ""{1}"")";
+        private const string singleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)Model.Item.{0}).FirstOrDefault(), ""{0}"", ""{1}"")";
         private const string multiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"", ""{1}"")";
     }
 }
