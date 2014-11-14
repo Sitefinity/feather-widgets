@@ -157,7 +157,11 @@ namespace DynamicContent
         {
             var versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
 
-            var template = this.pageManager.CreatePresentationItem<ControlPresentation>();
+            var template = this.pageManager.GetPresentationItems<ControlPresentation>().Where(cp => cp.NameForDevelopers == nameForDevelopers && cp.AreaName == area).FirstOrDefault();
+            if (template == null)
+            {
+                template = this.pageManager.CreatePresentationItem<ControlPresentation>();
+            }
             template.AreaName = area;
             template.Data = content;
             template.Condition = condition;
