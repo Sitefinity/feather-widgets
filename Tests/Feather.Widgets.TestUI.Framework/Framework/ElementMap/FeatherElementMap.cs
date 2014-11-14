@@ -7,6 +7,7 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.News;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
 {
@@ -100,6 +101,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        public ModuleBuilderMap ModuleBuilder
+        {
+            get
+            {
+                if (this.moduleBuilderMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.moduleBuilderMap = new ModuleBuilderMap(this.find);
+                }
+
+                return this.moduleBuilderMap;
+            }
+
+            private set
+            {
+                this.moduleBuilderMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -112,5 +132,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private ContentMap contentMap;
         private NavigationMap navigationMap;
         private NewsMap newsMap;
+        private ModuleBuilderMap moduleBuilderMap;
     }
 }

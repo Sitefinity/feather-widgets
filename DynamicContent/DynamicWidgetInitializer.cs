@@ -42,7 +42,7 @@ namespace DynamicContent
             {
                 var mvcWidgetName = string.Format(CultureInfo.InvariantCulture, "MVC {0}", widgetName);
 
-                Telerik.Sitefinity.Modules.ControlTemplates.ControlTemplates.RegisterTemplatableControl(dynamicContentControllerType, dynamicContentControllerType, string.Empty, widgetName, mvcWidgetName);
+                Telerik.Sitefinity.Modules.ControlTemplates.ControlTemplates.RegisterTemplatableControl(dynamicContentControllerType, dynamicContentControllerType, string.Empty, mvcWidgetName, mvcWidgetName);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ModuleBuilder;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -46,6 +47,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public NewsWrapperFacade News()
         {
             return new NewsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides access to module builder.
+        /// </summary>
+        /// <returns>Returns the ModuleBuilderWrapperFacade.</returns>
+        public ModuleBuilderWrapperFacade ModuleBuilder()
+        {
+            return new ModuleBuilderWrapperFacade();
         }
     }
 }

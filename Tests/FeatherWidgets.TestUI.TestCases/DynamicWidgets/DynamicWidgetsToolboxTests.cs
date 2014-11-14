@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,61 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void DynamicModuleAddNewContentTypeVerifyPageToolbox()
         {
+            moduleName = "Press Release";
+
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(ModuleName);
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(moduleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenAddNewContentTypeWizardFromModuleDashboard();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().EnterContentTypeName(ContentTypeName, DevName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().ClickFinishEditButton();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().WaitForSystemRestart();
 
-            BAT.Arrange(this.TestName).ExecuteArrangement(this.ArrangementMethodTitle);
+            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfig");
+        }
+
+        /// <summary>
+        /// UI test DynamicModuleRemoveContentTypeVerifyPageToolbox
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        public void DynamicModuleRemoveContentTypeVerifyPageToolbox()
+        {
+            moduleName = "Music Collection";
+
+            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfigBeforeDeleteContentType");
+
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(moduleName);
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenFieldsEditor(moduleName, ContentTypeToDelete);
+            BATFeather.Wrappers().Backend().ModuleBuilder().ModuleBuilderEditContentTypeWrapper().DeleteContentType();
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().WaitForSystemRestart();
+
+            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfig");
+        }
+
+        /// <summary>
+        /// UI test DeactivateAndActivateDynamicModuleVerifyPageToolbox
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        public void DeactivateAndActivateDynamicModuleVerifyPageToolbox()
+        {
+            moduleName = "Press Release";
+
+            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfigBeforeDeactivate");
+            BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");
+
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().IsWidgetPresent(WidgetName, false);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Arrange(this.TestName).ExecuteArrangement("ActivateModule");
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().IsWidgetPresent(WidgetName, true);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
         protected override void ServerSetup()
         {
@@ -38,17 +86,11 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string ArrangementMethod
-        {
-            get
-            {
-                return ArrangementMethodTitle;
-            }
-        }
-
-        private const string ModuleName = "Press Release";
+        private string moduleName;
         private const string ContentTypeName = "Test Type";
         private const string DevName = "TestType";
-        private string ArrangementMethodTitle = "VerifyToolboxConfig";
+        private const string PageName = "TestPage";
+        private const string ContentTypeToDelete = "Songs";
+        private string WidgetName = "Press Articles MVC";
     }
 }
