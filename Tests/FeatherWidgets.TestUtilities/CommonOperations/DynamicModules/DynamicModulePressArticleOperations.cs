@@ -101,7 +101,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             dynamicModuleManager.SaveChanges();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1001:AvoidToListOnIQueryable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public List<DynamicContent> RetrieveCollectionOfPressArticles()
         {
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in

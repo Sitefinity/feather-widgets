@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Verify selected items per page.")]
@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Verify dynaimc items by tag.")]
@@ -147,7 +147,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Verify dynaimc items by tag.")]
@@ -221,7 +221,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Verify dynaimc items by tag.")]
