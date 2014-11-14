@@ -28,11 +28,20 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(ImagesFieldGenerationStrategy.fieldMarkupTempalte, field.Name, field.Title);
+            var markup = string.Empty;
+            if (field.AllowMultipleImages)
+            {
+                markup = String.Format(ImagesFieldGenerationStrategy.multiImageFieldMarkupTempalte, field.Name, field.Title);
+            }
+            else
+            {
+                markup = String.Format(ImagesFieldGenerationStrategy.singleImageFieldMarkupTempalte, field.Name, field.Title);
+            }
 
             return markup;
         }
 
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().ImageField((ContentLink)Model.Item.{0}.FirstOrDefault(), ""{0}"", ""{1}"")";
+        private const string singleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((ContentLink)Model.Item.{0}.FirstOrDefault(), ""{0}"", ""{1}"")";
+        private const string multiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"", ""{1}"")";
     }
 }

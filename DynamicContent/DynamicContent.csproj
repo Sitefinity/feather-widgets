@@ -146,6 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FieldsGenerator\ClassificationFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\DocumentsFieldGenerationStrategy.cs" />
+    <Compile Include="FieldsGenerator\VideosFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\ImagesFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\MultipleChoiceFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\YesNoFieldGenerationStrategy.cs" />

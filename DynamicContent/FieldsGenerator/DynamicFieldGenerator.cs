@@ -29,8 +29,8 @@ namespace DynamicContent.FieldsGenerator
             FieldGenerators.Add(new NumberFieldGenerationStrategy());
             FieldGenerators.Add(new PriceFieldGenerationStrategy());
             FieldGenerators.Add(new LongRichTextFieldGenerationStrategy());
-            //fieldContexts.Add(new DynamicFieldContext("MediaVideoSection"));
-            //fieldContexts.Add(new DynamicFieldContext("MediaFilesSection"));
+            FieldGenerators.Add(new VideosFieldGenerationStrategy());
+            FieldGenerators.Add(new DocumentsFieldGenerationStrategy());
             //fieldContexts.Add(new DynamicFieldContext("AddressFieldSection"));
             FieldGenerators.Add(new ClassificationFieldGenerationStrategy());
             FieldGenerators.Add(new RelatedMediaFieldGenerationStrategy());
