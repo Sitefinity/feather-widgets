@@ -156,16 +156,18 @@ namespace DynamicContent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "dynamicModule")]
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
-            var area = dynamicModuleType.DisplayName;
             var moduleTitle = dynamicModule.Title;
-            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(area);
 
-            var listTemplateName = string.Format("List.{0}", area);
+            var area = string.Format("{0} - {1}", moduleTitle, dynamicModuleType.DisplayName);
+
+            var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(dynamicModuleType.DisplayName);
+
+            var listTemplateName = string.Format("List.{0}", dynamicModuleType.DisplayName);
             //var nameList = string.Format("MVC List of {0}", pluralModuleTypeName.ToLowerInvariant());
             var friendlyControlList = string.Format("MVC {0} - {1} - list", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersList = listTemplateName.Replace('.', '-');
 
-            var detailTemplateName = string.Format("Detail.{0}", area);
+            var detailTemplateName = string.Format("Detail.{0}", dynamicModuleType.DisplayName);
             //var nameDetail = string.Format("MVC Full {0} content", area.ToLowerInvariant()); ;
             var friendlyControlDetail = string.Format("MVC {0} - {1} - single", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersDetail = detailTemplateName.Replace('.', '-');
@@ -184,14 +186,6 @@ namespace DynamicContent
             versioningManager.CreateVersion(detailTemplate, true);
             
             versioningManager.SaveChanges();
-        }
-
-        private Type GetControlTypeFromKey(string key)
-        {
-            int indexOfDash = key.IndexOf("-");
-            string typeName = (indexOfDash < 0) ? key : (key.Substring(0, indexOfDash));
-
-            return TypeResolutionService.ResolveType(typeName);
         }
 
         /// <summary>
@@ -221,6 +215,14 @@ namespace DynamicContent
             this.pageManager.SaveChanges();
 
             return template;
+        }
+
+        private Type GetControlTypeFromKey(string key)
+        {
+            int indexOfDash = key.IndexOf("-");
+            string typeName = (indexOfDash < 0) ? key : (key.Substring(0, indexOfDash));
+
+            return TypeResolutionService.ResolveType(typeName);
         }
 
         /// <summary>
