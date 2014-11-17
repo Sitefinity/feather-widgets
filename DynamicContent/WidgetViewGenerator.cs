@@ -59,7 +59,7 @@ namespace DynamicContent
 
             var listTemplateName = string.Format("List.{0}", moduleType.DisplayName);
             //var nameList = string.Format("MVC List of {0}", pluralModuleTypeName.ToLowerInvariant());
-            var friendlyControlList = string.Format("MVC {0} - {1} - list", moduleTitle, pluralModuleTypeName);
+            var friendlyControlList = string.Format("{0} - {1} - list (MVC)", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersList = listTemplateName.Replace('.', '-');
 
             var content = this.GenerateMasterTemplate();
@@ -85,7 +85,7 @@ namespace DynamicContent
 
             var detailTemplateName = string.Format("Detail.{0}", moduleType.DisplayName);
             //var nameDetail = string.Format("MVC Full {0} content", area.ToLowerInvariant()); ;
-            var friendlyControlDetail = string.Format("MVC {0} - {1} - single", moduleTitle, pluralModuleTypeName);
+            var friendlyControlDetail = string.Format("{0} - {1} - single (MVC)", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersDetail = detailTemplateName.Replace('.', '-');
 
             var content = this.GenerateDetailTemplate(moduleType);
