@@ -38,7 +38,14 @@
                         @Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))
                   }
                   
-                    <a href="@(ViewBag.DetailsPageUrl + item.ItemDefaultUrl)">Full story</a>
+                  if (ViewBag.OpenInSamePage)
+                  {
+                      <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">Full story</a>
+                  }
+                  else
+                  {
+                      <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">Full story</a>
+                  }
                 }
               </li>
         }
