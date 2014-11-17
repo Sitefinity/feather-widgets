@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DynamicContent.Mvc.Controllers;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -30,7 +31,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUsePagingFunctionality()
         {
-            this.CreatePressArticleAndReturnTagId();
+            for (int i = 0; i < this.dynamicTitles.Length; i++)
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
             this.pageOperations = new PagesOperations();
@@ -89,7 +92,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             {
                 this.pageOperations.DeletePages();
                 ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
         }
 
@@ -99,7 +101,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify use limit functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUseLimitFunctionality()
         {
-            this.CreatePressArticleAndReturnTagId();
+            for (int i = 0; i < this.dynamicTitles.Length; i++)
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
             this.pageOperations = new PagesOperations();
@@ -133,7 +137,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             {
                 this.pageOperations.DeletePages();
                 ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
         }
 
@@ -143,7 +146,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify No limit and paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyNoLimitAndPagingFunctionality()
         {
-            this.CreatePressArticleAndReturnTagId();
+            for (int i = 0; i < this.dynamicTitles.Length; i++)
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
             this.pageOperations = new PagesOperations();
@@ -176,7 +181,100 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             {
                 this.pageOperations.DeletePages();
                 ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify sort Descending functionality.")]
+        public void DynamicWidgetsDesignerListSettings_VerifySortDescending()
+        {
+            string sortExpession = "Title DESC";
+
+            for (int i = 0; i < this.dynamicTitles.Length; i++)
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+           
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+            var mvcProxy = new MvcWidgetProxy();
+            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+            var dynamicController = new DynamicContentController();
+            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.Model.SortExpression = sortExpession;
+            mvcProxy.Settings = new ControllerSettings(dynamicController);
+            mvcProxy.WidgetName = WidgetName;
+
+            try
+            {
+                var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
+                var dynamicItems = modelItems.Items.ToList();
+                int itemsCount = dynamicItems.Count;
+                string[] dynamicTitlesResults = new string[itemsCount];
+
+                Assert.AreEqual(this.dynamicTitles.Length, itemsCount, "The count of the dynamic item is not as expected");
+
+                for (int i = 0; i < itemsCount; i++)
+                    dynamicTitlesResults[i] = dynamicItems[i].Title;
+
+                int lastIndex = itemsCount - 1;
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                {
+                    Assert.IsTrue(dynamicTitlesResults[i].Equals(this.dynamicTitles[lastIndex]), "The news with this title was not found!");
+                    lastIndex--;
+                }
+            }
+            finally
+            {
+                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify sort Ascending functionality.")]
+        public void DynamicWidgetsDesignerListSettings_VerifySortAscending()
+        {
+            string sortExpession = "Title ASC";
+            string[] dynamicTitlesDescending = { "Cat", "Boat", "Angel" };
+            string[] dynamicUrlsDescending = { "CatUrl", "BoatUrl", "AngelUrl" };
+
+            for (int i = 0; i < dynamicTitlesDescending.Length; i++)
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(dynamicTitlesDescending[i], dynamicUrlsDescending[i]);
+
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+            var mvcProxy = new MvcWidgetProxy();
+            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+            var dynamicController = new DynamicContentController();
+            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.Model.SortExpression = sortExpession;
+            mvcProxy.Settings = new ControllerSettings(dynamicController);
+            mvcProxy.WidgetName = WidgetName;
+
+            try
+            {
+                var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
+                var dynamicItems = modelItems.Items.ToList();
+                int itemsCount = dynamicItems.Count;
+                string[] dynamicTitlesResults = new string[itemsCount];
+
+                Assert.AreEqual(dynamicTitlesDescending.Length, itemsCount, "The count of the dynamic item is not as expected");
+
+                for (int i = 0; i < itemsCount; i++)
+                    dynamicTitlesResults[i] = dynamicItems[i].Title;
+
+                int lastIndex = itemsCount - 1;
+                for (int i = 0; i < dynamicTitlesDescending.Length; i++)
+                {
+                    Assert.IsTrue(dynamicTitlesResults[i].Equals(dynamicTitlesDescending[lastIndex]), "The news with this title was not found!");
+                    lastIndex--;
+                }
+            }
+            finally
+            {
+                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
             }
         }
 
@@ -184,19 +282,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         public void Teardown()
         {
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, TransactionName);
-        }
-
-        private Guid[] CreatePressArticleAndReturnTagId()
-        {
-            Guid[] taxonId = new Guid[3];
-
-            for (int i = 0; i < 3; i++)
-            {
-                taxonId[i] = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().CreateFlatTaxon(Telerik.Sitefinity.TestUtilities.CommonOperations.TaxonomiesConstants.TagsTaxonomyId, this.tagTitle[i]);
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle(this.dynamicTitles[i], this.dynamicUrls[i], taxonId[i]);
-            }
-
-            return taxonId;
         }
 
         #region Fields and constants
@@ -208,7 +293,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         private const string WidgetName = "PressArticle";
         private string[] dynamicTitles = { "Angel", "Boat", "Cat" };
         private string[] dynamicUrls = { "AngelUrl", "BoatUrl", "CatUrl" };
-        private string[] tagTitle = { "Tag 0", "Tag 1", "Tag 2" };
         private PagesOperations pageOperations;
 
         #endregion
