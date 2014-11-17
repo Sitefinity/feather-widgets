@@ -55,20 +55,21 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
         // Creates a new pressArticle item with predefined ID
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dynamicurl"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public DynamicContent CreatePressArticleItem(string title, string dynamicurl, Guid pressArticleId, Taxon tag = null)
+        public DynamicContent CreatePressArticleItem(string title, string dynamicurl)
         {
             var providerName = string.Empty;
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
 
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
-           
-            DynamicContent pressArticleItem = dynamicModuleManager.CreateDataItem(pressArticleType, pressArticleId, "/DynamicModule");
+            Telerik.Sitefinity.DynamicModules.Model.DynamicContent pressArticleItem = dynamicModuleManager.CreateDataItem(pressArticleType);
 
             // This is how values for the properties are set 
             pressArticleItem.SetValue("Title", title);
             pressArticleItem.SetValue("PublishedBy", "Some PublishedBy");
             pressArticleItem.SetValue("Guid", Guid.NewGuid());
 
+            TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
+            var tag = taxonomyManager.GetTaxa<FlatTaxon>().Where(t => t.Taxonomy.Name == "Tags").FirstOrDefault();
             if (tag != null)
             {
                 pressArticleItem.Organizer.AddTaxa("Tags", tag.Id);
