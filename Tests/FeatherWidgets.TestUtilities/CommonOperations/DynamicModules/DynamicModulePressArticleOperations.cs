@@ -149,5 +149,22 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // You need to call SaveChanges() in order for the items to be actually persisted to data store
             dynamicModuleManager.SaveChanges();
         }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
+        public void EditPressArticleTitle(DynamicContent pressArticleItem, string newTitle)
+        {
+            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
+            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
+            var providerName = string.Empty;
+
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+
+            pressArticleItem.SetValue("Title", newTitle);
+
+            dynamicModuleManager.Lifecycle.Publish(pressArticleItem);
+
+            // You need to call SaveChanges() in order for the items to be actually persisted to data store
+            dynamicModuleManager.SaveChanges();
+        }
     }
 }
