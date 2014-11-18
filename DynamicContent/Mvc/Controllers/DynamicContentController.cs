@@ -151,7 +151,7 @@ namespace DynamicContent.Mvc.Controllers
         {
             if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen)
             {
-                this.InitializeListViewBag("~/{0}");
+                this.InitializeListViewBag("/{0}");
 
                 var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
                 if (SystemManager.CurrentHttpContext != null)
@@ -181,14 +181,15 @@ namespace DynamicContent.Mvc.Controllers
         /// Displays successors of the specified parent item.
         /// </summary>
         /// <param name="parentItem">The parent item.</param>
+        /// <param name="page">The page.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Successors(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem)
+        public ActionResult Successors(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int? page)
         {
-            this.InitializeListViewBag("~/" + parentItem.ItemDefaultUrl + "/{0}");
+            this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
 
-            var viewModel = this.Model.CreateListViewModelByParent(parentItem, 1);
+            var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -206,7 +207,7 @@ namespace DynamicContent.Mvc.Controllers
         /// </returns>
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
-            this.InitializeListViewBag("~/" + taxonFilter.UrlName + "/{0}");
+            this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
@@ -220,15 +221,16 @@ namespace DynamicContent.Mvc.Controllers
         /// Displays related items of the specified item.
         /// </summary>
         /// <param name="parentItem">The related item.</param>
+        /// <param name="page">The page.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult RelatedData(IDataItem relatedItem)
+        public ActionResult RelatedData(IDataItem relatedItem, int? page)
         {
-            var itemUrl = relatedItem is ILocatableExtended ? ((ILocatableExtended)relatedItem).ItemDefaultUrl : ((ILocatable)relatedItem).UrlName;
-            this.InitializeListViewBag("~/" + itemUrl + "/{0}");
+            string itemUrl = relatedItem is ILocatableExtended ? (string)((ILocatableExtended)relatedItem).ItemDefaultUrl : "/" + ((ILocatable)relatedItem).UrlName;
+            this.InitializeListViewBag(itemUrl + "?page={0}");
 
-            var viewModel = this.Model.CreateListViewModelByRelatedItem(relatedItem, 1);
+            var viewModel = this.Model.CreateListViewModelByRelatedItem(relatedItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -239,6 +241,7 @@ namespace DynamicContent.Mvc.Controllers
         /// <summary>
         /// Renders appropriate list view depending on the <see cref="DetailTemplateName"/>
         /// </summary>
+        /// <param name="item">The item which details will be displayed.</param>
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
@@ -374,6 +377,10 @@ namespace DynamicContent.Mvc.Controllers
             {
                 requestContext.RouteData.Values["action"] = "Successors";
                 requestContext.RouteData.Values["parentItem"] = item;
+
+                if (this.Request["page"] != null)
+                    requestContext.RouteData.Values["page"] = int.Parse(this.Request["page"]);
+
                 return true;
             }
 
@@ -387,10 +394,10 @@ namespace DynamicContent.Mvc.Controllers
 
         private void InitializeListViewBag(string redirectPageUrl)
         {
-            this.ViewBag.RedirectPageUrlTemplate = RouteHelper.ResolveUrl(redirectPageUrl, UrlResolveOptions.Rooted);
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
         }
 
         private bool TryMapRelatedDataRouteData(string[] urlParams, RequestContext requestContext)
@@ -415,6 +422,8 @@ namespace DynamicContent.Mvc.Controllers
 
             requestContext.RouteData.Values["action"] = "RelatedData";
             requestContext.RouteData.Values["relatedItem"] = item;
+            if (this.Request["page"] != null)
+                requestContext.RouteData.Values["page"] = int.Parse(this.Request["page"]);
 
             return true;
         }
