@@ -184,7 +184,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Verify sort Descending functionality.")]
@@ -230,7 +230,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Verify sort Ascending functionality.")]
