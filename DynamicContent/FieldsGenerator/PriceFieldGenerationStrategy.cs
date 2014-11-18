@@ -30,6 +30,6 @@ namespace DynamicContent.FieldsGenerator
         }
 
         private const string CurrencyFormat = "{0:C}";
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().PriceField((string)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemPrice"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().PriceField((string)Model.Item.{0}, ""{0}"", ""{1}"", cssClass: ""sfitemPrice"")";
     }
 }

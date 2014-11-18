@@ -13,7 +13,7 @@
     using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id))
     {
         <h1>
-            @Html.TextField("Title", (string)Model.Item.Title, "ShortText")
+            @Html.Sitefinity().ShortTextField((string)Model.Item.Title, "Title")
         </h1>
 
         @DynamicFieldHelper.GenerateFieldsSection()

@@ -30,6 +30,6 @@ namespace DynamicContent.FieldsGenerator
             return longTextMarkup;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().LongTextAreaField((string)Model.Item.{0}, ""{0}"", ""sfitemLongText"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().LongTextAreaField((string)Model.Item.{0}, ""{0}"", cssClass: ""sfitemLongText"")";
     }
 }
