@@ -25,11 +25,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var longTextMarkup = String.Format(LongTextAreaFieldGenerationStrategy.fieldMarkupTempalte, field.Name);
+            var longTextMarkup = string.Format(LongTextAreaFieldGenerationStrategy.FieldMarkupTempalte, field.Name);
 
             return longTextMarkup;
         }
 
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().LongTextAreaField((string)Model.Item.{0}, ""{0}"", ""sfitemLongText"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().LongTextAreaField((string)Model.Item.{0}, ""{0}"", ""sfitemLongText"")";
     }
 }

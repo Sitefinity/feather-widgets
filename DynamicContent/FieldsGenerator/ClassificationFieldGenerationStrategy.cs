@@ -26,11 +26,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(ClassificationFieldGenerationStrategy.taxonomyFieldMarkupTempalte, field.ClassificationId, field.Title, field.Name);
+            var markup = string.Format(ClassificationFieldGenerationStrategy.TaxonomyFieldMarkupTempalte, field.ClassificationId, field.Title, field.Name);
 
             return markup;
         }
 
-        private const string taxonomyFieldMarkupTempalte = @"@Html.Sitefinity().TaxonomyField((object)Model.Item.{2}, new Guid(""{0}""), ""{1}"", ""{2}"")";
+        private const string TaxonomyFieldMarkupTempalte = @"@Html.Sitefinity().TaxonomyField((object)Model.Item.{2}, new Guid(""{0}""), ""{1}"", ""{2}"")";
     }
 }
