@@ -21,11 +21,15 @@
                     <h2>
                         @if (ViewBag.OpenInSamePage)
                         {
-                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
+                                @Html.Sitefinity().ShortTextField((string)item.Title, "Title")
+                            </a>
                         }
                         else
                         {
-                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
+                                @Html.Sitefinity().ShortTextField((string)item.Title, "Title")
+                            </a>
                         }
                     </h2>
                 </li>@*

@@ -33,6 +33,6 @@ namespace DynamicContent.FieldsGenerator
             return markup;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().DocumentField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"", ""{1}"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().DocumentField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"", fieldTitle: ""{1}"")";
     }
 }

@@ -31,6 +31,6 @@ namespace DynamicContent.FieldsGenerator
             return markup;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().YesNoField((bool)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemChoices"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().YesNoField((bool)Model.Item.{0}, ""{0}"", fieldTitle: ""{1}"", cssClass: ""sfitemChoices"")";
     }
 }

@@ -107,19 +107,19 @@ namespace DynamicContent.FieldsGenerator
 
         internal const string InlineControlValue = "inline";
 
-        private const string InlineSingleItem = @"@Html.Sitefinity().RelatedDataInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string InlineListItem = @"@Html.Sitefinity().RelatedDataInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSingleItem = @"@Html.Sitefinity().RelatedDataInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
+        private const string InlineListItem = @"@Html.Sitefinity().RelatedDataInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
 
-        private const string InlineSinglePage = @"@Html.Sitefinity().RelatedPageInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string InlinePageList = @"@Html.Sitefinity().RelatedPageInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSinglePage = @"@Html.Sitefinity().RelatedPageInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
+        private const string InlinePageList = @"@Html.Sitefinity().RelatedPageInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
 
-        private const string InlineSingleImageItem = @"@Html.Sitefinity().RelatedImageInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string InlineImageListItem = @"@Html.Sitefinity().RelatedImageInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSingleImageItem = @"@Html.Sitefinity().RelatedImageInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
+        private const string InlineImageListItem = @"@Html.Sitefinity().RelatedImageInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
 
-        private const string InlineSingleVideoItem = @"@Html.Sitefinity().RelatedVideoInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string InlineVideoListItem = @"@Html.Sitefinity().RelatedVideoInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSingleVideoItem = @"@Html.Sitefinity().RelatedVideoInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
+        private const string InlineVideoListItem = @"@Html.Sitefinity().RelatedVideoInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
 
-        private const string InlineSingleDocumentItem = @"@Html.Sitefinity().RelatedDocumentInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string InlineDocumentListItem = @"@Html.Sitefinity().RelatedDocumentInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSingleDocumentItem = @"@Html.Sitefinity().RelatedDocumentInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
+        private const string InlineDocumentListItem = @"@Html.Sitefinity().RelatedDocumentInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", frontendWidgetLabel: ""{2}"")";
     }
 }
