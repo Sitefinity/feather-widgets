@@ -1,16 +1,12 @@
-﻿using DynamicContent.Mvc.Controllers;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DynamicContent.Mvc.Controllers;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Install;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
-using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DynamicContent
 {
@@ -40,7 +36,7 @@ namespace DynamicContent
 
             foreach (var dynamicType in dynamicContentType)
             {
-                var mvcWidgetName = string.Format(CultureInfo.InvariantCulture, "{0} - {1}", dynamicType.ModuleName, dynamicType.DisplayName);
+                var mvcWidgetName = string.Format(CultureInfo.InvariantCulture, "{0} - {1} (MVC)", dynamicType.ModuleName, dynamicType.DisplayName);
 
                 Telerik.Sitefinity.Modules.ControlTemplates.ControlTemplates.RegisterTemplatableControl(dynamicContentControllerType, dynamicContentControllerType, string.Empty, mvcWidgetName, mvcWidgetName);
             }

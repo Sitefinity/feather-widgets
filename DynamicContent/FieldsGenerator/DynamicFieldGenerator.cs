@@ -12,6 +12,8 @@ namespace DynamicContent.FieldsGenerator
     /// </summary>
     public class DynamicFieldGenerator
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicFieldGenerator"/> class.
         /// </summary>
@@ -20,22 +22,37 @@ namespace DynamicContent.FieldsGenerator
         {
             this.moduleType = moduleType;
 
-            FieldGenerators.Add(new LongTextAreaFieldGenerationStrategy());
-            FieldGenerators.Add(new ImagesFieldGenerationStrategy());
-            FieldGenerators.Add(new ShortTextFieldGenerationStrategy(moduleType));
-            FieldGenerators.Add(new MultipleChoiceFieldGenerationStrategy());
-            FieldGenerators.Add(new YesNoFieldGenerationStrategy());
-            FieldGenerators.Add(new DateFieldGenerationStrategy());
-            FieldGenerators.Add(new NumberFieldGenerationStrategy());
-            FieldGenerators.Add(new PriceFieldGenerationStrategy());
-            FieldGenerators.Add(new LongRichTextFieldGenerationStrategy());
-            FieldGenerators.Add(new VideosFieldGenerationStrategy());
-            FieldGenerators.Add(new DocumentsFieldGenerationStrategy());
-            //fieldContexts.Add(new DynamicFieldContext("AddressFieldSection"));
-            FieldGenerators.Add(new ClassificationFieldGenerationStrategy());
-            FieldGenerators.Add(new RelatedMediaFieldGenerationStrategy());
-            FieldGenerators.Add(new RelatedDataFieldGenerationStrategy());
+            this.FieldGenerators = new List<FieldGenerationStrategy>();
+            this.FieldGenerators.Add(new LongTextAreaFieldGenerationStrategy());
+            this.FieldGenerators.Add(new ImagesFieldGenerationStrategy());
+            this.FieldGenerators.Add(new ShortTextFieldGenerationStrategy(moduleType));
+            this.FieldGenerators.Add(new MultipleChoiceFieldGenerationStrategy());
+            this.FieldGenerators.Add(new YesNoFieldGenerationStrategy());
+            this.FieldGenerators.Add(new DateFieldGenerationStrategy());
+            this.FieldGenerators.Add(new NumberFieldGenerationStrategy());
+            this.FieldGenerators.Add(new PriceFieldGenerationStrategy());
+            this.FieldGenerators.Add(new LongRichTextFieldGenerationStrategy());
+            this.FieldGenerators.Add(new VideosFieldGenerationStrategy());
+            this.FieldGenerators.Add(new DocumentsFieldGenerationStrategy());
+
+            // fieldContexts.Add(new DynamicFieldContext("AddressFieldSection"));
+            this.FieldGenerators.Add(new ClassificationFieldGenerationStrategy());
+            this.FieldGenerators.Add(new RelatedMediaFieldGenerationStrategy());
+            this.FieldGenerators.Add(new RelatedDataFieldGenerationStrategy());
         }
+
+        #endregion
+
+        #region Public properties
+
+        /// <summary>
+        /// The field generators
+        /// </summary>
+        public IList<FieldGenerationStrategy> FieldGenerators { get; private set; }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Generates the detail dynamic field section markup.
@@ -53,7 +70,7 @@ namespace DynamicContent.FieldsGenerator
                     foreach (DynamicModuleField currentField in fieldsForType)
                     {
                         fieldsSectionBuilder.Append(fieldGenerator.GetFieldMarkup(currentField));
-                        fieldsSectionBuilder.Append(DynamicFieldGenerator.emptyLine);
+                        fieldsSectionBuilder.Append(DynamicFieldGenerator.EmptyLine);
                     }
                 }
             }
@@ -61,12 +78,14 @@ namespace DynamicContent.FieldsGenerator
             return fieldsSectionBuilder.ToString();
         }
 
-        /// <summary>
-        /// The field generators
-        /// </summary>
-        public IList<FieldGenerationStrategy> FieldGenerators = new List<FieldGenerationStrategy>();
-        private static readonly string emptyLine = "\r\n";
+        #endregion
+
+        #region Private fields and constants
+
+        private static readonly string EmptyLine = "\r\n";
 
         private DynamicModuleType moduleType;
+
+        #endregion
     }
 }

@@ -28,11 +28,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(DocumentsFieldGenerationStrategy.fieldMarkupTempalte, field.Name, field.Title);
+            var markup = string.Format(DocumentsFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.Title);
 
             return markup;
         }
 
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().DocumentField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"", ""{1}"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().DocumentField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"", ""{1}"")";
     }
 }

@@ -17,7 +17,7 @@ namespace DynamicContent.FieldsGenerator
         {
             var condition = base.GetFieldCondition(field)
                 && field.FieldType == FieldType.LongText
-                && field.WidgetTypeName.EndsWith("TextField");
+                && field.WidgetTypeName.EndsWith("HtmlField");
 
             return condition;
         }
@@ -25,11 +25,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var longTextMarkup = String.Format(LongRichTextFieldGenerationStrategy.fieldMarkupTempalte, field.Name);
+            var longTextMarkup = string.Format(LongRichTextFieldGenerationStrategy.FieldMarkupTempalte, field.Name);
 
             return longTextMarkup;
         }
 
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().LongRichTextField((string)Model.Item.{0}, ""{0}"", ""sfitemRichText"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().LongRichTextField((string)Model.Item.{0}, ""{0}"", ""sfitemRichText"")";
     }
 }

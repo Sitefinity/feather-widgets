@@ -24,11 +24,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(DateFieldGenerationStrategy.fieldMarkupTempalte, field.Name, field.Title);
+            var markup = string.Format(DateFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.Title);
 
             return markup;
         }
 
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().DateField((DateTime)Model.Item.{0}, ""MMM d, yyyy, HH:mm tt"", ""{0}"", ""{1}"", ""sfitemDateWrp"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().DateField((DateTime)Model.Item.{0}, ""MMM d, yyyy, HH:mm tt"", ""{0}"", ""{1}"", ""sfitemDateWrp"")";
     }
 }
