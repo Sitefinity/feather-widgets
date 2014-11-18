@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+
 using News.Mvc.Models;
 using News.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
@@ -163,10 +164,10 @@ namespace News.Mvc.Controllers
         public ActionResult Index(int? page)
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            this.ViewBag.RedirectPageUrlTemplate = "/{0}";
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/{0}";
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
 
             this.Model.PopulateItems(null, null, page);
             this.AddCacheDependencies();
@@ -186,10 +187,10 @@ namespace News.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             var fieldName = this.GetExpectedTaxonFieldName(taxonFilter);
-            this.ViewBag.RedirectPageUrlTemplate = "/" + taxonFilter.UrlName + "/{0}";
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/" + taxonFilter.UrlName + "/{0}";
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
 
             this.Model.PopulateItems(taxonFilter, fieldName, page);
             this.AddCacheDependencies();
