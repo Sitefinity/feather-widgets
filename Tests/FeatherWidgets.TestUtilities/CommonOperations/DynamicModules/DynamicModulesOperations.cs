@@ -43,5 +43,38 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             return testUtilitiesAssembly;
         }
+
+        /// <summary>
+        /// Adds new layout file to a selected resource package.
+        /// </summary>
+        /// <param name="packageName">The name of the package.</param>
+        /// <param name="layoutFileName">The name of the layout file.</param>
+        /// <param name="fileResource">The file resource.</param>
+        public void AddNewResource(string fileResource, string filePath)
+        {
+            var assembly = this.GetTestUtilitiesAssembly();
+            Stream source = assembly.GetManifestResourceStream(fileResource);
+
+            Stream destination = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+
+            this.CopyStream(source, destination);
+
+            destination.Dispose();
+        }
+
+        /// <summary>
+        /// Copies file stream to another file stream
+        /// </summary>
+        /// <param name="input">The input file.</param>
+        /// <param name="output">The destination file.</param>
+        private void CopyStream(Stream input, Stream output)
+        {
+            byte[] buffer = new byte[32768];
+            int read;
+            while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                output.Write(buffer, 0, read);
+            }
+        }
     }
 }
