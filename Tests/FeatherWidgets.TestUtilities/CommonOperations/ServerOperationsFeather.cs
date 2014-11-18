@@ -80,5 +80,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new DynamicModulePressArticleOperations();
         }
+
+        /// <summary>
+        /// Entry point for Booking dynamic module common operations.
+        /// </summary>
+        /// <returns>DynamicModuleBookingOperations instance.</returns>
+        public static DynamicModuleBookingOperations DynamicModuleBooking()
+        {
+            return new DynamicModuleBookingOperations();
+        }
     }
 }
