@@ -1,0 +1,21 @@
+﻿@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<div class="@Model.CssClass">
+@{
+    using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id))
+    {
+        <h1>
+            <p> Detail template </p>
+
+            @Html.TextField("Title", (string)Model.Item.Title, "ShortText")
+        </h1>
+    
+        if (Model.EnableSocialSharing)
+        {
+            @Html.SocialShareOptions()
+        }
+    }
+}
+</div>

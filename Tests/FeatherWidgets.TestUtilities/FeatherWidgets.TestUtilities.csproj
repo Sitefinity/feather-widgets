@@ -134,7 +134,12 @@
     <EmbeddedResource Include="Data\DynamicModules\PressRelease.zip" />
     <EmbeddedResource Include="Data\DynamicModules\HierarchicalModule.zip" />
     <EmbeddedResource Include="Data\DynamicModules\MusicCollectionAdvanced.zip" />
-    <EmbeddedResource Include="Data\DynamicModules\List.PressArticleNew.cshtml" />
+    <EmbeddedResource Include="Data\DynamicModules\List.PressArticleNew.cshtml">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\DynamicModules\Detail.PressArticleNew.cshtml">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
