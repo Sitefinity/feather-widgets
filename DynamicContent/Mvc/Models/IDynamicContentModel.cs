@@ -5,6 +5,7 @@ using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace DynamicContent.Mvc.Models
@@ -136,6 +137,38 @@ namespace DynamicContent.Mvc.Models
         string SerializedSelectedParentsIds { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the parent item.
+        /// </summary>
+        /// <value>
+        /// The type of the parent item.
+        /// </value>
+        string RelatedItemType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the parent item provider.
+        /// </summary>
+        /// <value>
+        /// The name of the parent item provider.
+        /// </value>
+        string RelatedItemProviderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the field.
+        /// </summary>
+        /// <value>
+        /// The name of the field.
+        /// </value>
+        string RelatedFieldName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the relation type of the items that will be display - children or parent.
+        /// </summary>
+        /// <value>
+        /// The relation type of the items that will be display - children or parent.
+        /// </value>
+        RelationDirection RelationTypeToDisplay { get; set; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
         IEnumerable<IContentLocationInfo> GetLocations();
@@ -150,13 +183,22 @@ namespace DynamicContent.Mvc.Models
         ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page);
 
         /// <summary>
-        /// Creates a view model for use in list views.
+        /// Creates a view model for use in list views filtered by parent.
         /// </summary>
         /// <param name="parentItem">Parent item filter.</param>
         /// <param name="page">The page.</param>
         /// <returns>A view model for use in list views.</returns>
         /// <exception cref="System.ArgumentException">'page' argument has to be at least 1.;page</exception>
-        ContentListViewModel CreateListViewModel(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int page);
+        ContentListViewModel CreateListViewModelByParent(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int page);
+
+        /// <summary>
+        /// Creates a view model for use in list views filtered by related item.
+        /// </summary>
+        /// <param name="relatedItem">Item that is related to the resulting items</param>
+        /// <param name="page">The page.</param>
+        /// <returns>A view model for use in list views.</returns>
+        /// <exception cref="System.ArgumentException">'page' argument has to be at least 1.;page</exception>
+        ContentListViewModel CreateListViewModelByRelatedItem(IDataItem relatedItem, int page);
 
         /// <summary>
         /// Creates the details view model.

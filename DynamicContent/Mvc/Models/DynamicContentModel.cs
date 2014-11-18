@@ -33,7 +33,7 @@ namespace DynamicContent.Mvc.Models
         }
 
         /// <inheritdoc />
-        public virtual ContentListViewModel CreateListViewModel(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int page)
+        public virtual ContentListViewModel CreateListViewModelByParent(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int page)
         {
             if (page < 1)
                 throw new ArgumentException("'page' argument has to be at least 1.", "page");
