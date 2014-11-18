@@ -24,11 +24,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(NumberFieldGenerationStrategy.fieldMarkupTempalte, field.Name, field.NumberUnit, field.Title);
+            var markup = string.Format(NumberFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.NumberUnit, field.Title);
 
             return markup;
         }
 
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().NumberField((string)Model.Item.{0}.ToString(), ""{1}"", ""{0}"", ""{2}"", ""sfitemNumberWrp"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().NumberField((string)Model.Item.{0}.ToString(), ""{1}"", ""{0}"", ""{2}"", ""sfitemNumberWrp"")";
     }
 }

@@ -26,11 +26,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(YesNoFieldGenerationStrategy.fieldMarkupTempalte, field.Name, field.Title);
+            var markup = string.Format(YesNoFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.Title);
 
             return markup;
         }
 
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().YesNoField((bool)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemChoices"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().YesNoField((bool)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemChoices"")";
     }
 }

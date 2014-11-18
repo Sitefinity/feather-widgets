@@ -167,6 +167,7 @@
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerContentTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerListSettingsTests.cs" />
+    <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />

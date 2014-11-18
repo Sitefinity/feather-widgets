@@ -33,7 +33,7 @@ namespace DynamicContent.FieldsGenerator
         public override string GetFieldMarkup(DynamicModuleField field)
         {
             var isMasterView = false;
-            var childItemTypeName = String.Empty;
+            var childItemTypeName = string.Empty;
             switch (field.MediaType)
             {
                 case "image":
@@ -49,6 +49,7 @@ namespace DynamicContent.FieldsGenerator
                     childItemTypeName = typeof(Document).FullName;
                     break;
             }
+
             var markup = string.Format(this.BuildRelatedDataFieldTemplate(field.FrontendWidgetTypeName, field.FrontendWidgetLabel, field.FieldNamespace, childItemTypeName, field.RelatedDataProvider, field.Name, isMasterView));
 
             return markup;

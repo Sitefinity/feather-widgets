@@ -1,15 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Script.Serialization;
 using System.Web.UI;
-
 using DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
-using Telerik.Sitefinity.Utilities.TypeConverters;
-using System.Collections.Generic;
-using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DynamicContent.Mvc.Models
 {

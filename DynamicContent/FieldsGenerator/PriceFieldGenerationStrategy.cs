@@ -24,12 +24,12 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = String.Format(PriceFieldGenerationStrategy.fieldMarkupTempalte, field.Name, PriceFieldGenerationStrategy.currencyFormat);
+            var markup = string.Format(PriceFieldGenerationStrategy.FieldMarkupTempalte, field.Name, PriceFieldGenerationStrategy.CurrencyFormat);
 
             return markup;
         }
 
-        private const string currencyFormat = "{0:C}";
-        private const string fieldMarkupTempalte = @"@Html.Sitefinity().PriceField((string)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemPrice"")";
+        private const string CurrencyFormat = "{0:C}";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().PriceField((string)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemPrice"")";
     }
 }
