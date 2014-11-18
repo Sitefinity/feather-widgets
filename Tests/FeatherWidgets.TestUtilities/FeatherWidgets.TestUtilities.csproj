@@ -137,6 +137,7 @@
     <EmbeddedResource Include="Data\DynamicModules\MusicCollectionAdvanced.zip" />
     <EmbeddedResource Include="Data\DynamicModules\Booking.zip" />
     <EmbeddedResource Include="Data\DynamicModules\List.PressArticleNew.cshtml" />
+    <EmbeddedResource Include="Data\DynamicModules\Detail.PressArticleNew.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
