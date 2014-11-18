@@ -354,7 +354,7 @@ namespace News.Mvc.Models
             this.CurrentPage = page.Value;
         }
 
-        private IQueryable<NewsItem> SetExpressions(IQueryable<NewsItem> newsItems, string filterExpression, string sortExpression, int? itemsToSkip, int? itemsPerPage, ref int? totalCount)
+        private IQueryable<NewsItem> SetExpressions(IQueryable<NewsItem> newsItems, string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
         {
             if (this.SelectionMode == NewsSelectionMode.SelectedItems)
             {
@@ -379,9 +379,9 @@ namespace News.Mvc.Models
                     newsItems = newsItems.Skip(itemsToSkip.Value);
                 }
 
-                if (itemsPerPage.HasValue && itemsPerPage.Value > 0)
+                if (itemsToTake.HasValue && itemsToTake.Value > 0)
                 {
-                    newsItems = newsItems.Take(itemsPerPage.Value);
+                    newsItems = newsItems.Take(itemsToTake.Value);
                 }
             }
             else
@@ -389,9 +389,9 @@ namespace News.Mvc.Models
                 newsItems = DataProviderBase.SetExpressions(
                     newsItems,
                     filterExpression,
-                    sortExpression,
+                    sortExpr,
                     itemsToSkip,
-                    itemsPerPage,
+                    itemsToTake,
                     ref totalCount);
             }
 
