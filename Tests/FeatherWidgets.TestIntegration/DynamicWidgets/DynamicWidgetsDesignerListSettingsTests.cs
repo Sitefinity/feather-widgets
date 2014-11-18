@@ -220,7 +220,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 int lastIndex = itemsCount - 1;
                 for (int i = 0; i < this.dynamicTitles.Length; i++)
                 {
-                    Assert.IsTrue(dynamicTitlesResults[i].Equals(this.dynamicTitles[lastIndex]), "The news with this title was not found!");
+                    Assert.IsTrue(dynamicTitlesResults[i].Equals(this.dynamicTitles[lastIndex]), "The dynamic item with this title was not found!");
                     lastIndex--;
                 }
             }
@@ -268,9 +268,105 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 int lastIndex = itemsCount - 1;
                 for (int i = 0; i < dynamicTitlesDescending.Length; i++)
                 {
-                    Assert.IsTrue(dynamicTitlesResults[i].Equals(dynamicTitlesDescending[lastIndex]), "The news with this title was not found!");
+                    Assert.IsTrue(dynamicTitlesResults[i].Equals(dynamicTitlesDescending[lastIndex]), "The dynamic item with this title was not found!");
                     lastIndex--;
                 }
+            }
+            finally
+            {
+                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify sort Last modified functionality.")]
+        public void DynamicWidgetsDesignerListSettings_VerifySortLastModified()
+        {
+            string sortExpession = "LastModified DESC";
+            string newTitle = "Boat New Name";
+
+            for (int i = 0; i < this.dynamicTitles.Length; i++)
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+            ServerOperationsFeather.DynamicModulePressArticle().EditPressArticleTitle(dynamicCollection[2], newTitle);
+
+            var mvcProxy = new MvcWidgetProxy();
+            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+            var dynamicController = new DynamicContentController();
+            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.Model.SortExpression = sortExpession;
+            mvcProxy.Settings = new ControllerSettings(dynamicController);
+            mvcProxy.WidgetName = WidgetName;
+
+            try
+            {
+                var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
+                var dynamicItems = modelItems.Items.ToList();
+                int itemsCount = dynamicItems.Count;
+                string[] dynamicTitlesResults = new string[itemsCount];
+
+                Assert.AreEqual(this.dynamicTitles.Length, itemsCount, "The count of the dynamic item is not as expected");
+
+                for (int i = 0; i < itemsCount; i++)
+                    dynamicTitlesResults[i] = dynamicItems[i].Title;
+
+                Assert.IsTrue(dynamicTitlesResults[0].Equals(newTitle), "The dynamic item with this title was not found!");
+                Assert.IsFalse(dynamicTitlesResults[0].Equals(this.dynamicTitles[1]), "The dynamic item with this title was not found!");
+                Assert.IsTrue(dynamicTitlesResults[1].Equals(this.dynamicTitles[2]), "The dynamic itemwith this title was not found!");
+                Assert.IsTrue(dynamicTitlesResults[2].Equals(this.dynamicTitles[0]), "The dynamic item with this title was not found!");
+            }
+            finally
+            {
+                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify sort Publication date descending functionality.")]
+        public void DynamicWidgetsDesignerListSettings_VerifyPublicationDateDescending()
+        {
+            string sortExpession = "PublicationDate DESC";
+            DateTime publicationDateAngel = new DateTime(2014, 9, 10, 12, 00, 00);
+            DateTime publicationDateBoat = new DateTime(2014, 10, 23, 12, 00, 00);
+            DateTime publicationDateCat = new DateTime(2014, 11, 18, 12, 00, 00);
+
+            for (int i = 0; i < this.dynamicTitles.Length; i++)
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+           
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+            ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDateAngel);
+            ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[2], publicationDateBoat);
+            ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[0], publicationDateCat);     
+
+            var mvcProxy = new MvcWidgetProxy();
+            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+            var dynamicController = new DynamicContentController();
+            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.Model.SortExpression = sortExpession;
+            mvcProxy.Settings = new ControllerSettings(dynamicController);
+            mvcProxy.WidgetName = WidgetName;
+
+            try
+            {
+                var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
+                var dynamicItems = modelItems.Items.ToList();
+                int itemsCount = dynamicItems.Count;
+                string[] dynamicTitlesResults = new string[itemsCount];
+
+                Assert.AreEqual(this.dynamicTitles.Length, itemsCount, "The count of the dynamic item is not as expected");
+
+                for (int i = 0; i < itemsCount; i++)
+                    dynamicTitlesResults[i] = dynamicItems[i].Title;
+
+                for (int i = 0; i < dynamicTitlesResults.Length; i++)
+                    Assert.IsTrue(dynamicTitlesResults[i].Equals(this.dynamicTitles[i]), "The dynamic item with this title was not found!");
             }
             finally
             {
