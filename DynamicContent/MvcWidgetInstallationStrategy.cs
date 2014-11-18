@@ -1,26 +1,19 @@
-﻿using DynamicContent.Mvc.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using Telerik.Sitefinity.Abstractions;
+using DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Install;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
-using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
-using Telerik.Sitefinity.Frontend.Resources;
-using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Versioning;
 
 namespace DynamicContent
 {
@@ -71,9 +64,13 @@ namespace DynamicContent
         public void Process(WidgetInstallationContext context)
         {
             this.pageManager = context.PageManager;
+            this.moduleBuilderManager = context.ModuleBuilderManager;
 
             if (this.pageManager == null)
-                this.pageManager = PageManager.GetManager();
+            {
+                this.transactionName = "MvcWidgetInstallation " + Guid.NewGuid().ToString("N");
+                this.pageManager = PageManager.GetManager(null, this.transactionName);
+            }
 
             if (this.moduleBuilderManager == null)
                 this.moduleBuilderManager = ModuleBuilderManager.GetManager();
@@ -141,10 +138,7 @@ namespace DynamicContent
 
             if (defaultMasterTemplateId == Guid.Empty && defaultDetailTemplateId == Guid.Empty)
             {
-                if (defaultMasterTemplateId == Guid.Empty && defaultDetailTemplateId == Guid.Empty)
-                {
-                    this.RegisterTemplates(context.DynamicModule, context.DynamicModuleType);
-                }
+                this.RegisterTemplates(context.DynamicModule, context.DynamicModuleType);
             }
         }
 
@@ -156,9 +150,15 @@ namespace DynamicContent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "dynamicModule")]
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
-            var viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager);
+            var versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
+            var viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager, versioningManager);
             viewGenerator.InstallDefaultMasterTemplate(dynamicModule, dynamicModuleType);
             viewGenerator.InstallDefaultDetailTemplate(dynamicModule, dynamicModuleType);
+
+            if (this.transactionName != null)
+                TransactionManager.CommitTransaction(this.transactionName);
+
+            versioningManager.SaveChanges();
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace DynamicContent
                 Parameters = new NameValueCollection() 
                     { 
                         { "WidgetName", moduleType.TypeName },
-                        { "ControllerName", typeof(DynamicContentController).FullName}
+                        { "ControllerName", typeof(DynamicContentController).FullName }
                     }
             };
 
@@ -209,7 +209,7 @@ namespace DynamicContent
         private ToolboxSection GetModuleToolboxSection(DynamicModule dynamicModule, ToolboxesConfig toolboxesConfig)
         {
             var pageControls = toolboxesConfig.Toolboxes["PageControls"];
-            var moduleSectionName = String.Concat(DynamicModuleType.defaultNamespace, ".", MvcWidgetInstallationStrategy.moduleNameValidationRegex.Replace(dynamicModule.Name, ""));            
+            var moduleSectionName = string.Concat(DynamicModuleType.defaultNamespace, ".", MvcWidgetInstallationStrategy.moduleNameValidationRegex.Replace(dynamicModule.Name, string.Empty));            
             ToolboxSection section = pageControls.Sections.Where<ToolboxSection>(e => e.Name == moduleSectionName).FirstOrDefault();
 
             if (section == null)
@@ -254,7 +254,7 @@ namespace DynamicContent
             {
                 var itemToDelete = section.Tools.FirstOrDefault<ToolboxItem>(e => e.Name == this.GetToolboxItemName(contentTypeName));
                 
-                if (itemToDelete!=null)
+                if (itemToDelete != null)
                 {
                     section.Tools.Remove(itemToDelete);
                 }
@@ -290,10 +290,11 @@ namespace DynamicContent
 
         #region Private fields and constants
 
+        private static Regex moduleNameValidationRegex = new Regex(@"[^a-zA-Z0-9_.]+", RegexOptions.Compiled);
         private PageManager pageManager;
         private ModuleBuilderManager moduleBuilderManager;
-        private const string moduleSectionDescription = "Holds all dynamic content widgets for the {0} module.";
-        internal static Regex moduleNameValidationRegex = new Regex(@"[^a-zA-Z0-9_.]+", RegexOptions.Compiled);
+        private const string ModuleSectionDescription = "Holds all dynamic content widgets for the {0} module.";
+        private string transactionName;
 
         #endregion
     }

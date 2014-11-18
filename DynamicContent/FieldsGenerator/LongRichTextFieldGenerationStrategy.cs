@@ -17,7 +17,7 @@ namespace DynamicContent.FieldsGenerator
         {
             var condition = base.GetFieldCondition(field)
                 && field.FieldType == FieldType.LongText
-                && field.WidgetTypeName.EndsWith("TextField");
+                && field.WidgetTypeName.EndsWith("HtmlField");
 
             return condition;
         }
