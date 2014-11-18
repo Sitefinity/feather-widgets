@@ -214,7 +214,7 @@ namespace DynamicContent
 
             if (section == null)
             {
-                var sectionDescription = string.Format(MvcWidgetInstallationStrategy.moduleSectionDescription, dynamicModule.GetTitle());
+                var sectionDescription = string.Format(MvcWidgetInstallationStrategy.ModuleSectionDescription, dynamicModule.GetTitle());
                 section = new ToolboxSection(pageControls.Sections)
                 {
                     Name = moduleSectionName,
