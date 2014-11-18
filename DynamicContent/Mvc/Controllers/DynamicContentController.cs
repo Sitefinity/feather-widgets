@@ -17,7 +17,6 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Frontend.Mvc;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.DynamicModules.Builder;

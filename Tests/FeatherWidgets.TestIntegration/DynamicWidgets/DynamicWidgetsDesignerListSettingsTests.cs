@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using DynamicContent.Mvc.Controllers;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -374,11 +376,79 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify select list template functionality.")]
+        public void DynamicWidgetsDesignerListSettings_SetListTemplate()
+        {          
+            string listTemplate = "PressArticleNew";
+            string paragraphText = "List template";
+            this.pageOperations = new PagesOperations();
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "DynamicPage";
+            string pageTitlePrefix = testName + "Dynamic Page";
+            string urlNamePrefix = testName + "dynamic-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            string file = this.CopyFile();
+          
+            for (int i = 0; i < this.dynamicTitles.Length; i++)
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+            var mvcProxy = new MvcWidgetProxy();
+            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+            var dynamicController = new DynamicContentController();
+            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+            dynamicController.ListTemplateName = listTemplate;
+            mvcProxy.Settings = new ControllerSettings(dynamicController);
+            mvcProxy.WidgetName = WidgetName;
+
+            try
+            {
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(paragraphText), "The paragraph text was not found!");
+
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    Assert.IsTrue(responseContent.Contains(this.dynamicTitles[i]), "The dynamic item with this title was not found!");
+            }
+            finally
+            {
+                File.Delete(file);
+                Directory.Delete(this.folderPath);
+                this.pageOperations.DeletePages();
+                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+            }
+        }
+
         [FixtureTearDown]
         public void Teardown()
         {
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, TransactionName);
         }
+
+        #region Helper methods
+
+        public string CopyFile()
+        {
+            if (!Directory.Exists(this.folderPath))
+            {
+                Directory.CreateDirectory(this.folderPath);
+            }
+
+            string filePath = Path.Combine(this.folderPath, DynamicFileName);
+            ServerOperationsFeather.DynamicModules().AddNewResource(DynamicFileFileResource, filePath);
+            Thread.Sleep(1000);
+
+            return filePath;
+        }
+
+        #endregion
 
         #region Fields and constants
 
@@ -390,6 +460,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         private string[] dynamicTitles = { "Angel", "Boat", "Cat" };
         private string[] dynamicUrls = { "AngelUrl", "BoatUrl", "CatUrl" };
         private PagesOperations pageOperations;
+        private const string DynamicFileFileResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.List.PressArticleNew.cshtml";
+        private const string DynamicFileName = "List.PressArticleNew.cshtml";
+        private string folderPath = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/"), "MVC", "Views", "PressArticle");
 
         #endregion
     }

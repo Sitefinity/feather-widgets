@@ -1,19 +1,15 @@
-﻿using DynamicContent.Mvc.Controllers;
-using DynamicContent.Mvc.Helpers;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using DynamicContent.Mvc.Controllers;
+using DynamicContent.Mvc.Helpers;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
-using Telerik.Sitefinity.Frontend.Resources.Resolvers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Versioning;
 
 namespace DynamicContent
 {
@@ -32,7 +28,7 @@ namespace DynamicContent
         /// or
         /// moduleBuilderManager
         /// </exception>
-        public WidgetViewGenerator(PageManager pageManager, ModuleBuilderManager moduleBuilderManager) 
+        public WidgetViewGenerator(PageManager pageManager, ModuleBuilderManager moduleBuilderManager, VersionManager versionManager) 
         {
             if (pageManager == null)
                 throw new ArgumentNullException("pageManager");
@@ -42,7 +38,9 @@ namespace DynamicContent
 
             this.pageManager = pageManager;
             this.moduleBuilderManager = moduleBuilderManager;
+            this.versionManager = versionManager;
         }
+
         /// <summary>
         /// Installs the default master template.
         /// </summary>
@@ -55,16 +53,15 @@ namespace DynamicContent
             var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
+            var condition = dynamicTypeName + "AND MVC";
             var controlType = typeof(DynamicContentController).FullName;
 
             var listTemplateName = string.Format("List.{0}", moduleType.DisplayName);
-            //var nameList = string.Format("MVC List of {0}", pluralModuleTypeName.ToLowerInvariant());
             var friendlyControlList = string.Format("{0} - {1} - list (MVC)", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersList = listTemplateName.Replace('.', '-');
 
             var content = this.GenerateMasterTemplate();
-            var listTemplate = this.RegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, dynamicTypeName, controlType);
-
+            var listTemplate = this.RegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, condition, controlType);
 
             return listTemplate.Id;
         }
@@ -81,15 +78,15 @@ namespace DynamicContent
             var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
+            var condition = dynamicTypeName + "AND MVC";
             var controlType = typeof(DynamicContentController).FullName;
 
             var detailTemplateName = string.Format("Detail.{0}", moduleType.DisplayName);
-            //var nameDetail = string.Format("MVC Full {0} content", area.ToLowerInvariant()); ;
             var friendlyControlDetail = string.Format("{0} - {1} - single (MVC)", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersDetail = detailTemplateName.Replace('.', '-');
 
             var content = this.GenerateDetailTemplate(moduleType);
-            var detailTemplate = this.RegisteredTemplate(area, detailTemplateName, nameForDevelopersDetail, friendlyControlDetail, content, dynamicTypeName, controlType);
+            var detailTemplate = this.RegisteredTemplate(area, detailTemplateName, nameForDevelopersDetail, friendlyControlDetail, content, condition, controlType);
 
             return detailTemplate.Id;
         }
@@ -100,7 +97,7 @@ namespace DynamicContent
         /// <returns></returns>
         private string GenerateMasterTemplate()
         {
-            var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.masterViewDefaultPath);
+            var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.MasterViewDefaultPath);
 
             return defaultTemplateText;
         }
@@ -112,7 +109,7 @@ namespace DynamicContent
         /// <returns></returns>
         private string GenerateDetailTemplate(DynamicModuleType moduleType)
         {
-            var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.detailViewDefaultPath);
+            var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.DetailViewDefaultPath);
             var generatedFieldsMarkup = DynamicFieldHelper.GenerateFieldsSection(moduleType).ToHtmlString();
 
             defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.DynamicFieldsText, generatedFieldsMarkup);
@@ -155,9 +152,12 @@ namespace DynamicContent
         /// <returns>ControlPresentation</returns>
         private ControlPresentation RegisteredTemplate(string area, string name, string nameForDevelopers, string friendlyControlName, string content, string condition, string controlType)
         {
-            var versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
+            var template = this.pageManager.GetPresentationItems<ControlPresentation>().Where(cp => cp.NameForDevelopers == nameForDevelopers && cp.AreaName == area && cp.Condition == condition).FirstOrDefault();
+            if (template == null)
+            {
+                template = this.pageManager.CreatePresentationItem<ControlPresentation>();
+            }
 
-            var template = this.pageManager.CreatePresentationItem<ControlPresentation>();
             template.AreaName = area;
             template.Data = content;
             template.Condition = condition;
@@ -168,18 +168,17 @@ namespace DynamicContent
             template.IsDifferentFromEmbedded = true;
             template.DataType = Presentation.AspNetTemplate;
 
-            this.pageManager.SaveChanges();
+            this.versionManager.CreateVersion(template, true);
 
-            versioningManager.CreateVersion(template, true);
-            versioningManager.SaveChanges();
             return template;
         }
 
-        private readonly PageManager pageManager;
-        private readonly ModuleBuilderManager moduleBuilderManager;
+        private PageManager pageManager;
+        private ModuleBuilderManager moduleBuilderManager;
+        private VersionManager versionManager;
 
-        private const string masterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/List.DefaultDynamicContentList.cshtml";
-        private const string detailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/Detail.DefaultDetailPage.cshtml";
+        private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/List.DefaultDynamicContentList.cshtml";
+        private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/Detail.DefaultDetailPage.cshtml";
         private const string DynamicFieldsText = "@DynamicFieldHelper.GenerateFieldsSection()";
     }
 }
