@@ -15,6 +15,7 @@
         <h1>
             @Html.Sitefinity().ShortTextField((string)Model.Item.Title, "Title")
         </h1>
+        @Html.Sitefinity().DateField((DateTime)Model.Item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
 
         @DynamicFieldHelper.GenerateFieldsSection()
     

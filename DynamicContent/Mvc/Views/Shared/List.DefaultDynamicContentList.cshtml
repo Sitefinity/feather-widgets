@@ -32,9 +32,8 @@
                             </a>
                         }
                     </h2>
-                </li>@*
-            
-                @Html.SfPublicationDateSection();*@
+                    @Html.Sitefinity().DateField((DateTime)item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
+                </li>
             }
         }
     </ul>
