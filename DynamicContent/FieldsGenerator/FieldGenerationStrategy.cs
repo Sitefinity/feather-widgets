@@ -11,8 +11,8 @@ namespace DynamicContent.FieldsGenerator
     /// This class represents strategy for determining the markup needed depending on different <see cref="DynamicModuleField"/>.
     /// </summary>
     /// <remarks>
-    ///  This markup will be added to the automatically generated templates for dynamic widget.
-    ///  </remarks>
+    /// This markup will be added to the automatically generated templates for dynamic widget.
+    /// </remarks>
     public abstract class FieldGenerationStrategy
     {
         /// <summary>

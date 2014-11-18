@@ -30,17 +30,17 @@ namespace DynamicContent.FieldsGenerator
 
             if (field.FieldType == FieldType.MultipleChoice)
             {
-                markup = string.Format(MultipleChoiceFieldGenerationStrategy.fieldMarkupMultipleChoiceTempalte, field.Name, field.Title);
+                markup = string.Format(MultipleChoiceFieldGenerationStrategy.FieldMarkupMultipleChoiceTempalte, field.Name, field.Title);
             }
             else
             {
-                markup = string.Format(MultipleChoiceFieldGenerationStrategy.fieldMarkupSingleChoiceTempalte, field.Name, field.Title);
+                markup = string.Format(MultipleChoiceFieldGenerationStrategy.FieldMarkupSingleChoiceTempalte, field.Name, field.Title);
             }
 
             return markup;
         }
 
-        private const string fieldMarkupMultipleChoiceTempalte = @"@Html.Sitefinity().ChoiceField((IEnumerable)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemChoices"")";
-        private const string fieldMarkupSingleChoiceTempalte = @"@Html.Sitefinity().ChoiceField((string)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemChoices"")";
+        private const string FieldMarkupMultipleChoiceTempalte = @"@Html.Sitefinity().ChoiceField((IEnumerable)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemChoices"")";
+        private const string FieldMarkupSingleChoiceTempalte = @"@Html.Sitefinity().ChoiceField((string)Model.Item.{0}, ""{0}"", ""{1}"", ""sfitemChoices"")";
     }
 }

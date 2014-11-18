@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.RelatedData;
-using Telerik.Sitefinity.Taxonomies;
-using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DynamicContent.FieldsGenerator
@@ -25,22 +19,22 @@ namespace DynamicContent.FieldsGenerator
         public RelatedDataFieldGenerationStrategy()
         {
             this.RelatedDataHelperMapper = new List<Tuple<Type, string, string>>();
-            this.RelatedDataHelperMapper.Add(
-                Tuple.Create(typeof(Image), 
-                RelatedDataFieldGenerationStrategy.inlineImageListItem,
-                RelatedDataFieldGenerationStrategy.inlineSingleImageItem));
-            this.RelatedDataHelperMapper.Add(
-                Tuple.Create(typeof(Video), 
-                RelatedDataFieldGenerationStrategy.inlineVideoListItem,
-                RelatedDataFieldGenerationStrategy.inlineSingleVideoItem));
-            this.RelatedDataHelperMapper.Add(
-                Tuple.Create(typeof(Document),
-                RelatedDataFieldGenerationStrategy.inlineDocumentListItem,
-                RelatedDataFieldGenerationStrategy.inlineSingleDocumentItem));
-            this.RelatedDataHelperMapper.Add(
-                Tuple.Create(typeof(PageNode),
-                RelatedDataFieldGenerationStrategy.inlinePageList,
-                RelatedDataFieldGenerationStrategy.inlineSinglePage));
+            this.RelatedDataHelperMapper.Add(Tuple.Create(
+                typeof(Image),
+                RelatedDataFieldGenerationStrategy.InlineImageListItem,
+                RelatedDataFieldGenerationStrategy.InlineSingleImageItem));
+            this.RelatedDataHelperMapper.Add(Tuple.Create(
+                typeof(Video),
+                RelatedDataFieldGenerationStrategy.InlineVideoListItem,
+                RelatedDataFieldGenerationStrategy.InlineSingleVideoItem));
+            this.RelatedDataHelperMapper.Add(Tuple.Create(
+                typeof(Document),
+                RelatedDataFieldGenerationStrategy.InlineDocumentListItem,
+                RelatedDataFieldGenerationStrategy.InlineSingleDocumentItem));
+            this.RelatedDataHelperMapper.Add(Tuple.Create(
+                typeof(PageNode),
+                RelatedDataFieldGenerationStrategy.InlinePageList,
+                RelatedDataFieldGenerationStrategy.InlineSinglePage));
         }
 
         /// <summary>
@@ -52,7 +46,7 @@ namespace DynamicContent.FieldsGenerator
         /// <value>
         /// The related data helper mapper.
         /// </value>
-        public IList<Tuple<Type, string, string>> RelatedDataHelperMapper { private set; get; }
+        public IList<Tuple<Type, string, string>> RelatedDataHelperMapper { get;  private set; }
 
         /// <inheritdoc/>
         public override bool GetFieldCondition(DynamicModuleField field)
@@ -87,14 +81,14 @@ namespace DynamicContent.FieldsGenerator
             var childType = TypeResolutionService.ResolveType(childTypeName, false);
             var identifierField = RelatedDataHelper.GetRelatedTypeIdentifierField(childTypeName);
             var template = this.GetInlineFieldTemplate(isMasterView, childType);
-            var result = String.Format(template, fieldName, identifierField, frontendWidgetLabel);
+            var result = string.Format(template, fieldName, identifierField, frontendWidgetLabel);
 
             return result;
         }
 
         private string GetInlineFieldTemplate(bool isMasterView, Type childType)
         {
-            var template = String.Empty;
+            var template = string.Empty;
 
             foreach (var mapper in this.RelatedDataHelperMapper)
             {
@@ -106,26 +100,26 @@ namespace DynamicContent.FieldsGenerator
                 }
             }
 
-            template = isMasterView ? RelatedDataFieldGenerationStrategy.inlineListItem : RelatedDataFieldGenerationStrategy.inlineSingleItem;
+            template = isMasterView ? RelatedDataFieldGenerationStrategy.InlineListItem : RelatedDataFieldGenerationStrategy.InlineSingleItem;
 
             return template;
         }
 
         internal const string InlineControlValue = "inline";
 
-        private const string inlineSingleItem = @"@Html.Sitefinity().RelatedDataInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string inlineListItem = @"@Html.Sitefinity().RelatedDataInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSingleItem = @"@Html.Sitefinity().RelatedDataInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineListItem = @"@Html.Sitefinity().RelatedDataInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
 
-        private const string inlineSinglePage = @"@Html.Sitefinity().RelatedPageInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string inlinePageList = @"@Html.Sitefinity().RelatedPageInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSinglePage = @"@Html.Sitefinity().RelatedPageInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlinePageList = @"@Html.Sitefinity().RelatedPageInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
 
-        private const string inlineSingleImageItem = @"@Html.Sitefinity().RelatedImageInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string inlineImageListItem = @"@Html.Sitefinity().RelatedImageInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSingleImageItem = @"@Html.Sitefinity().RelatedImageInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineImageListItem = @"@Html.Sitefinity().RelatedImageInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
 
-        private const string inlineSingleVideoItem = @"@Html.Sitefinity().RelatedVideoInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string inlineVideoListItem = @"@Html.Sitefinity().RelatedVideoInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSingleVideoItem = @"@Html.Sitefinity().RelatedVideoInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineVideoListItem = @"@Html.Sitefinity().RelatedVideoInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
 
-        private const string inlineSingleDocumentItem = @"@Html.Sitefinity().RelatedDocumentInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
-        private const string inlineDocumentListItem = @"@Html.Sitefinity().RelatedDocumentInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineSingleDocumentItem = @"@Html.Sitefinity().RelatedDocumentInlineSingleField(((object) Model.Item).GetRelatedItems(""{0}"").FirstOrDefault<IDataItem>(), ""{1}"", ""{2}"")";
+        private const string InlineDocumentListItem = @"@Html.Sitefinity().RelatedDocumentInlineListField(((object) Model.Item).GetRelatedItems(""{0}"").ToList<IDataItem>(), ""{1}"", ""{2}"")";
     }
 }

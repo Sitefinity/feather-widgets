@@ -1,16 +1,12 @@
-﻿using DynamicContent.Mvc.Controllers;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DynamicContent.Mvc.Controllers;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Install;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
-using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DynamicContent
 {

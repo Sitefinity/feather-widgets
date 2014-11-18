@@ -1,7 +1,8 @@
-﻿using ServiceStack.Text;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ServiceStack.Text;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
@@ -23,16 +24,6 @@ namespace DynamicContent.Mvc.Models
         public string SerializedSelectedParentsIds { get; set; }
 
         /// <inheritdoc />
-        protected override IQueryable<IDataItem> GetItemsQuery()
-        {
-            if (this.ContentType == null)
-                throw new InvalidOperationException("ContentType cannot be inferred from the WidgetName. A required module might be deactivated.");
-
-            var manager = DynamicModuleManager.GetManager(this.ProviderName);
-            return manager.GetDataItems(this.ContentType);
-        }
-
-        /// <inheritdoc />
         public virtual ContentListViewModel CreateListViewModelByParent(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int page)
         {
             if (page < 1)
@@ -47,6 +38,16 @@ namespace DynamicContent.Mvc.Models
             this.PopulateListViewModel(page, query, viewModel);
 
             return viewModel;
+        }
+
+        /// <inheritdoc />
+        protected override IQueryable<IDataItem> GetItemsQuery()
+        {
+            if (this.ContentType == null)
+                throw new InvalidOperationException("ContentType cannot be inferred from the WidgetName. A required module might be deactivated.");
+
+            var manager = DynamicModuleManager.GetManager(this.ProviderName);
+            return manager.GetDataItems(this.ContentType);
         }
 
         /// <inheritdoc />
