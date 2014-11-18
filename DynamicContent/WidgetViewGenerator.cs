@@ -18,6 +18,8 @@ namespace DynamicContent
     /// </summary>
     internal class WidgetViewGenerator
     {
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WidgetViewGenerator"/> class.
         /// </summary>
@@ -41,6 +43,10 @@ namespace DynamicContent
             this.versionManager = versionManager;
         }
 
+        #endregion 
+
+        #region Public methods
+
         /// <summary>
         /// Installs the default master template.
         /// </summary>
@@ -53,7 +59,7 @@ namespace DynamicContent
             var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var condition = dynamicTypeName + "AND MVC";
+            var condition = string.Format(WidgetViewGenerator.MvcTemplateCondition, dynamicTypeName);
             var controlType = typeof(DynamicContentController).FullName;
 
             var listTemplateName = string.Format("List.{0}", moduleType.DisplayName);
@@ -78,7 +84,7 @@ namespace DynamicContent
             var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var condition = dynamicTypeName + "AND MVC";
+            var condition = string.Format(WidgetViewGenerator.MvcTemplateCondition, dynamicTypeName);
             var controlType = typeof(DynamicContentController).FullName;
 
             var detailTemplateName = string.Format("Detail.{0}", moduleType.DisplayName);
@@ -90,6 +96,27 @@ namespace DynamicContent
 
             return detailTemplate.Id;
         }
+
+        /// <summary>
+        /// Removes widget templates.
+        /// </summary>
+        /// <param name="contentTypeName">Name of the content type.</param>
+        public void UnregisterTemplates(string contentTypeName)
+        {
+            var mvcTemplateCondition = string.Format(WidgetViewGenerator.MvcTemplateCondition, contentTypeName);
+            var templatesToDelete = this.pageManager.GetPresentationItems<ControlPresentation>()
+                .Where(c => c.Condition == mvcTemplateCondition)
+                .ToArray();
+
+            foreach (var template in templatesToDelete)
+            {
+                this.pageManager.Delete(template);
+            }
+        }
+
+        #endregion
+
+        #region Private methods
 
         /// <summary>
         /// Generates the master template.
@@ -173,12 +200,19 @@ namespace DynamicContent
             return template;
         }
 
+        #endregion
+
+        #region Privte fields and Constants
+
         private PageManager pageManager;
         private ModuleBuilderManager moduleBuilderManager;
         private VersionManager versionManager;
 
+        internal const string MvcTemplateCondition = "{0} AND MVC";
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/List.DefaultDynamicContentList.cshtml";
         private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/Detail.DefaultDetailPage.cshtml";
         private const string DynamicFieldsText = "@DynamicFieldHelper.GenerateFieldsSection()";
+
+        #endregion
     }
 }
