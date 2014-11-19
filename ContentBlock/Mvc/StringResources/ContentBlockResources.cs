@@ -41,7 +41,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["CreateContent", System.Globalization.CultureInfo.InvariantCulture];
+                return this["CreateContent"];
             }
         }
 
@@ -56,7 +56,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["NoViewPermissionsMessage", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NoViewPermissionsMessage"];
             }
         }
 
@@ -71,7 +71,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Shared", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Shared"];
             }
         }
 
@@ -86,7 +86,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Cancel", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Cancel"];
             }
         }
 
@@ -101,7 +101,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Title", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Title"];
             }
         }
 
@@ -116,7 +116,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["ShareContent", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShareContent"];
             }
         }
 
@@ -131,7 +131,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["AreYouSureYouWantToUnshareThisContent", System.Globalization.CultureInfo.InvariantCulture];
+                return this["AreYouSureYouWantToUnshareThisContent"];
             }
         }
 
@@ -146,7 +146,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["UnshareThisContent", System.Globalization.CultureInfo.InvariantCulture];
+                return this["UnshareThisContent"];
             }
         }
 
@@ -161,7 +161,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Share", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Share"];
             }
         }
 
@@ -176,7 +176,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["UseShared", System.Globalization.CultureInfo.InvariantCulture];
+                return this["UseShared"];
             }
         }
 
@@ -191,7 +191,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Unshare", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Unshare"];
             }
         }
 
@@ -206,7 +206,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["SharedContentEditWarning", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SharedContentEditWarning"];
             }
         }
 
@@ -221,7 +221,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["ContentBlockResourcesTitle", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ContentBlockResourcesTitle"];
             }
         }
 
@@ -236,7 +236,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["ContentBlockResourcesDescription", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ContentBlockResourcesDescription"];
             }
         }
 
@@ -251,7 +251,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Error", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Error"];
             }
         }
 
@@ -266,7 +266,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["ShareContentBlock", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShareContentBlock"];
             }
         }
 
@@ -281,7 +281,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["TitleRequired", System.Globalization.CultureInfo.InvariantCulture];
+                return this["TitleRequired"];
             }
         }
 
@@ -296,7 +296,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Simple", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Simple"];
             }
         }
 
@@ -311,7 +311,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["SelectSharedContent", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SelectSharedContent"];
             }
         }
 
@@ -326,7 +326,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["NoItemsFound", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NoItemsFound"];
             }
         }
 
@@ -341,7 +341,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["NoItemsHaveBeenCreatedYet", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NoItemsHaveBeenCreatedYet"];
             }
         }
 
@@ -356,7 +356,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["NarrowByTyping", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NarrowByTyping"];
             }
         }
 
@@ -371,7 +371,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["DoneSelecting", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DoneSelecting"];
             }
         }
 
@@ -386,7 +386,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["ThisContentIsShared", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ThisContentIsShared"];
             }
         }
 
@@ -401,7 +401,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["SharedContentWarning", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SharedContentWarning"];
             }
         }
 
@@ -416,7 +416,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["UnshareContentBlock", System.Globalization.CultureInfo.InvariantCulture];
+                return this["UnshareContentBlock"];
             }
         }
 
@@ -431,7 +431,7 @@ namespace ContentBlock.Mvc.StringResources
         {
             get
             {
-                return this["Provider", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Provider"];
             }
         }
     }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 

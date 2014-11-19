@@ -64,6 +64,33 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Entry point for Dynamic modules operations.
+        /// </summary>
+        /// <returns>DynamicModulesOperations instance.</returns>
+        public static DynamicModulesOperations DynamicModules()
+        {
+            return new DynamicModulesOperations();
+        }
+
+        /// <summary>
+        /// Entry point for Dynamic modules Press Article operations.
+        /// </summary>
+        /// <returns>DynamicModulePressArticleOperations instance.</returns>
+        public static DynamicModulePressArticleOperations DynamicModulePressArticle()
+        {
+            return new DynamicModulePressArticleOperations();
+        }
+
+        /// <summary>
+        /// Entry point for Booking dynamic module common operations.
+        /// </summary>
+        /// <returns>DynamicModuleBookingOperations instance.</returns>
+        public static DynamicModuleBookingOperations DynamicModuleBooking()
+        {
+            return new DynamicModuleBookingOperations();
+        }
+
+        /// <summary>
         /// Entry point for Tags operations.
         /// </summary>
         /// <returns>TagsOperations instance.</returns>

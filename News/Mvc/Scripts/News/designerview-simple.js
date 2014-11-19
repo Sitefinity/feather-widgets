@@ -31,7 +31,9 @@
             'newsSelector.selectedItemsIds',
             function (newSelectedItemsIds, oldSelectedItemsIds) {
                 if (newSelectedItemsIds !== oldSelectedItemsIds) {
-                    $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                    if (newSelectedItemsIds) {
+                        $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                    }
 	            }
 	        },
 	        true
@@ -57,6 +59,14 @@
                 $scope.feedback.showError = true;
                 if (data)
                     $scope.feedback.errorMessage = data.Detail;
+            })
+            .then(function () {
+                $scope.feedback.savingHandlers.push(function () {
+                    if (!$scope.properties.DetailsPageId.PropertyValue ||
+                            $scope.properties.DetailsPageId.PropertyValue === '00000000-0000-0000-0000-000000000000') {
+                        $scope.properties.OpenInSamePage.PropertyValue = true;
+                    }
+                })
             })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;

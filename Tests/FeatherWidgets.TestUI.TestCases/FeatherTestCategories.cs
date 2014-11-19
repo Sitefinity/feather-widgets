@@ -36,6 +36,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string SemanticUI = "SemanticUI";
 
         /// <summary>
+        /// Dynamic Widgets test category
+        /// </summary>
+        public const string DynamicWidgets = "DynamicWidgets";
+
+        /// <summary>
         /// New category for new tests
         /// </summary>
         public const string New = "New";

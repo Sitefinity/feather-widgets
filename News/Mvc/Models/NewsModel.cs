@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.News;
@@ -289,7 +291,7 @@ namespace News.Mvc.Models
 
                 if (!string.IsNullOrEmpty(selectedItemsFilterExpression))
                     elements.Add(selectedItemsFilterExpression);
-                }
+            }
 
             if (!string.IsNullOrEmpty(this.FilterExpression))
                 elements.Add(this.FilterExpression);
@@ -346,24 +348,55 @@ namespace News.Mvc.Models
             compiledFilterExpression = this.AddLiveFilterExpression(compiledFilterExpression);
             compiledFilterExpression = this.AdaptMultilingualFilterExpression(compiledFilterExpression);
 
-            string newsSortExpression = this.GetNewsSortExpression();
-
-            newsItems = DataProviderBase.SetExpressions(
-                newsItems,
-                compiledFilterExpression,
-                newsSortExpression,
-                itemsToSkip,
-                itemsPerPage,
-                ref totalCount);
-
-            if (this.SelectionMode == NewsSelectionMode.SelectedItems)
-            {
-                newsItems = newsItems.OrderBy(x => x.Id.ToString(), new NewsComparer(this.selectedItemsIds));
-            }
+            newsItems = this.SetExpressions(newsItems, compiledFilterExpression, this.SortExpression, itemsToSkip, itemsPerPage, ref totalCount);
 
             this.TotalPagesCount = (int)Math.Ceiling((double)(totalCount.Value / (double)this.ItemsPerPage.Value));
             this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? this.TotalPagesCount : null;
             this.CurrentPage = page.Value;
+        }
+
+        private IQueryable<NewsItem> SetExpressions(IQueryable<NewsItem> newsItems, string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
+        {
+            if (this.SelectionMode == NewsSelectionMode.SelectedItems)
+            {
+                newsItems = DataProviderBase.SetExpressions(
+                    newsItems,
+                    filterExpression,
+                    string.Empty, 
+                    null, 
+                    null,
+                    ref totalCount);
+
+                newsItems = newsItems.Select(x => new 
+                    {
+                        newsItem = x,
+                        orderIndex = this.selectedItemsIds.IndexOf(x.Id.ToString())
+                    })
+                    .OrderBy(x => x.orderIndex)
+                    .Select(x => x.newsItem);
+
+                if (itemsToSkip.HasValue && itemsToSkip.Value > 0)
+                {
+                    newsItems = newsItems.Skip(itemsToSkip.Value);
+                }
+
+                if (itemsToTake.HasValue && itemsToTake.Value > 0)
+                {
+                    newsItems = newsItems.Take(itemsToTake.Value);
+                }
+            }
+            else
+            {
+                newsItems = DataProviderBase.SetExpressions(
+                    newsItems,
+                    filterExpression,
+                    sortExpr,
+                    itemsToSkip,
+                    itemsToTake,
+                    ref totalCount);
+            }
+
+            return newsItems;
         }
 
         private string AddLiveFilterExpression(string filterExpression)
@@ -439,18 +472,6 @@ namespace News.Mvc.Models
             return selectedItemsFilterExpression;
         }
 
-        private string GetNewsSortExpression()
-        {
-            if (this.SelectionMode == NewsSelectionMode.SelectedItems)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                return this.SortExpression;
-            }
-        }
-
         #endregion 
 
         #region Private properties and constants
@@ -467,22 +488,5 @@ namespace News.Mvc.Models
         private IList<string> selectedItemsIds = new List<string>();
 
         #endregion
-
-        private class NewsComparer : IComparer<string>
-        {
-            public NewsComparer(IList<string> orderedNews)
-            {
-                this.orderedNews = orderedNews;
-            }
-
-            public int Compare(string x, string y)
-            {
-                var index1 = this.orderedNews.IndexOf(x);
-                var index2 = this.orderedNews.IndexOf(y);
-                return index1.CompareTo(index2);
-            }
-
-            private readonly IList<string> orderedNews;
-        }
     }
 }

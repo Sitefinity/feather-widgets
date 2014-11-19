@@ -1,0 +1,47 @@
+﻿@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Models;
+@using Telerik.Sitefinity.Web.DataResolving;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery)
+
+<link rel="stylesheet" href='@Url.WidgetContent("//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")' type="text/css" />
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<div class="@Model.CssClass">
+    <ul>
+        @foreach (dynamic item in Model.Items)
+        {
+            using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id))
+            {
+                <li>
+                    <h2>
+                        <p> List template </p>
+
+                        @if (ViewBag.OpenInSamePage)
+                        {
+                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                        }
+                        else
+                        {
+                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                        }
+                    </h2>
+                </li>@*
+            
+                @Html.SfPublicationDateSection();*@
+            }
+        }
+    </ul>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new { currentPage = Model.CurrentPage, 
+                        totalPagesCount = Model.TotalPagesCount.Value, 
+                        redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate })
+    }
+
+</div>
