@@ -16,6 +16,11 @@ namespace DynamicContent.Mvc.Models
     public interface IDynamicContentModel
     {
         /// <summary>
+        /// Gets or sets whether the dynamic content widget is always in list mode.
+        /// </summary>
+        bool ListMode { get; set; }
+
+        /// <summary>
         /// Gets or sets the type of content that is loaded.
         /// </summary>
         [Browsable(false)]
