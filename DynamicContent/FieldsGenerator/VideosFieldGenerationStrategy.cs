@@ -28,11 +28,11 @@ namespace DynamicContent.FieldsGenerator
         /// <inheritdoc/>
         public override string GetFieldMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(VideosFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.Title);
+            var markup = string.Format(VideosFieldGenerationStrategy.FieldMarkupTempalte, field.Name);
 
             return markup;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().VideoField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"", fieldTitle: ""{1}"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().VideoField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"")";
     }
 }

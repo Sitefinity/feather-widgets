@@ -66,7 +66,7 @@ namespace DynamicContent
             var friendlyControlList = string.Format("{0} - {1} - list (MVC)", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersList = listTemplateName.Replace('.', '-');
 
-            var content = this.GenerateMasterTemplate();
+            var content = this.GenerateMasterTemplate(moduleType);
             var listTemplate = this.RegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, condition, controlType);
 
             return listTemplate.Id;
@@ -119,18 +119,21 @@ namespace DynamicContent
         #region Private methods
 
         /// <summary>
-        /// Generates the master template.
+        /// Generates the content of master template.
         /// </summary>
         /// <returns></returns>
-        private string GenerateMasterTemplate()
+        private string GenerateMasterTemplate(DynamicModuleType moduleType)
         {
             var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.MasterViewDefaultPath);
+            var mainPictureMarkup = DynamicFieldHelper.MainPictureSection(moduleType).ToHtmlString();
+
+            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainPictureFieldText, mainPictureMarkup);
 
             return defaultTemplateText;
         }
 
         /// <summary>
-        /// Generates the detail template and with all dynamic fields needed.
+        /// Generates the content of detail template with all dynamic fields needed.
         /// </summary>
         /// <param name="moduleType">Type of the module.</param>
         /// <returns></returns>
@@ -212,6 +215,7 @@ namespace DynamicContent
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/List.DefaultDynamicContentList.cshtml";
         private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/Detail.DefaultDetailPage.cshtml";
         private const string DynamicFieldsText = "@DynamicFieldHelper.GenerateFieldsSection()";
+        private const string MainPictureFieldText = "@DynamicFieldHelper.MainPictureSection()";
 
         #endregion
     }

@@ -4,6 +4,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using Telerik.Sitefinity.Web.DataResolving;
+@using Telerik.Sitefinity.Model.ContentLinks;
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery)
@@ -18,6 +19,7 @@
             using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id))
             {
                 <li>
+                    @DynamicFieldHelper.MainPictureSection()
                     <h2>
                         @if (ViewBag.OpenInSamePage)
                         {
