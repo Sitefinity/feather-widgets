@@ -15,6 +15,9 @@ namespace DynamicContent.Mvc.Models
     public class DynamicContentModel : ContentModelBase, IDynamicContentModel
     {
         /// <inheritdoc />
+        public bool ListMode { get; set; }
+
+        /// <inheritdoc />
         public ParentFilterMode ParentFilterMode { get; set; }
 
         /// <inheritdoc />
@@ -68,6 +71,12 @@ namespace DynamicContent.Mvc.Models
             {
                 return baseExpression;
             }
+        }
+
+        /// <inheritdoc />
+        protected override ContentListViewModel CreateListViewModelInstance()
+        {
+            return new DynamicContentListViewModel();
         }
     }
 }
