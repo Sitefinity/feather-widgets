@@ -59,8 +59,8 @@ namespace DynamicContent.Mvc.Helpers
             return markup;
         }
 
-        private const string MainShotTextFieldListTempalte = @"@Html.Sitefinity().ShortTextField((string)item.{0}, ""{0}"")";
-        private const string MainShotTextFieldDetailTempalte = @"@Html.Sitefinity().ShortTextField((string)Model.Item.{0}, ""{0}"")";
+        private const string MainShotTextFieldListTempalte = @"@Html.Sitefinity().ShortTextField((object)item.{0}, ""{0}"")";
+        private const string MainShotTextFieldDetailTempalte = @"@Html.Sitefinity().ShortTextField((object)Model.Item.{0}, ""{0}"")";
         private const string SingleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)item.{0}).FirstOrDefault(), ""{0}"")";
         private const string MultiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)item.{0}, ""{0}"")";
     }

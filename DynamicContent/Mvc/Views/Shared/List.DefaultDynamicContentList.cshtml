@@ -30,7 +30,7 @@
                         else
                         {
                             <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
-                                @Html.Sitefinity().ShortTextField((string)item.Title, "Title")
+                                @DynamicFieldHelper.MainTextFieldForList()
                             </a>
                         }
                     </h1>
