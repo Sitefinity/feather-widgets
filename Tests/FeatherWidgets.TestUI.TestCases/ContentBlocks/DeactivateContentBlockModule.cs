@@ -61,7 +61,6 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
 
-
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>

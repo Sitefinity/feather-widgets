@@ -65,8 +65,8 @@ namespace Navigation.Mvc.StringResources
         /// The display.
         /// </value>
         [ResourceEntry("Display",
-            Value = "Display",
-            Description = "word : Display",
+            Value = "Display...",
+            Description = "word : Display...",
             LastModified = "2014/05/27")]
         public string Display
         {

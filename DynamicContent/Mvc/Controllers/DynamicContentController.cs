@@ -247,13 +247,29 @@ namespace DynamicContent.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Telerik.Sitefinity.DynamicModules.Model.DynamicContent item)
         {
-            var viewModel = this.Model.CreateDetailsViewModel(item);
-            this.ViewBag.Title = ((IHasTitle)viewModel.Item).GetTitle();
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (!this.Model.ListMode)
+            {
+                var viewModel = this.Model.CreateDetailsViewModel(item);
+                this.ViewBag.Title = ((IHasTitle)viewModel.Item).GetTitle();
+                if (SystemManager.CurrentHttpContext != null)
+                    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
-            return this.View(fullTemplateName, viewModel);
+                var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
+                return this.View(fullTemplateName, viewModel);
+            }
+            else
+            {
+                this.InitializeListViewBag("/{0}");
+
+                var viewModel = this.Model.CreateListViewModel(null, 1);
+                ((DynamicContentListViewModel)viewModel).SelectedItem = (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)DynamicModuleManager.GetManager().Lifecycle.GetLive(item);
+
+                if (SystemManager.CurrentHttpContext != null)
+                    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+                var fullTemplateName = this.FullListTemplateName();
+                return this.View(fullTemplateName, viewModel);
+            }
         }
 
         /// <summary>

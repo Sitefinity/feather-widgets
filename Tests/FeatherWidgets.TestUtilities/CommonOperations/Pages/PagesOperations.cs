@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Web.UI;
 using ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity;
@@ -11,7 +12,6 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
-using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
@@ -69,7 +69,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="pageId">Page id value</param>
         /// <param name="contentBlockTitle">Content block title</param>
-        public void AddSharedContentBlockWidgetToPage(Guid pageId, string contentBlockTitle)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddSharedContentBlockWidgetToPage(Guid pageId, string contentBlockTitle, string placeholder = "Body")
         {
             PageManager pageManager = PageManager.GetManager();
             pageManager.Provider.SuppressSecurityChecks = true;
@@ -90,7 +91,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                     SharedContentID = content.Id
                 });
 
-                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock");
+                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock", placeholder);
             }
         }
 
@@ -248,6 +249,22 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var section = pageControls.Sections.FirstOrDefault<ToolboxSection>(s => s.Title == widgetSectionTitle);
 
             return section;
+        }
+
+        /// <summary>
+        /// Gets Test Utilities Assembly.
+        /// </summary>
+        /// <returns>The Test Utilities Assembly.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public Assembly GetTestUtilitiesAssembly()
+        {
+            var testUtilitiesAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetName().Name.Equals("FeatherWidgets.TestUtilities")).FirstOrDefault();
+            if (testUtilitiesAssembly == null)
+            {
+                throw new DllNotFoundException("Assembly wasn't found");
+            }
+
+            return testUtilitiesAssembly;
         }
 
         /// <summary>

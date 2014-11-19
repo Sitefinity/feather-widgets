@@ -156,5 +156,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlAnchor>("tagname=a", "class=btn btn-link ng-scope");
             }
         }
+
+        /// <summary>
+        /// Gets advanced button.
+        /// </summary>
+        public HtmlAnchor AdvancedButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("ng-hide=isCurrentView('PropertyGrid')");
+            }
+        }
+
+        /// <summary>
+        /// Gets enable social share.
+        /// </summary>
+        public HtmlInputText EnableSocialSharing
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=prop-EnableSocialSharing");
+            }
+        }
+
+        /// <summary>
+        /// Gets Content block widget footer.
+        /// </summary>
+        public HtmlDiv ContentBlockWidgetFooter
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "placeholder=modal-footer");
+            }
+        }
     }
 }

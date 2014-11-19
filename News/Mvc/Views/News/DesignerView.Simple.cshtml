@@ -30,12 +30,14 @@
                     <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
 
                     @Html.Resource("SelectedNews")
-
+                </label>
+                <div class="label-content">
                     <sf-list-selector sf-news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
                                   multiselect="true" sortable="true"
                                   provider="properties.ProviderName.PropertyValue"
                                   selected-ids ="newsSelector.selectedItemsIds"></sf-list-selector>
-                </label>
+
+                </div>
             </div>
             <div class="radio">
                 <label for="filterNews" class="full-width">
@@ -135,9 +137,7 @@
             <div class="radio">
                 <label for="samePage">
                     <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
-                    <span>
-                        @Html.Resource("ShowInSamePage")
-                    </span>
+                       @Html.Resource("ShowInSamePage") <span class="text-muted">@Html.Resource("ShowInSamePageNote")</span>
                 </label>
             </div>
             <div class="radio">

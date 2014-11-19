@@ -13,16 +13,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     public class NavigationWrapper : BaseWrapper
     {
         /// <summary>
-        /// Provides list of all navigation div
+        /// Provides list of all navigation widgets
         /// </summary>
-        /// <returns>Returns list of all navigation div</returns>
-        public List<HtmlDiv> ListWithNavigationDiv()
+        /// <returns>Returns list of all navigation widgets</returns>
+        public List<HtmlControl> ListWithNavigationWidgets()
         {
-            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            List<HtmlControl> list = ActiveBrowser.Find.AllByTagName<HtmlControl>("nav").ToList<HtmlControl>();
 
-            List<HtmlDiv> navigationList = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "id=bs-example-navbar-collapse-1").ToList<HtmlDiv>();
-
-            return navigationList;
+            return list;
         }
 
         /// <summary>
@@ -57,16 +55,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             {
                 navList.AssertContainsText<HtmlControl>(page, "Navigation does not contain the expected page " + page);
             }
-        }
-
-        /// <summary>
-        /// Verify navigation count on the page frontend
-        /// </summary>
-        /// <param name="expectedCount">The expected count</param>
-        public void VerifyNavigationCountOnThePageFrontend(int expectedCount)
-        {
-            List<HtmlDiv> navigationCount = this.ListWithNavigationDiv();
-            Assert.AreEqual<int>(expectedCount, navigationCount.Count, "unexpected number");
         }
 
         /// <summary>
@@ -251,11 +239,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Asserts that navigation menu is visible on the frontend.
         /// </summary>
         /// <returns>true or false depending on the navigation visibility.</returns>
-        public bool AssertNavigationIsVisible(string cssClass)
+        public bool AssertNavigationIsVisible(string cssClass, TemplateType templateType)
         {
-            HtmlUnorderedList nav = this.EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass);
+            HtmlControl navList = null;
 
-            if (nav.IsVisible())
+            switch (templateType)
+            {
+                case TemplateType.Bootstrap:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass);
+                    break;
+                case TemplateType.Foundation:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass);
+                    break;
+                case TemplateType.Semantic:
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass);
+                    break;
+            }
+
+            if (navList != null && navList.IsVisible())
             {
                 return true;
             }

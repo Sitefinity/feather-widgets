@@ -6,6 +6,7 @@ using System.Linq;
 
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.News;
