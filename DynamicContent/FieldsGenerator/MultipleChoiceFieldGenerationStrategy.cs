@@ -28,7 +28,7 @@ namespace DynamicContent.FieldsGenerator
         {
             var markup = string.Empty;
 
-            if (field.FieldType == FieldType.MultipleChoice)
+            if (field.ChoiceRenderType.ToLowerInvariant() == "checkbox")
             {
                 markup = string.Format(MultipleChoiceFieldGenerationStrategy.FieldMarkupMultipleChoiceTempalte, field.Name, field.Title);
             }
