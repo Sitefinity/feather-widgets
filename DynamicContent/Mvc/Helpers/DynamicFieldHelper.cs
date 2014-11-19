@@ -15,6 +15,20 @@ namespace DynamicContent.Mvc.Helpers
             return new MvcHtmlString(dynamicfieldHelper);
         }
 
+        public static MvcHtmlString MainTextFieldForList(DynamicModuleType moduleType)
+        {
+            var fieldMarkup = string.Format(DynamicFieldHelper.MainShotTextFieldListTempalte, moduleType.MainShortTextFieldName);
+            
+            return new MvcHtmlString(fieldMarkup);
+        }
+
+        public static MvcHtmlString MainTextFieldForDetail(DynamicModuleType moduleType)
+        {
+            var fieldMarkup = string.Format(DynamicFieldHelper.MainShotTextFieldDetailTempalte, moduleType.MainShortTextFieldName);
+
+            return new MvcHtmlString(fieldMarkup);
+        }
+
         public static MvcHtmlString MainPictureSection(DynamicModuleType moduleType)
         {
             var firstMediaFieldTypeImage = moduleType.Fields.FirstOrDefault(f => f.FieldType == FieldType.Media
@@ -45,8 +59,9 @@ namespace DynamicContent.Mvc.Helpers
             return markup;
         }
 
+        private const string MainShotTextFieldListTempalte = @"@Html.Sitefinity().ShortTextField((string)item.{0}, ""{0}"")";
+        private const string MainShotTextFieldDetailTempalte = @"@Html.Sitefinity().ShortTextField((string)Model.Item.{0}, ""{0}"")";
         private const string SingleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)item.{0}).FirstOrDefault(), ""{0}"")";
         private const string MultiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)item.{0}, ""{0}"")";
-
     }
 }

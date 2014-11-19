@@ -126,7 +126,9 @@ namespace DynamicContent
         {
             var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.MasterViewDefaultPath);
             var mainPictureMarkup = DynamicFieldHelper.MainPictureSection(moduleType).ToHtmlString();
+            var mainShortTextMarkup = DynamicFieldHelper.MainTextFieldForList(moduleType).ToHtmlString();
 
+            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainShortFieldTextForList, mainShortTextMarkup);
             defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainPictureFieldText, mainPictureMarkup);
 
             return defaultTemplateText;
@@ -141,7 +143,9 @@ namespace DynamicContent
         {
             var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.DetailViewDefaultPath);
             var generatedFieldsMarkup = DynamicFieldHelper.GenerateFieldsSection(moduleType).ToHtmlString();
+            var mainShortTextMarkup = DynamicFieldHelper.MainTextFieldForDetail(moduleType).ToHtmlString();
 
+            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainShortFieldTextForDetail, mainShortTextMarkup);
             defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.DynamicFieldsText, generatedFieldsMarkup);
 
             return defaultTemplateText;
@@ -214,6 +218,8 @@ namespace DynamicContent
         internal const string MvcTemplateCondition = "{0} AND MVC";
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/List.DefaultDynamicContentList.cshtml";
         private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/Detail.DefaultDetailPage.cshtml";
+        private const string MainShortFieldTextForList = "@DynamicFieldHelper.MainTextFieldForList()";
+        private const string MainShortFieldTextForDetail = "@DynamicFieldHelper.MainTextFieldForDetail()";
         private const string DynamicFieldsText = "@DynamicFieldHelper.GenerateFieldsSection()";
         private const string MainPictureFieldText = "@DynamicFieldHelper.MainPictureSection()";
 
