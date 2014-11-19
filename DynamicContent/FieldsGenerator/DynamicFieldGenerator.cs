@@ -82,7 +82,7 @@ namespace DynamicContent.FieldsGenerator
 
         #region Private fields and constants
 
-        private static readonly string EmptyLine = "\r\n";
+        internal static readonly string EmptyLine = "\r\n";
 
         private DynamicModuleType moduleType;
 

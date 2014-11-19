@@ -12,9 +12,10 @@
 @{
     using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id))
     {
-        <h1>
-            @Html.TextField("Title", (string)Model.Item.Title, "ShortText")
+        <h1 class="sfitemTitle sftitle">
+            @DynamicFieldHelper.MainTextFieldForDetail()
         </h1>
+        @Html.Sitefinity().DateField((DateTime)Model.Item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
 
         @DynamicFieldHelper.GenerateFieldsSection()
     

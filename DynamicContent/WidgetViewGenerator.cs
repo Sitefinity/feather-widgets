@@ -18,6 +18,8 @@ namespace DynamicContent
     /// </summary>
     internal class WidgetViewGenerator
     {
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WidgetViewGenerator"/> class.
         /// </summary>
@@ -41,6 +43,10 @@ namespace DynamicContent
             this.versionManager = versionManager;
         }
 
+        #endregion 
+
+        #region Public methods
+
         /// <summary>
         /// Installs the default master template.
         /// </summary>
@@ -53,14 +59,14 @@ namespace DynamicContent
             var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var condition = dynamicTypeName + "AND MVC";
+            var condition = string.Format(WidgetViewGenerator.MvcTemplateCondition, dynamicTypeName);
             var controlType = typeof(DynamicContentController).FullName;
 
             var listTemplateName = string.Format("List.{0}", moduleType.DisplayName);
             var friendlyControlList = string.Format("{0} - {1} - list (MVC)", moduleTitle, pluralModuleTypeName);
             var nameForDevelopersList = listTemplateName.Replace('.', '-');
 
-            var content = this.GenerateMasterTemplate();
+            var content = this.GenerateMasterTemplate(moduleType);
             var listTemplate = this.RegisteredTemplate(area, listTemplateName, nameForDevelopersList, friendlyControlList, content, condition, controlType);
 
             return listTemplate.Id;
@@ -78,7 +84,7 @@ namespace DynamicContent
             var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var condition = dynamicTypeName + "AND MVC";
+            var condition = string.Format(WidgetViewGenerator.MvcTemplateCondition, dynamicTypeName);
             var controlType = typeof(DynamicContentController).FullName;
 
             var detailTemplateName = string.Format("Detail.{0}", moduleType.DisplayName);
@@ -92,18 +98,44 @@ namespace DynamicContent
         }
 
         /// <summary>
-        /// Generates the master template.
+        /// Removes widget templates.
+        /// </summary>
+        /// <param name="contentTypeName">Name of the content type.</param>
+        public void UnregisterTemplates(string contentTypeName)
+        {
+            var mvcTemplateCondition = string.Format(WidgetViewGenerator.MvcTemplateCondition, contentTypeName);
+            var templatesToDelete = this.pageManager.GetPresentationItems<ControlPresentation>()
+                .Where(c => c.Condition == mvcTemplateCondition)
+                .ToArray();
+
+            foreach (var template in templatesToDelete)
+            {
+                this.pageManager.Delete(template);
+            }
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Generates the content of master template.
         /// </summary>
         /// <returns></returns>
-        private string GenerateMasterTemplate()
+        private string GenerateMasterTemplate(DynamicModuleType moduleType)
         {
             var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.MasterViewDefaultPath);
+            var mainPictureMarkup = DynamicFieldHelper.MainPictureSection(moduleType).ToHtmlString();
+            var mainShortTextMarkup = DynamicFieldHelper.MainTextFieldForList(moduleType).ToHtmlString();
+
+            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainShortFieldTextForList, mainShortTextMarkup);
+            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainPictureFieldText, mainPictureMarkup);
 
             return defaultTemplateText;
         }
 
         /// <summary>
-        /// Generates the detail template and with all dynamic fields needed.
+        /// Generates the content of detail template with all dynamic fields needed.
         /// </summary>
         /// <param name="moduleType">Type of the module.</param>
         /// <returns></returns>
@@ -111,7 +143,9 @@ namespace DynamicContent
         {
             var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.DetailViewDefaultPath);
             var generatedFieldsMarkup = DynamicFieldHelper.GenerateFieldsSection(moduleType).ToHtmlString();
+            var mainShortTextMarkup = DynamicFieldHelper.MainTextFieldForDetail(moduleType).ToHtmlString();
 
+            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainShortFieldTextForDetail, mainShortTextMarkup);
             defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.DynamicFieldsText, generatedFieldsMarkup);
 
             return defaultTemplateText;
@@ -173,12 +207,22 @@ namespace DynamicContent
             return template;
         }
 
+        #endregion
+
+        #region Privte fields and Constants
+
         private PageManager pageManager;
         private ModuleBuilderManager moduleBuilderManager;
         private VersionManager versionManager;
 
+        internal const string MvcTemplateCondition = "{0} AND MVC";
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/List.DefaultDynamicContentList.cshtml";
         private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/Detail.DefaultDetailPage.cshtml";
+        private const string MainShortFieldTextForList = "@DynamicFieldHelper.MainTextFieldForList()";
+        private const string MainShortFieldTextForDetail = "@DynamicFieldHelper.MainTextFieldForDetail()";
         private const string DynamicFieldsText = "@DynamicFieldHelper.GenerateFieldsSection()";
+        private const string MainPictureFieldText = "@DynamicFieldHelper.MainPictureSection()";
+
+        #endregion
     }
 }

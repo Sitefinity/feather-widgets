@@ -40,6 +40,6 @@ namespace DynamicContent.FieldsGenerator
         }
 
         private DynamicModuleType moduleType;
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().ShortTextField((string)Model.Item.{0}, ""{0}"", ""{1}"",""sfitemShortTxtWrp"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().ShortTextField((string)Model.Item.{0}, ""{0}"", fieldTitle: ""{1}"", cssClass: ""sfitemShortTxtWrp"")";
     }
 }

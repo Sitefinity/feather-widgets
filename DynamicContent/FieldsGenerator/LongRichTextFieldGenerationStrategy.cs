@@ -30,6 +30,6 @@ namespace DynamicContent.FieldsGenerator
             return longTextMarkup;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().LongRichTextField((string)Model.Item.{0}, ""{0}"", ""sfitemRichText"")";
+        private const string FieldMarkupTempalte = @"@Html.Sitefinity().LongRichTextField((string)Model.Item.{0}, ""{0}"", cssClass: ""sfitemRichText"")";
     }
 }

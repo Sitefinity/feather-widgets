@@ -31,17 +31,17 @@ namespace DynamicContent.FieldsGenerator
             var markup = string.Empty;
             if (field.AllowMultipleImages)
             {
-                markup = string.Format(ImagesFieldGenerationStrategy.MultiImageFieldMarkupTempalte, field.Name, field.Title);
+                markup = string.Format(ImagesFieldGenerationStrategy.MultiImageFieldMarkupTempalte, field.Name);
             }
             else
             {
-                markup = string.Format(ImagesFieldGenerationStrategy.SingleImageFieldMarkupTempalte, field.Name, field.Title);
+                markup = string.Format(ImagesFieldGenerationStrategy.SingleImageFieldMarkupTempalte, field.Name);
             }
 
             return markup;
         }
 
-        private const string SingleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)Model.Item.{0}).FirstOrDefault(), ""{0}"", ""{1}"")";
-        private const string MultiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"", ""{1}"")";
+        private const string SingleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)Model.Item.{0}).FirstOrDefault(), ""{0}"")";
+        private const string MultiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"")";
     }
 }

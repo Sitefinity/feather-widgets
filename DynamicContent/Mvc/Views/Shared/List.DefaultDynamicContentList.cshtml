@@ -4,6 +4,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using Telerik.Sitefinity.Web.DataResolving;
+@using Telerik.Sitefinity.Model.ContentLinks;
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery)
@@ -18,19 +19,23 @@
             using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id))
             {
                 <li>
-                    <h2>
+                    @DynamicFieldHelper.MainPictureSection()
+                    <h1 class="sfitemTitle sftitle">
                         @if (ViewBag.OpenInSamePage)
                         {
-                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
+                                @DynamicFieldHelper.MainTextFieldForList()
+                            </a>
                         }
                         else
                         {
-                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
+                                @Html.Sitefinity().ShortTextField((string)item.Title, "Title")
+                            </a>
                         }
-                    </h2>
-                </li>@*
-            
-                @Html.SfPublicationDateSection();*@
+                    </h1>
+                    @Html.Sitefinity().DateField((DateTime)item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
+                </li>
             }
         }
     </ul>

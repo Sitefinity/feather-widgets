@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Versioning;
 
 namespace DynamicContent
 {
@@ -75,6 +76,9 @@ namespace DynamicContent
             if (this.moduleBuilderManager == null)
                 this.moduleBuilderManager = ModuleBuilderManager.GetManager();
 
+            this.versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
+            this.viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager, this.versioningManager);
+
             Action<WidgetInstallationContext> action;
 
             if (this.ActionProcessor.TryGetValue(context.ActionName, out action))
@@ -115,7 +119,12 @@ namespace DynamicContent
         /// <param name="context">The context.</param>
         public virtual void UnregisterTemplates(WidgetInstallationContext context)
         {
-            this.UnregisterTemplates(context.ContentTypeName);
+            this.viewGenerator.UnregisterTemplates(context.ContentTypeName);
+
+            if (this.transactionName != null)
+            {
+                TransactionManager.CommitTransaction(this.transactionName);
+            }
         }
 
         /// <summary>
@@ -150,15 +159,13 @@ namespace DynamicContent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "dynamicModule")]
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
-            var versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
-            var viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager, versioningManager);
-            viewGenerator.InstallDefaultMasterTemplate(dynamicModule, dynamicModuleType);
-            viewGenerator.InstallDefaultDetailTemplate(dynamicModule, dynamicModuleType);
+            this.viewGenerator.InstallDefaultMasterTemplate(dynamicModule, dynamicModuleType);
+            this.viewGenerator.InstallDefaultDetailTemplate(dynamicModule, dynamicModuleType);
 
             if (this.transactionName != null)
                 TransactionManager.CommitTransaction(this.transactionName);
 
-            versioningManager.SaveChanges();
+            this.versioningManager.SaveChanges();
         }
 
         /// <summary>
@@ -268,24 +275,6 @@ namespace DynamicContent
             configurationManager.SaveSection(toolboxesConfig);
         }
 
-        /// <summary>
-        /// Removes widget templates.
-        /// </summary>
-        /// <param name="contentTypeName">Name of the content type.</param>
-        private void UnregisterTemplates(string contentTypeName)
-        {
-            var templatesToDelete = this.pageManager.GetPresentationItems<ControlPresentation>()
-                .Where(c => c.Condition == contentTypeName + "_MVC")
-                .ToArray();
-
-            foreach (var template in templatesToDelete)
-            {
-                this.pageManager.Delete(template);
-            }
-
-            this.pageManager.SaveChanges();
-        }
-
         #endregion
 
         #region Private fields and constants
@@ -293,6 +282,8 @@ namespace DynamicContent
         private static Regex moduleNameValidationRegex = new Regex(@"[^a-zA-Z0-9_.]+", RegexOptions.Compiled);
         private PageManager pageManager;
         private ModuleBuilderManager moduleBuilderManager;
+        private VersionManager versioningManager;
+        private WidgetViewGenerator viewGenerator;
         private const string ModuleSectionDescription = "Holds all dynamic content widgets for the {0} module.";
         private string transactionName;
 
