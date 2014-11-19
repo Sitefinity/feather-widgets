@@ -110,7 +110,7 @@
             <div class="row">
                 <div class="col-xs-6">
                     <select id="newsTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                         @foreach (var viewName in Html.GetViewNames("News", @"List\.(?<viewName>\w*)$"))
+                         @foreach (var viewName in Html.GetViewNames("News", @"List\.(?<viewName>[\w\s]*)$"))
                          {
                              <option value="@viewName"> @viewName</option>
                          }
@@ -159,7 +159,7 @@
                 <label for="newsTemplateName">@Html.Resource("DetailTemplate")</label>
 
                 <select id="newsTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("News", @"Detail\.(?<viewName>\w*)$"))
+                     @foreach (var viewName in Html.GetViewNames("News", @"Detail\.(?<viewName>[\w\s]*)$"))
                      {
                          <option value="@viewName"> @viewName</option>
                      }
