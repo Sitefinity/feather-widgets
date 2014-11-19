@@ -43,7 +43,7 @@ namespace DynamicContent.Mvc.Controllers
             get
             {
                 if (this.listTemplateName == null)
-                    this.listTemplateName = this.Model.ContentType != null ? this.Model.ContentType.Name : null;
+                    this.listTemplateName = this.GetDynamicContentTypeDisplayName();
 
                 return this.listTemplateName;
             }
@@ -63,7 +63,7 @@ namespace DynamicContent.Mvc.Controllers
             get
             {
                 if (this.detailTemplateName == null)
-                    this.detailTemplateName = this.Model.ContentType != null ? this.Model.ContentType.Name : null;
+                    this.detailTemplateName = this.GetDynamicContentTypeDisplayName();
 
                 return this.detailTemplateName;
             }
@@ -281,7 +281,6 @@ namespace DynamicContent.Mvc.Controllers
         [NonAction]
         public IEnumerable<IContentLocationInfo> GetLocations()
         {
-            //// The IControlBehaviorResolver can set WidgetName. This information is persisted in the MVC proxy control.
             if (this.ViewBag.WidgetName as string != null)
             {
                 var dynamicType = this.GetDynamicContentType((string)this.ViewBag.WidgetName);
@@ -383,6 +382,21 @@ namespace DynamicContent.Mvc.Controllers
         private IDynamicContentModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IDynamicContentModel>(this.GetType());
+        }
+
+        /// <summary>
+        /// Gets the display name of the <see cref="DynamicModuleType"/>
+        /// </summary>
+        /// <returns><see cref="DynamicModuleType"/>'s display name</returns>
+        private string GetDynamicContentTypeDisplayName()
+        {
+            var widgetName = (string)this.ViewBag.WidgetName;
+            var dynamicType = ControllerExtensions.GetDynamicContentType(widgetName);
+
+            if (dynamicType != null)
+                return dynamicType.DisplayName;
+
+            return null;
         }
 
         private bool TryMapSuccessorsRouteData(string[] urlParams, RequestContext requestContext, DynamicModuleManager manager, Type parentType)
