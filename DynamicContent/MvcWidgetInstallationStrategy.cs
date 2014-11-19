@@ -30,9 +30,6 @@ namespace DynamicContent
         /// </summary>
         public MvcWidgetInstallationStrategy()
         {
-            this.versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
-            this.viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager, this.versioningManager);
-
             this.ActionProcessor = new Dictionary<string, Action<WidgetInstallationContext>>
             {
                 { "Install", (WidgetInstallationContext context) => this.Install(context) },
@@ -78,6 +75,9 @@ namespace DynamicContent
 
             if (this.moduleBuilderManager == null)
                 this.moduleBuilderManager = ModuleBuilderManager.GetManager();
+
+            this.versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
+            this.viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager, this.versioningManager);
 
             Action<WidgetInstallationContext> action;
 
