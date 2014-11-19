@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.Win32.Dialogs;
+using System.Windows.Forms;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace FeatherWidgets.TestUI
 {
@@ -19,39 +23,68 @@ namespace FeatherWidgets.TestUI
         /// UI test DuplicateNavigationWidgetFromPage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.Navigation),
-       TestCategory(FeatherTestCategories.Bootstrap)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void DuplicateNavigationWidgetFromPage()
         {
+            string pageTemplateName = "Bootstrap.default";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNavigationOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify navigation widget on the frontend
-        /// </summary>
-        public void VerifyNavigationOnTheFrontend()
-        {
-            string[] parentPages = new string[] { PageName };
-
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationCountOnThePageFrontend(ExpectedCount);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
+            Assert.AreEqual(2, BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ListWithNavigationWidgets().Count);
         }
 
         /// <summary>
-        /// Performs Server Setup and prepare the system with needed data.
+        /// UI test DuplicateNavigationWidgetFromPageFoundation
         /// </summary>
-        protected override void ServerSetup()
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
+        public void DuplicateNavigationWidgetFromPageFoundation()
         {
+            string pageTemplateName = "Foundation.default";
+
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            Assert.AreEqual(2, BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ListWithNavigationWidgets().Count);
+        }
+
+        /// <summary>
+        /// UI test DuplicateNavigationWidgetFromPageSemanticUI
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.SemanticUI)]
+        public void DuplicateNavigationWidgetFromPageSemanticUI()
+        {
+            string pageTemplateName = "SemanticUI.default";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);     
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            Assert.AreEqual(2, BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ListWithNavigationWidgets().Count);
+        }
+
+        private string ArrangementClass
+        {
+            get { return ArrangementClassName; }
         }
 
         /// <summary>
@@ -59,13 +92,12 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
         }
 
         private const string PageName = "ParentPage";
         private const string WidgetName = "Navigation";
         private const string OperationName = "Duplicate";
-        private const string NavTemplateClass = "nav navbar-nav";
-        private const int ExpectedCount = 2;
+        private const string ArrangementClassName = "DuplicateNavigationWidgetFromPage";
     }
 }

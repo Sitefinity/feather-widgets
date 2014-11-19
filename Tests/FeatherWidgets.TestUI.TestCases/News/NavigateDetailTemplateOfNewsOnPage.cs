@@ -1,29 +1,27 @@
-﻿using System;
+﻿using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArtOfTest.WebAii.Controls.HtmlControls;
-using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// DragAndDropNewsWidgetOnPage test class.
+    /// NavigateDetailTemplateOfNewsOnPage test class.
     /// </summary>
     [TestClass]
-    public class DragAndDropNewsWidgetOnPage_ : FeatherTestCase
+    public class NavigateDetailTemplateOfNewsOnPage : FeatherTestCase
     {
         /// <summary>
-        /// UI test DragAndDropNewsWidgetOnPage
+        /// UI test NavigateDetailTemplateOfNewsOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Bootstrap)]
-        public void DragAndDropNewsWidgetOnPage()
+        TestCategory(FeatherTestCategories.Bootstrap), Ignore]
+        public void NavigateDetailTemplateOfNewsOnPageBasedOnBootstrapTemplate()
         {
             pageTemplateName = "Bootstrap.default";
 
@@ -36,15 +34,17 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnDetailMasterPage(NewsTitle));
         }
 
         /// <summary>
-        /// UI test DragAndDropNewsWidgetOnPageBasedOnFoundationTemplate
+        /// UI test NavigateDetailTemplateOfNewsOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Foundation)]
-        public void DragAndDropNewsWidgetOnPageBasedOnFoundationTemplate()
+        TestCategory(FeatherTestCategories.Foundation), Ignore]
+        public void NavigateDetailTemplateOfNewsOnPageBasedOnFoundationTemplate()
         {
             pageTemplateName = "Foundation.default";
 
@@ -57,15 +57,17 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnDetailMasterPage(NewsTitle));
         }
 
         /// <summary>
-        /// UI test DragAndDropNewsWidgetOnPageBasedOnSemanticUITemplate
+        /// UI test NavigateDetailTemplateOfNewsOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.SemanticUI)]
-        public void DragAndDropNewsWidgetOnPageBasedOnSemanticUITemplate()
+        TestCategory(FeatherTestCategories.SemanticUI), Ignore]
+        public void NavigateDetailTemplateOfNewsOnPageBasedOnSemanticUITemplate()
         {
             pageTemplateName = "SemanticUI.default";
 
@@ -78,6 +80,8 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnDetailMasterPage(NewsTitle));
         }
 
         /// <summary>
@@ -94,19 +98,19 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-           BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
+            BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
         }
 
         private string ArrangementClass
         {
             get { return ArrangementClassName; }
-        } 
+        }
 
         private const string PageName = "News";
         private const string WidgetName = "News";
         private const string NewsTitle = "NewsTitle";
         private string[] newsTitles = new string[] { NewsTitle };
         private string pageTemplateName;
-        private string ArrangementClassName = "DragAndDropNewsWidgetOnPage";
+        private string ArrangementClassName = "NavigateDetailTemplateOfNewsOnPage";
     }
 }

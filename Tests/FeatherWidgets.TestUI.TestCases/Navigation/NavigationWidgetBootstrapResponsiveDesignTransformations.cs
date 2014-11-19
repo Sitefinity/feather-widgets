@@ -53,17 +53,17 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(500);
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertToggleButtonIsVisible(), CssClass + ":Toggle button is visible");
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass), CssClass + ":Navigation is visible");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass, TemplateType.Bootstrap), CssClass + ":Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassSmall).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(800);
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass), CssClassSmall + ":Navigation is visible");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass, TemplateType.Bootstrap), CssClassSmall + ":Navigation is visible");
 
             BAT.Arrange(this.ArrangementClass).AddParameter(key, CssClassMedium).ExecuteArrangement(this.ArrangementMethod);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(1000);
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass), CssClassMedium + ":Navigation is visible");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(NavClass, TemplateType.Bootstrap), CssClassMedium + ":Navigation is visible");
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ResizeBrowserWindow(1000);
             Assert.IsFalse(
                 BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper()
-                .AssertNavigationIsVisible(NavClass), "navigation is visible but it shouldn't be");
+                .AssertNavigationIsVisible(NavClass, TemplateType.Bootstrap), "navigation is visible but it shouldn't be");
         }
 
         /// <summary>

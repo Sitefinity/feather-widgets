@@ -24,45 +24,77 @@ namespace FeatherWidgets.TestUI
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetSitemapTemplateWithOneLevelOnPage()
         {
+            string pageTemplateName = "Bootstrap.default";
+            string navTemplateClass = "nav nav-sitemap";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectWidgetListTemplate(NavWidgetTemplate);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNavigationOnTheFrontend();
-            this.SelectPageFromNavigation();
-        }
-
-        /// <summary>
-        /// Verify navigation widget on the frontend
-        /// </summary>
-        public void VerifyNavigationOnTheFrontend()
-        {
-            string[] parentPages = new string[] { PageName, SiblingPageName };
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, Pages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(SiblingPageName, TemplateType.Bootstrap, navTemplateClass);
         }
 
         /// <summary>
-        /// Select page from navigation widget
+        /// UI test NavigationWidgetSitemapTemplateWithOneLevelOnPageFoundation
         /// </summary>
-        public void SelectPageFromNavigation()
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
+        public void NavigationWidgetSitemapTemplateWithOneLevelOnPageFoundation()
         {
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().SelectPageFromNavigationByText(NavTemplateClass, SiblingPageName);
-            ActiveBrowser.WaitForUrl("/" + SiblingPageName.ToLower(), true, 60000);
-        }
+            string pageTemplateName = "Foundation.default";
+            string navTemplateClass = "sitemap";
 
-        /// <summary>
-        /// Performs Server Setup and prepare the system with needed data.
-        /// </summary>
-        protected override void ServerSetup()
-        {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectWidgetListTemplate(NavWidgetTemplate);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, Pages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(SiblingPageName, TemplateType.Foundation, navTemplateClass);
+        }
+
+        /// <summary>
+        /// UI test NavigationWidgetSitemapTemplateWithOneLevelOnPageSemantic
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.SemanticUI)]
+        public void NavigationWidgetSitemapTemplateWithOneLevelOnPageSemantic()
+        {
+            string pageTemplateName = "SemanticUI.default";
+            string navTemplateClass = "sitemap menu vertical";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectWidgetListTemplate(NavWidgetTemplate);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ////Using the bootstrap template options on purpose
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, Pages);           
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(SiblingPageName, TemplateType.Bootstrap, navTemplateClass);
         }
 
         /// <summary>
@@ -70,13 +102,25 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
+        }
+        private string ArrangementClass
+        {
+            get { return ArrangementClassName; }
+        }
+
+        private string[] Pages
+        {
+            get
+            {
+                return new string[] { PageName, SiblingPageName };
+            }
         }
 
         private const string PageName = "ParentPage";
         private const string SiblingPageName = "SiblingPage";
         private const string WidgetName = "Navigation";
-        private const string NavTemplateClass = "nav nav-sitemap";
         private const string NavWidgetTemplate = "Sitemap";
+        private string ArrangementClassName = "NavigationWidgetSitemapTemplateWithOneLevelOnPage";
     }
 }

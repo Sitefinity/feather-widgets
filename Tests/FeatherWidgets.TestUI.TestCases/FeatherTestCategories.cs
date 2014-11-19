@@ -39,5 +39,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Dynamic Widgets test category
         /// </summary>
         public const string DynamicWidgets = "DynamicWidgets";
+
+        /// <summary>
+        /// New category for new tests
+        /// </summary>
+        public const string New = "New";
     }
 }

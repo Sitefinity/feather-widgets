@@ -125,6 +125,7 @@
     <Compile Include="CommonOperations\Pages\NavigationOperations.cs" />
     <Compile Include="CommonOperations\Pages\NewsOperations.cs" />
     <Compile Include="CommonOperations\Pages\PagesOperations.cs" />
+    <Compile Include="CommonOperations\Pages\TagsOperations.cs" />
     <Compile Include="CommonOperations\ServerOperationsFeather.cs" />
     <Compile Include="CommonOperations\Templates\TemplateOperations.cs" />
     <Compile Include="CommonOperations\Users\UsersOperations.cs" />
@@ -138,6 +139,7 @@
     <EmbeddedResource Include="Data\DynamicModules\Booking.zip" />
     <EmbeddedResource Include="Data\DynamicModules\List.PressArticleNew.cshtml" />
     <EmbeddedResource Include="Data\DynamicModules\Detail.PressArticleNew.cshtml" />
+    <EmbeddedResource Include="Data\NewsWidget\Detail.DetailPageRelatedData.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

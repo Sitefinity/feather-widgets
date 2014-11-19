@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
@@ -11,12 +10,12 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// DuplicateNavigationWidgetFromPage arrangement class.
+    /// NavigateDetailTemplateOfNewsOnPage arrangement class.
     /// </summary>
-    public class DuplicateNavigationWidgetFromPage : ITestArrangement
+    public class NavigateDetailTemplateOfNewsOnPage : ITestArrangement
     {
         /// <summary>
-        /// Server side set up. 
+        /// Server side set up.
         /// </summary>
         [ServerSetUp]
         public void SetUp()
@@ -24,10 +23,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             string templateName = ServerArrangementContext.GetCurrent().Values["templateName"];
 
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
-            Guid parentPageId = ServerOperations.Pages().CreatePage(PageName, templateId);
-            parentPageId = ServerOperations.Pages().GetPageNodeId(parentPageId);
-
-            FeatherServerOperations.Pages().AddMvcWidgetToPage(parentPageId, ControllerType, WidgetCaption, PlaceHolderId);
+            ServerOperations.Pages().CreatePage(PageName, templateId);
+            ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, NewsProvider);
         }
 
         /// <summary>
@@ -37,11 +34,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.News().DeleteAllNews();
         }
 
-        private const string PageName = "ParentPage";
-        private const string WidgetCaption = "Navigation";
-        private const string ControllerType = "Navigation.Mvc.Controllers.NavigationController";
-        private const string PlaceHolderId = "Contentplaceholder1";
+        private const string PageName = "News";
+        private const string NewsContent = "News content";
+        private const string NewsTitle = "NewsTitle";
+        private const string NewsProvider = "Default News";
     }
 }

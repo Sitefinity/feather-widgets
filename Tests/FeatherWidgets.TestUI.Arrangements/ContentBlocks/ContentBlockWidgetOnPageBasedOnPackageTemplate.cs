@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
@@ -10,12 +7,12 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// DeleteNavigationWidgetFromPage arrangement class.
+    /// Arrangement methods for ContentBlockWidgetOnPageBasedOnPackageTemplate
     /// </summary>
-    public class DeleteNavigationWidgetFromPage : ITestArrangement
+    public class ContentBlockWidgetOnPageBasedOnPackageTemplate : ITestArrangement
     {
         /// <summary>
-        /// Server side set up. 
+        /// Server side set up.
         /// </summary>
         [ServerSetUp]
         public void SetUp()
@@ -23,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             string templateName = ServerArrangementContext.GetCurrent().Values["templateName"];
 
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(templateName);
-            Guid parentPageId = ServerOperations.Pages().CreatePage(PageName, templateId);
+            ServerOperations.Pages().CreatePage(PageName, templateId);
         }
 
         /// <summary>
@@ -35,6 +32,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().DeleteAllPages();
         }
 
-        private const string PageName = "ParentPage";
+        private const string PageName = "FeatherPage";
     }
 }

@@ -87,6 +87,8 @@
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetWithShareButtonsOnPageBasedOnBoostrap.cs" />
     <Compile Include="ContentBlocks\DeactivateContentBlockModule.cs" />
     <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
     <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />
@@ -127,9 +129,15 @@
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="News\ActivateAndDeactivateNewsModule.cs" />
+    <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
+    <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
+    <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
+    <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
     <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
+    <Compile Include="News\NavigateDetailTemplateOfNewsOnPage.cs" />
+    <Compile Include="News\OldAndNewNewsWidgetOnTheSamePage.cs" />
     <Compile Include="News\SearchAndSelectNewsByTag.cs" />
     <Compile Include="News\SearchForNotExistingTag.cs" />
     <Compile Include="News\SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate.cs" />

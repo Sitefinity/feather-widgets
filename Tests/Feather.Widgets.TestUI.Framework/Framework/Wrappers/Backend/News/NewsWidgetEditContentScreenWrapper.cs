@@ -137,11 +137,31 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Select tag by title
+        /// Click select button
         /// </summary>
         public void ClickSelectButton()
         {
             var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
+            foreach (var button in selectButtons)
+            {
+                if (button.IsVisible())
+                {
+                    button.Click();
+                    break;
+                }
+            }
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Click select button by date
+        /// </summary>
+        public void ClickSelectButtonByDate()
+        {
+            var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtonsDate;
             foreach (var button in selectButtons)
             {
                 if (button.IsVisible())
@@ -232,6 +252,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
 
             var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+            int divsCount = items.Count;
 
             //// if items count is more than 12 elements, then you need to scroll
             if (items.Count() > 12)
@@ -242,17 +263,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                      .AssertIsPresent("News list");
 
                 List<HtmlDiv> itemDiv = newsList.Find
-                                      .AllByExpression<HtmlDiv>("class=ng-scope list-group-item list-group-item-multiselect").ToList<HtmlDiv>();
+                                      .AllByExpression<HtmlDiv>("class=~ng-scope list-group-item").ToList<HtmlDiv>();
 
-                int divsCount = itemDiv.Count;
+                divsCount = itemDiv.Count;
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
                 itemDiv[divsCount - 1].ScrollToVisible();
             }
 
-            bool isCountCorrect = (expected == items.Count);
+            bool isCountCorrect = (expected == divsCount);
             return isCountCorrect;
-        }
+        } 
 
         /// <summary>
         /// No news items found
@@ -464,6 +485,36 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                   .AssertIsPresent("Inactive widget");
             var isContained = optionsDiv.InnerText.Contains("This widget doesn't work, becauseNewsmodule has been deactivated.");
             Assert.IsTrue(isContained, "Message not found");
+        }
+
+        /// <summary>
+        /// Opens the Single item settings tab.
+        /// </summary>
+        public void SingleItemSettingsTab()
+        {
+            HtmlAnchor singleTab = this.EM.News.NewsWidgetContentScreen.SingleItemSetting
+                                    .AssertIsPresent("Single item settings tab");
+
+            singleTab.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Select detail template
+        /// </summary>
+        public void SelectDetailTemplate(string templateName)
+        {
+            HtmlSelect selectDetailTemplate = this.EM.News.NewsWidgetContentScreen.SelectDetailTemplate
+                                    .AssertIsPresent("Detail template select");
+
+            selectDetailTemplate.Click();
+            selectDetailTemplate.SelectByValue(templateName);
+            selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
     }
 }

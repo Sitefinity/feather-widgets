@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectCheckBox(DateName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButtonByDate();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectDisplayItemsPublishedIn(DisplayItemsPublishedIn);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SetFromDateByTyping(DayAgo);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().AddHour("10", true);

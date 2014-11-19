@@ -40,6 +40,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verify aocial share buttons on the frontend
+        /// </summary>
+        public void VerifySocialShareButtonsOnThePageFrontend()
+        {
+            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+
+            HtmlUnorderedList socialShareButtons = frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=list-inline s-social-share-list").
+                AssertIsPresent("Social share buttons");
+
+            Assert.IsNotNull(socialShareButtons, "Social share buttons");
+        }
+
+        /// <summary>
         /// Edit content block
         /// </summary>
         public void EditContentBlock()

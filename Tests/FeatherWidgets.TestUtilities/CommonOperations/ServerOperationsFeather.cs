@@ -89,5 +89,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new DynamicModuleBookingOperations();
         }
+
+        /// <summary>
+        /// Entry point for Tags operations.
+        /// </summary>
+        /// <returns>TagsOperations instance.</returns>
+        public static TagsOperations Tags()
+        {
+            return new TagsOperations();
+        }
     }
 }

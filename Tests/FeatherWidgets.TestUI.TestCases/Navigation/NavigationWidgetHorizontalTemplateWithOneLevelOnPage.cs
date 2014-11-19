@@ -32,7 +32,41 @@ namespace FeatherWidgets.TestUI
             this.CreatePageWithTemplate(PageName, PageTemplateName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNavigationOnTheFrontend();
+            this.VerifyNavigationOnTheFrontend(NavTemplateClass, TemplateType.Bootstrap);
+        }
+
+        /// <summary>
+        /// UI test NavigationWidgetHorizontalTemplateWithOneLevelOnPageFoundation
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
+        public void NavigationWidgetHorizontalTemplateWithOneLevelOnPageFoundation()
+        {
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Macros().NavigateTo().Pages();
+            this.CreatePageWithTemplate(PageName, FoundationTemplateName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            this.VerifyNavigationOnTheFrontend(FoundationNavTemplateClass, TemplateType.Foundation);
+        }
+
+        /// <summary>
+        /// UI test NavigationWidgetHorizontalTemplateWithOneLevelOnPageSemanticUI
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.SemanticUI)]
+        public void NavigationWidgetHorizontalTemplateWithOneLevelOnPageSemanticUI()
+        {
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Macros().NavigateTo().Pages();
+            this.CreatePageWithTemplate(PageName, SemanticUITemplateName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            this.VerifyNavigationOnTheFrontend(SemanticNavTemplateClass ,TemplateType.Semantic);
         }
 
         /// <summary>
@@ -57,14 +91,12 @@ namespace FeatherWidgets.TestUI
         /// <summary>
         /// Verify navigation widget on the frontend
         /// </summary>
-        public void VerifyNavigationOnTheFrontend()
+        public void VerifyNavigationOnTheFrontend(string navClass, TemplateType type)
         {
             string[] selectedPages = new string[] { PageName };
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, selectedPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navClass, selectedPages, type);
         }
 
         /// <summary>
@@ -72,12 +104,22 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
+        }
+
+        private string ArrangementClass
+        {
+            get { return ArrangementClassName; }
         }
 
         private const string PageName = "ParentPage";
         private const string WidgetName = "Navigation";
         private const string NavTemplateClass = "nav navbar-nav";
+        private const string FoundationNavTemplateClass = "top-bar-section";
+        private const string SemanticNavTemplateClass = "ui menu purple inverted";
         private const string PageTemplateName = "Bootstrap.default";
+        private const string FoundationTemplateName = "Foundation.default";
+        private const string SemanticUITemplateName = "SemanticUI.default";
+        private string ArrangementClassName = "NavigationWidgetHorizontalTemplateWithOneLevelOnPage";
     }
 }

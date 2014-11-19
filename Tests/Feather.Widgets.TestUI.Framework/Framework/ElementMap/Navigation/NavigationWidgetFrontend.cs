@@ -68,7 +68,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         /// </summary>
         public HtmlControl GetSemanticNavigation(string cssClass)
         {
-            return this.Get<HtmlControl>("tagname=nav", "class=" + cssClass);
+            return this.Find.ByExpression<HtmlControl>("tagname=nav", "class=" + cssClass);
         }
 
         /// <summary>
