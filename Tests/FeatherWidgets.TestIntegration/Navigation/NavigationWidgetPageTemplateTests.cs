@@ -39,13 +39,13 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 int templatesCount = pageManager.GetTemplates().Count();
 
                 string layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
+                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew1.cshtml");
 
                 File.Copy(layoutTemplatePath, newLayoutTemplatePath);
 
                 this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
 
-                templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
+                templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName1);
 
                 string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
 
@@ -78,7 +78,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
             finally
             {
-                this.templateOperation.GetTemplateIdByTitle(TemplateName);
+                this.templateOperation.GetTemplateIdByTitle(TemplateName1);
 
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();           
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
@@ -159,6 +159,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private const string UrlNamePrefix = "navigation-page";
         private const string SiblingPage = "Sibling Page";
         private const string TemplateName = "Bootstrap.defaultNew";
+        private const string TemplateName1 = "Bootstrap.defaultNew1";
         private const string PlaceHolder = "Contentplaceholder1";
         private const string CaptionNavigation = "Navigation";
         private const string Template = "Bootstrap";
