@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, TransactionName);
+            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 
         private const string ModuleName = "Music Collection";
