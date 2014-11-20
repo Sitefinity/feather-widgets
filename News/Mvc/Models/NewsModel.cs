@@ -467,7 +467,15 @@ namespace News.Mvc.Models
 
         private string GetSelectedItemsFilterExpression()
         {
-            var selectedItemsFilterExpression = string.Join(" OR ", this.selectedItemsIds.Select(id => "Id = " + id));
+            var selectedItemGuids = this.selectedItemsIds.Select(s => new Guid(s)).ToArray();
+
+            var newsManager = this.ResolveManagerWithProvider(this.ProviderName);
+            var masterIds = newsManager.GetNewsItems().Where(n => selectedItemGuids.Contains(n.Id) && n.OriginalContentId != Guid.Empty).Select(n => n.OriginalContentId.ToString("D"));
+
+            var selectedItemConditions = this.selectedItemsIds.Select(id => "Id = " + id.Trim()).ToList();
+            selectedItemConditions.AddRange(masterIds.Select(id => "OriginalContentId = " + id.Trim()));
+
+            var selectedItemsFilterExpression = string.Join(" OR ", selectedItemConditions);
             return selectedItemsFilterExpression;
         }
 

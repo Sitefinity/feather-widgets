@@ -34,8 +34,8 @@
                     if (newSelectedItemsIds) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
                     }
-	            }
-	        },
+                }
+            },
 	        true
         );
 
@@ -65,6 +65,12 @@
                     if (!$scope.properties.DetailsPageId.PropertyValue ||
                             $scope.properties.DetailsPageId.PropertyValue === '00000000-0000-0000-0000-000000000000') {
                         $scope.properties.OpenInSamePage.PropertyValue = true;
+                    }
+                    if ($scope.properties.SelectionMode.PropertyValue === "FilteredItems" &&
+                        $scope.additionalFilters.value &&
+                        $scope.additionalFilters.value.QueryItems &&
+                        $scope.additionalFilters.value.QueryItems.length === 0) {
+                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
                     }
                 })
             })

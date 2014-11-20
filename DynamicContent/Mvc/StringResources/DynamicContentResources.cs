@@ -600,5 +600,20 @@ namespace DynamicContent.Mvc.StringResources
                 return this["DisplaysFromCurrentlyOpen"];
             }
         }
+
+        /// <summary>
+        /// Any parent content type
+        /// </summary>
+        [ResourceEntry("AnyParentContentType",
+            Value = "Any parent content type",
+            Description = "Any parent content type",
+            LastModified = "2014/11/20")]
+        public string AnyParentContentType
+        {
+            get
+            {
+                return this["AnyParentContentType"];
+            }
+        }
     }
 }

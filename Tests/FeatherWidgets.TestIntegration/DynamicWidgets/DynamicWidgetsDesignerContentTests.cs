@@ -44,7 +44,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
             try
             {
-                this.CreatePressArticleAndReturnTagId();
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
                 dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
                 var mvcProxy = new MvcWidgetProxy();
@@ -76,20 +78,24 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify selected items per page.")]
         public void DynamicWidgetsDesignerContent_VerifySelectedItemsFunctionality()
         {
-            this.CreatePressArticleAndReturnTagId();
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
-            dynamicController.Model.SerializedSelectedItemsIds = "[\"" + dynamicCollection[3].Id.ToString() + "\"]";
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
 
             try
             {
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
+                dynamicController.Model.SerializedSelectedItemsIds = "[\"" + dynamicCollection[3].Id.ToString() + "\"]";
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
                 var dynamicItems = modelItems.Items.ToList();
                 int itemsCount = dynamicItems.Count;
@@ -112,21 +118,23 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify dynaimc items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByTagFunctionality()
         {
-            TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
-            var taxonId = this.CreatePressArticleAndReturnTagId();
-
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
 
             try
             {
+                TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
+                var taxonId = this.CreatePressArticleAndReturnTagId();
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 for (int i = 0; i < taxonId.Length; i++)
                 {
                     var tag = taxonomyManager.GetTaxa<FlatTaxon>().Where(t => t.Id == taxonId[i]).FirstOrDefault();
@@ -154,19 +162,24 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify dynaimc items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByPublicationDateLastOneDayFunctionality()
         {
-            DateTime publicationDate = DateTime.UtcNow.AddDays(-10);
-
-            this.CreatePressArticleAndReturnTagId();
-
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-            ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDate);
 
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
-            dynamicController.Model.SerializedAdditionalFilters = @"{
+            try
+            {
+                DateTime publicationDate = DateTime.UtcNow.AddDays(-10);
+
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDate);           
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
+                dynamicController.Model.SerializedAdditionalFilters = @"{
 				""QueryItems"": [
 					{
 						""IsGroup"":true,
@@ -192,11 +205,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 					}
 				]
 			}";
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
 
-            try
-            {
                 var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
                 var dynamicItems = modelItems.Items.ToList();
                 int itemsCount = dynamicItems.Count;
@@ -228,19 +239,24 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify dynaimc items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByPublicationDateCustomRangeFunctionality()
         {
-            DateTime publicationDate = new DateTime(2014, 10, 23, 12, 00, 00);
-
-            this.CreatePressArticleAndReturnTagId();
-
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-            ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDate);
 
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
-            dynamicController.Model.SerializedAdditionalFilters = @"{
+            try
+            {
+                DateTime publicationDate = new DateTime(2014, 10, 23, 12, 00, 00);
+
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDate);            
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
+                dynamicController.Model.SerializedAdditionalFilters = @"{
             ""QueryItems"":[
 	            {
 		            ""IsGroup"":true,
@@ -280,11 +296,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 		            ""Name"":""PublicationDate.Fri, 24 Oct 2014 21:00:00 GMT""
 	            }";
 
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
 
-            try
-            {
                 var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
                 var dynamicItems = modelItems.Items.ToList();
                 int itemsCount = dynamicItems.Count;

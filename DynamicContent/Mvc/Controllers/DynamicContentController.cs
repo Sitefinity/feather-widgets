@@ -166,10 +166,20 @@ namespace DynamicContent.Mvc.Controllers
                 {
                     var manager = ModuleBuilderManager.GetManager().Provider;
                     var dynamicType = manager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeName == this.Model.ContentType.Name && t.TypeNamespace == this.Model.ContentType.Namespace);
-                    var parentType = manager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeNamespace + "." + t.TypeName == this.Model.CurrentlyOpenParentType);
-                    if (dynamicType != null && parentType != null)
+                    if (dynamicType != null)
                     {
-                        return this.Content(Res.Get<DynamicContentResources>().DisplaysFromCurrentlyOpen.Arrange(dynamicType.DisplayName, PluralsResolver.Instance.ToPlural(parentType.DisplayName)));
+                        if (this.Model.CurrentlyOpenParentType != DynamicContentController.AnyParentValue)
+                        {
+                            var parentType = manager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeNamespace + "." + t.TypeName == this.Model.CurrentlyOpenParentType);
+                            if (parentType != null)
+                            {
+                                return this.Content(Res.Get<DynamicContentResources>().DisplaysFromCurrentlyOpen.Arrange(dynamicType.DisplayName, PluralsResolver.Instance.ToPlural(parentType.DisplayName)));
+                            }
+                        }
+                        else
+                        {
+                            return this.Content(Res.Get<DynamicContentResources>().DisplaysFromCurrentlyOpen.Arrange(dynamicType.DisplayName, Res.Get<DynamicContentResources>().AnyParentContentType));
+                        }
                     }
                 }
 
@@ -314,12 +324,31 @@ namespace DynamicContent.Mvc.Controllers
 
             if (this.Model.ParentFilterMode == ParentFilterMode.CurrentlyOpen && !this.Model.CurrentlyOpenParentType.IsNullOrEmpty())
             {
-                var dynamicType = this.GetDynamicContentType();
-                var parentType = TypeResolutionService.ResolveType(this.Model.CurrentlyOpenParentType, throwOnError: false);
-                if (parentType == null)
-                    return false;
+                if (this.Model.CurrentlyOpenParentType != DynamicContentController.AnyParentValue)
+                {
+                    var parentType = TypeResolutionService.ResolveType(this.Model.CurrentlyOpenParentType, throwOnError: false);
+                    if (parentType == null)
+                        return false;
 
-                return this.TryMapSuccessorsRouteData(urlParams, requestContext, manager, parentType);
+                    return this.TryMapSuccessorsRouteData(urlParams, requestContext, manager, parentType);
+                }
+                else
+                {
+                    var dynamicType = this.GetDynamicContentType();
+                    var currentParentType = dynamicType != null ? dynamicType.ParentModuleType : null;
+
+                    bool isParentResolved = false;
+                    while (currentParentType != null && isParentResolved == false)
+                    {
+                        var parentType = TypeResolutionService.ResolveType(currentParentType.GetFullTypeName(), throwOnError: false);
+                        if (parentType != null)
+                            isParentResolved = this.TryMapSuccessorsRouteData(urlParams, requestContext, manager, parentType);
+
+                        currentParentType = currentParentType.ParentModuleType;
+                    }
+
+                    return isParentResolved;
+                }
             }
 
             if (!this.Model.RelatedItemType.IsNullOrEmpty() && !this.Model.RelatedFieldName.IsNullOrEmpty())
@@ -468,6 +497,8 @@ namespace DynamicContent.Mvc.Controllers
         #endregion
 
         #region Private fields and constants
+
+        internal const string AnyParentValue = "AnyParent";
 
         private IDynamicContentModel model;
         private string listTemplateName;
