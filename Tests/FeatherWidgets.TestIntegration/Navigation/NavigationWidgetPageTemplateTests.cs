@@ -30,29 +30,32 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Author("FeatherTeam")]
         public void NavigationWidgetOnPageTemplate_AllPagesUnderCurrentlyOpenedPage()
         {
-            PageManager pageManager = PageManager.GetManager();
-            int templatesCount = pageManager.GetTemplates().Count();
-
-            var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-            var newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
-
-            File.Copy(layoutTemplatePath, newLayoutTemplatePath);
-
-            this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
-
-            Guid templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
-
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
-
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NavigationController).FullName;
-            var navigationController = new NavigationController();
-            navigationController.TemplateName = "Horizontal";
-            navigationController.SelectionMode = PageSelectionMode.CurrentPageChildren;
-            mvcProxy.Settings = new ControllerSettings(navigationController);
+            string newLayoutTemplatePath = null;
+            Guid templateId = default(Guid);
 
             try
             {
+                PageManager pageManager = PageManager.GetManager();
+                int templatesCount = pageManager.GetTemplates().Count();
+
+                string layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
+                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
+
+                File.Copy(layoutTemplatePath, newLayoutTemplatePath);
+
+                this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
+
+                templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NavigationController).FullName;
+                var navigationController = new NavigationController();
+                navigationController.TemplateName = "Horizontal";
+                navigationController.SelectionMode = PageSelectionMode.CurrentPageChildren;
+                mvcProxy.Settings = new ControllerSettings(navigationController);
+
                 this.templateOperation.AddControlToTemplate(templateId, mvcProxy, PlaceHolder, CaptionNavigation);
                 Guid pageId = this.locationGenerator.CreatePage(PageNamePrefix, PageTitlePrefix, UrlNamePrefix, null, null);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().SetTemplateToPage(pageId, templateId);
@@ -91,29 +94,32 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Author("FeatherTeam")]
         public void NavigationWidgetOnPageTemplate_AllSiblingPagesOfCurrentlyOpenedPage()
         {
-            PageManager pageManager = PageManager.GetManager();
-            int templatesCount = pageManager.GetTemplates().Count();
-
-            var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-            var newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
-
-            File.Copy(layoutTemplatePath, newLayoutTemplatePath);
-
-            this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
-
-            Guid templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
-
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
-
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NavigationController).FullName;
-            var navigationController = new NavigationController();
-            navigationController.TemplateName = "Horizontal";
-            navigationController.SelectionMode = PageSelectionMode.CurrentPageSiblings;
-            mvcProxy.Settings = new ControllerSettings(navigationController);
+            string newLayoutTemplatePath = null;
+            Guid templateId = default(Guid);
 
             try
             {
+                PageManager pageManager = PageManager.GetManager();
+                int templatesCount = pageManager.GetTemplates().Count();
+
+                var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
+                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
+
+                File.Copy(layoutTemplatePath, newLayoutTemplatePath);
+
+                this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
+
+                templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NavigationController).FullName;
+                var navigationController = new NavigationController();
+                navigationController.TemplateName = "Horizontal";
+                navigationController.SelectionMode = PageSelectionMode.CurrentPageSiblings;
+                mvcProxy.Settings = new ControllerSettings(navigationController);
+
                 this.templateOperation.AddControlToTemplate(templateId, mvcProxy, PlaceHolder, CaptionNavigation);
                 Guid pageId = this.locationGenerator.CreatePage(PageNamePrefix, PageTitlePrefix, UrlNamePrefix, null, null);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().SetTemplateToPage(pageId, templateId);
