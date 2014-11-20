@@ -33,9 +33,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUsePagingFunctionality()
         {
-            for (int i = 0; i < this.dynamicTitles.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
-
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
             this.pageOperations = new PagesOperations();
@@ -51,17 +48,22 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             string url2 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index2);
             string url3 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index3);
 
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.DisplayMode = ListDisplayMode.Paging;
-            dynamicController.Model.ItemsPerPage = itemsPerPage;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
-
             try
             {
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.DisplayMode = ListDisplayMode.Paging;
+                dynamicController.Model.ItemsPerPage = itemsPerPage;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
                 string responseContent1 = PageInvoker.ExecuteWebRequest(url1);
@@ -103,12 +105,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify use limit functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUseLimitFunctionality()
         {
-            for (int i = 0; i < this.dynamicTitles.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
-
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
-            this.pageOperations = new PagesOperations();
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
             string pageNamePrefix = testName + "DynamicPage";
             string pageTitlePrefix = testName + "Dynamic Page";
@@ -117,17 +115,24 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             int itemsPerPage = 1;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
-            dynamicController.Model.ItemsPerPage = itemsPerPage;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
-
             try
             {
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                this.pageOperations = new PagesOperations();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
+                dynamicController.Model.ItemsPerPage = itemsPerPage;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
                 string responseContent = PageInvoker.ExecuteWebRequest(url);
 
@@ -148,9 +153,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify No limit and paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyNoLimitAndPagingFunctionality()
         {
-            for (int i = 0; i < this.dynamicTitles.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
-
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
             this.pageOperations = new PagesOperations();
@@ -161,16 +163,23 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             int index = 1;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.DisplayMode = ListDisplayMode.All;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
-
             try
             {
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                this.pageOperations = new PagesOperations();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.DisplayMode = ListDisplayMode.All;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
                 string responseContent = PageInvoker.ExecuteWebRequest(url);
 
@@ -193,22 +202,23 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         public void DynamicWidgetsDesignerListSettings_VerifySortDescending()
         {
             string sortExpession = "Title DESC";
-
-            for (int i = 0; i < this.dynamicTitles.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
-           
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SortExpression = sortExpession;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
 
             try
             {
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SortExpression = sortExpession;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
                 var dynamicItems = modelItems.Items.ToList();
                 int itemsCount = dynamicItems.Count;
@@ -242,21 +252,23 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             string[] dynamicTitlesDescending = { "Cat", "Boat", "Angel" };
             string[] dynamicUrlsDescending = { "CatUrl", "BoatUrl", "AngelUrl" };
 
-            for (int i = 0; i < dynamicTitlesDescending.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(dynamicTitlesDescending[i], dynamicUrlsDescending[i]);
-
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SortExpression = sortExpession;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
 
             try
             {
+                for (int i = 0; i < dynamicTitlesDescending.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(dynamicTitlesDescending[i], dynamicUrlsDescending[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SortExpression = sortExpession;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
                 var dynamicItems = modelItems.Items.ToList();
                 int itemsCount = dynamicItems.Count;
@@ -289,23 +301,25 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             string sortExpession = "LastModified DESC";
             string newTitle = "Boat New Name";
 
-            for (int i = 0; i < this.dynamicTitles.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
-
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
-            ServerOperationsFeather.DynamicModulePressArticle().EditPressArticleTitle(dynamicCollection[2], newTitle);
-
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SortExpression = sortExpession;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
 
             try
             {
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                ServerOperationsFeather.DynamicModulePressArticle().EditPressArticleTitle(dynamicCollection[2], newTitle);
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SortExpression = sortExpession;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
                 var dynamicItems = modelItems.Items.ToList();
                 int itemsCount = dynamicItems.Count;
@@ -338,25 +352,27 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             DateTime publicationDateBoat = new DateTime(2014, 10, 23, 12, 00, 00);
             DateTime publicationDateCat = new DateTime(2014, 11, 18, 12, 00, 00);
 
-            for (int i = 0; i < this.dynamicTitles.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
-           
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
-            ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDateAngel);
-            ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[2], publicationDateBoat);
-            ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[0], publicationDateCat);     
-
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SortExpression = sortExpession;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
 
             try
             {
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[4], publicationDateAngel);
+                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[2], publicationDateBoat);
+                ServerOperationsFeather.DynamicModulePressArticle().PublishPressArticleWithSpecificDate(dynamicCollection[0], publicationDateCat);
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SortExpression = sortExpession;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+                
                 var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: null, page: 1);
                 var dynamicItems = modelItems.Items.ToList();
                 int itemsCount = dynamicItems.Count;
@@ -392,23 +408,27 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             int index = 1;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
-            string file = this.CopyFile();
-          
-            for (int i = 0; i < this.dynamicTitles.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+            string file = null;
 
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.ListTemplateName = listTemplate;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
-
             try
             {
+                file = this.CopyFile();
+
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.ListTemplateName = listTemplate;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
                 string responseContent = PageInvoker.ExecuteWebRequest(url);
 
