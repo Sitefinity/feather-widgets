@@ -112,9 +112,71 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 {
                     if (div.IsVisible())
                     {
+                        div.ScrollToVisible();
                         div.Click();
                         ActiveBrowser.RefreshDomTree();
                         break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Selects the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectItemInMultipleHierarchicalSelector(params string[] itemNames)
+        {
+            HtmlDiv activeTab = this.EM.News.NewsWidgetContentScreen.ActiveTab
+                                    .AssertIsPresent("all tab");        
+            foreach (var itemName in itemNames)
+            { 
+                SelectElementInTree(itemName, activeTab);
+            }
+        }
+ 
+        private void SelectElementInTree(string itemName, HtmlDiv activeTab)
+        {
+            var element = activeTab.Find.ByExpression<HtmlAnchor>("innertext=" + itemName);
+               
+            if (element != null && element.IsVisible())
+            {
+                element.Click();
+                ActiveBrowser.RefreshDomTree();
+            }
+            else
+            {
+                var arrows = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                Assert.AreNotEqual(0, arrows.Count, "No arrows appear");
+                SearchAndSelectElementByExpandingArrows(arrows, element, itemName, activeTab);
+            }
+        }
+
+        private void SearchAndSelectElementByExpandingArrows(ICollection<HtmlSpan> arrows, HtmlAnchor element, string itemName, HtmlDiv activeTab)
+        {          
+            foreach (var arrow in arrows)
+            {
+                if (arrow.IsVisible())
+                {
+                    arrow.Click();
+                    activeTab.Refresh();
+                    element = activeTab.Find.ByCustom<HtmlAnchor>(a => a.InnerText.Contains(itemName));
+                    if (element != null && element.IsVisible())
+                    {
+                        element.Click();
+                        break;
+                    }
+                    else
+                    {
+                        var newArrows = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                        if (newArrows.Count != 0)
+                        {
+                            SearchAndSelectElementByExpandingArrows(newArrows, element, itemName, activeTab);
+                        }
+                        else
+                        {
+                            throw new Exception(itemName + " " + "not found");
+                        }
                     }
                 }
             }
@@ -258,13 +320,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             if (items.Count() > 12)
             {
                 HtmlDiv newsList = EM.News
-                     .NewsWidgetContentScreen
-                     .NewsList
-                     .AssertIsPresent("News list");
+                                     .NewsWidgetContentScreen
+                                     .NewsList
+                                     .AssertIsPresent("News list");
 
                 List<HtmlDiv> itemDiv = newsList.Find
                                       .AllByExpression<HtmlDiv>("class=~ng-scope list-group-item").ToList<HtmlDiv>();
-
                 divsCount = itemDiv.Count;
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
@@ -480,9 +541,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void CheckInactiveNewsWidget()
         {
             HtmlDiv optionsDiv = EM.News
-                                  .NewsWidgetContentScreen
-                                  .InactiveWidget
-                                  .AssertIsPresent("Inactive widget");
+                                   .NewsWidgetContentScreen
+                                   .InactiveWidget
+                                   .AssertIsPresent("Inactive widget");
             var isContained = optionsDiv.InnerText.Contains("This widget doesn't work, becauseNewsmodule has been deactivated.");
             Assert.IsTrue(isContained, "Message not found");
         }

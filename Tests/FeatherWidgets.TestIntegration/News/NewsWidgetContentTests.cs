@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
 using News.Mvc.Models;
+using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -77,6 +79,36 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
+        /// News widget - test content functionality - All news
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_VerifySelectedItemsFunctionality()
+        {
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;         
+            mvcProxy.Settings = new ControllerSettings(newsController);
+
+            int newsCount = 5;
+
+            for (int i = 1; i <= newsCount; i++)
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(NewsTitle + i);
+            var newsManager = NewsManager.GetManager();
+            var selectedNewsItem = newsManager.GetNewsItems().Where(n => n.Title == "Title2").SingleOrDefault();
+            newsController.Model.SerializedSelectedItemsIds = "[\"" + selectedNewsItem.Id.ToString() + "\"]";
+
+            newsController.Index(null);
+
+            Assert.AreEqual(1, newsController.Model.Items.Count, "The count of the dynamic item is not as expected");
+
+            for (int i = 0; i < newsController.Model.Items.Count; i++)
+                Assert.IsTrue(newsController.Model.Items[i].Title.Equals(NewsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");                          
+        }
+
+        /// <summary>
         /// News widget - test select by tag functionality 
         /// </summary>
         [Test]
@@ -108,20 +140,20 @@ namespace FeatherWidgets.TestIntegration.News
                     newsController.ListByTaxon(taxonomy, null);
 
                     for (int j = 0; j < newsController.Model.Items.Count; j++)
-                       Assert.IsTrue(newsController.Model.Items[j].Title.Equals(newsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");
+                        Assert.IsTrue(newsController.Model.Items[j].Title.Equals(newsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");
                 }
             }
             finally
             {
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(tagTitles);
             }
-         }
+        }
 
         #region Fields and constants
 
         private const string NewsTitle = "Title";
         private PagesOperations pageOperations;
-
+        
         #endregion
     }
 }
