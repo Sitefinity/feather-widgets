@@ -216,8 +216,8 @@ namespace DynamicContent
         private VersionManager versionManager;
 
         internal const string MvcTemplateCondition = "{0} AND MVC";
-        private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/List.DefaultDynamicContentList.cshtml";
-        private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/Detail.DefaultDetailPage.cshtml";
+        private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/DefaultDynamicContentList.cshtml";
+        private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/DefaultDetailPage.cshtml";
         private const string MainShortFieldTextForList = "@DynamicFieldHelper.MainTextFieldForList()";
         private const string MainShortFieldTextForDetail = "@DynamicFieldHelper.MainTextFieldForDetail()";
         private const string DynamicFieldsText = "@DynamicFieldHelper.GenerateFieldsSection()";
