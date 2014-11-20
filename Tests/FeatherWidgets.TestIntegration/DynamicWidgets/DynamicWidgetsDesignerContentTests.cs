@@ -33,9 +33,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Verify all items per page.")]
         public void DynamicWidgetsDesignerContent_VerifyAllFunctionality()
         {
-            this.CreatePressArticleAndReturnTagId();
-            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
             this.pageOperations = new PagesOperations();
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
             string pageNamePrefix = testName + "DynamicPage";
@@ -43,17 +40,21 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             string urlNamePrefix = testName + "dynamic-page";
             int index = 1;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
-
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.Model.SelectionMode = SelectionMode.AllItems;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
             try
             {
+                this.CreatePressArticleAndReturnTagId();
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SelectionMode = SelectionMode.AllItems;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
                 string responseContent = PageInvoker.ExecuteWebRequest(url);

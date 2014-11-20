@@ -419,9 +419,11 @@ namespace DynamicContent.Mvc.Controllers
         /// <returns><see cref="DynamicModuleType"/>'s display name</returns>
         private string GetDynamicContentTypeDisplayName()
         {
-            var widgetName = (string)this.ViewBag.WidgetName;
-            var dynamicType = ControllerExtensions.GetDynamicContentType(widgetName);
+            var widgetName = this.ViewBag.WidgetName as string;
+            if (widgetName.IsNullOrEmpty())
+                return null;
 
+            var dynamicType = ControllerExtensions.GetDynamicContentType(widgetName);
             if (dynamicType != null)
                 return dynamicType.DisplayName;
 

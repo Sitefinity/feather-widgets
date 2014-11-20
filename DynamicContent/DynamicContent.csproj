@@ -145,6 +145,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FieldsGenerator\AddressFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\ClassificationFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\DocumentsFieldGenerationStrategy.cs" />
     <Compile Include="FieldsGenerator\VideosFieldGenerationStrategy.cs" />
@@ -179,8 +180,8 @@
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Shared\Detail.DefaultDetailPage.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\List.DefaultDynamicContentList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\DefaultDetailPage.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\DefaultDynamicContentList.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
