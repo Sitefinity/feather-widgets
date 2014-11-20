@@ -87,26 +87,28 @@ namespace FeatherWidgets.TestIntegration.News
             string templateName = "Bootstrap.defaultNew";
             string placeHolder = "Contentplaceholder1";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
-
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
-            var newsController = new NewsController();
-            mvcProxy.Settings = new ControllerSettings(newsController);
-
-            PageManager pageManager = PageManager.GetManager();
-            int templatesCount = pageManager.GetTemplates().Count();
-
-            var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-            var newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
-
-            File.Copy(layoutTemplatePath, newLayoutTemplatePath);
-
-            this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
-
-                Guid templateId = this.templateOperation.GetTemplateIdByTitle(templateName);
-
+            string newLayoutTemplatePath = null;
+            Guid templateId = default(Guid);
+           
                 try
                 {
+                    var mvcProxy = new MvcControllerProxy();
+                    mvcProxy.ControllerName = typeof(NewsController).FullName;
+                    var newsController = new NewsController();
+                    mvcProxy.Settings = new ControllerSettings(newsController);
+
+                    PageManager pageManager = PageManager.GetManager();
+                    int templatesCount = pageManager.GetTemplates().Count();
+
+                    var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
+                    newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
+
+                    File.Copy(layoutTemplatePath, newLayoutTemplatePath);
+
+                    this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
+
+                    templateId = this.templateOperation.GetTemplateIdByTitle(templateName);
+
                     this.templateOperation.AddControlToTemplate(templateId, mvcProxy, placeHolder, CaptionNews);
                     Guid pageId = this.locationGenerator.CreatePage(PageNamePrefix, PageTitlePrefix, UrlNamePrefix, null, null);
                     Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().SetTemplateToPage(pageId, templateId);

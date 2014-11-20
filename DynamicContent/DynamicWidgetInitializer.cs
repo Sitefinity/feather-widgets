@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Install;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 
 namespace DynamicContent
 {
@@ -36,9 +37,11 @@ namespace DynamicContent
 
             foreach (var dynamicType in dynamicContentType)
             {
-                var mvcWidgetName = string.Format(CultureInfo.InvariantCulture, "{0} - {1} (MVC)", dynamicType.ModuleName, dynamicType.DisplayName);
+                var mvcAreaWidgetName = string.Format(CultureInfo.InvariantCulture, "{0} - {1}", dynamicType.ModuleName, dynamicType.DisplayName);
 
-                Telerik.Sitefinity.Modules.ControlTemplates.ControlTemplates.RegisterTemplatableControl(dynamicContentControllerType, dynamicContentControllerType, string.Empty, mvcWidgetName, mvcWidgetName);
+                var mvcWidgetName = string.Format(CultureInfo.InvariantCulture, MvcConstants.MvcFieldControlNameTemplate, mvcAreaWidgetName);
+
+                Telerik.Sitefinity.Modules.ControlTemplates.ControlTemplates.RegisterTemplatableControl(dynamicContentControllerType, dynamicContentControllerType, string.Empty, mvcAreaWidgetName, mvcWidgetName);
             }
         }
 

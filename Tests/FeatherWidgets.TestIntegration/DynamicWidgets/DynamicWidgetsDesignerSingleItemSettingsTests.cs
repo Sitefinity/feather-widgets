@@ -40,25 +40,30 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             int index = 1;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
-            string fileDeatil = this.CopyFile(DynamicFileName, DynamicFileFileResource);
-            string fileList = this.CopyFile(DynamicFileListName, DynamicFileListFileResource);
-
-            for (int i = 0; i < this.dynamicTitles.Length; i++)
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+            string fileDeatil = null;
+            string fileList = null;
 
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
 
-            var mvcProxy = new MvcWidgetProxy();
-            mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-            var dynamicController = new DynamicContentController();
-            dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-            dynamicController.ListTemplateName = detailTemplate;
-            dynamicController.DetailTemplateName = detailTemplate;
-            mvcProxy.Settings = new ControllerSettings(dynamicController);
-            mvcProxy.WidgetName = WidgetName;
-
             try
             {
+                fileDeatil = this.CopyFile(DynamicFileName, DynamicFileFileResource);
+                fileList = this.CopyFile(DynamicFileListName, DynamicFileListFileResource);
+
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.ListTemplateName = detailTemplate;
+                dynamicController.DetailTemplateName = detailTemplate;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
                 string detailNewsUrl = url + dynamicCollection[0].ItemDefaultUrl; 
