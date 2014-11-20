@@ -38,7 +38,8 @@ namespace DynamicContent
             foreach (var dynamicType in dynamicContentType)
             {
                 var mvcAreaWidgetName = string.Format(CultureInfo.InvariantCulture, "{0} - {1}", dynamicType.ModuleName, dynamicType.DisplayName);
-                var mvcWidgetName = string.Concat(mvcAreaWidgetName, " ", MvcConstants.MvcSuffix);
+
+                var mvcWidgetName = string.Format(CultureInfo.InvariantCulture, MvcConstants.MvcFieldControlNameTemplate, mvcAreaWidgetName);
 
                 Telerik.Sitefinity.Modules.ControlTemplates.ControlTemplates.RegisterTemplatableControl(dynamicContentControllerType, dynamicContentControllerType, string.Empty, mvcAreaWidgetName, mvcWidgetName);
             }
