@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestUI.Arrangements
                 ServerOperations.Taxonomies().CreateCategory(taxonTitle + "0");
                 categories.Add(taxonTitle + "0");
                 
-                for (int i = 1; i < 12; i++)
+                for (int i = 1; i < 6; i++)
                 {
                     ServerOperations.Taxonomies().CreateCategory(taxonTitle + i, taxonTitle + (i - 1));
                     categories.Add(taxonTitle + i);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
@@ -86,26 +87,28 @@ namespace FeatherWidgets.TestIntegration.News
         [Author("FeatherTeam")]
         public void NewsWidget_VerifySelectedItemsFunctionality()
         {
+            int newsCount = 5;
+         
+            for (int i = 0; i < newsCount; i++)
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(newsTitle: NewsTitle + i, newsContent: NewsTitle + i, author: NewsTitle + i);
+            }
+
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;         
-            mvcProxy.Settings = new ControllerSettings(newsController);
+            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;                   
 
-            int newsCount = 5;
-
-            for (int i = 1; i <= newsCount; i++)
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(NewsTitle + i);
             var newsManager = NewsManager.GetManager();
-            var selectedNewsItem = newsManager.GetNewsItems().Where(n => n.Title == "Title2").SingleOrDefault();
+            var selectedNewsItem = newsManager.GetNewsItems().FirstOrDefault(n => n.Title == "Title2" && n.OriginalContentId != Guid.Empty);
             newsController.Model.SerializedSelectedItemsIds = "[\"" + selectedNewsItem.Id.ToString() + "\"]";
+            mvcProxy.Settings = new ControllerSettings(newsController);
 
             newsController.Index(null);
 
-            Assert.AreEqual(1, newsController.Model.Items.Count, "The count of the dynamic item is not as expected");
+            Assert.AreEqual(1, newsController.Model.Items.Count, "The count of news is not as expected");
 
-            for (int i = 0; i < newsController.Model.Items.Count; i++)
-                Assert.IsTrue(newsController.Model.Items[i].Title.Equals(NewsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");                          
+            Assert.IsTrue(newsController.Model.Items[0].Title.Equals("Title2", StringComparison.CurrentCulture), "The news with this title was not found!");                          
         }
 
         /// <summary>

@@ -48,7 +48,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         /// <summary>
         /// Gets news list with news items.
         /// </summary>
-        public HtmlDiv NewsList
+        public HtmlDiv ItemsList
         {
             get
             {
@@ -103,7 +103,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         /// <summary>
         /// Gets search div.
         /// </summary>
-        /// 
         public HtmlDiv SearchByTypingDiv
         {
             get

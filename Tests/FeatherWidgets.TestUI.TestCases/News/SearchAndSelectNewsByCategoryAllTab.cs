@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// SearchAndSelectNewsByTag test class.
+    /// SearchAndSelectNewsByCategoryAllTab test class.
     /// </summary>
     [TestClass]
     public class SearchAndSelectNewsByCategoryAllTab_ : FeatherTestCase
@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI
         /// UI test SearchAndSelectNewsByCategoryAllTab
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void SearchAndSelectNewsByCategoryAllTab()
         {

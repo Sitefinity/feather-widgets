@@ -10,7 +10,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// SearchForNotExistingTag arrangement class.
+    /// FilterNewsItemWithCategoryOnPage arrangement class.
     /// </summary>
     public class FilterNewsItemWithCategoryOnPage : ITestArrangement
     {
@@ -21,20 +21,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
-            List<string> categories = new List<string>();
-
             ServerOperations.Taxonomies().CreateCategory(TaxonTitle + "0");
-            int index = 0;
+
             for (int i = 1; i < 7; i++)
             {
                 ServerOperations.Taxonomies().CreateCategory(TaxonTitle + i, TaxonTitle + (i - 1));
-                categories.Add(TaxonTitle + i);               
-            }
-            foreach (var category in categories)
-            {                
-                var cat = new List<string> { category };
-                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + index, NewsContent, "AuthorName", "SourceName", cat, null, null);
-                index++;
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + (i - 1), NewsContent, "AuthorName", "SourceName", new List<string> { TaxonTitle + i }, null, null);                           
             }
 
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
