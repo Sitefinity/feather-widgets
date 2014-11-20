@@ -78,11 +78,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
             finally
             {
-                this.templateOperation.GetTemplateIdByTitle(TemplateName1);
-
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();           
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
                 File.Delete(newLayoutTemplatePath);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();           
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);                
             }
         }
 
@@ -103,7 +101,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 int templatesCount = pageManager.GetTemplates().Count();
 
                 var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
+                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew2.cshtml");
 
                 File.Copy(layoutTemplatePath, newLayoutTemplatePath);
 
@@ -143,12 +141,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
             finally
             {
-                this.templateOperation.GetTemplateIdByTitle(TemplateName);
-
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();              
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
-
                 File.Delete(newLayoutTemplatePath);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();              
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);                
             }
         }
 
@@ -158,7 +153,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private const string PageTitlePrefix = "Navigation Page";
         private const string UrlNamePrefix = "navigation-page";
         private const string SiblingPage = "Sibling Page";
-        private const string TemplateName = "Bootstrap.defaultNew";
+        private const string TemplateName = "Bootstrap.defaultNew2";
         private const string TemplateName1 = "Bootstrap.defaultNew1";
         private const string PlaceHolder = "Contentplaceholder1";
         private const string CaptionNavigation = "Navigation";
