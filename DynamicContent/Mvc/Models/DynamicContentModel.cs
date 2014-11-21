@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ServiceStack.Text;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
@@ -25,6 +26,41 @@ namespace DynamicContent.Mvc.Models
 
         /// <inheritdoc />
         public string SerializedSelectedParentsIds { get; set; }
+
+        /// <inheritdoc />
+        public override IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel)
+        {
+            if (this.ContentType != null)
+            {
+                var result = new List<CacheDependencyKey>(1);
+                result.Add(new CacheDependencyKey { Key = this.ContentType.FullName, Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
+
+                return result;
+            }
+            else
+            {
+                return new List<CacheDependencyKey>(0);
+            }
+        }
+
+        /// <inheritdoc />
+        public override IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentDetailsViewModel viewModel)
+        {
+            if (this.ContentType != null)
+            {
+                var result = new List<CacheDependencyKey>(1);
+                if (viewModel.Item != null && viewModel.Item.Id != Guid.Empty)
+                {
+                    result.Add(new CacheDependencyKey { Key = viewModel.Item.Id.ToString().ToUpperInvariant(), Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
+                }
+
+                return result;
+            }
+            else
+            {
+                return new List<CacheDependencyKey>(0);
+            }
+        }
 
         /// <inheritdoc />
         public virtual ContentListViewModel CreateListViewModelByParent(Telerik.Sitefinity.DynamicModules.Model.DynamicContent parentItem, int page)

@@ -48,11 +48,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         /// <summary>
         /// Gets news list with news items.
         /// </summary>
-        public HtmlDiv NewsList
+        public HtmlDiv ItemsList
         {
             get
             {
-                return this.Get<HtmlDiv>("tagname=div", "class=list-group list-group-endless ng-isolate-scope");
+                return this.Get<HtmlDiv>("tagname=div", "class=~list-group list-group-endless");
             }
         }
 
@@ -85,7 +85,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         {
             get
             {
-                return this.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn ng-scope");
+                return this.Find.AllByExpression<HtmlButton>("class=~btn btn-xs btn-default openSelectorBtn");
             }
         }
 
