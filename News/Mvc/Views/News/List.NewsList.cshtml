@@ -13,41 +13,38 @@
     <ul class="list-unstyled">
         @foreach (var item in Model.Items)
         {
-            <li class="media">
-              @using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id))
-              {
-                  <h3>
-                            @if (ViewBag.OpenInSamePage)
-                            {
-                                <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
-                            }
-                            else
-                            {
-                                <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
-                            }
-                  </h3>
+            <li class="media" @Html.InlineEditingAttributes(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id)>
+                <h3>
+                    @if (ViewBag.OpenInSamePage)
+                    {
+                        <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
+                    }
+                    else
+                    {
+                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
+                    }
+                </h3>
 
-                  <div class="text-muted">
-                      @item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")
-                      @Html.Resource("By")
-                      @DataResolver.Resolve(item, "Author", null)
-                  </div>
+                <div class="text-muted">
+                    @item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")
+                    @Html.Resource("By")
+                    @DataResolver.Resolve(item, "Author", null)
+                </div>
                   
-                  if (!String.IsNullOrEmpty(item.Summary))
-                  {
-                        @Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))
-                  }
-                  
-                  if (ViewBag.OpenInSamePage)
-                  {
-                      <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">Full story</a>
-                  }
-                  else
-                  {
-                      <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">Full story</a>
-                  }
+                @if (!String.IsNullOrEmpty(item.Summary))
+                {
+                    @Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))
                 }
-              </li>
+                  
+                @if (ViewBag.OpenInSamePage)
+                {
+                    <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">Full story</a>
+                }
+                else
+                {
+                    <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">Full story</a>
+                }
+            </li>
         }
     </ul>
 

@@ -93,6 +93,20 @@
                 if (data)
                     $scope.feedback.errorMessage = data.Detail;
             })
+            .then(function () {
+                $scope.feedback.savingHandlers.push(function () {
+                    if (!$scope.properties.DetailsPageId.PropertyValue ||
+                            $scope.properties.DetailsPageId.PropertyValue === '00000000-0000-0000-0000-000000000000') {
+                        $scope.properties.OpenInSamePage.PropertyValue = true;
+                    }
+                    if ($scope.properties.SelectionMode.PropertyValue === "FilteredItems" &&
+                        $scope.additionalFilters.value &&
+                        $scope.additionalFilters.value.QueryItems &&
+                        $scope.additionalFilters.value.QueryItems.length === 0) {
+                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
+                    }
+                })
+            })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;
             });
