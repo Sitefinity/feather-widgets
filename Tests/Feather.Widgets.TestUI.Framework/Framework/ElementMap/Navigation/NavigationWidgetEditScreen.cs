@@ -63,7 +63,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         {
             get
             {
-                return this.Get<HtmlSelect>("tagname=select", "id=navLevelsToInclude");
+                return this.Get<HtmlSelect>("tagname=select", "ng-model=properties.LevelsToInclude.PropertyValue");
             }
         }
 

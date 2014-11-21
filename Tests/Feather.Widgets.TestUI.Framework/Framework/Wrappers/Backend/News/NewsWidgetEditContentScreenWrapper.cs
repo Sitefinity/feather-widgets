@@ -86,7 +86,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             HtmlDiv newsList = EM.News
                                  .NewsWidgetContentScreen
-                                 .NewsList
+                                 .ItemsList
                                  .AssertIsPresent("News list");
 
             var itemDiv = newsList.Find
@@ -112,6 +112,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 {
                     if (div.IsVisible())
                     {
+                        div.ScrollToVisible();
                         div.Click();
                         ActiveBrowser.RefreshDomTree();
                         break;
@@ -119,6 +120,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 }
             }
         }
+
+        /// <summary>
+        /// Selects the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectItemInHierarchicalSelector(params string[] itemNames)
+        {
+            HtmlDiv activeTab = this.EM.News.NewsWidgetContentScreen.ActiveTab
+                                    .AssertIsPresent("all tab");
+            foreach (var itemName in itemNames)
+            {
+                SelectElementInTree(itemName, activeTab);
+            }
+        }
+    
+        public void CheckBreadcrumbAfterSearchInHierarchicalSelector(string fullName)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlDiv>("class=ng-binding text-muted", "InnerText=" + fullName)
+                                    .AssertIsPresent("all tab");   
+        }
+
 
         /// <summary>
         /// Saves the changes.
@@ -182,11 +204,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="title">The title of the tag</param>
         public void SearchItemByTitle(string title)
         {
-            HtmlDiv inputDiv = EM.News
+            var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
+            HtmlDiv inputDiv = activeDialog.Find.ByExpression<HtmlDiv>("class=input-group m-bottom-sm");
+            //// Some tests can fail from this change
+            /* HtmlDiv inputDiv = EM.News
                                  .NewsWidgetContentScreen
                                  .SearchByTypingDiv
                                  .AssertIsPresent("Search field div");
-
+            */
             HtmlInputText input = inputDiv.Find
                                           .ByExpression<HtmlInputText>("placeholder=Narrow by typing")
                                           .AssertIsPresent("Search field");
@@ -251,20 +276,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.RefreshDomTree();
             var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
 
-            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");         
             int divsCount = items.Count;
 
+            if (divsCount == 0)
+            {
+                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-click=itemClicked(item.item)");
+                divsCount = items.Count;
+            }
+
             //// if items count is more than 12 elements, then you need to scroll
-            if (items.Count() > 12)
+            if (divsCount > 12)
             {
                 HtmlDiv newsList = EM.News
-                     .NewsWidgetContentScreen
-                     .NewsList
-                     .AssertIsPresent("News list");
+                                     .NewsWidgetContentScreen
+                                     .ItemsList
+                                     .AssertIsPresent("News list");
 
                 List<HtmlDiv> itemDiv = newsList.Find
                                       .AllByExpression<HtmlDiv>("class=~ng-scope list-group-item").ToList<HtmlDiv>();
-
                 divsCount = itemDiv.Count;
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
@@ -273,7 +303,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             bool isCountCorrect = (expected == divsCount);
             return isCountCorrect;
-        } 
+        }
 
         /// <summary>
         /// No news items found
@@ -480,9 +510,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void CheckInactiveNewsWidget()
         {
             HtmlDiv optionsDiv = EM.News
-                                  .NewsWidgetContentScreen
-                                  .InactiveWidget
-                                  .AssertIsPresent("Inactive widget");
+                                   .NewsWidgetContentScreen
+                                   .InactiveWidget
+                                   .AssertIsPresent("Inactive widget");
             var isContained = optionsDiv.InnerText.Contains("This widget doesn't work, becauseNewsmodule has been deactivated.");
             Assert.IsTrue(isContained, "Message not found");
         }
@@ -516,5 +546,68 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
             Manager.Current.ActiveBrowser.RefreshDomTree();
         }
+
+
+        private void SelectElementInTree(string itemName, HtmlDiv activeTab)
+        {
+            var element = activeTab.Find.ByExpression<HtmlSpan>("innertext=" + itemName);
+
+            if (element != null && element.IsVisible())
+            {
+                element.Click();
+                ActiveBrowser.RefreshDomTree();
+            }
+            else
+            {
+                var arrows = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                Assert.AreNotEqual(0, arrows.Count, "No arrows appear");
+
+                SearchAndSelectElementByExpandingArrows(arrows, element, itemName, activeTab);
+
+                this.isHierarchicalItemFound = false;
+            }
+        }
+
+        private void SearchAndSelectElementByExpandingArrows(ICollection<HtmlSpan> arrows, HtmlSpan element, string itemName, HtmlDiv activeTab)
+        {
+            if (this.isHierarchicalItemFound)
+            {
+                return;
+            }
+
+            foreach (var arrow in arrows)
+            {
+                if (this.isHierarchicalItemFound)
+                {
+                    return;
+                }
+
+                if (arrow.IsVisible())
+                {
+                    arrow.Click();
+                    activeTab.Refresh();
+                    element = activeTab.Find.ByCustom<HtmlSpan>(a => a.InnerText.Equals(itemName));
+                    if (element != null && element.IsVisible())
+                    {
+                        element.Click();
+                        this.isHierarchicalItemFound = true;
+                    }
+                    else
+                    {
+                        var newArrows = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                        if (newArrows.Count != 0)
+                        {
+                            SearchAndSelectElementByExpandingArrows(newArrows, element, itemName, activeTab);
+                        }
+                        else
+                        {
+                            throw new Exception(itemName + " " + "not found");
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool isHierarchicalItemFound = false;
     }
 }
