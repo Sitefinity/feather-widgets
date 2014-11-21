@@ -134,6 +134,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 SelectElementInTree(itemName, activeTab);
             }
         }
+    
+        public void CheckBreadcrumbAfterSearchInHierarchicalSelector(string fullName)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlDiv>("class=ng-binding text-muted", "InnerText=" + fullName)
+                                    .AssertIsPresent("all tab");   
+        }
+
 
         /// <summary>
         /// Saves the changes.
@@ -551,20 +558,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
                 SearchAndSelectElementByExpandingArrows(arrows, element, itemName, activeTab);
 
-                isHierarchicalItemFound = false;
+                this.isHierarchicalItemFound = false;
             }
         }
 
         private void SearchAndSelectElementByExpandingArrows(ICollection<HtmlSpan> arrows, HtmlSpan element, string itemName, HtmlDiv activeTab)
         {
-            if (isHierarchicalItemFound)
+            if (this.isHierarchicalItemFound)
             {
                 return;
             }
 
             foreach (var arrow in arrows)
             {
-                if (isHierarchicalItemFound)
+                if (this.isHierarchicalItemFound)
                 {
                     return;
                 }
@@ -577,7 +584,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     if (element != null && element.IsVisible())
                     {
                         element.Click();
-                        isHierarchicalItemFound = true;
+                        this.isHierarchicalItemFound = true;
                     }
                     else
                     {
