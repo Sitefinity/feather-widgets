@@ -9,21 +9,16 @@
 @using Telerik.Sitefinity.Model.ContentLinks;
 @using Telerik.Sitefinity.RelatedData; 
 
-<div class="@Model.CssClass">
-@{
-    using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id))
-    {
-        <h1 class="sfitemTitle sftitle">
-            @*MainTextFieldForDetail*@
-        </h1>
-        @Html.Sitefinity().DateField((DateTime)Model.Item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
+<div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id)>
+    <h1 class="sfitemTitle sftitle">
+        @*MainTextFieldForDetail*@
+    </h1>
+    @Html.Sitefinity().DateField((DateTime)Model.Item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
 
-        @*GenerateFieldsSection*@
+    @*GenerateFieldsSection*@
     
-        if (Model.EnableSocialSharing)
-        {
-            @Html.SocialShareOptions()
-        }
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
     }
-}
 </div>
