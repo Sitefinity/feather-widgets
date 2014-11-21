@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text; 
 using DynamicContent.Mvc.Controllers;
 using DynamicContent.Mvc.Models;
 using FeatherWidgets.TestUtilities.CommonOperations;
@@ -13,7 +14,7 @@ using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Web; 
+using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.DynamicWidgets
 {
@@ -244,7 +245,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 var countryItem = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"Country2\"").First();
 
-                var citiesWidget = this.CreateMvcWidget(ResolveTypeCity, WidgetNameCities, ParentFilterMode.Selected, ResolveTypeCountry, countryItem.Id);
+                string[] countryItemId = new string[] { countryItem.Id.ToString() };
+
+                var citiesWidget = this.CreateMvcWidget(ResolveTypeCity, WidgetNameCities, ParentFilterMode.Selected, ResolveTypeCountry, countryItemId);
 
                 var controls = new List<System.Web.UI.Control>();
                 controls.Add(citiesWidget);
@@ -269,13 +272,55 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Adds cities MVC dynamic widget on page and verifies the proper cities are displayed when selecting more than 1 country from the widget.")]
+        public void DynamicWidgets_HierarchicalWidgetsOnPage_DisplayCitiesFromSelectedCountries()
+        {
+            try
+            {
+                var providerName = string.Empty;
+                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+                Type countryType = TypeResolutionService.ResolveType(ResolveTypeCountry);
+
+                var countryItem = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"Country2\"").First();
+                var countryItem2 = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"Country3\"").First();
+
+                string[] parentIds = new string[] { countryItem.Id.ToString(), countryItem2.Id.ToString() };
+
+                var citiesWidget = this.CreateMvcWidget(ResolveTypeCity, WidgetNameCities, ParentFilterMode.Selected, ResolveTypeCountry, parentIds);
+
+                var controls = new List<System.Web.UI.Control>();
+                controls.Add(citiesWidget);
+
+                PageContentGenerator.AddControlsToPage(this.pageId, controls);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                for (int i = 1; i <= 3; i++)
+                {
+                    string suff = i.ToString(CultureInfo.InvariantCulture);
+
+                    Assert.IsTrue(responseContent.Contains("Country2City" + suff), "The dynamic item with this title was NOT found Country2City" + suff);
+                    Assert.IsFalse(responseContent.Contains("Country1City" + suff), "The dynamic item with this title was found Country1City" + suff);
+                    Assert.IsTrue(responseContent.Contains("Country3City" + suff), "The dynamic item with this title was NOT found Country3City" + suff);
+                }
+            }
+            finally
+            {
+                ServerOperations.Pages().DeleteAllPages();
+            }
+        }
+
         [FixtureTearDown]
         public void Teardown()
         {           
             ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, TransactionName);
         }
 
-        private MvcWidgetProxy CreateMvcWidget(string resolveType, string widgetName, ParentFilterMode parentFilter = ParentFilterMode.All, string parentType = null, Guid parentId = default(Guid))
+        private MvcWidgetProxy CreateMvcWidget(string resolveType, string widgetName, ParentFilterMode parentFilter = ParentFilterMode.All, string parentType = null, string[] parentIds = null)
         {
             var mvcProxy = new MvcWidgetProxy();
             mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -283,11 +328,30 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(resolveType);
             dynamicController.Model.ParentFilterMode = parentFilter;
             dynamicController.Model.CurrentlyOpenParentType = parentType;
-            dynamicController.Model.SerializedSelectedParentsIds = "[\"" + parentId.ToString() + "\"]";
+
+            if (parentIds != null)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var id in parentIds)
+                {
+                    sb.Append("\"");
+                    sb.Append(id);
+                    sb.Append("\"");
+
+                    if (Array.IndexOf(parentIds, id) < parentIds.Length - 1)
+                    {
+                        sb.Append(",");
+                    }     
+                }
+
+                dynamicController.Model.SerializedSelectedParentsIds = "[" + sb.ToString() + "]";
+            }
+
             mvcProxy.Settings = new ControllerSettings(dynamicController);
             mvcProxy.WidgetName = widgetName;
 
-            return mvcProxy; 
+            return mvcProxy;
         }
 
         private const string ModuleName = "Booking";
