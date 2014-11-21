@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using DynamicContent.Mvc.Controllers;
-using DynamicContent.Mvc.Helpers;
+using DynamicContent.TemplateGeneration.Fields;
+using Telerik.Microsoft.Practices.Unity;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
@@ -11,17 +14,17 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Versioning;
 
-namespace DynamicContent
+namespace DynamicContent.TemplateGeneration
 {
     /// <summary>
-    /// This class generates and registers dynamic widget views.
+    /// This class generates and registers templates for dynamic widget.
     /// </summary>
-    internal class WidgetViewGenerator
+    internal class TemplateGenerator
     {
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WidgetViewGenerator"/> class.
+        /// Initializes a new instance of the <see cref="TemplateGenerator"/> class.
         /// </summary>
         /// <param name="pageManager">The page manager.</param>
         /// <param name="moduleBuilderManager">The module builder manager.</param>
@@ -30,7 +33,7 @@ namespace DynamicContent
         /// or
         /// moduleBuilderManager
         /// </exception>
-        public WidgetViewGenerator(PageManager pageManager, ModuleBuilderManager moduleBuilderManager, VersionManager versionManager) 
+        public TemplateGenerator(PageManager pageManager, ModuleBuilderManager moduleBuilderManager, VersionManager versionManager) 
         {
             if (pageManager == null)
                 throw new ArgumentNullException("pageManager");
@@ -53,13 +56,13 @@ namespace DynamicContent
         /// <param name="dynamicModule">The dynamic module.</param>
         /// <param name="moduleType">Type of the module.</param>
         /// <returns></returns>
-        public Guid InstallDefaultMasterTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
+        public Guid InstallMasterTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
             var moduleTitle = dynamicModule.Title;
             var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var condition = string.Format(WidgetViewGenerator.MvcTemplateCondition, dynamicTypeName);
+            var condition = string.Format(TemplateGenerator.MvcTemplateCondition, dynamicTypeName);
             var controlType = typeof(DynamicContentController).FullName;
 
             var listTemplateName = string.Format("List.{0}", moduleType.DisplayName);
@@ -78,13 +81,13 @@ namespace DynamicContent
         /// <param name="dynamicModule">The dynamic module.</param>
         /// <param name="moduleType">Type of the module.</param>
         /// <returns></returns>
-        public Guid InstallDefaultDetailTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
+        public Guid InstallDetailTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
             var moduleTitle = dynamicModule.Title;
             var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var condition = string.Format(WidgetViewGenerator.MvcTemplateCondition, dynamicTypeName);
+            var condition = string.Format(TemplateGenerator.MvcTemplateCondition, dynamicTypeName);
             var controlType = typeof(DynamicContentController).FullName;
 
             var detailTemplateName = string.Format("Detail.{0}", moduleType.DisplayName);
@@ -103,7 +106,7 @@ namespace DynamicContent
         /// <param name="contentTypeName">Name of the content type.</param>
         public void UnregisterTemplates(string contentTypeName)
         {
-            var mvcTemplateCondition = string.Format(WidgetViewGenerator.MvcTemplateCondition, contentTypeName);
+            var mvcTemplateCondition = string.Format(TemplateGenerator.MvcTemplateCondition, contentTypeName);
             var templatesToDelete = this.pageManager.GetPresentationItems<ControlPresentation>()
                 .Where(c => c.Condition == mvcTemplateCondition)
                 .ToArray();
@@ -112,6 +115,32 @@ namespace DynamicContent
             {
                 this.pageManager.Delete(template);
             }
+        }
+
+        /// <summary>
+        /// Generates the dynamic field section markup.
+        /// </summary>
+        /// <returns></returns>
+        protected internal virtual string GenerateDynamicFieldSection(DynamicModuleType moduleType)
+        {
+            var fieldGenerators = ObjectFactory.Container.ResolveAll<IFieldGenerationStrategy>(new ParameterOverride("moduleType", moduleType)).ToList();
+
+            StringBuilder fieldsSectionBuilder = new StringBuilder();
+
+            foreach (var fieldGenerator in fieldGenerators)
+            {
+                var fieldsForType = moduleType.Fields.Where(fieldGenerator.GetFieldCondition);
+                if (fieldsForType.Count() != 0)
+                {
+                    foreach (DynamicModuleField currentField in fieldsForType)
+                    {
+                        fieldsSectionBuilder.Append(fieldGenerator.GetFieldMarkup(currentField));
+                        fieldsSectionBuilder.Append(TemplateGenerator.EmptyLine);
+                    }
+                }
+            }
+
+            return fieldsSectionBuilder.ToString();
         }
 
         #endregion
@@ -124,12 +153,12 @@ namespace DynamicContent
         /// <returns></returns>
         private string GenerateMasterTemplate(DynamicModuleType moduleType)
         {
-            var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.MasterViewDefaultPath);
-            var mainPictureMarkup = DynamicFieldHelper.MainPictureSection(moduleType).ToHtmlString();
-            var mainShortTextMarkup = DynamicFieldHelper.MainTextFieldForList(moduleType).ToHtmlString();
+            var defaultTemplateText = this.GetDefaultTemplate(TemplateGenerator.MasterViewDefaultPath);
+            var mainPictureMarkup = this.GetMainPictureSection(moduleType);
+            var mainShortTextMarkup = this.GetMainTextFieldForList(moduleType);
 
-            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainShortFieldTextForList, mainShortTextMarkup);
-            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainPictureFieldText, mainPictureMarkup);
+            defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainShortFieldTextForList, mainShortTextMarkup);
+            defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainPictureFieldText, mainPictureMarkup);
 
             return defaultTemplateText;
         }
@@ -141,12 +170,12 @@ namespace DynamicContent
         /// <returns></returns>
         private string GenerateDetailTemplate(DynamicModuleType moduleType)
         {
-            var defaultTemplateText = this.GetDefaultTemplate(WidgetViewGenerator.DetailViewDefaultPath);
-            var generatedFieldsMarkup = DynamicFieldHelper.GenerateFieldsSection(moduleType).ToHtmlString();
-            var mainShortTextMarkup = DynamicFieldHelper.MainTextFieldForDetail(moduleType).ToHtmlString();
+            var defaultTemplateText = this.GetDefaultTemplate(TemplateGenerator.DetailViewDefaultPath);
+            var generatedFieldsMarkup = this.GenerateDynamicFieldSection(moduleType);
+            var mainShortTextMarkup = this.GetMainTextFieldForDetail(moduleType);
 
-            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.MainShortFieldTextForDetail, mainShortTextMarkup);
-            defaultTemplateText = defaultTemplateText.Replace(WidgetViewGenerator.DynamicFieldsText, generatedFieldsMarkup);
+            defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainShortFieldTextForDetail, mainShortTextMarkup);
+            defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.DynamicFieldsText, generatedFieldsMarkup);
 
             return defaultTemplateText;
         }
@@ -207,6 +236,70 @@ namespace DynamicContent
             return template;
         }
 
+        /// <summary>
+        /// Gets the markup of main text field for list template.
+        /// </summary>
+        /// <param name="moduleType">Type of the module.</param>
+        /// <returns></returns>
+        private string GetMainTextFieldForList(DynamicModuleType moduleType)
+        {
+            var fieldMarkup = string.Format(TemplateGenerator.MainShotTextFieldListTempalte, moduleType.MainShortTextFieldName);
+
+            return fieldMarkup;
+        }
+
+        /// <summary>
+        /// Gets the markup of main text field for detail template.
+        /// </summary>
+        /// <param name="moduleType">Type of the module.</param>
+        /// <returns></returns>
+        private string GetMainTextFieldForDetail(DynamicModuleType moduleType)
+        {
+            var fieldMarkup = string.Format(TemplateGenerator.MainShotTextFieldDetailTempalte, moduleType.MainShortTextFieldName);
+
+            return fieldMarkup;
+        }
+
+        /// <summary>
+        /// Gets the main picture section markup.
+        /// </summary>
+        /// <param name="moduleType">Type of the module.</param>
+        /// <returns></returns>
+        private string GetMainPictureSection(DynamicModuleType moduleType)
+        {
+            var firstMediaFieldTypeImage = moduleType.Fields.FirstOrDefault(f => f.FieldType == FieldType.Media
+                                                                                && f.FieldStatus != DynamicModuleFieldStatus.Removed
+                                                                                && f.MediaType == "image");
+            var fieldMarkup = TemplateGenerator.EmptyLine;
+
+            if (firstMediaFieldTypeImage != null)
+            {
+                fieldMarkup = this.GetImageFieldMarkup(firstMediaFieldTypeImage);
+            }
+
+            return fieldMarkup;
+        }
+
+        /// <summary>
+        /// Gets the image field markup.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <returns></returns>
+        private string GetImageFieldMarkup(DynamicModuleField field)
+        {
+            var markup = string.Empty;
+            if (field.AllowMultipleImages)
+            {
+                markup = string.Format(TemplateGenerator.MultiImageFieldMarkupTempalte, field.Name);
+            }
+            else
+            {
+                markup = string.Format(TemplateGenerator.SingleImageFieldMarkupTempalte, field.Name);
+            }
+
+            return markup;
+        }
+
         #endregion
 
         #region Privte fields and Constants
@@ -215,13 +308,19 @@ namespace DynamicContent
         private ModuleBuilderManager moduleBuilderManager;
         private VersionManager versionManager;
 
+        internal static readonly string EmptyLine = "\r\n";
         internal const string MvcTemplateCondition = "{0} AND MVC";
-        private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/DefaultDynamicContentList.cshtml";
-        private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/DefaultDetailPage.cshtml";
-        private const string MainShortFieldTextForList = "@DynamicFieldHelper.MainTextFieldForList()";
-        private const string MainShortFieldTextForDetail = "@DynamicFieldHelper.MainTextFieldForDetail()";
-        private const string DynamicFieldsText = "@DynamicFieldHelper.GenerateFieldsSection()";
-        private const string MainPictureFieldText = "@DynamicFieldHelper.MainPictureSection()";
+        private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/ListTemplateContainer.cshtml";
+        private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/DetailTemplateContainer.cshtml";
+        private const string MainShortFieldTextForList = "@*MainTextFieldForList*@";
+        private const string MainShortFieldTextForDetail = "@*MainTextFieldForDetail*@";
+        private const string DynamicFieldsText = "@*GenerateFieldsSection*@";
+        private const string MainPictureFieldText = "@*MainPictureSection*@";
+
+        private const string MainShotTextFieldListTempalte = @"@Html.Sitefinity().ShortTextField((object)item.{0}, ""{0}"")";
+        private const string MainShotTextFieldDetailTempalte = @"@Html.Sitefinity().ShortTextField((object)Model.Item.{0}, ""{0}"")";
+        private const string SingleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)item.{0}).FirstOrDefault(), ""{0}"")";
+        private const string MultiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)item.{0}, ""{0}"")";
 
         #endregion
     }

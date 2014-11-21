@@ -145,28 +145,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FieldsGenerator\AddressFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\ClassificationFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\DocumentsFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\VideosFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\ImagesFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\MultipleChoiceFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\YesNoFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\LongRichTextFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\RelatedMediaFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\RelatedDataFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\DateFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\DynamicFieldGenerator.cs" />
+    <Compile Include="TemplateGeneration\Fields\IFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\AddressFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\ClassificationFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\DocumentsFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\VideosFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\ImagesFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\MultipleChoiceFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\YesNoFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\LongRichTextFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\RelatedMediaFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\RelatedDataFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\DateFieldGenerationStrategy.cs" />
     <Compile Include="DynamicWidgetInitializer.cs" />
-    <Compile Include="FieldsGenerator\FieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\LongTextAreaFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\NumberFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\PriceFieldGenerationStrategy.cs" />
-    <Compile Include="FieldsGenerator\ShortTextFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\FieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\LongTextAreaFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\NumberFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\PriceFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\ShortTextFieldGenerationStrategy.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="MvcWidgetInstallationStrategy.cs" />
     <Compile Include="Mvc\Controllers\DynamicContentController.cs" />
-    <Compile Include="Mvc\Helpers\DynamicFieldHelper.cs" />
     <Compile Include="Mvc\Models\DynamicContentListViewModel.cs" />
     <Compile Include="Mvc\Models\DynamicContentModel.cs" />
     <Compile Include="Mvc\Models\IDynamicContentModel.cs" />
@@ -174,14 +173,14 @@
     <Compile Include="Mvc\Models\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\DynamicContentResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WidgetViewGenerator.cs" />
+    <Compile Include="TemplateGeneration\TemplateGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Shared\DefaultDetailPage.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\DefaultDynamicContentList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\DetailTemplateContainer.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\ListTemplateContainer.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

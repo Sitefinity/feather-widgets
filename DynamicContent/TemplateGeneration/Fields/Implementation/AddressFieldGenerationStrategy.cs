@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace DynamicContent.FieldsGenerator
+namespace DynamicContent.TemplateGeneration.Fields.Implementation
 {
     /// <summary>
     /// This class represents field generation strategy for address dynamic fields.

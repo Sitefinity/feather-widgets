@@ -19,18 +19,18 @@
             using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id))
             {
                 <li>
-                    @DynamicFieldHelper.MainPictureSection()
+                    @*MainPictureSection*@
                     <h1 class="sfitemTitle sftitle">
                         @if (ViewBag.OpenInSamePage)
                         {
                             <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
-                                @DynamicFieldHelper.MainTextFieldForList()
+                                @*MainTextFieldForList*@
                             </a>
                         }
                         else
                         {
                             <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
-                                @DynamicFieldHelper.MainTextFieldForList()
+                                @*MainTextFieldForList*@
                             </a>
                         }
                     </h1>

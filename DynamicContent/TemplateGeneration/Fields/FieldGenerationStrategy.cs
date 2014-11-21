@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace DynamicContent.FieldsGenerator
+namespace DynamicContent.TemplateGeneration.Fields
 {
     /// <summary>
     /// This class represents strategy for determining the markup needed depending on different <see cref="DynamicModuleField"/>.
@@ -13,7 +13,7 @@ namespace DynamicContent.FieldsGenerator
     /// <remarks>
     /// This markup will be added to the automatically generated templates for dynamic widget.
     /// </remarks>
-    public abstract class FieldGenerationStrategy
+    public abstract class FieldGenerationStrategy : IFieldGenerationStrategy
     {
         /// <summary>
         /// Gets value determining whether current strategy should handle the markup for the specified field.
