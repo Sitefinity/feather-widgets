@@ -15,10 +15,10 @@
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())</h4>
-        <provider-selector manager-type='@Model.DynamicModuleName()'
+        <sf-provider-selector manager-type='@Model.DynamicModuleName()'
             provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
-        </provider-selector>
+        </sf-provider-selector>
 
         @if (Model.ParentModuleTypes().Count() == 0)
         {
