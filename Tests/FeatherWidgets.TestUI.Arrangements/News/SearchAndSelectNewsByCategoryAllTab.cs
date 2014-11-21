@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// DeleteTagAndEditNewsWidget arrangement class.
+    /// SearchAndSelectNewsByCategoryAllTab arrangement class.
     /// </summary>
-    public class Load200TagsAndSearch : ITestArrangement
+    public class SearchAndSelectNewsByCategoryAllTab : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -21,24 +21,29 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+            List<string> categories = new List<string>();
 
-            for (int i = 0; i < 200; i++)
+            foreach (var taxonTitle in this.parentCategories)
             {
-                ServerOperations.Taxonomies().CreateTag(TaxonTitle + i);                
+                ServerOperations.Taxonomies().CreateCategory(taxonTitle + "0");
+                categories.Add(taxonTitle + "0");
+                
+                for (int i = 1; i < 12; i++)
+                {
+                    ServerOperations.Taxonomies().CreateCategory(taxonTitle + i, taxonTitle + (i - 1));
+                    categories.Add(taxonTitle + i);
+                }
             }
 
-            for (int i = 0; i < 200; i++)
+            int index = 0;
+            foreach (var category in categories)
             {
-                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + i, NewsContent, "AuthorName", "SourceName", null, new List<string>() { TaxonTitle + i }, null);
+                var cat = new List<string> { category };
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + index, NewsContent, "AuthorName", "SourceName", cat, null, null);
+                index++;
             }
 
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
-        }
-
-        [ServerArrangement]
-        public void DeleteTag()
-        {
-            ServerOperations.Taxonomies().DeleteTags("Tag1");
         }
 
         /// <summary>
@@ -49,12 +54,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.News().DeleteAllNews();
-            ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
+            ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
         }
 
         private const string PageName = "News";
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
-        private const string TaxonTitle = "Tag";
+        private readonly List<string> parentCategories = new List<string> { "Category", "AnotherCategory" };     
     }
 }
