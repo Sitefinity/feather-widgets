@@ -80,7 +80,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// News widget - add news widget to page template
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
-        [Category(TestCategories.News)]
+        [Category(TestCategories.News), Ignore]
         [Author("FeatherTeam")]
         public void NewsWidget_OnBootstrapPageTemplate()
         {
