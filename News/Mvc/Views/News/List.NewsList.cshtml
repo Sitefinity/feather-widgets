@@ -17,14 +17,14 @@
               @using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id))
               {
                   <h3>
-                            @if (ViewBag.OpenInSamePage)
-                            {
-                                <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
-                            }
-                            else
-                            {
-                                <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
-                            }
+                      @if (ViewBag.OpenInSamePage)
+                      {
+                          <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
+                      }
+                      else
+                      {
+                          <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
+                      }
                   </h3>
 
                   <div class="text-muted">
@@ -32,12 +32,12 @@
                       @Html.Resource("By")
                       @DataResolver.Resolve(item, "Author", null)
                   </div>
-                  
+
                   if (!String.IsNullOrEmpty(item.Summary))
                   {
                         @Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))
                   }
-                  
+
                   if (ViewBag.OpenInSamePage)
                   {
                       <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">Full story</a>

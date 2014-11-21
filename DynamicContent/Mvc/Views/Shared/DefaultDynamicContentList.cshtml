@@ -16,11 +16,11 @@
     <ul>
         @foreach (dynamic item in Model.Items)
         {
-            using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id))
-            {
-                <li>
+            <li class="media">
+                @using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id))
+                {
                     @DynamicFieldHelper.MainPictureSection()
-                    <h1 class="sfitemTitle sftitle">
+                    <h3>
                         @if (ViewBag.OpenInSamePage)
                         {
                             <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
@@ -33,10 +33,13 @@
                                 @DynamicFieldHelper.MainTextFieldForList()
                             </a>
                         }
-                    </h1>
-                    @Html.Sitefinity().DateField((DateTime)item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
-                </li>
-            }
+                    </h3>
+
+                    <div class="text-muted">
+                       @Html.Sitefinity().DateField((DateTime)item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "text-muted")
+                    </div>
+                 }
+            </li>
         }
     </ul>
 
