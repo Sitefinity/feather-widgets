@@ -16,27 +16,24 @@
     <ul>
         @foreach (dynamic item in Model.Items)
         {
-            using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id))
-            {
-                <li>
-                    @DynamicFieldHelper.MainPictureSection()
-                    <h1 class="sfitemTitle sftitle">
-                        @if (ViewBag.OpenInSamePage)
-                        {
-                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
-                                @DynamicFieldHelper.MainTextFieldForList()
-                            </a>
-                        }
-                        else
-                        {
-                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
-                                @DynamicFieldHelper.MainTextFieldForList()
-                            </a>
-                        }
-                    </h1>
-                    @Html.Sitefinity().DateField((DateTime)item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
-                </li>
-            }
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id)>
+                @DynamicFieldHelper.MainPictureSection()
+                <h1 class="sfitemTitle sftitle">
+                    @if (ViewBag.OpenInSamePage)
+                    {
+                        <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
+                            @DynamicFieldHelper.MainTextFieldForList()
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
+                            @DynamicFieldHelper.MainTextFieldForList()
+                        </a>
+                    }
+                </h1>
+                @Html.Sitefinity().DateField((DateTime)item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
+            </li>
         }
     </ul>
 
