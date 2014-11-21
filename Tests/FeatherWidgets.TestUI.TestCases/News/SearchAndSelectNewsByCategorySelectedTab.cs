@@ -29,10 +29,12 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectCheckBox(TaxonomyName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(2);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemInHierarchicalSelector(selectedTaxonTitles);
             var countOfSelectedItems = selectedTaxonTitles.Count();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().CheckNotificationInSelectedTab(countOfSelectedItems);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().OpenSelectedTab();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(4);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchItemByTitle("An");
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(2);
    
@@ -42,7 +44,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
 
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemInMultipleSelectors
-                (new[] { "Category0 > Category1 > Category2 > Category3 > Category4 > Category5" });
+                (new[] { "Category0 > Category1", "Category0 > Category1 > Category2 > Category3 > Category4 > Category5", "AnotherCategory0 > AnotherCategory1 > AnotherCategory2" });
 
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             foreach (var newsTitle in newsTitles)
@@ -54,6 +56,7 @@ namespace FeatherWidgets.TestUI
         }
 
         /// <summary>
+        /// 
         /// Verify news widget on the frontend
         /// </summary>
         public void VerifyNewsOnTheFrontend()
@@ -88,7 +91,8 @@ namespace FeatherWidgets.TestUI
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Category";
-        private const string FullName = "AnotherCategory0 > AnotherCategory1 > AnotherCategory2 > AnotherCategory3 > AnotherCategory4 > AnotherCategory5";
+        private const string FullName = "AnotherCategory0 > ... > AnotherCategory4 > AnotherCategory5";
     }
 }
+
 

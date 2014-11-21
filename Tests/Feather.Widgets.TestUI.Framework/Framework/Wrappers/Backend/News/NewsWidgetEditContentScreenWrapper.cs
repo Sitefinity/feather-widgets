@@ -276,11 +276,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.RefreshDomTree();
             var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
 
-            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");         
             int divsCount = items.Count;
 
+            if (divsCount == 0)
+            {
+                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-click=itemClicked(item.item)");
+                divsCount = items.Count;
+            }
+
             //// if items count is more than 12 elements, then you need to scroll
-            if (items.Count() > 12)
+            if (divsCount > 12)
             {
                 HtmlDiv newsList = EM.News
                                      .NewsWidgetContentScreen
