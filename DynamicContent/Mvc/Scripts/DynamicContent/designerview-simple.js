@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('expander', 'sfSelectors', 'dataProviders');
+    angular.module('designer').requires.push('expander', 'sfSelectors');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serverData', function ($scope, propertyService, serverData) {
         $scope.feedback.showLoadingIndicator = true;
