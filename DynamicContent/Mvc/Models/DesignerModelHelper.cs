@@ -143,5 +143,16 @@ namespace DynamicContent.Mvc.Models
 
             return dynamicContentController;
         }
+
+        /// <summary>
+        /// Gets the identifier field of the dynamic module type.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns the identifier field.</returns>
+        public static string GetIdenfierField(this Control control)
+        {
+            var dynamicType = control.ResolveDynamicModuleType();
+            return dynamicType.MainShortTextFieldName;
+        }
     }
 }
