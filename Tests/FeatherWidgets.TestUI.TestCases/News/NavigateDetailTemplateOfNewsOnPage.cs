@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Bootstrap), Ignore]
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnBootstrapTemplate()
         {
             pageTemplateName = "Bootstrap.default";
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.Foundation), Ignore]
+        TestCategory(FeatherTestCategories.Foundation)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnFoundationTemplate()
         {
             pageTemplateName = "Foundation.default";
@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.SemanticUI), Ignore]
+        TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnSemanticUITemplate()
         {
             pageTemplateName = "SemanticUI.default";

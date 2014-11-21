@@ -1,7 +1,11 @@
 ﻿{
   "hidden": true,
   "scripts": [
+	"Mvc/Scripts/Angular/angular-resource.min.js",
 	"Mvc/Scripts/ContentBlock/shared-content-services.js",
-	"Mvc/Scripts/data-providers.js"
+	"client-components/selectors/common/sf-services.js",
+	"client-components/selectors/common/sf-selectors.js",
+	"client-components/selectors/common/sf-provider-service.js",
+	"client-components/selectors/common/sf-provider-selector.js"
   ]
 }
