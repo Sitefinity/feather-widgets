@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             List<string> categories = new List<string>();
 
-            foreach (var taxonTitle in parentCategories)
+            foreach (var taxonTitle in this.parentCategories)
             {
                 ServerOperations.Taxonomies().CreateCategory(taxonTitle + "0");
                 categories.Add(taxonTitle + "0");
@@ -34,6 +34,7 @@ namespace FeatherWidgets.TestUI.Arrangements
                     categories.Add(taxonTitle + i);
                 }
             }
+
             int index = 0;
             foreach (var category in categories)
             {
@@ -59,6 +60,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "News";
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
-        readonly List<string> parentCategories = new List<string> { "Category", "AnotherCategory" };     
+        private readonly List<string> parentCategories = new List<string> { "Category", "AnotherCategory" };     
     }
 }
