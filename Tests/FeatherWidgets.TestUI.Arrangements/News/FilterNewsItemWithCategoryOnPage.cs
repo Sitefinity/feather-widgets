@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// SearchAndSelectNewsByTag arrangement class.
+    /// FilterNewsItemWithCategoryOnPage arrangement class.
     /// </summary>
-    public class SearchAndSelectNewsByTag : ITestArrangement
+    public class FilterNewsItemWithCategoryOnPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -21,12 +21,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+            ServerOperations.Taxonomies().CreateCategory(TaxonTitle + "0");
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 1; i < 7; i++)
             {
-                ServerOperations.Taxonomies().CreateTag(TaxonTitle + i);
-                var tag = new List<string> { TaxonTitle + i };
-                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + i, NewsContent, "AuthorName", "SourceName", null, tag, null);
+                ServerOperations.Taxonomies().CreateCategory(TaxonTitle + i, TaxonTitle + (i - 1));
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + (i - 1), NewsContent, "AuthorName", "SourceName", new List<string> { TaxonTitle + i }, null, null);                           
             }
 
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
@@ -40,12 +40,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.News().DeleteAllNews();
-            ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
+            ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
         }
 
         private const string PageName = "News";
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
-        private const string TaxonTitle = "Tag";
+        private const string TaxonTitle = "Category";
     }
 }
