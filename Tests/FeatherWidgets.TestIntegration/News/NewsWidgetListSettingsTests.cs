@@ -310,10 +310,14 @@ namespace FeatherWidgets.TestIntegration.News
         [Author("FeatherTeam")]
         public void NewsWidget_SelectListTemplate()
         {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
             int pageIndex = 1;
             string textEdited = "<p> Test paragraph </p>";
             string paragraphText = "Test paragraph";
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + pageIndex);
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
 
             string listTemplate = "NewsListNew";
             var listTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "News", "List.NewsList.cshtml");
@@ -336,7 +340,7 @@ namespace FeatherWidgets.TestIntegration.News
 
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle);
 
-                this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, pageIndex);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
 
                 string responseContent = PageInvoker.ExecuteWebRequest(url);
 
@@ -352,9 +356,6 @@ namespace FeatherWidgets.TestIntegration.News
         #region Fields and constants
 
         private const string NewsTitle = "Title";
-        private const string PageNamePrefix = "NewsPage";
-        private const string PageTitlePrefix = "News Page";
-        private const string UrlNamePrefix = "news-page";
         private PagesOperations pageOperations;
         private TemplateOperations templateOperation = new TemplateOperations();
         
