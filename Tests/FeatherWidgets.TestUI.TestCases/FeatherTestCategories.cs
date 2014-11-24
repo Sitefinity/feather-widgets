@@ -41,6 +41,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string DynamicWidgets = "DynamicWidgets";
 
         /// <summary>
+        /// NewsSelectors category for new tests
+        /// </summary>
+        public const string NewsSelectors = "NewsSelectors";
+
+        /// <summary>
         /// New category for new tests
         /// </summary>
         public const string New = "New";

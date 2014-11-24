@@ -20,7 +20,9 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
+
         public void CheckSelectorsAfterUNPublishingNewsItem()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -97,12 +99,11 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-
         private const string PageName = "News";
         private const string WhichNewsToDisplay = "Selected news";
         private const string WidgetName = "News";
 
         private readonly string[] selectedNewsNames = { "News Item Title1", "News Item Title5", "News Item Title6", "News Item Title12" };
-        private readonly string[] newSelectedNewsNames = { "News Item Title1", "News Item Title6", "News Item Title12"};
+        private readonly string[] newSelectedNewsNames = { "News Item Title1", "News Item Title6", "News Item Title12" };
     }
 }

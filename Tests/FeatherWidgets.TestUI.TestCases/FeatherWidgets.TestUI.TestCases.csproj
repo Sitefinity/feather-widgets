@@ -133,6 +133,7 @@
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
     <Compile Include="News\ActivateAndDeactivateNewsModule.cs" />
+    <Compile Include="News\FilterNewsItemWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
     <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
     <Compile Include="News\NavigateDetailTemplateOfNewsOnPage.cs" />

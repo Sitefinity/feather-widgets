@@ -7,6 +7,7 @@ using News.Mvc.Controllers;
 using News.Mvc.Models;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
@@ -109,6 +110,67 @@ namespace FeatherWidgets.TestIntegration.News
             Assert.AreEqual(1, newsController.Model.Items.Count, "The count of news is not as expected");
 
             Assert.IsTrue(newsController.Model.Items[0].Title.Equals("Title2", StringComparison.CurrentCulture), "The news with this title was not found!");                          
+        }
+
+        /// <summary>
+        /// News widget - test content functionality - All news
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_VerifySelectedItemsFunctionalityWithSortNewsDescending()
+        {
+            int newsCount = 10;
+            string sortExpession = "Title DESC";
+            string[] selectedNewsTitles = { "Title2", "Title7", "Title5" };
+            var selectedNewsItems = new NewsItem[3];
+
+            for (int i = 0; i < newsCount; i++)
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(newsTitle: NewsTitle + i, newsContent: NewsTitle + i, author: NewsTitle + i);
+            }
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+            newsController.Model.DisplayMode = ListDisplayMode.Limit;
+            newsController.Model.SortExpression = sortExpession;
+
+            var newsManager = NewsManager.GetManager();
+
+            for (int i = 0; i < selectedNewsTitles.Count(); i++)
+            { 
+                selectedNewsItems[i] = newsManager.GetNewsItems().FirstOrDefault(n => n.Title == selectedNewsTitles[i] && n.OriginalContentId != Guid.Empty);                           
+            }
+
+            //// SerializedSelectedItemsIds string should appear in the following format: "[\"ca782d6b-9e3d-6f9e-ae78-ff00006062c4\",\"66782d6b-9e3d-6f9e-ae78-ff00006062c4\"]"
+            newsController.Model.SerializedSelectedItemsIds = 
+                "[\"" + selectedNewsItems[0].Id.ToString() + "\"," +
+                "\"" + selectedNewsItems[1].Id.ToString() + "\"," +
+                "\"" + selectedNewsItems[2].Id.ToString() + "\"]";
+           
+            mvcProxy.Settings = new ControllerSettings(newsController);
+
+            newsController.Index(null);
+
+            Assert.AreEqual(3, newsController.Model.Items.Count, "The count of news is not as expected");
+
+            for (int i = 0; i < newsController.Model.Items.Count; i++)
+            {
+                Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(selectedNewsTitles[i]), "The news with this title was not found!");
+            }
+
+            newsController.Model.SelectionMode = NewsSelectionMode.AllItems;
+
+            newsController.Index(null);
+
+            int lastIndex = 9;
+            for (int i = 0; i < 10; i++)
+            {
+                Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(NewsTitle + lastIndex), "The news with this title was not found!");
+                lastIndex--;
+            }
         }
 
         /// <summary>

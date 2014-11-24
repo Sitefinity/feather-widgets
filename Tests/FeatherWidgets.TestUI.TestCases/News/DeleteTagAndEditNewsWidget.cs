@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,8 +15,9 @@ namespace FeatherWidgets.TestUI
         /// UI test FilterNewsItemWithCustomTaxonomyOnPage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
         public void DeleteTagAndEditNewsWidget()
         {
             BAT.Macros().NavigateTo().Pages();

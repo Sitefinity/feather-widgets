@@ -20,8 +20,10 @@ namespace FeatherWidgets.TestUI
         /// UI test SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
+        
         public void SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate()
         {
             BAT.Macros().NavigateTo().Pages();

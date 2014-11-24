@@ -20,7 +20,9 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
+
         public void SelectMoreThanOneNewsItem()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -101,7 +103,6 @@ namespace FeatherWidgets.TestUI
             ActiveBrowser.WaitUntilReady();
             BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(selectedNewsNames);
         }
-
 
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
