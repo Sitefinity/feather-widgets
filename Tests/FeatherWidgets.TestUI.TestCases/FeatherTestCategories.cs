@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases
         /// <summary>
         /// NewsSelectors category for new tests
         /// </summary>
-        public const string NewsSelectors = "NewSelectors";
+        public const string NewsSelectors = "NewsSelectors";
 
         /// <summary>
         /// New category for new tests
