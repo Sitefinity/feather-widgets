@@ -29,9 +29,13 @@ namespace FeatherWidgets.TestIntegration.News
         public void NewsWidget_SocialShareButtonsFunctionality()
         {
             string socialShare = "list-inline s-social-share-list";
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
             int index = 1;
             var newsManager = NewsManager.GetManager();
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + index);
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
@@ -41,7 +45,7 @@ namespace FeatherWidgets.TestIntegration.News
 
             try
             {
-                this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, index);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle);
 
@@ -63,9 +67,6 @@ namespace FeatherWidgets.TestIntegration.News
 
         #region Fields and constants
         
-        private const string PageNamePrefix = "NewsPage";
-        private const string PageTitlePrefix = "News Page";
-        private const string UrlNamePrefix = "news-page";
         private const string NewsTitle = "Title";
         private PagesOperations pageOperations = new PagesOperations();
 
