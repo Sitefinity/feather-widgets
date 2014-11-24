@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DynamicContent.Mvc.Controllers;
+using DynamicContent.TemplateGeneration;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules.Builder;
@@ -13,7 +14,6 @@ using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
-using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Versioning;
 
 namespace DynamicContent
@@ -77,7 +77,7 @@ namespace DynamicContent
                 this.moduleBuilderManager = ModuleBuilderManager.GetManager();
 
             this.versioningManager = Telerik.Sitefinity.Versioning.VersionManager.GetManager();
-            this.viewGenerator = new WidgetViewGenerator(this.pageManager, this.moduleBuilderManager, this.versioningManager);
+            this.viewGenerator = new TemplateGenerator(this.pageManager, this.moduleBuilderManager, this.versioningManager);
 
             Action<WidgetInstallationContext> action;
 
@@ -159,8 +159,8 @@ namespace DynamicContent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "dynamicModule")]
         private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
-            this.viewGenerator.InstallDefaultMasterTemplate(dynamicModule, dynamicModuleType);
-            this.viewGenerator.InstallDefaultDetailTemplate(dynamicModule, dynamicModuleType);
+            this.viewGenerator.InstallMasterTemplate(dynamicModule, dynamicModuleType);
+            this.viewGenerator.InstallDetailTemplate(dynamicModule, dynamicModuleType);
 
             if (this.transactionName != null)
                 TransactionManager.CommitTransaction(this.transactionName);
@@ -283,7 +283,7 @@ namespace DynamicContent
         private PageManager pageManager;
         private ModuleBuilderManager moduleBuilderManager;
         private VersionManager versioningManager;
-        private WidgetViewGenerator viewGenerator;
+        private TemplateGenerator viewGenerator;
         private const string ModuleSectionDescription = "Holds all dynamic content widgets for the {0} module.";
         private string transactionName;
 

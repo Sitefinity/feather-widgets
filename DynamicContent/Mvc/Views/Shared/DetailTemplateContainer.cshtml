@@ -1,0 +1,24 @@
+﻿@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
+
+@using System.Collections;
+@using System.Linq;
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.GeoLocations.Model;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Model;
+@using Telerik.Sitefinity.Model.ContentLinks;
+@using Telerik.Sitefinity.RelatedData; 
+
+<div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id)>
+    <h1 class="sfitemTitle sftitle">
+        @*MainTextFieldForDetail*@
+    </h1>
+    @Html.Sitefinity().DateField((DateTime)Model.Item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
+
+    @*GenerateFieldsSection*@
+    
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
+    }
+</div>

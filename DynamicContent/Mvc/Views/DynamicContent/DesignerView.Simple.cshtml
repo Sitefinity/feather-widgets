@@ -15,10 +15,10 @@
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())</h4>
-        <provider-selector manager-type='@Model.DynamicModuleName()'
+        <sf-provider-selector manager-type='@Model.DynamicModuleName()'
             provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
-        </provider-selector>
+        </sf-provider-selector>
 
         @if (Model.ParentModuleTypes().Count() == 0)
         {
@@ -39,7 +39,8 @@
                                       multiselect="true" sortable="true"
                                       provider="properties.ProviderName.PropertyValue"
                                       selected-ids="itemSelector.selectedItemsIds"
-                                      item-type="itemType"></sf-list-selector>
+                                      item-type="itemType"
+                                      identifier-field="@Model.GetIdenfierField()"></sf-list-selector>
                     </label>
                 </div>
                 <div class="radio">
@@ -233,7 +234,7 @@
                         <sf-list-selector
                             sf-page-selector
                             selected-item-id="properties.DetailsPageId.PropertyValue"
-                            ng-hide="properties.OpenInSamePage.PropertyValue"></sf-list-selector>
+                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
                     </span>
                 </label>
             </div>

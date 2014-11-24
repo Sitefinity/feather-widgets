@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 using System.Web.UI;
+
 using DynamicContent.Mvc.Controllers;
+using DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DynamicContent.Mvc.Models
@@ -77,7 +80,9 @@ namespace DynamicContent.Mvc.Models
         public static string SerializedParentTypes(this Control control)
         {
             var parentTypes = control.ParentModuleTypes();
-            var parentTypeInfos = parentTypes.Select(p => new { TypeName = p.GetFullTypeName(), DisplayName = PluralsResolver.Instance.ToPlural(p.DisplayName).ToLower() });
+            var parentTypeInfos = parentTypes.Select(p => new { TypeName = p.GetFullTypeName(), DisplayName = p.DisplayName.ToLower() }).ToList();
+            if (parentTypeInfos.Count > 1)
+                parentTypeInfos.Add(new { TypeName = DynamicContentController.AnyParentValue, DisplayName = Res.Get<DynamicContentResources>().AnyParentContentType });
 
             return new JavaScriptSerializer().Serialize(parentTypeInfos);
         }
@@ -101,6 +106,17 @@ namespace DynamicContent.Mvc.Models
         public static string ToPlural(this string word)
         {
             return PluralsResolver.Instance.ToPlural(word);
+        }
+
+        /// <summary>
+        /// Gets the identifier field of the dynamic module type.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns the identifier field.</returns>
+        public static string GetIdenfierField(this Control control)
+        {
+            var dynamicType = control.ResolveDynamicModuleType();
+            return dynamicType.MainShortTextFieldName;
         }
 
         /// <summary>

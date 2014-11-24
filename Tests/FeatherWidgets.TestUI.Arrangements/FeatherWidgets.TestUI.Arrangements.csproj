@@ -132,13 +132,14 @@
     <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
+    <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
+    <Compile Include="News\SearchAndSelectNewsByCategorySelectedTab.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
     <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
     <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
-    <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
     <Compile Include="News\NavigateDetailTemplateOfNewsOnPage.cs" />
     <Compile Include="News\OldAndNewNewsWidgetOnTheSamePage.cs" />
-    <Compile Include="News\SearchAndSelectNewsByTag.cs" />
+    <Compile Include="News\SearchAndSelectNewsByCategoryAllTab.cs" />
     <Compile Include="News\SearchForNotExistingTag.cs" />
     <Compile Include="News\SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="News\SelectAndUnselectMoreThanOneNewsItem.cs" />

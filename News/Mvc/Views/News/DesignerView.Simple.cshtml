@@ -13,10 +13,10 @@
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("NewsToDisplay")</h4>
 
-        <provider-selector manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
+        <sf-provider-selector manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
             provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
-        </provider-selector>
+        </sf-provider-selector>
 
         <div class="form-group">
             <div class="radio">
@@ -148,7 +148,7 @@
                         <sf-list-selector
                             sf-page-selector
                             selected-item-id="properties.DetailsPageId.PropertyValue"
-                            ng-hide="properties.OpenInSamePage.PropertyValue"></sf-list-selector>
+                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
                     </span>
                 </label>
             </div>

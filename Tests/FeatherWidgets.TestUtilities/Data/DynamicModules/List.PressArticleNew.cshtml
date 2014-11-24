@@ -15,25 +15,22 @@
     <ul>
         @foreach (dynamic item in Model.Items)
         {
-            using (Html.InlineEditingRegion(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id))
-            {
-                <li>
-                    <h2>
-                        <p> List template </p>
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType, Model.SharedContentID)>
+                <h2>
+                    <p> List template </p>
 
-                        @if (ViewBag.OpenInSamePage)
-                        {
-                            <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
-                        }
-                        else
-                        {
-                            <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
-                        }
-                    </h2>
-                </li>@*
+                    @if (ViewBag.OpenInSamePage)
+                    {
+                        <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                    }
+                    else
+                    {
+                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@Html.TextField("Title", (string)item.Title, "ShortText")</a>
+                    }
+                </h2>
+            </li>
             
-                @Html.SfPublicationDateSection();*@
-            }
+            @*@Html.SfPublicationDateSection();*@
         }
     </ul>
 

@@ -30,29 +30,32 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Author("FeatherTeam")]
         public void NavigationWidgetOnPageTemplate_AllPagesUnderCurrentlyOpenedPage()
         {
-            PageManager pageManager = PageManager.GetManager();
-            int templatesCount = pageManager.GetTemplates().Count();
-
-            var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-            var newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
-
-            File.Copy(layoutTemplatePath, newLayoutTemplatePath);
-
-            this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
-
-            Guid templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
-
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
-
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NavigationController).FullName;
-            var navigationController = new NavigationController();
-            navigationController.TemplateName = "Horizontal";
-            navigationController.SelectionMode = PageSelectionMode.CurrentPageChildren;
-            mvcProxy.Settings = new ControllerSettings(navigationController);
+            string newLayoutTemplatePath = null;
+            Guid templateId = default(Guid);
 
             try
             {
+                PageManager pageManager = PageManager.GetManager();
+                int templatesCount = pageManager.GetTemplates().Count();
+
+                string layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
+                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew1.cshtml");
+
+                File.Copy(layoutTemplatePath, newLayoutTemplatePath);
+
+                this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
+
+                templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName1);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NavigationController).FullName;
+                var navigationController = new NavigationController();
+                navigationController.TemplateName = "Horizontal";
+                navigationController.SelectionMode = PageSelectionMode.CurrentPageChildren;
+                mvcProxy.Settings = new ControllerSettings(navigationController);
+
                 this.templateOperation.AddControlToTemplate(templateId, mvcProxy, PlaceHolder, CaptionNavigation);
                 Guid pageId = this.locationGenerator.CreatePage(PageNamePrefix, PageTitlePrefix, UrlNamePrefix, null, null);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().SetTemplateToPage(pageId, templateId);
@@ -75,11 +78,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
             finally
             {
-                this.templateOperation.GetTemplateIdByTitle(TemplateName);
-
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();           
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
                 File.Delete(newLayoutTemplatePath);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();           
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);                
             }
         }
 
@@ -87,33 +88,36 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// Navigation widget on page template - All sibling pages of currently opened page
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
-        [Category(TestCategories.Navigation)]
+        [Category(TestCategories.Navigation), Ignore]
         [Author("FeatherTeam")]
         public void NavigationWidgetOnPageTemplate_AllSiblingPagesOfCurrentlyOpenedPage()
         {
-            PageManager pageManager = PageManager.GetManager();
-            int templatesCount = pageManager.GetTemplates().Count();
-
-            var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-            var newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew.cshtml");
-
-            File.Copy(layoutTemplatePath, newLayoutTemplatePath);
-
-            this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
-
-            Guid templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
-
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
-
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NavigationController).FullName;
-            var navigationController = new NavigationController();
-            navigationController.TemplateName = "Horizontal";
-            navigationController.SelectionMode = PageSelectionMode.CurrentPageSiblings;
-            mvcProxy.Settings = new ControllerSettings(navigationController);
+            string newLayoutTemplatePath = null;
+            Guid templateId = default(Guid);
 
             try
             {
+                PageManager pageManager = PageManager.GetManager();
+                int templatesCount = pageManager.GetTemplates().Count();
+
+                var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
+                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew2.cshtml");
+
+                File.Copy(layoutTemplatePath, newLayoutTemplatePath);
+
+                this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
+
+                templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NavigationController).FullName;
+                var navigationController = new NavigationController();
+                navigationController.TemplateName = "Horizontal";
+                navigationController.SelectionMode = PageSelectionMode.CurrentPageSiblings;
+                mvcProxy.Settings = new ControllerSettings(navigationController);
+
                 this.templateOperation.AddControlToTemplate(templateId, mvcProxy, PlaceHolder, CaptionNavigation);
                 Guid pageId = this.locationGenerator.CreatePage(PageNamePrefix, PageTitlePrefix, UrlNamePrefix, null, null);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().SetTemplateToPage(pageId, templateId);
@@ -137,12 +141,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
             finally
             {
-                this.templateOperation.GetTemplateIdByTitle(TemplateName);
-
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();              
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
-
                 File.Delete(newLayoutTemplatePath);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();              
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);                
             }
         }
 
@@ -152,7 +153,8 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private const string PageTitlePrefix = "Navigation Page";
         private const string UrlNamePrefix = "navigation-page";
         private const string SiblingPage = "Sibling Page";
-        private const string TemplateName = "Bootstrap.defaultNew";
+        private const string TemplateName = "Bootstrap.defaultNew2";
+        private const string TemplateName1 = "Bootstrap.defaultNew1";
         private const string PlaceHolder = "Contentplaceholder1";
         private const string CaptionNavigation = "Navigation";
         private const string Template = "Bootstrap";
