@@ -108,7 +108,7 @@
 						@Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
 
 						<sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-									  multiselect="true" sortable="true"
+									  multiselect="true" sortable="true" master="true"
 									  provider="properties.ProviderName.PropertyValue"
 									  selected-ids="itemSelector.selectedItemsIds"
 									  item-type="itemType"></sf-list-selector>
