@@ -72,10 +72,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="levelsToInclude">Levels to include value</param>
         public void SelectLevelsToInclude(string levelsToInclude)
         {
-            var templateSelector = EM.Navigation.NavigationWidgetEditScreen.LevelesToIncludeSelector;
-
-            templateSelector.Wait.ForExists();
-            templateSelector.Wait.ForVisible();
+            var templateSelector = EM.Navigation.NavigationWidgetEditScreen.LevelesToIncludeSelector
+                .AssertIsPresent("Levels to include selector");
             templateSelector.SelectByValue(levelsToInclude);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
