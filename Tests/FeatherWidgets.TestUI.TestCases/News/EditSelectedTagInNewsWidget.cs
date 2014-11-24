@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI
         /// UI test EditSelectedTagInNewsWidget
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather Team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather Team"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
         public void EditSelectedTagInNewsWidget()
         {
             BAT.Macros().NavigateTo().Pages();

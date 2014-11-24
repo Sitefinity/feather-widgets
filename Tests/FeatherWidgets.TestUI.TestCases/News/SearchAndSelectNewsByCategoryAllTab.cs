@@ -15,8 +15,10 @@ namespace FeatherWidgets.TestUI
         /// UI test SearchAndSelectNewsByCategoryAllTab
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
+        
         public void SearchAndSelectNewsByCategoryAllTab()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -33,8 +35,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemInMultipleSelector(TaxonTitle1, TaxonTitle2);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
 
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemInMultipleSelectors
-                (new[] { "Category0 > Category1 > Category2 > Category3 > Category4 > Category5", "AnotherCategory0 > ... > AnotherCategory5 > AnotherCategory6" });
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemInMultipleSelectors(new[] { "Category0 > Category1 > Category2 > Category3 > Category4 > Category5", "AnotherCategory0 > ... > AnotherCategory5 > AnotherCategory6" });
 
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             foreach (var newsTitle in newsTitles)
@@ -77,7 +78,7 @@ namespace FeatherWidgets.TestUI
         private const string TaxonTitle2 = "AnotherCategory6";
         private const string NewsTitle1 = "NewsTitle5";
         private const string NewsTitle2 = "NewsTitle18";
-        private readonly string[] newsTitles = new string[] { NewsTitle2 ,NewsTitle1};
+        private readonly string[] newsTitles = new string[] { NewsTitle2, NewsTitle1 };
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Category";
