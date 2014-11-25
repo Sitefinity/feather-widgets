@@ -130,6 +130,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
             ActiveBrowser.RefreshDomTree();
+
+            HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
+            ActiveBrowser.WaitForElement(expression, TimeOut, false);
         }
 
         /// <summary>
@@ -182,5 +185,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             return hasLabel;
         }
+
+        private const int TimeOut = 60000;
     }
 }

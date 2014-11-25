@@ -10,21 +10,21 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for number dynamic fields.
     /// </summary>
-    public class NumberFieldGenerationStrategy : FieldGenerationStrategy
+    public class NumberField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.Number;
 
             return condition;
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(NumberFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.NumberUnit, field.Title);
+            var markup = string.Format(NumberField.FieldMarkupTempalte, field.Name, field.NumberUnit, field.Title);
 
             return markup;
         }

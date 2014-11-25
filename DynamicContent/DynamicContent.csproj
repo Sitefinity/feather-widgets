@@ -60,7 +60,7 @@
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -145,24 +145,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TemplateGeneration\Fields\IFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\AddressFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\ClassificationFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\DocumentsFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\VideosFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\ImagesFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\MultipleChoiceFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\YesNoFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\LongRichTextFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\RelatedMediaFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\RelatedDataFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\DateFieldGenerationStrategy.cs" />
+    <Compile Include="Mvc\Views\Shared\Fields\DateFieldTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DateFieldTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mvc\Views\Shared\Fields\DateFieldTemplateExtend.cs" />
+    <Compile Include="TemplateGeneration\Fields\IField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\AddressField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\ClassificationField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\DocumentsField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\VideosField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\ImagesField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\MultipleChoiceField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\YesNoField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\LongRichTextField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\RelatedMediaField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\RelatedDataField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\DateField.cs" />
     <Compile Include="DynamicWidgetInitializer.cs" />
-    <Compile Include="TemplateGeneration\Fields\FieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\LongTextAreaFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\NumberFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\PriceFieldGenerationStrategy.cs" />
-    <Compile Include="TemplateGeneration\Fields\Implementation\ShortTextFieldGenerationStrategy.cs" />
+    <Compile Include="TemplateGeneration\Fields\Field.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\LongTextAreaField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\NumberField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\PriceField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\ShortTextField.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="MvcWidgetInstallationStrategy.cs" />
     <Compile Include="Mvc\Controllers\DynamicContentController.cs" />
@@ -181,9 +187,15 @@
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Shared\DetailTemplateContainer.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Shared\ListTemplateContainer.cshtml" />
+    <None Include="Mvc\Views\Shared\Fields\DateFieldTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DateFieldTemplate.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\DynamicContent\designerview-simple.js" />
   </ItemGroup>

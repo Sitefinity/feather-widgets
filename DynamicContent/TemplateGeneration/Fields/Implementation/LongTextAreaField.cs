@@ -10,12 +10,12 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for long text area dynamic fields.
     /// </summary>
-    public class LongTextAreaFieldGenerationStrategy : FieldGenerationStrategy
+    public class LongTextAreaField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.LongText
                 && field.WidgetTypeName.EndsWith("TextField");
 
@@ -23,9 +23,9 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
-            var longTextMarkup = string.Format(LongTextAreaFieldGenerationStrategy.FieldMarkupTempalte, field.Name);
+            var longTextMarkup = string.Format(LongTextAreaField.FieldMarkupTempalte, field.Name);
 
             return longTextMarkup;
         }

@@ -17,10 +17,10 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for related media dynamic fields.
     /// </summary>
-    public class RelatedMediaFieldGenerationStrategy : RelatedDataFieldGenerationStrategy
+    public class RelatedMediaField : RelatedDataField
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
             var condition = field.FieldStatus != DynamicModuleFieldStatus.Removed 
                 && !field.IsHiddenField
@@ -30,7 +30,7 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
             var isMasterView = false;
             var childItemTypeName = string.Empty;

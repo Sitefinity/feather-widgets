@@ -8,22 +8,30 @@ using Telerik.Sitefinity.DynamicModules.Builder.Model;
 namespace DynamicContent.TemplateGeneration.Fields
 {
     /// <summary>
-    /// Class that implement this interface represent strategy for determining the markup needed depending on different <see cref="DynamicModuleField"/>.
+    /// This class represents strategy for determining the markup needed depending on different <see cref="DynamicModuleField"/>.
     /// </summary>
-    public interface IFieldGenerationStrategy
+    /// <remarks>
+    /// This markup will be added to the automatically generated templates for dynamic widget.
+    /// </remarks>
+    public abstract class Field : IField
     {
         /// <summary>
         /// Gets value determining whether current strategy should handle the markup for the specified field.
         /// </summary>
         /// <param name="field">The field.</param>
         /// <returns></returns>
-        bool GetFieldCondition(DynamicModuleField field);
+        public virtual bool GetCondition(DynamicModuleField field)
+        {
+            var condition = field.FieldStatus != DynamicModuleFieldStatus.Removed && !field.IsHiddenField;
+
+            return condition;
+        }
 
         /// <summary>
         /// Gets the field markup.
         /// </summary>
         /// <param name="field">The field.</param>
         /// <returns></returns>
-        string GetFieldMarkup(DynamicModuleField field);
+        public abstract string GetMarkup(DynamicModuleField field);
     }
 }
