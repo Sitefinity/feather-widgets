@@ -21,14 +21,10 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
-
+         
             for (int i = 0; i < 200; i++)
             {
-                ServerOperations.Taxonomies().CreateTag(TaxonTitle + i);                
-            }
-
-            for (int i = 0; i < 200; i++)
-            {
+                ServerOperations.Taxonomies().CreateTag(TaxonTitle + i);
                 ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + i, NewsContent, "AuthorName", "SourceName", null, new List<string>() { TaxonTitle + i }, null);
             }
 

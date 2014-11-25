@@ -22,12 +22,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            List<HtmlDiv> newsDiv = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "data-sf-type=Telerik.Sitefinity.News.Model.NewsItem").ToList<HtmlDiv>();
+            List<HtmlListItem> newsLists = frontendPageMainDiv.Find.AllByExpression<HtmlListItem>("tagname=li", "data-sf-type=Telerik.Sitefinity.News.Model.NewsItem").ToList<HtmlListItem>();
 
-            for (int i = 0; i < newsDiv.Count; i++)
+            for (int i = 0; i < newsLists.Count; i++)
             {
-                var isContained = newsDiv[i].InnerText.Contains(newsTitle[i]);
-                Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle[i], " but found [", newsDiv[i].InnerText, "]"));
+                var isContained = newsLists[i].InnerText.Contains(newsTitle[i]);
+                Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle[i], " but found [", newsLists[i].InnerText, "]"));
             }
         }
 
@@ -40,19 +40,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            List<HtmlDiv> newsDiv = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "data-sf-type=Telerik.Sitefinity.News.Model.NewsItem").ToList<HtmlDiv>();
-
-            for (int i = 0; i < newsDiv.Count; i++)
+            if (frontendPageMainDiv.InnerText.Contains(newsTitle))
             {
-                if (newsDiv[i].InnerText.Contains(newsTitle))
-                {
-                    return true;
-                }
-
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>

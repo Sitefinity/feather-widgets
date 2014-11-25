@@ -36,7 +36,7 @@
                         @Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
 
                         <sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-                                      sf-multiselect="true" sortable="true"
+                                      sf-multiselect="true" sf-sortable="true" sf-master="true"
                                       sf-provider="properties.ProviderName.PropertyValue"
                                       sf-selected-ids="itemSelector.selectedItemsIds"
                                       sf-item-type="itemType"
@@ -108,7 +108,7 @@
 						@Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
 
 						<sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-									  sf-multiselect="true" sf-sortable="true"
+									  sf-multiselect="true" sf-sortable="true" sf-master="true"
 									  sf-provider="properties.ProviderName.PropertyValue"
 									  sf-selected-ids="itemSelector.selectedItemsIds"
 									  sf-item-type="itemType"></sf-list-selector>

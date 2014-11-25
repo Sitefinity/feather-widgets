@@ -123,18 +123,18 @@ namespace DynamicContent.TemplateGeneration
         /// <returns></returns>
         protected internal virtual string GenerateDynamicFieldSection(DynamicModuleType moduleType)
         {
-            var fieldGenerators = ObjectFactory.Container.ResolveAll<IFieldGenerationStrategy>(new ParameterOverride("moduleType", moduleType)).ToList();
+            var fieldGenerators = ObjectFactory.Container.ResolveAll<IField>(new ParameterOverride("moduleType", moduleType)).ToList();
 
             StringBuilder fieldsSectionBuilder = new StringBuilder();
 
             foreach (var fieldGenerator in fieldGenerators)
             {
-                var fieldsForType = moduleType.Fields.Where(fieldGenerator.GetFieldCondition);
+                var fieldsForType = moduleType.Fields.Where(fieldGenerator.GetCondition);
                 if (fieldsForType.Count() != 0)
                 {
                     foreach (DynamicModuleField currentField in fieldsForType)
                     {
-                        fieldsSectionBuilder.Append(fieldGenerator.GetFieldMarkup(currentField));
+                        fieldsSectionBuilder.Append(fieldGenerator.GetMarkup(currentField));
                         fieldsSectionBuilder.Append(TemplateGenerator.EmptyLine);
                     }
                 }
@@ -155,7 +155,7 @@ namespace DynamicContent.TemplateGeneration
         {
             var defaultTemplateText = this.GetDefaultTemplate(TemplateGenerator.MasterViewDefaultPath);
             var mainPictureMarkup = this.GetMainPictureSection(moduleType);
-            var mainShortTextMarkup = this.GetMainTextFieldForList(moduleType);
+            var mainShortTextMarkup = string.Format(TemplateGenerator.ListItemPropertyMarkup, moduleType.MainShortTextFieldName);
 
             defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainShortFieldTextForList, mainShortTextMarkup);
             defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainPictureFieldText, mainPictureMarkup);
@@ -172,7 +172,7 @@ namespace DynamicContent.TemplateGeneration
         {
             var defaultTemplateText = this.GetDefaultTemplate(TemplateGenerator.DetailViewDefaultPath);
             var generatedFieldsMarkup = this.GenerateDynamicFieldSection(moduleType);
-            var mainShortTextMarkup = this.GetMainTextFieldForDetail(moduleType);
+            var mainShortTextMarkup = string.Format(TemplateGenerator.DetailItemPropertyMarkup, moduleType.MainShortTextFieldName);
 
             defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainShortFieldTextForDetail, mainShortTextMarkup);
             defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.DynamicFieldsText, generatedFieldsMarkup);
@@ -237,30 +237,6 @@ namespace DynamicContent.TemplateGeneration
         }
 
         /// <summary>
-        /// Gets the markup of main text field for list template.
-        /// </summary>
-        /// <param name="moduleType">Type of the module.</param>
-        /// <returns></returns>
-        private string GetMainTextFieldForList(DynamicModuleType moduleType)
-        {
-            var fieldMarkup = string.Format(TemplateGenerator.MainShotTextFieldListTempalte, moduleType.MainShortTextFieldName);
-
-            return fieldMarkup;
-        }
-
-        /// <summary>
-        /// Gets the markup of main text field for detail template.
-        /// </summary>
-        /// <param name="moduleType">Type of the module.</param>
-        /// <returns></returns>
-        private string GetMainTextFieldForDetail(DynamicModuleType moduleType)
-        {
-            var fieldMarkup = string.Format(TemplateGenerator.MainShotTextFieldDetailTempalte, moduleType.MainShortTextFieldName);
-
-            return fieldMarkup;
-        }
-
-        /// <summary>
         /// Gets the main picture section markup.
         /// </summary>
         /// <param name="moduleType">Type of the module.</param>
@@ -310,6 +286,8 @@ namespace DynamicContent.TemplateGeneration
 
         internal static readonly string EmptyLine = "\r\n";
         internal const string MvcTemplateCondition = "{0} AND MVC";
+        private const string DetailItemPropertyMarkup = "@Model.Item.{0}";
+        private const string ListItemPropertyMarkup = "@item.{0}";
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/ListTemplateContainer.cshtml";
         private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/DetailTemplateContainer.cshtml";
         private const string MainShortFieldTextForList = "@*MainTextFieldForList*@";
@@ -317,8 +295,6 @@ namespace DynamicContent.TemplateGeneration
         private const string DynamicFieldsText = "@*GenerateFieldsSection*@";
         private const string MainPictureFieldText = "@*MainPictureSection*@";
 
-        private const string MainShotTextFieldListTempalte = @"@Html.Sitefinity().ShortTextField((object)item.{0}, ""{0}"")";
-        private const string MainShotTextFieldDetailTempalte = @"@Html.Sitefinity().ShortTextField((object)Model.Item.{0}, ""{0}"")";
         private const string SingleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)item.{0}).FirstOrDefault(), ""{0}"")";
         private const string MultiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)item.{0}, ""{0}"")";
 

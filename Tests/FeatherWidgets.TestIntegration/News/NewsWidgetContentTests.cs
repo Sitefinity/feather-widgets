@@ -130,11 +130,8 @@ namespace FeatherWidgets.TestIntegration.News
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(newsTitle: NewsTitle + i, newsContent: NewsTitle + i, author: NewsTitle + i);
             }
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
             newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
-            newsController.Model.DisplayMode = ListDisplayMode.Limit;
             newsController.Model.SortExpression = sortExpession;
 
             var newsManager = NewsManager.GetManager();
@@ -145,12 +142,10 @@ namespace FeatherWidgets.TestIntegration.News
             }
 
             //// SerializedSelectedItemsIds string should appear in the following format: "[\"ca782d6b-9e3d-6f9e-ae78-ff00006062c4\",\"66782d6b-9e3d-6f9e-ae78-ff00006062c4\"]"
-            newsController.Model.SerializedSelectedItemsIds = 
-                "[\"" + selectedNewsItems[0].Id.ToString() + "\"," +
-                "\"" + selectedNewsItems[1].Id.ToString() + "\"," +
-                "\"" + selectedNewsItems[2].Id.ToString() + "\"]";
-           
-            mvcProxy.Settings = new ControllerSettings(newsController);
+            newsController.Model.SerializedSelectedItemsIds =
+                                                             "[\"" + selectedNewsItems[0].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[1].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[2].Id.ToString() + "\"]";
 
             newsController.Index(null);
 
@@ -171,6 +166,180 @@ namespace FeatherWidgets.TestIntegration.News
                 Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(NewsTitle + lastIndex), "The news with this title was not found!");
                 lastIndex--;
             }
+        }
+
+        /// <summary>
+        /// News widget - test content functionality - All news
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_VerifySelectedItemsFunctionalityWithPaging()
+        {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
+            int index = 1;
+            string index2 = "/2";
+            string index3 = "/3";
+            int itemsPerPage = 3;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+            string url2 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index2);
+            string url3 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index3);
+
+            int newsCount = 20;
+            string[] selectedNewsTitles = { "Title7", "Title15", "Title11", "Title3", "Title5", "Title8", "Title2", "Title16", "Title6" };
+            var selectedNewsItems = new NewsItem[9];
+
+            for (int i = 0; i < newsCount; i++)
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(newsTitle: NewsTitle + i, newsContent: NewsTitle + i, author: NewsTitle + i);
+            }
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+            newsController.Model.ItemsPerPage = itemsPerPage;
+
+            var newsManager = NewsManager.GetManager();
+
+            for (int i = 0; i < selectedNewsTitles.Count(); i++)
+            {
+                selectedNewsItems[i] = newsManager.GetNewsItems().FirstOrDefault(n => n.Title == selectedNewsTitles[i] && n.OriginalContentId != Guid.Empty);
+            }
+
+            //// SerializedSelectedItemsIds string should appear in the following format: "[\"ca782d6b-9e3d-6f9e-ae78-ff00006062c4\",\"66782d6b-9e3d-6f9e-ae78-ff00006062c4\"]"
+            newsController.Model.SerializedSelectedItemsIds =
+                                                             "[\"" + selectedNewsItems[0].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[1].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[2].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[3].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[4].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[5].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[6].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[7].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[8].Id.ToString() + "\"]";
+
+            mvcProxy.Settings = new ControllerSettings(newsController);
+
+            this.VerifyCorrectNewsOnPages(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index, url, url2, url3, selectedNewsTitles);
+        }
+
+        /// <summary>
+        /// News widget - test content functionality - All news
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_VerifySelectedItemsFunctionalityWithUseLimit()
+        {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
+            int index = 1;    
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            int newsCount = 20;
+            string[] selectedNewsTitles = { "Title7", "Title15", "Title11", "Title3", "Title5", "Title8", "Title2", "Title16", "Title6" };
+            var selectedNewsItems = new NewsItem[9];
+
+            for (int i = 0; i < newsCount; i++)
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(newsTitle: NewsTitle + i, newsContent: NewsTitle + i, author: NewsTitle + i);
+            }
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+            newsController.Model.DisplayMode = ListDisplayMode.Limit;
+            newsController.Model.ItemsPerPage = 5;
+
+            var newsManager = NewsManager.GetManager();
+
+            for (int i = 0; i < selectedNewsTitles.Count(); i++)
+            {
+                selectedNewsItems[i] = newsManager.GetNewsItems().FirstOrDefault(n => n.Title == selectedNewsTitles[i] && n.OriginalContentId != Guid.Empty);
+            }
+
+            //// SerializedSelectedItemsIds string should appear in the following format: "[\"ca782d6b-9e3d-6f9e-ae78-ff00006062c4\",\"66782d6b-9e3d-6f9e-ae78-ff00006062c4\"]"
+            newsController.Model.SerializedSelectedItemsIds =
+                                                             "[\"" + selectedNewsItems[0].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[1].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[2].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[3].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[4].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[5].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[6].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[7].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[8].Id.ToString() + "\"]";
+
+            mvcProxy.Settings = new ControllerSettings(newsController);
+
+            this.VerifyCorrectNewsOnPageWithUseLimitsOption(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index, url, selectedNewsTitles);
+        }
+
+        /// <summary>
+        /// News widget - test content functionality - All news
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_VerifySelectedItemsFunctionalityWithNoLimit()
+        {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            int newsCount = 25;
+            string[] selectedNewsTitles = { "Title7", "Title15", "Title11", "Title3", "Title5", "Title8", "Title2", "Title16", "Title6" };
+            var selectedNewsItems = new NewsItem[9];
+            string[] newsNames = new string[newsCount];
+
+            for (int i = 0; i < newsCount; i++)
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(newsTitle: NewsTitle + i, newsContent: NewsTitle + i, author: NewsTitle + i);
+                newsNames[i] = NewsTitle + i;
+            }
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+            newsController.Model.DisplayMode = ListDisplayMode.All;
+
+            var newsManager = NewsManager.GetManager();
+
+            for (int i = 0; i < selectedNewsTitles.Count(); i++)
+            {
+                selectedNewsItems[i] = newsManager.GetNewsItems().FirstOrDefault(n => n.Title == selectedNewsTitles[i] && n.OriginalContentId != Guid.Empty);
+            }
+
+            //// SerializedSelectedItemsIds string should appear in the following format: "[\"ca782d6b-9e3d-6f9e-ae78-ff00006062c4\",\"66782d6b-9e3d-6f9e-ae78-ff00006062c4\"]"
+            newsController.Model.SerializedSelectedItemsIds =
+                                                             "[\"" + selectedNewsItems[0].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[1].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[2].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[3].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[4].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[5].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[6].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[7].Id.ToString() + "\"," +
+                                                             "\"" + selectedNewsItems[8].Id.ToString() + "\"]";
+
+            mvcProxy.Settings = new ControllerSettings(newsController);
+
+            this.VerifyCorrectNewsOnPageWithNoLimitsOption(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index, url, selectedNewsTitles);
+
+            newsController.Model.SelectionMode = NewsSelectionMode.AllItems;
+
+            this.VerifyCorrectNewsOnPageWithNoLimitsOption(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index, url, newsNames);
         }
 
         /// <summary>
@@ -214,6 +383,89 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
 
+        private void VerifyCorrectNewsOnPages(MvcControllerProxy mvcProxy, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index, string url, string url2, string url3, string[] selectedNewsTitles)
+        {
+            try
+            {
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+                string responseContent2 = PageInvoker.ExecuteWebRequest(url2);
+                string responseContent3 = PageInvoker.ExecuteWebRequest(url3);
+
+                for (int i = 0; i < selectedNewsTitles.Count(); i++)
+                {
+                    if (i <= 2)
+                    {
+                        Assert.IsTrue(responseContent.Contains(selectedNewsTitles[i]), "The news with this title was not found!");
+                        Assert.IsFalse(responseContent2.Contains(selectedNewsTitles[i]), "The news with this title was found!");
+                        Assert.IsFalse(responseContent3.Contains(selectedNewsTitles[i]), "The news with this title was found!");
+                    }
+                    else if (i > 2 && i <= selectedNewsTitles.Count() - 4)
+                    {
+                        Assert.IsTrue(responseContent2.Contains(selectedNewsTitles[i]), "The news with this title was not found!");
+                        Assert.IsFalse(responseContent.Contains(selectedNewsTitles[i]), "The news with this title was found!");
+                        Assert.IsFalse(responseContent3.Contains(selectedNewsTitles[i]), "The news with this title was found!");
+                    }
+                    else
+                    {
+                        Assert.IsTrue(responseContent3.Contains(selectedNewsTitles[i]), "The news with this title was not found!");
+                        Assert.IsFalse(responseContent.Contains(selectedNewsTitles[i]), "The news with this title was found!");
+                        Assert.IsFalse(responseContent2.Contains(selectedNewsTitles[i]), "The news with this title was found!");
+                    }
+                }
+            }
+            finally
+            {
+                this.pageOperations.DeletePages();
+            }
+        }
+
+        private void VerifyCorrectNewsOnPageWithUseLimitsOption(MvcControllerProxy mvcProxy, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index, string url, string[] selectedNewsTitles)
+        {
+            try
+            {
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                for (int i = 0; i < selectedNewsTitles.Count(); i++)
+                {
+                    if (i <= 4)
+                    {
+                        Assert.IsTrue(responseContent.Contains(selectedNewsTitles[i]), "The news with this title was not found!");
+                    }
+                    else
+                    {
+                        Assert.IsFalse(responseContent.Contains(selectedNewsTitles[i]), "The news with this title was found!");
+                    }
+                }
+            }
+            finally
+            {
+                this.pageOperations.DeletePages();
+            }
+        }
+
+        private void VerifyCorrectNewsOnPageWithNoLimitsOption(MvcControllerProxy mvcProxy, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index, string url, string[] selectedNewsTitles)
+        {
+            try
+            {
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                for (int i = 0; i < selectedNewsTitles.Count(); i++)
+                { 
+                    Assert.IsTrue(responseContent.Contains(selectedNewsTitles[i]), "The news with this title was not found!");                 
+                }
+            }
+            finally
+            {
+                this.pageOperations.DeletePages();
+            }
+        }
+  
         #region Fields and constants
 
         private const string NewsTitle = "Title";

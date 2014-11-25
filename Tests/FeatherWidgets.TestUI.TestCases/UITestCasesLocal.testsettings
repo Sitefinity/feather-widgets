@@ -29,5 +29,4 @@
     <AgentRule name="AllAgentsDefaultRole">
     </AgentRule>
   </Execution>
-  <Properties />
 </TestSettings>

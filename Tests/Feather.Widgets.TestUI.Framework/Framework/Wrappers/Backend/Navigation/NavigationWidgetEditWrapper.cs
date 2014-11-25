@@ -73,7 +73,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectLevelsToInclude(string levelsToInclude)
         {
             var templateSelector = EM.Navigation.NavigationWidgetEditScreen.LevelesToIncludeSelector
-              .AssertIsPresent("Template selector drop-down");
+                .AssertIsPresent("Levels to include selector");
             templateSelector.SelectByValue(levelsToInclude);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);

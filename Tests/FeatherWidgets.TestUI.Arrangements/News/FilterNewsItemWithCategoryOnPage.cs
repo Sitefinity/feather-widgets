@@ -21,21 +21,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
-<<<<<<< HEAD:Tests/FeatherWidgets.TestUI.Arrangements/News/SearchAndSelectNewsByTag.cs:Tests/FeatherWidgets.TestUI.Arrangements/News/SearchAndSelectNewsByTag.cs
-=======
             ServerOperations.Taxonomies().CreateCategory(TaxonTitle + "0");
->>>>>>> a04ca6f23bf79b8066b3f96eff3207327b7098fb:Tests/FeatherWidgets.TestUI.Arrangements/News/FilterNewsItemWithCategoryOnPage.cs:Tests/FeatherWidgets.TestUI.Arrangements/News/FilterNewsItemWithCategoryOnPage.cs
 
             for (int i = 1; i < 7; i++)
             {
-<<<<<<< HEAD:Tests/FeatherWidgets.TestUI.Arrangements/News/SearchAndSelectNewsByTag.cs:Tests/FeatherWidgets.TestUI.Arrangements/News/SearchAndSelectNewsByTag.cs
-                ServerOperations.Taxonomies().CreateTag(TaxonTitle + i);
-                var tag = new List<string> { TaxonTitle + i };
-                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + i, NewsContent, "AuthorName", "SourceName", null, tag, null);
-=======
                 ServerOperations.Taxonomies().CreateCategory(TaxonTitle + i, TaxonTitle + (i - 1));
-                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + (i - 1), NewsContent, "AuthorName", "SourceName", new List<string> { TaxonTitle + i }, null, null);                           
->>>>>>> a04ca6f23bf79b8066b3f96eff3207327b7098fb:Tests/FeatherWidgets.TestUI.Arrangements/News/FilterNewsItemWithCategoryOnPage.cs:Tests/FeatherWidgets.TestUI.Arrangements/News/FilterNewsItemWithCategoryOnPage.cs
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + (i - 1), NewsContent, "AuthorName", "SourceName", new List<string> { TaxonTitle + i }, null, null);
             }
 
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);

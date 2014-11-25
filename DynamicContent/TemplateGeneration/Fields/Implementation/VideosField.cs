@@ -13,12 +13,12 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <remarks>
     /// Used for backward compatibility.
     /// </remarks>
-    public class VideosFieldGenerationStrategy : FieldGenerationStrategy
+    public class VideosField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.Media
                 && field.MediaType == "video";
 
@@ -26,9 +26,9 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(VideosFieldGenerationStrategy.FieldMarkupTempalte, field.Name);
+            var markup = string.Format(VideosField.FieldMarkupTempalte, field.Name);
 
             return markup;
         }

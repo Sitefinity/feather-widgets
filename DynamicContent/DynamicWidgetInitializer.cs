@@ -32,21 +32,21 @@ namespace DynamicContent
 
         private static void RegisterFieldGenerationStrategies()
         {
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(LongTextAreaFieldGenerationStrategy), typeof(LongTextAreaFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(ImagesFieldGenerationStrategy), typeof(ImagesFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(ShortTextFieldGenerationStrategy), typeof(ShortTextFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(MultipleChoiceFieldGenerationStrategy), typeof(MultipleChoiceFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(YesNoFieldGenerationStrategy), typeof(YesNoFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(DateFieldGenerationStrategy), typeof(DateFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(NumberFieldGenerationStrategy), typeof(NumberFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(PriceFieldGenerationStrategy), typeof(PriceFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(LongRichTextFieldGenerationStrategy), typeof(LongRichTextFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(VideosFieldGenerationStrategy), typeof(VideosFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(DocumentsFieldGenerationStrategy), typeof(DocumentsFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(AddressFieldGenerationStrategy), typeof(AddressFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(ClassificationFieldGenerationStrategy), typeof(ClassificationFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(RelatedMediaFieldGenerationStrategy), typeof(RelatedMediaFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(IFieldGenerationStrategy), typeof(RelatedDataFieldGenerationStrategy), typeof(RelatedDataFieldGenerationStrategy).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(LongTextAreaField), typeof(LongTextAreaField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(ImagesField), typeof(ImagesField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(ShortTextField), typeof(ShortTextField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(MultipleChoiceField), typeof(MultipleChoiceField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(YesNoField), typeof(YesNoField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(DateField), typeof(DateField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(NumberField), typeof(NumberField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(PriceField), typeof(PriceField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(LongRichTextField), typeof(LongRichTextField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(VideosField), typeof(VideosField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(DocumentsField), typeof(DocumentsField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(AddressField), typeof(AddressField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(ClassificationField), typeof(ClassificationField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(RelatedMediaField), typeof(RelatedMediaField).Name, new ContainerControlledLifetimeManager());
+            ObjectFactory.Container.RegisterType(typeof(IField), typeof(RelatedDataField), typeof(RelatedDataField).Name, new ContainerControlledLifetimeManager());
         }
 
         /// <summary>
