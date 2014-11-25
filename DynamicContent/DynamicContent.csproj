@@ -145,12 +145,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mvc\Views\Shared\Fields\DateFieldTemplate.cs">
+    <Compile Include="TemplateGeneration\Fields\Templates\AddressFieldTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddressFieldTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateGeneration\Fields\Templates\DateFieldTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DateFieldTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Mvc\Views\Shared\Fields\DateFieldTemplateExtend.cs" />
+    <Compile Include="TemplateGeneration\Fields\Templates\FieldTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FieldTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateGeneration\Fields\Templates\FieldTemplateExtend.cs" />
     <Compile Include="TemplateGeneration\Fields\IField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\AddressField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\ClassificationField.cs" />
@@ -187,17 +197,28 @@
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Shared\DetailTemplateContainer.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Shared\ListTemplateContainer.cshtml" />
-    <None Include="Mvc\Views\Shared\Fields\DateFieldTemplate.tt">
+    <None Include="TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>AddressFieldTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="TemplateGeneration\Fields\Templates\DateFieldTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>DateFieldTemplate.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="TemplateGeneration\Fields\Templates\FieldTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>FieldTemplate.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\DynamicContent\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TemplateGeneration\Fields\Scripts\address-field.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

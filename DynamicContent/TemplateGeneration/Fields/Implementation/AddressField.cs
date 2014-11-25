@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DynamicContent.TemplateGeneration.Fields.Templates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,11 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         /// <inheritdoc/>
         public override string GetMarkup(DynamicModuleField field)
         {
-            var longTextMarkup = string.Format(AddressField.FieldMarkupTempalte, field.Name, field.Title);
+            var fieldContent = new AddressFieldTemplate();
+            fieldContent.FieldData = field;
+            var markup = fieldContent.TransformText();
 
-            return longTextMarkup;
+            return markup;
         }
-
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().AddressField((Address)Model.Item.{0}, ""{0}"", ""#=Street# #=City# #=State# #=Country#"", fieldTitle: ""{1}"", cssClass: ""sfitemAddressWrp"")";
     }
 }

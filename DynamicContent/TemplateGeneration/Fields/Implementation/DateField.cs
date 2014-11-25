@@ -1,9 +1,9 @@
-﻿using System;
+﻿using DynamicContent.TemplateGeneration.Fields.Templates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DynamicContent.Mvc.Views.Shared.Fields;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace DynamicContent.TemplateGeneration.Fields.Implementation
@@ -25,7 +25,8 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         /// <inheritdoc/>
         public override string GetMarkup(DynamicModuleField field)
         {
-            var fieldContent = new DateFieldTemplate(field);
+            var fieldContent = new DateFieldTemplate();
+            fieldContent.FieldData = field;
             var markup = fieldContent.TransformText();
 
             return markup;

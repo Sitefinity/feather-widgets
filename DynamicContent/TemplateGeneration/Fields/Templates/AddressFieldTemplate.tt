@@ -1,0 +1,31 @@
+﻿<#@ template language="C#" inherits="FieldTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+<div>
+    <strong> <#= FieldData.Title #> :</strong>
+
+    <div>
+        <address>
+			@(((Telerik.Sitefinity.GeoLocations.Model.Address)Model.Item.<#= FieldData.Name #>).GetFormattedAddress("#=Street# #=City# #=State# #=Country#"))
+		</address>
+
+        <div>
+            <a class="viewMapLnk">View map</a>
+            <div class="addressMapWrp" style="display:none">
+                <input class="addressValueInput" type="hidden" value="@(new JavaScriptSerializer().Serialize(Model.Item.<#= FieldData.Name #>))" />
+                <div class="mapContainer" style="width:500px; height:500px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Html.Sitefinity().IsApiKeyValid())
+{
+    @Html.Script(ScriptRef.JQuery)
+    @Html.Script("http://maps.googleapis.com/maps/api/js?key=" + Html.Sitefinity().GetApiKey() + "&sensor=false")
+    @Html.Script("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js")
+    <script type="text/javascript" src='@Url.WidgetContent("~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Scripts/address-field.js")'></script>
+}
