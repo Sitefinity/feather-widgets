@@ -30,9 +30,9 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchItemByTitle("C");
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(24);
 
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().CheckBreadcrumbAfterSearchInHierarchicalSelector(breadcrumbName);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().CheckBreadcrumbAfterSearchInHierarchicalSelector(breadcrumbName, breadcrumbFullName);
 
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemInMultipleSelector(TaxonTitle1, TaxonTitle2);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemsInFlatSelector(TaxonTitle1, TaxonTitle2);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
 
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemInMultipleSelectors(new[] { "Category0 > Category1 > Category2 > Category3 > Category4 > Category5", "AnotherCategory0 > ... > AnotherCategory5 > AnotherCategory6" });
@@ -82,6 +82,7 @@ namespace FeatherWidgets.TestUI
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Category";
-        private const string breadcrumbName = "Under AnotherCategory0 > AnotherCategory1 > AnotherCategory2 > AnotherCategory3 > AnotherCategory4 > AnotherCategory5 > AnotherCategory6 > AnotherCategory7 > AnotherCategory8 > AnotherCategory9";
+        private const string breadcrumbName = "Under AnotherCategory0 > ... > AnotherCategory9";
+        private const string breadcrumbFullName = "Under AnotherCategory0 > AnotherCategory1 > AnotherCategory2 > AnotherCategory3 > AnotherCategory4 > AnotherCategory5 > AnotherCategory6 > AnotherCategory7 > AnotherCategory8 > AnotherCategory9";
     }
 }

@@ -132,6 +132,8 @@
     <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
+    <Compile Include="News\SearchAndSelectNewsByTag.cs" />
+    <Compile Include="News\FilterNewsItemWithCategoryOnPage.cs" />
     <Compile Include="News\FilterNewsItemWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
     <Compile Include="News\SearchAndSelectNewsByCategorySelectedTab.cs" />

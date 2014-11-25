@@ -79,41 +79,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Select news item
-        /// </summary>
-        /// <param name="newsTitle">The title of the news item</param>
-        public void SelectItem(string newsTitle)
-        {
-            HtmlDiv newsList = EM.News
-                                 .NewsWidgetContentScreen
-                                 .ItemsList
-                                 .AssertIsPresent("News list");
-
-            var itemDiv = newsList.Find
-                                  .ByExpression<HtmlDiv>("class=ng-binding", "InnerText=" + newsTitle)
-                                  .AssertIsPresent("News with this title was not found");
-
-            itemDiv.Wait.ForVisible();
-            itemDiv.ScrollToVisible();
-            itemDiv.MouseClick();
-            ActiveBrowser.WaitForAsyncRequests();
-        }
-
-        /// <summary>
         /// Selects the item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
-        public void SelectItemInMultipleSelector(params string[] itemNames)
+        public void SelectItemsInFlatSelector(params string[] itemNames)
         {
+            HtmlDiv activeTab = this.EM.News.NewsWidgetContentScreen.ActiveTab
+                                    .AssertIsPresent("active tab");
+
             foreach (var itemName in itemNames)
             {
-                var divs = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
+                var divs = activeTab.Find.AllByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
                 foreach (var div in divs)
                 {
                     if (div.IsVisible())
                     {
+                        div.Wait.ForVisible();
                         div.ScrollToVisible();
-                        div.Click();
+                        div.MouseClick();
                         ActiveBrowser.RefreshDomTree();
                         break;
                     }
@@ -125,20 +108,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Selects the item.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
-        public void SelectItemInHierarchicalSelector(params string[] itemNames)
+        public void SelectItemsInHierarchicalSelector(params string[] itemNames)
         {
             HtmlDiv activeTab = this.EM.News.NewsWidgetContentScreen.ActiveTab
-                                    .AssertIsPresent("all tab");
+                                    .AssertIsPresent("active tab");
             foreach (var itemName in itemNames)
             {
                 SelectElementInTree(itemName, activeTab);
             }
         }
     
-        public void CheckBreadcrumbAfterSearchInHierarchicalSelector(string fullName)
+        public void CheckBreadcrumbAfterSearchInHierarchicalSelector(string name, string fullName)
         {
-            ActiveBrowser.Find.ByExpression<HtmlDiv>("class=ng-binding text-muted", "InnerText=" + fullName)
-                                    .AssertIsPresent("all tab");   
+            ActiveBrowser.Find.ByExpression<HtmlSpan>("InnerText=" + name, "sf-shrinked-breadcrumb=" + fullName)
+                                    .AssertIsPresent("Breadcrumb");   
         }
 
 
@@ -217,44 +200,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                           .AssertIsPresent("Search field");
 
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, input.GetRectangle());
+            input.Text = string.Empty;
             Manager.Current.Desktop.KeyBoard.TypeText(title);
             Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
             Manager.Current.ActiveBrowser.RefreshDomTree();
-        }
-
-        /// <summary>
-        /// Sets a text to search in t he search input.
-        /// </summary>
-        /// <param name="text">The text to be searched for.</param>
-        public void ChangeSearchText(string text)
-        {
-            var inputList = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlInputText>("ng-model=filter.searchString");
-
-            foreach (var inputElement in inputList)
-            {
-                if (inputElement.IsVisible())
-                {
-                    inputElement.Focus();
-                    inputElement.MouseClick();
-                    if (text != "")
-                    {
-                        inputElement.Text = string.Empty;
-                        Manager.Current.Desktop.KeyBoard.TypeText(text);
-                    }
-                    else
-                    {
-                        //// select all and delete current text typing
-                        Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
-                        Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
-                        Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
-                        Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Back);
-                    }
-                    break;
-                }
-            }
-
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>

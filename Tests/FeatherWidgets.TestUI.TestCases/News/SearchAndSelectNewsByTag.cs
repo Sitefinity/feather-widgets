@@ -28,20 +28,23 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectCheckBox(TaxonomyName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchItemByTitle(TaxonTitle1);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(TaxonTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemsInFlatSelector(TaxonTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchItemByTitle(TaxonTitle2);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemsInFlatSelector(TaxonTitle2);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemInMultipleSelectors(new [] {TaxonTitle1, TaxonTitle2});
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle1);
+            this.VerifyNewsOnBackend(); 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontend();
         }
-
+ 
         /// <summary>
         /// Verify news widget on the frontend
         /// </summary>
         public void VerifyNewsOnTheFrontend()
         {
-            string[] newsTitles = new string[] { NewsTitle1 };
+            string[] newsTitles = new string[] { NewsTitle + 1, NewsTitle + 2};
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
             BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(newsTitles);
@@ -64,9 +67,29 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
+        private void VerifyNewsOnBackend()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (i == 0)
+                {
+                    BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, NewsTitle + i);
+                }
+                else if (i > 0 && i <= 2)
+                {
+                    BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle + i);
+                }
+                else
+                {
+                    BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, NewsTitle + i);
+                }
+            }
+        }
+
         private const string PageName = "News";
         private const string TaxonTitle1 = "Tag1";
-        private const string NewsTitle1 = "NewsTitle1";
+        private const string TaxonTitle2 = "Tag2";
+        private const string NewsTitle = "NewsTitle";
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Tags";
