@@ -10,21 +10,21 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for short text dynamic fields.
     /// </summary>
-    public class ShortTextFieldGenerationStrategy : FieldGenerationStrategy
+    public class ShortTextField : Field
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShortTextFieldGenerationStrategy"/> class.
+        /// Initializes a new instance of the <see cref="ShortTextField"/> class.
         /// </summary>
         /// <param name="moduleType">Type of the module.</param>
-        public ShortTextFieldGenerationStrategy(DynamicModuleType moduleType)
+        public ShortTextField(DynamicModuleType moduleType)
         {
             this.moduleType = moduleType;
         }
 
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && (field.FieldType == FieldType.ShortText || field.FieldType == FieldType.Guid)
                 && field.Name != this.moduleType.MainShortTextFieldName;
 
@@ -32,9 +32,9 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(ShortTextFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.Title);
+            var markup = string.Format(ShortTextField.FieldMarkupTempalte, field.Name, field.Title);
 
             return markup;
         }

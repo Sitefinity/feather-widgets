@@ -12,29 +12,29 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for multiple choice dynamic fields.
     /// </summary>
-    public class MultipleChoiceFieldGenerationStrategy : FieldGenerationStrategy
+    public class MultipleChoiceField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && (field.FieldType == FieldType.MultipleChoice || field.FieldType == FieldType.Choices);
 
             return condition;
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
             var markup = string.Empty;
 
             if (field.ChoiceRenderType.ToLowerInvariant() == "checkbox")
             {
-                markup = string.Format(MultipleChoiceFieldGenerationStrategy.FieldMarkupMultipleChoiceTempalte, field.Name, field.Title);
+                markup = string.Format(MultipleChoiceField.FieldMarkupMultipleChoiceTempalte, field.Name, field.Title);
             }
             else
             {
-                markup = string.Format(MultipleChoiceFieldGenerationStrategy.FieldMarkupSingleChoiceTempalte, field.Name, field.Title);
+                markup = string.Format(MultipleChoiceField.FieldMarkupSingleChoiceTempalte, field.Name, field.Title);
             }
 
             return markup;

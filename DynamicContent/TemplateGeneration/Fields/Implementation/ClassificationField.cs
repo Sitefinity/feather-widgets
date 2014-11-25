@@ -12,21 +12,21 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for classification dynamic fields.
     /// </summary>
-    public class ClassificationFieldGenerationStrategy : FieldGenerationStrategy
+    public class ClassificationField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.Classification;
 
             return condition;
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(ClassificationFieldGenerationStrategy.TaxonomyFieldMarkupTempalte, field.ClassificationId, field.Name, field.Title);
+            var markup = string.Format(ClassificationField.TaxonomyFieldMarkupTempalte, field.ClassificationId, field.Name, field.Title);
 
             return markup;
         }

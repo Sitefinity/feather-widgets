@@ -11,30 +11,30 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for related data dynamic fields.
     /// </summary>
-    public class RelatedDataFieldGenerationStrategy : FieldGenerationStrategy
+    public class RelatedDataField : Field
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RelatedDataFieldGenerationStrategy"/> class.
+        /// Initializes a new instance of the <see cref="RelatedDataField"/> class.
         /// </summary>
-        public RelatedDataFieldGenerationStrategy()
+        public RelatedDataField()
         {
             this.RelatedDataHelperMapper = new List<Tuple<Type, string, string>>();
             this.RelatedDataHelperMapper.Add(Tuple.Create(
                 typeof(Image),
-                RelatedDataFieldGenerationStrategy.InlineImageListItem,
-                RelatedDataFieldGenerationStrategy.InlineSingleImageItem));
+                RelatedDataField.InlineImageListItem,
+                RelatedDataField.InlineSingleImageItem));
             this.RelatedDataHelperMapper.Add(Tuple.Create(
                 typeof(Video),
-                RelatedDataFieldGenerationStrategy.InlineVideoListItem,
-                RelatedDataFieldGenerationStrategy.InlineSingleVideoItem));
+                RelatedDataField.InlineVideoListItem,
+                RelatedDataField.InlineSingleVideoItem));
             this.RelatedDataHelperMapper.Add(Tuple.Create(
                 typeof(Document),
-                RelatedDataFieldGenerationStrategy.InlineDocumentListItem,
-                RelatedDataFieldGenerationStrategy.InlineSingleDocumentItem));
+                RelatedDataField.InlineDocumentListItem,
+                RelatedDataField.InlineSingleDocumentItem));
             this.RelatedDataHelperMapper.Add(Tuple.Create(
                 typeof(PageNode),
-                RelatedDataFieldGenerationStrategy.InlinePageList,
-                RelatedDataFieldGenerationStrategy.InlineSinglePage));
+                RelatedDataField.InlinePageList,
+                RelatedDataField.InlineSinglePage));
         }
 
         /// <summary>
@@ -49,16 +49,16 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         public IList<Tuple<Type, string, string>> RelatedDataHelperMapper { get;  private set; }
 
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.RelatedData;
 
             return condition;
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
             var markup = string.Format(this.BuildRelatedDataFieldTemplate(field.FrontendWidgetTypeName, field.FrontendWidgetLabel, field.FieldNamespace, field.RelatedDataType, field.RelatedDataProvider, field.Name, field.CanSelectMultipleItems));
 
@@ -100,7 +100,7 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
                 }
             }
 
-            template = isMasterView ? RelatedDataFieldGenerationStrategy.InlineListItem : RelatedDataFieldGenerationStrategy.InlineSingleItem;
+            template = isMasterView ? RelatedDataField.InlineListItem : RelatedDataField.InlineSingleItem;
 
             return template;
         }

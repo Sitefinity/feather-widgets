@@ -13,12 +13,12 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <div class="@Model.CssClass">
-    <ul>
+    <ul class="list-unstyled">
         @foreach (dynamic item in Model.Items)
         {
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id)>
                 @*MainPictureSection*@
-                <h1 class="sfitemTitle sftitle">
+                <h3 class="sfitemTitle sftitle">
                     @if (ViewBag.OpenInSamePage)
                     {
                         <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
@@ -31,8 +31,10 @@
                             @*MainTextFieldForList*@
                         </a>
                     }
-                </h1>
-                @Html.Sitefinity().DateField((DateTime)item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
+                </h3>
+                <div class="text-muted">
+                    @(((DateTime)item.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+                </div>
             </li>
         }
     </ul>
