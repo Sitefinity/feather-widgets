@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArtOfTest.WebAii, Version=2014.3.903.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
+    <Reference Include="ArtOfTest.WebAii">
       <Private>True</Private>
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestStudio.Framework.2.0.0\lib\net40\ArtOfTest.WebAii.dll</HintPath>
     </Reference>
@@ -68,7 +68,7 @@
     <Reference Include="Telerik.TestUI.Core">
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.TestUI.Core.1.5.0\lib\net40\Telerik.TestUI.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.WebAii.Controls.Html, Version=2014.3.903.0, Culture=neutral, PublicKeyToken=528163f3e645de45, processorArchitecture=MSIL">
+    <Reference Include="Telerik.WebAii.Controls.Html">
       <Private>True</Private>
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestStudio.Framework.2.0.0\lib\net40\Telerik.WebAii.Controls.Html.dll</HintPath>
     </Reference>
