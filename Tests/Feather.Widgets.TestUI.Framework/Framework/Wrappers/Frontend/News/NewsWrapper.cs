@@ -40,19 +40,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            List<HtmlListItem> newsLists = frontendPageMainDiv.Find.AllByExpression<HtmlListItem>("tagname=li", "data-sf-type=Telerik.Sitefinity.News.Model.NewsItem").ToList<HtmlListItem>();
-
-            for (int i = 0; i < newsLists.Count; i++)
+            if (frontendPageMainDiv.InnerText.Contains(newsTitle))
             {
-                if (newsLists[i].InnerText.Contains(newsTitle))
-                {
-                    return true;
-                }
-
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
