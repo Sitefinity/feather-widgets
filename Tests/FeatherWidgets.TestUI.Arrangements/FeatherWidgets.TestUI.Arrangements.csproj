@@ -131,11 +131,14 @@
     <Compile Include="News\ActivateAndDeactivateNewsModule.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
+    <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
     <Compile Include="News\SearchAndSelectNewsByTag.cs" />
     <Compile Include="News\FilterNewsItemWithCategoryOnPage.cs" />
+    <Compile Include="News\ExpandPagesAndSelectChildPageForSingleItemPage.cs" />
     <Compile Include="News\FilterNewsItemWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
+    <Compile Include="News\NoResultsWhenSearchForSingleItemPage.cs" />
     <Compile Include="News\SearchAndSelectNewsByCategorySelectedTab.cs" />
     <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
     <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="News\OldAndNewNewsWidgetOnTheSamePage.cs" />
     <Compile Include="News\SearchAndSelectNewsByCategoryAllTab.cs" />
     <Compile Include="News\SearchForNotExistingTag.cs" />
+    <Compile Include="News\SearchForSingleItemPageAndVerifyBreadcrumb.cs" />
     <Compile Include="News\SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="News\SelectAndUnselectMoreThanOneNewsItem.cs" />
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
@@ -151,6 +155,7 @@
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
     <Compile Include="News\DuplicateNewsWidgetFromPage.cs" />
     <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
+    <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
