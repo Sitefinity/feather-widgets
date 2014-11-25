@@ -14,9 +14,10 @@ namespace FeatherWidgets.TestUI
         /// <summary>
         /// UI test FilterNewsItemWithCustomTaxonomyOnPage
         /// </summary>
-       [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        [TestMethod,
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
 
         public void FilterNewsItemWithCustomTaxonomyOnPage()
         {

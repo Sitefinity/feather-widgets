@@ -19,8 +19,10 @@ namespace FeatherWidgets.TestUI
         /// UI test SearchForNotExistingTag
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
+
         public void SearchForNotExistingTag()
         {
             BAT.Macros().NavigateTo().Pages();

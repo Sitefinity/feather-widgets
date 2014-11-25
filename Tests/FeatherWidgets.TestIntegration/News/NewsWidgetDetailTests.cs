@@ -128,11 +128,15 @@ namespace FeatherWidgets.TestIntegration.News
         [Author("FeatherTeam")]
         public void NewsWidget_SelectDetailTemplate()
         {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
             int pageIndex = 1;
             string textEdited = "<p> Test paragraph </p>";
             string paragraphText = "Test paragraph";
             var newsManager = NewsManager.GetManager();
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + pageIndex);
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
 
             string detailTemplate = "DetailPageNew";
             var detailTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "News", "Detail.DetailPage.cshtml");
@@ -149,7 +153,7 @@ namespace FeatherWidgets.TestIntegration.News
                 newsController.DetailTemplateName = detailTemplate;
                 mvcProxy.Settings = new ControllerSettings(newsController);
 
-                this.pageOperations.CreatePageWithControl(mvcProxy, PageNamePrefix, PageTitlePrefix, UrlNamePrefix, pageIndex);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
 
                 NewsItem newsItem = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == NewsTitleDetail).FirstOrDefault();
                 string detailNewsUrl = url + newsItem.ItemDefaultUrl;
@@ -194,9 +198,6 @@ namespace FeatherWidgets.TestIntegration.News
         private ExecutionRegistrationFilterAttribute actionFilter;
         private const string NewsTitle = "Title";
         private const string NewsTitleDetail = "Title1";
-        private const string PageNamePrefix = "NewsPage";
-        private const string PageTitlePrefix = "News Page";
-        private const string UrlNamePrefix = "news-page";
         private int newsCount = 3;
         private PagesOperations pageOperations;
         private TemplateOperations templateOperation = new TemplateOperations();

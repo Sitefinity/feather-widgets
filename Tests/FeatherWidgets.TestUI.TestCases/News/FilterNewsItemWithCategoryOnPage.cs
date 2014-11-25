@@ -14,10 +14,11 @@ namespace FeatherWidgets.TestUI
         /// <summary>
         /// UI test FilterNewsItemWithCategoryOnPage
         /// </summary>
-       [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
-
+        [TestMethod,
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
+        
         public void FilterNewsItemWithCategoryOnPage()
         {
             BAT.Macros().NavigateTo().Pages();

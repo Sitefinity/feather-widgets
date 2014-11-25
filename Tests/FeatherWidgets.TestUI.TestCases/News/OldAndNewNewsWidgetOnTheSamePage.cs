@@ -19,8 +19,10 @@ namespace FeatherWidgets.TestUI
         /// UI test OldAndNewNewsWidgetOnTheSamePage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
+
         public void OldAndNewNewsWidgetOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -62,7 +64,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-           BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "NewsPage";
