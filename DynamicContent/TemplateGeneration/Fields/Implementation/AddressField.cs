@@ -9,21 +9,21 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for address dynamic fields.
     /// </summary>
-    public class AddressFieldGenerationStrategy : FieldGenerationStrategy
+    public class AddressField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.Address;
 
             return condition;
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
-            var longTextMarkup = string.Format(AddressFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.Title);
+            var longTextMarkup = string.Format(AddressField.FieldMarkupTempalte, field.Name, field.Title);
 
             return longTextMarkup;
         }

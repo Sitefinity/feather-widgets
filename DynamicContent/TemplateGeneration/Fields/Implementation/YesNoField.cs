@@ -12,21 +12,21 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for yes/no dynamic fields.
     /// </summary>
-    public class YesNoFieldGenerationStrategy : FieldGenerationStrategy
+    public class YesNoField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.YesNo;
 
             return condition;
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(YesNoFieldGenerationStrategy.FieldMarkupTempalte, field.Name, field.Title);
+            var markup = string.Format(YesNoField.FieldMarkupTempalte, field.Name, field.Title);
 
             return markup;
         }

@@ -13,8 +13,10 @@
     <h1 class="sfitemTitle sftitle">
         @*MainTextFieldForDetail*@
     </h1>
-    @Html.Sitefinity().DateField((DateTime)Model.Item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
-
+    <div class="text-muted">
+        @(((DateTime)Model.Item.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+    </div>
+    
     @*GenerateFieldsSection*@
     
     @if (Model.EnableSocialSharing)

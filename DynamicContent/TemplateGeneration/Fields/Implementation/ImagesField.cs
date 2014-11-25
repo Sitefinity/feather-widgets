@@ -13,12 +13,12 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <remarks>
     /// Used for backward compatibility.
     /// </remarks>
-    public class ImagesFieldGenerationStrategy : FieldGenerationStrategy
+    public class ImagesField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.Media
                 && field.MediaType == "image";
 
@@ -26,16 +26,16 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
             var markup = string.Empty;
             if (field.AllowMultipleImages)
             {
-                markup = string.Format(ImagesFieldGenerationStrategy.MultiImageFieldMarkupTempalte, field.Name);
+                markup = string.Format(ImagesField.MultiImageFieldMarkupTempalte, field.Name);
             }
             else
             {
-                markup = string.Format(ImagesFieldGenerationStrategy.SingleImageFieldMarkupTempalte, field.Name);
+                markup = string.Format(ImagesField.SingleImageFieldMarkupTempalte, field.Name);
             }
 
             return markup;

@@ -10,21 +10,21 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
     /// <summary>
     /// This class represents field generation strategy for price dynamic fields.
     /// </summary>
-    public class PriceFieldGenerationStrategy : FieldGenerationStrategy
+    public class PriceField : Field
     {
         /// <inheritdoc/>
-        public override bool GetFieldCondition(DynamicModuleField field)
+        public override bool GetCondition(DynamicModuleField field)
         {
-            var condition = base.GetFieldCondition(field)
+            var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.Currency;
 
             return condition;
         }
 
         /// <inheritdoc/>
-        public override string GetFieldMarkup(DynamicModuleField field)
+        public override string GetMarkup(DynamicModuleField field)
         {
-            var markup = string.Format(PriceFieldGenerationStrategy.FieldMarkupTempalte, field.Name, PriceFieldGenerationStrategy.CurrencyFormat);
+            var markup = string.Format(PriceField.FieldMarkupTempalte, field.Name, PriceField.CurrencyFormat);
 
             return markup;
         }
