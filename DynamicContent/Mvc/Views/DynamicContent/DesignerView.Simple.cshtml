@@ -72,11 +72,12 @@
 
 						@Html.Resource("FromSelected").Arrange(Model.ParentModuleTypes().First().DisplayName.ToPlural().ToLower())
 
-						<sf-list-selector sf-dynamic-items-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
-									  multiselect="true" sortable="true" master="true"
-									  provider="properties.ProviderName.PropertyValue"
-									  selected-ids="parentSelector.selectedItemsIds"
-									  item-type="parentTypes[0].TypeName"></sf-list-selector>
+                        <sf-list-selector sf-dynamic-items-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
+                                          multiselect="true" sortable="true" master="true"
+                                          provider="properties.ProviderName.PropertyValue"
+                                          selected-ids="parentSelector.selectedItemsIds"
+                                          identifier-field="@Model.GetIdenfierField()"
+                                          item-type="parentTypes[0].TypeName"></sf-list-selector>
 					</label>
 				</div>
 				@if (Model.ParentModuleTypes().Count() == 1)
@@ -107,11 +108,12 @@
 
 						@Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
 
-						<sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-									  multiselect="true" sortable="true" master="true"
-									  provider="properties.ProviderName.PropertyValue"
-									  selected-ids="itemSelector.selectedItemsIds"
-									  item-type="itemType"></sf-list-selector>
+                        <sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                                          multiselect="true" sortable="true" master="true"
+                                          provider="properties.ProviderName.PropertyValue"
+                                          selected-ids="itemSelector.selectedItemsIds"
+                                          identifier-field="@Model.GetIdenfierField()"
+                                          item-type="itemType"></sf-list-selector>
 					</label>
 				</div>
 				
