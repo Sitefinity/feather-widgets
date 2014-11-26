@@ -62,7 +62,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             newsAnchor.Wait.ForVisible();
             newsAnchor.ScrollToVisible();
             newsAnchor.MouseClick();
-            ActiveBrowser.WaitForUrl(newsTitle.ToLower());
+            ActiveBrowser.WaitForUrl(newsTitle.ToLower().Replace(" ", "%20"));
+        }
+
+        /// <summary>
+        /// Verify details news page URL
+        /// </summary>
+        /// <param name="pageName">the single item page name</param>
+        /// <param name="newsItem">news item title</param>
+        public void VerifyDetailsNewsPageURL(string pageName, string newsItem)
+        {
+            //// make page and news titles lower case and replace empty spaces in their titles
+            Assert.IsTrue(ActiveBrowser.Url.Contains(pageName.ToLower().Replace(" ", "-")));
+            Assert.IsTrue(ActiveBrowser.Url.Contains(newsItem.ToLower().Replace(" ", "%20")));
         }
 
         /// <summary>

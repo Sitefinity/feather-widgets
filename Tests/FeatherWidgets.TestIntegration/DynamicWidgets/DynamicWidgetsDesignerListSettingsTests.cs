@@ -95,7 +95,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             finally
             {
                 this.pageOperations.DeletePages();
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -143,7 +143,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             finally
             {
                 this.pageOperations.DeletePages();
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -191,7 +191,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             finally
             {
                 this.pageOperations.DeletePages();
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -238,7 +238,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -288,7 +288,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -337,7 +337,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -388,7 +388,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 
@@ -442,7 +442,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 File.Delete(file);
                 Directory.Delete(this.folderPath);
                 this.pageOperations.DeletePages();
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
             }
         }
 

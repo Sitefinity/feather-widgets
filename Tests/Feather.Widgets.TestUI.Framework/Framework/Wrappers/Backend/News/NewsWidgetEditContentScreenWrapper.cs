@@ -124,6 +124,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                     .AssertIsPresent("Breadcrumb");   
         }
 
+        /// <summary>
+        /// Check breadcrumb in flat selector after search.
+        /// </summary>
+        /// <param name="itemName">name of hierarchical item</param>
+        /// <param name="breadcrumb">breadcrumb for given item</param>
+        public void CheckBreadcrumbAfterSearchInFlatSelector(string itemName, string breadcrumb)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlDiv>("class=~ng-binding", "InnerText=" + itemName).AssertIsPresent(itemName + " was not present.");
+            ActiveBrowser.Find.ByExpression<HtmlSpan>("sf-shrinked-breadcrumb=" + breadcrumb).AssertIsPresent(breadcrumb + " was not present.");
+        }
 
         /// <summary>
         /// Saves the changes.
@@ -212,7 +222,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="expectedCount">The expected items count.</param>
         public void WaitForItemsToAppear(int expectedCount)
         {
-            Manager.Current.Wait.For(() => this.ScrollToLatestItemAndCountItems(expectedCount), 50000);
+            Manager.Current.Wait.For(() => this.ScrollToLatestItemAndCountItems(expectedCount), 100000);
         }
 
         /// <summary>
@@ -269,10 +279,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Verifies the selected item.
+        /// Verifies selected items from flat selector in designer.
         /// </summary>
-        /// <param name="itemName">Name of the item.</param>
-        public void VerifySelectedItemInMultipleSelectors(string[] itemNames)
+        /// <param name="itemNames">Array of selected item names.</param>
+        public void VerifySelectedItemsFromFlatSelector(string[] itemNames)
         {
             var divList = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
             int divListCount = divList.Count;
@@ -280,6 +290,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             for (int i = 0; i < divListCount; i++)
             {
                 Assert.AreEqual(divList[i].InnerText, itemNames[i]);
+            }
+        }
+
+        /// <summary>
+        /// Verifies selected items from hierarchical selector in designer.
+        /// </summary>
+        /// <param name="itemNames">Array of selected item names.</param>
+        public void VerifySelectedItemsFromHierarchicalSelector(string[] itemNames)
+        {
+            var divList = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
+            int divListCount = divList.Count;
+
+            for (int i = 0; i < divListCount; i++)
+            {
+                var selectedItemSpan = divList[i].Find.ByAttributes<HtmlSpan>("sf-shrinked-breadcrumb=" + itemNames[i]).AssertIsPresent("Span for " + itemNames[i] + " was not present.");
             }
         }
 
@@ -496,6 +521,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
+        /// <summary>
+        /// Select existing page for single item
+        /// </summary>
+        public void SelectExistingPage()
+        {
+            HtmlInputRadioButton selectExistingPage = this.EM.News.NewsWidgetContentScreen.SelectedExistingPage.AssertIsPresent("Selected existing page");
+            selectExistingPage.Click();
+            
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
 
         private void SelectElementInTree(string itemName, HtmlDiv activeTab)
         {

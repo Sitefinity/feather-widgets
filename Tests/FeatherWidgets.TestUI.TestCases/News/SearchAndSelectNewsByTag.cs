@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SearchItemByTitle(TaxonTitle2);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemsInFlatSelector(TaxonTitle2);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemInMultipleSelectors(new [] {TaxonTitle1, TaxonTitle2});
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().VerifySelectedItemsFromFlatSelector(new [] {TaxonTitle1, TaxonTitle2});
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             this.VerifyNewsOnBackend(); 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
