@@ -121,7 +121,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
         // Demonstrates how pressArticleItem is deleted
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
-        public void DeletePressArticle(List<DynamicContent> itemsToDelete)
+        public void DeleteDynamicItems(List<DynamicContent> itemsToDelete)
         {
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
