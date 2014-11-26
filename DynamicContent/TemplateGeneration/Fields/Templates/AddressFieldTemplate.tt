@@ -3,15 +3,24 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Telerik.Sitefinity.DynamicModules.Builder.Model" #>
+<#@ import namespace="Telerik.Sitefinity.Frontend.Mvc.Helpers" #>
 
+@* Start <#= FieldData.Title #> field *@
 <div>
     <strong> <#= FieldData.Title #> :</strong>
 
+	@if(!string.IsNullOrEmpty(Model.Item.<#= FieldData.Name #>.CountryCode))
+	{
     <div>
+<# if(FieldData.AddressFieldMode!=AddressFieldMode.MapOnly)
+{ #>
         <address>
-			@(((Telerik.Sitefinity.GeoLocations.Model.Address)Model.Item.<#= FieldData.Name #>).GetFormattedAddress("#=Street# #=City# #=State# #=Country#"))
-		</address>
-
+            @(((Telerik.Sitefinity.GeoLocations.Model.Address)Model.Item.<#= FieldData.Name #>).GetFormattedAddress("#=Street# #=City# #=State# #=Country#"))
+        </address>
+<# } #>
+<# if(FieldData.AddressFieldMode!=AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
+{ #>
         <div>
             <a class="viewMapLnk">View map</a>
             <div class="addressMapWrp" style="display:none">
@@ -19,13 +28,16 @@
                 <div class="mapContainer" style="width:500px; height:500px"></div>
             </div>
         </div>
+<# } #>
     </div>
+	}
 </div>
 
-@if (Html.Sitefinity().IsApiKeyValid())
-{
-    @Html.Script(ScriptRef.JQuery)
-    @Html.Script("http://maps.googleapis.com/maps/api/js?key=" + Html.Sitefinity().GetApiKey() + "&sensor=false")
-    @Html.Script("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js")
-    <script type="text/javascript" src='@Url.WidgetContent("~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Scripts/address-field.js")'></script>
-}
+<# if (FieldData.AddressFieldMode!=AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
+{ #>
+@Html.Script(ScriptRef.JQuery)
+@Html.Script("http://maps.googleapis.com/maps/api/js?key=" + Html.Sitefinity().GetApiKey() + "&sensor=false")
+@Html.Script("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js")
+<script type="text/javascript" src='@Url.WidgetContent("~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Scripts/address-field.js")'></script>
+<# } #>
+@* End <#= FieldData.Title #> field *@

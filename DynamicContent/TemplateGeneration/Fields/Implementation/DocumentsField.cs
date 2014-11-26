@@ -26,13 +26,11 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var markup = string.Format(DocumentsField.FieldMarkupTempalte, field.Name);
-
-            return markup;
+            return DocumentsField.TemplatePath;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().DocumentField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"")";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/MultiDocumentsField.cshtml";
     }
 }

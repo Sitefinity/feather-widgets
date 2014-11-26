@@ -13,11 +13,12 @@ using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Versioning;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 
 namespace DynamicContent.TemplateGeneration
 {
     /// <summary>
-    /// This class generates and registers templates for dynamic widget.
+    /// This class generates and registers templates for <see cref="DynamicContentController"/> widget.
     /// </summary>
     internal class TemplateGenerator
     {
@@ -59,14 +60,14 @@ namespace DynamicContent.TemplateGeneration
         public Guid InstallMasterTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
             var moduleTitle = dynamicModule.Title;
-            var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
+            var area = string.Format(MvcConstants.DynamicAreaFormat, moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var condition = string.Format(TemplateGenerator.MvcTemplateCondition, dynamicTypeName);
+            var condition = string.Format(MvcConstants.MvcTemplateCondition, dynamicTypeName);
             var controlType = typeof(DynamicContentController).FullName;
 
-            var listTemplateName = string.Format("List.{0}", moduleType.DisplayName);
-            var friendlyControlList = string.Format("{0} - {1} - list (MVC)", moduleTitle, pluralModuleTypeName);
+            var listTemplateName = string.Format(MvcConstants.ListTemplateName, moduleType.DisplayName);
+            var friendlyControlList = string.Format(MvcConstants.FriendlyControlDynamicListTemplate, moduleTitle, pluralModuleTypeName);
             var nameForDevelopersList = listTemplateName.Replace('.', '-');
 
             var content = this.GenerateMasterTemplate(moduleType);
@@ -84,14 +85,14 @@ namespace DynamicContent.TemplateGeneration
         public Guid InstallDetailTemplate(DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
             var moduleTitle = dynamicModule.Title;
-            var area = string.Format("{0} - {1}", moduleTitle, moduleType.DisplayName);
+            var area = string.Format(MvcConstants.DynamicAreaFormat, moduleTitle, moduleType.DisplayName);
             var pluralModuleTypeName = PluralsResolver.Instance.ToPlural(moduleType.DisplayName);
             var dynamicTypeName = moduleType.GetFullTypeName();
-            var condition = string.Format(TemplateGenerator.MvcTemplateCondition, dynamicTypeName);
+            var condition = string.Format(MvcConstants.MvcTemplateCondition, dynamicTypeName);
             var controlType = typeof(DynamicContentController).FullName;
 
-            var detailTemplateName = string.Format("Detail.{0}", moduleType.DisplayName);
-            var friendlyControlDetail = string.Format("{0} - {1} - single (MVC)", moduleTitle, pluralModuleTypeName);
+            var detailTemplateName = string.Format(MvcConstants.DetailTemplateName, moduleType.DisplayName);
+            var friendlyControlDetail = string.Format(MvcConstants.FriendlyControlDynamicDetailTemplate, moduleTitle, pluralModuleTypeName);
             var nameForDevelopersDetail = detailTemplateName.Replace('.', '-');
 
             var content = this.GenerateDetailTemplate(moduleType);
@@ -106,7 +107,7 @@ namespace DynamicContent.TemplateGeneration
         /// <param name="contentTypeName">Name of the content type.</param>
         public void UnregisterTemplates(string contentTypeName)
         {
-            var mvcTemplateCondition = string.Format(TemplateGenerator.MvcTemplateCondition, contentTypeName);
+            var mvcTemplateCondition = string.Format(MvcConstants.MvcTemplateCondition, contentTypeName);
             var templatesToDelete = this.pageManager.GetPresentationItems<ControlPresentation>()
                 .Where(c => c.Condition == mvcTemplateCondition)
                 .ToArray();
@@ -123,7 +124,7 @@ namespace DynamicContent.TemplateGeneration
         /// <returns></returns>
         protected internal virtual string GenerateDynamicFieldSection(DynamicModuleType moduleType)
         {
-            var fieldGenerators = ObjectFactory.Container.ResolveAll<IField>(new ParameterOverride("moduleType", moduleType)).ToList();
+            var fieldGenerators = ObjectFactory.Container.ResolveAll<Field>(new ParameterOverride("moduleType", moduleType)).ToList();
 
             StringBuilder fieldsSectionBuilder = new StringBuilder();
 
@@ -285,7 +286,6 @@ namespace DynamicContent.TemplateGeneration
         private VersionManager versionManager;
 
         internal static readonly string EmptyLine = "\r\n";
-        internal const string MvcTemplateCondition = "{0} AND MVC";
         private const string DetailItemPropertyMarkup = "@Model.Item.{0}";
         private const string ListItemPropertyMarkup = "@item.{0}";
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/ListTemplateContainer.cshtml";

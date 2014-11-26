@@ -1,0 +1,9 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+<div>
+    <strong> @Model.Title :</strong>
+
+    <span data-sf-field="@Model.Name" data-sf-ftype="YesNo">
+        @@(((bool)Model.Item.@(Model.Name))? Res.Get<Labels>().Yes : Res.Get<Labels>().No)
+    </span> 
+</div>

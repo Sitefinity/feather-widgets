@@ -4,13 +4,15 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 
+@* Start <#= FieldData.Title #> field *@
 <div>
     <strong> <#= FieldData.Title #> :</strong>
 
-	@if(Model.Item.<#= FieldData.Name #>!=null)
-	{
+    @if(Model.Item.<#= FieldData.Name #>!=null)
+    {
     <span data-sf-field="<#= FieldData.Name #>" data-sf-ftype="DateTime">
-		@(((DateTime)Model.Item.<#= FieldData.Name #>).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
-	</span>
-	} 
+        @(((DateTime)Model.Item.@FieldData.Name).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+    </span>
+    } 
 </div>
+@* End <#= FieldData.Title #> field *@

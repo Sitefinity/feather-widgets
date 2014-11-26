@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.0.8.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RazorEngine.3.0.8\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ServiceStack.Text.Signed.4.0.30\lib\net40\ServiceStack.Text.dll</HintPath>
@@ -161,7 +165,6 @@
       <DependentUpon>FieldTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="TemplateGeneration\Fields\Templates\FieldTemplateExtend.cs" />
-    <Compile Include="TemplateGeneration\Fields\IField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\AddressField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\ClassificationField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\DocumentsField.cs" />
@@ -197,6 +200,28 @@
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Shared\DetailTemplateContainer.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Shared\ListTemplateContainer.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\AddressField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\DateField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\FlatTaxonomyField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\LongTextAreaField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\NumberField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\MultiChoiceField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedDataInlineListField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedDataSingleField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedDocumentSingleField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedDocumentInlineListField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedPageSingleField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedPageInlineListField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedImageSingleField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedImageInlineListField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedVideoSingleField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\RelatedVideoInlineListField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\ShortTextField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\YesNoField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\LongRichTextField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\HierarchicalTaxonomyField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\PriceField.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Shared\SingleChoiceField.cshtml" />
     <None Include="TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>AddressFieldTemplate.cs</LastGenOutput>

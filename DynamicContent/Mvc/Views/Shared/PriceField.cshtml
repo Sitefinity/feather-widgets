@@ -1,0 +1,10 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+<div>
+    <strong> @Model.Title :</strong>
+
+    @@if(Model.Item.@(Model.Name)!=null)
+    {
+    <span>@@(string.Format(Model.Item.@(Model.Name),"{0:C}"))</span>
+    }
+</div>

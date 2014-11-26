@@ -23,13 +23,11 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var longTextMarkup = string.Format(LongTextAreaField.FieldMarkupTempalte, field.Name);
-
-            return longTextMarkup;
+            return LongTextAreaField.TemplatePath;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().LongTextAreaField((string)Model.Item.{0}, ""{0}"", cssClass: ""sfitemLongText"")";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/LongTextAreaField.cshtml";
     }
 }

@@ -12,6 +12,8 @@ namespace DynamicContent.TemplateGeneration.Fields.Templates
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
+    using Telerik.Sitefinity.DynamicModules.Builder.Model;
+    using Telerik.Sitefinity.Frontend.Mvc.Helpers;
     using System;
     
     /// <summary>
@@ -28,48 +30,103 @@ namespace DynamicContent.TemplateGeneration.Fields.Templates
         /// </summary>
         public override string TransformText()
         {
-            this.Write("\r\n<div>\r\n    <strong> ");
+            this.Write("\r\n@* Start ");
             
-            #line 8 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+            #line 9 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Title));
             
             #line default
             #line hidden
-            this.Write(" :</strong>\r\n\r\n    <div>\r\n        <address>\r\n\t\t\t@(((Telerik.Sitefinity.GeoLocatio" +
-                    "ns.Model.Address)Model.Item.");
+            this.Write(" field *@\r\n<div>\r\n    <strong> ");
             
-            #line 12 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+            #line 11 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Title));
+            
+            #line default
+            #line hidden
+            this.Write(" :</strong>\r\n\r\n\t@if(!string.IsNullOrEmpty(Model.Item.");
+            
+            #line 13 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Name));
             
             #line default
             #line hidden
-            this.Write(@").GetFormattedAddress(""#=Street# #=City# #=State# #=Country#""))
-		</address>
-
-        <div>
-            <a class=""viewMapLnk"">View map</a>
-            <div class=""addressMapWrp"" style=""display:none"">
-                <input class=""addressValueInput"" type=""hidden"" value=""@(new JavaScriptSerializer().Serialize(Model.Item.");
+            this.Write(".CountryCode))\r\n\t{\r\n    <div>\r\n");
             
-            #line 18 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+            #line 16 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+ if(FieldData.AddressFieldMode!=AddressFieldMode.MapOnly)
+{ 
+            
+            #line default
+            #line hidden
+            this.Write("        <address>\r\n            @(((Telerik.Sitefinity.GeoLocations.Model.Address)" +
+                    "Model.Item.");
+            
+            #line 19 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Name));
             
             #line default
             #line hidden
-            this.Write(@"))"" />
-                <div class=""mapContainer"" style=""width:500px; height:500px""></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@if (Html.Sitefinity().IsApiKeyValid())
-{
-    @Html.Script(ScriptRef.JQuery)
-    @Html.Script(""http://maps.googleapis.com/maps/api/js?key="" + Html.Sitefinity().GetApiKey() + ""&sensor=false"")
-    @Html.Script(""Telerik.Sitefinity.Resources.Reference"", ""Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js"")
-    <script type=""text/javascript"" src='@Url.WidgetContent(""~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Scripts/address-field.js"")'></script>
-}");
+            this.Write(").GetFormattedAddress(\"#=Street# #=City# #=State# #=Country#\"))\r\n        </addres" +
+                    "s>\r\n");
+            
+            #line 21 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 22 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+ if(FieldData.AddressFieldMode!=AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
+{ 
+            
+            #line default
+            #line hidden
+            this.Write("        <div>\r\n            <a class=\"viewMapLnk\">View map</a>\r\n            <div c" +
+                    "lass=\"addressMapWrp\" style=\"display:none\">\r\n                <input class=\"addres" +
+                    "sValueInput\" type=\"hidden\" value=\"@(new JavaScriptSerializer().Serialize(Model.I" +
+                    "tem.");
+            
+            #line 27 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Name));
+            
+            #line default
+            #line hidden
+            this.Write("))\" />\r\n                <div class=\"mapContainer\" style=\"width:500px; height:500p" +
+                    "x\"></div>\r\n            </div>\r\n        </div>\r\n");
+            
+            #line 31 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("    </div>\r\n\t}\r\n</div>\r\n\r\n");
+            
+            #line 36 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+ if (FieldData.AddressFieldMode!=AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
+{ 
+            
+            #line default
+            #line hidden
+            this.Write(@"@Html.Script(ScriptRef.JQuery)
+@Html.Script(""http://maps.googleapis.com/maps/api/js?key="" + Html.Sitefinity().GetApiKey() + ""&sensor=false"")
+@Html.Script(""Telerik.Sitefinity.Resources.Reference"", ""Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js"")
+<script type=""text/javascript"" src='@Url.WidgetContent(""~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Scripts/address-field.js"")'></script>
+");
+            
+            #line 42 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("@* End ");
+            
+            #line 43 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Title));
+            
+            #line default
+            #line hidden
+            this.Write(" field *@");
             return this.GenerationEnvironment.ToString();
         }
     }

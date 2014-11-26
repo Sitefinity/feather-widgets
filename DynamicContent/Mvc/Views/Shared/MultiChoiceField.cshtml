@@ -1,0 +1,7 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+<div>
+    <strong> @Model.Title :</strong>
+
+    <span data-sf-field="@Model.Name" data-sf-ftype="ChoicesDropDown">@@(((IEnumerable)Model.Item.@(Model.Name)).GetMultipleChoiceValueString())</span>   
+</div>

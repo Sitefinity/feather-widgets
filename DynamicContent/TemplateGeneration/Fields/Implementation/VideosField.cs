@@ -26,13 +26,11 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var markup = string.Format(VideosField.FieldMarkupTempalte, field.Name);
-
-            return markup;
+            return VideosField.TemplatePath;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().VideoField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"")";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/MultiVideoField.cshtml";
     }
 }

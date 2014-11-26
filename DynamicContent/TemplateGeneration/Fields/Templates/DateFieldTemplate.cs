@@ -28,35 +28,44 @@ namespace DynamicContent.TemplateGeneration.Fields.Templates
         /// </summary>
         public override string TransformText()
         {
-            this.Write("\r\n<div>\r\n    <strong> ");
+            this.Write("\r\n@* Start ");
             
-            #line 8 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\DateFieldTemplate.tt"
+            #line 7 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\DateFieldTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Title));
             
             #line default
             #line hidden
-            this.Write(" :</strong>\r\n\r\n\t@if(Model.Item.");
+            this.Write(" field *@\r\n<div>\r\n    <strong> ");
             
-            #line 10 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\DateFieldTemplate.tt"
+            #line 9 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\DateFieldTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Title));
+            
+            #line default
+            #line hidden
+            this.Write(" :</strong>\r\n\r\n    @if(Model.Item.");
+            
+            #line 11 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\DateFieldTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Name));
             
             #line default
             #line hidden
-            this.Write("!=null)\r\n\t{\r\n    <span data-sf-field=\"");
-            
-            #line 12 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\DateFieldTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\" data-sf-ftype=\"DateTime\">\r\n\t\t@(((DateTime)Model.Item.");
+            this.Write("!=null)\r\n    {\r\n    <span data-sf-field=\"");
             
             #line 13 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\DateFieldTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Name));
             
             #line default
             #line hidden
-            this.Write(").ToSitefinityUITime().ToString(\"MMM d, yyyy, HH:mm tt\"))\r\n\t</span>\r\n\t} \r\n</div>");
+            this.Write("\" data-sf-ftype=\"DateTime\">\r\n        @(((DateTime)Model.Item.@FieldData.Name).ToS" +
+                    "itefinityUITime().ToString(\"MMM d, yyyy, HH:mm tt\"))\r\n    </span>\r\n    } \r\n</div" +
+                    ">\r\n@* End ");
+            
+            #line 18 "C:\Users\eganeva\Documents\GitHub\feather-widgets\DynamicContent\TemplateGeneration\Fields\Templates\DateFieldTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(FieldData.Title));
+            
+            #line default
+            #line hidden
+            this.Write(" field *@");
             return this.GenerationEnvironment.ToString();
         }
     }

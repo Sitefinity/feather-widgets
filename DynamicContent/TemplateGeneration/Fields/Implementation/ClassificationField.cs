@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 
@@ -24,13 +25,19 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var markup = string.Format(ClassificationField.TaxonomyFieldMarkupTempalte, field.ClassificationId, field.Name, field.Title);
+            var taxonomyType = FieldExtensions.GetTaxonomyType(field.ClassificationId);
 
-            return markup;
+            if (taxonomyType == Telerik.Sitefinity.Taxonomies.Model.TaxonomyType.Flat)
+                return ClassificationField.FlatTaxonomyTemplatePath;
+            else if (taxonomyType == Telerik.Sitefinity.Taxonomies.Model.TaxonomyType.Hierarchical)
+                return ClassificationField.HierarchicalTaxonomyTemplatePath;
+
+            return null;
         }
 
-        private const string TaxonomyFieldMarkupTempalte = @"@Html.Sitefinity().TaxonomyField((object)Model.Item.{1}, new Guid(""{0}""), ""{1}"", fieldTitle: ""{2}"")";
+        private const string FlatTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/FlatTaxonomyField.cshtml";
+        private const string HierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/HierarchicalTaxonomyField.cshtml";
     }
 }

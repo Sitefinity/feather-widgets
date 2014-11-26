@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace DynamicContent.TemplateGeneration.Fields.Implementation
@@ -23,13 +24,11 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var fieldContent = new DateFieldTemplate();
-            fieldContent.FieldData = field;
-            var markup = fieldContent.TransformText();
-
-            return markup;
+            return DateField.TemplatePath;
         }
+
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/DateField.cshtml";
     }
 }

@@ -1,0 +1,11 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+<div>
+    <strong> @Model.Title :</strong>
+
+    @@if(Model.Item.@(Model.Name)!=null)
+    {
+    <span>@@Model.Item.@(Model.Name)</span>   
+    <span>@Model.NumberUnit</span>
+    }
+</div>

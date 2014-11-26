@@ -26,22 +26,22 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var markup = string.Empty;
+            var path = string.Empty;
             if (field.AllowMultipleImages)
             {
-                markup = string.Format(ImagesField.MultiImageFieldMarkupTempalte, field.Name);
+                path = string.Format(ImagesField.MultiImageTemplatePath, field.Name);
             }
             else
             {
-                markup = string.Format(ImagesField.SingleImageFieldMarkupTempalte, field.Name);
+                path = string.Format(ImagesField.SingleImageTemplatePath, field.Name);
             }
 
-            return markup;
+            return path;
         }
 
-        private const string SingleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)Model.Item.{0}).FirstOrDefault(), ""{0}"")";
-        private const string MultiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)Model.Item.{0}, ""{0}"")";
+        private const string SingleImageTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/ImageField.cshtml";
+        private const string MultiImageTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/MultiImageField.cshtml";
     }
 }
