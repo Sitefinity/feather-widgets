@@ -60,26 +60,19 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         /// <inheritdoc/>
         protected override string GetTemplatePath(DynamicModuleField field)
         {
-            return this.FindRelatedDataFieldTemplatePath(field.FrontendWidgetTypeName, field.FrontendWidgetLabel, field.FieldNamespace, field.RelatedDataType, field.RelatedDataProvider, field.Name, field.CanSelectMultipleItems);
+            return this.FindRelatedDataFieldTemplatePath(field.RelatedDataType, field.CanSelectMultipleItems);
         }
 
         /// <summary>
         /// Builds the related data field template.
         /// </summary>
-        /// <param name="frontendWidgetTypeName">Name of the frontend widget type.</param>
-        /// <param name="frontendWidgetLabel">The frontend widget label.</param>
-        /// <param name="parentTypeName">Name of the parent type.</param>
         /// <param name="childTypeName">Name of the child type.</param>
-        /// <param name="childTypeProviderName">Name of the child type provider.</param>
-        /// <param name="fieldName">Name of the field.</param>
         /// <param name="isMasterView">if set to <c>true</c> is master view.</param>
         /// <returns></returns>
-        protected string FindRelatedDataFieldTemplatePath(string frontendWidgetTypeName, string frontendWidgetLabel, string parentTypeName, string childTypeName, string childTypeProviderName, string fieldName, bool isMasterView)
+        protected string FindRelatedDataFieldTemplatePath(string childTypeName, bool isMasterView)
         {
             var childType = TypeResolutionService.ResolveType(childTypeName, false);
-            var identifierField = RelatedDataHelper.GetRelatedTypeIdentifierField(childTypeName);
             var templateMarkup = this.GetInlineFieldTemplatePath(isMasterView, childType);
-            //var result = string.Format(template, fieldName, identifierField, frontendWidgetLabel);
 
             return templateMarkup;
         }
@@ -105,19 +98,19 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
 
         internal const string InlineControlValue = "inline";
 
-        private const string InlineSingleItem = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedDataSingleField.cshtml";
-        private const string InlineListItem = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedDataInlineListField.cshtml";
+        private const string InlineSingleItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedDataSingleField.cshtml";
+        private const string InlineListItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedDataInlineListField.cshtml";
 
-        private const string InlineSinglePage = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedPageSingleField.cshtml";
-        private const string InlinePageList = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedPageInlineListField.cshtml";
+        private const string InlineSinglePage = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedPageSingleField.cshtml";
+        private const string InlinePageList = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedPageInlineListField.cshtml";
 
-        private const string InlineSingleImageItem = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedImageSingleField.cshtml";
-        private const string InlineImageListItem = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedImageInlineListField.cshtml";
+        private const string InlineSingleImageItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedImageSingleField.cshtml";
+        private const string InlineImageListItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedImageInlineListField.cshtml";
 
-        private const string InlineSingleVideoItem = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedVideoSingleField.cshtml";
-        private const string InlineVideoListItem = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedVideoInlineListField.cshtml";
+        private const string InlineSingleVideoItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedVideoSingleField.cshtml";
+        private const string InlineVideoListItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedVideoInlineListField.cshtml";
 
-        private const string InlineSingleDocumentItem = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedDocumentSingleField.cshtml";
-        private const string InlineDocumentListItem = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/RelatedDocumentInlineListField.cshtml";
+        private const string InlineSingleDocumentItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedDocumentSingleField.cshtml";
+        private const string InlineDocumentListItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedDocumentInlineListField.cshtml";
     }
 }

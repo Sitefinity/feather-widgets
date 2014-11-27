@@ -27,6 +27,6 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return PriceField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/PriceField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/PriceField.cshtml";
     }
 }

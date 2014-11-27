@@ -29,6 +29,6 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return YesNoField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/YesNoField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/YesNoField.cshtml";
     }
 }

@@ -50,7 +50,7 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
                     break;
             }
 
-            var path = this.FindRelatedDataFieldTemplatePath(field.FrontendWidgetTypeName, field.FrontendWidgetLabel, field.FieldNamespace, childItemTypeName, field.RelatedDataProvider, field.Name, isMasterView);
+            var path = this.FindRelatedDataFieldTemplatePath(childItemTypeName, isMasterView);
 
             return path;
         }

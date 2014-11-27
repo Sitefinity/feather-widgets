@@ -40,7 +40,7 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return path;
         }
 
-        private const string MultiChoiceTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/MultiChoiceField.cshtml";
-        private const string SingleChoiceTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/SingleChoiceField.cshtml";
+        private const string MultiChoiceTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/MultiChoiceField.cshtml";
+        private const string SingleChoiceTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/SingleChoiceField.cshtml";
     }
 }

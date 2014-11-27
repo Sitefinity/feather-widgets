@@ -10,7 +10,6 @@ using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Install;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
-using DynamicContent.TemplateGeneration.Fields.Templates;
 
 namespace DynamicContent
 {
@@ -29,7 +28,6 @@ namespace DynamicContent
             DynamicWidgetInitializer.RegisterDynamicTemplatableControl();
 
             DynamicWidgetInitializer.RegisterFields();
-            DynamicWidgetInitializer.RegisterFieldTemplates();
         }
 
         private static void RegisterFields()
@@ -49,25 +47,6 @@ namespace DynamicContent
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(ClassificationField), typeof(ClassificationField).Name, new ContainerControlledLifetimeManager());
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(RelatedMediaField), typeof(RelatedMediaField).Name, new ContainerControlledLifetimeManager());
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(RelatedDataField), typeof(RelatedDataField).Name, new ContainerControlledLifetimeManager());
-        }
-
-        private static void RegisterFieldTemplates()
-        {
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(LongTextAreaField), typeof(LongTextAreaField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(ImagesField), typeof(ImagesField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(ShortTextField), typeof(ShortTextField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(MultipleChoiceField), typeof(MultipleChoiceField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(YesNoField), typeof(YesNoField).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(DateFieldTemplate), typeof(DateField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(NumberField), typeof(NumberField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(PriceField), typeof(PriceField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(LongRichTextField), typeof(LongRichTextField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(VideosField), typeof(VideosField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(DocumentsField), typeof(DocumentsField).Name, new ContainerControlledLifetimeManager());
-            ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(AddressFieldTemplate), typeof(AddressField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(ClassificationField), typeof(ClassificationField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(RelatedMediaField), typeof(RelatedMediaField).Name, new ContainerControlledLifetimeManager());
-            //ObjectFactory.Container.RegisterType(typeof(FieldTemplate), typeof(RelatedDataField), typeof(RelatedDataField).Name, new ContainerControlledLifetimeManager());
         }
 
         /// <summary>

@@ -1,0 +1,12 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+<ul>
+@@foreach (IDynamicFieldsContainer relatedItem in ((object)Model.Item).GetRelatedItems("@Model.Name").ToList<IDataItem>())
+{
+    <li class="media">
+        <a href='@@(((MediaContent)relatedItem).MediaUrl)'>
+            <img src='@@(((MediaContent)relatedItem).ThumbnailUrl)' alt='@@(((Image)relatedItem).AlternativeText)' title='@@relatedItem.GetValue("Title")' />
+        </a>
+    </li>   
+}
+</ul>

@@ -37,7 +37,7 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return ShortTextField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/ShortTextField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/ShortTextField.cshtml";
         private DynamicModuleType moduleType;
     }
 }

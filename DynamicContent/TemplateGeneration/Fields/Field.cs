@@ -1,5 +1,4 @@
-﻿using DynamicContent.TemplateGeneration.Fields.Templates;
-using System.IO;
+﻿using System.IO;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
@@ -13,14 +12,6 @@ namespace DynamicContent.TemplateGeneration.Fields
     /// </remarks>
     public abstract class Field
     {
-        /// <summary>
-        /// Gets or sets the field template.
-        /// </summary>
-        /// <value>
-        /// The field template.
-        /// </value>
-        public FieldTemplate FieldTemplate { get; set; }
-
         /// <summary>
         /// Gets value determining whether current strategy should handle the markup for the specified field.
         /// </summary>

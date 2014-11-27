@@ -31,6 +31,6 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return DocumentsField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/MultiDocumentsField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/MultiDocumentsField.cshtml";
     }
 }

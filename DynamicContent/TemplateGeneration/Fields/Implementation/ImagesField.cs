@@ -41,7 +41,7 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return path;
         }
 
-        private const string SingleImageTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/ImageField.cshtml";
-        private const string MultiImageTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/MultiImageField.cshtml";
+        private const string SingleImageTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/ImageField.cshtml";
+        private const string MultiImageTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/MultiImageField.cshtml";
     }
 }

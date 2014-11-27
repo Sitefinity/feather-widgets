@@ -27,6 +27,6 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return NumberField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/NumberField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/NumberField.cshtml";
     }
 }

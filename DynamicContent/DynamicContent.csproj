@@ -149,22 +149,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TemplateGeneration\Fields\Templates\AddressFieldTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AddressFieldTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TemplateGeneration\Fields\Templates\DateFieldTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DateFieldTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TemplateGeneration\Fields\Templates\FieldTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FieldTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TemplateGeneration\Fields\Templates\FieldTemplateExtend.cs" />
+    <Compile Include="Mvc\Helpers\RelatedDataExtensions.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\AddressField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\ClassificationField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\DocumentsField.cs" />
@@ -200,41 +185,29 @@
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Shared\DetailTemplateContainer.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Shared\ListTemplateContainer.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\AddressField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\DateField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\FlatTaxonomyField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\LongTextAreaField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\NumberField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\MultiChoiceField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedDataInlineListField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedDataSingleField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedDocumentSingleField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedDocumentInlineListField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedPageSingleField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedPageInlineListField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedImageSingleField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedImageInlineListField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedVideoSingleField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\RelatedVideoInlineListField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\ShortTextField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\YesNoField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\LongRichTextField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\HierarchicalTaxonomyField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\PriceField.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\SingleChoiceField.cshtml" />
-    <None Include="TemplateGeneration\Fields\Templates\AddressFieldTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>AddressFieldTemplate.cs</LastGenOutput>
-    </None>
-    <None Include="TemplateGeneration\Fields\Templates\DateFieldTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DateFieldTemplate.cs</LastGenOutput>
-    </None>
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\AddressField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\DateField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\FlatTaxonomyField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\LongTextAreaField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\NumberField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiChoiceField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedDataInlineListField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedDataSingleField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedDocumentSingleField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedDocumentInlineListField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedPageSingleField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedPageInlineListField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedImageSingleField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedImageInlineListField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedVideoSingleField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedVideoInlineListField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\ShortTextField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\YesNoField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\LongRichTextField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\HierarchicalTaxonomyField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\PriceField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\SingleChoiceField.cshtml" />
     <None Include="packages.config" />
-    <None Include="TemplateGeneration\Fields\Templates\FieldTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>FieldTemplate.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -245,6 +218,7 @@
   <ItemGroup>
     <EmbeddedResource Include="TemplateGeneration\Fields\Scripts\address-field.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

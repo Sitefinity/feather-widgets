@@ -37,7 +37,7 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return null;
         }
 
-        private const string FlatTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/FlatTaxonomyField.cshtml";
-        private const string HierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/HierarchicalTaxonomyField.cshtml";
+        private const string FlatTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/FlatTaxonomyField.cshtml";
+        private const string HierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/HierarchicalTaxonomyField.cshtml";
     }
 }

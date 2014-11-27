@@ -28,6 +28,6 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return LongRichTextField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/LongRichTextField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/LongRichTextField.cshtml";
     }
 }

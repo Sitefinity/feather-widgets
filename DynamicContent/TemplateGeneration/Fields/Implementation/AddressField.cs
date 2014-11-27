@@ -1,5 +1,4 @@
-﻿using DynamicContent.TemplateGeneration.Fields.Templates;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +27,6 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
             return AddressField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/AddressField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/AddressField.cshtml";
     }
 }

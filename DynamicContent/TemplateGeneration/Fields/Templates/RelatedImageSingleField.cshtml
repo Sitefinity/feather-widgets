@@ -1,0 +1,9 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@@{{
+    var item = ((object) Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
+    if(item != null)
+    {
+        <img src='@@(((MediaContent)item).MediaUrl)' alt='@@(((Image)item).AlternativeText)' title='@@(((IDynamicFieldsContainer)item).GetValue("Title"))' />
+    }
+}}
