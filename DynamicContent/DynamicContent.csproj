@@ -208,6 +208,10 @@
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\PriceField.cshtml" />
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\SingleChoiceField.cshtml" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\ImageField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiImageField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiVideoField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiDocumentField.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
