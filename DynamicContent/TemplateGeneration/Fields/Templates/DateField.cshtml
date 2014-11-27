@@ -5,7 +5,7 @@
 
     @@if(Model.Item.@(Model.Name)!=null)
     {
-    <span data-sf-field="@Model.Name" data-sf-ftype="DateTime">
+    <span @@Html.InlineEditingFieldAttributes(@Model.Name, "DateTime")>
         @@(((DateTime)Model.Item.@(Model.Name)).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
     </span>
     } 

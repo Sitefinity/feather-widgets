@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DynamicContent.TemplateGeneration.Fields.Helpers;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Taxonomies;

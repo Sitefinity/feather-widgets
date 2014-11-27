@@ -3,5 +3,5 @@
 <div>
     <strong> @Model.Title :</strong>
 
-    <span data-sf-field="@Model.Name" data-sf-ftype="ChoicesDropDown">@@(((IEnumerable)Model.Item.@(Model.Name)).GetMultipleChoiceValueString())</span>   
+    <span @@Html.InlineEditingFieldAttributes(@Model.Name, "ChoicesDropDown")>@@(((IEnumerable)Model.Item.@(Model.Name)).GetMultipleChoiceValueString())</span>   
 </div>

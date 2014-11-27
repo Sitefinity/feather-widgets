@@ -3,7 +3,7 @@
 <div>
     <strong> @Model.Title :</strong>
 
-    <span data-sf-field="@Model.Name" data-sf-ftype="YesNo">
+    <span @@Html.InlineEditingFieldAttributes(@Model.Name, "YesNo")>
         @@(((bool)Model.Item.@(Model.Name))? Res.Get<Labels>().Yes : Res.Get<Labels>().No)
     </span> 
 </div>

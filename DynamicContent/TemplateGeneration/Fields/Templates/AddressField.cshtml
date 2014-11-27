@@ -1,8 +1,7 @@
 ﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
 
 @using Telerik.Sitefinity.DynamicModules.Builder.Model;
-@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Modules.Pages;
+@using DynamicContent.TemplateGeneration.Fields.Helpers;
 
 <div>
     <strong> @Model.Title :</strong>
@@ -10,14 +9,14 @@
 	@@if(!string.IsNullOrEmpty(Model.Item.@(Model.Name).CountryCode))
 	{
     <div> 
-@if(Model.AddressFieldMode!=AddressFieldMode.MapOnly)
-{
+    @if(Model.AddressFieldMode!=AddressFieldMode.MapOnly)
+    {
         <address>
-            @@(((Telerik.Sitefinity.GeoLocations.Model.Address)Model.Item.@(Model.Name)).GetFormattedAddress("#=Street# #=City# #=State# #=Country#"))
+            @@(((Address)Model.Item.@(Model.Name)).GetFormattedAddress("#=Street# #=City# #=State# #=Country#"))
         </address>
-}
-@if(Model.AddressFieldMode!=AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
-{
+    }
+    @if (Model.AddressFieldMode != AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
+    {
         <div>
             <a class="viewMapLnk">View map</a>
             <div class="addressMapWrp" style="display:none">
@@ -25,7 +24,7 @@
                 <div class="mapContainer" style="width:500px; height:500px"></div>
             </div>
         </div>
-}
+    }
     </div>
 	}
 </div>
