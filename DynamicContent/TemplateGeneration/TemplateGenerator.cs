@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Versioning;
+using DynamicContent.TemplateGeneration.Fields.Implementation;
 
 namespace DynamicContent.TemplateGeneration
 {
@@ -251,30 +252,11 @@ namespace DynamicContent.TemplateGeneration
 
             if (firstMediaFieldTypeImage != null)
             {
-                fieldMarkup = this.GetImageFieldMarkup(firstMediaFieldTypeImage);
+                var mainImageField = new MainImagesField();
+                fieldMarkup = mainImageField.GetMarkup(firstMediaFieldTypeImage);
             }
 
             return fieldMarkup;
-        }
-
-        /// <summary>
-        /// Gets the image field markup.
-        /// </summary>
-        /// <param name="field">The field.</param>
-        /// <returns></returns>
-        private string GetImageFieldMarkup(DynamicModuleField field)
-        {
-            var markup = string.Empty;
-            if (field.AllowMultipleImages)
-            {
-                markup = string.Format(TemplateGenerator.MultiImageFieldMarkupTempalte, field.Name);
-            }
-            else
-            {
-                markup = string.Format(TemplateGenerator.SingleImageFieldMarkupTempalte, field.Name);
-            }
-
-            return markup;
         }
 
         #endregion
@@ -294,9 +276,6 @@ namespace DynamicContent.TemplateGeneration
         private const string MainShortFieldTextForDetail = "@*MainTextFieldForDetail*@";
         private const string DynamicFieldsText = "@*GenerateFieldsSection*@";
         private const string MainPictureFieldText = "@*MainPictureSection*@";
-
-        private const string SingleImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)item.{0}).FirstOrDefault(), ""{0}"")";
-        private const string MultiImageFieldMarkupTempalte = @"@Html.Sitefinity().ImageField((IEnumerable<ContentLink>)item.{0}, ""{0}"")";
 
         #endregion
     }

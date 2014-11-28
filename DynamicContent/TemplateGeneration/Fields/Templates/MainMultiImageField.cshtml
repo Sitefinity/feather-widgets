@@ -1,0 +1,8 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+<ul>
+    @@foreach(var contentLink in (IEnumerable<ContentLink>)item.@(Model.Name))
+    {
+        <li><img src='@@contentLink.GetImage().ThumbnailUrl' alt='@@contentLink.GetImage().AlternativeText' title='@@contentLink.GetImage().Title' /></li>
+    }
+</ul>

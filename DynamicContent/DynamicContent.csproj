@@ -153,6 +153,7 @@
     <Compile Include="TemplateGeneration\Fields\Helpers\FieldExtensions.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\AddressField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\ClassificationField.cs" />
+    <Compile Include="TemplateGeneration\Fields\Implementation\MainImagesField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\DocumentsField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\VideosField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\ImagesField.cs" />
@@ -213,6 +214,8 @@
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiImageField.cshtml" />
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiVideoField.cshtml" />
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiDocumentField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MainImageField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MainMultiImageField.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
