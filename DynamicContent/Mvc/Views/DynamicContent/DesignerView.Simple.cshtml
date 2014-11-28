@@ -15,8 +15,8 @@
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())</h4>
-        <sf-provider-selector manager-type='@Model.DynamicModuleName()'
-            provider-label='@Html.Resource("Provider")'
+        <sf-provider-selector sf-manager-type='@Model.DynamicModuleName()'
+            sf-provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
         </sf-provider-selector>
 
@@ -36,11 +36,11 @@
                         @Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
 
                         <sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-                                      multiselect="true" sortable="true" master="true"
-                                      provider="properties.ProviderName.PropertyValue"
-                                      selected-ids="itemSelector.selectedItemsIds"
-                                      item-type="itemType"
-                                      identifier-field="@Model.GetIdenfierField()"></sf-list-selector>
+                                      sf-multiselect="true" sf-sortable="true" sf-master="true"
+                                      sf-provider="properties.ProviderName.PropertyValue"
+                                      sf-selected-ids="itemSelector.selectedItemsIds"
+                                      sf-item-type="itemType"
+                                      sf-identifier-field="@Model.GetIdenfierField()"></sf-list-selector>
                     </label>
                 </div>
                 <div class="radio">
@@ -48,9 +48,9 @@
                         <input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                         @Html.Resource("NarrowSelection")
-					    <sf-filter-selector query-data="additionalFilters.value"
-                            taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
-                            provider="properties.ProviderName.PropertyValue"
+					    <sf-filter-selector sf-query-data="additionalFilters.value"
+                            sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
+                            sf-provider="properties.ProviderName.PropertyValue"
                             ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
                     </label>
                 </div>
@@ -73,10 +73,11 @@
 						@Html.Resource("FromSelected").Arrange(Model.ParentModuleTypes().First().DisplayName.ToPlural().ToLower())
 
 						<sf-list-selector sf-dynamic-items-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
-									  multiselect="true" sortable="true" master="true"
-									  provider="properties.ProviderName.PropertyValue"
-									  selected-ids="parentSelector.selectedItemsIds"
-									  item-type="parentTypes[0].TypeName"></sf-list-selector>
+									  sf-multiselect="true" sf-sortable="true" sf-master="true"
+									  sf-provider="properties.ProviderName.PropertyValue"
+									  sf-selected-ids="parentSelector.selectedItemsIds"
+                                      sf-identifier-field="@Model.GetIdenfierField()"
+									  sf-item-type="parentTypes[0].TypeName"></sf-list-selector>
 					</label>
 				</div>
 				@if (Model.ParentModuleTypes().Count() == 1)
@@ -108,10 +109,11 @@
 						@Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
 
 						<sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-									  multiselect="true" sortable="true" master="true"
-									  provider="properties.ProviderName.PropertyValue"
-									  selected-ids="itemSelector.selectedItemsIds"
-									  item-type="itemType"></sf-list-selector>
+									  sf-multiselect="true" sf-sortable="true" sf-master="true"
+									  sf-provider="properties.ProviderName.PropertyValue"
+									  sf-selected-ids="itemSelector.selectedItemsIds"
+                                      sf-identifier-field="@Model.GetIdenfierField()"
+									  sf-item-type="itemType"></sf-list-selector>
 					</label>
 				</div>
 				
@@ -126,9 +128,9 @@
 						<label for="filterItems" class="full-width">
 							<input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 							@Html.Resource("SelectionOfItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
-							<sf-filter-selector query-data="additionalFilters.value"
-								taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
-								provider="properties.ProviderName.PropertyValue"
+							<sf-filter-selector sf-query-data="additionalFilters.value"
+								sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
+								sf-provider="properties.ProviderName.PropertyValue"
 								ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
 						</label>
 					</div>
@@ -233,7 +235,7 @@
                         @Html.Resource("ShowInExistingPage")<br />
                         <sf-list-selector
                             sf-page-selector
-                            selected-item-id="properties.DetailsPageId.PropertyValue"
+                            sf-selected-item-id="properties.DetailsPageId.PropertyValue"
                             ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
                     </span>
                 </label>

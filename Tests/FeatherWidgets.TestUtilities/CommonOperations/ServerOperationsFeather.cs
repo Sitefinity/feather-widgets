@@ -82,6 +82,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Entry point for Dynamic modules All types operations.
+        /// </summary>
+        /// <returns>DynamicModuleAllTypesOperations instance.</returns>
+        public static DynamicModuleAllTypesOperations DynamicModuleAllTypes()
+        {
+            return new DynamicModuleAllTypesOperations();
+        }
+
+        /// <summary>
         /// Entry point for Booking dynamic module common operations.
         /// </summary>
         /// <returns>DynamicModuleBookingOperations instance.</returns>
@@ -97,6 +106,24 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public static TagsOperations Tags()
         {
             return new TagsOperations();
+        }
+
+        /// <summary>
+        /// Entry point for common operations related to Module1 dynamic module
+        /// </summary>
+        /// <returns></returns>
+        public static DynamicModuleModule1Operations DynamicModule1Operations()
+        {
+            return new DynamicModuleModule1Operations();
+        }
+
+        /// <summary>
+        /// Entry point for common operations related to Module2 dynamic module
+        /// </summary>
+        /// <returns></returns>
+        public static DynamicModuleModule2Operations DynamicModule2Operations()
+        {
+            return new DynamicModuleModule2Operations();
         }
     }
 }

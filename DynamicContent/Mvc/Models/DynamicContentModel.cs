@@ -28,6 +28,9 @@ namespace DynamicContent.Mvc.Models
         public string SerializedSelectedParentsIds { get; set; }
 
         /// <inheritdoc />
+        public bool ShowListViewOnEmpyParentFilter { get; set; }
+
+        /// <inheritdoc />
         public override IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel)
         {
             if (this.ContentType != null)

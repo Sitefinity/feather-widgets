@@ -237,5 +237,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlSelect>("id=newsTemplateName", "ng-model=properties.DetailTemplateName.PropertyValue");
             }
         }
+
+        /// <summary>
+        /// Selected existing page
+        /// </summary>
+        public HtmlInputRadioButton SelectedExistingPage
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("id=existingPage", "ng-model=properties.OpenInSamePage.PropertyValue");
+            }
+        }
     }
 }
