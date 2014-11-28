@@ -1,0 +1,17 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@using Telerik.Sitefinity.Model;
+@using Telerik.Sitefinity.Libraries.Model;
+
+@@*Start @Model.Name field*@@
+<ul>
+@@foreach (MediaContent relatedItem in ((object)Model.Item).GetRelatedItems("@Model.Name").ToList<IDataItem>())
+{
+    <li class="media">
+        <video controls>
+            <source  src='@@relatedItem.MediaUrl'>
+        </video>
+    </li>   
+}
+</ul>
+@@*End @Model.Name field*@@

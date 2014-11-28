@@ -24,23 +24,23 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var markup = string.Empty;
+            var path = string.Empty;
 
             if (field.ChoiceRenderType.ToLowerInvariant() == "checkbox")
             {
-                markup = string.Format(MultipleChoiceField.FieldMarkupMultipleChoiceTempalte, field.Name, field.Title);
+                path = string.Format(MultipleChoiceField.MultiChoiceTemplatePath, field.Name, field.Title);
             }
             else
             {
-                markup = string.Format(MultipleChoiceField.FieldMarkupSingleChoiceTempalte, field.Name, field.Title);
+                path = string.Format(MultipleChoiceField.SingleChoiceTemplatePath, field.Name, field.Title);
             }
 
-            return markup;
+            return path;
         }
 
-        private const string FieldMarkupMultipleChoiceTempalte = @"@Html.Sitefinity().ChoiceField((IEnumerable)Model.Item.{0}, ""{0}"", fieldTitle: ""{1}"", cssClass: ""sfitemChoices"")";
-        private const string FieldMarkupSingleChoiceTempalte = @"@Html.Sitefinity().ChoiceField((string)Model.Item.{0}, ""{0}"", fieldTitle: ""{1}"", cssClass: ""sfitemChoices"")";
+        private const string MultiChoiceTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/MultiChoiceField.cshtml";
+        private const string SingleChoiceTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/SingleChoiceField.cshtml";
     }
 }

@@ -1,0 +1,19 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@using DynamicContent.TemplateGeneration.Fields.Helpers;
+
+@@*Start @Model.Name field*@@
+<div>
+    <strong> @Model.FrontendWidgetLabel :</strong>
+    
+    @@{{
+        var item = ((object) Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
+        if(item != null)
+        {
+            <a href='@@RelatedDataExtensions.GetDefaultUrl(item)'>
+                @@(((IDynamicFieldsContainer)item).GetValue("@(((string)Model.RelatedDataType).GetIdentifierField())"))
+            </a>
+        }
+    }}
+</div>
+@@*End @Model.Name field*@@

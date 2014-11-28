@@ -1,0 +1,41 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@using Telerik.Sitefinity.DynamicModules.Builder.Model;
+@using DynamicContent.TemplateGeneration.Fields.Helpers;
+
+@@*Start @Model.Name field*@@
+<div>
+    <strong> @Model.Title :</strong>
+
+	@@if(!string.IsNullOrEmpty(Model.Item.@(Model.Name).CountryCode))
+	{
+    <div> 
+    @if(Model.AddressFieldMode!=AddressFieldMode.MapOnly)
+    {
+        <address>
+            @@(((Address)Model.Item.@(Model.Name)).GetFormattedAddress("#=Street# #=City# #=State# #=Country#"))
+        </address>
+    }
+    @if (Model.AddressFieldMode != AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
+    {
+        <div>
+            <a class="viewMapLnk">View map</a>
+            <div class="addressMapWrp" style="display:none">
+                <input class="addressValueInput" type="hidden" value="@@(new JavaScriptSerializer().Serialize(Model.Item.@(Model.Name)))" />
+                <div class="mapContainer" style="width:500px; height:500px"></div>
+            </div>
+        </div>
+    }
+    </div>
+	}
+</div>
+
+@@if (FieldExtensions.IsApiKeyValid())
+{
+    @@Html.Script(ScriptRef.JQuery)
+    @@Html.Script("http://maps.googleapis.com/maps/api/js?key=" + FieldExtensions.GetApiKey() + "&sensor=false")
+    @@Html.Script("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js")
+    <script type="text/javascript" src='@@Url.WidgetContent("TemplateGeneration/Fields/Scripts/address-field.js", "DynamicContent")'></script>
+}
+
+@@*End @Model.Name field*@@

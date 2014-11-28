@@ -1,0 +1,14 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@using Telerik.Sitefinity.Model;
+@using Telerik.Sitefinity.Libraries.Model;
+
+@@*Start @Model.Name field*@@
+@@{{
+    var item = ((object) Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
+    if(item != null)
+    {
+        <a href='@@(((MediaContent)item).MediaUrl)'>@@(((IDynamicFieldsContainer)item).GetValue("Title"))</a>
+    }
+}}
+@@*End @Model.Name field*@@

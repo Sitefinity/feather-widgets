@@ -176,7 +176,7 @@ namespace News.Mvc.Controllers
         }
 
         /// <summary>
-        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" /> 
         /// </summary>
         /// <param name="taxonFilter">The taxonomy filter.</param>
         /// <param name="page">The page.</param>

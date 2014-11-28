@@ -32,14 +32,12 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var markup = string.Format(ShortTextField.FieldMarkupTempalte, field.Name, field.Title);
-
-            return markup;
+            return ShortTextField.TemplatePath;
         }
 
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/ShortTextField.cshtml";
         private DynamicModuleType moduleType;
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().ShortTextField((object)Model.Item.{0}, ""{0}"", fieldTitle: ""{1}"", cssClass: ""sfitemShortTxtWrp"")";
     }
 }

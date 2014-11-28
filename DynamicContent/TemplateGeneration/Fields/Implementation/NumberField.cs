@@ -22,13 +22,11 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var markup = string.Format(NumberField.FieldMarkupTempalte, field.Name, field.NumberUnit, field.Title);
-
-            return markup;
+            return NumberField.TemplatePath;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().NumberField((decimal?)Model.Item.{0}, ""{1}"", ""{0}"", fieldTitle: ""{2}"", cssClass: ""sfitemNumberWrp"")";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/NumberField.cshtml";
     }
 }
