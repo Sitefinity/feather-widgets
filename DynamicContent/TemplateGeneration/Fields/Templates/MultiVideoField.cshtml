@@ -1,5 +1,6 @@
 ﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
 
+@@*Start @Model.Name field*@@
 <ul>
     @@foreach(var contentLink in (IEnumerable<ContentLink>)Model.Item.@(Model.Name))
     {
@@ -10,3 +11,4 @@
         </li>
     }
 </ul>
+@@*End @Model.Name field*@@

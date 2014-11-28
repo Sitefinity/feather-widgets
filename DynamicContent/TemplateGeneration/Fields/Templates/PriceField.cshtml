@@ -1,5 +1,6 @@
 ﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
 
+@@*Start @Model.Name field*@@
 <div>
     <strong> @Model.Title :</strong>
 
@@ -8,3 +9,4 @@
     <span>@@(string.Format(Model.Item.@(Model.Name),"{0:C}"))</span>
     }
 </div>
+@@*End @Model.Name field*@@

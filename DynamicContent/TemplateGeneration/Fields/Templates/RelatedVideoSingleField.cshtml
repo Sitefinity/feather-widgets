@@ -3,6 +3,7 @@
 @using Telerik.Sitefinity.Model;
 @using Telerik.Sitefinity.Libraries.Model;
 
+@@*Start @Model.Name field*@@
 @@{{
     var item = ((object)Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
     if(item != null)
@@ -12,3 +13,4 @@
         </video>
     }
 }}
+@@*End @Model.Name field*@@

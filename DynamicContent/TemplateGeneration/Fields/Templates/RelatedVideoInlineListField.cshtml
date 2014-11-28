@@ -3,6 +3,7 @@
 @using Telerik.Sitefinity.Model;
 @using Telerik.Sitefinity.Libraries.Model;
 
+@@*Start @Model.Name field*@@
 <ul>
 @@foreach (MediaContent relatedItem in ((object)Model.Item).GetRelatedItems("@Model.Name").ToList<IDataItem>())
 {
@@ -13,3 +14,4 @@
     </li>   
 }
 </ul>
+@@*End @Model.Name field*@@
