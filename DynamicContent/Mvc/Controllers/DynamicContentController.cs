@@ -22,6 +22,7 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 
 namespace DynamicContent.Mvc.Controllers
 {
@@ -271,7 +272,16 @@ namespace DynamicContent.Mvc.Controllers
             {
                 this.InitializeListViewBag("/{0}");
 
-                var viewModel = this.Model.CreateListViewModel(null, 1);
+                ContentListViewModel viewModel;
+                if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen)
+                {
+                    viewModel = this.Model.CreateListViewModel(null, 1);
+                }
+                else
+                {
+                    viewModel = this.Model.CreateListViewModelByParent(item.SystemParentItem, 1);
+                }
+
                 ((DynamicContentListViewModel)viewModel).SelectedItem = (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)DynamicModuleManager.GetManager().Lifecycle.GetLive(item);
 
                 if (SystemManager.CurrentHttpContext != null)
@@ -378,7 +388,7 @@ namespace DynamicContent.Mvc.Controllers
             {
                 var errorMessage = string.Empty;
                 if (SystemManager.IsDesignMode || SystemManager.IsPreviewMode)
-                { 
+                {
                     errorMessage = Res.Get<DynamicContentResources>().DeletedModuleWarning;
                 }
 
