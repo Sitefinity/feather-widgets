@@ -13,8 +13,8 @@
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("NewsToDisplay")</h4>
 
-        <sf-provider-selector manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
-            provider-label='@Html.Resource("Provider")'
+        <sf-provider-selector sf-manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
+            sf-provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
         </sf-provider-selector>
 
@@ -33,9 +33,9 @@
                 </label>
                 <div class="label-content">
                     <sf-list-selector sf-news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-                                  multiselect="true" sortable="true"
-                                  provider="properties.ProviderName.PropertyValue"
-                                  selected-ids ="newsSelector.selectedItemsIds"></sf-list-selector>
+                                  sf-multiselect="true" sf-sortable="true"
+                                  sf-provider="properties.ProviderName.PropertyValue"
+                                  sf-selected-ids ="newsSelector.selectedItemsIds"></sf-list-selector>
 
                 </div>
             </div>
@@ -44,9 +44,9 @@
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
-					<sf-filter-selector query-data="additionalFilters.value"
-                        taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
-                        provider="properties.ProviderName.PropertyValue"
+					<sf-filter-selector sf-query-data="additionalFilters.value"
+                        sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
+                        sf-provider="properties.ProviderName.PropertyValue"
                         ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
                 </label>
             </div>
@@ -147,7 +147,7 @@
                         @Html.Resource("ShowInExistingPage")<br />
                         <sf-list-selector
                             sf-page-selector
-                            selected-item-id="properties.DetailsPageId.PropertyValue"
+                            sf-selected-item-id="properties.DetailsPageId.PropertyValue"
                             ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
                     </span>
                 </label>

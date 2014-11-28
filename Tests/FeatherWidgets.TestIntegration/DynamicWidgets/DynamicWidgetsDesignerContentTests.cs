@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             finally
             {
                 this.pageOperations.DeletePages();
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
         }
@@ -107,7 +107,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
         }
@@ -151,7 +151,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
         }
@@ -228,7 +228,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
         }
@@ -317,7 +317,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                ServerOperationsFeather.DynamicModulePressArticle().DeletePressArticle(dynamicCollection);
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
             }
         }

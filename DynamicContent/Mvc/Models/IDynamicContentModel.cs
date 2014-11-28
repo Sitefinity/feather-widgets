@@ -174,6 +174,11 @@ namespace DynamicContent.Mvc.Models
         RelationDirection RelationTypeToDisplay { get; set; }
 
         /// <summary>
+        /// Checks if list view should be displayed if ParentFilterMode is CurrentlyOpen, but parent cannot be resolved from the URL.
+        /// </summary>
+        bool ShowListViewOnEmpyParentFilter { get; set; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
         IEnumerable<IContentLocationInfo> GetLocations();

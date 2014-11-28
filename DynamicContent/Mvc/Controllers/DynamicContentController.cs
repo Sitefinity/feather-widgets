@@ -30,7 +30,7 @@ namespace DynamicContent.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DynamicContentResources))]
     [ControllerMetadataAttribute(IsTemplatableControl = false)]
-    public class DynamicContentController : Controller, ISelfRoutingController, IContentLocatableView
+    public class DynamicContentController : Controller, ISelfRoutingController, IContentLocatableView, IDynamicContentWidget
     {
         #region Properties
 
@@ -149,7 +149,7 @@ namespace DynamicContent.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen)
+            if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen || this.Model.ShowListViewOnEmpyParentFilter)
             {
                 this.InitializeListViewBag("/{0}");
 
