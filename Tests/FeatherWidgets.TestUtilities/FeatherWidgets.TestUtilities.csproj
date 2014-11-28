@@ -117,6 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonOperations\DynamicModules\DynamicModuleAllTypesOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleBookingOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleModule1Operations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleModule2Operations.cs" />
@@ -144,6 +145,7 @@
     <EmbeddedResource Include="Data\NewsWidget\Detail.DetailPageRelatedData.cshtml" />
     <EmbeddedResource Include="Data\DynamicModules\Module1.zip" />
     <EmbeddedResource Include="Data\DynamicModules\Module2.zip" />
+    <EmbeddedResource Include="Data\DynamicModules\AllTypesModule.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

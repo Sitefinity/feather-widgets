@@ -82,6 +82,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Entry point for Dynamic modules All types operations.
+        /// </summary>
+        /// <returns>DynamicModuleAllTypesOperations instance.</returns>
+        public static DynamicModuleAllTypesOperations DynamicModuleAllTypes()
+        {
+            return new DynamicModuleAllTypesOperations();
+        }
+
+        /// <summary>
         /// Entry point for Booking dynamic module common operations.
         /// </summary>
         /// <returns>DynamicModuleBookingOperations instance.</returns>
