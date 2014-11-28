@@ -43,24 +43,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             return colorItem.Id;
         }
 
-        /// <summary>
-        /// Returns the Id of a color by given title.
-        /// </summary>
-        /// <param name="color">The color title.</param>
-        /// <returns>The color Id.</returns>
-        public Guid GetColorIdByTitle(string color)
-        {
-            DynamicModuleManager relatedColorManager = DynamicModuleManager.GetManager();
-            var colorType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Module1.Color");
-            var colorItem = relatedColorManager.GetDataItems(colorType).Where("Title = \"color\"").First();
-            if (colorItem == null)
-            {
-                throw new ArgumentNullException(color);
-            }
-
-            return colorItem.Id;
-        }
-
         private static string urlNameCharsToReplace = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
         private static string urlNameReplaceString = "-";
     }
