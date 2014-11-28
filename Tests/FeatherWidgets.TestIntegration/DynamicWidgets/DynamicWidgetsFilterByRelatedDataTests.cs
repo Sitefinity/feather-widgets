@@ -18,48 +18,53 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
     /// <summary>
     /// This is a test class with tests related to dynamic widgets and filtering by related data.
     /// </summary>
+    [TestFixture]
     public class DynamicWidgetsFilterByRelatedDataTests
     {
         [FixtureSetUp]
         public void Setup()
         {
             ServerOperationsFeather.DynamicModules().ImportModule(Module1Resource);
-            ServerOperations.ModuleBuilder().ActivateModule(Module1Resource, this.providerName, TransactionName);
+            ServerOperations.ModuleBuilder().ActivateModule(Module1Name, this.providerName, TransactionName);
             ServerOperationsFeather.DynamicModules().ImportModule(Module2Resource);
-            ServerOperations.ModuleBuilder().ActivateModule(Module2Resource, this.providerName, TransactionName);
-
-            string[] colors = new string[] { "purple", "pink", "red", "green", "black", "yellow", "blue" };
-
-            foreach (var color in colors)
-            {
-                ServerOperationsFeather.DynamicModule1Operations().CreateColor(color);
-            }
+            ServerOperations.ModuleBuilder().ActivateModule(Module2Name, this.providerName, TransactionName);
         }
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Adds 2 MVC dynamic widgets on page and add child relation to one of the widgets, then verify the filtering on the frontend")]
-        [Ignore("not finished because of a bug")]
+        [Ignore("Ignored because of a bug")]
         public void DynamicWidgets_ChildRelationType_DisplayRelatedItemsOnFrontend()
         {
+            string url;
+            string responseContent;
+            string expectedContent;
+            string pageName = "FeatherPage";
+            string pageUrl = "featherpage";
+            string item1 = "item1";
+            string item2 = "item2";
+
+            Guid id = Guid.NewGuid();
+            this.ids = new List<Guid>();
+
+            foreach (var color in this.colors)
+            {
+                id = ServerOperationsFeather.DynamicModule1Operations().CreateColor(color);
+                this.ids.Add(id);
+            }
+
             try
             {
-                var colorBlueId = ServerOperationsFeather.DynamicModule1Operations().GetColorIdByTitle("blue");
-                var colorGreenId = ServerOperationsFeather.DynamicModule1Operations().GetColorIdByTitle("green");
+                Guid[] item1RelatedIds = new Guid[] { this.ids[0], this.ids[1] };
 
-                Guid[] item1RelatedIds = new Guid[2] { colorBlueId, colorGreenId };
-              
-                ServerOperationsFeather.DynamicModule2Operations().CreateItem("item1", item1RelatedIds);
+                ServerOperationsFeather.DynamicModule2Operations().CreateItem(item1, item1RelatedIds);
 
-                var colorRedId = ServerOperationsFeather.DynamicModule1Operations().GetColorIdByTitle("red");
-                var colorYellowId = ServerOperationsFeather.DynamicModule1Operations().GetColorIdByTitle("yellow");
+                Guid[] item2RelatedIds = new Guid[] { this.ids[2], this.ids[3] };
 
-                Guid[] item2RelatedIds = new Guid[2] { colorRedId, colorYellowId };
+                ServerOperationsFeather.DynamicModule2Operations().CreateItem(item2, item2RelatedIds);
 
-                ServerOperationsFeather.DynamicModule2Operations().CreateItem("item2", item2RelatedIds);
-
-                this.pageId = ServerOperations.Pages().CreatePage(PageName);
+                this.pageId = ServerOperations.Pages().CreatePage(pageName);
 
                 var itemsWidget = this.CreateMvcWidget(ResolveTypeItem, WidgetNameItem);
                 var colorsWidget = this.CreateMvcWidget(ResolveTypeColor, WidgetNameColor, RelatedFieldName, ResolveTypeItem);
@@ -70,19 +75,35 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 PageContentGenerator.AddControlsToPage(this.pageId, controls);
 
-                string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + "/item1");
-                string responseContent = PageInvoker.ExecuteWebRequest(url);
-                string expectedContent1 = "<a href=" + "/" + "test/blue" + ">";
-                string expectedContent2 = "<a href=" + "/" + "test/green" + ">";
-                Assert.IsTrue(responseContent.Contains(expectedContent1));
-                Assert.IsTrue(responseContent.Contains(expectedContent2));
-
-                url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + "/item2");
+                url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item1);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
-                expectedContent1 = "<a href=" + "/" + "test/red" + ">";
-                expectedContent2 = "<a href=" + "/" + "test/yellow" + ">";
-                Assert.IsTrue(responseContent.Contains(expectedContent1));
-                Assert.IsTrue(responseContent.Contains(expectedContent2));
+
+                expectedContent = "<a href=" + "/" + pageUrl + "/" + this.colors[0] + ">";
+                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[0] + "was not found on the frontend");
+
+                expectedContent = "<a href=" + "/" + pageUrl + "/" + this.colors[1] + ">";
+                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[1] + "was not found on the frontend");
+
+                expectedContent = "<a href=" + "/" + pageUrl + "/" + this.colors[2] + ">";
+                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[2] + "was found on the frontend, but it shouldn't");
+
+                expectedContent = "<a href=" + "/" + pageUrl + "/" + this.colors[5] + ">";
+                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[5] + "was found on the frontend, but it shouldn't");
+
+                url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item2);
+                responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                expectedContent = "<a href=" + "/" + pageUrl + "/" + this.colors[2] + ">";
+                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[2] + "was not found on the frontend");
+
+                expectedContent = "<a href=" + "/" + pageUrl + "/" + this.colors[3] + ">";
+                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[3] + "was not found on the frontend");
+
+                expectedContent = "<a href=" + "/" + pageUrl + "/" + this.colors[0] + ">";
+                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[0] + "was found on the frontend, but it shouldn't");
+
+                expectedContent = "<a href=" + "/" + pageUrl + "/" + this.colors[5] + ">";
+                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[5] + "was found on the frontend, but it shouldn't");                
             }
             finally
             {
@@ -124,6 +145,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         private const string RelatedFieldName = "RelatedColor";
         private Guid pageId = Guid.Empty;
         private string providerName = string.Empty;
-        private const string PageName = "FeatherPage";
+        private List<Guid> ids;
+        private string[] colors = new string[] { "blue", "yellow", "red", "green", "black", "purple", "pink" };
     }
 }
