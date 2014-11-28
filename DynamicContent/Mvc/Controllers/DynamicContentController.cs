@@ -149,7 +149,7 @@ namespace DynamicContent.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen)
+            if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen || this.Model.ShowListViewOnEmpyParentFilter)
             {
                 this.InitializeListViewBag("/{0}");
 
@@ -271,7 +271,16 @@ namespace DynamicContent.Mvc.Controllers
             {
                 this.InitializeListViewBag("/{0}");
 
-                var viewModel = this.Model.CreateListViewModel(null, 1);
+                DynamicContentListViewModel viewModel;
+                if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen)
+                {
+                    viewModel = this.Model.CreateListViewModel(null, 1);
+                }
+                else
+                {
+                    viewModel = this.Model.CreateListViewModelByParent(item.SystemParentItem, 1);
+                }
+                
                 ((DynamicContentListViewModel)viewModel).SelectedItem = (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)DynamicModuleManager.GetManager().Lifecycle.GetLive(item);
 
                 if (SystemManager.CurrentHttpContext != null)
