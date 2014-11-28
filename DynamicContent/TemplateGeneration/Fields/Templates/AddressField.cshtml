@@ -3,6 +3,7 @@
 @using Telerik.Sitefinity.DynamicModules.Builder.Model;
 @using DynamicContent.TemplateGeneration.Fields.Helpers;
 
+@@*Start @Model.Name field*@@
 <div>
     <strong> @Model.Title :</strong>
 
@@ -28,3 +29,13 @@
     </div>
 	}
 </div>
+
+@@if (FieldExtensions.IsApiKeyValid())
+{
+    @@Html.Script(ScriptRef.JQuery)
+    @@Html.Script("http://maps.googleapis.com/maps/api/js?key=" + FieldExtensions.GetApiKey() + "&sensor=false")
+    @@Html.Script("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js")
+    <script type="text/javascript" src='@@Url.WidgetContent("TemplateGeneration/Fields/Scripts/address-field.js", "DynamicContent")'></script>
+}
+
+@@*End @Model.Name field*@@

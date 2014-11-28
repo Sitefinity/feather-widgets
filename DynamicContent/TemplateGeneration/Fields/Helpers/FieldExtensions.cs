@@ -82,10 +82,9 @@ namespace DynamicContent.TemplateGeneration.Fields.Helpers
         /// <summary>
         /// Gets the API key.
         /// </summary>
-        /// <param name="helper">The helper.</param>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "helper"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api")]
-        public static string GetApiKey(this HtmlHelper helper)
+        public static string GetApiKey()
         {
             var apiKey = Telerik.Sitefinity.Configuration.Config.Get<Telerik.Sitefinity.Services.SystemConfig>().GeoLocationSettings.GoogleMapApiV3Key;
 
@@ -95,7 +94,6 @@ namespace DynamicContent.TemplateGeneration.Fields.Helpers
         /// <summary>
         /// Determines whether the API key valid.
         /// </summary>
-        /// <param name="helper">The helper.</param>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "helper"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api")]
         public static bool IsApiKeyValid()
