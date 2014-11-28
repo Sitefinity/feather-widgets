@@ -177,7 +177,7 @@
     <Compile Include="TemplateGeneration\Fields\Implementation\PriceField.cs" />
     <Compile Include="TemplateGeneration\Fields\Implementation\ShortTextField.cs" />
     <Compile Include="InterfaceMappings.cs" />
-    <Compile Include="MvcWidgetInstallationStrategy.cs" />
+    <Compile Include="MvcWidgetInstaller.cs" />
     <Compile Include="Mvc\Controllers\DynamicContentController.cs" />
     <Compile Include="Mvc\Models\DynamicContentListViewModel.cs" />
     <Compile Include="Mvc\Models\DynamicContentModel.cs" />

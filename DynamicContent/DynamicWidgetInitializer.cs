@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using DynamicContent.Mvc.Controllers;
 using DynamicContent.TemplateGeneration.Fields;
 using DynamicContent.TemplateGeneration.Fields.Implementation;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.DynamicModules.Builder;
-using Telerik.Sitefinity.DynamicModules.Builder.Install;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 
@@ -23,7 +23,7 @@ namespace DynamicContent
         /// </summary>
         public static void Initialize() 
         {
-            ObjectFactory.Container.RegisterType<IWidgetInstallationStrategy, MvcWidgetInstallationStrategy>(new ContainerControlledLifetimeManager());
+            DynamicWidgetInitializer.mvcWidgetInstaller = new MvcWidgetInstaller();
 
             DynamicWidgetInitializer.RegisterDynamicTemplatableControl();
 
@@ -87,5 +87,7 @@ namespace DynamicContent
 
             return activeModuleTypes.ToList();
         }
+
+        private static MvcWidgetInstaller mvcWidgetInstaller;
     }
 }
