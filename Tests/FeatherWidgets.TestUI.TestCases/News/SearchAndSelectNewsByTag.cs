@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         public void VerifyNewsOnTheFrontend()
         {
-            string[] newsTitles = new string[] { NewsTitle + 1, NewsTitle + 2};
+            string[] newsTitles = new string[] { NewsTitle + 2, NewsTitle + 1};
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
             BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(newsTitles);
