@@ -57,5 +57,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             return new ModuleBuilderWrapperFacade();
         }
+
+        /// <summary>
+        /// Commons this instance.
+        /// </summary>
+        /// <returns></returns>
+        public CommonFacade Common()
+        {
+            return new CommonFacade();
+        }
     }
 }

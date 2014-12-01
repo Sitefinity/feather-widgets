@@ -248,5 +248,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
                 return this.Get<HtmlInputRadioButton>("id=existingPage", "ng-model=properties.OpenInSamePage.PropertyValue");
             }
         }
+
+        /// <summary>
+        /// Gets the provider drop down.
+        /// </summary>
+        /// <value>The provider drop down.</value>
+        public HtmlAnchor ProviderDropDown
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=btn btn-default dropdown-toggle ng-binding");
+            }
+        }
+
+        /// <summary>
+        /// Gets the providers list.
+        /// </summary>
+        /// <value>The providers list.</value>
+        public HtmlUnorderedList ProvidersList
+        {
+            get
+            {
+                return this.Get<HtmlUnorderedList>("class=dropdown-menu");
+            }
+        }
     }
 }
