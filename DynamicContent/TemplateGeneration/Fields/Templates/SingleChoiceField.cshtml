@@ -4,6 +4,11 @@
 <div>
     <strong> @Model.Title :</strong>
 
-    <span @@Html.InlineEditingFieldAttributes("@Model.Name", "ChoicesRadioButtons")>@@Model.Item.@(Model.Name)</span>
+    @@if(Model.Item.@(Model.Name) != null)
+    {
+        <span @@Html.InlineEditingFieldAttributes("@Model.Name", "ChoicesRadioButtons")>
+            @@Model.Item.GetChoiceLabel("@Model.Name", new Guid(field.ParentTypeId))
+        </span>
+    }
 </div>
 @@*End @Model.Name field*@@

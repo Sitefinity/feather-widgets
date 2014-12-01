@@ -7,7 +7,7 @@
     @@if(Model.Item.@(Model.Name)!=null)
     {
     <span @@Html.InlineEditingFieldAttributes("@Model.Name", "DateTime")>
-        @@(((DateTime)Model.Item.@(Model.Name)).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+        @@Model.Item.GetDateTime("@Model.Name", "MMM d, yyyy, HH:mm tt")
     </span>
     } 
 </div>

@@ -13,7 +13,7 @@
     @if(Model.AddressFieldMode!=AddressFieldMode.MapOnly)
     {
         <address>
-            @@(((Address)Model.Item.@(Model.Name)).GetFormattedAddress("#=Street# #=City# #=State# #=Country#"))
+            @@Model.Item.GetFormattedAddress("@Model.Name", "#=Street# #=City# #=State# #=Country#")
         </address>
     }
     @if (Model.AddressFieldMode != AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())

@@ -7,7 +7,7 @@
     @@if(Model.Item.@(Model.Name)!=null)
     {
     <ul @@Html.InlineEditingFieldAttributes("@Model.Name", "FlatTaxon")>
-    @@foreach (string taxonName in ((IList<Guid>)Model.Item.@(Model.Name)).GetTaxonNames(new Guid("@(Model.ClassificationId)")))
+    @@foreach (string taxonName in Model.Item.GetFlatTaxonNames(Model.Name))
     {
         <li>@@taxonName</li>   
     }

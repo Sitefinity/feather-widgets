@@ -6,7 +6,7 @@
 
     @@if(Model.Item.@(Model.Name)!=null)
     {
-    <span>@@(string.Format(Model.Item.@(Model.Name),"{0:C}"))</span>
+    <span>@@Model.Item.GetPrice("@Model.Name","{0:C}")</span>
     }
 </div>
 @@*End @Model.Name field*@@
