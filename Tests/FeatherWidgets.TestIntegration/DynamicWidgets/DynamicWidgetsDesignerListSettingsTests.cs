@@ -395,7 +395,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify select list template functionality.")]
+        [Description("Verify select list template functionality."), Ignore]
         public void DynamicWidgetsDesignerListSettings_SetListTemplate()
         {          
             string listTemplate = "PressArticleNew";

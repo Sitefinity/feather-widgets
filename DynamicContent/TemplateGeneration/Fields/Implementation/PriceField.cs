@@ -22,14 +22,11 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var markup = string.Format(PriceField.FieldMarkupTempalte, field.Name, PriceField.CurrencyFormat);
-
-            return markup;
+            return PriceField.TemplatePath;
         }
 
-        private const string CurrencyFormat = "{0:C}";
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().PriceField((string)Model.Item.{0}, ""{0}"", ""{1}"", cssClass: ""sfitemPrice"")";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/PriceField.cshtml";
     }
 }

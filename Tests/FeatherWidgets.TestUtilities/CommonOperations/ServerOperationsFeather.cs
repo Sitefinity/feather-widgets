@@ -107,5 +107,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new TagsOperations();
         }
+
+        /// <summary>
+        /// Entry point for common operations related to Module1 dynamic module
+        /// </summary>
+        /// <returns></returns>
+        public static DynamicModuleModule1Operations DynamicModule1Operations()
+        {
+            return new DynamicModuleModule1Operations();
+        }
+
+        /// <summary>
+        /// Entry point for common operations related to Module2 dynamic module
+        /// </summary>
+        /// <returns></returns>
+        public static DynamicModuleModule2Operations DynamicModule2Operations()
+        {
+            return new DynamicModuleModule2Operations();
+        }
     }
 }

@@ -1,0 +1,17 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@@*Start @Model.Name field*@@
+<div>
+    <strong> @Model.Title :</strong>
+
+    @@if(Model.Item.@(Model.Name)!=null)
+    {
+    <ul @@Html.InlineEditingFieldAttributes("@Model.Name", "HierarchicalTaxon")>
+    @@foreach (string taxonName in ((IList<Guid>)Model.Item.@(Model.Name)).GetTaxonNames(new Guid("@(Model.ClassificationId)")))
+    {
+        <li>@@taxonName</li>   
+    }
+    </ul>
+    }
+</div>
+@@*End @Model.Name field*@@

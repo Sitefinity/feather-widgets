@@ -1,0 +1,13 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@@*Start @Model.Name field*@@
+<div>
+    @@{{
+        var item = ((IEnumerable<ContentLink>)Model.Item.@(Model.Name)).FirstOrDefault();
+        if(item != null)
+        {
+            <img src='@@item.GetImage().MediaUrl' alt='@@item.GetImage().AlternativeText' title='@@item.GetImage().Title' />
+        }
+    }}
+</div>
+@@*End @Model.Name field*@@

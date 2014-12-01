@@ -1,0 +1,5 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@@*Start @Model.Name field*@@
+<div @@Html.InlineEditingFieldAttributes("@Model.Name", "LongText")>@@Html.Raw(Model.Item.@(Model.Name))</div>
+@@*End @Model.Name field*@@

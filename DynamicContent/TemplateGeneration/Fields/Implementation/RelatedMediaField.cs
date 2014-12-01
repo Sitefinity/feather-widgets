@@ -30,7 +30,7 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
             var isMasterView = false;
             var childItemTypeName = string.Empty;
@@ -50,9 +50,9 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
                     break;
             }
 
-            var markup = string.Format(this.BuildRelatedDataFieldTemplate(field.FrontendWidgetTypeName, field.FrontendWidgetLabel, field.FieldNamespace, childItemTypeName, field.RelatedDataProvider, field.Name, isMasterView));
+            var path = this.FindRelatedDataFieldTemplatePath(childItemTypeName, isMasterView);
 
-            return markup;
+            return path;
         }
     }
 }

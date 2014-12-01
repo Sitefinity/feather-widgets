@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify all fields on page.")]
+        [Description("Verify all fields on page."), Ignore]
         public void DynamicWidgetsAllTypes_VerifyAllFieldsOnTheFrontendWhereSomeFieldsAreEmpty()
         {
             this.pageOperations = new PagesOperations();

@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ActivateAndDeactivateNewsModule arragement.
     /// </summary>
-    public class ActivateAndDeactivateNewsModule : ITestArrangement
+    public class ZActivateAndDeactivateNewsModule : ITestArrangement
     {
         /// <summary>
         /// Server side set up.

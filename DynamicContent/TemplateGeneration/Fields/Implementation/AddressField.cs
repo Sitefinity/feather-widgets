@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace DynamicContent.TemplateGeneration.Fields.Implementation
@@ -21,13 +22,11 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         }
 
         /// <inheritdoc/>
-        public override string GetMarkup(DynamicModuleField field)
+        protected override string GetTemplatePath(DynamicModuleField field)
         {
-            var longTextMarkup = string.Format(AddressField.FieldMarkupTempalte, field.Name, field.Title);
-
-            return longTextMarkup;
+            return AddressField.TemplatePath;
         }
 
-        private const string FieldMarkupTempalte = @"@Html.Sitefinity().AddressField((Address)Model.Item.{0}, ""{0}"", ""#=Street# #=City# #=State# #=Country#"", fieldTitle: ""{1}"", cssClass: ""sfitemAddressWrp"")";
+        private const string TemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/AddressField.cshtml";
     }
 }
