@@ -22,7 +22,6 @@ namespace FeatherWidgets.TestUI
         Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.NewsSelectors)]
-
         public void CheckSelectorsAfterUNPublishingNewsItem()
         {
             BAT.Macros().NavigateTo().Pages();

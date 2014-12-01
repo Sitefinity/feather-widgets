@@ -95,6 +95,8 @@
     <Compile Include="Framework\ElementMap\News\NewsMap.cs" />
     <Compile Include="Framework\ElementMap\News\NewsWidgetContentScreen.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Common\CommonWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Common\CommonFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlocksWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockWidgetEditWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockWidgetShareWrapper.cs" />

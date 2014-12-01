@@ -83,11 +83,11 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
-        /// News widget - test content functionality - All news
+        /// News widget - test content functionality - Selected news
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySelectedItemsFunctionality()
         {
             int newsCount = 5;
@@ -115,11 +115,11 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
-        /// News widget - test content functionality - All news
+        /// News widget - test content functionality - Selected news with Sort News Descending
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithSortNewsDescending()
         {
             int newsCount = 10;
@@ -171,11 +171,11 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
-        /// News widget - test content functionality - All news
+        /// News widget - test content functionality -  Selected news with Paging
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithPaging()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -230,11 +230,11 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
-        /// News widget - test content functionality - All news
+        /// News widget - test content functionality -  Selected news with Use Limits
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithUseLimit()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -285,11 +285,11 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
-        /// News widget - test content functionality - All news
+        /// News widget - test content functionality -  Selected news with No Limits
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithNoLimit()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -390,7 +390,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_SelectByCategoryNewsFunctionality()
         {
             int newsCount = 4;
@@ -429,11 +429,11 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
-        /// News widget - test select by tag functionality 
+        /// News widget - test select by tag and sort news functionality 
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_SelectByTagAndSortNewsFunctionality()
         {
             int tagsCount = 3;
@@ -496,11 +496,11 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
-        /// News widget - test select by tag functionality 
+        /// News widget - test select by category and paging functionality 
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_SelectByCategoryNewsFunctionalityAndPaging()
         {       
             var newsController = new NewsController();
@@ -549,11 +549,11 @@ namespace FeatherWidgets.TestIntegration.News
         }
 
         /// <summary>
-        /// News widget - test select by tag functionality 
+        /// News widget - test select by category and limits functionality 
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_SelectByCategoryNewsFunctionalityAndLimits()
         {
             var newsController = new NewsController();
@@ -630,7 +630,7 @@ namespace FeatherWidgets.TestIntegration.News
             newsController.ListByTaxon(taxonomy, 1);
 
             Assert.IsTrue(newsController.Model.Items.Count.Equals(3), "Number of news items is not correct");
-            for (int i = 0; i >= 2; i++)
+            for (int i = 0; i <= 2; i++)
             {
                 Assert.IsTrue(newsController.Model.Items[i].Title.Equals(newsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
             }

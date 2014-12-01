@@ -2,44 +2,41 @@
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ArtOfTest.WebAii.Core;
 
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// SelectNewsItemInNewsWidgetFromPage_ test class.
+    /// SelectNewsItemFromDifferentProviderInNewsWidget test class.
     /// </summary>
     [TestClass]
-    public class SelectNewsItemInNewsWidgetFromPage_ : FeatherTestCase
+    public class SelectNewsItemFromDifferentProviderInNewsWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SelectNewsItemInNewsWidgetFromPage
+        /// UI test SelectNewsItemFromDifferentProviderInNewsWidget
         /// </summary>
         [TestMethod,
         Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.NewsSelectors)]
-        public void SelectNewsItemInNewsWidgetFromPage()
+        public void SelectNewsItemFromDifferentProviderInNewsWidget()
+
         {
+            BATFeather.Wrappers().Backend().Common().CommonWrapper().AddProviderToTheSite(Module, SecondProviderName);
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectProvider(SecondProviderName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().WaitForItemsToAppear(2);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemsInFlatSelector(NewsTitle1);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle1);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, NewsTitle2);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
             BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
         }
 
@@ -62,8 +59,11 @@ namespace FeatherWidgets.TestUI
 
         private const string PageName = "News";
         private const string NewsTitle1 = "NewsTitle1";
+        private const string NewsTitle2 = "NewsTitle2";
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Selected news";
-        private string[] newsTitles = new string[] { NewsTitle1 };
+        private readonly string[] newsTitles = new string[] { NewsTitle1 };
+        private const string SecondProviderName = "NewsSecondDataProvider";
+        private const string Module = "News_NewsManager";
     }
 }

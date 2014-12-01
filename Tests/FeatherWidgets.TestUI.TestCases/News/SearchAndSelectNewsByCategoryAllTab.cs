@@ -17,8 +17,7 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
         Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.NewsSelectors)]
-        
+        TestCategory(FeatherTestCategories.NewsSelectors)]       
         public void SearchAndSelectNewsByCategoryAllTab()
         {
             BAT.Macros().NavigateTo().Pages();
