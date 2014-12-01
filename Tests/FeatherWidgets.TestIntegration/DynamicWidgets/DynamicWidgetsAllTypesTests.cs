@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify all fields on page."), Ignore]
+        [Description("Verify all fields on page.")]
         public void DynamicWidgetsAllTypes_VerifyAllFieldsOnTheFrontendWhereSomeFieldsAreEmpty()
         {
             this.pageOperations = new PagesOperations();
@@ -78,7 +78,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         #region Fields and constants
 
-        private const string ModuleName = "Press Release";
+        private const string ModuleName = "AllTypesModule";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.AllTypesModule.zip";
         private const string ResolveType = "Telerik.Sitefinity.DynamicTypes.Model.AllTypesModule.Alltypes";
         private const string TransactionName = "Module Installations";
