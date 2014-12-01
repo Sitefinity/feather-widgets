@@ -20,7 +20,6 @@ namespace FeatherWidgets.TestUI
         TestCategory(FeatherTestCategories.NewsSelectors)]
         public void FilterNewsItemFromDifferentProviderWithCategoryOnPage()
         {
-            BATFeather.Wrappers().Backend().Common().CommonWrapper().AddProviderToTheSite(Module, SecondProviderName);
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
