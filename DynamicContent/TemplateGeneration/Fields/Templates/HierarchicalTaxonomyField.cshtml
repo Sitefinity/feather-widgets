@@ -7,7 +7,7 @@
     @@if(Model.Item.@(Model.Name)!=null)
     {
     <ul @@Html.InlineEditingFieldAttributes("@Model.Name", "HierarchicalTaxon")>
-     @@foreach (string taxonName in Model.Item.GetHierarchicalTaxonNames(Model.Name))
+     @@foreach (string taxonName in Model.Item.GetHierarchicalTaxonNames("@Model.Name"))
     {
         <li>@@taxonName</li>   
     }

@@ -35,7 +35,7 @@
                     }
                 </h3>
                 <div class="text-muted">
-                    @(((DateTime)item.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+                    @item.GetDateTime("@Model.Name", "MMM d, yyyy, HH:mm tt")
                 </div>
             </li>
         }

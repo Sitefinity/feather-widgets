@@ -7,7 +7,7 @@
     @@if(Model.Item.@(Model.Name) != null)
     {
         <span @@Html.InlineEditingFieldAttributes("@Model.Name", "ChoicesRadioButtons")>
-            @@Model.Item.GetChoiceLabel("@Model.Name", new Guid(field.ParentTypeId))
+            @@Model.Item.GetChoiceLabel("@Model.Name", new Guid(@Model.ParentTypeId))
         </span>
     }
 </div>
