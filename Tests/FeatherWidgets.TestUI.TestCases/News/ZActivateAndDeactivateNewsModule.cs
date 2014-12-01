@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI
     /// ActivateAndDeactivateNewsModule test class.
     /// </summary>
     [TestClass]
-    public class ActivateAndDeactivateNewsModule_ : FeatherTestCase
+    public class ZActivateAndDeactivateNewsModule_ : FeatherTestCase
     {
         /// <summary>
         /// UI test ActivateAndDeactivateNewsModule
@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void ActivateAndDeactivateNewsModule()
+        public void ZActivateAndDeactivateNewsModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateNewsModule");
             BAT.Macros().NavigateTo().Pages();

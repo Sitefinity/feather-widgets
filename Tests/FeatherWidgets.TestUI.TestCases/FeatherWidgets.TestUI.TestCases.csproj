@@ -132,7 +132,7 @@
     <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
     <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
-    <Compile Include="News\ActivateAndDeactivateNewsModule.cs" />
+    <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
     <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
     <Compile Include="News\ExpandPagesAndSelectChildPageForSingleItemPage.cs" />
     <Compile Include="News\FilterNewsItemWithCategoryTagAndDateOnPage.cs" />
