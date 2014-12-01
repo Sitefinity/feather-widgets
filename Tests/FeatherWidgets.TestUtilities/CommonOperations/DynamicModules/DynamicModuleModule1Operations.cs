@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="color">The color name.</param>
         /// <returns>The color id.</returns>
-        public Guid CreateColor(string color)
+        public void CreateColor(string color)
         {
             var providerName = string.Empty;
 
@@ -39,8 +39,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             dynamicModuleManager.Lifecycle.Publish(colorItem);
 
             dynamicModuleManager.SaveChanges();
-
-            return colorItem.Id;
         }
 
         private static string urlNameCharsToReplace = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
