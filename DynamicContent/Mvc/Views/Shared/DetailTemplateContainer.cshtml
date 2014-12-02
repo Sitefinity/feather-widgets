@@ -6,15 +6,14 @@
 @using DynamicContent.TemplateGeneration.Fields.Helpers;
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Data.ContentLinks;
-@using Telerik.Sitefinity.GeoLocations.Model;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Models.Fields;
 @using Telerik.Sitefinity.Libraries.Model;
 @using Telerik.Sitefinity.Localization;
 @using Telerik.Sitefinity.Model;
 @using Telerik.Sitefinity.Model.ContentLinks;
 @using Telerik.Sitefinity.Modules.Pages;
-@using Telerik.Sitefinity.Pages.Model;
-@using Telerik.Sitefinity.RelatedData; 
+@using Telerik.Sitefinity.Pages.Model; 
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id)>
     <h1 class="sfitemTitle sftitle">
