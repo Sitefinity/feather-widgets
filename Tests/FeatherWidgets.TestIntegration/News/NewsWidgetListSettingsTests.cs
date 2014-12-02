@@ -215,9 +215,12 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
 
+        /// <summary>
+        /// Newses the widget_ verify sort news descending.
+        /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySortNewsDescending()
         {
             string sortExpession = "Title DESC";
@@ -240,9 +243,12 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
 
+        /// <summary>
+        /// Newses the widget_ verify sort news by publication date descending.
+        /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySortNewsPublicationDateDescending()
         {
             string sortExpession = "PublicationDate DESC";
@@ -269,9 +275,12 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
 
+        /// <summary>
+        /// Newses the widget_ verify sort news by last modified date descending.
+        /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySortNewsLastModifiedDateDescending()
         {
             string sortExpession = "LastModified DESC";

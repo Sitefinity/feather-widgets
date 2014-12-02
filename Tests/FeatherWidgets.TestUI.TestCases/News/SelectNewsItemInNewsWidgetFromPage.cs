@@ -15,10 +15,9 @@ namespace FeatherWidgets.TestUI
         /// UI test SelectNewsItemInNewsWidgetFromPage
         /// </summary>
         [TestMethod,
-        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.NewsSelectors)]
-
         public void SelectNewsItemInNewsWidgetFromPage()
         {
             BAT.Macros().NavigateTo().Pages();

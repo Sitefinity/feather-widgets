@@ -62,9 +62,14 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
-                    if (!$scope.properties.DetailsPageId.PropertyValue ||
-                            $scope.properties.DetailsPageId.PropertyValue === '00000000-0000-0000-0000-000000000000') {
-                        $scope.properties.OpenInSamePage.PropertyValue = true;
+                    if ($scope.properties.OpenInSamePage.PropertyValue && $scope.properties.OpenInSamePage.PropertyValue.toLowerCase() === 'true') {
+                        $scope.properties.DetailsPageId.PropertyValue = null;
+                    }
+                    else {
+                        if (!$scope.properties.DetailsPageId.PropertyValue ||
+                                $scope.properties.DetailsPageId.PropertyValue === '00000000-0000-0000-0000-000000000000') {
+                            $scope.properties.OpenInSamePage.PropertyValue = true;
+                        }
                     }
 
                     if ($scope.properties.SelectionMode.PropertyValue === "FilteredItems" &&

@@ -21,32 +21,34 @@ namespace DynamicContent
     /// <summary>
     /// This class handles the behavior of the dynamic content widget when working with dynamic modules.
     /// </summary>
-    internal class MvcWidgetInstaller
+    internal static class MvcWidgetInstaller
     {
-        #region Constructor
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="MvcWidgetInstaller"/> class.
+        /// Initializes the widget installation logic.
         /// </summary>
-        public MvcWidgetInstaller()
+        public static void Initialize()
         {
             //// Install/Update
-            EventHub.Subscribe<IDynamicModuleUpdatingEvent>(this.DynamicModuleUpdatingEventHandler);
-            EventHub.Subscribe<IDynamicModuleTypeCreatingEvent>(this.DynamicModuleTypeEventHandler);
-            EventHub.Subscribe<IDynamicModuleTypeUpdatingEvent>(this.DynamicModuleTypeEventHandler);
+            EventHub.Unsubscribe<IDynamicModuleUpdatingEvent>(MvcWidgetInstaller.DynamicModuleUpdatingEventHandler);
+            EventHub.Subscribe<IDynamicModuleUpdatingEvent>(MvcWidgetInstaller.DynamicModuleUpdatingEventHandler);
+
+            EventHub.Unsubscribe<IDynamicModuleTypeCreatingEvent>(MvcWidgetInstaller.DynamicModuleTypeEventHandler);
+            EventHub.Subscribe<IDynamicModuleTypeCreatingEvent>(MvcWidgetInstaller.DynamicModuleTypeEventHandler);
+
+            EventHub.Unsubscribe<IDynamicModuleTypeUpdatingEvent>(MvcWidgetInstaller.DynamicModuleTypeEventHandler);
+            EventHub.Subscribe<IDynamicModuleTypeUpdatingEvent>(MvcWidgetInstaller.DynamicModuleTypeEventHandler);
 
             //// Uninstall
-            EventHub.Subscribe<IDynamicModuleTypeDeletingEvent>(this.DynamicModuleTypeDeletingEventHandler);
+            EventHub.Unsubscribe<IDynamicModuleTypeDeletingEvent>(MvcWidgetInstaller.DynamicModuleTypeDeletingEventHandler);
+            EventHub.Subscribe<IDynamicModuleTypeDeletingEvent>(MvcWidgetInstaller.DynamicModuleTypeDeletingEventHandler);
         }
 
-        #endregion
+        #region Private methods
 
-        #region Methods
-
-        private void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
+        private static void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
         {
             var transactionName = ((ModuleBuilderDataProvider)dynamicModule.Provider).TransactionName;
-            this.TemplateGaneratorAction(
+            MvcWidgetInstaller.TemplateGaneratorAction(
                 templateGenerator =>
                 {
                     templateGenerator.InstallMasterTemplate(dynamicModule, dynamicModuleType);
@@ -55,13 +57,13 @@ namespace DynamicContent
                 transactionName);
         }
 
-        private void RegisterToolboxItem(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType moduleType)
+        private static void RegisterToolboxItem(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType moduleType)
         {
-            this.UnregisterToolboxItem(moduleType.GetFullTypeName());
+            MvcWidgetInstaller.UnregisterToolboxItem(moduleType.GetFullTypeName());
             var configurationManager = ConfigManager.GetManager();
             var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
 
-            var section = this.GetModuleToolboxSection(dynamicModule, toolboxesConfig);
+            var section = MvcWidgetInstaller.GetModuleToolboxSection(dynamicModule, toolboxesConfig);
             if (section == null)
                 return;
 
@@ -91,7 +93,7 @@ namespace DynamicContent
         /// <param name="dynamicModule">The dynamic module.</param>
         /// <param name="toolboxesConfig">The toolboxes configuration.</param>
         /// <returns></returns>
-        private ToolboxSection GetModuleToolboxSection(DynamicModule dynamicModule, ToolboxesConfig toolboxesConfig)
+        private static ToolboxSection GetModuleToolboxSection(DynamicModule dynamicModule, ToolboxesConfig toolboxesConfig)
         {
             var pageControls = toolboxesConfig.Toolboxes["PageControls"];
             var moduleSectionName = string.Concat(DynamicModuleType.defaultNamespace, ".", MvcWidgetInstaller.moduleNameValidationRegex.Replace(dynamicModule.Name, string.Empty));            
@@ -118,7 +120,7 @@ namespace DynamicContent
         /// </summary>
         /// <param name="contentTypeName">Name of the content type.</param>
         /// <returns></returns>
-        private string GetToolboxItemName(string contentTypeName)
+        private static string GetToolboxItemName(string contentTypeName)
         {
             return contentTypeName + "_MVC";
         }
@@ -127,7 +129,7 @@ namespace DynamicContent
         /// Removes the toolbox item.
         /// </summary>
         /// <param name="contentTypeName">Name of the content type.</param>
-        private void UnregisterToolboxItem(string contentTypeName)
+        private static void UnregisterToolboxItem(string contentTypeName)
         {
             var configurationManager = ConfigManager.GetManager();
             var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
@@ -137,7 +139,7 @@ namespace DynamicContent
             var section = pageControls.Sections.Where<ToolboxSection>(e => e.Name == moduleSectionName).FirstOrDefault();
             if (section != null)
             {
-                var itemToDelete = section.Tools.FirstOrDefault<ToolboxItem>(e => e.Name == this.GetToolboxItemName(contentTypeName));
+                var itemToDelete = section.Tools.FirstOrDefault<ToolboxItem>(e => e.Name == MvcWidgetInstaller.GetToolboxItemName(contentTypeName));
                 
                 if (itemToDelete != null)
                 {
@@ -153,7 +155,7 @@ namespace DynamicContent
             configurationManager.SaveSection(toolboxesConfig);
         }
 
-        private void DynamicModuleUpdatingEventHandler(IDynamicModuleUpdatingEvent @event)
+        private static void DynamicModuleUpdatingEventHandler(IDynamicModuleUpdatingEvent @event)
         {
             if (@event == null || @event.ChangedProperties == null || @event.Item == null || @event.Item.Types == null || @event.Item.Types.Length == 0)
                 return;
@@ -165,13 +167,13 @@ namespace DynamicContent
                 {
                     foreach (var moduleType in @event.Item.Types)
                     {
-                        this.Install(@event.Item, moduleType);
+                        MvcWidgetInstaller.Install(@event.Item, moduleType);
                     }
                 }
             }
         }
 
-        private void DynamicModuleTypeEventHandler(IDynamicModuleTypeItemEvent @event)
+        private static void DynamicModuleTypeEventHandler(IDynamicModuleTypeItemEvent @event)
         {
             if (@event == null || @event.Item == null)
                 return;
@@ -179,30 +181,30 @@ namespace DynamicContent
             var module = ModuleBuilderManager.GetManager().Provider.GetDynamicModules().SingleOrDefault(m => m.Id == @event.Item.ParentModuleId);
             if (module != null && module.Status != DynamicModuleStatus.NotInstalled)
             {
-                this.Install(module, @event.Item);
+                MvcWidgetInstaller.Install(module, @event.Item);
             }
         }
 
-        private void Install(DynamicModule module, DynamicModuleType type)
+        private static void Install(DynamicModule module, DynamicModuleType type)
         {
-            this.RegisterTemplates(module, type);
-            this.RegisterToolboxItem(module, type);
+            MvcWidgetInstaller.RegisterTemplates(module, type);
+            MvcWidgetInstaller.RegisterToolboxItem(module, type);
         }
 
-        private void DynamicModuleTypeDeletingEventHandler(IDynamicModuleTypeDeletingEvent @event)
+        private static void DynamicModuleTypeDeletingEventHandler(IDynamicModuleTypeDeletingEvent @event)
         {
             if (@event == null || @event.Item == null || @event.Item.Provider == null)
                 return;
 
             var transactionName = ((ModuleBuilderDataProvider)@event.Item.Provider).TransactionName;
-            this.TemplateGaneratorAction(
+            MvcWidgetInstaller.TemplateGaneratorAction(
                 templateGenerator => templateGenerator.UnregisterTemplates(@event.Item.GetFullTypeName()), 
                 transactionName);
 
-            this.UnregisterToolboxItem(@event.Item.GetFullTypeName());
+            MvcWidgetInstaller.UnregisterToolboxItem(@event.Item.GetFullTypeName());
         }
 
-        private void TemplateGaneratorAction(Action<TemplateGenerator> action, string transactionName)
+        private static void TemplateGaneratorAction(Action<TemplateGenerator> action, string transactionName)
         {
             var versionManager = VersionManager.GetManager(null, transactionName);
             var pageManager = PageManager.GetManager(null, transactionName);

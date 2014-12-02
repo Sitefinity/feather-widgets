@@ -23,7 +23,7 @@ namespace DynamicContent
         /// </summary>
         public static void Initialize() 
         {
-            DynamicWidgetInitializer.mvcWidgetInstaller = new MvcWidgetInstaller();
+            MvcWidgetInstaller.Initialize();
 
             DynamicWidgetInitializer.RegisterDynamicTemplatableControl();
 
@@ -87,7 +87,5 @@ namespace DynamicContent
 
             return activeModuleTypes.ToList();
         }
-
-        private static MvcWidgetInstaller mvcWidgetInstaller;
     }
 }
