@@ -2,7 +2,7 @@
 
 @@*Start @Model.Name field*@@
 <ul>
-    @@foreach(var contentLink in (IEnumerable<ContentLink>)Model.Item.@(Model.Name))
+    @@foreach(ContentLink contentLink in Model.Item.@(Model.Name))
     {
         <li>
             <a href='@@contentLink.GetDocument().MediaUrl)'>@@contentLink.GetDocument().Title</a>
