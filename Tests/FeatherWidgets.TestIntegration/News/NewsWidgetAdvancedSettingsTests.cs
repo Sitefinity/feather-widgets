@@ -30,9 +30,9 @@ namespace FeatherWidgets.TestIntegration.News
         {
             string socialShare = "list-inline s-social-share-list";
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
-            string pageNamePrefix = testName + "NewsPage";
-            string pageTitlePrefix = testName + "News Page";
-            string urlNamePrefix = testName + "news-page";
+            string pageNamePrefix = testName + "NewsPage" + Guid.NewGuid();
+            string pageTitlePrefix = testName + "NewsPage" + Guid.NewGuid();
+            string urlNamePrefix = testName + "news-page" + Guid.NewGuid();
             int index = 1;
             var newsManager = NewsManager.GetManager();
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);

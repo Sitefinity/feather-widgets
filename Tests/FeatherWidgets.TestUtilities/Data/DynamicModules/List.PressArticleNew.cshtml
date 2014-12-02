@@ -1,6 +1,8 @@
 ﻿@model DynamicContent.Mvc.Models.DynamicContentListViewModel
 
+@using DynamicContent.TemplateGeneration.Fields.Helpers;
 @using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Data.ContentLinks;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using Telerik.Sitefinity.Web.DataResolving;
@@ -13,27 +15,40 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <div class="@Model.CssClass">
-    <ul>
+    <ul class="list-unstyled">
         @foreach (dynamic item in Model.Items)
         {
-            <p> List template </p>
+		<p> List template </p>
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id)>
-                @Html.Sitefinity().ImageField(((IEnumerable<ContentLink>)item.Image).FirstOrDefault(), "Image")
-                <h1 class="sfitemTitle sftitle">
+                
+@*Start Image field*@
+<div>
+    @{{
+        var image = ((IEnumerable<ContentLink>)item.Image).FirstOrDefault();
+        if(image != null)
+        {
+            <img src='@image.GetImage().MediaUrl' alt='@image.GetImage().AlternativeText' title='@image.GetImage().Title' />
+        }
+    }}
+</div>
+@*End Image field*@
+                <h3 class="sfitemTitle sftitle">
                     @if (ViewBag.OpenInSamePage)
                     {
                         <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
-                            @Html.Sitefinity().ShortTextField((object)item.Title, "Title")
+                            @item.Title
                         </a>
                     }
                     else
                     {
                         <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
-                            @Html.Sitefinity().ShortTextField((object)item.Title, "Title")
+                            @item.Title
                         </a>
                     }
-                </h1>
-                @Html.Sitefinity().DateField((DateTime)item.PublicationDate, "MMM d, yyyy, HH:mm tt", "PublicationDate", cssClass: "sfitemPublicationDate")
+                </h3>
+                <div class="text-muted">
+                    @(((DateTime)item.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+                </div>
             </li>
         }
     </ul>

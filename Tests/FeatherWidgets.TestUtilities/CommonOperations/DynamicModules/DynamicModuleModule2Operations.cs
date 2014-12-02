@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.Data.Linq.Dynamic;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -18,7 +19,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
     /// </summary>
     public class DynamicModuleModule2Operations
     {
-        public void CreateItem(string title, Guid[] relatedColorIds)
+        public void CreateItem(string title, string[] relatedColors)
         {
             var providerName = string.Empty;
 
@@ -31,12 +32,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             DynamicModuleManager relatedColorManager = DynamicModuleManager.GetManager();
             var relatedColorType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Module1.Color");
 
-            foreach (var relatedColorId in relatedColorIds)
+            foreach (var relatedColor in relatedColors)
             {
-                var relatedColorItem = relatedColorManager.GetDataItems(relatedColorType).Where(r => r.Id == relatedColorId).FirstOrDefault();
-                if (relatedColorItem != null)
+                var relatedColorItem = relatedColorManager.GetDataItems(relatedColorType).Where("Title = \"" + relatedColor + "\"").First();
+
+                if (relatedColorItem != null && relatedColorItem.Status == ContentLifecycleStatus.Master)
                 {
                     itemItem.CreateRelation(relatedColorItem, "RelatedColor");
+                    dynamicModuleManager.SaveChanges();
                 }
             }
 

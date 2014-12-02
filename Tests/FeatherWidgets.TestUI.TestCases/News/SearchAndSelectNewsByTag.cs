@@ -15,10 +15,9 @@ namespace FeatherWidgets.TestUI
         /// UI test SearchAndSelectNewsByTag
         /// </summary>
         [TestMethod,
-        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.NewsSelectors)]
-
         public void SearchAndSelectNewsByTag()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -44,7 +43,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         public void VerifyNewsOnTheFrontend()
         {
-            string[] newsTitles = new string[] { NewsTitle + 1, NewsTitle + 2};
+            string[] newsTitles = new string[] { NewsTitle + 2, NewsTitle + 1};
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
             BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(newsTitles);

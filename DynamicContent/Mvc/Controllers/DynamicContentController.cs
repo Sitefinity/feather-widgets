@@ -261,7 +261,7 @@ namespace DynamicContent.Mvc.Controllers
             if (!this.Model.ListMode)
             {
                 var viewModel = this.Model.CreateDetailsViewModel(item);
-                this.ViewBag.Title = ((IHasTitle)viewModel.Item.OriginalItem).GetTitle();
+                this.ViewBag.Title = ((IHasTitle)item).GetTitle();
                 if (SystemManager.CurrentHttpContext != null)
                     this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 

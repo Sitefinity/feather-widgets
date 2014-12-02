@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Modules.News;
+using Telerik.Sitefinity.Modules.News.Configuration;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.SitefinityExceptions;
 using Telerik.Sitefinity.Taxonomies;
@@ -51,25 +54,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         /// <param name="tags">news tags</param>
         /// <param name="providerTitle">provider name</param>
         /// <returns>news master id</returns>
-        public Guid CreatePublishedNewsItem(string title, string content, string author, string sourceName, IEnumerable<string> categories, IEnumerable<string> tags, string providerTitle)
+        public Guid CreatePublishedNewsItem(string title, string content, string author, string sourceName, IEnumerable<string> categories, IEnumerable<string> tags, string providerName)
         {
             NewsManager newsManager = null;
-            if (providerTitle.IsNullOrEmpty())
+            if (providerName.IsNullOrEmpty())
             {
                 newsManager = NewsManager.GetManager();
             }
             else
             {
-                newsManager = NewsManager.GetManager();
-                var provider = newsManager.ProviderInfos.SingleOrDefault(p => providerTitle.Equals(p.ProviderTitle, StringComparison.OrdinalIgnoreCase));
-                newsManager = NewsManager.GetManager(provider.ProviderName);
+                newsManager = NewsManager.GetManager(providerName);
             }
 
             var newsItem = this.CreateNewsWithBasicProperties(newsManager, title, content, author, sourceName);
 
-            if (providerTitle.IsNullOrEmpty())
+            if (providerName.IsNullOrEmpty())
             {
-                this.AddTaxonomiesToNews(newsItem.Id, categories, tags);
+                this.AddTaxonomiesToNews(newsItem.Id, categories, tags, null);
+            }
+            else
+            {
+                this.AddTaxonomiesToNews(newsItem.Id, categories, tags, providerName);
             }
 
             newsItem.SetWorkflowStatus(newsManager.Provider.ApplicationName, "Published");
@@ -113,9 +118,18 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         /// <param name="newsItemId">The news item id.</param>
         /// <param name="categories">The categories.</param>
         /// <param name="tags">The tags.</param>
-        public void AddTaxonomiesToNews(Guid newsItemId, IEnumerable<string> categories, IEnumerable<string> tags)
+        public void AddTaxonomiesToNews(Guid newsItemId, IEnumerable<string> categories, IEnumerable<string> tags, string providerName)
         {
-            var newsManager = Telerik.Sitefinity.Modules.News.NewsManager.GetManager();
+            NewsManager newsManager = null;
+            if (providerName.IsNullOrEmpty())
+            {
+                newsManager = NewsManager.GetManager();
+            }
+            else
+            {
+                newsManager = NewsManager.GetManager(providerName);              
+            }
+
             NewsItem newsItem = newsManager.GetNewsItem(newsItemId);
             if (newsItem == null)
             {

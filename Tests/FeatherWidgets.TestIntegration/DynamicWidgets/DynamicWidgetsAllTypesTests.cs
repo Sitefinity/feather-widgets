@@ -78,7 +78,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         #region Fields and constants
 
-        private const string ModuleName = "Press Release";
+        private const string ModuleName = "AllTypesModule";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.AllTypesModule.zip";
         private const string ResolveType = "Telerik.Sitefinity.DynamicTypes.Model.AllTypesModule.Alltypes";
         private const string TransactionName = "Module Installations";

@@ -594,6 +594,30 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
         }
 
+        /// <summary>
+        /// Selects the provider.
+        /// </summary>
+        /// <param name="providerName">Name of the provider.</param>
+        public void SelectProvider(string providerName)
+        {
+            HtmlAnchor providerDropDown = this.EM.News.NewsWidgetContentScreen.ProviderDropDown
+                                    .AssertIsPresent("Provider DropDown");
+
+            providerDropDown.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+
+            HtmlUnorderedList providerList = this.EM.News.NewsWidgetContentScreen.ProvidersList
+                                    .AssertIsPresent("Provider DropDown");
+
+            HtmlAnchor provider = providerList.Find.ByCustom<HtmlAnchor>(a => a.InnerText.Equals(providerName))
+                                    .AssertIsPresent("Provider DropDown");
+
+            provider.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
         private bool isHierarchicalItemFound = false;
     }
 }
