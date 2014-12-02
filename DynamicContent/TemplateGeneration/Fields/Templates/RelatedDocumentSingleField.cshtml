@@ -5,10 +5,10 @@
 
 @@*Start @Model.Name field*@@
 @@{{
-    var item = ((object) Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
+    var item = Model.Item.RelatedItems("@Model.Name").GetSingle<RelatedMediaViewModel>();
     if(item != null)
     {
-        <a href='@@(((MediaContent)item).MediaUrl)'>@@(((IDynamicFieldsContainer)item).GetValue("Title"))</a>
+        <a href='@@item.MediaUrl)'>@@item.Title</a>
     }
 }}
 @@*End @Model.Name field*@@

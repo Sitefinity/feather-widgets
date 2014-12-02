@@ -5,7 +5,7 @@
 
 @@*Start @Model.Name field*@@
 <ul>
-@@foreach (IDynamicFieldsContainer relatedItem in ((object)Model.Item).GetRelatedItems("@Model.Name").ToList<IDataItem>())
+@@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name").ToList<RelatedMediaViewModel>())
 {
     <li class="media">
         <a href='@@(((MediaContent)relatedItem).MediaUrl)'>@@relatedItem.GetValue("Title")</a>

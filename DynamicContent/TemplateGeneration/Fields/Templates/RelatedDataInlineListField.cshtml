@@ -7,10 +7,10 @@
     <strong> @Model.FrontendWidgetLabel</strong>
 
     <ul>
-    @@foreach (IDynamicFieldsContainer relatedItem in ((object)Model.Item).GetRelatedItems("@Model.Name").ToList<IDataItem>())
+    @@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name").ToList<RelatedDataViewModel>())
     {
         <li>
-            <a href='@@RelatedDataExtensions.GetDefaultUrl(relatedItem)'>
+            <a href='@@relatedItem.DefaultUrl'>
                 @@relatedItem.GetValue("@(((string)Model.RelatedDataType).GetIdentifierField())")
             </a>
         </li>   

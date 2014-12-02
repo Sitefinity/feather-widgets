@@ -2,11 +2,11 @@
 
 @@*Start @Model.Name field*@@
 <ul>
-@@foreach (IDynamicFieldsContainer relatedItem in ((object)Model.Item).GetRelatedItems("@Model.Name").ToList<IDataItem>())
+@@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name").ToList<RelatedImageViewModel>())
 {
     <li class="media">
-        <a href='@@(((MediaContent)relatedItem).MediaUrl)'>
-            <img src='@@(((MediaContent)relatedItem).ThumbnailUrl)' alt='@@(((Image)relatedItem).AlternativeText)' title='@@relatedItem.GetValue("Title")' />
+        <a href='@@relatedItem.MediaUrl'>
+            <img src='@@relatedItem.ThumbnailUrl' alt='@@relatedItem.AlternativeText' title='@@relatedItem.Title' />
         </a>
     </li>   
 }

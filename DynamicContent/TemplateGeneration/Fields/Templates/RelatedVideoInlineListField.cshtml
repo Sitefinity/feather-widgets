@@ -5,7 +5,7 @@
 
 @@*Start @Model.Name field*@@
 <ul>
-@@foreach (MediaContent relatedItem in ((object)Model.Item).GetRelatedItems("@Model.Name").ToList<IDataItem>())
+@@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name").ToList<RelatedMediaViewModel>())
 {
     <li class="media">
         <video controls>

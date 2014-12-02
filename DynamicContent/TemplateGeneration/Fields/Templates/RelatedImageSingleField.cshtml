@@ -2,10 +2,10 @@
 
 @@*Start @Model.Name field*@@
 @@{{
-    var item = ((object) Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
+    var item = Model.Item.RelatedItems("@Model.Name").GetSingle<RelatedImageViewModel>();
     if(item != null)
     {
-        <img src='@@(((MediaContent)item).MediaUrl)' alt='@@(((Image)item).AlternativeText)' title='@@(((IDynamicFieldsContainer)item).GetValue("Title"))' />
+        <img src='@@item.MediaUrl' alt='@@item.AlternativeText' title='@@item.Title' />
     }
 }}
 @@*End @Model.Name field*@@

@@ -7,11 +7,11 @@
     <strong> @Model.FrontendWidgetLabel :</strong>
 
     @@{{
-        var item = ((object)Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>() as object;
+        var item = Model.Item.RelatedPageItem("@Model.Name").GetSingle<RelatedPageViewModel>();
         if(item != null)
         {
-            <a @@(((PageNode)item).OpenNewWindow ? "target='_blank'" : "") href='@@item.GetDefaultUrl()'>
-                @@(((IDynamicFieldsContainer)item).GetValue("@(((string)Model.RelatedDataType).GetIdentifierField())"))
+            <a @@item.LinkTargetAttribute href='@@item.DefaultUrl'>
+                @@item.Title
             </a>
         }
     }}

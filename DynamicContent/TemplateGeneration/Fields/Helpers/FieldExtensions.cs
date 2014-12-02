@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.GeoLocations.Model;
 using Telerik.Sitefinity.Locations.Configuration;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -73,6 +74,49 @@ namespace DynamicContent.TemplateGeneration.Fields.Helpers
                 return TaxonomyType.Network;
 
             throw new InvalidOperationException();
+        }
+
+        /// <summary>
+        /// Gets the identifier field.
+        /// </summary>
+        /// <param name="relatedDataType">Type of the related data.</param>
+        /// <returns></returns>
+        public static string GetIdentifierField(this string relatedDataType)
+        {
+            var identifierField = RelatedDataHelper.GetRelatedTypeIdentifierField(relatedDataType);
+
+            return identifierField;
+        }
+
+
+        /// <summary>
+        /// To the list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataItemList">The data item list.</param>
+        /// <returns></returns>
+        public static IList<T> ToList<T>(this IList<IDataItem> dataItemList)
+        {
+            if (dataItemList == null)
+                return null;
+
+            return dataItemList.Cast<T>().ToList<T>();
+        }
+
+        /// <summary>
+        /// Gets the single.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataItemList">The data item list.</param>
+        /// <returns></returns>
+        public static T GetSingle<T>(this IList<IDataItem> dataItemList)
+        {
+            if (dataItemList == null)
+                return default(T);
+
+            var dataItem = dataItemList.Cast<T>().FirstOrDefault();
+
+            return dataItem;
         }
     }
 }

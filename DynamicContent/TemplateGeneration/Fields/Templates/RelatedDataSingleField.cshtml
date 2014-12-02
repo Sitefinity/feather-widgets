@@ -7,11 +7,11 @@
     <strong> @Model.FrontendWidgetLabel :</strong>
     
     @@{{
-        var item = ((object) Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
+        var item = Model.Item.RelatedItems("@Model.Name").GetSingle<RelatedDataViewModel>();
         if(item != null)
         {
             <a href='@@RelatedDataExtensions.GetDefaultUrl(item)'>
-                @@(((IDynamicFieldsContainer)item).GetValue("@(((string)Model.RelatedDataType).GetIdentifierField())"))
+                @@item.GetValue("@(((string)Model.RelatedDataType).GetIdentifierField())")
             </a>
         }
     }}

@@ -5,11 +5,11 @@
 
 @@*Start @Model.Name field*@@
 @@{{
-    var item = ((object)Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
+    var item = Model.Item.RelatedItems("@Model.Name").GetSingle<RelatedMediaViewModel>();
     if(item != null)
     {
         <video controls>
-            <source src='@@(((MediaContent)item).MediaUrl)'>
+            <source src='@@item.MediaUrl'>
         </video>
     }
 }}
