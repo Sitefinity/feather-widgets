@@ -17,10 +17,12 @@ namespace FeatherWidgets.TestUI
     {
         /// <summary>
         /// UI test ActivateAndDeactivateNewsModule
+        /// Ignored because of bug ID 145065
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        Ignore]
         public void ZActivateAndDeactivateNewsModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateNewsModule");
