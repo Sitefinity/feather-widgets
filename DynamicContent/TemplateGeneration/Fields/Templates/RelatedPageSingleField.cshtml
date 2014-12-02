@@ -7,7 +7,7 @@
     <strong> @Model.FrontendWidgetLabel :</strong>
 
     @@{{
-        var item = Model.Item.RelatedPageItem("@Model.Name").GetSingle<RelatedPageViewModel>();
+        var item = Model.Item.RelatedItem<RelatedPageViewModel>("@Model.Name");
         if(item != null)
         {
             <a @@item.LinkTargetAttribute href='@@item.DefaultUrl'>

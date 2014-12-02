@@ -7,7 +7,7 @@
     <strong> @Model.FrontendWidgetLabel</strong>
 
     <ul>
-    @@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name").ToList<RelatedDataViewModel>())
+    @@foreach (var relatedItem in Model.Item.RelatedItems<RelatedDataViewModel>("@Model.Name"))
     {
         <li>
             <a href='@@relatedItem.DefaultUrl'>

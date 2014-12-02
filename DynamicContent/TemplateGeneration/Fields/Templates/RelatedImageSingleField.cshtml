@@ -2,7 +2,7 @@
 
 @@*Start @Model.Name field*@@
 @@{{
-    var item = Model.Item.RelatedItems("@Model.Name").GetSingle<RelatedImageViewModel>();
+    var item = Model.Item.RelatedItem<RelatedImageViewModel>("@Model.Name");
     if(item != null)
     {
         <img src='@@item.MediaUrl' alt='@@item.AlternativeText' title='@@item.Title' />

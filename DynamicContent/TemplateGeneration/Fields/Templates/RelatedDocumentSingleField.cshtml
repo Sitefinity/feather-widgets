@@ -2,7 +2,7 @@
 
 @@*Start @Model.Name field*@@
 @@{{
-    var item = Model.Item.RelatedItems("@Model.Name").GetSingle<RelatedMediaViewModel>();
+    var item = Model.Item.RelatedItem<RelatedMediaViewModel>("@Model.Name");
     if(item != null)
     {
         <a href='@@item.MediaUrl'>@@item.Title</a>

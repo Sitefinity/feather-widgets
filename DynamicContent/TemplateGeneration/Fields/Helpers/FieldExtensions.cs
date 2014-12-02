@@ -87,36 +87,5 @@ namespace DynamicContent.TemplateGeneration.Fields.Helpers
 
             return identifierField;
         }
-
-
-        /// <summary>
-        /// To the list.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dataItemList">The data item list.</param>
-        /// <returns></returns>
-        public static IList<T> ToList<T>(this IList<IDataItem> dataItemList)
-        {
-            if (dataItemList == null)
-                return null;
-
-            return dataItemList.Cast<T>().ToList<T>();
-        }
-
-        /// <summary>
-        /// Gets the single.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dataItemList">The data item list.</param>
-        /// <returns></returns>
-        public static T GetSingle<T>(this IList<IDataItem> dataItemList)
-        {
-            if (dataItemList == null)
-                return default(T);
-
-            var dataItem = dataItemList.Cast<T>().FirstOrDefault();
-
-            return dataItem;
-        }
     }
 }

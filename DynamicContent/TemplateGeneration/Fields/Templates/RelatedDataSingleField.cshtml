@@ -7,7 +7,7 @@
     <strong> @Model.FrontendWidgetLabel :</strong>
     
     @@{{
-        var item = Model.Item.RelatedItems("@Model.Name").GetSingle<RelatedDataViewModel>();
+        var item = Model.Item.RelatedItem<RelatedDataViewModel>("@Model.Name");
         if(item != null)
         {
             <a href='@@RelatedDataExtensions.GetDefaultUrl(item)'>
