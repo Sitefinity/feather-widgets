@@ -2,7 +2,7 @@
 
 @@*Start @Model.Name field*@@
 <ul>
-    @@foreach(var contentLink in (IEnumerable<ContentLink>)Model.Item.@(Model.Name))
+    @@foreach(var contentLink in (IEnumerable<ContentLink>)Model.Item.Fields.@(Model.Name))
     {
         <li>
             <video controls>

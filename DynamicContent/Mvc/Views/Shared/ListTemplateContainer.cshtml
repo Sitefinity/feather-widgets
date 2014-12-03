@@ -18,12 +18,12 @@
     <ul class="list-unstyled">
         @foreach (dynamic item in Model.Items)
         {
-            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id)>
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 @*MainPictureSection*@
                 <h3 class="sfitemTitle sftitle">
                     @if (ViewBag.OpenInSamePage)
                     {
-                        <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
+                        <a href="@(ViewBag.CurrentPageUrl + item.Fields.ItemDefaultUrl)">
                             @*MainTextFieldForList*@
                         </a>
                     }

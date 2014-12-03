@@ -7,7 +7,7 @@
 <div>
     <strong> @Model.Title :</strong>
 
-	@@if(!string.IsNullOrEmpty(Model.Item.@(Model.Name).CountryCode))
+	@@if(!string.IsNullOrEmpty(Model.Item.Fields.@(Model.Name).CountryCode))
 	{
     <div> 
     @if(Model.AddressFieldMode!=AddressFieldMode.MapOnly)
@@ -21,7 +21,7 @@
         <div>
             <a class="viewMapLnk">View map</a>
             <div class="addressMapWrp" style="display:none">
-                <input class="addressValueInput" type="hidden" value="@@(new JavaScriptSerializer().Serialize(Model.Item.@(Model.Name)))" />
+                <input class="addressValueInput" type="hidden" value="@@(new JavaScriptSerializer().Serialize(Model.Item.Fields.@(Model.Name)))" />
                 <div class="mapContainer" style="width:500px; height:500px"></div>
             </div>
         </div>

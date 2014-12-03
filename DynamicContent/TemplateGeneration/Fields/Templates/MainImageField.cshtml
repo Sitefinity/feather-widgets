@@ -3,7 +3,7 @@
 @@*Start @Model.Name field*@@
 <div>
     @@{{
-        var image = ((IEnumerable<ContentLink>)item.@(Model.Name)).FirstOrDefault();
+        var image = ((IEnumerable<ContentLink>)item.Fields.@(Model.Name)).FirstOrDefault();
         if(image != null)
         {
             <img src='@@image.GetImage().MediaUrl' alt='@@image.GetImage().AlternativeText' title='@@image.GetImage().Title' />

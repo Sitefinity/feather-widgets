@@ -4,6 +4,6 @@
 <div>
     <strong> @Model.Title :</strong>
 
-    <span @@Html.InlineEditingFieldAttributes("@Model.Name", "ShortText")>@@Model.Item.@(Model.Name)</span>    
+    <span @@Html.InlineEditingFieldAttributes("@Model.Name", "ShortText")>@@Model.Item.Fields.@(Model.Name)</span>    
 </div>
 @@*End @Model.Name field*@@

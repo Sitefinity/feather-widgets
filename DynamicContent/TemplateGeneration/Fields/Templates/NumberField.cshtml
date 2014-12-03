@@ -4,9 +4,9 @@
 <div>
     <strong> @Model.Title :</strong>
 
-    @@if(Model.Item.@(Model.Name)!=null)
+    @@if(Model.Item.Fields.@(Model.Name)!=null)
     {
-    <span>@@Model.Item.@(Model.Name)</span>   
+    <span>@@Model.Item.Fields.@(Model.Name)</span>   
     <span>@Model.NumberUnit</span>
     }
 </div>
