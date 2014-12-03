@@ -29,15 +29,28 @@ namespace DynamicContent.TemplateGeneration.Fields.Implementation
         protected override string GetTemplatePath(DynamicModuleField field)
         {
             var taxonomyType = FieldExtensions.GetTaxonomyType(field.ClassificationId);
+            string templatePath = string.Empty;
 
-            if (taxonomyType == Telerik.Sitefinity.Taxonomies.Model.TaxonomyType.Flat)
-                return ClassificationField.FlatTaxonomyTemplatePath;
-            else if (taxonomyType == Telerik.Sitefinity.Taxonomies.Model.TaxonomyType.Hierarchical)
-                return ClassificationField.HierarchicalTaxonomyTemplatePath;
+            if (field.CanSelectMultipleItems)
+            {
+                if (taxonomyType == Telerik.Sitefinity.Taxonomies.Model.TaxonomyType.Flat)
+                    templatePath = ClassificationField.FlatTaxonomyTemplatePath;
+                else if (taxonomyType == Telerik.Sitefinity.Taxonomies.Model.TaxonomyType.Hierarchical)
+                    templatePath = ClassificationField.HierarchicalTaxonomyTemplatePath;
+            }
+            else
+            {
+                if (taxonomyType == Telerik.Sitefinity.Taxonomies.Model.TaxonomyType.Flat)
+                    templatePath = ClassificationField.SingleFlatTaxonomyTemplatePath;
+                else if (taxonomyType == Telerik.Sitefinity.Taxonomies.Model.TaxonomyType.Hierarchical)
+                    templatePath = ClassificationField.SingleHierarchicalTaxonomyTemplatePath;
+            }
 
-            return null;
+            return templatePath;
         }
 
+        private const string SingleFlatTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/SingleFlatTaxonomyField.cshtml";
+        private const string SingleHierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/SingleHierarchicalTaxonomyField.cshtml";
         private const string FlatTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/FlatTaxonomyField.cshtml";
         private const string HierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/HierarchicalTaxonomyField.cshtml";
     }
