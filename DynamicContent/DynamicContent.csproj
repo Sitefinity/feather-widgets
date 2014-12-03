@@ -223,6 +223,8 @@
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiDocumentField.cshtml" />
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MainImageField.cshtml" />
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MainMultiImageField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\SingleFlatTaxonomyField.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\SingleHierarchicalTaxonomyField.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
