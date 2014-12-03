@@ -178,6 +178,10 @@ namespace DynamicContent
             if (@event == null || @event.Item == null)
                 return;
 
+            var updatingEvent = @event as IDynamicModuleTypeUpdatingEvent;
+            if (updatingEvent != null && updatingEvent.ShouldUpdateWidgetTemplates == false)
+                return;
+
             var module = ModuleBuilderManager.GetManager().Provider.GetDynamicModules().SingleOrDefault(m => m.Id == @event.Item.ParentModuleId);
             if (module != null && module.Status != DynamicModuleStatus.NotInstalled)
             {
