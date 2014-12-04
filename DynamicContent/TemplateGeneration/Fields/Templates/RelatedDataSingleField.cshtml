@@ -4,14 +4,11 @@
 <div>
     <strong> @Model.FrontendWidgetLabel :</strong>
     
-    @@{{
-        var item = Model.Item.RelatedItem("@Model.Name");
-        if(item != null)
-        {
-            <a href='@@item.DefaultUrl'>
-                @@item.Identifier
-            </a>
-        }
-    }}
+    @@if(item != null)
+    {
+        <a href='@@Model.Item.RelatedItem("@Model.Name").DefaultUrl'>
+            @@Model.Item.RelatedItem("@Model.Name").Identifier
+        </a>
+    }
 </div>
 @@*End @Model.Name field*@@

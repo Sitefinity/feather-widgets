@@ -1,11 +1,8 @@
 ﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
 
 @@*Start @Model.Name field*@@
-@@{{
-    var item = Model.Item.RelatedItem("@Model.Name");
-    if(item != null)
-    {
-        <img src='@@item.Fields.MediaUrl' alt='@@item.Fields.AlternativeText' title='@@item.Fields.Title' />
-    }
-}}
+@@if(Model.Item.RelatedItem("@Model.Name") != null)
+{
+    <img src='@@Model.Item.RelatedItem("@Model.Name").Fields.MediaUrl' alt='@@Model.Item.RelatedItem("@Model.Name").Fields.AlternativeText' title='@@Model.Item.RelatedItem("@Model.Name").Fields.Title' />
+}
 @@*End @Model.Name field*@@
