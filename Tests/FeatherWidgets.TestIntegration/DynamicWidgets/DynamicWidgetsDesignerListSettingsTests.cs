@@ -446,6 +446,62 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify when delete selected list template functionality.")]
+        public void DynamicWidgetsDesignerListSettings_DeleteSelectedListTemplate()
+        {
+            string listTemplate = "PressArticleNew";
+            string paragraphText = "List template";
+            this.pageOperations = new PagesOperations();
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "DynamicPage";
+            string pageTitlePrefix = testName + "Dynamic Page";
+            string urlNamePrefix = testName + "dynamic-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            string file = null;
+
+            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+            try
+            {
+                file = this.CopyFile();
+
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles[i], this.dynamicUrls[i]);
+
+                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
+
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.ListTemplateName = listTemplate;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                File.Delete(file);
+
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsFalse(responseContent.Contains(paragraphText), "The paragraph text was found!");
+
+                for (int i = 0; i < this.dynamicTitles.Length; i++)
+                    Assert.IsFalse(responseContent.Contains(this.dynamicTitles[i]), "The dynamic item with this title was found!");
+            }
+            finally
+            {
+                Directory.Delete(this.folderPath);
+                this.pageOperations.DeletePages();
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
+            }
+        }
+
         [FixtureTearDown]
         public void Teardown()
         {
