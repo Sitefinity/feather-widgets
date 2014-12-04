@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.Data.Linq.Dynamic;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -98,6 +99,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             hotelItem.SetParent(parent.Id, cityType.FullName);
 
             dynamicModuleManager.Lifecycle.Publish(hotelItem);
+            dynamicModuleManager.SaveChanges();
+        }
+
+        /// <summary>
+        /// Delete a country item by title.
+        /// </summary>
+        /// <param name="countryName">The title of the item.</param>
+        public void DeleteCountry(string countryName)
+        {
+            var providerName = string.Empty;
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+
+            Type countryType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.Booking.Country");
+            DynamicContent countryItem = dynamicModuleManager.GetDataItems(countryType).Where("Title = \"" + countryName + "\"").First();
+
+            dynamicModuleManager.DeleteDataItem(countryItem);
+
             dynamicModuleManager.SaveChanges();
         }
 
