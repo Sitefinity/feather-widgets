@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 
@@ -96,12 +97,20 @@ namespace News.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets or sets the id of the page where will be displayed details view for selected news item.
+        /// </summary>
+        /// <value>The details page id.</value>
+        public Guid DetailsPageId { get; set; }
+
+        /// <summary>
         /// Gets or sets the page URL where will be displayed details view for selected news item.
         /// </summary>
         /// <value>
         /// The page URL where will be displayed details view for selected news item.
         /// </value>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+        [Browsable(false)]
+        [Obsolete("This property is not used anymore. The details page url is resolved based on the DetailsPageId property.")]
         public string DetailsPageUrl
         {
             get
@@ -121,7 +130,7 @@ namespace News.Mvc.Controllers
             {
                 this.detailsPageUrl = value;
             }
-        }
+        }        
 
         /// <summary>
         /// Gets the News widget model.
@@ -155,8 +164,10 @@ namespace News.Mvc.Controllers
         public ActionResult Index(int? page)
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            this.ViewBag.RedirectPageUrlTemplate = "/{0}";
-            this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/{0}";
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
             this.Model.PopulateItems(null, null, page);
             this.AddCacheDependencies();
@@ -165,7 +176,7 @@ namespace News.Mvc.Controllers
         }
 
         /// <summary>
-        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" /> 
         /// </summary>
         /// <param name="taxonFilter">The taxonomy filter.</param>
         /// <param name="page">The page.</param>
@@ -176,8 +187,10 @@ namespace News.Mvc.Controllers
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             var fieldName = this.GetExpectedTaxonFieldName(taxonFilter);
-            this.ViewBag.RedirectPageUrlTemplate = "/" + taxonFilter.UrlName + "/{0}";
-            this.ViewBag.DetailsPageUrl = this.DetailsPageUrl;
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/" + taxonFilter.UrlName + "/{0}";
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
             this.Model.PopulateItems(taxonFilter, fieldName, page);
             this.AddCacheDependencies();

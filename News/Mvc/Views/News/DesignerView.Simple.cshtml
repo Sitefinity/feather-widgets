@@ -1,44 +1,53 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
+
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryData.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryDataItem.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryItem.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryGroup.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryBuilder.js")
+
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.News.NewsManager.GetManager())'>
 </server-data>
-<tabset>
+<tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("NewsToDisplay")</h4>
 
-        <provider-selector manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
-            provider-label='@Html.Resource("Provider")'
+        <sf-provider-selector sf-manager-type="Telerik.Sitefinity.Modules.News.NewsManager"
+            sf-provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
-        </provider-selector>
+        </sf-provider-selector>
 
         <div class="form-group">
             <div class="radio">
-                <label for="allNews">
+                <label for="allNews" class="full-width">
                     <input id="allNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
                     @Html.Resource("AllPublishedNews")
                 </label>
             </div>
             <div class="radio">
-                <label for="selectedNews">
+                <label for="selectedNews" class="full-width">
                     <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
 
                     @Html.Resource("SelectedNews")
-
-                    <list-selector news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-                                  provider="properties.ProviderName.PropertyValue"
-                                  selected-item-id ="properties.SelectedItemId.PropertyValue"></list-selector>
                 </label>
+                <div class="label-content">
+                    <sf-list-selector sf-news-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                                  sf-multiselect="true" sf-sortable="true"
+                                  sf-provider="properties.ProviderName.PropertyValue"
+                                  sf-selected-ids ="newsSelector.selectedItemsIds"></sf-list-selector>
+
+                </div>
             </div>
             <div class="radio">
-                <label for="filterNews">
+                <label for="filterNews" class="full-width">
                     <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
-                    <taxon-filter taxon-filters="taxonSelector.taxonFilters"
-                        taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
-                        selected-taxonomies="taxonSelector.selectedTaxonomies"
-                        provider="properties.ProviderName.PropertyValue"
-                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></taxon-filter>
+					<sf-filter-selector sf-query-data="additionalFilters.value"
+                        sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
+                        sf-provider="properties.ProviderName.PropertyValue"
+                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
                 </label>
             </div>
         </div>
@@ -103,7 +112,7 @@
             <div class="row">
                 <div class="col-xs-6">
                     <select id="newsTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                         @foreach (var viewName in Html.GetViewNames("News", @"List\.(?<viewName>\w*)$"))
+                         @foreach (var viewName in Html.GetViewNames("News", @"List\.(?<viewName>[\w\s]*)$"))
                          {
                              <option value="@viewName"> @viewName</option>
                          }
@@ -128,9 +137,7 @@
             <div class="radio">
                 <label for="samePage">
                     <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
-                    <span>
-                        @Html.Resource("ShowInSamePage")
-                    </span>
+                       @Html.Resource("ShowInSamePage") <span class="text-muted">@Html.Resource("ShowInSamePageNote")</span>
                 </label>
             </div>
             <div class="radio">
@@ -138,7 +145,10 @@
                     <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
                     <span>
                         @Html.Resource("ShowInExistingPage")<br />
-                        <input type="text" ng-model="properties.DetailsPageUrl.PropertyValue" class="form-control" />
+                        <sf-list-selector
+                            sf-page-selector
+                            sf-selected-item-id="properties.DetailsPageId.PropertyValue"
+                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
                     </span>
                 </label>
             </div>
@@ -149,7 +159,7 @@
                 <label for="newsTemplateName">@Html.Resource("DetailTemplate")</label>
 
                 <select id="newsTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("News", @"Detail\.(?<viewName>\w*)$"))
+                     @foreach (var viewName in Html.GetViewNames("News", @"Detail\.(?<viewName>[\w\s]*)$"))
                      {
                          <option value="@viewName"> @viewName</option>
                      }

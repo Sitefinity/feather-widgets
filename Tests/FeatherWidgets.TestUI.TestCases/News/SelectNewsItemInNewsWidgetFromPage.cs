@@ -15,15 +15,18 @@ namespace FeatherWidgets.TestUI
         /// UI test SelectNewsItemInNewsWidgetFromPage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.NewsSelectors)]
         public void SelectNewsItemInNewsWidgetFromPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItem(NewsTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SelectItemsInFlatSelector(NewsTitle1);
+            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -37,7 +40,7 @@ namespace FeatherWidgets.TestUI
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyContentOfContentBlockOnThePageFrontend(this.newsTitles);
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
         }
 
         /// <summary>
@@ -54,7 +57,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-           BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "News";

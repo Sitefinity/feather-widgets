@@ -1,6 +1,8 @@
-﻿using System;
+﻿using System.IO;
 using System.Linq;
+
 using FeatherWidgets.TestUtilities.CommonOperations;
+using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
 using News.Mvc.Controllers;
 using News.Mvc.Models;
@@ -32,7 +34,7 @@ namespace FeatherWidgets.TestIntegration.News
         [TearDown]
         public void TearDown()
         {
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();            
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
         }
 
         /// <summary>
@@ -40,6 +42,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifyUsePagingFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -105,6 +108,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifyNoLimitAndPagingFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -145,6 +149,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifyUseLimitFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -187,6 +192,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
         public void NewsWidget_VerifySortNewsAscending()
         {
             string sortExpession = "Title ASC";
@@ -209,8 +215,12 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
 
+        /// <summary>
+        /// Newses the widget_ verify sort news descending.
+        /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySortNewsDescending()
         {
             string sortExpession = "Title DESC";
@@ -233,8 +243,12 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
 
+        /// <summary>
+        /// Newses the widget_ verify sort news by publication date descending.
+        /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySortNewsPublicationDateDescending()
         {
             string sortExpession = "PublicationDate DESC";
@@ -261,8 +275,12 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
 
+        /// <summary>
+        /// Newses the widget_ verify sort news by last modified date descending.
+        /// </summary>
         [Test]
         [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySortNewsLastModifiedDateDescending()
         {
             string sortExpession = "LastModified DESC";
@@ -296,10 +314,59 @@ namespace FeatherWidgets.TestIntegration.News
             Assert.IsTrue(newsController.Model.Items[2].Title.Value.Equals(newsTitles[0]), "The news with this title was not found!");
         }
 
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("FeatherTeam")]
+        public void NewsWidget_SelectListTemplate()
+        {
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "NewsPage";
+            string pageTitlePrefix = testName + "News Page";
+            string urlNamePrefix = testName + "news-page";
+            int pageIndex = 1;
+            string textEdited = "<p> Test paragraph </p>";
+            string paragraphText = "Test paragraph";
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
+
+            string listTemplate = "NewsListNew";
+            var listTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "News", "List.NewsList.cshtml");
+            var newListTemplatePath = Path.Combine(this.templateOperation.SfPath, "MVC", "Views", "Shared", "List.NewsListNew.cshtml");
+
+            try
+            {
+                File.Copy(listTemplatePath, newListTemplatePath);
+
+                using (StreamWriter output = File.AppendText(newListTemplatePath))
+                {
+                    output.WriteLine(textEdited);
+                }
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                newsController.ListTemplateName = listTemplate;
+                mvcProxy.Settings = new ControllerSettings(newsController);
+
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(NewsTitle);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
+
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(paragraphText), "The news with this template was not found!");
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
+                File.Delete(newListTemplatePath);
+            }
+        }
+
         #region Fields and constants
 
         private const string NewsTitle = "Title";
         private PagesOperations pageOperations;
+        private TemplateOperations templateOperation = new TemplateOperations();
         
         #endregion
     }

@@ -1,0 +1,267 @@
+@model System.Web.UI.Control
+
+@using DynamicContent.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryData.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryDataItem.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryItem.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryGroup.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryBuilder.js")
+
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.DynamicModules.DynamicModuleManager.GetManager(), Model.DynamicModuleName())' item-type="@Model.DynamicContentType().FullName" parent-types="@Model.SerializedParentTypes()">
+</server-data>
+
+<tabset class="nav-tabs-wrapper">
+    <tab heading="@Html.Resource("Content")">
+        <h4>@Html.Resource("ItemsToDisplay").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())</h4>
+        <sf-provider-selector sf-manager-type='@Model.DynamicModuleName()'
+            sf-provider-label='@Html.Resource("Provider")'
+            ng-model="properties.ProviderName.PropertyValue">
+        </sf-provider-selector>
+
+        @if (Model.ParentModuleTypes().Count() == 0)
+        {
+            <div class="form-group">
+                <div class="radio">
+                    <label for="allItems" class="full-width">
+                        <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                        @Html.Resource("AllPublishedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="selectedItems" class="full-width">
+                        <input id="selectedItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
+
+                        @Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
+
+                        <sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                                      sf-multiselect="true" sf-sortable="true" sf-master="true"
+                                      sf-provider="properties.ProviderName.PropertyValue"
+                                      sf-selected-ids="itemSelector.selectedItemsIds"
+                                      sf-item-type="itemType"
+                                      sf-identifier-field="@Model.GetIdenfierField()"></sf-list-selector>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="filterItems" class="full-width">
+                        <input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+
+                        @Html.Resource("NarrowSelection")
+					    <sf-filter-selector sf-query-data="additionalFilters.value"
+                            sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
+                            sf-provider="properties.ProviderName.PropertyValue"
+                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
+                    </label>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+				<div class="radio">
+					<label for="parentAll" class="full-width">
+						<input id="parentAll" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
+
+						@Html.Resource("FromAll").Arrange(Model.ParentModuleTypes().First().DisplayName.ToPlural().ToLower())
+					</label>
+				</div>
+				<div class="radio">
+					<label for="parentSelectedOnly" class="full-width">
+						<input id="parentSelectedOnly" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
+
+						@Html.Resource("FromSelected").Arrange(Model.ParentModuleTypes().First().DisplayName.ToPlural().ToLower())
+
+						<sf-list-selector sf-dynamic-items-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
+									  sf-multiselect="true" sf-sortable="true" sf-master="true"
+									  sf-provider="properties.ProviderName.PropertyValue"
+									  sf-selected-ids="parentSelector.selectedItemsIds"
+                                      sf-identifier-field="@Model.GetIdenfierField()"
+									  sf-item-type="parentTypes[0].TypeName"></sf-list-selector>
+					</label>
+				</div>
+				@if (Model.ParentModuleTypes().Count() == 1)
+				{
+					<div class="radio">
+						<label for="parentCurrentlyOpen" class="full-width">
+							<input id="parentCurrentlyOpen" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
+
+							@Html.Resource("FromCurrentlyOpen") @Model.ParentModuleTypes().First().DisplayName.ToLower()
+						</label>
+					</div>
+				}
+				else
+				{
+					<div class="radio">
+						<label for="parentCurrentlyOpen" class="full-width">
+							<input id="parentCurrentlyOpen" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
+
+							@Html.Resource("FromCurrentlyOpen")
+							<select ng-model="properties.CurrentlyOpenParentType.PropertyValue" ng-options="parentType.TypeName as parentType.DisplayName for parentType in parentTypes">
+							</select>
+						</label>
+					</div>
+				}
+				<div class="radio">
+					<label for="parentNotApplicable" class="full-width">
+						<input id="parentNotApplicable" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="NotApplicable" />
+
+						@Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
+
+						<sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+									  sf-multiselect="true" sf-sortable="true" sf-master="true"
+									  sf-provider="properties.ProviderName.PropertyValue"
+									  sf-selected-ids="itemSelector.selectedItemsIds"
+                                      sf-identifier-field="@Model.GetIdenfierField()"
+									  sf-item-type="itemType"></sf-list-selector>
+					</label>
+				</div>
+				
+				<expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='@Model.ExpandNarrowSelection().ToString()' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
+					<div class="radio">
+						<label for="allItems" class="full-width">
+							<input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+							@Html.Resource("AllPublishedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
+						</label>
+					</div>
+					<div class="radio">
+						<label for="filterItems" class="full-width">
+							<input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+							@Html.Resource("SelectionOfItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
+							<sf-filter-selector sf-query-data="additionalFilters.value"
+								sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
+								sf-provider="properties.ProviderName.PropertyValue"
+								ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
+						</label>
+					</div>
+				</expander>
+            </div>
+        }
+    </tab>
+
+    <tab heading="@Html.Resource("ListSettings")">
+        <div class="form-group">
+            <div class="radio">
+                <label for="usePaging">
+                    <input id="usePaging" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Paging" />
+
+                    <strong>@Html.Resource("UsePaging")</strong><br />
+
+                    <span>
+                        @Html.Raw(String.Format(Html.Resource("DivideToItemPerPage"),
+                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Paging\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
+                    </span>
+                </label>
+            </div>
+            <div class="radio">
+                <label for="useLimit">
+                    <input id="useLimit" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Limit" />
+
+                    <strong>@Html.Resource("UseLimit")</strong><br />
+
+                    <span>
+                        @Html.Raw(String.Format(Html.Resource("ShowLimitedItems"),
+                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
+                    </span>
+                </label>
+            </div>
+            <div class="radio">
+                <label for="allItems">
+                    <input id="allItems" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="All" />
+
+                    <strong>@Html.Resource("NoLimitPaging")</strong><br />
+
+                    <span>@Html.Resource("ShowAllItems")</span>
+                </label>
+            </div>
+        </div>
+
+        <div  class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label for="sortOptions">@Html.Resource("SortItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())</label>
+
+
+                    <select id="sortOptions" ng-model="properties.SortExpression.PropertyValue" class="form-control">
+                        <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
+                        <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
+                        <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
+                        <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="listTemplateName">@Html.Resource("ListTemplate")</label>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>[\w\s]*)$"))
+                         {
+                             <option value="@viewName"> @viewName</option>
+                         }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label for="navCssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="navCssClass" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
+            </div>
+        </expander>
+    </tab>
+
+    <tab heading="@Html.Resource("SingleItemSettings")">
+        <div class="form-group">
+            <strong>@Html.Resource("OpenSingleItem")</strong>
+            <div class="radio">
+                <label for="samePage">
+                    <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
+                    <span>
+                        @Html.Resource("ShowInSamePage")
+                    </span>
+                </label>
+            </div>
+            <div class="radio">
+                <label for="existingPage">
+                    <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
+                    <span>
+                        @Html.Resource("ShowInExistingPage")<br />
+                        <sf-list-selector
+                            sf-page-selector
+                            sf-selected-item-id="properties.DetailsPageId.PropertyValue"
+                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <div  class="form-group m-top-md row">
+            <div class="col-xs-6">
+                <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
+
+                <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>[\w\s]*)$"))
+                     {
+                         <option value="@viewName"> @viewName</option>
+                     }
+                </select>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label for="cssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="cssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+            </div>
+        </expander>
+    </tab>
+</tabset>

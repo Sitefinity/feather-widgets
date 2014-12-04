@@ -39,7 +39,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["NavigationResourcesTitle", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NavigationResourcesTitle"];
             }
         }
 
@@ -54,7 +54,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["NavigationResourcesDescription", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NavigationResourcesDescription"];
             }
         }
 
@@ -65,14 +65,14 @@ namespace Navigation.Mvc.StringResources
         /// The display.
         /// </value>
         [ResourceEntry("Display",
-            Value = "Display",
-            Description = "word : Display",
+            Value = "Display...",
+            Description = "word : Display...",
             LastModified = "2014/05/27")]
         public string Display
         {
             get
             {
-                return this["Display", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Display"];
             }
         }
 
@@ -90,7 +90,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["TopLevelPages", System.Globalization.CultureInfo.InvariantCulture];
+                return this["TopLevelPages"];
             }
         }
 
@@ -108,7 +108,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["CurrentPageChildren", System.Globalization.CultureInfo.InvariantCulture];
+                return this["CurrentPageChildren"];
             }
         }
 
@@ -123,7 +123,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["CurrentPageSiblings", System.Globalization.CultureInfo.InvariantCulture];
+                return this["CurrentPageSiblings"];
             }
         }
 
@@ -138,7 +138,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["LevelsToInclude", System.Globalization.CultureInfo.InvariantCulture];
+                return this["LevelsToInclude"];
             }
         }
 
@@ -153,7 +153,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["ResponsiveDesignSectionTitle", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ResponsiveDesignSectionTitle"];
             }
         }
 
@@ -168,7 +168,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["ResponsiveDesignDescription", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ResponsiveDesignDescription"];
             }
         }
 
@@ -183,7 +183,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["MoreOptions", System.Globalization.CultureInfo.InvariantCulture];
+                return this["MoreOptions"];
             }
         }
 
@@ -198,7 +198,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["CssClasses", System.Globalization.CultureInfo.InvariantCulture];
+                return this["CssClasses"];
             }
         }
 
@@ -213,7 +213,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["Template", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Template"];
             }
         }
 
@@ -228,7 +228,7 @@ namespace Navigation.Mvc.StringResources
         {
             get
             {
-                return this["Simple", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Simple"];
             }
         }
     }

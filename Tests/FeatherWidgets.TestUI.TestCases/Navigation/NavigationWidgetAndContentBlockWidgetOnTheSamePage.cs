@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI
         /// UI test NavigationWidgetAndContentBlockWidgetOnTheSamePage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetAndContentBlockWidgetOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages();

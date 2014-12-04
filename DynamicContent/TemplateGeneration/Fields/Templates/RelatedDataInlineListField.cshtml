@@ -1,0 +1,18 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@@*Start @Model.Name field*@@
+<div>
+    <strong> @Model.FrontendWidgetLabel</strong>
+
+    <ul>
+    @@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name"))
+    {
+        <li>
+            <a href='@@relatedItem.DefaultUrl'>
+                @@relatedItem.Identifier
+            </a>
+        </li>   
+    }
+    </ul>
+</div>
+@@*End @Model.Name field*@@

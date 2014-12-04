@@ -2,6 +2,7 @@
   "priority": 1,
   "scripts": [
     "Mvc/Scripts/expander.js",
-	"Mvc/Scripts/style-dropdown.js"
+    "Mvc/Scripts/style-dropdown.js",
+    "Mvc/Scripts/sf-loading.js"
   ]
 }

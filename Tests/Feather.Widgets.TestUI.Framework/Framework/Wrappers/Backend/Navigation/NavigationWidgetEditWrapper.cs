@@ -21,13 +21,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="mode">Navigation display mode</param>
         public void SelectNavigationWidgetDisplayMode(string mode)
         {
-            HtmlUnorderedList optionsList = EM.Navigation.NavigationWidgetEditScreen.DislayModeList 
-                .AssertIsPresent("Display options list");
+            int position = 0;
+            HtmlDiv optionsDiv = EM.Navigation.NavigationWidgetEditScreen.DislayModeList 
+                .AssertIsPresent("Navigation div");
 
-            HtmlListItem option = optionsList.AllItems.Where(a => a.InnerText.Contains(mode)).FirstOrDefault()
-                .AssertIsPresent("Display option" + mode);
+            List<HtmlDiv> navDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
-            HtmlInputRadioButton optionButton = option.Find.ByExpression<HtmlInputRadioButton>("tagname=input")
+            if (mode.Contains("All pages under"))
+            {
+                position = 1;
+            }
+            else if (mode.Contains("All sibling pages"))
+            {
+                position = 2;
+            }
+
+            HtmlInputRadioButton optionButton = navDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                 .AssertIsPresent("Display option radio button");
 
             optionButton.Click();
@@ -64,7 +73,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectLevelsToInclude(string levelsToInclude)
         {
             var templateSelector = EM.Navigation.NavigationWidgetEditScreen.LevelesToIncludeSelector
-              .AssertIsPresent("Template selector drop-down");
+                .AssertIsPresent("Levels to include selector");
             templateSelector.SelectByValue(levelsToInclude);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
@@ -121,8 +130,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlInputText input = EM.Navigation.NavigationWidgetEditScreen.CSSClass
                 .AssertIsPresent("Css class");
 
-            input.Text = string.Empty;
-            input.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            input.ScrollToVisible();
+            input.Focus();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
             ActiveBrowser.WaitForAsyncOperations();
         }
     }

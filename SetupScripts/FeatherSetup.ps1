@@ -50,6 +50,9 @@ function InstallFeatherWidgets($featherWidgetsDirectory)
     Get-ChildItem ContentBlock.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
 	Get-ChildItem Navigation.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
 	Get-ChildItem News.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+	Get-ChildItem SocialShare.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+	Get-ChildItem DynamicContent.dll -recurse  -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+
     InstallFeather $featherBinDirectory
 }
 

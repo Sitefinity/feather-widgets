@@ -39,7 +39,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NewsResourcesTitle", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NewsResourcesTitle"];
             }
         }
 
@@ -54,7 +54,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NewsResourcesDescription", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NewsResourcesDescription"];
             }
         }
 
@@ -72,7 +72,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["Display", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Display"];
             }
         }
 
@@ -87,7 +87,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["MoreOptions", System.Globalization.CultureInfo.InvariantCulture];
+                return this["MoreOptions"];
             }
         }
 
@@ -102,7 +102,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["CssClasses", System.Globalization.CultureInfo.InvariantCulture];
+                return this["CssClasses"];
             }
         }
 
@@ -117,7 +117,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["Content", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Content"];
             }
         }
 
@@ -132,7 +132,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ListSettings", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ListSettings"];
             }
         }
 
@@ -147,7 +147,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["SingleItemSettings", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SingleItemSettings"];
             }
         }
 
@@ -162,7 +162,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ListTemplate", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ListTemplate"];
             }
         }
 
@@ -177,7 +177,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["DetailTemplate", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DetailTemplate"];
             }
         }
 
@@ -192,7 +192,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NewsToDisplay", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NewsToDisplay"];
             }
         }
 
@@ -207,7 +207,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["AllPublishedNews", System.Globalization.CultureInfo.InvariantCulture];
+                return this["AllPublishedNews"];
             }
         }
 
@@ -215,14 +215,14 @@ namespace News.Mvc.StringResources
         /// Gets phrase : Selected news
         /// </summary>
         [ResourceEntry("SelectedNews",
-            Value = "Selected news",
-            Description = "phrase : Selected news",
+            Value = "Selected news...",
+            Description = "phrase : Selected news...",
             LastModified = "2014/08/22")]
         public string SelectedNews
         {
             get
             {
-                return this["SelectedNews", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SelectedNews"];
             }
         }
 
@@ -230,14 +230,14 @@ namespace News.Mvc.StringResources
         /// Gets phrase : Narrow selection by...
         /// </summary>
         [ResourceEntry("NarrowSelection",
-            Value = "Narrow selection by...",
-            Description = "phrase : Narrow selection by...",
+            Value = "Filtered news by...",
+            Description = "phrase : Filtered news by...",
             LastModified = "2014/08/22")]
         public string NarrowSelection
         {
             get
             {
-                return this["NarrowSelection", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NarrowSelection"];
             }
         }
 
@@ -252,7 +252,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["Tags", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Tags"];
             }
         }
 
@@ -267,7 +267,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["UsePaging", System.Globalization.CultureInfo.InvariantCulture];
+                return this["UsePaging"];
             }
         }
 
@@ -282,7 +282,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["UseLimit", System.Globalization.CultureInfo.InvariantCulture];
+                return this["UseLimit"];
             }
         }
 
@@ -297,37 +297,37 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["NoLimitPaging", System.Globalization.CultureInfo.InvariantCulture];
+                return this["NoLimitPaging"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Divide the list on pages up to {0} items per page
+        /// Gets phrase : Divide the list on pages up to {TextBox} items per page
         /// </summary>
         [ResourceEntry("DivideToItemPerPage",
             Value = "Divide the list on pages up to {0} items per page",
-            Description = "phrase : Divide the list on pages up to {0} items per page",
+            Description = "phrase : Divide the list on pages up to {TextBox} items per page",
             LastModified = "2014/08/22")]
         public string DivideToItemPerPage
         {
             get
             {
-                return this["DivideToItemPerPage", System.Globalization.CultureInfo.InvariantCulture];
+                return this["DivideToItemPerPage"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Show only limited number of items {0} items in total
+        /// Gets phrase : Show only limited number of items {TextBox} items in total
         /// </summary>
         [ResourceEntry("ShowLimitedItems",
             Value = "Show only limited number of items {0} items in total",
-            Description = "phrase : Show only limited number of items {0} items in total",
+            Description = "phrase : Show only limited number of items {TextBox} items in total",
             LastModified = "2014/08/22")]
         public string ShowLimitedItems
         {
             get
             {
-                return this["ShowLimitedItems", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowLimitedItems"];
             }
         }
 
@@ -342,7 +342,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ShowAllItems", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowAllItems"];
             }
         }
 
@@ -357,7 +357,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["SortNews", System.Globalization.CultureInfo.InvariantCulture];
+                return this["SortNews"];
             }
         }
 
@@ -372,7 +372,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["LastPublished", System.Globalization.CultureInfo.InvariantCulture];
+                return this["LastPublished"];
             }
         }
 
@@ -387,7 +387,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["LastModified", System.Globalization.CultureInfo.InvariantCulture];
+                return this["LastModified"];
             }
         }
 
@@ -402,7 +402,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ByTitleAZ", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ByTitleAZ"];
             }
         }
 
@@ -417,7 +417,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ByTitleZA", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ByTitleZA"];
             }
         }
 
@@ -432,22 +432,37 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["OpenSingleItem", System.Globalization.CultureInfo.InvariantCulture];
+                return this["OpenSingleItem"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Auto-generated page (with the same layout as the list page)
+        /// Gets phrase : Auto-generated page
         /// </summary>
         [ResourceEntry("ShowInSamePage",
-            Value = "Auto-generated page (with the same layout as the list page)",
+            Value = "Auto-generated page",
             Description = "phrase : Auto-generated page (with the same layout as the list page)",
-            LastModified = "2014/09/08")]
+            LastModified = "2014/10/29")]
         public string ShowInSamePage
         {
             get
             {
-                return this["ShowInSamePage", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowInSamePage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : (with the same layout as the list page)
+        /// </summary>
+        [ResourceEntry("ShowInSamePageNote",
+            Value = "(with the same layout as the list page)",
+            Description = "phrase : (with the same layout as the list page)",
+            LastModified = "2014/10/29")]
+        public string ShowInSamePageNote
+        {
+            get
+            {
+                return this["ShowInSamePageNote"];
             }
         }
 
@@ -462,7 +477,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["ShowInExistingPage", System.Globalization.CultureInfo.InvariantCulture];
+                return this["ShowInExistingPage"];
             }
         }
 
@@ -477,7 +492,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["Provider", System.Globalization.CultureInfo.InvariantCulture];
+                return this["Provider"];
             }
         }
 
@@ -492,7 +507,7 @@ namespace News.Mvc.StringResources
         {
             get
             {
-                return this["By", System.Globalization.CultureInfo.InvariantCulture];
+                return this["By"];
             }
         }
     }

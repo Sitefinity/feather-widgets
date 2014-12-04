@@ -1,0 +1,90 @@
+﻿@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
+
+@using System.Collections;
+@using System.Linq;
+@using System.Web.Script.Serialization;
+@using DynamicContent.TemplateGeneration.Fields.Helpers;
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Data.ContentLinks;
+@using Telerik.Sitefinity.GeoLocations.Model;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Libraries.Model;
+@using Telerik.Sitefinity.Localization;
+@using Telerik.Sitefinity.Model;
+@using Telerik.Sitefinity.Model.ContentLinks;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Pages.Model;
+@using Telerik.Sitefinity.RelatedData; 
+
+<div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id)>
+    <h1 class="sfitemTitle sftitle">
+         <p> Detail template </p>
+		@Model.Item.Fields.Title
+    </h1>
+    <div class="text-muted">
+        @(((DateTime)Model.Item.Fields.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+    </div>
+    
+    
+@*Start Image field*@
+<div>
+    @{{
+        var item = ((IEnumerable<ContentLink>)Model.Item.Image).FirstOrDefault();
+        if(item != null)
+        {
+            <img src='@item.GetImage().MediaUrl' alt='@item.GetImage().AlternativeText' title='@item.GetImage().Title' />
+        }
+    }}
+</div>
+@*End Image field*@
+
+@*Start PublishedBy field*@
+<div>
+    <strong> Published by :</strong>
+
+    <span @Html.InlineEditingFieldAttributes("PublishedBy", "ShortText")>@Model.Item.Fields.PublishedBy</span>    
+</div>
+@*End PublishedBy field*@
+
+@*Start Guid field*@
+<div>
+    <strong> Guid :</strong>
+
+    <span @Html.InlineEditingFieldAttributes("Guid", "ShortText")>@Model.Item.Fields.Guid</span>    
+</div>
+@*End Guid field*@
+
+@*Start Pages field*@
+<div>
+    <strong> Pages :</strong>
+
+    @if (Model.Item.Fields.Pages != null)
+    {
+    <span>@Model.Item.Fields.Pages</span>   
+    <span>pages</span>
+    }
+</div>
+@*End Pages field*@
+
+@*Start Tags field*@
+<div>
+    <strong> Tags :</strong>
+
+    @if (Model.Item.Fields.Tags != null)
+    {
+    <ul @Html.InlineEditingFieldAttributes("Tags", "FlatTaxon")>
+    @foreach (string taxonName in ((IList<Guid>)Model.Item.Fields.Tags).GetTaxonNames(new Guid("cb0f3a19-a211-48a7-88ec-77495c0f5374")))
+    {
+        <li>@taxonName</li>   
+    }
+    </ul>
+    }
+</div>
+@*End Tags field*@
+
+    
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
+    }
+</div>

@@ -1,0 +1,12 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@@*Start @Model.Name field*@@
+<ul>
+    @@foreach(ContentLink contentLink in Model.Item.Fields.@(Model.Name))
+    {
+        <li>
+            <a href='@@contentLink.GetDocument().MediaUrl)'>@@contentLink.GetDocument().Title</a>
+        </li>
+    }
+</ul>
+@@*End @Model.Name field*@@

@@ -134,5 +134,60 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlAnchor>("class=btn btn-default dropdown-toggle ng-binding");
             }
         }
+
+        /// <summary>
+        /// Gets title is required.
+        /// </summary>
+        public HtmlControl TitleIsRequired
+        {
+            get
+            {
+                return this.Get<HtmlControl>("tagname=p", "InnerText=Title is required!");
+            }
+        }
+
+        /// <summary>
+        /// Gets cancel button.
+        /// </summary>
+        public HtmlAnchor CancelButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "class=btn btn-link ng-scope");
+            }
+        }
+
+        /// <summary>
+        /// Gets advanced button.
+        /// </summary>
+        public HtmlAnchor AdvancedButton
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("ng-hide=isCurrentView('PropertyGrid')");
+            }
+        }
+
+        /// <summary>
+        /// Gets enable social share.
+        /// </summary>
+        public HtmlInputText EnableSocialSharing
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=prop-EnableSocialSharing");
+            }
+        }
+
+        /// <summary>
+        /// Gets Content block widget footer.
+        /// </summary>
+        public HtmlDiv ContentBlockWidgetFooter
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "placeholder=modal-footer");
+            }
+        }
     }
 }

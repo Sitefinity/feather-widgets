@@ -6,29 +6,23 @@
 @using Telerik.Sitefinity.Web.DataResolving;
 
 
-<div class="@Model.DetailCssClass">
-@{
-    using (Html.InlineEditingRegion(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", Model.DetailItem.Id))
-    {
-        <h1>
-            @Html.TextField("Title", Model.DetailItem.Title, "ShortText")
-        </h1>
-        <div>
-            <span>@Model.DetailItem.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")</span>
-            <span>@Html.Resource("By")</span>
-            <span>@DataResolver.Resolve(@Model.DetailItem, "Author", null)</span>
-        </div>
-        <div>
-            @Html.Raw(Html.TextField( "Summary", Model.DetailItem.Summary, "LongText"))
-        </div>
-        <div>
-            @Html.Raw(Html.TextField( "Content", Model.DetailItem.Content, "LongText"))
-        </div>
+<div class="@Model.DetailCssClass" @Html.InlineEditingAttributes(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", Model.DetailItem.Id)>
+    <h3>
+        <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.DetailItem.Title</span>
+    </h3>
+
+    <div class="text-muted">
+        @Model.DetailItem.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")
+        @Html.Resource("By")
+        @DataResolver.Resolve(@Model.DetailItem, "Author", null)
+    </div>
     
-        if (Model.EnableSocialSharing)
-        {
-            @Html.SocialShareOptions()
-        }
+    <div @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(Model.DetailItem.Summary)</div>
+
+    <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.DetailItem.Content)</div>
+    
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
     }
-}
 </div>

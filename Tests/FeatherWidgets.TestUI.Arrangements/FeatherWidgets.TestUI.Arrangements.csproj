@@ -35,27 +35,60 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gallio">
+      <HintPath>..\..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\Gallio.dll</HintPath>
+    </Reference>
+    <Reference Include="Gallio40">
+      <HintPath>..\..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\Gallio40.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit">
+      <HintPath>..\..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\MbUnit.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit40">
+      <HintPath>..\..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\MbUnit40.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Telerik.OpenAccess, Version=2014.1.403.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.DataAccess.Core.2014.3.1128.1\lib\net40\Telerik.OpenAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.3.5500.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.ContentModules">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.7.3.5500.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Model">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.3.5500.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.TestArrangementService.Core">
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.1\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.2\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.7.2.5300.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.7.3.5500.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
+    <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
+    <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetWithShareButtonsOnPageBasedOnBoostrap.cs" />
     <Compile Include="ContentBlocks\DeactivateContentBlockModule.cs" />
     <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
     <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />
@@ -66,12 +99,20 @@
     <Compile Include="ContentBlocks\OldAndNewContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\SeveralContentBlockWidgetsOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\ShareContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\ShareContentBlockWithoutTitleFromPage.cs" />
     <Compile Include="ContentBlocks\UnshareContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
+    <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
+    <Compile Include="DynamicWidgets\DeactivateDynamicModuleVerifyPageToolbox.cs" />
+    <Compile Include="DynamicWidgets\DynamicModuleAddNewContentTypeVerifyPageToolbox.cs" />
+    <Compile Include="DynamicWidgets\DynamicModuleRemoveContentTypeVerifyPageToolbox.cs" />
     <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetOnFoundationTemplate.cs" />
+    <Compile Include="Navigation\NavigationWidgetOnBootstrapTemplate.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAddChangeRemoveCSSClass.cs" />
     <Compile Include="Navigation\NavigationWidgetAllLevelsToInclude.cs" />
@@ -79,15 +120,44 @@
     <Compile Include="Navigation\NavigationWidgetAllPagesUnderCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAndContentBlockWidgetOnTheSamePage.cs" />
+    <Compile Include="Navigation\NavigationWidgetFoundationResponsiveDesignTransformations.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetBootstrapResponsiveDesignTransformations.cs" />
+    <Compile Include="Navigation\NavigationWidgetOnSemanticTemplate.cs" />
     <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
+    <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
+    <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
+    <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
+    <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
+    <Compile Include="News\FilterNewsItemFromDifferentProviderWithCategoryOnPage.cs" />
+    <Compile Include="News\SelectNewsItemFromDifferentProviderInNewsWidget.cs" />
+    <Compile Include="News\SearchAndSelectNewsByTag.cs" />
+    <Compile Include="News\FilterNewsItemWithCategoryOnPage.cs" />
+    <Compile Include="News\ExpandPagesAndSelectChildPageForSingleItemPage.cs" />
+    <Compile Include="News\FilterNewsItemWithCategoryTagAndDateOnPage.cs" />
+    <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
+    <Compile Include="News\NoResultsWhenSearchForSingleItemPage.cs" />
+    <Compile Include="News\SearchAndSelectNewsByCategorySelectedTab.cs" />
+    <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
+    <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
+    <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
+    <Compile Include="News\NavigateDetailTemplateOfNewsOnPage.cs" />
+    <Compile Include="News\OldAndNewNewsWidgetOnTheSamePage.cs" />
+    <Compile Include="News\SearchAndSelectNewsByCategoryAllTab.cs" />
+    <Compile Include="News\SearchForNotExistingTag.cs" />
+    <Compile Include="News\SearchForSingleItemPageAndVerifyBreadcrumb.cs" />
+    <Compile Include="News\SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="News\SelectAndUnselectMoreThanOneNewsItem.cs" />
     <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
     <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
     <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
     <Compile Include="News\DuplicateNewsWidgetFromPage.cs" />
     <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
+    <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

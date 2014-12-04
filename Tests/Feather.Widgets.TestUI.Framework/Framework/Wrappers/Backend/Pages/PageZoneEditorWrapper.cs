@@ -42,6 +42,34 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Gets the Mvc navigation widget.
+        /// </summary>
+        /// <returns>The Mvc navigation widget div element.</returns>
+        public HtmlDiv GetMvcNavigationWidget()
+        {
+            var siblingWidgetLabel = "ContentBlock";
+            var navigation = "Navigation";
+
+            ActiveBrowser.RefreshDomTree();
+            RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("ControlToolboxContainer");
+            foreach (var item in toolbox.AllItems)
+            {
+                var dockZone = item.Find.ByCustom<RadDockZone>(zone => zone.CssClass.Contains("RadDockZone"));
+                var widgetLabel = dockZone.Find.ByContent(siblingWidgetLabel);
+                if (widgetLabel != null)
+                {
+                    if (!item.Expanded)
+                        item.Expand();
+
+                    var navigationLabel = dockZone.Find.ByContent(navigation);
+                    return new HtmlDiv(navigationLabel.Parent);
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Add the widget by name
         /// </summary>
         /// <param name="widgetName">The widget name</param>
@@ -51,6 +79,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 .AssertIsPresent<HtmlDiv>("RadDockZoneContentplaceholder1");
 
             HtmlDiv widget = this.GetWidgetByName(widgetName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
+        }
+
+        /// <summary>
+        /// Add widget by name to certain placeholder.
+        /// </summary>
+        /// <param name="widgetName">The widget name.</param>
+        /// <param name="placeHolder">The placeholder name.</param>
+        public void AddWidgetToSelectedPlaceHolder(string widgetName, string placeHolder)
+        {
+            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?"+placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
+
+            HtmlDiv widget = this.GetWidgetByName(widgetName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
+        }
+
+        /// <summary>
+        /// Adds Mvc Navigation widget to selected placeholder.
+        /// </summary>
+        /// <param name="placeHolder">The placeholder id.</param>
+        public void AddMvcNavigationWidgetToSelectedPlaceHolder(string placeHolder)
+        {
+            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?" + placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
+
+            HtmlDiv widget = this.GetMvcNavigationWidget();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
         }
 
@@ -74,6 +129,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editLink.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+
+            HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
+            ActiveBrowser.WaitForElement(expression, TimeOut, false);
         }
 
         /// <summary>
@@ -126,5 +185,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             return hasLabel;
         }
+
+        private const int TimeOut = 60000;
     }
 }

@@ -19,52 +19,115 @@ namespace FeatherWidgets.TestUI
         /// UI test NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage()
         {
+            string pageTemplateName = "Bootstrap.default";
+            string navTemplateClass = "nav navbar-nav";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectNavigationWidgetDisplayMode(NavWidgetDisplayMode);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNavigationOnTheFrontend();
-            this.SelectPageFromNavigation();
-        }
-
-        /// <summary>
-        /// Verify navigation widget on the frontend
-        /// </summary>
-        public void VerifyNavigationOnTheFrontend()
-        {
-            string[] parentPages = new string[] { PageName, SiblingPageName };
-            string[] childPages = new string[] { ChildPage1, ChildPage2 };
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesNotPresentFrontEndNavigation(NavTemplateClass, childPages);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(NavTemplateClass, parentPages);
-        }
+            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, ChildPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, ParentPages);
 
-        /// <summary>
-        /// Select page from navigation widget
-        /// </summary>
-        public void SelectPageFromNavigation()
-        {
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().SelectPageFromNavigationByText(NavTemplateClass, SiblingPageName);
+            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().SelectPageFromNavigationByText(navTemplateClass, SiblingPageName);
             ActiveBrowser.WaitForUrl("/" + SiblingPageName.ToLower(), true, 60000);
         }
 
         /// <summary>
-        /// Performs Server Setup and prepare the system with needed data.
+        /// UI test NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPageFoundation
         /// </summary>
-        protected override void ServerSetup()
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.Foundation)]
+        public void NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPageFoundation()
         {
+            string pageTemplateName = "Foundation.default";
+            string navTemplateClass = "top-bar-section";
+
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectNavigationWidgetDisplayMode(NavWidgetDisplayMode);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, ChildPages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, ParentPages, TemplateType.Foundation);
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(SiblingPageName, TemplateType.Foundation, navTemplateClass);
+        }
+
+        /// <summary>
+        /// UI test NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPageSemanticUI
+        /// </summary>
+        [TestMethod,
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.Navigation),
+        TestCategory(FeatherTestCategories.SemanticUI)]
+        public void NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPageSemanticUI()
+        {
+            string pageTemplateName = "SemanticUI.default";
+            string navTemplateClass = "ui menu purple inverted";
+
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SelectNavigationWidgetDisplayMode(NavWidgetDisplayMode);
+            BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, ChildPages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, ParentPages, TemplateType.Semantic);
+
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().ClickOnPageLinkFromNavigationMenu(SiblingPageName, TemplateType.Semantic, navTemplateClass);
+        }
+
+        private string ArrangementClass
+        {
+            get { return ArrangementClassName; }
+        }
+
+        private string[] ParentPages
+        {
+            get
+            {
+                return new string[] { PageName, SiblingPageName };
+            }
+        }
+
+        private string[] ChildPages
+        {
+            get
+            {
+                return new string[] { ChildPage1, ChildPage2 };
+            }
         }
 
         /// <summary>
@@ -72,7 +135,7 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
         }
 
         private const string PageName = "ParentPage";
@@ -80,7 +143,7 @@ namespace FeatherWidgets.TestUI
         private const string ChildPage1 = "ChildPage1";
         private const string ChildPage2 = "ChildPage2";
         private const string WidgetName = "Navigation";
-        private const string NavTemplateClass = "nav navbar-nav";
         private const string NavWidgetDisplayMode = "All sibling pages of currently opened page";
+        private const string ArrangementClassName = "NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage";
     }
 }

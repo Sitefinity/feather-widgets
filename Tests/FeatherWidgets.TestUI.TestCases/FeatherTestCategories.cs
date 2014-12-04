@@ -14,5 +14,40 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Pages and content category
         /// </summary>
         public const string PagesAndContent = "PagesAndContent";
+
+        /// <summary>
+        /// Navigation category
+        /// </summary>
+        public const string Navigation = "Navigation";
+
+        /// <summary>
+        /// Bootstrap package test category
+        /// </summary>
+        public const string Bootstrap = "Bootstrap";
+
+        /// <summary>
+        /// Foundation package test category
+        /// </summary>
+        public const string Foundation = "Foundation";
+
+        /// <summary>
+        /// SemanticUI package test category
+        /// </summary>
+        public const string SemanticUI = "SemanticUI";
+
+        /// <summary>
+        /// Dynamic Widgets test category
+        /// </summary>
+        public const string DynamicWidgets = "DynamicWidgets";
+
+        /// <summary>
+        /// NewsSelectors category for new tests
+        /// </summary>
+        public const string NewsSelectors = "NewsSelectors";
+
+        /// <summary>
+        /// New category for new tests
+        /// </summary>
+        public const string New = "New";
     }
 }
