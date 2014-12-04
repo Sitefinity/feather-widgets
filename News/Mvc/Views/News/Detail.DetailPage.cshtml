@@ -8,7 +8,7 @@
 
 <div class="@Model.DetailCssClass" @Html.InlineEditingAttributes(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", Model.DetailItem.Id)>
     <h3>
-        @Html.TextField("Title", Model.DetailItem.Title, "ShortText")
+        <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.DetailItem.Title</span>
     </h3>
 
     <div class="text-muted">
@@ -16,11 +16,10 @@
         @Html.Resource("By")
         @DataResolver.Resolve(@Model.DetailItem, "Author", null)
     </div>
+    
+    <div @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(Model.DetailItem.Summary)</div>
 
-        @Html.Raw(Html.TextField( "Summary", Model.DetailItem.Summary, "LongText"))
-
-        @Html.Raw(Html.TextField( "Content", Model.DetailItem.Content, "LongText"))
-
+    <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.DetailItem.Content)</div>
     
     @if (Model.EnableSocialSharing)
     {
