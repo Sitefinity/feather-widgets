@@ -1,17 +1,15 @@
 ﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
 
-@using DynamicContent.TemplateGeneration.Fields.Helpers;
-
 @@*Start @Model.Name field*@@
 <div>
     <strong> @Model.FrontendWidgetLabel</strong>
 
     <ul>
-    @@foreach (var relatedItem in Model.Item.RelatedItems<RelatedDataViewModel>("@Model.Name"))
+    @@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name"))
     {
         <li>
             <a href='@@relatedItem.DefaultUrl'>
-                @@relatedItem.GetValue("@(((string)Model.RelatedDataType).GetIdentifierField())")
+                @@relatedItem.Identifier
             </a>
         </li>   
     }

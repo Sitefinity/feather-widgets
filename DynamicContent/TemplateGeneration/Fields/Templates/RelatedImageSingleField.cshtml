@@ -2,10 +2,10 @@
 
 @@*Start @Model.Name field*@@
 @@{{
-    var item = Model.Item.RelatedItem<RelatedImageViewModel>("@Model.Name");
+    var item = Model.Item.RelatedItem("@Model.Name");
     if(item != null)
     {
-        <img src='@@item.MediaUrl' alt='@@item.AlternativeText' title='@@item.Title' />
+        <img src='@@item.Fields.MediaUrl' alt='@@item.Fields.AlternativeText' title='@@item.Fields.Title' />
     }
 }}
 @@*End @Model.Name field*@@

@@ -2,11 +2,11 @@
 
 @@*Start @Model.Name field*@@
 @@{{
-    var item = Model.Item.RelatedItem<RelatedMediaViewModel>("@Model.Name");
+    var item = Model.Item.RelatedItem("@Model.Name");
     if(item != null)
     {
         <video controls>
-            <source src='@@item.MediaUrl'>
+            <source src='@@item.Fields.MediaUrl'>
         </video>
     }
 }}

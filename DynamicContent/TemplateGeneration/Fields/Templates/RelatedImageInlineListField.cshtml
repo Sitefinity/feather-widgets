@@ -2,11 +2,11 @@
 
 @@*Start @Model.Name field*@@
 <ul>
-@@foreach (var relatedItem in Model.Item.RelatedItems<RelatedImageViewModel>("@Model.Name"))
+@@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name"))
 {
     <li class="media">
-        <a href='@@relatedItem.MediaUrl'>
-            <img src='@@relatedItem.ThumbnailUrl' alt='@@relatedItem.AlternativeText' title='@@relatedItem.Title' />
+        <a href='@@relatedItem.Fields.MediaUrl'>
+            <img src='@@relatedItem.Fields.ThumbnailUrl' alt='@@relatedItem.Fields.AlternativeText' title='@@relatedItem.Fields.Title' />
         </a>
     </li>   
 }

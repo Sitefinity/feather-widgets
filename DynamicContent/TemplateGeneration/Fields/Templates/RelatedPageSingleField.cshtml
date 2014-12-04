@@ -7,11 +7,11 @@
     <strong> @Model.FrontendWidgetLabel :</strong>
 
     @@{{
-        var item = Model.Item.RelatedItem<RelatedPageViewModel>("@Model.Name");
+        var item = Model.Item.RelatedItem("@Model.Name");
         if(item != null)
         {
-            <a @@item.LinkTargetAttribute href='@@item.DefaultUrl'>
-                @@item.Title
+            <a @@item.LinkTargetAttribute() href='@@item.DefaultUrl'>
+                @@item.Fields.Title
             </a>
         }
     }}

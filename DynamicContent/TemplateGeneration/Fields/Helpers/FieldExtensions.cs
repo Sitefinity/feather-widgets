@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GeoLocations.Model;
 using Telerik.Sitefinity.Locations.Configuration;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -77,15 +79,19 @@ namespace DynamicContent.TemplateGeneration.Fields.Helpers
         }
 
         /// <summary>
-        /// Gets the identifier field.
+        /// HTML 'target' attribute for the item link.
         /// </summary>
-        /// <param name="relatedDataType">Type of the related data.</param>
-        /// <returns></returns>
-        public static string GetIdentifierField(this string relatedDataType)
+        /// <param name="item">The item view model.</param>
+        /// <returns>HTML 'target' attribute for the item link.</returns>
+        public static string LinkTargetAttribute(this ItemViewModel item)
         {
-            var identifierField = RelatedDataHelper.GetRelatedTypeIdentifierField(relatedDataType);
+            if (item == null)
+                throw new ArgumentNullException("item");
 
-            return identifierField;
+            if (item.DataItem == null || !(item.DataItem is PageNode))
+                throw new InvalidOperationException("LinkTargetAttribute extensions should only be used on view models of page node.");
+
+            return item.Fields.OpenNewWindow ? "target='_blank'" : string.Empty;
         }
     }
 }

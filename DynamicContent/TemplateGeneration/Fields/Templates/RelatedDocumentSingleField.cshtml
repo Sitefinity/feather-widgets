@@ -2,10 +2,10 @@
 
 @@*Start @Model.Name field*@@
 @@{{
-    var item = Model.Item.RelatedItem<RelatedMediaViewModel>("@Model.Name");
+    var item = Model.Item.RelatedItem("@Model.Name");
     if(item != null)
     {
-        <a href='@@item.MediaUrl'>@@item.Title</a>
+        <a href='@@item.Fields.MediaUrl'>@@item.Fields.Title</a>
     }
 }}
 @@*End @Model.Name field*@@

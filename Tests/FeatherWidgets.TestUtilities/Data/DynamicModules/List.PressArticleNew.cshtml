@@ -16,7 +16,7 @@
 
 <div class="@Model.CssClass">
     <ul class="list-unstyled">
-        @foreach (dynamic item in Model.Items)
+        @foreach (var item in Model.Items)
         {
 		<p> List template </p>
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
@@ -41,7 +41,7 @@
                     }
                     else
                     {
-                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
+                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item.DataItem, ViewBag.DetailsPageId)">
                             @item.Fields.Title
                         </a>
                     }
