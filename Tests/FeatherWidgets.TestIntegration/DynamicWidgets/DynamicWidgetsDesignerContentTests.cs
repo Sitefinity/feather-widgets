@@ -102,7 +102,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 Assert.AreEqual(1, itemsCount, "The count of the dynamic item is not as expected");
 
-                string title = dynamicItems[0].Title;
+                string title = dynamicItems[0].Fields.Title;
                 Assert.IsTrue(title.Equals(this.dynamicTitles[1]), "The dynamic item with this title was not found!");
             }
             finally
@@ -145,7 +145,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                     Assert.AreEqual(1, itemsCount, "The count of the dynamic item is not as expected");
 
-                    string title = dynamicItems[0].Title;
+                    string title = dynamicItems[0].Fields.Title;
                     Assert.IsTrue(title.Equals(this.dynamicTitles[i]), "The dynamic item with this title was not found!");
                 }
             }
@@ -214,15 +214,15 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 Assert.AreEqual(2, itemsCount, "The count of the dynamic item is not as expected");
 
-                string title1 = dynamicItems[0].Title;
+                string title1 = dynamicItems[0].Fields.Title;
                 Assert.IsTrue(title1.Equals(this.dynamicTitles[1]), "The dynamic item with this title was not found!");
 
-                string title2 = dynamicItems[1].Title;
+                string title2 = dynamicItems[1].Fields.Title;
                 Assert.IsTrue(title2.Equals(this.dynamicTitles[0]), "The dynamic item with this title was not found!");
 
                 for (int i = 0; i < itemsCount; i++)
                 {
-                    string title3 = dynamicItems[i].Title;
+                    string title3 = dynamicItems[i].Fields.Title;
                     Assert.IsFalse(title3.Equals(this.dynamicTitles[2]), "The dynamic item with this title was found!");
                 }
             }
@@ -305,12 +305,12 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 Assert.AreEqual(1, itemsCount, "The count of the dynamic item is not as expected");
 
-                string title1 = dynamicItems[0].Title;
+                string title1 = dynamicItems[0].Fields.Title;
                 Assert.IsTrue(title1.Equals(this.dynamicTitles[2]), "The dynamic item with this title was not found!");
 
                 for (int i = 0; i < itemsCount; i++)
                 {
-                    string titleNotExist = dynamicItems[i].Title;
+                    string titleNotExist = dynamicItems[i].Fields.Title;
                     Assert.IsFalse(titleNotExist.Equals(this.dynamicTitles[0]), "The dynamic item with this title was found!");
                     Assert.IsFalse(titleNotExist.Equals(this.dynamicTitles[1]), "The dynamic item with this title was found!");
                 }

@@ -1,16 +1,10 @@
 ﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
 
-@using Telerik.Sitefinity.Model;
-@using Telerik.Sitefinity.Libraries.Model;
-
 @@*Start @Model.Name field*@@
-@@{{
-    var item = ((object)Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>();
-    if(item != null)
-    {
-        <video controls>
-            <source src='@@(((MediaContent)item).MediaUrl)'>
-        </video>
-    }
-}}
+@@if(Model.Item.RelatedItem("@Model.Name") != null)
+{
+    <video controls>
+        <source src='@@Model.Item.RelatedItem("@Model.Name").Fields.MediaUrl'>
+    </video>
+}
 @@*End @Model.Name field*@@

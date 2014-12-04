@@ -5,7 +5,7 @@
     <strong> @Model.Title :</strong>
 
     <span @@Html.InlineEditingFieldAttributes("@Model.Name", "YesNo")>
-        @@(((bool)Model.Item.@(Model.Name))? Res.Get<Labels>().Yes : Res.Get<Labels>().No)
+        @@Model.Item.GetBool("@Model.Name")
     </span> 
 </div>
 @@*End @Model.Name field*@@

@@ -52,9 +52,9 @@ namespace DynamicContent.Mvc.Models
             if (this.ContentType != null)
             {
                 var result = new List<CacheDependencyKey>(1);
-                if (viewModel.Item != null && viewModel.Item.Id != Guid.Empty)
+                if (viewModel.Item != null && viewModel.Item.Fields.Id != Guid.Empty)
                 {
-                    result.Add(new CacheDependencyKey { Key = viewModel.Item.Id.ToString().ToUpperInvariant(), Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
+                    result.Add(new CacheDependencyKey { Key = viewModel.Item.Fields.Id.ToString().ToUpperInvariant(), Type = typeof(Telerik.Sitefinity.DynamicModules.Model.DynamicContent) });
                 }
 
                 return result;

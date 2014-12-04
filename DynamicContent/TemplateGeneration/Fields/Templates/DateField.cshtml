@@ -4,10 +4,10 @@
 <div>
     <strong> @Model.Title :</strong>
 
-    @@if(Model.Item.@(Model.Name)!=null)
+    @@if(Model.Item.Fields.@(Model.Name)!=null)
     {
     <span @@Html.InlineEditingFieldAttributes("@Model.Name", "DateTime")>
-        @@(((DateTime)Model.Item.@(Model.Name)).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+        @@Model.Item.GetDateTime("@Model.Name", "MMM d, yyyy, HH:mm tt")
     </span>
     } 
 </div>

@@ -16,15 +16,15 @@
 
 <div class="@Model.CssClass">
     <ul class="list-unstyled">
-        @foreach (dynamic item in Model.Items)
+        @foreach (var item in Model.Items)
         {
 		<p> List template </p>
-            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Id)>
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 
 @*Start Image field*@
 <div>
     @{{
-        var image = ((IEnumerable<ContentLink>)item.Image).FirstOrDefault();
+          var image = ((IEnumerable<ContentLink>)item.Fields.Image).FirstOrDefault();
         if(image != null)
         {
             <img src='@image.GetImage().MediaUrl' alt='@image.GetImage().AlternativeText' title='@image.GetImage().Title' />
@@ -35,19 +35,19 @@
                 <h3 class="sfitemTitle sftitle">
                     @if (ViewBag.OpenInSamePage)
                     {
-                        <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">
-                            @item.Title
+                        <a href="@(ViewBag.CurrentPageUrl + item.Fields.ItemDefaultUrl)">
+                            @item.Fields.Title
                         </a>
                     }
                     else
                     {
-                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">
-                            @item.Title
+                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item.DataItem, ViewBag.DetailsPageId)">
+                            @item.Fields.Title
                         </a>
                     }
                 </h3>
                 <div class="text-muted">
-                    @(((DateTime)item.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+                    @(((DateTime)item.Fields.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
                 </div>
             </li>
         }

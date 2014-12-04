@@ -7,13 +7,13 @@
 <div>
     <strong> @Model.Title :</strong>
 
-	@@if(!string.IsNullOrEmpty(Model.Item.@(Model.Name).CountryCode))
+	@@if(!string.IsNullOrEmpty(Model.Item.Fields.@(Model.Name).CountryCode))
 	{
     <div> 
     @if(Model.AddressFieldMode!=AddressFieldMode.MapOnly)
     {
         <address>
-            @@(((Address)Model.Item.@(Model.Name)).GetFormattedAddress("#=Street# #=City# #=State# #=Country#"))
+            @@Model.Item.GetFormattedAddress("@Model.Name", "#=Street# #=City# #=State# #=Country#")
         </address>
     }
     @if (Model.AddressFieldMode != AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
@@ -21,7 +21,7 @@
         <div>
             <a class="viewMapLnk">View map</a>
             <div class="addressMapWrp" style="display:none">
-                <input class="addressValueInput" type="hidden" value="@@(new JavaScriptSerializer().Serialize(Model.Item.@(Model.Name)))" />
+                <input class="addressValueInput" type="hidden" value="@@(new JavaScriptSerializer().Serialize(Model.Item.Fields.@(Model.Name)))" />
                 <div class="mapContainer" style="width:500px; height:500px"></div>
             </div>
         </div>

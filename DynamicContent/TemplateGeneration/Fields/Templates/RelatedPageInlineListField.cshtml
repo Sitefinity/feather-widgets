@@ -7,11 +7,11 @@
     <strong> @Model.FrontendWidgetLabel :</strong>
 
     <ul>
-    @@foreach (IDynamicFieldsContainer relatedItem in ((object)Model.Item).GetRelatedItems("@Model.Name").ToList<IDataItem>())
+    @@foreach (var pageItem in Model.Item.RelatedItems("@Model.Name"))
     {
         <li>
-            <a @@(((PageNode)relatedItem).OpenNewWindow ? "target='_blank'" : "") href='@@RelatedDataExtensions.GetDefaultUrl(relatedItem)'>
-                @@relatedItem.GetValue("@(((string)Model.RelatedDataType).GetIdentifierField())")
+            <a @@pageItem.LinkTargetAttribute() href='@@pageItem.DefaultUrl'>
+                @@pageItem.Fields.Title
             </a>
         </li>   
     }

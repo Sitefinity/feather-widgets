@@ -6,7 +6,9 @@
 
     @@if(Model.Item.Fields.@(Model.Name)!=null)
     {
-    <span>@@Model.Item.GetPrice("@Model.Name","{0:C}")</span>
+    <span @@Html.InlineEditingFieldAttributes("@Model.Name", "FlatTaxon")>
+        @@Model.Item.GetFlatTaxonName("@Model.Name")
+    </span>
     }
 </div>
 @@*End @Model.Name field*@@

@@ -6,14 +6,11 @@
 <div>
     <strong> @Model.FrontendWidgetLabel :</strong>
 
-    @@{{
-        var item = ((object)Model.Item).GetRelatedItems("@Model.Name").FirstOrDefault<IDataItem>() as object;
-        if(item != null)
-        {
-            <a @@(((PageNode)item).OpenNewWindow ? "target='_blank'" : "") href='@@item.GetDefaultUrl()'>
-                @@(((IDynamicFieldsContainer)item).GetValue("@(((string)Model.RelatedDataType).GetIdentifierField())"))
-            </a>
-        }
-    }}
+    @@if(Model.Item.RelatedItem("@Model.Name") != null)
+    {
+        <a @@Model.Item.RelatedItem("@Model.Name").LinkTargetAttribute() href='@@Model.Item.RelatedItem("@Model.Name").DefaultUrl'>
+            @@Model.Item.RelatedItem("@Model.Name").Fields.Title
+        </a>
+    }
 </div>
 @@*End @Model.Name field*@@

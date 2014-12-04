@@ -268,8 +268,8 @@ namespace DynamicContent.TemplateGeneration
         private VersionManager versionManager;
 
         internal static readonly string EmptyLine = "\r\n";
-        private const string DetailItemPropertyMarkup = "@Model.Item.{0}";
-        private const string ListItemPropertyMarkup = "@item.{0}";
+        private const string DetailItemPropertyMarkup = "@Model.Item.Fields.{0}";
+        private const string ListItemPropertyMarkup = "@item.Fields.{0}";
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/ListTemplateContainer.cshtml";
         private const string DetailViewDefaultPath = "~/Frontend-Assembly/DynamicContent/Mvc/Views/Shared/DetailTemplateContainer.cshtml";
         private const string MainShortFieldTextForList = "@*MainTextFieldForList*@";
