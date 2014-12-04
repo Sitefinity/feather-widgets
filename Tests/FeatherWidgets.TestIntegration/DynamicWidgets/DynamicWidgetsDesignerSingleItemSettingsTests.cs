@@ -150,7 +150,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureTearDown]
         public void Teardown()
         {
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, TransactionName);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 
         #region Helper methods
