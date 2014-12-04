@@ -56,7 +56,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureTearDown]
         public void Teardown()
         {
-            ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, TransactionName);
+            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 
         private const string ModuleName = "Hierarchical Module";

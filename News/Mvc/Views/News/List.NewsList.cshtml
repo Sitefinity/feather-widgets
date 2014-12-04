@@ -33,7 +33,7 @@
 
                 @if (!String.IsNullOrEmpty(item.Summary))
                 {
-                    @Html.Raw(Html.TextField("Summary", item.Summary, "ShortText"))
+                    <div @Html.InlineEditingFieldAttributes("Summary", "ShortText")>@Html.Raw(item.Summary)</div>
                 }
 
                 @if (ViewBag.OpenInSamePage)

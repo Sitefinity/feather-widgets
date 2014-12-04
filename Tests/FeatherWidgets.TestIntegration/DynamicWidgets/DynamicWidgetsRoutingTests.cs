@@ -397,7 +397,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureTearDown]
         public void Teardown()
         {           
-            ServerOperations.ModuleBuilder().DeleteModule(ModuleName, string.Empty, TransactionName);
+            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 
         private MvcWidgetProxy CreateMvcWidget(string resolveType, string widgetName, ParentFilterMode parentFilter = ParentFilterMode.All, string parentType = null, string[] parentIds = null)

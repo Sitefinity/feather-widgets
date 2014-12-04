@@ -106,6 +106,70 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Adds 2 MVC dynamic widgets on page and add parent relation to one of the widgets, then verify the filtering on the frontend")]
+        public void DynamicWidgets_ParentRelationType_DisplayRelatedItemsOnFrontend()
+        {
+            string url;
+            string responseContent;
+            string expectedContent;
+            string pageName = "FeatherPage";
+            string pageUrl = "featherpage";
+            string item1 = "item1";
+            string item2 = "item2";
+
+            foreach (var color in this.colors)
+            {
+                ServerOperationsFeather.DynamicModule1Operations().CreateColor(color);
+            }
+
+            try
+            {
+                string[] item1RelatedColors = new string[] { this.colors[0], this.colors[1] };
+
+                ServerOperationsFeather.DynamicModule2Operations().CreateItem(item1, item1RelatedColors);
+
+                string[] item2RelatedColors = new string[] { this.colors[2], this.colors[3] };
+
+                ServerOperationsFeather.DynamicModule2Operations().CreateItem(item2, item2RelatedColors);
+
+                this.pageId = ServerOperations.Pages().CreatePage(pageName);
+
+                var itemsWidget = this.CreateMvcWidget(ResolveTypeItem, WidgetNameItem, RelatedFieldName, ResolveTypeColor, RelationDirection.Parent);
+                var colorsWidget = this.CreateMvcWidget(ResolveTypeColor, WidgetNameColor);
+
+                var controls = new List<System.Web.UI.Control>();
+                controls.Add(itemsWidget);
+                controls.Add(colorsWidget);
+
+                PageContentGenerator.AddControlsToPage(this.pageId, controls);
+
+                url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[0]);
+                responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + item1 + "\">";
+                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to " + item1 + " was not found on the frontend");
+
+                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + item2 + "\">";
+                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to " + item2 + " was found on the frontend, but it shouldn't");              
+
+                url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[3]);
+                responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + item2 + "\">";
+                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to " + item2 + " was not found on the frontend");
+
+                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + item1 + "\">";
+                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to " + item1 + " was found on the frontend, but it shouldn't");
+            }
+            finally
+            {
+                ServerOperations.Pages().DeleteAllPages();
+            }
+        }
+
         [FixtureTearDown]
         public void Teardown()
         {
