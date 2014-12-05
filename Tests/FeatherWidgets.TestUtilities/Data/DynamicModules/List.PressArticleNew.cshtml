@@ -24,7 +24,7 @@
 @*Start Image field*@
 <div>
     @{{
-          var image = ((IEnumerable<ContentLink>)item.Fields.Image).FirstOrDefault();
+        var image = ((IEnumerable<ContentLink>)item.Fields.Image).FirstOrDefault();
         if(image != null)
         {
             <img src='@image.GetImage().MediaUrl' alt='@image.GetImage().AlternativeText' title='@image.GetImage().Title' />
@@ -47,7 +47,7 @@
                     }
                 </h3>
                 <div class="text-muted">
-                    @(((DateTime)item.Fields.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+                    @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
                 </div>
             </li>
         }
