@@ -6,30 +6,28 @@
 @using DynamicContent.TemplateGeneration.Fields.Helpers;
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Data.ContentLinks;
-@using Telerik.Sitefinity.GeoLocations.Model;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Libraries.Model;
 @using Telerik.Sitefinity.Localization;
 @using Telerik.Sitefinity.Model;
 @using Telerik.Sitefinity.Model.ContentLinks;
 @using Telerik.Sitefinity.Modules.Pages;
-@using Telerik.Sitefinity.Pages.Model;
-@using Telerik.Sitefinity.RelatedData; 
+@using Telerik.Sitefinity.Pages.Model; 
 
-<div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Id)>
+<div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h1 class="sfitemTitle sftitle">
-         <p> Detail template </p>
-		@Model.Item.Fields.Title
+	 <p> Detail template </p>
+        @Model.Item.Fields.Title
     </h1>
     <div class="text-muted">
-        @(((DateTime)Model.Item.Fields.PublicationDate).ToSitefinityUITime().ToString("MMM d, yyyy, HH:mm tt"))
+        @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
     </div>
     
     
 @*Start Image field*@
 <div>
     @{{
-        var item = ((IEnumerable<ContentLink>)Model.Item.Image).FirstOrDefault();
+        var item = ((IEnumerable<ContentLink>)Model.Item.Fields.Image).FirstOrDefault();
         if(item != null)
         {
             <img src='@item.GetImage().MediaUrl' alt='@item.GetImage().AlternativeText' title='@item.GetImage().Title' />
@@ -58,7 +56,7 @@
 <div>
     <strong> Pages :</strong>
 
-    @if (Model.Item.Fields.Pages != null)
+    @if(Model.Item.Fields.Pages!=null)
     {
     <span>@Model.Item.Fields.Pages</span>   
     <span>pages</span>
@@ -70,10 +68,10 @@
 <div>
     <strong> Tags :</strong>
 
-    @if (Model.Item.Fields.Tags != null)
+    @if(Model.Item.Fields.Tags!=null)
     {
     <ul @Html.InlineEditingFieldAttributes("Tags", "FlatTaxon")>
-    @foreach (string taxonName in ((IList<Guid>)Model.Item.Fields.Tags).GetTaxonNames(new Guid("cb0f3a19-a211-48a7-88ec-77495c0f5374")))
+    @foreach (string taxonName in Model.Item.GetFlatTaxonNames("Tags"))
     {
         <li>@taxonName</li>   
     }
