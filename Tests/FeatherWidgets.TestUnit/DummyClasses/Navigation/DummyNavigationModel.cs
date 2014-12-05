@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web;
-using Navigation.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
 {

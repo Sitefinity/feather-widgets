@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
-using Navigation.Mvc.Controllers;
-using Navigation.Mvc.Models;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Fluent.Pages;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;

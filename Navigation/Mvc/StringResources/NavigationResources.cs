@@ -1,7 +1,7 @@
 ﻿using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Data;
 
-namespace Navigation.Mvc.StringResources
+namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
 {
     /// <summary>
     /// Localizable strings for the Navigation widget

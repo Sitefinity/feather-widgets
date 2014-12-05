@@ -199,9 +199,9 @@
       <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>
       <Name>DynamicContent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Navigation\Navigation.csproj">
+    <ProjectReference Include="..\..\Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
-      <Name>Navigation</Name>
+      <Name>Telerik.Sitefinity.Frontend.Navigation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>

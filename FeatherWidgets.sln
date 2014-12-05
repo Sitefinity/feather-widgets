@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Tests\TestSettings.testsettings = Tests\TestSettings.testsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation", "Navigation\Navigation.csproj", "{FC694955-3DF4-4A35-AD3E-A6954D6243B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Navigation", "Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj", "{FC694955-3DF4-4A35-AD3E-A6954D6243B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UITests", "UITests", "{EB73BDA8-73B7-4EC8-8707-853B53C40992}"
 EndProject

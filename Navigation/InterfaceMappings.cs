@@ -1,7 +1,7 @@
-﻿using Navigation.Mvc.Models;
-using Ninject.Modules;
+﻿using Ninject.Modules;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 
-namespace Navigation
+namespace Telerik.Sitefinity.Frontend.Navigation
 {
     /// <summary>
     /// This class is used to describe the bindings which will be used by the Ninject container when resolving classes

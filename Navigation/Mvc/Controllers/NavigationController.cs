@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-
-using Navigation.Mvc.Models;
-using Navigation.Mvc.StringResources;
-
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
 
-namespace Navigation.Mvc.Controllers
+namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of Navigation widget.

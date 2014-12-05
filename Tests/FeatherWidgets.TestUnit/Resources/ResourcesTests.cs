@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using FeatherWidgets.TestUnit.DummyClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Navigation.Mvc.StringResources;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Configuration.Data;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Configuration;

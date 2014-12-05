@@ -7,8 +7,8 @@
     <ProjectGuid>{FC694955-3DF4-4A35-AD3E-A6954D6243B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Navigation</RootNamespace>
-    <AssemblyName>Navigation</AssemblyName>
+    <RootNamespace>Telerik.Sitefinity.Frontend.Navigation</RootNamespace>
+    <AssemblyName>Telerik.Sitefinity.Frontend.Navigation</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

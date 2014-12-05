@@ -1,4 +1,4 @@
-﻿using Navigation.Mvc.Controllers;
+﻿using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.Navigation
 {

@@ -1,13 +1,12 @@
-﻿namespace Navigation.Mvc.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI.NavigationControls;
+
+namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Web;
-
-    using Telerik.Sitefinity.Abstractions;
-    using Telerik.Sitefinity.Web;
-    using Telerik.Sitefinity.Web.UI.NavigationControls;
-
     /// <summary>
     ///     This class represents model used for Navigation widget.
     /// </summary>

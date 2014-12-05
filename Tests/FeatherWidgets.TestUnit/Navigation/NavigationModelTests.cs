@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using FeatherWidgets.TestUnit.DummyClasses.Navigation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Navigation.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit.Navigation
 {

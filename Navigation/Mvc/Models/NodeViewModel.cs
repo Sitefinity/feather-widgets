@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace Navigation.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
     /// <summary>
     /// This class represents the model of the Nodes that will be rendered inside the Navigation templates.

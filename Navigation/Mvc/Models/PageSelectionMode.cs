@@ -1,4 +1,4 @@
-﻿namespace Navigation.Mvc.Models
+﻿namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
     /// <summary>
     /// The rendering options for the Navigation widget. 

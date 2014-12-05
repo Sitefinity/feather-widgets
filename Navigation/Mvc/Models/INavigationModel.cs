@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web;
 
-namespace Navigation.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
     /// <summary>
     /// Classes that implement this interface could be used as model for the Navigation widget.
