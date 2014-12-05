@@ -191,19 +191,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
       <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj">
       <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>
       <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
       <Name>Telerik.Sitefinity.Frontend.Navigation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\News\Telerik.Sitefinity.Frontend.News.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
       <Name>Telerik.Sitefinity.Frontend.News</Name>
     </ProjectReference>
@@ -211,7 +211,7 @@
       <Project>{3a2db408-48e4-4c20-bbbc-3f730009322a}</Project>
       <Name>FeatherWidgets.TestUtilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj">
       <Project>{33171bb5-9918-41be-b06d-0d8347846b0c}</Project>
       <Name>Telerik.Sitefinity.Frontend.SocialShare</Name>
     </ProjectReference>

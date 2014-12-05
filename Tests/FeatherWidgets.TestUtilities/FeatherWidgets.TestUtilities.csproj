@@ -151,15 +151,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
       <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
       <Name>Telerik.Sitefinity.Frontend.Navigation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\News\Telerik.Sitefinity.Frontend.News.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
       <Name>Telerik.Sitefinity.Frontend.News</Name>
     </ProjectReference>
