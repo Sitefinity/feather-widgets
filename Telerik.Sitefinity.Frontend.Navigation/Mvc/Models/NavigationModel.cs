@@ -12,21 +12,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
     /// </summary>
     public class NavigationModel : INavigationModel
     {
-        #region Fields
-
-        private IList<NodeViewModel> nodes;
-
-        /// <summary>
-        /// The provider
-        /// </summary>
-        private SiteMapProvider provider;
-
-        // TODO: check why field is never used
-        // private SiteMapBase siteMap;
-        private string siteMapProviderName = SiteMapBase.DefaultSiteMapProviderName;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -365,6 +350,21 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                     break;
             }
         }
+
+        #endregion
+
+        #region Private Fields
+
+        private IList<NodeViewModel> nodes;
+
+        /// <summary>
+        /// The provider
+        /// </summary>
+        private SiteMapProvider provider;
+
+        // TODO: check why field is never used
+        // private SiteMapBase siteMap;
+        private string siteMapProviderName = SiteMapBase.DefaultSiteMapProviderName;
 
         #endregion
     }

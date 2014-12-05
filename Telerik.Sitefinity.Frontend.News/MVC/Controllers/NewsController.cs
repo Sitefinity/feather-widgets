@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
-
-using Telerik.Sitefinity.Frontend.News.Mvc.Models;
-using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.News.Mvc.Models;
+using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
