@@ -40,7 +40,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
             return path;
         }
 
-        private const string MultiChoiceTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/MultiChoiceField.cshtml";
-        private const string SingleChoiceTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/SingleChoiceField.cshtml";
+        private const string MultiChoiceTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/MultiChoiceField.cshtml";
+        private const string SingleChoiceTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/SingleChoiceField.cshtml";
     }
 }

@@ -31,7 +31,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
             return path;
         }
 
-        private const string SingleImageTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/MainImageField.cshtml";
-        private const string MultiImageTemplatePath = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/MainMultiImageField.cshtml";
+        private const string SingleImageTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/MainImageField.cshtml";
+        private const string MultiImageTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/MainMultiImageField.cshtml";
     }
 }

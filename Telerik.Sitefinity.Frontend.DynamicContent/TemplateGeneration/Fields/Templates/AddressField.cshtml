@@ -35,7 +35,7 @@
     @@Html.Script(ScriptRef.JQuery)
     @@Html.Script("http://maps.googleapis.com/maps/api/js?key=" + FieldExtensions.GetApiKey() + "&sensor=false")
     @@Html.Script("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js")
-    <script type="text/javascript" src='@@Url.WidgetContent("TemplateGeneration/Fields/Scripts/address-field.js", "DynamicContent")'></script>
+    <script type="text/javascript" src='@@Url.WidgetContent("TemplateGeneration/Fields/Scripts/address-field.js", "Telerik.Sitefinity.Frontend.DynamicContent")'></script>
 }
 
 @@*End @Model.Name field*@@

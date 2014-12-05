@@ -98,19 +98,19 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
 
         internal const string InlineControlValue = "inline";
 
-        private const string InlineSingleItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedDataSingleField.cshtml";
-        private const string InlineListItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedDataInlineListField.cshtml";
+        private const string InlineSingleItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedDataSingleField.cshtml";
+        private const string InlineListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedDataInlineListField.cshtml";
 
-        private const string InlineSinglePage = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedPageSingleField.cshtml";
-        private const string InlinePageList = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedPageInlineListField.cshtml";
+        private const string InlineSinglePage = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedPageSingleField.cshtml";
+        private const string InlinePageList = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedPageInlineListField.cshtml";
 
-        private const string InlineSingleImageItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedImageSingleField.cshtml";
-        private const string InlineImageListItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedImageInlineListField.cshtml";
+        private const string InlineSingleImageItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedImageSingleField.cshtml";
+        private const string InlineImageListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedImageInlineListField.cshtml";
 
-        private const string InlineSingleVideoItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedVideoSingleField.cshtml";
-        private const string InlineVideoListItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedVideoInlineListField.cshtml";
+        private const string InlineSingleVideoItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedVideoSingleField.cshtml";
+        private const string InlineVideoListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedVideoInlineListField.cshtml";
 
-        private const string InlineSingleDocumentItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedDocumentSingleField.cshtml";
-        private const string InlineDocumentListItem = "~/Frontend-Assembly/DynamicContent/TemplateGeneration/Fields/Templates/RelatedDocumentInlineListField.cshtml";
+        private const string InlineSingleDocumentItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedDocumentSingleField.cshtml";
+        private const string InlineDocumentListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedDocumentInlineListField.cshtml";
     }
 }
