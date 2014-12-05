@@ -192,8 +192,8 @@
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Shared\DetailTemplateContainer.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Shared\ListTemplateContainer.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\ViewTemplates\DetailTemplateContainer.cshtml" />
+    <EmbeddedResource Include="TemplateGeneration\ViewTemplates\ListTemplateContainer.cshtml" />
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\AddressField.cshtml" />
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\DateField.cshtml" />
     <EmbeddedResource Include="TemplateGeneration\Fields\Templates\FlatTaxonomyField.cshtml" />
