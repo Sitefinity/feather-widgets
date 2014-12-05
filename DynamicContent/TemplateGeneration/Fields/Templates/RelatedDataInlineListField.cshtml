@@ -5,7 +5,7 @@
     <strong> @Model.FrontendWidgetLabel</strong>
 
     <ul>
-    @@foreach (var relatedItem in Model.Item.RelatedItems("@Model.Name"))
+    @@foreach (var relatedItem in Model.Item.Fields.@(Model.Name))
     {
         <li>
             <a href='@@relatedItem.DefaultUrl'>

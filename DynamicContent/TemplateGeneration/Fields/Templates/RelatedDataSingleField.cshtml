@@ -6,8 +6,8 @@
     
     @@if(item != null)
     {
-        <a href='@@Model.Item.RelatedItem("@Model.Name").DefaultUrl'>
-            @@Model.Item.RelatedItem("@Model.Name").Identifier
+        <a href='@@Model.Item.Fields.@(Model.Name).DefaultUrl'>
+            @@Model.Item.Fields.@(Model.Name).Identifier
         </a>
     }
 </div>
