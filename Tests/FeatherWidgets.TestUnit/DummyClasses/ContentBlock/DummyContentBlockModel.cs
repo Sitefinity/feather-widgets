@@ -1,5 +1,5 @@
 ﻿using System;
-using ContentBlock.Mvc.Models;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
 {

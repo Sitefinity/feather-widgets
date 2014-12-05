@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Sitefinity.Web;
 
-namespace SocialShare.SocialShareHelpers
+namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
 {
-    using System.Diagnostics.CodeAnalysis;
-
     /// <summary>
     /// Html helpers for the social share buttons
     /// </summary>

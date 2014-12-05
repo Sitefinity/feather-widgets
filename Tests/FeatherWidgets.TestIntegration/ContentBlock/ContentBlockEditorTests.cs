@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ContentBlock.Mvc.Controllers;
-using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web;
 

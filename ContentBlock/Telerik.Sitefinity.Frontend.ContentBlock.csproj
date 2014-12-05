@@ -7,8 +7,8 @@
     <ProjectGuid>{827B5C1E-619A-4080-A7F1-10D103C38CFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContentBlock</RootNamespace>
-    <AssemblyName>ContentBlock</AssemblyName>
+    <RootNamespace>Telerik.Sitefinity.Frontend.ContentBlock</RootNamespace>
+    <AssemblyName>Telerik.Sitefinity.Frontend.ContentBlock</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -1,8 +1,8 @@
-﻿using ContentBlock.Mvc.Models;
-using FeatherWidgets.TestUnit.DummyClasses.ContentBlock;
+﻿using FeatherWidgets.TestUnit.DummyClasses.ContentBlock;
 using FeatherWidgets.TestUnit.DummyClasses.Navigation;
 using Navigation.Mvc.Models;
 using Ninject.Modules;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit
 {

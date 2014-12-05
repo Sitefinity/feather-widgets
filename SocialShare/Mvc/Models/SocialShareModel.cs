@@ -5,7 +5,7 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SiteSettings.Basic;
 using Telerik.Sitefinity.Web.Utilities;
 
-namespace SocialShare.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 {
     using System.Diagnostics.CodeAnalysis;
 

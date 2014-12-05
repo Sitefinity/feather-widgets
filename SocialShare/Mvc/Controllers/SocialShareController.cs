@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using SocialShare.Mvc.Models;
+using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models;
 
-namespace SocialShare.Mvc.Controllers
+namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
 {
     /// <summary>
     /// Social Share

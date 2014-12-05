@@ -1,4 +1,4 @@
-﻿namespace SocialShare.Mvc.Models
+﻿namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 {
     /// <summary>
     /// SocialButton Model

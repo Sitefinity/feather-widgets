@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using ContentBlock.Mvc.Models;
-using ContentBlock.Mvc.StringResources;
 using FeatherWidgets.TestUnit.DummyClasses;
 using FeatherWidgets.TestUnit.DummyClasses.ContentBlock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,6 +8,8 @@ using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Configuration.Data;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Configuration;
 using Telerik.Sitefinity.Project.Configuration;

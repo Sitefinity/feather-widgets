@@ -211,9 +211,9 @@
       <Project>{3a2db408-48e4-4c20-bbbc-3f730009322a}</Project>
       <Name>FeatherWidgets.TestUtilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SocialShare\SocialShare.csproj">
+    <ProjectReference Include="..\..\SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj">
       <Project>{33171bb5-9918-41be-b06d-0d8347846b0c}</Project>
-      <Name>SocialShare</Name>
+      <Name>Telerik.Sitefinity.Frontend.SocialShare</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

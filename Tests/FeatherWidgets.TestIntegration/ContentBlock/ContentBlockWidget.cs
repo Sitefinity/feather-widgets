@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using ContentBlock.Mvc.Controllers;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.TestUtilities;
 using Telerik.Sitefinity.Web;
 
 namespace FeatherWidgets.TestIntegration.ContentBlock

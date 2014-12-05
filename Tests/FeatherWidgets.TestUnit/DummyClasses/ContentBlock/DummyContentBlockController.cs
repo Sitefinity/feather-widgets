@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ContentBlock.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Web.UI;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.ContentBlock
