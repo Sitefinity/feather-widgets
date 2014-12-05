@@ -21,7 +21,7 @@
         <div>
             <a class="viewMapLnk">View map</a>
             <div class="addressMapWrp" style="display:none">
-                <input class="addressValueInput" type="hidden" value="@@(new JavaScriptSerializer().Serialize(Model.Item.Fields.@(Model.Name)))" />
+                <input class="addressValueInput" type="hidden" value='@@Model.Item.SerializeToJson("@Model.Name")' />
                 <div class="mapContainer" style="width:500px; height:500px"></div>
             </div>
         </div>
