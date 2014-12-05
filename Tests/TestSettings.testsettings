@@ -29,8 +29,8 @@
           <Configuration>
             <CodeCoverage xmlns="">
               <Regular>
-                <CodeCoverageItem binaryFile="C:\Work\Feather\feather-widgets\ContentBlock\bin\Debug\ContentBlock.dll" pdbFile="C:\Work\Feather\feather-widgets\ContentBlock\bin\Debug\ContentBlock.pdb" instrumentInPlace="true" />
-                <CodeCoverageItem binaryFile="C:\Work\Feather\feather-widgets\SocialShare\bin\Debug\SocialShare.dll" pdbFile="C:\Work\Feather\feather-widgets\SocialShare\bin\Debug\SocialShare.pdb" instrumentInPlace="true" />
+                <CodeCoverageItem binaryFile="C:\Work\Feather\feather-widgets\Telerik.Sitefinity.Frontend.ContentBlock\bin\Debug\Telerik.Sitefinity.Frontend.ContentBlock.dll" pdbFile="C:\Work\Feather\feather-widgets\Telerik.Sitefinity.Frontend.ContentBlock\bin\Debug\Telerik.Sitefinity.Frontend.ContentBlock.pdb" instrumentInPlace="true" />
+                <CodeCoverageItem binaryFile="C:\Work\Feather\feather-widgets\Telerik.Sitefinity.Frontend.SocialShare\bin\Debug\Telerik.Sitefinity.Frontend.SocialShare.dll" pdbFile="C:\Work\Feather\feather-widgets\Telerik.Sitefinity.Frontend.SocialShare\bin\Debug\Telerik.Sitefinity.Frontend.SocialShare.pdb" instrumentInPlace="true" />
               </Regular>
             </CodeCoverage>
           </Configuration>
