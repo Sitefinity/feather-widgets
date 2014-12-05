@@ -1,8 +1,8 @@
 ﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
 
 @@*Start @Model.Name field*@@
-@@if(Model.Item.RelatedItem("@Model.Name") != null)
+@@if(Model.Item.Fields.@(Model.Name) != null)
 {
-    <a href='@@Model.Item.RelatedItem("@Model.Name").Fields.MediaUrl'>@@Model.Item.RelatedItem("@Model.Name").Fields.Title</a>
+    <a href='@@Model.Item.Fields.@(Model.Name).Fields.MediaUrl'>@@Model.Item.Fields.@(Model.Name).Fields.Title</a>
 }
 @@*End @Model.Name field*@@

@@ -7,7 +7,7 @@
     <strong> @Model.FrontendWidgetLabel :</strong>
 
     <ul>
-    @@foreach (var pageItem in Model.Item.RelatedItems("@Model.Name"))
+    @@foreach (var pageItem in Model.Item.Fields.@(Model.Name))
     {
         <li>
             <a @@pageItem.LinkTargetAttribute() href='@@pageItem.DefaultUrl'>

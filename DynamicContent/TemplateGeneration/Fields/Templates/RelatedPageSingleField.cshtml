@@ -6,10 +6,10 @@
 <div>
     <strong> @Model.FrontendWidgetLabel :</strong>
 
-    @@if(Model.Item.RelatedItem("@Model.Name") != null)
+    @@if(Model.Item.Fields.@(Model.Name) != null)
     {
-        <a @@Model.Item.RelatedItem("@Model.Name").LinkTargetAttribute() href='@@Model.Item.RelatedItem("@Model.Name").DefaultUrl'>
-            @@Model.Item.RelatedItem("@Model.Name").Fields.Title
+        <a @@Model.Item.Fields.@(Model.Name).LinkTargetAttribute() href='@@Model.Item.Fields.@(Model.Name).DefaultUrl'>
+            @@Model.Item.Fields.@(Model.Name).Fields.Title
         </a>
     }
 </div>
