@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
-using News.Mvc.Controllers;
-using News.Mvc.Models;
-using Telerik.Sitefinity;
+using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Modules.News;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
-using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Workflow;
 
 namespace FeatherWidgets.TestIntegration.News
 {

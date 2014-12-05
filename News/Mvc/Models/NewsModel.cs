@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Model;
@@ -14,7 +13,7 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web.Model;
 
-namespace News.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
 {
     /// <summary>
     /// This class represents model used for News widget.

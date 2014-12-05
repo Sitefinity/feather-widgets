@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 
-using News.Mvc.Models;
-using News.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.News.Mvc.Models;
+using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -14,7 +14,7 @@ using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 
-namespace News.Mvc.Controllers
+namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of News widget.

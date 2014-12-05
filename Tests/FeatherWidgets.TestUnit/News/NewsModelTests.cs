@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using News.Mvc.Models;
+using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit.News
 {

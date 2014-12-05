@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 
-namespace News.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
 {
     /// <summary>
     /// Classes that implement this interface could be used as model for the News widget.

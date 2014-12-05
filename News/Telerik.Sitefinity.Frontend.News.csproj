@@ -7,8 +7,8 @@
     <ProjectGuid>{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>News</RootNamespace>
-    <AssemblyName>News</AssemblyName>
+    <RootNamespace>Telerik.Sitefinity.Frontend.News</RootNamespace>
+    <AssemblyName>Telerik.Sitefinity.Frontend.News</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>

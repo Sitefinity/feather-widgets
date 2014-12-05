@@ -203,9 +203,9 @@
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
       <Name>Navigation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\News\News.csproj">
+    <ProjectReference Include="..\..\News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
-      <Name>News</Name>
+      <Name>Telerik.Sitefinity.Frontend.News</Name>
     </ProjectReference>
     <ProjectReference Include="..\FeatherWidgets.TestUtilities\FeatherWidgets.TestUtilities.csproj">
       <Project>{3a2db408-48e4-4c20-bbbc-3f730009322a}</Project>
