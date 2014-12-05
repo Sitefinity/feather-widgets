@@ -6,14 +6,11 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DynamicContent")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DynamicContent")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyTitle("Telerik.Sitefinity.Frontend.DynamicContent")]
+[assembly: AssemblyCompany("Telerik")]
+[assembly: AssemblyProduct("Telerik Sitefinity CMS")]
+[assembly: AssemblyCopyright("Copyright © Telerik 2014")]
+[assembly: AssemblyTrademark("Sitefinity")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -36,4 +33,4 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: ControllerContainer(typeof(DynamicContent.DynamicWidgetInitializer), "Initialize")]
+[assembly: ControllerContainer(typeof(Telerik.Sitefinity.Frontend.DynamicContent.DynamicWidgetInitializer), "Initialize")]

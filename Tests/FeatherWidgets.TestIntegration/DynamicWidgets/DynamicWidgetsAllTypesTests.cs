@@ -1,6 +1,6 @@
-﻿using DynamicContent.Mvc.Controllers;
-using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Mvc.Proxy;

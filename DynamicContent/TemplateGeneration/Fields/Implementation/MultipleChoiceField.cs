@@ -7,7 +7,7 @@ using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 
-namespace DynamicContent.TemplateGeneration.Fields.Implementation
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation
 {
     /// <summary>
     /// This class represents field generation strategy for multiple choice dynamic fields.

@@ -5,7 +5,7 @@ using System.Text;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model.ContentLinks;
 
-namespace DynamicContent.TemplateGeneration.Fields.Helpers
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Helpers
 {
     /// <summary>
     /// This class contains extension methods for working with <see cref="ContentLink"/>.

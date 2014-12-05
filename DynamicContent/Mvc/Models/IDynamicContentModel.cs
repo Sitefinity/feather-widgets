@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies.Model;
 
-namespace DynamicContent.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
 {
     /// <summary>
     /// Classes that implement this interface provide business logic for getting DynamicContent.

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace DynamicContent.TemplateGeneration.Fields.Implementation
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation
 {
     /// <summary>
     /// This class generates template markup for main image field.

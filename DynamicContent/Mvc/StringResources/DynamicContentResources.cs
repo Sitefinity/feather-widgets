@@ -1,7 +1,7 @@
 ﻿using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Data;
 
-namespace DynamicContent.Mvc.StringResources
+namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources
 {
     /// <summary>
     /// Localizable strings for the News widget

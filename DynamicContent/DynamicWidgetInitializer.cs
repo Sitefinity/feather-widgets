@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-
-using DynamicContent.Mvc.Controllers;
-using DynamicContent.TemplateGeneration.Fields;
-using DynamicContent.TemplateGeneration.Fields.Implementation;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields;
+using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 
-namespace DynamicContent
+namespace Telerik.Sitefinity.Frontend.DynamicContent
 {
     /// <summary>
     /// This class is responsible for initialization of the dynamic widget.

@@ -6,7 +6,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ContentBlock")]
+[assembly: AssemblyTitle("Telerik.Sitefinity.Frontend.ContentBlock")]
 [assembly: AssemblyCompany("Telerik")]
 [assembly: AssemblyProduct("Telerik Sitefinity CMS")]
 [assembly: AssemblyCopyright("Copyright © Telerik 2014")]

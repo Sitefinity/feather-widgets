@@ -14,7 +14,7 @@ using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 
-namespace DynamicContent.TemplateGeneration.Fields.Helpers
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Helpers
 {
     /// <summary>
     /// This class contains helper methods for working with front-end fields.

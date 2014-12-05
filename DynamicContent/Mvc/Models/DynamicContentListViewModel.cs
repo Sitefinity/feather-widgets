@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 
-namespace DynamicContent.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
 {
     /// <summary>
     /// View model for the list view of the Dynamic Content widget.

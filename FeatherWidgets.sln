@@ -32,7 +32,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.TestUI.Arran
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.News", "News\Telerik.Sitefinity.Frontend.News.csproj", "{574042A9-61AA-4EAC-83D2-79CD19AA8BD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicContent", "DynamicContent\DynamicContent.csproj", "{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.DynamicContent", "DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj", "{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

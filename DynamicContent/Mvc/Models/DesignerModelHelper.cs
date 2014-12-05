@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 using System.Web.UI;
-
-using DynamicContent.Mvc.Controllers;
-using DynamicContent.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -13,7 +12,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
-namespace DynamicContent.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
 {
     /// <summary>
     /// Helper class for views of the designer.

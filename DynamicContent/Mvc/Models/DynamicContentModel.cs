@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 
-namespace DynamicContent.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
 {
     /// <summary>
     /// This class represents model used for DynamicContent widget.

@@ -4,9 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-
-using DynamicContent.Mvc.Models;
-using DynamicContent.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
@@ -24,7 +23,7 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 
-namespace DynamicContent.Mvc.Controllers
+namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
 {
     /// <summary>
     /// This class represents a controller for Dynamic Content widget.

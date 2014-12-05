@@ -1,4 +1,4 @@
-﻿namespace DynamicContent.Mvc.Models
+﻿namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
 {
     /// <summary>
     /// Mode for filtering dynamic content items by parent.

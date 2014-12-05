@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Threading;
-using DynamicContent.Mvc.Controllers;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Utilities.TypeConverters;

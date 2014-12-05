@@ -2,21 +2,21 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using DynamicContent.Mvc.Controllers;
-using DynamicContent.TemplateGeneration.Fields;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields;
+using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Versioning;
-using DynamicContent.TemplateGeneration.Fields.Implementation;
 
-namespace DynamicContent.TemplateGeneration
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration
 {
     /// <summary>
     /// This class generates and registers templates for <see cref="DynamicContentController"/> widget.
