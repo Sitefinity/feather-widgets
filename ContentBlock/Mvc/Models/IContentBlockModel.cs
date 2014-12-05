@@ -3,7 +3,7 @@ using System;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Modules.GenericContent;
 
-namespace ContentBlock.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
 {
     /// <summary>
     /// This interface is used as a model for the ContentBlockController.

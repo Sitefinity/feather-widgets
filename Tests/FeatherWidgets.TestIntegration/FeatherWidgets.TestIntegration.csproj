@@ -191,9 +191,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ContentBlock\ContentBlock.csproj">
+    <ProjectReference Include="..\..\ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
-      <Name>ContentBlock</Name>
+      <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DynamicContent\DynamicContent.csproj">
       <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>

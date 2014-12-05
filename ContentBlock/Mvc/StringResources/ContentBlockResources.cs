@@ -1,7 +1,7 @@
 ﻿using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Data;
 
-namespace ContentBlock.Mvc.StringResources
+namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources
 {
     /// <summary>
     /// Localizable strings for the Content block widget

@@ -7,7 +7,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Modules.GenericContent;
 
-namespace ContentBlock.Mvc.Helpers
+namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Helpers
 {
     /// <summary>
     /// This class contains helper methods for use in the views of the ContentBlock widget and its designer.
@@ -19,6 +19,7 @@ namespace ContentBlock.Mvc.Helpers
         /// </summary>
         /// <param name="html">The HTML helper.</param>
         /// <returns>Json representation of a blank content item.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "html")]
         public static string GetBlankContentItem(this HtmlHelper html)
         {
             ContentItem blankContentItem;

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
-using ContentBlock.Mvc.Models;
-using ContentBlock.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Resources;
@@ -16,7 +16,7 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
-namespace ContentBlock.Mvc.Controllers
+namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
 {
     /// <summary>
     ///     The content block controller
@@ -105,7 +105,7 @@ namespace ContentBlock.Mvc.Controllers
         ///     The commands.
         /// </value>
         [Browsable(false)]
-        public IList<WidgetMenuItem> Commands { get; set; }
+        public IList<WidgetMenuItem> Commands { get; private set; }
 
         /// <summary>
         ///     Gets or sets the name of the provider.

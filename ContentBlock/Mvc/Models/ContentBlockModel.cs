@@ -1,9 +1,6 @@
-﻿namespace ContentBlock.Mvc.Models
-{
-    using System;
+﻿    using System;
     using System.Collections.Generic;
     using System.Configuration;
-
     using Telerik.Sitefinity.ContentLocations;
     using Telerik.Sitefinity.Data;
     using Telerik.Sitefinity.Frontend.InlineEditing.Attributes;
@@ -14,6 +11,8 @@
     using Telerik.Sitefinity.SitefinityExceptions;
     using Telerik.Sitefinity.Web.Utilities;
 
+namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
+{
     /// <summary>
     ///     This class is used as a model for the content block controller.
     /// </summary>
@@ -36,6 +35,7 @@
         /// <param name="sharedContentId">
         /// The shared content identifier.
         /// </param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ContentBlockModel(string providerName, string content, bool enableSocialSharing, Guid sharedContentId)
         {
             this.ProviderName = providerName;
@@ -150,6 +150,7 @@
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         protected virtual string GetContentHtmlValue(string content)
         {
             try

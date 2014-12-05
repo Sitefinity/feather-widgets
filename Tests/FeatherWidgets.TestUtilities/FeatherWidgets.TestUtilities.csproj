@@ -151,9 +151,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ContentBlock\ContentBlock.csproj">
+    <ProjectReference Include="..\..\ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
-      <Name>ContentBlock</Name>
+      <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Navigation\Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>

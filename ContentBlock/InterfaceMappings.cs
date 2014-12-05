@@ -1,7 +1,7 @@
-﻿using ContentBlock.Mvc.Models;
-using Ninject.Modules;
+﻿using Ninject.Modules;
+using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 
-namespace ContentBlock
+namespace Telerik.Sitefinity.Frontend.ContentBlock
 {
     /// <summary>
     /// This class is used to describe the bindings which will be used by the Ninject container when resolving classes
