@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
             {
-                mvcWidget.ControllerName = "ContentBlock.Mvc.Controllers.ContentBlockController";
+                mvcWidget.ControllerName = typeof(ContentBlockController).FullName;
 
                 mvcWidget.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new ContentBlockController()
                 {
@@ -83,7 +83,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
             {
-                mvcWidget.ControllerName = "ContentBlock.Mvc.Controllers.ContentBlockController";
+                mvcWidget.ControllerName = typeof(ContentBlockController).FullName;
                 mvcWidget.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new ContentBlockController()
                 {
                     Content = content.Content.Value,
