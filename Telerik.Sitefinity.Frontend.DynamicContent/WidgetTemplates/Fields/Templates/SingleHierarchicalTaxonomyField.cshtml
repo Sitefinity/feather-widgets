@@ -7,7 +7,7 @@
     @@if(Model.Item.Fields.@(Model.Name)!=null)
     {
     <span @@Html.InlineEditingFieldAttributes("@Model.Name", "HierarchicalTaxon")>
-        @@Model.Item.GetHierarchicalTaxonName("@Model.Name")
+        @@Model.Item.GetHierarchicalTaxon("@Model.Name").Title
     </span>
     }
 </div>

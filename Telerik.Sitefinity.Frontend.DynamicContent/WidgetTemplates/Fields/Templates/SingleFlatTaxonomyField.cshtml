@@ -7,7 +7,7 @@
     @@if(Model.Item.Fields.@(Model.Name)!=null)
     {
     <span @@Html.InlineEditingFieldAttributes("@Model.Name", "FlatTaxon")>
-        @@Model.Item.GetFlatTaxonName("@Model.Name")
+        @@Model.Item.GetFlatTaxon("@Model.Name").Title
     </span>
     }
 </div>
