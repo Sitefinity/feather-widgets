@@ -6,7 +6,7 @@ using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
+namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
 {
     /// <summary>
     /// This class represents field generation strategy for related data dynamic fields.
@@ -98,19 +98,19 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
 
         internal const string InlineControlValue = "inline";
 
-        private const string InlineSingleItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedDataSingleField.cshtml";
-        private const string InlineListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedDataInlineListField.cshtml";
+        private const string InlineSingleItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedDataSingleField.cshtml";
+        private const string InlineListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedDataInlineListField.cshtml";
 
-        private const string InlineSinglePage = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedPageSingleField.cshtml";
-        private const string InlinePageList = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedPageInlineListField.cshtml";
+        private const string InlineSinglePage = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedPageSingleField.cshtml";
+        private const string InlinePageList = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedPageInlineListField.cshtml";
 
-        private const string InlineSingleImageItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedImageSingleField.cshtml";
-        private const string InlineImageListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedImageInlineListField.cshtml";
+        private const string InlineSingleImageItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedImageSingleField.cshtml";
+        private const string InlineImageListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedImageInlineListField.cshtml";
 
-        private const string InlineSingleVideoItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedVideoSingleField.cshtml";
-        private const string InlineVideoListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedVideoInlineListField.cshtml";
+        private const string InlineSingleVideoItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedVideoSingleField.cshtml";
+        private const string InlineVideoListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedVideoInlineListField.cshtml";
 
-        private const string InlineSingleDocumentItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedDocumentSingleField.cshtml";
-        private const string InlineDocumentListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/RelatedDocumentInlineListField.cshtml";
+        private const string InlineSingleDocumentItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedDocumentSingleField.cshtml";
+        private const string InlineDocumentListItem = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/RelatedDocumentInlineListField.cshtml";
     }
 }

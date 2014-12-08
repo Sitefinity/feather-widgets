@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
+namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
 {
     /// <summary>
     /// This class represents field generation strategy for long rich text dynamic fields.
@@ -28,6 +28,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
             return LongRichTextField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/LongRichTextField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/LongRichTextField.cshtml";
     }
 }

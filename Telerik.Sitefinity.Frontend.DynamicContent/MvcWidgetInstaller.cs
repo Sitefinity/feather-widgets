@@ -8,7 +8,7 @@ using Telerik.Sitefinity.DynamicModules.Builder.Events;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration;
+using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
+namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
 {
     /// <summary>
     /// This class represents field generation strategy for image dynamic fields.
@@ -41,7 +41,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
             return path;
         }
 
-        private const string SingleImageTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/ImageField.cshtml";
-        private const string MultiImageTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/MultiImageField.cshtml";
+        private const string SingleImageTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/ImageField.cshtml";
+        private const string MultiImageTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/MultiImageField.cshtml";
     }
 }

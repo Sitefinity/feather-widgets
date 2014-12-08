@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
+namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
 {
     /// <summary>
-    /// This class represents field generation strategy for number dynamic fields.
+    /// This class represents field generation strategy for price dynamic fields.
     /// </summary>
-    public class NumberField : Field
+    public class PriceField : Field
     {
         /// <inheritdoc/>
         public override bool GetCondition(DynamicModuleField field)
         {
             var condition = base.GetCondition(field)
-                && field.FieldType == FieldType.Number;
+                && field.FieldType == FieldType.Currency;
 
             return condition;
         }
@@ -24,9 +24,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
         /// <inheritdoc/>
         protected override string GetTemplatePath(DynamicModuleField field)
         {
-            return NumberField.TemplatePath;
+            return PriceField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/NumberField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/PriceField.cshtml";
     }
 }

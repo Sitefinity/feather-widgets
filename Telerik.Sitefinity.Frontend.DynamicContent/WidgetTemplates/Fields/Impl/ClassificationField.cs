@@ -1,7 +1,7 @@
 ﻿using Telerik.Sitefinity.DynamicModules.Builder.Model;
-using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Helpers;
+using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Helpers;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
+namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
 {
     /// <summary>
     /// This class represents field generation strategy for classification dynamic fields.
@@ -41,9 +41,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
             return templatePath;
         }
 
-        private const string SingleFlatTaxonomyTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/SingleFlatTaxonomyField.cshtml";
-        private const string SingleHierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/SingleHierarchicalTaxonomyField.cshtml";
-        private const string FlatTaxonomyTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/FlatTaxonomyField.cshtml";
-        private const string HierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/HierarchicalTaxonomyField.cshtml";
+        private const string SingleFlatTaxonomyTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/SingleFlatTaxonomyField.cshtml";
+        private const string SingleHierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/SingleHierarchicalTaxonomyField.cshtml";
+        private const string FlatTaxonomyTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/FlatTaxonomyField.cshtml";
+        private const string HierarchicalTaxonomyTemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/HierarchicalTaxonomyField.cshtml";
     }
 }

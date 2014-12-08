@@ -2,7 +2,7 @@
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields
+namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
 {
     /// <summary>
     /// This class represents strategy for determining the markup needed depending on different <see cref="DynamicModuleField"/>.

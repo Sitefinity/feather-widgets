@@ -5,22 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
+namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
 {
     /// <summary>
-    /// This class represents field generation strategy for video dynamic fields.
+    /// This class represents field generation strategy for document dynamic fields.
     /// </summary>
     /// <remarks>
     /// Used for backward compatibility.
     /// </remarks>
-    public class VideosField : Field
+    public class DocumentsField : Field
     {
         /// <inheritdoc/>
         public override bool GetCondition(DynamicModuleField field)
         {
             var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.Media
-                && field.MediaType == "video";
+                && field.MediaType == "file";
 
             return condition;
         }
@@ -28,9 +28,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
         /// <inheritdoc/>
         protected override string GetTemplatePath(DynamicModuleField field)
         {
-            return VideosField.TemplatePath;
+            return DocumentsField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/MultiVideoField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/Fields/Templates/MultiDocumentField.cshtml";
     }
 }

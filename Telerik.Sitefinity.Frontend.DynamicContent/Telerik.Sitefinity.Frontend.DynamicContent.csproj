@@ -156,26 +156,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TemplateGeneration\Fields\Helpers\ContentLinkExtensions.cs" />
-    <Compile Include="TemplateGeneration\Fields\Helpers\FieldExtensions.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\AddressField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\ClassificationField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\MainImagesField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\DocumentsField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\VideosField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\ImagesField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\MultipleChoiceField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\YesNoField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\LongRichTextField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\RelatedMediaField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\RelatedDataField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\DateField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Helpers\ContentLinkExtensions.cs" />
+    <Compile Include="WidgetTemplates\Fields\Helpers\FieldExtensions.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\AddressField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\ClassificationField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\MainImagesField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\DocumentsField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\VideosField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\ImagesField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\MultipleChoiceField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\YesNoField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\LongRichTextField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\RelatedMediaField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\RelatedDataField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\DateField.cs" />
     <Compile Include="DynamicWidgetInitializer.cs" />
-    <Compile Include="TemplateGeneration\Fields\Field.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\LongTextAreaField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\NumberField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\PriceField.cs" />
-    <Compile Include="TemplateGeneration\Fields\Impl\ShortTextField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Field.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\LongTextAreaField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\NumberField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\PriceField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\ShortTextField.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="MvcWidgetInstaller.cs" />
     <Compile Include="Mvc\Controllers\DynamicContentController.cs" />
@@ -186,45 +186,45 @@
     <Compile Include="Mvc\Models\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\DynamicContentResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemplateGeneration\TemplateGenerator.cs" />
+    <Compile Include="WidgetTemplates\TemplateGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\DynamicContent\DesignerView.Simple.json" />
-    <EmbeddedResource Include="TemplateGeneration\ViewTemplates\DetailTemplateContainer.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\ViewTemplates\ListTemplateContainer.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\AddressField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\DateField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\FlatTaxonomyField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\LongTextAreaField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\NumberField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiChoiceField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedDataInlineListField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedDataSingleField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedDocumentSingleField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedDocumentInlineListField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedPageSingleField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedPageInlineListField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedImageSingleField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedImageInlineListField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedVideoSingleField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\RelatedVideoInlineListField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\ShortTextField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\YesNoField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\LongRichTextField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\HierarchicalTaxonomyField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\PriceField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\SingleChoiceField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\ViewTemplates\DetailTemplateContainer.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\ViewTemplates\ListTemplateContainer.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\AddressField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\DateField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\FlatTaxonomyField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\LongTextAreaField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\NumberField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\MultiChoiceField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedDataInlineListField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedDataSingleField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedDocumentSingleField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedDocumentInlineListField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedPageSingleField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedPageInlineListField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedImageSingleField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedImageInlineListField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedVideoSingleField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedVideoInlineListField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\ShortTextField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\YesNoField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\LongRichTextField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\HierarchicalTaxonomyField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\PriceField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\SingleChoiceField.cshtml" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\ImageField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiImageField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiVideoField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MultiDocumentField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MainImageField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\MainMultiImageField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\SingleFlatTaxonomyField.cshtml" />
-    <EmbeddedResource Include="TemplateGeneration\Fields\Templates\SingleHierarchicalTaxonomyField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\ImageField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\MultiImageField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\MultiVideoField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\MultiDocumentField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\MainImageField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\MainMultiImageField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\SingleFlatTaxonomyField.cshtml" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\SingleHierarchicalTaxonomyField.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -233,7 +233,7 @@
     <EmbeddedResource Include="Mvc\Scripts\DynamicContent\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TemplateGeneration\Fields\Scripts\address-field.js" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Scripts\address-field.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mvc\Helpers\" />

@@ -9,14 +9,14 @@ using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields;
-using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl;
+using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields;
+using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Versioning;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration
+namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates
 {
     /// <summary>
     /// This class generates and registers templates for <see cref="DynamicContentController"/> widget.
@@ -266,8 +266,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration
         private VersionManager versionManager;
 
         internal static readonly string EmptyLine = "\r\n";
-        private const string MasterViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/ViewTemplates/ListTemplateContainer.cshtml";
-        private const string DetailViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/ViewTemplates/DetailTemplateContainer.cshtml";
+        private const string MasterViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/ViewTemplates/ListTemplateContainer.cshtml";
+        private const string DetailViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/ViewTemplates/DetailTemplateContainer.cshtml";
         private const string MainShortField = "@*MainTextField*@";
         private const string DynamicFieldsText = "@*GenerateFieldsSection*@";
         private const string MainPictureFieldText = "@*MainPictureSection*@";
