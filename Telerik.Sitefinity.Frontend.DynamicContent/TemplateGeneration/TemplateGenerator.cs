@@ -266,8 +266,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration
         private VersionManager versionManager;
 
         internal static readonly string EmptyLine = "\r\n";
-        private const string DetailItemPropertyMarkup = "@Model.Item.Fields.{0}";
-        private const string ListItemPropertyMarkup = "@item.Fields.{0}";
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/ViewTemplates/ListTemplateContainer.cshtml";
         private const string DetailViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/ViewTemplates/DetailTemplateContainer.cshtml";
         private const string MainShortField = "@*MainTextField*@";
