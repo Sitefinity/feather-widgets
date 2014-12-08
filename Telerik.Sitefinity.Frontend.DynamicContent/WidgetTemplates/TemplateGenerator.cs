@@ -266,8 +266,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates
         private VersionManager versionManager;
 
         internal static readonly string EmptyLine = "\r\n";
-        private const string MasterViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/ViewTemplates/ListTemplateContainer.cshtml";
-        private const string DetailViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/ViewTemplates/DetailTemplateContainer.cshtml";
+        private const string MasterViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/ContainerTemplates/ListTemplateContainer.cshtml";
+        private const string DetailViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/WidgetTemplates/ContainerTemplates/DetailTemplateContainer.cshtml";
         private const string MainShortField = "@*MainTextField*@";
         private const string DynamicFieldsText = "@*GenerateFieldsSection*@";
         private const string MainPictureFieldText = "@*MainPictureSection*@";
