@@ -51,6 +51,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -166,6 +167,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
+      <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Navigation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FeatherWidgets.TestUtilities\FeatherWidgets.TestUtilities.csproj">
       <Project>{3a2db408-48e4-4c20-bbbc-3f730009322a}</Project>
       <Name>FeatherWidgets.TestUtilities</Name>

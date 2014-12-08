@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
@@ -27,7 +28,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().CreatePage(Page1);
             ServerOperations.Pages().CreatePage(Page2);
 
-            FeatherServerOperations.Pages().AddMvcWidgetToPage(pageId, ControllerType, WidgetCaption, PlaceHolderId);
+            FeatherServerOperations.Pages().AddMvcWidgetToPage(pageId, typeof(NavigationController).FullName, WidgetCaption, PlaceHolderId);
         }
 
         /// <summary>
@@ -44,7 +45,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string Page2 = "Page2";
         private const string TemplateTitle = "Foundation.default";
         private const string WidgetCaption = "Navigation";
-        private const string ControllerType = "Navigation.Mvc.Controllers.NavigationController";
         private const string PlaceHolderId = "Contentplaceholder1";
     }
 }
