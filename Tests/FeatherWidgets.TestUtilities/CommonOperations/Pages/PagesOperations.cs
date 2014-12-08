@@ -7,6 +7,7 @@ using System.Web.UI;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Pages.Model;
@@ -108,7 +109,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
             {
-                mvcWidget.ControllerName = "News.Mvc.Controllers.NewsController";
+                mvcWidget.ControllerName = typeof(NewsController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "News", placeholder);
             }
