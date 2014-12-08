@@ -4,7 +4,7 @@
 <div>
     <strong> @Model.FrontendWidgetLabel :</strong>
     
-    @@if(item != null)
+    @@if(Model.Item.Fields.@(Model.Name) != null)
     {
         <a href='@@Model.Item.Fields.@(Model.Name).DefaultUrl'>
             @@Model.Item.Fields.@(Model.Name).Identifier
