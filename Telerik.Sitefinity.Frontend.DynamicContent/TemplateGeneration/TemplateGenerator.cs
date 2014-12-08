@@ -157,9 +157,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration
         {
             var defaultTemplateText = this.GetDefaultTemplate(TemplateGenerator.MasterViewDefaultPath);
             var mainPictureMarkup = this.GetMainPictureSection(moduleType);
-            var mainShortTextMarkup = string.Format(TemplateGenerator.ListItemPropertyMarkup, moduleType.MainShortTextFieldName);
 
-            defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainShortFieldTextForList, mainShortTextMarkup);
+            defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainShortField, moduleType.MainShortTextFieldName);
             defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainPictureFieldText, mainPictureMarkup);
 
             return defaultTemplateText;
@@ -174,9 +173,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration
         {
             var defaultTemplateText = this.GetDefaultTemplate(TemplateGenerator.DetailViewDefaultPath);
             var generatedFieldsMarkup = this.GenerateDynamicFieldSection(moduleType);
-            var mainShortTextMarkup = string.Format(TemplateGenerator.DetailItemPropertyMarkup, moduleType.MainShortTextFieldName);
 
-            defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainShortFieldTextForDetail, mainShortTextMarkup);
+            defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.MainShortField, moduleType.MainShortTextFieldName);
             defaultTemplateText = defaultTemplateText.Replace(TemplateGenerator.DynamicFieldsText, generatedFieldsMarkup);
 
             return defaultTemplateText;
@@ -272,8 +270,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration
         private const string ListItemPropertyMarkup = "@item.Fields.{0}";
         private const string MasterViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/ViewTemplates/ListTemplateContainer.cshtml";
         private const string DetailViewDefaultPath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/ViewTemplates/DetailTemplateContainer.cshtml";
-        private const string MainShortFieldTextForList = "@*MainTextFieldForList*@";
-        private const string MainShortFieldTextForDetail = "@*MainTextFieldForDetail*@";
+        private const string MainShortField = "@*MainTextField*@";
         private const string DynamicFieldsText = "@*GenerateFieldsSection*@";
         private const string MainPictureFieldText = "@*MainPictureSection*@";
 

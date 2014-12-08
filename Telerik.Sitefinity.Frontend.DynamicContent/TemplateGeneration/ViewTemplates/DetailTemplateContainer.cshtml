@@ -14,9 +14,9 @@
 @using Telerik.Sitefinity.Pages.Model; 
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
-    <h1 class="sfitemTitle sftitle">
-        @*MainTextFieldForDetail*@
-    </h1>
+    <h3 @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText")>
+        @Model.Item.Fields.@*MainTextField*@
+    </h3>
     <div class="text-muted">
         @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
     </div>

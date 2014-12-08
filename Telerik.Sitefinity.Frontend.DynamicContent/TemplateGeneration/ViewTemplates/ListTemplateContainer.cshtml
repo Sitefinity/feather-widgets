@@ -20,17 +20,17 @@
         {
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 @*MainPictureSection*@
-                <h3 class="sfitemTitle sftitle">
+                <h3>
                     @if (ViewBag.OpenInSamePage)
                     {
-                        <a href="@(ViewBag.CurrentPageUrl + item.Fields.ItemDefaultUrl)">
-                            @*MainTextFieldForList*@
+                        <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@(ViewBag.CurrentPageUrl + item.Fields.ItemDefaultUrl)">
+                            @item.Fields.@*MainTextField*@
                         </a>
                     }
                     else
                     {
-                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item.DataItem, ViewBag.DetailsPageId)">
-                            @*MainTextFieldForList*@
+                        <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item.DataItem, ViewBag.DetailsPageId)">
+                            @item.Fields.@*MainTextField*@
                         </a>
                     }
                 </h3>
