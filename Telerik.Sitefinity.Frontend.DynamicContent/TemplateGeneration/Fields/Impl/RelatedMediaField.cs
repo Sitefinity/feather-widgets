@@ -12,7 +12,7 @@ using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
 {
     /// <summary>
     /// This class represents field generation strategy for related media dynamic fields.

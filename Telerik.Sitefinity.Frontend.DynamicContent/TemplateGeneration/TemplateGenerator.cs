@@ -10,7 +10,7 @@ using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields;
-using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation;
+using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;

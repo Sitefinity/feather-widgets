@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
 {
     /// <summary>
     /// This class represents field generation strategy for image dynamic fields.

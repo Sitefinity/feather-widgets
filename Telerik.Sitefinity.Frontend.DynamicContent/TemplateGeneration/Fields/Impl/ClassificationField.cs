@@ -1,7 +1,7 @@
 ﻿using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Helpers;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
 {
     /// <summary>
     /// This class represents field generation strategy for classification dynamic fields.

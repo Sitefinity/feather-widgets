@@ -7,7 +7,7 @@ using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields;
-using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation;
+using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent

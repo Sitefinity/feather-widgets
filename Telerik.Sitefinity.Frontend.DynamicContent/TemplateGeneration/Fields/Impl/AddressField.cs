@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
 {
     /// <summary>
-    /// This class represents field generation strategy for number dynamic fields.
+    /// This class represents field generation strategy for address dynamic fields.
     /// </summary>
-    public class NumberField : Field
+    public class AddressField : Field
     {
         /// <inheritdoc/>
         public override bool GetCondition(DynamicModuleField field)
         {
             var condition = base.GetCondition(field)
-                && field.FieldType == FieldType.Number;
+                && field.FieldType == FieldType.Address;
 
             return condition;
         }
@@ -24,9 +24,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
         /// <inheritdoc/>
         protected override string GetTemplatePath(DynamicModuleField field)
         {
-            return NumberField.TemplatePath;
+            return AddressField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/NumberField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/AddressField.cshtml";
     }
 }

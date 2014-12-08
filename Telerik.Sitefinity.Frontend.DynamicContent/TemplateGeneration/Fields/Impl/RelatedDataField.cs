@@ -6,7 +6,7 @@ using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
 {
     /// <summary>
     /// This class represents field generation strategy for related data dynamic fields.

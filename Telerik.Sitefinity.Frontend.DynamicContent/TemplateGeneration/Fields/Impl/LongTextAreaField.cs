@@ -5,19 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
-namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Implementation
+namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Impl
 {
     /// <summary>
-    /// This class represents field generation strategy for long rich text dynamic fields.
+    /// This class represents field generation strategy for long text area dynamic fields.
     /// </summary>
-    public class LongRichTextField : Field
+    public class LongTextAreaField : Field
     {
         /// <inheritdoc/>
         public override bool GetCondition(DynamicModuleField field)
         {
             var condition = base.GetCondition(field)
                 && field.FieldType == FieldType.LongText
-                && field.WidgetTypeName.EndsWith("HtmlField");
+                && field.WidgetTypeName.EndsWith("TextField");
 
             return condition;
         }
@@ -25,9 +25,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.I
         /// <inheritdoc/>
         protected override string GetTemplatePath(DynamicModuleField field)
         {
-            return LongRichTextField.TemplatePath;
+            return LongTextAreaField.TemplatePath;
         }
 
-        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/LongRichTextField.cshtml";
+        private const string TemplatePath = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.DynamicContent/TemplateGeneration/Fields/Templates/LongTextAreaField.cshtml";
     }
 }
