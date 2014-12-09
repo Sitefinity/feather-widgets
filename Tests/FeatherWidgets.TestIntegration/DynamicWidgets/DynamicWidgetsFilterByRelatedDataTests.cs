@@ -71,31 +71,31 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item1);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + this.colors[0] + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[0] + "\">";
                 Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[0] + " was not found on the frontend");
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + this.colors[1] + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[1] + "\">";
                 Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[1] + " was not found on the frontend");
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + this.colors[2] + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[2] + "\">";
                 Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[2] + " was found on the frontend, but it shouldn't");
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + this.colors[5] + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[5] + "\">";
                 Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[5] + " was found on the frontend, but it shouldn't");
 
                 url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item2);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + this.colors[2] + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[2] + "\">";
                 Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[2] + " was not found on the frontend");
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + this.colors[3] + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[3] + "\">";
                 Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[3] + " was not found on the frontend");
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + this.colors[0] + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[0] + "\">";
                 Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[0] + " was found on the frontend, but it shouldn't");
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + this.colors[5] + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[5] + "\">";
                 Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[5] + " was found on the frontend, but it shouldn't");                
             }
             finally
@@ -147,19 +147,19 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[0]);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + item1 + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + item1 + "\">";
                 Assert.IsTrue(responseContent.Contains(expectedContent), "Link to " + item1 + " was not found on the frontend");
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + item2 + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + item2 + "\">";
                 Assert.IsFalse(responseContent.Contains(expectedContent), "Link to " + item2 + " was found on the frontend, but it shouldn't");              
 
                 url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[3]);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + item2 + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + item2 + "\">";
                 Assert.IsTrue(responseContent.Contains(expectedContent), "Link to " + item2 + " was not found on the frontend");
 
-                expectedContent = "<a href=" + "\"/" + pageUrl + "/" + item1 + "\">";
+                expectedContent = "href=" + "\"/" + pageUrl + "/" + item1 + "\">";
                 Assert.IsFalse(responseContent.Contains(expectedContent), "Link to " + item1 + " was found on the frontend, but it shouldn't");
             }
             finally
