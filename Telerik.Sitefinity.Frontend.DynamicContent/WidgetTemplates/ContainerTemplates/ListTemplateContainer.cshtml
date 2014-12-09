@@ -1,0 +1,51 @@
+﻿@model Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models.DynamicContentListViewModel
+
+@using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Helpers;
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Data.ContentLinks;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Models;
+@using Telerik.Sitefinity.Web.DataResolving;
+@using Telerik.Sitefinity.Model.ContentLinks;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery)
+
+<link rel="stylesheet" href='@Url.WidgetContent("//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")' type="text/css" />
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<div class="@Model.CssClass">
+    <ul class="list-unstyled">
+        @foreach (var item in Model.Items)
+        {
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
+                @*MainPictureSection*@
+                <h3>
+                    @if (ViewBag.OpenInSamePage)
+                    {
+                        <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@(ViewBag.CurrentPageUrl + item.Fields.ItemDefaultUrl)">
+                            @item.Fields.@*MainTextField*@
+                        </a>
+                    }
+                    else
+                    {
+                        <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item.DataItem, ViewBag.DetailsPageId)">
+                            @item.Fields.@*MainTextField*@
+                        </a>
+                    }
+                </h3>
+                <div class="text-muted">
+                    @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
+                </div>
+            </li>
+        }
+    </ul>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new { currentPage = Model.CurrentPage, 
+                        totalPagesCount = Model.TotalPagesCount.Value, 
+                        redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate })
+    }
+
+</div>

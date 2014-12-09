@@ -2,10 +2,9 @@
 
 @using System.Collections;
 @using System.Linq;
-@using System.Web.Script.Serialization;
+@using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Helpers;
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Data.ContentLinks;
-@using Telerik.Sitefinity.Frontend.DynamicContent.TemplateGeneration.Fields.Helpers;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Libraries.Model;
 @using Telerik.Sitefinity.Localization;
@@ -15,10 +14,10 @@
 @using Telerik.Sitefinity.Pages.Model; 
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
-    <h1 class="sfitemTitle sftitle">
-	 <p> Detail template </p>
+    <h3 @Html.InlineEditingFieldAttributes("Title", "ShortText")>
+	<p> Detail template </p>
         @Model.Item.Fields.Title
-    </h1>
+    </h3>
     <div class="text-muted">
         @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
     </div>
@@ -71,9 +70,9 @@
     @if(Model.Item.Fields.Tags!=null)
     {
     <ul @Html.InlineEditingFieldAttributes("Tags", "FlatTaxon")>
-    @foreach (string taxonName in Model.Item.GetFlatTaxonNames("Tags"))
+    @foreach (var taxon in Model.Item.GetFlatTaxons("Tags"))
     {
-        <li>@taxonName</li>   
+        <li>@taxon.Title</li>   
     }
     </ul>
     }

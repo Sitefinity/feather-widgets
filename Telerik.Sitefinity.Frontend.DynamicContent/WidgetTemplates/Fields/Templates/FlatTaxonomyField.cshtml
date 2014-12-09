@@ -1,0 +1,17 @@
+﻿@model Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModuleField
+
+@@*Start @Model.Name field*@@
+<div>
+    <strong> @Model.Title :</strong>
+
+    @@if(Model.Item.Fields.@(Model.Name)!=null)
+    {
+    <ul @@Html.InlineEditingFieldAttributes("@Model.Name", "FlatTaxon")>
+    @@foreach (var taxon in Model.Item.GetFlatTaxons("@Model.Name"))
+    {
+        <li>@@taxon.Title</li>   
+    }
+    </ul>
+    }
+</div>
+@@*End @Model.Name field*@@
