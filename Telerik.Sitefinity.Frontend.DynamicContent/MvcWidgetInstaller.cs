@@ -156,7 +156,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
 
         private static string GetTransactionName(IDataItem item)
         {
-            var transactionName = string.Empty;
+            string transactionName = null;
             var provider = item.Provider as Telerik.Sitefinity.Data.DataProviderBase;
 
             if (provider != null)
