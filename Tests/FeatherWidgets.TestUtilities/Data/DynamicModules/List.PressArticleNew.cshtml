@@ -32,16 +32,16 @@
     }}
 </div>
 @*End Image field*@
-                <h3 class="sfitemTitle sftitle">
+                <h3>
                     @if (ViewBag.OpenInSamePage)
                     {
-                        <a href="@(ViewBag.CurrentPageUrl + item.Fields.ItemDefaultUrl)">
+                        <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@(ViewBag.CurrentPageUrl + item.Fields.ItemDefaultUrl)">
                             @item.Fields.Title
                         </a>
                     }
                     else
                     {
-                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item.DataItem, ViewBag.DetailsPageId)">
+                        <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item.DataItem, ViewBag.DetailsPageId)">
                             @item.Fields.Title
                         </a>
                     }

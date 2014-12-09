@@ -10,6 +10,7 @@ using Telerik.Sitefinity.DynamicModules.Builder.Web.UI;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Services;
@@ -44,9 +45,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
 
         #region Private methods
 
-        private static void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType)
+        private static void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType, string transactionName)
         {
-            var transactionName = ((ModuleBuilderDataProvider)dynamicModule.Provider).TransactionName;
             MvcWidgetInstaller.TemplateGaneratorAction(
                 templateGenerator =>
                 {
@@ -154,6 +154,17 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             configurationManager.SaveSection(toolboxesConfig);
         }
 
+        private static string GetTransactionName(IDataItem item)
+        {
+            string transactionName = null;
+            var provider = item.Provider as Telerik.Sitefinity.Data.DataProviderBase;
+
+            if (provider != null)
+                transactionName = provider.TransactionName;
+
+            return transactionName;
+        }
+
         private static void DynamicModuleUpdatingEventHandler(IDynamicModuleUpdatingEvent @event)
         {
             if (@event == null || @event.ChangedProperties == null || @event.Item == null || @event.Item.Types == null || @event.Item.Types.Length == 0)
@@ -164,9 +175,11 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
                 var statusChange = @event.ChangedProperties["Status"];
                 if ((DynamicModuleStatus)statusChange.NewValue == DynamicModuleStatus.Active && (int)statusChange.OldValue == (int)DynamicModuleStatus.NotInstalled)
                 {
+                    var transactionName = MvcWidgetInstaller.GetTransactionName(@event.Item);
+
                     foreach (var moduleType in @event.Item.Types)
                     {
-                        MvcWidgetInstaller.Install(@event.Item, moduleType);
+                        MvcWidgetInstaller.Install(@event.Item, moduleType, transactionName);
                     }
                 }
             }
@@ -181,16 +194,18 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             if (updatingEvent != null && updatingEvent.ShouldUpdateWidgetTemplates == false)
                 return;
 
-            var module = ModuleBuilderManager.GetManager().Provider.GetDynamicModules().SingleOrDefault(m => m.Id == @event.Item.ParentModuleId);
+            var transactionName = MvcWidgetInstaller.GetTransactionName(@event.Item);
+
+            var module = ModuleBuilderManager.GetManager(null, transactionName).Provider.GetDynamicModules().SingleOrDefault(m => m.Id == @event.Item.ParentModuleId);
             if (module != null && module.Status != DynamicModuleStatus.NotInstalled)
             {
-                MvcWidgetInstaller.Install(module, @event.Item);
+                MvcWidgetInstaller.Install(module, @event.Item, transactionName);
             }
         }
 
-        private static void Install(DynamicModule module, DynamicModuleType type)
+        private static void Install(DynamicModule module, DynamicModuleType type, string transactionName)
         {
-            MvcWidgetInstaller.RegisterTemplates(module, type);
+            MvcWidgetInstaller.RegisterTemplates(module, type, transactionName);
             MvcWidgetInstaller.RegisterToolboxItem(module, type);
         }
 
@@ -199,7 +214,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             if (@event == null || @event.Item == null || @event.Item.Provider == null)
                 return;
 
-            var transactionName = ((ModuleBuilderDataProvider)@event.Item.Provider).TransactionName;
+            var transactionName = MvcWidgetInstaller.GetTransactionName(@event.Item);
             MvcWidgetInstaller.TemplateGaneratorAction(
                 templateGenerator => templateGenerator.UnregisterTemplates(@event.Item.GetFullTypeName()), 
                 transactionName);
