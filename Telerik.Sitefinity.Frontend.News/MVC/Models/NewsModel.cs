@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using ServiceStack.Text;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules;
@@ -457,9 +458,10 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
             {
                 return NewsManager.GetManager(providerName);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // TODO: Do not catch general exception types
+                Log.Write(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Exception occurred in the News Model, details: {0}", ex));
                 return null;
             }
         }
