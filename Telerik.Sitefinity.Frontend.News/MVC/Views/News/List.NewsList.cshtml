@@ -17,11 +17,11 @@
                 <h3>
                     @if (ViewBag.OpenInSamePage)
                     {
-                        <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
+                        <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
                     }
                     else
                     {
-                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
+                        <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
                     }
                 </h3>
 
@@ -31,10 +31,7 @@
                     @DataResolver.Resolve(item, "Author", null)
                 </div>
 
-                @if (!String.IsNullOrEmpty(item.Summary))
-                {
-                    <div @Html.InlineEditingFieldAttributes("Summary", "ShortText")>@Html.Raw(item.Summary)</div>
-                }
+                <div @Html.InlineEditingFieldAttributes("Summary", "ShortText")>@Html.Raw(item.Summary)</div>
 
                 @if (ViewBag.OpenInSamePage)
                 {
