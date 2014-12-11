@@ -43,6 +43,20 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             EventHub.Subscribe<IDynamicModuleTypeDeletingEvent>(MvcWidgetInstaller.DynamicModuleTypeDeletingEventHandler);
         }
 
+        /// <summary>
+        /// Deactivates this instance.
+        /// </summary>
+        public static void Deactivate()
+        {
+            EventHub.Unsubscribe<IDynamicModuleUpdatingEvent>(MvcWidgetInstaller.DynamicModuleUpdatingEventHandler);
+
+            EventHub.Unsubscribe<IDynamicModuleTypeCreatingEvent>(MvcWidgetInstaller.DynamicModuleTypeEventHandler);
+
+            EventHub.Unsubscribe<IDynamicModuleTypeUpdatingEvent>(MvcWidgetInstaller.DynamicModuleTypeEventHandler);
+
+            EventHub.Unsubscribe<IDynamicModuleTypeDeletingEvent>(MvcWidgetInstaller.DynamicModuleTypeDeletingEventHandler);
+        }
+
         #region Private methods
 
         private static void RegisterTemplates(Telerik.Sitefinity.DynamicModules.Builder.Model.DynamicModule dynamicModule, DynamicModuleType dynamicModuleType, string transactionName)
