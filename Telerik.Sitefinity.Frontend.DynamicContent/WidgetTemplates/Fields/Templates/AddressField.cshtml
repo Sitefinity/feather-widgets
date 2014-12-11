@@ -7,27 +7,30 @@
 <div>
     <strong> @Model.Title :</strong>
 
-	@@if(!string.IsNullOrEmpty(Model.Item.Fields.@(Model.Name).CountryCode))
-	{
-    <div> 
     @if(Model.AddressFieldMode!=AddressFieldMode.MapOnly)
     {
+    <div> 
+    	@@if(!string.IsNullOrEmpty(Model.Item.Fields.@(Model.Name).CountryCode))
+	    {   
         <address>
             @@Model.Item.GetAddressString("@Model.Name", "#=Street# #=City# #=State# #=Country#")
         </address>
+        }
+    </div>
     }
     @if (Model.AddressFieldMode != AddressFieldMode.FormOnly && FieldExtensions.IsApiKeyValid())
     {
-        <div>
-            <a class="viewMapLnk">View map</a>
-            <div class="addressMapWrp" style="display:none">
-                <input class="addressValueInput" type="hidden" value='@@Model.Item.SerializeToJson("@Model.Name")' />
-                <div class="mapContainer" style="width:500px; height:500px"></div>
-            </div>
+    <div>
+        @@if(Model.Item.Fields.@(Model.Name).Latitude!=null || Model.Item.Fields.@(Model.Name).Longitude!=null)
+	    {
+        <a class="viewMapLnk">View map</a>
+        <div class="addressMapWrp" style="display:none">
+            <input class="addressValueInput" type="hidden" value='@@Model.Item.SerializeToJson("@Model.Name")' />
+            <div class="mapContainer" style="width:500px; height:500px"></div>
         </div>
-    }
+        }
     </div>
-	}
+    }
 </div>
 
 @@if (FieldExtensions.IsApiKeyValid())
