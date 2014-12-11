@@ -47,7 +47,8 @@
 					<sf-filter-selector sf-query-data="additionalFilters.value"
                         sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.News.Model.NewsItem))"
                         sf-provider="properties.ProviderName.PropertyValue"
-                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
+                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+                        ></sf-filter-selector>
                 </label>
             </div>
         </div>
@@ -143,14 +144,15 @@
             <div class="radio">
                 <label for="existingPage">
                     <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
-                    <span>
-                        @Html.Resource("ShowInExistingPage")<br />
-                        <sf-list-selector
-                            sf-page-selector
-                            sf-selected-item-id="properties.DetailsPageId.PropertyValue"
-                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
-                    </span>
+
+                    @Html.Resource("ShowInExistingPage")
                 </label>
+                <div class="label-content">
+                    <sf-list-selector
+                        sf-page-selector
+                        sf-selected-item-id="properties.DetailsPageId.PropertyValue"
+                        ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
+                </div>
             </div>
         </div>
 
