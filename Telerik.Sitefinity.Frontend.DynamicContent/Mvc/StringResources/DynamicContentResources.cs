@@ -230,8 +230,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources
         /// Gets phrase : Selected {ModuleName}
         /// </summary>
         [ResourceEntry("SelectedItems",
-            Value = "Selected {0}",
-            Description = "phrase : Selected {ModuleName}",
+            Value = "Selected {0}...",
+            Description = "phrase : Selected {ModuleName} ...",
             LastModified = "2014/11/06")]
         public string SelectedItems
         {

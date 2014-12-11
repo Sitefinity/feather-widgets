@@ -35,13 +35,15 @@
 
                         @Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
 
+                    </label>
+                    <div class="label-content">
                         <sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
                                       sf-multiselect="true" sf-sortable="true" sf-master="true"
                                       sf-provider="properties.ProviderName.PropertyValue"
                                       sf-selected-ids="itemSelector.selectedItemsIds"
                                       sf-item-type="itemType"
                                       sf-identifier-field="@Model.GetIdenfierField()"></sf-list-selector>
-                    </label>
+                    </div>
                 </div>
                 <div class="radio">
                     <label for="filterItems" class="full-width">
@@ -107,35 +109,36 @@
 						<input id="parentNotApplicable" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="NotApplicable" />
 
 						@Html.Resource("SelectedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
-
+                    </label>
+                    <div class="label-content">
 						<sf-list-selector sf-dynamic-items-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
 									  sf-multiselect="true" sf-sortable="true" sf-master="true"
 									  sf-provider="properties.ProviderName.PropertyValue"
 									  sf-selected-ids="itemSelector.selectedItemsIds"
                                       sf-identifier-field="@Model.GetIdenfierField()"
 									  sf-item-type="itemType"></sf-list-selector>
+                    </div>
+				</div>
+            </div>
+            
+			<expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='@Model.ExpandNarrowSelection().ToString()' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
+				<div class="radio m-top-none">
+					<label for="allItems" class="full-width">
+						<input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+						@Html.Resource("AllPublishedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
 					</label>
 				</div>
-				
-				<expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='@Model.ExpandNarrowSelection().ToString()' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
-					<div class="radio">
-						<label for="allItems" class="full-width">
-							<input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
-							@Html.Resource("AllPublishedItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
-						</label>
-					</div>
-					<div class="radio">
-						<label for="filterItems" class="full-width">
-							<input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
-							@Html.Resource("SelectionOfItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
-							<sf-filter-selector sf-query-data="additionalFilters.value"
-								sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
-								sf-provider="properties.ProviderName.PropertyValue"
-								ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
-						</label>
-					</div>
-				</expander>
-            </div>
+				<div class="radio">
+					<label for="filterItems" class="full-width">
+						<input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+						@Html.Resource("SelectionOfItems").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())
+						<sf-filter-selector sf-query-data="additionalFilters.value"
+							sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(Model.DynamicContentType())"
+							sf-provider="properties.ProviderName.PropertyValue"
+							ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"></sf-filter-selector>
+					</label>
+				</div>
+			</expander>
         }
     </tab>
 
@@ -231,14 +234,14 @@
             <div class="radio">
                 <label for="existingPage">
                     <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
-                    <span>
-                        @Html.Resource("ShowInExistingPage")<br />
-                        <sf-list-selector
+                    @Html.Resource("ShowInExistingPage")
+                </label>
+                <div class="label-content">
+                    <sf-list-selector
                             sf-page-selector
                             sf-selected-item-id="properties.DetailsPageId.PropertyValue"
                             ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
-                    </span>
-                </label>
+                </div>
             </div>
         </div>
 
