@@ -29,6 +29,15 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             DynamicWidgetInitializer.RegisterFields();
         }
 
+        /// <summary>
+        /// Deactivates this instance.
+        /// </summary>
+        public static void Deactivate()
+        {
+            DynamicWidgetInitializer.RegisterFields();
+            MvcWidgetInstaller.Deactivate();
+        }
+
         private static void RegisterFields()
         {
             ObjectFactory.Container.RegisterType(typeof(Field), typeof(LongTextAreaField), typeof(LongTextAreaField).Name);
