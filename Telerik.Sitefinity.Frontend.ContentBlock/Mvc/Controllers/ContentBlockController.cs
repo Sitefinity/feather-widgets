@@ -24,6 +24,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
     [ControllerToolboxItem(Name = "ContentBlock", Title = "ContentBlock", SectionName = "MvcWidgets")]
     [Localization(typeof(ContentBlockResources))]
     public class ContentBlockController : Controller, 
+                                          IHasContainerType,
                                           IZoneEditorReloader, 
                                           ICustomWidgetVisualization, 
                                           ICustomWidgetTitlebar, 
@@ -117,6 +118,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         ///     Gets or sets the ID of the ContentBlockItem if the Content is shared across multiple controls
         /// </summary>
         public Guid SharedContentID { get; set; }
+
+        /// <inheritdoc />
+        Type IHasContainerType.ContainerType { get; set; }
 
         #endregion
 
@@ -331,7 +335,8 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                                     "enableSocialSharing", 
                                                     this.EnableSocialSharing
                                                 }, 
-                                                { "sharedContentId", this.SharedContentID }
+                                                { "sharedContentId", this.SharedContentID },
+                                                { "containerType", ((IHasContainerType)this).ContainerType }
                                             };
 
             return ControllerModelFactory.GetModel<IContentBlockModel>(this.GetType(), constructorParameters);

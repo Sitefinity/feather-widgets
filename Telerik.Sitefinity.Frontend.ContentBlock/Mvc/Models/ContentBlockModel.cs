@@ -1,15 +1,16 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using Telerik.Sitefinity.ContentLocations;
-    using Telerik.Sitefinity.Data;
-    using Telerik.Sitefinity.Frontend.InlineEditing.Attributes;
-    using Telerik.Sitefinity.GenericContent.Model;
-    using Telerik.Sitefinity.Modules.GenericContent;
-    using Telerik.Sitefinity.Pages.Model;
-    using Telerik.Sitefinity.Services;
-    using Telerik.Sitefinity.SitefinityExceptions;
-    using Telerik.Sitefinity.Web.Utilities;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.InlineEditing.Attributes;
+using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.SitefinityExceptions;
+using Telerik.Sitefinity.Web.UI;
+using Telerik.Sitefinity.Web.Utilities;
 
 namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
 {
@@ -36,8 +37,23 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
         /// The shared content identifier.
         /// </param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ContentBlockModel(string providerName, string content, bool enableSocialSharing, Guid sharedContentId)
+        public ContentBlockModel(string providerName, string content, bool enableSocialSharing, Guid sharedContentId) :
+            this(providerName, content, enableSocialSharing, sharedContentId, null)
+        {   
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentBlockModel"/> class.
+        /// </summary>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <param name="content">The content.</param>
+        /// <param name="enableSocialSharing">if set to <c>true</c> [enable social sharing].</param>
+        /// <param name="sharedContentId">The shared content identifier.</param>
+        /// <param name="containerType">Type of the container.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ContentBlockModel(string providerName, string content, bool enableSocialSharing, Guid sharedContentId, Type containerType)
         {
+            this.ContainerType = containerType;
             this.ProviderName = providerName;
             this.EnableSocialSharing = enableSocialSharing;
             this.SharedContentID = sharedContentId;
@@ -45,9 +61,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
             content = this.GetContentHtmlValue(content);
 
             this.Content = LinkParser.ResolveLinks(
-                content, 
-                DynamicLinksParser.GetContentUrl, 
-                null, 
+                content,
+                DynamicLinksParser.GetContentUrl,
+                null,
                 SystemManager.IsInlineEditingMode);
         }
 
@@ -91,6 +107,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
 
         /// <inheritdoc />
         public string ContentType { get; set; }
+
+        /// <inheritdoc />
+        public Type ContainerType { get; set; }
 
         /// <inheritdoc />
         public bool EnableSocialSharing { get; set; }
@@ -171,7 +190,14 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
                 }
                 else
                 {
-                    this.ContentType = typeof(PageDraftControl).FullName;
+                    bool isEditable;
+                    if (this.ContainerType != null)
+                        isEditable = this.ContainerType.GetCustomAttributes(typeof(EditableControlsContainerAttribute), false).Length > 0;
+                    else
+                        isEditable = true;
+
+                    if (isEditable)
+                        this.ContentType = typeof(PageDraftControl).FullName;
                 }
             }
             catch (ItemNotFoundException)

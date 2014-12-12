@@ -1,5 +1,5 @@
 using System;
-
+using System.ComponentModel;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Modules.GenericContent;
 
@@ -50,6 +50,15 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
         /// The type of the content.
         /// </value>
         string ContentType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the container.
+        /// </summary>
+        /// <value>
+        /// The type of the container.
+        /// </value>
+        [Browsable(false)]
+        Type ContainerType { get; set; }
 
         /// <summary>
         /// Creates the blank data item.
