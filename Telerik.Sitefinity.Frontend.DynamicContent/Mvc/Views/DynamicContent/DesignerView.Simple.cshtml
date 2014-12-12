@@ -84,8 +84,8 @@
 				</div>
 				@if (Model.ParentModuleTypes().Count() == 1)
 				{
-					<div class="radio">
-						<label for="parentCurrentlyOpen" class="full-width">
+					<div class="radio form-inline">
+						<label for="parentCurrentlyOpen">
 							<input id="parentCurrentlyOpen" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
 
 							@Html.Resource("FromCurrentlyOpen") @Model.ParentModuleTypes().First().DisplayName.ToLower()
@@ -94,14 +94,17 @@
 				}
 				else
 				{
-					<div class="radio">
-						<label for="parentCurrentlyOpen" class="full-width">
+					<div class="radio form-inline">
+						<label for="parentCurrentlyOpen">
+
 							<input id="parentCurrentlyOpen" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
 
 							@Html.Resource("FromCurrentlyOpen")
-							<select ng-model="properties.CurrentlyOpenParentType.PropertyValue" ng-options="parentType.TypeName as parentType.DisplayName for parentType in parentTypes">
-							</select>
-						</label>
+                        </label>
+
+						<select class="form-control input-sm" ng-model="properties.CurrentlyOpenParentType.PropertyValue" ng-options="parentType.TypeName as parentType.DisplayName for parentType in parentTypes">
+						</select>
+						
 					</div>
 				}
 				<div class="radio">
