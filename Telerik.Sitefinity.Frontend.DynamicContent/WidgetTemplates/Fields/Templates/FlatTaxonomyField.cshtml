@@ -9,7 +9,7 @@
     <ul @@Html.InlineEditingFieldAttributes("@Model.Name", "FlatTaxon")>
     @@foreach (var taxon in Model.Item.GetFlatTaxons("@Model.Name"))
     {
-        <li>@@taxon.Title</li>   
+        <li>@@taxon.Title.ToString()</li>   
     }
     </ul>
     }
