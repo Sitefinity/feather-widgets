@@ -4,6 +4,7 @@ using System.Linq;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
+using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 
@@ -70,7 +71,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
             if (page < 1)
                 throw new ArgumentException("'page' argument has to be at least 1.", "page");
 
-            var manager = DynamicModuleManager.GetManager(this.ProviderName);
+            var manager = this.GetManagerInstance();
             var query = manager.GetItemSuccessors(parentItem, this.ContentType);
             if (query == null)
                 return this.CreateListViewModelInstance();
@@ -87,7 +88,8 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
             if (this.ContentType == null)
                 throw new InvalidOperationException("ContentType cannot be inferred from the WidgetName. A required module might be deactivated.");
 
-            var manager = DynamicModuleManager.GetManager(this.ProviderName);
+            var manager = this.GetManagerInstance();
+
             return manager.GetDataItems(this.ContentType);
         }
 
@@ -115,6 +117,29 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         protected override ContentListViewModel CreateListViewModelInstance()
         {
             return new DynamicContentListViewModel();
+        }
+
+        /// <summary>
+        /// Gets the manager instance.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual DynamicModuleManager GetManagerInstance()
+        {
+            string providerName;
+            if (this.ProviderName == null)
+            {
+                var moduleBuilderManager = ModuleBuilderManager.GetManager().Provider;
+                var dynamicType = moduleBuilderManager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeName == this.ContentType.Name && t.TypeNamespace == this.ContentType.Namespace);
+                providerName = DynamicModuleManager.GetDefaultProviderName(dynamicType.ModuleName);
+            }
+            else
+            {
+                providerName = this.ProviderName;
+            }
+
+            var manager = DynamicModuleManager.GetManager(providerName);
+
+            return manager;
         }
     }
 }
