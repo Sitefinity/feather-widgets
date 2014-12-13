@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields;
 using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent
 {
@@ -22,6 +23,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
         /// </summary>
         public static void Initialize() 
         {
+            if (SystemManager.GetModule("ModuleBuilder") == null)
+                return;
+            
             MvcWidgetInstaller.Initialize();
 
             DynamicWidgetInitializer.RegisterDynamicTemplatableControl();
