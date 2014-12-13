@@ -21,18 +21,9 @@
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 @*MainPictureSection*@
                 <h3>
-                    @if (ViewBag.OpenInSamePage)
-                    {
-                        <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@(ViewBag.CurrentPageUrl + item.Fields.ItemDefaultUrl)">
-                            @item.Fields.@*MainTextField*@
-                        </a>
-                    }
-                    else
-                    {
-                        <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item.DataItem, ViewBag.DetailsPageId)">
-                            @item.Fields.@*MainTextField*@
-                        </a>
-                    }
+                    <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
+                        @item.Fields.@*MainTextField*@
+                    </a>
                 </h3>
                 <div class="text-muted">
                     @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")

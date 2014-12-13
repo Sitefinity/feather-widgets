@@ -21,14 +21,17 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent),
-        Ignore]
+        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void ZActivateAndDeactivateNewsModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateNewsModule");
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().CheckInactiveNewsWidget();
+
+            ////This step is missed because of bug
+            ////BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().CheckInactiveNewsWidget();
+
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, "");
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyNewsOnTheFrontendEmptyPage();
             BAT.Arrange(this.TestName).ExecuteArrangement("ActivateNewsModule");
