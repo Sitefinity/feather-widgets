@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// Navigation widget on page template - All pages under currently opened page
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
-        [Category(TestCategories.Navigation)]
+        [Category(TestCategories.Navigation), Ignore]
         [Author("FeatherTeam")]
         public void NavigationWidgetOnPageTemplate_AllPagesUnderCurrentlyOpenedPage()
         {
