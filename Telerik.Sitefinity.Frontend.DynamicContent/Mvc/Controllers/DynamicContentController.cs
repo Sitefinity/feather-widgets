@@ -30,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
     /// </summary>
     [Localization(typeof(DynamicContentResources))]
     [ControllerMetadataAttribute(IsTemplatableControl = false)]
-    public class DynamicContentController : Controller, ISelfRoutingController, IContentLocatableView, IDynamicContentWidget
+    public class DynamicContentController : Controller, IRouteMapper, IContentLocatableView, IDynamicContentWidget
     {
         #region Properties
 
