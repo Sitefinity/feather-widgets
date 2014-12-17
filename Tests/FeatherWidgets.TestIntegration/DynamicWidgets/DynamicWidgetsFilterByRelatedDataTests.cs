@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Utilities.HtmlParsing;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 
@@ -71,32 +72,32 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item1);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[0] + "\">";
-                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[0] + " was not found on the frontend");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[0]);
+                Assert.IsTrue(this.ContainsElement(responseContent, expectedContent), "Link to color " + this.colors[0] + " was not found on the frontend");
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[1] + "\">";
-                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[1] + " was not found on the frontend");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[1]);
+                Assert.IsTrue(this.ContainsElement(responseContent, expectedContent), "Link to color " + this.colors[1] + " was not found on the frontend");
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[2] + "\">";
-                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[2] + " was found on the frontend, but it shouldn't");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[2]);
+                Assert.IsFalse(this.ContainsElement(responseContent, expectedContent), "Link to color " + this.colors[2] + " was found on the frontend, but it shouldn't");
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[5] + "\">";
-                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[5] + " was found on the frontend, but it shouldn't");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[5]);
+                Assert.IsFalse(this.ContainsElement(responseContent, expectedContent), "Link to color " + this.colors[5] + " was found on the frontend, but it shouldn't");
 
                 url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item2);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[2] + "\">";
-                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[2] + " was not found on the frontend");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[2]);
+                Assert.IsTrue(this.ContainsElement(responseContent, expectedContent), "Link to color " + this.colors[2] + " was not found on the frontend");
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[3] + "\">";
-                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to color " + this.colors[3] + " was not found on the frontend");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[3]);
+                Assert.IsTrue(this.ContainsElement(responseContent, expectedContent), "Link to color " + this.colors[3] + " was not found on the frontend");
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[0] + "\">";
-                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[0] + " was found on the frontend, but it shouldn't");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[0]);
+                Assert.IsFalse(this.ContainsElement(responseContent, expectedContent), "Link to color " + this.colors[0] + " was found on the frontend, but it shouldn't");
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + this.colors[5] + "\">";
-                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to color " + this.colors[5] + " was found on the frontend, but it shouldn't");                
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[5]);
+                Assert.IsFalse(this.ContainsElement(responseContent, expectedContent), "Link to color " + this.colors[5] + " was found on the frontend, but it shouldn't");                
             }
             finally
             {
@@ -147,20 +148,20 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[0]);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + item1 + "\">";
-                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to " + item1 + " was not found on the frontend");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item1);
+                Assert.IsTrue(this.ContainsElement(responseContent, expectedContent), "Link to " + item1 + " was not found on the frontend");
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + item2 + "\">";
-                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to " + item2 + " was found on the frontend, but it shouldn't");              
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item2);
+                Assert.IsFalse(this.ContainsElement(responseContent, expectedContent), "Link to " + item2 + " was found on the frontend, but it shouldn't");              
 
                 url = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + this.colors[3]);
                 responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + item2 + "\">";
-                Assert.IsTrue(responseContent.Contains(expectedContent), "Link to " + item2 + " was not found on the frontend");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item2);
+                Assert.IsTrue(this.ContainsElement(responseContent, expectedContent), "Link to " + item2 + " was not found on the frontend");
 
-                expectedContent = "href=" + "\"/" + pageUrl + "/" + item1 + "\">";
-                Assert.IsFalse(responseContent.Contains(expectedContent), "Link to " + item1 + " was found on the frontend, but it shouldn't");
+                expectedContent = UrlPath.ResolveAbsoluteUrl("~/" + pageUrl + "/" + item1);
+                Assert.IsFalse(this.ContainsElement(responseContent, expectedContent), "Link to " + item1 + " was found on the frontend, but it shouldn't");
             }
             finally
             {
@@ -188,6 +189,33 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             mvcProxy.WidgetName = widgetName;
 
             return mvcProxy;
+        }
+
+        private bool ContainsElement(string pageContent, string element)
+        {
+            using (HtmlParser parser = new HtmlParser(pageContent))
+            {
+                HtmlChunk chunk = null;
+                parser.SetChunkHashMode(false);
+                parser.AutoExtractBetweenTagsOnly = false;
+                parser.CompressWhiteSpaceBeforeTag = false;
+                parser.KeepRawHTML = true;
+
+                while ((chunk = parser.ParseNext()) != null)
+                {
+                    if (chunk.TagName.Equals("h3"))
+                    {
+                        chunk = parser.ParseNextTag();
+
+                        if (chunk.Html.Contains(element))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         private const string Module1Name = "Module1";
