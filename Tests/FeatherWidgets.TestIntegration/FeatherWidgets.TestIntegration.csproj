@@ -165,6 +165,7 @@
     <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
     <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
+    <Compile Include="DynamicWidgets\DeactivateModuleBuilderTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsAllTypesTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsContentLocationServiceTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerContentTests.cs" />
