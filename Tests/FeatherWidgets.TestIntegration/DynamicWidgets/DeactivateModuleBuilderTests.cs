@@ -24,9 +24,12 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         {
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, NewsProvider);
 
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, "Module Installations");
+            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource2);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().ActivateModule(ModuleName2, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitles2, this.dynamicUrls2);
 
+            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
             ServerOperationsFeather.DynamicModuleAllTypes().CreateFieldWithTitle(this.dynamicTitles, this.dynamicUrls);
         }
 
@@ -78,6 +81,44 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
         }
 
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Verify if the rest module is working when deactivate dynamic module.")]
+        public void DeactivateModuleBuilder_DeactivateDynamicModuleAndCheckIfTheRestModuleIsWorking()
+        {
+            this.pageOperations = new PagesOperations();
+            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+            string pageNamePrefix = testName + "DynamicPage";
+            string pageTitlePrefix = testName + "Dynamic Page";
+            string urlNamePrefix = testName + "dynamic-page";
+            int index = 1;
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
+
+            try
+            {
+                var mvcProxy = new MvcWidgetProxy();
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SelectionMode = SelectionMode.AllItems;
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = WidgetName;
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().DeactivateModule(ModuleName2, string.Empty, TransactionName);
+
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(this.dynamicTitles), "The dynamic item with this title was not found!");
+            }
+            finally
+            {
+                this.pageOperations.DeletePages();
+            }
+        }
+
         [FixtureTearDown]
         public void Teardown()
         {
@@ -102,6 +143,12 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         private const string WidgetCaption = "Navigation";
         private const string PlaceHolderId = "Body";
         private const string SfModuleName = "ModuleBuilder";
+
+        private const string ModuleName2 = "Press Release";
+        private const string ModuleResource2 = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
+        private const string ResolveType2 = "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle";
+        private string dynamicTitles2 = "Boat";
+        private string dynamicUrls2 = "BoatUrl";
 
         #endregion
     }
