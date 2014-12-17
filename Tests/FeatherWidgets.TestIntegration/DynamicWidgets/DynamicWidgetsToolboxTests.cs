@@ -22,19 +22,17 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
     [Description("This is a test class with tests related to dynamic widgets in toolbox section.")]
     public class DynamicWidgetsToolboxTests
     {
-        [FixtureSetUp]
-        public void Setup()
-        {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
-        }
-
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyGeneratedWidgetInPageToolbox()
         {
+            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
+            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            var section = ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(DynamicWidgetSection);
+            int expectedCount = 6;
+
             string[] widgets = new string[] 
             { 
                 DynamicWidgetMVCTitle, 
@@ -45,11 +43,39 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 DynamicChild2WidgetMVCTitle
             };
 
-            Assert.IsTrue(ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(DynamicWidgetSection).Tools.Count.Equals(6), "Widgets count is unexpected.");
+            Assert.AreEqual(expectedCount, section.Tools.Count);
 
             foreach (var widget in widgets)
             {
-                Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(DynamicWidgetSection, widget), "Widget not found: " + widget);
+                Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, widget), "Widget not found: " + widget);
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("FeatherTeam")]
+        [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
+        public void DynamicWidgets_ImportDynamicModule_VerifyOldDynamicWidgetsNotDuplicated()
+        {
+            ServerOperationsFeather.DynamicModules().ImportModule(RelatedModuleResource);
+            ServerOperations.ModuleBuilder().ActivateModule(RelatedModuleName, string.Empty, TransactionName);
+
+            var dynamicWidgetSection = ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(RelatedModuleName);
+            var contentSection = ServerOperationsFeather.Pages().GetContentToolboxSection();
+
+            string[] widgets = new string[] 
+            {
+                RelatedModuleWidgetTitle1,
+                RelatedModuleWidgetTitle2,
+                RelatedModuleWidgetTitle3
+            };
+
+            foreach (var widget in widgets)
+            {
+                if (ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(contentSection, widget))
+                {
+                    Assert.IsFalse(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(dynamicWidgetSection, widget), "Widget " + widget + " is duplicated");
+                }
             }
         }
 
@@ -69,5 +95,10 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         private const string DynamicChild2WidgetTitle = "Child 2 Types";
         private const string DynamicChild2WidgetMVCTitle = "Child 2 Types MVC";
         private const string TransactionName = "Module Installations";
+        private const string RelatedModuleName = "RelatedModule";
+        private const string RelatedModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.RelatedModule.zip";
+        private const string RelatedModuleWidgetTitle1 = "SingleRelatedDatas";
+        private const string RelatedModuleWidgetTitle2 = "MultipleRelatedDatas";
+        private const string RelatedModuleWidgetTitle3 = "SelfRelatings";
     }        
 }

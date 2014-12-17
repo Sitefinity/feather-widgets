@@ -32,10 +32,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void VerifyToolboxConfig()
         {
             string dynamicWidgetSection = ModuleName;
+            var section = ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(dynamicWidgetSection);
+            int expectedCount = 4;
 
-            Assert.IsTrue(ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(dynamicWidgetSection).Tools.Count.Equals(4), "Widgets count is unexpected.");
-            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(dynamicWidgetSection, DynamicWidgetMVCTitle), "Widget not found: " + DynamicWidgetMVCTitle);
-            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(dynamicWidgetSection, DynamicWidgetTitle), "Widget not found: " + DynamicWidgetTitle);
+            Assert.IsTrue(section.Tools.Count.Equals(expectedCount), "Widgets count is unexpected.");
+            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetMVCTitle), "Widget not found: " + DynamicWidgetMVCTitle);
+            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetTitle), "Widget not found: " + DynamicWidgetTitle);
         }
 
         /// <summary>

@@ -200,12 +200,12 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <summary>
         /// Asserts if widget is present in the toolbox config.
         /// </summary>
-        /// <param name="sectionTitle">The name of the toolbox section.</param>
+        /// <param name="section">The toolbox section.</param>
         /// <param name="widgetTitle">The widget name.</param>
         /// <returns></returns>
-        public bool IsWidgetPresentInToolbox(string sectionTitle, string widgetTitle)
+        public bool IsWidgetPresentInToolbox(ToolboxSection section, string widgetTitle)
         {
-            var item = this.GetToolboxItem(sectionTitle, widgetTitle);
+            var item = this.GetToolboxItem(section, widgetTitle);
 
             if (item == null)
             {
@@ -218,13 +218,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <summary>
         /// Gets a toolbox item from the config section.
         /// </summary>
-        /// <param name="widgetSectionTitle">The name of the section.</param>
+        /// <param name="section">The toolbox section.</param>
         /// <param name="widgetTitle">The name of the widget.</param>
         /// <returns></returns>
-        public ToolboxItem GetToolboxItem(string widgetSectionTitle, string widgetTitle)
-        {
-            var section = this.GetDynamicWidgetToolboxSection(widgetSectionTitle);
-
+        public ToolboxItem GetToolboxItem(ToolboxSection section, string widgetTitle)
+        {          
             if (section == null)
             {
                 throw new ArgumentException("Section was not found");
@@ -247,6 +245,22 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var pageControls = toolboxesConfig.Toolboxes["PageControls"];
 
             var section = pageControls.Sections.FirstOrDefault<ToolboxSection>(s => s.Title == widgetSectionTitle);
+
+            return section;
+        }
+
+        /// <summary>
+        /// Gets Content toolbox section.
+        /// </summary>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public ToolboxSection GetContentToolboxSection()
+        {
+            ConfigManager configurationManager = ConfigManager.GetManager();
+            var toolboxesConfig = configurationManager.GetSection<ToolboxesConfig>();
+            var pageControls = toolboxesConfig.Toolboxes["PageControls"];
+
+            var section = pageControls.Sections.FirstOrDefault<ToolboxSection>(s => s.Name == "ContentToolboxSection");
 
             return section;
         }
