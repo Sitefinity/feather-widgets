@@ -36,7 +36,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify news, navigation and content block on page after deactivate module builder.")]
+        [Description("Verify news, navigation and content block on page after deactivate module builder."),
+        Ignore]
         public void DeactivateModuleBuilder_DeactivateModuleBuilder()
         {
             this.pageOperations = new PagesOperations();
@@ -84,7 +85,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify if the rest module is working when deactivate dynamic module.")]
+        [Description("Verify if the rest module is working when deactivate dynamic module."),
+        Ignore]
         public void DeactivateModuleBuilder_DeactivateDynamicModuleAndCheckIfTheRestModuleIsWorking()
         {
             this.pageOperations = new PagesOperations();
