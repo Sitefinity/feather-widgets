@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public NewsWrapperFacade News()
         {
             return new NewsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides unified access to the ModuleBuilderWrapperFacade 
+        /// </summary>
+        /// <returns>Returns the ModuleBuilderWrapperFacade</returns>
+        public ModuleBuilderWrapperFacade ModuleBuilder()
+        {
+            return new ModuleBuilderWrapperFacade();
         }
     }
 }

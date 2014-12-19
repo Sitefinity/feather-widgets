@@ -29,6 +29,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder
             }
         }
 
+        /// <summary>
+        /// Gets the DynamicWidgetAdvancedSettingsScreen
+        /// </summary>
+        public DynamicWidgetAdvancedSettingsScreen DynamicWidgetAdvancedSettings
+        {
+            get
+            {
+                return new DynamicWidgetAdvancedSettingsScreen(this.find);
+            }
+        }
+
         private Find find;
     }
 }

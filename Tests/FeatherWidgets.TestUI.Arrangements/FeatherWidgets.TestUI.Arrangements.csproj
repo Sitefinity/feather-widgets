@@ -108,6 +108,7 @@
     <Compile Include="DynamicWidgets\DeactivateDynamicModuleVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleAddNewContentTypeVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleRemoveContentTypeVerifyPageToolbox.cs" />
+    <Compile Include="DynamicWidgets\InvalidateCacheWhenAddNewItem.cs" />
     <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />

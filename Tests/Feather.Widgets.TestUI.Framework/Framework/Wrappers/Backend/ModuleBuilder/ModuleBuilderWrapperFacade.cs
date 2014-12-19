@@ -19,5 +19,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ModuleBuil
         {
             return new ModuleBuilderEditContentTypeWrapper();
         }
+
+        /// <summary>
+        /// Provides access to DynamicWidgetAdvancedSettingsWrapper.
+        /// </summary>
+        /// <returns>Return the DynamicWidgetAdvancedSettingsWrapper.</returns>
+        public DynamicWidgetAdvancedSettingsWrapper DynamicWidgetAdvancedSettingsWrapper()
+        {
+            return new DynamicWidgetAdvancedSettingsWrapper();
+        }
     }
 }
