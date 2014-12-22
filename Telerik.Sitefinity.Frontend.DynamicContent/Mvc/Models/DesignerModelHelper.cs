@@ -119,6 +119,21 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         }
 
         /// <summary>
+        /// Gets the identifier field of the parent dynamic module type.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns the parent identifier field.</returns>
+        public static string GetParentIdenfierField(this Control control)
+        {
+            var dynamicType = control.ResolveDynamicModuleType();
+            if(dynamicType.ParentModuleType != null)
+                return dynamicType.ParentModuleType.MainShortTextFieldName;
+
+            return string.Empty;
+        }
+
+
+        /// <summary>
         /// Resolves the type of the dynamic module.
         /// </summary>
         /// <param name="control">The control.</param>
