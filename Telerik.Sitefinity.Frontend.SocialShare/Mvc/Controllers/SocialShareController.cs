@@ -7,7 +7,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
     /// <summary>
     /// Social Share
     /// </summary>
-    [ControllerToolboxItem(Name = "SocialShare", Title = "Social share", SectionName = "MvcWidgets", ModuleName = "SocialShare")]
+    [ControllerToolboxItem(Name = "SocialShare", Title = "Social share", SectionName = "MvcWidgets")]
     public class SocialShareController : Controller
     {
         #region Actions
