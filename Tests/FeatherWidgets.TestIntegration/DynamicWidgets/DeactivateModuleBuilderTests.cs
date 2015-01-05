@@ -36,8 +36,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify news, navigation and content block on page after deactivate module builder."),
-        Ignore]
+        [Description("Verify news, navigation and content block on page after deactivate module builder.")]
         public void DeactivateModuleBuilder_DeactivateModuleBuilder()
         {
             this.pageOperations = new PagesOperations();
@@ -77,16 +76,15 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             }
             finally
             {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.StaticModules().ActivateModule(SfModuleName);
                 this.pageOperations.DeletePages();
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.StaticModules().ActivateModule(SfModuleName);              
             }
         }
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify if the rest module is working when deactivate dynamic module."),
-        Ignore]
+        [Description("Verify if the rest module is working when deactivate dynamic module.")]
         public void DeactivateModuleBuilder_DeactivateDynamicModuleAndCheckIfTheRestModuleIsWorking()
         {
             this.pageOperations = new PagesOperations();
