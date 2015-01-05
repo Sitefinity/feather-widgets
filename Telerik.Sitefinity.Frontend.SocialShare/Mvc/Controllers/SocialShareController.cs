@@ -1,11 +1,13 @@
 ﻿using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models;
+using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
 {
     /// <summary>
     /// Social Share
     /// </summary>
+    [ControllerToolboxItem(Name = "SocialShare", Title = "Social share", SectionName = "MvcWidgets", ModuleName = "SocialShare")]
     public class SocialShareController : Controller
     {
         #region Actions
