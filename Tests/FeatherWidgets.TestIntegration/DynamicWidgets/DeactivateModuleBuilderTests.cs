@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
-        [Description("Verify news, navigation and content block on page after deactivate module builder.")]
+        [Description("Verify news, navigation and content block on page after deactivate module builder."), Ignore]
         public void DeactivateModuleBuilder_DeactivateModuleBuilder()
         {
             this.pageOperations = new PagesOperations();
