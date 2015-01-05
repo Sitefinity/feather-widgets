@@ -18,7 +18,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a72025a1-d2fd-4277-9159-cd4326966bd6")]
+[assembly: Guid("9eba350c-1ed6-4dff-b712-dc3e66fa9a45")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,5 +34,3 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: AssemblyFileVersion("1.1.20.3")]
 
 [assembly: ControllerContainer]
-
-

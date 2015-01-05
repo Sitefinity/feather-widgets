@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.DynamicContent", "Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj", "{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Search", "Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj", "{2471DD68-C1B8-4040-BD0A-1C29EB297FBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Search", "Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj", "{B1E056F8-D6AD-4C0C-A619-053E23F44A60}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -81,10 +81,10 @@ Global
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2471DD68-C1B8-4040-BD0A-1C29EB297FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2471DD68-C1B8-4040-BD0A-1C29EB297FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2471DD68-C1B8-4040-BD0A-1C29EB297FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2471DD68-C1B8-4040-BD0A-1C29EB297FBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
