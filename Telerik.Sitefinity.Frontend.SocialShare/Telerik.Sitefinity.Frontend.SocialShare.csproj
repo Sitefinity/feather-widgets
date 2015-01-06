@@ -141,6 +141,9 @@
     <EmbeddedResource Include="Mvc\Views\SocialShare\SocialShare.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Mvc\Views\SocialShare\SocialShareIconsWithText.cshtml">
+      <SubType>Code</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
