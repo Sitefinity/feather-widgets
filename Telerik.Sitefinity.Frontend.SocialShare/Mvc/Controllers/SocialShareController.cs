@@ -1,6 +1,12 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Web.Mvc;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.SiteSettings.Basic;
 
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
 {
@@ -10,6 +16,10 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
     [ControllerToolboxItem(Name = "SocialShare", Title = "Social share", SectionName = "MvcWidgets", ModuleName = "SocialShare")]
     public class SocialShareController : Controller
     {
+        public SocialShareController()
+        {
+        }
+
         #region Actions
         /// <summary>
         /// Default Action
@@ -38,5 +48,74 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         }
 
         #endregion
+
+        /// <summary>
+        /// Gets or sets the social share section map.
+        /// </summary>
+        /// <value>The social share section map.</value>
+        [Browsable(false)]
+        internal IList<SocialShareMap> SocialShareSectionMap
+        {
+            get
+            {
+                var socialShareSettings = SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
+
+                var socialShareSectionMap = new List<SocialShareMap>();
+
+                socialShareSectionMap.Add(new SocialShareMap(new Dictionary<string, bool> 
+                { 
+                    { "Facebook", socialShareSettings.Facebook },
+                    { "Twitter", socialShareSettings.Twitter },
+                    { "Google +", socialShareSettings.GooglePlusOne },
+                    { "LinkedIn", socialShareSettings.LinkedIn },
+                    { "Digg", socialShareSettings.Digg }
+                }));
+
+                socialShareSectionMap.Add(new SocialShareMap(new Dictionary<string, bool> 
+                { 
+                    { "Blogger", socialShareSettings.Blogger },
+                    { "Tumblr", socialShareSettings.Tumblr },
+                    { "Google bookmarks", socialShareSettings.GoogleBookmarks },
+                    { "Delicious", socialShareSettings.Delicious },
+                    { "My Space", socialShareSettings.MySpace }
+                }));
+
+                socialShareSectionMap.Add(new SocialShareMap(new Dictionary<string, bool> 
+                { 
+                    { "Stumble upon", socialShareSettings.StumbleUpon },
+                    { "Reddit", socialShareSettings.Reddit },
+                    { "MailTo", socialShareSettings.MailTo }
+                }));
+
+                return socialShareSectionMap;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the serialize social share section map.
+        /// </summary>
+        /// <value>The serialize social share section map.</value>
+        public string SerializeSocialShareSectionMap
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(this.serializeSocialShareSectionMap))
+                {
+                    this.serializeSocialShareSectionMap = JsonSerializer.SerializeToString(this.SocialShareSectionMap);
+                }
+
+                return this.serializeSocialShareSectionMap;
+            }
+
+            set
+            {
+                if (this.serializeSocialShareSectionMap != value)
+                {
+                    this.serializeSocialShareSectionMap = value;
+                }
+            }
+        }
+
+        private string serializeSocialShareSectionMap;
     }
 }

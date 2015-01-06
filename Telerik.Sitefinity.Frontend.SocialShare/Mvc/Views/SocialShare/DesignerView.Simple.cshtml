@@ -1,0 +1,17 @@
+
+<div>
+    <p>
+        Which sharing options you want to use?
+    </p>
+
+    <div style="margin-left: auto; margin-right: auto;" ng-repeat="socialGroups in socialShareSectionMap">
+        <div style="float: left; width: 33%;" ng-repeat="(name,value) in socialGroups.Groups">
+            <input type='checkbox' ng-model="socialGroups.Groups[name]">{{::name}}<br />
+        </div>
+    </div>
+
+</div>
+
+
+
+
