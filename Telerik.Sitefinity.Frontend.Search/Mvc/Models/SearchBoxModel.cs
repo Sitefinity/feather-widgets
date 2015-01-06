@@ -8,53 +8,46 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
     public class SearchBoxModel : ISearchBoxModel
     {
-
-        public WordsMode WordsMode
+        #region Construction
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchBoxModel" /> class.
+        /// </summary>
+        /// <param name="suggestionsRoute">The suggestions service end point.</param>
+        /// <param name="minSuggestionLength">The minimal suggestion length.</param>
+        /// <param name="suggestionFields">The suggestion fields.</param>
+        public SearchBoxModel(string suggestionsRoute, int minSuggestionLength, string suggestionFields)
         {
-            get;
-            set;
+            this.SuggestionFields = suggestionFields;
+            this.SuggestionsRoute = suggestionsRoute;
+            this.MinSuggestionLength = minSuggestionLength;
         }
 
-        public string ResultsUrl
-        {
-            get;
-            set;
-        }
+        #endregion
 
-        public string IndexCatalogue
-        {
-            get;
-            set;
-        }
+        #region Properties
+        /// <inheritdoc />
+        public WordsMode WordsMode { get; set; }
 
-        public string SuggestionFields
-        {
-            get;
-            set;
-        }
+        /// <inheritdoc />
+        public string ResultsUrl { get; set; }
 
-        public string SuggestionsRoute
-        {
-            get;
-            set;
-        }
+        /// <inheritdoc />
+        public string IndexCatalogue { get; set; }
 
-        public bool DisableSuggestions
-        {
-            get;
-            set;
-        }
+        /// <inheritdoc />
+        public string SuggestionFields { get; set; }
 
-        public int MinSuggestionLength
-        {
-            get;
-            set;
-        }
+        /// <inheritdoc />
+        public string SuggestionsRoute { get; set; }
 
-        public string Language
-        {
-            get;
-            set;
-        }
+        /// <inheritdoc />
+        public bool DisableSuggestions { get; set; }
+
+        /// <inheritdoc />
+        public int MinSuggestionLength { get; set; }
+
+        /// <inheritdoc />
+        public string Language { get; set; }
+        #endregion
     }
 }

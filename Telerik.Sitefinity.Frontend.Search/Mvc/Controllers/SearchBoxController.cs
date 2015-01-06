@@ -10,6 +10,10 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using System.ComponentModel;
+using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Services.Search.Configuration;
+using Telerik.Sitefinity.Services;
+using System.Globalization;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -74,6 +78,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         public ActionResult Index()
         {
+            this.Model.Language = SystemManager.CurrentContext.AppSettings.Multilingual ?
+                CultureInfo.CurrentUICulture.Name : null;
+
             return this.View(this.TemplateName, this.Model);
         }
 
@@ -88,7 +95,13 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </returns>
         private ISearchBoxModel InitializeModel()
         {
-            return ControllerModelFactory.GetModel<ISearchBoxModel>(this.GetType());
+            var constructorParams = new Dictionary<string, object>
+            {
+                {"suggestionsRoute", "/restapi/search/suggestions"},
+                {"minSuggestionLength", Config.Get<SearchConfig>().MinSuggestLength},
+                {"suggestionFields", "Title,Content"}
+            };
+            return ControllerModelFactory.GetModel<ISearchBoxModel>(this.GetType(), constructorParams);
         }
         #endregion
 
