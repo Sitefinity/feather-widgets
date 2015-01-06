@@ -1,4 +1,4 @@
-@model Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models.SocialShareModel
+﻿@model Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models.SocialShareModel
 @using Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
 
 @{
@@ -13,7 +13,7 @@
     {
         case "Facebook":
             <li>
-                <div class='fb-share-button' data-href='@shareUrl' data-type='icon'></div>
+                <div class='fb-share-button' data-href='@shareUrl' data-type='button_count'></div>
                 <div id='fb-root'></div>
                 <script>
                     (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = '//connect.facebook.net/en_EN/all.js#xfbml=1'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
@@ -22,7 +22,9 @@
             break;
         case "Twitter":
             <li>
-                <a href='https://twitter.com/share' title='Share on Twitter' class='twitter-share-button' data-url=@shareUrl data-count='none'></a>
+                <a href='https://twitter.com/share' title='Share on Twitter' class='twitter-share-button' data-url=@shareUrl data-count='horizontal'>
+                    Tweet
+                </a>
                 <script>
                     !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
                 </script>
@@ -30,12 +32,12 @@
             break;
         case "LinkedIn":
             <li>
-                <script src='//platform.linkedin.com/in.js' type='text/javascript'>lang: en_US</script><script type='IN/Share' data-url='@shareUrl'></script>
+                <script src='//platform.linkedin.com/in.js' type='text/javascript'>lang: en_US</script><script type='IN/Share' data-url='@shareUrl' data-counter='right'></script>
             </li>
             break;
         case "GooglePlusOne":
             <li>
-                <div class='g-plusone' data-size='small' data-annotation='none'></div>
+                <div class='g-plusone' data-size='medium'></div>
                 <script type='text/javascript'>
                     (function () { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/platform.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();
                 </script>
@@ -44,42 +46,48 @@
         case "Blogger":
             <li>
                 <a onclick="window.open('https://www.blogger.com/blog_this.pyra?t&u=@shareUrl&n=@pageTitle', 'Blogger','toolbar=no,width=550,height=550'); return false" title="Share on Blogger">
-                    <span class="ss-icon ss-blogger">Blogger</span>
+                    <span class="ss-icon ss-blogger"></span>
+                    Blogger
                 </a>
             </li>
             break;
         case "Delicious":
             <li>
                 <a onclick="window.open('https://delicious.com/save?v=5&noui&jump=close&url=@shareUrl&title=@pageTitle', 'Delicious','toolbar=no,width=550,height=550'); return false" title="Share on Delicious">
-                    <span class="ss-icon ss-delicious">Delicious</span>
+                    <span class="ss-icon ss-delicious"></span>
+                    Delicious
                 </a>
             </li>
             break;
         case "Tumblr":
             <li>
                 <a onclick="window.open('https://www.tumblr.com/share?v=3&u=@shareUrl&t=@pageTitle', 'Tumblr','toolbar=no,width=550,height=550'); return false" title="Share on Tumblr">
-                    <span class="ss-icon ss-tumblr">Tumblr</span>
+                    <span class="ss-icon ss-tumblr"></span>
+                    Tumblr
                 </a>
             </li>
             break;
         case "GoogleBookmarks":
             <li>
                 <a onclick="window.open('https://www.google.com/bookmarks/mark?op=add&bkmk=@shareUrl&title=@pageTitle', 'Google bookmarks','toolbar=no,width=550,height=550'); return false" title="Share on GoogleBookmarks">
-                    <span class="ss-icon ss-googlebookmarks">Google bookmarks</span>
+                    <span class="ss-icon ss-googlebookmarks"></span>
+                    Google bookmarks
                 </a>
             </li>
             break;
         case "StumbleUpon":
             <li>
                 <a onclick="window.open('http://stumbleupon.com/submit?url=@shareUrl&title=@pageTitle', 'Stumble upon','toolbar=no,width=550,height=550'); return false" title="Share on StumbleUpon">
-                    <span class="ss-icon ss-stumbleupon">Stumble upon</span>
+                    <span class="ss-icon ss-stumbleupon"></span>
+                    Stumble upon
                 </a>
             </li>
             break;
         case "Reddit":
             <li>
                 <a onclick="window.open('http://www.reddit.com/submit?newwindow=1&url=@shareUrl&title=@pageTitle', 'Reddit','toolbar=no,width=550,height=550'); return false" title="Share on Reddit">
-                    <span class="ss-icon ss-reddit">Reddit</span>
+                    <span class="ss-icon ss-reddit"></span>
+                    Reddit
                 </a>
             </li>
             break;
