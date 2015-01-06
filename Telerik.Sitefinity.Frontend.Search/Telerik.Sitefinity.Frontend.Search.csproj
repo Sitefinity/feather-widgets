@@ -134,10 +134,15 @@
     <Compile Include="WordsMode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\SearchBox\Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SearchBox\SearchBox.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SearchBox\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SearchBox\DesignerView.Simple.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\SearchBox\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
