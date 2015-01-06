@@ -75,6 +75,22 @@
                 </a>
             </li>
             break;
+        case "Digg":
+            <li>
+                <a onclick="window.open('http://digg.com/submit?url=@shareUrl&title=@pageTitle', 'Digg','toolbar=no,width=550,height=550'); return false" title="Share on Digg">
+                    <span class="ss-icon ss-digg"></span>
+                    Digg
+                </a>
+            </li>
+            break;
+        case "MySpace":
+            <li>
+                <a onclick="window.open('http://myspace.com/Modules/PostTo/Pages/?u=@shareUrl&t=@pageTitle', 'My Space','toolbar=no,width=550,height=550'); return false" title="Share on MySpace">
+                    <span class="ss-icon ss-myspace"></span>
+                    My Space
+                </a>
+            </li>
+            break;
         case "StumbleUpon":
             <li>
                 <a onclick="window.open('http://stumbleupon.com/submit?url=@shareUrl&title=@pageTitle', 'Stumble upon','toolbar=no,width=550,height=550'); return false" title="Share on StumbleUpon">
