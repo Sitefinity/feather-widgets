@@ -21,6 +21,29 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
     public class SearchBoxController : Controller
     {
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the name of the template that will be displayed.
+        /// </summary>
+        /// <value></value>
+        public string TemplateName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the NavigationWidget (if such is presented).
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        public string CssClass
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Gets the Search box widget model.
         /// </summary>
@@ -38,13 +61,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 return this.model;
             }
         }
+
         #endregion
 
         #region Actions
+
         public ActionResult Index()
         {
             return this.View("Default", this.Model);
         }
+
         #endregion
 
         #region Private methods
