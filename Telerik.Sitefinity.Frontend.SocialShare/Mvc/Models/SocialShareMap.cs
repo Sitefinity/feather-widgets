@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 {
-    internal class SocialShareMap
+    public class SocialShareMap
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SocialShareMap" /> class.

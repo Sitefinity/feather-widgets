@@ -26,5 +26,39 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.StringResources
         {
         }
         #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets phrase: Which sharing options you want to use?
+        /// </summary>
+        [ResourceEntry("SocialShareOptions",
+            Value = "Which sharing options you want to use?",
+            Description = "phrase : Which sharing options you want to use?",
+            LastModified = "2015/01/06")]
+        public string SocialShareOptions
+        {
+            get
+            {
+                return this["SocialShareOptions"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Template
+        /// </summary>
+        [ResourceEntry("Template",
+            Value = "Template",
+            Description = "phrase : Template",
+            LastModified = "2014/08/22")]
+        public string Template
+        {
+            get
+            {
+                return this["Template"];
+            }
+        }
+
+        #endregion
     }
 }

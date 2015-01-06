@@ -30,12 +30,13 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SocialShareModel"/> class based on the Sitefinity basic settings.
+        /// Initializes a new instance of the <see cref="SocialShareModel" /> class.
         /// </summary>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        public SocialShareModel()
+        /// <param name="socialShareMap">The social share map.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SocialShareModel(IList<SocialShareMap> socialShareMap)
         {
-            this.GetBasicSettingsSocialShare();
+            this.InitializeSocialShareButton(socialShareMap);
         }
 
         #region Helper methods
@@ -44,21 +45,23 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         /// Gets the basic settings social share depending on the Sitefinity configurations.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        internal void GetBasicSettingsSocialShare()
+        protected virtual void InitializeSocialShareButton(IList<SocialShareMap> socialShareMaps)
         {
             var settings = this.GetSocialShareSection();
-            var properties = typeof(ISocialShareSettings).GetProperties().Where(p => p.PropertyType.Equals(typeof(bool)) && p.Name != "DisplayCounters");
             bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
             bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
             bool displayCounters = settings.DisplayCounters && addText;
-            foreach (var property in properties)
+
+            foreach (SocialShareMap socialShareMap in socialShareMaps)
             {
-                if ((bool)property.GetValue(settings, null))
-                    this.SocialButtons.Add(new SocialButtonModel(property.Name.ToPascalCase(), addText, displayCounters, bigSize));
+                foreach (var property in socialShareMap.Groups.Where(i => i.Value))
+                {
+                    this.SocialButtons.Add(new SocialButtonModel(property.Key.ToPascalCase(), addText, displayCounters, bigSize));
+                }
             }
         }
 
-        internal ISocialShareSettings GetSocialShareSection()
+        private ISocialShareSettings GetSocialShareSection()
         {
             return SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
         }
