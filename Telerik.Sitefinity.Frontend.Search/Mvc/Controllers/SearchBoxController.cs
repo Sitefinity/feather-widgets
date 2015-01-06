@@ -32,8 +32,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <value></value>
         public string TemplateName
         {
-            get;
-            set;
+            get
+            {
+                return this.templateName;
+            }
+            set
+            {
+                this.templateName = value;
+            }
         }
 
         /// <summary>
@@ -75,7 +81,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             this.Model.Language = SystemManager.CurrentContext.AppSettings.Multilingual ?
                 CultureInfo.CurrentUICulture.Name : null;
 
-            return this.View("Default", this.Model);
+            return this.View(this.TemplateName, this.Model);
         }
 
         #endregion
@@ -101,6 +107,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         #region Private fields and constants
         private ISearchBoxModel model;
+        private string templateName = "SearchBox";
         #endregion
     }
 }
