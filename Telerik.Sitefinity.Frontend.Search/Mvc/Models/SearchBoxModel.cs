@@ -21,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             set;
         }
 
-        public string IndexCatalog
+        public string IndexCatalogue
         {
             get;
             set;

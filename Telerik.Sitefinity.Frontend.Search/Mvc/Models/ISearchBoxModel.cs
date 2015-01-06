@@ -12,7 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
         string ResultsUrl { get; set; }
 
-        string IndexCatalog { get; set; }
+        string IndexCatalogue { get; set; }
 
         string SuggestionFields { get; set; }
 

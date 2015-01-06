@@ -2,11 +2,157 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-<input type="text" />
-<button type="button">@Html.Resource("SearchLabel")</button>
+<input type="text" id="searchTextBox"/>
+<button type="button" id="searchButton">@Html.Resource("SearchLabel")</button>
 
 <script>
-    (function ($) {
-        var resultsUrl = '@Html.Raw(Model.ResultsUrl)';
-    })(jQuery);
+    jQuery(function () {
+        /* Model variables */
+        var resultsUrl = '@Html.Raw(Model.ResultsUrl)',
+            indexCatalogue = '@Html.Raw(Model.IndexCatalogue)',
+            wordsMode = '@Html.Raw(Model.WordsMode.ToString())',
+            disableSuggestions = @(Model.DisableSuggestions ? Html.Raw("true") : Html.Raw("false")),
+            minSuggestionLength = '@Html.Raw(Model.MinSuggestionLength)',
+            suggestionFields = '@Html.Raw(Model.SuggestionFields)',
+            language = '@Html.Raw(Model.Language)',
+            suggestionsRoute = '@Html.Raw(Model.SuggestionsRoute)';
+
+        /* jQuery elements */
+        var searchTextBox = $('#searchTextBox'),
+            searchButton = $('#searchButton');
+
+        /* Initialization */
+        searchButton.click(function (e) {
+            navigateToResults(e);
+        });
+
+        searchTextBox.keypress(keypressHandler);
+
+        if (!disableSuggestions) {
+            searchTextBox.keyup(keyupHandler);
+
+            var that = this;
+            try {
+                searchTextBox.kendoAutoComplete({
+                    dataSource:
+                        {
+                            serverFiltering: true,
+                            data: []
+                        },
+                    select: function (e) {
+                        searchTextBox.val(this.dataItem(e.item.index()));
+                        that.navigateToResults(e);
+                    },
+                    minLength: minSuggestionLength
+                });
+            } catch (e) {
+                // Fixes jQuery bug, causing IE7 to throw error "script3 member not found".
+                // The try/catch can be removed when the bug is fixed.
+            }
+        }
+
+        /* Event handlers */
+        function keypressHandler(e) {
+            if (!e) var e = window.event;
+
+            var keyCode = null;
+            if (e.keyCode) {
+                keyCode = e.keyCode;
+            }
+            else {
+                keyCode = e.charCode;
+            }
+
+            if (keyCode == 13) {
+                navigateToResults(e);
+            }
+        }
+
+        function suggestionsSuccessHandler(result, args) {
+            var dataSource = new kendo.data.DataSource({
+                serverFiltering: true,
+                data: result.Suggestions
+            });
+
+            var autocomplete = searchTextBox.data("kendoAutoComplete");
+            autocomplete.setDataSource(dataSource);
+
+            autocomplete.search(searchTextBox.var().trim());
+        }
+
+        function keyupHandler(e) {
+            if (e.keyCode != 38 // up arrow
+                && e.keyCode != 40 // down arrow
+                && e.keyCode != 27) { // esc
+                    var request = {};
+                    var searchText = searchTextBox.val().trim();
+                    if (searchText.length >= minSuggestionLength) {
+                        request.IndexName = indexCatalogue;
+                        request.SuggestionFields = suggestionFields;
+                        request.Text = searchText;
+                        request.Language = language;
+
+                        $.ajax({
+                            type: "GET",
+                            url: suggestionsRoute,
+                            dataType: 'json',
+                            data: request,
+                            success: suggestionsSuccessHandler
+                        });
+                    }
+            }
+        }
+            
+        /* Helper methods */
+        function navigateToResults(e) {
+            if (!e) var e = window.event;
+
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            else {
+                e.cancelBubble = true;
+            }
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            else {
+                e.returnValue = false;
+            }
+
+            var query = searchTextBox.val();
+
+            if (query && query.trim() && indexCatalogue) {
+                sendSentence();
+                window.location = getLocation();
+            }
+        }
+
+        function getLocation() {
+            var query = searchTextBox.val().trim();
+
+            var separator = (resultsUrl.indexOf("?") == -1) ? "?" : "&";
+
+            var catalogueParam = String.format("{0}indexCatalogue={1}", separator, encodeURIComponent(indexCatalogue)),
+                searchQueryParam = String.format("&searchQuery={0}", encodeURIComponent(query)),
+                wordsModeParam = String.format("&wordsMode={0}", wordsMode);
+
+            var url = resultsUrl + catalogueParam + searchQueryParam + wordsModeParam;
+
+            return url;
+        }
+
+        function sendSentence() {
+            if (window.DataIntelligenceSubmitScript) {
+                DataIntelligenceSubmitScript._client.sentenceClient.writeSentence({
+                    predicate: "Search for",
+                    object: searchButton.val(),
+                    objectMetadata: [{
+                                        'K': 'PageUrl',
+                                        'V': location.href
+                                    }]
+                });
+            }
+        }
+    });
 </script>
