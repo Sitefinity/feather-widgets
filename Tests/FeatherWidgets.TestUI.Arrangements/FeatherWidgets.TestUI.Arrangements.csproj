@@ -105,6 +105,7 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
+    <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DeactivateDynamicModuleVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleAddNewContentTypeVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleRemoveContentTypeVerifyPageToolbox.cs" />

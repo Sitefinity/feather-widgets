@@ -45,9 +45,9 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicTitlePresentOnTheFrontend(dynamicTitle);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicTitlePresentOnTheFrontend(dynamicTitle));
             BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().NavigateToPage(Page);
-            BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicTitlePresentOnTheFrontend(secondPageTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicTitlePresentOnTheFrontend(secondPageTitles));
         }
 
         /// <summary>
