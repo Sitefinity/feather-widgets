@@ -12,10 +12,9 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
     /// <summary>
     /// Social Share Model
     /// </summary>
-    public class SocialShareModel
+    public class SocialShareModel : ISocialShareModel
     {
         #region Public members
-
         /// <summary>
         /// Gets the social buttons
         /// </summary>
@@ -32,11 +31,8 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SocialShareModel" /> class.
         /// </summary>
-        /// <param name="socialShareMap">The social share map.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SocialShareModel(IList<SocialShareMap> socialShareMap)
+        public SocialShareModel()
         {
-            this.InitializeSocialShareButton(socialShareMap);
         }
 
         #region Helper methods
@@ -45,25 +41,30 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         /// Gets the basic settings social share depending on the Sitefinity configurations.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        protected virtual void InitializeSocialShareButton(IList<SocialShareMap> socialShareMaps)
+        public virtual void InitializeSocialShareButton(IList<SocialShareGroupMap> socialShareMaps)
         {
-            var settings = this.GetSocialShareSection();
+            ISocialShareSettings settings = this.SocialShareSection;
             bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
             bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
             bool displayCounters = settings.DisplayCounters && addText;
 
-            foreach (SocialShareMap socialShareMap in socialShareMaps)
+            foreach (SocialShareGroupMap socialShareMap in socialShareMaps)
             {
-                foreach (var property in socialShareMap.Groups.Where(i => i.Value))
+                foreach (var property in socialShareMap.Groups.Where(i => i.IsChecked))
                 {
                     this.SocialButtons.Add(new SocialButtonModel(property.Key.ToPascalCase(), addText, displayCounters, bigSize));
                 }
             }
         }
 
-        private ISocialShareSettings GetSocialShareSection()
+        public string CssClass { get; set; }
+
+        protected virtual ISocialShareSettings SocialShareSection
         {
-            return SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
+            get
+            {
+                return SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
+            }
         }
 
         #endregion

@@ -126,8 +126,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\SocialShareController.cs" />
+    <Compile Include="Mvc\Models\ISocialShareModel.cs" />
     <Compile Include="Mvc\Models\SocialButtonModel.cs" />
+    <Compile Include="Mvc\Models\SocialShareGroupMap.cs" />
     <Compile Include="Mvc\Models\SocialShareMap.cs" />
     <Compile Include="Mvc\Models\SocialShareModel.cs" />
     <Compile Include="Mvc\StringResources\SocialShareResources.cs" />
@@ -144,6 +147,7 @@
     <EmbeddedResource Include="Mvc\Views\SocialShare\SocialShareIconsWithText.cshtml">
       <SubType>Code</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mvc\Views\SocialShare\DesignerView.Simple.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using ServiceStack.Text;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.StringResources;
@@ -28,21 +30,10 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var model = new SocialShareModel(this.SocialShareMap);
+            this.Model.InitializeSocialShareButton(this.SocialShareMap);
 
-            return this.View(this.TemplateName, model);
+            return this.View(this.TemplateName, this.Model);
         }
-
-        protected virtual IList<SocialShareMap> SocialShareMap
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(this.serializeSocialShareSectionMap) ?
-                                        this.SocialShareSectionMap :
-                                        JsonSerializer.DeserializeFromString<IList<SocialShareMap>>(this.serializeSocialShareSectionMap);
-            }
-        }
-
         #endregion
 
         #region Overridden methods
@@ -59,47 +50,18 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         #endregion
 
         /// <summary>
-        /// Gets or sets the social share section map.
+        /// Initializes the model.
         /// </summary>
-        /// <value>The social share section map.</value>
-        [Browsable(false)]
-        internal IList<SocialShareMap> SocialShareSectionMap
+        /// <returns>
+        /// The <see cref="ISocialShareModel"/>.
+        /// </returns>
+        protected virtual ISocialShareModel InitializeModel()
         {
-            get
-            {
-                var socialShareSettings = SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
-
-                var socialShareSectionMap = new List<SocialShareMap>();
-                
-                socialShareSectionMap.Add(new SocialShareMap(new Dictionary<string, bool> 
-                { 
-                    { "Facebook", socialShareSettings.Facebook },
-                    { "Twitter", socialShareSettings.Twitter },
-                    { "Google +", socialShareSettings.GooglePlusOne },
-                    { "LinkedIn", socialShareSettings.LinkedIn },
-                    { "Digg", socialShareSettings.Digg }
-                }));
-
-                socialShareSectionMap.Add(new SocialShareMap(new Dictionary<string, bool> 
-                { 
-                    { "Blogger", socialShareSettings.Blogger },
-                    { "Tumblr", socialShareSettings.Tumblr },
-                    { "Google bookmarks", socialShareSettings.GoogleBookmarks },
-                    { "Delicious", socialShareSettings.Delicious },
-                    { "My Space", socialShareSettings.MySpace }
-                }));
-
-                socialShareSectionMap.Add(new SocialShareMap(new Dictionary<string, bool> 
-                { 
-                    { "Stumble upon", socialShareSettings.StumbleUpon },
-                    { "Reddit", socialShareSettings.Reddit },
-                    { "MailTo", socialShareSettings.MailTo }
-                }));
-
-                return socialShareSectionMap;
-            }
+            return ControllerModelFactory.GetModel<ISocialShareModel>(this.GetType());
         }
 
+        #region Properties
+        
         /// <summary>
         /// Gets or sets the name of the template that widget will be displayed.
         /// </summary>
@@ -114,6 +76,24 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
             set
             {
                 this.templateName = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Social share widget model.
+        /// </summary>
+        /// <value>
+        /// The model.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public virtual ISocialShareModel Model
+        {
+            get
+            {
+                if (this.model == null)
+                    this.model = this.InitializeModel();
+
+                return this.model;
             }
         }
 
@@ -142,6 +122,63 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the social share map.
+        /// </summary>
+        /// <value>The social share map.</value>
+        protected virtual IList<SocialShareGroupMap> SocialShareMap
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(this.serializeSocialShareSectionMap) ?
+                                        this.SocialShareSectionMap :
+                                        JsonSerializer.DeserializeFromString<IList<SocialShareGroupMap>>(this.serializeSocialShareSectionMap);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the social share section map.
+        /// </summary>
+        /// <value>The social share section map.</value>
+        private IList<SocialShareGroupMap> SocialShareSectionMap
+        {
+            get
+            {
+                var socialShareSettings = SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
+
+                var socialShareSectionMap = new List<SocialShareGroupMap>();
+
+                socialShareSectionMap.Add(new SocialShareGroupMap(new List<SocialShareMap> 
+                { 
+                    { new SocialShareMap("Facebook", socialShareSettings.Facebook) },
+                    { new SocialShareMap("Twitter", socialShareSettings.Twitter) },
+                    { new SocialShareMap("GooglePlusOne", socialShareSettings.GooglePlusOne) },
+                    { new SocialShareMap("LinkedIn", socialShareSettings.LinkedIn) },
+                    { new SocialShareMap("Digg", socialShareSettings.Digg) }
+                }));
+
+                socialShareSectionMap.Add(new SocialShareGroupMap(new List<SocialShareMap> 
+                { 
+                    { new SocialShareMap("Blogger", socialShareSettings.Blogger) },
+                    { new SocialShareMap("Tumblr", socialShareSettings.Tumblr) },
+                    { new SocialShareMap("GoogleBookmarks", socialShareSettings.GoogleBookmarks) },
+                    { new SocialShareMap("Delicious", socialShareSettings.Delicious) },
+                    { new SocialShareMap("MySpace", socialShareSettings.MySpace) }
+                }));
+
+                socialShareSectionMap.Add(new SocialShareGroupMap(new List<SocialShareMap> 
+                { 
+                    { new SocialShareMap("StumbleUpon", socialShareSettings.StumbleUpon) },
+                    { new SocialShareMap("Reddit", socialShareSettings.Reddit) },
+                    { new SocialShareMap("MailTo", socialShareSettings.MailTo) }
+                }));
+
+                return socialShareSectionMap;
+            }
+        }
+        #endregion
+
+        private ISocialShareModel model;
         private string templateName = "SocialShare";
         private string serializeSocialShareSectionMap;
     }
