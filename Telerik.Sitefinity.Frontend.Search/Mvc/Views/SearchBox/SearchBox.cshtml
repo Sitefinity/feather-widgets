@@ -1,5 +1,6 @@
 ﻿@model Telerik.Sitefinity.Frontend.Search.Mvc.Models.ISearchBoxModel
 
+@using Telerik.Sitefinity.Services;
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
@@ -10,8 +11,12 @@
     <button type="button" id="searchButton">@Html.Resource("SearchLabel")</button>
 </div>
 
-@Html.Script(ScriptRef.JQuery)
-@Html.Script(ScriptRef.KendoWeb)
+@* Avoid conflicts because the designer is loading kendo too. *@
+@if (!SystemManager.IsDesignMode)
+{
+    @Html.Script(ScriptRef.JQuery)
+    @Html.Script(ScriptRef.KendoWeb)   
+}
 
 <script>
     jQuery(function () {
