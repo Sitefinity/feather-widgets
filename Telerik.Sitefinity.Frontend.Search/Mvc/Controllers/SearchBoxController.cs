@@ -43,7 +43,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the CSS class that will be applied on the wrapper div of the NavigationWidget (if such is presented).
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Search widget (if such is presented).
         /// </summary>
         /// <value>
         /// The CSS class.
@@ -118,7 +118,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             {
                 {"suggestionsRoute", "/restapi/search/suggestions"},
                 {"minSuggestionLength", this.GetMinSuggestLength()},
-                {"suggestionFields", "Title,Content"}
+                {"suggestionFields", "Title,Content"},
+                {"cssClass", this.CssClass}
             };
             return ControllerModelFactory.GetModel<ISearchBoxModel>(this.GetType(), constructorParams);
         }
