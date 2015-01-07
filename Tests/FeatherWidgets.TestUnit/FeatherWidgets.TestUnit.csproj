@@ -111,6 +111,8 @@
     <Compile Include="DummyClasses\Navigation\DummyNavigationController.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationModel.cs" />
     <Compile Include="DummyClasses\Navigation\DummySiteMapProvider.cs" />
+    <Compile Include="DummyClasses\SocialShare\DummySocialShareController.cs" />
+    <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\NavigationControllerTests.cs" />
     <Compile Include="Navigation\NavigationModelTests.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="ObjectFactoryContainerRegion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResourcesTests.cs" />
+    <Compile Include="SocialShare\SocialShareControllerTests.cs" />
     <Compile Include="TestInterfaceMappings.cs" />
   </ItemGroup>
   <ItemGroup>
