@@ -16,9 +16,8 @@ namespace FeatherWidgets.TestUI
         /// <summary>
         /// UI test ReorderSelectedDynamicItems.
         /// </summary>
-       [TestMethod,
-        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent),
+        [TestMethod,
+        Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void ReorderSelectedDynamicItems()
         {

@@ -15,8 +15,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test InvalidateCacheWhenAddNewItem
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.DynamicWidgets)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void InvalidateCacheWhenAddNewItem()
         {
             BAT.Macros().NavigateTo().Pages();

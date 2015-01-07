@@ -20,7 +20,6 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage()
         {

@@ -15,8 +15,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DuplicateAndDeleteDynamicWidgetOnPage
         /// </summary>
         [TestMethod,
-           Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-           TestCategory(FeatherTestCategories.DynamicWidgets)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void DuplicateAndDeleteDynamicWidgetOnPage()
         {
             BAT.Macros().NavigateTo().Pages();

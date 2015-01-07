@@ -15,8 +15,7 @@ namespace FeatherWidgets.TestUI
         /// UI test SearchAndSelectDynamicItemsByTag
         /// </summary>
         [TestMethod,
-        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent),
+        Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void SearchAndSelectDynamicItemsByTag()
         {

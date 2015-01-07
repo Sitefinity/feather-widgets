@@ -15,8 +15,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test ActivateAndDeactivateModuleBuilder
         /// </summary>
         [TestMethod,
-           Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-           TestCategory(FeatherTestCategories.DynamicWidgets)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void ActivateAndDeactivateModuleBuilder()
         {
             BAT.Macros().NavigateTo().Pages();
