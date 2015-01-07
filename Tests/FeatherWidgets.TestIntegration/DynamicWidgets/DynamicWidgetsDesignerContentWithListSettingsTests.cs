@@ -32,12 +32,12 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         }
 
         /// <summary>
-        /// Dynamics the widgets_ verify selected items functionality with sort news descending.
+        /// Dynamics the widgets_ verify selected items functionality with sort descending.
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("Sitefinity Team 7")]
-        public void DynamicWidgets_VerifySelectedItemsFunctionalityWithSortNewsDescending()
+        public void DynamicWidgets_VerifySelectedItemsFunctionalityWithSortDescending()
         {
             string sortExpession = "Title DESC";           
             string[] expectedDynamicTitles = { "Title2", "Title7", "Title5" };
@@ -103,7 +103,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Category(TestCategories.DynamicWidgets)]
         [Author("Sitefinity Team 7")]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithPaging()
-        {           
+        { 
             this.pageOperations = new PagesOperations();
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
             string pageNamePrefix = testName + "DynamicPage";
@@ -340,12 +340,12 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         }
 
         /// <summary>
-        /// Dynamics the widgets_ select by tag and sort news functionality.
+        /// Dynamics the widgets_ select by tag and sort functionality.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("Sitefinity Team 7")]
-        public void DynamicWidgets_SelectByTagAndSortNewsFunctionality()
+        public void DynamicWidgets_SelectByTagAndSortFunctionality()
         {
             int tagsCount = 3;
             Guid[] taxonId = new Guid[tagsCount];
@@ -406,12 +406,12 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         }
    
         /// <summary>
-        /// Newses the widget_ select by category news functionality and paging.
+        /// Dynamic widget_ select by category functionality and paging.
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("Sitefinity Team 7")]
-        public void DynamicWidgets_SelectByCategoryNewsFunctionalityAndPaging()
+        public void DynamicWidgets_SelectByCategoryFunctionalityAndPaging()
         {
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
@@ -448,7 +448,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                     }
                 }
 
-                this.VerifyCorrectNewsOnPageWithCategoryFilterAndPaging(category0, category1, dynamicController, itemsTitles);
+                this.VerifyCorrectItemsOnPageWithCategoryFilterAndPaging(category0, category1, dynamicController, itemsTitles);
             }
             finally
             {
@@ -458,12 +458,12 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         }
 
         /// <summary>
-        /// Dynamics the widgets_ select by category news functionality and limits.
+        /// Dynamics the widgets_ select by category functionality and limits.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("Sitefinity Team 7")]
-        public void DynamicWidgets_SelectByCategoryNewsFunctionalityAndLimits()
+        public void DynamicWidgets_SelectByCategoryFunctionalityAndLimits()
         {
             var dynamicController = new DynamicContentController();
             dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
@@ -499,18 +499,18 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 var dynamicItems = modelItems.Items.ToList();
                 int itemsCount = dynamicItems.Count;
 
-                Assert.IsTrue(itemsCount.Equals(3), "Number of news items is not correct");
+                Assert.IsTrue(itemsCount.Equals(3), "Number of items is not correct");
                 for (int i = 0; i <= 2; i++)
                 {
-                    Assert.IsTrue(dynamicItems[i].Fields.Title.Equals(itemsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
+                    Assert.IsTrue(dynamicItems[i].Fields.Title.Equals(itemsTitles[3 - i], StringComparison.CurrentCulture), "The items with this title was found!");
                 }
 
                 modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: category1, page: 1);
                 dynamicItems = modelItems.Items.ToList();
                 itemsCount = dynamicItems.Count;
 
-                Assert.IsTrue(itemsCount.Equals(1), "Number of news items is not correct");
-                Assert.IsTrue(dynamicItems[0].Fields.Title.Equals(itemsTitles[4], StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(itemsCount.Equals(1), "Number of items is not correct");
+                Assert.IsTrue(dynamicItems[0].Fields.Title.Equals(itemsTitles[4], StringComparison.CurrentCulture), "The items with this title was found!");
 
                 dynamicController.Model.DisplayMode = ListDisplayMode.All;
 
@@ -518,18 +518,18 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicItems = modelItems.Items.ToList();
                 itemsCount = dynamicItems.Count;
 
-                Assert.IsTrue(itemsCount.Equals(4), "Number of news items is not correct");
+                Assert.IsTrue(itemsCount.Equals(4), "Number of items is not correct");
                 for (int i = 0; i <= 3; i++)
                 {
-                    Assert.IsTrue(dynamicItems[i].Fields.Title.Equals(itemsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
+                    Assert.IsTrue(dynamicItems[i].Fields.Title.Equals(itemsTitles[3 - i], StringComparison.CurrentCulture), "The items with this title was found!");
                 }
 
                 modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: category1, page: 1);
                 dynamicItems = modelItems.Items.ToList();
                 itemsCount = dynamicItems.Count;
 
-                Assert.IsTrue(itemsCount.Equals(1), "Number of news items is not correct");
-                Assert.IsTrue(dynamicItems[0].Fields.Title.Equals(itemsTitles[4], StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(itemsCount.Equals(1), "Number of items is not correct");
+                Assert.IsTrue(dynamicItems[0].Fields.Title.Equals(itemsTitles[4], StringComparison.CurrentCulture), "The items with this title was found!");
             }
             finally
             {
@@ -609,103 +609,103 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         private void VerifyCorrectItemsOnPages(MvcControllerProxy mvcProxy, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index, string url, string url2, string url3, string[] selectedDynamicTitles)
         {
-                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                string responseContent = PageInvoker.ExecuteWebRequest(url);
-                string responseContent2 = PageInvoker.ExecuteWebRequest(url2);
-                string responseContent3 = PageInvoker.ExecuteWebRequest(url3);
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+            string responseContent2 = PageInvoker.ExecuteWebRequest(url2);
+            string responseContent3 = PageInvoker.ExecuteWebRequest(url3);
 
-                for (int i = 0; i < selectedDynamicTitles.Count(); i++)
+            for (int i = 0; i < selectedDynamicTitles.Count(); i++)
+            {
+                if (i <= 2)
                 {
-                    if (i <= 2)
-                    {
-                        Assert.IsTrue(responseContent.Contains(selectedDynamicTitles[i]), "The news with this title was not found!");
-                        Assert.IsFalse(responseContent2.Contains(selectedDynamicTitles[i]), "The news with this title was found!");
-                        Assert.IsFalse(responseContent3.Contains(selectedDynamicTitles[i]), "The news with this title was found!");
-                    }
-                    else if (i > 2 && i <= selectedDynamicTitles.Count() - 4)
-                    {
-                        Assert.IsTrue(responseContent2.Contains(selectedDynamicTitles[i]), "The news with this title was not found!");
-                        Assert.IsFalse(responseContent.Contains(selectedDynamicTitles[i]), "The news with this title was found!");
-                        Assert.IsFalse(responseContent3.Contains(selectedDynamicTitles[i]), "The news with this title was found!");
-                    }
-                    else
-                    {
-                        Assert.IsTrue(responseContent3.Contains(selectedDynamicTitles[i]), "The news with this title was not found!");
-                        Assert.IsFalse(responseContent.Contains(selectedDynamicTitles[i]), "The news with this title was found!");
-                        Assert.IsFalse(responseContent2.Contains(selectedDynamicTitles[i]), "The news with this title was found!");
-                    }
+                    Assert.IsTrue(responseContent.Contains(selectedDynamicTitles[i]), "The items with this title was not found!");
+                    Assert.IsFalse(responseContent2.Contains(selectedDynamicTitles[i]), "The items with this title was found!");
+                    Assert.IsFalse(responseContent3.Contains(selectedDynamicTitles[i]), "The items with this title was found!");
                 }
+                else if (i > 2 && i <= selectedDynamicTitles.Count() - 4)
+                {
+                    Assert.IsTrue(responseContent2.Contains(selectedDynamicTitles[i]), "The items with this title was not found!");
+                    Assert.IsFalse(responseContent.Contains(selectedDynamicTitles[i]), "The items with this title was found!");
+                    Assert.IsFalse(responseContent3.Contains(selectedDynamicTitles[i]), "The items with this title was found!");
+                }
+                else
+                {
+                    Assert.IsTrue(responseContent3.Contains(selectedDynamicTitles[i]), "The items with this title was not found!");
+                    Assert.IsFalse(responseContent.Contains(selectedDynamicTitles[i]), "The items with this title was found!");
+                    Assert.IsFalse(responseContent2.Contains(selectedDynamicTitles[i]), "The items with this title was found!");
+                }
+            }
         }
 
         private void VerifyCorrectItemsOnPageWithUseLimitsOption(MvcWidgetProxy mvcProxy, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index, string url, string[] selectedItemsTitles)
         {
-                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                string responseContent = PageInvoker.ExecuteWebRequest(url);
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                for (int i = 0; i < selectedItemsTitles.Count(); i++)
+            for (int i = 0; i < selectedItemsTitles.Count(); i++)
+            {
+                if (i <= 4)
                 {
-                    if (i <= 4)
-                    {
-                        Assert.IsTrue(responseContent.Contains(selectedItemsTitles[i]), "The news with this title was not found!");
-                    }
-                    else
-                    {
-                        Assert.IsFalse(responseContent.Contains(selectedItemsTitles[i]), "The news with this title was found!");
-                    }
-                }                     
+                    Assert.IsTrue(responseContent.Contains(selectedItemsTitles[i]), "The items with this title was not found!");
+                }
+                else
+                {
+                    Assert.IsFalse(responseContent.Contains(selectedItemsTitles[i]), "The items with this title was found!");
+                }
+            }
         }
 
         private void VerifyCorrectItemsOnPageWithNoLimitsOption(MvcWidgetProxy mvcProxy, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index, string url, string[] selectedItemsTitles)
         {
-                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                string responseContent = PageInvoker.ExecuteWebRequest(url);
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
 
-                for (int i = 0; i < selectedItemsTitles.Count(); i++)
-                {
-                    Assert.IsTrue(responseContent.Contains(selectedItemsTitles[i]), "The news with this title was not found!");
-                }
+            for (int i = 0; i < selectedItemsTitles.Count(); i++)
+            {
+                Assert.IsTrue(responseContent.Contains(selectedItemsTitles[i]), "The items with this title was not found!");
+            }
 
-                this.pageOperations.DeletePages();
+            this.pageOperations.DeletePages();
         }
 
-        private void VerifyCorrectNewsOnPageWithCategoryFilterAndPaging(HierarchicalTaxon category0, HierarchicalTaxon category1, DynamicContentController dynamicController, string[] itemsTitles)
+        private void VerifyCorrectItemsOnPageWithCategoryFilterAndPaging(HierarchicalTaxon category0, HierarchicalTaxon category1, DynamicContentController dynamicController, string[] itemsTitles)
         {
             var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: category0, page: 1);
             var dynamicItems = modelItems.Items.ToList();
             int itemsCount = dynamicItems.Count;
 
-            Assert.IsTrue(itemsCount.Equals(3), "Number of news items is not correct");
+            Assert.IsTrue(itemsCount.Equals(3), "Number of items is not correct");
             for (int i = 0; i <= 2; i++)
             {
-                Assert.IsTrue(dynamicItems[i].Fields.Title.Equals(itemsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(dynamicItems[i].Fields.Title.Equals(itemsTitles[3 - i], StringComparison.CurrentCulture), "The items with this title was found!");
             }
 
             modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: category0, page: 2);
             dynamicItems = modelItems.Items.ToList();
             itemsCount = dynamicItems.Count;
 
-            Assert.IsTrue(itemsCount.Equals(1), "Number of news items is not correct");
-            Assert.IsTrue(dynamicItems[0].Fields.Title.Equals(itemsTitles[0], StringComparison.CurrentCulture), "The news with this title was found!");
+            Assert.IsTrue(itemsCount.Equals(1), "Number of items is not correct");
+            Assert.IsTrue(dynamicItems[0].Fields.Title.Equals(itemsTitles[0], StringComparison.CurrentCulture), "The items with this title was found!");
 
             modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: category1, page: 1);
             dynamicItems = modelItems.Items.ToList();
             itemsCount = dynamicItems.Count;
 
-            Assert.IsTrue(itemsCount.Equals(3), "Number of news items is not correct");
+            Assert.IsTrue(itemsCount.Equals(3), "Number of items is not correct");
             for (int i = 0; i <= 2; i++)
             {
-                Assert.IsTrue(dynamicItems[i].Fields.Title.Equals(itemsTitles[4 - i], StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(dynamicItems[i].Fields.Title.Equals(itemsTitles[4 - i], StringComparison.CurrentCulture), "The items with this title was found!");
             }
 
             modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: category1, page: 2);
             dynamicItems = modelItems.Items.ToList();
             itemsCount = dynamicItems.Count;
 
-            Assert.IsTrue(itemsCount.Equals(1), "Number of news items is not correct");
-            Assert.IsTrue(dynamicItems[0].Fields.Title.Equals(itemsTitles[1], StringComparison.CurrentCulture), "The news with this title was found!");
+            Assert.IsTrue(itemsCount.Equals(1), "Number of items is not correct");
+            Assert.IsTrue(dynamicItems[0].Fields.Title.Equals(itemsTitles[1], StringComparison.CurrentCulture), "The items with this title was found!");
         }
 
         #region Fields and constants
