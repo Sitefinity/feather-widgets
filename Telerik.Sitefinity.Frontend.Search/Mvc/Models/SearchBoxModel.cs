@@ -56,6 +56,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         }
 
         /// <inheritdoc />
+        public string SiteRootName { get; set; }
+
+        /// <inheritdoc />
         public string IndexCatalogue { get; set; }
 
         /// <inheritdoc />
@@ -83,10 +86,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             SiteMapProvider provider;
             try
             {
-                if (string.IsNullOrEmpty(this.siteRootName))
+                if (string.IsNullOrEmpty(this.SiteRootName))
                     provider = SiteMapBase.GetSiteMapProvider(SiteMapBase.DefaultSiteMapProviderName);
                 else
-                    provider = SiteMapBase.GetSiteMapProvider(this.siteRootName);
+                    provider = SiteMapBase.GetSiteMapProvider(this.SiteRootName);
 
                 return provider;
             }
@@ -119,7 +122,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 var node = SiteMapBase.GetActualCurrentNode();
                 if (node != null)
                     resultsUrl = node.Url;
-
             }
 
             // If ML is using different domains, the url does not need to be resolved
@@ -135,7 +137,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         #endregion
 
         #region Private fields and constants
-        private string siteRootName;
         private string resultsUrl;
         #endregion
     }

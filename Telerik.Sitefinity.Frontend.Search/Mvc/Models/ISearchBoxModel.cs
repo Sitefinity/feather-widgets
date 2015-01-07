@@ -27,6 +27,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         string ResultsPageId { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the site root.
+        /// </summary>
+        string SiteRootName { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the index catalogue which will be used for searching.
         /// </summary>
         string IndexCatalogue { get; set; }
