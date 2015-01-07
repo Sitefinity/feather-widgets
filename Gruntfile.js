@@ -15,13 +15,10 @@ module.exports = function (grunt) {
 			]
 		},
 		
-		jasmine: {
-			unit:{
+		jasmine: {	
+			newsTests:{
 				src: [
-					'**/*.js',
-					'!node_modules/**/*.js',
-					'!Tests/**/*.js',
-					'!Gruntfile.js',
+					'Telerik.Sitefinity.Frontend.News/MVC/Scripts/**/*.js'
 				],
 				options: {
 					vendor:[
@@ -54,16 +51,17 @@ module.exports = function (grunt) {
 					'!../feather/Telerik.Sitefinity.Frontend/Designers/Scripts/page-editor.js',
 					'Tests/FeatherWidgets.ClientTest/helpers/mocks/*.js'
 					],
-					specs: ['Tests/FeatherWidgets.ClientTest/unit/**/*.js'],
+					errorReporting: true,
+					specs: ['Tests/FeatherWidgets.ClientTest/unit/News/*.js'],
 					junit: {
-						path: 'Tests/FeatherWidgets.ClientTest/TestResults'
+						path: 'Tests/FeatherWidgets.ClientTest/TestResults/News'
 						},
 					template: require('grunt-template-jasmine-istanbul'),
 					templateOptions: {
-						coverage: 'Tests/FeatherWidgets.ClientTest/coverage/coverage.json',
+						coverage: 'Tests/FeatherWidgets.ClientTest/coverage/News/coverage.json',
 						report: [
-							{type: 'html', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage'}},
-							{type: 'cobertura', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/cobertura'}},
+							{type: 'html', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/News'}},
+							{type: 'cobertura', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/cobertura/News'}},
 							{type: 'text-summary'}
 						]
 					}
@@ -91,6 +89,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-html2js');
 	
 	//Default task(s)
-	grunt.registerTask('default', ['jshint','html2js', 'jasmine']);
+	grunt.registerTask('default', ['jshint','html2js','jasmine']);
 	
 };
