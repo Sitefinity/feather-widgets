@@ -111,8 +111,6 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="DynamicWidgets\ChangeSelectedSingleItemPageInDynamicWidget.cs" />
-    <Compile Include="DynamicWidgets\CheckSelectorsAfterUNPublishingDynamicItem.cs" />
-    <Compile Include="DynamicWidgets\ReorderSelectedDynamicItems.cs" />
     <Compile Include="DynamicWidgets\DeleteTagAndEdiDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\EditSelectedTagInDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage.cs" />
@@ -156,7 +154,6 @@
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
-    <Compile Include="News\ReorderSelectedNewsItems.cs" />
     <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
