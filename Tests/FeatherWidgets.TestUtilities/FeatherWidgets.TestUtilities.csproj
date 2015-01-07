@@ -40,6 +40,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
@@ -71,6 +72,10 @@
     <Reference Include="Telerik.Sitefinity.ContentModules">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Content.7.3.5600.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.1.20.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\feather\Telerik.Sitefinity.Frontend\bin\Debug\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <SpecificVersion>False</SpecificVersion>
@@ -147,6 +152,7 @@
     <EmbeddedResource Include="Data\DynamicModules\Module2.zip" />
     <EmbeddedResource Include="Data\DynamicModules\AllTypesModule.zip" />
     <EmbeddedResource Include="Data\DynamicModules\RelatedModule.zip" />
+    <EmbeddedResource Include="Data\DynamicModules\PressReleaseWithCategoriesField.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -155,6 +161,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
       <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj">
+      <Project>{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}</Project>
+      <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>

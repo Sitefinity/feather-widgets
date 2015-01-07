@@ -168,6 +168,7 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsAllTypesTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsContentLocationServiceTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerContentTests.cs" />
+    <Compile Include="DynamicWidgets\DynamicWidgetsDesignerContentWithListSettingsTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerListSettingsTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerSingleItemSettingsTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsFilterByRelatedDataTests.cs" />

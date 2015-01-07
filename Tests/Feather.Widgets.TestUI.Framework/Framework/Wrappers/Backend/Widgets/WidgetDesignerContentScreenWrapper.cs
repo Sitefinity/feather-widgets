@@ -1,20 +1,19 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
-using ArtOfTest.Common.UnitTesting;
 using System.Globalization;
+
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
-    /// <summary>
-    /// This is the entry point class for news widget edit wrapper.
-    /// </summary>
-    public class NewsWidgetEditContentScreenWrapper : BaseWrapper
+    public class WidgetDesignerContentScreenWrapper : BaseWrapper
     {
         /// <summary>
         /// Selects which news to display in the widget designer
@@ -23,9 +22,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectWhichNewsToDisplay(string mode)
         {
             int position;
-            HtmlDiv optionsDiv = EM.News
-                                   .NewsWidgetContentScreen
-                                   .WhichNewsToDisplayList
+            HtmlDiv optionsDiv = EM.Widgets
+                                   .WidgetDesignerContentScreen
+                                   .WhichItemsToDisplayList
                                    .AssertIsPresent("Which news to display options list");
 
             List<HtmlDiv> newsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
@@ -69,8 +68,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void DoneSelecting()
         {
-            HtmlButton shareButton = EM.News
-                                       .NewsWidgetContentScreen
+            HtmlButton shareButton = EM.Widgets
+                                       .WidgetDesignerContentScreen
                                        .DoneSelectingButton
                                        .AssertIsPresent("Done selecting button");
             shareButton.Click();
@@ -84,7 +83,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemName">Name of the item.</param>
         public void SelectItemsInFlatSelector(params string[] itemNames)
         {
-            HtmlDiv activeTab = this.EM.News.NewsWidgetContentScreen.ActiveTab
+            HtmlDiv activeTab = this.EM.Widgets.WidgetDesignerContentScreen.ActiveTab
                                     .AssertIsPresent("active tab");
 
             foreach (var itemName in itemNames)
@@ -110,18 +109,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemName">Name of the item.</param>
         public void SelectItemsInHierarchicalSelector(params string[] itemNames)
         {
-            HtmlDiv activeTab = this.EM.News.NewsWidgetContentScreen.ActiveTab
+            HtmlDiv activeTab = this.EM.Widgets.WidgetDesignerContentScreen.ActiveTab
                                     .AssertIsPresent("active tab");
             foreach (var itemName in itemNames)
             {
                 SelectElementInTree(itemName, activeTab);
             }
         }
-    
+
         public void CheckBreadcrumbAfterSearchInHierarchicalSelector(string name, string fullName)
         {
             ActiveBrowser.Find.ByExpression<HtmlSpan>("InnerText=" + name, "sf-shrinked-breadcrumb=" + fullName)
-                                    .AssertIsPresent("Breadcrumb");   
+                                    .AssertIsPresent("Breadcrumb");
         }
 
         /// <summary>
@@ -140,8 +139,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SaveChanges()
         {
-            HtmlButton saveButton = EM.News
-                                      .NewsWidgetContentScreen
+            HtmlButton saveButton = EM.Widgets
+                                      .WidgetDesignerContentScreen
                                       .SaveChangesButton
                                       .AssertIsPresent("Save button");
             saveButton.Click();
@@ -156,7 +155,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void ClickSelectButton()
         {
-            var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtons;
+            var selectButtons = EM.Widgets.WidgetDesignerContentScreen.SelectButtons;
             foreach (var button in selectButtons)
             {
                 if (button.IsVisible())
@@ -176,7 +175,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void ClickSelectButtonByDate()
         {
-            var selectButtons = EM.News.NewsWidgetContentScreen.SelectButtonsDate;
+            var selectButtons = EM.Widgets.WidgetDesignerContentScreen.SelectButtonsDate;
             foreach (var button in selectButtons)
             {
                 if (button.IsVisible())
@@ -197,11 +196,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="title">The title of the tag</param>
         public void SearchItemByTitle(string title)
         {
-            var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
+            var activeDialog = this.EM.Widgets.WidgetDesignerContentScreen.ActiveTab.AssertIsPresent("Content container");
             HtmlDiv inputDiv = activeDialog.Find.ByExpression<HtmlDiv>("class=input-group m-bottom-sm");
             //// Some tests can fail from this change
-            /* HtmlDiv inputDiv = EM.News
-                                 .NewsWidgetContentScreen
+            /* HtmlDiv inputDiv = EM.Widgets
+                                 .WidgetDesignerContentScreen
                                  .SearchByTypingDiv
                                  .AssertIsPresent("Search field div");
             */
@@ -233,9 +232,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public bool ScrollToLatestItemAndCountItems(int expected)
         {
             ActiveBrowser.RefreshDomTree();
-            var activeDialog = this.EM.News.NewsWidgetContentScreen.ActiveTab.AssertIsPresent("Content container");
+            var activeDialog = this.EM.Widgets.WidgetDesignerContentScreen.ActiveTab.AssertIsPresent("Content container");
 
-            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");         
+            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
             int divsCount = items.Count;
 
             if (divsCount == 0)
@@ -247,8 +246,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             //// if items count is more than 12 elements, then you need to scroll
             if (divsCount > 12)
             {
-                HtmlDiv newsList = EM.News
-                                     .NewsWidgetContentScreen
+                HtmlDiv newsList = EM.Widgets
+                                     .WidgetDesignerContentScreen
                                      .ItemsList
                                      .AssertIsPresent("News list");
 
@@ -269,8 +268,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void NoItemsFound()
         {
-            HtmlDiv noItemsFound = EM.News
-                                     .NewsWidgetContentScreen
+            HtmlDiv noItemsFound = EM.Widgets
+                                     .WidgetDesignerContentScreen
                                      .NoItemsFoundDiv
                                      .AssertIsPresent("No items found div");
 
@@ -284,7 +283,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemNames">Array of selected item names.</param>
         public void VerifySelectedItemsFromFlatSelector(string[] itemNames)
         {
-            var divList = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
+            var divList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
             int divListCount = divList.Count;
 
             for (int i = 0; i < divListCount; i++)
@@ -299,12 +298,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemNames">Array of selected item names.</param>
         public void VerifySelectedItemsFromHierarchicalSelector(string[] itemNames)
         {
-            var divList = this.EM.News.NewsWidgetContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
+            var divList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
             int divListCount = divList.Count;
 
             for (int i = 0; i < divListCount; i++)
             {
-                var selectedItemSpan = divList[i].Find.ByAttributes<HtmlSpan>("sf-shrinked-breadcrumb=" + itemNames[i]).AssertIsPresent("Span for " + itemNames[i] + " was not present.");
+                divList[i].Find.ByAttributes<HtmlSpan>("sf-shrinked-breadcrumb=" + itemNames[i]).AssertIsPresent("Span for " + itemNames[i] + " was not present.");
             }
         }
 
@@ -314,7 +313,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemNames">The item names.</param>
         public void CheckNotificationInSelectedTab(int expectedCout)
         {
-            var span = this.EM.News.NewsWidgetContentScreen.Find.ByExpression<HtmlSpan>("class=badge ng-binding", string.Format("InnerText=~{0}", expectedCout));
+            var span = this.EM.Widgets.WidgetDesignerContentScreen.Find.ByExpression<HtmlSpan>("class=badge ng-binding", string.Format("InnerText=~{0}", expectedCout));
             span.AssertIsPresent("item name not present");
         }
 
@@ -323,7 +322,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenSelectedTab()
         {
-            HtmlAnchor selectedTab = this.EM.News.NewsWidgetContentScreen.SelectedTab
+            HtmlAnchor selectedTab = this.EM.Widgets.WidgetDesignerContentScreen.SelectedTab
                                          .AssertIsPresent("selected tab");
             selectedTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
@@ -335,7 +334,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenAllTab()
         {
-            HtmlAnchor allTab = this.EM.News.NewsWidgetContentScreen.AllTab
+            HtmlAnchor allTab = this.EM.Widgets.WidgetDesignerContentScreen.AllTab
                                     .AssertIsPresent("all tab");
 
             allTab.Click();
@@ -350,8 +349,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectDisplayItemsPublishedIn(string option, string divClass = "radio")
         {
             int position;
-            HtmlForm optionsForm = EM.News
-                                     .NewsWidgetContentScreen
+            HtmlForm optionsForm = EM.Widgets
+                                     .WidgetDesignerContentScreen
                                      .DisplayItemsPublishedIn
                                      .AssertIsPresent("Selects display items published in");
 
@@ -483,8 +482,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void CheckInactiveNewsWidget()
         {
-            HtmlDiv optionsDiv = EM.News
-                                   .NewsWidgetContentScreen
+            HtmlDiv optionsDiv = EM.Widgets
+                                   .WidgetDesignerContentScreen
                                    .InactiveWidget
                                    .AssertIsPresent("Inactive widget");
             var isContained = optionsDiv.InnerText.Contains("This widget doesn't work, becauseNewsmodule has been deactivated.");
@@ -496,7 +495,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SingleItemSettingsTab()
         {
-            HtmlAnchor singleTab = this.EM.News.NewsWidgetContentScreen.SingleItemSetting
+            HtmlAnchor singleTab = this.EM.Widgets.WidgetDesignerContentScreen.SingleItemSetting
                                     .AssertIsPresent("Single item settings tab");
 
             singleTab.Click();
@@ -509,7 +508,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SelectDetailTemplate(string templateName)
         {
-            HtmlSelect selectDetailTemplate = this.EM.News.NewsWidgetContentScreen.SelectDetailTemplate
+            HtmlSelect selectDetailTemplate = this.EM.Widgets.WidgetDesignerContentScreen.SelectDetailTemplate
                                     .AssertIsPresent("Detail template select");
 
             selectDetailTemplate.Click();
@@ -526,9 +525,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SelectExistingPage()
         {
-            HtmlInputRadioButton selectExistingPage = this.EM.News.NewsWidgetContentScreen.SelectedExistingPage.AssertIsPresent("Selected existing page");
+            HtmlInputRadioButton selectExistingPage = this.EM.Widgets.WidgetDesignerContentScreen.SelectedExistingPage.AssertIsPresent("Selected existing page");
             selectExistingPage.Click();
-            
+
             Manager.Current.ActiveBrowser.WaitUntilReady();
             Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
             Manager.Current.ActiveBrowser.RefreshDomTree();
@@ -545,7 +544,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
             else
             {
-                var arrows = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                var arrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
                 Assert.AreNotEqual(0, arrows.Count, "No arrows appear");
 
                 SearchAndSelectElementByExpandingArrows(arrows, element, itemName, activeTab);
@@ -580,7 +579,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     }
                     else
                     {
-                        var newArrows = this.EM.News.NewsWidgetContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                        var newArrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
                         if (newArrows.Count != 0)
                         {
                             SearchAndSelectElementByExpandingArrows(newArrows, element, itemName, activeTab);
@@ -600,14 +599,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="providerName">Name of the provider.</param>
         public void SelectProvider(string providerName)
         {
-            HtmlAnchor providerDropDown = this.EM.News.NewsWidgetContentScreen.ProviderDropDown
+            HtmlAnchor providerDropDown = this.EM.Widgets.WidgetDesignerContentScreen.ProviderDropDown
                                     .AssertIsPresent("Provider DropDown");
 
             providerDropDown.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
 
-            HtmlUnorderedList providerList = this.EM.News.NewsWidgetContentScreen.ProvidersList
+            HtmlUnorderedList providerList = this.EM.Widgets.WidgetDesignerContentScreen.ProvidersList
                                     .AssertIsPresent("Provider DropDown");
 
             HtmlAnchor provider = providerList.Find.ByCustom<HtmlAnchor>(a => a.InnerText.Equals(providerName))
@@ -616,6 +615,37 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             provider.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Reorders the selected items.
+        /// </summary>
+        /// <param name="expectedOrder">The expected order.</param>
+        /// <param name="selectedItemNames">The selected item names.</param>
+        public void ReorderSelectedItems(string[] expectedOrder, string[] selectedItemNames, Dictionary<int, int> reorderedIndexMapping)
+        {
+            var activeDialog = this.EM.Widgets.WidgetDesignerContentScreen.ActiveTab.AssertIsPresent("Content container");
+            var divList = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
+
+            for (int i = 0; i < divList.Count; i++)
+            {
+                Assert.AreEqual(selectedItemNames[i], divList[i].InnerText, selectedItemNames[i] + "is not positioned correctly in Selected tab");
+            }
+
+            var spanList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlSpan>("class=handler list-group-item-drag");
+
+            foreach (KeyValuePair<int, int> reorderingPair in reorderedIndexMapping)
+            {
+                spanList[reorderingPair.Key].DragTo(spanList[reorderingPair.Value]);
+            }
+
+            activeDialog.Refresh();
+            var reorderedDivList = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
+
+            for (int i = 0; i < reorderedDivList.Count; i++)
+            {
+                Assert.AreEqual(expectedOrder[i], reorderedDivList[i].InnerText, expectedOrder[i] + " is not reordered correctly");
+            }
         }
 
         private bool isHierarchicalItemFound = false;
