@@ -265,6 +265,21 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Phrase: Set where to search
+        /// </summary>
+        /// <value>Set where to search</value>
+        [ResourceEntry("SearchBoxEmptyLinkText",
+            Value = "Set where to search",
+            Description = "Phrase: Set where to search",
+            LastModified = "2015/01/07")]
+        public string SearchBoxEmptyLinkText
+        {
+            get
+            {
+                return this["SearchBoxEmptyLinkText"];
+            }
+        }
         #endregion
     }
 }

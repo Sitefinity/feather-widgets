@@ -12,6 +12,8 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Services.Search.Configuration;
 using Telerik.Sitefinity.Services;
 using System.Globalization;
+using Telerik.Sitefinity.Web.UI;
+using Telerik.Sitefinity.Localization;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -20,10 +22,31 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "SearchBox", Title = "Search box", SectionName = "MvcWidgets")]
     [Localization(typeof(SearchWidgetsResources))]
-    public class SearchBoxController : Controller
+    public class SearchBoxController : Controller, ICustomWidgetVisualization
     {
-        #region Properties
+        #region ICustomWidgetVisualization
+        /// <inheritdoc />
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get
+            {
+                return Res.Get<SearchWidgetsResources>().SearchBoxEmptyLinkText;
+            }
+        }
 
+        /// <inheritdoc />
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get
+            {
+                return this.Model.IndexCatalogue.IsNullOrEmpty();
+            }
+        }
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Gets or sets the name of the template that will be displayed.
         /// </summary>
@@ -146,6 +169,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         #region Private fields and constants
         private ISearchBoxModel model;
         private string templateName = "SearchBox";
-        #endregion
+        #endregion        
     }
 }
