@@ -75,7 +75,7 @@
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend, Version=1.1.20.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\feather\Telerik.Sitefinity.Frontend\bin\Debug\Telerik.Sitefinity.Frontend.dll</HintPath>
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <SpecificVersion>False</SpecificVersion>
