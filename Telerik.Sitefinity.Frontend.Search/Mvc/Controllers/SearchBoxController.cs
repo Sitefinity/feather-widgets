@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -40,18 +38,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             {
                 this.templateName = value;
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the CSS class that will be applied on the wrapper div of the Search widget (if such is presented).
-        /// </summary>
-        /// <value>
-        /// The CSS class.
-        /// </value>
-        public string CssClass
-        {
-            get;
-            set;
         }
 
         /// <summary>
@@ -126,8 +112,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 {"suggestionsRoute", "/restapi/search/suggestions"},
                 {"minSuggestionLength", this.GetMinSuggestLength()},
                 {"suggestionFields", "Title,Content"},
-                {"language", this.GetCurrentUILanguage()},
-                {"cssClass", this.CssClass}
+                {"language", this.GetCurrentUILanguage()}
             };
             return ControllerModelFactory.GetModel<ISearchBoxModel>(this.GetType(), constructorParams);
         }
@@ -155,8 +140,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             }
 
             return searchQuery;
-        }
-
+        }        
         #endregion
 
         #region Private fields and constants

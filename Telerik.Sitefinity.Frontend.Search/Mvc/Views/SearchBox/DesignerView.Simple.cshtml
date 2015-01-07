@@ -22,7 +22,7 @@
     
     <div>
         @Html.Resource("ThisIsPageWhereYouHaveDropped") <em>@Html.Resource("SearchResultsWidget")</em>    
-        <sf-list-selector sf-page-selector></sf-list-selector>
+        <sf-list-selector sf-page-selector sf-selected-item-id="properties.ResultsPageId.PropertyValue"></sf-list-selector>
     </div>
 </div>
 
@@ -42,7 +42,7 @@
 </div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
-    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name ="properties.TemplateName.PropertyValue"></style-dropdown>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
     <div class="form-group">
         <label for="searchCssClass">@Html.Resource("CssClasses")</label>

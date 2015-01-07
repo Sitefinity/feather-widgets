@@ -22,6 +22,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         string ResultsUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the Id of the page where the results will be displayed.
+        /// </summary>
+        string ResultsPageId { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the index catalogue which will be used for searching.
         /// </summary>
         string IndexCatalogue { get; set; }
@@ -55,6 +60,5 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Gets or sets the CSS class that will be applied on the wrapper div of the Search widget (if such is presented).
         /// </summary>
         string CssClass { get; set; }
-
     }
 }
