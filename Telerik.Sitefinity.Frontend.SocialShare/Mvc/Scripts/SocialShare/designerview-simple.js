@@ -1,5 +1,7 @@
 ﻿(function ($, designerModule) {
 
+    designerModule.requires.push('expander');
+
     designerModule.controller('SimpleCtrl',
         ['$scope',
          'propertyService',
