@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
+    /// <summary>
+    /// An interface that provides all common properties for SearchBox model.
+    /// </summary>
     public interface ISearchBoxModel
     {
         /// <summary>
@@ -46,7 +49,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <summary>
         /// Gets or sets the current UI language.
         /// </summary>
-        /// <value>The language.</value>
         string Language { get; set; }
 
         /// <summary>

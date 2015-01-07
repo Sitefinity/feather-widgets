@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
+    /// <summary>
+    /// This class represents the model used by Search box controller.
+    /// </summary>
     public class SearchBoxModel : ISearchBoxModel
     {
         #region Construction
