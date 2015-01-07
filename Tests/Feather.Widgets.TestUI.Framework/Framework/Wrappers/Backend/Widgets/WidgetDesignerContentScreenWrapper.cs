@@ -16,18 +16,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     public class WidgetDesignerContentScreenWrapper : BaseWrapper
     {
         /// <summary>
-        /// Selects which news to display in the widget designer
+        /// Selects which items to display in the widget designer
         /// </summary>
-        /// <param name="mode">Which news to display</param>
-        public void SelectWhichNewsToDisplay(string mode)
+        /// <param name="mode">Which items to display</param>
+        public void SelectWhichItemsToDisplay(string mode)
         {
             int position;
             HtmlDiv optionsDiv = EM.Widgets
                                    .WidgetDesignerContentScreen
                                    .WhichItemsToDisplayList
-                                   .AssertIsPresent("Which news to display options list");
+                                   .AssertIsPresent("Which items to display options list");
 
-            List<HtmlDiv> newsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
+            List<HtmlDiv> itemsDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
             if (mode.Contains("Selected"))
             {
@@ -42,11 +42,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 position = 0;
             }
 
-            HtmlInputRadioButton optionButton = newsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
-                                                                  .AssertIsPresent("Which news to display option radio button");
+            HtmlInputRadioButton optionButton = itemsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
+                                                                  .AssertIsPresent("Which items to display option radio button");
             optionButton.Click();
         }
-
+ 
         /// <summary>
         /// Selects the taxonomy.
         /// </summary>
@@ -115,6 +115,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 SelectElementInTree(itemName, activeTab);
             }
+        }
+
+        /// <summary>
+        /// Asserts the single item is selected in hierarchical selector.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        public void AssertSingleItemIsSelectedInHierarchicalSelector(string name)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=active", "InnerText=~" + name, "ng-class=?'active': sfItemSelected({dataItem: dataItem})}")
+                                    .AssertIsPresent(name);
         }
 
         public void CheckBreadcrumbAfterSearchInHierarchicalSelector(string name, string fullName)
@@ -198,12 +208,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var activeDialog = this.EM.Widgets.WidgetDesignerContentScreen.ActiveTab.AssertIsPresent("Content container");
             HtmlDiv inputDiv = activeDialog.Find.ByExpression<HtmlDiv>("class=input-group m-bottom-sm");
-            //// Some tests can fail from this change
-            /* HtmlDiv inputDiv = EM.Widgets
-                                 .WidgetDesignerContentScreen
-                                 .SearchByTypingDiv
-                                 .AssertIsPresent("Search field div");
-            */
+            
             HtmlInputText input = inputDiv.Find
                                           .ByExpression<HtmlInputText>("placeholder=Narrow by typing")
                                           .AssertIsPresent("Search field");
@@ -246,12 +251,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             //// if items count is more than 12 elements, then you need to scroll
             if (divsCount > 12)
             {
-                HtmlDiv newsList = EM.Widgets
+                HtmlDiv itemsList = EM.Widgets
                                      .WidgetDesignerContentScreen
                                      .ItemsList
-                                     .AssertIsPresent("News list");
+                                     .AssertIsPresent("items list");
 
-                List<HtmlDiv> itemDiv = newsList.Find
+                List<HtmlDiv> itemDiv = itemsList.Find
                                       .AllByExpression<HtmlDiv>("class=~ng-scope list-group-item").ToList<HtmlDiv>();
                 divsCount = itemDiv.Count;
 
@@ -264,7 +269,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// No news items found
+        /// No items items found
         /// </summary>
         public void NoItemsFound()
         {
@@ -283,8 +288,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemNames">Array of selected item names.</param>
         public void VerifySelectedItemsFromFlatSelector(string[] itemNames)
         {
-            var divList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
+            var divList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in sfSelectedItems | limitTo:5");
             int divListCount = divList.Count;
+            Assert.IsNotNull(divListCount);
 
             for (int i = 0; i < divListCount; i++)
             {
@@ -298,8 +304,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemNames">Array of selected item names.</param>
         public void VerifySelectedItemsFromHierarchicalSelector(string[] itemNames)
         {
-            var divList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in selectedItems | limitTo:5");
+            var divList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in sfSelectedItems | limitTo:5");
             int divListCount = divList.Count;
+            Assert.IsNotNull(divListCount);
 
             for (int i = 0; i < divListCount; i++)
             {
@@ -354,7 +361,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                      .DisplayItemsPublishedIn
                                      .AssertIsPresent("Selects display items published in");
 
-            List<HtmlDiv> newsDivs = optionsForm.Find.AllByExpression<HtmlDiv>("tagname=div", "class=" + divClass).ToList<HtmlDiv>();
+            List<HtmlDiv> itemsDivs = optionsForm.Find.AllByExpression<HtmlDiv>("tagname=div", "class=" + divClass).ToList<HtmlDiv>();
 
             if (option.Contains("Custom"))
             {
@@ -365,8 +372,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 position = 0;
             }
 
-            HtmlInputRadioButton optionButton = newsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
-                                                                  .AssertIsPresent("Which news to display option radio button");
+            HtmlInputRadioButton optionButton = itemsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
+                                                                  .AssertIsPresent("Which items to display option radio button");
 
             optionButton.Click();
         }
@@ -478,15 +485,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Verify mesage in news widget - when News module is deactivated
+        /// Verify mesage in items widget - when items module is deactivated
         /// </summary>
-        public void CheckInactiveNewsWidget()
+        public void CheckInactiveitemsWidget()
         {
             HtmlDiv optionsDiv = EM.Widgets
                                    .WidgetDesignerContentScreen
                                    .InactiveWidget
                                    .AssertIsPresent("Inactive widget");
-            var isContained = optionsDiv.InnerText.Contains("This widget doesn't work, becauseNewsmodule has been deactivated.");
+            var isContained = optionsDiv.InnerText.Contains("This widget doesn't work, becauseitemsmodule has been deactivated.");
             Assert.IsTrue(isContained, "Message not found");
         }
 

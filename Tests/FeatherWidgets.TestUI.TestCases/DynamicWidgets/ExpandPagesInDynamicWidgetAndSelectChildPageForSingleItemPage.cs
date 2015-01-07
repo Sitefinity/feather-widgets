@@ -36,6 +36,16 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromHierarchicalSelector(this.selectedItemsFromPageSelector);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SingleItemSettingsTab();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectExistingPage();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().AssertSingleItemIsSelectedInHierarchicalSelector(SingleItemPage);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInHierarchicalSelector(NewSingleItemPage);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromHierarchicalSelector(this.newSelectedItemsFromPageSelector);
         }
 
         /// <summary>
@@ -58,6 +68,8 @@ namespace FeatherWidgets.TestUI
         private const string PageName = "TestPage";
         private const string WidgetName = "Press Articles MVC";
         private const string SingleItemPage = "ChildPage9";
+        private const string NewSingleItemPage = "ChildPage1";
         private readonly string[] selectedItemsFromPageSelector = new string[] { "TestPage > ChildPage0 > ChildPage1 > ChildPage2 > ChildPage3 > ChildPage4 > ChildPage5 > ChildPage6 > ChildPage7 > ChildPage8 > ChildPage9" };
+        private readonly string[] newSelectedItemsFromPageSelector = new string[] { "TestPage > ChildPage0 > ChildPage1" };
     }
 }

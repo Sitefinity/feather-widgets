@@ -31,6 +31,12 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SingleItemSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectExistingPage();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
+
+            //// Search for not existing page
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SearchItemByTitle(SearchNotExistingText);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(NotExistingSearchResultsCount);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().NoItemsFound();
+
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SearchItemByTitle(SearchText);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(SearchResultsCount);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().CheckBreadcrumbAfterSearchInFlatSelector(SearchText, ResultPageBreadcrumb);
@@ -63,6 +69,8 @@ namespace FeatherWidgets.TestUI
 
         private const string PageName = "TestPage";
         private const string WidgetName = "Press Articles MVC";
+        private const string SearchNotExistingText = "FeatherPage";
+        private const int NotExistingSearchResultsCount = 0;
         private const string SearchText = "ChildPage6";
         private const string ResultPageBreadcrumb = "Under TestPage > ChildPage0 > ChildPage1 > ChildPage2 > ChildPage3 > ChildPage4 > ChildPage5";
         private const int SearchResultsCount = 1;

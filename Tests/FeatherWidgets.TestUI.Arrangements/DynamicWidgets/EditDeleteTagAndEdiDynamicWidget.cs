@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// EditSelectedTagInDynamicWidget arrangement class.
+    /// EditDeleteTagAndEdiDynamicWidget arrangement class.
     /// </summary>
-    public class EditSelectedTagInDynamicWidget : ITestArrangement
+    public class EditDeleteTagAndEdiDynamicWidget : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -39,6 +39,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void EditTag()
         {
             ServerOperationsFeather.Tags().EditTag(OldTagName, NewTagName);
+        }
+
+        [ServerArrangement]
+        public void DeleteTag()
+        {
+            ServerOperations.Taxonomies().DeleteTags(NewTagName);
         }
 
         /// <summary>

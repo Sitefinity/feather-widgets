@@ -113,7 +113,7 @@
     <Compile Include="DynamicWidgets\ChangeSelectedSingleItemPageInDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\CheckSelectorsAfterUNPublishingDynamicItem.cs" />
     <Compile Include="DynamicWidgets\ReorderSelectedDynamicItems.cs" />
-    <Compile Include="DynamicWidgets\DeleteTagAndEdiDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\EditDeleteTagAndEdiDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\EditSelectedTagInDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage.cs" />
     <Compile Include="DynamicWidgets\FilterDynamicItemWithCustomTaxonomyOnPage.cs" />

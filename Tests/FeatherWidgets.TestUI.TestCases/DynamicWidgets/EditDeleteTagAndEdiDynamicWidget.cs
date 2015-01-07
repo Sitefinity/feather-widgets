@@ -6,24 +6,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// DeleteTagAndEdiDynamicWidget test class.
+    /// EditDeleteTagAndEdiDynamicWidget test class.
     /// </summary>
     [TestClass]
-    public class DeleteTagAndEdiDynamicWidget_ : FeatherTestCase
+    public class EditDeleteTagAndEdiDynamicWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DeleteTagAndEdiDynamicWidget
+        /// UI test EditDeleteTagAndEdiDynamicWidget
         /// </summary>
         [TestMethod,
         Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
-        public void DeleteTagAndEdiDynamicWidget()
+        public void EditDeleteTagAndEdiDynamicWidget()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectWhichNewsToDisplay(WhichNewsToDisplay);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectWhichItemsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectCheckBox(TaxonomyName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(TaxonTitle1);
@@ -31,19 +31,29 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, ItemsTitle1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
+
+            BAT.Arrange(this.TestName).ExecuteArrangement("EditTag");
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(new[] { TaxonTitle1Edited });
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, ItemsTitle1);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             this.DeleteTag();
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(new[] { TaxonTitle1 });
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(1);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(TaxonTitle2);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, ItemsTitle2);
+
+            this.VerifyNewsOnTheFrontend();
         }
 
         /// <summary>
@@ -84,6 +94,7 @@ namespace FeatherWidgets.TestUI
         private const string TaxonTitle2 = "Tag2";
         private const string ItemsTitle1 = "Title1";
         private const string ItemsTitle2 = "Title2";
+        private const string TaxonTitle1Edited = "Tag1_Edited";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Tags";
         private readonly string[] itemsTitles = new string[] { ItemsTitle1 };
