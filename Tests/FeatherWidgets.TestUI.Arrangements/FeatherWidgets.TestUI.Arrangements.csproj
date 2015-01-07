@@ -128,7 +128,9 @@
     <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
     <Compile Include="DynamicWidgets\SelectAndUnselectMoreThanOneDynamicWidgetItem.cs" />
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
+    <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DeactivateDynamicModuleVerifyPageToolbox.cs" />
+    <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleAddNewContentTypeVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleRemoveContentTypeVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\InvalidateCacheWhenAddNewItem.cs" />

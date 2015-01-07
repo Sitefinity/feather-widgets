@@ -17,15 +17,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBui
         /// Verify dynamic title is present on the frontend.
         /// </summary>
         /// <param name="dynamicTitle">The dynamic title value</param>
-        public void VerifyDynamicTitlePresentOnTheFrontend(string[] dynamicTitle)
+        public bool VerifyDynamicTitlePresentOnTheFrontend(string[] dynamicTitle)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
+            bool isContained = false;
 
             for (int i = 0; i < dynamicTitle.Length; i++)
             {
-                var isContained = frontendPageMainDiv.InnerText.Contains(dynamicTitle[i]);
-                Assert.IsTrue(isContained, string.Concat("Expected ", dynamicTitle[i], " but found not found"));
+                isContained = frontendPageMainDiv.InnerText.Contains(dynamicTitle[i]);
             }
+
+            return isContained;
         }
 
         /// <summary>
@@ -44,6 +46,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBui
             HtmlAnchor link = listItem.Find.ByExpression<HtmlAnchor>("InnerText=" + page);
 
             link.Click();
+        }
+
+        /// <summary>
+        /// Provides list of all dynamic widgets
+        /// </summary>
+        /// <returns>Returns list of all dynamic widgets</returns>
+        public List<HtmlUnorderedList> ListWithDynamicWidgets()
+        {
+            List<HtmlUnorderedList> list = ActiveBrowser.Find.AllByExpression<HtmlUnorderedList>("tagname=ul", "class=list-unstyled").ToList<HtmlUnorderedList>();
+
+            return list;
         }
     }
 }
