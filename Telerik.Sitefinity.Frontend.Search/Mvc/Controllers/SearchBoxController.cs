@@ -77,7 +77,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         #region Actions
 
         /// <summary>
-        /// Renders appropriate list view depending on the <see cref="TemplateName" />
+        /// Renders appropriate view depending on the <see cref="TemplateName" />
         /// </summary>
         /// <returns>
         /// The <see cref="ActionResult" />.
