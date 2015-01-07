@@ -74,6 +74,21 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : CSS classes
+        /// </summary>
+        [ResourceEntry("CssClasses",
+            Value = "CSS classes",
+            Description = "phrase : CSS classes",
+            LastModified = "2015/01/06")]
+        public string CssClasses
+        {
+            get
+            {
+                return this["CssClasses"];
+            }
+        }
+
         #region Social share labels
 
         /// <summary>
