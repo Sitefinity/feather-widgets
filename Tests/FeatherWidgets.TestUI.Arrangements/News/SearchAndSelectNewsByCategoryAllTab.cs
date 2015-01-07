@@ -21,6 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+
             List<string> categories = new List<string>();
 
             foreach (var taxonTitle in this.parentCategories)

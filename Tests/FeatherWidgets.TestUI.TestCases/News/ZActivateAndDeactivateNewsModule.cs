@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
 
             ////This step is missed because of bug
-            ////BATFeather.Wrappers().Backend().News().NewsWidgetEditContentScreenWrapper().CheckInactiveNewsWidget();
+            ////BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().CheckInactiveNewsWidget();
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, "");
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

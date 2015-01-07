@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
-using Feather.Widgets.TestUI.Framework.Framework.ElementMap.News;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
@@ -82,22 +82,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         /// Gets the news element map.
         /// </summary>
         /// <value>An initialized instance of events element map.</value>
-        public NewsMap News
+        public WidgetDesignerContentScreenMap Widgets
         {
             get
             {
-                if (this.newsMap == null)
+                if (this.widgetDesignerContentScreenMap == null)
                 {
                     this.EnsureFindIsInitialized();
-                    this.newsMap = new NewsMap(this.find);
+                    this.widgetDesignerContentScreenMap = new WidgetDesignerContentScreenMap(this.find);
                 }
 
-                return this.newsMap;
+                return this.widgetDesignerContentScreenMap;
             }
 
             private set
             {
-                this.newsMap = value;
+                this.widgetDesignerContentScreenMap = value;
             }
         }
 
@@ -131,7 +131,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private Find find;
         private ContentMap contentMap;
         private NavigationMap navigationMap;
-        private NewsMap newsMap;
         private ModuleBuilderMap moduleBuilderMap;
+        private WidgetDesignerContentScreenMap widgetDesignerContentScreenMap;
     }
 }

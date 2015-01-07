@@ -51,6 +51,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -80,6 +81,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.7.3.5600.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.Utilities, Version=7.3.5600.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.3.5600.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
@@ -105,12 +110,31 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
+    <Compile Include="DynamicWidgets\ChangeSelectedSingleItemPageInDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\CheckSelectorsAfterUNPublishingDynamicItem.cs" />
+    <Compile Include="DynamicWidgets\ReorderSelectedDynamicItems.cs" />
+    <Compile Include="DynamicWidgets\DeleteTagAndEdiDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\EditSelectedTagInDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage.cs" />
+    <Compile Include="DynamicWidgets\FilterDynamicItemWithCustomTaxonomyOnPage.cs" />
+    <Compile Include="DynamicWidgets\FilterDynamicItemWithCategoryTagAndDateOnPage.cs" />
+    <Compile Include="DynamicWidgets\FilterDynamicItemWithCategoryOnPage.cs" />
+    <Compile Include="DynamicWidgets\Load200TagsAndSearchInDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\NoResultsWhenSearchForSingleItemPageInDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategoryAllTab.cs" />
+    <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByTag.cs" />
+    <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategorySelectedTab.cs" />
+    <Compile Include="DynamicWidgets\SearchForNotExistingTagInDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
+    <Compile Include="DynamicWidgets\SelectAndUnselectMoreThanOneDynamicWidgetItem.cs" />
+    <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
     <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DeactivateDynamicModuleVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleAddNewContentTypeVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleRemoveContentTypeVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\InvalidateCacheWhenAddNewItem.cs" />
+    <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromPage.cs" />
     <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
@@ -132,6 +156,7 @@
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\ReorderSelectedNewsItems.cs" />
     <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
