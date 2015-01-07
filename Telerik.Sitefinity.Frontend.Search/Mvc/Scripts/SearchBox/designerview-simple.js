@@ -1,7 +1,7 @@
 ﻿(function ($) {
     angular.module('designer').requires.push('expander', 'sfSelectors');
 
-    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'sfSearchService', function ($scope, propertyService, searchService) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.hasSearchIndexes = true;
 
@@ -20,6 +20,14 @@
 	    //    },
 	    //    true
         //);
+        $scope.getSearchIndexes = searchService.getSearchIndexes()
+            .then(function (data) {
+                if (data) {
+                    return data.Items;
+                }
+            }, onError)
+            .finally(function () {             
+            });
 
         propertyService.get()
             .then(function (data) {
