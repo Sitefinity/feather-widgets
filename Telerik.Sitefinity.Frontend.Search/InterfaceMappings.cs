@@ -14,6 +14,7 @@ namespace Telerik.Sitefinity.Frontend.Search
         public override void Load()
         {
             Bind<ISearchBoxModel>().To<SearchBoxModel>();
+            Bind<ISearchResultsModel>().To<SearchResultsModel>();
         }
     }
 }
