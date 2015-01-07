@@ -101,23 +101,23 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// Gets or sets the serialize social share section map.
         /// </summary>
         /// <value>The serialize social share section map.</value>
-        public string SerializeSocialShareSectionMap
+        public string SerializedSocialShareSectionMap
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(this.serializeSocialShareSectionMap))
+                if (string.IsNullOrWhiteSpace(this.serializedSocialShareSectionMap))
                 {
-                    this.serializeSocialShareSectionMap = JsonSerializer.SerializeToString(this.SocialShareSectionMap);
+                    this.serializedSocialShareSectionMap = JsonSerializer.SerializeToString(this.SocialShareSectionMap);
                 }
 
-                return this.serializeSocialShareSectionMap;
+                return this.serializedSocialShareSectionMap;
             }
 
             set
             {
-                if (this.serializeSocialShareSectionMap != value)
+                if (this.serializedSocialShareSectionMap != value)
                 {
-                    this.serializeSocialShareSectionMap = value;
+                    this.serializedSocialShareSectionMap = value;
                 }
             }
         }
@@ -130,9 +130,9 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         {
             get
             {
-                return string.IsNullOrWhiteSpace(this.serializeSocialShareSectionMap) ?
+                return string.IsNullOrWhiteSpace(this.serializedSocialShareSectionMap) ?
                                         this.SocialShareSectionMap :
-                                        JsonSerializer.DeserializeFromString<IList<SocialShareGroupMap>>(this.serializeSocialShareSectionMap);
+                                        JsonSerializer.DeserializeFromString<IList<SocialShareGroupMap>>(this.serializedSocialShareSectionMap);
             }
         }
 
@@ -180,6 +180,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
 
         private ISocialShareModel model;
         private string templateName = "SocialShare";
-        private string serializeSocialShareSectionMap;
+        private string serializedSocialShareSectionMap;
     }
 }

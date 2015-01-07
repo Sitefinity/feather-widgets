@@ -13,9 +13,9 @@
                      if (data) {
                          $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                         if ($scope.properties.SerializeSocialShareSectionMap &&
-                             $scope.properties.SerializeSocialShareSectionMap.PropertyValue) {
-                             $scope.socialShareSectionMap = JSON.parse($scope.properties.SerializeSocialShareSectionMap.PropertyValue);
+                         if ($scope.properties.SerializedSocialShareSectionMap &&
+                             $scope.properties.SerializedSocialShareSectionMap.PropertyValue) {
+                             $scope.socialShareSectionMap = JSON.parse($scope.properties.SerializedSocialShareSectionMap.PropertyValue);
                          }
                      }
                  },
@@ -26,7 +26,7 @@
                  })
                  .then(function () {
                      $scope.feedback.savingHandlers.push(function () {
-                         $scope.properties.SerializeSocialShareSectionMap.PropertyValue = JSON.stringify($scope.socialShareSectionMap);
+                         $scope.properties.SerializedSocialShareSectionMap.PropertyValue = JSON.stringify($scope.socialShareSectionMap);
                      })
                  })
                  .finally(function () {
