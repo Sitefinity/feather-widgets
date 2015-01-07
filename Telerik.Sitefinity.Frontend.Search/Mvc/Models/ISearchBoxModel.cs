@@ -49,5 +49,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <value>The language.</value>
         string Language { get; set; }
 
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Search widget (if such is presented).
+        /// </summary>
+        string CssClass { get; set; }
+
     }
 }

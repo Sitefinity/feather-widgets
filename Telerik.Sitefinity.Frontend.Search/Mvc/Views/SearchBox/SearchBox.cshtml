@@ -2,8 +2,12 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-<input type="text" id="searchTextBox"/>
-<button type="button" id="searchButton">@Html.Resource("SearchLabel")</button>
+@(!String.IsNullOrEmpty(Model.CssClass) ?
+    Html.Raw(String.Format("<div class=\"{0}\">", Model.CssClass)) :
+    Html.Raw("<div>"))
+    <input type="text" id="searchTextBox"/>
+    <button type="button" id="searchButton">@Html.Resource("SearchLabel")</button>
+</div>
 
 <script>
     jQuery(function () {
@@ -31,7 +35,6 @@
         if (!disableSuggestions) {
             searchTextBox.keyup(keyupHandler);
 
-            var that = this;
             try {
                 searchTextBox.kendoAutoComplete({
                     dataSource:
@@ -41,7 +44,7 @@
                         },
                     select: function (e) {
                         searchTextBox.val(this.dataItem(e.item.index()));
-                        that.navigateToResults(e);
+                        navigateToResults(e);
                     },
                     minLength: minSuggestionLength
                 });
@@ -77,7 +80,7 @@
             var autocomplete = searchTextBox.data("kendoAutoComplete");
             autocomplete.setDataSource(dataSource);
 
-            autocomplete.search(searchTextBox.var().trim());
+            autocomplete.search(searchTextBox.val().trim());
         }
 
         function keyupHandler(e) {

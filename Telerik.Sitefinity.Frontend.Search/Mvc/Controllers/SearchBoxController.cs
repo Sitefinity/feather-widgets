@@ -43,7 +43,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the CSS class that will be applied on the wrapper div of the NavigationWidget (if such is presented).
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Search widget (if such is presented).
         /// </summary>
         /// <value>
         /// The CSS class.
@@ -78,12 +78,31 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         public ActionResult Index()
         {
-            this.Model.Language = SystemManager.CurrentContext.AppSettings.Multilingual ?
-                CultureInfo.CurrentUICulture.Name : null;
+            this.Model.Language = this.GetCurrentUILanguage();
 
             return this.View(this.TemplateName, this.Model);
         }
 
+        #endregion
+
+        #region ProtectedMethods
+        /// <summary>
+        /// Gets the current UI language.
+        /// </summary>
+        protected virtual string GetCurrentUILanguage()
+        {
+            return SystemManager.CurrentContext.AppSettings.Multilingual ?
+                CultureInfo.CurrentUICulture.Name : null;
+        }
+
+        /// <summary>
+        /// Gets the minimal length of the suggestion.
+        /// </summary>
+        /// <returns></returns>
+        public virtual int GetMinSuggestLength()
+        {
+            return Config.Get<SearchConfig>().MinSuggestLength;
+        }
         #endregion
 
         #region Private methods
@@ -98,8 +117,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             var constructorParams = new Dictionary<string, object>
             {
                 {"suggestionsRoute", "/restapi/search/suggestions"},
-                {"minSuggestionLength", Config.Get<SearchConfig>().MinSuggestLength},
-                {"suggestionFields", "Title,Content"}
+                {"minSuggestionLength", this.GetMinSuggestLength()},
+                {"suggestionFields", "Title,Content"},
+                {"cssClass", this.CssClass}
             };
             return ControllerModelFactory.GetModel<ISearchBoxModel>(this.GetType(), constructorParams);
         }
