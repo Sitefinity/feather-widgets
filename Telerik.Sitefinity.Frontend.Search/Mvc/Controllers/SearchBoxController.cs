@@ -84,7 +84,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            this.Model.Language = this.GetCurrentUILanguage();
+            var query = this.GetSearchQueryFromQueryString(this.Model.IndexCatalogue);
+            this.ViewBag.SearchQuery = query;
 
             return this.View(this.TemplateName, this.Model);
         }
@@ -125,10 +126,37 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 {"suggestionsRoute", "/restapi/search/suggestions"},
                 {"minSuggestionLength", this.GetMinSuggestLength()},
                 {"suggestionFields", "Title,Content"},
+                {"language", this.GetCurrentUILanguage()},
                 {"cssClass", this.CssClass}
             };
             return ControllerModelFactory.GetModel<ISearchBoxModel>(this.GetType(), constructorParams);
         }
+
+        /// <summary>
+        /// Gets the search query from the query string if the index catalog matchs the one used in the widget.
+        /// </summary>
+        /// <param name="currentCatalogue">The current index catalogue.</param>
+        /// <returns></returns>
+        private string GetSearchQueryFromQueryString(string currentCatalogue)
+        {
+            var searchQuery = string.Empty;
+
+            //Set the search text if searchQuery exists in the QueryString and the IndexCatalogue matches the current one.
+            var context = SystemManager.CurrentHttpContext;
+            if (context != null)
+            {
+                 string indexCatalogue = context.Request.QueryString["indexCatalogue"];
+                 if (!string.IsNullOrEmpty(indexCatalogue) &&
+                     indexCatalogue.Equals(currentCatalogue))
+                 {
+                     searchQuery = context.Request.QueryString["searchQuery"] ?? string.Empty;
+                     searchQuery = searchQuery.Trim();
+                 }
+            }
+
+            return searchQuery;
+        }
+
         #endregion
 
         #region Private fields and constants

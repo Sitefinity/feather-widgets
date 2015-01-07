@@ -15,6 +15,8 @@ namespace FeatherWidgets.TestUnit.SearchBox
             // Arrange
             using (var controller = new DummySearchBoxController())
             {
+                controller.CssClass = "myClass";
+
                 // Act
                 var view = controller.Index() as ViewResult;
                 var model = view.Model;
@@ -26,6 +28,7 @@ namespace FeatherWidgets.TestUnit.SearchBox
                 Assert.AreEqual("/restapi/search/suggestions", searchBoxModel.SuggestionsRoute, "The suggestions route is not created correctly.");
                 Assert.AreEqual(3, searchBoxModel.MinSuggestionLength, "The minimal suggestions length is not created correctly.");
                 Assert.AreEqual("en", searchBoxModel.Language, "The UI language is not set correctly.");
+                Assert.AreEqual("myClass", searchBoxModel.CssClass, "The CssClass is not set correctly.");
             }
         }
     }

@@ -5,7 +5,7 @@
 @(!String.IsNullOrEmpty(Model.CssClass) ?
     Html.Raw(String.Format("<div class=\"{0}\">", Model.CssClass)) :
     Html.Raw("<div>"))
-    <input type="text" id="searchTextBox"/>
+    <input type="text" id="searchTextBox" value="@Html.Raw(ViewBag.SearchQuery)"/>
     <button type="button" id="searchButton">@Html.Resource("SearchLabel")</button>
 </div>
 
