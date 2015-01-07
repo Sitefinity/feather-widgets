@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.NewsSelectors)]
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void ChangeSelectedSingleItemPageInDynamicWidget()
         {
             BAT.Macros().NavigateTo().Pages();
