@@ -78,8 +78,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         public ActionResult Index()
         {
-            this.Model.Language = this.GetCurrentUILanguage();
-
             var query = this.GetSearchQueryFromQueryString(this.Model.IndexCatalogue);
             this.ViewBag.SearchQuery = query;
 
@@ -122,6 +120,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 {"suggestionsRoute", "/restapi/search/suggestions"},
                 {"minSuggestionLength", this.GetMinSuggestLength()},
                 {"suggestionFields", "Title,Content"},
+                {"language", this.GetCurrentUILanguage()},
                 {"cssClass", this.CssClass}
             };
             return ControllerModelFactory.GetModel<ISearchBoxModel>(this.GetType(), constructorParams);

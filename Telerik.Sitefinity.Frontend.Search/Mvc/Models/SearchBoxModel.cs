@@ -15,11 +15,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="suggestionsRoute">The suggestions service end point.</param>
         /// <param name="minSuggestionLength">The minimal suggestion length.</param>
         /// <param name="suggestionFields">The suggestion fields.</param>
-        public SearchBoxModel(string suggestionsRoute, int minSuggestionLength, string suggestionFields, string cssClass)
+        /// <param name="language">The current UI language.</param>
+        /// <param name="cssClass">The wrapper CSS class.</param>
+        public SearchBoxModel(string suggestionsRoute, int minSuggestionLength, string suggestionFields, string language, string cssClass)
         {
             this.SuggestionFields = suggestionFields;
             this.SuggestionsRoute = suggestionsRoute;
             this.MinSuggestionLength = minSuggestionLength;
+            this.Language = language;
             this.CssClass = cssClass;
         }
 
