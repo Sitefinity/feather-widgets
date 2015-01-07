@@ -43,7 +43,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         public virtual void InitializeSocialShareButton(IList<SocialShareGroupMap> socialShareMaps)
         {
-            ISocialShareSettings settings = this.SocialShareSection;
+            ISocialShareSettings settings = this.SocialShareSettings;
             bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
             bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
             bool displayCounters = settings.DisplayCounters && addText;
@@ -59,7 +59,11 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 
         public string CssClass { get; set; }
 
-        protected virtual ISocialShareSettings SocialShareSection
+        /// <summary>
+        /// Gets the social share settings.
+        /// </summary>
+        /// <value>The social share settings.</value>
+        protected virtual ISocialShareSettings SocialShareSettings
         {
             get
             {

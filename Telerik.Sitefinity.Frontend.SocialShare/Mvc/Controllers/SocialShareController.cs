@@ -123,10 +123,22 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets the social share settings.
+        /// </summary>
+        /// <value>The social share settings.</value>
+        protected virtual ISocialShareSettings SocialShareSettings
+        {
+            get
+            {
+                return SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
+            }
+        }
+
+        /// <summary>
         /// Gets the social share map.
         /// </summary>
         /// <value>The social share map.</value>
-        protected virtual IList<SocialShareGroupMap> SocialShareMap
+        private IList<SocialShareGroupMap> SocialShareMap
         {
             get
             {
@@ -144,7 +156,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         {
             get
             {
-                var socialShareSettings = SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
+                var socialShareSettings = this.SocialShareSettings;
 
                 var socialShareSectionMap = new List<SocialShareGroupMap>();
 

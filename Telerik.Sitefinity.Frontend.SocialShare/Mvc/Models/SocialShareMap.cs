@@ -16,7 +16,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         {
             this.Key = key;
             this.IsChecked = isChecked;
-            this.Label = Res.Get<SocialShareResources>(key);
         }
 
         /// <summary>
@@ -29,12 +28,25 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         /// Gets the label.
         /// </summary>
         /// <value>The label.</value>
-        public string Label { get; private set; }
+        public string Label
+        {
+            get
+            {
+                if (this.label.IsNullOrEmpty())
+                {
+                    this.label = Res.Get<SocialShareResources>(this.Key);
+                }
+
+                return this.label;
+            }
+        }
 
         /// <summary>
         /// Gets the is checked.
         /// </summary>
         /// <value>The is checked.</value>
         public bool IsChecked { get; private set; }
+
+        private string label;
     }
 }
