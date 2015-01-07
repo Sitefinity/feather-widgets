@@ -76,6 +76,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         #region Actions
 
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="TemplateName" />
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
         public ActionResult Index()
         {
             this.Model.Language = this.GetCurrentUILanguage();
@@ -99,7 +105,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// Gets the minimal length of the suggestion.
         /// </summary>
         /// <returns></returns>
-        public virtual int GetMinSuggestLength()
+        protected virtual int GetMinSuggestLength()
         {
             return Config.Get<SearchConfig>().MinSuggestLength;
         }
@@ -110,7 +116,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// Initializes the model.
         /// </summary>
         /// <returns>
-        /// The <see cref="INavigationModel"/>.
+        /// The <see cref="ISearchBoxModel"/>.
         /// </returns>
         private ISearchBoxModel InitializeModel()
         {
