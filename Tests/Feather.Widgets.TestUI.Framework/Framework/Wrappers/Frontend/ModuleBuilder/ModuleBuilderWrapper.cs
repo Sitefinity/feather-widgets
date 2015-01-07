@@ -47,5 +47,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBui
 
             link.Click();
         }
+
+        /// <summary>
+        /// Provides list of all dynamic widgets
+        /// </summary>
+        /// <returns>Returns list of all dynamic widgets</returns>
+        public List<HtmlUnorderedList> ListWithDynamicWidgets()
+        {
+            List<HtmlUnorderedList> list = ActiveBrowser.Find.AllByExpression<HtmlUnorderedList>("tagname=ul", "class=list-unstyled").ToList<HtmlUnorderedList>();
+
+            return list;
+        }
     }
 }

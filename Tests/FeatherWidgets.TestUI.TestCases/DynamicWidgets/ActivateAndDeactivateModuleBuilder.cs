@@ -73,7 +73,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private string[] newsTitles = new string[] { NewsTitle };
         private const string MvcNavClass = "nav navbar-nav";
         private const string NewContentBlockWidget = "ContentBlock";
-        private const string NewsTitle = "NewsTitleNew";
-       
+        private const string NewsTitle = "NewsTitleNew";  
     }
 }
