@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SearchBox
 {
     public class DummySearchBoxController : SearchBoxController
     {
-        public override int GetMinSuggestLength()
+        protected override int GetMinSuggestLength()
         {
             return 3;
         }

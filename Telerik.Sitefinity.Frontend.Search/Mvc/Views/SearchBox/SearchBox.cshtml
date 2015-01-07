@@ -1,5 +1,6 @@
 ﻿@model Telerik.Sitefinity.Frontend.Search.Mvc.Models.ISearchBoxModel
 
+@using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 @(!String.IsNullOrEmpty(Model.CssClass) ?
@@ -8,6 +9,9 @@
     <input type="text" id="searchTextBox" value="@Html.Raw(ViewBag.SearchQuery)"/>
     <button type="button" id="searchButton">@Html.Resource("SearchLabel")</button>
 </div>
+
+@Html.Script(ScriptRef.JQuery)
+@Html.Script(ScriptRef.KendoWeb)
 
 <script>
     jQuery(function () {
@@ -136,9 +140,9 @@
 
             var separator = (resultsUrl.indexOf("?") == -1) ? "?" : "&";
 
-            var catalogueParam = String.format("{0}indexCatalogue={1}", separator, encodeURIComponent(indexCatalogue)),
-                searchQueryParam = String.format("&searchQuery={0}", encodeURIComponent(query)),
-                wordsModeParam = String.format("&wordsMode={0}", wordsMode);
+            var catalogueParam = separator + "indexCatalogue=" + encodeURIComponent(indexCatalogue),
+                searchQueryParam = "&searchQuery=" + encodeURIComponent(query),
+                wordsModeParam = "&wordsMode=" + wordsMode;
 
             var url = resultsUrl + catalogueParam + searchQueryParam + wordsModeParam;
 
