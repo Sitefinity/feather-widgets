@@ -5,6 +5,9 @@ using Telerik.Sitefinity.Localization;
 
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 {
+    /// <summary>
+    /// This class represents a Social share link with a resource localization of its text.
+    /// </summary>
     public class SocialShareMap
     {
         /// <summary>

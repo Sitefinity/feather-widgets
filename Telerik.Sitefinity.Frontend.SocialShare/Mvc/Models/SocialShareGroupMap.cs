@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 {
+    /// <summary>
+    /// Class that is used for grouping the social share buttons.
+    /// </summary>
     public class SocialShareGroupMap
     {
         /// <summary>

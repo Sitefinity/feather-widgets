@@ -30,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            this.Model.InitializeSocialShareButton(this.SocialShareMap);
+            this.Model.InitializeSocialShareButtons(this.SocialShareMap);
 
             return this.View(this.TemplateName, this.Model);
         }
@@ -126,7 +126,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// Gets the social share settings.
         /// </summary>
         /// <value>The social share settings.</value>
-        protected virtual ISocialShareSettings SocialShareSettings
+        protected internal virtual ISocialShareSettings SocialShareSettings
         {
             get
             {
@@ -138,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// Gets the social share map.
         /// </summary>
         /// <value>The social share map.</value>
-        protected virtual IList<SocialShareGroupMap> SocialShareMap
+        protected internal virtual IList<SocialShareGroupMap> SocialShareMap
         {
             get
             {
