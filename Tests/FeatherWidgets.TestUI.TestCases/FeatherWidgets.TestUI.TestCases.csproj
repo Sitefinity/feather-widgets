@@ -109,7 +109,7 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
-    <Compile Include="DynamicWidgets\CheckSelectorsAfterUNPublishingDynamicItem.cs" />
+    <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
     <Compile Include="DynamicWidgets\EditDeleteTagAndEdiDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
@@ -124,7 +124,6 @@
     <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategorySelectedTab.cs" />
     <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategoryAllTab.cs" />
     <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
-    <Compile Include="DynamicWidgets\SelectAndUnselectMoreThanOneDynamicWidgetItem.cs" />
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />

@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>f
-    /// This is test class for CheckSelectorsAfterUNPublishingDynamicItem.
+    /// This is test class for CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.
     /// </summary>
     [TestClass]
-    public class CheckSelectorsAfterUNPublishingDynamicItem_ : FeatherTestCase
+    public class CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test CheckSelectorsAfterUNPublishingDynamicItem.
+        /// UI test CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
-        public void CheckSelectorsAfterUNPublishingDynamicItem()
+        public void CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(selectedItemsNames);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            foreach (var dynamicItem in newSelectedItemsNames)
+            foreach (var dynamicItem in selectedItemsNames2)
             {
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, dynamicItem);
             }
@@ -46,7 +46,6 @@ namespace FeatherWidgets.TestUI
 
             this.UnpublishDynamicItem();
 
-            BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
@@ -55,9 +54,16 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(countOfSelectedItems);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().OpenAllTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(20);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(SelectedItemsName6);
+            countOfSelectedItems = unSelectedItemsNames.Count();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().CheckNotificationInSelectedTab(countOfSelectedItems);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
+
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(unSelectedItemsNames);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            foreach (var dynamicTitle in newSelectedItemsNames)
+            foreach (var dynamicTitle in unSelectedItemsNames)
             {
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, dynamicTitle);
             }
@@ -66,13 +72,13 @@ namespace FeatherWidgets.TestUI
         }
 
         /// <summary>
-        /// Verify news widget on the frontend
+        /// Verify dynamic widget on the frontend
         /// </summary>
         public void VerifyNewsOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newSelectedItemsNames);
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.selectedItemsNames2);
         }
 
         protected void UnpublishDynamicItem()
@@ -102,6 +108,8 @@ namespace FeatherWidgets.TestUI
         private const string WhichNewsToDisplay = "Selected PressArticles";
 
         private readonly string[] selectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6", "Dynamic Item Title12" };
-        private readonly string[] newSelectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title6", "Dynamic Item Title12" };
+        private readonly string[] selectedItemsNames2 = { "Dynamic Item Title1", "Dynamic Item Title6", "Dynamic Item Title12" };
+        private const string SelectedItemsName6 = "Dynamic Item Title6";
+        private readonly string[] unSelectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title12" };
     }
 }

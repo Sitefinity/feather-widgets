@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// CheckSelectorsAfterUNPublishingDynamicItem arragement.
+    /// CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem arragement.
     /// </summary>
-    public class CheckSelectorsAfterUNPublishingDynamicItem : ITestArrangement
+    public class CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem : ITestArrangement
     {
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
