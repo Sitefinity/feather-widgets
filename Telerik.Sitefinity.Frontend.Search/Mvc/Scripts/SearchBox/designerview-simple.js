@@ -20,13 +20,18 @@
 	    //    },
 	    //    true
         //);
-        $scope.getSearchIndexes = searchService.getSearchIndexes()
+        
+        searchService.getSearchIndexes()
             .then(function (data) {
                 if (data) {
-                    return data.Items;
+                    $scope.searchIndexes = data.Items;
                 }
-            }, onError)
-            .finally(function () {             
+            }, function (data) {
+                $scope.feedback.showError = true;
+                if (data)
+                    $scope.feedback.errorMessage = data.Detail;
+            })
+            .finally(function () {
             });
 
         propertyService.get()

@@ -32,6 +32,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         string SiteRootName { get; set; }
 
         /// <summary>
+        /// Gets or sets the ID of the search index pipe from which the search catalogue is resolved.
+        /// </summary>
+        string SearchIndexPipeId { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the index catalogue which will be used for searching.
         /// </summary>
         string IndexCatalogue { get; set; }
