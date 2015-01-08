@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Publishing;
+using Telerik.Sitefinity.Publishing.Configuration;
+using Telerik.Sitefinity.Publishing.Model;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
@@ -59,7 +63,36 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         public string SiteRootName { get; set; }
 
         /// <inheritdoc />
-        public string IndexCatalogue { get; set; }
+        public string SearchIndexPipeId
+        {
+            get
+            {
+                return this.searchIndexPipeId;
+            }
+            set
+            {
+                this.searchIndexPipeId = value;
+                this.catalogueName = null;
+            }
+        }
+
+        /// <inheritdoc />
+        public string IndexCatalogue
+        {
+            get
+            {
+                if (this.catalogueName == null)
+                {
+                    //// this.catalogueName = this.GetCatalogueName(new Guid(this.searchIndexPipeId));
+                    this.catalogueName = string.Empty;
+                }
+                return this.catalogueName;
+            }
+            set
+            {
+                this.catalogueName = value;
+            }
+        }
 
         /// <inheritdoc />
         public string SuggestionFields { get; set; }
@@ -134,10 +167,32 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 return resultsUrl;
             }
         }
+
+        //// private string GetCatalogueName(Guid searchIndexPipeId)
+        //// {
+        ////    var searchManager = PublishingManager.GetManager(PublishingConfig.SearchProviderName);
+        ////    var pipeSettings = searchManager.GetPipeSettings<SearchIndexPipeSettings>();
+        ////    var pipe = pipeSettings.SingleOrDefault(p => p.Id == searchIndexPipeId);
+        ////    if (pipe != null)
+        ////    {
+        ////        if (!SystemManager.CurrentContext.IsMultisiteMode)
+        ////            return pipe.CatalogName;
+        ////        else
+        ////        {
+        ////            var siteId = SystemManager.CurrentContext.CurrentSite.Id;
+        ////            var sites = PublishingManager.GetSitesByPointFromCache(pipe.PublishingPoint);
+        ////            if (sites.Contains(siteId))
+        ////                return pipe.CatalogName;
+        ////        }
+        ////    }
+        ////    return string.Empty;
+        //// }
         #endregion
 
         #region Private fields and constants
         private string resultsUrl;
+        private string searchIndexPipeId;
+        private string catalogueName;
         #endregion
     }
 }
