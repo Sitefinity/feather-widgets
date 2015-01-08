@@ -118,10 +118,10 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             var htmlString = string.Format(
                 System.Globalization.CultureInfo.InvariantCulture,
                 @"<a href='https://twitter.com/share' title='Share on Twitter' class='twitter-share-button' data-url={0} data-text={1} {2} {3}>{4}</a>",
-                shareUrl, 
-                textToShare, 
-                sizeAttribute, 
-                countAttribute, 
+                shareUrl,
+                textToShare,
+                sizeAttribute,
+                countAttribute,
                 text);
 
             var scriptString = @"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
@@ -166,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             var scriptString = string.Format(
                                 System.Globalization.CultureInfo.InvariantCulture,
                                 @"<script src='//platform.linkedin.com/in.js' type='text/javascript'>lang: en_US</script><script type='IN/Share' data-url='{0}' {1}></script>",
-                                shareUrl, 
+                                shareUrl,
                                 countAttribute);
 
             return new System.Web.Mvc.MvcHtmlString(scriptString);
@@ -199,7 +199,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             var htmlString = string.Format(
                                     System.Globalization.CultureInfo.InvariantCulture,
                                     @"<div class='g-plusone' {0} {1}></div>",
-                                    sizeAttribute, 
+                                    sizeAttribute,
                                     countAttribute);
 
             var scriptString = @"<script type='text/javascript'>  (function() {   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;    po.src = 'https://apis.google.com/js/platform.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);  })();</script>";
@@ -256,7 +256,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             var cssClass = "ss-icon ss-googlebookmarks";
             var htmlString = SocialShareButtons.CreateLinkButton(addText, baseUrl, linkText, tooltipText, cssClass);
 
-            return new System.Web.Mvc.MvcHtmlString(htmlString);       
+            return new System.Web.Mvc.MvcHtmlString(htmlString);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             var cssClass = "ss-icon ss-reddit";
             var htmlString = SocialShareButtons.CreateLinkButton(addText, baseUrl, linkText, tooltipText, cssClass);
 
-            return new System.Web.Mvc.MvcHtmlString(htmlString);            
+            return new System.Web.Mvc.MvcHtmlString(htmlString);
         }
 
         /// <summary>
@@ -324,7 +324,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             var linkText = "Digg";
             var tooltipText = "Share on Digg";
             var cssClass = "ss-icon ss-digg";
-            var htmlString = SocialShareButtons.CreateLinkButton(addText, baseUrl, linkText, tooltipText, cssClass);          
+            var htmlString = SocialShareButtons.CreateLinkButton(addText, baseUrl, linkText, tooltipText, cssClass);
 
             return new System.Web.Mvc.MvcHtmlString(htmlString);
         }
@@ -341,7 +341,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             var linkText = "My Space";
             var tooltipText = "Share on MySpace";
             var cssClass = "ss-icon ss-myspace";
-            var htmlString = SocialShareButtons.CreateLinkButton(addText, baseUrl, linkText, tooltipText, cssClass);    
+            var htmlString = SocialShareButtons.CreateLinkButton(addText, baseUrl, linkText, tooltipText, cssClass);
 
             return new System.Web.Mvc.MvcHtmlString(htmlString);
         }
@@ -381,6 +381,5 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             var htmlString = string.Format(System.Globalization.CultureInfo.InvariantCulture, @"<a onclick=""{0}"" title=""{1}""><span class=""{3}""></span>{2}</a>", clickScript, tooltipText, text, cssClass);
             return htmlString;
         }
-    }
     }
 }
