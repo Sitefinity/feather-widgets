@@ -9,22 +9,12 @@
         $scope.toggle = function () {
             $scope.isCollapsed = $scope.isCollapsed === false ? true : false;
         };
-
-        //$scope.$watch(
-	    //    'properties.ProviderName.PropertyValue',
-	    //    function (newProviderName, oldProviderName) {
-	    //        if (newProviderName !== oldProviderName) {
-	    //            $scope.properties.SelectionMode.PropertyValue = 'AllItems';
-	    //            $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
-	    //        }
-	    //    },
-	    //    true
-        //);
         
         searchService.getSearchIndexes()
             .then(function (data) {
                 if (data) {
                     $scope.searchIndexes = data.Items;
+                    $scope.hasSearchIndexes = $scope.searchIndexes.length > 0;
                 }
             }, function (data) {
                 $scope.feedback.showError = true;
