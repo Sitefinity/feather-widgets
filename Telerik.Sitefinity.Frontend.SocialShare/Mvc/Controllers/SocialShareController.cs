@@ -21,47 +21,8 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
     [Localization(typeof(SocialShareResources))]
     public class SocialShareController : Controller
     {
-        #region Actions
-        /// <summary>
-        /// Default Action
-        /// </summary>
-        /// <returns>
-        /// The <see cref="ActionResult"/>.
-        /// </returns>
-        public ActionResult Index()
-        {
-            this.Model.InitializeSocialShareButton(this.SocialShareMap);
-
-            return this.View(this.TemplateName, this.Model);
-        }
-        #endregion
-
-        #region Overridden methods
-
-        /// <summary>
-        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
-        /// </summary>
-        /// <param name="actionName">The name of the attempted action.</param>
-        protected override void HandleUnknownAction(string actionName)
-        {
-            this.Index().ExecuteResult(this.ControllerContext);
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Initializes the model.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="ISocialShareModel"/>.
-        /// </returns>
-        protected virtual ISocialShareModel InitializeModel()
-        {
-            return ControllerModelFactory.GetModel<ISocialShareModel>(this.GetType());
-        }
-
         #region Properties
-        
+
         /// <summary>
         /// Gets or sets the name of the template that widget will be displayed.
         /// </summary>
@@ -82,9 +43,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// <summary>
         /// Gets the Social share widget model.
         /// </summary>
-        /// <value>
-        /// The model.
-        /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public virtual ISocialShareModel Model
         {
@@ -98,9 +56,9 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the serialize social share section map.
+        /// Gets or sets the serialized social share section map.
         /// </summary>
-        /// <value>The serialize social share section map.</value>
+        /// <value>The serialized social share section map.</value>
         public string SerializedSocialShareSectionMap
         {
             get
@@ -125,7 +83,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// <summary>
         /// Gets the social share settings.
         /// </summary>
-        /// <value>The social share settings.</value>
         protected virtual ISocialShareSettings SocialShareSettings
         {
             get
@@ -137,7 +94,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// <summary>
         /// Gets the social share map.
         /// </summary>
-        /// <value>The social share map.</value>
         protected virtual IList<SocialShareGroupMap> SocialShareMap
         {
             get
@@ -151,7 +107,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// <summary>
         /// Gets or sets the social share section map.
         /// </summary>
-        /// <value>The social share section map.</value>
         private IList<SocialShareGroupMap> SocialShareSectionMap
         {
             get
@@ -189,6 +144,47 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
             }
         }
         #endregion
+
+        #region Actions
+
+        /// <summary>
+        /// Default Action
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        public ActionResult Index()
+        {
+            this.Model.InitializeSocialShareButton(this.SocialShareMap);
+
+            return this.View(this.TemplateName, this.Model);
+        }
+
+        #endregion
+
+        #region Overridden methods
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Initializes the model.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ISocialShareModel"/>.
+        /// </returns>
+        protected virtual ISocialShareModel InitializeModel()
+        {
+            return ControllerModelFactory.GetModel<ISocialShareModel>(this.GetType());
+        }      
 
         private ISocialShareModel model;
         private string templateName = "SocialShare";
