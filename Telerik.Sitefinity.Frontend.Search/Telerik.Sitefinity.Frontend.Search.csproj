@@ -186,6 +186,8 @@
     <EmbeddedResource Include="Mvc\Views\SearchBox\DesignerView.Simple.json" />
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\SearchResults\SearchResults.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SearchResults\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SearchResults\DesignerView.Simple.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

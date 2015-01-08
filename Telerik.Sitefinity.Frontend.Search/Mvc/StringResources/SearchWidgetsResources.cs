@@ -280,6 +280,211 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
                 return this["SearchBoxEmptyLinkText"];
             }
         }
+
+        #region SearchResult designer resources
+
+        /// <summary>
+        /// Phrase: Sort results
+        /// </summary>
+        /// <value>Sort results</value>
+        [ResourceEntry("SortResults",
+            Value = "Sort results",
+            Description = "Phrase: Sort results",
+            LastModified = "2015/01/08")]
+        public string SortResults
+        {
+            get
+            {
+                return this["SortResults"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Most relevant results on top
+        /// </summary>
+        /// <value>Most relevant results on top</value>
+        [ResourceEntry("MostRelevant",
+            Value = "Most relevant results on top",
+            Description = "Phrase: Most relevant results on top",
+            LastModified = "2015/01/08")]
+        public string MostRelevant
+        {
+            get
+            {
+                return this["MostRelevant"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Newest first
+        /// </summary>
+        /// <value>Newest first</value>
+        [ResourceEntry("NewestFirst",
+            Value = "Newest first",
+            Description = "Phrase: Newest first",
+            LastModified = "2015/01/08")]
+        public string NewestFirst
+        {
+            get
+            {
+                return this["NewestFirst"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Oldest first
+        /// </summary>
+        /// <value>Oldest first</value>
+        [ResourceEntry("OldestFirst",
+            Value = "Oldest first",
+            Description = "Phrase: Oldest first",
+            LastModified = "2015/01/08")]
+        public string OldestFirst
+        {
+            get
+            {
+                return this["OldestFirst"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : By Title (A-Z)
+        /// </summary>
+        [ResourceEntry("ByTitleAZ",
+            Value = "By Title (A-Z)",
+            Description = "phrase : By Title (A-Z)",
+            LastModified = "2015/01/08")]
+        public string ByTitleAZ
+        {
+            get
+            {
+                return this["ByTitleAZ"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : By Title (Z-A)
+        /// </summary>
+        [ResourceEntry("ByTitleZA",
+            Value = "By Title (Z-A)",
+            Description = "phrase : By Title (Z-A)",
+            LastModified = "2015/01/08")]
+        public string ByTitleZA
+        {
+            get
+            {
+                return this["ByTitleZA"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: New-modified first
+        /// </summary>
+        /// <value>New-modified first</value>
+        [ResourceEntry("NewModified",
+            Value = "New-modified first",
+            Description = "Phrase: New-modified first",
+            LastModified = "2015/01/08")]
+        public string NewModified
+        {
+            get
+            {
+                return this["NewModified"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Use paging
+        /// </summary>
+        [ResourceEntry("UsePaging",
+            Value = "Use paging",
+            Description = "phrase : Use paging",
+            LastModified = "2015/01/08")]
+        public string UsePaging
+        {
+            get
+            {
+                return this["UsePaging"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Use limit
+        /// </summary>
+        [ResourceEntry("UseLimit",
+            Value = "Use limit",
+            Description = "phrase : Use limit",
+            LastModified = "2015/01/08")]
+        public string UseLimit
+        {
+            get
+            {
+                return this["UseLimit"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : No limit and paging
+        /// </summary>
+        [ResourceEntry("NoLimitPaging",
+            Value = "No limit and paging",
+            Description = "phrase : No limit and paging",
+            LastModified = "2015/01/08")]
+        public string NoLimitPaging
+        {
+            get
+            {
+                return this["NoLimitPaging"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Divide the list on pages up to {TextBox} items per page
+        /// </summary>
+        [ResourceEntry("DivideToItemPerPage",
+            Value = "Divide the list on pages up to {0} items per page",
+            Description = "phrase : Divide the list on pages up to {TextBox} items per page",
+            LastModified = "2015/01/08")]
+        public string DivideToItemPerPage
+        {
+            get
+            {
+                return this["DivideToItemPerPage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Show only limited number of items {TextBox} items in total
+        /// </summary>
+        [ResourceEntry("ShowLimitedItems",
+            Value = "Show only limited number of items {0} items in total",
+            Description = "phrase : Show only limited number of items {TextBox} items in total",
+            LastModified = "2015/01/08")]
+        public string ShowLimitedItems
+        {
+            get
+            {
+                return this["ShowLimitedItems"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Show all published items at once
+        /// </summary>
+        [ResourceEntry("ShowAllItems",
+            Value = "Show all published items at once",
+            Description = "phrase : Show all published items at once",
+            LastModified = "2015/01/08")]
+        public string ShowAllItems
+        {
+            get
+            {
+                return this["ShowAllItems"];
+            }
+        }
+
+        #endregion
+
         #endregion
     }
 }
