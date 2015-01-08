@@ -58,11 +58,17 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Index(int? page, string searchQuery = null)
+        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null)
         {
+            var queryString = string.Format("?indexCatalogue={0}&searchQuery={1}&wordsMode={2}", indexCatalogue, searchQuery, wordsMode);
+            this.ViewBag.RedirectPageUrlTemplate = this.GetCurrentPageUrl() + "/{0}" + queryString;
+
             // Get the model
             if (!String.IsNullOrEmpty(searchQuery))
+            {
+                this.Model.IndexCatalogue = indexCatalogue;
                 this.Model.PopulateResults(searchQuery, page);
+            }
 
             return View(this.TemplateName, this.Model);
         }
