@@ -19,10 +19,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void ActivateAndDeactivateModuleBuilder()
         {
-            BAT.Macros().NavigateTo().Pages();
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().DeactivateModule(ModuleName);
             this.NavigatePageOnTheFrontend();

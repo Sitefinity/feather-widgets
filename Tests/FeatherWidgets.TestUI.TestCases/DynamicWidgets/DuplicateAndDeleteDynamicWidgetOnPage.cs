@@ -21,7 +21,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDuplicate);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.NavigatePageOnTheFrontend(this.dynamicTitlesDyplicated, duplicatedCount);

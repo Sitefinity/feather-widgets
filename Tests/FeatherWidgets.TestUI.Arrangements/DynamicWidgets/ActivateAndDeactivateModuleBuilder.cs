@@ -31,6 +31,8 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, ContentBlockContent);
             FeatherServerOperations.Pages().AddMvcWidgetToPage(pageId, typeof(NavigationController).FullName, WidgetCaption, PlaceHolderId);
+
+            ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, ResolveType, WidgetName, WidgetCaptionDynamicWidget);
         }
 
         /// <summary>
@@ -49,6 +51,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ResolveType = "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle";
         private const string TransactionName = "Module Installations";
         private const string WidgetName = "PressArticle";
+        private const string WidgetCaptionDynamicWidget = "Press Articles MVC";
         private string dynamicTitle = "Angel";
         private string dynamicUrl = "AngelUrl";
         private const string PageName = "TestPage";

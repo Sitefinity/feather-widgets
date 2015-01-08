@@ -1,4 +1,5 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using System;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -20,7 +21,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
 
             ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitle, this.dynamicUrl);
-            ServerOperations.Pages().CreatePage(PageName);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+
+            ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, ResolveType, WidgetName, WidgetCaptionDynamicWidget);
         }
 
         /// <summary>
@@ -38,6 +41,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ResolveType = "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle";
         private const string TransactionName = "Module Installations";
         private const string WidgetName = "PressArticle";
+        private const string WidgetCaptionDynamicWidget = "Press Articles MVC";
         private string dynamicTitle = "Angel";
         private string dynamicUrl = "AngelUrl";
         private const string PageName = "TestPage";
