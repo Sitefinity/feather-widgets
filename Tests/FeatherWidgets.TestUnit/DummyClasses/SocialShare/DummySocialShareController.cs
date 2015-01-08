@@ -15,6 +15,15 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SocialShare
     /// </summary>
     public class DummySocialShareController : SocialShareController
     {
+        public DummySocialShareController(IList<SocialShareGroupMap> socialShareMap)
+        {
+            this.socialShareMap = socialShareMap;
+        }
+
+        public DummySocialShareController()
+        {
+        }
+
         /// <summary>
         /// Initializes the model.
         /// </summary>
@@ -53,5 +62,20 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SocialShare
                 return settings;
             }
         }
+
+        protected override IList<SocialShareGroupMap> SocialShareMap
+        {
+            get
+            {
+                if (this.socialShareMap == null)
+                {
+                    return base.SocialShareMap;
+                }
+
+                return this.socialShareMap;
+            }
+        }
+
+        private readonly IList<SocialShareGroupMap> socialShareMap;
     }
 }

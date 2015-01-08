@@ -138,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// Gets the social share map.
         /// </summary>
         /// <value>The social share map.</value>
-        private IList<SocialShareGroupMap> SocialShareMap
+        protected virtual IList<SocialShareGroupMap> SocialShareMap
         {
             get
             {
