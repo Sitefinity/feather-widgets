@@ -6,15 +6,15 @@ using Telerik.Sitefinity.Localization;
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 {
     /// <summary>
-    /// This class represents a Social share link with a resource localization of its text.
+    /// This class represents a Social Share link with a resource localization of its text.
     /// </summary>
     public class SocialShareMap
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SocialShareMap" /> class.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="isChecked">The is checked.</param>
+        /// <param name="key">The social share option key.</param>
+        /// <param name="isChecked">The value indicating whether social share option is checked.</param>
         public SocialShareMap(string key, bool isChecked)
         {
             this.Key = key;
@@ -22,15 +22,13 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         }
 
         /// <summary>
-        /// Gets the key.
+        /// Gets the social share option key.
         /// </summary>
-        /// <value>The key.</value>
         public string Key { get; private set; }
 
         /// <summary>
-        /// Gets the label.
+        /// Gets the social share option label.
         /// </summary>
-        /// <value>The label.</value>
         public string Label
         {
             get
@@ -45,9 +43,8 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         }
 
         /// <summary>
-        /// Gets the is checked.
+        /// Gets the value indicating whether social share option is checked.
         /// </summary>
-        /// <value>The is checked.</value>
         public bool IsChecked { get; private set; }
 
         private string label;

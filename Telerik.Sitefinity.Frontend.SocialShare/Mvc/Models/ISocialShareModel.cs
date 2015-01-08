@@ -3,7 +3,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
     using System.Collections.Generic;
 
     /// <summary>
-    /// Classes that implement this interface could be used as model for the Social share widget.
+    /// Classes that implement this interface could be used as a model for Social Share widget.
     /// </summary>
     public interface ISocialShareModel
     {
@@ -21,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         string CssClass { get; set; }
 
         /// <summary>
-        /// Gets the basic settings social share depending on the Sitefinity configurations.
+        /// Gets the basic social share settings depending on the Sitefinity configurations.
         /// </summary>
         void InitializeSocialShareButtons(IList<SocialShareGroupMap> socialShareMaps);
     }

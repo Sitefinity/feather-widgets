@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
-    /// This class represents model used for Social share widget.
+    /// This class represents the model used for Social Share widget.
     /// </summary>
     public class SocialShareModel : ISocialShareModel
     {
@@ -20,28 +20,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         public SocialShareModel()
         {
         }
-
-        #region Public Methods
-        /// <summary>
-        /// Gets the basic settings social share depending on the Sitefinity configurations.
-        /// </summary>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        public virtual void InitializeSocialShareButtons(IList<SocialShareGroupMap> socialShareMaps)
-        {
-            ISocialShareSettings settings = this.SocialShareSettings;
-            bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
-            bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
-            bool displayCounters = settings.DisplayCounters && addText;
-
-            foreach (SocialShareGroupMap socialShareMap in socialShareMaps)
-            {
-                foreach (var property in socialShareMap.Groups.Where(i => i.IsChecked))
-                {
-                    this.SocialButtons.Add(new SocialButtonModel(property.Key.ToPascalCase(), addText, displayCounters, bigSize));
-                }
-            }
-        }
-        #endregion
 
         #region Properties
 
@@ -77,6 +55,28 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         }
 
         #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Gets the basic social share settings depending on the Sitefinity configurations.
+        /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        public virtual void InitializeSocialShareButtons(IList<SocialShareGroupMap> socialShareMaps)
+        {
+            ISocialShareSettings settings = this.SocialShareSettings;
+            bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
+            bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
+            bool displayCounters = settings.DisplayCounters && addText;
+
+            foreach (SocialShareGroupMap socialShareMap in socialShareMaps)
+            {
+                foreach (var property in socialShareMap.Groups.Where(i => i.IsChecked))
+                {
+                    this.SocialButtons.Add(new SocialButtonModel(property.Key.ToPascalCase(), addText, displayCounters, bigSize));
+                }
+            }
+        }
+        #endregion        
 
         private List<SocialButtonModel> socialButtons;
     }
