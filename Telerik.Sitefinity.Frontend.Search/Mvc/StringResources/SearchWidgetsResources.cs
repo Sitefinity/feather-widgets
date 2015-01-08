@@ -80,6 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         #endregion
 
         #region Resources
+
         /// <summary>
         /// Word: Search
         /// </summary>
@@ -278,6 +279,21 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
             get
             {
                 return this["SearchBoxEmptyLinkText"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: search results for <em>{0}</em>
+        /// </summary>
+        [ResourceEntry("SearchResultsStatusMessageShort",
+            Value = "search results for <em>{0}</em>",
+            Description = "Phrase: search results for <em>{0}</em>",
+            LastModified = "2015/01/08")]
+        public string SearchResultsStatusMessageShort
+        {
+            get
+            {
+                return this["SearchResultsStatusMessageShort"];
             }
         }
 
