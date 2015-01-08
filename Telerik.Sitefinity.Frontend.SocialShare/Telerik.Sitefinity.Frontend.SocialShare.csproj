@@ -148,12 +148,45 @@
       <SubType>Code</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mvc\Views\SocialShare\DesignerView.Simple.json" />
+    <None Include="assets\src\sass\sf-social-share.sass" />
+    <None Include="assets\src\sass\social-share-sprite.mustache" />
+    <None Include="assets\src\sass\_sf-social-share-sprite.sass" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\SocialShare\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\dist\css\sf-social-share.css" />
+    <EmbeddedResource Include="assets\dist\css\sf-social-share.min.css" />
+    <EmbeddedResource Include="assets\dist\images\social-share-sprite.png" />
+    <Content Include="assets\dist\images\social-share\blogger.png" />
+    <Content Include="assets\dist\images\social-share\delicious.png" />
+    <Content Include="assets\dist\images\social-share\digg.png" />
+    <Content Include="assets\dist\images\social-share\facebook.png" />
+    <Content Include="assets\dist\images\social-share\google.png" />
+    <Content Include="assets\dist\images\social-share\linkedin.png" />
+    <Content Include="assets\dist\images\social-share\mailto.png" />
+    <Content Include="assets\dist\images\social-share\myspace.png" />
+    <Content Include="assets\dist\images\social-share\reddit.png" />
+    <Content Include="assets\dist\images\social-share\stumble-upon.png" />
+    <Content Include="assets\dist\images\social-share\tumblr.png" />
+    <Content Include="assets\dist\images\social-share\twitter.png" />
+    <Content Include="assets\src\images\social-share-sprite.png" />
+    <Content Include="assets\src\images\social-share\blogger.png" />
+    <Content Include="assets\src\images\social-share\delicious.png" />
+    <Content Include="assets\src\images\social-share\digg.png" />
+    <Content Include="assets\src\images\social-share\facebook.png" />
+    <Content Include="assets\src\images\social-share\google.png" />
+    <Content Include="assets\src\images\social-share\linkedin.png" />
+    <Content Include="assets\src\images\social-share\mailto.png" />
+    <Content Include="assets\src\images\social-share\myspace.png" />
+    <Content Include="assets\src\images\social-share\reddit.png" />
+    <Content Include="assets\src\images\social-share\stumble-upon.png" />
+    <Content Include="assets\src\images\social-share\tumblr.png" />
+    <Content Include="assets\src\images\social-share\twitter.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

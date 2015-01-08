@@ -1,10 +1,17 @@
 ﻿@model Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models.SocialShareModel
 @using Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 @{
     var shareUrl = SocialShareButtons.ShareUrl;
     var pageTitle = SocialShareButtons.PageTitle;
 }
+
+<link rel="stylesheet" href='@Url.WidgetContent("assets/dist/css/sf-social-share.min.css")'>
+
+<style>
+    .color {color: blue;}
+</style>
 
 <div class="@Model.CssClass">
     <ul class="list-inline sf-social-share">
