@@ -13,12 +13,14 @@
                 <option value="">@Html.Resource("SelectSearchIndex")</option>
             </select>
 
-            Telerik.Sitefinity.Frontend.Search/Mvc/Models/SearchBoxModel.cs
         </div>
         <div class="col-xs-6">
 
             <a class="Tooltip" ng-click="toggle()">@Html.Resource("WhatIsThis")
-                <div class="Tooltip-info">@Html.Resource("SearchIndexesDescription")
+                <div class="Tooltip-info Tooltip-info--bottom">
+                    <p>@Html.Resource("SearchIndexesDescriptionTitle")</p>
+                    <p>@Html.Resource("SearchIndexesDescription")</p>
+                    <p>@Html.Resource("SearchIndexesDescriptionWhere")</p>
                 </div>
             </a>
         </div>
