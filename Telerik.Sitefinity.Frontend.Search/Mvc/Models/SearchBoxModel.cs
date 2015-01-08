@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.Publishing.Configuration;
 using Telerik.Sitefinity.Publishing.Model;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Multisite;
+using Telerik.Sitefinity.Multisite.Model;
+using Telerik.Sitefinity.Model;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
@@ -81,10 +83,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         {
             get
             {
-                if (this.catalogueName == null)
+                if (this.catalogueName == null && this.SearchIndexPipeId != null)
                 {
-                    //// this.catalogueName = this.GetCatalogueName(new Guid(this.searchIndexPipeId));
-                    this.catalogueName = string.Empty;
+                    this.catalogueName = this.GetCatalogueName(new Guid(this.SearchIndexPipeId));
                 }
                 return this.catalogueName;
             }
@@ -168,25 +169,45 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
         }
 
-        //// private string GetCatalogueName(Guid searchIndexPipeId)
-        //// {
-        ////    var searchManager = PublishingManager.GetManager(PublishingConfig.SearchProviderName);
-        ////    var pipeSettings = searchManager.GetPipeSettings<SearchIndexPipeSettings>();
-        ////    var pipe = pipeSettings.SingleOrDefault(p => p.Id == searchIndexPipeId);
-        ////    if (pipe != null)
-        ////    {
-        ////        if (!SystemManager.CurrentContext.IsMultisiteMode)
-        ////            return pipe.CatalogName;
-        ////        else
-        ////        {
-        ////            var siteId = SystemManager.CurrentContext.CurrentSite.Id;
-        ////            var sites = PublishingManager.GetSitesByPointFromCache(pipe.PublishingPoint);
-        ////            if (sites.Contains(siteId))
-        ////                return pipe.CatalogName;
-        ////        }
-        ////    }
-        ////    return string.Empty;
-        //// }
+        private string GetCatalogueName(Guid searchIndexPipeId)
+        {
+            var searchManager = PublishingManager.GetManager(PublishingConfig.SearchProviderName);
+            var pipeSettings = searchManager.GetPipeSettings<SearchIndexPipeSettings>();
+            var pipe = pipeSettings.SingleOrDefault(p => p.Id == searchIndexPipeId);
+            if (pipe != null)
+            {
+                if (!SystemManager.CurrentContext.IsMultisiteMode)
+                    return pipe.CatalogName;
+                else
+                {
+                    var siteId = SystemManager.CurrentContext.CurrentSite.Id;
+
+                    IList<Guid> sites;
+                    if (pipe.PublishingPoint.IsSharedWithAllSites && SystemManager.CurrentContext.IsMultisiteMode)
+                        sites = MultisiteManager.GetManager().GetSites().Select(s => s.Id).ToList();
+                    else
+                        sites = this.GetSitesByPoint(pipe.PublishingPoint).Select(l => l.SiteId).ToList();
+
+                    if (sites.Contains(siteId))
+                        return pipe.CatalogName;
+                }
+            }
+            return string.Empty;
+        }
+
+        private IEnumerable<SiteItemLink> GetSitesByPoint(PublishingPoint point)
+        {
+            var provider = ((IDataItem)point).Provider;
+            if (provider == null)
+                throw new ArgumentException("The passed publishing point does not have provider.");
+
+            if (provider is PublishingDataProviderBase)
+            {                
+                return ((PublishingDataProviderBase)provider).GetSiteItemLinks().Where(l => l.ItemId == point.Id);
+            }
+
+            return new List<SiteItemLink>(0);
+        }
         #endregion
 
         #region Private fields and constants
