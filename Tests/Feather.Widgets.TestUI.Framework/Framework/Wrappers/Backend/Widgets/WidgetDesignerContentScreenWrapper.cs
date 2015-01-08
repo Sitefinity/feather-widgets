@@ -244,7 +244,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             if (divsCount == 0)
             {
-                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-click=itemClicked(item.item)");
+                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-click=itemClicked(item)");
                 divsCount = items.Count;
             }
 
