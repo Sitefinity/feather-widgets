@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web.UI;
+using Telerik.Sitefinity;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Workflow;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
 {
@@ -108,6 +113,44 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
 
                 Thread.Sleep(TimeSpan.FromMilliseconds(100));
             }
+        }
+
+        ////public void DuplicatePageTemplate(string pageTemplateTitle, string newTemplateName)
+        ////{
+        ////    var pageTemplateToDuplicate = App.WorkWith().PageTemplates().Where(t => t.Title == pageTemplateTitle).Get().SingleOrDefault();
+        ////    var myDuplicatedPage = App.WorkWith().PageTemplate(pageTemplateToDuplicate.Id).Duplicate(newTemplateName).SaveAndContinue().Get();
+        ////    WorkflowManager.MessageWorkflow(myDuplicatedPage.Id, typeof(PageTemplate), null, "Publish", false, new Dictionary<string, string>());
+        ////}
+
+        public Guid DuplicatePageTemplate(string templateTitle, string newTemplateName)
+        {
+            Guid templateId = Guid.Empty;
+            var fluent = App.WorkWith();
+            Guid parentTemplateId = this.GetTemplateIdByTitle(templateTitle);
+            var parentTemplate = fluent.Page().PageManager.GetTemplate(parentTemplateId);
+            templateId = fluent.PageTemplate()
+                               .CreateNew()
+                               .Do(t =>
+                               {
+                                   t.Title = newTemplateName;
+                                   t.Name = new Lstring(Regex.Replace(newTemplateName, @"[^\w\-\!\$\'\(\)\=\@\d_]+", string.Empty).ToLower());
+                                   t.Description = newTemplateName + " descr";
+                                   t.ParentTemplate = parentTemplate;
+                                   t.ShowInNavigation = true;
+                                   t.Framework = PageTemplateFramework.Hybrid;
+                                   t.Category = SiteInitializer.CustomTemplatesCategoryId;
+                                   t.Visible = true;
+                               })
+                               .SaveAndContinue()
+                               .Get()
+                               .Id;
+            var pageManager = PageManager.GetManager();
+            var template = pageManager.GetTemplates().Where(t => t.Id == templateId).SingleOrDefault();
+            var master = pageManager.TemplatesLifecycle.Edit(template);
+            pageManager.TemplatesLifecycle.Publish(master);
+            pageManager.SaveChanges();
+
+            return template.Id;
         }
 
         private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)

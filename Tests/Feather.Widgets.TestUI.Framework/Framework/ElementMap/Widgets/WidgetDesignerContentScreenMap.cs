@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 
-namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
+namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
 {
     /// <summary>
-    /// This class contains references to the elements contained in the Feather News widget back-end screens.
+    /// This class contains references to the elements contained in the Feather Edit Content Screen back-end screens.
     /// </summary>
-    public class NewsMap
+    public class WidgetDesignerContentScreenMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NewsMap" /> class.
+        /// Initializes a new instance of the <see cref="EditContentScreenMap" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
-        public NewsMap(Find find)
+        public WidgetDesignerContentScreenMap(Find find)
         {
             this.find = find;
         }
@@ -24,11 +24,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         /// <summary>
         /// Gets the news widget backend
         /// </summary>
-        public NewsWidgetContentScreen NewsWidgetContentScreen
+        public WidgetDesignerContentScreen WidgetDesignerContentScreen
         {
             get
             {
-                return new NewsWidgetContentScreen(this.find);
+                return new WidgetDesignerContentScreen(this.find);
             }
         }
 

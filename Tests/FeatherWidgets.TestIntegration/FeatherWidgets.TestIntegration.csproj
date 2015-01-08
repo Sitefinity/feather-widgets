@@ -165,13 +165,14 @@
     <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
     <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
-    <Compile Include="DynamicWidgets\DeactivateModuleBuilderTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsAllTypesTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsContentLocationServiceTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerContentTests.cs" />
+    <Compile Include="DynamicWidgets\DynamicWidgetsDesignerContentWithListSettingsTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerListSettingsTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerSingleItemSettingsTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsFilterByRelatedDataTests.cs" />
+    <Compile Include="DynamicWidgets\DynamicWidgetsPageTemplateTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />

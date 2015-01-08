@@ -116,50 +116,6 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Category(TestCategories.DynamicWidgets)]
         [Author("FeatherTeam")]
         [Description("Verify dynaimc items by tag.")]
-        public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByTagFunctionality()
-        {
-            var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
-            try
-            {
-                TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
-                var taxonId = this.CreatePressArticleAndReturnTagId();
-
-                dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
-
-                var mvcProxy = new MvcWidgetProxy();
-                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
-                var dynamicController = new DynamicContentController();
-                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
-                dynamicController.Model.SelectionMode = SelectionMode.FilteredItems;
-                mvcProxy.Settings = new ControllerSettings(dynamicController);
-                mvcProxy.WidgetName = WidgetName;
-
-                for (int i = 0; i < taxonId.Length; i++)
-                {
-                    var tag = taxonomyManager.GetTaxa<FlatTaxon>().Where(t => t.Id == taxonId[i]).FirstOrDefault();
-
-                    var modelItems = dynamicController.Model.CreateListViewModel(taxonFilter: tag, page: 1);
-                    var dynamicItems = modelItems.Items.ToList();
-                    int itemsCount = dynamicItems.Count;
-
-                    Assert.AreEqual(1, itemsCount, "The count of the dynamic item is not as expected");
-
-                    string title = dynamicItems[0].Fields.Title;
-                    Assert.IsTrue(title.Equals(this.dynamicTitles[i]), "The dynamic item with this title was not found!");
-                }
-            }
-            finally
-            {
-                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(dynamicCollection);
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitle);
-            }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
-        [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
-        [Description("Verify dynaimc items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByPublicationDateLastOneDayFunctionality()
         {
             var dynamicCollection = ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
@@ -335,7 +291,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             for (int i = 0; i < 3; i++)
             {
                 taxonId[i] = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().CreateFlatTaxon(Telerik.Sitefinity.TestUtilities.CommonOperations.TaxonomiesConstants.TagsTaxonomyId, this.tagTitle[i]);
-                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle(this.dynamicTitles[i], this.dynamicUrls[i], taxonId[i]);
+                ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle(this.dynamicTitles[i], this.dynamicUrls[i], taxonId[i], Guid.Empty);
             }
 
             return taxonId;

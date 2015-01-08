@@ -26,26 +26,15 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// Navigation widget on page template - All pages under currently opened page
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
-        [Category(TestCategories.Navigation), Ignore]
+        [Category(TestCategories.Navigation)]
         [Author("FeatherTeam")]
         public void NavigationWidgetOnPageTemplate_AllPagesUnderCurrentlyOpenedPage()
         {
-            string newLayoutTemplatePath = null;
             Guid templateId = default(Guid);
 
             try
             {
-                PageManager pageManager = PageManager.GetManager();
-                int templatesCount = pageManager.GetTemplates().Count();
-
-                string layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew1.cshtml");
-
-                File.Copy(layoutTemplatePath, newLayoutTemplatePath);
-
-                this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
-
-                templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName1);
+                templateId = this.templateOperation.DuplicatePageTemplate(OldTemplateName, TemplateName1);
 
                 string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
 
@@ -78,7 +67,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
             finally
             {
-                File.Delete(newLayoutTemplatePath);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();           
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);                
             }
@@ -88,26 +76,15 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// Navigation widget on page template - All sibling pages of currently opened page
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
-        [Category(TestCategories.Navigation), Ignore]
+        [Category(TestCategories.Navigation)]
         [Author("FeatherTeam")]
         public void NavigationWidgetOnPageTemplate_AllSiblingPagesOfCurrentlyOpenedPage()
         {
-            string newLayoutTemplatePath = null;
             Guid templateId = default(Guid);
 
             try
             {
-                PageManager pageManager = PageManager.GetManager();
-                int templatesCount = pageManager.GetTemplates().Count();
-
-                var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew2.cshtml");
-
-                File.Copy(layoutTemplatePath, newLayoutTemplatePath);
-
-                this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
-
-                templateId = this.templateOperation.GetTemplateIdByTitle(TemplateName);
+                templateId = this.templateOperation.DuplicatePageTemplate(OldTemplateName, TemplateName);
 
                 string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
 
@@ -141,7 +118,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
             finally
             {
-                File.Delete(newLayoutTemplatePath);
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();              
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);                
             }
@@ -158,6 +134,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private const string PlaceHolder = "Contentplaceholder1";
         private const string CaptionNavigation = "Navigation";
         private const string Template = "Bootstrap";
+        private const string OldTemplateName = "Bootstrap.default";
         private TemplateOperations templateOperation = new TemplateOperations();
         private PageContentGenerator locationGenerator = new PageContentGenerator();
 

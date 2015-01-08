@@ -80,14 +80,13 @@ namespace FeatherWidgets.TestIntegration.News
         /// News widget - add news widget to page template
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
-        [Category(TestCategories.News), Ignore]
+        [Category(TestCategories.News)]
         [Author("FeatherTeam")]
         public void NewsWidget_OnBootstrapPageTemplate()
         {
             string templateName = "Bootstrap.defaultNew3";
             string placeHolder = "Contentplaceholder1";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix);
-            string newLayoutTemplatePath = null;
             Guid templateId = default(Guid);
 
             try
@@ -97,17 +96,7 @@ namespace FeatherWidgets.TestIntegration.News
                 var newsController = new NewsController();
                 mvcProxy.Settings = new ControllerSettings(newsController);
 
-                PageManager pageManager = PageManager.GetManager();
-                int templatesCount = pageManager.GetTemplates().Count();
-
-                var layoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "default.cshtml");
-                newLayoutTemplatePath = Path.Combine(this.templateOperation.SfPath, "ResourcePackages", "Bootstrap", "MVC", "Views", "Layouts", "defaultNew3.cshtml");
-
-                File.Copy(layoutTemplatePath, newLayoutTemplatePath);
-
-                this.templateOperation.WaitForTemplatesCountToIncrease(templatesCount, 1);
-
-                templateId = this.templateOperation.GetTemplateIdByTitle(templateName);
+                templateId = this.templateOperation.DuplicatePageTemplate(OldTemplateName, templateName);
 
                 this.templateOperation.AddControlToTemplate(templateId, mvcProxy, placeHolder, CaptionNews);
                 Guid pageId = this.locationGenerator.CreatePage(PageNamePrefix, PageTitlePrefix, UrlNamePrefix, null, null);
@@ -120,8 +109,6 @@ namespace FeatherWidgets.TestIntegration.News
             }
             finally
             {
-                File.Delete(newLayoutTemplatePath);
-
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().DeletePageTemplate(templateId);
             }
@@ -136,6 +123,7 @@ namespace FeatherWidgets.TestIntegration.News
         private const string CaptionNews = "News";
         private TemplateOperations templateOperation;
         private PageContentGenerator locationGenerator;
+        private const string OldTemplateName = "Bootstrap.default";
 
         #endregion
     }
