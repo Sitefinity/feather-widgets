@@ -42,16 +42,17 @@
             <label for="sortOptions">@Html.Resource("SortResults")</label>
 
 
-            <select id="sortOptions" ng-model="properties.SortExpression.PropertyValue" class="form-control">
-                <option value="PublicationDate DESC"> @Html.Resource("MostRelevant")</option>
-                <option value="PublicationDate DESC"> @Html.Resource("NewestFirst")</option>
-                <option value="PublicationDate ASC"> @Html.Resource("OldestFirst")</option>
-                <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
-                <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
-                <option value="LastModified DESC"> @Html.Resource("NewModified")</option>
+            <select id="sortOptions" ng-model="properties.OrderBy.PropertyValue" class="form-control">
+                <option value="Relevance"> @Html.Resource("MostRelevant")</option>
+                <option value="Newest"> @Html.Resource("NewestFirst")</option>
+                <option value="Oldest"> @Html.Resource("OldestFirst")</option>
+                <option value="TitleAsc"> @Html.Resource("ByTitleAZ")</option>
+                <option value="TitleDesc"> @Html.Resource("ByTitleZA")</option>
+                <option value="NewModified"> @Html.Resource("NewModified")</option>
             </select>
 
-            <input id="allowUserSort" type="checkbox" ng-model="properties.AllowUserSort.PropertyValue" />
+            <input id="allowSorting" type="checkbox" ng-model="properties.AllowSorting.PropertyValue" />
+            <label for="allowSorting">@Html.Resource("AllowUserToSort")</label>
         </div>
     </div>
 </div>

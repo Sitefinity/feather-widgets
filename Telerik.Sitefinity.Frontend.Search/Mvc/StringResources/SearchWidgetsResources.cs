@@ -394,6 +394,22 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         }
 
         /// <summary>
+        /// Phrase: Allow users to sort results
+        /// </summary>
+        /// <value>Allow users to sort results</value>
+        [ResourceEntry("AllowUserToSort",
+            Value = "Allow users to sort results",
+            Description = "Phrase: Allow users to sort results",
+            LastModified = "2015/01/08")]
+        public string AllowUserToSort
+        {
+            get
+            {
+                return this["AllowUserToSort"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Use paging
         /// </summary>
         [ResourceEntry("UsePaging",
