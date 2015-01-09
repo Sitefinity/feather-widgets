@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
     /// <summary>f
     /// This is test class for CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.

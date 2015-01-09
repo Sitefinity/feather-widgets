@@ -4,7 +4,7 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ArtOfTest.WebAii.Core;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
     /// <summary>
     /// SelectItemInDynamicWidgetFromDifferentProvider test class.

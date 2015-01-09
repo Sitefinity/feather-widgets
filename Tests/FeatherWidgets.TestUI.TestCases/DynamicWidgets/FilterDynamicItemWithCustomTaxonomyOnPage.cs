@@ -3,7 +3,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
     /// <summary>
     /// SelectNewsItemInNewsWidgetFromPage_ test class.
