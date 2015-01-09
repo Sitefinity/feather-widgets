@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
     /// <summary>
-    /// Facade for Common wrapper
+    /// Facade for Widgets wrapper
     /// </summary>
-    public class CommonFacade
+    public class WidgetsFacade
     {
         /// <summary>
-        /// Commons the wrapper.
+        /// Widgets content screen wrapper.
         /// </summary>
         /// <returns></returns>
-        public CommonWrapper CommonWrapper()
+        public WidgetDesignerContentScreenWrapper WidgetDesignerContentScreenWrapper()
         {
-            return new CommonWrapper();
+            return new WidgetDesignerContentScreenWrapper();
         }
     }
 }

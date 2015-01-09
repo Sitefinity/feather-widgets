@@ -6,13 +6,20 @@ using System.Reflection;
 using System.Web.UI;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
+using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Web.UI.ContentUI;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
@@ -112,6 +119,31 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(NewsController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "News", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds dynamic widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddDynamicWidgetToPage(Guid pageId, string type, string widgetName, string widgetCaption, string placeholder = "Body")
+        {
+            using (var mvcProxy = new MvcWidgetProxy())
+            {
+                PageManager pageManager = PageManager.GetManager();
+                pageManager.Provider.SuppressSecurityChecks = true;
+                var pageDataId = pageManager.GetPageNode(pageId).PageId;
+                var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+                mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(type);
+
+                mvcProxy.Settings = new ControllerSettings(dynamicController);
+                mvcProxy.WidgetName = widgetName;
+
+                this.CreateControl(pageManager, page, mvcProxy, widgetCaption, placeholder);
             }
         }
 

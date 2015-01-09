@@ -7,18 +7,18 @@ using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
 
-namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
+namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
 {
     /// <summary>
     /// Provides access to news widget Content screen
     /// </summary>
-    public class NewsWidgetContentScreen : HtmlElementContainer
+    public class WidgetDesignerContentScreen : HtmlElementContainer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsWidgetContentScreen" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
-        public NewsWidgetContentScreen(Find find)
+        public WidgetDesignerContentScreen(Find find)
             : base(find)
         {
         }
@@ -26,7 +26,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.News
         /// <summary>
         /// Gets which news to display.
         /// </summary>
-        public HtmlDiv WhichNewsToDisplayList
+        public HtmlDiv WhichItemsToDisplayList
         {
             get
             {
