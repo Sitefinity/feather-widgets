@@ -12,21 +12,10 @@
 
 
 <script type="text/x-kendo-tmpl" id="template">
-    <div class="row" style="margin-bottom: 10px;">
-	   
-		<h3><a href="#=Fields.filter(function (chain) {
-    return chain.Name === "Link";
-})[0].Value#">#=Fields.filter(function (chain) {
-    return chain.Name === "Title";
-})[0].Value#</a></h3>
-
-		<p>#=Fields.filter(function (chain) {return chain.Name === "HighLighterResult";})[0].Value#</p>
-		
-		<a href="#=Fields.filter(function (chain) {
-    return chain.Name === "Link";
-})[0].Value#">#=Fields.filter(function (chain) {
-    return chain.Name === "Link";
-})[0].Value#</a>
+    <div class="row" style="margin-bottom: 10px;">	   
+		<h3><a href="#=Fields.GetPropertyValue("Link")#">#=Fields.GetPropertyValue("Title")#</a></h3>
+		<p>#=Fields.GetPropertyValue("HighLighterResult")#</p>		
+		<a href="#=Fields.GetPropertyValue("Link")#">#=Fields.GetPropertyValue("Link")#</a>
      </div>
 </script>
 
@@ -61,7 +50,23 @@
 </section>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
+       
+        Object.prototype.GetPropertyValue= function(propName) {
+            var propValue = "";
+            if(this.filter){
+                var matchedProperties =  this.filter(function (chain) {
+                    return chain.Name === propName;
+                });
+            
+                if(matchedProperties)
+                    propValue = matchedProperties[0].Value;
+            }
+
+            return propValue;
+        };
+
         var dataSource = new kendo.data.DataSource({
 	
             transport: {
@@ -77,25 +82,25 @@
                 total: "TotalCount" // total number of records is in the "total" field of the response
             }
         });
-       $('#search-results').kendoListView({
-           dataSource: dataSource,
-           template: kendo.template($("#template").html()),
-           pageable: true
-       });
+        $('#search-results').kendoListView({
+            dataSource: dataSource,
+            template: kendo.template($("#template").html()),
+            pageable: true
+        });
        
-       $("#pager").kendoPager({
-           dataSource: dataSource
-       });
+        $("#pager").kendoPager({
+            dataSource: dataSource
+        });
 
-       //Dropdownlist Selectedchange event
-       $("#UserSort").change(function (value) {
-           var selectedValue = $(value.currentTarget).val();
-           var listView = $('#search-results').data("kendoListView");
-           listView.dataSource.transport.options.read.url =
-               '@Url.Action("Results", "SearchResults", new {searchQuery = Request.QueryString["searchQuery"], indexCatalogue = Request.QueryString["indexCatalogue"]})' + '/' + selectedValue;
+        //Dropdownlist Selectedchange event
+        $("#UserSort").change(function (value) {
+            var selectedValue = $(value.currentTarget).val();
+            var listView = $('#search-results').data("kendoListView");
+            listView.dataSource.transport.options.read.url =
+                '@Url.Action("Results", "SearchResults", new {searchQuery = Request.QueryString["searchQuery"], indexCatalogue = Request.QueryString["indexCatalogue"]})' + '/' + selectedValue;
 
             //Read data source to update
             listView.dataSource.read();
         })
-   });
+    });
 </script>
