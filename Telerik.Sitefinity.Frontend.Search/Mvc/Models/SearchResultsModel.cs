@@ -19,6 +19,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
     /// <inheritdoc />
     public class SearchResultsModel : ISearchResultsModel
     {
+        #region Properties
+
         /// <inheritdoc />
         public IList<IDocument> Results { get; set; }
 
@@ -90,6 +92,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 this.highlightedFields = value;
             }
         }
+
+        #endregion
+
+        #region Methods
+
         /// <inheritdoc />
         public void PopulateResults(string searchQuery, int? page)
         {
@@ -116,7 +123,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             this.CurrentPage = page.Value;
         }
 
-        public IEnumerable<IDocument> Search(string query, string catalogue, int skip, int take, out int hitCount)
+        /// <summary>
+        /// Searches the specified query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="catalogue">The catalogue.</param>
+        /// <param name="skip">The skip.</param>
+        /// <param name="take">The take.</param>
+        /// <param name="hitCount">The hit count.</param>
+        /// <returns></returns>
+        protected virtual IEnumerable<IDocument> Search(string query, string catalogue, int skip, int take, out int hitCount)
         {
             var service = Telerik.Sitefinity.Services.ServiceBus.ResolveService<ISearchService>();
             var queryBuilder = ObjectFactory.Resolve<IQueryBuilder>();
@@ -127,7 +143,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             searchQuery.IndexName = catalogue;
             searchQuery.Skip = skip;
             searchQuery.Take = take;
-            searchQuery.OrderBy = null;
+            searchQuery.OrderBy = this.GetOrderList();
             searchQuery.EnableExactMatch = enableExactMatch;
             searchQuery.HighlightedFields = this.HighlightedFields;
 
@@ -138,8 +154,39 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             return result.SetContentLinks();
         }
 
+        /// <summary>
+        /// Gets the order list.
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<string> GetOrderList()
+        {
+            switch (this.OrderBy)
+            {
+                case OrderByOptions.Relevance:
+                    return new[] { "_score" };
+                case OrderByOptions.TitleAsc:
+                    return new[] { "Title" };
+                case OrderByOptions.TitleDesc:
+                    return new[] { "Title desc" };
+                case OrderByOptions.Oldest:
+                    return new[] { "PublicationDate" };
+                case OrderByOptions.Newest:
+                    return new[] { "PublicationDate desc" };
+                case OrderByOptions.NewModified:
+                    return new[] { "LastModified desc" };
+                default:
+                    return new[] { "_score" };
+            }
+        }
+
+        #endregion 
+
+        #region Private fields and constants
+
         private int? itemsPerPage = 20;
         private string[] searchFields = new[] { "Title", "Content" };
         private string[] highlightedFields = new[] { "Title", "Content" };
+
+        #endregion
     }
 }
