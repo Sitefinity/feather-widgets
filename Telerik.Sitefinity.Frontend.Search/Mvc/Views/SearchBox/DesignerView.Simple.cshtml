@@ -5,8 +5,9 @@
 
     <div class="row">
         <div class="col-xs-6">
-            <select id="searchIndexes" class="form-control" ng-options="index.ID as index.Title for index in searchIndexes"
-                 ng-model="properties.SearchIndexPipeId.PropertyValue">
+            <select id="searchIndexes" class="form-control" ng-show="hasSearchIndexes"
+                    ng-options="index.ID as index.Title for index in searchIndexes"
+                    ng-model="properties.SearchIndexPipeId.PropertyValue">
                 <option value="">@Html.Resource("SelectSearchIndex")</option>
             </select>
 
