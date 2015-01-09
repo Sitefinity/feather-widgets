@@ -22,13 +22,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         #region Properties
 
         /// <inheritdoc />
-        public IList<IDocument> Results { get; set; }
+        public ResultModel Results { get; set; }
 
         /// <inheritdoc />
         public string ResultText { get; set; }
-
-        /// <inheritdoc />
-        public int TotalResultsCount { get; set; }
 
         /// <inheritdoc />
         public int? ItemsPerPage
@@ -43,12 +40,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 this.itemsPerPage = value;
             }
         }
-
-        /// <inheritdoc />
-        public int? TotalPagesCount { get; set; }
-
-        /// <inheritdoc />
-        public int CurrentPage { get; set; }
 
         /// <inheritdoc />
         public ListDisplayMode DisplayMode { get; set; }
@@ -98,29 +89,23 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         #region Methods
 
         /// <inheritdoc />
-        public void PopulateResults(string searchQuery, int? page)
+        public void PopulateResults(string searchQuery, int? skip)
         {
-            if (page == null || page < 1)
-                page = 1;
+            if (skip == null)
+                skip = 0;
 
-            int? itemsToSkip = (page.Value - 1) * this.ItemsPerPage;
-            itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.ItemsPerPage) : 0;
+            var itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? skip.Value : 0; 
             int totalCount = 0;
             int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ? 0 : this.ItemsPerPage;
 
 
-            var result = this.Search(searchQuery, this.IndexCatalogue, itemsToSkip.Value, itemsPerPage.Value, out totalCount);
+            var result = this.Search(searchQuery, this.IndexCatalogue, itemsToSkip, itemsPerPage.Value, out totalCount);
 
             string queryTest = searchQuery.Trim('\"');
 
             var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
             this.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
-            this.TotalResultsCount = totalCount;
-            this.Results = result.ToList();
-
-            this.TotalPagesCount = (int)Math.Ceiling((double)(totalCount / (double)this.ItemsPerPage.Value));
-            this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? this.TotalPagesCount : null;
-            this.CurrentPage = page.Value;
+            this.Results = new ResultModel() { Data = result.ToList(), TotalCount = totalCount };
         }
 
         /// <summary>
@@ -163,7 +148,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             switch (this.OrderBy)
             {
                 case OrderByOptions.Relevance:
-                    return new[] { "_score" };
+                    return new[] { "_score desc" };
                 case OrderByOptions.TitleAsc:
                     return new[] { "Title" };
                 case OrderByOptions.TitleDesc:

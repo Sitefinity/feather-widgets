@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Gets or sets the search results.
         /// </summary>
         /// <value>The results.</value>
-        IList<IDocument> Results { get; set; }
+        ResultModel Results { get; set; }
 
         /// <summary>
         /// Gets or sets the items count per page.
@@ -28,24 +28,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         int? ItemsPerPage { get; set; }
 
         /// <summary>
-        /// Gets or sets the total pages count.
-        /// </summary>
-        /// <value>
-        /// The total pages count.
-        /// </value>
-        [Browsable(false)]
-        int? TotalPagesCount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the current page.
-        /// </summary>
-        /// <value>
-        /// The current page.
-        /// </value>
-        [Browsable(false)]
-        int CurrentPage { get; set; }
-
-        /// <summary>
         /// Gets or sets the result text.
         /// </summary>
         /// <value>
@@ -53,15 +35,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// </value>
         [Browsable(false)]
         string ResultText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total results count.
-        /// </summary>
-        /// <value>
-        /// The total results count.
-        /// </value>
-        [Browsable(false)]
-        int TotalResultsCount { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating how to display items in the list.
@@ -118,7 +91,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Performs search by given query and populates the results collection.
         /// </summary>
         /// <param name="searchQuery">The search query.</param>
-        /// <param name="page">The page.</param>
-        void PopulateResults(string searchQuery, int? page);
+        /// <param name="skip">The skip.</param>
+        void PopulateResults(string searchQuery, int? skip);
     }
 }

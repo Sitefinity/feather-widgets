@@ -60,9 +60,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string orderBy = null)
         {
-            var queryString = string.Format("?indexCatalogue={0}&searchQuery={1}&wordsMode={2}", indexCatalogue, searchQuery, wordsMode);
-            this.ViewBag.RedirectPageUrlTemplate = this.GetCurrentPageUrl() + "/{0}" + queryString;
-
             // Get the model
             if (!String.IsNullOrEmpty(searchQuery))
             {
@@ -73,10 +70,35 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     this.Model.OrderBy = orderByOption;
                 }
                 this.Model.IndexCatalogue = indexCatalogue;
-                this.Model.PopulateResults(searchQuery, page);
+                this.Model.PopulateResults(searchQuery ,null);
             }
 
             return View(this.TemplateName, this.Model);
+        }
+
+        /// <summary>
+        /// Provides search results for the specified search query.
+        /// </summary>
+        /// <param name="searchQuery">The search query.</param>
+        /// <param name="indexCatalogue">The index catalogue.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="skip">The skip.</param>
+        /// <returns></returns>
+        public JsonResult Results(string searchQuery = null, string indexCatalogue = null, string orderBy = null, int? skip = null)
+        {
+            if (!String.IsNullOrEmpty(searchQuery))
+            {
+                if (orderBy != null)
+                {
+                    OrderByOptions orderByOption;
+                    Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
+                    this.Model.OrderBy = orderByOption;
+                }
+                this.Model.IndexCatalogue = indexCatalogue;
+                this.Model.PopulateResults(searchQuery, skip);
+            }
+
+            return Json(this.Model.Results, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
