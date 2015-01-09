@@ -4,7 +4,7 @@
 
 <div class="form-group">
     <div class="row">
-        <div class="col-xs-4" ng-repeat="socialGroups in socialShareSectionMap">
+        <div class="col-xs-4" ng-repeat="socialGroups in socialShareGroups">
             <div class="checkbox" ng-repeat="group in socialGroups.Groups">
                 <label>
                     <input type='checkbox' ng-model="group.IsChecked">{{::group.Label}}

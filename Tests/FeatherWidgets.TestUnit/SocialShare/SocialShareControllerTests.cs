@@ -62,15 +62,15 @@ namespace FeatherWidgets.TestUnit.SocialShare
         [Description("Checks the properly set of social share button from controller to model.")]
         public void CheckProperlySet_OfSocialShareButton_FromControllerToModel()
         {
-            var socialShareOptions = new List<SocialShareGroupMap>
+            var socialShareOptions = new List<SocialShareGroup>
                 {
-                    new SocialShareGroupMap(new List<SocialShareMap>
+                    new SocialShareGroup(new List<SocialShareOption>
                         {
-                            new SocialShareMap("Facebook", true),
-                            new SocialShareMap("Twitter", true),
-                            new SocialShareMap("GooglePlusOne", true),
-                            new SocialShareMap("LinkedIn", true),
-                            new SocialShareMap("SocialShareMode", false)
+                            new SocialShareOption("Facebook", true),
+                            new SocialShareOption("Twitter", true),
+                            new SocialShareOption("GooglePlusOne", true),
+                            new SocialShareOption("LinkedIn", true),
+                            new SocialShareOption("SocialShareMode", false)
                         }),
                 };
 
@@ -83,11 +83,11 @@ namespace FeatherWidgets.TestUnit.SocialShare
                 // Assert
                 Assert.IsTrue(controller.Model.SocialButtons.Count == 4);
                 
-                foreach (SocialShareMap socialShareMap in socialShareOptions.SelectMany(s => s.Groups))
+                foreach (SocialShareOption option in socialShareOptions.SelectMany(s => s.Groups))
                 {
-                    var button = controller.Model.SocialButtons.FirstOrDefault(b => b.ButtonName == socialShareMap.Key);
+                    var button = controller.Model.SocialButtons.FirstOrDefault(b => b.ButtonName == option.Key);
 
-                    if (!socialShareMap.IsChecked)
+                    if (!option.IsChecked)
                     {
                         Assert.IsNull(button);
                     }
@@ -109,21 +109,21 @@ namespace FeatherWidgets.TestUnit.SocialShare
         {
             string selectedSocialButtons = "[{\"__type\":\"Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models.SocialShareGroupMap, Telerik.Sitefinity.Frontend.SocialShare\",\"Groups\":[{\"Key\":\"Facebook\",\"Label\":\"Facebook\",\"IsChecked\":true,\"$$hashKey\":\"object:15\"},{\"Key\":\"Twitter\",\"Label\":\"Twitter\",\"IsChecked\":false,\"$$hashKey\":\"object:16\"},{\"Key\":\"GooglePlusOne\",\"Label\":\"Google +\",\"IsChecked\":true,\"$$hashKey\":\"object:17\"},{\"Key\":\"StumbleUpon\",\"Label\":\"Stumble Upon\",\"IsChecked\":true,\"$$hashKey\":\"object:18\"},{\"Key\":\"GoogleBookmarks\",\"Label\":\"Google bookmarks\",\"IsChecked\":true,\"$$hashKey\":\"object:19\"}],\"$$hashKey\":\"object:9\"}}]";
 
-            var socialShareOptions = new List<SocialShareGroupMap>
+            var socialShareOptions = new List<SocialShareGroup>
                 {
-                    new SocialShareGroupMap(new List<SocialShareMap>
+                    new SocialShareGroup(new List<SocialShareOption>
                         {
-                            new SocialShareMap("Facebook", true),
-                            new SocialShareMap("GooglePlusOne", true),
-                            new SocialShareMap("StumbleUpon", true),
-                            new SocialShareMap("GoogleBookmarks", true)
+                            new SocialShareOption("Facebook", true),
+                            new SocialShareOption("GooglePlusOne", true),
+                            new SocialShareOption("StumbleUpon", true),
+                            new SocialShareOption("GoogleBookmarks", true)
                         }),
                 };
 
             // Arrange
             using (var controller = new DummySocialShareController())
             {
-                controller.SerializedSocialShareSectionMap = selectedSocialButtons;
+                controller.SerializedSocialShareOptionsList = selectedSocialButtons;
 
                 // Act
                 controller.Index();
@@ -131,9 +131,9 @@ namespace FeatherWidgets.TestUnit.SocialShare
                 // Assert
                 Assert.IsTrue(controller.Model.SocialButtons.Count == 4);
 
-                foreach (SocialShareMap socialShareMap in socialShareOptions.SelectMany(s => s.Groups))
+                foreach (SocialShareOption option in socialShareOptions.SelectMany(s => s.Groups))
                 {
-                    var button = controller.Model.SocialButtons.FirstOrDefault(b => b.ButtonName == socialShareMap.Key);
+                    var button = controller.Model.SocialButtons.FirstOrDefault(b => b.ButtonName == option.Key);
 
                     Assert.IsNotNull(button);
                 }

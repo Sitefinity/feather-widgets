@@ -21,8 +21,8 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
         string CssClass { get; set; }
 
         /// <summary>
-        /// Gets the basic social share settings depending on the Sitefinity configurations.
+        /// Initialize the selected social share options.
         /// </summary>
-        void InitializeSocialShareButtons(IList<SocialShareGroupMap> socialShareMaps);
+        void InitializeSocialShareButtons(IList<SocialShareGroup> socialShareGroups);
     }
 }
