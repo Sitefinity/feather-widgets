@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.Services.Search.Data;
@@ -88,10 +89,17 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         string IndexCatalogue { get; set; }
 
         /// <summary>
+        /// Gets or sets the languages that will be used to filter the search.
+        /// </summary>
+        /// <value>The languages.</value>
+        CultureInfo[] Languages { get; set; }
+
+        /// <summary>
         /// Performs search by given query and populates the results collection.
         /// </summary>
         /// <param name="searchQuery">The search query.</param>
-        /// <param name="skip">The skip.</param>
-        void PopulateResults(string searchQuery, int? skip);
+        /// <param name="skip">The skip.</param>      
+        /// <param name="language">The language of the displayed results.</param>
+        void PopulateResults(string searchQuery, int? skip,  string language);
     }
 }

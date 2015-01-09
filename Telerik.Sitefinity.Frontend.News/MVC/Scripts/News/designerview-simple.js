@@ -86,7 +86,7 @@
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
                     }
-                })
+                });
             })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;

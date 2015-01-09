@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
@@ -7,6 +8,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -53,13 +55,28 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         #region Actions
         /// <summary>
-        ///  Renders appropriate view depending on the <see cref="TemplateName" />
+        /// Renders appropriate view depending on the <see cref="TemplateName"/>
         /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="searchQuery">The search query.</param>
+        /// <param name="indexCatalogue">The index catalogue.</param>
+        /// <param name="wordsMode">The words mode.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="orderBy">The order by.</param>
         /// <returns>
-        /// The <see cref="ActionResult" />.
+        /// The <see cref="ActionResult"/>.
         /// </returns>
-        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string orderBy = null)
+        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null, string orderBy = null)
         {
+            var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}";
+            var languageParamFormat = "&language={0}";
+
+            var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode);
+            var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
+            var currentPageUrl = this.GetCurrentPageUrl();
+
+            this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
+
             // Get the model
             if (!String.IsNullOrEmpty(searchQuery))
             {
@@ -70,7 +87,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     this.Model.OrderBy = orderByOption;
                 }
                 this.Model.IndexCatalogue = indexCatalogue;
-                this.Model.PopulateResults(searchQuery ,null);
+
+                this.Model.PopulateResults(searchQuery, null, language);
             }
 
             return View(this.TemplateName, this.Model);
@@ -84,7 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <param name="orderBy">The order by.</param>
         /// <param name="skip">The skip.</param>
         /// <returns></returns>
-        public JsonResult Results(string searchQuery = null, string indexCatalogue = null, string orderBy = null, int? skip = null)
+        public JsonResult Results(string searchQuery = null, string indexCatalogue = null, string language = null, string orderBy = null, int? skip = null)
         {
             if (!String.IsNullOrEmpty(searchQuery))
             {
@@ -95,7 +113,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     this.Model.OrderBy = orderByOption;
                 }
                 this.Model.IndexCatalogue = indexCatalogue;
-                this.Model.PopulateResults(searchQuery, skip);
+                this.Model.PopulateResults(searchQuery, skip, language);
             }
 
             return Json(this.Model.Results, JsonRequestBehavior.AllowGet);
@@ -109,15 +127,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </summary>
         private ISearchResultsModel InitializeModel()
         {
-            //var constructorParams = new Dictionary<string, object>
-            //{
-            //    {"suggestionsRoute", "/restapi/search/suggestions"},
-            //    {"minSuggestionLength", this.GetMinSuggestLength()},
-            //    {"suggestionFields", "Title,Content"},
-            //    {"language", this.GetCurrentUILanguage()},
-            //    {"cssClass", this.CssClass}
-            //};
-            return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType());
+            var languages = SystemManager.CurrentContext.AppSettings.DefinedFrontendLanguages;
+            var constructorParams = new Dictionary<string, object>
+            {
+                {"languages", languages}
+            };
+            
+
+            return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType(), constructorParams);
         }
 
         #endregion

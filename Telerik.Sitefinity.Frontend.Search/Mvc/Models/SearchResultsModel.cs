@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -8,6 +9,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
 using Telerik.Sitefinity.Services.Search.Data;
@@ -19,6 +21,19 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
     /// <inheritdoc />
     public class SearchResultsModel : ISearchResultsModel
     {
+        #region Construction
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchResultsModel"/> class.
+        /// </summary>
+        /// <param name="languages">The languages.</param>
+        public SearchResultsModel(CultureInfo[] languages)
+	    {
+            this.Languages = languages;
+	    }
+
+        #endregion
+
         #region Properties
 
         /// <inheritdoc />
@@ -84,12 +99,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
         }
 
+        /// <inheritdoc />
+        public CultureInfo[] Languages { get; set; }
+
         #endregion
 
-        #region Methods
-
+        #region Public methods
         /// <inheritdoc />
-        public void PopulateResults(string searchQuery, int? skip)
+        public void PopulateResults(string searchQuery, int? skip, string language)
         {
             if (skip == null)
                 skip = 0;
@@ -98,8 +115,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             int totalCount = 0;
             int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ? 0 : this.ItemsPerPage;
 
-
-            var result = this.Search(searchQuery, this.IndexCatalogue, itemsToSkip, itemsPerPage.Value, out totalCount);
+            var result = this.Search(searchQuery, this.IndexCatalogue, language, itemsToSkip, itemsPerPage.Value, out totalCount);
 
             string queryTest = searchQuery.Trim('\"');
 
@@ -117,7 +133,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="take">The take.</param>
         /// <param name="hitCount">The hit count.</param>
         /// <returns></returns>
-        protected virtual IEnumerable<IDocument> Search(string query, string catalogue, int skip, int take, out int hitCount)
+        public IEnumerable<IDocument> Search(string query, string catalogue, string language, int skip, int take, out int hitCount)
         {
             var service = Telerik.Sitefinity.Services.ServiceBus.ResolveService<ISearchService>();
             var queryBuilder = ObjectFactory.Resolve<IQueryBuilder>();
@@ -132,11 +148,43 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             searchQuery.EnableExactMatch = enableExactMatch;
             searchQuery.HighlightedFields = this.HighlightedFields;
 
+            ISearchFilter filter;
+            if (this.TryBuildLanguageFilter(language, out filter))
+            {
+                searchQuery.Filter = filter;
+            }
+
             var oldSkipValue = skip;
             IResultSet result = service.Search(searchQuery);
             hitCount = result.HitCount;
 
             return result.SetContentLinks();
+        }
+        #endregion
+
+        #region Private methods
+
+        private bool TryBuildLanguageFilter(string language, out ISearchFilter filter)
+        {
+            if (String.IsNullOrEmpty(language))
+            {
+                filter = null;
+                return false;
+            }
+
+            filter = ObjectFactory.Resolve<ISearchFilter>();
+            filter.Clauses = new List<ISearchFilterClause>()
+            {
+                new SearchFilterClause(PublishingConstants.LanguageField, this.TransformLanguageFieldValue(language), FilterOperator.Equals)
+            };
+
+            return true;
+        }
+
+        private string TransformLanguageFieldValue(string language)
+        {
+            var result = language.ToLowerInvariant().Replace("-", string.Empty);
+            return result;
         }
 
         /// <summary>
@@ -164,7 +212,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             }
         }
 
-        #endregion 
+        #endregion
 
         #region Private fields and constants
 
