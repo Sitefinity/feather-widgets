@@ -245,8 +245,8 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.StringResources
         /// Gets phrase: Reddit
         /// </summary>
         [ResourceEntry("Reddit",
-            Value = "My Space",
-            Description = "phrase : My Space",
+            Value = "Reddit",
+            Description = "phrase : Reddit",
             LastModified = "2015/01/06")]
         public string Reddit
         {
