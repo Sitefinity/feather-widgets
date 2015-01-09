@@ -3,29 +3,37 @@
 <div class="form-group">
     <label>@Html.Resource("WhereToSearch")</label>
 
-    <div class="row">
+    <div class="alert alert-info" ng-hide="hasSearchIndexes">@Html.Resource("NoSearchIndexes")</div>
+    <div class="row row-xs">
         <div class="col-xs-6">
+
             <select id="searchIndexes" class="form-control" ng-show="hasSearchIndexes"
                     ng-options="index.ID as index.Title for index in searchIndexes"
                     ng-model="properties.SearchIndexPipeId.PropertyValue">
                 <option value="">@Html.Resource("SelectSearchIndex")</option>
             </select>
 
-            <span ng-hide="hasSearchIndexes">@Html.Resource("NoSearchIndexes")</span>
-            
-            <span ng-click="toggle()">@Html.Resource("WhatIsThis")</span>
-            <div ng-hide="isCollapsed">@Html.Resource("SearchIndexesDescription")</div>
+        </div>
+        <div class="col-xs-6">
+
+            <a class="Tooltip">@Html.Resource("WhatIsThis")
+                <div class="Tooltip-info Tooltip-info--bottom">
+                    <p>@Html.Resource("SearchIndexesDescriptionTitle")</p>
+                    <p>@Html.Resource("SearchIndexesDescription")</p>
+                    <p>@Html.Resource("SearchIndexesDescriptionWhere")</p>
+                </div>
+            </a>
         </div>
     </div>
 </div>
 
 <div class="form-group">
     <label>@Html.Resource("WhereToDisplaySearchResults")</label>
-    
-    <div>
-        @Html.Resource("ThisIsPageWhereYouHaveDropped") <em>@Html.Resource("SearchResultsWidget")</em>    
-        <sf-list-selector sf-page-selector sf-selected-item-id="properties.ResultsPageId.PropertyValue" sf-select-button-text="Select a page..."></sf-list-selector>
-    </div>
+
+    <p>
+        @Html.Resource("ThisIsPageWhereYouHaveDropped") <em>@Html.Resource("SearchResultsWidget")</em>
+    </p>
+    <sf-list-selector sf-page-selector sf-selected-item-id="properties.ResultsPageId.PropertyValue"></sf-list-selector>
 </div>
 
 <div class="form-group">
@@ -36,7 +44,7 @@
             <select id="searchTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
                 @foreach (var viewName in Html.GetViewNames("SearchBox", @"(?<viewName>^SearchBox.*)$"))
                 {
-                    <option value="@viewName"> @viewName</option>
+                    <option value="@viewName">@viewName</option>
                 }
             </select>
         </div>
@@ -44,10 +52,10 @@
 </div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
-    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+	<style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
-    <div class="form-group">
-        <label for="searchCssClass">@Html.Resource("CssClasses")</label>
-        <input type="text" id="searchCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
-    </div>
+	<div class="form-group">
+		<label for="searchCssClass">@Html.Resource("CssClasses")</label>
+		<input type="text" id="searchCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+	</div>
 </expander>

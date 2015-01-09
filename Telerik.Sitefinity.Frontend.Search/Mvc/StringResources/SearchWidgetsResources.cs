@@ -146,18 +146,49 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: Search indexes You use search indexes to define different sets of content to be searched by the visitiors on your website by using the internal search of the website. You can manage search indexes in Administration > Search indexes
+        /// Phrase: Search indexes
         /// </summary>
-        /// <value>Search indexes You use search indexes to define different sets of content to be searched by the visitiors on your website by using the internal search of the website. You can manage search indexes in Administration > Search indexes</value>
+        /// <value>Search indexes</value>
+        [ResourceEntry("SearchIndexesDescriptionTitle",
+            Value = "Search indexes",
+            LastModified = "2015/01/06")]
+        public string SearchIndexesDescriptionTitle
+        {
+            get
+            {
+                return this["SearchIndexesDescriptionTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: You use search indexes to define different sets of content to be searched by the visitiors on your website by using the internal search of the website.
+        /// </summary>
+        /// <value>You use search indexes to define different sets of content to be searched by the visitiors on your website by using the internal search of the website.</value>
         [ResourceEntry("SearchIndexesDescription",
-            Value = "Search indexes You use search indexes to define different sets of content to be searched by the visitiors on your website by using the internal search of the website. You can manage search indexes in Administration > Search indexes",
-            Description = "Phrase: Search indexes You use search indexes to define different sets of content to be searched by the visitiors on your website by using the internal search of the website. You can manage search indexes in Administration > Search indexes",
+            Value = "You use search indexes to define different sets of content to be searched by the visitiors on your website by using the internal search of the website.",
+            Description = "Phrase: You use search indexes to define different sets of content to be searched by the visitiors on your website by using the internal search of the website.",
             LastModified = "2015/01/06")]
         public string SearchIndexesDescription
         {
             get
             {
                 return this["SearchIndexesDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: You can manage search indexes in Administration > Search indexes
+        /// </summary>
+        /// <value>You can manage search indexes in Administration > Search indexes</value>
+        [ResourceEntry("SearchIndexesDescriptionWhere",
+            Value = "You can manage search indexes in Administration > Search indexes",
+            Description = "You can manage search indexes in Administration > Search indexes",
+            LastModified = "2015/01/06")]
+        public string SearchIndexesDescriptionWhere
+        {
+            get
+            {
+                return this["SearchIndexesDescriptionWhere"];
             }
         }
 

@@ -41,15 +41,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Provides unified access to the navigation
-        /// </summary>
-        /// <returns>Returns the NavigationWidgetEditWrapper</returns>
-        public NewsWrapperFacade News()
-        {
-            return new NewsWrapperFacade();
-        }
-
-        /// <summary>
         /// Provides access to module builder.
         /// </summary>
         /// <returns>Returns the ModuleBuilderWrapperFacade.</returns>
@@ -62,9 +53,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Commons this instance.
         /// </summary>
         /// <returns></returns>
-        public CommonFacade Common()
+        public WidgetsFacade Widgets()
         {
-            return new CommonFacade();
+            return new WidgetsFacade();
         }
     }
 }

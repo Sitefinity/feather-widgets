@@ -27,7 +27,6 @@ namespace FeatherWidgets.TestUI.Arrangements
                ids[i] = ServerOperations.News().CreatePublishedNewsItem(newsTitle: NewsItemTitle + i, newsContent: NewsItemContent + i, author: NewsItemAuthor + i);             
             }
 
-            //// ServerOperationsFeather.NewsOperations().CreatePublishedNewsItemForUNPublish(this.newsId, NewsItemTitle + " Unpublished", NewsItemContent, NewsItemAuthor, "SourceName");
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
 
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
