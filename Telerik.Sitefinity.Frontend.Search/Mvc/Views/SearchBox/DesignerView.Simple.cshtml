@@ -3,11 +3,21 @@
 <div class="form-group">
     <label>@Html.Resource("WhereToSearch")</label>
 
-    <div class="alert alert-info" ng-hide="hasSearchIndexes">@Html.Resource("NoSearchIndexes")</div>
-    <div class="row row-xs">
+    <div ng-hide="hasSearchIndexes" class="alert alert-info">
+        <span>@Html.Resource("NoSearchIndexes")</span>
+        <a class="Tooltip">@Html.Resource("WhatIsThis")
+            <div class="Tooltip-info Tooltip-info--bottom">
+                <p>@Html.Resource("SearchIndexesDescriptionTitle")</p>
+                <p>@Html.Resource("SearchIndexesDescription")</p>
+                <p>@Html.Resource("SearchIndexesDescriptionWhere")</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="row row-xs" ng-show="hasSearchIndexes">
         <div class="col-xs-6">
 
-            <select id="searchIndexes" class="form-control" ng-show="hasSearchIndexes"
+            <select id="searchIndexes" class="form-control" 
                     ng-options="index.ID as index.Title for index in searchIndexes"
                     ng-model="properties.SearchIndexPipeId.PropertyValue">
                 <option value="">@Html.Resource("SelectSearchIndex")</option>

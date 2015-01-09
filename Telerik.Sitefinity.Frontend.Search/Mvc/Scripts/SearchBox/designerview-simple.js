@@ -4,11 +4,6 @@
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'sfSearchService', function ($scope, propertyService, searchService) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.hasSearchIndexes = true;
-
-        $scope.isCollapsed = true;
-        $scope.toggle = function () {
-            $scope.isCollapsed = $scope.isCollapsed === false ? true : false;
-        };
         
         searchService.getSearchIndexes()
             .then(function (data) {
