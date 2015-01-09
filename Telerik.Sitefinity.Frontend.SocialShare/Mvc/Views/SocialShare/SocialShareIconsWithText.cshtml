@@ -122,8 +122,9 @@
 
                 case "MailTo":
                 <li>
-                    <a onclick="window.open('mailto:?body=@shareUrl&subject=@pageTitle', 'MailTo', 'toolbar=no,width=550,height=550'); return false" title="Tell a friend">
-                        <span class="ssh-icon sf-icon-mailto">MailTo</span>
+                    <a href="mailto:?body=@shareUrl&subject=@pageTitle" class="sf-share-button" title="Tell a friend">
+                        <span class="sf-icon-mailto"></span>
+                        <strong>Email</strong>
                     </a>
                 </li>
                     break;
