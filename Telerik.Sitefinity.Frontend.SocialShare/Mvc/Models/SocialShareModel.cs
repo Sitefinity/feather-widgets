@@ -58,19 +58,19 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 
         #region Public Methods
         /// <summary>
-        /// Gets the basic social share settings depending on the Sitefinity configurations.
+        /// Initialize the selected social share options.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        public virtual void InitializeSocialShareButtons(IList<SocialShareGroupMap> socialShareMaps)
+        public virtual void InitializeSocialShareButtons(IList<SocialShareGroup> socialShareGroups)
         {
             ISocialShareSettings settings = this.SocialShareSettings;
             bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
             bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
             bool displayCounters = settings.DisplayCounters && addText;
 
-            foreach (SocialShareGroupMap socialShareMap in socialShareMaps)
+            foreach (SocialShareGroup group in socialShareGroups)
             {
-                foreach (var property in socialShareMap.Groups.Where(i => i.IsChecked))
+                foreach (var property in group.Groups.Where(i => i.IsChecked))
                 {
                     this.SocialButtons.Add(new SocialButtonModel(property.Key.ToPascalCase(), addText, displayCounters, bigSize));
                 }

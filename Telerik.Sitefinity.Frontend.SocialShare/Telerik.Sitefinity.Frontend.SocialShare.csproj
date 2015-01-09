@@ -130,8 +130,8 @@
     <Compile Include="Mvc\Controllers\SocialShareController.cs" />
     <Compile Include="Mvc\Models\ISocialShareModel.cs" />
     <Compile Include="Mvc\Models\SocialButtonModel.cs" />
-    <Compile Include="Mvc\Models\SocialShareGroupMap.cs" />
-    <Compile Include="Mvc\Models\SocialShareMap.cs" />
+    <Compile Include="Mvc\Models\SocialShareGroup.cs" />
+    <Compile Include="Mvc\Models\SocialShareOption.cs" />
     <Compile Include="Mvc\Models\SocialShareModel.cs" />
     <Compile Include="Mvc\StringResources\SocialShareResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

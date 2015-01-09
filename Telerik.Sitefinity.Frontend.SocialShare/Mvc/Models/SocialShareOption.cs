@@ -6,16 +6,16 @@ using Telerik.Sitefinity.Localization;
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
 {
     /// <summary>
-    /// This class represents a Social Share link with a resource localization of its text.
+    /// This class represents a Social Share option with a resource localization of its text.
     /// </summary>
-    public class SocialShareMap
+    public class SocialShareOption
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SocialShareMap" /> class.
+        /// Initializes a new instance of the <see cref="SocialShareOption" /> class.
         /// </summary>
         /// <param name="key">The social share option key.</param>
         /// <param name="isChecked">The value indicating whether social share option is checked.</param>
-        public SocialShareMap(string key, bool isChecked)
+        public SocialShareOption(string key, bool isChecked)
         {
             this.Key = key;
             this.IsChecked = isChecked;

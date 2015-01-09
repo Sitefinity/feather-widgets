@@ -56,26 +56,25 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the serialized social share section map.
+        /// Gets or sets the serialized list of social share options.
         /// </summary>
-        /// <value>The serialized social share section map.</value>
-        public string SerializedSocialShareSectionMap
+        public string SerializedSocialShareOptionsList
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(this.serializedSocialShareSectionMap))
+                if (string.IsNullOrWhiteSpace(this.serializedSocialShareOptionsList))
                 {
-                    this.serializedSocialShareSectionMap = JsonSerializer.SerializeToString(this.SocialShareSectionMap);
+                    this.serializedSocialShareOptionsList = JsonSerializer.SerializeToString(this.SocialShareGroups);
                 }
 
-                return this.serializedSocialShareSectionMap;
+                return this.serializedSocialShareOptionsList;
             }
 
             set
             {
-                if (this.serializedSocialShareSectionMap != value)
+                if (this.serializedSocialShareOptionsList != value)
                 {
-                    this.serializedSocialShareSectionMap = value;
+                    this.serializedSocialShareOptionsList = value;
                 }
             }
         }
@@ -92,55 +91,54 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets the social share map.
+        /// Gets the list of <see cref="SocialShareGroup" /> objects.
         /// </summary>
-        protected virtual IList<SocialShareGroupMap> SocialShareMap
+        protected virtual IList<SocialShareGroup> SocialShareGroups
         {
             get
             {
-                return string.IsNullOrWhiteSpace(this.serializedSocialShareSectionMap) ?
-                                        this.SocialShareSectionMap :
-                                        JsonSerializer.DeserializeFromString<IList<SocialShareGroupMap>>(this.serializedSocialShareSectionMap);
+                return string.IsNullOrWhiteSpace(this.serializedSocialShareOptionsList) ?
+                                        this.SocialShareOptionsList :
+                                        JsonSerializer.DeserializeFromString<IList<SocialShareGroup>>(this.serializedSocialShareOptionsList);
             }
         }
 
         /// <summary>
-        /// Gets or sets the social share section map.
+        /// Gets the list of <see cref="SocialShareGroup" /> objects based on Sitefinity settings.
         /// </summary>
-        private IList<SocialShareGroupMap> SocialShareSectionMap
+        private IList<SocialShareGroup> SocialShareOptionsList
         {
             get
             {
                 var socialShareSettings = this.SocialShareSettings;
+                var socialShareOptionsList = new List<SocialShareGroup>();
 
-                var socialShareSectionMap = new List<SocialShareGroupMap>();
-
-                socialShareSectionMap.Add(new SocialShareGroupMap(new List<SocialShareMap> 
+                socialShareOptionsList.Add(new SocialShareGroup(new List<SocialShareOption> 
                 { 
-                    { new SocialShareMap("Facebook", socialShareSettings.Facebook) },
-                    { new SocialShareMap("Twitter", socialShareSettings.Twitter) },
-                    { new SocialShareMap("GooglePlusOne", socialShareSettings.GooglePlusOne) },
-                    { new SocialShareMap("LinkedIn", socialShareSettings.LinkedIn) },
-                    { new SocialShareMap("Digg", socialShareSettings.Digg) }
+                    { new SocialShareOption("Facebook", socialShareSettings.Facebook) },
+                    { new SocialShareOption("Twitter", socialShareSettings.Twitter) },
+                    { new SocialShareOption("GooglePlusOne", socialShareSettings.GooglePlusOne) },
+                    { new SocialShareOption("LinkedIn", socialShareSettings.LinkedIn) },
+                    { new SocialShareOption("Digg", socialShareSettings.Digg) }
                 }));
 
-                socialShareSectionMap.Add(new SocialShareGroupMap(new List<SocialShareMap> 
+                socialShareOptionsList.Add(new SocialShareGroup(new List<SocialShareOption> 
                 { 
-                    { new SocialShareMap("Blogger", socialShareSettings.Blogger) },
-                    { new SocialShareMap("Tumblr", socialShareSettings.Tumblr) },
-                    { new SocialShareMap("GoogleBookmarks", socialShareSettings.GoogleBookmarks) },
-                    { new SocialShareMap("Delicious", socialShareSettings.Delicious) },
-                    { new SocialShareMap("MySpace", socialShareSettings.MySpace) }
+                    { new SocialShareOption("Blogger", socialShareSettings.Blogger) },
+                    { new SocialShareOption("Tumblr", socialShareSettings.Tumblr) },
+                    { new SocialShareOption("GoogleBookmarks", socialShareSettings.GoogleBookmarks) },
+                    { new SocialShareOption("Delicious", socialShareSettings.Delicious) },
+                    { new SocialShareOption("MySpace", socialShareSettings.MySpace) }
                 }));
 
-                socialShareSectionMap.Add(new SocialShareGroupMap(new List<SocialShareMap> 
+                socialShareOptionsList.Add(new SocialShareGroup(new List<SocialShareOption> 
                 { 
-                    { new SocialShareMap("StumbleUpon", socialShareSettings.StumbleUpon) },
-                    { new SocialShareMap("Reddit", socialShareSettings.Reddit) },
-                    { new SocialShareMap("MailTo", socialShareSettings.MailTo) }
+                    { new SocialShareOption("StumbleUpon", socialShareSettings.StumbleUpon) },
+                    { new SocialShareOption("Reddit", socialShareSettings.Reddit) },
+                    { new SocialShareOption("MailTo", socialShareSettings.MailTo) }
                 }));
 
-                return socialShareSectionMap;
+                return socialShareOptionsList;
             }
         }
         #endregion
@@ -155,7 +153,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            this.Model.InitializeSocialShareButtons(this.SocialShareMap);
+            this.Model.InitializeSocialShareButtons(this.SocialShareGroups);
 
             return this.View(this.TemplateName, this.Model);
         }
@@ -188,6 +186,6 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
 
         private ISocialShareModel model;
         private string templateName = "SocialShare";
-        private string serializedSocialShareSectionMap;
+        private string serializedSocialShareOptionsList;
     }
 }
