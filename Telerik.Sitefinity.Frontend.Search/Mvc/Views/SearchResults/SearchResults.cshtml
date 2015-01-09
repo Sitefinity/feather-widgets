@@ -30,7 +30,7 @@
      </div>
 </script>
 
-<section class="section">
+<section class="section @Model.CssClass">
     <div class="container">
         <div class="col-md-8 col-md-offset-2 row--border">
             <div class="row text-center">
@@ -50,7 +50,11 @@
             </div>
 
             <div id="search-results"> </div>
-			 <div id="pager" class="k-pager-wrap"></div>
+
+            @if (Model.DisplayMode == ListDisplayMode.Paging)
+            {  
+			<div id="pager" class="k-pager-wrap"></div>
+            }
 
         </div>
     </div>
@@ -62,7 +66,7 @@
 	
             transport: {
                 read: {
-                    url: '@Url.Action("Results", "SearchResults", new {searchQuery = Request.QueryString["searchQuery"], indexCatalogue = Request.QueryString["indexCatalogue"]})',
+                    url: '@Url.Action("Results", "SearchResults", new { searchQuery = Request.QueryString["searchQuery"], indexCatalogue = Request.QueryString["indexCatalogue"] })',
                     dataType: 'json'
                 }
             },
@@ -78,6 +82,7 @@
            template: kendo.template($("#template").html()),
            pageable: true
        });
+       
        $("#pager").kendoPager({
            dataSource: dataSource
        });
