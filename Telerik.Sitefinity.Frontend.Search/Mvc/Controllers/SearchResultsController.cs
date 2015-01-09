@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
@@ -7,6 +8,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -58,16 +60,23 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null)
+        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null)
         {
-            var queryString = string.Format("?indexCatalogue={0}&searchQuery={1}&wordsMode={2}", indexCatalogue, searchQuery, wordsMode);
-            this.ViewBag.RedirectPageUrlTemplate = this.GetCurrentPageUrl() + "/{0}" + queryString;
+            var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}";
+            var languageParamFormat = "&language={0}";
+
+            var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode);
+            var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
+            var currentPageUrl = this.GetCurrentPageUrl();
+
+            this.ViewBag.RedirectPageUrlTemplate = String.Concat(currentPageUrl, "/{0}", queryString, languageParam);
+            this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
 
             // Get the model
             if (!String.IsNullOrEmpty(searchQuery))
             {
                 this.Model.IndexCatalogue = indexCatalogue;
-                this.Model.PopulateResults(searchQuery, page);
+                this.Model.PopulateResults(searchQuery, page, language);
             }
 
             return View(this.TemplateName, this.Model);
@@ -81,15 +90,14 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </summary>
         private ISearchResultsModel InitializeModel()
         {
-            //var constructorParams = new Dictionary<string, object>
-            //{
-            //    {"suggestionsRoute", "/restapi/search/suggestions"},
-            //    {"minSuggestionLength", this.GetMinSuggestLength()},
-            //    {"suggestionFields", "Title,Content"},
-            //    {"language", this.GetCurrentUILanguage()},
-            //    {"cssClass", this.CssClass}
-            //};
-            return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType());
+            var languages = SystemManager.CurrentContext.AppSettings.DefinedFrontendLanguages;
+            var constructorParams = new Dictionary<string, object>
+            {
+                {"languages", languages}
+            };
+            
+
+            return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType(), constructorParams);
         }
 
         #endregion

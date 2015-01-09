@@ -80,7 +80,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         #endregion
 
         #region Resources
-
         /// <summary>
         /// Word: Search
         /// </summary>
@@ -151,6 +150,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         /// <value>Search indexes</value>
         [ResourceEntry("SearchIndexesDescriptionTitle",
             Value = "Search indexes",
+            Description = "",
             LastModified = "2015/01/06")]
         public string SearchIndexesDescriptionTitle
         {
@@ -329,7 +329,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         }
 
         #region SearchResult designer resources
-
         /// <summary>
         /// Phrase: Sort results
         /// </summary>
@@ -545,9 +544,39 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
                 return this["ShowAllItems"];
             }
         }
-
         #endregion
 
+        /// <summary>
+        /// phrase: Show results in
+        /// </summary>
+        /// <value>Show results in</value>
+        [ResourceEntry("ChangeResultsLanguageLabel",
+            Value = "Show results in",
+            Description = "phrase: Show results in",
+            LastModified = "2015/01/08")]
+        public string ChangeResultsLanguageLabel
+        {
+            get
+            {
+                return this["ChangeResultsLanguageLabel"];
+            }
+        }
+
+        /// <summary>
+        /// word: or
+        /// </summary>
+        /// <value>or</value>
+        [ResourceEntry("OrLabel",
+            Value = "or",
+            Description = "word: or",
+            LastModified = "2015/01/09")]
+        public string OrLabel
+        {
+            get
+            {
+                return this["OrLabel"];
+            }
+        }
         #endregion
     }
 }
