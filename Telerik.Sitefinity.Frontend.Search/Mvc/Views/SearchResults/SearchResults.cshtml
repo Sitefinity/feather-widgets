@@ -3,11 +3,25 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/resultSort.js"))
+
 <section class="section">
     <div class="container">
         <div class="col-md-8 col-md-offset-2 row--border">
             <div class="row text-center">
-                <h1><span>@Model.TotalResultsCount</span>@Html.Raw(Model.ResultText)</h1>
+                <h1><span>@Model.TotalResultsCount &nbsp;</span>@Html.Raw(Model.ResultText)</h1>
+                @if(Model.AllowSorting)
+                {
+                    @Html.DropDownList("UserSort",
+                         new[]
+                         {
+                              new SelectListItem { Text="Relevance", Value= OrderByOptions.Relevance.ToString(), Selected = OrderByOptions.Relevance==Model.OrderBy },
+                              new SelectListItem { Text="Newest first", Value= OrderByOptions.Newest.ToString(), Selected = OrderByOptions.Newest==Model.OrderBy },
+                              new SelectListItem { Text="Oldest first", Value= OrderByOptions.Oldest.ToString(), Selected = OrderByOptions.Oldest==Model.OrderBy },
+                              new SelectListItem { Text="New-modified first", Value= OrderByOptions.NewModified.ToString(), Selected = OrderByOptions.NewModified==Model.OrderBy }
+                         }
+                    )
+                }
             </div>
             <div id="search-results">
                 @foreach (var item in Model.Results)

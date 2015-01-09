@@ -58,7 +58,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null)
+        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string orderBy = "Relevance")
         {
             var queryString = string.Format("?indexCatalogue={0}&searchQuery={1}&wordsMode={2}", indexCatalogue, searchQuery, wordsMode);
             this.ViewBag.RedirectPageUrlTemplate = this.GetCurrentPageUrl() + "/{0}" + queryString;
@@ -66,6 +66,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             // Get the model
             if (!String.IsNullOrEmpty(searchQuery))
             {
+                OrderByOptions orderByOption;
+                Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
+                this.Model.OrderBy = orderByOption;
                 this.Model.IndexCatalogue = indexCatalogue;
                 this.Model.PopulateResults(searchQuery, page);
             }
