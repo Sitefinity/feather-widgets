@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BATFeather.cs" />
+    <Compile Include="Framework\ElementMap\SocialShare\SocialShareWidgetEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\SocialShare\SocialShareMap.cs" />
     <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerContentScreen.cs" />
     <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerContentScreenMap.cs" />
     <Compile Include="Framework\ElementMap\Content\ContentBlockWidgetScreen.cs" />
@@ -95,7 +97,13 @@
     <Compile Include="Framework\ElementMap\Navigation\NavigationMap.cs" />
     <Compile Include="Framework\ElementMap\Navigation\NavigationWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Navigation\NavigationWidgetFrontend.cs" />
+    <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesCreateEditBaseScreen.cs" />
+    <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesCreateScreenFrame.cs" />
+    <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
+    <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareWidgetEditWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerContentScreenWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetsFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlocksWrapperFacade.cs" />
@@ -108,6 +116,10 @@
     <Compile Include="Framework\Wrappers\Backend\Navigation\NavigationWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Pages\PagesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Pages\PageZoneEditorWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesCreateEditScreenWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesCreateScreenFrameWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\BaseWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
@@ -118,6 +130,8 @@
     <Compile Include="Framework\Wrappers\Frontend\Navigation\NavigationWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\News\NewsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\News\NewsWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\SocialShare\SocialShareWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\SocialShare\SocialShareWrapper.cs" />
     <Compile Include="Framework\Wrappers\WrappersFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
