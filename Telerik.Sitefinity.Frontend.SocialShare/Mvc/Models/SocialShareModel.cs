@@ -10,11 +10,18 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
-    /// Social Share Model
+    /// This class represents the model used for Social Share widget.
     /// </summary>
-    public class SocialShareModel
+    public class SocialShareModel : ISocialShareModel
     {
-        #region Public members
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SocialShareModel" /> class.
+        /// </summary>
+        public SocialShareModel()
+        {
+        }
+
+        #region Properties
 
         /// <summary>
         /// Gets the social buttons
@@ -27,43 +34,49 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Models
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        public string CssClass { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SocialShareModel"/> class based on the Sitefinity basic settings.
+        /// Gets the social share settings.
         /// </summary>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        public SocialShareModel()
+        /// <value>The social share settings.</value>
+        protected internal virtual ISocialShareSettings SocialShareSettings
         {
-            this.GetBasicSettingsSocialShare();
-        }
-
-        #region Helper methods
-
-        /// <summary>
-        /// Gets the basic settings social share depending on the Sitefinity configurations.
-        /// </summary>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        internal void GetBasicSettingsSocialShare()
-        {
-            var settings = this.GetSocialShareSection();
-            var properties = typeof(ISocialShareSettings).GetProperties().Where(p => p.PropertyType.Equals(typeof(bool)) && p.Name != "DisplayCounters");
-            bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
-            bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
-            bool displayCounters = settings.DisplayCounters && addText;
-            foreach (var property in properties)
+            get
             {
-                if ((bool)property.GetValue(settings, null))
-                    this.SocialButtons.Add(new SocialButtonModel(property.Name.ToPascalCase(), addText, displayCounters, bigSize));
+                return SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
             }
         }
 
-        internal ISocialShareSettings GetSocialShareSection()
-        {
-            return SystemManager.CurrentContext.GetSetting<SocialShareSettingsContract, ISocialShareSettings>();
-        }
-
         #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Initialize the selected social share options.
+        /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        public virtual void InitializeSocialShareButtons(IList<SocialShareGroup> socialShareGroups)
+        {
+            ISocialShareSettings settings = this.SocialShareSettings;
+            bool addText = settings.SocialShareMode == SocialShareMode.IconsWithText;
+            bool bigSize = settings.SocialShareMode == SocialShareMode.BigIcons;
+            bool displayCounters = settings.DisplayCounters && addText;
+
+            foreach (SocialShareGroup group in socialShareGroups)
+            {
+                foreach (var property in group.Groups.Where(i => i.IsChecked))
+                {
+                    this.SocialButtons.Add(new SocialButtonModel(property.Key.ToPascalCase(), addText, displayCounters, bigSize));
+                }
+            }
+        }
+        #endregion        
 
         private List<SocialButtonModel> socialButtons;
     }

@@ -5,7 +5,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
     /// <summary>
     /// This is test class for ReorderSelectedDynamicItems.

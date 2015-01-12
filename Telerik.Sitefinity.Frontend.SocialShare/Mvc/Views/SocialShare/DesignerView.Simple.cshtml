@@ -1,0 +1,40 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<h4>@Html.Resource("SocialShareOptions")</h4>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-xs-4" ng-repeat="socialGroups in socialShareGroups">
+            <div class="checkbox" ng-repeat="group in socialGroups.Groups">
+                <label>
+                    <input type='checkbox' ng-model="group.IsChecked">{{::group.Label}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="socialShareTemplateName">@Html.Resource("Template")</label>
+    <div class="row">
+        <div class="col-xs-6">
+            <select id="socialShareTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames("SocialShare", @"(?<viewName>^SocialShare.*)$"))
+                {
+                    <option value="@viewName"> @viewName</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+        <div class="form-group">
+            <label for="navCssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="navCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
+</div>
