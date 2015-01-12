@@ -29,6 +29,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         public SearchResultsModel(CultureInfo[] languages)
 	    {
             this.Languages = languages;
+            this.Results = new ResultModel();
 	    }
 
         #endregion
@@ -120,7 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
             var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
             this.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
-            this.Results = new ResultModel() { Data = result.ToList(), TotalCount = totalCount };
+            this.Results = new ResultModel(result.ToList(), totalCount);
         }
 
         /// <summary>
@@ -198,7 +199,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             switch (this.OrderBy)
             {
                 case OrderByOptions.Relevance:
-                    return new[] { "_score desc" };
+                    return null;
                 case OrderByOptions.TitleAsc:
                     return new[] { "Title" };
                 case OrderByOptions.TitleDesc:
@@ -210,7 +211,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 case OrderByOptions.NewModified:
                     return new[] { "LastModified desc" };
                 default:
-                    return new[] { "_score" };
+                    return null;
             }
         }
 
