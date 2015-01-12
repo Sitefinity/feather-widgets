@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 
@@ -68,18 +70,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null, string orderBy = null)
         {
-            var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}";
-            var languageParamFormat = "&language={0}";
-
-            var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode);
-            var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
-            var currentPageUrl = this.GetCurrentPageUrl();
-
-            this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
-
-            // Get the model
             if (!String.IsNullOrEmpty(searchQuery))
             {
+                var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}";
+                var languageParamFormat = "&language={0}";
+
+                var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode);
+                var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
+                var currentPageUrl = this.GetCurrentPageUrl();
+                this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
+
                 if (orderBy != null)
                 {
                     OrderByOptions orderByOption;
@@ -87,11 +87,15 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     this.Model.OrderBy = orderByOption;
                 }
                 this.Model.IndexCatalogue = indexCatalogue;
+                string queryTest = searchQuery.Trim('\"');
 
-                this.Model.PopulateResults(searchQuery, null, language);
+                var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
+                this.Model.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
+
+                return View(this.TemplateName, this.Model);
             }
 
-            return View(this.TemplateName, this.Model);
+            return null;
         }
 
         /// <summary>

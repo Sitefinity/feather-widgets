@@ -43,15 +43,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\karma.conf.js" />
+    <Content Include="helpers\mocks\sfSearchServiceMock.js" />
+    <Content Include="unit\News\designerViewSimpleSpec.js" />
+    <Content Include="unit\Search\designerViewSimpleSpec.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test.bat" />
     <None Include="test.debug.bat" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="helpers\mocks\" />
-    <Folder Include="unit\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
