@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Publishing;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Configuration;
 using Telerik.Sitefinity.Services.Search.Data;
-using Telerik.Sitefinity.Services.Search.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
@@ -166,7 +165,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
         private bool TryBuildLanguageFilter(string language, out ISearchFilter filter)
         {
-            if (String.IsNullOrEmpty(language))
+            if (String.IsNullOrEmpty(language) ||
+                !SystemManager.CurrentContext.AppSettings.Multilingual)
             {
                 filter = null;
                 return false;
@@ -175,8 +175,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             filter = ObjectFactory.Resolve<ISearchFilter>();
             filter.Clauses = new List<ISearchFilterClause>()
             {
-                new SearchFilterClause(PublishingConstants.LanguageField, this.TransformLanguageFieldValue(language), FilterOperator.Equals)
+                new SearchFilterClause(PublishingConstants.LanguageField, this.TransformLanguageFieldValue(language), FilterOperator.Equals),
+                new SearchFilterClause(PublishingConstants.LanguageField, "nullvalue", FilterOperator.Equals)
             };
+            filter.Operator = QueryOperator.Or;
 
             return true;
         }
