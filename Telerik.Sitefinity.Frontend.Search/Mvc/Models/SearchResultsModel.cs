@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
@@ -100,13 +101,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         }
 
         /// <inheritdoc />
+        public bool EscapeSpecialChars { get; set; }
+
+        /// <inheritdoc />
         public CultureInfo[] Languages { get; set; }
 
         #endregion
 
         #region Public methods
         /// <inheritdoc />
-        public void PopulateResults(string searchQuery, int? skip, string language)
+        public virtual void PopulateResults(string searchQuery, int? skip, string language)
         {
             if (skip == null)
                 skip = 0;
@@ -122,6 +126,29 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
             this.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
             this.Results = new ResultModel(result.ToList(), totalCount);
+        }
+
+        /// <summary>
+        /// Validates the search query.
+        /// </summary>
+        /// <param name="searchQuery">The search query.</param>
+        /// <returns></returns>
+        public virtual bool ValidateQuery(ref string searchQuery)
+        {
+            string message = string.Empty;
+            bool isValid = this.EscapeSpecialChars ? this.EscapeSpecialChars : this.Validate(ref searchQuery, out message);
+            if (isValid)
+            {
+                string queryTest = searchQuery.Trim('\"');
+                var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
+                this.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
+            }
+            else
+            {
+                this.ResultText = message;
+            }
+
+            return isValid;
         }
 
         /// <summary>
@@ -163,6 +190,72 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Validates the passed user input against the defined validation rules
+        /// </summary>
+        /// <param name="searchQuery">user input</param>
+        /// <param name="message">message from the config section if input is invalid</param>
+        /// <returns>the modified user input according the rules
+        /// defined in the config section and the message for the rule applied
+        /// </returns>
+        private bool Validate(ref string searchQuery, out string message)
+        {
+            message = string.Empty;
+
+            foreach (var matchRule in this.GetValidationRules())
+            {
+                if (matchRule.RegEx != null)
+                {
+                    Match match = matchRule.RegEx.Match(searchQuery);
+
+                    if (match.Success)
+                    {
+                        message = matchRule.Message;
+
+                        if (!string.IsNullOrEmpty(matchRule.Replacement))
+                        {
+                            searchQuery = matchRule.RegEx.Replace(searchQuery, matchRule.Replacement);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Gets the validation rules.
+        /// </summary>
+        /// <returns>List of validation rules.</returns>
+        private IList<Telerik.Sitefinity.Services.Search.Web.UI.Public.SearchResults.InputMatch> GetValidationRules()
+        {
+            List<Telerik.Sitefinity.Services.Search.Web.UI.Public.SearchResults.InputMatch> rules;
+            RegexOptions regexOptions = RegexOptions.Compiled;
+
+            rules = new List<Telerik.Sitefinity.Services.Search.Web.UI.Public.SearchResults.InputMatch>();
+            var config = Config.Get<SearchConfig>();
+            foreach (SearchValidationElement element in config.SearchInputValidation)
+            {
+                bool enabled;
+                bool.TryParse(element.Enabled, out enabled);
+
+                if (element.MatchPattern != null
+                    && enabled)
+                {
+                    rules.Add(new Telerik.Sitefinity.Services.Search.Web.UI.Public.SearchResults.InputMatch(
+                            element.ReplacementString,
+                            new Regex(element.MatchPattern, regexOptions),
+                            element.MatchAlert));
+                }
+            }
+
+            return rules;
+        }
 
         private bool TryBuildLanguageFilter(string language, out ISearchFilter filter)
         {

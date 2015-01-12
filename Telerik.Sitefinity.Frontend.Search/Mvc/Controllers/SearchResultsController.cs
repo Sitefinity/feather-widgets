@@ -72,27 +72,27 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             if (!String.IsNullOrEmpty(searchQuery))
             {
-                var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}";
-                var languageParamFormat = "&language={0}";
+                bool isValid = this.Model.ValidateQuery(ref searchQuery);
 
-                var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode);
-                var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
-                var currentPageUrl = this.GetCurrentPageUrl();
-                this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
-
-                if (orderBy != null)
+                if (isValid)
                 {
-                    OrderByOptions orderByOption;
-                    Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
-                    this.Model.OrderBy = orderByOption;
+                    var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}";
+                    var languageParamFormat = "&language={0}";
+
+                    var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode);
+                    var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
+                    var currentPageUrl = this.GetCurrentPageUrl();
+                    this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
+
+                    this.InitializeOrderByEnum(orderBy);
+                    this.Model.IndexCatalogue = indexCatalogue;
+                    
+                    return View(this.TemplateName, this.Model);
                 }
-                this.Model.IndexCatalogue = indexCatalogue;
-                string queryTest = searchQuery.Trim('\"');
-
-                var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
-                this.Model.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
-
-                return View(this.TemplateName, this.Model);
+                else
+                {
+                    return View(SearchResultsController.ValidationErrorViewName);
+                }
             }
 
             return null;
@@ -110,12 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             if (!String.IsNullOrEmpty(searchQuery))
             {
-                if (orderBy != null)
-                {
-                    OrderByOptions orderByOption;
-                    Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
-                    this.Model.OrderBy = orderByOption;
-                }
+                this.InitializeOrderByEnum(orderBy);
                 this.Model.IndexCatalogue = indexCatalogue;
                 this.Model.PopulateResults(searchQuery, skip, language);
             }
@@ -141,11 +136,23 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType(), constructorParams);
         }
 
+        private void InitializeOrderByEnum(string orderBy)
+        {
+            if (!orderBy.IsNullOrEmpty())
+            {
+                OrderByOptions orderByOption;
+                Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
+                this.Model.OrderBy = orderByOption;
+            }
+        }
+
         #endregion
 
         #region Private fields and constants
         private ISearchResultsModel model;
         private string templateName = "SearchResults";
+        private const string ValidationErrorViewName = "InputValidationError";
         #endregion
+
     }
 }

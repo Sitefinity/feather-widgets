@@ -191,6 +191,7 @@
     <EmbeddedResource Include="Mvc\Views\SearchResults\SearchResults.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SearchResults\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SearchResults\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\SearchResults\InputValidationError.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
