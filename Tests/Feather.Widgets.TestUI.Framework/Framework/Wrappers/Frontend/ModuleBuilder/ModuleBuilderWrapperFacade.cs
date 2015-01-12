@@ -19,5 +19,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBui
         {
             return new ModuleBuilderWrapper();
         }
+
+        /// <summary>
+        /// Provides unified access to the InlineEditingWrapper 
+        /// </summary>
+        /// <returns>Returns the InlineEditingWrapper</returns>
+        public InlineEditingWrapper InlineEditingWrapper()
+        {
+            return new InlineEditingWrapper();
+        }
     }
 }

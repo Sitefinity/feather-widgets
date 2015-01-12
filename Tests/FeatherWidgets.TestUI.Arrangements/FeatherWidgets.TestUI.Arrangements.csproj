@@ -111,6 +111,7 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
+    <Compile Include="DynamicWidgets\EditDynamicWidgetViaInlineEditing.cs" />
     <Compile Include="DynamicWidgets\ReorderSelectedDynamicItems.cs" />
     <Compile Include="DynamicWidgets\EditDeleteTagAndEdiDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage.cs" />
