@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ModuleBuilder;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.WidgetTemplates;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -56,6 +57,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public WidgetsFacade Widgets()
         {
             return new WidgetsFacade();
+        }
+
+        /// <summary>
+        /// Commons this instance.
+        /// </summary>
+        /// <returns></returns>
+        public SocialShareWrapperFacade SocialShare()
+        {
+            return new SocialShareWrapperFacade();
+        }
+
+        /// <summary>
+        /// Widgets templates.
+        /// </summary>
+        /// <returns></returns>
+        public WidgetTemplatesWrapperFacade WidgetTemplates()
+        {
+            return new WidgetTemplatesWrapperFacade();
         }
     }
 }

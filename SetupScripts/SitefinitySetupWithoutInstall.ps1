@@ -23,7 +23,7 @@ write-output "Sitefinity successfully deployed."
 function CopyTestAssemblies($workingDirectory, $destinationDirectory)
 {
    write-output "Start copying test assemblies from $workingDirectory to $destinationDirectory."
-   Get-ChildItem *Test*.dll -recurse  -path $workingDirectory | Copy-Item -destination $destinationDirectory
+   Get-ChildItem *Test*.dll -recurse -path $workingDirectory -exclude Telerik.TestUI.Core.dll | Copy-Item -destination $destinationDirectory
 }
 
 write-output "------- Sitefinity Installed --------"

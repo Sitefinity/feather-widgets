@@ -114,6 +114,7 @@
     <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
+    <Compile Include="DynamicWidgets\EditDynamicWidgetViaInlineEditing.cs" />
     <Compile Include="DynamicWidgets\ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage.cs" />
     <Compile Include="DynamicWidgets\FilterDynamicItemWithCustomTaxonomyOnPage.cs" />
     <Compile Include="DynamicWidgets\FilterDynamicItemWithCategoryTagAndDateOnPage.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeatherTestCase.cs" />
     <Compile Include="FeatherTestCategories.cs" />
+    <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

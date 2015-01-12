@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.SocialShare;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.WidgetTemplates;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
@@ -79,6 +81,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         }
 
         /// <summary>
+        /// Gets or sets the social share.
+        /// </summary>
+        /// <value>The social share.</value>
+        public SocialShareMap SocialShare
+        {
+            get
+            {
+                if (this.socialShareMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.socialShareMap = new SocialShareMap(this.find);
+                }
+
+                return this.socialShareMap;
+            }
+
+            private set
+            {
+                this.socialShareMap = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the news element map.
         /// </summary>
         /// <value>An initialized instance of events element map.</value>
@@ -120,6 +145,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets or sets the widget templates.
+        /// </summary>
+        /// <value>The widget templates.</value>
+        public WidgetTemplatesMap WidgetTemplates
+        {
+            get
+            {
+                if (this.widgetTemplatesMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.widgetTemplatesMap = new WidgetTemplatesMap(this.find);
+                }
+
+                return this.widgetTemplatesMap;
+            }
+
+            private set
+            {
+                this.widgetTemplatesMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -131,7 +179,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private Find find;
         private ContentMap contentMap;
         private NavigationMap navigationMap;
+        private SocialShareMap socialShareMap;
         private ModuleBuilderMap moduleBuilderMap;
+        private WidgetTemplatesMap widgetTemplatesMap;
         private WidgetDesignerContentScreenMap widgetDesignerContentScreenMap;
     }
 }
