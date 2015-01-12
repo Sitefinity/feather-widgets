@@ -10,7 +10,6 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.StringResources
     public class NewsWidgetResources : Resource
     {
         #region Constructions
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsWidgetResources"/> class.
         /// </summary>
@@ -61,9 +60,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.StringResources
         /// <summary>
         /// Gets the display.
         /// </summary>
-        /// <value>
-        /// The display.
-        /// </value>
+        /// <value>The display.</value>
         [ResourceEntry("Display",
             Value = "Display",
             Description = "word : Display",
@@ -508,6 +505,22 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.StringResources
             get
             {
                 return this["By"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: As set manually
+        /// </summary>
+        /// <value>As set manually</value>
+        [ResourceEntry("AsSetManually",
+            Value = "As set manually",
+            Description = "phrase: As set manually",
+            LastModified = "2015/01/12")]
+        public string AsSetManually
+        {
+            get
+            {
+                return this["AsSetManually"];
             }
         }
     }
