@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GeoLocations.Model;
+using Telerik.Sitefinity.Locations;
+using Telerik.Sitefinity.Locations.Configuration;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Security;
@@ -56,6 +59,62 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             var myCollection = dynamicModuleManager.GetDataItems(pressArticleType).ToList();
             //// At this point myCollection contains the items from type pressArticleType
             return myCollection;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Alltypes"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+        public void CreateAlltypes()
+        {
+            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
+            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
+            var providerName = string.Empty;
+
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            Type alltypesType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.AllTypesModule.Alltypes");
+            DynamicContent alltypesItem = dynamicModuleManager.CreateDataItem(alltypesType);
+
+            //// This is how values for the properties are set
+            alltypesItem.SetValue("Title", "Some Title");
+            alltypesItem.SetValue("LongText", "Some LongText");
+            alltypesItem.SetValue("ShortText", "Some ShortText");
+            //// Set the selected value 
+            alltypesItem.SetValue("Choices", new string[] { "1" });
+            //// Set the selected value 
+            alltypesItem.SetValue("ChoicesRadioButtons", "2");
+            //// Set the selected value 
+            alltypesItem.SetValue("ChoicesDropDown", "3");
+            alltypesItem.SetValue("YesNo", true);
+            alltypesItem.SetValue("DateTime", DateTime.Now);
+            alltypesItem.SetValue("Number", 25);
+            TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
+            var category = taxonomyManager.GetTaxa<HierarchicalTaxon>().Where(t => t.Taxonomy.Name == "Categories").FirstOrDefault();
+            if (category != null)
+            {
+                alltypesItem.Organizer.AddTaxa("Category", category.Id);
+            }
+
+            var tag = taxonomyManager.GetTaxa<FlatTaxon>().Where(t => t.Taxonomy.Name == "Tags").FirstOrDefault();
+            if (tag != null)
+            {
+                alltypesItem.Organizer.AddTaxa("Tags", tag.Id);
+            }
+
+            Address address = new Address();
+            CountryElement addressCountry = Config.Get<LocationsConfig>().Countries.Values.First(x => x.Name == "United States");
+            address.CountryCode = addressCountry.IsoCode;
+            address.StateCode = addressCountry.StatesProvinces.Values.First().Abbreviation;
+            address.City = "Some City";
+            address.Street = "Some Street";
+            address.Zip = "12345";
+            alltypesItem.SetValue("Address", address);
+         
+            alltypesItem.SetString("UrlName", "SomeUrlName");
+            alltypesItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
+            alltypesItem.SetValue("PublicationDate", DateTime.Now);
+            alltypesItem.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
+            dynamicModuleManager.Lifecycle.Publish(alltypesItem);
+
+            // You need to call SaveChanges() in order for the items to be actually persisted to data store
+            dynamicModuleManager.SaveChanges();
         }
     }
 }

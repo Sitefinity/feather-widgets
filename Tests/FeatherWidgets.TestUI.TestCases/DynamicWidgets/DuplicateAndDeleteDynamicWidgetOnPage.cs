@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicTitlePresentOnTheFrontend(dynamicTitles));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(dynamicTitles));
             Assert.AreEqual(count, BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().ListWithDynamicWidgets().Count);
         }
 

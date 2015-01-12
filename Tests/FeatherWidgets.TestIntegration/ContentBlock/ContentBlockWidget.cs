@@ -113,7 +113,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
             string urlNamePrefix = "content-block";
             int pageIndex = 1;
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + pageIndex);
-            string socialShare = "list-inline s-social-share-list";
+            string socialShare = "list-inline sf-social-share";
 
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(ContentBlockController).FullName;

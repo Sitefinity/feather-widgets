@@ -46,7 +46,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            HtmlUnorderedList socialShareButtons = frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=list-inline s-social-share-list").
+            HtmlUnorderedList socialShareButtons = frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=list-inline sf-social-share").
                 AssertIsPresent("Social share buttons");
 
             Assert.IsNotNull(socialShareButtons, "Social share buttons");

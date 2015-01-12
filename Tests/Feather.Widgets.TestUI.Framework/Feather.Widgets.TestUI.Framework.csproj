@@ -124,6 +124,7 @@
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FrontendWrappesFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\InlineEditingWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Navigation\NavigationWrapper.cs" />
