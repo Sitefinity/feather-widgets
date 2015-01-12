@@ -27,7 +27,7 @@
                  .then(function () {
                      $scope.feedback.savingHandlers.push(function () {
                          $scope.properties.SerializedSocialShareOptionsList.PropertyValue = JSON.stringify($scope.socialShareGroups);
-                     })
+                     });
                  })
                  .finally(function () {
                      $scope.feedback.showLoadingIndicator = false;
