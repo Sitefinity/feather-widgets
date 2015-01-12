@@ -25,6 +25,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBui
             for (int i = 0; i < dynamicTitle.Length; i++)
             {
                 isContained = frontendPageMainDiv.InnerText.Contains(dynamicTitle[i]);
+                if (!isContained)
+                {
+                    return isContained;
+                }
             }
 
             return isContained;

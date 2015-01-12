@@ -77,6 +77,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string YesNoValue = "No";
         private const string DateTime = "DateTime";
         private const string Date = "1/5/2015 10:00 PM";
+        private const string DateValue = "Jan 5, 2015, 22:00 PM";
         private const string ShortText = "ShortText";
         private const string NewShortText = "New short text";
         private const string LongText = "LongText";
@@ -86,6 +87,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string NewCategoryName = "New category";
         private const string Tags = "Tags";
         private const string NewTags = "New tag";
-        private string[] dynamicContent = { NewTitle, NewShortText, choices[1], choices[0], YesNoValue, Date, NewLongText, NewCategoryName, NewTags };
+        private string[] dynamicContent = { NewTitle, NewShortText, choices[2], choices[0], YesNoValue, DateValue, NewLongText, NewCategoryName, NewTags };
     }
 }
