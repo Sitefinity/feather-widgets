@@ -2,12 +2,40 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
+@using Telerik.Sitefinity.Modules.Pages;
 
-<section class="section">
+<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.common-bootstrap.min.css" />
+<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.bootstrap.min.css" />
+
+@Html.Script(ScriptRef.JQuery)
+@Html.Script(ScriptRef.KendoAll)
+
+
+<script type="text/x-kendo-tmpl" id="template">
+    <div class="row" style="margin-bottom: 10px;">	   
+		<h3><a href="#=GetPropertyValue(Fields, "Link")#">#=GetPropertyValue(Fields, "Title")#</a></h3>
+		<p>#=GetPropertyValue(Fields, "HighLighterResult")#</p>		
+		<a href="#=GetPropertyValue(Fields, "Link")#">#=GetPropertyValue(Fields, "Link")#</a>
+     </div>
+</script>
+
+<section class="section @Model.CssClass">
     <div class="container">
         <div class="col-md-8 col-md-offset-2 row--border">
             <div class="row text-center">
-                <h1><span>@Model.TotalResultsCount</span>@Html.Raw(Model.ResultText)</h1>
+                <h1><span>@Model.Results.TotalCount &nbsp;</span>@Html.Raw(Model.ResultText)</h1>
+                @if(Model.AllowSorting)
+                {
+                    @Html.DropDownList("UserSort",
+                         new[]
+                         {
+                              new SelectListItem { Text="Relevance", Value= OrderByOptions.Relevance.ToString(), Selected = OrderByOptions.Relevance==Model.OrderBy },
+                              new SelectListItem { Text="Newest first", Value= OrderByOptions.Newest.ToString(), Selected = OrderByOptions.Newest==Model.OrderBy },
+                              new SelectListItem { Text="Oldest first", Value= OrderByOptions.Oldest.ToString(), Selected = OrderByOptions.Oldest==Model.OrderBy },
+                              new SelectListItem { Text="New-modified first", Value= OrderByOptions.NewModified.ToString(), Selected = OrderByOptions.NewModified==Model.OrderBy }
+                         }
+                    )
+                }
             </div>
             <div>
                 <span>@Html.Resource("ChangeResultsLanguageLabel") </span>
@@ -22,29 +50,71 @@
                     {
                         <span> @Html.Resource("OrLabel") </span>
                     }
-                }                
+                }     
             </div>
-            <div id="search-results">
-                @foreach (var item in Model.Results)
-                {
-                    <div class="row" style="margin-bottom: 10px;">
-                        <h3><a href="@item.GetValue("Link")">@item.GetValue("Title")</a></h3>
-                        <p>@Html.Raw(item.GetValue("HighLighterResult"))</p>
-                        <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
-                    </div>
-                }
 
-                @if (Model.DisplayMode == ListDisplayMode.Paging && Model.TotalPagesCount != null && Model.TotalPagesCount > 1)
-                {
-                    @Html.Action("Index", "ContentPager", new
-                    {
-                        currentPage = Model.CurrentPage,
-                        totalPagesCount = Model.TotalPagesCount,
-                        redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
-                    })
-                }
-            </div>
+            <div id="search-results"> </div>
+
+            @if (Model.DisplayMode == ListDisplayMode.Paging)
+            {  
+			<div id="pager" class="k-pager-wrap"></div>
+            }
 
         </div>
     </div>
 </section>
+
+<script type="text/javascript">       
+    $(document).ready(function () {      
+        
+        GetPropertyValue= function(fields, propName) {
+            var propValue = "";
+            if(fields.filter){
+                var matchedProperties =  fields.filter(function (chain) {
+                    return chain.Name === propName;
+                });
+            
+                if(matchedProperties)
+                    propValue = matchedProperties[0].Value;
+            }
+
+            return propValue;
+        };
+
+        var dataSource = new kendo.data.DataSource({
+	
+            transport: {
+                read: {
+                    url: '@Url.Action("Results", "SearchResults", new { searchQuery = Request.QueryString["searchQuery"], indexCatalogue = Request.QueryString["indexCatalogue"], language = Request.QueryString["language"] })',
+                    dataType: 'json'
+                }
+            },
+            serverPaging: true,
+            pageSize: @Model.ItemsPerPage,
+            schema: {
+                data: "Data", // records are returned in the "data" field of the response
+                total: "TotalCount" // total number of records is in the "total" field of the response
+            }
+        });
+        $('#search-results').kendoListView({
+            dataSource: dataSource,
+            template: kendo.template($("#template").html()),
+            pageable: true
+        });
+       
+        $("#pager").kendoPager({
+            dataSource: dataSource
+        });
+
+        //Dropdownlist Selectedchange event
+        $("#UserSort").change(function (value) {
+            var selectedValue = $(value.currentTarget).val();
+            var listView = $('#search-results').data("kendoListView");
+            listView.dataSource.transport.options.read.url =
+                '@Url.Action("Results", "SearchResults", new {searchQuery = Request.QueryString["searchQuery"], indexCatalogue = Request.QueryString["indexCatalogue"], language = Request.QueryString["language"]})' + '?orderBy=' + selectedValue;
+
+            //Read data source to update
+            listView.dataSource.read();
+        })
+    });
+</script>

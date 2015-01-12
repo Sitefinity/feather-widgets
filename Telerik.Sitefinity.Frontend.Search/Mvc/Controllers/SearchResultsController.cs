@@ -55,12 +55,18 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         #region Actions
         /// <summary>
-        ///  Renders appropriate view depending on the <see cref="TemplateName" />
+        /// Renders appropriate view depending on the <see cref="TemplateName"/>
         /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="searchQuery">The search query.</param>
+        /// <param name="indexCatalogue">The index catalogue.</param>
+        /// <param name="wordsMode">The words mode.</param>
+        /// <param name="language">The language.</param>
+        /// <param name="orderBy">The order by.</param>
         /// <returns>
-        /// The <see cref="ActionResult" />.
+        /// The <see cref="ActionResult"/>.
         /// </returns>
-        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null)
+        public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null, string orderBy = null)
         {
             var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}";
             var languageParamFormat = "&language={0}";
@@ -69,17 +75,48 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
             var currentPageUrl = this.GetCurrentPageUrl();
 
-            this.ViewBag.RedirectPageUrlTemplate = String.Concat(currentPageUrl, "/{0}", queryString, languageParam);
             this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
 
             // Get the model
             if (!String.IsNullOrEmpty(searchQuery))
             {
+                if (orderBy != null)
+                {
+                    OrderByOptions orderByOption;
+                    Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
+                    this.Model.OrderBy = orderByOption;
+                }
                 this.Model.IndexCatalogue = indexCatalogue;
-                this.Model.PopulateResults(searchQuery, page, language);
+
+                this.Model.PopulateResults(searchQuery, null, language);
             }
 
             return View(this.TemplateName, this.Model);
+        }
+
+        /// <summary>
+        /// Provides search results for the specified search query.
+        /// </summary>
+        /// <param name="searchQuery">The search query.</param>
+        /// <param name="indexCatalogue">The index catalogue.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="skip">The skip.</param>
+        /// <returns></returns>
+        public JsonResult Results(string searchQuery = null, string indexCatalogue = null, string language = null, string orderBy = null, int? skip = null)
+        {
+            if (!String.IsNullOrEmpty(searchQuery))
+            {
+                if (orderBy != null)
+                {
+                    OrderByOptions orderByOption;
+                    Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
+                    this.Model.OrderBy = orderByOption;
+                }
+                this.Model.IndexCatalogue = indexCatalogue;
+                this.Model.PopulateResults(searchQuery, skip, language);
+            }
+
+            return Json(this.Model.Results, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
