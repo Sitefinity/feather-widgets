@@ -111,3 +111,7 @@ UpgradeLog*.XML
 *.jmconfig
 
 node_modules
+.grunt
+Tests/FeatherWidgets.ClientTest/coverage
+Tests/FeatherWidgets.ClientTest/TestResults
+_SpecRunner.html
