@@ -628,5 +628,21 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources
                 return this["AsSetManually"];
             }
         }
+
+        /// <summary>
+        /// phrase: As set in Advanced mode
+        /// </summary>
+        /// <value>As set in Advanced mode</value>
+        [ResourceEntry("AsSetInAdvancedMode",
+            Value = "As set in Advanced mode",
+            Description = "phrase: As set in Advanced mode",
+            LastModified = "2015/01/13")]
+        public string AsSetInAdvancedMode
+        {
+            get
+            {
+                return this["AsSetInAdvancedMode"];
+            }
+        }
     }
 }
