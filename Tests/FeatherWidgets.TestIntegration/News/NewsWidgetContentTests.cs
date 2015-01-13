@@ -125,6 +125,7 @@ namespace FeatherWidgets.TestIntegration.News
             int newsCount = 10;
             string sortExpession = "Title DESC";
             string[] selectedNewsTitles = { "Title2", "Title7", "Title5" };
+            string[] descendingNewsTitles = { "Title7", "Title5", "Title2" };
             var selectedNewsItems = new NewsItem[3];
 
             for (int i = 0; i < newsCount; i++)
@@ -155,7 +156,7 @@ namespace FeatherWidgets.TestIntegration.News
 
             for (int i = 0; i < newsController.Model.Items.Count; i++)
             {
-                Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(selectedNewsTitles[i]), "The news with this title was not found!");
+                Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(descendingNewsTitles[i]), "The news with this title was not found!");
             }
 
             newsController.Model.SelectionMode = NewsSelectionMode.AllItems;
@@ -186,6 +187,7 @@ namespace FeatherWidgets.TestIntegration.News
             string index2 = "/2";
             string index3 = "/3";
             int itemsPerPage = 3;
+            string sortExpession = "AsSetManually";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
             string url2 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index2);
             string url3 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index3);
@@ -203,6 +205,7 @@ namespace FeatherWidgets.TestIntegration.News
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
             newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+            newsController.Model.SortExpression = sortExpession;
             newsController.Model.ItemsPerPage = itemsPerPage;
 
             var newsManager = NewsManager.GetManager();
@@ -241,7 +244,8 @@ namespace FeatherWidgets.TestIntegration.News
             string pageNamePrefix = testName + "NewsPage";
             string pageTitlePrefix = testName + "News Page";
             string urlNamePrefix = testName + "news-page";
-            int index = 1;    
+            int index = 1;
+            string sortExpession = "AsSetManually";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             int newsCount = 20;
@@ -258,6 +262,7 @@ namespace FeatherWidgets.TestIntegration.News
             var newsController = new NewsController();
             newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
             newsController.Model.DisplayMode = ListDisplayMode.Limit;
+            newsController.Model.SortExpression = sortExpession;
             newsController.Model.ItemsPerPage = 5;
 
             var newsManager = NewsManager.GetManager();
