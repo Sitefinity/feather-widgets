@@ -10,7 +10,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources
     public class DynamicContentResources : Resource
     {
         #region Constructions
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicContentResources"/> class.
         /// </summary>
@@ -76,9 +75,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources
         /// <summary>
         /// Gets the display.
         /// </summary>
-        /// <value>
-        /// The display.
-        /// </value>
+        /// <value>The display.</value>
         [ResourceEntry("Display",
             Value = "Display",
             Description = "word : Display",
@@ -613,6 +610,22 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources
             get
             {
                 return this["AnyParentContentType"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: As set manually
+        /// </summary>
+        /// <value>As set manually</value>
+        [ResourceEntry("AsSetManually",
+            Value = "As set manually",
+            Description = "phrase: As set manually",
+            LastModified = "2015/01/13")]
+        public string AsSetManually
+        {
+            get
+            {
+                return this["AsSetManually"];
             }
         }
     }
