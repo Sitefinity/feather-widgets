@@ -208,6 +208,7 @@
     <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
     <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SocialShare\CheckAllOptionsInSocialShareWidget.cs" />
     <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
   </ItemGroup>
   <ItemGroup>

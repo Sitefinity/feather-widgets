@@ -102,8 +102,10 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareWidgetEditWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialSharePageEditorWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerContentScreenWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetsFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlocksWrapperFacade.cs" />
