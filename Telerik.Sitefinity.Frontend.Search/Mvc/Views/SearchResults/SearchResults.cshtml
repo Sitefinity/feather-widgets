@@ -23,7 +23,7 @@
                 }
             </div>
             
-            @if(Model.Languages.Length > 0)
+            @if(Model.Languages.Length > 1)
             {
                 <div>
                     <span>@Html.Resource("ChangeResultsLanguageLabel") </span>
@@ -78,14 +78,17 @@
 
         // Returns url with all needed parameters
         function getResultsUrl(orderBy, language) {
-            var orderByParam = orderBy || '@Request.QueryString["orderBy"]';
-            var languageParam = language || '@Request.QueryString["language"]';
+            var orderByValue = orderBy || '@Request.QueryString["orderBy"]';
+            var languageValue = language || '@Request.QueryString["language"]';
+
+            var orderByParam = orderByValue ? '&orderBy=' + orderByValue : '';
+            var languageParam = languageValue ? '&language=' + languageValue : '';
 
             return '?indexCatalogue=' + '@Request.QueryString["indexCatalogue"]' + '&' +
                 'searchQuery=' + '@Request.QueryString["searchQuery"]' + '&' +
-                'wordsMode=' + '@Request.QueryString["wordsMode"]' + '&' +
-                'orderBy=' + orderByParam + '&' +
-                'language=' + languageParam;
+                'wordsMode=' + '@Request.QueryString["wordsMode"]' +
+                orderByParam +
+                languageParam;
         }
     });
 </script>
