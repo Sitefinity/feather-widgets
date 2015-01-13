@@ -150,7 +150,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         /// <value>Search indexes</value>
         [ResourceEntry("SearchIndexesDescriptionTitle",
             Value = "Search indexes",
-            Description = "",
+            Description = "Phrase: Search indexes",
             LastModified = "2015/01/06")]
         public string SearchIndexesDescriptionTitle
         {

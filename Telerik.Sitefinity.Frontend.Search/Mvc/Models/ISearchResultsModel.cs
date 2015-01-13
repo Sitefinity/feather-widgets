@@ -107,6 +107,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         string IndexCatalogue { get; set; }
 
         /// <summary>
+        /// Defines whether should match the search terms against a regex pattern.
+        /// </summary>
+        bool EscapeSpecialChars { get; set; }
+
+        /// <summary>
         /// Gets or sets the languages that will be used to filter the search.
         /// </summary>
         /// <value>The languages.</value>
@@ -119,5 +124,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <param name="skip">The skip.</param>      
         /// <param name="language">The language of the displayed results.</param>
         void PopulateResults(string searchQuery, int? skip,  string language);
+
+        /// <summary>
+        /// Validates the query.
+        /// </summary>
+        /// <param name="searchQuery">The search query.</param>
+        bool ValidateQuery(ref string searchQuery);
     }
 }
