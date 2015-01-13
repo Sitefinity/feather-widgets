@@ -17,5 +17,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             return new SocialShareWidgetEditWrapper();
         }
+
+        /// <summary>
+        /// Socials share page editor wrapper.
+        /// </summary>
+        /// <returns></returns>
+        public SocialSharePageEditorWrapper SocialSharePageEditorWrapper()
+        {
+            return new SocialSharePageEditorWrapper();
+        }
     }
 }

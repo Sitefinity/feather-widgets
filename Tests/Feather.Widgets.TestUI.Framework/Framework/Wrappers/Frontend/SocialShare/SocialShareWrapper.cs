@@ -1,4 +1,5 @@
 ﻿using ArtOfTest.WebAii.Controls.HtmlControls;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
@@ -28,6 +29,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             }
 
             return isContained;
+        }
+
+        /// <summary>
+        /// Verifies the social share options in frontend.
+        /// </summary>
+        /// <param name="expectedNumberOfOptions">The expected number of options.</param>
+        /// <param name="optionNames">The option names.</param>
+        public void VerifySocialShareOptionsInFrontend(int expectedNumberOfOptions, params string[] optionNames)
+        {
+            var list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=list-inline sf-social-share");
+            var count = 0;
+            foreach (var optionName in optionNames)
+            {
+                var option = list.Find.ByExpression<HtmlAnchor>("onclick=~" + optionName);
+                if (option == null)
+                {
+                    option = list.Find.ByExpression<HtmlAnchor>("href=~" + optionName);
+                    if (option == null)
+                    {
+                        var div = list.Find.ByExpression<HtmlDiv>("id=~" + optionName);
+                        Assert.IsNotNull(div, "No such option " + optionName + " found");
+                    }
+                }
+                count++;               
+            }
+            Assert.AreEqual(expectedNumberOfOptions, count, "Count is not correct!");
         }
     }
 }
