@@ -46,6 +46,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string NewsSelectors = "NewsSelectors";
 
         /// <summary>
+        /// SocialShare category for SocialShare tests
+        /// </summary>
+        public const string SocialShare = "SocialShare";
+
+        /// <summary>
         /// New category for new tests
         /// </summary>
         public const string New = "New";
