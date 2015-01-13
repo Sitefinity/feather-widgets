@@ -125,7 +125,7 @@
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
                         }
                     }
-                })
+                });
             })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;
