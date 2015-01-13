@@ -199,8 +199,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\SearchBox\designerview-simple.js" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Mvc\Scripts\SearchResults\" />
+    <EmbeddedResource Include="Mvc\Scripts\SearchResults\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
