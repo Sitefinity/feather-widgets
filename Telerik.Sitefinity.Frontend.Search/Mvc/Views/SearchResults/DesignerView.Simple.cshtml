@@ -51,7 +51,7 @@
                 <option value="NewModified"> @Html.Resource("NewModified")</option>
             </select>
 
-            <input id="allowSorting" type="checkbox" ng-model="properties.AllowSorting.PropertyValue" />
+            <input id="allowSorting" type="checkbox" ng-true-value="'True'" ng-false-value="'False'" ng-model="properties.AllowSorting.PropertyValue" />
             <label for="allowSorting">@Html.Resource("AllowUserToSort")</label>
         </div>
     </div>
