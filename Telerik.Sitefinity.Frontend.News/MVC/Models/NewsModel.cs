@@ -356,7 +356,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
 
         private IQueryable<NewsItem> SetExpressions(IQueryable<NewsItem> newsItems, string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
         {
-            if (this.SelectionMode == NewsSelectionMode.SelectedItems)
+            if (sortExpr == "AsSetManually")
             {
                 newsItems = DataProviderBase.SetExpressions(
                     newsItems,

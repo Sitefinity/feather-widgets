@@ -11,7 +11,8 @@ module.exports = function (grunt) {
 			files: ['gruntfile.js',
 					'**/*.js',
 					'!node_modules/**/*.js',
-					'!Tests/**/*.js'
+					'!Tests/**/*.js',
+					'!Telerik.Sitefinity.Frontend.SocialShare/gruntfile.js'
 			]
 		},
 		
