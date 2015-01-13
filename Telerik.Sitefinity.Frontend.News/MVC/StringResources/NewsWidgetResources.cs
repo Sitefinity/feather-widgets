@@ -510,5 +510,20 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.StringResources
                 return this["By"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Full story
+        /// </summary>
+        [ResourceEntry("FullStory",
+            Value = "Full story",
+            Description = "phrase : Full story",
+            LastModified = "2015/01/13")]
+        public string FullStory
+        {
+            get
+            {
+                return this["FullStory"];
+            }
+        }
     }
 }

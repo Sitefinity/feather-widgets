@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestIntegration.News
         [Author("FeatherTeam")]
         public void NewsWidget_SocialShareButtonsFunctionality()
         {
-            string socialShare = "list-inline s-social-share-list";
+            string socialShare = "list-inline sf-social-share";
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
             string pageNamePrefix = testName + "NewsPage" + Guid.NewGuid();
             string pageTitlePrefix = testName + "NewsPage" + Guid.NewGuid();
