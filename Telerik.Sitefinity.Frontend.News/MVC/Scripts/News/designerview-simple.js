@@ -2,6 +2,8 @@
     angular.module('designer').requires.push('expander', 'sfSelectors');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
+
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
         $scope.newsSelector = { selectedItemsIds: [] };
@@ -39,6 +41,12 @@
 	        true
         );
 
+        $scope.updateSortOption = function (newSortOption) {
+            if (newSortOption !== "Custom") {
+                $scope.properties.SortExpression.PropertyValue = newSortOption;
+            }
+        };
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -52,6 +60,13 @@
 
                     if (selectedItemsIds) {
                         $scope.newsSelector.selectedItemsIds = selectedItemsIds;
+                    }
+
+                    if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
+                        $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
+                    }
+                    else {
+                        $scope.selectedSortOption = "Custom";
                     }
                 }
             },
