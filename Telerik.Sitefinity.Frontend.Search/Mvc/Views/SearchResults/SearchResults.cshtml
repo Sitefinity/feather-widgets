@@ -4,21 +4,6 @@
 @using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
 
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.common-bootstrap.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.bootstrap.min.css" />
-
-@Html.Script(ScriptRef.JQuery)
-@Html.Script(ScriptRef.KendoAll)
-
-
-<script type="text/x-kendo-tmpl" id="template">
-    <div class="row" style="margin-bottom: 10px;">	   
-		<h3><a href="#=GetPropertyValue(Fields, "Link")#">#=GetPropertyValue(Fields, "Title")#</a></h3>
-		<p>#=GetPropertyValue(Fields, "HighLighterResult")#</p>		
-		<a href="#=GetPropertyValue(Fields, "Link")#">#=GetPropertyValue(Fields, "Link")#</a>
-     </div>
-</script>
-
 <section class="section @Model.CssClass">
     <div class="container">
         <div class="col-md-8 col-md-offset-2 row--border">
@@ -53,13 +38,26 @@
                 }     
             </div>
 
-            <div id="search-results"> </div>
+            <div id="search-results">
+                @foreach (var item in Model.Results.Data)
+                {
+                    <div class="row" style="margin-bottom: 10px;">
+                        <h3><a href="@item.GetValue("Link")">@item.GetValue("Title")</a></h3>
+                        <p>@Html.Raw(item.GetValue("HighLighterResult"))</p>
+                        <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
+                    </div>
+                }
 
-            @if (Model.DisplayMode == ListDisplayMode.Paging)
-            {  
-			<div id="pager" class="k-pager-wrap"></div>
-            }
-
+                @if (Model.DisplayMode == ListDisplayMode.Paging && Model.Results.TotalCount != null && Model.Results.TotalCount > 1)
+                {
+                    @Html.Action("Index", "ContentPager", new
+                    {
+                        currentPage = Model.CurrentPage,
+                        totalPagesCount = Model.TotalPagesCount,
+                        redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+                    })
+                }
+            </div>
         </div>
     </div>
 </section>

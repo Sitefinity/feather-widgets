@@ -29,6 +29,24 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         int? ItemsPerPage { get; set; }
 
         /// <summary>
+        /// Gets or sets the current page.
+        /// </summary>
+        /// <value>
+        /// The current page.
+        /// </value>
+        [Browsable(false)]
+        int CurrentPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total pages count.
+        /// </summary>
+        /// <value>
+        /// The total pages count.
+        /// </value>
+        [Browsable(false)]
+        int? TotalPagesCount { get; set; }
+
+        /// <summary>
         /// Gets or sets the result text.
         /// </summary>
         /// <value>

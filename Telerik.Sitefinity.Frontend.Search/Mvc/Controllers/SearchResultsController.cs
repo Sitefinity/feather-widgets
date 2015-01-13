@@ -78,7 +78,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode);
                 var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
                 var currentPageUrl = this.GetCurrentPageUrl();
+
                 this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
+                this.ViewBag.RedirectPageUrlTemplate = String.Concat(this.GetCurrentPageUrl(), "/{0}", queryString, languageParam);
 
                 if (orderBy != null)
                 {
@@ -91,6 +93,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                 var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
                 this.Model.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
+
+                if (page == null || page < 1)
+                    page = 1;
+
+                int? itemsToSkip = this.Model.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.Model.ItemsPerPage) : 0;
+                this.Model.PopulateResults(searchQuery, itemsToSkip, language);
 
                 return View(this.TemplateName, this.Model);
             }
