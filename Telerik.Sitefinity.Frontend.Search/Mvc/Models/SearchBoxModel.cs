@@ -127,7 +127,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
                 return provider;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 provider = null;
             }
