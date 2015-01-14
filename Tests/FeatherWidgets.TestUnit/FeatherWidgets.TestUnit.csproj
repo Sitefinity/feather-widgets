@@ -126,7 +126,9 @@
     <Compile Include="TestInterfaceMappings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
