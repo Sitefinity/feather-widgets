@@ -39,7 +39,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             foreach (var itemName in itemNames)
             {
                 var div = ActiveBrowser.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
-                var input = div.Find.ByCustom<HtmlInputCheckBox>(a => a.Type.Equals("checkbox"));
+                var input = div.Find.ByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
                 if (!input.Checked)
                 {
                     input.Click();
@@ -57,7 +57,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             foreach (var itemName in itemNames)
             {
                 var div = ActiveBrowser.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
-                var input = div.Find.ByCustom<HtmlInputCheckBox>(a => a.Type.Equals("checkbox"));
+                var input = div.Find.ByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
                 if (input.Checked)
                 {
                     input.Click();

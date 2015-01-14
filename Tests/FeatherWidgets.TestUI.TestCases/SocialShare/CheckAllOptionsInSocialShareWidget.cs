@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareOptionsPresentInBackend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);
+            BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareOptionsPresentOnBackend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectUnselectAllSocialShareOptions(false);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectUnselectAllSocialShareOptions();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareOptionsPresentInBackend(13, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, 
+            BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareOptionsPresentOnBackend(13, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, 
                 SocialShareOptions.GooglePlus, SocialShareOptions.GoogleBookmarks, SocialShareOptions.Digg, 
                 SocialShareOptions.Blogger, SocialShareOptions.Tumblr, SocialShareOptions.LinkedIn,
                 SocialShareOptions.Delicious, SocialShareOptions.MySpace, 
@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareOptionsInFrontend(13, SocialShareOptions.Facebook, SocialShareOptions.Tweeter,
+            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareOptionsOnFrontend(13, SocialShareOptions.Facebook, SocialShareOptions.Tweeter,
               SocialShareOptions.GooglePlus, SocialShareOptions.GoogleBookmarks, SocialShareOptions.Digg,
               SocialShareOptions.Blogger, SocialShareOptions.Tumblr, SocialShareOptions.LinkedIn,
               SocialShareOptions.Delicious, SocialShareOptions.MySpace,
