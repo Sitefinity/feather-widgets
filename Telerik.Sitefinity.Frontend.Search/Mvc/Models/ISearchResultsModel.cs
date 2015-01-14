@@ -121,9 +121,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Performs search by given query and populates the results collection.
         /// </summary>
         /// <param name="searchQuery">The search query.</param>
-        /// <param name="skip">The skip.</param>      
+        /// <param name="indexCatalogue">The index catalogue.</param>
+        /// <param name="skip">The skip.</param>
         /// <param name="language">The language of the displayed results.</param>
-        void PopulateResults(string searchQuery, int? skip,  string language);
+        /// <param name="orderBy">The order by.</param>
+        void PopulateResults(string searchQuery, string indexCatalogue, int? skip,  string language, string orderBy);
 
         /// <summary>
         /// Validates the query.
