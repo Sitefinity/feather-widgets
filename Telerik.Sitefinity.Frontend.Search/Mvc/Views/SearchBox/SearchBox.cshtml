@@ -4,6 +4,8 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
+<link rel="stylesheet" href='@Url.WidgetContent("assets/dist/css/sf-search-box.min.css")'>
+
 @(!String.IsNullOrEmpty(Model.CssClass) ?
     Html.Raw(String.Format("<div class=\"{0}\">", Model.CssClass)) :
     Html.Raw("<div>"))
@@ -88,6 +90,7 @@
 
             var autocomplete = searchTextBox.data("kendoAutoComplete");
             autocomplete.setDataSource(dataSource);
+            autocomplete.list.addClass("sf-autocomplete");
 
             autocomplete.search(searchTextBox.val().trim());
         }
