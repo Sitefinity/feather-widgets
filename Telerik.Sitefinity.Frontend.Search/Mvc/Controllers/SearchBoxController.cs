@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Services;
 using System.Globalization;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
@@ -132,7 +133,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             var constructorParams = new Dictionary<string, object>
             {
-                {"suggestionsRoute", "/restapi/search/suggestions"},
+                {"suggestionsRoute", RouteHelper.ResolveUrl("/restapi/search/suggestions", UrlResolveOptions.Rooted)},
                 {"minSuggestionLength", this.GetMinSuggestLength()},
                 {"suggestionFields", "Title,Content"},
                 {"language", this.GetCurrentUILanguage()}
