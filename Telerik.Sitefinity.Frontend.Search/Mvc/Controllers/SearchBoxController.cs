@@ -93,10 +93,15 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var query = this.GetSearchQueryFromQueryString(this.Model.IndexCatalogue);
-            this.ViewBag.SearchQuery = query;
+            if (!this.IsEmpty)
+            {
+                var query = this.GetSearchQueryFromQueryString(this.Model.IndexCatalogue);
+                this.ViewBag.SearchQuery = query;
 
-            return this.View(this.TemplateName, this.Model);
+                return this.View(this.TemplateName, this.Model);
+            }
+
+            return null;
         }
 
         #endregion
