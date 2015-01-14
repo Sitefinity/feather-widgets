@@ -4,11 +4,16 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
+@{
+    var searchTextBoxId = Guid.NewGuid();
+    var searchButtonId = Guid.NewGuid();
+ }
+
 @(!String.IsNullOrEmpty(Model.CssClass) ?
     Html.Raw(String.Format("<div class=\"{0}\">", Model.CssClass)) :
     Html.Raw("<div>"))
-    <input type="text" id="searchTextBox" value="@Html.Raw(ViewBag.SearchQuery)"/>
-    <button type="button" id="searchButton">@Html.Resource("SearchLabel")</button>
+    <input type="text" id="@Html.Raw(searchTextBoxId)" value="@Html.Raw(ViewBag.SearchQuery)"/>
+    <button type="button" id="@Html.Raw(searchButtonId)">@Html.Resource("SearchLabel")</button>
 </div>
 
 @* Avoid conflicts because the designer is loading kendo too. *@
@@ -29,10 +34,10 @@
             suggestionFields = '@Html.Raw(Model.SuggestionFields)',
             language = '@Html.Raw(Model.Language)',
             suggestionsRoute = '@Html.Raw(Model.SuggestionsRoute)';
-
+        
         /* jQuery elements */
-        var searchTextBox = $('#searchTextBox'),
-            searchButton = $('#searchButton');
+        var searchTextBox = $('#' + '@Html.Raw(searchTextBoxId)'),
+            searchButton = $('#' + '@Html.Raw(searchButtonId)');
 
         /* Initialization */
         searchButton.click(function (e) {
@@ -96,22 +101,22 @@
             if (e.keyCode != 38 // up arrow
                 && e.keyCode != 40 // down arrow
                 && e.keyCode != 27) { // esc
-                    var request = {};
-                    var searchText = searchTextBox.val().trim();
-                    if (searchText.length >= minSuggestionLength) {
-                        request.IndexName = indexCatalogue;
-                        request.SuggestionFields = suggestionFields;
-                        request.Text = searchText;
-                        request.Language = language;
+                var request = {};
+                var searchText = searchTextBox.val().trim();
+                if (searchText.length >= minSuggestionLength) {
+                    request.IndexName = indexCatalogue;
+                    request.SuggestionFields = suggestionFields;
+                    request.Text = searchText;
+                    request.Language = language;
 
-                        $.ajax({
-                            type: "GET",
-                            url: suggestionsRoute,
-                            dataType: 'json',
-                            data: request,
-                            success: suggestionsSuccessHandler
-                        });
-                    }
+                    $.ajax({
+                        type: "GET",
+                        url: suggestionsRoute,
+                        dataType: 'json',
+                        data: request,
+                        success: suggestionsSuccessHandler
+                    });
+                }
             }
         }
             
@@ -160,9 +165,9 @@
                     predicate: "Search for",
                     object: searchButton.val(),
                     objectMetadata: [{
-                                        'K': 'PageUrl',
-                                        'V': location.href
-                                    }]
+                        'K': 'PageUrl',
+                        'V': location.href
+                    }]
                 });
             }
         }
