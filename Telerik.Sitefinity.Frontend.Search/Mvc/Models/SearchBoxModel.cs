@@ -183,7 +183,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                     var siteId = SystemManager.CurrentContext.CurrentSite.Id;
 
                     IList<Guid> sites;
-                    if (pipe.PublishingPoint.IsSharedWithAllSites && SystemManager.CurrentContext.IsMultisiteMode)
+                    if (pipe.PublishingPoint.IsSharedWithAllSites)
                         sites = MultisiteManager.GetManager().GetSites().Select(s => s.Id).ToList();
                     else
                         sites = this.GetSitesByPoint(pipe.PublishingPoint).Select(l => l.SiteId).ToList();
