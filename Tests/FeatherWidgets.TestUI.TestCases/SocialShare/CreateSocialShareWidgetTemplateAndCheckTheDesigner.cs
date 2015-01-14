@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestUI
         }
 
         /// <summary>
-        /// Performs clean up and clears all data created by the test.5
+        /// Performs clean up and clears all data created by the test
         /// </summary>
         protected override void ServerCleanup()
         {

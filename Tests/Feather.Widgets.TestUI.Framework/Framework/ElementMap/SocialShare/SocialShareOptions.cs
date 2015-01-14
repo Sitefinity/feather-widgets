@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.SocialShare
 {
+    /// <summary>
+    /// Element map for social share options in page editor and frontend
+    /// </summary>
     public class SocialShareOptions : HtmlElementContainer
     {
           /// <summary>

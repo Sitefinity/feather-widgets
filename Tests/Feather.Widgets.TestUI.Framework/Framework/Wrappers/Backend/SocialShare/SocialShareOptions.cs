@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
+    /// <summary>
+    /// Static class for social share options 
+    /// </summary>
     public static class SocialShareOptions
     {
         public const string Facebook = "window.open('https://www.facebook.com/sharer/sharer.php";
