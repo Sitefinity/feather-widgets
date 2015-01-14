@@ -81,19 +81,16 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
                     var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode);
                     var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
-                    var currentPageUrl = this.GetCurrentPageUrl();
+                    var currentPageUrl = this.GetCurrentUrl();
 
                     this.ViewBag.LanguageSearchUrlTemplate = String.Concat(currentPageUrl, queryString, languageParamFormat);
-                    this.ViewBag.RedirectPageUrlTemplate = String.Concat(this.GetCurrentPageUrl(), "/{0}", queryString, languageParam);
-
-                        this.InitializeOrderByEnum(orderBy);
-                    this.Model.IndexCatalogue = indexCatalogue;
+                    this.ViewBag.RedirectPageUrlTemplate = String.Concat(currentPageUrl, "/{0}", queryString, languageParam);
 
                     if (page == null || page < 1)
                         page = 1;
 
                     int? itemsToSkip = this.Model.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.Model.ItemsPerPage) : 0;
-                    this.Model.PopulateResults(searchQuery, itemsToSkip, language);
+                    this.Model.PopulateResults(searchQuery, indexCatalogue, itemsToSkip, language, orderBy);
 
                     return View(this.TemplateName, this.Model);
                 }
@@ -118,9 +115,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         {
             if (!String.IsNullOrEmpty(searchQuery))
             {
-                this.InitializeOrderByEnum(orderBy);
-                this.Model.IndexCatalogue = indexCatalogue;
-                this.Model.PopulateResults(searchQuery, skip, language);
+                this.Model.PopulateResults(searchQuery, indexCatalogue, skip, language, orderBy);
             }
 
             return Json(this.Model.Results, JsonRequestBehavior.AllowGet);
@@ -128,6 +123,15 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Gets the current URL.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetCurrentUrl()
+        {
+            return this.GetCurrentPageUrl();
+        }
         
         /// <summary>
         /// Initializes the model.
@@ -142,16 +146,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             
 
             return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType(), constructorParams);
-        }
-
-        private void InitializeOrderByEnum(string orderBy)
-        {
-            if (!orderBy.IsNullOrEmpty())
-            {
-                OrderByOptions orderByOption;
-                Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
-                this.Model.OrderBy = orderByOption;
-            }
         }
 
         #endregion
