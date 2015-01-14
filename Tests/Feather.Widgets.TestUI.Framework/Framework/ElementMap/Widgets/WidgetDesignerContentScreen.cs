@@ -226,6 +226,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlAnchor>("class=ng-binding", "Innertext=Single item settings");
             }
         }
+    
+        /// <summary>
+        /// Gets the list settings.
+        /// </summary>
+        /// <value>The list settings.</value>
+        public HtmlAnchor ListSettings
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=ng-binding", "Innertext=List settings");
+            }
+        }
 
         /// <summary>
         /// Select detail template
@@ -235,6 +247,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
             get
             {
                 return this.Get<HtmlSelect>("id=newsTemplateName", "ng-model=properties.DetailTemplateName.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the sorting options dropdown.
+        /// </summary>
+        /// <value>The sorting options dropdown.</value>
+        public HtmlSelect SortingOptionsDropdown
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("id=sortOptions", "ng-model=selectedSortOption");
             }
         }
 
