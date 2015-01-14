@@ -33,6 +33,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.SocialShare
             }
         }
 
+        /// <summary>
+        /// Gets the social share page editor.
+        /// </summary>
+        /// <value>The social share page editor.</value>
+        public SocialShareOptions SocialSharePageEditor
+        {
+            get
+            {
+                return new SocialShareOptions(this.find);
+            }
+        }
+
         private Find find;
     }
 }
