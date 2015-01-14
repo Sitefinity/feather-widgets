@@ -124,11 +124,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             if (skip == null)
                 skip = 0;
 
-            var itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? skip.Value : 0;
-
-            int totalCount = 0;
+            var itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? skip.Value : 0;       
             int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ? 0 : this.ItemsPerPage;
-
+            
+            int totalCount = 0;
             var result = this.Search(searchQuery, language, itemsToSkip, itemsPerPage.Value, out totalCount);
 
             int? totalPagesCount = (int)Math.Ceiling((double)(totalCount / (double)this.ItemsPerPage.Value));
