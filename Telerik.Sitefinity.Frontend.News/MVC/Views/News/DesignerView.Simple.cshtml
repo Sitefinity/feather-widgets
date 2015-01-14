@@ -97,11 +97,13 @@
                     <label for="sortOptions">@Html.Resource("SortNews")</label>
 
 
-                    <select id="sortOptions" ng-model="properties.SortExpression.PropertyValue" class="form-control">
+                    <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
                         <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
                         <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
                         <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
                         <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
+                        <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
+                        <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
                     </select>
                 </div>
             </div>

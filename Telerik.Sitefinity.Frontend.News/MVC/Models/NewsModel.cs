@@ -33,8 +33,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
         /// <summary>
         /// Gets the items query.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>The query.</returns>
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             return ((NewsManager)this.GetManager()).GetNewsItems();

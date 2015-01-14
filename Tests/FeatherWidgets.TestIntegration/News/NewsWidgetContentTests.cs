@@ -122,6 +122,7 @@ namespace FeatherWidgets.TestIntegration.News
             int newsCount = 10;
             string sortExpession = "Title DESC";
             string[] selectedNewsTitles = { "Title2", "Title7", "Title5" };
+            string[] descendingNewsTitles = { "Title7", "Title5", "Title2" };
             var selectedNewsItems = new NewsItem[3];
 
             for (int i = 0; i < newsCount; i++)
@@ -152,7 +153,7 @@ namespace FeatherWidgets.TestIntegration.News
 
             for (int i = 0; i < items.Length; i++)
             {
-                Assert.IsTrue(items[i].Fields.Title.Equals(selectedNewsTitles[i]), "The news with this title was not found!");
+                Assert.IsTrue(items[i].Fields.Title.Equals(descendingNewsTitles[i]), "The news with this title was not found!");
             }
 
             newsController.Model.SelectionMode = SelectionMode.AllItems;
@@ -183,6 +184,7 @@ namespace FeatherWidgets.TestIntegration.News
             string index2 = "/2";
             string index3 = "/3";
             int itemsPerPage = 3;
+            string sortExpession = "AsSetManually";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
             string url2 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index2);
             string url3 = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index + index3);
@@ -199,7 +201,9 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
+
             newsController.Model.SelectionMode = SelectionMode.SelectedItems;
+            newsController.Model.SortExpression = sortExpession;
             newsController.Model.ItemsPerPage = itemsPerPage;
 
             var newsManager = NewsManager.GetManager();
@@ -238,7 +242,8 @@ namespace FeatherWidgets.TestIntegration.News
             string pageNamePrefix = testName + "NewsPage";
             string pageTitlePrefix = testName + "News Page";
             string urlNamePrefix = testName + "news-page";
-            int index = 1;    
+            int index = 1;
+            string sortExpession = "AsSetManually";
             string url = UrlPath.ResolveAbsoluteUrl("~/" + urlNamePrefix + index);
 
             int newsCount = 20;
@@ -255,6 +260,7 @@ namespace FeatherWidgets.TestIntegration.News
             var newsController = new NewsController();
             newsController.Model.SelectionMode = SelectionMode.SelectedItems;
             newsController.Model.DisplayMode = ListDisplayMode.Limit;
+            newsController.Model.SortExpression = sortExpession;
             newsController.Model.ItemsPerPage = 5;
 
             var newsManager = NewsManager.GetManager();
@@ -621,6 +627,204 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
  
+        /// <summary>
+        /// News widget - test select by category and tag functionality 
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
+        [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
+        public void NewsWidget_SelectByCategoryAndTagNewsFunctionality()
+        {
+            string newsTitle = "News ";
+            string tagTitle = "Tag1";
+            string categoryTitle = "Category1";
+
+            var newsController = new NewsController();
+
+            try
+            {
+                Guid tagId = this.serverOperationsTaxonomies.CreateFlatTaxon(Telerik.Sitefinity.TestUtilities.CommonOperations.TaxonomiesConstants.TagsTaxonomyId, tagTitle);
+
+                this.serverOperationsTaxonomies.CreateCategory(categoryTitle);
+                Guid categoryId = TaxonomyManager.GetManager().GetTaxa<HierarchicalTaxon>().SingleOrDefault(t => t.Title == categoryTitle).Id;
+
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(newsTitle + 0, "Content", "AuthorName", "SourceName", null, new List<string> { tagTitle }, null);
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(newsTitle + 1, "Content", "AuthorName", "SourceName", new List<string> { categoryTitle }, new List<string> { tagTitle }, null);
+                ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(newsTitle + 2, "Content", "AuthorName", "SourceName", new List<string> { categoryTitle }, null, null);
+
+                newsController.Model.SelectionMode = SelectionMode.FilteredItems;
+                newsController.Model.SerializedAdditionalFilters = "{\"__msdisposeindex\":205,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\"," + 
+                                                                   "\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null," +
+                                                                   "\"Name\":\"Category\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":206},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0_0\",\"Value\":" + categoryId + ",\"Condition\":" +
+                                                                   "{\"FieldName\":\"Category\",\"FieldType\":\"System.Guid\",\"Operator\":\"Contains\",\"__msdisposeindex\":207},\"Name\":" + categoryTitle + ",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":208}," + 
+                                                                   "{\"IsGroup\":true,\"Ordinal\":1,\"Join\":\"AND\",\"ItemPath\":\"_1\",\"Value\":null,\"Condition\":null," +
+                                                                   "\"Name\":\"Tags\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":209},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_1_0\",\"Value\":" + tagId + ",\"Condition\":" +
+                                                                   "{\"FieldName\":\"Tags\",\"FieldType\":\"System.Guid\",\"Operator\":\"Contains\",\"__msdisposeindex\":210},\"Name\":" + tagTitle + ",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":211}]," + 
+                                                                   "\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
+
+                var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(1), "The count of news items is not correct");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was not found!");
+            }
+            finally
+            {
+                this.serverOperationsTaxonomies.DeleteTags(tagTitle);
+                this.serverOperationsTaxonomies.DeleteCategories(categoryTitle);
+            }
+        }
+
+        /// <summary>
+        /// News widget - test select by tag functionality and limit to 1
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
+        public void NewsWidget_SelectByTagNewsFunctionalityAndLimits()
+        {
+            var newsController = new NewsController();
+            newsController.Model.DisplayMode = ListDisplayMode.Limit;
+            newsController.Model.ItemsPerPage = 1;
+
+            string tagTitle = "Tag1";
+            string newsTitle = "News ";
+
+            try
+            {
+                Guid taxonId = this.serverOperationsTaxonomies.CreateFlatTaxon(Telerik.Sitefinity.TestUtilities.CommonOperations.TaxonomiesConstants.TagsTaxonomyId, tagTitle);
+
+                Guid newsId0 = this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 0);
+                this.serverOperationsNews.AssignTaxonToNewsItem(newsId0, "Tags", taxonId);
+
+                Guid newsId1 = this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 1);
+                this.serverOperationsNews.AssignTaxonToNewsItem(newsId1, "Tags", taxonId);
+
+                ITaxon tagTaxonomy = TaxonomyManager.GetManager().GetTaxon(taxonId);
+                var items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(1), "The count of news items is not correct - limit applied");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+
+                newsController.Model.DisplayMode = ListDisplayMode.Paging;
+                newsController.Model.ItemsPerPage = 20;
+                items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(2), "The count of news items is not correct - all items");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+            }
+            finally
+            {
+                this.serverOperationsTaxonomies.DeleteTags(tagTitle);
+            }
+        }
+
+        /// <summary>
+        /// News widget - test select by tag functionality and paging (2 items per page)
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
+        public void NewsWidget_SelectByTagNewsFunctionalityAndPaging()
+        {
+            var newsController = new NewsController();
+            newsController.Model.DisplayMode = ListDisplayMode.Paging;
+            newsController.Model.ItemsPerPage = 2;
+
+            string tagTitle = "Tag1";
+            string newsTitle = "News ";
+
+            try
+            {
+                Guid taxonId = this.serverOperationsTaxonomies.CreateFlatTaxon(Telerik.Sitefinity.TestUtilities.CommonOperations.TaxonomiesConstants.TagsTaxonomyId, tagTitle);
+
+                Guid newsId0 = this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 0);
+                this.serverOperationsNews.AssignTaxonToNewsItem(newsId0, "Tags", taxonId);
+
+                Guid newsId1 = this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 1);
+                this.serverOperationsNews.AssignTaxonToNewsItem(newsId1, "Tags", taxonId);
+
+                Guid newsId2 = this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 2);
+                this.serverOperationsNews.AssignTaxonToNewsItem(newsId2, "Tags", taxonId);
+
+                this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 3);
+
+                ITaxon tagTaxonomy = TaxonomyManager.GetManager().GetTaxon(taxonId);
+                var items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(2), "The count of news items is not correct - first page");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+
+                items = newsController.Model.CreateListViewModel(tagTaxonomy, 2).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(1), "The count of news items is not correct - second page");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+
+                newsController.Model.DisplayMode = ListDisplayMode.Paging;
+                newsController.Model.ItemsPerPage = 20;
+                items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(3), "The count of news items is not correct - all items");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[2].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+            }
+            finally
+            {
+                this.serverOperationsTaxonomies.DeleteTags(tagTitle);
+            }
+        }
+
+        /// <summary>
+        /// News widget - test select by tag functionality and no limit
+        /// </summary>
+        [Test]
+        [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
+        public void NewsWidget_SelectByTagNewsFunctionalityAndNoLimit()
+        {
+            var newsController = new NewsController();
+            newsController.Model.DisplayMode = ListDisplayMode.All;
+            newsController.Model.ItemsPerPage = 1;
+
+            string tagTitle = "Tag1";
+            string newsTitle = "News ";
+
+            try
+            {
+                Guid taxonId = this.serverOperationsTaxonomies.CreateFlatTaxon(Telerik.Sitefinity.TestUtilities.CommonOperations.TaxonomiesConstants.TagsTaxonomyId, tagTitle);
+
+                Guid newsId0 = this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 0);
+                this.serverOperationsNews.AssignTaxonToNewsItem(newsId0, "Tags", taxonId);
+
+                Guid newsId1 = this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 1);
+                this.serverOperationsNews.AssignTaxonToNewsItem(newsId1, "Tags", taxonId);
+
+                this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 2);
+
+                ITaxon tagTaxonomy = TaxonomyManager.GetManager().GetTaxon(taxonId);
+                var items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(2), "The count of news items is not correct - no limit");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+
+                newsController.Model.DisplayMode = ListDisplayMode.Paging;
+                newsController.Model.ItemsPerPage = 20;
+                items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(3), "The count of news items is not correct - all items");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[2].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+            }
+            finally
+            {
+                this.serverOperationsTaxonomies.DeleteTags(tagTitle);
+            }
+        }
+
         private void VerifyCorrectNewsOnPageWithCategoryFilterAndPaging(HierarchicalTaxon category0, HierarchicalTaxon category1, NewsController newsController, string[] newsTitles)
         {
             ITaxon taxonomy = TaxonomyManager.GetManager().GetTaxon(category0.Id);

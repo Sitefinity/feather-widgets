@@ -1,9 +1,4 @@
 ﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -46,6 +41,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public ModuleBuilderWrapperFacade ModuleBuilder()
         {
             return new ModuleBuilderWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides unified access to the SocialShareWrapperFacade 
+        /// </summary>
+        /// <returns></returns>
+        public SocialShareWrapperFacade SocialShare()
+        {
+            return new SocialShareWrapperFacade();
         }
     }
 }

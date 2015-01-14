@@ -34,6 +34,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.DynamicContent", "Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj", "{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{865316AB-A05C-4A86-87AD-BB3E4AC4A384}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.ClientTest", "Tests\FeatherWidgets.ClientTest\FeatherWidgets.ClientTest.csproj", "{7A619682-93B4-48CC-B6C0-3365657B51A3}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = FeatherWidgets.vsmdi
@@ -79,11 +83,19 @@ Global
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B02EF644-7756-41FA-BBA8-63F4F44C652B} = {EB73BDA8-73B7-4EC8-8707-853B53C40992}
+		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
+		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
+		{3A2DB408-48E4-4C20-BBBC-3F730009322A} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
+		{7A619682-93B4-48CC-B6C0-3365657B51A3} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
 	EndGlobalSection
 EndGlobal
