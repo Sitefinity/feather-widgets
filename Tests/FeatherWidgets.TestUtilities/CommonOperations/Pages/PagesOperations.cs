@@ -51,7 +51,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="pageId">Page id value</param>
         /// <param name="html">Html value</param>
-        public void AddContentBlockWidgetToPage(Guid pageId, string html)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddContentBlockWidgetToPage(Guid pageId, string html, string placeholder = "Body")
         {
             PageManager pageManager = PageManager.GetManager();
             pageManager.Provider.SuppressSecurityChecks = true;
@@ -67,7 +68,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                     Content = html
                 });
 
-                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock");
+                this.CreateControl(pageManager, page, mvcWidget, "ContentBlock", placeholder);
             }
         }
 

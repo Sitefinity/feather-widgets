@@ -58,6 +58,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         }
 
         /// <inheritdoc />
+        public int CurrentPage { get; set; }
+
+        /// <inheritdoc />
+        public int? TotalPagesCount { get; set; }
+
+        /// <inheritdoc />
         public ListDisplayMode DisplayMode { get; set; }
 
         /// <inheritdoc />
@@ -110,21 +116,27 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 
         #region Public methods
         /// <inheritdoc />
-        public virtual void PopulateResults(string searchQuery, int? skip, string language)
+        public virtual void PopulateResults(string searchQuery, string indexCatalogue, int? skip, string language, string orderBy)
         {
+            this.IndexCatalogue = indexCatalogue;
+            this.InitializeOrderByEnum(orderBy);
+
             if (skip == null)
                 skip = 0;
 
-            var itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? skip.Value : 0; 
-            int totalCount = 0;
+            var itemsToSkip = this.DisplayMode == ListDisplayMode.Paging ? skip.Value : 0;       
             int? itemsPerPage = this.DisplayMode == ListDisplayMode.All ? 0 : this.ItemsPerPage;
+            
+            int totalCount = 0;
+            var result = this.Search(searchQuery, language, itemsToSkip, itemsPerPage.Value, out totalCount);
 
-            var result = this.Search(searchQuery, this.IndexCatalogue, language, itemsToSkip, itemsPerPage.Value, out totalCount);
+            int? totalPagesCount = (int)Math.Ceiling((double)(totalCount / (double)this.ItemsPerPage.Value));
+            this.TotalPagesCount = this.DisplayMode == ListDisplayMode.Paging ? totalPagesCount : null;
 
             string queryTest = searchQuery.Trim('\"');
-
             var filteredResultsText = Res.Get<SearchWidgetsResources>().SearchResultsStatusMessageShort;
             this.ResultText = string.Format(filteredResultsText, HttpUtility.HtmlEncode(queryTest));
+
             this.Results = new ResultModel(result.ToList(), totalCount);
         }
 
@@ -155,12 +167,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Searches the specified query.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <param name="catalogue">The catalogue.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="take">The take.</param>
         /// <param name="hitCount">The hit count.</param>
         /// <returns></returns>
-        public IEnumerable<IDocument> Search(string query, string catalogue, string language, int skip, int take, out int hitCount)
+        public IEnumerable<IDocument> Search(string query, string language, int skip, int take, out int hitCount)
         {
             var service = Telerik.Sitefinity.Services.ServiceBus.ResolveService<ISearchService>();
             var queryBuilder = ObjectFactory.Resolve<IQueryBuilder>();
@@ -168,7 +179,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             var enableExactMatch = config.EnableExactMatch;
 
             var searchQuery = queryBuilder.BuildQuery(query, this.SearchFields);
-            searchQuery.IndexName = catalogue;
+            searchQuery.IndexName = this.IndexCatalogue;
             searchQuery.Skip = skip;
             searchQuery.Take = take;
             searchQuery.OrderBy = this.GetOrderList();
@@ -305,6 +316,20 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                     return new[] { "LastModified desc" };
                 default:
                     return null;
+            }
+        }
+
+        /// <summary>
+        /// Initializes the order by enum.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        private void InitializeOrderByEnum(string orderBy)
+        {
+            if (!orderBy.IsNullOrEmpty())
+            {
+                OrderByOptions orderByOption;
+                Enum.TryParse<OrderByOptions>(orderBy, true, out orderByOption);
+                this.OrderBy = orderByOption;
             }
         }
 

@@ -29,6 +29,24 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         int? ItemsPerPage { get; set; }
 
         /// <summary>
+        /// Gets or sets the current page.
+        /// </summary>
+        /// <value>
+        /// The current page.
+        /// </value>
+        [Browsable(false)]
+        int CurrentPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total pages count.
+        /// </summary>
+        /// <value>
+        /// The total pages count.
+        /// </value>
+        [Browsable(false)]
+        int? TotalPagesCount { get; set; }
+
+        /// <summary>
         /// Gets or sets the result text.
         /// </summary>
         /// <value>
@@ -103,9 +121,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Performs search by given query and populates the results collection.
         /// </summary>
         /// <param name="searchQuery">The search query.</param>
-        /// <param name="skip">The skip.</param>      
+        /// <param name="indexCatalogue">The index catalogue.</param>
+        /// <param name="skip">The skip.</param>
         /// <param name="language">The language of the displayed results.</param>
-        void PopulateResults(string searchQuery, int? skip,  string language);
+        /// <param name="orderBy">The order by.</param>
+        void PopulateResults(string searchQuery, string indexCatalogue, int? skip,  string language, string orderBy);
 
         /// <summary>
         /// Validates the query.
