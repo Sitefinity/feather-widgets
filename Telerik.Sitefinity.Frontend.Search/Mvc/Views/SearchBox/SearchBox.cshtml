@@ -23,159 +23,23 @@
     @Html.Script(ScriptRef.KendoWeb)   
 }
 
-<script>
-    jQuery(function () {
-        /* Model variables */
-        var resultsUrl = '@Html.Raw(Model.ResultsUrl)',
-            indexCatalogue = '@Html.Raw(Model.IndexCatalogue)',
-            wordsMode = '@Html.Raw(Model.WordsMode.ToString())',
-            disableSuggestions = @(Model.DisableSuggestions ? Html.Raw("true") : Html.Raw("false")),
-            minSuggestionLength = '@Html.Raw(Model.MinSuggestionLength)',
-            suggestionFields = '@Html.Raw(Model.SuggestionFields)',
-            language = '@Html.Raw(Model.Language)',
-            suggestionsRoute = '@Html.Raw(Model.SuggestionsRoute)';
-        
-        /* jQuery elements */
-        var searchTextBox = $('#' + '@Html.Raw(searchTextBoxId)'),
-            searchButton = $('#' + '@Html.Raw(searchButtonId)');
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchBox/Search-box.js"))
 
-        /* Initialization */
-        searchButton.click(function (e) {
-            navigateToResults(e);
-        });
+<script type="text/javascript">
+    (function(){
+        var serverData = {
+            resultsUrl: '@Html.Raw(Model.ResultsUrl)',
+            indexCatalogue: '@Html.Raw(Model.IndexCatalogue)',
+            wordsMode: '@Html.Raw(Model.WordsMode.ToString())',
+            disableSuggestions: @(Model.DisableSuggestions ? Html.Raw("true") : Html.Raw("false")),
+            minSuggestionLength: '@Html.Raw(Model.MinSuggestionLength)',
+            suggestionFields: '@Html.Raw(Model.SuggestionFields)',
+            language: '@Html.Raw(Model.Language)',
+            suggestionsRoute: '@Html.Raw(Model.SuggestionsRoute)',        
+            searchTextBoxSelector: '#' + '@Html.Raw(searchTextBoxId)',
+            searchButtonSelector: '#' + '@Html.Raw(searchButtonId)'
+        };
 
-        searchTextBox.keypress(keypressHandler);
-
-        if (!disableSuggestions) {
-            searchTextBox.keyup(keyupHandler);
-
-            try {
-                searchTextBox.kendoAutoComplete({
-                    dataSource:
-                        {
-                            serverFiltering: true,
-                            data: []
-                        },
-                    select: function (e) {
-                        searchTextBox.val(this.dataItem(e.item.index()));
-                        navigateToResults(e);
-                    },
-                    minLength: minSuggestionLength
-                });
-            } catch (e) {
-                // Fixes jQuery bug, causing IE7 to throw error "script3 member not found".
-                // The try/catch can be removed when the bug is fixed.
-            }
-        }
-
-        /* Event handlers */
-        function keypressHandler(e) {
-            if (!e) var e = window.event;
-
-            var keyCode = null;
-            if (e.keyCode) {
-                keyCode = e.keyCode;
-            }
-            else {
-                keyCode = e.charCode;
-            }
-
-            if (keyCode == 13) {
-                navigateToResults(e);
-            }
-        }
-
-        function suggestionsSuccessHandler(result, args) {
-            var dataSource = new kendo.data.DataSource({
-                serverFiltering: true,
-                data: result.Suggestions
-            });
-
-            var autocomplete = searchTextBox.data("kendoAutoComplete");
-            autocomplete.setDataSource(dataSource);
-
-            autocomplete.search(searchTextBox.val().trim());
-        }
-
-        function keyupHandler(e) {
-            if (e.keyCode != 38 // up arrow
-                && e.keyCode != 40 // down arrow
-                && e.keyCode != 27) { // esc
-                // When the auto complete menu is shown, only this event is detected
-                if (e.keyCode == 13) {
-                    // when enter is pressed
-                    navigateToResults(e);
-                }
-
-                var request = {};
-                var searchText = searchTextBox.val().trim();
-                if (searchText.length >= minSuggestionLength) {
-                    request.IndexName = indexCatalogue;
-                    request.SuggestionFields = suggestionFields;
-                    request.Text = searchText;
-                    request.Language = language;
-
-                    $.ajax({
-                        type: "GET",
-                        url: suggestionsRoute,
-                        dataType: 'json',
-                        data: request,
-                        success: suggestionsSuccessHandler
-                    });
-                }
-            }
-        }
-            
-        /* Helper methods */
-        function navigateToResults(e) {
-            if (!e) var e = window.event;
-
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-            else {
-                e.cancelBubble = true;
-            }
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            else {
-                e.returnValue = false;
-            }
-
-            var query = searchTextBox.val();
-
-            if (query && query.trim() && indexCatalogue) {
-                sendSentence();
-                window.location = getLocation();
-            }
-        }
-
-        function getLocation() {
-            var query = searchTextBox.val().trim();
-
-            var separator = (resultsUrl.indexOf("?") == -1) ? "?" : "&";
-
-            var catalogueParam = separator + "indexCatalogue=" + encodeURIComponent(indexCatalogue),
-                searchQueryParam = "&searchQuery=" + encodeURIComponent(query),
-                wordsModeParam = "&wordsMode=" + wordsMode;
-
-            var url = resultsUrl + catalogueParam + searchQueryParam + wordsModeParam;
-
-            return url;
-        }
-
-        function sendSentence() {
-            if (window.DataIntelligenceSubmitScript) {
-                DataIntelligenceSubmitScript._client.sentenceClient.writeSentence({
-                    predicate: "Search for",
-                    object: searchButton.val(),
-                    objectMetadata: [{
-                        'K': 'PageUrl',
-                        'V': location.href
-                    }]
-                });
-            }
-        }
-    });
+        featherSearchBoxWidget(serverData);
+    })();
 </script>

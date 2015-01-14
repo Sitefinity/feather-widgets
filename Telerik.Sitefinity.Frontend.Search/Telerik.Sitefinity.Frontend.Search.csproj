@@ -199,7 +199,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\SearchBox\designerview-simple.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\SearchBox\Search-box.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\SearchResults\designerview-simple.js" />
   </ItemGroup>
