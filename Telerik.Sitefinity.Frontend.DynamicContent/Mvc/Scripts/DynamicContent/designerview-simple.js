@@ -2,6 +2,8 @@
     angular.module('designer').requires.push('expander', 'sfSelectors');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serverData', function ($scope, propertyService, serverData) {
+        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
+        
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
         $scope.itemSelector = { selectedItemsIds: [] };
@@ -65,6 +67,12 @@
             true
         );
 
+        $scope.updateSortOption = function (newSortOption) {
+            if (newSortOption !== "Custom") {
+                    $scope.properties.SortExpression.PropertyValue = newSortOption;
+                }
+        };
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -85,6 +93,13 @@
 
                     if ($scope.parentTypes.length > 0 && $scope.properties.CurrentlyOpenParentType && !$scope.properties.CurrentlyOpenParentType.PropertyValue) {
                         $scope.properties.CurrentlyOpenParentType.PropertyValue = $scope.parentTypes[0].TypeName;
+                    }
+
+                    if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
+                        $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
+                    }
+                    else {
+                        $scope.selectedSortOption = "Custom";
                     }
                 }
             },
@@ -118,6 +133,12 @@
 
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+
+                        // If the sorting expression is AsSetManually but the selection mode is AllItems or FilteredItems, this is not a valid combination.
+                        // So set the sort expression to the default value: PublicationDate DESC
+                        if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
+                            $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
+                        }
                     }
                 });
             })
