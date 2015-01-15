@@ -185,6 +185,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             return hasLabel;
         }
+       
+        /// <summary>
+        /// Verifies the correct order of items on backend.
+        /// </summary>
+        /// <param name="itemNames">The item names.</param>
+        public void VerifyCorrectOrderOfItemsOnBackend(params string[] itemNames)
+        {
+            var list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=list-unstyled")
+                .AssertIsPresent("Items list");
+            var items = list.Find.AllByExpression<HtmlListItem>("tagname=li");
+
+            int itemsCount = items.Count;
+            Assert.IsNotNull(itemsCount);
+            Assert.AreNotEqual(0, itemsCount);
+
+            for (int i = 0; i < itemsCount; i++)
+            {
+                Assert.IsTrue(items[i].InnerText.Contains(itemNames[i]));
+            }
+        }
 
         private const int TimeOut = 60000;
     }
