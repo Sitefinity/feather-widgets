@@ -303,11 +303,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
             switch (this.OrderBy)
             {
                 case OrderByOptions.Relevance:
-                    return null;
-                case OrderByOptions.TitleAsc:
-                    return new[] { "Title" };
-                case OrderByOptions.TitleDesc:
-                    return new[] { "Title desc" };
+                    return new[] { "_score" };
                 case OrderByOptions.Oldest:
                     return new[] { "PublicationDate" };
                 case OrderByOptions.Newest:
@@ -315,7 +311,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                 case OrderByOptions.NewModified:
                     return new[] { "LastModified desc" };
                 default:
-                    return null;
+                    return new[] { "_score" };
             }
         }
 
