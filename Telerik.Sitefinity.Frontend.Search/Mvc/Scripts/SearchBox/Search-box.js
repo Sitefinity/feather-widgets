@@ -58,6 +58,7 @@
 
             var autocomplete = searchTextBox.data("kendoAutoComplete");
             autocomplete.setDataSource(dataSource);
+            autocomplete.list.addClass("sf-autocomplete");
 
             autocomplete.search(searchTextBox.val().trim());
         }
