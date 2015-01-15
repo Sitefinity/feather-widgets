@@ -45,7 +45,7 @@
             <div id="search-results">
                 @foreach (var item in Model.Results.Data)
                 {
-                    var hasLink = !String.IsNullOrEmpty(item.GetValue("Link"));
+                    var hasLink = item.GetValue("Link") != null && !String.IsNullOrEmpty(item.GetValue("Link").ToString());
                     <div class="row" style="margin-bottom: 10px;">
                         <h3>
                             @if(hasLink) 
