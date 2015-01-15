@@ -24,16 +24,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         Oldest,
 
         /// <summary>
-        /// Sort by Title (A-Z)
-        /// </summary>
-        TitleAsc,
-
-        /// <summary>
-        /// Sort by Title (Z-A)
-        /// </summary>
-        TitleDesc,
-
-        /// <summary>
         /// The newly modified results first.
         /// </summary>
         NewModified
