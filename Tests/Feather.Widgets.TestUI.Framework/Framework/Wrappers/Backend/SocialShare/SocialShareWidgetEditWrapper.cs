@@ -20,13 +20,77 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="templateTitle">widget template title</param>
         public void SelectWidgetListTemplate(string templateTitle)
         {
-            var templateSelector = EM.SocialShare.SocialShareWidgetEditScreen.TemplateSelector
-              .AssertIsPresent("Template selector drop-down");
+            var templateSelector = EM.SocialShare
+                                     .SocialShareWidgetEditScreen
+                                     .TemplateSelector
+                                     .AssertIsPresent("Template selector drop-down");
             templateSelector.SelectByValue(templateTitle);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             templateSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
             ActiveBrowser.WaitForAsyncOperations();
         }
 
+        /// <summary>
+        /// Selects the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectSocialShareOptions(params string[] itemNames)
+        {
+            foreach (var itemName in itemNames)
+            {
+                var div = ActiveBrowser.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
+                var input = div.Find.ByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
+                if (!input.Checked)
+                {
+                    input.Click();
+                }
+                ActiveBrowser.RefreshDomTree();
+            }
+        }
+
+        /// <summary>
+        /// Unselects the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void UnselectSocialShareOptions(params string[] itemNames)
+        {
+            foreach (var itemName in itemNames)
+            {
+                var div = ActiveBrowser.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
+                var input = div.Find.ByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
+                if (input.Checked)
+                {
+                    input.Click();
+                }
+                ActiveBrowser.RefreshDomTree();
+            }
+        }
+
+        /// <summary>
+        /// Selects the item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectUnselectAllSocialShareOptions(bool isSelectMode = true)
+        {
+            var inputs = ActiveBrowser.Find.AllByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
+            foreach (var input in inputs)
+            {
+                if (isSelectMode)
+                {
+                    if (!input.Checked)
+                    {
+                        input.Click();
+                    }
+                }
+                else
+                {
+                    if (input.Checked)
+                    {
+                        input.Click();
+                    }
+                }
+                ActiveBrowser.RefreshDomTree();
+            }
+        }
     }
 }

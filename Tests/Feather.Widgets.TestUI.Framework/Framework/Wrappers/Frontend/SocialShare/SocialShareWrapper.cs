@@ -1,4 +1,6 @@
-﻿using ArtOfTest.WebAii.Controls.HtmlControls;
+﻿using System.Linq;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
@@ -28,6 +30,56 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             }
 
             return isContained;
+        }
+
+        /// <summary>
+        /// Verifies the social share options in frontend.
+        /// </summary>
+        /// <param name="expectedNumberOfOptions">The expected number of options.</param>
+        /// <param name="optionNames">The option names.</param>
+        public void VerifySocialShareOptionsOnFrontend(int expectedNumberOfOptions, params string[] optionNames)
+        {
+            var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
+            var count = 0;
+            foreach (var optionName in optionNames)
+            {
+                var option = list.Find.ByExpression<HtmlAnchor>("onclick=~" + optionName);
+                if (option == null)
+                {
+                    option = list.Find.ByExpression<HtmlAnchor>("href=~" + optionName);
+                    if (option == null)
+                    {
+                        var div = list.Find.ByExpression<HtmlDiv>("id=~" + optionName);
+                        Assert.IsNotNull(div, "No such option " + optionName + " found");
+                    }
+                }
+                count++;               
+            }
+            Assert.AreEqual(expectedNumberOfOptions, count, "Count is not correct!");
+        }
+
+        /// <summary>
+        /// Verifies the social share text present on front end.
+        /// </summary>
+        /// <param name="optionNames">The option names.</param>
+        public void VerifySocialShareTextPresentOnFrontend(params string[] optionNames)
+        {
+            var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
+            foreach (var optionName in optionNames)
+            {
+                var option = list.Find.ByExpression<HtmlAnchor>("innertext=~" + optionName);
+                Assert.IsNull(option, optionName + " is found");
+            }
+        }
+
+        /// <summary>
+        /// Counts the of social share options.
+        /// </summary>
+        /// <returns></returns>
+        public int CountOfSocialShareOptions()
+        {
+            var options = EM.SocialShare.SocialSharePageEditor.ListOfAllOptions;
+            return options.Count();
         }
     }
 }

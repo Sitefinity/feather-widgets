@@ -60,7 +60,7 @@
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.Core.1.0.4\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.Framework">
-      <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.Framework.1.0.5\lib\net45\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
+      <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.Framework.1.0.6\lib\net45\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.UIArrangement">
       <HintPath>..\FeatherWidgets.TestUI.TestCases\packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.0\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BATFeather.cs" />
+    <Compile Include="Framework\ElementMap\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareMap.cs" />
     <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerContentScreen.cs" />
@@ -102,8 +103,10 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareWidgetEditWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialSharePageEditorWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerContentScreenWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetsFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlocksWrapperFacade.cs" />
