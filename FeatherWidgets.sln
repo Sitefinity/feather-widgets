@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.DynamicContent", "Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj", "{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Search", "Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj", "{B1E056F8-D6AD-4C0C-A619-053E23F44A60}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{865316AB-A05C-4A86-87AD-BB3E4AC4A384}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatherWidgets.ClientTest", "Tests\FeatherWidgets.ClientTest\FeatherWidgets.ClientTest.csproj", "{7A619682-93B4-48CC-B6C0-3365657B51A3}"
@@ -83,6 +85,10 @@ Global
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E056F8-D6AD-4C0C-A619-053E23F44A60}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A619682-93B4-48CC-B6C0-3365657B51A3}.Release|Any CPU.ActiveCfg = Release|Any CPU

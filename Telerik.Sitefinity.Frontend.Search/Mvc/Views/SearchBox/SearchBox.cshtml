@@ -1,0 +1,47 @@
+﻿@model Telerik.Sitefinity.Frontend.Search.Mvc.Models.ISearchBoxModel
+
+@using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<link rel="stylesheet" href='@Url.WidgetContent("assets/dist/css/sf-search-box.min.css")'>
+
+@{
+    var searchTextBoxId = Guid.NewGuid();
+    var searchButtonId = Guid.NewGuid();
+ }
+
+@(!String.IsNullOrEmpty(Model.CssClass) ?
+    Html.Raw(String.Format("<div class=\"{0}\">", Model.CssClass)) :
+    Html.Raw("<div>"))
+    <input type="text" id="@Html.Raw(searchTextBoxId)" value="@Html.Raw(ViewBag.SearchQuery)"/>
+    <button type="button" id="@Html.Raw(searchButtonId)">@Html.Resource("SearchLabel")</button>
+</div>
+
+@* Avoid conflicts because the designer is loading kendo too. *@
+@if (!SystemManager.IsDesignMode)
+{
+    @Html.Script(ScriptRef.JQuery)
+    @Html.Script(ScriptRef.JQueryUI)   
+}
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchBox/Search-box.js"))
+
+<script type="text/javascript">
+    (function(){
+        var serverData = {
+            resultsUrl: '@Html.Raw(Model.ResultsUrl)',
+            indexCatalogue: '@Html.Raw(Model.IndexCatalogue)',
+            wordsMode: '@Html.Raw(Model.WordsMode.ToString())',
+            disableSuggestions: @(Model.DisableSuggestions ? Html.Raw("true") : Html.Raw("false")),
+            minSuggestionLength: '@Html.Raw(Model.MinSuggestionLength)',
+            suggestionFields: '@Html.Raw(Model.SuggestionFields)',
+            language: '@Html.Raw(Model.Language)',
+            suggestionsRoute: '@Html.Raw(Model.SuggestionsRoute)',        
+            searchTextBoxSelector: '#' + '@Html.Raw(searchTextBoxId)',
+            searchButtonSelector: '#' + '@Html.Raw(searchButtonId)'
+        };
+
+        featherSearchBoxWidget(serverData);
+    })();
+</script>
