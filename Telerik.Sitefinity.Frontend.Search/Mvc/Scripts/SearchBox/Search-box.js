@@ -35,7 +35,8 @@
 
         /* Event handlers */
         function keypressHandler(e) {
-            if (!e) var e = window.event;
+            if (!e)
+                e = window.event;
 
             var keyCode = null;
             if (e.keyCode) {
@@ -63,9 +64,9 @@
         }
 
         function keyupHandler(e) {
-            if (e.keyCode != 38 // up arrow
-                && e.keyCode != 40 // down arrow
-                && e.keyCode != 27) { // esc
+            if (e.keyCode != 38 &&  // up arrow
+                e.keyCode != 40 && // down arrow
+                e.keyCode != 27) { // esc
                 // When the auto complete menu is shown, only this event is detected
                 if (e.keyCode == 13) {
                     // when enter is pressed
@@ -93,7 +94,8 @@
             
         /* Helper methods */
         function navigateToResults(e) {
-            if (!e) var e = window.event;
+            if (!e)
+                e = window.event;
 
             if (e.stopPropagation) {
                 e.stopPropagation();
@@ -143,4 +145,4 @@
             }
         }
     });
-};
+}
