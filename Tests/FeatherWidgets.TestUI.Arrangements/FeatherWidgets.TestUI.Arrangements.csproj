@@ -177,6 +177,7 @@
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\ReorderSelectedNewsItems.cs" />
     <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
