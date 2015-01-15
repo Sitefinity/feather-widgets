@@ -288,13 +288,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemNames">Array of selected item names.</param>
         public void VerifySelectedItemsFromFlatSelector(string[] itemNames)
         {
-            var divList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in sfSelectedItems | limitTo:5");
+            var divList = this.EM.Widgets.WidgetDesignerContentScreen.SelectedItemsDivList;
             int divListCount = divList.Count;
-            Assert.IsNotNull(divListCount);
+            Assert.IsNotNull(divListCount, "Invalid count");
+            Assert.AreNotEqual(0, divListCount, "Count equals 0");
 
             for (int i = 0; i < divListCount; i++)
             {
-                Assert.AreEqual(divList[i].InnerText, itemNames[i]);
+                Assert.AreEqual(itemNames[i], divList[i].InnerText, itemNames[i] + "not found");
             }
         }
 
@@ -304,9 +305,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemNames">Array of selected item names.</param>
         public void VerifySelectedItemsFromHierarchicalSelector(string[] itemNames)
         {
-            var divList = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByExpression<HtmlDiv>("ng-repeat=item in sfSelectedItems | limitTo:5");
+            var divList = this.EM.Widgets.WidgetDesignerContentScreen.SelectedItemsDivList;
             int divListCount = divList.Count;
-            Assert.IsNotNull(divListCount);
+            Assert.IsNotNull(divListCount, "Invalid count");
+            Assert.AreNotEqual(0, divListCount, "Count equals 0");
 
             for (int i = 0; i < divListCount; i++)
             {

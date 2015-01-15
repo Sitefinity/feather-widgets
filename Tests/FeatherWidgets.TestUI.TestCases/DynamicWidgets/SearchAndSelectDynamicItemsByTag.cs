@@ -34,22 +34,12 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(new [] {TaxonTitle1, TaxonTitle2});
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            this.VerifyNewsOnBackend(); 
+            this.VerifyDynamicItemsOnBackend(); 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(new string[] { ItemsTitle + 2, ItemsTitle + 1 }));
         }
  
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
-            string[] newsTitles = new string[] { ItemsTitle + 2, ItemsTitle + 1};
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(newsTitles);
-        }
-
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
@@ -67,15 +57,14 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private void VerifyNewsOnBackend()
+        /// <summary>
+        /// Verifies the dynamic items on backend.
+        /// </summary>
+        private void VerifyDynamicItemsOnBackend()
         {
             for (int i = 0; i < 5; i++)
-            {
-                if (i == 0)
-                {
-                    BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, ItemsTitle + i);
-                }
-                else if (i > 0 && i <= 2)
+            {             
+                if (i > 0 && i <= 2)
                 {
                     BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, ItemsTitle + i);
                 }

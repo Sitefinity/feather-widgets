@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void AddNewItem()
         {
-            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.newTitles, this.newUrls);
+            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(NewTitles, NewUrls);
         }
 
         /// <summary>
@@ -45,13 +45,11 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
-        private const string ResolveType = "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle";
         private const string TransactionName = "Module Installations";
-        private const string WidgetName = "PressArticle";
-        private string[] dynamicTitles = { "Boat", "Cat", "Dog", "Elephant" };
-        private string[] dynamicUrls = { "BoatUrl", "CatUrl", "DogUrl", "ElephantUrl" };
+        private readonly string[] dynamicTitles = { "Boat", "Cat", "Dog", "Elephant" };
+        private readonly string[] dynamicUrls = { "BoatUrl", "CatUrl", "DogUrl", "ElephantUrl" };
         private const string PageName = "TestPage";
-        private string newTitles = "Angel";
-        private string newUrls = "AngelUrl";
+        private const string NewTitles = "Angel";
+        private const string NewUrls = "AngelUrl";
     }
 }

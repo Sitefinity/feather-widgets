@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// EditDeleteTagAndEdiDynamicWidget arrangement class.
     /// </summary>
-    public class EditDeleteTagAndEdiDynamicWidget : ITestArrangement
+    public class EditDeleteTagAndEditDynamicWidget : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(this.moduleName, string.Empty, TransactionName);
+            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
 
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             Guid[] taxonId = new Guid[5];
@@ -35,12 +35,18 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle", "PressArticle", "Press Articles MVC");
         }
 
+        /// <summary>
+        /// Edits the tag.
+        /// </summary>
         [ServerArrangement]
         public void EditTag()
         {
             ServerOperationsFeather.Tags().EditTag(OldTagName, NewTagName);
         }
 
+        /// <summary>
+        /// Deletes the tag.
+        /// </summary>
         [ServerArrangement]
         public void DeleteTag()
         {
@@ -59,7 +65,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageName = "TestPage";
-        private readonly string moduleName = "Press Release";
+        private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
         private const string TransactionName = "Module Installations";
         private const string ItemsTitle = "Title";

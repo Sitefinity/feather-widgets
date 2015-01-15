@@ -110,7 +110,7 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
-    <Compile Include="DynamicWidgets\EditDeleteTagAndEdiDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\EditDeleteTagAndEditDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />

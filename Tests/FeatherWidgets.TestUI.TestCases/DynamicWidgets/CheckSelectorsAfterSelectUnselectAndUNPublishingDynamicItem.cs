@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(selectedItemsNames);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            foreach (var dynamicItem in selectedItemsNames2)
+            foreach (var dynamicItem in selectedItemsNames)
             {
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, dynamicItem);
             }
@@ -56,22 +56,13 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().CheckNotificationInSelectedTab(countOfSelectedItems - 1);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            foreach (var dynamicTitle in unSelectedItemsNames)
+            foreach (var dynamicTitle in finalItemsNames)
             {
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, dynamicTitle);
             }
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify dynamic widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.unSelectedItemsNames);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(this.finalItemsNames));
         }
 
         protected void UnpublishDynamicItem()
@@ -101,8 +92,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string WhichNewsToDisplay = "Selected PressArticles";
 
         private readonly string[] selectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6", "Dynamic Item Title12" };
-        private readonly string[] selectedItemsNames2 = { "Dynamic Item Title1", "Dynamic Item Title6", "Dynamic Item Title12" };
         private const string SelectedItemsName6 = "Dynamic Item Title6";
-        private readonly string[] unSelectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title12" };
+        private readonly string[] finalItemsNames = { "Dynamic Item Title1", "Dynamic Item Title12" };
     }
 }

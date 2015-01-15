@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string WidgetName = "AllTypes";
         private const string WidgetCaptionDynamicWidget = "AllTypes MVC";
         private const string PageName = "TestPage";
-        private string[] categoryName = { "Categories", "New category" };
-        private string[] tagName = { "Tags", "New tag" };
+        private readonly string[] categoryName = { "Categories", "New category" };
+        private readonly string[] tagName = { "Tags", "New tag" };
     }
 }

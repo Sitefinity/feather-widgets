@@ -6,18 +6,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
     /// <summary>
-    /// EditDeleteTagAndEdiDynamicWidget test class.
+    /// EditDeleteTagAndEditDynamicWidget test class.
     /// </summary>
     [TestClass]
-    public class EditDeleteTagAndEdiDynamicWidget_ : FeatherTestCase
+    public class EditDeleteTagAndEditDynamicWidget_
+        : FeatherTestCase
     {
         /// <summary>
-        /// UI test EditDeleteTagAndEdiDynamicWidget
+        /// UI test EditDeleteTagAndEditDynamicWidget
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
-        public void EditDeleteTagAndEdiDynamicWidget()
+        public void EditDeleteTagAndEditDynamicWidget()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -32,17 +33,16 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Arrange(this.TestName).ExecuteArrangement("EditTag");
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
 
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(new[] { TaxonTitle1Edited });
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, ItemsTitle1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            this.DeleteTag();
+            BAT.Arrange(this.TestName).ExecuteArrangement("DeleteTag");
 
-            BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
@@ -53,17 +53,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, ItemsTitle2);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.itemsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(this.itemsTitles));
         }
 
         /// <summary>
@@ -73,11 +64,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
-        }
-
-        protected void DeleteTag()
-        {
-            BAT.Arrange(this.TestName).ExecuteArrangement("DeleteTag");
         }
 
         /// <summary>
@@ -97,6 +83,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string TaxonTitle1Edited = "Tag1_Edited";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Tags";
-        private readonly string[] itemsTitles = new string[] { ItemsTitle1 };
+        private readonly string[] itemsTitles = new string[] { ItemsTitle2 };
     }
 }

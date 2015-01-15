@@ -20,19 +20,19 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(this.moduleName, string.Empty, TransactionName);
+            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
 
-            ServerOperations.Taxonomies().CreateFlatTaxonomy(this.customFlatTaxonomyName);
-            ServerOperations.Taxonomies().CreateFlatTaxon(this.customFlatTaxonName1, this.customFlatTaxonomyName);
-            ServerOperations.Taxonomies().CreateFlatTaxon(this.customFlatTaxonName2, this.customFlatTaxonomyName);
-            ServerOperationsFeather.DynamicModulePressArticle().AddCustomTaxonomyToContext(this.customFlatTaxonomyName, this.isHierarchicalTaxonomy);
+            ServerOperations.Taxonomies().CreateFlatTaxonomy(CustomFlatTaxonomyName);
+            ServerOperations.Taxonomies().CreateFlatTaxon(CustomFlatTaxonName1, CustomFlatTaxonomyName);
+            ServerOperations.Taxonomies().CreateFlatTaxon(CustomFlatTaxonName2, CustomFlatTaxonomyName);
+            ServerOperationsFeather.DynamicModulePressArticle().AddCustomTaxonomyToContext(CustomFlatTaxonomyName, IsHierarchicalTaxonomy);
             ServerOperations.SystemManager().RestartApplication(false);
 
-            var customTaxonName1 = new List<string> { this.customFlatTaxonName1 };
-            var customTaxonName2 = new List<string> { this.customFlatTaxonName2 };
-            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleWithCustomTaxonomy(ItemsTitle1, ItemsTitle1 + "Url", this.customFlatTaxonomyName, customTaxonName1);
-            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleWithCustomTaxonomy(ItemsTitle2, ItemsTitle2 + "Url", this.customFlatTaxonomyName, customTaxonName2);
+            var customTaxonName1 = new List<string> { CustomFlatTaxonName1 };
+            var customTaxonName2 = new List<string> { CustomFlatTaxonName2 };
+            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleWithCustomTaxonomy(ItemsTitle1, ItemsTitle1 + "Url", CustomFlatTaxonomyName, customTaxonName1);
+            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleWithCustomTaxonomy(ItemsTitle2, ItemsTitle2 + "Url", CustomFlatTaxonomyName, customTaxonName2);
             ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle", "PressArticle", "Press Articles MVC");
         }
 
@@ -44,19 +44,19 @@ namespace FeatherWidgets.TestUI.Arrangements
         {           
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
-            ServerOperations.Taxonomies().DeleteFlatTaxonomy(this.customFlatTaxonomyName);         
+            ServerOperations.Taxonomies().DeleteFlatTaxonomy(CustomFlatTaxonomyName);         
         }
         
         private const string PageName = "TestPage";
-        private readonly string moduleName = "Press Release";
+        private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
         private const string TransactionName = "Module Installations";
         private const string ItemsTitle1 = "Title1";
         private const string ItemsTitle2 = "Title2";
 
-        private readonly string customFlatTaxonomyName = "MyCustomFlatTaxonomy";
-        private readonly string customFlatTaxonName1 = "MyFlatTaxon1";
-        private readonly string customFlatTaxonName2 = "MyFlatTaxon2";
-        private readonly bool isHierarchicalTaxonomy = false;
+        private const string CustomFlatTaxonomyName = "MyCustomFlatTaxonomy";
+        private const string CustomFlatTaxonName1 = "MyFlatTaxon1";
+        private const string CustomFlatTaxonName2 = "MyFlatTaxon2";
+        private const bool IsHierarchicalTaxonomy = false;
     }
 }

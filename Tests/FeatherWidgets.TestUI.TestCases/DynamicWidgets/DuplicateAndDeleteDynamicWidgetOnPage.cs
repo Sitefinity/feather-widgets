@@ -37,7 +37,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         public void NavigatePageOnTheFrontend(string[] dynamicTitles, int count)
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(dynamicTitles));
             Assert.AreEqual(count, BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().ListWithDynamicWidgets().Count);
         }

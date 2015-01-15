@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
+using System.Collections.ObjectModel;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
 {
@@ -294,6 +295,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
             get
             {
                 return this.Get<HtmlUnorderedList>("class=dropdown-menu");
+            }
+        }
+
+        /// <summary>
+        /// Gets the selected items div list.
+        /// </summary>
+        /// <value>The selected items div list.</value>
+        public ReadOnlyCollection<HtmlDiv> SelectedItemsDivList
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlDiv>("ng-repeat=item in sfSelectedItems | limitTo:5");
             }
         }
     }
