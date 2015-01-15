@@ -177,6 +177,7 @@
     <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged.cs" />
     <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\ReorderSelectedNewsItems.cs" />
     <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
     <Compile Include="News\AddNewsWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocialShare\CheckAllOptionsInSocialShareWidget.cs" />
     <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
+    <Compile Include="SocialShare\EditSocialShareWidgetOnPageBasedOnBootstrapTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,4 +1,5 @@
-﻿using ArtOfTest.WebAii.Controls.HtmlControls;
+﻿using System.Linq;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -36,9 +37,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         /// <param name="expectedNumberOfOptions">The expected number of options.</param>
         /// <param name="optionNames">The option names.</param>
-        public void VerifySocialShareOptionsInFrontend(int expectedNumberOfOptions, params string[] optionNames)
+        public void VerifySocialShareOptionsOnFrontend(int expectedNumberOfOptions, params string[] optionNames)
         {
-            var list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=list-inline sf-social-share");
+            var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
             var count = 0;
             foreach (var optionName in optionNames)
             {
@@ -55,6 +56,30 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 count++;               
             }
             Assert.AreEqual(expectedNumberOfOptions, count, "Count is not correct!");
+        }
+
+        /// <summary>
+        /// Verifies the social share text present on front end.
+        /// </summary>
+        /// <param name="optionNames">The option names.</param>
+        public void VerifySocialShareTextPresentOnFrontend(params string[] optionNames)
+        {
+            var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
+            foreach (var optionName in optionNames)
+            {
+                var option = list.Find.ByExpression<HtmlListItem>("innertext=~" + optionName);
+                Assert.IsNotNull(option, optionName + " is not found");
+            }
+        }
+
+        /// <summary>
+        /// Counts the of social share options.
+        /// </summary>
+        /// <returns></returns>
+        public int CountOfSocialShareOptions()
+        {
+            var options = EM.SocialShare.SocialSharePageEditor.ListOfAllOptions;
+            return options.Count();
         }
     }
 }

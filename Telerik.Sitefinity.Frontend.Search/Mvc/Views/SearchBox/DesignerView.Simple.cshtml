@@ -1,0 +1,71 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<div class="form-group">
+    <label>@Html.Resource("WhereToSearch")</label>
+
+    <div ng-hide="hasSearchIndexes" class="alert alert-info">
+        <span>@Html.Resource("NoSearchIndexes")</span>
+        <a class="Tooltip">@Html.Resource("WhatIsThis")
+            <div class="Tooltip-info Tooltip-info--bottom">
+                <p>@Html.Resource("SearchIndexesDescriptionTitle")</p>
+                <p>@Html.Resource("SearchIndexesDescription")</p>
+                <p>@Html.Resource("SearchIndexesDescriptionWhere")</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="row row-xs" ng-show="hasSearchIndexes">
+        <div class="col-xs-6">
+
+            <select id="searchIndexes" class="form-control" 
+                    ng-options="index.ID as index.Title for index in searchIndexes"
+                    ng-model="properties.SearchIndexPipeId.PropertyValue">
+                <option value="">@Html.Resource("SelectSearchIndex")</option>
+            </select>
+
+        </div>
+        <div class="col-xs-6">
+
+            <a class="Tooltip">@Html.Resource("WhatIsThis")
+                <div class="Tooltip-info Tooltip-info--bottom">
+                    <p>@Html.Resource("SearchIndexesDescriptionTitle")</p>
+                    <p>@Html.Resource("SearchIndexesDescription")</p>
+                    <p>@Html.Resource("SearchIndexesDescriptionWhere")</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>@Html.Resource("WhereToDisplaySearchResults")</label>
+
+    <p>
+        @Html.Resource("ThisIsPageWhereYouHaveDropped") <em>@Html.Resource("SearchResultsWidget")</em>
+    </p>
+    <sf-list-selector sf-page-selector sf-selected-item-id="properties.ResultsPageId.PropertyValue" sf-select-button-text="Select a page..."></sf-list-selector>
+</div>
+
+<div class="form-group">
+    <label for="searchTemplateName">@Html.Resource("Template")</label>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <select id="searchTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames("SearchBox", @"(?<viewName>^SearchBox.*)$"))
+                {
+                    <option value="@viewName">@viewName</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+	<style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+	<div class="form-group">
+		<label for="searchCssClass">@Html.Resource("CssClasses")</label>
+		<input type="text" id="searchCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+	</div>
+</expander>

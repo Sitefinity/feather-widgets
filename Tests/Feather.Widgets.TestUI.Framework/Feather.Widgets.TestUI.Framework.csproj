@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BATFeather.cs" />
+    <Compile Include="Framework\ElementMap\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareMap.cs" />
     <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerContentScreen.cs" />
