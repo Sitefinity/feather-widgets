@@ -15,6 +15,8 @@ namespace FeatherWidgets.TestUnit.SearchBox
             // Arrange
             using (var controller = new DummySearchBoxController())
             {
+                controller.Model.IndexCatalogue = "catalogue1";
+
                 // Act
                 var view = controller.Index() as ViewResult;
                 var model = view.Model;
