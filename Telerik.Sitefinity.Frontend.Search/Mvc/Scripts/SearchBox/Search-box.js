@@ -15,18 +15,18 @@
             searchTextBox.keyup(keyupHandler);
 
             try {
-                searchTextBox.kendoAutoComplete({
-                    dataSource:
+                searchTextBox.autocomplete({
+                    source: [],
+                    messages:
                         {
-                            serverFiltering: true,
-                            data: []
+                            noResults: '',
+                            results: function () { }
                         },
-                    select: function (e) {
-                        searchTextBox.val(this.dataItem(e.item.index()));
-                        navigateToResults(e);
+                    select: function (event, ui) {
+                        searchTextBox.val(this.value);
+                        navigateToResults(event);
                     },
-                    minLength: serverData.minSuggestionLength
-                });
+                }).autocomplete("widget").addClass("sf-autocomplete");
             } catch (e) {
                 // Fixes jQuery bug, causing IE7 to throw error "script3 member not found".
                 // The try/catch can be removed when the bug is fixed.
@@ -52,16 +52,10 @@
         }
 
         function suggestionsSuccessHandler(result, args) {
-            var dataSource = new kendo.data.DataSource({
-                serverFiltering: true,
-                data: result.Suggestions
-            });
+            var dataSource = result.Suggestions;
+            searchTextBox.autocomplete('option', 'source', dataSource);
 
-            var autocomplete = searchTextBox.data("kendoAutoComplete");
-            autocomplete.setDataSource(dataSource);
-            autocomplete.list.addClass("sf-autocomplete");
-
-            autocomplete.search(searchTextBox.val().trim());
+            searchTextBox.autocomplete("search", searchTextBox.val().trim());
         }
 
         function keyupHandler(e) {
