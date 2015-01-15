@@ -32,16 +32,15 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().OpenSelectedTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(4);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ReorderSelectedItems(expectedOrderOfNames, selectedItemsNames, reorderedIndexMapping);
-
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ReorderSelectedItems(expectedOrderOfNames, selectedItemsNames, reorderedIndexMapping);         
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(expectedOrderOfNames);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectListSettingsTab();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectSortingOption(SortingOption);
+
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
 
-            foreach (var dynamicItem in expectedOrderOfNames)
-            {
-                BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, dynamicItem);
-            }
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfItemsOnBackend(this.expectedOrderOfNames);
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
@@ -70,6 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string WhichNewsToDisplay = "Selected PressArticles";
         private readonly string[] selectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6", "Dynamic Item Title9" };
         private readonly string[] expectedOrderOfNames = { "Dynamic Item Title9", "Dynamic Item Title5", "Dynamic Item Title1", "Dynamic Item Title6" };
+        private const string SortingOption = "AsSetManually";
 
         private readonly Dictionary<int, int> reorderedIndexMapping = new Dictionary<int, int>()
         {

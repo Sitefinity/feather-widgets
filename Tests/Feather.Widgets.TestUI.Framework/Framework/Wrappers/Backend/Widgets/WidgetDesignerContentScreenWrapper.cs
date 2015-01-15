@@ -226,7 +226,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="expectedCount">The expected items count.</param>
         public void WaitForItemsToAppear(int expectedCount)
         {
-            Manager.Current.Wait.For(() => this.ScrollToLatestItemAndCountItems(expectedCount), 100000);
+            Manager.Current.Wait.For(() => this.ScrollToLatestItemAndCountItems(expectedCount), 150000);
         }
 
         /// <summary>
@@ -508,6 +508,37 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             singleTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
+        }
+   
+        /// <summary>
+        /// Lists the settings tab.
+        /// </summary>
+        public void SelectListSettingsTab()
+        {
+            HtmlAnchor listSettingsTab = this.EM.Widgets.WidgetDesignerContentScreen.ListSettings
+                                    .AssertIsPresent("List settings tab");
+
+            listSettingsTab.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+     
+        /// <summary>
+        /// Selects the sorting option.
+        /// </summary>
+        /// <param name="option">The option.</param>
+        public void SelectSortingOption(string option)
+        {
+            HtmlSelect selectDetailTemplate = this.EM.Widgets.WidgetDesignerContentScreen.SortingOptionsDropdown
+                                    .AssertIsPresent("Sorting dropdown");
+
+            selectDetailTemplate.Click();
+            selectDetailTemplate.SelectByValue(option);
+            selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>

@@ -118,7 +118,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         /// <value>- Select search index -</value>
         [ResourceEntry("SelectSearchIndex",
             Value = "- Select search index -",
-            Description = "Phrase: - Select search index -",
+            Description = "Phrase:- Select search index -",
             LastModified = "2015/01/06")]
         public string SelectSearchIndex
         {

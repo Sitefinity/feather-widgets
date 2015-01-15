@@ -10,11 +10,13 @@ namespace FeatherWidgets.TestUnit.SearchBox
     public class SearchBoxControllerTests
     {
         [TestMethod]
-        public void CallIndexActionAction_EnsureTheModelIsProperlyCreated()
+        public void CallIndexAction_EnsureTheModelIsProperlyCreated()
         {           
             // Arrange
             using (var controller = new DummySearchBoxController())
             {
+                controller.Model.IndexCatalogue = "catalogue1";
+
                 // Act
                 var view = controller.Index() as ViewResult;
                 var model = view.Model;

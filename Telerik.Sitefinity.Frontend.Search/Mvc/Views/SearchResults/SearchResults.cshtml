@@ -45,10 +45,23 @@
             <div id="search-results">
                 @foreach (var item in Model.Results.Data)
                 {
+                    var hasLink = !String.IsNullOrEmpty(item.GetValue("Link"));
                     <div class="row" style="margin-bottom: 10px;">
-                        <h3><a href="@item.GetValue("Link")">@item.GetValue("Title")</a></h3>
+                        <h3>
+                            @if(hasLink) 
+                            {
+                                <a href="@item.GetValue("Link")">@item.GetValue("Title")</a>
+                            }
+                            else
+                            {
+                                @item.GetValue("Title")
+                            }
+                        </h3>
                         <p>@Html.Raw(item.GetValue("HighLighterResult"))</p>
-                        <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
+                        @if(hasLink)
+                        {
+                            <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
+                        }
                     </div>
                 }
 

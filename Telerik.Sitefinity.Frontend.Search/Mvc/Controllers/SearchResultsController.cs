@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
-using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Services.Search;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
     /// <summary>
     /// Represents the Controller of the Search results widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SearchResults", Title = "Search results", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "SearchResults", Title = "Search results", SectionName = "MvcWidgets", ModuleName = "Search")]
     [Localization(typeof(SearchWidgetsResources))]
     public class SearchResultsController : Controller
     {
@@ -70,6 +69,11 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page, string searchQuery = null, string indexCatalogue = null, string wordsMode = null, string language = null, string orderBy = null)
         {
+            if (!this.IsSearchModuleActivated())
+            {
+                return null;
+            }
+
             if (!String.IsNullOrEmpty(searchQuery))
             {
                 bool isValid = this.Model.ValidateQuery(ref searchQuery);
@@ -147,6 +151,17 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             
 
             return ControllerModelFactory.GetModel<ISearchResultsModel>(this.GetType(), constructorParams);
+        }
+
+        /// <summary>
+        /// Determines whether the search module is activated.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsSearchModuleActivated()
+        {
+            return SystemManager.ApplicationModules != null &&
+                SystemManager.ApplicationModules.ContainsKey(SearchModule.ModuleName) &&
+                !(SystemManager.ApplicationModules[SearchModule.ModuleName] is InactiveModule);
         }
 
         #endregion

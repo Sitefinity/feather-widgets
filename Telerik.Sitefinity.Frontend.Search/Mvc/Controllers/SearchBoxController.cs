@@ -15,13 +15,15 @@ using System.Globalization;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Services.Search;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of Search box widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SearchBox", Title = "Search box", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "SearchBox", Title = "Search box", SectionName = "MvcWidgets", ModuleName = "Search")]
     [Localization(typeof(SearchWidgetsResources))]
     public class SearchBoxController : Controller, ICustomWidgetVisualization
     {
@@ -94,7 +96,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            if (!this.IsEmpty)
+            if (!this.IsEmpty && this.IsSearchModuleActivated())
             {
                 var query = this.GetSearchQueryFromQueryString(this.Model.IndexCatalogue);
                 this.ViewBag.SearchQuery = query;
@@ -123,7 +125,18 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// <returns></returns>
         protected virtual int GetMinSuggestLength()
         {
-            return Config.Get<SearchConfig>().MinSuggestLength;
+            // Prevent error if the Search module is disabled.
+            var minLength = 3;
+            try
+            {
+                minLength = Config.Get<SearchConfig>().MinSuggestLength;
+                return minLength;
+            }
+            catch (Exception ex)
+            {
+                Log.Write(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Exception occurred in the SearchBoxController, details: {0}", ex));
+                return minLength;
+            }
         }
         #endregion
 
@@ -169,7 +182,19 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
             }
 
             return searchQuery;
-        }        
+        }
+
+        /// <summary>
+        /// Determines whether the search module is activated.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsSearchModuleActivated()
+        {
+            return SystemManager.ApplicationModules != null &&
+                SystemManager.ApplicationModules.ContainsKey(SearchModule.ModuleName) &&
+                !(SystemManager.ApplicationModules[SearchModule.ModuleName] is InactiveModule);
+        }
+
         #endregion
 
         #region Private fields and constants

@@ -39,8 +39,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Author("Sitefinity Team 7")]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithSortDescending()
         {
-            string sortExpession = "Title DESC";           
-            string[] expectedDynamicTitles = { "Title2", "Title7", "Title5" };
+            string sortExpession = "Title DESC";
+            string[] selectedDynamicTitles = { "Title2", "Title7", "Title5" };
+            string[] expectedDynamicTitles = { "Title7", "Title5", "Title2" };
  
             try
             {
@@ -58,9 +59,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 var selectedDynamicItems = new DynamicContent[3];
 
-                for (int i = 0; i < expectedDynamicTitles.Count(); i++)
+                for (int i = 0; i < selectedDynamicTitles.Count(); i++)
                 {
-                    selectedDynamicItems[i] = dynamicCollection.FirstOrDefault<DynamicContent>(n => n.UrlName == (expectedDynamicTitles[i] + "Url"));
+                    selectedDynamicItems[i] = dynamicCollection.FirstOrDefault<DynamicContent>(n => n.UrlName == (selectedDynamicTitles[i] + "Url"));
                 }
 
                 //// SerializedSelectedItemsIds string should appear in the following format: "[\"ca782d6b-9e3d-6f9e-ae78-ff00006062c4\",\"66782d6b-9e3d-6f9e-ae78-ff00006062c4\"]"
@@ -137,6 +138,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 mvcProxy.Settings = new ControllerSettings(dynamicController);
                 mvcProxy.WidgetName = WidgetName;
                 dynamicController.Model.ItemsPerPage = itemsPerPage;
+                dynamicController.Model.SortExpression = AsSetManuallySortingOption;
 
                 for (int i = 0; i < selectedDynamicTitles.Count(); i++)
                 {
@@ -194,6 +196,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
                 dynamicController.Model.SelectionMode = SelectionMode.SelectedItems;
                 dynamicController.Model.DisplayMode = ListDisplayMode.Limit;
                 dynamicController.Model.ItemsPerPage = 5;
+                dynamicController.Model.SortExpression = AsSetManuallySortingOption;
 
                 var mvcProxy = new MvcWidgetProxy();
                 mvcProxy.ControllerName = typeof(DynamicContentController).FullName;
@@ -715,6 +718,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         private const string ResolveType = "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle";
         private const string TransactionName = "Module Installations";
         private const string WidgetName = "PressArticle";
+        private const string AsSetManuallySortingOption = "AsSetManually";
         private readonly string dynamicTitle = "Title";
         private readonly string[] dynamicTitles = { "Angel", "Boat", "Cat" };
         private readonly string[] dynamicUrls = { "AngelUrl", "BoatUrl", "CatUrl" };
