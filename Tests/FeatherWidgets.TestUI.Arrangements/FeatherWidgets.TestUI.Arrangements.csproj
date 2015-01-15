@@ -211,6 +211,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocialShare\CheckAllOptionsInSocialShareWidget.cs" />
     <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
+    <Compile Include="SocialShare\EditSocialShareWidgetOnPageBasedOnBootstrapTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

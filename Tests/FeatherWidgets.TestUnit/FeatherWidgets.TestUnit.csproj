@@ -82,12 +82,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.3.5600.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.Search, Version=7.3.5600.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.7.3.5600.0\lib\net40\Telerik.Sitefinity.Search.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.Search.Impl, Version=7.3.5600.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Telerik.Sitefinity.ServicesImpl.7.3.5600.0\lib\net40\Telerik.Sitefinity.Search.Impl.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities">
       <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.7.3.5600.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.3.5600.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Web.UI">
+      <HintPath>..\..\packages\Telerik.Web.UI.2014.3.1209.40\lib\net40\Telerik.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -111,6 +122,9 @@
     <Compile Include="DummyClasses\Navigation\DummyNavigationController.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationModel.cs" />
     <Compile Include="DummyClasses\Navigation\DummySiteMapProvider.cs" />
+    <Compile Include="DummyClasses\SearchBox\DummySearchBoxController.cs" />
+    <Compile Include="DummyClasses\SearchResults\DummySearchResultsController.cs" />
+    <Compile Include="DummyClasses\SearchResults\DummySearchResultsModel.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareController.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -120,16 +134,26 @@
     <Compile Include="ObjectFactoryContainerRegion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResourcesTests.cs" />
+    <Compile Include="SearchBox\SearchBoxControllerTests.cs" />
+    <Compile Include="DummyClasses\DummyModuleBuilderProxy.cs" />
+    <Compile Include="DummyClasses\DummyRelatedDataResolver.cs" />
+    <Compile Include="SearchResults\SearchResultsControllerTests.cs" />
     <Compile Include="SocialShare\SocialShareControllerTests.cs" />
     <Compile Include="TestInterfaceMappings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
       <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj">
+      <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>
+      <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
@@ -138,6 +162,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
       <Name>Telerik.Sitefinity.Frontend.News</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj">
+      <Project>{b1e056f8-d6ad-4c0c-a619-053e23f44a60}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Search</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj">
       <Project>{33171bb5-9918-41be-b06d-0d8347846b0c}</Project>
