@@ -7,41 +7,23 @@ using System;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// CreateSocialShareWidgetTemplateAndCheckTheDesigner test class.
+    /// EditSocialShareWidgetOnPageBasedOnBootstrapTemplate test class.
     /// </summary>
     [TestClass]
-    public class CreateSocialShareWidgetTemplateAndCheckTheDesigner_ : FeatherTestCase
+    public class EditSocialShareWidgetOnPageBasedOnBootstrapTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test CreateSocialShareWidgetTemplateAndCheckTheDesigner
+        /// UI test EditSocialShareWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.SocialShare)]
-        public void CreateSocialShareWidgetTemplateAndCheckTheDesigner()
+        public void EditSocialShareWidgetOnPageBasedOnBootstrapTemplate()
         {
-            BAT.Macros().NavigateTo().Design().WidgetTemplates();
-            BATFeather.Wrappers().Backend().WidgetTemplates().WidgetTemplatesWrapper().CreateTemplate();
-            BATFeather.Wrappers().Backend().WidgetTemplates().WidgetTemplatesCreateScreenFrameWrapper().SelectTemplate("SocialShare (MVC)");
-            BATFeather.Wrappers().Backend().WidgetTemplates().WidgetTemplatesCreateScreenFrameWrapper().EnterTextInTextArea(TemplateContent);
-            BATFeather.Wrappers().Backend().WidgetTemplates().WidgetTemplatesCreateScreenFrameWrapper().EnterWidgetTemplateName(TemplateTitle);
-            BATFeather.Wrappers().Backend().WidgetTemplates().WidgetTemplatesCreateScreenFrameWrapper().CreateThisTemplate();
-
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectWidgetListTemplate(TemplateTitle);        
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TemplateContent);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().IsSocialShareTemplateContentPresentOnTheFrontend(new[] { TemplateContent }), "Template content not found");
-
-            BAT.Macros().NavigateTo().Pages();
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareOptionsPresentOnBackend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectWidgetListTemplate(TemplateIconsWithText);
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectSocialShareOptions(this.optionTitlesToSelect);
@@ -75,9 +57,7 @@ namespace FeatherWidgets.TestUI
 
         private const string PageName = "SocialShare";
         private const string WidgetName = "Social share";
-        private const string TemplateTitle = "SocialShareTest";
         private const string TemplateIconsWithText = "SocialShareIconsWithText";
-        private const string TemplateContent = "SocialShareTest";
         private readonly string[] optionTitlesToSelect = new string[] { "Blogger", "Digg", "My Space", "Google bookmarks", "Delicious" };
         private readonly string[] optionTitlesToUnselect = new string[] { "Google +", "LinkedIn", "Facebook", "Twitter" };
         private readonly string[] optionTitlesTextToBeVisible = new string[] { "Google Bookmarks", "Save this on Delicious", "Blogger", "MySpace", "Digg" };

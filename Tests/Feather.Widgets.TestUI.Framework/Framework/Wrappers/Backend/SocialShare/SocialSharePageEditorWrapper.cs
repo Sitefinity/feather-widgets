@@ -71,8 +71,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
             foreach (var optionName in optionNames)
             {
-                var option = list.Find.ByExpression<HtmlAnchor>("innertext=~" + optionName);
-                Assert.IsNull(option, optionName + " is found");
+                var option = list.Find.ByExpression<HtmlListItem>("innertext=~" + optionName);
+                Assert.IsNotNull(option, optionName + " is not found");
             }
         }
 
