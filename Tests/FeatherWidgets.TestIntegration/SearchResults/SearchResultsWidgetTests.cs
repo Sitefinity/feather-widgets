@@ -34,7 +34,6 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [SetUp]
         public void Setup()
         {
-            this.searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
             this.pageOperations = new PagesOperations();
 
             for (int i = 1; i <= SearchResultsWidgetTests.NewsCount; i++)
@@ -49,7 +48,6 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [TearDown]
         public void TearDown()
         {
-            this.DeleteSearchIndex(SearchIndexName, this.searchIndex1Id);
             this.pageOperations.DeletePages();
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
         }
@@ -61,26 +59,36 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Description("Verifies that all search results are returned correctly for all languages.")]
         public void SearchResultsWidget_AllLanguages_ResultsFound()
         {
-            int index = 1;
-            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
-            string pageNamePrefix = testName + "NewsPage" + index;
-            string pageTitlePrefix = testName + "NewsPage" + index;
-            string urlNamePrefix = testName + "news-page" + index;
-            
-            string orderBy = "Oldest";
-            var searchResultsController = new SearchResultsController();
+            Guid searchIndex1Id = Guid.Empty;
+            try
+            {
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
-            var newsController = new NewsController();
-            newsController.Model.EnableSocialSharing = true;
-            mvcProxy.Settings = new ControllerSettings(newsController);
+                int index = 1;
+                string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+                string pageNamePrefix = testName + "NewsPage" + index;
+                string pageTitlePrefix = testName + "NewsPage" + index;
+                string urlNamePrefix = testName + "news-page" + index;
 
-            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                string orderBy = "Oldest";
+                var searchResultsController = new SearchResultsController();
 
-            searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                newsController.Model.EnableSocialSharing = true;
+                mvcProxy.Settings = new ControllerSettings(newsController);
 
-            Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+
+                Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
+            }
+            finally
+            {
+                this.DeleteSearchIndex(SearchIndexName, searchIndex1Id);
+            }
         }
 
         [Test]
@@ -90,28 +98,38 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Description("Verifies that all search results are returned correctly for particular languages.")]
         public void SearchResultsWidget_SpecificLanguages_ResultsFound()
         {
-            int index = 1;
-            string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
-            string pageNamePrefix = testName + "NewsPage" + index;
-            string pageTitlePrefix = testName + "NewsPage" + index;
-            string urlNamePrefix = testName + "news-page" + index;
+            Guid searchIndex1Id = Guid.Empty;
+            try
+            {
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
 
-            var frontEndLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
-            var language = frontEndLanguages[2].Name;
-            string orderBy = "Oldest";
-            var searchResultsController = new SearchResultsController();
+                int index = 1;
+                string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+                string pageNamePrefix = testName + "NewsPage" + index;
+                string pageTitlePrefix = testName + "NewsPage" + index;
+                string urlNamePrefix = testName + "news-page" + index;
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
-            var newsController = new NewsController();
-            newsController.Model.EnableSocialSharing = true;
-            mvcProxy.Settings = new ControllerSettings(newsController);
+                var frontEndLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
+                var language = frontEndLanguages[2].Name;
+                string orderBy = "Oldest";
+                var searchResultsController = new SearchResultsController();
 
-            this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                newsController.Model.EnableSocialSharing = true;
+                mvcProxy.Settings = new ControllerSettings(newsController);
 
-            searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, language, orderBy);
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-            Assert.AreEqual(1, searchResultsController.Model.Results.TotalCount);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, language, orderBy);
+
+                Assert.AreEqual(1, searchResultsController.Model.Results.TotalCount);
+            }
+            finally
+            {
+                this.DeleteSearchIndex(SearchIndexName, searchIndex1Id);
+            }
         }
 
         #region Helper methods
@@ -178,7 +196,6 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
         #region Fields and constants
 
-        private Guid searchIndex1Id;
         private PagesOperations pageOperations;
         private const string NewsTitle = "TestNews";
         private const string SearchIndexName = "catalogue1";
