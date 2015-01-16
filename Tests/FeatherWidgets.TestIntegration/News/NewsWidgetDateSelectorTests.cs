@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
+
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
@@ -38,7 +39,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// <summary>
         /// News widget - test date selector - any time
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("FeatherTeam")]
         [Description("Verifies that the date selector - any time resolves the correct news.")]
@@ -47,13 +48,9 @@ namespace FeatherWidgets.TestIntegration.News
             var newsManager = NewsManager.GetManager();
             int newsCount = 3;
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SelectionMode = SelectionMode.FilteredItems;
             newsController.Model.SerializedAdditionalFilters = "{\"QueryItems\":[]}";
-
-            mvcProxy.Settings = new ControllerSettings(newsController);
 
             DateTime publicationDate = DateTime.UtcNow.AddYears(-2);
 
@@ -61,19 +58,18 @@ namespace FeatherWidgets.TestIntegration.News
             newsManager.Lifecycle.PublishWithSpecificDate(modified, publicationDate);
             newsManager.SaveChanges();
 
-            newsController.Index(null);
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            Assert.AreEqual(newsCount, items.Length, "The count of the news item is not as expected");
 
-            Assert.AreEqual(newsCount, newsController.Model.Items.Count, "The count of the news item is not as expected");
-
-            Assert.IsTrue(newsController.Model.Items[0].Title.Value.Equals(this.newsTitles[1]), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(this.newsTitles[0]), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[2].Title.Value.Equals(this.newsTitles[2]), "The news with this title was not found!");
+            Assert.IsTrue(items[0].Fields.Title.Equals(this.newsTitles[1]), "The news with this title was not found!");
+            Assert.IsTrue(items[1].Fields.Title.Equals(this.newsTitles[0]), "The news with this title was not found!");
+            Assert.IsTrue(items[2].Fields.Title.Equals(this.newsTitles[2]), "The news with this title was not found!");
         }
 
         /// <summary>
         /// News widget - test date selector -last 1 day
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("FeatherTeam")]
         [Description("Verifies that the date selector -last 1 day resolves the correct news.")]
@@ -82,10 +78,8 @@ namespace FeatherWidgets.TestIntegration.News
             var newsManager = NewsManager.GetManager();
             int newsCount = 2;
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SelectionMode = SelectionMode.FilteredItems;
             newsController.Model.SerializedAdditionalFilters = @"{
 				""QueryItems"": [
 					{
@@ -113,33 +107,30 @@ namespace FeatherWidgets.TestIntegration.News
 				]
 			}";
 
-            mvcProxy.Settings = new ControllerSettings(newsController);
-
             DateTime publicationDate = DateTime.UtcNow.AddDays(-10);
 
             NewsItem modified = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == "Boat").FirstOrDefault();
             newsManager.Lifecycle.PublishWithSpecificDate(modified, publicationDate);
             newsManager.SaveChanges();
 
-            newsController.Index(null);
-
-            var newsItemsCount = newsController.Model.Items.Count;
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            var newsItemsCount = items.Length;
 
             Assert.AreEqual(newsCount, newsItemsCount, "The count of the news item is not as expected");
 
             for (int i = 0; i < newsItemsCount; i++)
             {
-                Assert.IsFalse(newsController.Model.Items[i].Title.Value.Equals(this.newsTitles[2]), "The news with this title was found!");
+                Assert.IsFalse(items[i].Fields.Title.Equals(this.newsTitles[2]), "The news with this title was found!");
             }
 
-            Assert.IsTrue(newsController.Model.Items[0].Title.Value.Equals(this.newsTitles[1]), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(this.newsTitles[0]), "The news with this title was not found!");
+            Assert.IsTrue(items[0].Fields.Title.Equals(this.newsTitles[1]), "The news with this title was not found!");
+            Assert.IsTrue(items[1].Fields.Title.Equals(this.newsTitles[0]), "The news with this title was not found!");
         }
 
         /// <summary>
         /// News widget - test date selector -last 1 week
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("FeatherTeam")]
         [Description("Verifies that the date selector -last 1 week resolves the correct news.")]
@@ -148,10 +139,8 @@ namespace FeatherWidgets.TestIntegration.News
             var newsManager = NewsManager.GetManager();
             int newsCount = 2;
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SelectionMode = SelectionMode.FilteredItems;
             newsController.Model.SerializedAdditionalFilters = @"{
 				""QueryItems"": [
 					{
@@ -179,33 +168,30 @@ namespace FeatherWidgets.TestIntegration.News
 				]
 			}";
 
-            mvcProxy.Settings = new ControllerSettings(newsController);
-
             DateTime publicationDate = DateTime.UtcNow.AddDays(-10);
 
             NewsItem modified = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == "Boat").FirstOrDefault();
             newsManager.Lifecycle.PublishWithSpecificDate(modified, publicationDate);
             newsManager.SaveChanges();
 
-            newsController.Index(null);
-
-            var newsItemsCount = newsController.Model.Items.Count;
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            var newsItemsCount = items.Length;
 
             Assert.AreEqual(newsCount, newsItemsCount, "The count of the news item is not as expected");
 
             for (int i = 0; i < newsItemsCount; i++)
             {
-                Assert.IsFalse(newsController.Model.Items[i].Title.Value.Equals(this.newsTitles[2]), "The news with this title was found!");
+                Assert.IsFalse(items[i].Fields.Title.Equals(this.newsTitles[2]), "The news with this title was found!");
             }
 
-            Assert.IsTrue(newsController.Model.Items[0].Title.Value.Equals(this.newsTitles[1]), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(this.newsTitles[0]), "The news with this title was not found!");
+            Assert.IsTrue(items[0].Fields.Title.Equals(this.newsTitles[1]), "The news with this title was not found!");
+            Assert.IsTrue(items[1].Fields.Title.Equals(this.newsTitles[0]), "The news with this title was not found!");
         }
 
         /// <summary>
         /// News widget - test date selector -last 1 month
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("FeatherTeam")]
         [Description("Verifies that the date selector -last 1 month resolves the correct news.")]
@@ -214,10 +200,8 @@ namespace FeatherWidgets.TestIntegration.News
             var newsManager = NewsManager.GetManager();
             int newsCount = 2;
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SelectionMode = SelectionMode.FilteredItems;
             newsController.Model.SerializedAdditionalFilters = @"{
 				""QueryItems"": [
 					{
@@ -245,33 +229,30 @@ namespace FeatherWidgets.TestIntegration.News
 				]
 			}";
 
-            mvcProxy.Settings = new ControllerSettings(newsController);
-
             DateTime publicationDate = DateTime.UtcNow.AddMonths(-2);
 
             NewsItem modified = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == "Boat").FirstOrDefault();
             newsManager.Lifecycle.PublishWithSpecificDate(modified, publicationDate);
             newsManager.SaveChanges();
 
-            newsController.Index(null);
-
-            var newsItemsCount = newsController.Model.Items.Count;
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            var newsItemsCount = items.Length;
 
             Assert.AreEqual(newsCount, newsItemsCount, "The count of the news item is not as expected");
 
             for (int i = 0; i < newsItemsCount; i++)
             {
-                Assert.IsFalse(newsController.Model.Items[i].Title.Value.Equals(this.newsTitles[2]), "The news with this title was found!");
+                Assert.IsFalse(items[i].Fields.Title.Equals(this.newsTitles[2]), "The news with this title was found!");
             }
 
-            Assert.IsTrue(newsController.Model.Items[0].Title.Value.Equals(this.newsTitles[1]), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(this.newsTitles[0]), "The news with this title was not found!");
+            Assert.IsTrue(items[0].Fields.Title.Equals(this.newsTitles[1]), "The news with this title was not found!");
+            Assert.IsTrue(items[1].Fields.Title.Equals(this.newsTitles[0]), "The news with this title was not found!");
         }
 
         /// <summary>
         /// News widget - test date selector -last 1 year
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("FeatherTeam")]
         [Description("Verifies that the date selector -last 1 year resolves the correct news.")]
@@ -280,10 +261,8 @@ namespace FeatherWidgets.TestIntegration.News
             var newsManager = NewsManager.GetManager();
             int newsCount = 2;
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SelectionMode = SelectionMode.FilteredItems;
             newsController.Model.SerializedAdditionalFilters = @"{
 				""QueryItems"": [
 					{
@@ -311,33 +290,30 @@ namespace FeatherWidgets.TestIntegration.News
 				]
 			}";
 
-            mvcProxy.Settings = new ControllerSettings(newsController);
-
             DateTime publicationDate = DateTime.UtcNow.AddYears(-2);
 
             NewsItem modified = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == "Boat").FirstOrDefault();
             newsManager.Lifecycle.PublishWithSpecificDate(modified, publicationDate);
             newsManager.SaveChanges();
 
-            newsController.Index(null);
-
-            var newsItemsCount = newsController.Model.Items.Count;
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            var newsItemsCount = items.Length;
 
             Assert.AreEqual(newsCount, newsItemsCount, "The count of the news item is not as expected");
 
             for (int i = 0; i < newsItemsCount; i++)
             {
-                Assert.IsFalse(newsController.Model.Items[i].Title.Value.Equals(this.newsTitles[2]), "The news with this title was found!");
+                Assert.IsFalse(items[i].Fields.Title.Equals(this.newsTitles[2]), "The news with this title was found!");
             }
 
-            Assert.IsTrue(newsController.Model.Items[0].Title.Value.Equals(this.newsTitles[1]), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(this.newsTitles[0]), "The news with this title was not found!");
+            Assert.IsTrue(items[0].Fields.Title.Equals(this.newsTitles[1]), "The news with this title was not found!");
+            Assert.IsTrue(items[1].Fields.Title.Equals(this.newsTitles[0]), "The news with this title was not found!");
         }
         
         /// <summary>
         /// News widget - test date selector - custom range
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("FeatherTeam")]
         [Description("Verifies that the date selector - custom range resolves the correct news.")]
@@ -348,10 +324,8 @@ namespace FeatherWidgets.TestIntegration.News
             DateTime publicationDateOld = new DateTime(2014, 10, 14, 12, 00, 00);
             DateTime publicationDateNew = new DateTime(2014, 10, 23, 12, 00, 00);
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SelectionMode = SelectionMode.FilteredItems;
             newsController.Model.SerializedAdditionalFilters = @"{
             ""QueryItems"":[
 	            {
@@ -392,8 +366,6 @@ namespace FeatherWidgets.TestIntegration.News
 		            ""Name"":""PublicationDate.Fri, 24 Oct 2014 21:00:00 GMT""
 	            }";
 
-            mvcProxy.Settings = new ControllerSettings(newsController);
-
             NewsItem modifiedBoat = newsManager.GetNewsItems().Where<NewsItem>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == "Boat").FirstOrDefault();
             newsManager.Lifecycle.PublishWithSpecificDate(modifiedBoat, publicationDateOld);
 
@@ -404,19 +376,18 @@ namespace FeatherWidgets.TestIntegration.News
             newsManager.Lifecycle.PublishWithSpecificDate(modifiedAngel, publicationDateNew);
             newsManager.SaveChanges();
 
-            newsController.Index(null);
-
-            var newsItemsCount = newsController.Model.Items.Count;
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            var newsItemsCount = items.Length;
 
             Assert.AreEqual(newsCount, newsItemsCount, "The count of the news item is not as expected");
 
             for (int i = 0; i < newsItemsCount; i++)
             {
-                Assert.IsFalse(newsController.Model.Items[i].Title.Value.Equals(this.newsTitles[2]), "The news with this title was found!");
+                Assert.IsFalse(items[i].Fields.Title.Equals(this.newsTitles[2]), "The news with this title was found!");
             }
 
-            Assert.IsTrue(newsController.Model.Items[0].Title.Value.Equals(this.newsTitles[0]), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(this.newsTitles[1]), "The news with this title was not found!");
+            Assert.IsTrue(items[0].Fields.Title.Equals(this.newsTitles[0]), "The news with this title was not found!");
+            Assert.IsTrue(items[1].Fields.Title.Equals(this.newsTitles[1]), "The news with this title was not found!");
         }
 
         /// <summary>
@@ -433,7 +404,7 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+            newsController.Model.SelectionMode = SelectionMode.FilteredItems;
             newsController.Model.SerializedAdditionalFilters = @"{
             ""QueryItems"":[
 	            {
@@ -475,9 +446,8 @@ namespace FeatherWidgets.TestIntegration.News
 	            }";
 
             mvcProxy.Settings = new ControllerSettings(newsController);
-            newsController.Index(null);
 
-            var newsItemsCount = newsController.Model.Items.Count;
+            var newsItemsCount = newsController.Model.CreateListViewModel(null, 1).Items.Count();
             Assert.AreEqual(newsCount, newsItemsCount, "The count of the news item is not as expected");
         }
 
