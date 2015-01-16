@@ -4,8 +4,8 @@ using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
@@ -205,12 +205,12 @@ namespace FeatherWidgets.TestIntegration.News
             for (int i = 0; i < newsTitles.Length; i++)
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(newsTitles[i]);
 
-            newsController.Index(null);
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
             int lastIndex = newsTitles.Length - 1;
             for (int i = 0; i < newsTitles.Length; i++)
             { 
-                Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(newsTitles[lastIndex]), "The news with this title was not found!");
+                Assert.IsTrue(items[i].Fields.Title.Equals(newsTitles[lastIndex]), "The news with this title was not found!");
                 lastIndex--;
             }
         }
@@ -233,12 +233,12 @@ namespace FeatherWidgets.TestIntegration.News
             for (int i = 0; i < newsTitles.Length; i++)
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(newsTitles[i]);
 
-            newsController.Index(null);
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
             int lastIndex = 0;
             for (int i = 0; i < newsTitles.Length; i++)
             {
-                Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(newsTitles[lastIndex]), "The news with this title was not found!");
+                Assert.IsTrue(items[i].Fields.Title.Equals(newsTitles[lastIndex]), "The news with this title was not found!");
                 lastIndex++;
             }
         }
@@ -246,7 +246,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// <summary>
         /// Newses the widget_ verify sort news by publication date descending.
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySortNewsPublicationDateDescending()
@@ -261,7 +261,7 @@ namespace FeatherWidgets.TestIntegration.News
             for (int i = 0; i < newsTitles.Length; i++)
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(newsTitles[i]);
 
-            newsController.Index(null);
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
             int lastIndex = newsTitles.Length - 1;
 
@@ -270,7 +270,7 @@ namespace FeatherWidgets.TestIntegration.News
             
             foreach (NewsItem item in newsItems)
             {
-                Assert.IsTrue(newsController.Model.Items[lastIndex].PublicationDate.Equals(item.PublicationDate), "The news with this title was not found!");
+                Assert.IsTrue(items[lastIndex].Fields.PublicationDate.Equals(item.PublicationDate), "The news with this title was not found!");
                 lastIndex--;
             }
         }
@@ -278,7 +278,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// <summary>
         /// Newses the widget_ verify sort news by last modified date descending.
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySortNewsLastModifiedDateDescending()
@@ -306,12 +306,12 @@ namespace FeatherWidgets.TestIntegration.News
             newsManager.Lifecycle.Publish(newsItem);
             newsManager.SaveChanges();
 
-            newsController.Index(null);
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
     
-            Assert.IsTrue(newsController.Model.Items[0].LastModified.Equals(modified.LastModified), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[0].Title.Value.Equals(modified.Title.Value), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[1].Title.Value.Equals(newsTitles[2]), "The news with this title was not found!");
-            Assert.IsTrue(newsController.Model.Items[2].Title.Value.Equals(newsTitles[0]), "The news with this title was not found!");
+            Assert.IsTrue(items[0].Fields.LastModified.Equals(modified.LastModified), "The news with this title was not found!");
+            Assert.IsTrue(items[0].Fields.Title.Equals(modified.Title.Value), "The news with this title was not found!");
+            Assert.IsTrue(items[1].Fields.Title.Equals(newsTitles[2]), "The news with this title was not found!");
+            Assert.IsTrue(items[2].Fields.Title.Equals(newsTitles[0]), "The news with this title was not found!");
         }
 
         [Test]

@@ -48,12 +48,12 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().UnselectSocialShareOptions(this.optionTitlesToUnselect);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             Assert.AreEqual(5, BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().CountOfSocialShareOptions(), "Count is not correct");
-            BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareTextPresentOnBackend(this.optionTitles);
+            BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareTextPresentOnBackend(this.optionTitlesTextToBeVisible);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             Assert.AreEqual(5, BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().CountOfSocialShareOptions(), "Count is not correct");
-            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareTextPresentOnFrontend(this.optionTitles);
+            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareTextPresentOnFrontend(this.optionTitlesTextToBeVisible);
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace FeatherWidgets.TestUI
         private const string TemplateTitle = "SocialShareTest";
         private const string TemplateIconsWithText = "SocialShareIconsWithText";
         private const string TemplateContent = "SocialShareTest";
-        private readonly string[] optionTitlesToSelect = new string[] { "Blogger", "Digg", "My Space" };
-        private readonly string[] optionTitlesToUnselect = new string[] { "Google +", "LinkedIn" };
-        private readonly string[] optionTitles = new string[] { "Share", "Tweet", "Blogger", "MySpace", "Digg" };
+        private readonly string[] optionTitlesToSelect = new string[] { "Blogger", "Digg", "My Space", "Google bookmarks", "Delicious" };
+        private readonly string[] optionTitlesToUnselect = new string[] { "Google +", "LinkedIn", "Facebook", "Twitter" };
+        private readonly string[] optionTitlesTextToBeVisible = new string[] { "Google Bookmarks", "Save this on Delicious", "Blogger", "MySpace", "Digg" };
     }
 }

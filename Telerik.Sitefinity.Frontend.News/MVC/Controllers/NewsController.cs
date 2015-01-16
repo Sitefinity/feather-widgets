@@ -7,7 +7,6 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
-using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Services;
@@ -102,36 +101,6 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         public Guid DetailsPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets the page URL where will be displayed details view for selected news item.
-        /// </summary>
-        /// <value>
-        /// The page URL where will be displayed details view for selected news item.
-        /// </value>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
-        [Browsable(false)]
-        [Obsolete("This property is not used anymore. The details page url is resolved based on the DetailsPageId property.")]
-        public string DetailsPageUrl
-        {
-            get
-            {
-                if (this.OpenInSamePage)
-                {
-                    var url = this.GetCurrentPageUrl();
-                    return url;
-                }
-                else
-                {
-                    return this.detailsPageUrl;
-                }
-            }
-
-            set
-            {
-                this.detailsPageUrl = value;
-            }
-        }        
-
-        /// <summary>
         /// Gets the News widget model.
         /// </summary>
         /// <value>
@@ -168,10 +137,11 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
-            this.Model.PopulateItems(null, null, page);
-            this.AddCacheDependencies();
+            var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            return this.View(fullTemplateName, this.Model);
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -185,16 +155,16 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            var fieldName = this.GetExpectedTaxonFieldName(taxonFilter);
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/" + taxonFilter.UrlName + "/{0}";
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
-            this.Model.PopulateItems(taxonFilter, fieldName, page);
-            this.AddCacheDependencies();
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            return this.View(fullTemplateName, this.Model);
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -203,14 +173,17 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
         public ActionResult Details(NewsItem newsItem)
         {
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
-            this.Model.DetailItem = newsItem;
             this.ViewBag.Title = newsItem.Title;
-            this.AddCacheDependencies();
 
-            return this.View(fullTemplateName, this.Model);
+            var viewModel = this.Model.CreateDetailsViewModel(newsItem);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -220,19 +193,9 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         /// List of location info of the content that this control is able to show.
         /// </returns>
         [NonAction]
-        public IEnumerable<IContentLocationInfo> GetLocations()
+        public virtual IEnumerable<IContentLocationInfo> GetLocations()
         {
-            var location = new ContentLocationInfo();
-            location.ContentType = typeof(NewsItem);
-            location.ProviderName = NewsManager.GetManager(this.Model.ProviderName).Provider.Name;
-
-            var filterExpression = this.Model.CompileFilterExpression();
-            if (!string.IsNullOrEmpty(filterExpression))
-            {
-                location.Filters.Add(new BasicContentLocationFilter(filterExpression));
-            }
-
-            return new[] { location };
+            return this.Model.GetLocations();
         }
 
         #endregion
@@ -250,25 +213,6 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             return ControllerModelFactory.GetModel<INewsModel>(this.GetType());
         }
 
-        /// <summary>
-        /// Adds the cache dependencies.
-        /// </summary>
-        private void AddCacheDependencies()
-        {
-            if (SystemManager.CurrentHttpContext != null)
-            {
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects());
-            }
-        }
- 
-        private string GetExpectedTaxonFieldName(ITaxon taxon)
-        {
-            if (taxon.Taxonomy.Name == "Categories")
-                return taxon.Taxonomy.TaxonName;
-
-            return taxon.Taxonomy.Name;
-        }
-
         #endregion
 
         #region Private fields and constants
@@ -281,7 +225,6 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         private bool openInSamePage = true;
 
         private bool? disableCanonicalUrlMetaTag;
-        private string detailsPageUrl;
 
         #endregion
     }

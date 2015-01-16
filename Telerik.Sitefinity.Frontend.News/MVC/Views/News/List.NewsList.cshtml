@@ -1,58 +1,42 @@
-@model Telerik.Sitefinity.Frontend.News.Mvc.Models.INewsModel
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
 
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Web.DataResolving;
 
 @Html.Script(ScriptRef.JQuery)
 @Html.Script("http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js")
 
-<div class="@Model.ListCssClass">
+<div class="@Model.CssClass">
     <ul class="list-unstyled">
         @foreach (var item in Model.Items)
         {
-            <li @Html.InlineEditingAttributes(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id)>
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 <h3>
-                    @if (ViewBag.OpenInSamePage)
-                    {
-                        <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">@item.Title</a>
-                    }
-                    else
-                    {
-                        <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">@item.Title</a>
-                    }
+                    <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">@item.Fields.Title</a>
                 </h3>
 
                 <div class="text-muted">
-                    @item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")
+                    @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
                     @Html.Resource("By")
-                    @DataResolver.Resolve(item, "Author", null)
+                    @DataResolver.Resolve(item.DataItem, "Author", null)
                 </div>
 
-                <div @Html.InlineEditingFieldAttributes("Summary", "ShortText")>@Html.Raw(item.Summary)</div>
+                <div @Html.InlineEditingFieldAttributes("Summary", "ShortText")>@Html.Raw(item.Fields.Summary)</div>
 
-                @if (ViewBag.OpenInSamePage)
-                {
-                    <a href="@(ViewBag.CurrentPageUrl + item.ItemDefaultUrl)">Full story</a>
-                }
-                else
-                {
-                    <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId)">Full story</a>
-                }
+                <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">@Html.Resource("FullStory")</a>
             </li>
         }
     </ul>
 
-    @if (Model.DisplayMode == ListDisplayMode.Paging && Model.TotalPagesCount != null && Model.TotalPagesCount > 1)
+    @if (Model.ShowPager)
     {
         @Html.Action("Index", "ContentPager", new
-   {
-       currentPage = Model.CurrentPage,
-       totalPagesCount = Model.TotalPagesCount.Value,
-       redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
-   })
+           {
+               currentPage = Model.CurrentPage,
+               totalPagesCount = Model.TotalPagesCount.Value,
+               redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+           })
     }
-
 </div>

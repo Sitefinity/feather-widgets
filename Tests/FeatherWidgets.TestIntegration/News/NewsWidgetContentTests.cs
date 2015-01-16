@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
-using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
@@ -59,7 +60,7 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.AllItems;
+            newsController.Model.SelectionMode = SelectionMode.AllItems;
             mvcProxy.Settings = new ControllerSettings(newsController);
 
             try
@@ -85,7 +86,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// <summary>
         /// News widget - test content functionality - Selected news
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySelectedItemsFunctionality()
@@ -97,27 +98,23 @@ namespace FeatherWidgets.TestIntegration.News
                 this.serverOperationsNews.CreatePublishedNewsItem(newsTitle: NewsTitle + i, newsContent: NewsTitle + i, author: NewsTitle + i);
             }
 
-            var mvcProxy = new MvcControllerProxy();
-            mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;                   
+            newsController.Model.SelectionMode = SelectionMode.SelectedItems;                   
 
             var newsManager = NewsManager.GetManager();
             var selectedNewsItem = newsManager.GetNewsItems().FirstOrDefault(n => n.Title == "Title2" && n.OriginalContentId != Guid.Empty);
             newsController.Model.SerializedSelectedItemsIds = "[\"" + selectedNewsItem.Id.ToString() + "\"]";
-            mvcProxy.Settings = new ControllerSettings(newsController);
 
-            newsController.Index(null);
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            Assert.AreEqual(1, items.Length, "The count of news is not as expected");
 
-            Assert.AreEqual(1, newsController.Model.Items.Count, "The count of news is not as expected");
-
-            Assert.IsTrue(newsController.Model.Items[0].Title.Equals("Title2", StringComparison.CurrentCulture), "The news with this title was not found!");                          
+            Assert.IsTrue(items[0].Fields.Title.Equals("Title2", StringComparison.CurrentCulture), "The news with this title was not found!");                          
         }
 
         /// <summary>
         /// News widget - test content functionality - Selected news with Sort News Descending
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("Sitefinity Team 7")]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithSortNewsDescending()
@@ -134,7 +131,7 @@ namespace FeatherWidgets.TestIntegration.News
             }
 
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+            newsController.Model.SelectionMode = SelectionMode.SelectedItems;
             newsController.Model.SortExpression = sortExpession;
 
             var newsManager = NewsManager.GetManager();
@@ -150,23 +147,23 @@ namespace FeatherWidgets.TestIntegration.News
                                                              "\"" + selectedNewsItems[1].Id.ToString() + "\"," +
                                                              "\"" + selectedNewsItems[2].Id.ToString() + "\"]";
 
-            newsController.Index(null);
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
-            Assert.AreEqual(3, newsController.Model.Items.Count, "The count of news is not as expected");
+            Assert.AreEqual(3, items.Length, "The count of news is not as expected");
 
-            for (int i = 0; i < newsController.Model.Items.Count; i++)
+            for (int i = 0; i < items.Length; i++)
             {
-                Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(descendingNewsTitles[i]), "The news with this title was not found!");
+                Assert.IsTrue(items[i].Fields.Title.Equals(descendingNewsTitles[i]), "The news with this title was not found!");
             }
 
-            newsController.Model.SelectionMode = NewsSelectionMode.AllItems;
+            newsController.Model.SelectionMode = SelectionMode.AllItems;
 
-            newsController.Index(null);
+            items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
             int lastIndex = 9;
             for (int i = 0; i < 10; i++)
             {
-                Assert.IsTrue(newsController.Model.Items[i].Title.Value.Equals(NewsTitle + lastIndex), "The news with this title was not found!");
+                Assert.IsTrue(items[i].Fields.Title.Equals(NewsTitle + lastIndex), "The news with this title was not found!");
                 lastIndex--;
             }
         }
@@ -204,7 +201,8 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+
+            newsController.Model.SelectionMode = SelectionMode.SelectedItems;
             newsController.Model.SortExpression = sortExpession;
             newsController.Model.ItemsPerPage = itemsPerPage;
 
@@ -260,7 +258,7 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+            newsController.Model.SelectionMode = SelectionMode.SelectedItems;
             newsController.Model.DisplayMode = ListDisplayMode.Limit;
             newsController.Model.SortExpression = sortExpession;
             newsController.Model.ItemsPerPage = 5;
@@ -318,7 +316,7 @@ namespace FeatherWidgets.TestIntegration.News
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
-            newsController.Model.SelectionMode = NewsSelectionMode.SelectedItems;
+            newsController.Model.SelectionMode = SelectionMode.SelectedItems;
             newsController.Model.DisplayMode = ListDisplayMode.All;
 
             var newsManager = NewsManager.GetManager();
@@ -344,7 +342,7 @@ namespace FeatherWidgets.TestIntegration.News
 
             this.VerifyCorrectNewsOnPageWithNoLimitsOption(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index, url, selectedNewsTitles);
 
-            newsController.Model.SelectionMode = NewsSelectionMode.AllItems;
+            newsController.Model.SelectionMode = SelectionMode.AllItems;
 
             this.VerifyCorrectNewsOnPageWithNoLimitsOption(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index, url, newsNames);
         }
@@ -378,10 +376,10 @@ namespace FeatherWidgets.TestIntegration.News
                 for (int i = 0; i < newsCount; i++)
                 {
                     ITaxon taxonomy = TaxonomyManager.GetManager().GetTaxon(taxonId[i]);
-                    newsController.ListByTaxon(taxonomy, null);
+                    var items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
-                    for (int j = 0; j < newsController.Model.Items.Count; j++)
-                        Assert.IsTrue(newsController.Model.Items[j].Title.Equals(newsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");
+                    for (int j = 0; j < items.Length; j++)
+                        Assert.IsTrue(items[j].Fields.Title.Equals(newsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");
                 }
             }
             finally
@@ -393,7 +391,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// <summary>
         /// News widget - test select by category functionality 
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("Sitefinity Team 7")]
         public void NewsWidget_SelectByCategoryNewsFunctionality()
@@ -421,10 +419,10 @@ namespace FeatherWidgets.TestIntegration.News
                 {
                     var category = taxonomyManager.GetTaxa<HierarchicalTaxon>().SingleOrDefault(t => t.Title == categoryTitle + i);
                     ITaxon taxonomy = taxonomyManager.GetTaxon(category.Id);
-                    newsController.ListByTaxon(taxonomy, null);
+                    var items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
-                    for (int j = 0; j < newsController.Model.Items.Count; j++)
-                        Assert.IsTrue(newsController.Model.Items[j].Title.Equals(newsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");
+                    for (int j = 0; j < items.Length; j++)
+                        Assert.IsTrue(items[j].Fields.Title.Equals(newsTitle + i, StringComparison.CurrentCulture), "The news with this title was not found!");
                 }
             }
             finally
@@ -480,17 +478,17 @@ namespace FeatherWidgets.TestIntegration.News
                 for (int i = 0; i < tagsCount; i++)
                 {                    
                     ITaxon taxonomy = taxonomyManager.GetTaxon(taxonId[i]);
-                    newsController.ListByTaxon(taxonomy, null);
+                    var items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
                     if (i == 0)
                     {
-                        for (int j = 0; j < newsController.Model.Items.Count; j++)
-                            Assert.IsTrue(newsController.Model.Items[j].Title.Equals(sortedTitles[j], StringComparison.CurrentCulture), "The news with this title was not found!");
+                        for (int j = 0; j < items.Length; j++)
+                            Assert.IsTrue(items[j].Fields.Title.Equals(sortedTitles[j], StringComparison.CurrentCulture), "The news with this title was not found!");
                     }
                     else
                     {
-                        for (int j = 0; j < newsController.Model.Items.Count; j++)
-                            Assert.IsTrue(newsController.Model.Items[j].Title.Equals(newsTitles[i + 2], StringComparison.CurrentCulture), "The news with this title was not found!");
+                        for (int j = 0; j < items.Length; j++)
+                            Assert.IsTrue(items[j].Fields.Title.Equals(newsTitles[i + 2], StringComparison.CurrentCulture), "The news with this title was not found!");
                     }
                 }
             }
@@ -556,7 +554,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// <summary>
         /// News widget - test select by category and limits functionality 
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("Sitefinity Team 7")]
         public void NewsWidget_SelectByCategoryNewsFunctionalityAndLimits()
@@ -593,35 +591,35 @@ namespace FeatherWidgets.TestIntegration.News
                 }
 
                 ITaxon taxonomy = taxonomyManager.GetTaxon(category0.Id);
-                newsController.ListByTaxon(taxonomy, null);
+                var items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(3), "Number of news items is not correct");
+                Assert.IsTrue(items.Length.Equals(3), "Number of news items is not correct");
                 for (int i = 0; i <= 2; i++)
                 {
-                    Assert.IsTrue(newsController.Model.Items[i].Title.Equals(newsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
+                    Assert.IsTrue(items[i].Fields.Title.Equals(newsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
                 }
 
                 taxonomy = taxonomyManager.GetTaxon(category1.Id);
-                newsController.ListByTaxon(taxonomy, null);
+                items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(1), "Number of news items is not correct");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitles[4], StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items.Length.Equals(1), "Number of news items is not correct");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitles[4], StringComparison.CurrentCulture), "The news with this title was found!");
 
                 newsController.Model.DisplayMode = ListDisplayMode.All;
                 taxonomy = taxonomyManager.GetTaxon(category0.Id);
-                newsController.ListByTaxon(taxonomy, null);
+                items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(4), "Number of news items is not correct");
+                Assert.IsTrue(items.Length.Equals(4), "Number of news items is not correct");
                 for (int i = 0; i <= 3; i++)
                 {
-                    Assert.IsTrue(newsController.Model.Items[i].Title.Equals(newsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
+                    Assert.IsTrue(items[i].Fields.Title.Equals(newsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
                 }
 
                 taxonomy = taxonomyManager.GetTaxon(category1.Id);
-                newsController.ListByTaxon(taxonomy, null);
+                items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(1), "Number of news items is not correct");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitles[4], StringComparison.CurrentCulture), "The news with this title was found!");               
+                Assert.IsTrue(items.Length.Equals(1), "Number of news items is not correct");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitles[4], StringComparison.CurrentCulture), "The news with this title was found!");               
             }
             finally
             {
@@ -632,7 +630,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// <summary>
         /// News widget - test select by category and tag functionality 
         /// </summary>
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("Sitefinity Team 7")]
         public void NewsWidget_SelectByCategoryAndTagNewsFunctionality()
@@ -654,7 +652,7 @@ namespace FeatherWidgets.TestIntegration.News
                 ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(newsTitle + 1, "Content", "AuthorName", "SourceName", new List<string> { categoryTitle }, new List<string> { tagTitle }, null);
                 ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(newsTitle + 2, "Content", "AuthorName", "SourceName", new List<string> { categoryTitle }, null, null);
 
-                newsController.Model.SelectionMode = NewsSelectionMode.FilteredItems;
+                newsController.Model.SelectionMode = SelectionMode.FilteredItems;
                 newsController.Model.SerializedAdditionalFilters = "{\"__msdisposeindex\":205,\"Title\":null,\"Id\":\"00000000-0000-0000-0000-000000000000\"," + 
                                                                    "\"QueryItems\":[{\"IsGroup\":true,\"Ordinal\":0,\"Join\":\"AND\",\"ItemPath\":\"_0\",\"Value\":null,\"Condition\":null," +
                                                                    "\"Name\":\"Category\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":206},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_0_0\",\"Value\":" + categoryId + ",\"Condition\":" +
@@ -663,11 +661,11 @@ namespace FeatherWidgets.TestIntegration.News
                                                                    "\"Name\":\"Tags\",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":209},{\"IsGroup\":false,\"Ordinal\":0,\"Join\":\"OR\",\"ItemPath\":\"_1_0\",\"Value\":" + tagId + ",\"Condition\":" +
                                                                    "{\"FieldName\":\"Tags\",\"FieldType\":\"System.Guid\",\"Operator\":\"Contains\",\"__msdisposeindex\":210},\"Name\":" + tagTitle + ",\"_itemPathSeparator\":\"_\",\"__msdisposeindex\":211}]," + 
                                                                    "\"TypeProperties\":[],\"_itemPathSeparator\":\"_\"}";
-      
-                newsController.Index(null);
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(1), "The count of news items is not correct");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was not found!");
+                var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+
+                Assert.IsTrue(items.Length.Equals(1), "The count of news items is not correct");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was not found!");
             }
             finally
             {
@@ -702,18 +700,18 @@ namespace FeatherWidgets.TestIntegration.News
                 this.serverOperationsNews.AssignTaxonToNewsItem(newsId1, "Tags", taxonId);
 
                 ITaxon tagTaxonomy = TaxonomyManager.GetManager().GetTaxon(taxonId);
-                newsController.ListByTaxon(tagTaxonomy, null);
+                var items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(1), "The count of news items is not correct - limit applied");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items.Length.Equals(1), "The count of news items is not correct - limit applied");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
 
                 newsController.Model.DisplayMode = ListDisplayMode.Paging;
                 newsController.Model.ItemsPerPage = 20;
-                newsController.ListByTaxon(tagTaxonomy, null);
+                items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(2), "The count of news items is not correct - all items");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
-                Assert.IsTrue(newsController.Model.Items[1].Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items.Length.Equals(2), "The count of news items is not correct - all items");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
             }
             finally
             {
@@ -752,25 +750,25 @@ namespace FeatherWidgets.TestIntegration.News
                 this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 3);
 
                 ITaxon tagTaxonomy = TaxonomyManager.GetManager().GetTaxon(taxonId);
-                newsController.ListByTaxon(tagTaxonomy, 1);
+                var items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(2), "The count of news items is not correct - first page");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
-                Assert.IsTrue(newsController.Model.Items[1].Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items.Length.Equals(2), "The count of news items is not correct - first page");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
 
-                newsController.ListByTaxon(tagTaxonomy, 2);
+                items = newsController.Model.CreateListViewModel(tagTaxonomy, 2).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(1), "The count of news items is not correct - second page");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items.Length.Equals(1), "The count of news items is not correct - second page");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
 
                 newsController.Model.DisplayMode = ListDisplayMode.Paging;
                 newsController.Model.ItemsPerPage = 20;
-                newsController.ListByTaxon(tagTaxonomy, null);
+                items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(3), "The count of news items is not correct - all items");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
-                Assert.IsTrue(newsController.Model.Items[1].Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
-                Assert.IsTrue(newsController.Model.Items[2].Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items.Length.Equals(3), "The count of news items is not correct - all items");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[2].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
             }
             finally
             {
@@ -806,20 +804,20 @@ namespace FeatherWidgets.TestIntegration.News
                 this.serverOperationsNews.CreatePublishedNewsItem(newsTitle + 2);
 
                 ITaxon tagTaxonomy = TaxonomyManager.GetManager().GetTaxon(taxonId);
-                newsController.ListByTaxon(tagTaxonomy, null);
+                var items = newsController.Model.CreateListViewModel(tagTaxonomy, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(2), "The count of news items is not correct - no limit");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
-                Assert.IsTrue(newsController.Model.Items[1].Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items.Length.Equals(2), "The count of news items is not correct - no limit");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
 
                 newsController.Model.DisplayMode = ListDisplayMode.Paging;
                 newsController.Model.ItemsPerPage = 20;
-                newsController.Index(null);
+                items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
-                Assert.IsTrue(newsController.Model.Items.Count.Equals(3), "The count of news items is not correct - all items");
-                Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
-                Assert.IsTrue(newsController.Model.Items[1].Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
-                Assert.IsTrue(newsController.Model.Items[2].Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items.Length.Equals(3), "The count of news items is not correct - all items");
+                Assert.IsTrue(items[0].Fields.Title.Equals(newsTitle + 2, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[1].Fields.Title.Equals(newsTitle + 1, StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[2].Fields.Title.Equals(newsTitle + 0, StringComparison.CurrentCulture), "The news with this title was found!");
             }
             finally
             {
@@ -830,32 +828,32 @@ namespace FeatherWidgets.TestIntegration.News
         private void VerifyCorrectNewsOnPageWithCategoryFilterAndPaging(HierarchicalTaxon category0, HierarchicalTaxon category1, NewsController newsController, string[] newsTitles)
         {
             ITaxon taxonomy = TaxonomyManager.GetManager().GetTaxon(category0.Id);
-            newsController.ListByTaxon(taxonomy, 1);
+            var items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
-            Assert.IsTrue(newsController.Model.Items.Count.Equals(3), "Number of news items is not correct");
+            Assert.IsTrue(items.Length.Equals(3), "Number of news items is not correct");
             for (int i = 0; i <= 2; i++)
             {
-                Assert.IsTrue(newsController.Model.Items[i].Title.Equals(newsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[i].Fields.Title.Equals(newsTitles[3 - i], StringComparison.CurrentCulture), "The news with this title was found!");
             }
 
-            newsController.ListByTaxon(taxonomy, 2);
+            items = newsController.Model.CreateListViewModel(taxonomy, 2).Items.ToArray();
 
-            Assert.IsTrue(newsController.Model.Items.Count.Equals(1), "Number of news items is not correct");          
-            Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitles[0], StringComparison.CurrentCulture), "The news with this title was found!");
+            Assert.IsTrue(items.Length.Equals(1), "Number of news items is not correct");          
+            Assert.IsTrue(items[0].Fields.Title.Equals(newsTitles[0], StringComparison.CurrentCulture), "The news with this title was found!");
 
             taxonomy = TaxonomyManager.GetManager().GetTaxon(category1.Id);
-            newsController.ListByTaxon(taxonomy, 1);
+            items = newsController.Model.CreateListViewModel(taxonomy, 1).Items.ToArray();
 
-            Assert.IsTrue(newsController.Model.Items.Count.Equals(3), "Number of news items is not correct");
+            Assert.IsTrue(items.Length.Equals(3), "Number of news items is not correct");
             for (int i = 0; i <= 2; i++)
             {
-                Assert.IsTrue(newsController.Model.Items[i].Title.Equals(newsTitles[4 - i], StringComparison.CurrentCulture), "The news with this title was found!");
+                Assert.IsTrue(items[i].Fields.Title.Equals(newsTitles[4 - i], StringComparison.CurrentCulture), "The news with this title was found!");
             }
 
-            newsController.ListByTaxon(taxonomy, 2);
+            items = newsController.Model.CreateListViewModel(taxonomy, 2).Items.ToArray();
 
-            Assert.IsTrue(newsController.Model.Items.Count.Equals(1), "Number of news items is not correct");
-            Assert.IsTrue(newsController.Model.Items[0].Title.Equals(newsTitles[1], StringComparison.CurrentCulture), "The news with this title was found!");    
+            Assert.IsTrue(items.Length.Equals(1), "Number of news items is not correct");
+            Assert.IsTrue(items[0].Fields.Title.Equals(newsTitles[1], StringComparison.CurrentCulture), "The news with this title was found!");    
         }
 
         private void VerifyCorrectNewsOnPages(MvcControllerProxy mvcProxy, string pageNamePrefix, string pageTitlePrefix, string urlNamePrefix, int index, string url, string url2, string url3, string[] selectedNewsTitles)
