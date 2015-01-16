@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Telerik.Sitefinity.Descriptors;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Model;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers
 {
@@ -27,7 +29,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers
             if (successorDescriptor == null)
                 throw new InvalidOperationException("Could not find a child item property '{0}' for the given item. This extension method should only be used for accessing child items of a DynamicContent.".Arrange(fieldName));
 
-            return (IEnumerable<ItemViewModel>)item.Fields.GetMemberValue(fieldName);
+            var childItems = (IEnumerable<IDataItem>)item.Fields.GetMemberValue(fieldName);
+
+            return childItems.ToArray().Select(d => new ItemViewModel(d));
         }
 
         /// <summary>
@@ -45,7 +49,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers
             if (parentDescriptor == null)
                 throw new InvalidOperationException("Could not find a parent item property for the given item. This extension method should only be used for accessing a parent item of DynamicContent items.");
 
-            return (ItemViewModel)item.Fields.SystemParentItem;
+            var parentItem = (IDataItem)item.Fields.SystemParentItem;
+
+            return new ItemViewModel(parentItem);
         }
     }
 }
