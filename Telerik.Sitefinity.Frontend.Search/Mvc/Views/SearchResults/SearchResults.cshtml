@@ -12,18 +12,13 @@
                  
                 @if(Model.AllowSorting)
                 {
-                   
-                    @Html.DropDownList("UserSort",
-                         new[]
-                         {
-                              new SelectListItem { Text="Relevance", Value= OrderByOptions.Relevance.ToString(), Selected = OrderByOptions.Relevance==Model.OrderBy },
-                              new SelectListItem { Text="Newest first", Value= OrderByOptions.Newest.ToString(), Selected = OrderByOptions.Newest==Model.OrderBy },
-                              new SelectListItem { Text="Oldest first", Value= OrderByOptions.Oldest.ToString(), Selected = OrderByOptions.Oldest==Model.OrderBy },
-                              new SelectListItem { Text="New-modified first", Value= OrderByOptions.NewModified.ToString(), Selected = OrderByOptions.NewModified==Model.OrderBy }
-                         }
-                    )
+                    <select class="userSortDropdown">
+                        <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
+                        <option value="@OrderByOptions.Newest" @(Model.OrderBy == OrderByOptions.Newest ? "selected=selected" : "")>@Html.Resource("NewestFirst")</option>
+                        <option value="@OrderByOptions.Oldest" @(Model.OrderBy == OrderByOptions.Oldest ? "selected=selected" : "")>@Html.Resource("OldestFirst")</option>
+                    </select>
                 }
-                </div>
+            </div>
             
             @if(Model.Languages.Length > 1)
             {
@@ -79,13 +74,13 @@
                     })
                 }
             </ul>
-</div>
+    </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
 
         //Dropdownlist Selectedchange event
-        $("#UserSort").change(function (value) {
+        $(".userSortDropdown").change(function (value) {
             var selectedValue = $(value.currentTarget).val();
             var url = getResultsUrl(selectedValue);
             window.location.search = url;

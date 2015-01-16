@@ -21,11 +21,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// <summary>
         /// The oldest results firs.
         /// </summary>
-        Oldest,
-
-        /// <summary>
-        /// The newly modified results first.
-        /// </summary>
-        NewModified
+        Oldest
     }
 }
