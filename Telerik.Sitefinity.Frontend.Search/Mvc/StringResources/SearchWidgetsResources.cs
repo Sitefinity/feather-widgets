@@ -362,6 +362,22 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         }
 
         /// <summary>
+        /// Word: Relevance
+        /// </summary>
+        /// <value>Relevance</value>
+        [ResourceEntry("Relevance",
+            Value = "Relevance",
+            Description = "Word: Relevance",
+            LastModified = "2015/01/08")]
+        public string Relevance
+        {
+            get
+            {
+                return this["Relevance"];
+            }
+        }
+
+        /// <summary>
         /// Phrase: Newest first
         /// </summary>
         /// <value>Newest first</value>

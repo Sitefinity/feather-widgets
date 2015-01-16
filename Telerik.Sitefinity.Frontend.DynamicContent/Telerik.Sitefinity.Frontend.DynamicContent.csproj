@@ -156,6 +156,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mvc\Helpers\ItemViewModelExtensions.cs" />
     <Compile Include="WidgetTemplates\Fields\Helpers\ContentLinkExtensions.cs" />
     <Compile Include="WidgetTemplates\Fields\Helpers\FieldExtensions.cs" />
     <Compile Include="WidgetTemplates\Fields\Impl\AddressField.cs" />
@@ -235,9 +236,7 @@
   <ItemGroup>
     <EmbeddedResource Include="WidgetTemplates\Fields\Scripts\address-field.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mvc\Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
