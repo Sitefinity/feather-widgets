@@ -47,11 +47,26 @@
             <ul id="search-results">
                 @foreach (var item in Model.Results.Data)
                 {
-                    <li>
-                        <h3><a href="@item.GetValue("Link")">@item.GetValue("Title")</a></h3>
+
+                    var hasLink = item.GetValue("Link") != null && !String.IsNullOrEmpty(item.GetValue("Link").ToString());
+                    <div>
+                        <h3>
+                            @if(hasLink) 
+                            {
+                                <a href="@item.GetValue("Link")">@item.GetValue("Title")</a>
+                            }
+                            else
+                            {
+                                @item.GetValue("Title")
+                            }
+                        </h3>
                         <p>@Html.Raw(item.GetValue("HighLighterResult"))</p>
-                        <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
-                    </li>
+                        @if(hasLink)
+                        {
+                            <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
+                        }
+                    </div>
+
                 }
 
                 @if (Model.DisplayMode == ListDisplayMode.Paging && Model.Results.TotalCount != null && Model.Results.TotalCount > 1)

@@ -13,5 +13,6 @@
         public const string News = "News";
         public const string ContentBlock = "ContentBlock";
         public const string DynamicWidgets = "DynamicWidgets";
+        public const string SearchResults = "SearchResults";
     }
 }
