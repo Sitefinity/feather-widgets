@@ -10,7 +10,7 @@
 @Html.Script("http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js")
 
 <div class="@Model.ListCssClass">
-    <ul class="list-unstyled">
+    <ul>
         @foreach (var item in Model.Items)
         {
             <li @Html.InlineEditingAttributes(Model.ProviderName, "Telerik.Sitefinity.News.Model.NewsItem", item.Id)>
@@ -25,7 +25,7 @@
                     }
                 </h3>
 
-                <div class="text-muted">
+                <div>
                     @item.PublicationDate.ToLocal().ToString("MMM d, yyyy, hh:mm tt")
                     @Html.Resource("By")
                     @DataResolver.Resolve(item, "Author", null)

@@ -4,13 +4,15 @@
 @using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
 
-<section class="section @Model.CssClass">
-    <div class="container">
-        <div class="col-md-8 col-md-offset-2 row--border">
-            <div class="row text-center">
-                <h1><span>@Model.Results.TotalCount &nbsp;</span>@Html.Raw(Model.ResultText)</h1>
+<div class=" @Model.CssClass">
+
+                <h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
+
+                <div>
+                 
                 @if(Model.AllowSorting)
                 {
+                   
                     @Html.DropDownList("UserSort",
                          new[]
                          {
@@ -21,7 +23,7 @@
                          }
                     )
                 }
-            </div>
+                </div>
             
             @if(Model.Languages.Length > 1)
             {
@@ -42,14 +44,14 @@
                 </div>
             }            
 
-            <div id="search-results">
+            <ul id="search-results">
                 @foreach (var item in Model.Results.Data)
                 {
-                    <div class="row" style="margin-bottom: 10px;">
+                    <li>
                         <h3><a href="@item.GetValue("Link")">@item.GetValue("Title")</a></h3>
                         <p>@Html.Raw(item.GetValue("HighLighterResult"))</p>
                         <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
-                    </div>
+                    </li>
                 }
 
                 @if (Model.DisplayMode == ListDisplayMode.Paging && Model.Results.TotalCount != null && Model.Results.TotalCount > 1)
@@ -61,10 +63,8 @@
                         redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
                     })
                 }
-            </div>
-        </div>
-    </div>
-</section>
+            </ul>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function () {
