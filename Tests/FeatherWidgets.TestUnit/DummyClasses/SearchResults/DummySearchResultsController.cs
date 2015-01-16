@@ -20,5 +20,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SearchResults
         {
             return "http://tempuri.org";
         }
+
+        protected override bool IsSearchModuleActivated()
+        {
+            return true;
+        }
     }
 }

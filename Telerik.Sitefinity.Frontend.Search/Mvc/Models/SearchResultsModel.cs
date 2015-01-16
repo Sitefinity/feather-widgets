@@ -308,8 +308,6 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
                     return new[] { "PublicationDate" };
                 case OrderByOptions.Newest:
                     return new[] { "PublicationDate desc" };
-                case OrderByOptions.NewModified:
-                    return new[] { "LastModified desc" };
                 default:
                     return new[] { "_score" };
             }

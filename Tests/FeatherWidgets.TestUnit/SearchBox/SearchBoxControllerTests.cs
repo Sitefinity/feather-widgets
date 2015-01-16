@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUnit.SearchBox
                 // Asserts
                 Assert.IsNotNull(searchBoxModel, "The model is not created.");
                 Assert.AreEqual("Title,Content", searchBoxModel.SuggestionFields, "The suggestion fields are not set correctly.");
-                Assert.AreEqual("/restapi/search/suggestions", searchBoxModel.SuggestionsRoute, "The suggestions route is not created correctly.");
+                Assert.AreEqual("restapi/search/suggestions", searchBoxModel.SuggestionsRoute, "The suggestions route is not created correctly.");
                 Assert.AreEqual(3, searchBoxModel.MinSuggestionLength, "The minimal suggestions length is not created correctly.");
                 Assert.AreEqual("en", searchBoxModel.Language, "The UI language is not set correctly.");
             }

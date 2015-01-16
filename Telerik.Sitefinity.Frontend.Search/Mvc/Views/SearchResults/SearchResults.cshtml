@@ -4,18 +4,18 @@
 @using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
 
-<section class="section @Model.CssClass">
-    <div class="container">
-        <div class="col-md-8 col-md-offset-2 row--border">
-            <div class="row text-center">
-                <h1><span>@Model.Results.TotalCount &nbsp;</span>@Html.Raw(Model.ResultText)</h1>
+<div class="@Model.CssClass">
+
+                <h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
+
+                <div>
+                 
                 @if(Model.AllowSorting)
                 {
                     <select class="userSortDropdown">
                         <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
                         <option value="@OrderByOptions.Newest" @(Model.OrderBy == OrderByOptions.Newest ? "selected=selected" : "")>@Html.Resource("NewestFirst")</option>
                         <option value="@OrderByOptions.Oldest" @(Model.OrderBy == OrderByOptions.Oldest ? "selected=selected" : "")>@Html.Resource("OldestFirst")</option>
-                        <option value="@OrderByOptions.NewModified" @(Model.OrderBy == OrderByOptions.NewModified ? "selected=selected" : "")>@Html.Resource("NewModified")</option>
                     </select>
                 }
             </div>
@@ -39,11 +39,12 @@
                 </div>
             }            
 
-            <div id="search-results">
+            <ul id="search-results">
                 @foreach (var item in Model.Results.Data)
                 {
-                    var hasLink = !String.IsNullOrEmpty((string)item.GetValue("Link"));
-                    <div class="row" style="margin-bottom: 10px;">
+
+                    var hasLink = item.GetValue("Link") != null && !String.IsNullOrEmpty(item.GetValue("Link").ToString());
+                    <div>
                         <h3>
                             @if(hasLink) 
                             {
@@ -60,6 +61,7 @@
                             <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
                         }
                     </div>
+
                 }
 
                 @if (Model.DisplayMode == ListDisplayMode.Paging && Model.Results.TotalCount != null && Model.Results.TotalCount > 1)
@@ -71,10 +73,8 @@
                         redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
                     })
                 }
-            </div>
-        </div>
+            </ul>
     </div>
-</section>
 
 <script type="text/javascript">
     $(document).ready(function () {
