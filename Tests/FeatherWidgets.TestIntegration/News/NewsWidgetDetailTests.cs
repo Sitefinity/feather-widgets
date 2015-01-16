@@ -71,11 +71,12 @@ namespace FeatherWidgets.TestIntegration.News
 
             this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, pageIndex);
 
-            newsController.Index(1);
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
 
-            Assert.AreEqual(this.newsCount, newsController.Model.Items.Count, "The count of the news item is not as expected");
+            Assert.AreEqual(this.newsCount, items.Length, "The count of the news item is not as expected");
 
-            var expectedDetailNews = newsController.Model.Items[0];
+            var expectedDetailNews = (NewsItem)items[0].DataItem;
+
             string detailNewsUrl = pageUrl + expectedDetailNews.ItemDefaultUrl;
 
             ActionExecutionRegister.ExecutedActionInfos.Clear();
@@ -84,7 +85,7 @@ namespace FeatherWidgets.TestIntegration.News
             this.AssertDetailActionInvokation(expectedDetailNews);
         }
 
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
         [Author("FeatherTeam")]
         [Description("Verifies that open single item in the existing page functionality resolves the correct page.")]
@@ -109,12 +110,13 @@ namespace FeatherWidgets.TestIntegration.News
             newsController.DetailsPageId = secondPageId;
             mvcProxy.Settings = new ControllerSettings(newsController);
 
-            newsController.Index(1);
-
+            newsController.Index(null);
             Assert.AreEqual(secondPageId, newsController.ViewBag.DetailsPageID, "The second page ID is not provided correctly to the list view");
-            Assert.AreEqual(this.newsCount, newsController.Model.Items.Count, "The count of the news item is not as expected");
 
-            var expectedDetailNews = newsController.Model.Items[0];
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            Assert.AreEqual(this.newsCount, items.Length, "The count of the news item is not as expected");
+
+            var expectedDetailNews = (NewsItem)items[0].DataItem;
             string detailNewsUrl = secondPageUrl + expectedDetailNews.ItemDefaultUrl;
 
             ActionExecutionRegister.ExecutedActionInfos.Clear();
@@ -179,8 +181,6 @@ namespace FeatherWidgets.TestIntegration.News
             var newsItem = (NewsItem)actionInfo.ActionRouteData.Values["newsItem"];
             Assert.IsNotNull(newsItem, "The news item is not provided correctly.");
             Assert.AreEqual(expectedDetailNews.Id, newsItem.Id, "The correct news item is not provided");
-            var viewModel = (actionInfo.Result as ViewResult).Model as INewsModel;
-            Assert.AreEqual(expectedDetailNews.Id, viewModel.DetailItem.Id, "The news item id is not provided correctly to the DetailNews property");
         }
 
         private void EditFile(string newDetailTemplatePath, string textEdited)
