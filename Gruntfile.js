@@ -132,7 +132,7 @@ module.exports = function (grunt) {
 	//Load the needed plugins
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
-	grunt.loadNpmTasks("grint-contrib-connect");
+	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks('grunt-html2js');
 	
 	//Default task(s)
