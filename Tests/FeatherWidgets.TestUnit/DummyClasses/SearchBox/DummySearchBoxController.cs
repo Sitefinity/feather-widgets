@@ -18,5 +18,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.SearchBox
         {
             return "en";
         }
+
+        protected override bool IsSearchModuleActivated()
+        {
+            return true;
+        }
     }
 }

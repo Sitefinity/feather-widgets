@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 [assembly: AssemblyTitle("Telerik.Sitefinity.Frontend.SocialShare")]
 [assembly: AssemblyCompany("Telerik")]
 [assembly: AssemblyProduct("Telerik Sitefinity CMS")]
-[assembly: AssemblyCopyright("Copyright © Telerik 2014")]
+[assembly: AssemblyCopyright("Copyright © Telerik 2015")]
 [assembly: AssemblyTrademark("Sitefinity")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

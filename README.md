@@ -4,6 +4,11 @@ The Feather Project
 This repository contains custom MVC widgets which are part of [Project Feather](http://projectfeather.sitefinity.com).
 
 
+| Test | Status |
+|----|----|
+| Unit | [![Build Status](http://featherci.cloudapp.net/buildStatus/icon?job=Master_FeatherWidgetsUnitTests)](http://featherci.cloudapp.net/job/Master_FeatherWidgetsUnitTests/) |
+| Integration | [![Build Status](http://featherci.cloudapp.net/buildStatus/icon?job=Master_FeatherWidgetsIntegrationTests)](http://featherci.cloudapp.net/job/Master_FeatherWidgetsIntegrationTests/) |
+
 # Related Repositories
 
 [feather](https://github.com/Sitefinity/feather) - This repository contains the core infrastructure related to the Feather project.
