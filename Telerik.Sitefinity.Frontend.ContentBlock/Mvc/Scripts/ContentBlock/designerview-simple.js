@@ -1,7 +1,7 @@
 ﻿(function ($) {
     var EMPTY_GUID = '00000000-0000-0000-0000-000000000000';
 
-    var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sharedContentServices']);
+    var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sharedContentServices', 'sfFields']);
     angular.module('designer').requires.push('simpleViewModule');
 
     simpleViewModule.factory('contentBlockService', ['dialogFeedbackService', 'sharedContentService', function (dialogFeedbackService, sharedContentService) {
@@ -78,13 +78,6 @@
                     $scope.isShared = $scope.properties.SharedContentID.PropertyValue != EMPTY_GUID;
                     $scope.feedback.showLoadingIndicator = false;
                 });
-
-            //Fixes a bug for modal dialogs with iframe in them for IE.
-            $scope.$on('$destroy', function () {
-                var kendoContent = $('#viewsPlaceholder iframe.k-content');
-                if (kendoContent.length > 0)
-                    kendoContent[0].src = 'about:blank';
-            });
         }
     ]);
 })(jQuery);
