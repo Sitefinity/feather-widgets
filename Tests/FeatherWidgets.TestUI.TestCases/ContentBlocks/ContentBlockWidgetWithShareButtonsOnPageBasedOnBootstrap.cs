@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI
         /// UI test ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner("Feather team"),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        Ignore]
         public void ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap()
         {
             BAT.Macros().NavigateTo().Pages();
