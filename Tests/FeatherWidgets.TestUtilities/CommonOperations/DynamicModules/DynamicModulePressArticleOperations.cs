@@ -16,16 +16,17 @@ using Telerik.Sitefinity.Web.UI.Fields;
 namespace FeatherWidgets.TestUtilities.CommonOperations
 {
     public class DynamicModulePressArticleOperations
-    {       
+    {
         /// <summary>
-        /// Overloaded method
+        /// Creates the press article.
         /// </summary>
-        /// <param name="title">Dynamic item title</param>
-        /// <param name="author">Dynamic author</param>
-        /// <param name="dynamicValue">Dynamic guid</param>
-        /// <param name="tag">Dynamic tag</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dynamicurl"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public void CreatePressArticle(string title, string dynamicurl, Guid tag, Guid category)
+        /// <param name="title">The title.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="category">The category.</param>
+        /// <param name="publishedBy">The publisher.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
+        public void CreatePressArticle(string title, string url, Guid tag, Guid category, string publishedBy)
         {
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
@@ -37,8 +38,16 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             // This is how values for the properties are set
             pressArticleItem.SetValue("Title", title);
-            pressArticleItem.SetValue("PublishedBy", "Some PublishedBy");
             pressArticleItem.SetValue("Guid", Guid.NewGuid());
+
+            if (publishedBy.IsNullOrEmpty())
+            {
+                pressArticleItem.SetValue("PublishedBy", "Some PublishedBy");
+            }
+            else
+            {
+                pressArticleItem.SetValue("PublishedBy", publishedBy);
+            }
 
             if (tag != null && tag != Guid.Empty)
             {
@@ -50,7 +59,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 pressArticleItem.Organizer.AddTaxa("Category", category);
             }
 
-            pressArticleItem.SetString("UrlName", dynamicurl);
+            pressArticleItem.SetString("UrlName", url);
             pressArticleItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
             pressArticleItem.SetValue("PublicationDate", DateTime.Now);
             pressArticleItem.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
@@ -61,14 +70,50 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Creates the press article.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="category">The category.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
+        public void CreatePressArticle(string title, string url, Guid tag, Guid category)
+        {
+            this.CreatePressArticle(title, url, tag, category, null);
+        }
+
+        /// <summary>
+        /// Creates the press article.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="publishedBy">The publisher.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
+        public void CreatePressArticle(string title, string url, string publishedBy)
+        {
+            this.CreatePressArticle(title, url, Guid.Empty, Guid.Empty, publishedBy);
+        }
+
+        /// <summary>
+        /// Creates the press article.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="url">The URL.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
+        public void CreatePressArticle(string title, string url)
+        {
+            this.CreatePressArticle(title, url, Guid.Empty, Guid.Empty, null);
+        }
+
+        /// <summary>
         /// Creates the press article with custom taxonomy.
         /// </summary>
         /// <param name="title">The title.</param>
-        /// <param name="dynamicurl">The dynamicurl.</param>
+        /// <param name="url">The URL.</param>
         /// <param name="taxonomyName">Name of the taxonomy.</param>
         /// <param name="taxonNames">The taxon names.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dynamicurl"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public void CreatePressArticleWithCustomTaxonomy(string title, string dynamicurl, string taxonomyName, IEnumerable<string> taxonNames)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
+        public void CreatePressArticleWithCustomTaxonomy(string title, string url, string taxonomyName, IEnumerable<string> taxonNames)
         {
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
@@ -85,7 +130,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             this.AddCustomTaxonomy(taxonNames, taxonomyName, pressArticleItem);
 
-            pressArticleItem.SetString("UrlName", dynamicurl);
+            pressArticleItem.SetString("UrlName", url);
             pressArticleItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
             pressArticleItem.SetValue("PublicationDate", DateTime.Now);
             pressArticleItem.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
@@ -96,8 +141,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
  
         // Creates a new pressArticle item with predefined ID
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dynamicurl"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public DynamicContent CreatePressArticleItem(string title, string dynamicurl)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
+        public DynamicContent CreatePressArticleItem(string title, string url)
         {
             var providerName = string.Empty;
 
@@ -117,7 +162,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 pressArticleItem.Organizer.AddTaxa("Tags", tag.Id);
             }
 
-            pressArticleItem.SetString("UrlName", dynamicurl);
+            pressArticleItem.SetString("UrlName", url);
             pressArticleItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
             pressArticleItem.SetValue("PublicationDate", DateTime.Now);
             pressArticleItem.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
@@ -179,7 +224,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
-           
+
             for (int i = 0; i < itemsToDelete.Count; i++)
             //// This is how you delete the pressArticleItem
                 dynamicModuleManager.DeleteDataItem(itemsToDelete[i]);

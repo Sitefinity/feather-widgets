@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
     /// <summary>
     /// This is a test class with tests related to dynamic widgets in Content section.
     /// </summary>
-    [TestFixture]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), TestFixture]
     [Description("This is a test class with tests related to dynamic widgets designer Content section.")]
     public class DynamicWidgetsDesignerContentWithListSettingsTests
     {
@@ -308,7 +308,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("Sitefinity Team 7")]
-        [Description("Verify dynaimc items by tag.")]
+        [Description("Verifies dynamic items by category.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByCategoryFunctionality()
         {
             string[] categoryTitles = { "Category 0", "Category 1", "Category 2" };
@@ -544,7 +544,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author("Sitefinity Team 7")]
-        [Description("Verify dynaimc items by tag.")]
+        [Description("Verifies dynamic items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByTagFunctionality()
         {
             try
@@ -573,6 +573,78 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
             {
                 ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Taxonomies().DeleteTags(this.tagTitles);
+            }
+        }
+
+         /// <summary>
+        /// Verifies dynamic items sorted by a valid As set in Advanced mode option.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("Sitefinity Team 7")]
+        [Description("Verifies dynamic items sorted by a valid As set in Advanced mode option.")]
+        public void DynamicWidgetDesignerContent_VerifyValidSortingOptionAsSetInAdvancedMode()
+        {
+            string sortExpession = "PublishedBy ASC";
+            var itemsCount = 5;
+            string[] publishers = { "Ivan", "George", "Steve", "Ana", "Tom" };
+            string[] expectedSortedItemsTitles = { "Title3", "Title1", "Title0", "Title2", "Title4" };
+
+            try
+            {
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SortExpression = sortExpession;
+
+                for (int i = 0; i < itemsCount; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle("Title" + i, "Title" + i + "Url", publishers[i]);
+
+                var items = dynamicController.Model.CreateListViewModel(null, 1).Items.ToArray();
+
+                for (int i = 0; i < itemsCount; i++)
+                {
+                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Fields.Title, "The news with this title was not found!");
+                }
+            }
+            finally
+            {
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
+            }
+        }
+
+        /// <summary>
+        /// Verifies dynamic items sorted by an invalid As set in Advanced mode option.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
+        [Category(TestCategories.DynamicWidgets)]
+        [Author("Sitefinity Team 7")]
+        [Description("Verifies dynamic items sorted by an invalid As set in Advanced mode option.")]
+        public void DynamicWidgetDesignerContent_VerifyInvalidSortingOptionAsSetInAdvancedMode()
+        {
+            string sortExpession = "InvalidSortingExpression";
+            var itemsCount = 5;
+            string[] publishers = { "Ivan", "George", "Steve", "Ana", "Tom" };
+            string[] expectedSortedItemsTitles = { "Title4", "Title3", "Title2", "Title1", "Title0" };
+
+            try
+            {
+                var dynamicController = new DynamicContentController();
+                dynamicController.Model.ContentType = TypeResolutionService.ResolveType(ResolveType);
+                dynamicController.Model.SortExpression = sortExpession;
+
+                for (int i = 0; i < itemsCount; i++)
+                    ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticle("Title" + i, "Title" + i + "Url", publishers[i]);
+
+                var items = dynamicController.Model.CreateListViewModel(null, 1).Items.ToArray();
+
+                for (int i = 0; i < itemsCount; i++)
+                {
+                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Fields.Title, "The news with this title was not found!");
+                }
+            }
+            finally
+            {
+                ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
             }
         }
 
