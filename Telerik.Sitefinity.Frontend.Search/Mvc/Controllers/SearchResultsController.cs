@@ -157,11 +157,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         /// Determines whether the search module is activated.
         /// </summary>
         /// <returns></returns>
-        public bool IsSearchModuleActivated()
+        protected virtual bool IsSearchModuleActivated()
         {
-            return SystemManager.ApplicationModules != null &&
-                SystemManager.ApplicationModules.ContainsKey(SearchModule.ModuleName) &&
-                !(SystemManager.ApplicationModules[SearchModule.ModuleName] is InactiveModule);
+            var module = SystemManager.GetModule(SearchModule.ModuleName);
+            return module != null;
         }
 
         #endregion

@@ -18,7 +18,8 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.SocialShare)]
+        TestCategory(FeatherTestCategories.SocialShare),
+        Ignore]
         public void CheckAllOptionsInSocialShareWidget()
         {
             BAT.Macros().NavigateTo().Pages();
