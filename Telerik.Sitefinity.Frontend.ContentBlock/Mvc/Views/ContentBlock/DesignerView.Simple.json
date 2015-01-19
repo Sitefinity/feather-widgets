@@ -1,7 +1,9 @@
 ﻿{
   "priority": 1,
   "scripts": [
+	"Mvc/Scripts/Angular/angular-resource.min.js",
 	"Mvc/Scripts/ContentBlock/shared-content-services.js",
+	"client-components/selectors/common/sf-services.js",
 	"client-components/fields/html-field/sf-html-field.js"
   ]
 }
