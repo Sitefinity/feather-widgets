@@ -603,7 +603,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 for (int i = 0; i < itemsCount; i++)
                 {
-                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Fields.Title, "The news with this title was not found!");
+                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Fields.Title, "The dynamic item with this title was not found!");
                 }
             }
             finally
@@ -639,7 +639,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
                 for (int i = 0; i < itemsCount; i++)
                 {
-                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Fields.Title, "The news with this title was not found!");
+                    Assert.AreEqual(expectedSortedItemsTitles[i], items[i].Fields.Title, "The dynamic item with this title was not found!");
                 }
             }
             finally
