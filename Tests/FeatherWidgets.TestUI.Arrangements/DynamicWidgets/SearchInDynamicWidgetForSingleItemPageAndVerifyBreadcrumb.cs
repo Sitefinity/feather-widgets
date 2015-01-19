@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(this.moduleName, string.Empty, TransactionName);
+            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
 
             Guid parentPageId = ServerOperations.Pages().CreatePage(PageName);
 
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string PageName = "TestPage";
         private const string ChildPagesPrefix = "ChildPage";
-        private readonly string moduleName = "Press Release";
+        private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
         private const string TransactionName = "Module Installations";
 

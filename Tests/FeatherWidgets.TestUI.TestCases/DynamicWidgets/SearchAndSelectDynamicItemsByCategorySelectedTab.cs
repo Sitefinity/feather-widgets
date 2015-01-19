@@ -52,17 +52,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, itemsTitle);
             }
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.itemsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(this.itemsTitles));
         }
 
         /// <summary>

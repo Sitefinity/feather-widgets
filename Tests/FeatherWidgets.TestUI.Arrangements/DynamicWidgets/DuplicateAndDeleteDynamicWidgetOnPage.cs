@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
             ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
 
-            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(this.dynamicTitle, this.dynamicUrl);
+            ServerOperationsFeather.DynamicModulePressArticle().CreatePressArticleItem(DynamicTitle, DynamicUrl);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
 
             ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, ResolveType, WidgetName, WidgetCaptionDynamicWidget);
@@ -42,8 +42,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string TransactionName = "Module Installations";
         private const string WidgetName = "PressArticle";
         private const string WidgetCaptionDynamicWidget = "Press Articles MVC";
-        private string dynamicTitle = "Angel";
-        private string dynamicUrl = "AngelUrl";
+        private const string DynamicTitle = "Angel";
+        private const string DynamicUrl = "AngelUrl";
         private const string PageName = "TestPage";
     }
 }

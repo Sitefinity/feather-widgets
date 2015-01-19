@@ -16,7 +16,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.DynamicWidgets),
+        Ignore]
         public void FilterDynamicItemWithCategoryTagAndDateOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -36,8 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectCheckBox(TaxonomyTags);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(
-                4);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(4);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(TagTitle);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
 
@@ -50,18 +50,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, ItemsTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend(); 
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.itemsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(this.itemsTitles));
         }
 
         /// <summary>
