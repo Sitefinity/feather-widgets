@@ -1,4 +1,4 @@
-namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
     /// <summary>
     /// The rendering options for the lists 

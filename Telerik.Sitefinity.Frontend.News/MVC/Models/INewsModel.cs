@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.News.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
@@ -13,17 +11,8 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
     /// <summary>
     /// Classes that implement this interface could be used as model for the News widget.
     /// </summary>
-    public interface INewsModel : ICacheDependable
+    public interface INewsModel
     {
-        /// <summary>
-        /// Gets the list of items to be displayed inside the widget.
-        /// </summary>
-        /// <value>
-        /// The items collection.
-        /// </value>
-        [Browsable(false)]
-        IList<NewsItem> Items { get; }
-
         /// <summary>
         /// Gets the list of news to be displayed inside the widget when option "Selected news" is enabled.
         /// </summary>
@@ -41,15 +30,6 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
         string ListCssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets the detail item.
-        /// </summary>
-        /// <value>
-        /// The detail news.
-        /// </value>
-        [Browsable(false)]
-        NewsItem DetailItem { get; set; }
-
-        /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in Details view.
         /// </summary>
         /// <value>
@@ -61,7 +41,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
         /// Gets or sets which news to be displayed in the list view.
         /// </summary>
         /// <value>The page display mode.</value>
-        NewsSelectionMode SelectionMode { get; set; }
+        SelectionMode SelectionMode { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to enable social sharing.
@@ -94,48 +74,12 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
         int? ItemsPerPage { get; set; }
 
         /// <summary>
-        /// Gets or sets the total pages count.
-        /// </summary>
-        /// <value>
-        /// The total pages count.
-        /// </value>
-        [Browsable(false)]
-        int? TotalPagesCount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the current page.
-        /// </summary>
-        /// <value>
-        /// The current page.
-        /// </value>
-        [Browsable(false)]
-        int CurrentPage { get; set; }
-
-        /// <summary>
         /// Gets or sets the sort expression.
         /// </summary>
         /// <value>
         /// The sort expression.
         /// </value>
         string SortExpression { get; set; }
-
-        /// <summary>
-        /// Gets or sets the taxonomy filter.
-        /// </summary>
-        /// <value>
-        /// The taxonomy filter.
-        /// </value>
-        [Obsolete("Use SerializedAdditionalFilters instead")]
-        string SerializedTaxonomyFilter { get; set; }
-
-        /// <summary>
-        /// Gets or sets the serialized selected taxonomies.
-        /// </summary>
-        /// <value>
-        /// The serialized selected taxonomies.
-        /// </value>
-        [Obsolete("Use SerializedAdditionalFilters instead.")]
-        string SerializedSelectedTaxonomies { get; set; }
 
         /// <summary>
         /// Gets or sets the serialized additional filters.
@@ -154,17 +98,49 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Models
         string FilterExpression { get; set; }
 
         /// <summary>
-        /// Populates the news.
+        /// Creates a view model for use in list views.
         /// </summary>
-        /// <param name="taxonFilter">The taxon that should be contained in the items.</param>
-        /// <param name="taxonField">The taxon field.</param>
+        /// <param name="taxonFilter">The taxon filter.</param>
         /// <param name="page">The page.</param>
-        void PopulateItems(ITaxon taxonFilter, string taxonField, int? page);
+        /// <returns>A view model for use in list views.</returns>
+        /// <exception cref="System.ArgumentException">'page' argument has to be at least 1.;page</exception>
+        ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page);
 
         /// <summary>
-        /// Compiles a filter expression based on the widget settings.
+        /// Creates the details view model.
         /// </summary>
-        /// <returns>Filter expression that will be applied on the query.</returns>
-        string CompileFilterExpression();
+        /// <param name="item">The item.</param>
+        /// <returns>A view model for use in detail views.</returns>
+        ContentDetailsViewModel CreateDetailsViewModel(IDataItem item);
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel);
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentDetailsViewModel viewModel);
+
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        IEnumerable<IContentLocationInfo> GetLocations();
     }
 }

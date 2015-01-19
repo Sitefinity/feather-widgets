@@ -1,0 +1,104 @@
+﻿@model Telerik.Sitefinity.Frontend.Search.Mvc.Models.ISearchResultsModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
+@using Telerik.Sitefinity.Modules.Pages;
+
+<div class="@Model.CssClass">
+
+                <h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
+
+                <div>
+                 
+                @if(Model.AllowSorting)
+                {
+                    <select class="userSortDropdown">
+                        <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
+                        <option value="@OrderByOptions.Newest" @(Model.OrderBy == OrderByOptions.Newest ? "selected=selected" : "")>@Html.Resource("NewestFirst")</option>
+                        <option value="@OrderByOptions.Oldest" @(Model.OrderBy == OrderByOptions.Oldest ? "selected=selected" : "")>@Html.Resource("OldestFirst")</option>
+                    </select>
+                }
+            </div>
+            
+            @if(Model.Languages.Length > 1)
+            {
+                <div>
+                    <span>@Html.Resource("ChangeResultsLanguageLabel") </span>
+                    @for (var i = 0; i < Model.Languages.Length; i++)
+                    {
+                        <a href="@(String.Format(ViewBag.LanguageSearchUrlTemplate, Model.Languages[i].Name))">@Model.Languages[i].DisplayName</a>
+                        if (i < Model.Languages.Length - 2)
+                        {
+                            <span>, </span>
+                        }
+                        else if (i == Model.Languages.Length - 2)
+                        {
+                            <span> @Html.Resource("OrLabel") </span>
+                        }
+                    }
+                </div>
+            }            
+
+            <ul id="search-results">
+                @foreach (var item in Model.Results.Data)
+                {
+
+                    var hasLink = item.GetValue("Link") != null && !String.IsNullOrEmpty(item.GetValue("Link").ToString());
+                    <div>
+                        <h3>
+                            @if(hasLink) 
+                            {
+                                <a href="@item.GetValue("Link")">@item.GetValue("Title")</a>
+                            }
+                            else
+                            {
+                                @item.GetValue("Title")
+                            }
+                        </h3>
+                        <p>@Html.Raw(item.GetValue("HighLighterResult"))</p>
+                        @if(hasLink)
+                        {
+                            <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
+                        }
+                    </div>
+
+                }
+
+                @if (Model.DisplayMode == ListDisplayMode.Paging && Model.Results.TotalCount != null && Model.Results.TotalCount > 1)
+                {
+                    @Html.Action("Index", "ContentPager", new
+                    {
+                        currentPage = Model.CurrentPage,
+                        totalPagesCount = Model.TotalPagesCount,
+                        redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+                    })
+                }
+            </ul>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //Dropdownlist Selectedchange event
+        $(".userSortDropdown").change(function (value) {
+            var selectedValue = $(value.currentTarget).val();
+            var url = getResultsUrl(selectedValue);
+            window.location.search = url;
+        });
+
+        // Returns url with all needed parameters
+        function getResultsUrl(orderBy, language) {
+            var orderByValue = orderBy || '@Request.QueryString["orderBy"]';
+            var languageValue = language || '@Request.QueryString["language"]';
+
+            var orderByParam = orderByValue ? '&orderBy=' + orderByValue : '';
+            var languageParam = languageValue ? '&language=' + languageValue : '';
+
+            return '?indexCatalogue=' + '@Request.QueryString["indexCatalogue"]' + '&' +
+                'searchQuery=' + '@Request.QueryString["searchQuery"]' + '&' +
+                'wordsMode=' + '@Request.QueryString["wordsMode"]' +
+                orderByParam +
+                languageParam;
+        }
+    });
+</script>

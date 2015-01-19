@@ -172,6 +172,7 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerListSettingsTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsDesignerSingleItemSettingsTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsFilterByRelatedDataTests.cs" />
+    <Compile Include="DynamicWidgets\DynamicWidgetsHierarchicalContentTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsPageTemplateTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
@@ -186,11 +187,14 @@
     <Compile Include="News\NewsWidgetListSettingsTests.cs" />
     <Compile Include="News\NewsWidgetPageTemplateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchResults\SearchResultsWidgetTests.cs" />
     <Compile Include="TestCategories.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
@@ -208,6 +212,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
       <Name>Telerik.Sitefinity.Frontend.News</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj">
+      <Project>{b1e056f8-d6ad-4c0c-a619-053e23f44a60}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Search</Name>
     </ProjectReference>
     <ProjectReference Include="..\FeatherWidgets.TestUtilities\FeatherWidgets.TestUtilities.csproj">
       <Project>{3a2db408-48e4-4c20-bbbc-3f730009322a}</Project>
@@ -232,6 +240,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <Import Project="$(SolutionDir)\ReferenceAssemblies\Bcl\Microsoft.Bcl.Build.targets" Condition="Exists('$(SolutionDir)\ReferenceAssemblies\Bcl\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.  -->
   <Target Name="BeforeBuild">
