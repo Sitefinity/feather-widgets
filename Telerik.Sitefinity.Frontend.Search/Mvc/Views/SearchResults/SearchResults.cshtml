@@ -69,7 +69,7 @@
 
                 }
 
-                @if (Model.DisplayMode == ListDisplayMode.Paging && Model.Results.TotalCount != null && Model.Results.TotalCount > 1)
+                @if (Model.DisplayMode == ListDisplayMode.Paging && Model.TotalPagesCount != null && Model.TotalPagesCount > 1)
                 {
                     @Html.Action("Index", "ContentPager", new
                     {
