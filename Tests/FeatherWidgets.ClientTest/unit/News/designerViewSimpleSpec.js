@@ -290,6 +290,10 @@ describe('News designer view tests.', function () {
         }],
         "TotalCount": 20
     };
+
+    var errorResponse = {
+        Detail: 'Error'
+    };
    
     var appPath = 'http://mysite.com:9999/myapp';
 
@@ -313,8 +317,6 @@ describe('News designer view tests.', function () {
         beforeEach(inject(function ($injector) {
             // Set up the mock http service responses
             $httpBackend = $injector.get('$httpBackend');
-            $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
-                .respond(dataItems);
 
             // Get hold of a scope (i.e. the root scope)
             $rootScope = $injector.get('$rootScope');
@@ -331,14 +333,65 @@ describe('News designer view tests.', function () {
             };
         }));
 
-        it('[EGaneva] / The selected items ids are populated correctly for the selector.', function () {
-            var controller = createController();
-            $httpBackend.flush();
-            $rootScope.$digest();
+        describe('Tests with default data items.', function () {
+            beforeEach(inject(function ($injector) {
+                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
+                    .respond(dataItems);
+            }));
 
-            expect($rootScope.newsSelector.selectedItemsIds).toEqual(["dbf0c965-f18a-6d82-8924-ff0000fd783f"]);
+            it('[EGaneva] / The selected items ids are populated correctly for the selector.', function () {
+                var controller = createController();
+                $httpBackend.flush();
+                $rootScope.$digest();
+
+                expect($rootScope.newsSelector.selectedItemsIds).toEqual(["dbf0c965-f18a-6d82-8924-ff0000fd783f"]);
+            });
+
+            it('[NPetrova] / The SortExpression is correctly changed when the sorting option is changed to Title DESC.', function () {
+                var controller = createController();
+                $httpBackend.flush();
+                $rootScope.$digest();
+
+                expect($rootScope.selectedSortOption).toEqual("PublicationDate DESC");
+
+                var newSortingOption = "Title DESC";
+                $rootScope.selectedSortOption = newSortingOption;
+                $rootScope.updateSortOption($rootScope.selectedSortOption);
+                expect($rootScope.selectedSortOption).toEqual(newSortingOption);
+                expect($rootScope.properties.SortExpression.PropertyValue).toEqual(newSortingOption);
+            });
+        });
+
+        describe('Tests with customised data items.', function () {
+            beforeEach(inject(function ($injector) {
+                var items = JSON.parse(JSON.stringify(dataItems));
+                items.Items[15].PropertyValue = "Content DESC";
+
+                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
+                    .respond(items);
+            }));
+
+            it('[NPetrova] / The SortExpression is correctly changed when the sorting option is changed to custom sort expression.', function () {
+                var controller = createController();
+                $httpBackend.flush();
+                $rootScope.$digest();
+
+                expect($rootScope.selectedSortOption).toEqual("Custom");
+            });
+        });
+
+        describe('Tests verifying error mesages.', function () {
+            it('[NPetrova] / The error message is populated correctly when property service returns an error.', function () {
+                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
+                    .respond(500, errorResponse);
+
+                var controller = createController();
+                $httpBackend.flush();
+                $rootScope.$digest();
+
+                expect($rootScope.feedback.errorMessage).toBeDefined();
+                expect($rootScope.feedback.errorMessage).toBe('Error');
+            });
         });
     });
-
-   
 });
