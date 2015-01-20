@@ -6,7 +6,12 @@
 
 <div class="@Model.CssClass">
 
-                <h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
+                @if (@Model.Results.TotalCount > 0)
+                {
+                    <h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
+                }else {
+                    <h1>@Html.Resource("No") @Html.Raw(Model.ResultText)</h1>
+                }
 
                 <div>
                  
