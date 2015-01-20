@@ -44,8 +44,10 @@
   <ItemGroup>
     <Content Include="config\karma.conf.js" />
     <Content Include="helpers\mocks\sfSearchServiceMock.js" />
-    <Content Include="unit\News\designerViewSimpleSpec.js" />
+    <Content Include="helpers\mocks\ServerDataMock.js" />
+    <Content Include="unit\DynamicContent\designerViewSimpleSpec.js" />
     <Content Include="unit\Search\designerViewSimpleSpec.js" />
+    <Content Include="unit\News\designerViewSimpleSpec.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test.bat" />
