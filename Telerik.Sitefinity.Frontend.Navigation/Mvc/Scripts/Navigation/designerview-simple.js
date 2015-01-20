@@ -1,3 +1,5 @@
 ﻿(function () {
-    angular.module('designer').requires.push('expander');
+    var designer = angular.module('designer');
+    designer.requires.push('expander');
+    designer.requires.push('sfSelectors');
 })();

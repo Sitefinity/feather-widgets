@@ -30,6 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// <param name="cssClass">The CSS class.</param>
         public NavigationModel(
             PageSelectionMode selectionMode, 
+            Guid selectedPageId,
             int? levelsToInclude, 
             bool showParentPage, 
             string cssClass)
@@ -38,6 +39,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             this.LevelsToInclude = levelsToInclude;
             this.ShowParentPage = showParentPage;
             this.CssClass = cssClass;
+            this.selectedPageId = selectedPageId;
 
             this.InitializeNavigationWidgetSettings();
         }
@@ -328,6 +330,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                 case PageSelectionMode.TopLevelPages:
                     this.AddChildNodes(siteMapProvider.RootNode, false);
                     break;
+                case PageSelectionMode.SelectedPageChildren:
+                    this.AddChildNodes(siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D")), this.ShowParentPage);
+                    break;
                 case PageSelectionMode.CurrentPageChildren:
 
                     if (this.CurrentSiteMapNode != null)
@@ -365,6 +370,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         // TODO: check why field is never used
         // private SiteMapBase siteMap;
         private string siteMapProviderName = SiteMapBase.DefaultSiteMapProviderName;
+
+        private Guid selectedPageId;
 
         #endregion
     }

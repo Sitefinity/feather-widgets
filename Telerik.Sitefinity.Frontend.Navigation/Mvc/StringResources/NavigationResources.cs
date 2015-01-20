@@ -218,7 +218,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets Simple
+        /// Gets word: Simple
         /// </summary>
         [ResourceEntry("Simple",
             Value = "Simple",
@@ -229,6 +229,21 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
             get
             {
                 return this["Simple"];
+            }
+        }
+
+        /// <summary>
+        /// Description for the SelectionMode option SelectedPageChildren.
+        /// </summary>
+        [ResourceEntry("SelectedPageChildren",
+            Value = "All pages under particular page",
+            Description = "Description for the SelectionMode option SelectedPageChildren.",
+            LastModified = "2015/01/20")]
+        public string SelectedPageChildren
+        {
+            get
+            {
+                return this["SelectedPageChildren"];
             }
         }
     }

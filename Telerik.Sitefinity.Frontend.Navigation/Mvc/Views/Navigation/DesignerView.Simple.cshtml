@@ -9,6 +9,16 @@
         </label>
     </div>
     <div class="radio">
+        <label>
+            <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedPageChildren" />
+            @Html.Resource("SelectedPageChildren")
+        </label>
+        <sf-list-selector
+            sf-page-selector
+            sf-selected-item-id="properties.SelectedPageId.PropertyValue"
+            ng-show="properties.SelectionMode.PropertyValue == 'SelectedPageChildren'"></sf-list-selector>
+    </div>
+    <div class="radio">
         <label for="rbCurrentPageChildren">
           <input id="rbCurrentPageChildren" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="CurrentPageChildren" />
           @Html.Resource("CurrentPageChildren")
