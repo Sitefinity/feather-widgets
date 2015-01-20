@@ -15,7 +15,7 @@
 
                 <div>
                  
-                @if(Model.AllowSorting)
+                @if (Model.AllowSorting && @Model.Results.TotalCount > 0)
                 {
                     <select class="userSortDropdown">
                         <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
