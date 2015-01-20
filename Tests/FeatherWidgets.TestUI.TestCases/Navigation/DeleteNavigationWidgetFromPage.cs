@@ -96,7 +96,7 @@ namespace FeatherWidgets.TestUI
         public void DeleteNavigationWidgetFromPageSemanticUITemplate()
         {
             string pageTemplateName = "SemanticUI.default";
-            string navTemplateClass = "ui menu purple inverted";
+            string navTemplateClass = "ui menu inverted";
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();

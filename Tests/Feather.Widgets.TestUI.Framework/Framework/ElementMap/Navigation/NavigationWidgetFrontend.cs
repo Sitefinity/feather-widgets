@@ -64,6 +64,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         }
 
         /// <summary>
+        /// Gets the Foundation Navigation unordered list of child pages on the frontend.
+        /// </summary>
+        public HtmlUnorderedList GetFoundationNavigationChild(string parentCssClass)
+        {
+            var parentList = this.GetFoundationNavigation(parentCssClass);
+
+            var list = parentList.Find.AllByTagName<HtmlUnorderedList>("ul").First();
+
+            return list;        
+        }
+
+        /// <summary>
         /// Gets the Semantic Navigation list on the frontend.
         /// </summary>
         public HtmlControl GetSemanticNavigation(string cssClass)

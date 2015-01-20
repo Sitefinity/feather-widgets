@@ -71,6 +71,6 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string ArrangementClassName = "NavigationWidgetOnSemanticTemplate";
         private const string ArrangementMethodName = "CreatePages";
         private const string WidgetName = "Navigation";
-        private const string NavTemplateClass = "ui menu purple inverted";
+        private const string NavTemplateClass = "ui menu inverted";
     }
 }

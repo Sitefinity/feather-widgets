@@ -116,7 +116,7 @@ namespace FeatherWidgets.TestUI
         private const string WidgetName = "Navigation";
         private const string NavTemplateClass = "nav navbar-nav";
         private const string FoundationNavTemplateClass = "top-bar-section";
-        private const string SemanticNavTemplateClass = "ui menu purple inverted";
+        private const string SemanticNavTemplateClass = "ui menu inverted";
         private const string PageTemplateName = "Bootstrap.default";
         private const string FoundationTemplateName = "Foundation.default";
         private const string SemanticUITemplateName = "SemanticUI.default";
