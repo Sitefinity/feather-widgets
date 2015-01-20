@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [TearDown]
         public void TearDown()
         {
-            this.pageOperations.DeletePages();
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().DeleteAllNews();
         }
 
