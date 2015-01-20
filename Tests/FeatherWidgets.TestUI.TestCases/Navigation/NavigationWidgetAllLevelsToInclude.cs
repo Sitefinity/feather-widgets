@@ -62,7 +62,6 @@ namespace FeatherWidgets.TestUI
         {
             string pageTemplateName = "Foundation.default";
             string navTemplateClass = "side-nav";
-            string navTemplateChildClass = "group nav nav-pills nav-stacked";
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteArrangement(this.ArrangementMethod);
@@ -81,7 +80,7 @@ namespace FeatherWidgets.TestUI
             ActiveBrowser.WaitUntilReady();
 
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, parentPages, TemplateType.Foundation);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateChildClass, childPages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateClass, childPages, TemplateType.Foundation);
 
             BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().SelectPageFromNavigationByText(navTemplateClass, ChildPage1);
             ActiveBrowser.WaitForUrl("/" + ChildPage1.ToLower(), true, 60000);
