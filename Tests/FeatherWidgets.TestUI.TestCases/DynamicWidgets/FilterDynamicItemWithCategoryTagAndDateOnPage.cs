@@ -16,7 +16,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.DynamicWidgets),
+        Ignore]
         public void FilterDynamicItemWithCategoryTagAndDateOnPage()
         {
             BAT.Macros().NavigateTo().Pages();

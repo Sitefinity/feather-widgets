@@ -57,7 +57,6 @@ namespace FeatherWidgets.TestUI
 
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
-        /// 
         /// </summary>
         protected override void ServerSetup()
         {
