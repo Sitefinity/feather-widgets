@@ -17,6 +17,7 @@
                  
                 @if (Model.AllowSorting && @Model.Results.TotalCount > 0)
                 {
+                    <span>@Html.Resource("SortBy")</span>
                     <select class="userSortDropdown">
                         <option value="@OrderByOptions.Relevance" @(Model.OrderBy == OrderByOptions.Relevance ? "selected=selected" : "")>@Html.Resource("Relevance")</option>
                         <option value="@OrderByOptions.Newest" @(Model.OrderBy == OrderByOptions.Newest ? "selected=selected" : "")>@Html.Resource("NewestFirst")</option>
