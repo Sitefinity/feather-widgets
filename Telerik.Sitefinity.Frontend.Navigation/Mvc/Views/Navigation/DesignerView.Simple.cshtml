@@ -30,6 +30,17 @@
           @Html.Resource("CurrentPageSiblings")
         </label>
     </div>
+        <div class="radio">
+        <label>
+            <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedPages" />
+            @Html.Resource("SelectedPages")
+        </label>
+        <sf-list-selector
+            sf-page-selector
+            sf-multiselect="true"
+            sf-selected-ids="multiPageSelector.selectedPageIds"
+            ng-show="properties.SelectionMode.PropertyValue == 'SelectedPages'"></sf-list-selector>
+    </div>
 </div>
 
 <div class="form-group">

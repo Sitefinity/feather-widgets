@@ -246,5 +246,21 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["SelectedPageChildren"];
             }
         }
+
+
+        /// <summary>
+        /// Description for the SelectionMode option SelectedPages.
+        /// </summary>
+        [ResourceEntry("SelectedPages",
+            Value = "Custom selection of pages...",
+            Description = "Description for the SelectionMode option SelectedPages.",
+            LastModified = "2015/01/20")]
+        public string SelectedPages
+        {
+            get
+            {
+                return this["SelectedPages"];
+            }
+        }
     }
 }

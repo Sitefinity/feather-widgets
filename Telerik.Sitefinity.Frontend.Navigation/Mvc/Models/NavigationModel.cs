@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Web;
@@ -31,6 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         public NavigationModel(
             PageSelectionMode selectionMode, 
             Guid selectedPageId,
+            Guid[] selectedPageIds,
             int? levelsToInclude, 
             bool showParentPage, 
             string cssClass)
@@ -40,6 +42,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             this.ShowParentPage = showParentPage;
             this.CssClass = cssClass;
             this.selectedPageId = selectedPageId;
+            this.selectedPageIds = selectedPageIds;
 
             this.InitializeNavigationWidgetSettings();
         }
@@ -353,6 +356,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                     }
 
                     break;
+                case PageSelectionMode.SelectedPages:
+                    if (this.selectedPageIds != null)
+                    {
+                        this.nodes = this.selectedPageIds.Select(p => siteMapProvider.FindSiteMapNodeFromKey(p.ToString("D")))
+                            .Where(n => n != null && this.CheckSiteMapNode(n))
+                            .Select(n => this.CreateNodeViewModelRecursive(n, 1))
+                            .ToList();
+                    }
+
+                    break;
             }
         }
 
@@ -372,6 +385,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         private string siteMapProviderName = SiteMapBase.DefaultSiteMapProviderName;
 
         private Guid selectedPageId;
+        private Guid[] selectedPageIds;
 
         #endregion
     }
