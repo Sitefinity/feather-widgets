@@ -94,7 +94,9 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     if (page == null || page < 1)
                         page = 1;
 
-                    int? itemsToSkip = this.Model.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.Model.ItemsPerPage) : 0;
+                    this.Model.CurrentPage = page.Value;
+
+                    int? itemsToSkip = this.Model.DisplayMode == ListDisplayMode.Paging ? ((page.Value - 1) * this.Model.ItemsPerPage) : 0;                   
                     this.Model.PopulateResults(searchQuery, indexCatalogue, itemsToSkip, language, orderBy);
 
                     return View(this.TemplateName, this.Model);
