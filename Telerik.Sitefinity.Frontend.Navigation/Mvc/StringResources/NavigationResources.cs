@@ -247,7 +247,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
             }
         }
 
-
         /// <summary>
         /// Description for the SelectionMode option SelectedPages.
         /// </summary>
