@@ -4,31 +4,4 @@
     <b>@Html.Resource("ThisContentIsShared")</b> @Html.Resource("SharedContentWarning")
 </div>
 
-<textarea id="editor" style="height: 340px;" 
-    kendo-editor ng-model="properties.Content.PropertyValue" 
-    k-encoded="false" 
-    k-tools='["bold", "italic", "underline", "trikethrough", "subscript", "superscript", 
-    "fontName", "fontSize", "foreColor", "backColor", 
-    "justifyLeft", "justifyCenter", "justifyRight", "justifyFull", 
-    "insertUnorderedList", "insertOrderedList", "indent", "outdent", 
-    "createLink", "unlink", "insertImage", "insertFile", 
-    "createTable", "addColumnLeft", "addColumnRight", "addRowAbove", "addRowBelow", "deleteRow", "deleteColumn", 
-    "formatting", "cleanFormatting",
-    "viewHtml"]'>
-</textarea>
-
-<script>
-// Focus the Kendo editor
-(function () {
-  var interval = window.setInterval(focus, 100);
-
-  function focus() {
-    var kendoEditor = $("#editor").data("kendoEditor");
-
-    if (kendoEditor) {
-      clearInterval(interval);
-      kendoEditor.focus();
-    }
-  }
-})();
-</script>
+<sf-html-field ng-model="properties.Content.PropertyValue"></sf-html-field>
