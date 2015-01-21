@@ -10,7 +10,6 @@ using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Modules.Pages;
 
 namespace FeatherWidgets.TestIntegration.Navigation
 {

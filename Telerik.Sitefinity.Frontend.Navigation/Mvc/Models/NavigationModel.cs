@@ -28,6 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// <param name="levelsToInclude">The levels to include.</param>
         /// <param name="showParentPage">if set to <c>true</c> [show parent page].</param>
         /// <param name="cssClass">The CSS class.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NavigationModel(
             PageSelectionMode selectionMode, 
             Guid selectedPageId,
