@@ -56,7 +56,8 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
             BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnDetailMasterPage(NewsTitle));
         }
@@ -90,7 +91,7 @@ namespace FeatherWidgets.TestUI
         public void VerifyNewsOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
         }
 
         /// <summary>
@@ -109,8 +110,8 @@ namespace FeatherWidgets.TestUI
         private const string PageName = "News";
         private const string WidgetName = "News";
         private const string NewsTitle = "NewsTitle";
-        private string[] newsTitles = new string[] { NewsTitle };
+        private readonly string[] newsTitles = new string[] { NewsTitle };
         private string pageTemplateName;
-        private string ArrangementClassName = "NavigateDetailTemplateOfNewsOnPage";
+        private const string ArrangementClassName = "NavigateDetailTemplateOfNewsOnPage";
     }
 }

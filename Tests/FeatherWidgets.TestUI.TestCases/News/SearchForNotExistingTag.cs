@@ -34,30 +34,13 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().NoItemsFound();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            this.VerifyNewsOnTheBackend();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify news widget on the backend
-        /// </summary>
-        public void VerifyNewsOnTheBackend()
-        {
             for (int i = 0; i < newsTitles.Length; i++)
             {
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[i]);
             }
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(newsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
         }
 
         /// <summary>
@@ -79,7 +62,7 @@ namespace FeatherWidgets.TestUI
 
         private const string PageName = "News";
         private const string TaxonTitle = "NotExistingTag";
-        private string[] newsTitles = new string[] { "NewsTitle4", "NewsTitle3", "NewsTitle2", "NewsTitle1", "NewsTitle0" };
+        private readonly string[] newsTitles = new string[] { "NewsTitle4", "NewsTitle3", "NewsTitle2", "NewsTitle1", "NewsTitle0" };
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Tags";
