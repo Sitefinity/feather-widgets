@@ -71,13 +71,9 @@
                     open(scope, attrs);
                 }
                 else {
-                    // The open button selector attribute can be binded to a property of the scope.
-                    attrs.$observe("openButton", function (value) {
-                        $(document).off("click", value);
-                        $(document).on("click", value, function () {
-                            open(scope, attrs);
-                        });
-                    });
+                    scope.$openModalDialog = function () {
+                        open(scope, attrs);
+                    };
                 }
             }
         };
