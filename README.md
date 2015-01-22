@@ -6,8 +6,8 @@ This repository contains custom MVC widgets which are part of [Project Feather](
 
 | Test | Status |
 |----|----|
-| Unit | [![Build Status](http://featherci.cloudapp.net/buildStatus/icon?job=Master_FeatherWidgetsUnitTests)](http://featherci.cloudapp.net/job/Master_FeatherWidgetsUnitTests/) |
-| Integration | [![Build Status](http://featherci.cloudapp.net/buildStatus/icon?job=Master_FeatherWidgetsIntegrationTests)](http://featherci.cloudapp.net/job/Master_FeatherWidgetsIntegrationTests/) |
+| Unit | [![Build Status](http://feather-ci.cloudapp.net/buildStatus/icon?job=Master_FeatherWidgetsUnitTests)](http://feather-ci.cloudapp.net/job/Master_FeatherWidgetsUnitTests/) |
+| Integration | [![Build Status](http://feather-ci.cloudapp.net/buildStatus/icon?job=Master_FeatherWidgetsIntegrationTests)](http://feather-ci.cloudapp.net/job/Master_FeatherWidgetsIntegrationTests/) |
 
 # Related Repositories
 
