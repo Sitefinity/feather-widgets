@@ -42,7 +42,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             if (node != null)
             {
                 this.OriginalSiteMapNode = node;
-                this.Title = node.Title;
+                if (node != null)
+                {
+                    this.Title = node.Title;
+                }
+
                 this.Url = url;
                 this.LinkTarget = target;
                 this.ChildNodes = new List<NodeViewModel>();
