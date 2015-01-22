@@ -36,8 +36,15 @@
             //Hide already opened dialogs.
             $(".modal-dialog").hide();
 
+            var size;
+            if (attrs.size) {
+                size = attrs.size;
+            } else {
+                size = "lg";
+            }
+
             var modalInstance = $modal.open({
-                size: 'lg',
+                size: size,
                 backdrop: 'static',
                 scope: attrs.existingScope && scope,
                 templateUrl: attrs.templateUrl,
