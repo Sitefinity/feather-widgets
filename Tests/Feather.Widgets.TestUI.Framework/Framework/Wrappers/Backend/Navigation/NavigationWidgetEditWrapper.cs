@@ -16,30 +16,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     public class NavigationWidgetEditWrapper : BaseWrapper
     {
         /// <summary>
-        /// Selects widget display mode in the widget designer
+        /// Selects navigation widget display mode in the widget designer
         /// </summary>
         /// <param name="mode">Navigation display mode</param>
         public void SelectNavigationWidgetDisplayMode(string mode)
         {
-            int position = 0;
             HtmlDiv optionsDiv = EM.Navigation.NavigationWidgetEditScreen.DislayModeList 
                 .AssertIsPresent("Navigation div");
 
             List<HtmlDiv> navDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
 
-            if (mode.Contains("All pages under"))
+            foreach (var div in navDivs)
             {
-                position = 1;
-            }
-            else if (mode.Contains("All sibling pages"))
-            {
-                position = 2;
-            }
+                if (div.InnerText.Contains(mode))
+                {
+                    HtmlInputRadioButton optionButton = div.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "type=radio");
 
-            HtmlInputRadioButton optionButton = navDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
-                .AssertIsPresent("Display option radio button");
-
-            optionButton.Click();
+                    if (optionButton != null && optionButton.IsVisible())
+                    {
+                        optionButton.Click();
+                    }
+                }
+            }         
         }
 
         /// <summary>
