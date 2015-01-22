@@ -16,6 +16,7 @@
 	"client-components/selectors/tools/sf-link-service.js",
 	"client-components/selectors/tools/sf-link-selector.js",
 	"client-components/selectors/tools/sf-link-selector-modal.js",
+	"client-components/selectors/common/sf-items-tree.js",
 	"client-components/fields/html-field/sf-html-field.js"
   ]
 }
