@@ -27,6 +27,14 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets the titles path.
+        /// </summary>
+        /// <value>
+        /// The titles path.
+        /// </value>
+        public string TitlesPath { get; set; }
+
+        /// <summary>
         /// Gets or sets the URL.
         /// </summary>
         /// <value>
