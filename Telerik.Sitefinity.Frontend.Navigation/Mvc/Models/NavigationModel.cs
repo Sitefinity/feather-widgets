@@ -374,7 +374,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                             else
                             {
                                 var node = new NodeViewModel(null, page.Url, "_blank", false, false);
-                                node.Title = page.Title;
+                                node.Title = page.TitlesPath;
                                 this.Nodes.Add(node);
                             }
                         }
