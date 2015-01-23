@@ -13,10 +13,12 @@
             <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedPageChildren" />
             @Html.Resource("SelectedPageChildren")
         </label>
-        <sf-list-selector
-            sf-page-selector
-            sf-selected-item-id="properties.SelectedPageId.PropertyValue"
-            ng-show="properties.SelectionMode.PropertyValue == 'SelectedPageChildren'"></sf-list-selector>
+        <div class="label-content">
+            <sf-list-selector
+                sf-page-selector
+                sf-selected-item-id="properties.SelectedPageId.PropertyValue"
+                ng-show="properties.SelectionMode.PropertyValue == 'SelectedPageChildren'"></sf-list-selector>
+        </div>
     </div>
     <div class="radio">
         <label for="rbCurrentPageChildren">
@@ -35,12 +37,14 @@
             <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedPages" />
             @Html.Resource("SelectedPages")
         </label>
-        <sf-list-selector
-            sf-page-selector
-            sf-multiselect="true"
-            sf-sortable="true"
-            sf-selected-ids="multiPageSelector.selectedPageIds"
-            ng-show="properties.SelectionMode.PropertyValue == 'SelectedPages'"></sf-list-selector>
+        <div class="label-content">
+            <sf-list-selector
+                sf-page-selector
+                sf-multiselect="true"
+                sf-sortable="true"
+                sf-selected-ids="multiPageSelector.selectedPageIds"
+                ng-show="properties.SelectionMode.PropertyValue == 'SelectedPages'"></sf-list-selector>
+        </div>
     </div>
 </div>
 
