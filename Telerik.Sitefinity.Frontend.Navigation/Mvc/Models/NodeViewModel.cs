@@ -39,20 +39,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// </param>
         public NodeViewModel(SiteMapNode node, string url, string target, bool isCurrentlyOpened, bool hasChildOpen)
         {
+            this.OriginalSiteMapNode = node;
             if (node != null)
             {
-                this.OriginalSiteMapNode = node;
-                if (node != null)
-                {
-                    this.Title = node.Title;
-                }
-
-                this.Url = url;
-                this.LinkTarget = target;
-                this.ChildNodes = new List<NodeViewModel>();
-                this.IsCurrentlyOpened = isCurrentlyOpened;
-                this.HasChildOpen = hasChildOpen;
+                this.Title = node.Title;
             }
+
+            this.Url = url;
+            this.LinkTarget = target;
+            this.ChildNodes = new List<NodeViewModel>();
+            this.IsCurrentlyOpened = isCurrentlyOpened;
+            this.HasChildOpen = hasChildOpen;
+
         }
 
         #endregion
