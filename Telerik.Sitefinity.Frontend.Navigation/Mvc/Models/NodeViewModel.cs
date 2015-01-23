@@ -50,7 +50,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             this.ChildNodes = new List<NodeViewModel>();
             this.IsCurrentlyOpened = isCurrentlyOpened;
             this.HasChildOpen = hasChildOpen;
-
         }
 
         #endregion

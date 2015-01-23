@@ -19,6 +19,14 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         public Guid Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the external page identifier.
+        /// </summary>
+        /// <value>
+        /// The external page identifier.
+        /// </value>
+        public Guid ExternalPageId { get; set; }
+
+        /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>
