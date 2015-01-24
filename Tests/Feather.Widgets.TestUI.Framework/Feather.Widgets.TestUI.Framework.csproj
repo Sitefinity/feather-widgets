@@ -83,6 +83,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\AssemblyInfoShare\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="BATFeather.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareWidgetEditScreen.cs" />
