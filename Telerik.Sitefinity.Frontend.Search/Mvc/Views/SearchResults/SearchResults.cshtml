@@ -3,13 +3,17 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Modules.Libraries;
+@using Telerik.Sitefinity.Libraries.Model;
 
 <div class="@Model.CssClass">
 
                 @if (@Model.Results.TotalCount > 0)
                 {
                     <h1>@Model.Results.TotalCount @Html.Raw(Model.ResultText)</h1>
-                }else {
+                }
+                else
+                {
                     <h1>@Html.Resource("No") @Html.Raw(Model.ResultText)</h1>
                 }
 
@@ -26,7 +30,7 @@
                 }
             </div>
             
-            @if(Model.Languages.Length > 1)
+            @if (Model.Languages.Length > 1)
             {
                 <div>
                     <span>@Html.Resource("ChangeResultsLanguageLabel") </span>
@@ -45,14 +49,51 @@
                 </div>
             }            
 
-            <ul>
+         
                 @foreach (var item in Model.Results.Data)
                 {
 
                     var hasLink = item.GetValue("Link") != null && !String.IsNullOrEmpty(item.GetValue("Link").ToString());
+                <div>
+
+                    @if (((Telerik.Sitefinity.Services.Search.Model.Document)item).ItemType.ToString() == typeof(Telerik.Sitefinity.Libraries.Model.Image).ToString())
+                    {
+            
                     <div>
+                        <a href="@item.GetValue("Link")">
+                            <img src="@item.GetValue("Link")" alt="@item.GetValue("Title")" width="120"/>
+                        </a>
+                    </div>
+                    }
+
+                    else if (((Telerik.Sitefinity.Services.Search.Model.Document)item).ItemType.ToString() == typeof(Telerik.Sitefinity.Libraries.Model.Video).ToString())
+                    {
+                        LibrariesManager librariesManager = LibrariesManager.GetManager();
+                        var videoTmbId = new Guid((string)item.GetValue("Id"));
+                        Video video = librariesManager.GetVideo(videoTmbId);
+                            if (video != null)
+                            {
+                                var thumbUrl = video.ThumbnailUrl;
+                        
+                            <div>
+                                <a href="@item.GetValue("Link")">
+                                    <img src="@thumbUrl" alt="@item.GetValue("Title")" width="120"/>
+                                </a>
+                            </div>
+                            }
+
+                        }
+
+                    else
+                    {
+
+                    }
+                    
+                    
+                    <div class="media-body sf-media-body">
+
                         <h3>
-                            @if(hasLink)
+                            @if (hasLink)
                             {
                                 <a href="@item.GetValue("Link")">@item.GetValue("Title")</a>
                             }
@@ -61,12 +102,14 @@
                                 @item.GetValue("Title")
                             }
                         </h3>
+
                         <p>@Html.Raw(item.GetValue("HighLighterResult"))</p>
-                        @if(hasLink)
+                        @if (hasLink)
                         {
                             <a href="@item.GetValue("Link")">@item.GetValue("Link")</a>
                         }
-                    </div>
+                     </div>
+                </div>
 
                 }
 
@@ -88,7 +131,7 @@
                    redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
                })
                 }
-            </ul>
+
     </div>
 
 <script type="text/javascript">
