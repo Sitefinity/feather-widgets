@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.ObjectModel;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -62,14 +63,43 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
-        /// Verify aocial share buttons on the frontend
+        /// Verifies the social share options in frontend.
         /// </summary>
-        public void VerifySocialShareButtonsOnThePageFrontend()
+        /// <param name="expectedNumberOfOptions">The expected number of options.</param>
+        /// <param name="optionNames">The option names.</param>
+        public void VerifySocialShareOptionsInContentBlockOnFrontend(int expectedNumberOfOptions, params string[] optionNames)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=list-inline sf-social-share").
-                AssertIsPresent("Social share buttons");
+            List<HtmlDiv> divList = frontendPageMainDiv.Find.AllByTagName<HtmlDiv>("div").ToList();
+            Assert.AreNotEqual(0, divList.Count, "Count should not be 0!");
+            var count = 0;
+
+            foreach (HtmlDiv divItem in divList)
+            {
+                if (divItem.ChildNodes.Count == 2)
+                {
+                    if (divItem.Attributes.Count.Equals(0))
+                    {
+                        var list = divItem.Find.ByExpression<HtmlUnorderedList>("class=list-inline sf-social-share").AssertIsPresent("Social share buttons");                      
+                        foreach (var optionName in optionNames)
+                        {
+                            var option = list.Find.ByExpression<HtmlAnchor>("onclick=~" + optionName);
+                            if (option == null)
+                            {
+                                option = list.Find.ByExpression<HtmlAnchor>("href=~" + optionName);
+                                if (option == null)
+                                {
+                                    var div = list.Find.ByExpression<HtmlDiv>("id=~" + optionName);
+                                    Assert.IsNotNull(div, "No such option " + optionName + " found");
+                                }
+                            }
+                            count++;
+                        }
+                    }
+                    Assert.AreEqual(expectedNumberOfOptions, count, "Count is not correct!");
+                }
+            }
         }
 
         /// <summary>

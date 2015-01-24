@@ -25,6 +25,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
 
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, ContentBlockContent, PlaceHolderId);
+            ServerOperationsFeather.Pages().AddSocialShareWidgetToPage(pageId, PlaceHolderId);
         }
 
         /// <summary>

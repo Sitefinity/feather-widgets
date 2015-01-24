@@ -1,4 +1,5 @@
 ﻿using Feather.Widgets.TestUI.Framework;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -29,6 +30,11 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().AdvanceButtonSelecting();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().EnableSocialShareButtons(IsEnabled);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetNameSocial);
+            BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().WaitForSaveButtonToAppear();
+            BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectSocialShareOptions(this.optionTitlesToSelect);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyPageFrontEnd();
         }
@@ -41,7 +47,10 @@ namespace FeatherWidgets.TestUI
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
-            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifySocialShareButtonsOnThePageFrontend();
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifySocialShareOptionsInContentBlockOnFrontend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);
+            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareOptionsOnFrontend(6, SocialShareOptions.Facebook, SocialShareOptions.Tweeter,
+              SocialShareOptions.GooglePlus, SocialShareOptions.Digg,
+              SocialShareOptions.Blogger, SocialShareOptions.LinkedIn);
         }
 
         /// <summary>
@@ -63,7 +72,9 @@ namespace FeatherWidgets.TestUI
 
         private const string PageName = "ContentBlock";
         private const string WidgetName = "ContentBlock";
+        private const string WidgetNameSocial = "Social share";
         private const string ContentBlockContent = "Test content";
         private const string IsEnabled = "True";
+        private readonly string[] optionTitlesToSelect = new string[] { "Blogger", "Digg" };
     }
 }

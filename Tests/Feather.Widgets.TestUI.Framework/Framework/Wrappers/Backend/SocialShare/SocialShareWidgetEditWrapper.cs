@@ -14,6 +14,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     /// </summary>
     public class SocialShareWidgetEditWrapper : BaseWrapper
     {
+
+        /// <summary>
+        /// When the first control is added to a form a submit button is automatically added to the page. 
+        /// This method waits for the submit button to be added.
+        /// </summary>
+        public void WaitForSaveButtonToAppear()
+        {
+            Manager.Current.Wait.For(this.WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
+            ActiveBrowser.RefreshDomTree();
+        }
+
         /// <summary>
         /// Selects widget template from the drop-down in the widget designer
         /// </summary>
@@ -35,7 +46,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         public void SelectSocialShareOptions(params string[] itemNames)
-        {
+        {            
             foreach (var itemName in itemNames)
             {
                 var div = ActiveBrowser.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
@@ -91,6 +102,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 }
                 ActiveBrowser.RefreshDomTree();
             }
+        }
+
+        private bool WaitForSaveButton()
+        {
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var saveButton = EM.Widgets
+                                   .WidgetDesignerContentScreen.SaveChangesButton;
+
+            bool result = saveButton != null && saveButton.IsVisible();
+
+            return result;
         }
     }
 }

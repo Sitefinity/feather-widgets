@@ -32,6 +32,7 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().WaitForSaveButtonToAppear();
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectWidgetListTemplate(TemplateTitle);        
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TemplateContent);
@@ -43,6 +44,7 @@ namespace FeatherWidgets.TestUI
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().WaitForSaveButtonToAppear();
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectWidgetListTemplate(TemplateIconsWithText);
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectSocialShareOptions(this.optionTitlesToSelect);
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().UnselectSocialShareOptions(this.optionTitlesToUnselect);
