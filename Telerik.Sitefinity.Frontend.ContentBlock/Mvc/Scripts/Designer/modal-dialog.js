@@ -36,8 +36,15 @@
             //Hide already opened dialogs.
             $(".modal-dialog").hide();
 
+            var size;
+            if (attrs.size) {
+                size = attrs.size;
+            } else {
+                size = "lg";
+            }
+
             var modalInstance = $modal.open({
-                size: 'lg',
+                size: size,
                 backdrop: 'static',
                 scope: attrs.existingScope && scope,
                 templateUrl: attrs.templateUrl,
@@ -71,13 +78,9 @@
                     open(scope, attrs);
                 }
                 else {
-                    // The open button selector attribute can be binded to a property of the scope.
-                    attrs.$observe("openButton", function (value) {
-                        $(document).off("click", value);
-                        $(document).on("click", value, function () {
-                            open(scope, attrs);
-                        });
-                    });
+                    scope.$openModalDialog = function () {
+                        open(scope, attrs);
+                    };
                 }
             }
         };

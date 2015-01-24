@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI
         public void NavigationWidgetSitemapTemplateWithOneLevelOnPageFoundation()
         {
             string pageTemplateName = "Foundation.default";
-            string navTemplateClass = "sitemap";
+            string navTemplateClass = "sitemap hide-for-small-only";
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();

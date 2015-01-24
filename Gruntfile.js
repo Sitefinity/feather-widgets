@@ -69,11 +69,11 @@ module.exports = function (grunt) {
 				}
 			},
 			searchTests:{
-				src: [
+			    src: [
 					'Telerik.Sitefinity.Frontend.Search/MVC/Scripts/**/*.js'
-				],
-				options: {
-					vendor:[
+			    ],
+			    options: {
+			        vendor:[
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/jquery-1.8.3.min.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-resource.js',
@@ -96,18 +96,67 @@ module.exports = function (grunt) {
 					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/search/sf-search-service.js',
 					'!../feather/Telerik.Sitefinity.Frontend/Designers/Scripts/page-editor.js',
 					'Tests/FeatherWidgets.ClientTest/helpers/mocks/*.js'
+			        ],
+			        errorReporting: true,
+			        specs: ['Tests/FeatherWidgets.ClientTest/unit/Search/*.js'],
+			        junit: {
+			            path: 'Tests/FeatherWidgets.ClientTest/TestResults/Search'
+			        },
+			        template: require('grunt-template-jasmine-istanbul'),
+			        templateOptions: {
+			            coverage: 'Tests/FeatherWidgets.ClientTest/coverage/Search/coverage.json',
+			            report: [
+							{type: 'html', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/Search'}},
+							{type: 'cobertura', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/cobertura/Search'}},
+							{type: 'text-summary'}
+			            ]
+			        }
+			    }
+			},
+			dynamicContentTests:{
+				src: [
+					'Telerik.Sitefinity.Frontend.DynamicContent/MVC/Scripts/**/*.js'
+				],
+				options: {
+					vendor:[
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/jquery-1.8.3.min.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-resource.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-route.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-mocks.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/kendo.web.min.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-kendo.js',
+					'../feather/Telerik.Sitefinity.Frontend/MVC/Scripts/Bootstrap/js/*.js',
+					'!../feather/Telerik.Sitefinity.Frontend/Mvc/Scripts/Angular/**',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/templates.js',
+					'../feather/Telerik.Sitefinity.Frontend/Designers/Scripts/*.js',
+					'../feather/Telerik.Sitefinity.Frontend/MVC/Scripts/Designer/*.js',
+					'../feather/Telerik.Sitefinity.Frontend/MVC/Scripts/*.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/common/sf-services.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/common/sf-selectors.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/common/sf-list-selector.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/common/sf-items-tree.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/dynamic-modules/sf-data-service.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/dynamic-modules/sf-dynamic-items-selector.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/taxonomies/sf-flat-taxon-service.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/taxonomies/sf-taxon-selector.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/date-time/sf-timespan-selector.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/pages/sf-page-service.js',
+					'../feather/Telerik.Sitefinity.Frontend/client-components/selectors/pages/sf-page-selector.js',
+					'!../feather/Telerik.Sitefinity.Frontend/Designers/Scripts/page-editor.js',
+					'Tests/FeatherWidgets.ClientTest/helpers/mocks/*.js'
 					],
 					errorReporting: true,
-					specs: ['Tests/FeatherWidgets.ClientTest/unit/Search/*.js'],
+					specs: ['Tests/FeatherWidgets.ClientTest/unit/DynamicContent/*.js'],
 					junit: {
-						path: 'Tests/FeatherWidgets.ClientTest/TestResults/Search'
+						path: 'Tests/FeatherWidgets.ClientTest/TestResults/DynamicContent'
 						},
 					template: require('grunt-template-jasmine-istanbul'),
 					templateOptions: {
-						coverage: 'Tests/FeatherWidgets.ClientTest/coverage/Search/coverage.json',
+						coverage: 'Tests/FeatherWidgets.ClientTest/coverage/DynamicContent/coverage.json',
 						report: [
-							{type: 'html', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/Search'}},
-							{type: 'cobertura', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/cobertura/Search'}},
+							{type: 'html', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/DynamicContent'}},
+							{type: 'cobertura', options: {dir: 'Tests/FeatherWidgets.ClientTest/coverage/cobertura/DynamicContent'}},
 							{type: 'text-summary'}
 						]
 					}

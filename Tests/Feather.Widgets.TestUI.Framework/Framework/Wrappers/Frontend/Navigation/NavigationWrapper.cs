@@ -72,7 +72,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                     navList = EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass);
                     break;
                 case TemplateType.Foundation:
-                    navList = EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass);
+                    navList = EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigationChild(cssClass);
                     break;
                 case TemplateType.Semantic:
                     navList = EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigationChild(cssClass);

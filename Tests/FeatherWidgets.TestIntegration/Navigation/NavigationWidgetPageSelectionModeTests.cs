@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var page1Node = SitefinitySiteMap.GetCurrentProvider().FindSiteMapNodeFromKey(page1Key.ToString());
             SystemManager.CurrentHttpContext.Items[SiteMapBase.CurrentNodeKey] = page1Node;
 
-            var navModel = new NavigationModel(PageSelectionMode.CurrentPageSiblings, -1, true, string.Empty);
+            var navModel = new NavigationModel(PageSelectionMode.CurrentPageSiblings, Guid.Empty, null, -1, true, string.Empty);
 
             var expectedCount = 2;
             var actualCount = navModel.Nodes.Count;
@@ -245,6 +245,79 @@ namespace FeatherWidgets.TestIntegration.Navigation
                     Assert.IsFalse(responseContent.Contains(PageTitlePrefix + i), "The page with this title was found!");
                 }
             }
+        }
+
+        /// <summary>
+        /// Navigation widget - All child pages of a specified page
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author("FeatherTeam")]
+        public void NavigationWidget_AllChildPagesOfSpecifiedPage()
+        {
+            string pageName1 = "NavigationPage1";
+            string pageTitle1 = "Navigation Page1";
+            string urlName1 = "navigation-page1";
+
+            string pageName2 = "NavigationPage2";
+            string pageTitle2 = "Navigation Page2";
+            string urlName2 = "navigation-page2";
+
+            var fluent = App.WorkWith();
+            var page1Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageName1, pageTitle1, urlName1, null, false);
+
+            this.createdPageIDs.Add(page1Key);
+
+            var page1Node = fluent.Page(page1Key).Get();
+            var page2Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageName2, pageTitle2, urlName2, page1Node, false);
+
+            this.createdPageIDs.Add(page2Key);
+
+            var navModel = new NavigationModel(PageSelectionMode.SelectedPageChildren, page1Key, null, -1, false, string.Empty);
+
+            var expectedCount = 1;
+            var actualCount = navModel.Nodes.Count;
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(pageTitle2, navModel.Nodes[0].Title);
+        }
+
+        /// <summary>
+        /// Navigation widget - Selected pages
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Navigation)]
+        [Author("FeatherTeam")]
+        public void NavigationWidget_SelectedPages()
+        {
+            string pageName1 = "NavigationPage1";
+            string pageTitle1 = "Navigation Page1";
+            string urlName1 = "navigation-page1";
+
+            string pageName2 = "NavigationPage2";
+            string pageTitle2 = "Navigation Page2";
+            string urlName2 = "navigation-page2";
+
+            string pageName3 = "NavigationPage3";
+            string pageTitle3 = "Navigation Page3";
+            string urlName3 = "navigation-page3";
+
+            var fluent = App.WorkWith();
+            var page1Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageName1, pageTitle1, urlName1, null, false);
+            this.createdPageIDs.Add(page1Key);
+
+            var page2Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageName2, pageTitle2, urlName2, null, false);
+            this.createdPageIDs.Add(page2Key);
+
+            var page3Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageName3, pageTitle3, urlName3, null, false);
+            this.createdPageIDs.Add(page3Key);
+
+            var navModel = new NavigationModel(PageSelectionMode.SelectedPages, Guid.Empty, new[] { page1Key, page2Key }, -1, false, string.Empty);
+
+            var expectedCount = 2;
+            var actualCount = navModel.Nodes.Count;
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(pageTitle1, navModel.Nodes[0].Title);
+            Assert.AreEqual(pageTitle2, navModel.Nodes[1].Title);
         }
 
         #region Fields and constants

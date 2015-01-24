@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
@@ -81,6 +83,20 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets or sets the identifier of the page that is selected if SelectionMode is SelectedPageChildren.
+        /// </summary>
+        /// <value>The identifier of the page that is selected if SelectionMode is SelectedPageChildren.</value>
+        public Guid SelectedPageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a serialized array of the selected page ids.
+        /// </summary>
+        /// <value>
+        /// The a serialized array of selected page ids.
+        /// </value>
+        public string SerializedSelectedPageIds { get; set; }
+
+        /// <summary>
         /// Gets the Navigation widget model.
         /// </summary>
         /// <value>
@@ -156,10 +172,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         private INavigationModel InitializeModel()
         {
+            var selectedPageIds = JsonSerializer.DeserializeFromString<Guid[]>(this.SerializedSelectedPageIds);
             var constructorParameters = new Dictionary<string, object> 
                          {
-                            { "selectionMode", this.SelectionMode }, 
-                            { "levelsToInclude", this.LevelsToInclude }, 
+                            { "selectionMode", this.SelectionMode },
+                            { "selectedPageId", this.SelectedPageId },
+                            { "selectedPageIds", selectedPageIds },
+                            { "levelsToInclude", this.LevelsToInclude },
                             { "showParentPage", this.ShowParentPage }, 
                             { "cssClass", this.CssClass }
                          };

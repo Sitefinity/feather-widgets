@@ -362,6 +362,61 @@ namespace FeatherWidgets.TestIntegration.News
             }
         }
 
+        /// <summary>
+        /// Verifies news items sorted by a valid As set in Advanced mode option.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
+        [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
+        [Description("Verifies news items sorted by a valid As set in Advanced mode option.")]
+        public void NewsWidget_VerifyValidSortingOptionAsSetInAdvancedMode()
+        {
+            string sortExpession = "InvalidSortingExpression";
+            var itemsCount = 5;
+            string[] expectedSortedNewsTitles = { "news4", "news3", "news2", "news1", "news0" };
+
+            var newsController = new NewsController();
+            newsController.Model.SortExpression = sortExpession;
+
+            for (int i = 0; i < itemsCount; i++)
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem("news" + i);
+
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+
+            for (int i = 0; i < itemsCount; i++)
+            {
+                Assert.AreEqual(expectedSortedNewsTitles[i], items[i].Fields.Title.Value, "The news with this title was not found!");
+            }
+        }
+
+        /// <summary>
+        /// Verifies news items sorted by an invalid As set in Advanced mode option.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
+        [Category(TestCategories.News)]
+        [Author("Sitefinity Team 7")]
+        [Description("Verifies news items sorted by an invalid As set in Advanced mode option.")]
+        public void NewsWidget_VerifyInvalidSortingOptionAsSetInAdvancedMode()
+        {
+            string sortExpession = "Content ASC";
+            var itemsCount = 5;
+            string[] newsContent = { "Ivan", "George", "Steve", "Ana", "Tom" };
+            string[] expectedSortedNewsTitles = { "news3", "news1", "news0", "news2", "news4" };
+
+            var newsController = new NewsController();
+            newsController.Model.SortExpression = sortExpession;
+
+            for (int i = 0; i < itemsCount; i++)
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem("news" + i, content: newsContent[i]);
+
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+
+            for (int i = 0; i < itemsCount; i++)
+            {
+                Assert.AreEqual(expectedSortedNewsTitles[i], items[i].Fields.Title.Value, "The news with this title was not found!");
+            }
+        }
+
         #region Fields and constants
 
         private const string NewsTitle = "Title";

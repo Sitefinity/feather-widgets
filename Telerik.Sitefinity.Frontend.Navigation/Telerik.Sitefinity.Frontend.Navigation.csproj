@@ -43,6 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.Signed.4.0.35\lib\net40\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -92,7 +95,9 @@
     <EmbeddedResource Include="Mvc\Views\Navigation\Dropdown.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\DesignerView.Simple.json" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Navigation.js" />

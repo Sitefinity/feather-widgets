@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Web;
@@ -28,8 +29,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// <param name="levelsToInclude">The levels to include.</param>
         /// <param name="showParentPage">if set to <c>true</c> [show parent page].</param>
         /// <param name="cssClass">The CSS class.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NavigationModel(
             PageSelectionMode selectionMode, 
+            Guid selectedPageId,
+            Guid[] selectedPageIds,
             int? levelsToInclude, 
             bool showParentPage, 
             string cssClass)
@@ -38,6 +42,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             this.LevelsToInclude = levelsToInclude;
             this.ShowParentPage = showParentPage;
             this.CssClass = cssClass;
+            this.selectedPageId = selectedPageId;
+            this.selectedPageIds = selectedPageIds;
 
             this.InitializeNavigationWidgetSettings();
         }
@@ -328,6 +334,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                 case PageSelectionMode.TopLevelPages:
                     this.AddChildNodes(siteMapProvider.RootNode, false);
                     break;
+                case PageSelectionMode.SelectedPageChildren:
+                    this.AddChildNodes(siteMapProvider.FindSiteMapNodeFromKey(this.selectedPageId.ToString("D")), this.ShowParentPage);
+                    break;
                 case PageSelectionMode.CurrentPageChildren:
 
                     if (this.CurrentSiteMapNode != null)
@@ -348,6 +357,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                     }
 
                     break;
+                case PageSelectionMode.SelectedPages:
+                    if (this.selectedPageIds != null)
+                    {
+                        this.nodes = this.selectedPageIds.Select(p => siteMapProvider.FindSiteMapNodeFromKey(p.ToString("D")))
+                            .Where(n => n != null && this.CheckSiteMapNode(n))
+                            .Select(n => this.CreateNodeViewModelRecursive(n, 1))
+                            .ToList();
+                    }
+
+                    break;
             }
         }
 
@@ -365,6 +384,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         // TODO: check why field is never used
         // private SiteMapBase siteMap;
         private string siteMapProviderName = SiteMapBase.DefaultSiteMapProviderName;
+
+        private Guid selectedPageId;
+        private Guid[] selectedPageIds;
 
         #endregion
     }

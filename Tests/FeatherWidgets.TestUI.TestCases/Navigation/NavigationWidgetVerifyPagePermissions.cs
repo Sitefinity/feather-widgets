@@ -76,7 +76,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         public void NavigationWidgetSemanticUIVerifyPageWithUserNotAllowedAndRoleChanged()
         {
             string pageTemplateName = "SemanticUI.default";
-            string mvcNavClass = "ui menu purple inverted";
+            string mvcNavClass = "ui menu inverted";
 
             BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
 
