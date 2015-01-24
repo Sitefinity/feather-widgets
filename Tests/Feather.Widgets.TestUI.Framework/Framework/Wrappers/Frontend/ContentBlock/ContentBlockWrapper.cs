@@ -52,8 +52,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 {
                     if (div.ChildNodes.First().TagName.Equals("div") && div.Attributes.Count.Equals(0))
                     {
-                        var isContained = div.ChildNodes.First().TextContent.Contains(contentBlockContent);
-                        Assert.IsTrue(isContained, "Expected " + contentBlockContent + " ,but found" + div.ChildNodes.First().TextContent);
+                        var isContained = div.ChildNodes.First().InnerText.Contains(contentBlockContent);
+                        Assert.IsTrue(isContained, "Expected " + contentBlockContent + " ,but found" + div.ChildNodes.First().InnerText);
                         countContentBlocks++;
                     }
                 }

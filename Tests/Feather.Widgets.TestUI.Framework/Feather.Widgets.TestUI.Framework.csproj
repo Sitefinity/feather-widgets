@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BATFeather.cs" />
+    <Compile Include="Framework\ElementMap\Content\ContentBlockLinkSelectorScreen.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareMap.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\BaseWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockLinkSelectorWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FrontendWrappesFacade.cs" />
