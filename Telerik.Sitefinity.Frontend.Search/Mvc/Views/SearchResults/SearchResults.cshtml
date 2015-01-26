@@ -68,6 +68,7 @@
 
                     else if (((Telerik.Sitefinity.Services.Search.Model.Document)item).ItemType.ToString() == typeof(Telerik.Sitefinity.Libraries.Model.Video).ToString())
                     {
+                        //libraries manager will be instantiated on each loop through the foreach
                         LibrariesManager librariesManager = LibrariesManager.GetManager();
                         var videoTmbId = new Guid((string)item.GetValue("Id"));
                         Video video = librariesManager.GetVideo(videoTmbId);
