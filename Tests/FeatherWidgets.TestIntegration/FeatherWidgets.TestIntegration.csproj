@@ -162,6 +162,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\AssemblyInfoShare\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
     <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
     <Compile Include="ContentBlock\ContentBlockWidget.cs" />
