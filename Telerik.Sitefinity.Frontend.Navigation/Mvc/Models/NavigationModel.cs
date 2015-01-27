@@ -108,6 +108,14 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         public bool ShowParentPage { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether should open external page in new tab.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should open external page in new tab; otherwise, <c>false</c>.
+        /// </value>
+        public bool OpenExternalPageInNewTab { get; set; }
+
+        /// <summary>
         ///     Gets the site map.
         /// </summary>
         /// <value>
@@ -373,7 +381,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                             }
                             else
                             {
-                                var node = new NodeViewModel(null, page.Url, "_blank", false, false);
+                                var target = this.OpenExternalPageInNewTab ? "_blank" : null;
+                                var node = new NodeViewModel(null, page.Url, target, false, false);
                                 node.Title = page.TitlesPath;
                                 this.Nodes.Add(node);
                             }
