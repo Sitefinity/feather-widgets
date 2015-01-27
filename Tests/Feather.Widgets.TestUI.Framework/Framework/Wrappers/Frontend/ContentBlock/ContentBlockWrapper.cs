@@ -28,16 +28,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="contentBlockContent">The content value</param>
         public void VerifyContentOfContentBlockOnThePageFrontend(string contentBlockContent)
         {
-            int countContentBlocks = this.ContentBlocksCountOnFrontend(contentBlockContent);
+            int countContentBlocks = this.GetCountOfContentBlocksOnFrontend(contentBlockContent);
             Assert.AreNotEqual(0, countContentBlocks, "Count should not be 0!");
         }
  
         /// <summary>
-        /// Contents the blocks count on frontend.
+        /// Gets count of content blocks on frontend
         /// </summary>
         /// <param name="contentBlockContent">Content of the content block.</param>
         /// <returns></returns>
-        public int ContentBlocksCountOnFrontend(string contentBlockContent)
+        public int GetCountOfContentBlocksOnFrontend(string contentBlockContent)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
