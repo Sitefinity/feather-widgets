@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SearchItemByTitle("C");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(24);
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().CheckBreadcrumbAfterSearchInHierarchicalSelector(breadcrumbName, breadcrumbFullName);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().CheckBreadcrumbAfterSearchInHierarchicalSelector(BreadcrumbName, BreadcrumbFullName);
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(TaxonTitle1, TaxonTitle2);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
@@ -43,17 +43,8 @@ namespace FeatherWidgets.TestUI
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitle);
             }
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
         }
 
         /// <summary>
@@ -83,7 +74,7 @@ namespace FeatherWidgets.TestUI
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Narrow selection by...";
         private const string TaxonomyName = "Category";
-        private const string breadcrumbName = "Under AnotherCategory0 > ... > AnotherCategory9";
-        private const string breadcrumbFullName = "Under AnotherCategory0 > AnotherCategory1 > AnotherCategory2 > AnotherCategory3 > AnotherCategory4 > AnotherCategory5 > AnotherCategory6 > AnotherCategory7 > AnotherCategory8 > AnotherCategory9";
+        private const string BreadcrumbName = "Under AnotherCategory0 > ... > AnotherCategory9";
+        private const string BreadcrumbFullName = "Under AnotherCategory0 > AnotherCategory1 > AnotherCategory2 > AnotherCategory3 > AnotherCategory4 > AnotherCategory5 > AnotherCategory6 > AnotherCategory7 > AnotherCategory8 > AnotherCategory9";
     }
 }

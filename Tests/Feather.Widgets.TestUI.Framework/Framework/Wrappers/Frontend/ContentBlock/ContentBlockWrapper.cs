@@ -28,15 +28,37 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="contentBlockContent">The content value</param>
         public void VerifyContentOfContentBlockOnThePageFrontend(string contentBlockContent)
         {
+            int countContentBlocks = this.GetCountOfContentBlocksOnFrontend(contentBlockContent);
+            Assert.AreNotEqual(0, countContentBlocks, "Count should not be 0!");
+        }
+ 
+        /// <summary>
+        /// Gets count of content blocks on frontend
+        /// </summary>
+        /// <param name="contentBlockContent">Content of the content block.</param>
+        /// <returns></returns>
+        public int GetCountOfContentBlocksOnFrontend(string contentBlockContent)
+        {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            List<HtmlDiv> contentBlockCount = frontendPageMainDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "data-sf-field=Content").ToList<HtmlDiv>();
+            var divList = frontendPageMainDiv.Find.AllByTagName("div");
+            Assert.AreNotEqual(0, divList.Count, "Count should not be 0!");
+            int countContentBlocks = 0;
 
-            for (int i = 0; i < contentBlockCount.Count; i++)
+            foreach (var div in divList)
             {
-                var isContained = contentBlockCount[i].InnerText.Contains(contentBlockContent);
-                Assert.IsTrue(isContained, string.Concat("Expected ", contentBlockContent, " but found [", contentBlockCount[i].InnerText, "]"));
+                if (div.ChildNodes.Count > 0)
+                {
+                    if (div.ChildNodes.First().TagName.Equals("div") && div.Attributes.Count.Equals(0))
+                    {
+                        var isContained = div.ChildNodes.First().TextContent.Contains(contentBlockContent);
+                        Assert.IsTrue(isContained, "Expected " + contentBlockContent + " ,but found" + div.ChildNodes.First().TextContent);
+                        countContentBlocks++;
+                    }
+                }
             }
+
+            return countContentBlocks;
         }
 
         /// <summary>
@@ -46,10 +68,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            HtmlUnorderedList socialShareButtons = frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=list-inline sf-social-share").
+            frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=list-inline sf-social-share").
                 AssertIsPresent("Social share buttons");
-
-            Assert.IsNotNull(socialShareButtons, "Social share buttons");
         }
 
         /// <summary>
@@ -68,7 +88,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             cb.MouseClick();
             ActiveBrowser.RefreshDomTree();
             ActiveBrowser.WaitForAsyncJQueryRequests();
-            var element = ActiveBrowser.Find.ByCustom<HtmlUnorderedList>(e => e.CssClass.Contains("k-editor-toolbar") && e.IsVisible() == true)
+            ActiveBrowser.Find.ByCustom<HtmlUnorderedList>(e => e.CssClass.Contains("k-editor-toolbar") && e.IsVisible() == true)
              .AssertIsPresent("toolbar");
 
             Manager.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.LControlKey);

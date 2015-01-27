@@ -27,17 +27,8 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
         }
 
         /// <summary>
@@ -60,6 +51,6 @@ namespace FeatherWidgets.TestUI
         private const string PageName = "News";
         private const string NewsTitle = "NewsTitle";
         private const string OperationName = "Duplicate";
-        private string[] newsTitles = new string[] { NewsTitle, NewsTitle };
+        private readonly string[] newsTitles = new string[] { NewsTitle, NewsTitle };
     }
 }

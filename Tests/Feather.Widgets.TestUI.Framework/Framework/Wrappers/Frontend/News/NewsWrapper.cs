@@ -15,37 +15,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     public class NewsWrapper : BaseWrapper
     {
         /// <summary>
-        /// Verify title in news widget on the frontend
+        /// Verifies the news titles on the page frontend.
         /// </summary>
-        /// <param name="contentBlockContent">The content value</param>
-        public void VerifyNewsTitlesOnThePageFrontend(string[] newsTitle)
+        /// <param name="newsTitles">The news titles.</param>
+        /// <returns>true or false depending on news titles presence on frontend</returns>
+        public bool IsNewsTitlesPresentOnThePageFrontend(string[] newsTitles)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            List<HtmlListItem> newsLists = frontendPageMainDiv.Find.AllByExpression<HtmlListItem>("tagname=li", "data-sf-type=Telerik.Sitefinity.News.Model.NewsItem").ToList<HtmlListItem>();
-
-            for (int i = 0; i < newsLists.Count; i++)
-            {
-                var isContained = newsLists[i].InnerText.Contains(newsTitle[i]);
-                Assert.IsTrue(isContained, string.Concat("Expected ", newsTitle[i], " but found [", newsLists[i].InnerText, "]"));
+            for (int i = 0; i < newsTitles.Length; i++)
+            {              
+                HtmlAnchor newsAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + newsTitles[i]);
+                if ((newsAnchor == null) || (newsAnchor != null && !newsAnchor.IsVisible()))
+                {
+                    return false;
+                }
             }
-        }
-
-        /// <summary>
-        /// Checks if a news title is present on the frontend.
-        /// </summary>
-        /// <param name="newsTitle">The news title.</param>
-        /// <returns>True or False depending on the news item presense.</returns>
-        public bool IsNewsTitlePresentOnTheFrontend(string newsTitle)
-        {
-            HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
-
-            if (frontendPageMainDiv.InnerText.Contains(newsTitle))
-            {
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -122,6 +108,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlUnorderedList newsList = frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=sfnewsList sfnewsListTitleDate sflist");
 
             List<HtmlListItem> listItem = newsList.Find.AllByExpression<HtmlListItem>("tagname=li", "class=sfnewsListItem sflistitem").ToList<HtmlListItem>();
+            Assert.AreNotEqual(0, listItem.Count);
 
             for (int i = 0; i < listItem.Count; i++)
             {

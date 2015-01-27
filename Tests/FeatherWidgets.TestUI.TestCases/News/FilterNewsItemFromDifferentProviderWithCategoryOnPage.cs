@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI
   
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);             
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));             
         }
 
         /// <summary>
@@ -76,6 +76,5 @@ namespace FeatherWidgets.TestUI
         private const string TaxonomyName = "Category";
         private readonly string[] newsTitles = new string[] { NewsTitle3, NewsTitle2 };
         private const string SecondProviderName = "NewsSecondDataProvider";
-        private const string Module = "News_NewsManager";
     }
 }

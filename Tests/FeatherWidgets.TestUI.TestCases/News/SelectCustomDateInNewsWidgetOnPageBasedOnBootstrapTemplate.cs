@@ -44,17 +44,8 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[0]);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[1]);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(newsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));    
         }
 
         /// <summary>
@@ -81,6 +72,6 @@ namespace FeatherWidgets.TestUI
         private const string DateName = "dateInput";
         private const int DayAgo = -1;
         private const int DayForward = 1;
-        private string[] newsTitles = { "Angel", "Cat" };
+        private readonly string[] newsTitles = { "Angel", "Cat" };
     }
 }

@@ -48,7 +48,8 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend(this.newSelectedNewsNames1);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newSelectedNewsNames1));           
         }
 
         /// <summary>
@@ -91,17 +92,8 @@ namespace FeatherWidgets.TestUI
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitle);
             }
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend(this.newSelectedNewsNames2);
-        }
-
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend(string[] selectedNewsNames)
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(selectedNewsNames);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newSelectedNewsNames2));    
         }
 
         /// <summary>

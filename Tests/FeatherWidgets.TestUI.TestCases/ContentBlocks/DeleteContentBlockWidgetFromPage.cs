@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -22,21 +23,15 @@ namespace FeatherWidgets.TestUI
        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void DeleteContentBlockWidgetFromPage()
         {
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName);
+            Assert.AreEqual(InitialContentBlocksCount, BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().GetCountOfContentBlocksOnFrontend(ContentBlockContent));
+
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyEmptyPageFrontEnd(ExpectedCountOfContentDivEmpty);
-        }
-
-        /// <summary>
-        /// Verify page frontend
-        /// </summary>
-        /// <param name="expectedCount">Content value</param>
-        public void VerifyEmptyPageFrontEnd(int expectedCount)
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName);
-            BAT.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentBlockCountOnThePageFrontEnd(expectedCount);
+            Assert.AreEqual(ExpectedContentBlocksCount, BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().GetCountOfContentBlocksOnFrontend(ContentBlockContent));
         }
 
         /// <summary>
@@ -57,8 +52,9 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string PageName = "ContentBlock";
-        private const string WidgetName = "ContentBlock";
         private const string OperationName = "Delete";
-        private const int ExpectedCountOfContentDivEmpty = 0;
+        private const int InitialContentBlocksCount = 1;
+        private const int ExpectedContentBlocksCount = 0;
+        private const string ContentBlockContent = "Test content";
     }
 }

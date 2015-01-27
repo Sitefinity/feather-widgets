@@ -36,17 +36,9 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, 1);
             BAT.Wrappers().Backend().WidgetTeamplates().WidgetTemplates().SaveWidgetDesigner();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend();
-        }
 
-        /// <summary>
-        /// Navigate page on the frontend
-        /// </summary>
-        public void NavigatePageOnTheFrontend()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
             BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontendOLDNewsWidget(this.newsTitlesOld);
         }
 
@@ -72,7 +64,7 @@ namespace FeatherWidgets.TestUI
         private const string NewsTitleOld = "NewsTitleOld";
         private const string NewsTitleNew = "NewsTitleNew";
         private const string WhichNewsToDisplay = "Selected news";
-        private string[] newsTitles = new string[] { NewsTitleNew };
-        private string[] newsTitlesOld = new string[] { NewsTitleNew, NewsTitleOld };
+        private readonly string[] newsTitles = new string[] { NewsTitleNew };
+        private readonly string[] newsTitlesOld = new string[] { NewsTitleNew, NewsTitleOld };
     }
 }

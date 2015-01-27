@@ -27,17 +27,8 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyEmptyPageFrontEnd(ContentBlockContent);           
-        }
-
-        /// <summary>
-        /// Verify page frontend
-        /// </summary>
-        /// <param name="content">Content value</param>
-        public void VerifyEmptyPageFrontEnd(string content)
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName);
-            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(content);
+            Assert.AreEqual(ExpectedContentBlocksCount, BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().GetCountOfContentBlocksOnFrontend(ContentBlockContent));
         }
 
         /// <summary>
@@ -58,8 +49,8 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string PageName = "ContentBlock";
-        private const string WidgetName = "ContentBlock";
         private const string OperationName = "Duplicate";
         private const string ContentBlockContent = "Test content";
+        private const int ExpectedContentBlocksCount = 2;
     }
 }
