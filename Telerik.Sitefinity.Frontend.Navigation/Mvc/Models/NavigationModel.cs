@@ -36,7 +36,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             SelectedPageModel[] selectedPages,
             int? levelsToInclude, 
             bool showParentPage, 
-            string cssClass)
+            string cssClass,
+            bool openExternalPageInNewTab)
         {
             this.SelectionMode = selectionMode;
             this.LevelsToInclude = levelsToInclude;
@@ -44,6 +45,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
             this.CssClass = cssClass;
             this.selectedPageId = selectedPageId;
             this.selectedPages = selectedPages;
+            this.OpenExternalPageInNewTab = openExternalPageInNewTab;
 
             this.InitializeNavigationWidgetSettings();
         }
@@ -368,6 +370,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                 case PageSelectionMode.SelectedPages:
                     if (this.selectedPages != null)
                     {
+                        var target = this.OpenExternalPageInNewTab ? "_blank" : "_self";
                         foreach (var page in this.selectedPages)
                         {
                             if (page.Id != default(Guid))
@@ -381,7 +384,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                             }
                             else
                             {
-                                var target = this.OpenExternalPageInNewTab ? "_blank" : null;
                                 var node = new NodeViewModel(null, page.Url, target, false, false);
                                 node.Title = page.TitlesPath;
                                 this.Nodes.Add(node);

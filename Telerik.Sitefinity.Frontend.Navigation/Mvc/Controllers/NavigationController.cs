@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.Mvc;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -105,6 +106,14 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         public string SerializedExternalPages { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether should open external page in new tab.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should open external page in new tab; otherwise, <c>false</c>.
+        /// </value>
+        public bool OpenExternalPageInNewTab { get; set; }
+
+        /// <summary>
         /// Gets the Navigation widget model.
         /// </summary>
         /// <value>
@@ -188,7 +197,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                             { "selectedPages", selectedPageIds },
                             { "levelsToInclude", this.LevelsToInclude },
                             { "showParentPage", this.ShowParentPage }, 
-                            { "cssClass", this.CssClass }
+                            { "cssClass", this.CssClass },
+                            { "openExternalPageInNewTab", this.OpenExternalPageInNewTab }
                          };
 
             return ControllerModelFactory.GetModel<INavigationModel>(this.GetType(), constructorParameters);
