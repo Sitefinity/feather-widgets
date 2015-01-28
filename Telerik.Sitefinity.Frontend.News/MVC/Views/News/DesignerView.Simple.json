@@ -15,7 +15,6 @@
 		"client-components/selectors/common/sf-provider-selector.js",
 		"client-components/selectors/news/sf-news-item-service.js",
         "client-components/selectors/news/sf-news-selector.js",
-        "client-components/selectors/multi-site/sf-multi-site-service.js",
 		"client-components/selectors/taxonomies/sf-flat-taxon-service.js",
 		"client-components/selectors/taxonomies/sf-hierarchical-taxon-service.js",
 		"client-components/selectors/taxonomies/sf-taxon-selector.js",
