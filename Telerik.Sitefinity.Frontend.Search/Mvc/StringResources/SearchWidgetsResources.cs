@@ -593,6 +593,39 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
                 return this["OrLabel"];
             }
         }
+
+        /// <summary>
+        /// word: No
+        /// </summary>
+        /// <value>No</value>
+        [ResourceEntry("No",
+            Value = "No",
+            Description = "word: No",
+            LastModified = "2015/01/20")]
+        public string No
+        {
+            get
+            {
+                return this["No"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Sort by
+        /// </summary>
+        /// <value>Sort by</value>
+        [ResourceEntry("SortBy",
+            Value = "Sort by",
+            Description = "Phrase: Sort by",
+            LastModified = "2015/01/20")]
+        public string SortBy
+        {
+            get
+            {
+                return this["SortBy"];
+            }
+        }
+
         #endregion
     }
 }

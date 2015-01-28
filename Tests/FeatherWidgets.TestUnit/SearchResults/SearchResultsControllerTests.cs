@@ -76,7 +76,7 @@ namespace FeatherWidgets.TestUnit.SearchResults
 
                     // Asserts
                     Assert.IsNotNull(searchResultsModel, "The model is not created.");
-                    Assert.AreEqual(0, searchResultsModel.CurrentPage, "The default value of the current page is 0.");
+                    Assert.AreEqual(1, searchResultsModel.CurrentPage, "The default value of the current page is 1.");
                     Assert.IsNotNull(searchResultsModel.Results, "No results are displayed.");
                     Assert.AreEqual(3, searchResultsModel.Results.TotalCount, "No items are found");
                 }

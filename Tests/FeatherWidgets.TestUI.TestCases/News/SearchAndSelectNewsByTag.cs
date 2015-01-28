@@ -34,21 +34,13 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(new [] {TaxonTitle1, TaxonTitle2});
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             this.VerifyNewsOnBackend(); 
+
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNewsOnTheFrontend();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 2, NewsTitle + 1 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 0, NewsTitle + 3, NewsTitle + 4 }));
         }
  
-        /// <summary>
-        /// Verify news widget on the frontend
-        /// </summary>
-        public void VerifyNewsOnTheFrontend()
-        {
-            string[] newsTitles = new string[] { NewsTitle + 2, NewsTitle + 1};
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(newsTitles);
-        }
-
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
@@ -70,11 +62,7 @@ namespace FeatherWidgets.TestUI
         {
             for (int i = 0; i < 5; i++)
             {
-                if (i == 0)
-                {
-                    BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, NewsTitle + i);
-                }
-                else if (i > 0 && i <= 2)
+                if (i > 0 && i <= 2)
                 {
                     BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, NewsTitle + i);
                 }

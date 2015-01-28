@@ -35,12 +35,11 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         public void NavigatePageOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
 
             string[] pages = new string[] { PageName };
 
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().VerifyNewsTitlesOnThePageFrontend(this.newsTitles);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(MvcNavClass, pages);
         }
 
@@ -62,13 +61,11 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         }
 
         private const string PageName = "TestPage";
-        private const string WidgetName = "Press Articles MVC";
-        private string[] dynamicTitles = { "Angel" };
+        private readonly string[] dynamicTitles = { "Angel" };
         private const string ModuleName = "Module builder";
         private const string ContentBlockContent = "Test content";
-        private string[] newsTitles = new string[] { NewsTitle };
+        private readonly string[] newsTitles = new string[] { NewsTitle };
         private const string MvcNavClass = "nav navbar-nav";
-        private const string NewContentBlockWidget = "ContentBlock";
         private const string NewsTitle = "NewsTitleNew";  
     }
 }

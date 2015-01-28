@@ -38,8 +38,8 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnTheFrontend("NewsTitle2"));
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnTheFrontend("NewsTitle1"));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitle2));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitle1));
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnTheFrontend("NewsTitle2"));
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnTheFrontend("NewsTitle1"));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitle2));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitle1));
         }
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnTheFrontend("NewsTitle2"));
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlePresentOnTheFrontend("NewsTitle1"));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitle2));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitle1));
         }
 
         private string ArrangementClass
@@ -109,14 +109,16 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
         }
 
-        private string ArrangementClassName = "EditNewsWidgetOnPageBasedOnPackageTemplate";     
+        private const string ArrangementClassName = "EditNewsWidgetOnPageBasedOnPackageTemplate";     
         private const string BootstrapTemplate = "Bootstrap.default";
         private const string FoundationTemplate = "Foundation.default";
         private const string SemanticUITemplate = "SemanticUI.default";
         private const string PageName = "News";
         private const string NewsTitle1 = "NewsTitle1";
+        private const string NewsTitle2 = "NewsTitle2";
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Selected news";
-        private string[] newsTitles = new string[] { NewsTitle1 };
+        private readonly string[] newsTitle1 = new string[] { NewsTitle1 };
+        private readonly string[] newsTitle2 = new string[] { NewsTitle2 };
     }
 }
