@@ -176,7 +176,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
 
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.WaitForAsyncOperations();
             ActiveBrowser.RefreshDomTree();
         }
 
@@ -487,7 +487,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Verify mesage in items widget - when items module is deactivated
+        /// Verify message in items widget - when items module is deactivated
         /// </summary>
         public void CheckInactiveitemsWidget()
         {
@@ -569,7 +569,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             selectExistingPage.Click();
 
             Manager.Current.ActiveBrowser.WaitUntilReady();
-            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
             Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 

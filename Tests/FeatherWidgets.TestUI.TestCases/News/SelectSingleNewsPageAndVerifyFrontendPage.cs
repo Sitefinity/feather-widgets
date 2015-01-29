@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.NewsSelectors)]
+        TestCategory(FeatherTestCategories.NewsSelectors), 
+        TestCategory(FeatherTestCategories.Fixes)]
         public void SelectSingleNewsPageAndVerifyFrontendPage()
         {
             BAT.Macros().NavigateTo().Pages();

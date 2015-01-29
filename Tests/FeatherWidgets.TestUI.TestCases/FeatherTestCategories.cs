@@ -54,5 +54,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for new tests
         /// </summary>
         public const string New = "New";
+
+        /// <summary>
+        /// New category for test fixes
+        /// </summary>
+        public const string Fixes = "Fixes";
     }
 }
