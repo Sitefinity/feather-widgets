@@ -87,6 +87,7 @@
     <Compile Include="Mvc\Models\NavigationModel.cs" />
     <Compile Include="Mvc\Models\NodeViewModel.cs" />
     <Compile Include="Mvc\Models\PageSelectionMode.cs" />
+    <Compile Include="Mvc\Models\SelectedPageModel.cs" />
     <Compile Include="Mvc\StringResources\NavigationResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
