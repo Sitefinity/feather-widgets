@@ -216,7 +216,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, input.GetRectangle());
             input.Text = string.Empty;
             Manager.Current.Desktop.KeyBoard.TypeText(title);
-            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
+            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
             Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
@@ -241,11 +241,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
             int divsCount = items.Count;
+            Log.WriteLine("divCount 243:" + divsCount);
 
             if (divsCount == 0)
             {
                 items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-click=itemClicked(item)");
                 divsCount = items.Count;
+                Log.WriteLine("divCount 250:" + divsCount);
             }
 
             //// if items count is more than 12 elements, then you need to scroll
@@ -259,11 +261,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 List<HtmlDiv> itemDiv = itemsList.Find
                                       .AllByExpression<HtmlDiv>("class=~ng-scope list-group-item").ToList<HtmlDiv>();
                 divsCount = itemDiv.Count;
+                Log.WriteLine("divCount 263:" + divsCount);
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
                 itemDiv[divsCount - 1].ScrollToVisible();
             }
 
+            Log.WriteLine("divCount 268:" + divsCount);
             bool isCountCorrect = (expected == divsCount);
             return isCountCorrect;
         }
@@ -508,8 +512,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                     .AssertIsPresent("Single item settings tab");
 
             singleTab.Click();
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
+            //// ActiveBrowser.WaitForAsyncRequests();
+            //// ActiveBrowser.RefreshDomTree();
         }
    
         /// <summary>
@@ -568,9 +572,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlInputRadioButton selectExistingPage = this.EM.Widgets.WidgetDesignerContentScreen.SelectedExistingPage.AssertIsPresent("Selected existing page");
             selectExistingPage.Click();
 
-            Manager.Current.ActiveBrowser.WaitUntilReady();
-            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
-            Manager.Current.ActiveBrowser.RefreshDomTree();
+            //// Manager.Current.ActiveBrowser.WaitUntilReady();
+            //// Manager.Current.ActiveBrowser.WaitForAsyncOperations();
+            //// Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
         private void SelectElementInTree(string itemName, HtmlDiv activeTab)
