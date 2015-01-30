@@ -88,14 +88,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             foreach (var itemName in itemNames)
             {
-                var divs = activeTab.Find.AllByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
-                foreach (var div in divs)
+                var spanElements = activeTab.Find.AllByCustom<HtmlSpan>(a => a.InnerText.Equals(itemName));
+                foreach (var span in spanElements)
                 {
-                    if (div.IsVisible())
+                    if (span.IsVisible())
                     {
-                        div.Wait.ForVisible();
-                        div.ScrollToVisible();
-                        div.MouseClick();
+                        span.Wait.ForVisible();
+                        span.ScrollToVisible();
+                        span.MouseClick();
                         ActiveBrowser.RefreshDomTree();
                         break;
                     }
@@ -140,7 +140,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="breadcrumb">breadcrumb for given item</param>
         public void CheckBreadcrumbAfterSearchInFlatSelector(string itemName, string breadcrumb)
         {
-            ActiveBrowser.Find.ByExpression<HtmlDiv>("class=~ng-binding", "InnerText=" + itemName).AssertIsPresent(itemName + " was not present.");
+            ActiveBrowser.Find.ByExpression<HtmlControl>("class=~ng-binding", "InnerText=" + itemName).AssertIsPresent(itemName + " was not present.");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("sf-shrinked-breadcrumb=" + breadcrumb).AssertIsPresent(breadcrumb + " was not present.");
         }
 
@@ -239,13 +239,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.RefreshDomTree();
             var activeDialog = this.EM.Widgets.WidgetDesignerContentScreen.ActiveTab.AssertIsPresent("Content container");
 
-            var items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-bind=~bindIdentifierField(item");
+            var items = activeDialog.Find.AllByExpression<HtmlControl>("ng-bind=~bindIdentifierField(item");
             int divsCount = items.Count;
             Log.WriteLine("divCount 243:" + divsCount);
 
             if (divsCount == 0)
             {
-                items = activeDialog.Find.AllByExpression<HtmlDiv>("ng-click=itemClicked(item)");
+                items = activeDialog.Find.AllByExpression<HtmlControl>("ng-click=itemClicked(item)");
                 divsCount = items.Count;
                 Log.WriteLine("divCount 250:" + divsCount);
             }
@@ -253,13 +253,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             //// if items count is more than 12 elements, then you need to scroll
             if (divsCount > 12)
             {
-                HtmlDiv itemsList = EM.Widgets
+                HtmlControl itemsList = EM.Widgets
                                      .WidgetDesignerContentScreen
                                      .ItemsList
                                      .AssertIsPresent("items list");
 
-                List<HtmlDiv> itemDiv = itemsList.Find
-                                      .AllByExpression<HtmlDiv>("class=~ng-scope list-group-item").ToList<HtmlDiv>();
+                List<HtmlControl> itemDiv = itemsList.Find
+                                      .AllByExpression<HtmlControl>("class=~ng-scope list-group-item").ToList<HtmlControl>();
                 divsCount = itemDiv.Count;
                 Log.WriteLine("divCount 263:" + divsCount);
 
