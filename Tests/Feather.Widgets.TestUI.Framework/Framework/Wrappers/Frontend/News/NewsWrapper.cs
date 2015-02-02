@@ -14,25 +14,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     /// </summary>
     public class NewsWrapper : BaseWrapper
     {
-       
         /// <summary>
         /// Verifies the news titles on the page frontend.
         /// </summary>
-        /// <param name="newsTitle">The news title.</param>
-        /// <returns></returns>
-        public bool IsNewsTitlesPresentOnThePageFrontend(string[] newsTitle)
+        /// <param name="newsTitles">The news titles.</param>
+        /// <returns>true or false depending on news titles presence on frontend</returns>
+        public bool IsNewsTitlesPresentOnThePageFrontend(string[] newsTitles)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            for (int i = 0; i < newsTitle.Length; i++)
+            for (int i = 0; i < newsTitles.Length; i++)
             {              
-                HtmlAnchor newsAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + newsTitle[i]);
-                if (newsAnchor != null && newsAnchor.IsVisible())
+                HtmlAnchor newsAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + newsTitles[i]);
+                if ((newsAnchor == null) || (newsAnchor != null && !newsAnchor.IsVisible()))
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
 
         /// <summary>
