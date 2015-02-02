@@ -35,7 +35,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         public void SelectSocialShareOptions(params string[] itemNames)
-        {
+        {            
             foreach (var itemName in itemNames)
             {
                 var div = ActiveBrowser.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));

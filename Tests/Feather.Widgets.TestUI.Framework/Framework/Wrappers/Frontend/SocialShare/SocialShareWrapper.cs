@@ -42,7 +42,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
             var count = 0;
             foreach (var optionName in optionNames)
-            {
+            {                                
                 var option = list.Find.ByExpression<HtmlAnchor>("onclick=~" + optionName);
                 if (option == null)
                 {
