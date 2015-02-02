@@ -32,19 +32,10 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetNameSocial);
-            BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().WaitForSaveButtonToAppear();
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectSocialShareOptions(this.optionTitlesToSelect);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyPageFrontEnd();
-        }
 
-        /// <summary>
-        /// Verify page frontend
-        /// </summary>
-        /// <param name="expectedCount">Content value</param>
-        public void VerifyPageFrontEnd()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifySocialShareOptionsInContentBlockOnFrontend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);

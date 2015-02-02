@@ -74,9 +74,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             List<HtmlDiv> divList = frontendPageMainDiv.Find.AllByTagName<HtmlDiv>("div").ToList();
             Assert.AreNotEqual(0, divList.Count, "Count should not be 0!");
             var count = 0;
-
+            
             foreach (HtmlDiv divItem in divList)
             {
+                //// this case is valid only if you have content in the content block and social share options
                 if (divItem.ChildNodes.Count == 2)
                 {
                     if (divItem.Attributes.Count.Equals(0))

@@ -39,10 +39,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="optionNames">The option names.</param>
         public void VerifySocialShareOptionsOnFrontend(int expectedNumberOfOptions, params string[] optionNames)
         {
+            var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
             var count = 0;
             foreach (var optionName in optionNames)
-            {                
-                var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
+            {                                
                 var option = list.Find.ByExpression<HtmlAnchor>("onclick=~" + optionName);
                 if (option == null)
                 {
