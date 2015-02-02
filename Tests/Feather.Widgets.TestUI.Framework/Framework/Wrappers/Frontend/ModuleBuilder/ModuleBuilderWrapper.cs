@@ -1,10 +1,10 @@
-﻿using ArtOfTest.Common.UnitTesting;
-using ArtOfTest.WebAii.Controls.HtmlControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.Common.UnitTesting;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder
 {
@@ -32,8 +32,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBui
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            HtmlUnorderedList pagination = frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=pagination").
-                AssertIsPresent("Pagination");
+            HtmlUnorderedList pagination = frontendPageMainDiv.Find.ByExpression<HtmlUnorderedList>("tagname=ul", "class=pagination")
+                .AssertIsPresent("Pagination");
 
             HtmlListItem listItem = pagination.ChildNodes.Where(i => i.InnerText.Contains(page)).FirstOrDefault().As<HtmlListItem>();
             listItem.AssertIsPresent<HtmlListItem>("List Item");

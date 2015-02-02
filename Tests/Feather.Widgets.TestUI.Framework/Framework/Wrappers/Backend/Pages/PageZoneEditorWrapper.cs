@@ -89,7 +89,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="placeHolder">The placeholder name.</param>
         public void AddWidgetToSelectedPlaceHolder(string widgetName, string placeHolder)
         {
-            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?"+placeHolder)
+            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?" + placeHolder)
                .AssertIsPresent<HtmlDiv>(placeHolder);
 
             HtmlDiv widget = this.GetWidgetByName(widgetName);

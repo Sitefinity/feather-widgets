@@ -1,10 +1,10 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -94,7 +94,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Arrange(this.ArrangementClass).ExecuteTearDown();
         }
 
-        private string ArrangementClassName = "ContentBlockWidgetOnPageBasedOnPackageTemplate";
+        private const string ArrangementClassName = "ContentBlockWidgetOnPageBasedOnPackageTemplate";
         private const string PageName = "FeatherPage";
         private const string ContentBlockContent = "Test content";
         private const string WidgetName = "ContentBlock";

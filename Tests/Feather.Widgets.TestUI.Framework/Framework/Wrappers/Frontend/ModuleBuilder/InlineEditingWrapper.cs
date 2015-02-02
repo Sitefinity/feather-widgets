@@ -1,6 +1,6 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +8,6 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
-using System.Globalization;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -52,9 +51,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
-            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => (e.IsVisible()) && (e.CssClass.Equals("sfShowInlineEditDlgLnk")));
+            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
-            HtmlDiv choicesArea = ActiveBrowser.Find.ByCustom<HtmlDiv>(e => (e.IsVisible()) && (e.CssClass.Equals("sfWindowBody")));
+            HtmlDiv choicesArea = ActiveBrowser.Find.ByCustom<HtmlDiv>(e => e.IsVisible() && e.CssClass.Equals("sfWindowBody"));
 
             List<HtmlListItem> listItem = choicesArea.Find.AllByExpression<HtmlListItem>("tagname=li").ToList<HtmlListItem>();
             HtmlListItem toCheck = null;
@@ -79,7 +78,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
-            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => (e.IsVisible()) && (e.CssClass.Equals("sfShowInlineEditDlgLnk")));
+            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
             HtmlDiv choicesArea = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagname=div", "data-template=radioButtonsViewTemplate"); 
 
@@ -108,11 +107,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
-            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => (e.IsVisible()) && (e.CssClass.Equals("sfShowInlineEditDlgLnk")));
+            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
 
-            HtmlDiv workArea = ActiveBrowser.Find.ByCustom<HtmlDiv>(e => (e.IsVisible()) && (e.ID.Equals("contentPlaceHolder")));
-            HtmlInputCheckBox checkbox = workArea.Find.ByCustom<HtmlInputCheckBox>(i => (i.IsVisible()) && (i.TagName.Equals("input")));
+            HtmlDiv workArea = ActiveBrowser.Find.ByCustom<HtmlDiv>(e => e.IsVisible() && e.ID.Equals("contentPlaceHolder"));
+            HtmlInputCheckBox checkbox = workArea.Find.ByCustom<HtmlInputCheckBox>(i => i.IsVisible() && i.TagName.Equals("input"));
             checkbox.Click();
             BAT.Wrappers().Frontend().InlineEditing().DynamicTypes().SelectDoneButtongWhenEditingChoices();
         }
@@ -121,7 +120,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
-            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => (e.IsVisible()) && (e.CssClass.Equals("sfShowInlineEditDlgLnk")));
+            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
 
             HtmlInputText inputDate = ActiveBrowser.Find.ByExpression<HtmlInputText>("tagname=input", "class=k-input")
@@ -141,11 +140,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
-            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => (e.IsVisible()) && (e.CssClass.Equals("sfShowInlineEditDlgLnk")));
+            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
 
             HtmlDiv workArea = ActiveBrowser.Find
-            .ByCustom<HtmlDiv>(w => (w.IsVisible()) && (w.CssClass.Equals("k-widget k-multiselect k-header")))
+            .ByCustom<HtmlDiv>(w => w.IsVisible() && w.CssClass.Equals("k-widget k-multiselect k-header"))
             .AssertIsPresent("Edit tags dialog");
 
             HtmlInputText tagsInput = workArea.Find.ByCssClass<HtmlInputText>("k-input").AssertIsPresent("tags input");
@@ -163,7 +162,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             this.EditField(controlName);
 
-            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => (e.IsVisible()) && (e.CssClass.Equals("sfShowInlineEditDlgLnk")));
+            HtmlAnchor editButton = ActiveBrowser.Find.ByCustom<HtmlAnchor>(e => e.IsVisible() && e.CssClass.Equals("sfShowInlineEditDlgLnk"));
             editButton.Click();
 
             HtmlUnorderedList allCats = ActiveBrowser.WaitForElementWithCssClass("k-group k-treeview-lines")

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using System.Drawing;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -47,7 +47,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 case TemplateType.Semantic:
                     navList = EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass);
                     navList.AssertIsPresent("Navigation List");
-                    Assert.AreEqual(pages.Count(), navList.ChildNodes.Where(n=>n.TagName.Equals("a")).Count(), "Unexpected number of pages");
+                    Assert.AreEqual(pages.Count(), navList.ChildNodes.Where(n => n.TagName.Equals("a")).Count(), "Unexpected number of pages");
                     break;
             }
 
@@ -130,67 +130,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 .AssertIsPresent<HtmlButton>("Toggle Button");
 
             toggleButton.Click();
-        }
-
-        private HtmlAnchor GetPageLinkByTitleFromBootstrapNavigation(string cssClass, string pageTitle)
-        {
-            HtmlUnorderedList list = this.EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass)
-                .AssertIsNotNull("list");
-
-            HtmlListItem listItem = list.ChildNodes.Where(i => i.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlListItem>();
-            listItem.AssertIsPresent<HtmlListItem>("List Item");
-
-            HtmlAnchor link = listItem.Find.ByExpression<HtmlAnchor>("InnerText=" + pageTitle);
-
-            if (link == null || !link.IsVisible())
-            {
-                throw new ArgumentNullException("Link not found");
-            }
-
-            else return link;
-        }
-
-        private HtmlAnchor GetPageLinkByTitleFromFoundationNavigation(string cssClass, string pageTitle)
-        {
-            HtmlControl list = this.EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass)
-                .AssertIsNotNull("list");
-
-            HtmlListItem listItem = list.ChildNodes.Where(i => i.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlListItem>()
-                .AssertIsPresent<HtmlListItem>("List Item");
-
-            HtmlAnchor link = listItem.Find.ByExpression<HtmlAnchor>("InnerText=" + pageTitle);
-
-            if (link == null || !link.IsVisible())
-            {
-                throw new ArgumentNullException("Link not found");
-            }
-
-            else return link;
-        }
-
-        private HtmlAnchor GetPageLinkByTitleFromSemanticNavigation(string cssClass, string pageTitle, bool isParentPage = true)
-        {
-            HtmlControl nav = null;
-
-            if (isParentPage)
-            {
-                nav = this.EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass);
-            }
-
-            else
-            {
-                nav = this.EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigationChild(cssClass);
-            }
-
-            nav.AssertIsNotNull("Navigation");
-            HtmlAnchor link = nav.ChildNodes.Where(n => n.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlAnchor>();
-
-            if (link == null || !link.IsVisible())
-            {
-                throw new ArgumentNullException("Link not found");
-            }
-
-            else return link;
         }
 
         /// <summary>
@@ -311,6 +250,63 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 .AssertIsPresent<HtmlAnchor>("Menu Button");
 
             toggleButton.Click();
+        }
+
+        private HtmlAnchor GetPageLinkByTitleFromBootstrapNavigation(string cssClass, string pageTitle)
+        {
+            HtmlUnorderedList list = this.EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass)
+                .AssertIsNotNull("list");
+
+            HtmlListItem listItem = list.ChildNodes.Where(i => i.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlListItem>();
+            listItem.AssertIsPresent<HtmlListItem>("List Item");
+
+            HtmlAnchor link = listItem.Find.ByExpression<HtmlAnchor>("InnerText=" + pageTitle);
+
+            if (link == null || !link.IsVisible())
+            {
+                throw new ArgumentNullException("Link not found");
+            }
+            else return link;
+        }
+
+        private HtmlAnchor GetPageLinkByTitleFromFoundationNavigation(string cssClass, string pageTitle)
+        {
+            HtmlControl list = this.EM.Navigation.NavigationWidgetFrontend.GetFoundationNavigation(cssClass)
+                .AssertIsNotNull("list");
+
+            HtmlListItem listItem = list.ChildNodes.Where(i => i.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlListItem>()
+                .AssertIsPresent<HtmlListItem>("List Item");
+
+            HtmlAnchor link = listItem.Find.ByExpression<HtmlAnchor>("InnerText=" + pageTitle);
+
+            if (link == null || !link.IsVisible())
+            {
+                throw new ArgumentNullException("Link not found");
+            }
+            else return link;
+        }
+
+        private HtmlAnchor GetPageLinkByTitleFromSemanticNavigation(string cssClass, string pageTitle, bool isParentPage = true)
+        {
+            HtmlControl nav = null;
+
+            if (isParentPage)
+            {
+                nav = this.EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigation(cssClass);
+            }
+            else
+            {
+                nav = this.EM.Navigation.NavigationWidgetFrontend.GetSemanticNavigationChild(cssClass);
+            }
+
+            nav.AssertIsNotNull("Navigation");
+            HtmlAnchor link = nav.ChildNodes.Where(n => n.InnerText.Contains(pageTitle)).FirstOrDefault().As<HtmlAnchor>();
+
+            if (link == null || !link.IsVisible())
+            {
+                throw new ArgumentNullException("Link not found");
+            }
+            else return link;
         }
 
         private const int TimeOut = 60000;

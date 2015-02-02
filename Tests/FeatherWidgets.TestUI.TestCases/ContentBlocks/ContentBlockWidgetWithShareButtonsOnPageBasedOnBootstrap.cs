@@ -1,12 +1,12 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
@@ -39,9 +39,14 @@ namespace FeatherWidgets.TestUI
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifySocialShareOptionsInContentBlockOnFrontend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);
-            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareOptionsOnFrontend(6, SocialShareOptions.Facebook, SocialShareOptions.Tweeter,
-              SocialShareOptions.GooglePlus, SocialShareOptions.Digg,
-              SocialShareOptions.Blogger, SocialShareOptions.LinkedIn);
+            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareOptionsOnFrontend(
+                6, 
+                SocialShareOptions.Facebook, 
+                SocialShareOptions.Tweeter,
+                SocialShareOptions.GooglePlus,
+                SocialShareOptions.Digg,
+                SocialShareOptions.Blogger,
+                SocialShareOptions.LinkedIn);
         }
 
         /// <summary>

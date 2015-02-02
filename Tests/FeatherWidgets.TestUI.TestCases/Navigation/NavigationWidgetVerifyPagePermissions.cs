@@ -1,10 +1,10 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
@@ -31,13 +31,13 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().User().EnsureLoggedIn(User, Password);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, TestPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, this.TestPages);
 
             BAT.Arrange(this.ArrangementClass).ExecuteArrangement("ChangeUserRole");
 
             BAT.Macros().User().EnsureLoggedIn(User, Password);
             BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, NewPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, this.NewPages);
         }
 
         /// <summary>
@@ -57,13 +57,13 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().User().EnsureLoggedIn(User, Password);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, TestPages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, this.TestPages, TemplateType.Foundation);
 
             BAT.Arrange(this.ArrangementClass).ExecuteArrangement("ChangeUserRole");
 
             BAT.Macros().User().EnsureLoggedIn(User, Password);
             BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, NewPages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, this.NewPages, TemplateType.Foundation);
         }
 
         /// <summary>
@@ -83,13 +83,13 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().User().EnsureLoggedIn(User, Password);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, TestPages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(mvcNavClass, this.TestPages, TemplateType.Semantic);
 
             BAT.Arrange(this.ArrangementClass).ExecuteArrangement("ChangeUserRole");
 
             BAT.Macros().User().EnsureLoggedIn(User, Password);
             BAT.Macros().NavigateTo().CustomPage("~/" + HomePage.ToLower(), false);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, NewPages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(mvcNavClass, this.NewPages, TemplateType.Semantic);
         }
 
         /// <summary>
@@ -125,6 +125,6 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string TestPage = "TestPage";
         private const string User = "editor";
         private const string Password = "password";
-        private string ArrangementClassName = "NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged";
+        private const string ArrangementClassName = "NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged";
     }
 }

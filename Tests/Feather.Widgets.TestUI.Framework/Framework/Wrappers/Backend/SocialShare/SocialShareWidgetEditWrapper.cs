@@ -44,6 +44,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 {
                     input.Click();
                 }
+
                 ActiveBrowser.RefreshDomTree();
             }
         }
@@ -62,6 +63,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 {
                     input.Click();
                 }
+
                 ActiveBrowser.RefreshDomTree();
             }
         }
@@ -89,6 +91,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                         input.Click();
                     }
                 }
+
                 ActiveBrowser.RefreshDomTree();
             }
         }

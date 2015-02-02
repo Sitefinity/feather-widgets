@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
 
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, ParentPages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.ParentPages);
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -47,8 +47,7 @@ namespace FeatherWidgets.TestUI
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
 
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper()
-                .AssertNavigationIsVisible(navTemplateClass, TemplateType.Foundation), "Navigation is visible but it shouldn't");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(navTemplateClass, TemplateType.Foundation), "Navigation is visible but it shouldn't");
         }
 
         /// <summary>
@@ -73,7 +72,7 @@ namespace FeatherWidgets.TestUI
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
 
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, ParentPages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.ParentPages, TemplateType.Foundation);
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -82,8 +81,7 @@ namespace FeatherWidgets.TestUI
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
 
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper()
-                .AssertNavigationIsVisible(navTemplateClass, TemplateType.Foundation),"Navigation is visible but it shouldn't");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(navTemplateClass, TemplateType.Foundation), "Navigation is visible but it shouldn't");
         }
 
         /// <summary>
@@ -108,7 +106,7 @@ namespace FeatherWidgets.TestUI
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
 
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, ParentPages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.ParentPages, TemplateType.Semantic);
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -117,8 +115,7 @@ namespace FeatherWidgets.TestUI
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
 
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper()
-                .AssertNavigationIsVisible(navTemplateClass, TemplateType.Semantic), "Navigation is visible but it shouldn't");
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().AssertNavigationIsVisible(navTemplateClass, TemplateType.Semantic), "Navigation is visible but it shouldn't");
         }
 
         private string ArrangementClass
