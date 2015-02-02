@@ -29,6 +29,7 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\FxCop\Feather.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <DocumentationFile>bin\Debug\Telerik.Sitefinity.Frontend.Navigation.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Telerik.Sitefinity.Frontend.Navigation.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject">
@@ -75,6 +77,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\NavigationController.cs" />
@@ -82,6 +87,7 @@
     <Compile Include="Mvc\Models\NavigationModel.cs" />
     <Compile Include="Mvc\Models\NodeViewModel.cs" />
     <Compile Include="Mvc\Models\PageSelectionMode.cs" />
+    <Compile Include="Mvc\Models\SelectedPageModel.cs" />
     <Compile Include="Mvc\StringResources\NavigationResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

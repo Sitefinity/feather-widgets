@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var page1Node = SitefinitySiteMap.GetCurrentProvider().FindSiteMapNodeFromKey(page1Key.ToString());
             SystemManager.CurrentHttpContext.Items[SiteMapBase.CurrentNodeKey] = page1Node;
 
-            var navModel = new NavigationModel(PageSelectionMode.CurrentPageSiblings, Guid.Empty, null, -1, true, string.Empty);
+            var navModel = new NavigationModel(PageSelectionMode.CurrentPageSiblings, Guid.Empty, null, -1, true, string.Empty, false);
 
             var expectedCount = 2;
             var actualCount = navModel.Nodes.Count;
@@ -273,7 +273,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             this.createdPageIDs.Add(page2Key);
 
-            var navModel = new NavigationModel(PageSelectionMode.SelectedPageChildren, page1Key, null, -1, false, string.Empty);
+            var navModel = new NavigationModel(PageSelectionMode.SelectedPageChildren, page1Key, null, -1, false, string.Empty, false);
 
             var expectedCount = 1;
             var actualCount = navModel.Nodes.Count;
@@ -311,7 +311,12 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var page3Key = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, pageName3, pageTitle3, urlName3, null, false);
             this.createdPageIDs.Add(page3Key);
 
-            var navModel = new NavigationModel(PageSelectionMode.SelectedPages, Guid.Empty, new[] { page1Key, page2Key }, -1, false, string.Empty);
+            var selectedPage1 = new SelectedPageModel();
+            selectedPage1.Id = page1Key;
+            var selectedPage2 = new SelectedPageModel();
+            selectedPage2.Id = page2Key;
+
+            var navModel = new NavigationModel(PageSelectionMode.SelectedPages, Guid.Empty, new[] { selectedPage1, selectedPage2 }, -1, false, string.Empty, false);
 
             var expectedCount = 2;
             var actualCount = navModel.Nodes.Count;

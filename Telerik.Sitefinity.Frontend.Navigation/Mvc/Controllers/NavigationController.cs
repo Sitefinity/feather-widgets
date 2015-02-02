@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.Mvc;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -89,12 +90,28 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         public Guid SelectedPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets a serialized array of the selected page ids.
+        /// Gets or sets a serialized array of the selected pages.
         /// </summary>
         /// <value>
-        /// The a serialized array of selected page ids.
+        /// The a serialized array of selected pages.
         /// </value>
-        public string SerializedSelectedPageIds { get; set; }
+        public string SerializedSelectedPages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the serialized external pages.
+        /// </summary>
+        /// <value>
+        /// The serialized external pages.
+        /// </value>
+        public string SerializedExternalPages { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether should open external page in new tab.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should open external page in new tab; otherwise, <c>false</c>.
+        /// </value>
+        public bool OpenExternalPageInNewTab { get; set; }
 
         /// <summary>
         /// Gets the Navigation widget model.
@@ -172,15 +189,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         private INavigationModel InitializeModel()
         {
-            var selectedPageIds = JsonSerializer.DeserializeFromString<Guid[]>(this.SerializedSelectedPageIds);
+            var selectedPageIds = JsonSerializer.DeserializeFromString<SelectedPageModel[]>(this.SerializedSelectedPages);
             var constructorParameters = new Dictionary<string, object> 
                          {
                             { "selectionMode", this.SelectionMode },
                             { "selectedPageId", this.SelectedPageId },
-                            { "selectedPageIds", selectedPageIds },
+                            { "selectedPages", selectedPageIds },
                             { "levelsToInclude", this.LevelsToInclude },
                             { "showParentPage", this.ShowParentPage }, 
-                            { "cssClass", this.CssClass }
+                            { "cssClass", this.CssClass },
+                            { "openExternalPageInNewTab", this.OpenExternalPageInNewTab }
                          };
 
             return ControllerModelFactory.GetModel<INavigationModel>(this.GetType(), constructorParameters);

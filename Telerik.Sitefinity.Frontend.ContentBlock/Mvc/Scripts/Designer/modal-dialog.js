@@ -28,13 +28,12 @@
             return attrs.dialogController;
         };
 
-        var open = function (scope, attrs) {
-            //It will be used for identifying the opened window in order to be removed from the DOM when the dialog is closed.
-            //It is set as a class because of a limitation in the angular-bootstrap directive.
-            var modalWindowId = 'id' + Math.floor((Math.random() * 1000) + 1);
+        var modalDialogClass = '.modal-dialog';
+        var backdropClass = 'div.modal-backdrop';
 
+        var open = function (scope, attrs) {
             //Hide already opened dialogs.
-            $(".modal-dialog").hide();
+            $(modalDialogClass).hide();
 
             var size;
             if (attrs.size) {
@@ -49,25 +48,26 @@
                 scope: attrs.existingScope && scope,
                 templateUrl: attrs.templateUrl,
                 controller: resolveControllerName(attrs),
-                windowClass: attrs.windowClass + ' ' + modalWindowId
+                windowClass: attrs.windowClass
             });
 
             scope.$modalInstance = modalInstance;
 
             dialogsService.increaseDialogsCount();
 
-            scope.$modalInstance.result.finally(function () {
+            return scope.$modalInstance.result.finally(function () {
                 dialogsService.decreaseDialogsCount();
 
-                $('.' + modalWindowId).remove();
+                $('.' + attrs.windowClass).remove();
 
                 if (dialogsService.getOpenedDialogsCount() > 0) {
                     //There is another dialog except this one. Show it and keep the backdrop.
-                    $(".modal-dialog").show();
+                    $(modalDialogClass).show();
                 }
                 else {
-                    $('div.modal-backdrop').remove();
+                    $(backdropClass).remove();
                 }
+
             });
         };
 
@@ -79,7 +79,7 @@
                 }
                 else {
                     scope.$openModalDialog = function () {
-                        open(scope, attrs);
+                        return open(scope, attrs);
                     };
                 }
             }

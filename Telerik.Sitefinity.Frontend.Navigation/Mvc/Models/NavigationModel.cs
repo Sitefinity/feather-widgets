@@ -33,17 +33,19 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         public NavigationModel(
             PageSelectionMode selectionMode, 
             Guid selectedPageId,
-            Guid[] selectedPageIds,
+            SelectedPageModel[] selectedPages,
             int? levelsToInclude, 
             bool showParentPage, 
-            string cssClass)
+            string cssClass,
+            bool openExternalPageInNewTab)
         {
             this.SelectionMode = selectionMode;
             this.LevelsToInclude = levelsToInclude;
             this.ShowParentPage = showParentPage;
             this.CssClass = cssClass;
             this.selectedPageId = selectedPageId;
-            this.selectedPageIds = selectedPageIds;
+            this.selectedPages = selectedPages;
+            this.OpenExternalPageInNewTab = openExternalPageInNewTab;
 
             this.InitializeNavigationWidgetSettings();
         }
@@ -106,6 +108,14 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         ///   <c>true</c> if [show parent page]; otherwise, <c>false</c>.
         /// </value>
         public bool ShowParentPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether should open external page in new tab.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if should open external page in new tab; otherwise, <c>false</c>.
+        /// </value>
+        public bool OpenExternalPageInNewTab { get; set; }
 
         /// <summary>
         ///     Gets the site map.
@@ -358,12 +368,27 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 
                     break;
                 case PageSelectionMode.SelectedPages:
-                    if (this.selectedPageIds != null)
+                    if (this.selectedPages != null)
                     {
-                        this.nodes = this.selectedPageIds.Select(p => siteMapProvider.FindSiteMapNodeFromKey(p.ToString("D")))
-                            .Where(n => n != null && this.CheckSiteMapNode(n))
-                            .Select(n => this.CreateNodeViewModelRecursive(n, 1))
-                            .ToList();
+                        var target = this.OpenExternalPageInNewTab ? "_blank" : "_self";
+                        foreach (var page in this.selectedPages)
+                        {
+                            if (page.Id != default(Guid))
+                            {
+                                var siteMapNode = siteMapProvider.FindSiteMapNodeFromKey(page.Id.ToString("D"));
+                                if (siteMapNode != null && this.CheckSiteMapNode(siteMapNode))
+                                {
+                                    var siteMapHierarchy = this.CreateNodeViewModelRecursive(siteMapNode, 1);
+                                    this.Nodes.Add(siteMapHierarchy);
+                                }
+                            }
+                            else
+                            {
+                                var node = new NodeViewModel(null, page.Url, target, false, false);
+                                node.Title = page.TitlesPath;
+                                this.Nodes.Add(node);
+                            }
+                        }
                     }
 
                     break;
@@ -386,7 +411,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         private string siteMapProviderName = SiteMapBase.DefaultSiteMapProviderName;
 
         private Guid selectedPageId;
-        private Guid[] selectedPageIds;
+        private SelectedPageModel[] selectedPages;
 
         #endregion
     }

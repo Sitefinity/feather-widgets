@@ -16,22 +16,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBui
         /// <summary>
         /// Verify dynamic title is present on the frontend.
         /// </summary>
-        /// <param name="dynamicTitle">The dynamic title value</param>
-        public bool VerifyDynamicContentPresentOnTheFrontend(string[] dynamicTitle)
+        /// <param name="dynamicTitles">The dynamic title values</param>
+        /// <returns>true or false depending on dynamic title presence on frontend</returns>
+        public bool VerifyDynamicContentPresentOnTheFrontend(string[] dynamicTitles)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
-            bool isContained = false;
 
-            for (int i = 0; i < dynamicTitle.Length; i++)
-            {
-                isContained = frontendPageMainDiv.InnerText.Contains(dynamicTitle[i]);
-                if (!isContained)
-                {
-                    return isContained;
-                }
-            }
-
-            return isContained;
+            return dynamicTitles.All(x => frontendPageMainDiv.InnerText.Contains(x));
         }
 
         /// <summary>

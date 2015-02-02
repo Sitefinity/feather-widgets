@@ -122,6 +122,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\AssemblyInfoShare\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleAllTypesOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleBookingOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleModule1Operations.cs" />
