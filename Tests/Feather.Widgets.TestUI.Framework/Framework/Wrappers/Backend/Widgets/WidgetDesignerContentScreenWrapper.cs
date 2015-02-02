@@ -1,6 +1,6 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +8,6 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
-using System.Globalization;
-
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -88,14 +86,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             foreach (var itemName in itemNames)
             {
-                var spanElements = activeTab.Find.AllByCustom<HtmlSpan>(a => a.InnerText.Equals(itemName));
-                foreach (var span in spanElements)
+                var itemsToSelect = activeTab.Find.AllByCustom<HtmlContainerControl>(a => a.InnerText.Equals(itemName));
+                foreach (var item in itemsToSelect)
                 {
-                    if (span.IsVisible())
+                    if (item.IsVisible())
                     {
-                        span.Wait.ForVisible();
-                        span.ScrollToVisible();
-                        span.MouseClick();
+                        item.Wait.ForVisible();
+                        item.ScrollToVisible();
+                        item.MouseClick();
                         ActiveBrowser.RefreshDomTree();
                         break;
                     }
@@ -113,7 +111,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                     .AssertIsPresent("active tab");
             foreach (var itemName in itemNames)
             {
-                SelectElementInTree(itemName, activeTab);
+                this.SelectElementInTree(itemName, activeTab);
             }
         }
 
@@ -241,13 +239,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             var items = activeDialog.Find.AllByExpression<HtmlControl>("ng-bind=~bindIdentifierField(item");
             int divsCount = items.Count;
-            Log.WriteLine("divCount 243:" + divsCount);
 
             if (divsCount == 0)
             {
                 items = activeDialog.Find.AllByExpression<HtmlControl>("ng-click=itemClicked(item)");
                 divsCount = items.Count;
-                Log.WriteLine("divCount 250:" + divsCount);
             }
 
             //// if items count is more than 12 elements, then you need to scroll
@@ -261,14 +257,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 List<HtmlControl> itemDiv = itemsList.Find
                                       .AllByExpression<HtmlControl>("class=~ng-scope list-group-item").ToList<HtmlControl>();
                 divsCount = itemDiv.Count;
-                Log.WriteLine("divCount 263:" + divsCount);
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
                 itemDiv[divsCount - 1].ScrollToVisible();
             }
 
-            Log.WriteLine("divCount 268:" + divsCount);
-            bool isCountCorrect = (expected == divsCount);
+            bool isCountCorrect = expected == divsCount;
             return isCountCorrect;
         }
 
@@ -391,7 +385,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SetFromDateByTyping(int dayAgo)
         {
             DateTime publicationDateStart = DateTime.UtcNow.AddDays(dayAgo);
-            String publicationDateStartFormat = publicationDateStart.ToString("dd-MMMM-yyyy", CultureInfo.CreateSpecificCulture("en-US"));
+            string publicationDateStartFormat = publicationDateStart.ToString("dd-MMMM-yyyy", CultureInfo.CreateSpecificCulture("en-US"));
 
             List<HtmlInputText> inputDate = ActiveBrowser.Find.AllByExpression<HtmlInputText>("tagname=input", "id=fromInput").ToList<HtmlInputText>();
 
@@ -409,7 +403,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SetToDateByDatePicker(int dayForward)
         {
             DateTime publicationDateEnd = DateTime.UtcNow.AddDays(dayForward);
-            String publicationDateEndFormat = publicationDateEnd.ToString("dd", CultureInfo.CreateSpecificCulture("en-US"));
+            string publicationDateEndFormat = publicationDateEnd.ToString("dd", CultureInfo.CreateSpecificCulture("en-US"));
 
             List<HtmlSpan> buttonDate = ActiveBrowser.Find.AllByExpression<HtmlSpan>("tagname=span", "class=input-group-btn").ToList<HtmlSpan>();
             Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, buttonDate[1].GetRectangle());
@@ -512,8 +506,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                     .AssertIsPresent("Single item settings tab");
 
             singleTab.Click();
-            //// ActiveBrowser.WaitForAsyncRequests();
-            //// ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
         }
    
         /// <summary>
@@ -572,71 +566,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlInputRadioButton selectExistingPage = this.EM.Widgets.WidgetDesignerContentScreen.SelectedExistingPage.AssertIsPresent("Selected existing page");
             selectExistingPage.Click();
 
-            //// Manager.Current.ActiveBrowser.WaitUntilReady();
-            //// Manager.Current.ActiveBrowser.WaitForAsyncOperations();
-            //// Manager.Current.ActiveBrowser.RefreshDomTree();
+            Manager.Current.ActiveBrowser.WaitUntilReady();
+            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
-
-        private void SelectElementInTree(string itemName, HtmlDiv activeTab)
-        {
-            var element = activeTab.Find.ByExpression<HtmlSpan>("innertext=" + itemName);
-
-            if (element != null && element.IsVisible())
-            {
-                element.Click();
-                ActiveBrowser.RefreshDomTree();
-            }
-            else
-            {
-                var arrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
-                Assert.AreNotEqual(0, arrows.Count, "No arrows appear");
-
-                SearchAndSelectElementByExpandingArrows(arrows, element, itemName, activeTab);
-
-                this.isHierarchicalItemFound = false;
-            }
-        }
-
-        private void SearchAndSelectElementByExpandingArrows(ICollection<HtmlSpan> arrows, HtmlSpan element, string itemName, HtmlDiv activeTab)
-        {
-            if (this.isHierarchicalItemFound)
-            {
-                return;
-            }
-
-            foreach (var arrow in arrows)
-            {
-                if (this.isHierarchicalItemFound)
-                {
-                    return;
-                }
-
-                if (arrow.IsVisible())
-                {
-                    arrow.Click();
-                    activeTab.Refresh();
-                    element = activeTab.Find.ByCustom<HtmlSpan>(a => a.InnerText.Equals(itemName));
-                    if (element != null && element.IsVisible())
-                    {
-                        element.Click();
-                        this.isHierarchicalItemFound = true;
-                    }
-                    else
-                    {
-                        var newArrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
-                        if (newArrows.Count != 0)
-                        {
-                            SearchAndSelectElementByExpandingArrows(newArrows, element, itemName, activeTab);
-                        }
-                        else
-                        {
-                            throw new Exception(itemName + " " + "not found");
-                        }
-                    }
-                }
-            }
-        }
-
+       
         /// <summary>
         /// Selects the provider.
         /// </summary>
@@ -689,6 +623,66 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             for (int i = 0; i < reorderedDivList.Count; i++)
             {
                 Assert.AreEqual(expectedOrder[i], reorderedDivList[i].InnerText, expectedOrder[i] + " is not reordered correctly");
+            }
+        }
+
+        private void SelectElementInTree(string itemName, HtmlDiv activeTab)
+        {
+            var element = activeTab.Find.ByExpression<HtmlSpan>("innertext=" + itemName);
+
+            if (element != null && element.IsVisible())
+            {
+                element.Click();
+                ActiveBrowser.RefreshDomTree();
+            }
+            else
+            {
+                var arrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                Assert.AreNotEqual(0, arrows.Count, "No arrows appear");
+
+                this.SearchAndSelectElementByExpandingArrows(arrows, element, itemName, activeTab);
+
+                this.isHierarchicalItemFound = false;
+            }
+        }
+
+        private void SearchAndSelectElementByExpandingArrows(ICollection<HtmlSpan> arrows, HtmlSpan element, string itemName, HtmlDiv activeTab)
+        {
+            if (this.isHierarchicalItemFound)
+            {
+                return;
+            }
+
+            foreach (var arrow in arrows)
+            {
+                if (this.isHierarchicalItemFound)
+                {
+                    return;
+                }
+
+                if (arrow.IsVisible())
+                {
+                    arrow.Click();
+                    activeTab.Refresh();
+                    element = activeTab.Find.ByCustom<HtmlSpan>(a => a.InnerText.Equals(itemName));
+                    if (element != null && element.IsVisible())
+                    {
+                        element.Click();
+                        this.isHierarchicalItemFound = true;
+                    }
+                    else
+                    {
+                        var newArrows = this.EM.Widgets.WidgetDesignerContentScreen.Find.AllByCustom<HtmlSpan>(a => a.CssClass.Contains("k-icon k-plus"));
+                        if (newArrows.Count != 0)
+                        {
+                            this.SearchAndSelectElementByExpandingArrows(newArrows, element, itemName, activeTab);
+                        }
+                        else
+                        {
+                            throw new Exception(itemName + " " + "not found");
+                        }
+                    }
+                }
             }
         }
 
