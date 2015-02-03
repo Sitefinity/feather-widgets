@@ -35,11 +35,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         public void SelectSocialShareOptions(params string[] itemNames)
-        {            
+        {
             foreach (var itemName in itemNames)
             {
-                var div = ActiveBrowser.Find.ByCustom<HtmlDiv>(a => a.InnerText.Equals(itemName));
-                var input = div.Find.ByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
+                HtmlDiv div = this.GetSocialShareOptionDivByName(itemName);
+                HtmlInputCheckBox input = div.Find.ByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
+
                 if (!input.Checked)
                 {
                     input.Click();
@@ -95,5 +96,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 ActiveBrowser.RefreshDomTree();
             }
         }
+
+        private HtmlDiv GetSocialShareOptionDivByName(string optionName)
+        {
+            HtmlFindExpression socialShareDivFindExpression = new HtmlFindExpression("class=checkbox ng-scope", "ng-repeat=group in socialGroups.Groups", "InnerText=" + optionName);
+            HtmlDiv socialShareOptionDiv = ActiveBrowser.WaitForElement(socialShareDivFindExpression, TimeOut, false).As<HtmlDiv>();
+
+            if (socialShareOptionDiv != null && socialShareOptionDiv.IsVisible())
+            {
+                return socialShareOptionDiv;
+            }
+            else
+            {
+                throw new ArgumentException("Social share option div was not found");
+            }           
+        }
+
+        private const int TimeOut = 50000;
     }
 }
