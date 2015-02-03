@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestUI
             this.CreatePageWithTemplate(PageName, SemanticUITemplateName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyNavigationOnTheFrontend(SemanticNavTemplateClass ,TemplateType.Semantic);
+            this.VerifyNavigationOnTheFrontend(SemanticNavTemplateClass, TemplateType.Semantic);
         }
 
         /// <summary>
@@ -120,6 +120,6 @@ namespace FeatherWidgets.TestUI
         private const string PageTemplateName = "Bootstrap.default";
         private const string FoundationTemplateName = "Foundation.default";
         private const string SemanticUITemplateName = "SemanticUI.default";
-        private string ArrangementClassName = "NavigationWidgetHorizontalTemplateWithOneLevelOnPage";
+        private const string ArrangementClassName = "NavigationWidgetHorizontalTemplateWithOneLevelOnPage";
     }
 }

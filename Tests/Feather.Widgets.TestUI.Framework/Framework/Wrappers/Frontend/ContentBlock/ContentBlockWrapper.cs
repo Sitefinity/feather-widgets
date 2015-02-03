@@ -95,9 +95,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                                     Assert.IsNotNull(div, "No such option " + optionName + " found");
                                 }
                             }
+
                             count++;
                         }
                     }
+
                     Assert.AreEqual(expectedNumberOfOptions, count, "Count is not correct!");
                 }
             }

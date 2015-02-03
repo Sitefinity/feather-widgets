@@ -1,11 +1,11 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
@@ -31,14 +31,14 @@ namespace FeatherWidgets.TestUI
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(20);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(selectedNewsNames);
-            var countOfSelectedItems = selectedNewsNames.Count();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(this.selectedNewsNames);
+            var countOfSelectedItems = this.selectedNewsNames.Count();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().CheckNotificationInSelectedTab(countOfSelectedItems);           
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(selectedNewsNames);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(this.selectedNewsNames);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            foreach (var newsItem in newSelectedNewsNames)
+            foreach (var newsItem in this.newSelectedNewsNames)
             {
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsItem);
             }
@@ -51,17 +51,18 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(newSelectedNewsNames);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(this.newSelectedNewsNames);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(3);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().OpenAllTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(19);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            foreach (var newsTitle in newSelectedNewsNames)
+            foreach (var newsTitle in this.newSelectedNewsNames)
             {
                 BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitle);
             }
+
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newSelectedNewsNames));

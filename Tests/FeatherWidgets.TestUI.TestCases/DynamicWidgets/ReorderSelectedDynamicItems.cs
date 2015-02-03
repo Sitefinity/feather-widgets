@@ -27,15 +27,15 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectWhichItemsToDisplay(WhichNewsToDisplay);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(selectedItemsNames);
-            var countOfSelectedItems = selectedItemsNames.Count();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectItemsInFlatSelector(this.selectedItemsNames);
+            var countOfSelectedItems = this.selectedItemsNames.Count();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().CheckNotificationInSelectedTab(countOfSelectedItems);
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().OpenSelectedTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().WaitForItemsToAppear(4);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ReorderSelectedItems(expectedOrderOfNames, selectedItemsNames, reorderedIndexMapping);         
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ReorderSelectedItems(this.expectedOrderOfNames, this.selectedItemsNames, this.reorderedIndexMapping);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(expectedOrderOfNames);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(this.expectedOrderOfNames);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectListSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectSortingOption(SortingOption);
 
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(expectedOrderOfNames);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().VerifySelectedItemsFromFlatSelector(this.expectedOrderOfNames);
         }
 
         /// <summary>
@@ -74,8 +74,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
         private readonly Dictionary<int, int> reorderedIndexMapping = new Dictionary<int, int>()
         {
-            {3, 0},
-            {1, 3}
+            { 3, 0 },
+            { 1, 3 }
         };
     }
 }

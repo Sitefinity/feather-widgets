@@ -36,16 +36,6 @@ namespace FeatherWidgets.TestUI
         }
 
         /// <summary>
-        /// Navigate page on the front end
-        /// </summary>
-        /// <param name="pageName">Page name</param>
-        private void NavigatePageOnTheFrontend(string pageName)
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
-        }
-
-        /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
         protected override void ServerSetup()
@@ -60,6 +50,16 @@ namespace FeatherWidgets.TestUI
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        /// <summary>
+        /// Navigate page on the front end
+        /// </summary>
+        /// <param name="pageName">Page name</param>
+        private void NavigatePageOnTheFrontend(string pageName)
+        {
+            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
+            ActiveBrowser.WaitUntilReady();
         }
 
         private const string PageName = "ContentBlock";

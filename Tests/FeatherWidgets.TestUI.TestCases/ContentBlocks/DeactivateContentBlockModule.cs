@@ -48,20 +48,6 @@ namespace FeatherWidgets.TestUI
         }
 
         /// <summary>
-        /// Verify page backend
-        /// </summary>
-        /// <param name="pageName">Page name</param>
-        /// <param name="widgetName">Widget name</param>
-        /// <param name="widgetContent">Widget content</param>
-        private void VerifyPageBackend(string pageName, string widgetName, string widgetContent)
-        {
-            BAT.Macros().NavigateTo().Pages();
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(widgetName, widgetContent);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-        }
-
-        /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
         protected override void ServerSetup()
@@ -76,6 +62,20 @@ namespace FeatherWidgets.TestUI
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        /// <summary>
+        /// Verify page backend
+        /// </summary>
+        /// <param name="pageName">Page name</param>
+        /// <param name="widgetName">Widget name</param>
+        /// <param name="widgetContent">Widget content</param>
+        private void VerifyPageBackend(string pageName, string widgetName, string widgetContent)
+        {
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(pageName);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(widgetName, widgetContent);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
 
         private const string PageName = "ContentBlock";

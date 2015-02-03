@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Backend.PageTemplates;
-using System.Threading;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -37,18 +37,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             ActiveBrowser.WaitUntilReady();
 
             Assert.IsFalse(ActiveBrowser.ContainsText(ServerErrorMessage), "Server error was found on the page");
-            Assert.IsTrue(ActiveBrowser.ContainsText(ContentBlockContent),"Content block content was not found on the page");
+            Assert.IsTrue(ActiveBrowser.ContainsText(ContentBlockContent), "Content block content was not found on the page");
             Assert.IsTrue(ActiveBrowser.ContainsText(LayoutText), "Layout template text was not found");
-        }
-
-        private void OpenTemplateEditor()
-        {
-            var templateId = BAT.Arrange(this.TestName).ExecuteArrangement("GetTemplateId").Result.Values["templateId"];
-
-            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Template/" + templateId, false);
-
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncOperations();        
         }
 
         /// <summary>
@@ -66,6 +56,16 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        private void OpenTemplateEditor()
+        {
+            var templateId = BAT.Arrange(this.TestName).ExecuteArrangement("GetTemplateId").Result.Values["templateId"];
+
+            BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Template/" + templateId, false);
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
         }
 
         private const string PageName = "FeatherPage";

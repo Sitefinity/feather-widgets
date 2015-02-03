@@ -1,10 +1,10 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -23,12 +23,12 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDuplicate);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend(this.dynamicTitlesDyplicated, duplicatedCount);
+            this.NavigatePageOnTheFrontend(this.dynamicTitlesDyplicated, DuplicatedCount);
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDelete);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend(this.dynamicTitles, deletedCount);
+            this.NavigatePageOnTheFrontend(this.dynamicTitles, DeletedCount);
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string PageName = "TestPage";
         private const string WidgetName = "Press Articles MVC";
         private string[] dynamicTitlesDyplicated = { "Angel", "Angel" };
-        private const int duplicatedCount = 2;
-        private const int deletedCount = 1;
+        private const int DuplicatedCount = 2;
+        private const int DeletedCount = 1;
         private string[] dynamicTitles = { "Angel" };
         private const string OperationNameDuplicate = "Duplicate";
         private const string OperationNameDelete = "Delete";
