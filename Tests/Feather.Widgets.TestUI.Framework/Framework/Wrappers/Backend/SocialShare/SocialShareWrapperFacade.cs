@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
     public class SocialShareWrapperFacade
-    {
-       
+    {       
         /// <summary>
         /// Socials the share widget edit wrapper.
         /// </summary>

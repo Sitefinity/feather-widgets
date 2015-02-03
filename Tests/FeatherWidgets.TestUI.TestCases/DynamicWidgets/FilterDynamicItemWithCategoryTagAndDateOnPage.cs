@@ -16,8 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.DynamicWidgets),
-        Ignore]
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void FilterDynamicItemWithCategoryTagAndDateOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -83,6 +82,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string ItemsTitle = "Title3";
         private const string TaxonomyCategory = "Category";
         private const string TaxonomyTags = "Tags";
-        private string[] itemsTitles = new string[] { ItemsTitle };
+        private readonly string[] itemsTitles = new string[] { ItemsTitle };
     }
 }

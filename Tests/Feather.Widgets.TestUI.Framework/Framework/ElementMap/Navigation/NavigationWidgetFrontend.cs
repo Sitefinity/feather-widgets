@@ -1,12 +1,12 @@
-﻿using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestTemplates;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.ObjectModel;
+using ArtOfTest.WebAii.TestTemplates;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
 {
@@ -51,7 +51,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
             HtmlControl section = this.Find.ByExpression<HtmlControl>("tagname=section", "class=" + cssClass);
             HtmlUnorderedList list = null;
 
-            if ((section != null) && (section.IsVisible()))
+            if (section != null && section.IsVisible())
             {
                 list = section.Find.AllByTagName<HtmlUnorderedList>("ul").First();
             }

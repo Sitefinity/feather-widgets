@@ -1,8 +1,8 @@
 ﻿using System;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ArtOfTest.WebAii.Core;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {

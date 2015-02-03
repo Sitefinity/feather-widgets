@@ -1,8 +1,8 @@
-﻿using Feather.Widgets.TestUI.Framework;
+﻿using System;
+using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace FeatherWidgets.TestUI
 {
