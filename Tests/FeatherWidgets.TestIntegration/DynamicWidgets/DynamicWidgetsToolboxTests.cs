@@ -28,8 +28,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyGeneratedWidgetInPageToolbox()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
             var section = ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(DynamicWidgetSection);
             int expectedCount = 6;
 
@@ -57,8 +56,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyOldDynamicWidgetsNotDuplicated()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(RelatedModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(RelatedModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(RelatedModuleName, RelatedModuleResource);
 
             var dynamicWidgetSection = ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(RelatedModuleName);
             var contentSection = ServerOperationsFeather.Pages().GetContentToolboxSection();

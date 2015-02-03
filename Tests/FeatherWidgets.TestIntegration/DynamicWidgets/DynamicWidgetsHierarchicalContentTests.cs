@@ -23,8 +23,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureSetUp]
         public void Setup()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(DynamicWidgetsHierarchicalContentTests.ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(DynamicWidgetsHierarchicalContentTests.ModuleName, string.Empty, DynamicWidgetsHierarchicalContentTests.TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(DynamicWidgetsHierarchicalContentTests.ModuleName, DynamicWidgetsHierarchicalContentTests.ModuleResource);
 
             this.CreateItems();
         }

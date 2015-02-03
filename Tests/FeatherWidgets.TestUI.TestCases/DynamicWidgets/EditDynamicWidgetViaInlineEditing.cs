@@ -16,7 +16,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.DynamicWidgets), 
+        Ignore]
         public void EditDynamicWidgetViaInlineEditing()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/SomeUrlName");
@@ -37,14 +38,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().PublishPage();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOff();
-            this.VerifyDynamicContentOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify dynamic widget on the frontend
-        /// </summary>
-        public void VerifyDynamicContentOnTheFrontend()
-        {
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(this.dynamicContent));
         }
 

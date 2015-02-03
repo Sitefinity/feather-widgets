@@ -22,8 +22,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
 
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             List<string> categories = new List<string>();
@@ -59,14 +58,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
         }
 
         private const string PageName = "TestPage";
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
-        private const string TransactionName = "Module Installations";
         private const string ItemsTitle = "Title";
         private readonly List<string> parentCategories = new List<string> { "Category", "AnotherCategory" };     
     }

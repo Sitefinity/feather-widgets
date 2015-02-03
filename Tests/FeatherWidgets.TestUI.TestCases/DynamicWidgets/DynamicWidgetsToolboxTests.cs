@@ -36,7 +36,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.DynamicWidgets),
+        Ignore]
         public void DynamicModuleRemoveContentTypeVerifyPageToolbox()
         {
             this.moduleName = "Music Collection";
@@ -57,7 +58,8 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.DynamicWidgets), 
+        Ignore]
         public void DeactivateAndActivateDynamicModuleVerifyPageToolbox()
         {
             this.moduleName = "Press Release";

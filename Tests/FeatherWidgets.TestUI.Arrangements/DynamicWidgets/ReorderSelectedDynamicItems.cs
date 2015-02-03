@@ -12,11 +12,14 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// </summary>
     public class ReorderSelectedDynamicItems : ITestArrangement
     {
+        /// <summary>
+        /// Server side set up.
+        /// </summary>
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
+
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
 
             for (int i = 0; i < 20; i++)
@@ -27,17 +30,19 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle", "PressArticle", "Press Articles MVC");
         }
 
+        /// <summary>
+        /// Tears down.
+        /// </summary>
         [ServerTearDown]
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
         }
 
         private const string ItemTitle = "Dynamic Item Title";
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
-        private const string TransactionName = "Module Installations";
         private const string PageName = "TestPage";
     }
 }

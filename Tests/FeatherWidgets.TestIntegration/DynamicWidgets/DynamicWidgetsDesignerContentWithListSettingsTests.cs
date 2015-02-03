@@ -26,8 +26,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureSetUp]
         public void Setup()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, "Module Installations");
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
             ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles();
         }
 

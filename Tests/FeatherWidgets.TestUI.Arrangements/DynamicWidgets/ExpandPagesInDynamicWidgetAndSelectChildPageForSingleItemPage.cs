@@ -20,8 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
 
             Guid parentPageId = ServerOperations.Pages().CreatePage(PageName);
 
@@ -42,14 +41,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
         }
 
         private const string PageName = "TestPage";
         private const string ChildPagesPrefix = "ChildPage";
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
-        private const string TransactionName = "Module Installations";
 
         private const int PageHierarchyLevelsCount = 10; 
     }

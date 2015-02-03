@@ -8,6 +8,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
+    /// <summary>
+    /// InvalidateCacheWhenAddNewItem_ test class.
+    /// </summary>
     [TestClass]
     public class InvalidateCacheWhenAddNewItem_ : FeatherTestCase
     {
@@ -29,10 +32,13 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().SetSortExpression(SortExpression);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
             BAT.Macros().User().LogOut();
-            this.NavigatePageOnTheFrontend(this.dynamicTitles, this.dynamicTitlesSecondPage);   
+            this.NavigatePageOnTheFrontend(this.dynamicTitles, this.dynamicTitlesSecondPage);  
+ 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteArrangement("AddNewItem");
+
             BAT.Macros().User().LogOut();
             this.NavigatePageOnTheFrontend(this.dynamicTitles2, this.dynamicTitles2Second);
             BAT.Macros().User().EnsureAdminLoggedIn();
