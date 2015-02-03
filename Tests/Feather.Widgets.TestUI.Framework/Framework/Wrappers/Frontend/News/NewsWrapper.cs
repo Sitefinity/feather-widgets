@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
-using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -31,6 +31,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                     return false;
                 }
             }
+
             return true;
         }
 

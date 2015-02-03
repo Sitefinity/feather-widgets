@@ -17,8 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.DynamicWidgets),
-        Ignore]
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void EditDeleteTagAndEditDynamicWidget()
         {
             BAT.Macros().NavigateTo().Pages();

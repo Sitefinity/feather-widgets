@@ -1,10 +1,10 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string SortExpression = "Title ASC";
         private string[] dynamicTitles = { "Boat", "Cat", "Dog" };
         private string[] dynamicTitlesSecondPage = { "Elephant" };
-        private string[] dynamicTitles2 = { "Angel", "Boat", "Cat"};
+        private string[] dynamicTitles2 = { "Angel", "Boat", "Cat" };
         private string[] dynamicTitles2Second = { "Dog", "Elephant" };
     }
 }
