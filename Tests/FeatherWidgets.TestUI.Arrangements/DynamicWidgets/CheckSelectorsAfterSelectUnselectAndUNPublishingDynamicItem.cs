@@ -35,7 +35,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// <summary>
         /// Unpublish dynamic items arrangement method.
         /// </summary>
-        [ServerSetUp]
         [ServerArrangement]
         public void UNPublishDynamicItem()
         {
