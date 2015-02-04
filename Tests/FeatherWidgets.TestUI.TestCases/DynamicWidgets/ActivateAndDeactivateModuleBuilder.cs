@@ -16,8 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets), 
-        Ignore]
+        TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void ActivateAndDeactivateModuleBuilder()
         {
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();

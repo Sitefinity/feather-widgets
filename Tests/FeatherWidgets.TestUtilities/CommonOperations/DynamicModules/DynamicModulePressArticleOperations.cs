@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Lifecycle;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.ModuleEditor.Web.Services.Model;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -267,9 +268,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
-        /// Adds a custom field to the default content types (like news, blogs and so on)
+        /// Adds a custom field to Press article
         /// </summary>
-        /// <param name="contentTypeFullName">Content type full name</param>
         /// <param name="fieldname">Name of the field</param>
         /// <param name="isHierarchicalTaxonomy">is hierarchical taxonomy</param>
         public void AddCustomTaxonomyToContext(string fieldname, bool isHierarchicalTaxonomy)
@@ -333,6 +333,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             context.AddOrUpdateCustomFields(fields, pressArticleType.Name);
             context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Removes a custom field from the Press article
+        /// </summary>
+        /// <param name="fieldname">custom field name to be removed</param>
+        public void RemoveCustomFieldFromContext(string fieldname)
+        {
+            Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
+            if (pressArticleType == null)
+            {
+                throw new ArgumentException("PressArticle type can't be resolved.");
+            }
+
+            var context = new CustomFieldsContext(pressArticleType);
+
+            context.RemoveCustomFields(new string[] { fieldname }, pressArticleType.Name);
+            context.SaveChanges();
+
+            SystemManager.RestartApplication(false);
         }
 
         private void AddCustomTaxonomy(IEnumerable<string> taxonNames, string taxonomyName, DynamicContent pressArticleItem)

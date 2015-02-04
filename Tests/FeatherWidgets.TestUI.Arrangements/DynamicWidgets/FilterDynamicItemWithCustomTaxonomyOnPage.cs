@@ -44,7 +44,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         {           
             ServerOperations.Pages().DeleteAllPages();
             ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
-            ServerOperations.Taxonomies().DeleteFlatTaxonomy(CustomFlatTaxonomyName);         
+              
+            ServerOperationsFeather.DynamicModulePressArticle().RemoveCustomFieldFromContext(CustomFlatTaxonomyName);
+            ServerOperations.Taxonomies().DeleteFlatTaxonomy(CustomFlatTaxonomyName); 
         }
         
         private const string PageName = "TestPage";
