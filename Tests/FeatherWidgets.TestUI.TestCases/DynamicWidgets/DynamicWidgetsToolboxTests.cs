@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleAddNewContentTypeVerifyPageToolbox()
         {
             this.moduleName = "Press Release";
@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleRemoveContentTypeVerifyPageToolbox()
         {
             this.moduleName = "Music Collection";
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DeactivateAndActivateDynamicModuleVerifyPageToolbox()
         {
             this.moduleName = "Press Release";

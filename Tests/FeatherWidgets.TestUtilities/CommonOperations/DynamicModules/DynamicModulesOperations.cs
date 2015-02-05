@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
@@ -17,14 +18,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// Imports a dynamic module.
         /// </summary>
         /// <param name="moduleResource">The dynamic module resource file.</param>
-        public void ImportModule(string moduleResource)
+        public void EnsureModuleIsImported(string moduleName, string moduleResource)
         {
-            var assembly = this.GetTestUtilitiesAssembly();
+            string providerName = string.Empty;
+            string transactionName = "Module Installations";
 
-            Stream moduleStream = assembly.GetManifestResourceStream(moduleResource);
-            using (Stream stream = moduleStream)
+            if (!ServerOperations.ModuleBuilder().IsModulePresent(moduleName))
             {
-                ServerOperations.ModuleBuilder().ImportModule(stream);
+                var assembly = this.GetTestUtilitiesAssembly();
+                Stream moduleStream = assembly.GetManifestResourceStream(moduleResource);
+                using (Stream stream = moduleStream)
+                {
+                    ServerOperations.ModuleBuilder().ImportModule(stream);
+                    ServerOperations.ModuleBuilder().ActivateModule(moduleName, providerName, transactionName);
+                    ServerOperations.SystemManager().RestartApplication(false);
+                }
+            }
+            else if (!ServerOperations.ModuleBuilder().IsModuleActive(moduleName))
+            {
+                ServerOperations.ModuleBuilder().ActivateModule(moduleName, providerName, transactionName);
+                ServerOperations.SystemManager().RestartApplication(false);
             }
         }
 
