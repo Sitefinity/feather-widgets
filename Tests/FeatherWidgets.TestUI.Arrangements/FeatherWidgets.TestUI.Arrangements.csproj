@@ -163,6 +163,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllPagesUnderParticularPage.cs" />
     <Compile Include="Navigation\NavigationWidgetOnFoundationTemplate.cs" />
     <Compile Include="Navigation\NavigationWidgetOnBootstrapTemplate.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
