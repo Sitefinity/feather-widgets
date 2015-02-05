@@ -22,27 +22,21 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             string providerName = string.Empty;
             string transactionName = "Module Installations";
-            bool restartApplication = false;
 
             if (!ServerOperations.ModuleBuilder().IsModulePresent(moduleName))
             {
-                restartApplication = true;
                 var assembly = this.GetTestUtilitiesAssembly();
                 Stream moduleStream = assembly.GetManifestResourceStream(moduleResource);
                 using (Stream stream = moduleStream)
                 {
                     ServerOperations.ModuleBuilder().ImportModule(stream);
                     ServerOperations.ModuleBuilder().ActivateModule(moduleName, providerName, transactionName);
+                    ServerOperations.SystemManager().RestartApplication(false);
                 }
             }
             else if (!ServerOperations.ModuleBuilder().IsModuleActive(moduleName))
             {
-                restartApplication = true;
                 ServerOperations.ModuleBuilder().ActivateModule(moduleName, providerName, transactionName);
-            }
-
-            if (restartApplication)
-            {
                 ServerOperations.SystemManager().RestartApplication(false);
             }
         }

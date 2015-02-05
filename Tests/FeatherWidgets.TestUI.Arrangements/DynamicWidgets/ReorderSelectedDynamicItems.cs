@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string ItemTitle = "Dynamic Item Title";
         private const string ModuleName = "Press Release";
-        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
+        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
         private const string PageName = "TestPage";
     }
 }
