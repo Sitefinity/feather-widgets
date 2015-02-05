@@ -17,6 +17,22 @@
 	"client-components/selectors/tools/sf-link-selector.js",
 	"client-components/selectors/tools/sf-link-selector-modal.js",
 	"client-components/selectors/common/sf-items-tree.js",
-	"client-components/fields/html-field/sf-html-field.js"
+	"client-components/fields/html-field/sf-html-field.js",
+  	"client-components/collections/sf-infinite-scroll.js",
+  	"client-components/collections/sf-collection.js",
+  	"client-components/collections/sf-tree.js",
+    "client-components/selectors/media/sf-media-service.js",
+  	"client-components/selectors/media/sf-image-selector.js",
+    "client-components/selectors/media/sf-image-selector-modal.js",
+  	"client-components/selectors/media/sf-media-basic-filters.js",
+  	"client-components/selectors/media/sf-library-filter.js",
+	"client-components/selectors/media/sf-media-flat-taxon-filter.js",
+	"client-components/selectors/taxonomies/sf-flat-taxon-service.js",
+	"client-components/selectors/media/sf-media-hierarchical-taxon-filter.js",
+	"client-components/selectors/taxonomies/sf-hierarchical-taxon-service.js",
+	"client-components/selectors/taxonomies/sf-taxonomy-service.js",	
+	"client-components/selectors/media/sf-media-date-filter.js",
+	"client-components/sorting/sf-sort-box.js",
+	"client-components/search/sf-search-box.js"
   ]
 }
