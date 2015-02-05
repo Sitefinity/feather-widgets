@@ -29,8 +29,7 @@
 	"client-components/selectors/media/sf-media-flat-taxon-filter.js",
 	"client-components/selectors/taxonomies/sf-flat-taxon-service.js",
 	"client-components/selectors/media/sf-media-hierarchical-taxon-filter.js",
-	"client-components/selectors/taxonomies/sf-hierarchical-taxon-service.js",
-	"client-components/selectors/taxonomies/sf-taxonomy-service.js",	
+	"client-components/selectors/taxonomies/sf-hierarchical-taxon-service.js",	
 	"client-components/selectors/media/sf-media-date-filter.js",
 	"client-components/sorting/sf-sort-box.js",
 	"client-components/search/sf-search-box.js"
