@@ -22,7 +22,6 @@
   	"client-components/collections/sf-collection.js",
   	"client-components/collections/sf-tree.js",
     "client-components/selectors/media/sf-media-service.js",
-    "client-components/selectors/media/sf-media-filter.js",
   	"client-components/selectors/media/sf-image-selector.js",
     "client-components/selectors/media/sf-image-selector-modal.js",
   	"client-components/selectors/media/sf-media-filter.js",
