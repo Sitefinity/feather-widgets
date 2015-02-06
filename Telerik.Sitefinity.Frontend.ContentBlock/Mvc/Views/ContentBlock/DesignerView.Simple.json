@@ -25,7 +25,7 @@
     "client-components/selectors/media/sf-media-filter.js",
   	"client-components/selectors/media/sf-image-selector.js",
     "client-components/selectors/media/sf-image-selector-modal.js",
-  	"client-components/selectors/media/sf-media-basic-filters.js",
+  	"client-components/selectors/media/sf-media-filter.js",
 	"client-components/selectors/taxonomies/sf-flat-taxon-service.js",
 	"client-components/selectors/taxonomies/sf-hierarchical-taxon-service.js",	
 	"client-components/sorting/sf-sort-box.js",
