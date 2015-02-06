@@ -1,11 +1,11 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
@@ -23,10 +23,10 @@ namespace FeatherWidgets.TestUI
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnBootstrapTemplate()
         {
-            pageTemplateName = "Bootstrap.default";
+            this.pageTemplateName = "Bootstrap.default";
 
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", this.pageTemplateName).ExecuteSetUp();
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -46,10 +46,10 @@ namespace FeatherWidgets.TestUI
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnFoundationTemplate()
         {
-            pageTemplateName = "Foundation.default";
+            this.pageTemplateName = "Foundation.default";
 
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", this.pageTemplateName).ExecuteSetUp();
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -70,10 +70,10 @@ namespace FeatherWidgets.TestUI
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnSemanticUITemplate()
         {
-            pageTemplateName = "SemanticUI.default";
+            this.pageTemplateName = "SemanticUI.default";
 
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", pageTemplateName).ExecuteSetUp();
+            BAT.Arrange(this.ArrangementClass).AddParameter("templateName", this.pageTemplateName).ExecuteSetUp();
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);

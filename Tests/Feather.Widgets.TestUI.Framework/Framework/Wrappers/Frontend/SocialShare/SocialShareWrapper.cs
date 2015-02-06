@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -39,10 +39,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="optionNames">The option names.</param>
         public void VerifySocialShareOptionsOnFrontend(int expectedNumberOfOptions, params string[] optionNames)
         {
+            var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
             var count = 0;
             foreach (var optionName in optionNames)
-            {                
-                var list = EM.SocialShare.SocialSharePageEditor.UnorderedListContainingOptions.AssertIsPresent("UnorderedList of Options");
+            {                                
                 var option = list.Find.ByExpression<HtmlAnchor>("onclick=~" + optionName);
                 if (option == null)
                 {
@@ -53,8 +53,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                         Assert.IsNotNull(div, "No such option " + optionName + " found");
                     }
                 }
+
                 count++;               
             }
+
             Assert.AreEqual(expectedNumberOfOptions, count, "Count is not correct!");
         }
 

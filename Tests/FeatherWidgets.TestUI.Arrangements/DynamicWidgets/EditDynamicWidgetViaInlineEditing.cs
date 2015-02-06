@@ -23,8 +23,7 @@ namespace FeatherWidgets.TestUI.Arrangements
                 ServerOperations.Taxonomies().CreateTag(this.tagName[i]);
             }
 
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
 
             ServerOperationsFeather.DynamicModuleAllTypes().CreateAlltypes();
 
@@ -40,7 +39,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }
@@ -48,7 +47,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ModuleName = "AllTypesModule";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.AllTypesModule.zip";
         private const string ResolveType = "Telerik.Sitefinity.DynamicTypes.Model.AllTypesModule.Alltypes";
-        private const string TransactionName = "Module Installations";
         private const string WidgetName = "AllTypes";
         private const string WidgetCaptionDynamicWidget = "AllTypes MVC";
         private const string PageName = "TestPage";

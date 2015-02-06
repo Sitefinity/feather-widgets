@@ -1,10 +1,10 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -16,13 +16,13 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleAddNewContentTypeVerifyPageToolbox()
         {
-            moduleName = "Press Release";
+            this.moduleName = "Press Release";
 
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(moduleName);
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(this.moduleName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenAddNewContentTypeWizardFromModuleDashboard();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().EnterContentTypeName(ContentTypeName, DevName);
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().ClickFinishEditButton();
@@ -36,16 +36,16 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleRemoveContentTypeVerifyPageToolbox()
         {
-            moduleName = "Music Collection";
+            this.moduleName = "Music Collection";
 
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfigBeforeDeleteContentType");
 
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().NavigateToModuleBuilderPage();
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(moduleName);
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenFieldsEditor(moduleName, ContentTypeToDelete);
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenModuleDashboard(this.moduleName);
+            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().OpenFieldsEditor(this.moduleName, ContentTypeToDelete);
             BATFeather.Wrappers().Backend().ModuleBuilder().ModuleBuilderEditContentTypeWrapper().DeleteContentType();
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().WaitForSystemRestart();
 
@@ -57,10 +57,10 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DeactivateAndActivateDynamicModuleVerifyPageToolbox()
         {
-            moduleName = "Press Release";
+            this.moduleName = "Press Release";
 
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyToolboxConfigBeforeDeactivate");
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");
@@ -75,6 +75,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().IsWidgetPresent(WidgetName, true);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
+
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
@@ -91,6 +92,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string DevName = "TestType";
         private const string PageName = "TestPage";
         private const string ContentTypeToDelete = "Songs";
-        private string WidgetName = "Press Articles MVC";
+        private const string WidgetName = "Press Articles MVC";
     }
 }

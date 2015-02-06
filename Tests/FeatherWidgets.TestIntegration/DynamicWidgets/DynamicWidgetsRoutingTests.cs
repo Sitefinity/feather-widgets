@@ -27,8 +27,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [FixtureSetUp]
         public void Setup()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
 
             for (int i = 1; i <= 3; i++)
             {

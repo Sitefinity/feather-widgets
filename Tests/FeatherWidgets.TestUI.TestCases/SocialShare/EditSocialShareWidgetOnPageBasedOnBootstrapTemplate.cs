@@ -1,8 +1,8 @@
-﻿using Feather.Widgets.TestUI.Framework;
+﻿using System;
+using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace FeatherWidgets.TestUI
 {
@@ -18,15 +18,13 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.SocialShare),
-        Ignore]
+        TestCategory(FeatherTestCategories.SocialShare)]
         public void EditSocialShareWidgetOnPageBasedOnBootstrapTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareOptionsPresentOnBackend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().WaitForSaveButtonToAppear();
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectWidgetListTemplate(TemplateIconsWithText);
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectSocialShareOptions(this.optionTitlesToSelect);
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().UnselectSocialShareOptions(this.optionTitlesToUnselect);

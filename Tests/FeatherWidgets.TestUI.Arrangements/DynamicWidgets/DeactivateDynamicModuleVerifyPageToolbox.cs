@@ -17,8 +17,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
             ServerOperations.Pages().CreatePage(PageName);
         }
 
@@ -46,8 +45,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerArrangement]
         public void VerifyToolboxConfigBeforeDeactivate()
         {
-            string dynamicWidgetSection = ModuleName;
-            var section = ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(dynamicWidgetSection);
+            var section = ServerOperationsFeather.Pages().GetDynamicWidgetToolboxSection(ModuleName);
             int expectedCount = 2;
 
             Assert.IsTrue(section.Tools.Count.Equals(expectedCount), "Widgets count is unexpected.");
@@ -66,7 +64,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string ModuleName = "Press Release";
-        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
+        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
         private const string TransactionName = "Module Installations";
         private const string DynamicWidgetMVCTitle = "Press Articles MVC";
         private const string DynamicWidgetTitle = "Press Articles";

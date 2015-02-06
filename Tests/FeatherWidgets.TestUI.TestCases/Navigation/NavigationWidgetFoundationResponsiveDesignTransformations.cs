@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
     /// This is a test class with tests related to navigation widget responsive design options on Foundation template
     /// </summary>
     [TestClass]
-    public class NavigationWidgetFoundationResponsiveDesignTransformations: FeatherTestCase
+    public class NavigationWidgetFoundationResponsiveDesignTransformations : FeatherTestCase
     {
         /// <summary>
         /// UI test NavigationWidgetFoundationTemplateVerifyDefaultTransformation

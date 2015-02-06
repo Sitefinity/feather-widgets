@@ -33,8 +33,8 @@ namespace FeatherWidgets.TestUI
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, NotVisiblePages);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, VisiblePages);
+            BAT.Wrappers().Frontend().Navigation().NavigationFrontendWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, this.NotVisiblePages);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.VisiblePages);
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace FeatherWidgets.TestUI
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, NotVisiblePages, TemplateType.Foundation);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, VisiblePages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, this.NotVisiblePages, TemplateType.Foundation);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.VisiblePages, TemplateType.Foundation);
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace FeatherWidgets.TestUI
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             ActiveBrowser.WaitUntilReady();
 
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, NotVisiblePages, TemplateType.Semantic);
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, VisiblePages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyPagesNotPresentFrontEndNavigation(navTemplateClass, this.NotVisiblePages, TemplateType.Semantic);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.VisiblePages, TemplateType.Semantic);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace FeatherWidgets.TestUI
 
         private string[] VisiblePages
         {
-            get { return new string[]{ PageName, Page2Redirect, Page1Redirect, PageGroup };}
+            get { return new string[] { PageName, Page2Redirect, Page1Redirect, PageGroup }; }
         }
 
         private string[] NotVisiblePages

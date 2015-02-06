@@ -14,21 +14,14 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// </summary>
     public class CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem : ITestArrangement
     {
-        private const string ModuleName = "Press Release";
-        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
-        private const string TransactionName = "Module Installations";
-        private const string DynamicItemTitle = "Dynamic Item Title";
-        private const string PageName = "TestPage";    
-        private static DynamicContent[] items = new DynamicContent[20];
-       
         /// <summary>
         /// Server side set up.
         /// </summary>
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperationsFeather.DynamicModules().ImportModule(ModuleResource);
-            ServerOperations.ModuleBuilder().ActivateModule(ModuleName, string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
+            
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
 
             for (int i = 0; i < 20; i++)
@@ -39,6 +32,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddDynamicWidgetToPage(pageId, "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle", "PressArticle", "Press Articles MVC");
         }
 
+        /// <summary>
+        /// Unpublish dynamic items arrangement method.
+        /// </summary>
         [ServerArrangement]
         public void UNPublishDynamicItem()
         {
@@ -52,7 +48,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
         }
+
+        private const string ModuleName = "Press Release";
+        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
+        private const string DynamicItemTitle = "Dynamic Item Title";
+        private const string PageName = "TestPage";
+        private static DynamicContent[] items = new DynamicContent[20];
     }
 }

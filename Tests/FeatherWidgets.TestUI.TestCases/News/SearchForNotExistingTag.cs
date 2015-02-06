@@ -1,11 +1,11 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
@@ -34,10 +34,11 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().NoItemsFound();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
-            for (int i = 0; i < newsTitles.Length; i++)
+            for (int i = 0; i < this.newsTitles.Length; i++)
             {
-                BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, newsTitles[i]);
+                BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, this.newsTitles[i]);
             }
+
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(this.newsTitles));

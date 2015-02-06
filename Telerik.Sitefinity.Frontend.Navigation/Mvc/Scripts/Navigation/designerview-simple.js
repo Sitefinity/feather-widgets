@@ -5,23 +5,43 @@
     designer.controller('SimpleCtrl', ['$scope', '$controller', function ($scope, $controller) {
         $controller('DefaultCtrl', { $scope: $scope });
 
-        $scope.multiPageSelector = { selectedPageIds: null };
+        $scope.multiPageSelector = { selectedPages: null, externalPages: null };
 
         $scope.$watch(
-            'multiPageSelector.selectedPageIds',
-            function (newSelectedPageIds, oldSelectedPageIds) {
-                if (newSelectedPageIds !== oldSelectedPageIds) {
-                    $scope.properties.SerializedSelectedPageIds.PropertyValue = JSON.stringify(newSelectedPageIds);
+            'multiPageSelector.selectedPages',
+            function (newSelectedPages, oldSelectedPages) {
+                if (newSelectedPages !== oldSelectedPages) {
+                    $scope.properties.SerializedSelectedPages.PropertyValue = JSON.stringify(newSelectedPages);
                 }
             },
             true
         );
 
         $scope.$watch(
-            'properties.SerializedSelectedPageIds.PropertyValue',
-            function (newSelectedPageIds, oldSelectedPageIds) {
-                if (newSelectedPageIds !== oldSelectedPageIds || !$scope.multiPageSelector.selectedPageIds) {
-                    $scope.multiPageSelector.selectedPageIds = $.parseJSON(newSelectedPageIds);
+            'properties.SerializedSelectedPages.PropertyValue',
+            function (newSelectedPages, oldSelectedPages) {
+                if (newSelectedPages !== oldSelectedPages || !$scope.multiPageSelector.selectedPages) {
+                    $scope.multiPageSelector.selectedPages = $.parseJSON(newSelectedPages);
+                }
+            },
+            true
+        );
+
+        $scope.$watch(
+    'multiPageSelector.externalPages',
+    function (newExternalPages, oldExternalPages) {
+        if (newExternalPages !== oldExternalPages) {
+            $scope.properties.SerializedExternalPages.PropertyValue = JSON.stringify(newExternalPages);
+        }
+    },
+    true
+);
+
+        $scope.$watch(
+            'properties.SerializedExternalPages.PropertyValue',
+            function (newExternalPages, oldExternalPages) {
+                if (newExternalPages !== oldExternalPages || !$scope.multiPageSelector.externalPages) {
+                    $scope.multiPageSelector.externalPages = $.parseJSON(newExternalPages);
                 }
             },
             true

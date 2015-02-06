@@ -114,6 +114,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\..\AssemblyInfoShare\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ContentBlock\ContentBlockTests.cs" />
     <Compile Include="DummyClasses\ContentBlock\DummyContentBlockController.cs" />
     <Compile Include="DummyClasses\ContentBlock\DummyContentBlockModel.cs" />

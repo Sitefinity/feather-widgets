@@ -1,12 +1,12 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
-using FeatherWidgets.TestUI.TestCases;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI
 {
@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.SocialShare)]
         public void ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -32,25 +33,21 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetNameSocial);
-            BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().WaitForSaveButtonToAppear();
             BATFeather.Wrappers().Backend().SocialShare().SocialShareWidgetEditWrapper().SelectSocialShareOptions(this.optionTitlesToSelect);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyPageFrontEnd();
-        }
 
-        /// <summary>
-        /// Verify page frontend
-        /// </summary>
-        /// <param name="expectedCount">Content value</param>
-        public void VerifyPageFrontEnd()
-        {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifySocialShareOptionsInContentBlockOnFrontend(4, SocialShareOptions.Facebook, SocialShareOptions.Tweeter, SocialShareOptions.GooglePlus, SocialShareOptions.LinkedIn);
-            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareOptionsOnFrontend(6, SocialShareOptions.Facebook, SocialShareOptions.Tweeter,
-              SocialShareOptions.GooglePlus, SocialShareOptions.Digg,
-              SocialShareOptions.Blogger, SocialShareOptions.LinkedIn);
+            BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareOptionsOnFrontend(
+                6, 
+                SocialShareOptions.Facebook, 
+                SocialShareOptions.Tweeter,
+                SocialShareOptions.GooglePlus,
+                SocialShareOptions.Digg,
+                SocialShareOptions.Blogger,
+                SocialShareOptions.LinkedIn);
         }
 
         /// <summary>

@@ -1,10 +1,10 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
@@ -37,15 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().PublishPage();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOff();
-            this.VerifyDynamicContentOnTheFrontend();
-        }
-
-        /// <summary>
-        /// Verify dynamic widget on the frontend
-        /// </summary>
-        public void VerifyDynamicContentOnTheFrontend()
-        {
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(dynamicContent));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(this.dynamicContent));
         }
 
         /// <summary>
