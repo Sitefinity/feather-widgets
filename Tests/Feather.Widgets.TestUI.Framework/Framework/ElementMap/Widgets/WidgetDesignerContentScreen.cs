@@ -11,7 +11,7 @@ using ArtOfTest.WebAii.TestTemplates;
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
 {
     /// <summary>
-    /// Provides access to news widget Content screen
+    /// Provides access to widget Content screen
     /// </summary>
     public class WidgetDesignerContentScreen : HtmlElementContainer
     {
@@ -25,7 +25,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         }
 
         /// <summary>
-        /// Gets which news to display.
+        /// Gets which items to display.
         /// </summary>
         public HtmlDiv WhichItemsToDisplayList
         {
@@ -47,24 +47,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         }
 
         /// <summary>
-        /// Gets news list with news items.
+        /// Gets items list.
         /// </summary>
         public HtmlDiv ItemsList
         {
             get
             {
                 return this.Get<HtmlDiv>("tagname=div", "class=~list-group list-group-endless");
-            }
-        }
-
-        /// <summary>
-        /// Gets Done selecting button.
-        /// </summary>
-        public HtmlButton DoneSelectingButton
-        {
-            get
-            {
-                return this.Get<HtmlButton>("tagname=button", "InnerText=Done selecting");
             }
         }
 
@@ -80,7 +69,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         }
 
          /// <summary>
-        /// Gets Save changes button.
+        /// Gets Select buttons.
         /// </summary>
         public ICollection<HtmlButton> SelectButtons
         {
@@ -91,59 +80,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         }
 
         /// <summary>
-        /// Gets Save changes button date.
+        /// Gets Select Date buttons.
         /// </summary>
         public ICollection<HtmlButton> SelectButtonsDate
         {
             get
             {
                 return this.Find.AllByExpression<HtmlButton>("class=btn btn-xs btn-default openSelectorBtn");
-            }
-        }
-
-        /// <summary>
-        /// Gets search div.
-        /// </summary>
-        public HtmlDiv SearchByTypingDiv
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagname=div", "class=input-group m-bottom-sm");
-            }
-        }
-
-        /// <summary>
-        /// Gets no items div.
-        /// </summary>
-        public HtmlDiv NoItemsFoundDiv
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagname=div", "InnerText=No items found");
-            }
-        }
-
-        /// <summary>
-        /// Gets the selector items.
-        /// </summary>
-        /// <value>The selector items.</value>
-        public ICollection<HtmlAnchor> SelectorItems
-        {
-            get
-            {
-                return this.Find.AllByExpression<HtmlAnchor>("ng-repeat=item in items");
-            }
-        }
-
-        /// <summary>
-        /// Gets the search input.
-        /// </summary>
-        /// <value>The search input.</value>
-        public HtmlInputText SearchInput
-        {
-            get
-            {
-                return this.Get<HtmlInputText>("ng-model=filter.search");
             }
         }
 
@@ -155,53 +98,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
             get
             {
                 return this.Get<HtmlForm>("tagname=form", "name=periodSelection");
-            }
-        }
-
-        /// <summary>
-        /// Gets news selected items
-        /// </summary>
-        public HtmlSpan SelectedItemsSpan
-        {
-            get
-            {
-                return this.Get<HtmlSpan>("tagname=span", "class=label label-taxon label-full ng-binding");
-            }
-        }
-
-        /// <summary>
-        /// Gets the active tab.
-        /// </summary>
-        /// <value>The active tab.</value>
-        public HtmlDiv ActiveTab
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("class=~k-content k-state-active");
-            }
-        }
-
-        /// <summary>
-        /// Gets the all tab.
-        /// </summary>
-        /// <value>The all tab.</value>
-        public HtmlAnchor AllTab
-        {
-            get
-            {
-                return this.Get<HtmlAnchor>("class=k-link", "innertext=~All");
-            }
-        }
-
-        /// <summary>
-        /// Gets the selected tab.
-        /// </summary>
-        /// <value>The selected tab.</value>
-        public HtmlAnchor SelectedTab
-        {
-            get
-            {
-                return this.Get<HtmlAnchor>("class=k-link", "innertext=~Selected");
             }
         }
 
