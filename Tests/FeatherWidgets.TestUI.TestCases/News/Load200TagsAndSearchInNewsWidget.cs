@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.NewsSelectors),
-        Ignore]       
+        TestCategory(FeatherTestCategories.Fixes)]       
         public void Load200TagsAndSearchInNewsWidget()
         {
             BAT.Macros().NavigateTo().Pages();
