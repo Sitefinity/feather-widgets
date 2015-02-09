@@ -37,7 +37,9 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             this.pageOperations = new PagesOperations();
 
             for (int i = 1; i <= SearchResultsWidgetTests.NewsCount; i++)
+            {
                 Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(SearchResultsWidgetTests.NewsTitle + i);
+            }
 
             this.CreateNewsInSecondLanguage();
         }
@@ -56,8 +58,8 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Multilingual]
         [Category(TestCategories.SearchResults)]
         [Author("FeatherTeam")]
-        [Description("Verifies that all search results are returned correctly for all languages.")]
-        public void SearchResultsWidget_AllLanguages_ResultsFound()
+        [Description("Verifies that all search results are returned correctly for default language.")]
+        public void SearchResultsWidget_DefaultLanguage_ResultsFound_OldestOrder()
         {
             Guid searchIndex1Id = Guid.Empty;
             try
@@ -77,7 +79,6 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 var mvcProxy = new MvcControllerProxy();
                 mvcProxy.ControllerName = typeof(NewsController).FullName;
                 var newsController = new NewsController();
-                newsController.Model.EnableSocialSharing = true;
                 mvcProxy.Settings = new ControllerSettings(newsController);
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
@@ -85,10 +86,55 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
 
                 Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
+                for (int i = 1; i <= SearchResultsWidgetTests.NewsCount; i++)
+                {
+                    Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + i, searchResultsController.Model.Results.Data[i - 1].GetValue("Title"));
+                }
             }
             finally
             {
-                this.DeleteSearchIndex(SearchIndexName, searchIndex1Id);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+            }
+        }
+
+        [Test]
+        [Multilingual]
+        [Category(TestCategories.SearchResults)]
+        [Author("Sitefinity Team 7")]
+        [Description("Verifies that no search results are found for default language.")]
+        public void SearchResultsWidget_DefaultLanguage_NoResultsFound()
+        {
+            Guid searchIndex1Id = Guid.Empty;
+            try
+            {
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
+
+                int index = 1;
+                string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+                string pageNamePrefix = testName + "NewsPage" + index;
+                string pageTitlePrefix = testName + "NewsPage" + index;
+                string urlNamePrefix = testName + "news-page" + index;
+
+                string orderBy = "Oldest";
+                string searchString = "TestEvents";
+                int expectedCount = 0;
+                var searchResultsController = new SearchResultsController();
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                mvcProxy.Settings = new ControllerSettings(newsController);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                searchResultsController.Index(null, searchString, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+
+                Assert.AreEqual(expectedCount, searchResultsController.Model.Results.TotalCount);
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
             }
         }
 
@@ -97,7 +143,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Category(TestCategories.SearchResults)]
         [Author("FeatherTeam")]
         [Description("Verifies that all search results are returned correctly for particular languages.")]
-        public void SearchResultsWidget_SpecificLanguages_ResultsFound()
+        public void SearchResultsWidget_NonDefaultLanguage_ResultsFound_OldestOrder()
         {
             Guid searchIndex1Id = Guid.Empty;
             try
@@ -119,7 +165,6 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 var mvcProxy = new MvcControllerProxy();
                 mvcProxy.ControllerName = typeof(NewsController).FullName;
                 var newsController = new NewsController();
-                newsController.Model.EnableSocialSharing = true;
                 mvcProxy.Settings = new ControllerSettings(newsController);
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
@@ -127,10 +172,157 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, language, orderBy);
 
                 Assert.AreEqual(1, searchResultsController.Model.Results.TotalCount);
+                Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "20", searchResultsController.Model.Results.Data[0].GetValue("Title"));
             }
             finally
             {
-                this.DeleteSearchIndex(SearchIndexName, searchIndex1Id);
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+            }
+        }
+
+        [Test]
+        [Multilingual]
+        [Category(TestCategories.SearchResults)]
+        [Author("Sitefinity Tean 7")]
+        [Description("Verifies paging of search results are returned correctly for default language.")]
+        public void SearchResultsWidget_DefaultLanguage_Paging_OldestOrder()
+        {
+            Guid searchIndex1Id = Guid.Empty;
+
+            try
+            {
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
+
+                int index = 1;
+                string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+                string pageNamePrefix = testName + "NewsPage" + index;
+                string pageTitlePrefix = testName + "NewsPage" + index;
+                string urlNamePrefix = testName + "news-page" + index;
+
+                string orderBy = "Oldest";
+                var searchResultsController = new SearchResultsController();
+                searchResultsController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Search.Mvc.Models.ListDisplayMode.Paging;
+                searchResultsController.Model.ItemsPerPage = 2;
+                int expectedPagesCount = 3;
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                mvcProxy.Settings = new ControllerSettings(newsController);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+
+                Assert.AreEqual(expectedPagesCount, searchResultsController.Model.TotalPagesCount);
+                Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
+
+                searchResultsController.Index(1, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "1", searchResultsController.Model.Results.Data[0].GetValue("Title"));
+                Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "2", searchResultsController.Model.Results.Data[1].GetValue("Title"));
+
+                searchResultsController.Index(2, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "3", searchResultsController.Model.Results.Data[0].GetValue("Title"));
+                Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "4", searchResultsController.Model.Results.Data[1].GetValue("Title"));
+
+                searchResultsController.Index(3, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "5", searchResultsController.Model.Results.Data[0].GetValue("Title"));
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+            }
+        }
+
+        [Test]
+        [Multilingual]
+        [Category(TestCategories.SearchResults), Ignore]
+        [Author("Sitefinity Tean 7")]
+        [Description("Verifies limit of all search results are returned correctly for all languages.")]
+        public void SearchResultsWidget_DefaultLanguage_Limit_OldestOrder()
+        {
+            Guid searchIndex1Id = Guid.Empty;
+
+            try
+            {
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
+
+                int index = 1;
+                string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+                string pageNamePrefix = testName + "NewsPage" + index;
+                string pageTitlePrefix = testName + "NewsPage" + index;
+                string urlNamePrefix = testName + "news-page" + index;
+
+                string orderBy = "Oldest";
+                var searchResultsController = new SearchResultsController();
+                searchResultsController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Search.Mvc.Models.ListDisplayMode.Limit;
+                searchResultsController.Model.ItemsPerPage = 2;
+                int expectedResultsCount = 2;
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                mvcProxy.Settings = new ControllerSettings(newsController);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+
+                //// ignored because total count of returned results is 5 instead of 2
+                Assert.AreEqual(expectedResultsCount, searchResultsController.Model.Results.TotalCount);
+                Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "1", searchResultsController.Model.Results.Data[0].GetValue("Title"));
+                Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "2", searchResultsController.Model.Results.Data[1].GetValue("Title"));
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
+            }
+        }
+
+        [Test]
+        [Multilingual]
+        [Category(TestCategories.SearchResults)]
+        [Author("Sitefinity Tean 7")]
+        [Description("Verifies no limit of all search results are returned correctly for all languages.")]
+        public void SearchResultsWidget_DefaultLanguage_NoLimit_NewestOrder()
+        {
+            Guid searchIndex1Id = Guid.Empty;
+            try
+            {
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
+
+                int index = 1;
+                string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
+                string pageNamePrefix = testName + "NewsPage" + index;
+                string pageTitlePrefix = testName + "NewsPage" + index;
+                string urlNamePrefix = testName + "news-page" + index;
+
+                string orderBy = "Newest";
+                var searchResultsController = new SearchResultsController();
+                searchResultsController.Model.DisplayMode = Telerik.Sitefinity.Frontend.Search.Mvc.Models.ListDisplayMode.All;
+                searchResultsController.Model.ItemsPerPage = 2;
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(NewsController).FullName;
+                var newsController = new NewsController();
+                mvcProxy.Settings = new ControllerSettings(newsController);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
+
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+
+                Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
+                for (int i = 0; i < SearchResultsWidgetTests.NewsCount; i++)
+                {
+                    Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + (SearchResultsWidgetTests.NewsCount - i), searchResultsController.Model.Results.Data[i].GetValue("Title"));
+                }
+            }
+            finally
+            {
+                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Search().DeleteAllIndexes();
             }
         }
 
@@ -173,27 +365,6 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Assert.IsTrue(AppSettings.CurrentSettings.Multilingual);
             Assert.IsTrue(AppSettings.CurrentSettings.DefinedFrontendLanguages.Count() >= 2, "At least 2 frontend languages should be configured.");
         }
-
-        /// <summary>
-        /// Deletes the index of the search.
-        /// </summary>
-        /// <param name="searchIndexName">Name of the search index.</param>
-        /// <param name="publishingPointId">The publishing point identifier.</param>
-        private void DeleteSearchIndex(string searchIndexName, Guid publishingPointId)
-        {
-            // delete the publishing point
-            var transaction = Guid.NewGuid().ToString();
-            var manager = PublishingManager.GetManager(PublishingConfig.SearchProviderName, transaction);
-            var pp = manager.GetPublishingPoint(publishingPointId);
-            foreach (var settings in pp.PipeSettings)
-                manager.DeletePipeSettings(settings);
-            manager.DeletePublishingPoint(pp);
-            TransactionManager.CommitTransaction(transaction);
-
-            var service = ServiceBus.ResolveService<ISearchService>();
-            service.DeleteIndex(searchIndexName);
-        }
-
         #endregion
 
         #region Fields and constants

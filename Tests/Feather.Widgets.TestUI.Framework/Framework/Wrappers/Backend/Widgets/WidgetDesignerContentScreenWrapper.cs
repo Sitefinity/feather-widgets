@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -614,7 +615,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             foreach (KeyValuePair<int, int> reorderingPair in reorderedIndexMapping)
             {
-                spanList[reorderingPair.Key].DragTo(spanList[reorderingPair.Value]);
+                Rectangle dragToRectangle = spanList[reorderingPair.Value].Parent<HtmlDiv>().GetRectangle();
+
+                Point dragToPoint = new Point(dragToRectangle.X, dragToRectangle.Y);
+
+                spanList[reorderingPair.Key].DragTo(dragToPoint);
             }
 
             activeDialog.Refresh();
