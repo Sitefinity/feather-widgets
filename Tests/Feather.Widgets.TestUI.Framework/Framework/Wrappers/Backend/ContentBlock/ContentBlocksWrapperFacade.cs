@@ -28,5 +28,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             return new ContentBlockWidgetShareWrapper();
         }
+
+        /// <summary>
+        /// Contents the block link selector wrapper.
+        /// </summary>
+        /// <returns></returns>
+        public ContentBlockLinkSelectorWrapper LinkSelectorWrapper()
+        {
+            return new ContentBlockLinkSelectorWrapper();
+        }
     }
 }

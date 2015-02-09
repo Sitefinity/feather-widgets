@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 
@@ -27,6 +28,36 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editable.MouseClick();
 
             Manager.Current.Desktop.KeyBoard.TypeText(content);
+        }
+
+        /// <summary>
+        /// Selects the content in editable area.
+        /// </summary>
+        public void SelectContentInEditableArea()
+        {
+            HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
+                .AssertIsPresent("Editable area");
+            editable.ScrollToVisible();
+            editable.Focus();
+            editable.MouseClick();
+            editable.ScrollToVisible();
+            editable.Focus();
+            editable.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+        }
+
+        /// <summary>
+        /// Verifies the content in HTML editable area.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        public void VerifyContentInHtmlEditableArea(string content)
+        {
+            HtmlTextArea editable = EM.GenericContent.ContentBlockWidget.EditableHtmlArea
+                .AssertIsPresent("Html editable area");
+            Assert.AreEqual(content, editable.TextContent);
         }
 
         /// <summary>
@@ -126,6 +157,65 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncOperations();
 
             Manager.Current.Desktop.KeyBoard.TypeText(isEnabled);
+        }
+
+        /// <summary>
+        /// Opens the link selector.
+        /// </summary>
+        public void OpenLinkSelector()
+        {
+            HtmlAnchor createContent = EM.GenericContent.ContentBlockWidget.LinkSelector
+            .AssertIsPresent("link selector");
+            createContent.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Switches to HTML view.
+        /// </summary>
+        public void SwitchToHtmlView()
+        {
+            HtmlButton htmlButton = EM.GenericContent.ContentBlockWidget.HtmlButton
+            .AssertIsPresent("html view");
+            htmlButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Switches to design view.
+        /// </summary>
+        public void SwitchToDesignView()
+        {
+            HtmlButton designButton = EM.GenericContent.ContentBlockWidget.DesignButton
+            .AssertIsPresent("design view");
+            designButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Presses the specific button.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        public void PressSpecificButton(string title)
+        {
+            HtmlAnchor createContent = ActiveBrowser.Find.ByExpression<HtmlAnchor>("title=" + title)
+            .AssertIsPresent(title);
+            createContent.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Verifies the created link.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyCreatedLink(string name, string href)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
         }
     }
 }
