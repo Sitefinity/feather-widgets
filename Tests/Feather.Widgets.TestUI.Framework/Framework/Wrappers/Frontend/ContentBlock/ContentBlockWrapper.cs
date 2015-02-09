@@ -52,8 +52,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 {
                     if (div.ChildNodes.First().TagName.Equals("div") && div.Attributes.Count.Equals(0))
                     {
-                        var isContained = div.ChildNodes.First().TextContent.Contains(contentBlockContent);
-                        Assert.IsTrue(isContained, "Expected " + contentBlockContent + " ,but found" + div.ChildNodes.First().TextContent);
+                        var isContained = div.ChildNodes.First().InnerText.Contains(contentBlockContent);
+                        Assert.IsTrue(isContained, "Expected " + contentBlockContent + " ,but found" + div.ChildNodes.First().InnerText);
                         countContentBlocks++;
                     }
                 }
@@ -128,6 +128,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             Manager.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
             Manager.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.LControlKey);
             Manager.Desktop.KeyBoard.TypeText("edited content block", 20);
+        }
+
+        /// <summary>
+        /// Verifies the created link.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyCreatedLink(string name, string href)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
         }
     }
 }

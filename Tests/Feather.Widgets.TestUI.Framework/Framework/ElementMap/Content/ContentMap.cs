@@ -32,6 +32,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
             }
         }
 
+        /// <summary>
+        /// Gets the content block link selector.
+        /// </summary>
+        /// <value>The content block link selector.</value>
+        public ContentBlockLinkSelectorScreen ContentBlockLinkSelector
+        {
+            get
+            {
+                return new ContentBlockLinkSelectorScreen(this.find);
+            }
+        }
+
         private Find find;
     }
 }

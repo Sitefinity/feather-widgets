@@ -58,6 +58,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
+        /// Gets the editable HTML area.
+        /// </summary>
+        /// <value>The editable HTML area.</value>
+        public HtmlTextArea EditableHtmlArea
+        {
+            get
+            {
+                return this.EditableArea.Find.ByExpression<HtmlTextArea>("class=html k-content ng-pristine ng-untouched ng-valid ng-scope");
+            }
+        }
+
+        /// <summary>
         /// Gets share content title.
         /// </summary>
         public HtmlInputText ShareContentTitle
@@ -187,6 +199,42 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
             get
             {
                 return this.Get<HtmlDiv>("tagname=div", "placeholder=modal-footer");
+            }
+        }
+
+        /// <summary>
+        /// Gets the HTML button.
+        /// </summary>
+        /// <value>The HTML button.</value>
+        public HtmlButton HtmlButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "InnerText=HTML");
+            }
+        }
+
+        /// <summary>
+        /// Gets the design button.
+        /// </summary>
+        /// <value>The design button.</value>
+        public HtmlButton DesignButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "InnerText=Design");
+            }
+        }
+
+        /// <summary>
+        /// Gets the link selector.
+        /// </summary>
+        /// <value>The link selector.</value>
+        public HtmlAnchor LinkSelector
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("title=Insert hyperlink");
             }
         }
     }
