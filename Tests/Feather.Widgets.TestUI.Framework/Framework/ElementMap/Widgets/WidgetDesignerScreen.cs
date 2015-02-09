@@ -13,13 +13,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
     /// <summary>
     /// Provides access to widget Content screen
     /// </summary>
-    public class WidgetDesignerContentScreen : HtmlElementContainer
+    public class WidgetDesignerScreen : HtmlElementContainer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NewsWidgetContentScreen" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
-        public WidgetDesignerContentScreen(Find find)
+        public WidgetDesignerScreen(Find find)
             : base(find)
         {
         }

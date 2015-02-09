@@ -23,9 +23,9 @@ namespace FeatherWidgets.TestUI
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SwitchToSingleItemSettingsTab();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SelectDetailTemplate(DetailTemplateName);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerContentScreenWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectDetailTemplate(DetailTemplateName);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());

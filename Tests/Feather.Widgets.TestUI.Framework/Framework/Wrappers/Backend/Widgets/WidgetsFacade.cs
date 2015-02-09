@@ -15,9 +15,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Widgets content screen wrapper.
         /// </summary>
         /// <returns></returns>
-        public WidgetDesignerContentScreenWrapper WidgetDesignerContentScreenWrapper()
+        public WidgetDesignerWrapper WidgetDesignerWrapper()
         {
-            return new WidgetDesignerContentScreenWrapper();
+            return new WidgetDesignerWrapper();
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
-    public class WidgetDesignerContentScreenWrapper : BaseWrapper
+    public class WidgetDesignerWrapper : BaseWrapper
     {
         /// <summary>
         /// Selects which items to display in the widget designer

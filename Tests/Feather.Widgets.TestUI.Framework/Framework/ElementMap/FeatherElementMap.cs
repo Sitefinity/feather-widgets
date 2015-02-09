@@ -108,22 +108,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         /// Gets the content widget designer element map.
         /// </summary>
         /// <value>An initialized instance of content widget designer element map.</value>
-        public WidgetDesignerContentMap Widgets
+        public WidgetDesignerMap Widgets
         {
             get
             {
-                if (this.widgetDesignerContentMap == null)
+                if (this.widgetDesignerMap == null)
                 {
                     this.EnsureFindIsInitialized();
-                    this.widgetDesignerContentMap = new WidgetDesignerContentMap(this.find);
+                    this.widgetDesignerMap = new WidgetDesignerMap(this.find);
                 }
 
-                return this.widgetDesignerContentMap;
+                return this.widgetDesignerMap;
             }
 
             private set
             {
-                this.widgetDesignerContentMap = value;
+                this.widgetDesignerMap = value;
             }
         }
 
@@ -210,7 +210,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private SocialShareMap socialShareMap;
         private ModuleBuilderMap moduleBuilderMap;
         private WidgetTemplatesMap widgetTemplatesMap;
-        private WidgetDesignerContentMap widgetDesignerContentMap;
+        private WidgetDesignerMap widgetDesignerMap;
         private SelectorsMap selectorsMap;
     }
 }
