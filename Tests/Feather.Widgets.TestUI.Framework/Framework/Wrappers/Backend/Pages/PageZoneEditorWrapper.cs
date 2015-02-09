@@ -193,9 +193,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemNames">The item names.</param>
         public void VerifyCorrectOrderOfItemsOnBackend(params string[] itemNames)
         {
-            var list = ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=list-unstyled")
-                .AssertIsPresent("Items list");
-            var items = list.Find.AllByExpression<HtmlListItem>("tagname=li");
+            var items = ActiveBrowser.Find.AllByExpression<HtmlContainerControl>("tagname=h3");
 
             int itemsCount = items.Count;
             Assert.IsNotNull(itemsCount);
