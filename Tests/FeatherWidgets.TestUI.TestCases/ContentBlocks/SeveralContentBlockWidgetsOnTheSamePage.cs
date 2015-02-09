@@ -30,18 +30,8 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(NewContentBlockWidget, ExpectedContent);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend(PageName);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ExpectedContent);
-        }
-
-        /// <summary>
-        /// Navigate page on the front end
-        /// </summary>
-        /// <param name="pageName">Page name</param>
-        public void NavigatePageOnTheFrontend(string pageName)
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
         }
 
         /// <summary>

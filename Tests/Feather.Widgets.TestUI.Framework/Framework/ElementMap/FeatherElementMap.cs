@@ -7,6 +7,7 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.SocialShare;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.WidgetTemplates;
@@ -37,7 +38,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         /// <summary>
         /// Gets the content element map.
         /// </summary>
-        /// <value>An initialized instance of events element map.</value>
+        /// <value>An initialized instance of generic content element map.</value>
         public ContentMap GenericContent
         {
             get
@@ -60,7 +61,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         /// <summary>
         /// Gets the navigation element map.
         /// </summary>
-        /// <value>An initialized instance of events element map.</value>
+        /// <value>An initialized instance of navigation element map.</value>
         public NavigationMap Navigation
         {
             get
@@ -81,9 +82,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         }
 
         /// <summary>
-        /// Gets or sets the social share.
+        /// Gets the social share element map.
         /// </summary>
-        /// <value>The social share.</value>
+        /// <value>An initialized instance of navigation element map.</value>
         public SocialShareMap SocialShare
         {
             get
@@ -104,28 +105,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         }
 
         /// <summary>
-        /// Gets the news element map.
+        /// Gets the content widget designer element map.
         /// </summary>
-        /// <value>An initialized instance of events element map.</value>
-        public WidgetDesignerContentScreenMap Widgets
+        /// <value>An initialized instance of content widget designer element map.</value>
+        public WidgetDesignerMap Widgets
         {
             get
             {
-                if (this.widgetDesignerContentScreenMap == null)
+                if (this.widgetDesignerMap == null)
                 {
                     this.EnsureFindIsInitialized();
-                    this.widgetDesignerContentScreenMap = new WidgetDesignerContentScreenMap(this.find);
+                    this.widgetDesignerMap = new WidgetDesignerMap(this.find);
                 }
 
-                return this.widgetDesignerContentScreenMap;
+                return this.widgetDesignerMap;
             }
 
             private set
             {
-                this.widgetDesignerContentScreenMap = value;
+                this.widgetDesignerMap = value;
             }
         }
 
+        /// <summary>
+        /// Gets the module builder element map.
+        /// </summary>
+        /// <value>An initialized instance of module builder element map.</value>
         public ModuleBuilderMap ModuleBuilder
         {
             get
@@ -146,9 +151,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         }
 
         /// <summary>
-        /// Gets or sets the widget templates.
+        /// Gets the widget templates element map.
         /// </summary>
-        /// <value>The widget templates.</value>
+        /// <value>An initialized instance of widget template element map..</value>
         public WidgetTemplatesMap WidgetTemplates
         {
             get
@@ -168,6 +173,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the selectors element map.
+        /// </summary>
+        /// <value>An initialized instance of selectors element map.</value>
+        public SelectorsMap Selectors
+        {
+            get
+            {
+                if (this.selectorsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.selectorsMap = new SelectorsMap(this.find);
+                }
+
+                return this.selectorsMap;
+            }
+
+            private set
+            {
+                this.selectorsMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -182,6 +210,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private SocialShareMap socialShareMap;
         private ModuleBuilderMap moduleBuilderMap;
         private WidgetTemplatesMap widgetTemplatesMap;
-        private WidgetDesignerContentScreenMap widgetDesignerContentScreenMap;
+        private WidgetDesignerMap widgetDesignerMap;
+        private SelectorsMap selectorsMap;
     }
 }
