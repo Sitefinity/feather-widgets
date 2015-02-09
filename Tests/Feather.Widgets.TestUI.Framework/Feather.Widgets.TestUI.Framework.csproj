@@ -87,12 +87,14 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BATFeather.cs" />
+    <Compile Include="Framework\ElementMap\Selectors\SelectorsScreen.cs" />
+    <Compile Include="Framework\ElementMap\Selectors\SelectorsMap.cs" />
     <Compile Include="Framework\ElementMap\Content\ContentBlockLinkSelectorScreen.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\SocialShare\SocialShareMap.cs" />
-    <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerContentScreen.cs" />
-    <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerContentScreenMap.cs" />
+    <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerScreen.cs" />
+    <Compile Include="Framework\ElementMap\Widgets\WidgetDesignerMap.cs" />
     <Compile Include="Framework\ElementMap\Content\ContentBlockWidgetScreen.cs" />
     <Compile Include="Framework\ElementMap\Content\ContentMap.cs" />
     <Compile Include="Framework\ElementMap\FeatherElementMap.cs" />
@@ -107,11 +109,12 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Selectors\SelectorsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareOptions.cs" />
     <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareWidgetEditWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialShareWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\SocialShare\SocialSharePageEditorWrapper.cs" />
-    <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerContentScreenWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetsFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlocksWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockWidgetEditWrapper.cs" />

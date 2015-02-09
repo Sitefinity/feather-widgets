@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
     /// <summary>
-    /// Facade for Widgets wrapper
+    /// Facade for Widgets and selectors wrappers
     /// </summary>
     public class WidgetsFacade
     {
@@ -15,9 +15,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Widgets content screen wrapper.
         /// </summary>
         /// <returns></returns>
-        public WidgetDesignerContentScreenWrapper WidgetDesignerContentScreenWrapper()
+        public WidgetDesignerWrapper WidgetDesignerWrapper()
         {
-            return new WidgetDesignerContentScreenWrapper();
+            return new WidgetDesignerWrapper();
+        }
+
+        /// <summary>
+        ///  Selectors wrapper.
+        /// </summary>
+        /// <returns></returns>
+        public SelectorsWrapper SelectorsWrapper()
+        {
+            return new SelectorsWrapper();
         }
     }
 }

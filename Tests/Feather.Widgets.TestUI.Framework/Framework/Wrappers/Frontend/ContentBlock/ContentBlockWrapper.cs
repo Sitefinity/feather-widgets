@@ -129,5 +129,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             Manager.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.LControlKey);
             Manager.Desktop.KeyBoard.TypeText("edited content block", 20);
         }
+
+        /// <summary>
+        /// Verifies the created link.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyCreatedLink(string name, string href)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
+        }
     }
 }

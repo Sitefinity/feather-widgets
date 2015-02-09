@@ -79,6 +79,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the text to display is not visible.
+        /// </summary>
+        public void VerifyTextToDisplayIsNotVisible()
+        {
+            EM.GenericContent
+              .ContentBlockLinkSelector
+              .TextToDisplay
+              .AssertIsNull("text to display");
+        }
+
+        /// <summary>
         /// Opens the in new window.
         /// </summary>
         /// <param name="isSelected">The is selected.</param>
@@ -108,19 +119,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Clicks the test this link.
         /// </summary>
-        public void ClickTestThisLink(string name, string href)
+        public void VerifyTestThisLinkProperties(string name, string href)
         {
-            var link = ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
-
-            link.Click();
-            Manager.Current.WaitForNewBrowserConnect(href, true, 10000);
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
         }
 
         /// <summary>
         /// Tests the this link visibility.
         /// </summary>
         /// <param name="isSupposeTestThisLinkToBeVisible">The is suppose test this link to be visible.</param>
-        public void TestThisLinkVisibility(bool isSupposeTestThisLinkToBeVisible)
+        public void VerifyTestThisLinkVisibility(bool isSupposeTestThisLinkToBeVisible)
         {
             var label = EM.GenericContent
             .ContentBlockLinkSelector
@@ -174,7 +182,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Verifies the correct email.
         /// </summary>
         /// <param name="content">The content.</param>
-        public void VerifyMessageAppearsForEmail(bool isSupposeMessageToAppear)
+        public void VerifyInvalidEmailMessage(bool isSupposeMessageToAppear)
         {
             var label = EM.GenericContent
             .ContentBlockLinkSelector
@@ -195,15 +203,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void InsertLink(bool isActive = true)
         {
             HtmlButton insertLinkButton = EM.GenericContent
-                                                .ContentBlockLinkSelector
-                                                .InsertLink;
+            .ContentBlockLinkSelector
+            .InsertLink;
             HtmlButton insertLinkButtonDisabled = EM.GenericContent
-                                                .ContentBlockLinkSelector
-                                                .InsertLinkDisabledButton;
+            .ContentBlockLinkSelector
+            .InsertLinkDisabledButton;
 
             if (isActive)
             {
-
                 insertLinkButton.AssertIsPresent("Insert link");
                 insertLinkButtonDisabled.AssertIsNull("Insert link disabled");
                 insertLinkButton.Click();
@@ -214,6 +221,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 insertLinkButtonDisabled.AssertIsPresent("Insert link disabled");
             }
+        }
+
+        /// <summary>
+        /// Presses the cancel.
+        /// </summary>
+        public void PressCancel()
+        {
+            HtmlButton insertLinkButton = EM.GenericContent
+                                            .ContentBlockLinkSelector
+                                            .Cancel
+                                            .AssertIsPresent("Cancel");
+            insertLinkButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();          
         }
     }
 }

@@ -34,7 +34,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            ActiveBrowser.WaitUntilReady();
 
             Assert.IsFalse(ActiveBrowser.ContainsText(ServerErrorMessage), "Server error was found on the page");
             Assert.IsTrue(ActiveBrowser.ContainsText(ContentBlockContent), "Content block content was not found on the page");
@@ -63,8 +62,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             var templateId = BAT.Arrange(this.TestName).ExecuteArrangement("GetTemplateId").Result.Values["templateId"];
 
             BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Template/" + templateId, false);
-
-            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
         }
 

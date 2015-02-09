@@ -26,8 +26,8 @@ namespace FeatherWidgets.TestUI
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
        TestCategory(FeatherTestCategories.PagesAndContent)]
         public void EditContentBlockWidgetViaInlineEditing()
-        {          
-            this.NavigatePageOnTheFrontend(PageName);
+        {
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().OpenPageForEdit();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOn(PageName);
@@ -35,16 +35,6 @@ namespace FeatherWidgets.TestUI
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().PublishPage();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOff();
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(EditedContentBlockContent);
-        }
-
-        /// <summary>
-        /// Navigate page on the front end
-        /// </summary>
-        /// <param name="pageName">Page name</param>
-        public void NavigatePageOnTheFrontend(string pageName)
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
         }
 
         /// <summary>

@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI
             this.ClickLinkUsedOfContentBlockOnPage();
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyUsedPagesMessage(ExpectedCount);
             this.VerifyPagesThatUseSharedContentBlock();
-            this.NavigatePageOnTheFrontend(PageName);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
         }
 
@@ -89,16 +89,6 @@ namespace FeatherWidgets.TestUI
             };
 
             BAT.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyPagesWithStatusesThatUseSharedContentBlock(pages);
-        }
-
-        /// <summary>
-        /// Navigate page on the front end
-        /// </summary>
-        /// <param name="pageName">Page name</param>
-        public void NavigatePageOnTheFrontend(string pageName)
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
         }
 
         /// <summary>
