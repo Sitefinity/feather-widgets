@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -174,23 +175,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Verifies selected items from flat selector in designer.
-        /// </summary>
-        /// <param name="itemNames">Array of selected item names.</param>
-        public void VerifySelectedItemsFromFlatSelector(string[] itemNames)
-        {
-            var divList = this.EM.Widgets.WidgetDesignerContentScreen.SelectedItemsDivList;
-            int divListCount = divList.Count;
-            Assert.IsNotNull(divListCount, "Invalid count");
-            Assert.AreNotEqual(0, divListCount, "Count equals 0");
-
-            for (int i = 0; i < divListCount; i++)
-            {
-                Assert.AreEqual(itemNames[i], divList[i].InnerText, itemNames[i] + "not found");
-            }
-        }
-
-        /// <summary>
         /// Checks the notification in selected tab.
         /// </summary>
         /// <param name="itemNames">The item names.</param>
@@ -242,7 +226,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             foreach (KeyValuePair<int, int> reorderingPair in reorderedIndexMapping)
             {
-                spanList[reorderingPair.Key].DragTo(spanList[reorderingPair.Value]);
+                Rectangle dragToRectangle = spanList[reorderingPair.Value].Parent<HtmlDiv>().GetRectangle();
+
+                Point dragToPoint = new Point(dragToRectangle.X, dragToRectangle.Y);
+
+                spanList[reorderingPair.Key].DragTo(dragToPoint);
             }
 
             activeDialog.Refresh();

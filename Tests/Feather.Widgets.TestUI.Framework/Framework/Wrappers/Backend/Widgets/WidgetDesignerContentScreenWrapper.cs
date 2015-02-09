@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
@@ -361,6 +359,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             provider.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Verifies selected items from flat selector in designer.
+        /// </summary>
+        /// <param name="itemNames">Array of selected item names.</param>
+        public void VerifySelectedItemsFromFlatSelector(string[] itemNames)
+        {
+            var divList = this.EM.Widgets.WidgetDesignerContentScreen.SelectedItemsDivList;
+            int divListCount = divList.Count;
+            Assert.IsNotNull(divListCount, "Invalid count");
+            Assert.AreNotEqual(0, divListCount, "Count equals 0");
+
+            for (int i = 0; i < divListCount; i++)
+            {
+                Assert.AreEqual(itemNames[i], divList[i].InnerText, itemNames[i] + "not found");
+            }
         }
 
         /// <summary>
