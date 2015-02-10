@@ -5,6 +5,7 @@
 	"Mvc/Scripts/style-dropdown.js",
 	"Mvc/Scripts/sf-loading.js",
 	"Mvc/Scripts/Angular/angular-resource.min.js",
+	"client-components/fields/sf-fields.js",
 	"client-components/fields/sf-editable.js",
 	"client-components/selectors/common/sf-services.js",
 	"client-components/selectors/common/sf-selectors.js",
