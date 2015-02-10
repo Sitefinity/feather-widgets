@@ -143,7 +143,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 divsCount = items.Count;
             }
 
-            //// if items count is more than 12 elements, then you need to scroll
+            // If items count is more than 12 elements, then you need to scroll
             if (divsCount > 12)
             {
                 HtmlControl itemsList = EM.Widgets

@@ -21,8 +21,7 @@ namespace FeatherWidgets.TestUI
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.NewsSelectors),
-        Ignore]
+        TestCategory(FeatherTestCategories.NewsSelectors)]
         public void SelectMoreThanOneNewsItem()
         {
             BAT.Macros().NavigateTo().Pages();
