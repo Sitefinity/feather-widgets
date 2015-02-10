@@ -17,6 +17,7 @@
 	"client-components/selectors/common/sf-selectors.js",
 	"client-components/selectors/common/sf-list-selector.js",
 	"client-components/selectors/common/sf-items-tree.js",
+	"client-components/selectors/common/sf-selected-items-view.js",
 	"client-components/selectors/multi-site/sf-multi-site-service.js",
 	"client-components/selectors/multi-site/sf-multisite-page-selector.js",
 	"client-components/selectors/multi-site/sf-site-selector.js",
