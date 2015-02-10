@@ -76,5 +76,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             return new WidgetTemplatesWrapperFacade();
         }
+
+        /// <summary>
+        /// Search.
+        /// </summary>
+        /// <returns></returns>
+        public SearchWrapperFacade Search()
+        {
+            return new SearchWrapperFacade();
+        }
     }
 }

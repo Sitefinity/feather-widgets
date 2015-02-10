@@ -42,27 +42,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Gets the Mvc navigation widget.
+        /// Gets the feather Mvc widget.
         /// </summary>
-        /// <returns>The Mvc navigation widget div element.</returns>
-        public HtmlDiv GetMvcNavigationWidget()
+        /// <param name="mvcWidgetName">feather mvc widget name</param>
+        /// <returns>The Mvc widget div element.</returns>
+        public HtmlDiv GetMvcWidget(string mvcWidgetName)
         {
             var siblingWidgetLabel = "ContentBlock";
-            var navigation = "Navigation";
 
             ActiveBrowser.RefreshDomTree();
             RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("ControlToolboxContainer");
             foreach (var item in toolbox.AllItems)
             {
                 var dockZone = item.Find.ByCustom<RadDockZone>(zone => zone.CssClass.Contains("RadDockZone"));
-                var widgetLabel = dockZone.Find.ByContent(siblingWidgetLabel);
-                if (widgetLabel != null)
+                var contentBlockWidgetLabel = dockZone.Find.ByContent(siblingWidgetLabel);
+                if (contentBlockWidgetLabel != null)
                 {
                     if (!item.Expanded)
                         item.Expand();
 
-                    var navigationLabel = dockZone.Find.ByContent(navigation);
-                    return new HtmlDiv(navigationLabel.Parent);
+                    var mvcWidgetLabel = dockZone.Find.ByContent(mvcWidgetName);
+                    return new HtmlDiv(mvcWidgetLabel.Parent);
                 }
             }
 
@@ -86,7 +86,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Add widget by name to certain placeholder.
         /// </summary>
         /// <param name="widgetName">The widget name.</param>
-        /// <param name="placeHolder">The placeholder name.</param>
+        /// <param name="placeHolder">The placeholder id.</param>
         public void AddWidgetToSelectedPlaceHolder(string widgetName, string placeHolder)
         {
             HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?" + placeHolder)
@@ -100,12 +100,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Adds Mvc Navigation widget to selected placeholder.
         /// </summary>
         /// <param name="placeHolder">The placeholder id.</param>
-        public void AddMvcNavigationWidgetToSelectedPlaceHolder(string placeHolder)
+        public void AddMvcWidgetToSelectedPlaceHolder(string widgetName, string placeHolder)
         {
             HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?" + placeHolder)
                .AssertIsPresent<HtmlDiv>(placeHolder);
 
-            HtmlDiv widget = this.GetMvcNavigationWidget();
+            HtmlDiv widget = this.GetMvcWidget(widgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
         }
 

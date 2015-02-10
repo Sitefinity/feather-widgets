@@ -7,6 +7,7 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.SocialShare;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets;
@@ -196,6 +197,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the search element map.
+        /// </summary>
+        /// <value>An initialized instance of search element map.</value>
+        public SearchMap Search
+        {
+            get
+            {
+                if (this.searchMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.searchMap = new SearchMap(this.find);
+                }
+
+                return this.searchMap;
+            }
+
+            private set
+            {
+                this.searchMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -212,5 +236,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private WidgetTemplatesMap widgetTemplatesMap;
         private WidgetDesignerMap widgetDesignerMap;
         private SelectorsMap selectorsMap;
+        private SearchMap searchMap;
     }
 }

@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using FeatherWidgets.TestUI.TestCases;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace FeatherWidgets.TestUI
+{
+    /// <summary>
+    /// VerifySearchResults_SortingOnFrontend_ test class.
+    /// </summary>
+    [TestClass]
+    public class VerifySearchResults_SortingOnFrontend_ : FeatherTestCase
+    {
+        /// <summary>
+        /// UI test VerifySearchResults_SortingOnFrontend
+        /// </summary>
+        [TestMethod,
+        Owner("Sitefinity team 7"),
+        TestCategory(FeatherTestCategories.PagesAndContent)]
+        public void VerifySearchResults_SortingOnFrontend()
+        {
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(SearchBoxWidget, PlaceholderName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(SearchResultsWidget, PlaceholderName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SearchBoxWidget);
+            BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().SelectSearchIndex(SearchIndexName);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(2);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(SearchPage);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { SearchPage });
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SearchResultsWidget);
+            BATFeather.Wrappers().Backend().Search().SearchResultsWrapper().SelectSortingOption(SortingOrder);
+            BATFeather.Wrappers().Backend().Search().SearchResultsWrapper().AllowUsersToSortResults();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPageURL);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().Search();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(2, SearchText);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle2, NewsTitle1);
+
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().SelectSortingOption(NewSortingOrder);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(2, SearchText);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle1, NewsTitle2);
+        }
+
+        /// <summary>
+        /// Performs Server Setup and prepare the system with needed data.
+        /// </summary>
+        protected override void ServerSetup()
+        {
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.TestName).ExecuteSetUp();
+        }
+
+        /// <summary>
+        /// Performs clean up and clears all data created by the test.
+        /// </summary>
+        /// 
+        protected override void ServerCleanup()
+        {
+            BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        private const string SearchPage = "search page";
+        private const string SearchPageURL = "search-page";
+        private const string SearchBoxWidget = "Search box";
+        private const string SearchResultsWidget = "Search results";
+        private const string SearchIndexName = "news index";
+        private const string PlaceholderName = "Body";
+
+        private const string SearchText = "news";
+        private const string NewsTitle1 = "test news";
+        private const string NewsTitle2 = "another news";
+        private const string SortingOrder = "Newest first";
+        private const string NewSortingOrder = "Oldest first";
+    }
+}
