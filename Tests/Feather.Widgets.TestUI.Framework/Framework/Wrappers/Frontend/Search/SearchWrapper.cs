@@ -30,6 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public void Search()
         {
             HtmlButton searchButton = EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search box not present.");
+            
             searchButton.Click();
             ActiveBrowser.WaitUntilReady();
         }
@@ -39,15 +40,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void VerifySearchResultsLabel(int numberOfSearchResults, string searchText)
         {
-            HtmlContainerControl labelH1 = ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h1");
+            HtmlContainerControl resultsLabelH1 = ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h1");
 
             if (numberOfSearchResults == 0)
             {
-                Assert.AreEqual("No search results for" + searchText, labelH1.InnerText, "Search label is not correct - no results");
+                Assert.AreEqual("No search results for" + searchText, resultsLabelH1.InnerText, "Search label is not correct - no results");
             }
             else
             {
-                Assert.AreEqual(numberOfSearchResults + " search results for" + searchText, labelH1.InnerText, "Search label is not correct");
+                Assert.AreEqual(numberOfSearchResults + " search results for" + searchText, resultsLabelH1.InnerText, "Search label is not correct");
             }
         }
 
@@ -58,15 +59,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public void SelectSortingOption(string sortingOption)
         {
             HtmlSelect sortingOptionsDropdown = EM.Search.SearchFrontend.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown is not present.");
+            
             sortingOptionsDropdown.SelectByText(sortingOption);
             sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+
             ActiveBrowser.WaitUntilReady();
         }
 
         /// <summary>
         /// Verify search results list
         /// </summary>
+        /// <param name="resultTitles">expected titles for search result</param>
         public void VerifySearchResultsList(params string[] resultTitles)
         {
             IList<HtmlDiv> resultsList = EM.Search.SearchFrontend.ResultsDivList;

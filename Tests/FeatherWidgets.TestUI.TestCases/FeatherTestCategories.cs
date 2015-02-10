@@ -56,6 +56,16 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string SocialShare = "SocialShare";
 
         /// <summary>
+        /// LinkSelector category for LinkSelector tests
+        /// </summary>
+        public const string LinkSelector = "LinkSelector";
+
+        /// <summary>
+        /// Search category for Search tests
+        /// </summary>
+        public const string Search = "Search";
+
+        /// <summary>
         /// New category for new tests
         /// </summary>
         public const string New = "New";

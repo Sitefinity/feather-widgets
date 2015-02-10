@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid newsPageId = ServerOperations.Pages().CreatePage(NewsPageTitle);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(newsPageId);
 
-            Guid searchIndexId = ServerOperations.Search().CreateSearchIndex(SearchIndexName, new[] { Telerik.Sitefinity.TestUtilities.CommonOperations.SearchContentType.News });
+            Guid searchIndexId = ServerOperations.Search().CreateSearchIndex(SearchIndexName, new[] { SearchContentType.News });
             ServerOperations.Search().Reindex(searchIndexId);
         }
 

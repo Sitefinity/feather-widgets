@@ -20,6 +20,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Search
         public void SelectSearchIndex(string searchIndex)
         {
             HtmlSelect searchIndexesDropdown = EM.Search.SearchBoxWidgetEditScreen.SearchIndexesDropdown.AssertIsPresent("Search indexes dropdown is not present.");
+            
             searchIndexesDropdown.SelectByText(searchIndex);
             searchIndexesDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             searchIndexesDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);

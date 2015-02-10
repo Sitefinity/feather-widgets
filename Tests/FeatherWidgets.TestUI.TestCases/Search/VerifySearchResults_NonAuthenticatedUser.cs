@@ -20,13 +20,15 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
         Owner("Sitefinity team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.PagesAndContent), 
+        TestCategory(FeatherTestCategories.Search)]
         public void VerifySearchResults_NonAuthenticatedUser()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(SearchBoxWidget, PlaceholderName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(SearchResultsWidget, PlaceholderName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(SearchBoxWidget);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(SearchResultsWidget);
+
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().SelectSearchIndex(SearchIndexName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
@@ -80,7 +82,6 @@ namespace FeatherWidgets.TestUI
         private const string SearchBoxWidget = "Search box";
         private const string SearchResultsWidget = "Search results";
         private const string SearchIndexName = "news index";
-        private const string PlaceholderName = "Body";
 
         private const string NoResultsSearchText = "events";
         private const string SearchText1 = "test";

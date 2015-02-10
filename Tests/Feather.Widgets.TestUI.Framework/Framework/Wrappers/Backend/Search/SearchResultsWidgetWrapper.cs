@@ -19,10 +19,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Search
         /// <param name="sortingOption">sorting option name</param>
         public void SelectSortingOption(string sortingOption)
         {
-            HtmlSelect searchIndexesDropdown = EM.Search.SearchResultsWidgetEditScreen.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown is not present.");
-            searchIndexesDropdown.SelectByText(sortingOption);
-            searchIndexesDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
-            searchIndexesDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            HtmlSelect sortingOptionDropdown = EM.Search.SearchResultsWidgetEditScreen.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown is not present.");
+
+            sortingOptionDropdown.SelectByText(sortingOption);
+            sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
         /// <summary>
@@ -30,8 +31,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Search
         /// </summary>
         public void AllowUsersToSortResults()
         {
-            HtmlInputCheckBox sortingCheckbox = EM.Search.SearchResultsWidgetEditScreen.AllowUsersToSortResultsCheckbox.AssertIsPresent("Frontend sorting checkbox is not present.");
-            sortingCheckbox.Click();
+            HtmlInputCheckBox allowUsersToSortResultCheckbox = EM.Search.SearchResultsWidgetEditScreen.AllowUsersToSortResultsCheckbox.AssertIsPresent("Frontend sorting checkbox is not present.");
+
+            allowUsersToSortResultCheckbox.Click();
         }
     }
 }

@@ -97,10 +97,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Adds Mvc Navigation widget to selected placeholder.
+        /// Adds Mvc widget to selected placeholder.
         /// </summary>
         /// <param name="placeHolder">The placeholder id.</param>
-        public void AddMvcWidgetToSelectedPlaceHolder(string widgetName, string placeHolder)
+        public void AddMvcWidgetToSelectedPlaceHolder(string widgetName, string placeHolder="Body")
         {
             HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?" + placeHolder)
                .AssertIsPresent<HtmlDiv>(placeHolder);
