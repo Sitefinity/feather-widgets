@@ -119,9 +119,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Clicks the test this link.
         /// </summary>
-        public void VerifyTestThisLinkProperties(string name, string href)
+        public void VerifyTestThisLinkAttributes(string name, string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " or " + href + " was not present.");
         }
 
         /// <summary>
@@ -133,16 +133,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var label = EM.GenericContent
             .ContentBlockLinkSelector
             .TestThisLink;
-            var link = ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=~http://");
             if (isSupposeTestThisLinkToBeVisible)
             {
-                Assert.IsNotNull(label, "label should appear!");
-                Assert.IsNotNull(link, "link should appear!");
+                bool isVisible = label.CssClass.Equals("form-group");
+                Assert.IsTrue(isVisible, "label should appear!");
             }
             else
             {
-                Assert.IsNull(label, "label should not appear");
-                Assert.IsNull(link, "link should not appear");
+                bool isVisible = label.CssClass.Equals("form-group ng-hide");
+                Assert.IsTrue(isVisible, "label should appear!");
             }
         }
 
@@ -202,39 +201,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void InsertLink(bool isActive = true)
         {
-            HtmlButton insertLinkButton = EM.GenericContent
-            .ContentBlockLinkSelector
-            .InsertLink;
-            HtmlButton insertLinkButtonDisabled = EM.GenericContent
-            .ContentBlockLinkSelector
-            .InsertLinkDisabledButton;
-
             if (isActive)
             {
+                HtmlButton insertLinkButton = EM.GenericContent
+                .ContentBlockLinkSelector
+                .InsertLink;
+                
                 insertLinkButton.AssertIsPresent("Insert link");
-                insertLinkButtonDisabled.AssertIsNull("Insert link disabled");
                 insertLinkButton.Click();
                 ActiveBrowser.WaitUntilReady();
                 ActiveBrowser.WaitForAsyncRequests();
             }
             else
             {
+                HtmlButton insertLinkButtonDisabled = EM.GenericContent
+                .ContentBlockLinkSelector
+                .InsertLinkDisabledButton;
                 insertLinkButtonDisabled.AssertIsPresent("Insert link disabled");
             }
-        }
-
-        /// <summary>
-        /// Presses the cancel.
-        /// </summary>
-        public void PressCancel()
-        {
-            HtmlButton insertLinkButton = EM.GenericContent
-                                            .ContentBlockLinkSelector
-                                            .Cancel
-                                            .AssertIsPresent("Cancel");
-            insertLinkButton.Click();
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();          
         }
     }
 }

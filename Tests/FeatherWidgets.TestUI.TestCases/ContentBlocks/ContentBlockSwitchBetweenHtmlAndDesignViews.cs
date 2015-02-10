@@ -20,8 +20,9 @@ namespace FeatherWidgets.TestUI
         /// </summary>
         [TestMethod,
        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
-       TestCategory(FeatherTestCategories.PagesAndContent), Ignore]
+       TestCategory(FeatherTestCategories.PagesAndContent)]
         public void ContentBlockSwitchBetweenHtmlAndDesignViews()
+
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -36,44 +37,34 @@ namespace FeatherWidgets.TestUI
 
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterTextToDisplay(Content);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(true);
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkProperties(Content, WebAddress);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkAttributes(Content, FullWebAddress);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCreatedLink(Content, WebAddress);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectContentInEditableArea();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(HtmlContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToDesignView();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCreatedLink(Content, FullWebAddress);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend(PageName);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCreatedLink(Content, WebAddress);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyCreatedLink(FullWebAddress, Content);
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectContentInEditableArea();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectWebAddress(WebAddress);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectWebAddress(FullWebAddress);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectTextToDisplay(Content);
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().PressCancel();
-
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectContentInEditableArea();
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().PressSpecificButton("Bold");
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectWebAddress(WebAddress);
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTextToDisplayIsNotVisible();
+ 
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().OpenInNewWindow();
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
-        }
-
-        /// <summary>
-        /// Navigate page on the front end
-        /// </summary>
-        /// <param name="pageName">Page name</param>
-        public void NavigatePageOnTheFrontend(string pageName)
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + pageName.ToLower());
-            ActiveBrowser.WaitUntilReady();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCreatedLink(HtmlContent);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(HtmlEditedContent);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyCreatedLink(FullWebAddress, Content, true);
         }
 
         /// <summary>
@@ -95,8 +86,10 @@ namespace FeatherWidgets.TestUI
 
         private const string PageName = "ContentBlock";
         private const string WidgetName = "ContentBlock";
-        private const string HtmlContent = "<a href=\"http://google.bg\">Test content</a>";
+        private const string HtmlContent = "<a href=\"http://www.google.bg\">Test content</a>";
+        private const string HtmlEditedContent = "<a href=\"http://www.google.bg\" target=\"_blank\">Test content</a>";
         private const string Content = "Test content";
         private const string WebAddress = "www.google.bg";
+        private const string FullWebAddress = "http://www.google.bg";
     }
 }

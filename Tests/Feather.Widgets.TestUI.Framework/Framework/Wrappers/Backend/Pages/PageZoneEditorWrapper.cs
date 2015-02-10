@@ -205,6 +205,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
         }
 
+        /// <summary>
+        /// Verifies the created link.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyCreatedLink(string name, string href)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
+        }
+
         private bool WaitForSaveButton()
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();

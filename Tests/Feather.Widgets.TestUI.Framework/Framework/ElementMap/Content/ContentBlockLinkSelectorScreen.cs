@@ -71,18 +71,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Gets the cancel.
-        /// </summary>
-        /// <value>The cancel.</value>
-        public HtmlButton Cancel
-        {
-            get
-            {
-                return this.Get<HtmlButton>("InnerText=Cancel");
-            }
-        }
-
-        /// <summary>
         /// Gets the insert link disabled button.
         /// </summary>
         /// <value>The insert link disabled button.</value>
@@ -134,11 +122,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         /// Gets the test this link.
         /// </summary>
         /// <value>The test this link.</value>
-        public HtmlSpan TestThisLink
+        public HtmlDiv TestThisLink
         {
             get
             {
-                return this.Get<HtmlSpan>("InnerText=Test this link:");
+                return this.Get<HtmlDiv>("class=~form-group", "InnerText=~Test this link:");
             }
         }
     }

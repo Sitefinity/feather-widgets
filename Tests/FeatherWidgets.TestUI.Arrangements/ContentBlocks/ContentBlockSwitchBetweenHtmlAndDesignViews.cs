@@ -20,9 +20,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.ContentBlocks().CreateContentBlock(ContentBlockTitle, ContentBlockContent);
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
-            ServerOperationsFeather.Pages().AddSharedContentBlockWidgetToPage(page1Id, ContentBlockTitle);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, ContentBlockTitle);
         }
 
         /// <summary>
@@ -36,7 +35,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageName = "ContentBlock";
-        private const string ContentBlockContent = "Test content";
-        private const string ContentBlockTitle = "ContentBlockTitle";
+        private const string ContentBlockTitle = "";
     }
 }

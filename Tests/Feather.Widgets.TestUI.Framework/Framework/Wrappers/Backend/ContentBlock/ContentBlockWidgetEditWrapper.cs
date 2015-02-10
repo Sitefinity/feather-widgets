@@ -213,9 +213,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="href">The href.</param>
-        public void VerifyCreatedLink(string name, string href)
+        public void VerifyCreatedLink(string content)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
+            HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
+                .AssertIsPresent("Editable area");
+            Assert.AreEqual(content, editable.InnerText, "contents are not equal");
         }
     }
 }
