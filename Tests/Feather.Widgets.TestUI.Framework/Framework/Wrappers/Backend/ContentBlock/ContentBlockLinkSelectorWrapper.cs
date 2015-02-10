@@ -95,10 +95,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Opens the in new window.
+        /// Opens in new window.
         /// </summary>
         /// <param name="isSelected">The is selected.</param>
-        public void OpenInNewWindow(bool isSelected = true)
+        public void SelectOpenInNewWindowOption(bool isSelected = true)
         {
             HtmlInputCheckBox checkbox = EM.GenericContent
                                            .ContentBlockLinkSelector
@@ -216,6 +216,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             Assert.IsTrue(insertLinkButton.IsEnabled, "Button is disabled!");
             insertLinkButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Cancels the editing link selector.
+        /// </summary>
+        public void CancelEditingLinkSelector()
+        {
+            HtmlButton cancelButton = EM.GenericContent
+                                            .ContentBlockLinkSelector
+                                            .CancelButton
+                                            .AssertIsPresent("Cancel");
+
+            cancelButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }

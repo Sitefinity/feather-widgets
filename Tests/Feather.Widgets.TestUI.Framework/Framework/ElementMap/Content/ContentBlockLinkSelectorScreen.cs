@@ -71,6 +71,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
+        /// Gets the cancel button.
+        /// </summary>
+        /// <value>The cancel button.</value>
+        public HtmlButton CancelButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("type=button", "ng-click=cancel()", "InnerText=Cancel");
+            }
+        }
+
+        /// <summary>
         /// Gets the anchor selector.
         /// </summary>
         /// <value>The anchor selector.</value>

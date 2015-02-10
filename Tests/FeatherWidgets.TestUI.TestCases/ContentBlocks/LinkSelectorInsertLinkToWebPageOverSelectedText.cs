@@ -6,31 +6,29 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// LinkSelectorInsertLinkToWebPage test class.
+    /// LinkSelectorInsertLinkToWebPageOverSelectedText test class.
     /// </summary>
     [TestClass]
-    public class LinkSelectorInsertLinkToWebPage_ : FeatherTestCase
+    public class LinkSelectorInsertLinkToWebPageOverSelectedText_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test LinkSelectorInsertLinkToWebPage
+        /// UI test LinkSelectorEditInsertedLinkToWebPage
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void LinkSelectorInsertLinkToWebPage()        
-        {
+        public void LinkSelectorInsertLinkToWebPageOverSelectedText()
+        { 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectContentInEditableArea();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
             Assert.IsFalse(BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().IsInsertLinkEnabled());
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(false);
-
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectWebAddress("http://");
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectTextToDisplay(TextToDisplay);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterWebAddress(WebAddress);
-            Assert.IsFalse(BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().IsInsertLinkEnabled());
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(false);
-
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterTextToDisplay(TextToDisplay);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(true);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkAttributes(TextToDisplay, WebAddress);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
@@ -38,7 +36,19 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(HtmlContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCreatedLink(TextToDisplay, WebAddress);
+
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectContentInEditableArea();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectWebAddress(WebAddress);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectTextToDisplay(TextToDisplay);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().SelectOpenInNewWindowOption();
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().CancelEditingLinkSelector();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(HtmlContent);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyCreatedLink(TextToDisplay, WebAddress);
         }
@@ -65,5 +75,6 @@ namespace FeatherWidgets.TestUI
         private const string HtmlContent = "<a href=\"http://www.google.bg\">Test content</a>";
         private const string TextToDisplay = "Test content";
         private const string WebAddress = "http://www.google.bg";
+        private const string NewTextToDisplay = "Test content edited";
     }
 }
