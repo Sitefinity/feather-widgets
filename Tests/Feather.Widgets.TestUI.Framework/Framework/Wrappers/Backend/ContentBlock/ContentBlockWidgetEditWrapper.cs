@@ -40,9 +40,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editable.ScrollToVisible();
             editable.Focus();
             editable.MouseClick();
-            editable.ScrollToVisible();
-            editable.Focus();
-            editable.MouseClick();
 
             Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);

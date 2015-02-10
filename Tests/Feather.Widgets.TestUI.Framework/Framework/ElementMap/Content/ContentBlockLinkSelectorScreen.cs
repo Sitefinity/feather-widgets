@@ -62,23 +62,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         /// Gets the insert link.
         /// </summary>
         /// <value>The insert link.</value>
-        public HtmlButton InsertLink
+        public HtmlButton InsertLinkButton
         {
             get
             {
                 return this.Get<HtmlButton>("InnerText=Insert link");
-            }
-        }
-
-        /// <summary>
-        /// Gets the insert link disabled button.
-        /// </summary>
-        /// <value>The insert link disabled button.</value>
-        public HtmlButton InsertLinkDisabledButton
-        {
-            get
-            {
-                return this.Get<HtmlButton>("InnerText=Insert link", "disabled=disabled");
             }
         }
 

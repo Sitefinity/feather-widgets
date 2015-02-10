@@ -135,15 +135,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="href">The href.</param>
-        public void VerifyCreatedLink(string href, string name, bool isNewWindowChecked = false)
+        public void VerifyCreatedLink(string href, string name, bool isOpenInNewWindowChecked = false)
         {
-            if (isNewWindowChecked)
+            if (isOpenInNewWindowChecked)
             {
-                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name, "target=_blank").AssertIsPresent(name + " was not present.");
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name, "target=_blank").AssertIsPresent(name + " or " + href + " was not present.");
             }
             else
             {
-                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " or " + href + " was not present.");
             }
         }
     }
