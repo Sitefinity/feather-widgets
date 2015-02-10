@@ -92,6 +92,7 @@
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedText.cs" />
     <Compile Include="ContentBlocks\LinkSelectorEditInsertedLinkToWebPage.cs" />
     <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />

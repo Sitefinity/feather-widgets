@@ -135,7 +135,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="href">The href.</param>
-        public void VerifyCreatedLink(string href, string name, bool isOpenInNewWindowChecked = false)
+        public void VerifyCreatedLink(string name, string href, bool isOpenInNewWindowChecked = false)
         {
             if (isOpenInNewWindowChecked)
             {
