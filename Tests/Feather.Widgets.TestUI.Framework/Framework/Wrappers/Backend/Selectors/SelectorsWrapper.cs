@@ -136,16 +136,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             var items = activeDialog.Find.AllByExpression<HtmlControl>("ng-bind=~bindIdentifierField(item");
             int divsCount = items.Count;
-            Log.WriteLine(divsCount.ToString());
 
             if (divsCount == 0)
             {
                 items = activeDialog.Find.AllByExpression<HtmlControl>("ng-click=itemClicked(item)");
                 divsCount = items.Count;
-                Log.WriteLine(divsCount.ToString());
             }
 
-            //// if items count is more than 12 elements, then you need to scroll
+            // If items count is more than 12 elements, then you need to scroll
             if (divsCount > 12)
             {
                 HtmlControl itemsList = EM.Widgets
@@ -156,7 +154,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 List<HtmlControl> itemDiv = itemsList.Find
                                       .AllByExpression<HtmlControl>("class=~ng-scope list-group-item").ToList<HtmlControl>();
                 divsCount = itemDiv.Count;
-                Log.WriteLine(divsCount.ToString());
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
                 itemDiv[divsCount - 1].ScrollToVisible();
