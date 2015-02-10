@@ -40,9 +40,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editable.ScrollToVisible();
             editable.Focus();
             editable.MouseClick();
-            editable.ScrollToVisible();
-            editable.Focus();
-            editable.MouseClick();
 
             Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
@@ -213,9 +210,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="href">The href.</param>
-        public void VerifyCreatedLink(string name, string href)
+        public void VerifyCreatedLink(string content)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
+            HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
+                .AssertIsPresent("Editable area");
+            Assert.AreEqual(content, editable.InnerText, "contents are not equal");
         }
     }
 }
