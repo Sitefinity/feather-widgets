@@ -121,7 +121,9 @@
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
-    <Compile Include="ContentBlocks\ContentBlockSwitchBetweenHtmlAndDesignViews.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedText.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorEditInsertedLinkToWebPage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />

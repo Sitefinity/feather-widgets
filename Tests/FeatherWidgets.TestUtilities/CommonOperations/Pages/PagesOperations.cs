@@ -53,7 +53,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <param name="pageId">Page id value</param>
         /// <param name="html">Html value</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public void AddContentBlockWidgetToPage(Guid pageId, string html, string placeholder = "Body")
+        public void AddContentBlockWidgetToPage(Guid pageId, string html = "", string placeholder = "Body")
         {
             PageManager pageManager = PageManager.GetManager();
             pageManager.Provider.SuppressSecurityChecks = true;

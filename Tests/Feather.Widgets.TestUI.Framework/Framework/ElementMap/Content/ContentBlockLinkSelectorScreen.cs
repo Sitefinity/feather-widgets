@@ -62,7 +62,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         /// Gets the insert link.
         /// </summary>
         /// <value>The insert link.</value>
-        public HtmlButton InsertLink
+        public HtmlButton InsertLinkButton
         {
             get
             {
@@ -71,26 +71,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Gets the cancel.
+        /// Gets the cancel button.
         /// </summary>
-        /// <value>The cancel.</value>
-        public HtmlButton Cancel
+        /// <value>The cancel button.</value>
+        public HtmlButton CancelButton
         {
             get
             {
-                return this.Get<HtmlButton>("InnerText=Cancel");
-            }
-        }
-
-        /// <summary>
-        /// Gets the insert link disabled button.
-        /// </summary>
-        /// <value>The insert link disabled button.</value>
-        public HtmlButton InsertLinkDisabledButton
-        {
-            get
-            {
-                return this.Get<HtmlButton>("InnerText=Insert link", "disabled=disabled");
+                return this.Get<HtmlButton>("type=button", "ng-click=cancel()", "InnerText=Cancel");
             }
         }
 
@@ -134,11 +122,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         /// Gets the test this link.
         /// </summary>
         /// <value>The test this link.</value>
-        public HtmlSpan TestThisLink
+        public HtmlDiv TestThisLink
         {
             get
             {
-                return this.Get<HtmlSpan>("InnerText=Test this link:");
+                return this.Get<HtmlDiv>("class=~form-group", "InnerText=~Test this link:");
             }
         }
     }

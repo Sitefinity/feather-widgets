@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// ContentBlockSwitchBetweenHtmlAndDesignViews arrangement class.
+    /// LinkSelectorInsertLinkToWebPageOverSelectedText arrangement class.
     /// </summary>
-    public class ContentBlockSwitchBetweenHtmlAndDesignViews : ITestArrangement
+    public class LinkSelectorInsertLinkToWebPageOverSelectedText : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -20,9 +20,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.ContentBlocks().CreateContentBlock(ContentBlockTitle, ContentBlockContent);
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
-            ServerOperationsFeather.Pages().AddSharedContentBlockWidgetToPage(page1Id, ContentBlockTitle);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, ContentBlockHtml);
         }
 
         /// <summary>
@@ -32,11 +31,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.ContentBlocks().DeleteAllContentBlocks();
         }
 
         private const string PageName = "ContentBlock";
-        private const string ContentBlockContent = "Test content";
-        private const string ContentBlockTitle = "ContentBlockTitle";
+        private const string ContentBlockHtml = "Test content";
     }
 }

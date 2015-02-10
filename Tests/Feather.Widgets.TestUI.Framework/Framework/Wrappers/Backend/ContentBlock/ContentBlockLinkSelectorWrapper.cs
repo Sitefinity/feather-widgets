@@ -29,8 +29,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                          .WebAddress
                                          .AssertIsPresent("web address");
 
+            webAddress.ScrollToVisible();
+            webAddress.Focus();
             webAddress.MouseClick();
 
+            webAddress.Text = string.Empty;
             Manager.Current.Desktop.KeyBoard.TypeText(content);
         }
 
@@ -58,9 +61,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                             .ContentBlockLinkSelector
                                             .TextToDisplay
                                             .AssertIsPresent("text to display");
-
+            textToDisplay.ScrollToVisible();
+            textToDisplay.Focus();
             textToDisplay.MouseClick();
 
+            textToDisplay.Text = string.Empty;
             Manager.Current.Desktop.KeyBoard.TypeText(content);
         }
 
@@ -90,10 +95,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Opens the in new window.
+        /// Opens in new window.
         /// </summary>
         /// <param name="isSelected">The is selected.</param>
-        public void OpenInNewWindow(bool isSelected = true)
+        public void SelectOpenInNewWindowOption(bool isSelected = true)
         {
             HtmlInputCheckBox checkbox = EM.GenericContent
                                            .ContentBlockLinkSelector
@@ -115,34 +120,36 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 }
             }
         }
-
+      
         /// <summary>
-        /// Clicks the test this link.
+        /// Verifies the test this link attributes.
         /// </summary>
-        public void VerifyTestThisLinkProperties(string name, string href)
+        /// <param textToDisplay="textToDisplay">The textToDisplay.</param>
+        /// <param textToDisplay="href">The href.</param>
+        public void VerifyTestThisLinkAttributes(string textToDisplay, string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " was not present.");
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "target=_blank", "InnerText=" + textToDisplay)
+                .AssertIsPresent(textToDisplay + " or " + href + " was not present.");
         }
 
         /// <summary>
         /// Tests the this link visibility.
         /// </summary>
-        /// <param name="isSupposeTestThisLinkToBeVisible">The is suppose test this link to be visible.</param>
-        public void VerifyTestThisLinkVisibility(bool isSupposeTestThisLinkToBeVisible)
+        /// <param name="isExpectedTestThisLinkToBeVisible">The is suppose test this link to be visible.</param>
+        public void VerifyTestThisLinkVisibility(bool isExpectedTestThisLinkToBeVisible)
         {
             var label = EM.GenericContent
             .ContentBlockLinkSelector
             .TestThisLink;
-            var link = ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=~http://");
-            if (isSupposeTestThisLinkToBeVisible)
+            if (isExpectedTestThisLinkToBeVisible)
             {
-                Assert.IsNotNull(label, "label should appear!");
-                Assert.IsNotNull(link, "link should appear!");
+                bool isVisible = label.CssClass.Equals("form-group");
+                Assert.IsTrue(isVisible, "label should appear!");
             }
             else
             {
-                Assert.IsNull(label, "label should not appear");
-                Assert.IsNull(link, "link should not appear");
+                bool isVisible = label.CssClass.Equals("form-group ng-hide");
+                Assert.IsTrue(isVisible, "label should not appear!");
             }
         }
 
@@ -200,41 +207,46 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Inserts the link.
         /// </summary>
-        public void InsertLink(bool isActive = true)
-        {
-            HtmlButton insertLinkButton = EM.GenericContent
-            .ContentBlockLinkSelector
-            .InsertLink;
-            HtmlButton insertLinkButtonDisabled = EM.GenericContent
-            .ContentBlockLinkSelector
-            .InsertLinkDisabledButton;
-
-            if (isActive)
-            {
-                insertLinkButton.AssertIsPresent("Insert link");
-                insertLinkButtonDisabled.AssertIsNull("Insert link disabled");
-                insertLinkButton.Click();
-                ActiveBrowser.WaitUntilReady();
-                ActiveBrowser.WaitForAsyncRequests();
-            }
-            else
-            {
-                insertLinkButtonDisabled.AssertIsPresent("Insert link disabled");
-            }
-        }
-
-        /// <summary>
-        /// Presses the cancel.
-        /// </summary>
-        public void PressCancel()
+        public void InsertLink()
         {
             HtmlButton insertLinkButton = EM.GenericContent
                                             .ContentBlockLinkSelector
-                                            .Cancel
-                                            .AssertIsPresent("Cancel");
+                                            .InsertLinkButton
+                                            .AssertIsPresent("Insert link");
+
+            Assert.IsTrue(insertLinkButton.IsEnabled, "Button is disabled!");
             insertLinkButton.Click();
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();          
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Cancels the editing link selector.
+        /// </summary>
+        public void CancelEditingLinkSelector()
+        {
+            HtmlButton cancelButton = EM.GenericContent
+                                            .ContentBlockLinkSelector
+                                            .CancelButton
+                                            .AssertIsPresent("Cancel");
+
+            cancelButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Determines whether insert link is enabled.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsInsertLinkEnabled()
+        {
+            HtmlButton insertLinkButton = EM.GenericContent
+                                            .ContentBlockLinkSelector
+                                            .InsertLinkButton
+                                            .AssertIsPresent("Insert link");
+
+            return insertLinkButton.IsEnabled;
         }
     }
 }
