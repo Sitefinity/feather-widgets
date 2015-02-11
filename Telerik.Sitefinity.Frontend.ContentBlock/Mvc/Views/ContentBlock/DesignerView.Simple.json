@@ -33,6 +33,7 @@
 	"client-components/selectors/taxonomies/sf-taxonomy-service.js",
 	"client-components/selectors/taxonomies/sf-hierarchical-taxon-selector.js",
     "client-components/selectors/media/sf-media-service.js",
+	"client-components/selectors/media/sf-media-markup-service.js",
   	"client-components/selectors/media/sf-image-selector.js",
     "client-components/selectors/media/sf-image-selector-modal.js",
   	"client-components/selectors/media/sf-media-filter.js",
