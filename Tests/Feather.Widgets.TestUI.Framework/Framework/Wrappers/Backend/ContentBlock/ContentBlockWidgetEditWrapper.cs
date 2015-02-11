@@ -206,15 +206,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Verifies the created link.
+        /// Verifies the content block text in design mode.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="href">The href.</param>
-        public void VerifyCreatedLink(string content)
+        /// <param name="content">The content.</param>
+        public void VerifyContentBlockTextDesignMode(string content)
         {
-            HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
-                .AssertIsPresent("Editable area");
-            Assert.AreEqual(content, editable.InnerText, "contents are not equal");
+            FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "javascript:\"\"", 1);
+            Browser frame = ActiveBrowser.Frames[frameInfo];
+
+            var contentArea = frame.Find.AllByTagName("body").FirstOrDefault();
+            Assert.AreEqual(content, contentArea.InnerText, "contents are not equal");
         }
     }
 }
