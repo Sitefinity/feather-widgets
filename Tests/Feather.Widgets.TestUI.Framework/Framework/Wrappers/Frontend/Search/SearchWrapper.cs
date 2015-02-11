@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
@@ -20,7 +21,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="searchText">search text</param>
         public void EnterSearchText(string searchText)
         {
-            HtmlInputText searchBox = EM.Search.SearchFrontend.SearchBox.AssertIsPresent("Search input field is not present.");
+            HtmlInputText searchBox = EM.Search.SearchFrontend.SearchBox.AssertIsPresent("Search input field");
             searchBox.Text = searchText;
         }
 
@@ -29,10 +30,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void Search()
         {
-            HtmlButton searchButton = EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search box not present.");
+            HtmlButton searchButton = EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search box");
             
             searchButton.Click();
             ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
         }
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void VerifySearchResultsLabel(int numberOfSearchResults, string searchText)
         {
-            HtmlContainerControl resultsLabelH1 = ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h1");
+            HtmlContainerControl resultsLabelH1 = EM.Search.SearchFrontend.ResultsLabel.AssertIsPresent("Results label");
 
             if (numberOfSearchResults == 0)
             {
@@ -58,13 +60,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="sortingOption">sorting option to select</param>
         public void SelectSortingOption(string sortingOption)
         {
-            HtmlSelect sortingOptionsDropdown = EM.Search.SearchFrontend.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown is not present.");
+            HtmlSelect sortingOptionsDropdown = EM.Search.SearchFrontend.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown");
             
             sortingOptionsDropdown.SelectByText(sortingOption);
             sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
 
             ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
         }
 
         /// <summary>

@@ -66,5 +66,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
                 return this.Find.AllByExpression<HtmlDiv>("class=media-body sf-media-body");
             }
         }
+
+        /// <summary>
+        /// Gets Search results label.
+        /// </summary>
+        public HtmlContainerControl ResultsLabel
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("tagname=h1");
+            }
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText1);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().Search();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(1, SearchText1);
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle1 });
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle1);
 
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + SearchPageURL);
@@ -56,7 +56,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText2);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().Search();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(1, SearchText2);
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle2 });
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle2);
         }
 
         /// <summary>
