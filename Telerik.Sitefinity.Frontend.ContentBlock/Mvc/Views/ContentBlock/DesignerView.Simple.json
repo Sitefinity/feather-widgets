@@ -37,6 +37,7 @@
     "client-components/selectors/media/sf-image-selector-modal.js",
   	"client-components/selectors/media/sf-media-filter.js",
 	"client-components/selectors/media/sf-library-selector.js",
-	"client-components/selectors/media/sf-upload-image-properties.js"
+	"client-components/selectors/media/sf-upload-image-properties.js",
+	"client-components/fields/drag-drop/sf-drag-drop.js"
     ]
 }
