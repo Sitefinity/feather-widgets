@@ -51,5 +51,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             return new SocialShareWrapperFacade();
         }
+
+        /// <summary>
+        /// Provides unified access to the SearchWrapperFacade 
+        /// </summary>
+        /// <returns></returns>
+        public SearchWrapperFacade Search()
+        {
+            return new SearchWrapperFacade();
+        }
     }
 }

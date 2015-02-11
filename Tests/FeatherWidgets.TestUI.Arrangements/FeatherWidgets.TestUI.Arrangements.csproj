@@ -216,6 +216,8 @@
     <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
     <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\VerifySearchResults_NonAuthenticatedUser.cs" />
+    <Compile Include="Search\VerifySearchResults_SortingOnFrontend.cs" />
     <Compile Include="SocialShare\CheckAllOptionsInSocialShareWidget.cs" />
     <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
     <Compile Include="SocialShare\EditSocialShareWidgetOnPageBasedOnBootstrapTemplate.cs" />

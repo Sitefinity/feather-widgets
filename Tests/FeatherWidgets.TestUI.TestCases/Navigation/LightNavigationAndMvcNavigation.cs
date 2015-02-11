@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcNavigationWidgetToSelectedPlaceHolder(PlaceHolder);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(WidgetName, PlaceHolder);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             string[] pages = new string[] { PageName, Page1, Page2 };

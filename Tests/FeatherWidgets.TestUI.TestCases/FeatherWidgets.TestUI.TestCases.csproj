@@ -186,6 +186,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeatherTestCase.cs" />
     <Compile Include="FeatherTestCategories.cs" />
+    <Compile Include="Search\VerifySearchResults_SortingOnFrontend.cs" />
+    <Compile Include="Search\VerifySearchResults_NonAuthenticatedUser.cs" />
     <Compile Include="SocialShare\CheckAllOptionsInSocialShareWidget.cs" />
     <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
     <Compile Include="SocialShare\EditSocialShareWidgetOnPageBasedOnBootstrapTemplate.cs" />
