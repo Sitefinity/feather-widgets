@@ -79,8 +79,8 @@
                     open(scope, attrs);
                 }
                 else {
-                    scope.$openModalDialog = function (resolve) {
-                        return open(scope, attrs, resolve);
+                    scope.$openModalDialog = function (resolve, localAttrs) {
+                        return open(scope, localAttrs || attrs, resolve);
                     };
                 }
             }
