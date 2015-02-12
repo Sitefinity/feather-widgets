@@ -46,7 +46,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         }
 
         /// <summary>
-        /// Gets Search button.
+        /// Gets Search button for Sitefinity template, Bootstrap and Foundation template.
         /// </summary>
         public HtmlButton SearchButton
         {
@@ -57,7 +57,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         }
 
         /// <summary>
-        /// Gets Search link.
+        /// Gets Search link for SemanticUI template.
         /// </summary>
         public HtmlAnchor SearchLink
         {
