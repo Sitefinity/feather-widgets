@@ -16,14 +16,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     /// </summary>
     public class InlineEditingWrapper : BaseWrapper
     {
-        private Manager Manager
-        {
-            get
-            {
-                return Manager.Current;
-            }
-        }
-
         public void EditField(string controlName)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();

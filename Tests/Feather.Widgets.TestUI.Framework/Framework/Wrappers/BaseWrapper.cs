@@ -45,5 +45,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers
                 return Manager.Current.Log;
             }
         }
+
+        /// <summary>
+        /// Gets the Manager object.
+        /// </summary>
+        public Manager Manager
+        {
+            get
+            {
+                return Manager.Current;
+            }
+        }
     }
 }

@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -153,6 +154,7 @@
     <Compile Include="Framework\Wrappers\Frontend\Search\SearchWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\SocialShare\SocialShareWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\SocialShare\SocialShareWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\FrontendCommonWrapper.cs" />
     <Compile Include="Framework\Wrappers\WrappersFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

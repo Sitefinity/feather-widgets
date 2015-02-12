@@ -107,6 +107,7 @@
     <Compile Include="ContentBlocks\EditContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\EditContentBlockWidgetViaInlineEditing.cs" />
     <Compile Include="ContentBlocks\EditSharedContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorLinkToPageFromThisSite.cs" />
     <Compile Include="ContentBlocks\OldAndNewContentBlockWidgetOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\SeveralContentBlockWidgetsOnTheSamePage.cs" />
     <Compile Include="ContentBlocks\ShareContentBlockFromPage.cs" />

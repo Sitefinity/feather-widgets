@@ -60,5 +60,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             return new SearchWrapperFacade();
         }
+
+        /// <summary>
+        /// Provides access to frontend common wrapper.
+        /// </summary>
+        /// <returns></returns>
+        public FrontendCommonWrapper CommonWrapper()
+        {
+            return new FrontendCommonWrapper();
+        }
     }
 }
