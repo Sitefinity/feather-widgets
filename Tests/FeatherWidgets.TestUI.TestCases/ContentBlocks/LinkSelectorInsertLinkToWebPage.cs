@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI
             Assert.IsFalse(BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().IsInsertLinkEnabled());
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(false);
 
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterTextToDisplay(TextToDisplay);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterTextToDisplay(TextToDisplay, TabIndex);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(true);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkAttributes(TextToDisplay, WebAddress);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
@@ -66,5 +66,6 @@ namespace FeatherWidgets.TestUI
         private const string HtmlContent = "<a href=\"http://www.google.bg\">Test content</a>";
         private const string TextToDisplay = "Test content";
         private const string WebAddress = "http://www.google.bg";
+        private const int TabIndex = 1;
     }
 }

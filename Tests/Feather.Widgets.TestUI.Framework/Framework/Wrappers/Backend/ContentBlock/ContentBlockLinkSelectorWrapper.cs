@@ -1,4 +1,5 @@
-﻿using ArtOfTest.Common.UnitTesting;
+﻿using System.Linq;
+using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
@@ -10,14 +11,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     /// </summary>
     public class ContentBlockLinkSelectorWrapper : BaseWrapper
     {
-        private Manager Manager
-        {
-            get
-            {
-                return Manager.Current;
-            }
-        }
-
         /// <summary>
         /// Enters the web address.
         /// </summary>
@@ -55,11 +48,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Enters the text to display.
         /// </summary>
         /// <param name="content">The content.</param>
-        public void EnterTextToDisplay(string content)
+        public void EnterTextToDisplay(string content, int tabIndex)
         {
             HtmlInputText textToDisplay = EM.GenericContent
                                             .ContentBlockLinkSelector
-                                            .TextToDisplay
+                                            .TextToDisplay(tabIndex)
                                             .AssertIsPresent("text to display");
             textToDisplay.ScrollToVisible();
             textToDisplay.Focus();
@@ -70,14 +63,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Verifies the corrct text to display.
+        /// Verifies the correct text to display.
         /// </summary>
         /// <param name="content">The content.</param>
-        public void VerifyCorrectTextToDisplay(string content)
+        /// <param name="tabIndex">The index of the current tab.</param>
+        public void VerifyCorrectTextToDisplay(string content, int tabIndex)
         {
             HtmlInputText textToDisplay = EM.GenericContent
                                             .ContentBlockLinkSelector
-                                            .TextToDisplay
+                                            .TextToDisplay(tabIndex)
                                             .AssertIsPresent("text to display");
 
             Assert.AreEqual(content, textToDisplay.Text);
@@ -86,23 +80,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Verifies the text to display is not visible.
         /// </summary>
-        public void VerifyTextToDisplayIsNotVisible()
+        public void VerifyTextToDisplayIsNotVisible(int tabIndex)
         {
             EM.GenericContent
               .ContentBlockLinkSelector
-              .TextToDisplay
+              .TextToDisplay(tabIndex)
               .AssertIsNull("text to display");
         }
 
         /// <summary>
-        /// Opens in new window.
+        /// Clicks open in new window option
         /// </summary>
-        /// <param name="isSelected">The is selected.</param>
-        public void SelectOpenInNewWindowOption(bool isSelected = true)
+        /// <param name="tabIndex">The index of the current tab.</param>
+        /// <param name="isSelected">true or false depending on the option state.</param>
+        public void SelectOpenInNewWindowOption(int tabIndex, bool isSelected = true)
         {
             HtmlInputCheckBox checkbox = EM.GenericContent
                                            .ContentBlockLinkSelector
-                                           .OpenInNewWindow
+                                           .OpenInNewWindow(tabIndex)
                                            .AssertIsPresent("open in new window");
 
             if (isSelected)
@@ -247,6 +242,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                             .AssertIsPresent("Insert link");
 
             return insertLinkButton.IsEnabled;
+        }
+
+        /// <summary>
+        /// Selects another tab from the link selector options.
+        /// </summary>
+        /// <param name="tabName">The name of the tab.</param>
+        public void SwitchToSelectedTab(string tabName)
+        {
+            HtmlDiv tabs = EM.GenericContent.ContentBlockLinkSelector.TabsNavigation
+                .AssertIsPresent("Navigation tabs");
+
+            HtmlControl tabLabel = tabs.ChildNodes.Where(n => n.InnerText.Contains(tabName)).FirstOrDefault().As<HtmlControl>();
+            Assert.IsNotNull(tabLabel, "The tab label " + tabName + " was not found");
+
+            HtmlInputRadioButton option = tabLabel.Find.ByExpression<HtmlInputRadioButton>("tagName=input", "type=radio");
+            option.AssertIsPresent(tabName);
+
+            option.Click();
         }
     }
 }

@@ -14,15 +14,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     /// This is the entry point class for content block on the frontend.
     /// </summary>
     public class ContentBlockWrapper : BaseWrapper
-    {
-        private Manager Manager
-        {
-            get
-            {
-                return Manager.Current;
-            }
-        }
-
+    {       
         /// <summary>
         /// Verify content in content block widget on the frontend
         /// </summary>

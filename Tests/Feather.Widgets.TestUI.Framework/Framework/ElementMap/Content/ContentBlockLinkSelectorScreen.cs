@@ -37,25 +37,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         /// <summary>
         /// Gets the text to display.
         /// </summary>
-        /// <value>The text to display.</value>
-        public HtmlInputText TextToDisplay
+        /// <param name="tabIndex">the index of the link selector tab</param>
+        /// <returns>The text to display.</returns>
+        public HtmlInputText TextToDisplay(int tabIndex)
         {
-            get
-            {
-                return this.Get<HtmlInputText>("ng-model=sfSelectedItem.displayText");
-            }
+            string textToDisplayId = "textToDisplay" + tabIndex.ToString();
+
+            return this.Get<HtmlInputText>("id=" + textToDisplayId, "ng-model=sfSelectedItem.displayText");
         }
 
         /// <summary>
         /// Gets the open in new window.
         /// </summary>
-        /// <value>The open in new window.</value>
-        public HtmlInputCheckBox OpenInNewWindow
+        /// <param name="tabIndex">The index of the link selector tab.</param>
+        /// <returns>The open in new window.</returns>
+        public HtmlInputCheckBox OpenInNewWindow(int tabIndex)
         {
-            get
-            {
-                return this.Get<HtmlInputCheckBox>("ng-model=sfSelectedItem.openInNewWindow");
-            }
+            string openInNewWinId = "openInNewWin" + tabIndex.ToString();
+            
+            return this.Get<HtmlInputCheckBox>("id=" + openInNewWinId, "ng-model=sfSelectedItem.openInNewWindow");
         }
 
         /// <summary>
@@ -127,6 +127,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
             get
             {
                 return this.Get<HtmlDiv>("class=~form-group", "InnerText=~Test this link:");
+            }
+        }
+
+        /// <summary>
+        /// Gets the tabs navigation wrapper element.
+        /// </summary>
+        public HtmlDiv TabsNavigation
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagName=div", "class=form-group nav-wrapper");
             }
         }
     }
