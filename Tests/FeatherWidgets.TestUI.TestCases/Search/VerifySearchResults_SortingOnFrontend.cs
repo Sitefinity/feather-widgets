@@ -7,7 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.Search
 {
     /// <summary>
     /// VerifySearchResults_SortingOnFrontend_ test class.
@@ -44,9 +44,9 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPageURL);
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().Search();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(2, SearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle2, NewsTitle1);
 
@@ -73,8 +73,7 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string SearchPage = "search page";
-        private const string SearchPageURL = "search-page";
+        private const string SearchPage = "SearchPage";
         private const string SearchBoxWidget = "Search box";
         private const string SearchResultsWidget = "Search results";
         private const string SearchIndexName = "news index";

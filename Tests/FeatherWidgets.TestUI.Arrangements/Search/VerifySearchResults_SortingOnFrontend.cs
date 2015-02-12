@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string SearchIndexName = "news index";
         private const string NewsTitle1 = "test news";
         private const string NewsTitle2 = "another news";
-        private const string SearchPageTitle = "search page";
-        private const string NewsPageTitle = "news page";
+        private const string SearchPageTitle = "SearchPage";
+        private const string NewsPageTitle = "NewsPage";
     }
 }
