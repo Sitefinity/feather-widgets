@@ -24,9 +24,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         }
 
         /// <summary>
-        /// Gets Search box
+        /// Gets Search box for Sitefinity template and Semantic UI template
         /// </summary>
-        public HtmlInputText SearchBox
+        public HtmlInputText SearchTextBox
         {
             get
             {
@@ -35,13 +35,35 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         }
 
         /// <summary>
-        /// Gets Search button.
+        /// Gets Search box for Bootstrap and Foundation template
+        /// </summary>
+        public HtmlInputSearch SearchInput
+        {
+            get
+            {
+                return this.Get<HtmlInputSearch>("tagname=input", "class=~ui-autocomplete-input");
+            }
+        }
+
+        /// <summary>
+        /// Gets Search button for Sitefinity template, Bootstrap and Foundation template.
         /// </summary>
         public HtmlButton SearchButton
         {
             get
             {
                 return this.Get<HtmlButton>("tagname=button", "innerText=Search");
+            }
+        }
+
+        /// <summary>
+        /// Gets Search link for SemanticUI template.
+        /// </summary>
+        public HtmlAnchor SearchLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "innerText=Search");
             }
         }
 
@@ -63,7 +85,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Find.AllByExpression<HtmlDiv>("class=media-body sf-media-body");
+                return this.Find.AllByExpression<HtmlDiv>("class=~sf-media-body");
             }
         }
 

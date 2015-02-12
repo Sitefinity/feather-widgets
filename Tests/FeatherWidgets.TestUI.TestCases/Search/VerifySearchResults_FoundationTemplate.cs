@@ -4,30 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FeatherWidgets.TestUI.TestCases.Search
 {
     /// <summary>
-    /// VerifySearchResults_NonAuthenticatedUser_ test class.
+    /// VerifySearchResults_FoundationTemplate_ test class.
     /// </summary>
     [TestClass]
-    public class VerifySearchResults_NonAuthenticatedUser_ : FeatherTestCase
+    public class VerifySearchResults_FoundationTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test VerifySearchResults_NonAuthenticatedUser
+        /// UI test VerifySearchResults_FoundationTemplate
         /// </summary>
         [TestMethod,
         Owner("Sitefinity team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.Search)]
-        public void VerifySearchResults_NonAuthenticatedUser()
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.Search),
+        TestCategory(FeatherTestCategories.Foundation)]
+        public void VerifySearchResults_FoundationTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(SearchBoxWidget);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(SearchResultsWidget);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(SearchBoxWidget);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(SearchResultsWidget);
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().SelectSearchIndex(SearchIndexName);
@@ -40,20 +40,20 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(NoResultsSearchText);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText1);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(SearchText1);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(1, SearchText1);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle1);
 
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(NoResultsSearchText);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText2);
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(SearchText2);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(1, SearchText2);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle2);
@@ -77,7 +77,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string SearchPage = "SearchPage";
+        private const string SearchPage = "FoundationPage";
         private const string SearchBoxWidget = "Search box";
         private const string SearchResultsWidget = "Search results";
         private const string SearchIndexName = "news index";

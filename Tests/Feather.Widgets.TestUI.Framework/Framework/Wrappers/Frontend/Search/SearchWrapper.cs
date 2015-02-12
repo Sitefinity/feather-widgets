@@ -16,22 +16,44 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     public class SearchWrapper : BaseWrapper
     {
         /// <summary>
-        /// Type text in search box
+        /// Type text in search box for Sitefinity template and Semantic UI template
         /// </summary>
         /// <param name="searchText">search text</param>
         public void EnterSearchText(string searchText)
         {
-            HtmlInputText searchBox = EM.Search.SearchFrontend.SearchBox.AssertIsPresent("Search input field");
+            HtmlInputText searchBox = EM.Search.SearchFrontend.SearchTextBox.AssertIsPresent("Search input field");
+            searchBox.Text = searchText;
+        }
+
+        /// <summary>
+        /// Type text in search box for Bootstrap template and Foundation template
+        /// </summary>
+        /// <param name="searchText">search text</param>
+        public void EnterSearchInput(string searchText)
+        {
+            HtmlInputSearch searchBox = EM.Search.SearchFrontend.SearchInput.AssertIsPresent("Search input field");
             searchBox.Text = searchText;
         }
 
         /// <summary>
         /// Click search button
         /// </summary>
-        public void Search()
+        public void ClickSearchButton()
         {
-            HtmlButton searchButton = EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search box");
+            HtmlButton searchButton = EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
             
+            searchButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
+
+        /// <summary>
+        /// Click search link
+        /// </summary>
+        public void ClickSearchLink()
+        {
+            HtmlAnchor searchButton = EM.Search.SearchFrontend.SearchLink.AssertIsPresent("Search link");
+
             searchButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
