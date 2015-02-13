@@ -8,7 +8,7 @@ using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
     /// <summary>
     /// ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap test class.
@@ -20,8 +20,9 @@ namespace FeatherWidgets.TestUI
         /// UI test ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.SocialShare)]
         public void ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap()
         {

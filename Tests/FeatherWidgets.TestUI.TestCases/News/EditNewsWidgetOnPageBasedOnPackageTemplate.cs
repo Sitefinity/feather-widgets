@@ -18,8 +18,9 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test EditNewsWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.News),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void EditNewsWidgetOnPageBasedOnBootstrapTemplate()
         {

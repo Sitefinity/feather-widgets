@@ -7,7 +7,7 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Framework.ElementMap.Permissions;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
     /// AddNewsWidgetToPageVerifyViewPermissions test class.
@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI
         /// UI test AddNewsWidgetToPageVerifyViewPermissions
         /// </summary>
         [TestMethod,
-        Owner("Feather Team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.News)]
         public void AddNewsWidgetToPageVerifyViewPermissions()
         {
             BAT.Macros().NavigateTo().Pages();

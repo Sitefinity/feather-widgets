@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DynamicModuleAddNewContentTypeVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleAddNewContentTypeVerifyPageToolbox()
         {

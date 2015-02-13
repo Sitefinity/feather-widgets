@@ -7,7 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
     /// OldAndNewNewsWidgetOnTheSamePage test class.
@@ -19,10 +19,10 @@ namespace FeatherWidgets.TestUI
         /// UI test OldAndNewNewsWidgetOnTheSamePage
         /// </summary>
         [TestMethod,
-        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.NewsSelectors)]
-
+        TestCategory(FeatherTestCategories.News),
+        TestCategory(FeatherTestCategories.Selectors)]
         public void OldAndNewNewsWidgetOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages();

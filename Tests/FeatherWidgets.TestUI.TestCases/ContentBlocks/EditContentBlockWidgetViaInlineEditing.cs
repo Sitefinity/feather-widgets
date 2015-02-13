@@ -11,7 +11,7 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.WebAii.Controls;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
     /// <summary>
     /// EditContentBlockWidgetViaInlineEditing test class.
@@ -23,8 +23,9 @@ namespace FeatherWidgets.TestUI
         /// UI test EditContentBlockWidgetViaInlineEditing 
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void EditContentBlockWidgetViaInlineEditing()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());

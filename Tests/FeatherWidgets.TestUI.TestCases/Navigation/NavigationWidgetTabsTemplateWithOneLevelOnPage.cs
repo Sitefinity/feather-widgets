@@ -7,7 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
     /// <summary>
     /// NavigationWidgetTabsTemplateWithOneLevelOnPage test class.
@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI
         /// UI test NavigationWidgetTabsTemplateWithOneLevelOnPage
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetTabsTemplateWithOneLevelOnPage()

@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Ignore,
-        Owner("Sitefinity Team 7"),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void SelectItemInDynamicWidgetFromDifferentProvider()
         {

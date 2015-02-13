@@ -7,7 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
     /// DuplicateNewsWidgetFromPage test class.
@@ -19,8 +19,9 @@ namespace FeatherWidgets.TestUI
         /// UI test DuplicateNewsWidgetFromPage
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.News)]
         public void DuplicateNewsWidgetFromPage()
         {
             BAT.Macros().NavigateTo().Pages();

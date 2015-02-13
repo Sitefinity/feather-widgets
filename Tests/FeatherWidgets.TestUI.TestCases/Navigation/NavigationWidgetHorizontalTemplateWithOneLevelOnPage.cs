@@ -10,7 +10,7 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.WebAii.Controls.Html;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
     /// <summary>
     /// NavigationWidgetHorizontalTemplateWithOneLevelOnPage test class.
@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI
         /// UI test NavigationWidgetHorizontalTemplateWithOneLevelOnPage
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetHorizontalTemplateWithOneLevelOnPage()

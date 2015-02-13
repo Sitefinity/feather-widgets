@@ -8,7 +8,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
     /// <summary>
     /// UpdateSharedContentInUsedFromOldContentBlockWidget test class.
@@ -20,8 +20,9 @@ namespace FeatherWidgets.TestUI
         /// UI test UpdateSharedContentInUsedFromOldContentBlockWidget
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void UpdateSharedContentInUsedFromOldContentBlockWidget()
         {
             BAT.Macros().NavigateTo().Pages();

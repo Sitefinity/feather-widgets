@@ -21,8 +21,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test AddContentBlockWidgetToTemplateBasedOnLayoutFile
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent), 
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void AddContentBlockWidgetToTemplateBasedOnLayoutFile()
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();

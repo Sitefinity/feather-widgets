@@ -18,8 +18,10 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test LinkSelectorInsertLinkToPageFromThisSite
         /// </summary>
         [TestMethod,
-        Owner("Feather Team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.ContentBlock),
+        TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertLinkToPageFromThisSite()
         {
             BAT.Macros().NavigateTo().Pages();

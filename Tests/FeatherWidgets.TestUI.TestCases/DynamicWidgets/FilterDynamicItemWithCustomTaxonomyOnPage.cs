@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test FilterDynamicItemWithCustomTaxonomyOnPage
         /// </summary>
         [TestMethod,
-        Owner("Sitefinity Team 7"),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void FilterDynamicItemWithCustomTaxonomyOnPage()
         {

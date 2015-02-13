@@ -16,6 +16,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string PagesAndContent = "PagesAndContent";
 
         /// <summary>
+        /// Content block category
+        /// </summary>
+        public const string ContentBlock = "ContentBlock";
+
+        /// <summary>
         /// Navigation category
         /// </summary>
         public const string Navigation = "Navigation";
@@ -46,9 +51,14 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string ModuleBuilder = "ModuleBuilder";
 
         /// <summary>
-        /// NewsSelectors category for new tests
+        /// News category for news tests
         /// </summary>
-        public const string NewsSelectors = "NewsSelectors";
+        public const string News = "News";
+
+        /// <summary>
+        /// Selectors category for selectors tests
+        /// </summary>
+        public const string Selectors = "Selectors";
 
         /// <summary>
         /// SocialShare category for SocialShare tests
@@ -64,11 +74,6 @@ namespace FeatherWidgets.TestUI.TestCases
         /// Search category for Search tests
         /// </summary>
         public const string Search = "Search";
-
-        /// <summary>
-        /// New category for new tests
-        /// </summary>
-        public const string New = "New";
 
         /// <summary>
         /// New category for test fixes
