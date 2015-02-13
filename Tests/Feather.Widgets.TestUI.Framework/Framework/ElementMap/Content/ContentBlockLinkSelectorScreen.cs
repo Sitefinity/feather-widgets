@@ -95,14 +95,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Gets the email.
+        /// Gets the how to insert an anchor link.
         /// </summary>
-        /// <value>The email.</value>
-        public HtmlInputText Email
+        /// <value>The how to insert an anchor link.</value>
+        public HtmlAnchor HowToInsertAnAnchorLink
         {
             get
             {
-                return this.Get<HtmlInputText>("ng-model=sfSelectedItem.emailAddress");
+                return this.Get<HtmlAnchor>("href=https://github.com/Sitefinity/feather/wiki/How-to-insert-an-anchor", "InnerText=How to insert an anchor?");
+            }
+        }
+
+        /// <summary>
+        /// Gets the email.
+        /// </summary>
+        /// <value>The email.</value>
+        public HtmlInputEmail Email
+        {
+            get
+            {
+                return this.Get<HtmlInputEmail>("ng-model=sfSelectedItem.emailAddress");
             }
         }
 

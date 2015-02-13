@@ -33,7 +33,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Selects the content in editable area.
         /// </summary>
-        public void SelectContentInEditableArea()
+        public void SelectAllContentInEditableArea()
         {
             HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
                 .AssertIsPresent("Editable area");
@@ -44,6 +44,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
             Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+        }
+
+        /// <summary>
+        /// Selects the word in editable area.
+        /// </summary>
+        public void SelectTextInEditableArea(string text)
+        {
+            FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "javascript:\"\"", 1);
+            Browser frame = ActiveBrowser.Frames[frameInfo];
+
+            var content = frame.Find.ByExpression<HtmlControl>("InnerText=" + text);
+
+            content.MouseClick();
+            content.MouseClick();
         }
 
         /// <summary>

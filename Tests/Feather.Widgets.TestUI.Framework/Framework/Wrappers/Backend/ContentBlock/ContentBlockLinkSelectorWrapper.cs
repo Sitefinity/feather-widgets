@@ -48,6 +48,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Enters the text to display.
         /// </summary>
         /// <param name="content">The content.</param>
+        /// <param name="tabIndex">Index of the tab.</param>
         public void EnterTextToDisplay(string content, int tabIndex)
         {
             HtmlInputText textToDisplay = EM.GenericContent
@@ -158,10 +159,34 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                    .ContentBlockLinkSelector
                                    .AnchorSelector
                                    .AssertIsPresent("select anchor dropdown");
-            anchorSelector.SelectByValue(anchorName);
+            anchorSelector.SelectByText(anchorName);
             anchorSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             anchorSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
             ActiveBrowser.WaitForAsyncOperations();
+        }
+
+        /// <summary>
+        /// Verifies the selected value in anchor dropdown.
+        /// </summary>
+        /// <param name="anchorName">Name of the anchor.</param>
+        public void VerifySelectedValueInAnchorDropdown(string anchorName)
+        {
+            var anchorSelector = EM.GenericContent
+                                   .ContentBlockLinkSelector
+                                   .AnchorSelector
+                                   .AssertIsPresent("select anchor dropdown");
+            Assert.IsTrue(anchorSelector.SelectedOption.Text.Equals(anchorName));
+        }
+
+        /// <summary>
+        /// Verifies the that how to insert an anchor link is visible.
+        /// </summary>
+        public void VerifyThatHowToInsertAnAnchorLinkIsVisible()
+        {
+            EM.GenericContent
+              .ContentBlockLinkSelector
+              .HowToInsertAnAnchorLink
+              .AssertIsPresent("How to insert an anchor");
         }
 
         /// <summary>
@@ -170,13 +195,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="content">The content.</param>
         public void EnterEmail(string content)
         {
-            HtmlInputText email = EM.GenericContent
+            HtmlInputEmail email = EM.GenericContent
                                     .ContentBlockLinkSelector
                                     .Email
                                     .AssertIsPresent("email address");
 
             email.MouseClick();
 
+            email.Text = string.Empty;
             Manager.Current.Desktop.KeyBoard.TypeText(content);
         }
 
@@ -184,18 +210,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Verifies the correct email.
         /// </summary>
         /// <param name="content">The content.</param>
-        public void VerifyInvalidEmailMessage(bool isSupposeMessageToAppear)
+        public void VerifyInvalidEmailMessage(bool isExpectedMessageToAppear)
         {
-            var label = EM.GenericContent
+            var invalidEmailMessage = EM.GenericContent
             .ContentBlockLinkSelector
             .InvalidEmailMessage;
-            if (isSupposeMessageToAppear)
+            if (isExpectedMessageToAppear)
             {
-                Assert.IsNotNull(label, "label should appear!");
+                invalidEmailMessage.AssertIsPresent("invalid email message");
             }
             else
             {
-                Assert.IsNull(label, "label should not appear");
+                invalidEmailMessage.AssertIsNotVisible("invalid email message");
             }
         }
 
@@ -234,7 +260,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Determines whether insert link is enabled.
         /// </summary>
         /// <returns></returns>
-        public bool IsInsertLinkEnabled()
+        public bool IsInsertLinkButtonEnabled()
         {
             HtmlButton insertLinkButton = EM.GenericContent
                                             .ContentBlockLinkSelector

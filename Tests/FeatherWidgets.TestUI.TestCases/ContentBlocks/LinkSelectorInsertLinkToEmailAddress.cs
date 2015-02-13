@@ -6,42 +6,42 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI
 {
     /// <summary>
-    /// LinkSelectorInsertLinkToWebPage test class.
+    /// LinkSelectorInsertLinkToEmailAddress test class.
     /// </summary>
     [TestClass]
-    public class LinkSelectorInsertLinkToWebPage_ : FeatherTestCase
+    public class LinkSelectorInsertLinkToEmailAddress_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test LinkSelectorInsertLinkToWebPage
+        /// UI test LinkSelectorInsertLinkToEmailAddress
         /// </summary>
         [TestMethod,
         Owner("Sitefinity Team 7"),
         TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void LinkSelectorInsertLinkToWebPage()        
+        public void LinkSelectorInsertLinkToEmailAddress()        
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().SwitchToSelectedTab(SelectedTabName);
             Assert.IsFalse(BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().IsInsertLinkButtonEnabled());
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(false);
 
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterWebAddress(WebAddress);
-            Assert.IsFalse(BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().IsInsertLinkButtonEnabled());
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(false);
-
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterEmail(InvalidEmailAddress);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyInvalidEmailMessage(true);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterTextToDisplay(TextToDisplay, TabIndex);
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkVisibility(true);
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyTestThisLinkAttributes(TextToDisplay, WebAddress);
+            Assert.IsFalse(BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().IsInsertLinkButtonEnabled());
+
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterEmail(ValidEmailAddress);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyInvalidEmailMessage(false);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentBlockTextDesignMode(TextToDisplay);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(HtmlContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCreatedLink(TextToDisplay, WebAddress);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCreatedLink(TextToDisplay, Href);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyCreatedLink(TextToDisplay, WebAddress);
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyCreatedLink(TextToDisplay, Href);
         }
 
         /// <summary>
@@ -62,11 +62,14 @@ namespace FeatherWidgets.TestUI
         }
 
         private const string ArrangementClassName = "LinkSelectorInsertLinkToWebPage";
+        private const string SelectedTabName = "Email";
         private const string PageName = "ContentBlock";
         private const string WidgetName = "ContentBlock";
-        private const string HtmlContent = "<a href=\"http://www.google.bg\">Test content</a>";
+        private const string HtmlContent = "<a href=\"mailto:test@abv.bg\">Test content</a>";
         private const string TextToDisplay = "Test content";
-        private const string WebAddress = "http://www.google.bg";
-        private const int TabIndex = 1;
+        private const string InvalidEmailAddress = "test";
+        private const string ValidEmailAddress = "test@abv.bg";
+        private const string Href = "mailto:test@abv.bg";
+        private const int TabIndex = 4;
     }
 }
