@@ -7,7 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
     /// ActivateAndDeactivateNewsModule test class.
@@ -20,8 +20,9 @@ namespace FeatherWidgets.TestUI
         /// Ignored because of bug ID 145065
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.News)]
         public void ZActivateAndDeactivateNewsModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateNewsModule");

@@ -10,7 +10,7 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Backend.PageTemplates;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
     /// <summary>
     /// AddContentBlockWidgetToPageTemplate test class.
@@ -22,8 +22,9 @@ namespace FeatherWidgets.TestUI
         /// UI test AddContentBlockWidgetToPageTemplate
         /// </summary>
         [TestMethod,
-       Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-       TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void AddContentBlockWidgetToPageTemplate()
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();

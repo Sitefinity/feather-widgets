@@ -3,7 +3,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
     /// <summary>
     /// LinkSelectorInsertLinkToWebPageOverSelectedText test class.
@@ -15,8 +15,10 @@ namespace FeatherWidgets.TestUI
         /// UI test LinkSelectorEditInsertedLinkToWebPage
         /// </summary>
         [TestMethod,
-        Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team7),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.ContentBlock),
+        TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertLinkToWebPageOverSelectedText()
         { 
             BAT.Macros().NavigateTo().Pages();

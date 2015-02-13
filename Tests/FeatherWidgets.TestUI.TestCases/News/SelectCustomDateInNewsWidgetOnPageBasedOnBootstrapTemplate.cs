@@ -8,7 +8,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
     /// SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate test class.
@@ -20,10 +20,10 @@ namespace FeatherWidgets.TestUI
         /// UI test SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.NewsSelectors)]
-        
+        TestCategory(FeatherTestCategories.News), 
+        TestCategory(FeatherTestCategories.Selectors)]
         public void SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate()
         {
             BAT.Macros().NavigateTo().Pages();

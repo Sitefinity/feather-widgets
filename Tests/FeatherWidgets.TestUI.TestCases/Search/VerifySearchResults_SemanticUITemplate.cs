@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         /// UI test VerifySearchResults_SemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner("Sitefinity team 7"),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Search),
         TestCategory(FeatherTestCategories.SemanticUI)]

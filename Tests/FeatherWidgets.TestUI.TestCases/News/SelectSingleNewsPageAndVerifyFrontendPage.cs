@@ -7,7 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
     /// SelectSingleNewsPageAndVerifyFrontendPage_ test class.
@@ -19,9 +19,10 @@ namespace FeatherWidgets.TestUI
         /// UI test SelectSingleNewsPageAndVerifyFrontendPage
         /// </summary>
         [TestMethod,
-        Owner("Sitefinity Team 7"),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.NewsSelectors)]
+        TestCategory(FeatherTestCategories.News), 
+        TestCategory(FeatherTestCategories.Selectors)]
         public void SelectSingleNewsPageAndVerifyFrontendPage()
         {
             BAT.Macros().NavigateTo().Pages();

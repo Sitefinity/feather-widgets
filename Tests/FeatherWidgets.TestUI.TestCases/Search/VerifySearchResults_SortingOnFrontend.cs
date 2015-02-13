@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         /// UI test VerifySearchResults_SortingOnFrontend
         /// </summary>
         [TestMethod,
-        Owner("Sitefinity team 7"),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Search)]
         public void VerifySearchResults_SortingOnFrontend()

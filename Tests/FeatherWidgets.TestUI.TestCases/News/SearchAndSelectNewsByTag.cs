@@ -3,7 +3,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
     /// SearchAndSelectNewsByTag test class.
@@ -15,9 +15,10 @@ namespace FeatherWidgets.TestUI
         /// UI test SearchAndSelectNewsByTag
         /// </summary>
         [TestMethod,
-        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Sitefinity Team 7"),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.NewsSelectors)]
+        TestCategory(FeatherTestCategories.News),
+        TestCategory(FeatherTestCategories.Selectors)]
         public void SearchAndSelectNewsByTag()
         {
             BAT.Macros().NavigateTo().Pages();

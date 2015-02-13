@@ -4,7 +4,7 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Frontend.RelatedData;
 
-namespace FeatherWidgets.TestUI
+namespace FeatherWidgets.TestUI.TestCases.News
 {
     /// <summary>
     /// AddRelatedDataToNewsWidget test class.
@@ -16,8 +16,9 @@ namespace FeatherWidgets.TestUI
         /// UI test AddRelatedDataToNewsWidget
         /// </summary>
         [TestMethod,
-        Microsoft.VisualStudio.TestTools.UnitTesting.Owner("Feather team"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.News)]
         public void AddRelatedDataToNewsWidget()
         {
             BAT.Macros().NavigateTo().Pages();

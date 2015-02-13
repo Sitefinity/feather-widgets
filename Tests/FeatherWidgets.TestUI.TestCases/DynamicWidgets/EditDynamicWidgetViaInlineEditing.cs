@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test EditDynamicWidgetViaInlineEditing
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void EditDynamicWidgetViaInlineEditing()
         {
