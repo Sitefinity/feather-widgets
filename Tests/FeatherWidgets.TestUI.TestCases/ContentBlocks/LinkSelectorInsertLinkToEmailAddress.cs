@@ -35,6 +35,14 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyInvalidEmailMessage(false);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentBlockTextDesignMode(TextToDisplay);
+
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectTextInEditableArea(TextToDisplay);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
+
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectEmailAddress(ValidEmailAddress);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyCorrectTextToDisplay(TextToDisplay, TabIndex);
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().CancelEditingLinkSelector();
+
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(HtmlContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
@@ -61,7 +69,7 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(ArrangementClassName).ExecuteTearDown();
         }
 
-        private const string ArrangementClassName = "LinkSelectorInsertLinkToWebPage";
+        private const string ArrangementClassName = "LinkSelectorInsertLink";
         private const string SelectedTabName = "Email";
         private const string PageName = "ContentBlock";
         private const string WidgetName = "ContentBlock";

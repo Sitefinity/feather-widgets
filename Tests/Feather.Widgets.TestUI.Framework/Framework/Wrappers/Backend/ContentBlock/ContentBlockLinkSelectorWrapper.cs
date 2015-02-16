@@ -124,8 +124,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param textToDisplay="href">The href.</param>
         public void VerifyTestThisLinkAttributes(string textToDisplay, string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "target=_blank", "InnerText=" + textToDisplay)
-                .AssertIsPresent(textToDisplay + " or " + href + " was not present.");
+            ActiveBrowser.Find
+                         .ByExpression<HtmlAnchor>("href=" + href, "target=_blank", "InnerText=" + textToDisplay)
+                         .AssertIsPresent(textToDisplay + " or " + href + " was not present.");
         }
 
         /// <summary>
@@ -162,7 +163,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             anchorSelector.SelectByText(anchorName);
             anchorSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             anchorSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
-            ActiveBrowser.WaitForAsyncOperations();
         }
 
         /// <summary>
@@ -196,9 +196,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void EnterEmail(string content)
         {
             HtmlInputEmail email = EM.GenericContent
-                                    .ContentBlockLinkSelector
-                                    .Email
-                                    .AssertIsPresent("email address");
+                                     .ContentBlockLinkSelector
+                                     .Email
+                                     .AssertIsPresent("email address");
 
             email.MouseClick();
 
@@ -207,9 +207,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Verifies the correct email.
+        /// Verifies the correct email address.
         /// </summary>
         /// <param name="content">The content.</param>
+        public void VerifyCorrectEmailAddress(string content)
+        {
+            HtmlInputText emailAddress = EM.GenericContent
+                                            .ContentBlockLinkSelector
+                                            .Email
+                                            .AssertIsPresent("email address");
+
+            Assert.AreEqual(content, emailAddress.Text);
+        }
+
+        /// <summary>
+        /// Verifies the invalid email message visibility.
+        /// </summary>
+        /// <param name="isExpectedMessageToAppear">The expected message to appear.</param>
         public void VerifyInvalidEmailMessage(bool isExpectedMessageToAppear)
         {
             var invalidEmailMessage = EM.GenericContent
@@ -247,9 +261,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void CancelEditingLinkSelector()
         {
             HtmlButton cancelButton = EM.GenericContent
-                                            .ContentBlockLinkSelector
-                                            .CancelButton
-                                            .AssertIsPresent("Cancel");
+                                        .ContentBlockLinkSelector
+                                        .CancelButton
+                                        .AssertIsPresent("Cancel");
 
             cancelButton.Click();
             ActiveBrowser.WaitUntilReady();
@@ -276,8 +290,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="tabName">The name of the tab.</param>
         public void SwitchToSelectedTab(string tabName)
         {
-            HtmlDiv tabs = EM.GenericContent.ContentBlockLinkSelector.TabsNavigation
-                .AssertIsPresent("Navigation tabs");
+            HtmlDiv tabs = EM.GenericContent
+                             .ContentBlockLinkSelector
+                             .TabsNavigation
+                             .AssertIsPresent("Navigation tabs");
 
             HtmlControl tabLabel = tabs.ChildNodes.Where(n => n.InnerText.Contains(tabName)).FirstOrDefault().As<HtmlControl>();
             Assert.IsNotNull(tabLabel, "The tab label " + tabName + " was not found");

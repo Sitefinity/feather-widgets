@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestUI
             BAT.Arrange(ArrangementClassName).ExecuteTearDown();
         }
 
-        private const string ArrangementClassName = "LinkSelectorInsertLinkToWebPage";
+        private const string ArrangementClassName = "LinkSelectorInsertLink";
         private const string PageName = "ContentBlock";
         private const string WidgetName = "ContentBlock";
         private const string HtmlContent = "<a href=\"http://www.google.bg\">Test content</a>";

@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// LinkSelectorInsertLinkToWebPage arrangement class.
+    /// LinkSelectorInsertLink arrangement class.
     /// </summary>
-    public class LinkSelectorInsertLinkToWebPage : ITestArrangement
+    public class LinkSelectorInsertLink : ITestArrangement
     {
         /// <summary>
         /// Server side set up.

@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().SwitchToSelectedTab(SelectedTabName);
             Assert.IsFalse(BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().IsInsertLinkButtonEnabled());
-            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifySelectedValueInAnchorDropdown("- Select -");
+            BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifySelectedValueInAnchorDropdown(DefaultAnchorDropdownValue);
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifyThatHowToInsertAnAnchorLinkIsVisible();
 
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().EnterTextToDisplay(TextToDisplay, TabIndex);
@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().SelectAnchor(AnchorName);
 
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentBlockTextDesignMode("Test1" + "Test2" + "Test3" + TextToDisplay);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentBlockTextDesignMode("Test1" + "Test2" + TextToDisplay);
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectTextInEditableArea(TextToDisplay);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
@@ -71,10 +71,11 @@ namespace FeatherWidgets.TestUI
         private const string PageName = "ContentBlock";
         private const string SelectedTabName = "Anchor";
         private const string WidgetName = "ContentBlock";
-        private const string HtmlContent = "<div id=\"test1\">Test1</div><p></p><div id=\"test2\">Test2</div><p></p><div id=\"test3\">Test3</div><a href=\"#test2\">Test content</a>";
+        private const string HtmlContent = "<div id=\"test1\">Test1</div><p></p><div id=\"test2\">Test2</div><p></p><a href=\"#test2\">Test content</a>";
         private const string TextToDisplay = "Test content";
         private const string AnchorName = "test2";
         private const string Anchor = "#test2";
+        private const string DefaultAnchorDropdownValue = "- Select -";
         private const int TabIndex = 3;
     }
 }
