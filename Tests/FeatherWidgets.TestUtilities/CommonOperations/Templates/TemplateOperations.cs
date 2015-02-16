@@ -82,6 +82,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             }
         }
 
+        /// <summary>
+        /// Generates Id for template based on the controls count.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <returns>The generated Id.</returns>
         public string GenerateUniqueControlIdForTemplate(TemplateDraft template)
         {
             int controlsCount = 0;
@@ -94,6 +99,9 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             return string.Format(CultureInfo.InvariantCulture, "T" + controlsCount.ToString(CultureInfo.InvariantCulture).PadLeft(3, '0'));
         }
 
+        /// <summary>
+        /// Gets the Sitefinity web app project path.
+        /// </summary>
         public string SfPath
         {
             get
@@ -102,26 +110,12 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             }
         }
 
-        public void WaitForTemplatesCountToIncrease(int primaryCount, int increment)
-        {
-            PageManager pageManager = PageManager.GetManager();
-
-            for (int i = 50; i > 0; --i)
-            {
-                if (pageManager.GetTemplates().Count() == primaryCount + increment)
-                    break;
-
-                Thread.Sleep(TimeSpan.FromMilliseconds(100));
-            }
-        }
-
-        ////public void DuplicatePageTemplate(string pageTemplateTitle, string newTemplateName)
-        ////{
-        ////    var pageTemplateToDuplicate = App.WorkWith().PageTemplates().Where(t => t.Title == pageTemplateTitle).Get().SingleOrDefault();
-        ////    var myDuplicatedPage = App.WorkWith().PageTemplate(pageTemplateToDuplicate.Id).Duplicate(newTemplateName).SaveAndContinue().Get();
-        ////    WorkflowManager.MessageWorkflow(myDuplicatedPage.Id, typeof(PageTemplate), null, "Publish", false, new Dictionary<string, string>());
-        ////}
-
+        /// <summary>
+        /// Duplicates existing page template.
+        /// </summary>
+        /// <param name="templateTitle">The template title.</param>
+        /// <param name="newTemplateName">The new template title.</param>
+        /// <returns>The Id of the new template.</returns>
         public Guid DuplicatePageTemplate(string templateTitle, string newTemplateName)
         {
             Guid templateId = Guid.Empty;
@@ -151,6 +145,19 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Templates
             pageManager.SaveChanges();
 
             return template.Id;
+        }
+
+        /// <summary>
+        /// Gets the page templates count.
+        /// </summary>
+        /// <returns>Page templates count.</returns>
+        public int GetTemplatesCount
+        {
+            get
+            {
+                PageManager pageManager = PageManager.GetManager();
+                return pageManager.GetTemplates().Count();
+            }
         }
 
         private Guid GetLastControlInPlaceHolderInTemplateId(TemplateDraft template, string placeHolder)

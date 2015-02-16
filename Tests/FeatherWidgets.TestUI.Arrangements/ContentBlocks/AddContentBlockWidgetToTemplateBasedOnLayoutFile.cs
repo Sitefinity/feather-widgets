@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            string folderPath = Path.Combine(this.SfPath, "MVC", "Views", "Layouts");
+            int templatesCount = ServerOperationsFeather.TemplateOperations().GetTemplatesCount;
+            string folderPath = Path.Combine(ServerOperationsFeather.TemplateOperations().SfPath, "MVC", "Views", "Layouts");
 
             if (!Directory.Exists(folderPath))
             {
@@ -30,7 +31,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             string filePath = Path.Combine(folderPath, LayoutFileName);
             FeatherServerOperations.ResourcePackages().AddNewResource(LayoutFileResource, filePath);
-            Thread.Sleep(1000);
+            FeatherServerOperations.ResourcePackages().WaitForTemplatesCountToIncrease(templatesCount, TemplatesIncrement);            
         }
 
         [ServerArrangement]
@@ -48,7 +49,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            string filePath = Path.Combine(this.SfPath, "MVC", "Views", "Layouts", LayoutFileName);
+            string filePath = Path.Combine(ServerOperationsFeather.TemplateOperations().SfPath, "MVC", "Views", "Layouts", LayoutFileName);
 
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Templates().DeletePageTemplate(TemplateTitle);
@@ -59,13 +60,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "FeatherPage";
         private const string LayoutFileResource = "Telerik.Sitefinity.Frontend.TestUtilities.Data.TestLayout.cshtml";
         private const string LayoutFileName = "TestLayout.cshtml";
-
-        private string SfPath
-        {
-            get
-            {
-                return System.Web.Hosting.HostingEnvironment.MapPath("~/");
-            }
-        }
+        private const int TemplatesIncrement = 1;
     }
 }
