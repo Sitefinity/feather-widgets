@@ -48,6 +48,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Enters the text to display.
         /// </summary>
         /// <param name="content">The content.</param>
+        /// <param name="tabIndex">Index of the tab.</param>
         public void EnterTextToDisplay(string content, int tabIndex)
         {
             HtmlInputText textToDisplay = EM.GenericContent
@@ -123,8 +124,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param textToDisplay="href">The href.</param>
         public void VerifyTestThisLinkAttributes(string textToDisplay, string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "target=_blank", "InnerText=" + textToDisplay)
-                .AssertIsPresent(textToDisplay + " or " + href + " was not present.");
+            ActiveBrowser.Find
+                         .ByExpression<HtmlAnchor>("href=" + href, "target=_blank", "InnerText=" + textToDisplay)
+                         .AssertIsPresent(textToDisplay + " or " + href + " was not present.");
         }
 
         /// <summary>
@@ -158,10 +160,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                    .ContentBlockLinkSelector
                                    .AnchorSelector
                                    .AssertIsPresent("select anchor dropdown");
-            anchorSelector.SelectByValue(anchorName);
+            anchorSelector.SelectByText(anchorName);
             anchorSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             anchorSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
-            ActiveBrowser.WaitForAsyncOperations();
+        }
+
+        /// <summary>
+        /// Verifies the selected value in anchor dropdown.
+        /// </summary>
+        /// <param name="anchorName">Name of the anchor.</param>
+        public void VerifySelectedValueInAnchorDropdown(string anchorName)
+        {
+            var anchorSelector = EM.GenericContent
+                                   .ContentBlockLinkSelector
+                                   .AnchorSelector
+                                   .AssertIsPresent("select anchor dropdown");
+            Assert.IsTrue(anchorSelector.SelectedOption.Text.Equals(anchorName));
+        }
+
+        /// <summary>
+        /// Verifies the that how to insert an anchor link is visible.
+        /// </summary>
+        public void VerifyThatHowToInsertAnAnchorLinkIsVisible()
+        {
+            EM.GenericContent
+              .ContentBlockLinkSelector
+              .HowToInsertAnAnchorLink
+              .AssertIsPresent("How to insert an anchor");
         }
 
         /// <summary>
@@ -170,32 +195,47 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="content">The content.</param>
         public void EnterEmail(string content)
         {
-            HtmlInputText email = EM.GenericContent
-                                    .ContentBlockLinkSelector
-                                    .Email
-                                    .AssertIsPresent("email address");
+            HtmlInputEmail email = EM.GenericContent
+                                     .ContentBlockLinkSelector
+                                     .Email
+                                     .AssertIsPresent("email address");
 
             email.MouseClick();
 
+            email.Text = string.Empty;
             Manager.Current.Desktop.KeyBoard.TypeText(content);
         }
 
         /// <summary>
-        /// Verifies the correct email.
+        /// Verifies the correct email address.
         /// </summary>
         /// <param name="content">The content.</param>
-        public void VerifyInvalidEmailMessage(bool isSupposeMessageToAppear)
+        public void VerifyCorrectEmailAddress(string content)
         {
-            var label = EM.GenericContent
+            HtmlInputText emailAddress = EM.GenericContent
+                                            .ContentBlockLinkSelector
+                                            .Email
+                                            .AssertIsPresent("email address");
+
+            Assert.AreEqual(content, emailAddress.Text);
+        }
+
+        /// <summary>
+        /// Verifies the invalid email message visibility.
+        /// </summary>
+        /// <param name="isExpectedMessageToAppear">The expected message to appear.</param>
+        public void VerifyInvalidEmailMessage(bool isExpectedMessageToAppear)
+        {
+            var invalidEmailMessage = EM.GenericContent
             .ContentBlockLinkSelector
             .InvalidEmailMessage;
-            if (isSupposeMessageToAppear)
+            if (isExpectedMessageToAppear)
             {
-                Assert.IsNotNull(label, "label should appear!");
+                invalidEmailMessage.AssertIsPresent("invalid email message");
             }
             else
             {
-                Assert.IsNull(label, "label should not appear");
+                invalidEmailMessage.AssertIsNotVisible("invalid email message");
             }
         }
 
@@ -221,9 +261,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void CancelEditingLinkSelector()
         {
             HtmlButton cancelButton = EM.GenericContent
-                                            .ContentBlockLinkSelector
-                                            .CancelButton
-                                            .AssertIsPresent("Cancel");
+                                        .ContentBlockLinkSelector
+                                        .CancelButton
+                                        .AssertIsPresent("Cancel");
 
             cancelButton.Click();
             ActiveBrowser.WaitUntilReady();
@@ -234,7 +274,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Determines whether insert link is enabled.
         /// </summary>
         /// <returns></returns>
-        public bool IsInsertLinkEnabled()
+        public bool IsInsertLinkButtonEnabled()
         {
             HtmlButton insertLinkButton = EM.GenericContent
                                             .ContentBlockLinkSelector
@@ -250,8 +290,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="tabName">The name of the tab.</param>
         public void SwitchToSelectedTab(string tabName)
         {
-            HtmlDiv tabs = EM.GenericContent.ContentBlockLinkSelector.TabsNavigation
-                .AssertIsPresent("Navigation tabs");
+            HtmlDiv tabs = EM.GenericContent
+                             .ContentBlockLinkSelector
+                             .TabsNavigation
+                             .AssertIsPresent("Navigation tabs");
 
             HtmlControl tabLabel = tabs.ChildNodes.Where(n => n.InnerText.Contains(tabName)).FirstOrDefault().As<HtmlControl>();
             Assert.IsNotNull(tabLabel, "The tab label " + tabName + " was not found");

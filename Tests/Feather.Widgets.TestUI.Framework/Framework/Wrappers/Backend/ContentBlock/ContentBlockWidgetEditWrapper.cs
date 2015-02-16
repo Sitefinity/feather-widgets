@@ -33,7 +33,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Selects the content in editable area.
         /// </summary>
-        public void SelectContentInEditableArea()
+        public void SelectAllContentInEditableArea()
         {
             HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
                 .AssertIsPresent("Editable area");
@@ -44,6 +44,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
             Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+        }
+
+        /// <summary>
+        /// Selects the text in editable area.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void SelectTextInEditableArea(string text)
+        {
+            Browser frame = this.GetContentBlockFrame();
+
+            var content = frame.Find.ByExpression<HtmlControl>("InnerText=" + text);
+
+            content.MouseClick(MouseClickType.LeftDoubleClick);
         }
 
         /// <summary>
@@ -211,11 +224,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="content">The content.</param>
         public void VerifyContentBlockTextDesignMode(string content)
         {
-            FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "javascript:\"\"", 1);
-            Browser frame = ActiveBrowser.Frames[frameInfo];
+            Browser frame = this.GetContentBlockFrame();
 
             var contentArea = frame.Find.AllByTagName("body").FirstOrDefault();
             Assert.AreEqual(content, contentArea.InnerText, "contents are not equal");
+        }
+ 
+        private Browser GetContentBlockFrame()
+        {
+            FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "javascript:\"\"", 1);
+            Browser frame = ActiveBrowser.Frames[frameInfo];
+            return frame;
         }
     }
 }
