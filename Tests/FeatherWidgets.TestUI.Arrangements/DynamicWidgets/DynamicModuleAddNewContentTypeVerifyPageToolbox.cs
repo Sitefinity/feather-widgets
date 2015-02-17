@@ -45,11 +45,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
+            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
         private const string DynamicWidgetMVCTitle = "Test Types MVC";
         private const string DynamicWidgetTitle = "Test Types";
+        private const string TransactionName = "Module Installations";
     }
 }

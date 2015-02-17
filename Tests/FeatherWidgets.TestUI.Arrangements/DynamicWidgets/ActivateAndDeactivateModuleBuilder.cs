@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.News().DeleteAllNews();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
+            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);
         }
 
         private const string ModuleName = "Press Release";
@@ -59,5 +59,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ContentBlockContent = "Test content";
         private const string WidgetCaption = "Navigation";
         private const string PlaceHolderId = "Body";
+        private const string TransactionName = "Module Installations";
     }
 }
