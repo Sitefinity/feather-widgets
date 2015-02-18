@@ -1,8 +1,3 @@
-<div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()">&times;</button>
-    <h3 class="modal-title">Image</h3>
-</div>
-
 <sf-image-field class="sf-Media--info modal-settings" sf-model="model.item.Id" sf-image="model.item" sf-provider="model.provider"></sf-image-field>
 
 <div class="modal-body">
@@ -35,70 +30,11 @@
         </div>
 
         <div class="form-group">
-            <label>Alignment</label><br />
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.alignment" value="None" checked="checked" />
-                <span class="icon-align icon-align-none"></span>
-                None
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.alignment" value="Left" />
-                <span class="icon-align icon-align-left"></span>
-                Left
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.alignment" value="Center" />
-                <span class="icon-align icon-align-center"></span>
-                Center
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.alignment" value="Right" />
-                <span class="icon-align icon-align-right"></span>
-                Right
-            </label>
-        </div>
-
-        <div class="form-group">
             <label>Image thumbnail</label>
             <div ng-include="thumbnailSizeTempalteUrl"></div>
         </div>
 
         <expander expander-title='More options'>
-            <p>Margins</p>
-            <div class="row row-xs">
-                <div class="col-xs-2">
-                    <label for="top">Top</label>
-                </div>
-                <div class="col-xs-2">
-                    <label for="right">Right</label>
-                </div>
-                <div class="col-xs-2">
-                    <label for="bottom">Bottom</label>
-                </div>
-                <div class="col-xs-2">
-                    <label for="left">Left</label>
-                </div>
-            </div>
-
-            <div class="row row-xs form-group">
-                <div class="col-xs-2">
-                    <input name="top" type="number" ng-model="model.margin.top" class="form-control"/>
-                </div>
-                <div class="col-xs-2">
-                    <input name="right" type="number" ng-model="model.margin.right" class="form-control"/>
-                </div>
-                <div class="col-xs-2">
-                    <input name="bottom" type="number" ng-model="model.margin.bottom" class="form-control"/>
-                </div>
-                <div class="col-xs-2">
-                    <input name="left" type="number" ng-model="model.margin.left" class="form-control" />
-                </div>
-                <div class="col-xs-2">
-                    <div class="m-top-xs">px</div>
-                </div>
-            </div>
-
-
             <div class="row">
                 <div class="col-xs-9">
                     <label>CSS classes</label>

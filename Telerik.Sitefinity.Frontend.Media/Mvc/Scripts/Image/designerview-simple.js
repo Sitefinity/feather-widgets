@@ -6,7 +6,7 @@
         $scope.feedback.showLoadingIndicator = true;
 
         $scope.$watch('model', function (newVal, oldVal) {
-            if (newVal !== oldVal && newVal && newVal[0]) {
+            if (newVal !== oldVal) {
                 $scope.properties.Item.PropertyValue = newVal.item;
                 $scope.properties.Title.PropertyValue = newVal.item.Title;
                 $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText;
