@@ -121,6 +121,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Mvc\Controllers\ImageController.cs" />
+    <Compile Include="Mvc\Models\Image\IImageModel.cs" />
+    <Compile Include="Mvc\Models\Image\ImageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
