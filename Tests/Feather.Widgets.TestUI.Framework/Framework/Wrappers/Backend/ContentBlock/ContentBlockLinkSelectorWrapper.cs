@@ -83,10 +83,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void VerifyTextToDisplayIsNotVisible(int tabIndex)
         {
-            EM.GenericContent
+            var textToDisplay = EM.GenericContent
               .ContentBlockLinkSelector
-              .TextToDisplay(tabIndex)
-              .AssertIsNull("text to display");
+              .TextToDisplay(tabIndex);
+            textToDisplay.AssertIsNotVisible("text to display");
         }
 
         /// <summary>
