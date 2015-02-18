@@ -120,9 +120,9 @@
     <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Mvc\Models\IImageModel.cs" />
-    <Compile Include="Mvc\Models\ImageModel.cs" />
     <Compile Include="Mvc\Controllers\ImageController.cs" />
+    <Compile Include="Mvc\Models\Image\IImageModel.cs" />
+    <Compile Include="Mvc\Models\Image\ImageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
