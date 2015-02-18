@@ -26,8 +26,8 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(SearchBoxWidget);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidget(SearchResultsWidget);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(SearchBoxWidget);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(SearchResultsWidget);
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().SelectSearchIndex(SearchIndexName);
