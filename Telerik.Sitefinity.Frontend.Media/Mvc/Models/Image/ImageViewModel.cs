@@ -13,6 +13,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
     /// </summary>
     public class ImageViewModel
     {
+        public ImageViewModel()
+        {
+            this.Item = new ItemViewModel(new Telerik.Sitefinity.Libraries.Model.Image());
+        }
+
+        public Guid Id { get; set; }
+
+        public string Markup { get; set; }
+
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
