@@ -2,12 +2,14 @@
 
     var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sfFields', 'sfSelectors']);
     angular.module('designer').requires.push('simpleViewModule');
-    designerModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sfMediaMarkupService', function ($scope, propertyService, mediaMarkupService) {
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'sfMediaMarkupService', function ($scope, propertyService, mediaMarkupService) {
         $scope.feedback.showLoadingIndicator = true;
 
         $scope.$watch('model', function (newVal, oldVal) {
             if (newVal !== oldVal && newVal && newVal[0]) {
                 $scope.properties.Item.PropertyValue = newVal.item;
+                $scope.properties.Title.PropertyValue = newVal.item.Title;
+                $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText;
             }
         });
 
