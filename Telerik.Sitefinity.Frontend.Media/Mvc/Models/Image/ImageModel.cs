@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 
-namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
 {
     /// <summary>
     ///     This class is used as a model for the image controller.

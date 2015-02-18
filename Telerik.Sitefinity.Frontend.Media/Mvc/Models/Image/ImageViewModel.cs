@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -34,6 +35,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <value>
         /// The item.
         /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
         public ItemViewModel Item { get; set; }
     }
 }

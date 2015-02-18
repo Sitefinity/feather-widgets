@@ -129,6 +129,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\Image\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Image\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Image\Image.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
