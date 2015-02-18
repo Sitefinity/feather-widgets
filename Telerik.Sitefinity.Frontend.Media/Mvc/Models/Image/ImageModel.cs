@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 {
@@ -13,7 +14,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         /// </summary>
         public ImageModel()
         {
+            
+        }
 
+        /// <inheritDoc/>
+        public ImageViewModel GetViewModel(){
+            return new ImageViewModel();
         }
     }
 }
