@@ -143,7 +143,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=btn btn-default dropdown-toggle ng-binding");
+                return this.Get<HtmlAnchor>("class=?btn-default dropdown-toggle ng-binding");
             }
         }
 
