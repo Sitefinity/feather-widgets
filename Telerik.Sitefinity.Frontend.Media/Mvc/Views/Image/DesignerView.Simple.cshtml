@@ -3,19 +3,19 @@
     <h3 class="modal-title">Image</h3>
 </div>
 
-<sf-image-field class="sf-Media--info modal-settings" sf-model="model.item.Id" sf-image="model.item" sf-provider="model.provider"></sf-image-field>
+<sf-image-field class="sf-Media--info modal-settings" sf-model="properties.Id.PropertyValue" sf-image="properties.Item.PropertyValue" sf-provider="properties.Provider.PropertyValue"></sf-image-field>
 
 <div class="modal-body">
     <form name="imageProperties">
-        <div class="form-group" ng-class="{ 'has-error' : !model.item.Title.Value }">
+        <div class="form-group" ng-class="{ 'has-error' : !properties.Title.PropertyValue.Value }">
             <label for="title">Title</label>
 
             <div class="row">
                 <div class="col-xs-8">
-                    <input class="form-control" name="title" type="text" ng-model="model.item.Title.Value" ng-required="true" />
+                    <input class="form-control" name="title" type="text" ng-model="properties.Title.PropertyValue.Value" ng-required="true" />
                 </div>
 
-                <div class="m-top-xs" ng-class="{'text-danger': model.item.Title.Value.length > 35}">{{model.item.Title.Value.length}}</div>
+                <div class="m-top-xs" ng-class="{'text-danger': properties.Title.PropertyValue.Value.length > 35}">{{properties.Title.PropertyValue.Value.length}}</div>
             </div>
 
             <div class="text-muted">Less than 35 characters are recommended</div>
@@ -26,9 +26,9 @@
             <label for="alternativeText">Alternative text</label>
             <div class="row">
                 <div class="col-xs-8">
-                    <input class="form-control" name="alternativeText" type="text" ng-model="model.item.AlternativeText.Value" />
+                    <input class="form-control" name="alternativeText" type="text" ng-model="properties.AlternativeText.PropertyValue.Value" />
                 </div>
-                <div class="m-top-xs" ng-class="{'text-danger': model.item.AlternativeText.Value.length>35}">{{model.item.AlternativeText.Value.length}}</div>
+                <div class="m-top-xs" ng-class="{'text-danger': properties.AlternativeText.PropertyValue.Value.length>35}">{{properties.AlternativeText.PropertyValue.Value.length}}</div>
             </div>
 
             <div class="text-muted">Less than 35 characters are recommended</div>
@@ -44,13 +44,13 @@
             <div class="row">
                 <div class="col-xs-9">
                     <label>CSS classes</label>
-                    <input class="form-control" type="text" ng-model="model.cssClass" />
+                    <input class="form-control" type="text" ng-model="properties.CssClass.PropertyValue" />
                 </div>
             </div>
         </expander>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary pull-left" ng-click="done()" ng-disabled="!model.item.Title.Value">Done</button>
+    <button type="button" class="btn btn-primary pull-left" ng-click="done()" ng-disabled="!properties.Title.PropertyValue.Value">Done</button>
     <button type="button" class="btn btn-link pull-left" ng-click="cancel()">Cancel</button>
 </div>
