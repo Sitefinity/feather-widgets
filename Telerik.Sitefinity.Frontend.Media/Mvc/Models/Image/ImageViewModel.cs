@@ -65,11 +65,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         public bool UseAsLink { get; set; }
 
         /// <summary>
-        /// Gets or sets the page identifier to use as link.
+        /// Gets or sets the page URL use as link.
         /// </summary>
         /// <value>
-        /// The page identifier to use as link.
+        /// The page URL use as link.
         /// </value>
-        public Guid PageIdToUseAsLink { get; set; }
+        public string PageUrlUseAsLink { get; set; }
     }
 }

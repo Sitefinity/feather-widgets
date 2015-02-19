@@ -2,6 +2,10 @@
 using System.Linq;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.DataResolving;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
@@ -60,6 +64,17 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             else
             {
                 viewModel.Item = new ItemViewModel(new SfImage());
+            }
+
+            if (this.UseAsLink && this.PageIdToUseAsLink != Guid.Empty) 
+            {
+                var pageManager = PageManager.GetManager();
+                var node = pageManager.GetPageNode(this.PageIdToUseAsLink);
+                if (node != null)
+                {
+                    var relativeUrl = DataResolver.Resolve(node, "URL");
+                    viewModel.PageUrlUseAsLink = UrlPath.ResolveUrl(relativeUrl, true);
+                }
             }
 
             return viewModel;
