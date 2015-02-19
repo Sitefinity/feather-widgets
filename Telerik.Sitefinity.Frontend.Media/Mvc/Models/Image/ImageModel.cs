@@ -28,12 +28,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <inheritdoc />
         public string ProviderName { get; set; }
 
+        /// <inheritdoc />
+        public string Title { get; set; }
+
+        /// <inheritdoc />
+        public string AlternativeText { get; set; }
+
+        /// <inheritdoc />
+        public string CssClass { get; set; }
+
         /// <inheritDoc/>
         public ImageViewModel GetViewModel()
         {
             var viewModel = new ImageViewModel()
             {
-                Markup = this.Markup
+                Markup = this.Markup,
+                Title = this.Title
             };
 
             if (this.Id != Guid.Empty)

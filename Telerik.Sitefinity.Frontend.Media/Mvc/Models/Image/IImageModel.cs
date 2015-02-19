@@ -37,6 +37,30 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         string ProviderName { get; set; }
 
         /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
+        string Title { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the alternative text.
+        /// </summary>
+        /// <value>
+        /// The alternative text.
+        /// </value>
+        string AlternativeText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the css class.
+        /// </summary>
+        /// <value>
+        /// The css class.
+        /// </value>
+        string CssClass { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns></returns>
