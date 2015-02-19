@@ -107,6 +107,42 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
+        /// Gets the anchor alert info container.
+        /// </summary>
+        /// <value>The anchor alert info container.</value>
+        public HtmlDiv AnchorAlertInfoContainer
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("class=alert alert-info", "role=alert");
+            }
+        }
+
+        /// <summary>
+        /// Gets the no anchors have been inserted text.
+        /// </summary>
+        /// <value>The no anchors have been inserted text.</value>
+        public HtmlSpan NoAnchorsHaveBeenInsertedText
+        {
+            get
+            {
+                return this.AnchorAlertInfoContainer.Find.ByExpression<HtmlSpan>("tagname=span", "InnerText=~No anchors have been inserted in the text.");
+            }
+        }
+
+        /// <summary>
+        /// Gets the how to insert an anchor link in empty anchor dialog.
+        /// </summary>
+        /// <value>The how to insert an anchor link in empty anchor dialog.</value>
+        public HtmlAnchor HowToInsertAnAnchorLinkInEmptyAnchorDialog
+        {
+            get
+            {
+                return this.AnchorAlertInfoContainer.Find.ByExpression<HtmlAnchor>("href=https://github.com/Sitefinity/feather/wiki/How-to-insert-an-anchor", "InnerText=How to insert an anchor?");
+            }
+        }
+
+        /// <summary>
         /// Gets the email.
         /// </summary>
         /// <value>The email.</value>

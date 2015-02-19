@@ -47,6 +47,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Deletes all content in editable area.
+        /// </summary>
+        public void DeleteAllContentInEditableArea()
+        {
+            this.SelectAllContentInEditableArea();
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+        }
+
+        /// <summary>
         /// Selects the text in editable area.
         /// </summary>
         /// <param name="text">The text.</param>
