@@ -16,9 +16,19 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             
         }
 
+        public Guid Id { get; set; }
+
+        public string Markup { get; set; }
+
+        public string ProviderName { get; set; }
+
         /// <inheritDoc/>
-        public ImageViewModel GetViewModel(){
-            return new ImageViewModel();
+        public ImageViewModel GetViewModel()
+        {
+            var viewModel = new ImageViewModel(this.Id, this.ProviderName);
+            viewModel.Markup = this.Markup;
+
+            return viewModel;
         }
     }
 }

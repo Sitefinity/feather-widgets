@@ -6,11 +6,15 @@
         $scope.feedback.showLoadingIndicator = true;
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
 
-        $scope.$watch('model', function (newVal, oldVal) {
+        $scope.$watch('model.item.Id', function (newVal, oldVal) {
             if (newVal !== oldVal) {
-                $scope.properties.Id.PropertyValue = newVal.item.Id;
-                $scope.properties.Title.PropertyValue = newVal.title;
-                $scope.properties.AlternativeText.PropertyValue = newVal.alternativeText;
+                $scope.properties.Id.PropertyValue = newVal;
+            }
+        });
+
+        $scope.$watch('model.provider', function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                $scope.properties.ProviderName.PropertyValue = newVal;
             }
         });
 
