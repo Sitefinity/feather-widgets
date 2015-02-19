@@ -16,10 +16,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             
         }
 
+        /// <inheritdoc />
         public Guid Id { get; set; }
 
+        /// <inheritdoc />
         public string Markup { get; set; }
 
+        /// <inheritdoc />
         public string ProviderName { get; set; }
 
         /// <inheritDoc/>
