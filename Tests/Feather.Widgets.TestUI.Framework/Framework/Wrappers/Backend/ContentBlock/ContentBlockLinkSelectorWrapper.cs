@@ -179,6 +179,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the anchor dropdown is not visible.
+        /// </summary>
+        public void VerifyAnchorDropdownIsNotVisible()
+        {
+            var anchorSelector = EM.GenericContent
+                                   .ContentBlockLinkSelector
+                                   .AnchorSelector;
+            anchorSelector.AssertIsNotVisible("anchor selector");                                 
+        }
+
+        /// <summary>
         /// Verifies the that how to insert an anchor link is visible.
         /// </summary>
         public void VerifyThatHowToInsertAnAnchorLinkIsVisible()
@@ -187,6 +198,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
               .ContentBlockLinkSelector
               .HowToInsertAnAnchorLink
               .AssertIsPresent("How to insert an anchor");
+        }
+
+        /// <summary>
+        /// Verifies the no anchors have been inserted dialog.
+        /// </summary>
+        public void VerifyNoAnchorsHaveBeenInsertedDialog()
+        {
+            EM.GenericContent
+              .ContentBlockLinkSelector
+              .NoAnchorsHaveBeenInsertedText
+              .AssertIsPresent("No anchors have been inserted");
+
+            EM.GenericContent
+             .ContentBlockLinkSelector
+             .HowToInsertAnAnchorLinkInEmptyAnchorDialog
+             .AssertIsPresent("How to insert an anchor");
         }
 
         /// <summary>
