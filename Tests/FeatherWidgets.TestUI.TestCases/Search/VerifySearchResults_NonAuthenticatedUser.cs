@@ -51,10 +51,10 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(NoResultsSearchText);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().PressEnter();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText2);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().PressEnter();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(1, SearchText2);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle2);
         }
