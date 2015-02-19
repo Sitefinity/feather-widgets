@@ -93,5 +93,20 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["Template"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Image size
+        /// </summary>
+        [ResourceEntry("ImageSize",
+            Value = "Image size",
+            Description = "phrase : ImageSize",
+            LastModified = "2015/02/19")]
+        public string ImageSize
+        {
+            get
+            {
+                return this["ImageSize"];
+            }
+        }
     }
 }
