@@ -91,9 +91,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         #region Actions
 
         /// <summary>
-        /// Indexes this instance.
+        /// Renders appropriate list view depending on the <see cref="TemplateName" />
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
         public ActionResult Index() 
         {
             var viewModel = this.Model.GetViewModel();
@@ -109,7 +111,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// Initializes the model.
         /// </summary>
         /// <returns>
-        /// The <see cref="INewsModel"/>.
+        /// The <see cref="IImageModel"/>.
         /// </returns>
         private IImageModel InitializeModel()
         {
