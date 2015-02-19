@@ -6,6 +6,16 @@
         $scope.feedback.showLoadingIndicator = true;
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
 
+        $scope.$watch('model.item.Title.Value', function (newVal, oldVal) {
+            if ($scope.model.item && $scope.model.item.Title && (oldVal === $scope.model.title || !$scope.model.title))
+                $scope.model.title = $scope.model.item.Title.Value;
+        });
+
+        $scope.$watch('model.item.AlternativeText.Value', function (newVal, oldVal) {
+            if ($scope.model.item && $scope.model.item.AlternativeText && (oldVal === $scope.model.alternativeText || !$scope.model.alternativeText))
+                $scope.model.alternativeText = $scope.model.item.AlternativeText.Value;
+        });
+
         $scope.$watch('model.item.Id', function (newVal, oldVal) {
             if (newVal !== oldVal) {
                 $scope.properties.Id.PropertyValue = newVal;
