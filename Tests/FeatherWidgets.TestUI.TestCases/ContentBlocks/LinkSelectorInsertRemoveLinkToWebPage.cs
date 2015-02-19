@@ -6,20 +6,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
     /// <summary>
-    /// LinkSelectorInsertLinkToWebPage test class.
+    /// LinkSelectorInsertRemoveLinkToWebPage test class.
     /// </summary>
     [TestClass]
-    public class LinkSelectorInsertLinkToWebPage_ : FeatherTestCase
+    public class LinkSelectorInsertRemoveLinkToWebPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test LinkSelectorInsertLinkToWebPage
+        /// UI test LinkSelectorInsertRemoveLinkToWebPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.LinkSelector)]
-        public void LinkSelectorInsertLinkToWebPage()        
+        public void LinkSelectorInsertRemoveLinkToWebPage()        
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
