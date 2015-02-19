@@ -20,8 +20,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="content">The content value</param>
         public void FillContentToContentBlockWidget(string content)
         {
-            HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
-                .AssertIsPresent("Editable area");
+            HtmlTableCell editable = EM.GenericContent
+                                       .ContentBlockWidget
+                                       .EditableArea
+                                       .AssertIsPresent("Editable area");
 
             editable.ScrollToVisible();
             editable.Focus();
@@ -35,8 +37,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SelectAllContentInEditableArea()
         {
-            HtmlTableCell editable = EM.GenericContent.ContentBlockWidget.EditableArea
-                .AssertIsPresent("Editable area");
+            HtmlTableCell editable = EM.GenericContent
+                                       .ContentBlockWidget
+                                       .EditableArea
+                                       .AssertIsPresent("Editable area");
             editable.ScrollToVisible();
             editable.Focus();
             editable.MouseClick();
@@ -74,9 +78,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="content">The content.</param>
         public void VerifyContentInHtmlEditableArea(string content)
         {
-            HtmlTextArea editable = EM.GenericContent.ContentBlockWidget.EditableHtmlArea
-                .AssertIsPresent("Html editable area");
+            HtmlTextArea editable = EM.GenericContent
+                                      .ContentBlockWidget
+                                      .EditableHtmlArea
+                                      .AssertIsPresent("Html editable area");
             Assert.AreEqual(content, editable.TextContent);
+        }
+
+        public void VerifyFullScreenMode(bool isActivated)
+        {
+            if (isActivated)
+            {
+                EM.GenericContent
+                  .ContentBlockWidget
+                  .ModalDialogFullScreenDiv
+                  .AssertIsPresent("Full screen");
+            }
+            else
+            {
+                EM.GenericContent
+                 .ContentBlockWidget
+                 .ModalDialogNotFullScreenDiv
+                 .AssertIsPresent("Not full screen");
+            }
         }
 
         /// <summary>
@@ -84,8 +108,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SaveChanges()
         {
-            HtmlButton saveButton = EM.GenericContent.ContentBlockWidget.SaveChangesButton
-            .AssertIsPresent("Save button");
+            HtmlButton saveButton = EM.GenericContent
+                                      .ContentBlockWidget
+                                      .SaveChangesButton
+                                      .AssertIsPresent("Save button");
             saveButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
@@ -96,8 +122,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void CreateContentLink()
         {
-            HtmlAnchor createContent = EM.GenericContent.ContentBlockWidget.CreateContent
-            .AssertIsPresent("Create content");
+            HtmlAnchor createContent = EM.GenericContent
+                                         .ContentBlockWidget
+                                         .CreateContent
+                                         .AssertIsPresent("Create content");
             createContent.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
@@ -110,15 +138,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="contentBlockName">Name of the content block.</param>
         public void SelectContentBlockInProvider(string providerName, string contentBlockName)
         {
-            HtmlAnchor selectProvider = EM.GenericContent.ContentBlockWidget.SelectProviderDropdown
-            .AssertIsPresent("Provider dropdown");
+            HtmlAnchor selectProvider = EM.GenericContent
+                                          .ContentBlockWidget
+                                          .SelectProviderDropdown
+                                          .AssertIsPresent("Provider dropdown");
             selectProvider.Click();
 
             var provider = ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=ng-binding", "InnerText=" + providerName).AssertIsPresent("Provider"); 
             provider.Click();
 
-            HtmlDiv sharedContentBlockList = EM.GenericContent.ContentBlockWidget.ContentBlockList
-           .AssertIsPresent("Shared content list");
+            HtmlDiv sharedContentBlockList = EM.GenericContent
+                                               .ContentBlockWidget
+                                               .ContentBlockList
+                                               .AssertIsPresent("Shared content list");
 
             var itemSpan = sharedContentBlockList.Find.ByExpression<HtmlSpan>("class=ng-binding", "InnerText=" + contentBlockName).AssertIsPresent("Content Block");
             itemSpan.Click();
@@ -130,8 +162,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void DoneSelectingButton()
         {
-            HtmlButton shareButton = EM.GenericContent.ContentBlockWidget.DoneSelectingButton
-            .AssertIsPresent("Done selecting button");
+            HtmlButton shareButton = EM.GenericContent
+                                       .ContentBlockWidget
+                                       .DoneSelectingButton
+                                       .AssertIsPresent("Done selecting button");
             shareButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
@@ -142,11 +176,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void AdvanceButtonSelecting()
         {
-            HtmlDiv contentBlockFooter = EM.GenericContent.ContentBlockWidget.ContentBlockWidgetFooter
-                .AssertIsPresent("Footer");
+            HtmlDiv contentBlockFooter = EM.GenericContent
+                                           .ContentBlockWidget
+                                           .ContentBlockWidgetFooter
+                                           .AssertIsPresent("Footer");
 
-            HtmlAnchor advanceButton = contentBlockFooter.Find.ByExpression<HtmlAnchor>("class=btn btn-default btn-xs m-top-xs ng-scope", "InnerText=Advanced")
-            .AssertIsPresent("Advance selecting button");
+            HtmlAnchor advanceButton = contentBlockFooter.Find
+                                                         .ByExpression<HtmlAnchor>("class=btn btn-default btn-xs m-top-xs ng-scope", "InnerText=Advanced")
+                                                         .AssertIsPresent("Advance selecting button");
 
             advanceButton.Click();
             ActiveBrowser.WaitUntilReady();
@@ -160,8 +197,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="isEnabled">Is social share buttons enabled</param>
         public void EnableSocialShareButtons(string isEnabled)
         {
-            HtmlInputText input = EM.GenericContent.ContentBlockWidget.EnableSocialSharing
-                .AssertIsPresent("Social share field");
+            HtmlInputText input = EM.GenericContent
+                                    .ContentBlockWidget
+                                    .EnableSocialSharing
+                                    .AssertIsPresent("Social share field");
 
             input.Wait.ForExists();
             input.ScrollToVisible();
@@ -183,8 +222,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenLinkSelector()
         {
-            HtmlAnchor createContent = EM.GenericContent.ContentBlockWidget.LinkSelector
-            .AssertIsPresent("link selector");
+            HtmlAnchor createContent = EM.GenericContent
+                                         .ContentBlockWidget
+                                         .LinkSelector
+                                         .AssertIsPresent("link selector");
             createContent.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
@@ -195,8 +236,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SwitchToHtmlView()
         {
-            HtmlButton htmlButton = EM.GenericContent.ContentBlockWidget.HtmlButton
-            .AssertIsPresent("html view");
+            HtmlButton htmlButton = EM.GenericContent
+                                      .ContentBlockWidget
+                                      .HtmlButton
+                                      .AssertIsPresent("html view");
             htmlButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
@@ -207,9 +250,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void SwitchToDesignView()
         {
-            HtmlButton designButton = EM.GenericContent.ContentBlockWidget.DesignButton
-            .AssertIsPresent("design view");
+            HtmlButton designButton = EM.GenericContent
+                                        .ContentBlockWidget
+                                        .DesignButton
+                                        .AssertIsPresent("design view");
             designButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Presses the full screen button.
+        /// </summary>
+        public void PressFullScreenButton()
+        {
+            HtmlAnchor createContent = EM.GenericContent
+                                         .ContentBlockWidget
+                                         .FullScreen
+                                         .AssertIsPresent("full screen");
+            createContent.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }
@@ -220,11 +279,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="title">The title.</param>
         public void PressSpecificButton(string title)
         {
-            HtmlAnchor createContent = ActiveBrowser.Find.ByExpression<HtmlAnchor>("title=" + title)
-            .AssertIsPresent(title);
+            HtmlAnchor createContent = ActiveBrowser.Find
+                                                    .ByExpression<HtmlAnchor>("title=" + title)
+                                                    .AssertIsPresent(title);
             createContent.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Verifies the count of all group buttons is correct.
+        /// </summary>
+        /// <param name="expectedCount">The expected count.</param>
+        public void VerifyCountOfAllGroupButtonsIsCorrect(int expectedCount)
+        {
+            var containers = EM.GenericContent
+                                        .ContentBlockWidget
+                                        .ButtonsContainers;
+            foreach (var container in containers)
+            {
+                if (container.IsVisible())
+                {
+                    var buttons = container.Find.AllByTagName("li");
+                    Assert.AreEqual(expectedCount, buttons.Count);
+                    break;
+                }
+            }
         }
 
         /// <summary>
