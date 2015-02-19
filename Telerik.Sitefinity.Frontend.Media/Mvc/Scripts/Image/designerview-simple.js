@@ -46,6 +46,32 @@
             }
         });
 
+        $scope.$watch('model.displayMode', function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                $scope.properties.DisplayMode.PropertyValue = newVal;
+            }
+        });
+
+        $scope.$watch('model.thumbnail', function (newVal, oldVal) {
+            if (!newVal) {
+                $scope.properties.ThumbnailName.PropertyValue = null;
+                $scope.properties.ThumbnailUrl.PropertyValue = null;
+            }
+            else {
+                $scope.properties.ThumbnailName.PropertyValue = newVal.name;
+                $scope.properties.ThumbnailUrl.PropertyValue = newVal.url;
+            }
+        }, true);
+
+        $scope.$watch('model.customSize', function (newVal, oldVal) {
+            if (!newVal) {
+                $scope.properties.CustomSize.PropertyValue = null;
+            }
+            else {
+                $scope.properties.CustomSize.PropertyValue = JSON.stringify(newVal);
+            }
+        }, true);
+
         propertyService.get()
             .then(function (data) {
                 if (data) {

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Modules.Libraries;
-using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
 {
@@ -71,5 +64,99 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// The page URL use as link.
         /// </value>
         public string PageUrlUseAsLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the Image will be displayed in its original size or in a thumbnail.
+        /// </summary>
+        /// <value>
+        /// The display mode.
+        /// </value>
+        public ImageDisplayMode DisplayMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the thumbnail.
+        /// </summary>
+        /// <value>
+        /// The name of the thumbnail.
+        /// </value>
+        public string ThumbnailName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the thumbnail URL.
+        /// </summary>
+        /// <value>
+        /// The thumbnail URL.
+        /// </value>
+        public string ThumbnailUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the size of the custom thumbnail that is selected.
+        /// </summary>
+        /// <value>
+        /// The size of the custom thumbnail serialized as JSON.
+        /// </value>
+        public CustomSizeModel CustomSize { get; set; }
+
+        /// <summary>
+        /// This class represents custom image size options.
+        /// </summary>
+        public class CustomSizeModel
+        {
+            /// <summary>
+            /// Gets or sets the method for resizing the image. Probable values are ResizeFitToAreaArguments or CropCropArguments.
+            /// </summary>
+            /// <value>
+            /// The method.
+            /// </value>
+            public string Method { get; set; }
+
+            /// <summary>
+            /// Gets or sets the maximum width. Relevant for ResizeFitToAreaArguments method.
+            /// </summary>
+            /// <value>
+            /// The maximum width.
+            /// </value>
+            public int? MaxWidth { get; set; }
+
+            /// <summary>
+            /// Gets or sets the maximum height. Relevant for ResizeFitToAreaArguments method.
+            /// </summary>
+            /// <value>
+            /// The maximum height.
+            /// </value>
+            public int? MaxHeight { get; set; }
+
+            /// <summary>
+            /// Gets or sets the width. Relevant for CropCropArguments method.
+            /// </summary>
+            /// <value>
+            /// The width.
+            /// </value>
+            public int? Width { get; set; }
+
+            /// <summary>
+            /// Gets or sets the height. Relevant for CropCropArguments method.
+            /// </summary>
+            /// <value>
+            /// The height.
+            /// </value>
+            public int? Height { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether to resize smaller images to bigger dimensions.
+            /// </summary>
+            /// <value>
+            ///   <c>true</c> if smaller images should be resizet to bigger dimensions; otherwise, <c>false</c>.
+            /// </value>
+            public bool? ScaleUp { get; set; }
+
+            /// <summary>
+            /// Gets or sets the image quality.
+            /// </summary>
+            /// <value>
+            /// The quality.
+            /// </value>
+            public ImageQuality? Quality { get; set; }
+        }
     }
 }
