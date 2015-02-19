@@ -1,3 +1,12 @@
 @model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image.ImageViewModel
 
-@Html.Raw(Model.Markup)
+@if (string.IsNullOrEmpty(Model.LinkedPageUrl))
+{
+    @Html.Raw(Model.Markup)
+}
+else
+{
+	<a href="@Model.LinkedPageUrl">
+        @Html.Raw(Model.Markup)
+    </a>
+}

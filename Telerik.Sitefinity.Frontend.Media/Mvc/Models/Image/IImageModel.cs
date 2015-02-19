@@ -61,6 +61,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to use image as link.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if should use image as link; otherwise, <c>false</c>.
+        /// </value>
+        bool UseAsLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets the page identifier to use as link.
+        /// </summary>
+        /// <value>
+        /// The page identifier to use as link.
+        /// </value>
+        Guid LinkedPageId { get; set; }
+
+        /// <summary>
         /// Gets or sets whether the Image will be displayed in its original size or in a thumbnail.
         /// </summary>
         /// <value>

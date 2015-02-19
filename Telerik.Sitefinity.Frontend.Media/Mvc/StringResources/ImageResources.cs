@@ -108,5 +108,51 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["ImageSize"];
             }
         }
+
+
+        /// <summary>
+        /// Gets phrase: This image is a link...
+        /// </summary>
+        [ResourceEntry("ImageIsLink",
+            Value = "This image is a link...",
+            Description = "phrase : This image is a link...",
+            LastModified = "2015/02/19")]
+        public string ImageIsLink
+        {
+            get
+            {
+                return this["ImageIsLink"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: To the image in its original size
+        /// </summary>
+        [ResourceEntry("ImageInOriginalSize",
+            Value = "To the image in its original size",
+            Description = "phrase : To the image in its original size",
+            LastModified = "2015/02/19")]
+        public string ImageInOriginalSize
+        {
+            get
+            {
+                return this["ImageInOriginalSize"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: To selected page...
+        /// </summary>
+        [ResourceEntry("SelectedPage",
+            Value = "To selected page...",
+            Description = "phrase : To selected page...",
+            LastModified = "2015/02/19")]
+        public string SelectedPage
+        {
+            get
+            {
+                return this["SelectedPage"];
+            }
+        }
     }
 }

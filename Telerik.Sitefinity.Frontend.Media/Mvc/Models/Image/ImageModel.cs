@@ -3,6 +3,10 @@ using System.Linq;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.DataResolving;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
@@ -39,6 +43,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         public string CssClass { get; set; }
 
         /// <inheritdoc />
+        public bool UseAsLink { get; set; }
+
+        /// <inheritdoc />
+        public Guid LinkedPageId { get; set; }
+
+        /// <inheritdoc />
         public ImageDisplayMode DisplayMode { get; set; }
 
         /// <inheritdoc />
@@ -71,6 +81,17 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             else
             {
                 viewModel.Item = new ItemViewModel(new SfImage());
+            }
+
+            if (this.UseAsLink && this.LinkedPageId != Guid.Empty) 
+            {
+                var pageManager = PageManager.GetManager();
+                var node = pageManager.GetPageNode(this.LinkedPageId);
+                if (node != null)
+                {
+                    var relativeUrl = node.GetFullUrl();
+                    viewModel.LinkedPageUrl = UrlPath.ResolveUrl(relativeUrl, true);
+                }
             }
 
             return viewModel;
