@@ -51,5 +51,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// The markup.
         /// </value>
         public string Markup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        public string CssClass { get; set; }
     }
 }

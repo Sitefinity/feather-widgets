@@ -39,6 +39,23 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the template that widget will be displayed.
+        /// </summary>
+        /// <value></value>
+        public string TemplateName
+        {
+            get
+            {
+                return this.templateName;
+            }
+
+            set
+            {
+                this.templateName = value;
+            }
+        }
+
         #region ICustomWidgetVisualization
 
         /// <summary>
@@ -71,6 +88,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #endregion
 
+        #region Actions
+
         /// <summary>
         /// Indexes this instance.
         /// </summary>
@@ -79,9 +98,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            return View("Image", viewModel);
+            return View(this.TemplateName, viewModel);
         }
 
+        #endregion
 
         #region Private methods
 
@@ -98,7 +118,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #endregion
 
+        #region Private fields and constants
 
+        private string templateName = "Image";
         private IImageModel model;
+
+        #endregion
     }
 }

@@ -1,3 +1,5 @@
 @model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image.ImageViewModel
 
-<img src="@Model.Item.Fields.MediaUrl" />
+<div class="@Model.CssClass">
+    <img src="@Model.Item.Fields.MediaUrl" />
+</div>

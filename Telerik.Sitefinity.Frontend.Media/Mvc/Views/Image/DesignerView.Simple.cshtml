@@ -1,3 +1,5 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
 <sf-image-field class="sf-Media--info modal-settings" sf-model="model.item.Id" sf-image="model.item" sf-provider="model.provider"></sf-image-field>
 
 <div class="modal-body">
@@ -34,12 +36,26 @@
             <div ng-include="thumbnailSizeTempalteUrl"></div>
         </div>
 
-        <expander expander-title='More options'>
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("Template")</label>
             <div class="row">
-                <div class="col-xs-9">
-                    <label>CSS classes</label>
-                    <input class="form-control" type="text" ng-model="model.cssClass" />
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames("Image", @"(?<viewName>^Image.*)$"))
+                        {
+                            <option value="@viewName"> @viewName</option>
+                        }
+                    </select>
                 </div>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label for="navCssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="navCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </form>
