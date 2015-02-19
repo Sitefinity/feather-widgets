@@ -229,7 +229,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var contentArea = frame.Find.AllByTagName("body").FirstOrDefault();
             Assert.AreEqual(content, contentArea.InnerText, "contents are not equal");
         }
- 
+
+        /// <summary>
+        /// Verifies the content block image design mode.
+        /// </summary>
+        /// <param name="src">The SRC.</param>
+        public void VerifyContentBlockImageDesignMode(string src)
+        {
+            Browser frame = this.GetContentBlockFrame();
+
+            var image = frame.Find.AllByTagName("img").FirstOrDefault().As<HtmlImage>();
+            Assert.AreEqual(src, image.Src, "src are not equal");
+        }
+
         private Browser GetContentBlockFrame()
         {
             FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "javascript:\"\"", 1);

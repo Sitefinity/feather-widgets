@@ -6,20 +6,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
     /// <summary>
-    /// LinkSelectorInsertLinkToWebPage test class.
+    /// LinkSelectorInsertRemoveLinkToWebPage test class.
     /// </summary>
     [TestClass]
-    public class LinkSelectorInsertLinkToWebPage_ : FeatherTestCase
+    public class LinkSelectorInsertRemoveLinkToWebPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test LinkSelectorInsertLinkToWebPage
+        /// UI test LinkSelectorInsertRemoveLinkToWebPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.LinkSelector)]
-        public void LinkSelectorInsertLinkToWebPage()        
+        public void LinkSelectorInsertRemoveLinkToWebPage()        
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -44,6 +44,16 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyCreatedLink(TextToDisplay, WebAddress);
+
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectAllContentInEditableArea();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().PressSpecificButton(RemoveHyperlink);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(TextToDisplay);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
 
         /// <summary>
@@ -70,5 +80,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         private const string TextToDisplay = "Test content";
         private const string WebAddress = "http://www.google.bg";
         private const int TabIndex = 1;
+        private const string RemoveHyperlink = "Remove hyperlink";
     }
 }

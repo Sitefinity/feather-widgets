@@ -198,6 +198,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " or " + href + " was not present.");
         }
 
+        /// <summary>
+        /// Verifies the created image link.
+        /// </summary>
+        /// <param name="src">The URL.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyCreatedImageLink(string src, string href)
+        {
+            var anchor = ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href).AssertIsPresent(href + " was not present.");
+            anchor.Find.ByExpression<HtmlImage>("src=" + src).AssertIsPresent(src + " was not present.");
+        }
+
         private bool WaitForSaveButton()
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();

@@ -15,8 +15,10 @@ namespace FeatherWidgets.TestUI
         /// UI test LinkSelectorInsertAnAnchor
         /// </summary>
         [TestMethod,
-        Owner("Sitefinity Team 7"),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        Owner(FeatherTeams.Team7),
+        TestCategory(FeatherTestCategories.PagesAndContent),
+        TestCategory(FeatherTestCategories.ContentBlock),
+        TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertAnAnchor()        
         {
             BAT.Macros().NavigateTo().Pages();

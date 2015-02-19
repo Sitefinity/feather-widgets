@@ -92,12 +92,13 @@
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedImage.cs" />
     <Compile Include="ContentBlocks\LinkSelectorInsertAnAnchor.cs" />
     <Compile Include="ContentBlocks\LinkSelectorInsertLinkToEmailAddress.cs" />
     <Compile Include="ContentBlocks\LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText.cs" />
     <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedText.cs" />
     <Compile Include="ContentBlocks\LinkSelectorEditInsertedLinkToWebPage.cs" />
-    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertRemoveLinkToWebPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
     <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />
