@@ -12,6 +12,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
     /// </summary>
     public interface IImageModel
     {
+        Guid Id { get; set; }
+
+        string Markup { get; set; }
+
+        string ProviderName { get; set; }
+
         /// <summary>
         /// Gets the view model.
         /// </summary>

@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
@@ -20,8 +21,23 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets")]
     public class ImageController : Controller, ICustomWidgetVisualization
     {
+        /// <summary>
+        /// Gets the Image widget model.
+        /// </summary>
+        /// <value>
+        /// The model.
+        /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public ImageViewModel ViewModel { get; set; }
+        public IImageModel Model
+        {
+            get
+            {
+                if (this.model == null)
+                    this.model = this.InitializeModel();
+
+                return this.model;
+            }
+        }
 
         #region ICustomWidgetVisualization
 
@@ -49,9 +65,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             get
             {
-                return (this.ViewModel == null || 
-                    this.ViewModel.Item == null || 
-                    this.ViewModel.Item.DataItem.Id == default(Guid));
+                return (this.Model.Id == Guid.Empty);
             }
         }
 
@@ -63,9 +77,28 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index() 
         {
-            this.ViewModel = new ImageModel().GetViewModel();
+            var viewModel = this.Model.GetViewModel();
 
-            return View("Image", this.ViewModel);
+            return View("Image", viewModel);
         }
+
+
+        #region Private methods
+
+        /// <summary>
+        /// Initializes the model.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="INewsModel"/>.
+        /// </returns>
+        private IImageModel InitializeModel()
+        {
+            return ControllerModelFactory.GetModel<IImageModel>(this.GetType());
+        }
+
+        #endregion
+
+
+        private IImageModel model;
     }
 }
