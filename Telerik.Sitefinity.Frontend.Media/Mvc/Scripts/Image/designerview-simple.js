@@ -7,77 +7,86 @@
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
 
         $scope.$watch('model.item.Title.Value', function (newVal, oldVal) {
-            if ($scope.model.item && $scope.model.item.Title && (oldVal === $scope.model.title || !$scope.model.title))
+            if ($scope.model && $scope.model.item && $scope.model.item.Title && (oldVal === $scope.model.title || !$scope.model.title))
                 $scope.model.title = $scope.model.item.Title.Value;
         });
 
         $scope.$watch('model.item.AlternativeText.Value', function (newVal, oldVal) {
-            if ($scope.model.item && $scope.model.item.AlternativeText && (oldVal === $scope.model.alternativeText || !$scope.model.alternativeText))
+            if ($scope.model && $scope.model.item && $scope.model.item.AlternativeText && (oldVal === $scope.model.alternativeText || !$scope.model.alternativeText))
                 $scope.model.alternativeText = $scope.model.item.AlternativeText.Value;
         });
 
-        $scope.$watch('model.item.Id', function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-                $scope.properties.Id.PropertyValue = newVal;
-            }
-        });
+        var updateModel = function () {
+            $scope.model = {
+                title: $scope.properties.Title.PropertyValue,
+                alternativeText: $scope.properties.AlternativeText.PropertyValue,
 
-        $scope.$watch('model.provider', function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-                $scope.properties.ProviderName.PropertyValue = newVal;
-            }
-        });
+                item: { Id: $scope.properties.Id.PropertyValue },
+                provider: $scope.properties.ProviderName.PropertyValue,
+                cssClass: $scope.properties.CssClass.PropertyValue,
+                displayMode: $scope.properties.DisplayMode.PropertyValue,
+                thumbnail: {
+                    name: $scope.properties.ThumbnailName.PropertyValue,
+                    url: $scope.properties.ThumbnailUrl.PropertyValue
+                },
 
-        $scope.$watch('model.title', function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-                $scope.properties.Title.PropertyValue = newVal;
-            }
-        });
+                customSize: $scope.properties.CustomSize.PropertyValue ? JSON.parse($scope.properties.CustomSize.PropertyValue) : null
+            };
+        };
 
-        $scope.$watch('model.alternativeText', function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-                $scope.properties.AlternativeText.PropertyValue = newVal;
-            }
-        });
+        var updateProperties = function () {
+            var savingPromise;
 
-        $scope.$watch('model.cssClass', function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-                $scope.properties.CssClass.PropertyValue = newVal;
-            }
-        });
-
-        $scope.$watch('model.displayMode', function (newVal, oldVal) {
-            if (newVal !== oldVal) {
-                $scope.properties.DisplayMode.PropertyValue = newVal;
-            }
-        });
-
-        $scope.$watch('model.thumbnail', function (newVal, oldVal) {
-            if (!newVal) {
-                $scope.properties.ThumbnailName.PropertyValue = null;
-                $scope.properties.ThumbnailUrl.PropertyValue = null;
-            }
+            if ($scope.model.customSize && $scope.model.customSize.Method)
+                savingPromise = mediaService.checkCustomThumbnailParams($scope.model.customSize.Method, $scope.model.customSize);
             else {
-                $scope.properties.ThumbnailName.PropertyValue = newVal.name;
-                $scope.properties.ThumbnailUrl.PropertyValue = newVal.url;
+                var defer = $q.defer();
+                defer.resolve('');
+                savingPromise = defer.promise;
             }
-        }, true);
 
-        $scope.$watch('model.customSize', function (newVal, oldVal) {
-            if (!newVal) {
-                $scope.properties.CustomSize.PropertyValue = null;
-            }
-            else {
-                $scope.properties.CustomSize.PropertyValue = JSON.stringify(newVal);
-            }
-        }, true);
+            return savingPromise.then(function (errorMessage) {
+                if ($scope.model.thumbnail && $scope.model.thumbnail.url) {
+                    return $scope.model.thumbnail.url;
+                }
+                else if ($scope.model.customSize && $scope.model.customSize.Method) {
+                    return mediaService.getCustomThumbnailUrl($scope.model.item.Id, $scope.model.customSize);
+                }
+                else {
+                    return '';
+                }
+            })
+            .then(function (thumbnailUrl) {
+                if (thumbnailUrl) {
+                    $scope.model.thumbnail = $scope.model.thumbnail || {};
+                    $scope.model.thumbnail.url = thumbnailUrl;
+                }
+
+                return mediaService.getLibrarySettings();
+            })
+            .then(function (settings) {
+                var wrapIt = true;
+                var markup = mediaMarkupService.image.markup($scope.model, settings, wrapIt);
+                $scope.properties.Markup.PropertyValue = markup;
+
+                $scope.properties.Id.PropertyValue = $scope.model.item ? $scope.model.item.Id : null;
+                $scope.properties.ProviderName.PropertyValue = $scope.model.provider;
+                $scope.properties.Title.PropertyValue = $scope.model.title;
+                $scope.properties.AlternativeText.PropertyValue = $scope.model.alternativeText;
+                $scope.properties.CssClass.PropertyValue = $scope.model.cssClass;
+                $scope.properties.DisplayMode.PropertyValue = $scope.model.displayMode;
+
+                $scope.properties.ThumbnailName.PropertyValue = $scope.model.thumbnail ? $scope.model.thumbnail.name : null;
+                $scope.properties.ThumbnailUrl.PropertyValue = $scope.model.thumbnail ? $scope.model.thumbnail.url : null;
+                $scope.properties.CustomSize.PropertyValue = JSON.stringify($scope.model.customSize);
+            });
+        };
 
         propertyService.get()
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
-                    var markup = $scope.properties.Markup.PropertyValue || '';
-                    $scope.model = mediaMarkupService.image.properties(markup);
+                    updateModel();
                 }
             },
             function (data) {
@@ -87,40 +96,7 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
-                    var savingPromise;
-
-                    if ($scope.model.customSize && $scope.model.customSize.Method)
-                        savingPromise = mediaService.checkCustomThumbnailParams($scope.model.customSize.Method, $scope.model.customSize);
-                    else {
-                        var defer = $q.defer();
-                        defer.resolve('');
-                        savingPromise = defer.promise;
-                    }
-
-                    return savingPromise.then(function (errorMessage) {
-                        if ($scope.model.thumbnail && $scope.model.thumbnail.url) {
-                            return $scope.model.thumbnail.url;
-                        }
-                        else if ($scope.model.customSize && $scope.model.customSize.Method) {
-                            return mediaService.getCustomThumbnailUrl($scope.model.item.Id, $scope.model.customSize);
-                        }
-                        else {
-                            return '';
-                        }
-                    })
-                    .then(function (thumbnailUrl) {
-                        if (thumbnailUrl) {
-                            $scope.model.thumbnail = $scope.model.thumbnail || {};
-                            $scope.model.thumbnail.url = thumbnailUrl;
-                        }
-
-                        return mediaService.getLibrarySettings();
-                    })
-                    .then(function (settings) {
-                        var wrapIt = true;
-                        var markup = mediaMarkupService.image.markup($scope.model, settings, wrapIt);
-                        $scope.properties.Markup.PropertyValue = markup;
-                    });
+                    return updateProperties();
                 });
             })
             .finally(function () {
