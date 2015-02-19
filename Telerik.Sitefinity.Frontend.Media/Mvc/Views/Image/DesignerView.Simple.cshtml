@@ -36,6 +36,20 @@
             <div ng-include="thumbnailSizeTempalteUrl"></div>
         </div>
 
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("Template")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames("Image", @"(?<viewName>^Image.*)$"))
+                        {
+                            <option value="@viewName"> @viewName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <expander expander-title='@Html.Resource("MoreOptions")'>
             <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
