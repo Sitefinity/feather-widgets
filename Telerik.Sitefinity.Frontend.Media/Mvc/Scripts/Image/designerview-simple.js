@@ -2,7 +2,7 @@
 
     var simpleViewModule = angular.module('simpleViewModule', ['expander', 'designer', 'kendo.directives', 'sfFields', 'sfSelectors']);
     angular.module('designer').requires.push('simpleViewModule');
-    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'sfMediaMarkupService', function ($scope, propertyService, serverContext, mediaMarkupService) {
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'sfMediaService', 'sfMediaMarkupService', '$q', function ($scope, propertyService, serverContext, mediaService, mediaMarkupService, $q) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
 
@@ -30,6 +30,44 @@
                 $scope.feedback.showError = true;
                 if (data)
                     $scope.feedback.errorMessage = data.Detail;
+            })
+            .then(function () {
+                $scope.feedback.savingHandlers.push(function () {
+                    var savingPromise;
+
+                    if ($scope.model.customSize && $scope.model.customSize.Method)
+                        savingPromise = mediaService.checkCustomThumbnailParams($scope.model.customSize.Method, $scope.model.customSize);
+                    else {
+                        var defer = $q.defer();
+                        defer.resolve('');
+                        savingPromise = defer.promise;
+                    }
+
+                    savingPromise.then(function (errorMessage) {
+                        if ($scope.model.thumbnail && $scope.model.thumbnail.url) {
+                            return $scope.model.thumbnail.url;
+                        }
+                        else if ($scope.model.customSize && $scope.model.customSize.Method) {
+                            return mediaService.getCustomThumbnailUrl($scope.model.item.Id, $scope.model.customSize);
+                        }
+                        else {
+                            return '';
+                        }
+                    })
+                    .then(function (thumbnailUrl) {
+                        if (thumbnailUrl) {
+                            $scope.model.thumbnail = $scope.model.thumbnail || {};
+                            $scope.model.thumbnail.url = thumbnailUrl;
+                        }
+
+                        return mediaService.getLibrarySettings();
+                    })
+                    .then(function (settings) {
+                        var wrapIt = true;
+                        var markup = mediaMarkupService.image.markup($scope.model, settings, wrapIt);
+                        $scope.properties.Markup.PropertyValue = markup;
+                    });
+                });
             })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;
