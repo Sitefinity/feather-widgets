@@ -139,6 +139,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             }
         }
 
+        /// <summary>
+        /// Verifies the created image link.
+        /// </summary>
+        /// <param name="src">The SRC.</param>
+        /// <param name="href">The href.</param>
+        /// <param name="isOpenInNewWindowChecked">The is open in new window checked.</param>
         public void VerifyCreatedImageLink(string src, string href, bool isOpenInNewWindowChecked = false)
         {
             if (isOpenInNewWindowChecked)

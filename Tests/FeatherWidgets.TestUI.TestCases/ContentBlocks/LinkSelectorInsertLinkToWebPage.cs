@@ -49,9 +49,11 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectAllContentInEditableArea();
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().PressSpecificButton("Remove hyperlink");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().PressSpecificButton(RemoveHyperlink);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToHtmlView();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentInHtmlEditableArea(TextToDisplay);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
 
         /// <summary>
@@ -78,5 +80,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         private const string TextToDisplay = "Test content";
         private const string WebAddress = "http://www.google.bg";
         private const int TabIndex = 1;
+        private const string RemoveHyperlink = "Remove hyperlink";
     }
 }
