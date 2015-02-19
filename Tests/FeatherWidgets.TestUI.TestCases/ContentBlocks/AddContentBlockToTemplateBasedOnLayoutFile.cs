@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();
             this.OpenTemplateEditor();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToSelectedPlaceHolder(WidgetName, PlaceHolder);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, PlaceHolder);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();

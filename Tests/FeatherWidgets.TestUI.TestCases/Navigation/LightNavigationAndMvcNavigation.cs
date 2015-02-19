@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetToSelectedPlaceHolder(WidgetName, PlaceHolder);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             string[] pages = new string[] { PageName, Page1, Page2 };
@@ -58,6 +58,5 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string ServerErrorMessage = "Server Error";
         private const string MvcNavClass = "nav navbar-nav";
         private const string LightNavClass = "sfNavHorizontal sfNavList";
-        private const string PlaceHolder = "Body";
     }
 }

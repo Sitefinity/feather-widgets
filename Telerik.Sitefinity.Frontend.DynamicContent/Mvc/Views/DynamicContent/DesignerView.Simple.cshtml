@@ -15,7 +15,7 @@
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay").Arrange(Model.ContentTypeDisplayNamePlural().ToLower())</h4>
-        <sf-provider-selector sf-manager-type='@Model.DynamicModuleName()'
+        <sf-provider-selector class="m-bottom-sm" sf-manager-type='@Model.DynamicModuleName()'
             sf-provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
         </sf-provider-selector>
@@ -105,7 +105,7 @@
 
 						<select class="form-control input-sm" ng-model="properties.CurrentlyOpenParentType.PropertyValue" ng-options="parentType.TypeName as parentType.DisplayName for parentType in parentTypes">
 						</select>
-						
+
 					</div>
 				}
 				<div class="radio">
@@ -124,7 +124,7 @@
                     </div>
 				</div>
             </div>
-            
+
 			<expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='@Model.ExpandNarrowSelection().ToString()' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
 				<div class="radio m-top-none">
 					<label for="allItems" class="full-width">

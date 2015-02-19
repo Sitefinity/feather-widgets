@@ -70,43 +70,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Add the widget by name
-        /// </summary>
-        /// <param name="widgetName">The widget name</param>
-        public void AddWidget(string widgetName)
-        {
-            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?RadDockZoneContentplaceholder1")
-                .AssertIsPresent<HtmlDiv>("RadDockZoneContentplaceholder1");
-
-            HtmlDiv widget = this.GetWidgetByName(widgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
-        }
-
-        /// <summary>
-        /// Add widget by name to certain placeholder.
+        /// Add widget by name to placeholder in pure mvc page.
         /// </summary>
         /// <param name="widgetName">The widget name.</param>
         /// <param name="placeHolder">The placeholder id.</param>
-        public void AddWidgetToSelectedPlaceHolder(string widgetName, string placeHolder)
-        {
-            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?" + placeHolder)
-               .AssertIsPresent<HtmlDiv>(placeHolder);
-
+        public void AddWidgetToPlaceHolderPureMvcMode(string widgetName, string placeHolder = "Contentplaceholder1")
+        {            
             HtmlDiv widget = this.GetWidgetByName(widgetName);
+
+            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
+               .AssertIsPresent<HtmlDiv>(placeHolder);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
         }
 
         /// <summary>
-        /// Adds Mvc widget to selected placeholder.
+        /// Adds Mvc widget to drop zone in hybrid mode page.
         /// </summary>
-        /// <param name="placeHolder">The placeholder id.</param>
-        public void AddMvcWidgetToSelectedPlaceHolder(string widgetName, string placeHolder = "Body")
+        public void AddMvcWidgetHybridModePage(string widgetName)
         {
-            HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("id=?" + placeHolder)
-               .AssertIsPresent<HtmlDiv>(placeHolder);
-
             HtmlDiv widget = this.GetMvcWidget(widgetName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget);
         }
 
         /// <summary>
