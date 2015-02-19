@@ -36,6 +36,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// </value>
         string ProviderName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the CSS class.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
         string CssClass { get; set; }
 
         /// <summary>
