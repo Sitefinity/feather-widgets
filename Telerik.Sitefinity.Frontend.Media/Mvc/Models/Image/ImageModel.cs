@@ -46,7 +46,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         public bool UseAsLink { get; set; }
 
         /// <inheritdoc />
-        public Guid PageIdToUseAsLink { get; set; }
+        public Guid LinkedPageId { get; set; }
 
         /// <inheritdoc />
         public ImageDisplayMode DisplayMode { get; set; }
@@ -83,14 +83,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 viewModel.Item = new ItemViewModel(new SfImage());
             }
 
-            if (this.UseAsLink && this.PageIdToUseAsLink != Guid.Empty) 
+            if (this.UseAsLink && this.LinkedPageId != Guid.Empty) 
             {
                 var pageManager = PageManager.GetManager();
-                var node = pageManager.GetPageNode(this.PageIdToUseAsLink);
+                var node = pageManager.GetPageNode(this.LinkedPageId);
                 if (node != null)
                 {
                     var relativeUrl = node.GetFullUrl();
-                    viewModel.PageUrlUseAsLink = UrlPath.ResolveUrl(relativeUrl, true);
+                    viewModel.LinkedPageUrl = UrlPath.ResolveUrl(relativeUrl, true);
                 }
             }
 

@@ -63,7 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <value>
         /// The page URL use as link.
         /// </value>
-        public string PageUrlUseAsLink { get; set; }
+        public string LinkedPageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets whether the Image will be displayed in its original size or in a thumbnail.

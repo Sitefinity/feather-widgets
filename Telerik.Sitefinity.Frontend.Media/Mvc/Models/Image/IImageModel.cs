@@ -74,7 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <value>
         /// The page identifier to use as link.
         /// </value>
-        Guid PageIdToUseAsLink { get; set; }
+        Guid LinkedPageId { get; set; }
 
         /// <summary>
         /// Gets or sets whether the Image will be displayed in its original size or in a thumbnail.
