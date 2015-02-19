@@ -12,10 +12,28 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
     /// </summary>
     public interface IImageModel
     {
+        /// <summary>
+        /// Gets or sets the image identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         Guid Id { get; set; }
 
+        /// <summary>
+        /// Gets or sets the markup.
+        /// </summary>
+        /// <value>
+        /// The markup.
+        /// </value>
         string Markup { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the provider.
+        /// </summary>
+        /// <value>
+        /// The name of the provider.
+        /// </value>
         string ProviderName { get; set; }
 
         /// <summary>
