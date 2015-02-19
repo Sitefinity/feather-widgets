@@ -31,6 +31,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <inheritdoc />
         public string Title { get; set; }
 
+        /// <inheritdoc />
+        public string AlternativeText { get; set; }
+
+        /// <inheritdoc />
+        public string CssClass { get; set; }
+
         /// <inheritDoc/>
         public ImageViewModel GetViewModel()
         {

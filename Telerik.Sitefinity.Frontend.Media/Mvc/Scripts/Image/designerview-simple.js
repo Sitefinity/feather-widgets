@@ -61,9 +61,6 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
-                    $scope.properties.ProviderName.PropertyValue = $scope.model.provider;
-                    $scope.properties.Id.PropertyValue = $scope.model.item.Id;
-
                     var savingPromise;
 
                     if ($scope.model.customSize && $scope.model.customSize.Method)
