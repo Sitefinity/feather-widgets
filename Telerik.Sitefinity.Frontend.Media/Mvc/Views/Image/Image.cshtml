@@ -1,8 +1,3 @@
 @model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image.ImageViewModel
 
-<div class="@Model.CssClass">
-    <img src="@Model.Item.Fields.MediaUrl" />
-</div>
-@Model.Title
-@Model.AlternativeText
-@Model.CssClass
+@Html.Raw(Model.Markup)

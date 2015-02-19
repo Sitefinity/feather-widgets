@@ -28,6 +28,24 @@
             }
         });
 
+        $scope.$watch('model.title', function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                $scope.properties.Title.PropertyValue = newVal;
+            }
+        });
+
+        $scope.$watch('model.alternativeText', function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                $scope.properties.AlternativeText.PropertyValue = newVal;
+            }
+        });
+
+        $scope.$watch('model.cssClass', function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                $scope.properties.CssClass.PropertyValue = newVal;
+            }
+        });
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -53,7 +71,7 @@
                         savingPromise = defer.promise;
                     }
 
-                    savingPromise.then(function (errorMessage) {
+                    return savingPromise.then(function (errorMessage) {
                         if ($scope.model.thumbnail && $scope.model.thumbnail.url) {
                             return $scope.model.thumbnail.url;
                         }
