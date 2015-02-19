@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules.Libraries;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
@@ -37,13 +38,29 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <inheritdoc />
         public string CssClass { get; set; }
 
+        /// <inheritdoc />
+        public ImageDisplayMode DisplayMode { get; set; }
+
+        /// <inheritdoc />
+        public string ThumbnailName { get; set; }
+
+        /// <inheritdoc />
+        public string ThumbnailUrl { get; set; }
+
+        /// <inheritdoc />
+        public string CustomSize { get; set; }
+
         /// <inheritDoc/>
         public ImageViewModel GetViewModel()
         {
             var viewModel = new ImageViewModel()
             {
                 Markup = this.Markup,
-                Title = this.Title
+                Title = this.Title,
+                DisplayMode = this.DisplayMode,
+                ThumbnailName = this.ThumbnailName,
+                ThumbnailUrl = this.ThumbnailUrl,
+                CustomSize = this.CustomSize != null ? new JavaScriptSerializer().Deserialize<ImageViewModel.CustomSizeModel>(this.CustomSize) : null
             };
 
             if (this.Id != Guid.Empty)

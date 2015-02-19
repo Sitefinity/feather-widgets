@@ -61,6 +61,38 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets whether the Image will be displayed in its original size or in a thumbnail.
+        /// </summary>
+        /// <value>
+        /// The display mode.
+        /// </value>
+        ImageDisplayMode DisplayMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the thumbnail.
+        /// </summary>
+        /// <value>
+        /// The name of the thumbnail.
+        /// </value>
+        string ThumbnailName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the thumbnail URL.
+        /// </summary>
+        /// <value>
+        /// The thumbnail URL.
+        /// </value>
+        string ThumbnailUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the size of the custom thumbnail that is selected.
+        /// </summary>
+        /// <value>
+        /// The size of the custom thumbnail serialized as JSON.
+        /// </value>
+        string CustomSize { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns></returns>
