@@ -78,5 +78,20 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Template
+        /// </summary>
+        [ResourceEntry("Template",
+            Value = "Template",
+            Description = "phrase : Template",
+            LastModified = "2015/02/19")]
+        public string Template
+        {
+            get
+            {
+                return this["Template"];
+            }
+        }
     }
 }
