@@ -2,7 +2,7 @@
 
 @if (string.IsNullOrEmpty(Model.PageUrlUseAsLink))
 {
-    Html.Raw(Model.Markup);  
+    @Html.Raw(Model.Markup);  
 }
 else
 {

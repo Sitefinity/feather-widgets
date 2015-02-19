@@ -89,7 +89,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 var node = pageManager.GetPageNode(this.PageIdToUseAsLink);
                 if (node != null)
                 {
-                    var relativeUrl = DataResolver.Resolve(node, "URL");
+                    var relativeUrl = node.GetFullUrl();
                     viewModel.PageUrlUseAsLink = UrlPath.ResolveUrl(relativeUrl, true);
                 }
             }
