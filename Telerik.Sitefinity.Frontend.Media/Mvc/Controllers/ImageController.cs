@@ -23,6 +23,23 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public ImageViewModel ViewModel { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the template that widget will be displayed.
+        /// </summary>
+        /// <value></value>
+        public string TemplateName
+        {
+            get
+            {
+                return this.templateName;
+            }
+
+            set
+            {
+                this.templateName = value;
+            }
+        }
+
         #region ICustomWidgetVisualization
 
         /// <summary>
@@ -65,7 +82,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             this.ViewModel = new ImageModel().GetViewModel();
 
-            return View("Image", this.ViewModel);
+            return View(this.TemplateName, this.ViewModel);
         }
+
+        private string templateName = "Image";
     }
 }

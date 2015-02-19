@@ -46,5 +46,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public ItemViewModel Item { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        public string CssClass { get; set; }
     }
 }

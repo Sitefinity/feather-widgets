@@ -1,6 +1,6 @@
 ﻿(function ($) {
 
-    var simpleViewModule = angular.module('simpleViewModule', ['designer', 'kendo.directives', 'sfFields', 'sfSelectors']);
+    var simpleViewModule = angular.module('simpleViewModule', ['expander', 'designer', 'kendo.directives', 'sfFields', 'sfSelectors']);
     angular.module('designer').requires.push('simpleViewModule');
     simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'sfMediaMarkupService', function ($scope, propertyService, serverContext, mediaMarkupService) {
         $scope.feedback.showLoadingIndicator = true;
