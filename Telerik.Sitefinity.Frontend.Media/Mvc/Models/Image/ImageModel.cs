@@ -37,6 +37,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <inheritdoc />
         public string CssClass { get; set; }
 
+        /// <inheritdoc />
+        public bool UseAsLink { get; set; }
+
+        /// <inheritdoc />
+        public Guid PageIdToUseAsLink { get; set; }
+
         /// <inheritDoc/>
         public ImageViewModel GetViewModel()
         {

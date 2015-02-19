@@ -55,5 +55,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// The css class.
         /// </value>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use image as link.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if should use image as link; otherwise, <c>false</c>.
+        /// </value>
+        public bool UseAsLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets the page identifier to use as link.
+        /// </summary>
+        /// <value>
+        /// The page identifier to use as link.
+        /// </value>
+        public Guid PageIdToUseAsLink { get; set; }
     }
 }

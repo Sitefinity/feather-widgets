@@ -32,6 +32,19 @@
         </div>
 
         <div class="form-group">
+            <label><input type="checkbox" ng-model="properties.UseAsLink.PropertyValue" /> @Html.Resource("ImageIsLink")
+            </label>
+            
+            <div ng-show="properties.UseAsLink.PropertyValue">
+                <input type="radio" ng-model="model.openOriginalImageOnClick" value="true" /> @Html.Resource("ImageInOriginalSize")
+                <input type="radio" ng-model="model.openOriginalImageOnClick" value="false" /> @Html.Resource("SelectedPage")
+                <sf-list-selector
+                        sf-page-selector
+                        sf-selected-item-id="ng-model="properties.PageIdToUseAsLink.PropertyValue""></sf-list-selector>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label>@Html.Resource("ImageSize")</label>
             <div ng-include="thumbnailSizeTempalteUrl"></div>
         </div>
