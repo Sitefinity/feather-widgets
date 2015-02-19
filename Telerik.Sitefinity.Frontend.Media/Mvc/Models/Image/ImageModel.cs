@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Modules.Libraries;
+using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
 {
@@ -22,11 +25,26 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
 
         public string ProviderName { get; set; }
 
+        public string CssClass { get; set; }
+
         /// <inheritDoc/>
         public ImageViewModel GetViewModel()
         {
-            var viewModel = new ImageViewModel(this.Id, this.ProviderName);
-            viewModel.Markup = this.Markup;
+            var viewModel = new ImageViewModel()
+            {
+                Markup = this.Markup,
+                CssClass = this.CssClass
+            };
+
+            if (this.Id != Guid.Empty)
+            {
+                LibrariesManager librariesManager = LibrariesManager.GetManager(this.ProviderName);
+                viewModel.Item = new ItemViewModel(librariesManager.GetImages().Where(i => i.Id == this.Id).FirstOrDefault());
+            }
+            else
+            {
+                viewModel.Item = new ItemViewModel(new SfImage());
+            }
 
             return viewModel;
         }

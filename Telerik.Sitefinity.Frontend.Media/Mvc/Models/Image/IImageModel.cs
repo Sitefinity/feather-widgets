@@ -18,6 +18,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
 
         string ProviderName { get; set; }
 
+        string CssClass { get; set; }
+
         /// <summary>
         /// Gets the view model.
         /// </summary>

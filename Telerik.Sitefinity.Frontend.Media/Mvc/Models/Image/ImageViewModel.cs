@@ -16,26 +16,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
     public class ImageViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ImageViewModel"/> class.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        public ImageViewModel(Guid id, string providerName)
-        {
-            SfImage image;
-            if (id != Guid.Empty)
-            {
-                LibrariesManager librariesManager = LibrariesManager.GetManager(providerName);
-                image = librariesManager.GetImages().Where(i => i.Id == id).FirstOrDefault();
-            }
-            else
-            {
-                image = new SfImage();
-            }
-
-            this.Item = new ItemViewModel(image);
-        }
-
-        /// <summary>
         /// Gets or sets the item.
         /// </summary>
         /// <value>
