@@ -51,9 +51,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                     break;
             }
 
-            foreach (string page in pages)
+            for (int i = 0; i < pages.Count(); i++)
             {
-                navList.AssertContainsText<HtmlControl>(page, "Navigation does not contain the expected page " + page);
+                Assert.IsTrue(navList.ChildNodes[i].InnerText.Contains(pages[i]), "Navigation child node does not contain the expected page: " + pages[i]);
             }
         }
 
