@@ -15,7 +15,7 @@
             }
                 // Cancel is selected with no image selected - close the designer
             else if (newVal === null) {
-                $scope.cancel();
+                $scope.$parent.cancel();
             }
         });
 
@@ -36,14 +36,6 @@
                 $scope.openOriginalImageOnClick = $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid()
             }
         }, true);
-
-        $scope.cancel = function () {
-            $scope.$parent.cancel();
-        };
-
-        $scope.save = function (allTranslations) {
-            $scope.$parent.save(allTranslations);
-        };
 
         $scope.hasErrors = function () {
             return !$scope.properties.Title.PropertyValue || $scope.properties.Title.PropertyValue.length > 35 || $scope.properties.AlternativeText.PropertyValue.length > 35;
