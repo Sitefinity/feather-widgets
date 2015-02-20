@@ -138,15 +138,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                     var routeDataParams = this.HttpContext.Request.RequestContext.RouteData.Values["params"] as string[];
 
                     if (routeDataParams != null && routeDataParams.Contains(image.UrlName.Value))
-                    {
-                        this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
                         Telerik.Sitefinity.Web.RouteHelper.SetUrlParametersResolved();
-                        return;
-                    }
                 }
             }
 
-            base.HandleUnknownAction(actionName);
+            this.Index().ExecuteResult(this.ControllerContext);
         }
 
         #endregion
