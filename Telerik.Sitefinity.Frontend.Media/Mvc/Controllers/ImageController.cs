@@ -28,7 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public IImageModel Model
+        public virtual IImageModel Model
         {
             get
             {

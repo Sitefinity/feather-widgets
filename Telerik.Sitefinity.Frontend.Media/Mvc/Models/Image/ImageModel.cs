@@ -25,7 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// </summary>
         public ImageModel()
         {
-            
+
         }
 
         #endregion
@@ -74,6 +74,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         {
             var viewModel = new ImageViewModel()
             {
+                AlternativeText = this.AlternativeText,
+                CssClass = this.CssClass,
                 Title = this.Title,
                 DisplayMode = this.DisplayMode,
                 ThumbnailName = this.ThumbnailName,
@@ -85,20 +87,57 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             SfImage image;
             if (this.Id != Guid.Empty)
             {
-                LibrariesManager librariesManager = LibrariesManager.GetManager(this.ProviderName);
-                image = librariesManager.GetImages().Where(i => i.Id == this.Id).FirstOrDefault();
+                image = this.GetImage();
             }
             else
             {
                 image = new SfImage();
             }
 
-
             viewModel.Item = new ItemViewModel(image);
             viewModel.SelectedSizeUrl = this.GetSelectedSizeUrl(image);
             viewModel.LinkedContentUrl = GetLinkedUrl(image);
 
             return viewModel;
+        }
+
+        /// <summary>
+        /// Gets the image.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual SfImage GetImage()
+        {
+            LibrariesManager librariesManager = LibrariesManager.GetManager(this.ProviderName);
+            return librariesManager.GetImages().Where(i => i.Id == this.Id).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the selected size URL.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns></returns>
+        protected virtual string GetSelectedSizeUrl(SfImage image)
+        {
+            if (image.Id == Guid.Empty)
+                return string.Empty;
+
+            string imageUrl;
+            var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
+            if (this.DisplayMode == ImageDisplayMode.Thumbnail || !string.IsNullOrWhiteSpace(this.ThumbnailName))
+            {
+                imageUrl = image.ResolveThumbnailUrl(this.ThumbnailName, urlAsAbsolute);
+            }
+            else if (this.DisplayMode == ImageDisplayMode.Custom)
+            {
+                imageUrl = this.ThumbnailUrl;
+            }
+            else
+            {
+                var originalImageUrl = image.ResolveMediaUrl(urlAsAbsolute);
+                imageUrl = originalImageUrl;
+            }
+
+            return imageUrl;
         }
 
         #endregion
@@ -123,42 +162,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                     linkedUrl = UrlPath.ResolveUrl(relativeUrl, true);
                 }
             }
-            else if (this.UseAsLink && this.LinkedPageId == Guid.Empty) {
+            else if (this.UseAsLink && this.LinkedPageId == Guid.Empty)
+            {
                 linkedUrl = image.ResolveMediaUrl(true);
             }
 
             return linkedUrl;
         }
-
-        /// <summary>
-        /// Gets the selected size URL.
-        /// </summary>
-        /// <param name="image">The image.</param>
-        /// <returns></returns>
-        private string GetSelectedSizeUrl(SfImage image) 
-        {
-            if (image.Id == Guid.Empty)
-                return string.Empty;
-
-            string imageUrl;
-            var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
-            if (this.DisplayMode == ImageDisplayMode.Thumbnail || !string.IsNullOrWhiteSpace(this.ThumbnailName))
-            {
-                imageUrl = image.ResolveThumbnailUrl(this.ThumbnailName, urlAsAbsolute);
-            }
-            else if (this.DisplayMode == ImageDisplayMode.Custom)
-            {
-                imageUrl = this.ThumbnailUrl;
-            }
-            else
-            {
-                var originalImageUrl = image.ResolveMediaUrl(urlAsAbsolute);
-                imageUrl = originalImageUrl;
-            }
-
-            return imageUrl;
-        }
-
         #endregion
     }
 }
