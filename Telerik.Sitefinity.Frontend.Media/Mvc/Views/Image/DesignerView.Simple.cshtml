@@ -33,7 +33,7 @@
     <div class="form-group">
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="properties.UseAsLink.PropertyValue" ng-change="model.openOriginalImageOnClick=true" ng-true-value="'True'" ng-false-value="'False'" />
+                <input type="checkbox" ng-model="properties.UseAsLink.PropertyValue" ng-change="model.openOriginalImageOnClick=properties.UseAsLink.PropertyValue === 'True';" ng-true-value="'True'" ng-false-value="'False'" />
                 @Html.Resource("ImageIsLink")
             </label>
         </div>
