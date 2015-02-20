@@ -20,7 +20,7 @@
 
         $scope.$watch('model.item.Id', function (newVal, oldVal) {
             // If controller returns Empty guid - no image is selected
-            if (newVal === '00000000-0000-0000-0000-000000000000') {
+            if (newVal === serviceHelper.emptyGuid()) {
                 $scope.model.item = { Id: undefined };
             }
             // Cancel is selected with no image selected - close the designer
