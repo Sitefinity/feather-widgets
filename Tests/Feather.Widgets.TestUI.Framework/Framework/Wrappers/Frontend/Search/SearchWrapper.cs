@@ -48,6 +48,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Press Enter to activate search
+        /// </summary>
+        public void PressEnter()
+        {
+            HtmlButton searchButton = EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
+            searchButton.Focus();
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Enter);
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
+
+        /// <summary>
         /// Click search link
         /// </summary>
         public void ClickSearchLink()
@@ -106,7 +119,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             for (int i = 0; i < resultsList.Count(); i++)
             {
-                Assert.AreEqual(resultTitles[i], resultsList[i].ChildNodes[0].InnerText, "Expected: " + resultTitles[i] + " Actual: " + resultsList[i]);
+                Assert.AreEqual("h3", resultsList[i].ChildNodes[0].TagName, "First row is not h3");
+                Assert.AreEqual(resultTitles[i], resultsList[i].ChildNodes[0].InnerText);
+
+                Assert.AreEqual("p", resultsList[i].ChildNodes[1].TagName, "Second row is not paragraph");
+                Assert.IsTrue(resultsList[i].ChildNodes[1].InnerText.Contains(resultTitles[i].Replace(" ", "")));
+
+                //// if there is a page with widget displaying search result item, then a row with link exist on frontend
+                if (resultsList[i].ChildNodes.Count == 3)
+                {
+                    Assert.AreEqual("a", resultsList[i].ChildNodes[2].TagName, "Third row is not anchor");
+                    Assert.IsTrue(resultsList[i].ChildNodes[2].InnerText.Contains(resultTitles[i]));
+                }
             }
         }
     }

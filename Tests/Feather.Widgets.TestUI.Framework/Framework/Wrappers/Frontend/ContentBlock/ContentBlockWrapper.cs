@@ -138,5 +138,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " or " + href + " was not present.");
             }
         }
+
+        /// <summary>
+        /// Verifies the created image link.
+        /// </summary>
+        /// <param name="src">The SRC.</param>
+        /// <param name="href">The href.</param>
+        /// <param name="isOpenInNewWindowChecked">The is open in new window checked.</param>
+        public void VerifyCreatedImageLink(string src, string href, bool isOpenInNewWindowChecked = false)
+        {
+            if (isOpenInNewWindowChecked)
+            {
+                var anchor = ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "target=_blank").AssertIsPresent(href + " was not present.");
+                anchor.Find.ByExpression<HtmlImage>("src=" + src).AssertIsPresent(src + " was not present.");
+            }
+            else
+            {
+                var anchor = ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href).AssertIsPresent(href + " was not present.");
+                anchor.Find.ByExpression<HtmlImage>("src=" + src).AssertIsPresent(src + " was not present.");
+            }
+        }
     }
 }
