@@ -18,7 +18,23 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
         {
             get
             {
-                return this.model;
+                return this.model ?? base.Model;
+            }
+        }
+
+        protected override bool IsDesignMode
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        protected override string ImageWasNotSelectedOrHasBeenDeletedMessage
+        {
+            get
+            {
+                return "ImageWasNotSelectedOrHasBeenDeletedMessage";
             }
         }
     }

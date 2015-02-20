@@ -18,44 +18,32 @@ namespace FeatherWidgets.TestUnit.Media.Image
     {
         [TestMethod]
         [Owner("Manev")]
-        public void CreateImage_CallTheIndexAction_EnsuresTheDefaultViewIsReturned()
-        {
-            // Arrange
-            using (var controller = new ImageController())
-            {
-                // Act
-                var view = controller.Index() as ViewResult;
-
-                // Assert
-                Assert.AreEqual("Image", view.ViewName);
-                Assert.AreEqual(true, controller.IsEmpty);
-                Assert.AreEqual("Image", controller.TemplateName);
-                Assert.IsNotNull(view);
-            }
-        }
-
-        [TestMethod]
-        [Owner("Manev")]
         public void CreateImage_CallTheIndexAction_EnsuresDefaultModelPropertiesArePresented()
         {
             // Arrange
             using (var controller = new ImageController())
             {
                 // Act
-                var view = controller.Index() as ViewResult;
+                var view = controller.Index() as EmptyResult;
 
                 // Assert
-                Assert.IsNotNull(view.Model);
-                var imageModel = view.Model as ImageViewModel;
-                Assert.IsNotNull(imageModel);
-                Assert.IsNull(imageModel.AlternativeText);
-                Assert.IsNull(imageModel.CssClass);
-                Assert.IsNull(imageModel.CustomSize);
-                Assert.IsTrue(imageModel.DisplayMode == ImageDisplayMode.Original);
-                Assert.IsNull(imageModel.ThumbnailName);
-                Assert.IsNull(imageModel.ThumbnailUrl);
-                Assert.IsNull(imageModel.Title);
-                Assert.IsFalse(imageModel.UseAsLink);
+                Assert.IsNotNull(view);
+            }
+        }
+
+        [TestMethod]
+        [Owner("Manev")]
+        public void CreateImage_CallIndexAction_EnsuresImageWasNotSelectedOrHasBeenDeletedMessageDisplayed()
+        {
+            // Arrange
+            using (var controller = new DummyImageController(null))
+            {
+                // Act
+                var view = controller.Index() as ContentResult;
+
+                // Assert
+                Assert.IsNotNull(view);
+                Assert.IsTrue(view.Content == "ImageWasNotSelectedOrHasBeenDeletedMessage");
             }
         }
 
@@ -63,13 +51,15 @@ namespace FeatherWidgets.TestUnit.Media.Image
         [Owner("Manev")]
         public void CreateImageControllerWithProperties_CallTheIndexAction_EnsuresViewPropertiesArePresented()
         {
-            var testModel = new DummyImageModel
+            var image = new SfImage("App", new Guid("D4110267-C59C-4816-A080-64F59D9425DC"));
+
+            var testModel = new DummyImageModel(image)
             {
                 AlternativeText = "AlternativeText",
                 CssClass = "CssClass",
                 CustomSize = "{'MaxWidth':11,'MaxHeight':11,'Width':null,'Height':null,'ScaleUp':true,'Quality':'Medium','Method':'ResizeFitToAreaArguments'}",
                 DisplayMode = ImageDisplayMode.Thumbnail,
-                Id = Guid.Empty,
+                Id = new Guid("D4110267-C59C-4816-A080-64F59D9425DC"),
                 LinkedPageId = Guid.Empty,
                 ProviderName = "OpenAccessDefaultProvider",
                 ThumbnailName = "ThumbnailName",
