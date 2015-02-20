@@ -25,9 +25,21 @@
             }
             // Cancel is selected with no image selected - close the designer
             else if (newVal === null) {
-                $scope.$parent.cancel();
+                $scope.cancel();
             }
         });
+
+        $scope.cancel = function () {
+            $scope.$parent.cancel();
+        };
+
+        $scope.save = function (allTranslations) {
+            $scope.$parent.save(allTranslations);
+        };
+
+        $scope.hasErrors = function () {
+            return !$scope.model.title || $scope.model.title.length > 35 || $scope.model.alternativeText.length > 35;
+        };
 
         var updateModel = function () {
             $scope.model = {
