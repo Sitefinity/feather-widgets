@@ -60,7 +60,7 @@
 
             return savingPromise.then(function (errorMessage) {
                 if ($scope.properties.ThumbnailUrl.PropertyValue) {
-                    return $scope.properties.ThumbnailUrl.PropertyValue;
+                    return mediaService.getCustomThumbnailUrl($scope.properties.Id.PropertyValue, parsedCustomSize);
                 }
                 else if (parsedCustomSize && parsedCustomSize.Method) {
                     return mediaService.getCustomThumbnailUrl($scope.properties.Id.PropertyValue, parsedCustomSize);
