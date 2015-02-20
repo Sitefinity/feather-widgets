@@ -2,7 +2,9 @@
 
     var simpleViewModule = angular.module('simpleViewModule', ['expander', 'designer', 'kendo.directives', 'sfFields', 'sfSelectors']);
     angular.module('designer').requires.push('simpleViewModule');
-    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'serviceHelper', 'sfMediaService', 'sfMediaMarkupService', '$q', function ($scope, propertyService, serverContext, serviceHelper, mediaService, mediaMarkupService, $q) {
+
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'serviceHelper', 'sfMediaService', '$q', function ($scope, propertyService, serverContext, serviceHelper, mediaService, $q) {
+
         $scope.feedback.showLoadingIndicator = true;
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
 
@@ -18,7 +20,7 @@
 
         $scope.$watch('model.item.Id', function (newVal, oldVal) {
             // If controller returns Empty guid - no image is selected
-            if (newVal === '00000000-0000-0000-0000-000000000000') {
+            if (newVal === serviceHelper.emptyGuid()) {
                 $scope.model.item = { Id: undefined };
             }
             // Cancel is selected with no image selected - close the designer
@@ -80,8 +82,6 @@
             })
             .then(function (settings) {
                 var wrapIt = true;
-                var markup = mediaMarkupService.image.markup($scope.model, settings, wrapIt);
-                $scope.properties.Markup.PropertyValue = markup;
 
                 $scope.properties.Id.PropertyValue = $scope.model.item ? $scope.model.item.Id : null;
                 $scope.properties.ProviderName.PropertyValue = $scope.model.provider;
