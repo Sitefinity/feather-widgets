@@ -33,7 +33,7 @@
                 $scope.properties.CustomSize.PropertyValue = JSON.stringify(newVal.customSize);
                 $scope.properties.DisplayMode.PropertyValue = newVal.displayMode;
 
-                $scope.openOriginalImageOnClick = $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid()
+                $scope.openOriginalImageOnClick = $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid();
             }
         }, true);
 
