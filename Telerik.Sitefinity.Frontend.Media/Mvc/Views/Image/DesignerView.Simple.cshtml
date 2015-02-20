@@ -3,7 +3,7 @@
 <sf-image-field class="sf-Media--info modal-settings" sf-model="model.item.Id" sf-image="model.item" sf-provider="model.provider"></sf-image-field>
 
 <form name="imageProperties">
-    <div class="form-group" ng-class="{ 'has-error' : !model.title }">
+    <div class="form-group" ng-class="{ 'has-error' : hasErrors() }">
         <label for="title">Title</label>
 
         <div class="row">
@@ -89,3 +89,21 @@
         </div>
     </expander>
 </form>
+
+<script type="text/ng-template" section="modal-footer">
+	<button class="btn btn-primary pull-left" ng-disabled="hasErrors()" ng-click="save(false)">@Html.Resource("Save")</button>
+	<button class="btn btn-default pull-left" ng-disabled="hasErrors()" ng-click="save(true)" ng-hide="$parent.hideSaveAllTranslations">@Html.Resource("SaveAllTranslations")</button>
+	<a class="btn btn-link pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Cancel")</a>
+    
+    @{
+        var designerModel = ViewBag.DesignerModel != null ? ViewBag.DesignerModel as Telerik.Sitefinity.Frontend.Mvc.Models.IDesignerModel : null;
+    }
+
+    @if (designerModel != null && designerModel.Views.Count() > 1)
+	{
+        foreach (var view in designerModel.Views)
+		{
+			<a class="btn btn-default btn-xs m-top-xs" ng-hide="$parent.isCurrentView('@view')" href="#/@view">@Html.Resource(view, fallbackToKey: true)</a>
+		}
+	}
+</script>
