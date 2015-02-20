@@ -2,74 +2,90 @@
 
 <sf-image-field class="sf-Media--info modal-settings" sf-model="model.item.Id" sf-image="model.item" sf-provider="model.provider"></sf-image-field>
 
-<div class="modal-body">
-    <form name="imageProperties">
-        <div class="form-group" ng-class="{ 'has-error' : !model.title }">
-            <label for="title">Title</label>
+<form name="imageProperties">
+    <div class="form-group" ng-class="{ 'has-error' : !model.title }">
+        <label for="title">Title</label>
 
-            <div class="row">
-                <div class="col-xs-8">
-                    <input class="form-control" name="title" type="text" ng-model="model.title" ng-required="true" />
-                </div>
-
-                <div class="m-top-xs" ng-class="{'text-danger': model.title.length > 35}">{{model.title.length}}</div>
+        <div class="row">
+            <div class="col-xs-8">
+                <input class="form-control" name="title" type="text" ng-model="model.title" ng-required="true" />
             </div>
 
-            <div class="text-muted">Less than 35 characters are recommended</div>
-
-            <p class="text-danger" ng-show="imageProperties.title.$error.required">Title is required</p>
+            <div class="m-top-xs" ng-class="{'text-danger': model.title.length > 35}">{{model.title.length}}</div>
         </div>
-        <div class="form-group">
-            <label for="alternativeText">Alternative text</label>
-            <div class="row">
-                <div class="col-xs-8">
-                    <input class="form-control" name="alternativeText" type="text" ng-model="model.alternativeText" />
-                </div>
-                <div class="m-top-xs" ng-class="{'text-danger': model.alternativeText.length>35}">{{model.alternativeText.length}}</div>
+
+        <div class="text-muted">Less than 35 characters are recommended</div>
+
+        <p class="text-danger" ng-show="imageProperties.title.$error.required">Title is required</p>
+    </div>
+    <div class="form-group">
+        <label for="alternativeText">Alternative text</label>
+        <div class="row">
+            <div class="col-xs-8">
+                <input class="form-control" name="alternativeText" type="text" ng-model="model.alternativeText" />
             </div>
-
-            <div class="text-muted">Less than 35 characters are recommended</div>
+            <div class="m-top-xs" ng-class="{'text-danger': model.alternativeText.length>35}">{{model.alternativeText.length}}</div>
         </div>
 
-        <div class="form-group">
-            <label><input type="checkbox" ng-model="properties.UseAsLink.PropertyValue" ng-change="model.openOriginalImageOnClick=true" ng-true-value="'True'" ng-false-value="'False'" /> @Html.Resource("ImageIsLink")
+        <div class="text-muted">Less than 35 characters are recommended</div>
+    </div>
+
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="properties.UseAsLink.PropertyValue" ng-change="model.openOriginalImageOnClick=true" ng-true-value="'True'" ng-false-value="'False'" />
+                @Html.Resource("ImageIsLink")
             </label>
-            
-            <div ng-show="properties.UseAsLink.PropertyValue=='True'">
-                <input type="radio" ng-model="model.openOriginalImageOnClick" ng-value="true" /> @Html.Resource("ImageInOriginalSize")
-                <input type="radio" ng-model="model.openOriginalImageOnClick" ng-value="false" /> @Html.Resource("SelectedPage")
-                <sf-list-selector
-                        sf-page-selector
-                        sf-selected-item-id="properties.LinkedPageId.PropertyValue"></sf-list-selector>
+        </div>
+
+        <div ng-show="properties.UseAsLink.PropertyValue=='True'" class="label-content">
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="model.openOriginalImageOnClick" ng-value="true" /> @Html.Resource("ImageInOriginalSize")
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="model.openOriginalImageOnClick" ng-value="false" /> @Html.Resource("SelectedPage")
+                </label>
+            </div>
+            <sf-list-selector
+                    class="label-content"
+                    sf-page-selector
+                    sf-selected-item-id="properties.LinkedPageId.PropertyValue"
+                    ng-show="!model.openOriginalImageOnClick"></sf-list-selector>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>@Html.Resource("ImageSize")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <div ng-include="thumbnailSizeTempalteUrl"></div>
             </div>
         </div>
+    </div>
+
+    <div class="form-group">
+        <label for="templateName">@Html.Resource("Template")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames("Image", @"(?<viewName>^Image.*)$"))
+                    {
+                        <option value="@viewName"> @viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <style-dropdown selected-class="model.cssClass" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
         <div class="form-group">
-            <label>@Html.Resource("ImageSize")</label>
-            <div ng-include="thumbnailSizeTempalteUrl"></div>
+            <label for="imageCssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="imageCssClass" ng-model="model.cssClass" class="form-control" />
         </div>
-
-        <div class="form-group">
-            <label for="templateName">@Html.Resource("Template")</label>
-            <div class="row">
-                <div class="col-xs-6">
-                    <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames("Image", @"(?<viewName>^Image.*)$"))
-                        {
-                            <option value="@viewName"> @viewName</option>
-                        }
-                    </select>
-                </div>
-            </div>
-        </div>
-        
-        <expander expander-title='@Html.Resource("MoreOptions")'>
-            <style-dropdown selected-class="model.cssClass" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
-
-            <div class="form-group">
-                <label for="imageCssClass">@Html.Resource("CssClasses")</label>
-                <input type="text" id="imageCssClass" ng-model="model.cssClass" class="form-control" />
-            </div>
-        </expander>
-    </form>
-</div>
+    </expander>
+</form>
