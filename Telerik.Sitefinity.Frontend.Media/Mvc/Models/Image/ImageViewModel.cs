@@ -50,12 +50,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         public bool UseAsLink { get; set; }
 
         /// <summary>
-        /// Gets or sets the page URL use as link.
+        /// Gets or sets the content URL use as link.
         /// </summary>
         /// <value>
-        /// The page URL use as link.
+        /// The content URL use as link.
         /// </value>
-        public string LinkedPageUrl { get; set; }
+        public string LinkedContentUrl { get; set; }
 
         /// <summary>
         /// Gets or sets whether the Image will be displayed in its original size or in a thumbnail.
