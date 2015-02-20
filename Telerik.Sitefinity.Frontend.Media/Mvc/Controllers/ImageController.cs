@@ -7,10 +7,12 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
@@ -19,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Image widget.
     /// </summary>
     [Localization(typeof(ImageResources))]
-    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets", ModuleName = "Libraries")]
     public class ImageController : Controller, ICustomWidgetVisualization, IContentLocatableView
     {
         #region Properties
@@ -69,6 +71,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <value>
         /// The empty link text.
         /// </value>
+        [Browsable(false)]
         public string EmptyLinkText
         {
             get
@@ -83,6 +86,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <value>
         ///   <c>true</c> if widget has no image selected; otherwise, <c>false</c>.
         /// </value>
+        [Browsable(false)]
         public bool IsEmpty
         {
             get
@@ -163,7 +167,20 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            return View(this.TemplateName, viewModel);
+            if (viewModel.Item.DataItem!=null && viewModel.Item.DataItem.Id != Guid.Empty)
+            {
+                return View(this.TemplateName, viewModel);
+            }
+            else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode)
+            {
+                string errorMessage = Res.Get<ImageResources>().ImageWasNotSelectedOrHasBeenDeleted;
+
+                return Content(errorMessage);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
         }
 
         #endregion

@@ -23,7 +23,7 @@
             if (newVal === serviceHelper.emptyGuid()) {
                 $scope.model.item = { Id: undefined };
             }
-            // Cancel is selected with no image selected - close the designer
+                // Cancel is selected with no image selected - close the designer
             else if (newVal === null) {
                 $scope.$parent.cancel();
             }
@@ -100,7 +100,11 @@
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
-                    updateModel();
+                    mediaService.images.getById($scope.properties.Id.PropertyValue, $scope.properties.ProviderName.PropertyValue).then(function (data) {
+                        if (!data || !data.Item || !data.Item.Visible) {
+                            $scope.properties.Id.PropertyValue = serviceHelper.emptyGuid();
+                        }
+                    }).then(updateModel);
                 }
             },
             function (data) {

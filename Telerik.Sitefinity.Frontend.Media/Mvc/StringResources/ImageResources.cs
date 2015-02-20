@@ -154,5 +154,20 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["SelectedPage"];
             }
         }
+
+        /// <summary>
+        /// phrase: An image was not selected or has been deleted. Please select another one.
+        /// </summary>
+        [ResourceEntry("ImageWasNotSelectedOrHasBeenDeleted",
+            Value = "An image was not selected or has been deleted. Please select another one.",
+            Description = "This phrase is displayed when image was unpublished or has been deleted.",
+            LastModified = "2015/02/19")]
+        public string ImageWasNotSelectedOrHasBeenDeleted
+        {
+            get
+            {
+                return this["ImageWasNotSelectedOrHasBeenDeleted"];
+            }
+        }
     }
 }
