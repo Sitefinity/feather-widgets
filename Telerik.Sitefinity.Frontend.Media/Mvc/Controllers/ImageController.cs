@@ -100,7 +100,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            return View(this.TemplateName, viewModel);
+            if (viewModel.Item.DataItem.Id != Guid.Empty)
+            {
+                return View(this.TemplateName, viewModel);
+            }
+            else
+            {
+                return View(this.notFoundImageTemplate);
+            }
         }
 
         #endregion
@@ -123,6 +130,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         #region Private fields and constants
 
         private string templateName = "Image";
+        private string notFoundImageTemplate = "NotFoundImage";
         private IImageModel model;
 
         #endregion
