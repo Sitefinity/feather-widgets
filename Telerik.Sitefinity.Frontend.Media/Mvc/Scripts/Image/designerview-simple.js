@@ -70,6 +70,10 @@
                 }
             })
             .then(function (thumbnailUrl) {
+                if (thumbnailUrl) {
+                    $scope.properties.ThumbnailUrl.PropertyValue = thumbnailUrl;
+                }
+
                 return mediaService.getLibrarySettings();
             });
         };
