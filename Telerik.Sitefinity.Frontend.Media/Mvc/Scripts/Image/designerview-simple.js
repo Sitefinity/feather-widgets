@@ -2,7 +2,7 @@
 
     var simpleViewModule = angular.module('simpleViewModule', ['expander', 'designer', 'kendo.directives', 'sfFields', 'sfSelectors']);
     angular.module('designer').requires.push('simpleViewModule');
-    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'sfMediaService', 'sfMediaMarkupService', '$q', function ($scope, propertyService, serverContext, mediaService, mediaMarkupService, $q) {
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'serviceHelper', 'sfMediaService', 'sfMediaMarkupService', '$q', function ($scope, propertyService, serverContext, serviceHelper, mediaService, mediaMarkupService, $q) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
 
@@ -29,13 +29,16 @@
                     name: $scope.properties.ThumbnailName.PropertyValue,
                     url: $scope.properties.ThumbnailUrl.PropertyValue
                 },
-
+                openOriginalImageOnClick: $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid(),
                 customSize: $scope.properties.CustomSize.PropertyValue ? JSON.parse($scope.properties.CustomSize.PropertyValue) : null
             };
         };
 
         var updateProperties = function () {
             var savingPromise;
+            if ($scope.model.openOriginalImageOnClick || $scope.properties.UseAsLink.PropertyValue === 'False') {
+                $scope.properties.LinkedPageId.PropertyValue = null;
+            }
 
             if ($scope.model.customSize && $scope.model.customSize.Method)
                 savingPromise = mediaService.checkCustomThumbnailParams($scope.model.customSize.Method, $scope.model.customSize);
