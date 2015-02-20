@@ -100,11 +100,16 @@
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
-                    mediaService.images.getById($scope.properties.Id.PropertyValue, $scope.properties.ProviderName.PropertyValue).then(function (data) {
-                        if (!data || !data.Item || !data.Item.Visible) {
-                            $scope.properties.Id.PropertyValue = serviceHelper.emptyGuid();
-                        }
-                    }).then(updateModel);
+                    if ($scope.properties.Id.PropertyValue !== serviceHelper.emptyGuid()) {
+                        mediaService.images.getById($scope.properties.Id.PropertyValue, $scope.properties.ProviderName.PropertyValue).then(function (data) {
+                            if (!data || !data.Item || !data.Item.Visible) {
+                                $scope.properties.Id.PropertyValue = serviceHelper.emptyGuid();
+                            }
+                        }).then(updateModel);
+                    }
+                    else {
+                        updateModel();
+                    }
                 }
             },
             function (data) {
