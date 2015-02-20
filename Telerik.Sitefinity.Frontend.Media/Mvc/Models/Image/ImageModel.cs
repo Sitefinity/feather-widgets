@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
@@ -75,28 +76,32 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             var viewModel = new ImageViewModel()
             {
                 Title = this.Title,
+                AlternativeText = this.AlternativeText,
                 DisplayMode = this.DisplayMode,
                 ThumbnailName = this.ThumbnailName,
                 ThumbnailUrl = this.ThumbnailUrl,
                 CustomSize = this.CustomSize != null ? new JavaScriptSerializer().Deserialize<ImageViewModel.CustomSizeModel>(this.CustomSize) : null,
-                UseAsLink = this.UseAsLink
+                UseAsLink = this.UseAsLink,
+                CssClass = this.CssClass
             };
 
             SfImage image;
             if (this.Id != Guid.Empty)
             {
                 LibrariesManager librariesManager = LibrariesManager.GetManager(this.ProviderName);
-                image = librariesManager.GetImages().Where(i => i.Id == this.Id).FirstOrDefault();
+                image = librariesManager.GetImages().Where(i => i.Id == this.Id).Where(PredefinedFilters.PublishedItemsFilter<Telerik.Sitefinity.Libraries.Model.Image>()).FirstOrDefault();
+                if (image != null)
+                {
+                    viewModel.SelectedSizeUrl = this.GetSelectedSizeUrl(image);
+                    viewModel.LinkedContentUrl = GetLinkedUrl(image);
+                }
             }
             else
             {
                 image = new SfImage();
             }
 
-
             viewModel.Item = new ItemViewModel(image);
-            viewModel.SelectedSizeUrl = this.GetSelectedSizeUrl(image);
-            viewModel.LinkedContentUrl = GetLinkedUrl(image);
 
             return viewModel;
         }

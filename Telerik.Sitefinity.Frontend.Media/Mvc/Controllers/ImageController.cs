@@ -6,10 +6,12 @@ using System.Text;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
@@ -18,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Image widget.
     /// </summary>
     [Localization(typeof(ImageResources))]
-    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets", ModuleName = "Libraries")]
     public class ImageController : Controller, ICustomWidgetVisualization
     {
         /// <summary>
@@ -100,13 +102,19 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            if (viewModel.Item.DataItem.Id != Guid.Empty)
+            if (viewModel.Item.DataItem!=null && viewModel.Item.DataItem.Id != Guid.Empty)
             {
                 return View(this.TemplateName, viewModel);
             }
+            else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode)
+            {
+                string errorMessage = Res.Get<ImageResources>().ImageWasNotSelectedOrHasBeenDeleted;
+
+                return Content(errorMessage);
+            }
             else
             {
-                return View(this.notFoundImageTemplate);
+                return new EmptyResult();
             }
         }
 
@@ -130,7 +138,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         #region Private fields and constants
 
         private string templateName = "Image";
-        private string notFoundImageTemplate = "NotFoundImage";
         private IImageModel model;
 
         #endregion
