@@ -71,6 +71,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <value>
         /// The empty link text.
         /// </value>
+        [Browsable(false)]
         public string EmptyLinkText
         {
             get
@@ -85,6 +86,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <value>
         ///   <c>true</c> if widget has no image selected; otherwise, <c>false</c>.
         /// </value>
+        [Browsable(false)]
         public bool IsEmpty
         {
             get
