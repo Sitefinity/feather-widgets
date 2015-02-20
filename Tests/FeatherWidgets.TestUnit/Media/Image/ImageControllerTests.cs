@@ -35,8 +35,13 @@ namespace FeatherWidgets.TestUnit.Media.Image
         [Owner("Manev")]
         public void CreateImage_CallIndexAction_EnsuresImageWasNotSelectedOrHasBeenDeletedMessageDisplayed()
         {
+            var testModel = new DummyImageModel(null)
+            {
+                Id = new Guid("D4110267-C59C-4816-A080-64F59D9425DC"),
+            };
+
             // Arrange
-            using (var controller = new DummyImageController(null))
+            using (var controller = new DummyImageController(testModel))
             {
                 // Act
                 var view = controller.Index() as ContentResult;

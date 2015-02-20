@@ -191,7 +191,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             {
                 return View(this.TemplateName, viewModel);
             }
-            else if (this.IsDesignMode && !SystemManager.IsInlineEditingMode)
+            else if (!this.IsEmpty && this.IsDesignMode && !SystemManager.IsInlineEditingMode)
             {
                 return Content(this.ImageWasNotSelectedOrHasBeenDeletedMessage);
             }
