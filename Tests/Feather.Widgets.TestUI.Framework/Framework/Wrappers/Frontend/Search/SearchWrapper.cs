@@ -123,7 +123,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 Assert.AreEqual(resultTitles[i], resultsList[i].ChildNodes[0].InnerText);
 
                 Assert.AreEqual("p", resultsList[i].ChildNodes[1].TagName, "Second row is not paragraph");
-                Assert.IsTrue(resultsList[i].ChildNodes[1].InnerText.Contains(resultTitles[i].Replace(" ", "")));
+                Assert.IsTrue(resultsList[i].ChildNodes[1].InnerText.Contains(resultTitles[i].Replace(" ", string.Empty)));
 
                 //// if there is a page with widget displaying search result item, then a row with link exist on frontend
                 if (resultsList[i].ChildNodes.Count == 3)
