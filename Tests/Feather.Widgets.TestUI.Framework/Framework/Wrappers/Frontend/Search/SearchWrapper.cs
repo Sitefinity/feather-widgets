@@ -21,7 +21,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="searchText">search text</param>
         public void EnterSearchText(string searchText)
         {
-            HtmlInputText searchBox = EM.Search.SearchFrontend.SearchTextBox.AssertIsPresent("Search input field");
+            HtmlInputText searchBox = this.EM.Search.SearchFrontend.SearchTextBox.AssertIsPresent("Search input field");
             searchBox.Text = searchText;
         }
 
@@ -31,7 +31,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="searchText">search text</param>
         public void EnterSearchInput(string searchText)
         {
-            HtmlInputSearch searchBox = EM.Search.SearchFrontend.SearchInput.AssertIsPresent("Search input field");
+            HtmlInputSearch searchBox = this.EM.Search.SearchFrontend.SearchInput.AssertIsPresent("Search input field");
             searchBox.Text = searchText;
         }
 
@@ -40,7 +40,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void ClickSearchButton()
         {
-            HtmlButton searchButton = EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
+            HtmlButton searchButton = this.EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
             
             searchButton.Click();
             ActiveBrowser.WaitUntilReady();
@@ -52,7 +52,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void PressEnter()
         {
-            HtmlButton searchButton = EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
+            HtmlButton searchButton = this.EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
             searchButton.Focus();
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Enter);
 
@@ -65,7 +65,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void ClickSearchLink()
         {
-            HtmlAnchor searchButton = EM.Search.SearchFrontend.SearchLink.AssertIsPresent("Search link");
+            HtmlAnchor searchButton = this.EM.Search.SearchFrontend.SearchLink.AssertIsPresent("Search link");
 
             searchButton.Click();
             ActiveBrowser.WaitUntilReady();
@@ -77,7 +77,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void VerifySearchResultsLabel(int numberOfSearchResults, string searchText)
         {
-            HtmlContainerControl resultsLabelH1 = EM.Search.SearchFrontend.ResultsLabel.AssertIsPresent("Results label");
+            HtmlContainerControl resultsLabelH1 = this.EM.Search.SearchFrontend.ResultsLabel.AssertIsPresent("Results label");
 
             if (numberOfSearchResults == 0)
             {
@@ -95,7 +95,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="sortingOption">sorting option to select</param>
         public void SelectSortingOption(string sortingOption)
         {
-            HtmlSelect sortingOptionsDropdown = EM.Search.SearchFrontend.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown");
+            HtmlSelect sortingOptionsDropdown = this.EM.Search.SearchFrontend.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown");
             
             sortingOptionsDropdown.SelectByText(sortingOption);
             sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
@@ -111,7 +111,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="resultTitles">expected titles for search result</param>
         public void VerifySearchResultsList(params string[] resultTitles)
         {
-            IList<HtmlDiv> resultsList = EM.Search.SearchFrontend.ResultsDivList;
+            IList<HtmlDiv> resultsList = this.EM.Search.SearchFrontend.ResultsDivList;
             Assert.IsNotNull(resultsList, "Search results list is null");
             Assert.AreNotEqual(0, resultsList.Count, "Search results list has no elements");
 

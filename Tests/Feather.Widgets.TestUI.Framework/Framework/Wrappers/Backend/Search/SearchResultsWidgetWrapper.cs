@@ -19,7 +19,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Search
         /// <param name="sortingOption">sorting option name</param>
         public void SelectSortingOption(string sortingOption)
         {
-            HtmlSelect sortingOptionDropdown = EM.Search.SearchResultsWidgetEditScreen.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown");
+            HtmlSelect sortingOptionDropdown = this.EM.Search.SearchResultsWidgetEditScreen.SortingOptionsDropdown.AssertIsPresent("Sorting option dropdown");
 
             sortingOptionDropdown.SelectByText(sortingOption);
             sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
@@ -31,7 +31,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Search
         /// </summary>
         public void AllowUsersToSortResults()
         {
-            HtmlInputCheckBox allowUsersToSortResultCheckbox = EM.Search.SearchResultsWidgetEditScreen.AllowUsersToSortResultsCheckbox.AssertIsPresent("Frontend sorting checkbox");
+            HtmlInputCheckBox allowUsersToSortResultCheckbox = this.EM.Search.SearchResultsWidgetEditScreen.AllowUsersToSortResultsCheckbox.AssertIsPresent("Frontend sorting checkbox");
 
             allowUsersToSortResultCheckbox.Click();
         }
