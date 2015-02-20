@@ -18,14 +18,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         public ItemViewModel Item { get; set; }
 
         /// <summary>
-        /// Gets or sets the markup.
-        /// </summary>
-        /// <value>
-        /// The markup.
-        /// </value>
-        public string Markup { get; set; }
-
-        /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>
@@ -88,6 +80,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// The thumbnail URL.
         /// </value>
         public string ThumbnailUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected size URL.
+        /// </summary>
+        /// <value>
+        /// The selected size URL.
+        /// </value>
+        public string SelectedSizeUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the size of the custom thumbnail that is selected.

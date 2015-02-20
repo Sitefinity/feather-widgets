@@ -2,7 +2,7 @@
 
     var simpleViewModule = angular.module('simpleViewModule', ['expander', 'designer', 'kendo.directives', 'sfFields', 'sfSelectors']);
     angular.module('designer').requires.push('simpleViewModule');
-    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'sfMediaService', 'sfMediaMarkupService', '$q', function ($scope, propertyService, serverContext, mediaService, mediaMarkupService, $q) {
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', 'serverContext', 'sfMediaService', '$q', function ($scope, propertyService, serverContext, mediaService, $q) {
         $scope.feedback.showLoadingIndicator = true;
         $scope.thumbnailSizeTempalteUrl = serverContext.getEmbeddedResourceUrl('Telerik.Sitefinity.Frontend', 'client-components/selectors/media/sf-thumbnail-size-selection.html');
 
@@ -66,8 +66,6 @@
             })
             .then(function (settings) {
                 var wrapIt = true;
-                var markup = mediaMarkupService.image.markup($scope.model, settings, wrapIt);
-                $scope.properties.Markup.PropertyValue = markup;
 
                 $scope.properties.Id.PropertyValue = $scope.model.item ? $scope.model.item.Id : null;
                 $scope.properties.ProviderName.PropertyValue = $scope.model.provider;
