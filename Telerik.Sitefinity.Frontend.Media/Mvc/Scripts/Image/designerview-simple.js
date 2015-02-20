@@ -16,6 +16,17 @@
                 $scope.model.alternativeText = $scope.model.item.AlternativeText.Value;
         });
 
+        $scope.$watch('model.item.Id', function (newVal, oldVal) {
+            // If controller returns Empty guid - no image is selected
+            if (newVal === '00000000-0000-0000-0000-000000000000') {
+                $scope.model.item = { Id: undefined };
+            }
+            // Cancel is selected with no image selected - close the designer
+            else if (newVal === null) {
+                $scope.$parent.cancel();
+            }
+        });
+
         var updateModel = function () {
             $scope.model = {
                 title: $scope.properties.Title.PropertyValue,
