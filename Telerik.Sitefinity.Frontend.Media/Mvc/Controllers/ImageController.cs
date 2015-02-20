@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -21,8 +22,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ImageResources))]
     [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets", ModuleName = "Libraries")]
-    public class ImageController : Controller, ICustomWidgetVisualization
+    public class ImageController : Controller, ICustomWidgetVisualization, IContentLocatableView
     {
+        #region Properties
+
         /// <summary>
         /// Gets the Image widget model.
         /// </summary>
@@ -58,6 +61,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
         }
 
+        #endregion
+
         #region ICustomWidgetVisualization
 
         /// <summary>
@@ -86,6 +91,64 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             {
                 return (this.Model.Id == Guid.Empty);
             }
+        }
+
+        #endregion
+
+        #region IContentLocatableView
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
+        /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
+        /// </summary>
+        /// <value>The disable canonical URLs.</value>
+        public bool? DisableCanonicalUrlMetaTag
+        {
+            get
+            {
+                return this.disableCanonicalUrlMetaTag;
+            }
+            set
+            {
+                this.disableCanonicalUrlMetaTag = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        /// <returns>
+        /// List of location info of the content that this control is able to show.
+        /// </returns>
+        [NonAction]
+        public IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return this.Model.GetLocations();
+        }
+
+        /// <inheritDoc/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            string contentAction = HttpContext.Request.QueryString["sf-content-action"];
+            
+            if (contentAction != null && contentAction == "preview")
+            {
+                var image = Telerik.Sitefinity.Modules.Libraries.LibrariesManager.GetManager(this.Model.ProviderName).GetImages().FirstOrDefault(i => i.Id == this.Model.Id);
+
+                if (image != null)
+                {
+                    var routeDataParams = this.HttpContext.Request.RequestContext.RouteData.Values["params"] as string[];
+
+                    if (routeDataParams != null && routeDataParams.Contains(image.UrlName.Value))
+                    {
+                        this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
+                        Telerik.Sitefinity.Web.RouteHelper.SetUrlParametersResolved();
+                        return;
+                    }
+                }
+            }
+
+            base.HandleUnknownAction(actionName);
         }
 
         #endregion
@@ -139,6 +202,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         private string templateName = "Image";
         private IImageModel model;
+        private bool? disableCanonicalUrlMetaTag;
 
         #endregion
     }

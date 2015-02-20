@@ -148,6 +148,7 @@
     <Compile Include="Navigation\NavigationWidgetAllPagesUnderParticularPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAndContentBlockWidgetOnTheSamePage.cs" />
+    <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPages.cs" />
     <Compile Include="Navigation\NavigationWidgetFoundationResponsiveDesignTransformations.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetBootstrapResponsiveDesignTransformations.cs" />

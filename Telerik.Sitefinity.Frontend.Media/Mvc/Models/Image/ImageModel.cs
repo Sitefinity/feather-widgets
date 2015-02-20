@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.Libraries;
@@ -71,7 +73,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         #region Public Methods
 
         /// <inheritDoc/>
-        public ImageViewModel GetViewModel()
+        public virtual ImageViewModel GetViewModel()
         {
             var viewModel = new ImageViewModel()
             {
@@ -104,6 +106,20 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             viewModel.Item = new ItemViewModel(image);
 
             return viewModel;
+        }
+
+ 		/// <inheritDoc/>
+        public virtual IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            var location = new ContentLocationInfo();
+            location.ContentType = typeof(SfImage);
+            location.ProviderName = this.ProviderName;
+
+            var imageItem = LibrariesManager.GetManager(this.ProviderName).GetImage(this.Id);
+            var filterExpression = string.Format("(Id = {0} OR OriginalContentId = {1})", this.Id.ToString("D"), imageItem.OriginalContentId);
+            location.Filters.Add(new BasicContentLocationFilter(filterExpression));
+
+            return new[] { location };
         }
 
         #endregion

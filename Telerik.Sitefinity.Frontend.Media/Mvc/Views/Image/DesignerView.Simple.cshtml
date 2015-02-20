@@ -1,5 +1,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
+@Html.Script("http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js")
+
 <sf-image-field class="sf-Media--info modal-settings" sf-model="model.item.Id" sf-image="model.item" sf-provider="model.provider"></sf-image-field>
 
 <form name="imageProperties">
@@ -33,7 +35,7 @@
     <div class="form-group">
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="properties.UseAsLink.PropertyValue" ng-change="model.openOriginalImageOnClick=true" ng-true-value="'True'" ng-false-value="'False'" />
+                <input type="checkbox" ng-model="properties.UseAsLink.PropertyValue" ng-change="model.openOriginalImageOnClick=properties.UseAsLink.PropertyValue === 'True';" ng-true-value="'True'" ng-false-value="'False'" />
                 @Html.Resource("ImageIsLink")
             </label>
         </div>
