@@ -85,9 +85,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.AreEqual(content, editable.TextContent);
         }
 
-        public void VerifyFullScreenMode(bool isActivated)
+        /// <summary>
+        /// Verifies the full screen mode.
+        /// </summary>
+        /// <param name="isActivatedFullScreen">The is activated full screen.</param>
+        public void VerifyFullScreenMode(bool isActivatedFullScreen)
         {
-            if (isActivated)
+            if (isActivatedFullScreen)
             {
                 EM.GenericContent
                   .ContentBlockWidget
@@ -291,8 +295,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// Verifies the count of all group buttons is correct.
         /// </summary>
         /// <param name="expectedCount">The expected count.</param>
-        public void VerifyCountOfAllGroupButtonsIsCorrect(int expectedCount)
+        public void VerifyCountOfButtonsIsCorrect(int expectedCount)
         {
+            var count = 0;
+
+            //// For now there are two unordered lists, for design and html view, only one of them is visible
             var containers = EM.GenericContent
                                         .ContentBlockWidget
                                         .ButtonsContainers;
@@ -300,8 +307,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 if (container.IsVisible())
                 {
-                    var buttons = container.Find.AllByTagName("li");
-                    Assert.AreEqual(expectedCount, buttons.Count);
+                    var groupButtons = container.Find.AllByTagName("li");
+                    foreach (var element in groupButtons)
+                    {
+                        count = count + element.ChildNodes.Count();
+                    }
+                    Assert.AreEqual(expectedCount, count);
                     break;
                 }
             }
