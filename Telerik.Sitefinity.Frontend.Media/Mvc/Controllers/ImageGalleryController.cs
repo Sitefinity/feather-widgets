@@ -231,7 +231,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         }
 
         /// <summary>
-        /// Maps the route parameters from URL and returns true of the URL is a valid route.
+        /// Maps the route parameters from URL and returns true if the URL is a valid route.
         /// </summary>
         /// <param name="urlParams">The URL parameters.</param>
         /// <param name="requestContext">The request context.</param>
@@ -252,12 +252,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             {
                 return this.TryResolveParentFilterMode(urlParams, requestContext);
             }
-            
+
             return false;
         }
 
         /// <summary>
-        /// Tries the resolve parent filter mode.
+        /// Tries to resolve parent filter mode.
         /// </summary>
         /// <param name="urlParams">The URL params.</param>
         /// <param name="requestContext">The request context.</param>
