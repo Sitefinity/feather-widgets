@@ -244,8 +244,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         /// </summary>
         /// <value>Sort {0}</value>
         [ResourceEntry("SortItems",
-            Value = "Sort {0}",
-            Description = "Phrase: Sort {0}",
+            Value = "Sort images",
+            Description = "Phrase: Sort images",
             LastModified = "2015/02/23")]
         public string SortItems
         {
