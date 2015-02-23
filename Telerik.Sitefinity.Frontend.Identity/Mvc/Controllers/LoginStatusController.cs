@@ -10,7 +10,12 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
+using Telerik.Sitefinity.Mvc.ActionFilters;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -18,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Login Status widget.
     /// </summary>
     [Localization(typeof(LoginStatusResources))]
-    [ControllerToolboxItem(Name = "LoginStatus", Title = "Login Status", SectionName = "MvcWidgets", ModuleName = "Login")]
+    [ControllerToolboxItem(Name = "LoginStatus", Title = "Login Status", SectionName = "MvcWidgets")]
     public class LoginStatusController : Controller
     {
         #region Properties
@@ -83,7 +88,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult Index()
         {
             var viewModel = this.Model.GetViewModel();
+
             return this.View(this.TemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Returns JSON with the status of the user and his email, first and last names
+        /// </summary>
+        public ActionResult Status()
+        {
+            var response = this.Model.GetStatus();
+            
+            return this.Json(response, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
