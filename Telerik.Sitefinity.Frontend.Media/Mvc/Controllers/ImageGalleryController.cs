@@ -60,6 +60,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets or sets the id of the page where will be displayed details view for selected item.
+        /// </summary>
+        /// <value>The details page id.</value>
+        public Guid DetailsPageId { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
         /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
         /// </summary>
@@ -225,6 +231,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
         }
 
 
