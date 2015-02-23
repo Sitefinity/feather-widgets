@@ -248,7 +248,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             if (urlParams.Length == 0)
                 return false;
 
-            if (this.Model.ParentFilterMode == ParentFilterMode.CurrentlyOpen || true)
+            if (this.Model.ParentFilterMode == ParentFilterMode.CurrentlyOpen)
             {
                 return this.TryResolveParentFilterMode(urlParams, requestContext);
             }
