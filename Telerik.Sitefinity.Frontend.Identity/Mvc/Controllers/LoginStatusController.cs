@@ -24,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #region Properties
 
         /// <summary>
-        /// Gets the Image widget model.
+        /// Gets the Login Status widget model.
         /// </summary>
         /// <value>
         /// The model.
@@ -94,7 +94,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// Initializes the model.
         /// </summary>
         /// <returns>
-        /// The <see cref="IImageModel"/>.
+        /// The <see cref="ILoginStatusModel"/>.
         /// </returns>
         private ILoginStatusModel InitializeModel()
         {
