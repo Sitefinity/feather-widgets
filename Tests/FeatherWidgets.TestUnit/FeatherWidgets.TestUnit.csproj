@@ -128,6 +128,8 @@
     <Compile Include="DummyClasses\ContentBlock\DummyContentItem.cs" />
     <Compile Include="DummyClasses\DummyConfigProvider.cs" />
     <Compile Include="DummyClasses\Media\DummyImageController.cs" />
+    <Compile Include="DummyClasses\Media\DummyImageGalleryController.cs" />
+    <Compile Include="DummyClasses\Media\DummyImageGalleryModel.cs" />
     <Compile Include="DummyClasses\Media\DummyImageModel.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationController.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationModel.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="DummyClasses\SocialShare\DummySocialShareController.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Media\ImageGallery\ImageGalleryControllerTests.cs" />
     <Compile Include="Media\Image\ImageControllerTests.cs" />
     <Compile Include="Navigation\NavigationControllerTests.cs" />
     <Compile Include="Navigation\NavigationModelTests.cs" />
