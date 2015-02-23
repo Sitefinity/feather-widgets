@@ -4,6 +4,7 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Publishing;
 using Telerik.Sitefinity.Publishing.Configuration;
@@ -25,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
     {
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Creates a pure MVC template and page, based on the template, with content block widget, verifies the search result is correct")]
         [Ignore("Ignored, because it is unstable")]
         public void ContentBlock_PureMvcPageWithContentBlockWidget_VerifySearch()
@@ -56,7 +57,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Creates normal page (hybrid mode - web forms + MVC) with content block widget and verifies the search result is correct ")]
         [Ignore("Ignored, because it is unstable")]
         public void ContentBlock_PageWithContentBlockWidget_VerifySearch()

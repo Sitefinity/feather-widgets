@@ -4,6 +4,7 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
@@ -29,7 +30,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Adds 2 MVC dynamic widgets on page and add child relation to one of the widgets, then verify the filtering on the frontend")]
         public void DynamicWidgets_ChildRelationType_DisplayRelatedItemsOnFrontend()
         {
@@ -105,7 +106,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Adds 2 MVC dynamic widgets on page and add parent relation to one of the widgets, then verify the filtering on the frontend")]
         public void DynamicWidgets_ParentRelationType_DisplayRelatedItemsOnFrontend()
         {

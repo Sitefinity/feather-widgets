@@ -7,6 +7,7 @@ using ArtOfTest.WebAii.Controls.HtmlControls;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.News
 {
@@ -43,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test DragAndDropNewsWidgetOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Foundation)]
         public void DragAndDropNewsWidgetOnPageBasedOnFoundationTemplate()
         {
@@ -64,7 +65,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test DragAndDropNewsWidgetOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void DragAndDropNewsWidgetOnPageBasedOnSemanticUITemplate()
         {

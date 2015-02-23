@@ -10,6 +10,7 @@ using ArtOfTest.WebAii.Win32.Dialogs;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
@@ -44,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DuplicateNavigationWidgetFromPageFoundation
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void DuplicateNavigationWidgetFromPageFoundation()
@@ -65,7 +66,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DuplicateNavigationWidgetFromPageSemanticUI
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void DuplicateNavigationWidgetFromPageSemanticUI()

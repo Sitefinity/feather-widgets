@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.News
 {
@@ -44,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test NavigateDetailTemplateOfNewsOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnFoundationTemplate()
         {
@@ -68,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test NavigateDetailTemplateOfNewsOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnSemanticUITemplate()
         {
