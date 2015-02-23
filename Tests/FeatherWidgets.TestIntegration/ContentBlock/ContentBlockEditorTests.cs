@@ -1,6 +1,7 @@
 ﻿using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Web;
 

@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;

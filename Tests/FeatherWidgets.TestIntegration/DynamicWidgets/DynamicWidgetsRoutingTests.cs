@@ -10,6 +10,7 @@ using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;

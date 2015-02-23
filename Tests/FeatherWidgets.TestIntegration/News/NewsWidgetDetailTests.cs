@@ -6,6 +6,7 @@ using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.News.Mvc.Models;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.ActionFilters;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;

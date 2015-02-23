@@ -9,6 +9,7 @@ using MbUnit.Framework;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Builder;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Web.UI;
