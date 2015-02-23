@@ -168,7 +168,9 @@
     <EmbeddedResource Include="Mvc\Views\Image\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Image\Image.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\List.ThumbnailsList.cshtml" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Image\designerview-simple.js" />
