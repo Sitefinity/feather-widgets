@@ -6,12 +6,12 @@
 
 @Html.Script(ScriptRef.JQuery)
 
-<div class="sf-Gallery clearfix @Model.ListCssClass">
+<div class="sf-Gallery clearfix @Model.CssClass">
 
     @foreach (var item in Model.Items)
     {
 		<a @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id) class="pull-left text-center" href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)" title="@item.Fields.AlternativeText">
-			<img src="@item.Fields.MediaUrl" />
+			<img src="@item.Fields.ThumbnailUrl" />
 		</a>
     }
 
