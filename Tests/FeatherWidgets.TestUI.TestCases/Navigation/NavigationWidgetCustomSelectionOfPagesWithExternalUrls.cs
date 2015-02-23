@@ -16,6 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetCustomSelectionOfPagesWithExternalUrls in Bootstrap template
         /// </summary>
         [TestMethod,
+        Ignore,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Bootstrap)]
