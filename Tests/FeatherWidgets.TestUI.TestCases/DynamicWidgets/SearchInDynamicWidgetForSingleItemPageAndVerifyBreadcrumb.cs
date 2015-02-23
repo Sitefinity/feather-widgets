@@ -38,6 +38,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SearchItemByTitle(SearchText);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(SearchResultsCount);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().VerifyPageStatusAndIconAfterSearch(SearchText, "Published");
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().CheckBreadcrumbAfterSearchInFlatSelector(SearchText, ResultPageBreadcrumb);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(SearchText);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
