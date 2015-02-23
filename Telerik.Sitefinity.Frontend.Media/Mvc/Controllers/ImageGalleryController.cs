@@ -251,7 +251,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         internal const string AnyParentValue = "AnyParent";
 
         private IImageGalleryModel model;
-        private string listTemplateName;
+        private string listTemplateName = "Simple";
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName;
         private string detailTemplateNamePrefix = "Detail.";
