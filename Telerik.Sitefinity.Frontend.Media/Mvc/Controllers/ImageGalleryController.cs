@@ -70,6 +70,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
         /// </summary>
         /// <value>The disable canonical URLs.</value>
+        [Browsable(false)]
         public bool? DisableCanonicalUrlMetaTag
         {
             get
