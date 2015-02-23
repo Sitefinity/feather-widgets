@@ -38,7 +38,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("MoreOptions",
             Value = "More options",
             Description = "phrase : More options",
-            LastModified = "2015/02/19")]
+            LastModified = "2015/02/23")]
         public string MoreOptions
         {
             get
@@ -53,7 +53,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("CssClasses",
             Value = "CSS classes",
             Description = "phrase : CSS classes",
-            LastModified = "2015/02/19")]
+            LastModified = "2015/02/23")]
         public string CssClasses
         {
             get
@@ -261,7 +261,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("LastPublished",
             Value = "Last published",
             Description = "phrase : Last published",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string LastPublished
         {
             get
@@ -276,7 +276,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("LastModified",
             Value = "Last modified",
             Description = "phrase : Last modified",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string LastModified
         {
             get
@@ -291,7 +291,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("ByTitleAZ",
             Value = "By Title (A-Z)",
             Description = "phrase : By Title (A-Z)",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string ByTitleAZ
         {
             get
@@ -306,7 +306,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("ByTitleZA",
             Value = "By Title (Z-A)",
             Description = "phrase : By Title (Z-A)",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string ByTitleZA
         {
             get
@@ -322,7 +322,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("AsSetManually",
             Value = "As set manually",
             Description = "phrase: As set manually",
-            LastModified = "2015/01/13")]
+            LastModified = "2015/02/23")]
         public string AsSetManually
         {
             get
@@ -338,7 +338,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("AsSetInAdvancedMode",
             Value = "As set in Advanced mode",
             Description = "phrase: As set in Advanced mode",
-            LastModified = "2015/01/13")]
+            LastModified = "2015/02/23")]
         public string AsSetInAdvancedMode
         {
             get
@@ -353,7 +353,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("ListTemplate",
             Value = "List template",
             Description = "phrase : List template",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string ListTemplate
         {
             get
@@ -368,7 +368,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("SingleItemSettings",
             Value = "Single item settings",
             Description = "phrase : Single item settings",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string SingleItemSettings
         {
             get
@@ -383,7 +383,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("OpenSingleItem",
             Value = "Open single item in...",
             Description = "phrase : Open single item in...",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string OpenSingleItem
         {
             get
@@ -398,7 +398,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("ShowInSamePage",
             Value = "Auto-generated page",
             Description = "phrase : Auto-generated page (with the same layout as the list page)",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string ShowInSamePage
         {
             get
@@ -413,7 +413,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("DetailTemplate",
             Value = "Detail template",
             Description = "phrase : Detail template",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string DetailTemplate
         {
             get
@@ -428,7 +428,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("Content",
             Value = "Content",
             Description = "word: Content",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string Content
         {
             get
@@ -443,7 +443,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("ItemsToDisplay",
             Value = "Which images to display?",
             Description = "phrase : Which images to display?",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string ItemsToDisplay
         {
             get
@@ -458,7 +458,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("UseLimit",
             Value = "Use limit",
             Description = "phrase : Use limit",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string UseLimit
         {
             get
@@ -473,12 +473,27 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("ShowInExistingPage",
             Value = "Selected existing page...",
             Description = "phrase : Selected existing page...",
-            LastModified = "2014/11/06")]
+            LastModified = "2015/02/23")]
         public string ShowInExistingPage
         {
             get
             {
                 return this["ShowInExistingPage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets the Provider
+        /// </summary>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "Provider",
+            LastModified = "2015/02/23")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
             }
         }
         #endregion
