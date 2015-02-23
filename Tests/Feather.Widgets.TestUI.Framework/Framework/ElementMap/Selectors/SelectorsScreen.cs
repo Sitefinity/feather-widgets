@@ -126,5 +126,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
                 return this.Get<HtmlAnchor>("class=k-link", "innertext=~Selected");
             }
         }
+
+        /// <summary>
+        /// Get the page link.
+        /// </summary>
+        /// <param name="pageName">Name of the page.</param>
+        /// <returns></returns>
+        public HtmlAnchor PageLink(string pageName)
+        {
+            return this.Get<HtmlAnchor>("tagname=a", "ng-click=sfSelectItem({ dataItem: dataItem })", "innertext=~" + pageName);
+        }
+
+        /// <summary>
+        /// Get the page div.
+        /// </summary>
+        /// <param name="pageName">Name of the page.</param>
+        /// <returns></returns>
+        public HtmlDiv PageDiv(string pageName)
+        {
+            return this.Get<HtmlDiv>("tagname=div", "ng-click=itemClicked($index, item)", "innertext=~" + pageName);
+        }
     }
 }

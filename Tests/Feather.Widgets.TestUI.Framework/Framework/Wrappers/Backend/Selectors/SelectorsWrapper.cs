@@ -69,8 +69,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="name">The name.</param>
         public void AssertSingleItemIsSelectedInHierarchicalSelector(string name)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=active", "InnerText=~" + name, "ng-class=?'active': sfItemSelected({dataItem: dataItem})}")
-                                    .AssertIsPresent(name);
+            ActiveBrowser.Find
+                         .ByExpression<HtmlAnchor>("class=active", "InnerText=~" + name, "ng-class=?'active': sfItemSelected({dataItem: dataItem})}")
+                         .AssertIsPresent(name);
         }
 
         /// <summary>
@@ -80,8 +81,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="fullName">Full name of item with parents</param>
         public void CheckBreadcrumbAfterSearchInHierarchicalSelector(string name, string fullName)
         {
-            ActiveBrowser.Find.ByExpression<HtmlSpan>("InnerText=" + name, "sf-shrinked-breadcrumb=" + fullName)
-                                    .AssertIsPresent("Breadcrumb");
+            ActiveBrowser.Find
+                         .ByExpression<HtmlSpan>("InnerText=" + name, "sf-shrinked-breadcrumb=" + fullName)
+                         .AssertIsPresent("Breadcrumb");
         }
 
         /// <summary>
@@ -147,12 +149,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             if (divsCount > 12)
             {
                 HtmlControl itemsList = EM.Widgets
-                                     .WidgetDesignerContentScreen
-                                     .ItemsList
-                                     .AssertIsPresent("items list");
+                                          .WidgetDesignerContentScreen
+                                          .ItemsList
+                                          .AssertIsPresent("items list");
 
                 List<HtmlControl> itemDiv = itemsList.Find
-                                      .AllByExpression<HtmlControl>("class=~ng-scope list-group-item").ToList<HtmlControl>();
+                                                     .AllByExpression<HtmlControl>("class=~ng-scope list-group-item")
+                                                     .ToList<HtmlControl>();
                 divsCount = itemDiv.Count;
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
@@ -240,6 +243,36 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 Assert.AreEqual(expectedOrder[i], reorderedDivList[i].InnerText, expectedOrder[i] + " is not reordered correctly");
             }
+        }
+
+        /// <summary>
+        /// Verifies the page status and icon.
+        /// </summary>
+        /// <param name="pageName">Name of the page.</param>
+        /// <param name="status">The status.</param>
+        public void VerifyPageStatusAndIcon(string pageName, string status)
+        {
+            var pageLink = this.EM.Selectors.SelectorsScreen.PageLink(pageName).AssertIsPresent("page link");
+            string statusIconClass = "pull-left icon-item-" + status.ToString().ToLower();
+
+            pageLink.Find.ByExpression<HtmlContainerControl>("tagname=i", "class=" + statusIconClass).AssertIsPresent("icon");
+           
+            pageLink.Find.ByExpression<HtmlSpan>("tagname=span", "class=small text-muted ng-binding", "innertext=" + status).AssertIsPresent("status text");
+        }
+
+        /// <summary>
+        /// Verifies the page status and icon after search.
+        /// </summary>
+        /// <param name="pageName">Name of the page.</param>
+        /// <param name="status">The status.</param>
+        public void VerifyPageStatusAndIconAfterSearch(string pageName, string status)
+        {
+            var pageDiv = this.EM.Selectors.SelectorsScreen.PageDiv(pageName).AssertIsPresent("page link");
+            string statusIconClass = "pull-left icon-item-" + status.ToLower();
+
+            pageDiv.Find.ByExpression<HtmlContainerControl>("tagname=i", "class=" + statusIconClass).AssertIsPresent("icon");
+
+            pageDiv.Find.ByExpression<HtmlSpan>("tagname=span", "class=~u-db small ng-binding", "innertext=" + status).AssertIsPresent("status text");
         }
 
         private void SelectElementInTree(string itemName, HtmlDiv activeTab)
