@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E90A06CF-7889-4A32-A941-4FD76332C179}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FeatherWidgets.TestUI.TestCases</RootNamespace>
+    <AssemblyName>FeatherWidgets.TestUI.TestCases</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArtOfTest.WebAii, Version=2014.3.903.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Telerik.ArtOfTest.WebAii.2014.4.1211.0\lib\net40\ArtOfTest.WebAii.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>.\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework">
+      <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.0.4\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.TestUI.Core">
+      <HintPath>packages\Telerik.Sitefinity.TestUI.Core.1.0.4\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.TestUI.Framework">
+      <HintPath>packages\Telerik.Sitefinity.TestUI.Framework.1.0.6\lib\net45\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Sitefinity.TestUI.UIArrangement">
+      <HintPath>.\packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.0\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.TestUI.Core">
+      <HintPath>packages\Telerik.TestUI.Core.1.5.1\lib\net40\Telerik.TestUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WebAii.Controls.Html, Version=2014.3.903.0, Culture=neutral, PublicKeyToken=528163f3e645de45, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Telerik.WebAii.Controls.2014.4.1211.0\lib\net40\Telerik.WebAii.Controls.Html.dll</HintPath>
+    </Reference>
+    <Reference Include="UITests.Configuration">
+      <HintPath>packages\UITests.Core.1.6.1\lib\net45\UITests.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="UITests.Core">
+      <HintPath>packages\UITests.Core.1.6.1\lib\net45\UITests.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UITests.Web">
+      <HintPath>packages\UITests.Core.1.6.1\lib\net45\UITests.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfoShare\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
+    <Compile Include="ContentBlocks\AddContentBlockToTemplateBasedOnLayoutFile.cs" />
+    <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedImage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertAnAnchor.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToEmailAddress.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedText.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorEditInsertedLinkToWebPage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorInsertRemoveLinkToWebPage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetMultipleProviders.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetOnPageBasedOnPackageTemplate.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetVerifyPermissions.cs" />
+    <Compile Include="ContentBlocks\ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap.cs" />
+    <Compile Include="ContentBlocks\DeactivateContentBlockModule.cs" />
+    <Compile Include="ContentBlocks\DeleteContentBlockWidgetFromPage.cs" />
+    <Compile Include="ContentBlocks\DeleteSharedContentInUsedFromContentBlockWidgetOnPage.cs" />
+    <Compile Include="ContentBlocks\DuplicateContentBlockWidgetFromPage.cs" />
+    <Compile Include="ContentBlocks\EditContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\EditContentBlockWidgetViaInlineEditing.cs" />
+    <Compile Include="ContentBlocks\EditSharedContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\LinkSelectorLinkToPageFromThisSite.cs" />
+    <Compile Include="ContentBlocks\OldAndNewContentBlockWidgetOnTheSamePage.cs" />
+    <Compile Include="ContentBlocks\SeveralContentBlockWidgetsOnTheSamePage.cs" />
+    <Compile Include="ContentBlocks\ShareContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\ShareContentBlockWithoutTitleFromPage.cs" />
+    <Compile Include="ContentBlocks\UnshareContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
+    <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
+    <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
+    <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
+    <Compile Include="DynamicWidgets\EditDeleteTagAndEditDynamicWidget.cs" />
+    <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />
+    <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
+    <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
+    <Compile Include="DynamicWidgets\EditDynamicWidgetViaInlineEditing.cs" />
+    <Compile Include="DynamicWidgets\ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage.cs" />
+    <Compile Include="DynamicWidgets\FilterDynamicItemWithCustomTaxonomyOnPage.cs" />
+    <Compile Include="DynamicWidgets\FilterDynamicItemWithCategoryTagAndDateOnPage.cs" />
+    <Compile Include="DynamicWidgets\FilterDynamicItemWithCategoryOnPage.cs" />
+    <Compile Include="DynamicWidgets\InvalidateCacheWhenAddNewItem.cs" />
+    <Compile Include="DynamicWidgets\ReorderSelectedDynamicItems.cs" />
+    <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByTag.cs" />
+    <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategorySelectedTab.cs" />
+    <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategoryAllTab.cs" />
+    <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
+    <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
+    <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
+    <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
+    <Compile Include="Navigation\LightNavigationAndMvcNavigation.cs" />
+    <Compile Include="Navigation\NavigationWidgetAddChangeRemoveCSSClass.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllLevelsToInclude.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllPagesType.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllPagesUnderCurrentlyOpenedPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllPagesUnderParticularPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetAndContentBlockWidgetOnTheSamePage.cs" />
+    <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPages.cs" />
+    <Compile Include="Navigation\NavigationWidgetFoundationResponsiveDesignTransformations.cs" />
+    <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetBootstrapResponsiveDesignTransformations.cs" />
+    <Compile Include="Navigation\NavigationWidgetOnBootstrapTemplate.cs" />
+    <Compile Include="Navigation\NavigationWidgetOnFoundationTemplate.cs" />
+    <Compile Include="Navigation\NavigationWidgetOnSemanticTemplate.cs" />
+    <Compile Include="Navigation\NavigationWidgetSitemapTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetTabsTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="Navigation\NavigationWidgetVerifyPagePermissions.cs" />
+    <Compile Include="Navigation\NavigationWidgetVerticalTemplateWithOneLevelOnPage.cs" />
+    <Compile Include="News\AddNewsWidgetToPageVerifyViewPermissions.cs" />
+    <Compile Include="News\AddRelatedDataToNewsWidget.cs" />
+    <Compile Include="News\CheckSelectorsAfterUNPublishingNewsItem.cs" />
+    <Compile Include="News\ReorderSelectedNewsItems.cs" />
+    <Compile Include="News\ZActivateAndDeactivateNewsModule.cs" />
+    <Compile Include="News\ChangeSelectedSingleItemPage.cs" />
+    <Compile Include="News\FilterNewsItemFromDifferentProviderWithCategoryOnPage.cs" />
+    <Compile Include="News\SelectNewsItemFromDifferentProviderInNewsWidget.cs" />
+    <Compile Include="News\ExpandPagesAndSelectChildPageForSingleItemPage.cs" />
+    <Compile Include="News\FilterNewsItemWithCategoryTagAndDateOnPage.cs" />
+    <Compile Include="News\EditNewsWidgetOnPageBasedOnPackageTemplate.cs" />
+    <Compile Include="News\EditSelectedTagInNewsWidget.cs" />
+    <Compile Include="News\NavigateDetailTemplateOfNewsOnPage.cs" />
+    <Compile Include="News\NoResultsWhenSearchForSingleItemPage.cs" />
+    <Compile Include="News\OldAndNewNewsWidgetOnTheSamePage.cs" />
+    <Compile Include="News\SearchAndSelectNewsByCategorySelectedTab.cs" />
+    <Compile Include="News\SearchAndSelectNewsByCategoryAllTab.cs" />
+    <Compile Include="News\FilterNewsItemWithCategoryOnPage.cs" />
+    <Compile Include="News\SearchAndSelectNewsByTag.cs" />
+    <Compile Include="News\Load200TagsAndSearchInNewsWidget.cs" />
+    <Compile Include="News\DeleteTagAndEditNewsWidget.cs" />
+    <Compile Include="News\SearchForNotExistingTag.cs" />
+    <Compile Include="News\SearchForSingleItemPageAndVerifyBreadcrumb.cs" />
+    <Compile Include="News\SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="News\SelectAndUnselectMoreThanOneNewsItem.cs" />
+    <Compile Include="News\SelectNewsItemInNewsWidgetFromPage.cs" />
+    <Compile Include="News\DeleteNewsWidgetFromPage.cs" />
+    <Compile Include="News\DragAndDropNewsWidgetOnPage.cs" />
+    <Compile Include="News\DuplicateNewsWidgetFromPage.cs" />
+    <Compile Include="News\FilterNewsItemWithCustomTaxonomyOnPage.cs" />
+    <Compile Include="News\SelectSingleNewsPageAndVerifyFrontendPage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FeatherTestCase.cs" />
+    <Compile Include="FeatherTestCategories.cs" />
+    <Compile Include="Search\VerifySearchResults_BootstrapTemplate.cs" />
+    <Compile Include="Search\VerifySearchResults_FoundationTemplate.cs" />
+    <Compile Include="Search\VerifySearchResults_SemanticUITemplate.cs" />
+    <Compile Include="Search\VerifySearchResults_SortingOnFrontend.cs" />
+    <Compile Include="Search\VerifySearchResults_NonAuthenticatedUser.cs" />
+    <Compile Include="SocialShare\CheckAllOptionsInSocialShareWidget.cs" />
+    <Compile Include="SocialShare\CreateSocialShareWidgetTemplateAndCheckTheDesigner.cs" />
+    <Compile Include="SocialShare\EditSocialShareWidgetOnPageBasedOnBootstrapTemplate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Feather.Widgets.TestUI.Framework\Feather.Widgets.TestUI.Framework.csproj">
+      <Project>{bb0b3eee-e3fa-4e2c-a8d9-0de455ab84b7}</Project>
+      <Name>Feather.Widgets.TestUI.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
