@@ -32,8 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,14 +84,18 @@
     <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\LoginStatusController.cs" />
+    <Compile Include="Mvc\Models\LoginStatus\ILoginStatusModel.cs" />
+    <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />
+    <Compile Include="Mvc\Models\LoginStatus\LoginStatusViewModel.cs" />
+    <Compile Include="Mvc\StringResources\LoginStatusResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mvc\Controllers\" />
-    <Folder Include="Mvc\Models\" />
     <Folder Include="Mvc\Views\LoginStatus\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
