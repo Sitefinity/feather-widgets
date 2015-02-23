@@ -15,18 +15,18 @@
             <div class="form-group">
 				<div class="radio">
 					<label for="allPublished" class="full-width">
-						<input id="allPublished" type="radio" ng-model="properties.FilterMode.PropertyValue" value="All" />
+						<input id="allPublished" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
 
 						@Html.Resource("AllPublishedImages")
 					</label>
 				</div>
 				<div class="radio">
 					<label for="selectedLibrariesOnly" class="full-width">
-						<input id="selectedLibrariesOnly" type="radio" ng-model="properties.FilterMode.PropertyValue" value="SelectedLibraries" />
+						<input id="selectedLibrariesOnly" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
 
 						@Html.Resource("FromSelectedLibraries")
 
-						<sf-list-selector sf-library-selector ng-show="properties.FilterMode.PropertyValue=='SelectedLibraries'"
+						<sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
 									  sf-multiselect="true" sf-sortable="true" sf-master="true"
 									  sf-provider="properties.ProviderName.PropertyValue"
 									  sf-selected-ids="librariesSelector.selectedItemsIds"></sf-list-selector>
@@ -34,14 +34,14 @@
 				</div>
 				<div class="radio form-inline">
 					<label for="currentlyOpenLibrary">
-						<input id="currentlyOpenLibrary" type="radio" ng-model="properties.FilterMode.PropertyValue" value="CurrentlyOpenLibrary" />
+						<input id="currentlyOpenLibrary" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
 
 						@Html.Resource("FromCurrentlyOpen")
 					</label>
 				</div>
             </div>
 
-			<expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='true' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
+			<expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
 				<div class="radio m-top-none">
 					<label for="allItems" class="full-width">
 						<input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
