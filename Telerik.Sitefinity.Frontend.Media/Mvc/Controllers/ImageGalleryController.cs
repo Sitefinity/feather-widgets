@@ -84,6 +84,25 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether detail view for image should be opened in the same page.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if details link should be opened in the same page; otherwise, (if should redirect to custom selected page)<c>false</c>.
+        /// </value>
+        public bool OpenInSamePage
+        {
+            get
+            {
+                return this.openInSamePage;
+            }
+
+            set
+            {
+                this.openInSamePage = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the Image gallery widget model.
         /// </summary>
         /// <value>
@@ -236,6 +255,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
         }
 
 
@@ -255,11 +275,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         internal const string AnyParentValue = "AnyParent";
 
         private IImageGalleryModel model;
-        private string listTemplateName = "Simple";
+        private string listTemplateName = "ThumbnailsList";
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName;
         private string detailTemplateNamePrefix = "Detail.";
         private bool? disableCanonicalUrlMetaTag;
+        private bool openInSamePage = true;
 
         #endregion
     }
