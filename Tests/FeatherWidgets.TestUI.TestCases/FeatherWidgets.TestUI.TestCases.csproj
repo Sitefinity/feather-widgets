@@ -140,6 +140,7 @@
     <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategoryAllTab.cs" />
     <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
+    <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\LightNavigationAndMvcNavigation.cs" />
