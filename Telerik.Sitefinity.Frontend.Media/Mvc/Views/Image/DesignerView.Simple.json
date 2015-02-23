@@ -3,6 +3,7 @@
 	"scripts": [
 		"Mvc/Scripts/Angular/angular-resource.min.js",
 		"Mvc/Scripts/expander.js",
+		"Mvc/Scripts/style-dropdown.js",
 		"Mvc/Scripts/ng-tags-input.min/ng-tags-input.min.js",
 		"client-components/fields/sf-fields.js",
 		"client-components/fields/html-field/sf-html-field.js",
