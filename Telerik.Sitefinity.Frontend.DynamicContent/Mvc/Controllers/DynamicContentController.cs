@@ -314,7 +314,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
 
         #endregion
 
-        #region ISelfRoutingController
+        #region IRouteMapper
 
         /// <inheritdoc />
         [NonAction]

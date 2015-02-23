@@ -90,7 +90,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public IImageGalleryModel Model
+        public virtual IImageGalleryModel Model
         {
             get
             {
@@ -134,7 +134,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Successors(Album parentItem, int? page)
         {
-            this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
+            if (parentItem != null)
+                this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
 
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
@@ -154,7 +155,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
-            this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+            if (taxonFilter != null)
+                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
 
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
@@ -174,7 +176,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         public ActionResult Details(Image item)
         {
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
-            this.ViewBag.Title = item.Title;
+
+            if (item != null)
+                this.ViewBag.Title = item.Title;
 
             var viewModel = this.Model.CreateDetailsViewModel(item);
             if (SystemManager.CurrentHttpContext != null)
@@ -229,7 +233,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <param name="redirectPageUrl">The redirect page URL.</param>
         private void InitializeListViewBag(string redirectPageUrl)
         {
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
         }
