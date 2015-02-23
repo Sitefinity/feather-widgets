@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 {
@@ -21,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
     [ControllerToolboxItem(Name = "ImageGallery", Title = "Image gallery", SectionName = "MvcWidgets", ModuleName = "Libraries")]
-    public class ImageGalleryController : Controller, IContentLocatableView
+    public class ImageGalleryController : Controller, IContentLocatableView, IRouteMapper
     {
         #region Properties
 
@@ -225,6 +228,65 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         protected override void HandleUnknownAction(string actionName)
         {
             this.Index(null).ExecuteResult(this.ControllerContext);
+        }
+
+        /// <summary>
+        /// Maps the route parameters from URL and returns true of the URL is a valid route.
+        /// </summary>
+        /// <param name="urlParams">The URL parameters.</param>
+        /// <param name="requestContext">The request context.</param>
+        /// <returns>True if the URL is a valid route. False otherwise.</returns>
+        [NonAction]
+        public bool TryMapRouteParameters(string[] urlParams, RequestContext requestContext)
+        {
+            if (urlParams == null)
+                throw new ArgumentNullException("urlParams");
+
+            if (requestContext == null)
+                throw new ArgumentNullException("requestContext");
+
+            if (urlParams.Length == 0)
+                return false;
+
+            if (this.Model.ParentFilterMode == ParentFilterMode.CurrentlyOpen || true)
+            {
+                return this.TryResolveParentFilterMode(urlParams, requestContext);
+            }
+            
+            return false;
+        }
+
+        /// <summary>
+        /// Tries the resolve parent filter mode.
+        /// </summary>
+        /// <param name="urlParams">The URL params.</param>
+        /// <param name="requestContext">The request context.</param>
+        /// <returns></returns>
+        protected virtual bool TryResolveParentFilterMode(string[] urlParams, RequestContext requestContext, LibrariesManager manager = null)
+        {
+            var libraryManager = manager ?? LibrariesManager.GetManager(this.Model.ProviderName);
+
+            string param = RouteHelper.GetUrlParameterString(urlParams);
+
+            string redirectUrl;
+
+            var item = libraryManager.GetItemFromUrl(typeof(Album), param, out redirectUrl);
+
+            if (item != null)
+            {
+                requestContext.RouteData.Values["action"] = "Successors";
+                requestContext.RouteData.Values["parentItem"] = item;
+
+                if (this.Request["page"] != null)
+                    requestContext.RouteData.Values["page"] = int.Parse(this.Request["page"]);
+
+                return true;
+            }
+            if (urlParams.Length > 1)
+            {
+                this.TryResolveParentFilterMode(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager);
+            }
+            return false;
         }
 
         #endregion
