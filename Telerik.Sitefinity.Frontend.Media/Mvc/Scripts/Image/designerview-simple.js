@@ -21,10 +21,10 @@
 
         $scope.$watch('model', function (newVal, oldVal) {
             if (newVal && newVal.item && newVal.item.Id) {
-                if (!$scope.properties.Title.PropertyValue && newVal.item.Title && newVal.item.Title.Value) {
+                if (newVal.item.Title && newVal.item.Title.Value) {
                     $scope.properties.Title.PropertyValue = newVal.item.Title.Value;
                 }
-                if (!$scope.properties.AlternativeText.PropertyValue && newVal.item.AlternativeText && newVal.item.AlternativeText.Value) {
+                if (newVal.item.AlternativeText && newVal.item.AlternativeText.Value) {
                     $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText.Value;
                 }
 
@@ -33,7 +33,7 @@
                 $scope.properties.CustomSize.PropertyValue = JSON.stringify(newVal.customSize);
                 $scope.properties.DisplayMode.PropertyValue = newVal.displayMode;
 
-                $scope.openOriginalImageOnClick = $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid()
+                $scope.openOriginalImageOnClick = $scope.properties.UseAsLink.PropertyValue === 'True' && $scope.properties.LinkedPageId.PropertyValue === serviceHelper.emptyGuid();
             }
         }, true);
 
@@ -60,7 +60,7 @@
 
             return savingPromise.then(function (errorMessage) {
                 if ($scope.properties.ThumbnailUrl.PropertyValue) {
-                    return $scope.properties.ThumbnailUrl.PropertyValue;
+                    return mediaService.getCustomThumbnailUrl($scope.properties.Id.PropertyValue, parsedCustomSize);
                 }
                 else if (parsedCustomSize && parsedCustomSize.Method) {
                     return mediaService.getCustomThumbnailUrl($scope.properties.Id.PropertyValue, parsedCustomSize);
@@ -70,6 +70,10 @@
                 }
             })
             .then(function (thumbnailUrl) {
+                if (thumbnailUrl) {
+                    $scope.properties.ThumbnailUrl.PropertyValue = thumbnailUrl;
+                }
+
                 return mediaService.getLibrarySettings();
             });
         };

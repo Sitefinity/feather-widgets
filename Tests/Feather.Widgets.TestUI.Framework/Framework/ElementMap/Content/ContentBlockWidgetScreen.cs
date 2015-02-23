@@ -237,5 +237,53 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlAnchor>("title=Insert hyperlink");
             }
         }
+
+        /// <summary>
+        /// Gets the full screen.
+        /// </summary>
+        /// <value>The full screen.</value>
+        public HtmlAnchor FullScreen
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("ng-click=toggleFullScreen()");
+            }
+        }
+
+        /// <summary>
+        /// Gets the modal dialog not full screen div.
+        /// </summary>
+        /// <value>The modal dialog not full screen div.</value>
+        public HtmlDiv ModalDialogNotFullScreenDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("class=modal-dialog modal-lg", "ng-class={'modal-sm': size == 'sm', 'modal-lg': size == 'lg'}");
+            }
+        }
+
+        /// <summary>
+        /// Gets the modal dialog full screen div.
+        /// </summary>
+        /// <value>The modal dialog full screen div.</value>
+        public HtmlDiv ModalDialogFullScreenDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("class=modal-dialog modal-lg modal-full-screen", "ng-class={'modal-sm': size == 'sm', 'modal-lg': size == 'lg'}");
+            }
+        }
+
+        /// <summary>
+        /// Gets the buttons container.
+        /// </summary>
+        /// <value>The buttons container.</value>
+        public ICollection<HtmlUnorderedList> ButtonsContainers
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlUnorderedList>("class=k-editor-toolbar ng-scope", "data-role=editortoolbar");
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// </summary>
         public ImageModel()
         {
-            
+
         }
 
         #endregion
@@ -77,8 +77,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         {
             var viewModel = new ImageViewModel()
             {
-                Title = this.Title,
                 AlternativeText = this.AlternativeText,
+                Title = this.Title,
                 DisplayMode = this.DisplayMode,
                 ThumbnailName = this.ThumbnailName,
                 ThumbnailUrl = this.ThumbnailUrl,
@@ -90,8 +90,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             SfImage image;
             if (this.Id != Guid.Empty)
             {
-                LibrariesManager librariesManager = LibrariesManager.GetManager(this.ProviderName);
-                image = librariesManager.GetImages().Where(i => i.Id == this.Id).Where(PredefinedFilters.PublishedItemsFilter<Telerik.Sitefinity.Libraries.Model.Image>()).FirstOrDefault();
+                image = this.GetImage();
                 if (image != null)
                 {
                     viewModel.SelectedSizeUrl = this.GetSelectedSizeUrl(image);
@@ -126,29 +125,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
 
         #region Private members
 
+
         /// <summary>
-        /// Gets the linked page URL.
+        /// Gets the image.
         /// </summary>
         /// <returns></returns>
-        private string GetLinkedUrl(SfImage image)
+        protected virtual SfImage GetImage()
         {
-            string linkedUrl = null;
-
-            if (this.UseAsLink && this.LinkedPageId != Guid.Empty)
-            {
-                var pageManager = PageManager.GetManager();
-                var node = pageManager.GetPageNode(this.LinkedPageId);
-                if (node != null)
-                {
-                    var relativeUrl = node.GetFullUrl();
-                    linkedUrl = UrlPath.ResolveUrl(relativeUrl, true);
-                }
-            }
-            else if (this.UseAsLink && this.LinkedPageId == Guid.Empty) {
-                linkedUrl = image.ResolveMediaUrl(true);
-            }
-
-            return linkedUrl;
+            LibrariesManager librariesManager = LibrariesManager.GetManager(this.ProviderName);
+            return librariesManager.GetImages().Where(i => i.Id == this.Id).Where(PredefinedFilters.PublishedItemsFilter<Telerik.Sitefinity.Libraries.Model.Image>()).FirstOrDefault();
         }
 
         /// <summary>
@@ -156,7 +141,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// </summary>
         /// <param name="image">The image.</param>
         /// <returns></returns>
-        private string GetSelectedSizeUrl(SfImage image) 
+        protected virtual string GetSelectedSizeUrl(SfImage image)
         {
             if (image.Id == Guid.Empty)
                 return string.Empty;
@@ -180,6 +165,35 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             return imageUrl;
         }
 
+        #endregion
+
+        #region Private members
+
+        /// <summary>
+        /// Gets the linked page URL.
+        /// </summary>
+        /// <returns></returns>
+        private string GetLinkedUrl(SfImage image)
+        {
+            string linkedUrl = null;
+
+            if (this.UseAsLink && this.LinkedPageId != Guid.Empty)
+            {
+                var pageManager = PageManager.GetManager();
+                var node = pageManager.GetPageNode(this.LinkedPageId);
+                if (node != null)
+                {
+                    var relativeUrl = node.GetFullUrl();
+                    linkedUrl = UrlPath.ResolveUrl(relativeUrl, true);
+                }
+            }
+            else if (this.UseAsLink && this.LinkedPageId == Guid.Empty)
+            {
+                linkedUrl = image.ResolveMediaUrl(true);
+            }
+
+            return linkedUrl;
+        }
         #endregion
     }
 }
