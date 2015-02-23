@@ -83,9 +83,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Telerik.Sitefinity.Frontend.ContentBlock\bin\Debug\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend.Media">
-      <HintPath>..\..\Telerik.Sitefinity.Frontend.Media\bin\Debug\Telerik.Sitefinity.Frontend.Media.dll</HintPath>
-    </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.3.5600.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
@@ -167,6 +164,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj">
       <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>
       <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Media\Telerik.Sitefinity.Frontend.Media.csproj">
+      <Project>{8b6bb322-ae6d-42ef-8667-2e0a2ea65c98}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Media</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
