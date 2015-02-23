@@ -9,7 +9,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
     /// <summary>
     /// A model for the Image Gallery MVC widget.
     /// </summary>
-    public class ImageGalleryModel : MediaGalleryModelBase<Album, SfImage>
+    public class ImageGalleryModel : MediaGalleryModelBase<Album, SfImage>, IImageGalleryModel
     {
         /// <inheritdoc />
         protected override IQueryable<IDataItem> GetItemsQuery()

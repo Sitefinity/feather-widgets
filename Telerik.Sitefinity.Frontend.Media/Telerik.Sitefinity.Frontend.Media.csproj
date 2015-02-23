@@ -149,8 +149,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
-    <Compile Include="Mvc\Controllers\ImageController.cs" />
     <Compile Include="Mvc\Models\ImageGallery\ImageGalleryModel.cs" />
+    <Compile Include="Mvc\Models\ImageGallery\IImageGalleryModel.cs" />
+    <Compile Include="Mvc\Controllers\ImageController.cs" />
+    <Compile Include="Mvc\Controllers\ImageGalleryController.cs" />
+    <Compile Include="Mvc\StringResources\ImageGalleryResources.cs" />
     <Compile Include="Mvc\Models\Image\IImageModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageDisplayMode.cs" />
     <Compile Include="Mvc\Models\Image\ImageModel.cs" />
