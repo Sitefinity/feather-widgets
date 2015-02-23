@@ -1,42 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
+using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Modules.Libraries;
+using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 {
-    public class ImageGalleryModel : IImageGalleryModel
+    /// <summary>
+    /// A model for the Image Gallery MVC widget.
+    /// </summary>
+    public class ImageGalleryModel : MediaGalleryModelBase<Album, SfImage>, IImageGalleryModel
     {
-        public IEnumerable<ContentLocations.IContentLocationInfo> GetLocations()
+        /// <inheritdoc />
+        protected override IQueryable<IDataItem> GetItemsQuery()
         {
-            throw new NotImplementedException();
-        }
-
-
-        public Frontend.Mvc.Models.ContentListViewModel CreateListViewModel(Taxonomies.Model.ITaxon taxonFilter, int page)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModel(Model.IDataItem item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<Data.CacheDependencyKey> GetKeysOfDependentObjects(Frontend.Mvc.Models.ContentListViewModel viewModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<Data.CacheDependencyKey> GetKeysOfDependentObjects(Frontend.Mvc.Models.ContentDetailsViewModel viewModel)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public Frontend.Mvc.Models.ContentListViewModel CreateListViewModelByParent(Model.IDataItem parentItem, int p)
-        {
-            throw new NotImplementedException();
+            return ((LibrariesManager)this.GetManager()).GetImages();
         }
     }
 }

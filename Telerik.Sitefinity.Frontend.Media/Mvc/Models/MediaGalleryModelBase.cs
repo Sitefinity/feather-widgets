@@ -1,0 +1,78 @@
+﻿using ServiceStack.Text;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Modules.Libraries;
+
+namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
+{
+    public abstract class MediaGalleryModelBase<TLibrary, TMedia> : ContentModelBase
+        where TLibrary : Library
+        where TMedia : MediaContent
+    {
+        /// <summary>
+        /// Gets or sets the type of content that is loaded.
+        /// </summary>
+        /// <value>
+        /// The type of the content.
+        /// </value>
+        public override Type ContentType
+        {
+            get
+            {
+                return typeof(TMedia);
+            }
+
+            set
+            {
+            }
+        }
+
+        /// <inheritdoc />
+        public ParentFilterMode ParentFilterMode { get; set; }
+
+        /// <inheritdoc />
+        public string SerializedSelectedParentsIds { get; set; }
+
+        /// <inheritdoc />
+        public bool ShowListViewOnEmpyParentFilter { get; set; }
+
+        /// <inheritdoc />
+        public virtual ContentListViewModel CreateListViewModelByParent(TLibrary parentItem, int page)
+        {
+            if (page < 1)
+                throw new ArgumentException("'page' argument has to be at least 1.", "page");
+
+            var query = parentItem.Items();
+            if (query == null)
+                return this.CreateListViewModelInstance();
+
+            var viewModel = this.CreateListViewModelInstance();
+            this.PopulateListViewModel(page, query, viewModel);
+
+            return viewModel;
+        }
+
+        /// <inheritdoc />
+        protected override string CompileFilterExpression()
+        {
+            var baseExpression = base.CompileFilterExpression();
+
+            if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
+            {
+                var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
+                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "SystemParentId = " + id.Trim()));
+                if (baseExpression.IsNullOrEmpty())
+                    return "({0})".Arrange(parentFilterExpression);
+                else
+                    return "({0}) and ({1})".Arrange(baseExpression, parentFilterExpression);
+            }
+            else
+            {
+                return baseExpression;
+            }
+        }
+    }
+}

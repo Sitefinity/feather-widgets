@@ -132,7 +132,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        public ActionResult Successors(Image parentItem, int? page)
+        public ActionResult Successors(Album parentItem, int? page)
         {
             this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
 
