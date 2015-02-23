@@ -126,5 +126,77 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
                 return this.Get<HtmlAnchor>("class=k-link", "innertext=~Selected");
             }
         }
+
+        /// <summary>
+        /// Gets the external urls tab.
+        /// </summary>
+        /// <value>The external urls tab.</value>
+        public HtmlAnchor ExternalUrlsTab
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=k-link", "innertext=~External URLs");
+            }
+        }
+
+        /// <summary>
+        /// Gets the external urls title.
+        /// </summary>
+        /// <value>The external urls title.</value>
+        public HtmlInputText ExternalUrlsTitle
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=item.TitlesPath");
+            }
+        }
+
+        /// <summary>
+        /// Gets the external urls URL.
+        /// </summary>
+        /// <value>The external urls URL.</value>
+        public HtmlInputText ExternalUrlsUrl
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=item.Url");
+            }
+        }
+
+        /// <summary>
+        /// Gets the add external URL button.
+        /// </summary>
+        /// <value>The add external URL button.</value>
+        public HtmlInputButton AddExternalUrlButton
+        {
+            get
+            {
+                return this.Get<HtmlInputButton>("tagname=input", "value=Add external URL");
+            }
+        }
+
+        /// <summary>
+        /// Gets the remove external urls icon.
+        /// </summary>
+        /// <value>The remove external urls icon.</value>
+        public HtmlAnchor RemoveExternalUrlsIcon
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=pull-right", "ng-click=removeItem($index, item)");
+            }
+        }
+
+        /// <summary>
+        /// Gets the open external urls in new tab checkbox.
+        /// </summary>
+        /// <value>The open external urls in new tab checkbox.</value>
+        public HtmlInputCheckBox OpenExternalUrlsInNewTabCheckbox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("tagname=input", "id=openInNewTab");
+            }
+        }
     }
 }

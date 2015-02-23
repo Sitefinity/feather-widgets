@@ -208,6 +208,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Opens the external urls tab.
+        /// </summary>
+        public void OpenExternalUrlsTab()
+        {
+            HtmlAnchor externalUrlsTab = this.EM.Selectors.SelectorsScreen.ExternalUrlsTab.AssertIsPresent("external urls tab");
+
+            externalUrlsTab.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
         /// Reorders the selected items.
         /// </summary>
         /// <param name="expectedOrder">The expected order.</param>
