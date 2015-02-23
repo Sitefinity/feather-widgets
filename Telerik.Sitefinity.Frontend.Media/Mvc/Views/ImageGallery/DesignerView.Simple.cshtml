@@ -6,66 +6,65 @@
 @Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryGroup.js")
 @Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryBuilder.js")
 
-@*<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.DynamicModules.DynamicModuleManager.GetManager(), Model.DynamicModuleName())' item-type="@Model.DynamicContentType().FullName" parent-types="@Model.SerializedParentTypes()">
-</server-data>*@
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.Libraries.LibrariesManager.GetManager())'>
+</server-data>
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay")</h4>
-        @*<sf-provider-selector class="m-bottom-sm" sf-manager-type='@Model.DynamicModuleName()'
+        <sf-provider-selector class="m-bottom-sm" sf-manager-type='Telerik.Sitefinity.Modules.Libraries.LibrariesManager'
             sf-provider-label='@Html.Resource("Provider")'
             ng-model="properties.ProviderName.PropertyValue">
-        </sf-provider-selector>*@
+        </sf-provider-selector>
 
-        
-            <div class="form-group">
-				<div class="radio">
-					<label for="allPublished" class="full-width">
-						<input id="allPublished" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
+        <div class="form-group">
+            <div class="radio">
+                <label for="allPublished" class="full-width">
+                    <input id="allPublished" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
 
-						@Html.Resource("AllPublishedImages")
-					</label>
-				</div>
-				<div class="radio">
-					<label for="selectedLibrariesOnly" class="full-width">
-						<input id="selectedLibrariesOnly" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
-
-						@Html.Resource("FromSelectedLibraries")
-
-						<sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
-									  sf-multiselect="true" sf-sortable="true" sf-master="true"
-									  sf-provider="properties.ProviderName.PropertyValue"
-									  sf-selected-ids="librariesSelector.selectedItemsIds"></sf-list-selector>
-					</label>
-				</div>
-				<div class="radio form-inline">
-					<label for="currentlyOpenLibrary">
-						<input id="currentlyOpenLibrary" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
-
-						@Html.Resource("FromCurrentlyOpen")
-					</label>
-				</div>
+                    @Html.Resource("AllPublishedImages")
+                </label>
             </div>
+            <div class="radio">
+                <label for="selectedLibrariesOnly" class="full-width">
+                    <input id="selectedLibrariesOnly" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
 
-			<expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
-				<div class="radio m-top-none">
-					<label for="allItems" class="full-width">
-						<input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
-						@Html.Resource("AllPublishedImages")
-					</label>
-				</div>
-				<div class="radio">
-					<label for="filterItems" class="full-width">
-						<input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
-						@Html.Resource("SelectionOfImages")
-						<sf-filter-selector sf-query-data="additionalFilters.value"
-							sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Libraries.Model.Image))"
-							sf-provider="properties.ProviderName.PropertyValue"
-							ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
-                            class="sf-filter-selector"></sf-filter-selector>
-					</label>
-				</div>
-			</expander>
+                    @Html.Resource("FromSelectedLibraries")
+
+                    <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
+                                    sf-multiselect="true" sf-sortable="true" sf-master="true"
+                                    sf-provider="properties.ProviderName.PropertyValue"
+                                    sf-selected-ids="librariesSelector.selectedItemsIds"></sf-list-selector>
+                </label>
+            </div>
+            <div class="radio form-inline">
+                <label for="currentlyOpenLibrary">
+                    <input id="currentlyOpenLibrary" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
+
+                    @Html.Resource("FromCurrentlyOpen")
+                </label>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
+            <div class="radio m-top-none">
+                <label for="allItems" class="full-width">
+                    <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                    @Html.Resource("AllPublishedImages")
+                </label>
+            </div>
+            <div class="radio">
+                <label for="filterItems" class="full-width">
+                    <input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+                    @Html.Resource("SelectionOfImages")
+                    <sf-filter-selector sf-query-data="additionalFilters.value"
+                        sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Libraries.Model.Image))"
+                        sf-provider="properties.ProviderName.PropertyValue"
+                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+                        class="sf-filter-selector"></sf-filter-selector>
+                </label>
+            </div>
+        </expander>
     </tab>
 
     <tab heading="@Html.Resource("ListSettings")">
