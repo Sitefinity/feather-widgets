@@ -8,6 +8,11 @@ using Telerik.Sitefinity.Modules.Libraries;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 {
+    /// <summary>
+    /// Base class for business logic of media galleries.
+    /// </summary>
+    /// <typeparam name="TLibrary">The type of the library.</typeparam>
+    /// <typeparam name="TMedia">The type of the media items.</typeparam>
     public abstract class MediaGalleryModelBase<TLibrary, TMedia> : ContentModelBase
         where TLibrary : Library
         where TMedia : MediaContent
