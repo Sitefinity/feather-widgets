@@ -2,7 +2,7 @@
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 {
     /// <summary>
-    /// Mode for filtering dynamic content items by parent.
+    /// Mode for filtering media items by library.
     /// </summary>
     public enum ParentFilterMode
     {
