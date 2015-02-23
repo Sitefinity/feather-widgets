@@ -6,6 +6,7 @@ using Telerik.Sitefinity;
 using Telerik.Sitefinity.Fluent.Pages;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Core.SiteMap;
@@ -44,7 +45,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NavigationWidget_AllSiblingPagesOfCurrentlyOpenedPage()
         {
             string pageNamePrefix1 = "NavigationPage1";
@@ -80,7 +81,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NavigationWidget_HorizontalTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
@@ -123,7 +124,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NavigationWidget_VerticalTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
@@ -166,7 +167,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NavigationWidget_TabsTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
@@ -209,7 +210,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NavigationWidget_SitemapTemplate5LevelsToInclude()
         {
             string url = UrlPath.ResolveAbsoluteUrl("~/" + UrlNamePrefix + Index);
@@ -252,7 +253,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NavigationWidget_AllChildPagesOfSpecifiedPage()
         {
             string pageName1 = "NavigationPage1";
@@ -286,7 +287,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NavigationWidget_SelectedPages()
         {
             string pageName1 = "NavigationPage1";

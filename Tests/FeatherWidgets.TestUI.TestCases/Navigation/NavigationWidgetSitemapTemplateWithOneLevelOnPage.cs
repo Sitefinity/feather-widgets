@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
@@ -46,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetSitemapTemplateWithOneLevelOnPageFoundation
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetSitemapTemplateWithOneLevelOnPageFoundation()
@@ -73,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetSitemapTemplateWithOneLevelOnPageSemantic
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigationWidgetSitemapTemplateWithOneLevelOnPageSemantic()

@@ -11,7 +11,7 @@ using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 namespace FeatherWidgets.TestUnit.Media.Image
 {
     /// <summary>
-    /// Tests methods for the ImageControllerTests
+    /// Tests for the ImageController.
     /// </summary>
     [TestClass]
     public class ImageControllerTests

@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Configuration.Data;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
@@ -93,6 +94,30 @@ namespace FeatherWidgets.TestUnit.Resources
         {
             // Act & Assert: Iterate over each resource property and verify its correctness 
             this.TestResourceType<SearchWidgetsResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that image widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that image widgets resources are correct.")]
+        public void ImageWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<ImageResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that image gallery widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that image gallery widget resources are correct.")]
+        public void ImageGalleryResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<ImageGalleryResources>();
         }
 
         /// <summary>

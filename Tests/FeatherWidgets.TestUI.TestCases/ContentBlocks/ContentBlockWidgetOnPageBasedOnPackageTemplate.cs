@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -42,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Foundation)]
         public void ContentBlockWidgetOnPageBasedOnFoundationTemplate()
         {
@@ -64,7 +65,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void ContentBlockWidgetOnPageBasedOnSemanticUITemplate()
         {

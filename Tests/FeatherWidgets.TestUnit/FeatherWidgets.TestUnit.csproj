@@ -79,12 +79,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.7.3.5600.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.1.90.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.1.90.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Telerik.Sitefinity.Frontend.ContentBlock\bin\Debug\Telerik.Sitefinity.Frontend.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend.Media">
-      <HintPath>..\..\Telerik.Sitefinity.Frontend.Media\bin\Debug\Telerik.Sitefinity.Frontend.Media.dll</HintPath>
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <SpecificVersion>False</SpecificVersion>
@@ -131,6 +128,8 @@
     <Compile Include="DummyClasses\ContentBlock\DummyContentItem.cs" />
     <Compile Include="DummyClasses\DummyConfigProvider.cs" />
     <Compile Include="DummyClasses\Media\DummyImageController.cs" />
+    <Compile Include="DummyClasses\Media\DummyImageGalleryController.cs" />
+    <Compile Include="DummyClasses\Media\DummyImageGalleryModel.cs" />
     <Compile Include="DummyClasses\Media\DummyImageModel.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationController.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationModel.cs" />
@@ -141,6 +140,7 @@
     <Compile Include="DummyClasses\SocialShare\DummySocialShareController.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Media\ImageGallery\ImageGalleryControllerTests.cs" />
     <Compile Include="Media\Image\ImageControllerTests.cs" />
     <Compile Include="Navigation\NavigationControllerTests.cs" />
     <Compile Include="Navigation\NavigationModelTests.cs" />
@@ -167,6 +167,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.DynamicContent\Telerik.Sitefinity.Frontend.DynamicContent.csproj">
       <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>
       <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Media\Telerik.Sitefinity.Frontend.Media.csproj">
+      <Project>{8b6bb322-ae6d-42ef-8667-2e0a2ea65c98}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Media</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>

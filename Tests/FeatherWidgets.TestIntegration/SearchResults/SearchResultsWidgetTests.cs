@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
@@ -57,7 +58,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verifies that all search results are returned correctly for default language.")]
         public void SearchResultsWidget_DefaultLanguage_ResultsFound_OldestOrder()
         {
@@ -100,7 +101,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies that no search results are found for default language.")]
         public void SearchResultsWidget_DefaultLanguage_NoResultsFound()
         {
@@ -141,7 +142,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verifies that all search results are returned correctly for particular languages.")]
         public void SearchResultsWidget_NonDefaultLanguage_ResultsFound_OldestOrder()
         {
@@ -183,7 +184,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author("Sitefinity Tean 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies paging of search results are returned correctly for default language.")]
         public void SearchResultsWidget_DefaultLanguage_Paging_OldestOrder()
         {
@@ -238,7 +239,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults), Ignore]
-        [Author("Sitefinity Tean 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies limit of all search results are returned correctly for all languages.")]
         public void SearchResultsWidget_DefaultLanguage_Limit_OldestOrder()
         {
@@ -284,7 +285,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         [Test]
         [Multilingual]
         [Category(TestCategories.SearchResults)]
-        [Author("Sitefinity Tean 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies no limit of all search results are returned correctly for all languages.")]
         public void SearchResultsWidget_DefaultLanguage_NoLimit_NewestOrder()
         {

@@ -3,6 +3,7 @@ using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.SocialShare
 {
