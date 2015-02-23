@@ -88,7 +88,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <summary>
         /// Verifies the full screen mode.
         /// </summary>
-        /// <param name="isActivatedFullScreen">The is activated full screen.</param>
+        /// <param name="isActivatedFullScreen">Is activated full screen.</param>
         public void VerifyFullScreenMode(bool isActivatedFullScreen)
         {
             if (isActivatedFullScreen)
