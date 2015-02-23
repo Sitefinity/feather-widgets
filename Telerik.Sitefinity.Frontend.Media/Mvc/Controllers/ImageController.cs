@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public IImageModel Model
+        public virtual IImageModel Model
         {
             get
             {
@@ -58,6 +58,30 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             set
             {
                 this.templateName = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the is design mode.
+        /// </summary>
+        /// <value>The is design mode.</value>
+        protected virtual bool IsDesignMode
+        {
+            get
+            {
+                return SystemManager.IsDesignMode;
+            }
+        }
+
+        /// <summary>
+        /// Gets the image was not selected or has been deleted message.
+        /// </summary>
+        /// <value>The image was not selected or has been deleted message.</value>
+        protected virtual string ImageWasNotSelectedOrHasBeenDeletedMessage
+        {
+            get
+            {
+                return Res.Get<ImageResources>().ImageWasNotSelectedOrHasBeenDeleted;
             }
         }
 
@@ -167,11 +191,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             {
                 return View(this.TemplateName, viewModel);
             }
-            else if (!this.IsEmpty && SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode)
+            else if (!this.IsEmpty && this.IsDesignMode && !SystemManager.IsInlineEditingMode)
             {
-                string errorMessage = Res.Get<ImageResources>().ImageWasNotSelectedOrHasBeenDeleted;
-
-                return Content(errorMessage);
+                return Content(this.ImageWasNotSelectedOrHasBeenDeletedMessage);
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
@@ -100,7 +101,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <summary>
         /// This class represents custom image size options.
         /// </summary>
-        public class CustomSizeModel
+        public class CustomSizeModel : IEquatable<CustomSizeModel>
         {
             /// <summary>
             /// Gets or sets the method for resizing the image. Probable values are ResizeFitToAreaArguments or CropCropArguments.
@@ -157,6 +158,26 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             /// The quality.
             /// </value>
             public ImageQuality? Quality { get; set; }
+
+            /// <summary>
+            /// Equalses the specified other.
+            /// </summary>
+            /// <param name="other">The other.</param>
+            /// <returns></returns>
+            public bool Equals(CustomSizeModel other)
+            {
+                if (other == null)
+                {
+                    return false;
+                }
+                return this.Height == other.Height &&
+                       this.MaxHeight == other.MaxHeight &&
+                       this.MaxWidth == other.MaxWidth &&
+                       this.Method == other.Method &&
+                       this.Quality == other.Quality &&
+                       this.ScaleUp == other.ScaleUp &&
+                       this.Width == other.Width;
+            }
         }
     }
 }
