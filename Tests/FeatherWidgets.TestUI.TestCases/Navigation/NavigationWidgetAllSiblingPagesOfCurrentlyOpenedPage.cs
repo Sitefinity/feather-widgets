@@ -50,7 +50,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPageFoundation
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPageFoundation()
@@ -80,7 +80,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPageSemanticUI
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPageSemanticUI()

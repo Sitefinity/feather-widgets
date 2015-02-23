@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verify set detail template functionality.")]
         public void DynamicWidgetsDesignerSingleItemSettingsTests_SetDetailTemplate()
         {
@@ -86,7 +86,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verify when delete selected detail template functionality.")]
         public void DynamicWidgetsDesignerSingleItemSettingsTests_DeleteSelectedDetailTemplate()
         {

@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Adds all hierarchical MVC dynamic widgets on page and verifies the proper cities are displayed when selecting a country on the frontend.")]
         public void OldDynamicWidgetsWithFeatherTests_OldDynamicWidget()
         {

@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetTabsTemplateWithOneLevelOnPageFoundation
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetTabsTemplateWithOneLevelOnPageFoundation()
@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetTabsTemplateWithOneLevelOnPageSemanticUI
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigationWidgetTabsTemplateWithOneLevelOnPageSemanticUI()

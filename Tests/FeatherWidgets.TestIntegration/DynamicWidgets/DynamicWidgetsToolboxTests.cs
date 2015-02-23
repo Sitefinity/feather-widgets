@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
     {
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyGeneratedWidgetInPageToolbox()
         {
@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyOldDynamicWidgetsNotDuplicated()
         {

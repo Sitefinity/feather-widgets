@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verify all fields on page.")]
         public void DynamicWidgetsAllTypes_VerifyAllFieldsOnTheFrontendWhereSomeFieldsAreEmpty()
         {

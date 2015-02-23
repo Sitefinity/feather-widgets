@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyHiddenTransformation()
@@ -72,7 +72,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyDropDownTransformation()
@@ -113,7 +113,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyTransformationsWithSeveralCssClasses()

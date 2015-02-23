@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verify all items per page.")]
         public void DynamicWidgetsDesignerContent_VerifyAllFunctionality()
         {
@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verify selected items per page.")]
         public void DynamicWidgetsDesignerContent_VerifySelectedItemsFunctionality()
         {
@@ -113,7 +113,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verify dynaimc items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByPublicationDateLastOneDayFunctionality()
         {
@@ -190,7 +190,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verify dynaimc items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByPublicationDateCustomRangeFunctionality()
         {

@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DuplicateNavigationWidgetFromPageFoundation
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void DuplicateNavigationWidgetFromPageFoundation()
@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DuplicateNavigationWidgetFromPageSemanticUI
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void DuplicateNavigationWidgetFromPageSemanticUI()

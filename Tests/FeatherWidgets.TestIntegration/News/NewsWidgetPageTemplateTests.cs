@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NewsWidget_OnPageTemplate()
         {
             string templateName = "TemplateWithNewsWidget";
@@ -81,7 +81,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NewsWidget_OnBootstrapPageTemplate()
         {
             string templateName = "Bootstrap.defaultNew3";

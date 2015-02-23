@@ -180,6 +180,7 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
+    <Compile Include="FeatherTeams.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />

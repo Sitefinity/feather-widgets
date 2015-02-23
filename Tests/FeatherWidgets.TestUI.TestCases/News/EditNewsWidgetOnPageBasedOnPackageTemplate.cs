@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test EditNewsWidgetOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Foundation)]
         public void EditNewsWidgetOnPageBasedOnFoundationTemplate()
         {
@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test EditNewsWidgetOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void EditNewsWidgetOnPageBasedOnSemanticUITemplate()
         {

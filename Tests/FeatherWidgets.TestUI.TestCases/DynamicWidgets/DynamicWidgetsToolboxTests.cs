@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DynamicModuleRemoveContentTypeVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleRemoveContentTypeVerifyPageToolbox()
         {
@@ -56,7 +56,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DeactivateAndActivateDynamicModuleVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DeactivateAndActivateDynamicModuleVerifyPageToolbox()
         {

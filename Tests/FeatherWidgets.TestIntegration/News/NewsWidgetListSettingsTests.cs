@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NewsWidget_VerifyUsePagingFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -108,7 +108,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NewsWidget_VerifyNoLimitAndPagingFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -149,7 +149,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NewsWidget_VerifyUseLimitFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -192,7 +192,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NewsWidget_VerifySortNewsAscending()
         {
             string sortExpession = "Title ASC";
@@ -220,7 +220,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_VerifySortNewsDescending()
         {
             string sortExpession = "Title DESC";
@@ -248,7 +248,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_VerifySortNewsPublicationDateDescending()
         {
             string sortExpession = "PublicationDate DESC";
@@ -280,7 +280,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_VerifySortNewsLastModifiedDateDescending()
         {
             string sortExpession = "LastModified DESC";
@@ -316,7 +316,7 @@ namespace FeatherWidgets.TestIntegration.News
 
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectListTemplate()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -367,7 +367,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies news items sorted by a valid As set in Advanced mode option.")]
         public void NewsWidget_VerifyValidSortingOptionAsSetInAdvancedMode()
         {
@@ -394,7 +394,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies news items sorted by an invalid As set in Advanced mode option.")]
         public void NewsWidget_VerifyInvalidSortingOptionAsSetInAdvancedMode()
         {

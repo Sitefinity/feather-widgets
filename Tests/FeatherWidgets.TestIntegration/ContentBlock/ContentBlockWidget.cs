@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verifies that set shared content id to content block widget and verify on the frontend.")]
         public void ContentBlockWidget_AdvancedSettings()
         {
@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.ContentBlock)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verifies that when edit shared content block the changes are applied in content block widget on the frontend.")]
         public void ContentBlockWidget_EditSharedContent()
         {
@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void ContentBlockWidget_SocialShareButtonsFunctionality()
         {
             string pageNamePrefix = "ContentBlockPage";

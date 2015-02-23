@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verifies that the ChildItems method of the ItemViewModelExtensions works properly.")]
         public void ItemViewModelExtensions_ChildItems_ReturnsChildren()
         {
@@ -60,7 +60,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verifies that the ParentItem method of the ItemViewModelExtensions works properly.")]
         public void ItemViewModelExtensions_ParentItem_ReturnsParentItem()
         {
