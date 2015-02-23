@@ -7,6 +7,7 @@
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"))
 
 <p><span class="item-index"></span> of @Model.Items.Count()</p>
 <h2 class="image-title"></h2>
@@ -27,69 +28,3 @@
 	</a>
     }
 </div>
-
-<script>
-    var populateDefaultItem = function () {
-        var defaultElementIndex = 0;
-        var firstImageElement = jQuery('.sf-Gallery a')[defaultElementIndex];
-        if (firstImageElement) {
-            jQuery(firstImageElement).attr('selected', true);
-            var item = jQuery.parseJSON(jQuery(firstImageElement).attr('data-item'));
-            populateSelecteditem(item, defaultElementIndex);
-        }
-    };
-
-    var populateSelecteditem = function (item, selectedElementIndex) {
-        jQuery('.sf-Gallery-image .img-responsive').attr('src', item['MediaUrl']);
-        jQuery('.sf-Gallery-image .img-responsive').attr('title', item['Title']);
-        jQuery('.sf-Gallery-image .img-responsive').attr('alt', item['AlternativeText']);
-        jQuery('.image-title').html(item['Title']);
-        jQuery('.description').html(item['Description']);
-        jQuery('.item-index').html(selectedElementIndex + 1);
-    };
-
-    var removeCurrentlySelected = function () {
-        var currentlySelected = jQuery('.sf-Gallery a[selected]');
-        if (currentlySelected && currentlySelected.length > 0) {
-            currentlySelected.removeAttr('selected');
-        }
-    };
-
-    jQuery('.sf-Gallery a').bind('click', function (e) {
-        removeCurrentlySelected();
-        var item = jQuery.parseJSON(jQuery(this).attr('data-item'));
-        jQuery(this).attr('selected', true);
-        var selectedElementIndex = jQuery(this).index();
-        populateSelecteditem(item, selectedElementIndex);
-    });
-
-    jQuery('.sf-prev-link').bind('click', function (e) {
-        var currentlySelected = jQuery('.sf-Gallery a[selected]');
-        if (currentlySelected && currentlySelected.length > 0) {
-            var prevElement = currentlySelected.prev('a');
-            if (prevElement && prevElement.length > 0) {
-                removeCurrentlySelected();
-                prevElement.attr('selected', true);
-                var item = jQuery.parseJSON(prevElement.attr('data-item'));
-                var selectedElementIndex = prevElement.index();
-                populateSelecteditem(item, selectedElementIndex);
-            }
-        }
-    });
-
-    jQuery('.sf-next-link').bind('click', function (e) {
-        var currentlySelected = jQuery('.sf-Gallery a[selected]');
-        if (currentlySelected && currentlySelected.length > 0) {
-            var nextElement = currentlySelected.next('a');
-            if (nextElement && nextElement.length > 0) {
-                removeCurrentlySelected();
-                nextElement.attr('selected', true);
-                var item = jQuery.parseJSON(nextElement.attr('data-item'));
-                var selectedElementIndex = index();
-                populateSelecteditem(item, selectedElementIndex);
-            }
-        }
-    });
-
-    populateDefaultItem();
-</script>
