@@ -39,6 +39,9 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.Signed.4.0.35\lib\net40\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -147,10 +150,13 @@
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\ImageController.cs" />
+    <Compile Include="Mvc\Models\ImageGallery\ImageGalleryModel.cs" />
     <Compile Include="Mvc\Models\Image\IImageModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageDisplayMode.cs" />
     <Compile Include="Mvc\Models\Image\ImageModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageViewModel.cs" />
+    <Compile Include="Mvc\Models\MediaGalleryModelBase.cs" />
+    <Compile Include="Mvc\Models\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\ImageResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
