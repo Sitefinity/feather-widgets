@@ -95,6 +95,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <summary>
         /// Returns JSON with the status of the user and his email, first and last names
         /// </summary>
+        [JsonResultFilter]
         public ActionResult Status()
         {
             var response = this.Model.GetStatus();
