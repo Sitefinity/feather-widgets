@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('expander', 'sfSelectors');
+    angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serverData', function ($scope, propertyService, serverData) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
@@ -7,6 +7,8 @@
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
         $scope.parentSelector = { selectedItemsIds: [] };
+        $scope.thumbnailSizeModel = {};
+        $scope.imageSizeModel = {};
 
         $scope.$watch(
             'additionalFilters.value',
