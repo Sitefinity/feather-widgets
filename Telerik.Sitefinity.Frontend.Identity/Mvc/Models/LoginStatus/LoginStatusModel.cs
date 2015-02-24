@@ -59,6 +59,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public bool ShowLoginName { get; set; }
 
         /// <inheritDoc/>
+        public bool AllowInstantLogin { get; set; }
+
+        /// <inheritDoc/>
         public LoginStatusViewModel GetViewModel()
         {
             return new LoginStatusViewModel()
@@ -102,9 +105,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             if (string.IsNullOrEmpty(loginRedirectUrl))
             {
                 var claimsModule = SitefinityClaimsAuthenticationModule.Current;
-
                 string pageUrl;
-                if (this.LoginPageId.HasValue)
+
+
+                if (this.AllowInstantLogin)
+                {
+                    pageUrl = claimsModule.GetIssuer();
+                }
+                else if (this.LoginPageId.HasValue)
                 {
                     pageUrl = PageManager.GetManager().GetPageNode(this.LoginPageId.Value).Urls.FirstOrDefault().Url;
                 }
@@ -121,7 +129,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                     );
                     var inputParameters = new object[] { wrapper, redirectStrategy, null };
                     pageUrl = (string)methodInfo.Invoke(null, inputParameters);
-                    pageUrl = pageUrl ?? claimsModule.GetIssuer();
                 }
 
                 var currentUrl = HttpContext.Current.Request.RawUrl;

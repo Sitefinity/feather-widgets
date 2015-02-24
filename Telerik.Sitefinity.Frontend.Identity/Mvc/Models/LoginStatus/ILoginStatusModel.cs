@@ -50,6 +50,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         bool ShowLoginName { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether if instant login is allowed.
+        /// </summary>
+        /// <remarks>
+        /// This could be used in case using Windows authentication.
+        /// </remarks>
+        /// <value>
+        ///   <c>true</c> if instant login is allowed; otherwise, <c>false</c>.
+        /// </value>
+        bool AllowInstantLogin { get; set; }
+
+        /// <summary>
         /// Gets or sets id of the page where user has to drop Profile widget
         /// </summary>
         Guid? ProfilePageId { get; set; }
