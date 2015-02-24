@@ -1,0 +1,44 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<form>
+    <div class="form-group">
+        <label>@Html.Resource("ProfilePage")</label>
+        <p>@Html.Resource("ProfilePageInfo")</p>      
+        <sf-list-selector
+                class="label-content"
+                sf-page-selector
+                sf-selected-item-id="properties.ProfilePageId.PropertyValue"></sf-list-selector>
+    </div>
+
+    <div class="form-group">
+        <label>@Html.Resource("RegistrationPage")</label>
+        <p>@Html.Resource("RegistrationPageInfo")</p>       
+        <sf-list-selector
+                class="label-content"
+                sf-page-selector
+                sf-selected-item-id="properties.RegistrationPageId.PropertyValue"></sf-list-selector>
+    </div>
+
+    <div class="form-group">
+        <label for="templateName">@Html.Resource("Template")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames("LoginStatus", @"LoginStatus\.(?<viewName>\w*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+        <div class="form-group">
+            <label for="loginStatusCssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="loginStatusCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
+</form>

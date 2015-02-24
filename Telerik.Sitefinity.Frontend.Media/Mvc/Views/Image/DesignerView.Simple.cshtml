@@ -1,0 +1,93 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<sf-image-field class="sf-Media--info modal-settings" sf-model="properties.Id.PropertyValue" sf-image="model.item" sf-provider="properties.ProviderName.PropertyValue"></sf-image-field>
+
+<form name="imageProperties">
+    <div class="form-group" ng-class="{ 'has-error' : hasErrors() }">
+        <label for="title">Title</label>
+
+        <div class="row">
+            <div class="col-xs-8">
+                <input class="form-control" name="title" type="text" ng-model="properties.Title.PropertyValue" ng-required="true" />
+            </div>
+
+            <div class="m-top-xs" ng-class="{'text-danger': properties.Title.PropertyValue.length > 35}">{{properties.Title.PropertyValue.length}}</div>
+        </div>
+
+        <div class="text-muted">Less than 35 characters are recommended</div>
+
+        <p class="text-danger" ng-show="properties.Title.PropertyValue.$error.required">Title is required</p>
+    </div>
+    <div class="form-group">
+        <label for="alternativeText">Alternative text</label>
+        <div class="row">
+            <div class="col-xs-8">
+                <input class="form-control" name="alternativeText" type="text" ng-model="properties.AlternativeText.PropertyValue" />
+            </div>
+            <div class="m-top-xs" ng-class="{'text-danger': properties.AlternativeText.PropertyValue.length>35}">{{properties.AlternativeText.PropertyValue.length}}</div>
+        </div>
+
+        <div class="text-muted">Less than 35 characters are recommended</div>
+    </div>
+
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="properties.UseAsLink.PropertyValue" ng-change="openOriginalImageOnClick=true" ng-true-value="'True'" ng-false-value="'False'" />
+                @Html.Resource("ImageIsLink")
+            </label>
+        </div>
+
+        <div ng-show="properties.UseAsLink.PropertyValue=='True'" class="label-content">
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="openOriginalImageOnClick" ng-value="true" />
+                    @Html.Resource("ImageInOriginalSize")
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="openOriginalImageOnClick" ng-value="false" />
+                    @Html.Resource("SelectedPage")
+                </label>
+            </div>
+            <sf-list-selector
+                class="label-content"
+                sf-page-selector
+                sf-selected-item-id="properties.LinkedPageId.PropertyValue"
+                ng-show="!openOriginalImageOnClick"></sf-list-selector>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>@Html.Resource("ImageSize")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <div ng-include="thumbnailSizeTempalteUrl"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="templateName">@Html.Resource("Template")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames("Image", @"(?<viewName>^Image.*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+        <div class="form-group">
+            <label for="imageCssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="imageCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
+</form>
