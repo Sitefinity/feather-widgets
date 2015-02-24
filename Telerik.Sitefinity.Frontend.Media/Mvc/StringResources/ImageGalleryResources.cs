@@ -544,7 +544,69 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["IncludeImagesFromChildLibraries"];
             }
         }
-
         #endregion
+
+        /// phrase: Next image
+        /// </summary>
+        /// <value>Next image</value>
+        [ResourceEntry("NextImage",
+            Value = "Next image",
+            Description = "phrase: Next image",
+            LastModified = "2015/02/24")]
+        public string NextImage
+        {
+            get
+            {
+                return this["NextImage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Previous image
+        /// </summary>
+        /// <value>Previous image</value>
+        [ResourceEntry("PreviousImage",
+            Value = "Previous image",
+            Description = "phrase: Previous image",
+            LastModified = "2015/02/24")]
+        public string PreviousImage
+        {
+            get
+            {
+                return this["PreviousImage"];
+            }
+        }
+
+        /// <summary>
+        /// word: by
+        /// </summary>
+        /// <value>by</value>
+        [ResourceEntry("By",
+            Value = "by",
+            Description = "word: by",
+            LastModified = "2015/02/24")]
+        public string By
+        {
+            get
+            {
+                return this["By"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Back to all images
+        /// </summary>
+        /// <value>Back to all images</value>
+        [ResourceEntry("BackToAllImages",
+            Value = "Back to all images",
+            Description = "phrase: Back to all images",
+            LastModified = "2015/02/24")]
+        public string BackToAllImages
+        {
+            get
+            {
+                return this["BackToAllImages"];
+            }
+        }
     }
 }

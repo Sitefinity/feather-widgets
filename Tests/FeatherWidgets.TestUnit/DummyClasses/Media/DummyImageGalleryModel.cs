@@ -233,6 +233,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             {
                 throw new NotImplementedException();
             }
+
             set
             {
                 throw new NotImplementedException();
