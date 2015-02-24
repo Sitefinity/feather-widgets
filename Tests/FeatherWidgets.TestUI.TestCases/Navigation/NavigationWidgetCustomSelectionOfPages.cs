@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(this.pagesToSelect);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().VerifyPageStatusAndIcon(NavigationPage, "Locked");
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().VerifyPageStatusAndIcon(pagesToSelect[0], "Published");
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().VerifyPageStatusAndIcon(this.pagesToSelect[0], "Published");
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(this.selectedPages);
 
