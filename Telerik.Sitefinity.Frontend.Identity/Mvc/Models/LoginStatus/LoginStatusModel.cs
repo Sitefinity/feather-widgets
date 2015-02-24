@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Modules.Pages;
@@ -8,6 +9,7 @@ using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.Events;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 {
@@ -87,9 +89,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             return response;
         }
 
-        delegate string GetFrontEndLoginInternal(HttpContextBase httpContext, out Telerik.Sitefinity.Web.Events.RedirectStrategyType redirectStrategy);
-        GetFrontEndLoginInternal frontendLoginPage;
-
         /// <summary>
         /// Gets the login redirect URL.
         /// </summary>
@@ -108,13 +107,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
                 else
                 {
-                    Telerik.Sitefinity.Web.Events.RedirectStrategyType redirectStrategy = Telerik.Sitefinity.Web.Events.RedirectStrategyType.None;
+                    RedirectStrategyType redirectStrategy = RedirectStrategyType.None;
                     var wrapper = new HttpContextWrapper(HttpContext.Current);
-                    frontendLoginPage = (GetFrontEndLoginInternal)Delegate.CreateDelegate(
-                        typeof(GetFrontEndLoginInternal),
-                        this,
-                        typeof(RouteHelper).GetMethod("GetFrontEndLogin"));
-                    pageUrl = frontendLoginPage(wrapper, out redirectStrategy);
+                    MethodInfo methodInfo = typeof(RouteHelper).GetMethod(
+                        "GetFrontEndLogin",
+                        BindingFlags.NonPublic | BindingFlags.Static,
+                        Type.DefaultBinder,
+                        new[] { typeof(HttpContextBase), typeof(RedirectStrategyType).MakeByRefType(), typeof(SiteMapProvider) },
+                        null
+                    );
+                    var inputParameters = new object[] { wrapper, redirectStrategy, null };
+                    pageUrl = (string)methodInfo.Invoke(null, inputParameters);
                     pageUrl = pageUrl ?? claimsModule.GetIssuer();
                 }
 
