@@ -12,11 +12,11 @@
         var item = jQuery.parseJSON(jQuery(element).attr('data-item'));
         var selectedElementIndex = jQuery(element).index();
 
-        jQuery('.sf-Gallery-image .img-responsive').attr('src', item['MediaUrl']);
-        jQuery('.sf-Gallery-image .img-responsive').attr('title', item['Title']);
-        jQuery('.sf-Gallery-image .img-responsive').attr('alt', item['AlternativeText']);
-        jQuery('.image-title').html(item['Title']);
-        jQuery('.description').html(item['Description']);
+        jQuery('.sf-Gallery-image .img-responsive').attr('src', item.MediaUrl);
+        jQuery('.sf-Gallery-image .img-responsive').attr('title', item.Title);
+        jQuery('.sf-Gallery-image .img-responsive').attr('alt', item.AlternativeText);
+        jQuery('.image-title').html(item.Title);
+        jQuery('.description').html(item.Description);
         jQuery('.item-index').html(selectedElementIndex + 1);
     };
 
