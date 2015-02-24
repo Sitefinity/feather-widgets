@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.Sitefinity;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.Media
@@ -22,7 +23,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             return new Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel();
         }
 
-        public Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel CreateListViewModelByParent(Telerik.Sitefinity.Libraries.Model.Album parentItem, int p)
+        public Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int p)
         {
             return new Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel();
         }

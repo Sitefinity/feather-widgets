@@ -13,8 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
     /// </summary>
     /// <typeparam name="TLibrary">The type of the library.</typeparam>
     /// <typeparam name="TMedia">The type of the media items.</typeparam>
-    public abstract class MediaGalleryModelBase<TLibrary, TMedia> : ContentModelBase
-        where TLibrary : Library
+    public abstract class MediaGalleryModelBase<TMedia> : ContentModelBase
         where TMedia : MediaContent
     {
         /// <summary>
@@ -45,12 +44,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         public bool ShowListViewOnEmpyParentFilter { get; set; }
 
         /// <inheritdoc />
-        public virtual ContentListViewModel CreateListViewModelByParent(TLibrary parentItem, int page)
+        public virtual ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int page)
         {
             if (page < 1)
                 throw new ArgumentException("'page' argument has to be at least 1.", "page");
 
-            var query = parentItem.Items();
+            var query = ((LibrariesManager)this.GetManager()).GetDescendants(parentItem); 
             if (query == null)
                 return this.CreateListViewModelInstance();
 
@@ -68,7 +67,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
             if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
             {
                 var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
-                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "SystemParentId = " + id.Trim()));
+                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "Parent.Id = " + id.Trim() + " OR FolderId = " + id.Trim()));
                 if (baseExpression.IsNullOrEmpty())
                     return "({0})".Arrange(parentFilterExpression);
                 else
