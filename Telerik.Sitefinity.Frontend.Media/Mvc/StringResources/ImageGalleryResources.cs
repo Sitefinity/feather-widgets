@@ -593,5 +593,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["BackToAllImages"];
             }
         }
+
+        /// <summary>
+        /// word: of
+        /// </summary>
+        /// <value>of</value>
+        [ResourceEntry("Of",
+            Value = "of",
+            Description = "word: of",
+            LastModified = "2015/02/24")]
+        public string Of
+        {
+            get
+            {
+                return this["Of"];
+            }
+        }
     }
 }
