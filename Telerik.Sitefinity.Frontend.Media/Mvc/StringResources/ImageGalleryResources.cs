@@ -496,6 +496,38 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["Provider"];
             }
         }
+
+        /// <summary>
+        /// phrase: Thumbnail size
+        /// </summary>
+        /// <value>Thumbnail size</value>
+        [ResourceEntry("ThumbnailSize",
+            Value = "Thumbnail size",
+            Description = "phrase: Thumbnail size",
+            LastModified = "2015/02/23")]
+        public string ThumbnailSize
+        {
+            get
+            {
+                return this["ThumbnailSize"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Image size
+        /// </summary>
+        /// <value>Image size</value>
+        [ResourceEntry("ImageSize",
+            Value = "Image size",
+            Description = "phrase: Image size",
+            LastModified = "2015/02/24")]
+        public string ImageSize
+        {
+            get
+            {
+                return this["ImageSize"];
+            }
+        }
         #endregion
     }
 }

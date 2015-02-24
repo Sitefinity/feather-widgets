@@ -123,6 +123,16 @@
         </div>
 
         <div class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label for="thumbnailSize">@Html.Resource("ThumbnailSize")</label>
+
+                    <div sf-thumbnail-size-selection sf-model="thumbnailSizeModel"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="listTemplateName">@Html.Resource("ListTemplate")</label>
 
             <div class="row">
@@ -172,7 +182,17 @@
             </div>
         </div>
 
-        <div  class="form-group m-top-md row">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label for="thumbnailSize">@Html.Resource("ImageSize")</label>
+
+                    <div sf-thumbnail-size-selection sf-model="imageSizeModel"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group m-top-md row">
             <div class="col-xs-6">
                 <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
 
