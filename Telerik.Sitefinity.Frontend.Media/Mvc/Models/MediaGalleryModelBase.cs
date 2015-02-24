@@ -67,16 +67,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
             if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
             {
                 var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
-                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "Parent.Id = " + id.Trim() + " OR FolderId = " + id.Trim()));
-                if (baseExpression.IsNullOrEmpty())
-                    return "({0})".Arrange(parentFilterExpression);
-                else
-                    return "({0}) and ({1})".Arrange(baseExpression, parentFilterExpression);
+                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "((Parent.Id = " + id.Trim() + " AND FolderId = null)" + " OR FolderId = " + id.Trim() + ")"));
+
+                if (!parentFilterExpression.IsNullOrEmpty())
+                {
+                    if (baseExpression.IsNullOrEmpty())
+                        return "({0})".Arrange(parentFilterExpression);
+                    else
+                        return "({0}) and ({1})".Arrange(baseExpression, parentFilterExpression);
+                }
             }
-            else
-            {
-                return baseExpression;
-            }
+
+            return baseExpression;
         }
     }
 }
