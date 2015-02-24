@@ -147,9 +147,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// Creates the ListView model by parent.
         /// </summary>
         /// <param name="parentItem">The parent item.</param>
-        /// <param name="p">The p.</param>
-        /// <returns></returns>
-        ContentListViewModel CreateListViewModelByParent(Album parentItem, int p);
+        /// <param name="p">The page.</param>
+        /// <returns>A list view model containing all descendant items from the given parent.</returns>
+        ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int page);
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.

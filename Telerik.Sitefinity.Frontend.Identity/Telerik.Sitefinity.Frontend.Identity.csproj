@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -40,8 +44,11 @@
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -129,18 +136,22 @@
     <Compile Include="Mvc\Models\LoginStatus\ILoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusViewModel.cs" />
+    <Compile Include="Mvc\Models\LoginStatus\StatusViewModel.cs" />
     <Compile Include="Mvc\StringResources\LoginStatusResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\LoginStatus\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\LoginStatus\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginButton.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginName.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\LoginStatus\login-status.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\LoginStatus\designerview-simple.js" />
   </ItemGroup>

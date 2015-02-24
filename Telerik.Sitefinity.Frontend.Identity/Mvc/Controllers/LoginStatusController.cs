@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
-using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Mvc.ActionFilters;
 using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
@@ -18,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Login Status widget.
     /// </summary>
     [Localization(typeof(LoginStatusResources))]
-    [ControllerToolboxItem(Name = "LoginStatus", Title = "Login Status", SectionName = "MvcWidgets", ModuleName = "Login")]
+    [ControllerToolboxItem(Name = "LoginStatusMVC", Title = "Login Status", SectionName = "MvcWidgets")]
     public class LoginStatusController : Controller
     {
         #region Properties
@@ -82,8 +80,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
-            return this.View(this.TemplateName, viewModel);
+
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Returns JSON with the status of the user and his email, first and last names
+        /// </summary>
+        [JsonResultFilter]
+        public ActionResult Status()
+        {
+            var response = this.Model.GetStatusViewModel();
+            
+            return this.Json(response, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -105,8 +116,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         #region Private fields and constants
 
-        private string templateName = "LoginStatus";
+        private string templateName = "LoginButton";
         private ILoginStatusModel model;
+        private string templateNamePrefix = "LoginStatus.";
 
         #endregion
     }

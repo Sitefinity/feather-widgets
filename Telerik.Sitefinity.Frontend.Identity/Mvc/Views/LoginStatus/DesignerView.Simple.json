@@ -2,6 +2,8 @@
 	"priority": 1,
 	"scripts": [
 	  "Mvc/Scripts/Angular/angular-resource.min.js",
+	  "Mvc/Scripts/expander.js",
+	  "Mvc/Scripts/style-dropdown.js",
 	  "client-components/selectors/common/sf-services.js",
 	  "client-components/selectors/common/sf-selectors.js",
 	  "client-components/selectors/common/sf-items-tree.js",

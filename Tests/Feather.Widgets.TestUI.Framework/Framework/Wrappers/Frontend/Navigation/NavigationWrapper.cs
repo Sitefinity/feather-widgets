@@ -252,6 +252,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             toggleButton.Click();
         }
 
+        /// <summary>
+        /// Verifies the created page with external url.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyCreatedPageWithExternalUrl(string name, string href, bool isOpenInNewWindowChecked = false)
+        {
+            if (isOpenInNewWindowChecked)
+            {
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name, "target=_blank").AssertIsPresent(name + " or " + href + " was not present.");
+            }
+            else
+            {
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " or " + href + " was not present.");
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name, "target=_blank").AssertIsNull(name + " or " + href + " was present.");
+            }
+        }
+
         private HtmlAnchor GetPageLinkByTitleFromBootstrapNavigation(string cssClass, string pageTitle)
         {
             HtmlUnorderedList list = this.EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass)
