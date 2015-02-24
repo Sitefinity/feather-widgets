@@ -63,5 +63,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["Template"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : More options
+        /// </summary>
+        [ResourceEntry("MoreOptions",
+            Value = "More options",
+            Description = "phrase : More options",
+            LastModified = "2015/02/24")]
+        public string MoreOptions
+        {
+            get
+            {
+                return this["MoreOptions"];
+            }
+        }
     }
 }
