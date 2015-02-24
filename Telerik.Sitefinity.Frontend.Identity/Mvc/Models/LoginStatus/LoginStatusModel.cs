@@ -141,7 +141,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                     return UrlPath.ResolveUrl(relativeUrl, true);
                 }
             }
-            return string.Empty;
+
+            return null;
         }
 
         /// <summary>
