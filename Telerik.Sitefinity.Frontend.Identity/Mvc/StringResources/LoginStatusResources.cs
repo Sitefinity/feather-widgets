@@ -63,5 +63,80 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["Template"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : More options
+        /// </summary>
+        [ResourceEntry("MoreOptions",
+            Value = "More options",
+            Description = "phrase : More options",
+            LastModified = "2015/02/24")]
+        public string MoreOptions
+        {
+            get
+            {
+                return this["MoreOptions"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Registration page
+        /// </summary>
+        [ResourceEntry("RegistrationPage",
+            Value = "Registration page",
+            Description = "phrase : Registration page",
+            LastModified = "2015/02/24")]
+        public string RegistrationPage
+        {
+            get
+            {
+                return this["RegistrationPage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : This is the page where you have dropped Registration widget
+        /// </summary>
+        [ResourceEntry("RegistrationPageInfo",
+            Value = "This is the page where you have dropped Registration widget",
+            Description = "phrase : This is the page where you have dropped Registration widget",
+            LastModified = "2015/02/24")]
+        public string RegistrationPageInfo
+        {
+            get
+            {
+                return this["RegistrationPageInfo"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : User profile page
+        /// </summary>
+        [ResourceEntry("ProfilePage",
+            Value = "User profile page",
+            Description = "phrase : User profile page",
+            LastModified = "2015/02/24")]
+        public string ProfilePage
+        {
+            get
+            {
+                return this["ProfilePage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : This is the page where you have dropped Profile widget
+        /// </summary>
+        [ResourceEntry("ProfilePageInfo",
+            Value = "This is the page where you have dropped Profile widget",
+            Description = "phrase : This is the page where you have dropped Profile widget",
+            LastModified = "2015/02/24")]
+        public string ProfilePageInfo
+        {
+            get
+            {
+                return this["ProfilePageInfo"];
+            }
+        }
     }
 }
