@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-xs-8">
-                <input class="form-control" name="title" type="text" ng-disabled="true" ng-model="properties.Title.PropertyValue" ng-required="true" />
+                <input class="form-control" name="title" type="text" ng-model="properties.Title.PropertyValue" ng-required="true" />
             </div>
 
             <div class="m-top-xs" ng-class="{'text-danger': properties.Title.PropertyValue.length > 35}">{{properties.Title.PropertyValue.length}}</div>
@@ -22,7 +22,7 @@
         <label for="alternativeText">Alternative text</label>
         <div class="row">
             <div class="col-xs-8">
-                <input class="form-control" name="alternativeText" type="text" ng-disabled="true" ng-model="properties.AlternativeText.PropertyValue" />
+                <input class="form-control" name="alternativeText" type="text" ng-model="properties.AlternativeText.PropertyValue" />
             </div>
             <div class="m-top-xs" ng-class="{'text-danger': properties.AlternativeText.PropertyValue.length>35}">{{properties.AlternativeText.PropertyValue.length}}</div>
         </div>
