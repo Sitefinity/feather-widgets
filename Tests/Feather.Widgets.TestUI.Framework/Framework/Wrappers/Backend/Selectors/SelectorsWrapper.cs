@@ -279,7 +279,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="status">The status.</param>
         public void VerifyPageStatusAndIconAfterSearch(string pageName, string status)
         {
-            var pageDiv = this.EM.Selectors.SelectorsScreen.PageDiv(pageName).AssertIsPresent("page link");
+            var pageDiv = this.EM.Selectors.SelectorsScreen.PageDiv(pageName).AssertIsPresent("page div");
             string statusIconClass = "pull-left icon-item-" + status.ToLower();
 
             pageDiv.Find.ByExpression<HtmlContainerControl>("tagname=i", "class=" + statusIconClass).AssertIsPresent("icon");
@@ -328,6 +328,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.Desktop.KeyBoard.TypeText(urlContent);
         }
 
+        /// <summary>
+        /// Presses the add external urls button.
+        /// </summary>
         public void PressAddExternalUrlsButton()
         {
             HtmlInputButton addExternalUrlsButton = this.EM.Selectors.SelectorsScreen.AddExternalUrlButton.AssertIsPresent("Add external urls button button");
@@ -355,23 +358,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectOpenInNewWindowOption(bool isSelected = true)
         {
             HtmlInputCheckBox checkbox = this.EM.Selectors
-                                           .SelectorsScreen
-                                           .OpenExternalUrlsInNewTabCheckbox
-                                           .AssertIsPresent("open in new window");
-
-            if (isSelected)
+                                                .SelectorsScreen
+                                                .OpenExternalUrlsInNewTabCheckbox
+                                                .AssertIsPresent("open in new window");
+            if (isSelected && !checkbox.Checked)
             {
-                if (!checkbox.Checked)
-                {
-                    checkbox.Click();
-                }
+                checkbox.Click();               
             }
-            else
+            else if (!isSelected && checkbox.Checked) 
             {
-                if (checkbox.Checked)
-                {
-                    checkbox.Click();
-                }
+                checkbox.Click();                
             }
         }
 

@@ -270,7 +270,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             }
         }
 
-
         private HtmlAnchor GetPageLinkByTitleFromBootstrapNavigation(string cssClass, string pageTitle)
         {
             HtmlUnorderedList list = this.EM.Navigation.NavigationWidgetFrontend.GetBootstrapNavigation(cssClass)
