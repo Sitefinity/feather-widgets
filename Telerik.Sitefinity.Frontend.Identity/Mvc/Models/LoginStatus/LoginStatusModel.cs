@@ -23,6 +23,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public string LogoutRedirectUrl { get; set; }
 
         /// <inheritdoc />
+        public Guid ProfilePageId { get; set; }
+
+        /// <inheritdoc />
+        public Guid RegistrationPageId { get; set; }
+
+        /// <inheritdoc />
+        public string CssClass { get; set; }
+
+        /// <inheritdoc />
         public virtual string GetRedirectUrl()
         {
             // TODO: Remove
@@ -76,14 +85,5 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 
             return response;
         }
-
-        /// <inheritdoc />
-        public string CssClass { get; set; }
-
-        /// <inheritdoc />
-        public Guid ProfilePageId { get; set; }
-
-        /// <inheritdoc />
-        public Guid RegistrationPageId { get; set; }
     }
 }
