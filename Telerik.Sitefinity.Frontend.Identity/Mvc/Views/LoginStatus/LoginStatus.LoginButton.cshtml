@@ -4,6 +4,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"))
 
 <div class="sf-logged-in-view" style="display: none">
     <img class="sf-logged-in-avatar" width="80" height="80" />
@@ -17,25 +18,5 @@
     <a href="someregisterlink">Register now</a>
 </div>
 
-<script>
-    $(function () {
-        $.get('@Url.Action("Status")').then(function (statusViewModel) {
-            if (statusViewModel && statusViewModel.IsLoggedIn) {
-                var loggedInView = $('.sf-logged-in-view');
-                loggedInView.find('.sf-logged-in-avatar').attr('src', statusViewModel.AvatarImageUrl).attr('alt', statusViewModel.DisplayName);
-                loggedInView.find('.sf-logged-in-name').html(statusViewModel.DisplayName);
-                loggedInView.find('.sf-logged-in-email').html(statusViewModel.Email);
-                loggedInView.find('.sf-logged-in-log-out-btn').on('click', function () {
-                    $.get('/Sitefinity/SignOut').then(function (data) {
-                        window.location.href = '@(Model.RedirectUrl ?? "/")';
-                    });
-                });
-
-                    loggedInView.show();
-                }
-                else {
-                    $('.sf-logged-out-view').show();
-                }
-        });
-    });
-</script>
+<input type="hidden" class="sf-status-json-endpoint-url" value="@Url.Action("Status")"/>
+<input type="hidden" class="sf-logout-redirect-url" value="@(Model.RedirectUrl ?? "/")"/>
