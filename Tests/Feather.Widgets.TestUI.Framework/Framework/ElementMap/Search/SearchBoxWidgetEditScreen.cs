@@ -63,7 +63,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Get<HtmlAnchor>("tag=a", "class=Tooltip");
+                //// return this.Get<HtmlAnchor>("tagname=a", "class=Tooltip");
+                return this.Find.ByExpression<HtmlAnchor>("tagname=a", "class=Tooltip");
             }
         }
 
@@ -74,7 +75,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Get<HtmlDiv>("tag=div", "class=Tooltip-info Tooltip-info--bottom");
+                //// return this.Get<HtmlDiv>("tagname=div", "class=Tooltip-info Tooltip-info--bottom");
+                return this.Find.ByExpression<HtmlDiv>("tagname=div", "class=Tooltip-info Tooltip-info--bottom");
             }
         }
 
@@ -85,7 +87,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Get<HtmlContainerControl>("tag=label", "innerText=Where to display search results?");
+                return this.Get<HtmlContainerControl>("tagname=label", "innerText=Where to display search results?");
             }
         }
 
@@ -96,14 +98,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Get<HtmlContainerControl>("tag=label", "innerText=Template");
+                return this.Get<HtmlContainerControl>("tagname=label", "innerText=Template");
             }
         }
 
         /// <summary>
         /// Gets Templates dropdown.
         /// </summary>
-        public HtmlSelect TemplatesDropdown
+        public HtmlSelect TemplateDropdown
         {
             get
             {
@@ -114,11 +116,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         /// <summary>
         /// Gets More options div.
         /// </summary>
-        public HtmlDiv MoreOptionsDiv
+        public HtmlSpan MoreOptionsSpan
         {
             get
             {
-                return this.Get<HtmlDiv>("class=Options ng-isolate-scope", "expander-title=More options");
+                return this.Get<HtmlSpan>("class=Options-toggler text-muted ng-binding", "innerText=More options");
             }
         }
 
@@ -129,7 +131,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Get<HtmlContainerControl>("tag=label", "innerText=CSS classes");
+                return this.Get<HtmlContainerControl>("tagname=label", "innerText=CSS classes");
             }
         }
 
