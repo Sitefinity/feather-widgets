@@ -13,7 +13,7 @@
         /// <summary>
         /// Holds the login page to be redirected, when clicking Log in
         /// </summary>
-        public string LoginUrl { get; set; }
+        public string LoginRedirectUrl { get; set; }
 
         /// <summary>
         /// Indicates whether to show the login name.

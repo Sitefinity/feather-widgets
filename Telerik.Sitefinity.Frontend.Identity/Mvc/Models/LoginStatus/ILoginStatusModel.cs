@@ -29,12 +29,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         Guid? LogoinPageId { get; set; }
 
         /// <summary>
-        /// Holds the login page to be redirected, when clicking Log in
+        /// Holds the external login page to be redirected, when clicking Log in
         /// </summary>
         /// <value>
         /// The login URL.
         /// </value>
-        string LoginUrl { get; set; }
+        string ExternalLoginUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the login name format.
