@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
-using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.ActionFilters;
 using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Security;
-using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -99,7 +92,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [JsonResultFilter]
         public ActionResult Status()
         {
-            var response = this.Model.GetStatus();
+            var response = this.Model.GetStatusViewModel();
             
             return this.Json(response, JsonRequestBehavior.AllowGet);
         }
