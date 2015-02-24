@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
@@ -79,7 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         {
             var baseExpression = base.CompileFilterExpression();
 
-            if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
+            if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false && !this.IncludeChildLibraries)
             {
                 var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
                 var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "((Parent.Id = " + id.Trim() + " AND FolderId = null)" + " OR FolderId = " + id.Trim() + ")"));
@@ -94,6 +95,27 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
             }
 
             return baseExpression;
+        }
+
+        /// <inheritdoc />
+        protected override IQueryable<IDataItem> UpdateExpression(IQueryable<IDataItem> query, int? skip, int? take, ref int? totalCount)
+        {
+            if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false && this.IncludeChildLibraries)
+            {
+                var manager = (LibrariesManager)this.GetManager();
+                var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
+                foreach (var stringId in selectedItemIds)
+                {
+                    Guid id;
+                    if (Guid.TryParse(stringId, out id))
+                    {
+                        var folder = manager.GetFolder(id);
+                        query = query.Union(manager.GetDescendants(folder));
+                    }
+                }
+            }
+
+            return base.UpdateExpression(query, skip, take, ref totalCount);
         }
     }
 }

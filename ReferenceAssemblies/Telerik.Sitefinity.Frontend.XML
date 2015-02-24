@@ -2623,6 +2623,16 @@
             </summary>
             <returns>The manager.</returns>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.UpdateExpression(System.Linq.IQueryable{Telerik.Sitefinity.Model.IDataItem},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32}@)">
+            <summary>
+            Updates the expression.
+            </summary>
+            <param name="query">The query.</param>
+            <param name="skip">The skip.</param>
+            <param name="take">The take.</param>
+            <param name="totalCount">The total count.</param>
+            <returns></returns>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.AdaptMultilingualFilterExpression(System.String)">
             <summary>
             Adapts a filter expression in multilingual.
