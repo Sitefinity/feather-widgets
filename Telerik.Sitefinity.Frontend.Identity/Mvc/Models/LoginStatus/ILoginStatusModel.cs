@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 {
+    /// <summary>
+    /// This interface is used as a model for the LoginStatusController.
+    /// </summary>
     public interface ILoginStatusModel
     {
         /// <summary>
@@ -52,7 +52,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <returns>
         /// A instance of <see cref="StatusViewModel"/> as view model
         /// </returns>
-        StatusViewModel GetStatus();
+        StatusViewModel GetStatusViewModel();
 
         /// <summary>
         /// Gets the redirect url to be used
