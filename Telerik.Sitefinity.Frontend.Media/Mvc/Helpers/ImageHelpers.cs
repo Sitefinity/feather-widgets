@@ -26,7 +26,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
 
             var itemViewModel = new
             {
-                Id = image.Id,
                 Title = image.Title.Value,
                 AlternativeText = image.AlternativeText.Value,
                 Description = image.Description.Value,
