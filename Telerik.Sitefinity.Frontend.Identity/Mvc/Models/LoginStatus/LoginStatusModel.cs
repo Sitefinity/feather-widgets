@@ -62,7 +62,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             {
                 Libraries.Model.Image avatarImage;
 
-                var profile = UserProfileManager.GetManager().GetUserProfile<SitefinityProfile>(user);
                 var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
                 
                 response.IsLoggedIn = true;
