@@ -13,7 +13,7 @@
 </div>
 
 <div class="sf-logged-out-view" style="display: none">
-    <a href="someloginlink">Login</a>
+    <a href="@(Model.LoginRedirectUrl ?? "/")">Login</a>
     <a href="someregisterlink">Register now</a>
 </div>
 
