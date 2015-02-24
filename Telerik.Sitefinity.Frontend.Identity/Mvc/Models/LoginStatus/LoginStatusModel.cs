@@ -112,17 +112,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
                 else
                 {
-                    RedirectStrategyType redirectStrategy = RedirectStrategyType.None;
-                    var wrapper = new HttpContextWrapper(HttpContext.Current);
-                    MethodInfo methodInfo = typeof(RouteHelper).GetMethod(
-                        "GetFrontEndLogin",
-                        BindingFlags.NonPublic | BindingFlags.Static,
-                        Type.DefaultBinder,
-                        new[] { typeof(HttpContextBase), typeof(RedirectStrategyType).MakeByRefType(), typeof(SiteMapProvider) },
-                        null
-                    );
-                    var inputParameters = new object[] { wrapper, redirectStrategy, null };
-                    pageUrl = (string)methodInfo.Invoke(null, inputParameters);
+                    pageUrl = GetLoginPageBackendSetting();
                 }
 
                 var currentUrl = HttpContext.Current.Request.RawUrl;
@@ -153,6 +143,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
             }
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Gets the login page backend setting.
+        /// </summary>
+        /// <returns></returns>
+        private static string GetLoginPageBackendSetting()
+        {
+            RedirectStrategyType redirectStrategy = RedirectStrategyType.None;
+            var wrapper = new HttpContextWrapper(HttpContext.Current);
+            MethodInfo methodInfo = typeof(RouteHelper).GetMethod(
+                "GetFrontEndLogin",
+                BindingFlags.NonPublic | BindingFlags.Static,
+                Type.DefaultBinder,
+                new[] { typeof(HttpContextBase), typeof(RedirectStrategyType).MakeByRefType(), typeof(SiteMapProvider) },
+                null
+            );
+            var inputParameters = new object[] { wrapper, redirectStrategy, null };
+            var pageUrl = (string)methodInfo.Invoke(null, inputParameters);
+
+            return pageUrl;
         }
 
         /// <summary>
