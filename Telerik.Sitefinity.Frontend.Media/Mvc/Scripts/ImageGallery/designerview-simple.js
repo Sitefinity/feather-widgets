@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('expander', 'sfSelectors');
+    angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serverData', function ($scope, propertyService, serverData) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
@@ -7,6 +7,8 @@
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
         $scope.parentSelector = { selectedItemsIds: [] };
+        $scope.thumbnailSizeModel = {};
+        $scope.imageSizeModel = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -54,6 +56,26 @@
             true
         );
 
+        $scope.$watch(
+            'thumbnailSizeModel',
+            function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    $scope.properties.SerializedThumbnailSizeModel = JSON.stringify(newValue);
+                }
+            },
+            true
+        );
+
+        $scope.$watch(
+            'imageSizeModel',
+            function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    $scope.properties.SerializedImageSizeModel = JSON.stringify(newValue);
+                }
+            },
+            true
+        );
+
         $scope.updateSortOption = function (newSortOption) {
             if (newSortOption !== "Custom") {
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
@@ -79,6 +101,16 @@
                     else {
                         $scope.selectedSortOption = "Custom";
                     }
+
+                    //var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
+                    //if (thumbnailSizeModel) {
+                    //    $scope.thumbnailSizeModel = thumbnailSizeModel;
+                    //}
+
+                    //var imageSizeModel = $.parseJSON($scope.properties.SerializedImageSizeModel.PropertyValue);
+                    //if (imageSizeModel) {
+                    //    $scope.imageSizeModel = imageSizeModel;
+                    //}
                 }
             },
             function (data) {

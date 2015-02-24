@@ -78,19 +78,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var inputs = ActiveBrowser.Find.AllByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
             foreach (var input in inputs)
             {
-                if (isSelectMode)
+                if (isSelectMode && !input.Checked)
                 {
-                    if (!input.Checked)
-                    {
-                        input.Click();
-                    }
+                    input.Click();
                 }
-                else
+                else if (!isSelectMode && input.Checked)
                 {
-                    if (input.Checked)
-                    {
-                        input.Click();
-                    }
+                    input.Click();
                 }
 
                 ActiveBrowser.RefreshDomTree();

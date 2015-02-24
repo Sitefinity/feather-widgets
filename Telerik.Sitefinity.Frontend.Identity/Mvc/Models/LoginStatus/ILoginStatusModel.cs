@@ -16,6 +16,33 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         Guid? LogoutPageId { get; set; }
 
         /// <summary>
+        /// Gets or sets the login page identifier.
+        /// </summary>
+        /// <value>
+        /// The login page identifier.
+        /// </value>
+        Guid? LoginPageId { get; set; }
+
+        /// <summary>
+        /// Holds the external login page to be redirected, when clicking Log in
+        /// </summary>
+        /// <value>
+        /// The login URL.
+        /// </value>
+        string ExternalLoginUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether if instant login is allowed.
+        /// </summary>
+        /// <remarks>
+        /// This could be used in case using Windows authentication.
+        /// </remarks>
+        /// <value>
+        ///   <c>true</c> if instant login is allowed; otherwise, <c>false</c>.
+        /// </value>
+        bool AllowInstantLogin { get; set; }
+
+        /// <summary>
         /// Gets or sets id of the page where user has to drop Profile widget
         /// </summary>
         Guid? ProfilePageId { get; set; }
@@ -69,5 +96,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// The registration page url as a string
         /// </returns>
         string GetRegistrationPageUrl();
+
+        /// <summary>
+        /// Gets the login redirect URL.
+        /// </summary>
+        /// <returns></returns>
+        string GetLoginPageUrl();
     }
 }
