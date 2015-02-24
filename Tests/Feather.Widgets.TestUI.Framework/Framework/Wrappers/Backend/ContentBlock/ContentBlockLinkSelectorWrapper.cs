@@ -100,20 +100,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                            .ContentBlockLinkSelector
                                            .OpenInNewWindow(tabIndex)
                                            .AssertIsPresent("open in new window");
-
-            if (isSelected)
+            if (isSelected && !checkbox.Checked)
             {
-                if (!checkbox.Checked)
-                {
-                    checkbox.Click();
-                }
+                checkbox.Click();
             }
-            else
+            else if (!isSelected && checkbox.Checked)
             {
-                if (checkbox.Checked)
-                {
-                    checkbox.Click();
-                }
+                checkbox.Click();
             }
         }
       
