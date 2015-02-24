@@ -312,6 +312,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     {
                         count = count + element.ChildNodes.Count();
                     }
+
                     Assert.AreEqual(expectedCount, count);
                     break;
                 }

@@ -19,6 +19,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public string LogoutRedirectUrl { get; set; }
 
         /// <inheritdoc />
+        public Guid? ProfilePageId { get; set; }
+
+        /// <inheritdoc />
+        public Guid? RegistrationPageId { get; set; }
+
+        /// <inheritdoc />
+        public string CssClass { get; set; }
+
+        /// <inheritdoc />
         public virtual string GetRedirectUrl()
         {
             if (this.LogoutRedirectPageId.HasValue)
@@ -36,7 +45,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         {
             return new LoginStatusViewModel()
             {
-                RedirectUrl = this.GetRedirectUrl()
+                RedirectUrl = this.GetRedirectUrl(),
+                ProfilePageUrl = this.GetPageUrl(this.ProfilePageId),
+                RegistrationPageUrl = this.GetPageUrl(this.RegistrationPageId)
             };
         }
 
@@ -62,5 +73,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 
             return response;
         }
+
+        #region Private members
+
+        /// <summary>
+        /// Gets the page URL by id.
+        /// </summary>
+        /// <returns></returns>
+        private string GetPageUrl(Guid? pageId)
+        {
+            if (pageId.HasValue)
+            {
+                var pageManager = PageManager.GetManager();
+                var node = pageManager.GetPageNode(pageId.Value);
+                if (node != null)
+                {
+                    var relativeUrl = node.GetFullUrl();
+                    return UrlPath.ResolveUrl(relativeUrl, true);
+                }
+            }
+            return string.Empty;
+        }
+        #endregion
     }
 }

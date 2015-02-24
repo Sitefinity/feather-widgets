@@ -27,12 +27,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// <param name="category">The category.</param>
         /// <param name="publishedBy">The publisher.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
-        public void CreatePressArticle(string title, string url, Guid tag, Guid category, string publishedBy)
+        public void CreatePressArticle(string title, string url, Guid tag, Guid category, string publishedBy, string providerName)
         {
-            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
-            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
-            var providerName = string.Empty;
-
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
             Telerik.Sitefinity.DynamicModules.Model.DynamicContent pressArticleItem = dynamicModuleManager.CreateDataItem(pressArticleType);
@@ -68,6 +64,20 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
             // You need to call SaveChanges() in order for the items to be actually persisted to data store
             dynamicModuleManager.SaveChanges();
+        }
+
+        /// <summary>
+        /// Creates the press article.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="category">The category.</param>
+        /// <param name="publishedBy">The publisher.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
+        public void CreatePressArticle(string title, string url, Guid tag, Guid category, string publishedBy)
+        {
+            this.CreatePressArticle(title, url, tag, category, publishedBy, null);
         }
 
         /// <summary>
@@ -141,7 +151,12 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             dynamicModuleManager.SaveChanges();
         }
  
-        // Creates a new pressArticle item with predefined ID
+        /// <summary>
+        /// Creates a new pressArticle item with predefined ID
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="url">The url.</param>
+        /// <returns>The press article item.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#")]
         public DynamicContent CreatePressArticleItem(string title, string url)
         {
@@ -177,22 +192,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             return pressArticleItem;
         }
 
-        // Demonstrates how pressArticleItem is deleted
-        public void DeletePressArticle(DynamicContent pressArticleItem)
-        {
-            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
-            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
-            var providerName = string.Empty;
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
-
-            // This is how you delete the pressArticleItem
-            dynamicModuleManager.DeleteDataItem(pressArticleItem);
-
-            // You need to call SaveChanges() in order for the items to be actually persisted to data store
-            dynamicModuleManager.SaveChanges();
-        }
-
-        // Demonstrates how pressArticleItem is unpublished
+        /// <summary>
+        /// Demonstrates how pressArticleItem is unpublished
+        /// </summary>
+        /// <param name="pressArticleItem">The press article item.</param>
         public void UNPublishPressArticle(ILifecycleDataItem pressArticleItem)
         {
             var providerName = string.Empty;
@@ -201,13 +204,25 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             dynamicModuleManager.Lifecycle.Unpublish(liveDynamicItem);
             dynamicModuleManager.SaveChanges();
         }
-
+        
+        /// <summary>
+        /// Retrieves collection of press articles.
+        /// </summary>
+        /// <returns>The collection of press articles.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1001:AvoidToListOnIQueryable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public List<DynamicContent> RetrieveCollectionOfPressArticles()
         {
-            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
-            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
-            var providerName = string.Empty;
+            return this.RetrieveCollectionOfPressArticles(null);
+        }
+
+        /// <summary>
+        /// Retrieves collection of press articles.
+        /// </summary>
+        /// <param name="providerName">The provider name.</param>
+        /// <returns>The collection of press articles.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1001:AvoidToListOnIQueryable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
+        public List<DynamicContent> RetrieveCollectionOfPressArticles(string providerName)
+        {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle");
 
@@ -217,13 +232,24 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             return myCollection;
         }
 
-        // Demonstrates how pressArticleItem is deleted
+        /// <summary>
+        /// Demonstrates how pressArticleItem is deleted
+        /// </summary>
+        /// <param name="itemsToDelete">Collection of items to delete.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public void DeleteDynamicItems(List<DynamicContent> itemsToDelete)
         {
-            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
-            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
-            var providerName = string.Empty;
+            this.DeleteDynamicItems(itemsToDelete, null);
+        }
+
+        /// <summary>
+        /// Demonstrates how pressArticleItem is deleted
+        /// </summary>
+        /// <param name="itemsToDelete">Collection of items to delete.</param>
+        /// <param name="providerName">The provider name.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
+        public void DeleteDynamicItems(List<DynamicContent> itemsToDelete, string providerName)
+        {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
 
             for (int i = 0; i < itemsToDelete.Count; i++)
@@ -234,6 +260,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             dynamicModuleManager.SaveChanges();
         }
 
+        /// <summary>
+        /// Publish a press article with specific date.
+        /// </summary>
+        /// <param name="pressArticleItem">The press article item.</param>
+        /// <param name="specificDate">The date.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
         public void PublishPressArticleWithSpecificDate(DynamicContent pressArticleItem, DateTime specificDate)
         {
@@ -250,6 +281,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             dynamicModuleManager.SaveChanges();
         }
 
+        /// <summary>
+        /// Edits a press article title.
+        /// </summary>
+        /// <param name="pressArticleItem">The press article item.</param>
+        /// <param name="newTitle">The new title.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
         public void EditPressArticleTitle(DynamicContent pressArticleItem, string newTitle)
         {
@@ -317,7 +353,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 FieldTypeKey = userFriendlyDataType.ToString(),
                 IsCustom = true,
 
-                ////Field definition
+                // Field definition
                 Definition = new WcfFieldDefinition()
                 {
                     Title = fieldname,

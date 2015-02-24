@@ -138,7 +138,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\LoginStatus\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\LoginStatus\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginButton.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginName.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

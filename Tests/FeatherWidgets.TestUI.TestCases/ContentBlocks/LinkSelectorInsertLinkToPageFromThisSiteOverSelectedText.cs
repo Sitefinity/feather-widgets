@@ -33,6 +33,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().SwitchToSelectedTab(SelectedTabName);
 
             Assert.IsFalse(BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().IsInsertLinkButtonEnabled());
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().VerifyPageStatusAndIcon(LinkSelectorPageName, "Locked");
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().VerifyPageStatusAndIcon(ParentPageName, "Published");
 
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SearchItemByTitle(SearchText);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(SearchResultsCount);
@@ -40,6 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SearchItemByTitle(NewSearchText);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(NewSearchResultsCount);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().VerifyPageStatusAndIconAfterSearch(NewSearchText, "Published");
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().CheckBreadcrumbAfterSearchInFlatSelector(NewSearchText, ResultPageBreadcrumb);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(NewSearchText);
 
