@@ -19,27 +19,31 @@
 
         <div class="form-group">
             <div class="radio">
-                <label for="allPublished" class="full-width">
-                    <input id="allPublished" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
 
                     @Html.Resource("AllPublishedImages")
                 </label>
             </div>
             <div class="radio">
-                <label for="selectedLibrariesOnly" class="full-width">
-                    <input id="selectedLibrariesOnly" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
-
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
                     @Html.Resource("FromSelectedLibraries")
+                </label>
 
-                    <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
-                                    sf-multiselect="true" sf-sortable="true" sf-master="true"
-                                    sf-provider="properties.ProviderName.PropertyValue"
-                                    sf-selected-ids="parentSelector.selectedItemsIds"></sf-list-selector>
+                <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
+                                sf-multiselect="true" sf-sortable="true" sf-master="true"
+                                sf-provider="properties.ProviderName.PropertyValue"
+                                sf-selected-ids="parentSelector.selectedItemsIds"></sf-list-selector>
+
+                <label ng-show="properties.ParentFilterMode.PropertyValue=='Selected'">
+                    <input type="checkbox" />
+                    @Html.Resource("IncludeImagesFromChildLibraries")
                 </label>
             </div>
             <div class="radio form-inline">
-                <label for="currentlyOpenLibrary">
-                    <input id="currentlyOpenLibrary" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
+                <label>
+                    <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
 
                     @Html.Resource("FromCurrentlyOpen")
                 </label>
@@ -48,21 +52,21 @@
 
         <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
             <div class="radio m-top-none">
-                <label for="allItems" class="full-width">
-                    <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
                     @Html.Resource("AllPublishedImages")
                 </label>
             </div>
             <div class="radio">
-                <label for="filterItems" class="full-width">
-                    <input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
                     @Html.Resource("SelectionOfImages")
-                    <sf-filter-selector sf-query-data="additionalFilters.value"
-                        sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Libraries.Model.Image))"
-                        sf-provider="properties.ProviderName.PropertyValue"
-                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
-                        class="sf-filter-selector"></sf-filter-selector>
                 </label>
+                <sf-filter-selector sf-query-data="additionalFilters.value"
+                    sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Libraries.Model.Image))"
+                    sf-provider="properties.ProviderName.PropertyValue"
+                    ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+                    class="sf-filter-selector"></sf-filter-selector>
             </div>
         </expander>
     </tab>
@@ -70,54 +74,51 @@
     <tab heading="@Html.Resource("ListSettings")">
         <div class="form-group">
             <div class="radio">
-                <label for="usePaging">
-                    <input id="usePaging" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Paging" />
-
-                    <strong>@Html.Resource("UsePaging")</strong><br />
-
-                    <span>
-                        @Html.Raw(String.Format(Html.Resource("DivideToItemPerPage"),
-                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Paging\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
-                    </span>
+                <label>
+                    <input type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Paging" />
                 </label>
+                <strong>@Html.Resource("UsePaging")</strong><br />
+
+                <span>
+                    @Html.Raw(String.Format(Html.Resource("DivideToItemPerPage"),
+                    "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Paging\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
+                </span>
             </div>
             <div class="radio">
-                <label for="useLimit">
-                    <input id="useLimit" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Limit" />
-
-                    <strong>@Html.Resource("UseLimit")</strong><br />
-
-                    <span>
-                        @Html.Raw(String.Format(Html.Resource("ShowLimitedItems"),
-                        "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
-                    </span>
+                <label>
+                    <input type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Limit" />
                 </label>
+                <strong>@Html.Resource("UseLimit")</strong><br />
+
+                <span>
+                    @Html.Raw(String.Format(Html.Resource("ShowLimitedItems"),
+                    "<input type='text' style='width: 40px' ng-disabled='properties.DisplayMode.PropertyValue!=\"Limit\"' ng-model='properties.ItemsPerPage.PropertyValue'/>"))
+                </span>
             </div>
             <div class="radio">
-                <label for="allItems">
-                    <input id="allItems" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="All" />
-
-                    <strong>@Html.Resource("NoLimitPaging")</strong><br />
-
-                    <span>@Html.Resource("ShowAllItems")</span>
+                <label>
+                    <input type="radio" ng-model="properties.DisplayMode.PropertyValue" value="All" />
                 </label>
+                <strong>@Html.Resource("NoLimitPaging")</strong><br />
+
+                <span>@Html.Resource("ShowAllItems")</span>
             </div>
         </div>
 
         <div  class="form-group">
             <div class="row">
                 <div class="col-xs-6">
-                    <label for="sortOptions">@Html.Resource("SortItems")</label>
-
-
-                    <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
-                        <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
-                        <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
-                        <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
-                        <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
-                        <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
-                        <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
-                    </select>
+                    <label>
+                        @Html.Resource("SortItems")
+                        <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
+                            <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
+                            <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
+                            <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
+                            <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
+                            <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
+                            <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
+                        </select>
+                    </label>
                 </div>
             </div>
         </div>
@@ -125,34 +126,39 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-6">
-                    <label for="thumbnailSize">@Html.Resource("ThumbnailSize")</label>
-
-                    <div sf-thumbnail-size-selection sf-model="thumbnailSizeModel"></div>
+                    <label>
+                        @Html.Resource("ThumbnailSize")
+                        <div sf-thumbnail-size-selection sf-model="thumbnailSizeModel"></div>
+                    </label>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="listTemplateName">@Html.Resource("ListTemplate")</label>
+            <label>
+                @Html.Resource("ListTemplate")
 
-            <div class="row">
-                <div class="col-xs-6">
-                    <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>[\w\s]*)$"))
-                         {
-                             <option value="@viewName"> @viewName</option>
-                         }
-                    </select>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <select ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                             @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>[\w\s]*)$"))
+                             {
+                                 <option value="@viewName"> @viewName</option>
+                             }
+                        </select>
+                    </div>
                 </div>
-            </div>
+            </label>
         </div>
 
         <expander expander-title='@Html.Resource("MoreOptions")'>
             <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
-                <label for="navCssClass">@Html.Resource("CssClasses")</label>
-                <input type="text" id="navCssClass" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
+                <label>
+                    @Html.Resource("CssClasses")
+                    <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
+                </label>
             </div>
         </expander>
     </tab>
@@ -161,16 +167,16 @@
         <div class="form-group">
             <strong>@Html.Resource("OpenSingleItem")</strong>
             <div class="radio">
-                <label for="samePage">
-                    <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
+                <label>
+                    <input type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
                     <span>
                         @Html.Resource("ShowInSamePage")
                     </span>
                 </label>
             </div>
             <div class="radio">
-                <label for="existingPage">
-                    <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
+                <label>
+                    <input type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
                     @Html.Resource("ShowInExistingPage")
                 </label>
                 <div class="label-content">
@@ -185,23 +191,27 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-6">
-                    <label for="thumbnailSize">@Html.Resource("ImageSize")</label>
+                    <label>
+                        @Html.Resource("ImageSize")
 
-                    <div sf-thumbnail-size-selection sf-model="imageSizeModel"></div>
+                        <div sf-thumbnail-size-selection sf-model="imageSizeModel"></div>
+                    </label>
                 </div>
             </div>
         </div>
 
         <div class="form-group m-top-md row">
             <div class="col-xs-6">
-                <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
+                <label>
+                    @Html.Resource("DetailTemplate")
 
-                <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>[\w\s]*)$"))
-                     {
-                         <option value="@viewName"> @viewName</option>
-                     }
-                </select>
+                    <select ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>[\w\s]*)$"))
+                         {
+                             <option value="@viewName"> @viewName</option>
+                         }
+                    </select>
+                </label>
             </div>
         </div>
 
@@ -209,8 +219,10 @@
             <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
-                <label for="cssClass">@Html.Resource("CssClasses")</label>
-                <input type="text" id="cssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                <label>
+                    @Html.Resource("CssClasses")
+                    <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                </label>
             </div>
         </expander>
     </tab>
