@@ -24,14 +24,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         string LogoutRedirectUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets id of the page where you have dropped Profile widget
+        /// Gets or sets id of the page where user has to drop Profile widget
         /// </summary>
-        Guid ProfilePageId { get; set; }
+        Guid? ProfilePageId { get; set; }
 
         /// <summary>
-        /// Gets or sets id of the page where you have dropped Registration widget
+        /// Gets or sets id of the page where user has to drop Registration widget
         /// </summary>
-        Guid RegistrationPageId { get; set; }
+        Guid? RegistrationPageId { get; set; }
 
         /// <summary>
         /// Gets or sets the css class that will be applied on the wrapping element of the widget.

@@ -23,10 +23,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public string LogoutRedirectUrl { get; set; }
 
         /// <inheritdoc />
-        public Guid ProfilePageId { get; set; }
+        public Guid? ProfilePageId { get; set; }
 
         /// <inheritdoc />
-        public Guid RegistrationPageId { get; set; }
+        public Guid? RegistrationPageId { get; set; }
 
         /// <inheritdoc />
         public string CssClass { get; set; }
