@@ -3,13 +3,12 @@ using System.Linq;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 {
     public class LoginStatusModel : ILoginStatusModel
     {
-        private readonly string LogoutUrl = "/Sitefinity/Logout";
-
         /// <inheritdoc />
         public Guid? LogoutRedirectPageId { get; set; }
 
@@ -35,7 +34,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritdoc />
         public LoginStatusViewModel GetViewModel()
         {
-            var redirectUrl = LogoutUrl;
+            var redirectUrl = "/Sitefinity/SignOut";
             
             var pageRedirectUrl = this.GetRedirectUrl();
             if (!string.IsNullOrEmpty(pageRedirectUrl))
@@ -58,12 +57,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 
             if (user != null)
             {
+                Libraries.Model.Image avatarImage;
+
                 var profile = UserProfileManager.GetManager().GetUserProfile<SitefinityProfile>(user);
                 var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
                 
                 response.IsLoggedIn = true;
                 response.Email = user.Email;
                 response.DisplayName = displayNameBuilder.GetUserDisplayName(user.Id);
+                response.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(user.Id, out avatarImage);
             }
 
             return response;

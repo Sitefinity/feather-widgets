@@ -1,24 +1,30 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus.LoginStatusViewModel
 
 <div class="sf-logged-in-view" style="display: none">
-    <div>Click to login</div>
+    <img class="sf-logged-in-avatar" width="80" height="80" />
+    <p class="sf-logged-in-name"></p>
+    <p class="sf-logged-in-email"></p>
+    <a href="@Model.RedirectUrl">Logout</a>
 </div>
 
 <div class="sf-logged-out-view" style="display: none">
-    <div>Click to logout</div>
-    <a href="@Model.RedirectUrl">@Model.RedirectUrl</a>
+    <a href="someloginlink">Login</a>
+    <a href="someregisterlink">Register now</a>
 </div>
 
 <script>
     $(function () {
-        $.get('@Url.Action("GetStatus", "LoginStatus")').then(function (response) {
-            console.log(response);
-            if (response && response.IsLoggedIn) {
-                $('.sf-logged-in-view').show();
+        $.get('@Url.Action("Status")').then(function (statusViewModel) {
+            if (statusViewModel && statusViewModel.IsLoggedIn) {
+                var loggedInView = $('.sf-logged-in-view');
+                loggedInView.find('.sf-logged-in-avatar').attr('src', statusViewModel.AvatarImageUrl).attr('alt', statusViewModel.DisplayName);
+                loggedInView.find('.sf-logged-in-name').html(statusViewModel.DisplayName);
+                loggedInView.find('.sf-logged-in-email').html(statusViewModel.Email);
+                loggedInView.show();
             }
             else {
                 $('.sf-logged-out-view').show();
             }
-        })
+        });
     });
 </script>
