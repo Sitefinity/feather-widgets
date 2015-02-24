@@ -21,10 +21,10 @@
 
         $scope.$watch('model', function (newVal, oldVal) {
             if (newVal && newVal.item && newVal.item.Id) {
-                if (newVal.item.Title && newVal.item.Title.Value) {
+                if (!$scope.properties.Title.PropertyValue && newVal.item.Title && newVal.item.Title.Value) {
                     $scope.properties.Title.PropertyValue = newVal.item.Title.Value;
                 }
-                if (newVal.item.AlternativeText && newVal.item.AlternativeText.Value) {
+                if (!$scope.properties.AlternativeText.PropertyValue && newVal.item.AlternativeText && newVal.item.AlternativeText.Value) {
                     $scope.properties.AlternativeText.PropertyValue = newVal.item.AlternativeText.Value;
                 }
 
