@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -142,12 +143,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\LoginStatus\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\LoginStatus\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginButton.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginName.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\LoginStatus\login-status.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\LoginStatus\designerview-simple.js" />
   </ItemGroup>

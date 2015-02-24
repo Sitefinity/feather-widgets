@@ -2,6 +2,9 @@
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 {
+    /// <summary>
+    /// This interface is used as a model for the LoginStatusController.
+    /// </summary>
     public interface ILoginStatusModel
     {
         /// <summary>
@@ -21,12 +24,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         string LogoutRedirectUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the logoin page identifier.
+        /// Gets or sets the login page identifier.
         /// </summary>
         /// <value>
-        /// The logoin page identifier.
+        /// The login page identifier.
         /// </value>
-        Guid? LogoinPageId { get; set; }
+        Guid? LoginPageId { get; set; }
 
         /// <summary>
         /// Holds the external login page to be redirected, when clicking Log in
@@ -45,6 +48,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// Indicates whether to show the login name.
         /// </summary>
         bool ShowLoginName { get; set; }
+
+        /// <summary>
+        /// Gets or sets id of the page where user has to drop Profile widget
+        /// </summary>
+        Guid? ProfilePageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets id of the page where user has to drop Registration widget
+        /// </summary>
+        Guid? RegistrationPageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the css class that will be applied on the wrapping element of the widget.
+        /// </summary>
+        string CssClass { get; set; }
 
         /// <summary>
         /// Gets the view model.
