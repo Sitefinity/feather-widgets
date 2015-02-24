@@ -160,26 +160,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
         }
 
         /// <summary>
-        /// Gets the external urls title.
+        /// Gets all external urls titles.
         /// </summary>
-        /// <value>The external urls title.</value>
-        public HtmlInputText ExternalUrlsTitle
+        /// <value>All external urls titles.</value>
+        public ICollection<HtmlInputText> AllExternalUrlsTitles
         {
             get
             {
-                return this.Get<HtmlInputText>("tagname=input", "ng-model=item.TitlesPath");
+                return this.Find.AllByExpression<HtmlInputText>("tagname=input", "ng-model=item.TitlesPath");
             }
         }
 
         /// <summary>
-        /// Gets the external urls URL.
+        /// Gets all external urls urls.
         /// </summary>
-        /// <value>The external urls URL.</value>
-        public HtmlInputText ExternalUrlsUrl
+        /// <value>All external urls urls.</value>
+        public ICollection<HtmlInputText> AllExternalUrlsUrls
         {
             get
             {
-                return this.Get<HtmlInputText>("tagname=input", "ng-model=item.Url");
+                return this.Find.AllByExpression<HtmlInputText>("tagname=input", "ng-model=item.Url");
             }
         }
 

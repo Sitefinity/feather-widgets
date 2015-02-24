@@ -287,6 +287,94 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             pageDiv.Find.ByExpression<HtmlSpan>("tagname=span", "class=~u-db small ng-binding", "innertext=" + status).AssertIsPresent("status text");
         }
 
+        /// <summary>
+        /// Enters the external urls title.
+        /// </summary>
+        /// <param name="titleContent">Content of the title.</param>
+        /// <param name="urlContent">Content of the URL.</param>
+        /// <param name="isFirstRowSelected">The is first row selected.</param>
+        public void EnterExternalUrlsInfo(string titleContent, string urlContent, bool isFirstRowSelected = true)
+        {
+            HtmlInputText title;
+            HtmlInputText url;
+            if (isFirstRowSelected)
+            {
+                title = this.EM.Selectors.SelectorsScreen.AllExternalUrlsTitles.FirstOrDefault().AssertIsPresent("first title");
+            }
+            else
+            {
+                title = this.EM.Selectors.SelectorsScreen.AllExternalUrlsTitles.LastOrDefault().AssertIsPresent("second title");
+            }
+
+            title.ScrollToVisible();
+            title.Focus();
+            title.MouseClick();
+            title.Text = string.Empty;
+            Manager.Current.Desktop.KeyBoard.TypeText(titleContent);
+
+            if (isFirstRowSelected)
+            {
+                url = this.EM.Selectors.SelectorsScreen.AllExternalUrlsUrls.FirstOrDefault().AssertIsPresent("first url");
+            }
+            else
+            {
+                url = this.EM.Selectors.SelectorsScreen.AllExternalUrlsUrls.LastOrDefault().AssertIsPresent("second url");
+            }
+
+            url.ScrollToVisible();
+            url.Focus();
+            url.MouseClick();
+            url.Text = string.Empty;
+            Manager.Current.Desktop.KeyBoard.TypeText(urlContent);
+        }
+
+        public void PressAddExternalUrlsButton()
+        {
+            HtmlInputButton addExternalUrlsButton = this.EM.Selectors.SelectorsScreen.AddExternalUrlButton.AssertIsPresent("Add external urls button button");
+
+            addExternalUrlsButton.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Removes the external URL.
+        /// </summary>
+        public void RemoveExternalUrl()
+        {
+            HtmlAnchor removeIcon = this.EM.Selectors.SelectorsScreen.RemoveExternalUrlsIcon.AssertIsPresent("remove icon");
+
+            removeIcon.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Selects the open in new window option.
+        /// </summary>
+        /// <param name="isSelected">The is selected.</param>
+        public void SelectOpenInNewWindowOption(bool isSelected = true)
+        {
+            HtmlInputCheckBox checkbox = this.EM.Selectors
+                                           .SelectorsScreen
+                                           .OpenExternalUrlsInNewTabCheckbox
+                                           .AssertIsPresent("open in new window");
+
+            if (isSelected)
+            {
+                if (!checkbox.Checked)
+                {
+                    checkbox.Click();
+                }
+            }
+            else
+            {
+                if (checkbox.Checked)
+                {
+                    checkbox.Click();
+                }
+            }
+        }
+
         private void SelectElementInTree(string itemName, HtmlDiv activeTab)
         {
             var element = activeTab.Find.ByExpression<HtmlSpan>("innertext=" + itemName);
