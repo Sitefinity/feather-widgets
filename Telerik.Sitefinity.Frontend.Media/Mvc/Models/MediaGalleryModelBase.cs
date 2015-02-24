@@ -34,14 +34,29 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
             }
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Gets or sets the parent filtering mode.
+        /// </summary>
+        /// <value>
+        /// The parent filtering mode.
+        /// </value>
         public ParentFilterMode ParentFilterMode { get; set; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Gets or sets the serialized selected parent ids.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
         public string SerializedSelectedParentsIds { get; set; }
 
-        /// <inheritdoc />
-        public bool ShowListViewOnEmpyParentFilter { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether to include items from child libraries of the selected libraries.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if items of child libraries should be included; otherwise, <c>false</c>.
+        /// </value>
+        public bool IncludeChildLibraries { get; set; }
 
         /// <inheritdoc />
         public virtual ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int page)

@@ -122,6 +122,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         string SerializedSelectedParentsIds { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to include items from child libraries of the selected libraries.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if items of child libraries should be included; otherwise, <c>false</c>.
+        /// </value>
+        bool IncludeChildLibraries { get; set; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]

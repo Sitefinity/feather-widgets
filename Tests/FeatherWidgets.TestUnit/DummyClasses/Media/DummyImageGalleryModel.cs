@@ -226,5 +226,17 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
         }
 
         public IEnumerable<Telerik.Sitefinity.ContentLocations.IContentLocationInfo> DummyLocations { get; set; }
+
+        public bool IncludeChildLibraries
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
