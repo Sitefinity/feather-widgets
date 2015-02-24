@@ -13,15 +13,34 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <value>
         /// The the id to be redirected to as a nullable guid
         /// </value>
-        Guid? LogoutRedirectPageId { get; set; }
+        Guid? LogoutPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets the url of the page where user has to be redirected, when clicking Log out
+        /// Gets or sets the login page identifier.
         /// </summary>
         /// <value>
-        /// The the url to be redirected to as string
+        /// The login page identifier.
         /// </value>
-        string LogoutRedirectUrl { get; set; }
+        Guid? LoginPageId { get; set; }
+
+        /// <summary>
+        /// Holds the external login page to be redirected, when clicking Log in
+        /// </summary>
+        /// <value>
+        /// The login URL.
+        /// </value>
+        string ExternalLoginUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether if instant login is allowed.
+        /// </summary>
+        /// <remarks>
+        /// This could be used in case using Windows authentication.
+        /// </remarks>
+        /// <value>
+        ///   <c>true</c> if instant login is allowed; otherwise, <c>false</c>.
+        /// </value>
+        bool AllowInstantLogin { get; set; }
 
         /// <summary>
         /// Gets or sets id of the page where user has to drop Profile widget
@@ -55,11 +74,33 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         StatusViewModel GetStatusViewModel();
 
         /// <summary>
-        /// Gets the redirect url to be used
+        /// Gets the redirect url to be used after logout
         /// </summary>
         /// <returns>
-        /// The redirect url as a string
+        /// The logout redirect url as a string
         /// </returns>
-        string GetRedirectUrl();
+        string GetLogoutPageUrl();
+
+        /// <summary>
+        /// Gets the redirect url to be used for profile page
+        /// </summary>
+        /// <returns>
+        /// The profile page url as a string
+        /// </returns>
+        string GetProfilePageUrl();
+
+        /// <summary>
+        /// Gets the redirect url to be used for registration page
+        /// </summary>
+        /// <returns>
+        /// The registration page url as a string
+        /// </returns>
+        string GetRegistrationPageUrl();
+
+        /// <summary>
+        /// Gets the login redirect URL.
+        /// </summary>
+        /// <returns></returns>
+        string GetLoginPageUrl();
     }
 }
