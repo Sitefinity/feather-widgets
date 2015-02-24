@@ -40,16 +40,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         string ExternalLoginUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the login name format.
-        /// </summary>
-        string LoginNameFormatString { get; set; }
-
-        /// <summary>
-        /// Indicates whether to show the login name.
-        /// </summary>
-        bool ShowLoginName { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether if instant login is allowed.
         /// </summary>
         /// <remarks>

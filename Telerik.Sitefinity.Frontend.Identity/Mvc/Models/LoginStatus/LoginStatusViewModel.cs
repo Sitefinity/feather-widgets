@@ -18,16 +18,6 @@
         /// </summary>
         public string LoginRedirectUrl { get; set; }
 
-        /// <summary>
-        /// Indicates whether to show the login name.
-        /// </summary>
-        public bool ShowLoginName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the login name format.
-        /// </summary>
-        public string LoginNameFormatString { get; set; }
-
          /// <summary>
         /// Gets or sets url of the page where user has to drop Profile widget
         /// </summary>

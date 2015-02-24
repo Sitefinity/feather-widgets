@@ -53,12 +53,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public string ExternalLoginUrl { get; set; }
 
         /// <inheritDoc/>
-        public string LoginNameFormatString { get; set; }
-
-        /// <inheritDoc/>
-        public bool ShowLoginName { get; set; }
-
-        /// <inheritDoc/>
         public bool AllowInstantLogin { get; set; }
 
         /// <inheritDoc/>
