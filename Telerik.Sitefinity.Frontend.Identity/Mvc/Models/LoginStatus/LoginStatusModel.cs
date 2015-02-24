@@ -39,6 +39,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         }
 
         /// <inheritdoc />
+        public Guid? LogoinPageId { get; set; }
+
+        /// <inheritDoc/>
+        public string LoginUrl { get; set; }
+
+        /// <inheritDoc/>
+        public string LoginNameFormatString { get; set; }
+
+        /// <inheritDoc/>
+        public bool ShowLoginName { get; set; }
+
+        /// <inheritDoc/>
         public LoginStatusViewModel GetViewModel()
         {
             var redirectUrl = LogoutUrl;

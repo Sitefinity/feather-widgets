@@ -24,6 +24,32 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         string LogoutRedirectUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the logoin page identifier.
+        /// </summary>
+        /// <value>
+        /// The logoin page identifier.
+        /// </value>
+        Guid? LogoinPageId { get; set; }
+
+        /// <summary>
+        /// Holds the login page to be redirected, when clicking Log in
+        /// </summary>
+        /// <value>
+        /// The login URL.
+        /// </value>
+        string LoginUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the login name format.
+        /// </summary>
+        string LoginNameFormatString { get; set; }
+
+        /// <summary>
+        /// Indicates whether to show the login name.
+        /// </summary>
+        bool ShowLoginName { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns>
