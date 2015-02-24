@@ -202,6 +202,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             if (item != null)
                 this.ViewBag.Title = item.Title;
 
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+
             var viewModel = this.Model.CreateDetailsViewModel(item);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
@@ -339,7 +342,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private IImageGalleryModel model;
         private string listTemplateName = "ThumbnailsList";
         private string listTemplateNamePrefix = "List.";
-        private string detailTemplateName;
+        private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
         private bool? disableCanonicalUrlMetaTag;
         private bool openInSamePage = true;
