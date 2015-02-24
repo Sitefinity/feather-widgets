@@ -168,5 +168,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ProfilePageInfo"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : After logout users will be redirected to...
+        /// </summary>
+        [ResourceEntry("LogoutPageInfo",
+            Value = "After logout users will be redirected to...",
+            Description = "phrase : After logout users will be redirected to...",
+            LastModified = "2015/02/24")]
+        public string LogoutPageInfo
+        {
+            get
+            {
+                return this["LogoutPageInfo"];
+            }
+        }
     }
 }

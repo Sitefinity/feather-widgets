@@ -13,11 +13,11 @@
 </div>
 
 <div class="sf-logged-out-view" style="display: none">
-    <a href="@(Model.LoginRedirectUrl ?? "/")">Login</a>
+    <a href="@(Model.LoginPageUrl ?? "/")">Login</a>
     <a href="someregisterlink">Register now</a>
 </div>
 
 <input type="hidden" class="sf-status-json-endpoint-url" value="@Url.Action("Status")"/>
-<input type="hidden" class="sf-logout-redirect-url" value="@(Model.RedirectUrl ?? "/")"/>
+<input type="hidden" class="sf-logout-redirect-url" value="@(Model.LogoutPageUrl ?? "/")"/>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"))
