@@ -2,6 +2,9 @@
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 {
+    /// <summary>
+    /// This interface is used as a model for the LoginStatusController.
+    /// </summary>
     public interface ILoginStatusModel
     {
         /// <summary>

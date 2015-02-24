@@ -1,10 +1,15 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus.LoginStatusViewModel
 
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery)
+
 <div class="sf-logged-in-view" style="display: none">
     <img class="sf-logged-in-avatar" width="80" height="80" />
     <p class="sf-logged-in-name"></p>
     <p class="sf-logged-in-email"></p>
-    <a href="@Model.RedirectUrl">Logout</a>
+    <button class="sf-logged-in-log-out-btn">Logout</button>
 </div>
 
 <div class="sf-logged-out-view" style="display: none">
@@ -20,11 +25,17 @@
                 loggedInView.find('.sf-logged-in-avatar').attr('src', statusViewModel.AvatarImageUrl).attr('alt', statusViewModel.DisplayName);
                 loggedInView.find('.sf-logged-in-name').html(statusViewModel.DisplayName);
                 loggedInView.find('.sf-logged-in-email').html(statusViewModel.Email);
-                loggedInView.show();
-            }
-            else {
-                $('.sf-logged-out-view').show();
-            }
+                loggedInView.find('.sf-logged-in-log-out-btn').on('click', function () {
+                    $.get('/Sitefinity/SignOut').then(function (data) {
+                        window.location.href = '@(Model.RedirectUrl ?? "/")';
+                    });
+                });
+
+                    loggedInView.show();
+                }
+                else {
+                    $('.sf-logged-out-view').show();
+                }
         });
     });
 </script>

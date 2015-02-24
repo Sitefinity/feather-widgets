@@ -7,6 +7,9 @@ using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 {
+    /// <summary>
+    /// This class is used as a model for the LoginStatusController.
+    /// </summary>
     public class LoginStatusModel : ILoginStatusModel
     {
         /// <inheritdoc />
@@ -18,9 +21,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritdoc />
         public virtual string GetRedirectUrl()
         {
-            // TODO: Remove
-            return "www.abv.bg";
-
             if (this.LogoutRedirectPageId.HasValue)
             {
                 return PageManager.GetManager().GetPageNode(LogoutRedirectPageId.Value).Urls.FirstOrDefault().Url;
@@ -34,17 +34,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritdoc />
         public LoginStatusViewModel GetViewModel()
         {
-            var redirectUrl = "/Sitefinity/SignOut";
-            
-            var pageRedirectUrl = this.GetRedirectUrl();
-            if (!string.IsNullOrEmpty(pageRedirectUrl))
-	        {
-		        redirectUrl += "?redirect_uri=" + pageRedirectUrl;
-	        }
-
             return new LoginStatusViewModel()
             {
-                RedirectUrl = redirectUrl
+                RedirectUrl = this.GetRedirectUrl()
             };
         }
 
