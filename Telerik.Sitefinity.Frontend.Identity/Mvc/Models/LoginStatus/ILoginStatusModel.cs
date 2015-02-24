@@ -13,15 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <value>
         /// The the id to be redirected to as a nullable guid
         /// </value>
-        Guid? LogoutRedirectPageId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the url of the page where user has to be redirected, when clicking Log out
-        /// </summary>
-        /// <value>
-        /// The the url to be redirected to as string
-        /// </value>
-        string LogoutRedirectUrl { get; set; }
+        Guid? LogoutPageId { get; set; }
 
         /// <summary>
         /// Gets or sets id of the page where user has to drop Profile widget
@@ -55,11 +47,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         StatusViewModel GetStatusViewModel();
 
         /// <summary>
-        /// Gets the redirect url to be used
+        /// Gets the redirect url to be used after logout
         /// </summary>
         /// <returns>
-        /// The redirect url as a string
+        /// The logout redirect url as a string
         /// </returns>
-        string GetRedirectUrl();
+        string GetLogoutPageUrl();
+
+        /// <summary>
+        /// Gets the redirect url to be used for profile page
+        /// </summary>
+        /// <returns>
+        /// The profile page url as a string
+        /// </returns>
+        string GetProfilePageUrl();
+
+        /// <summary>
+        /// Gets the redirect url to be used for registration page
+        /// </summary>
+        /// <returns>
+        /// The registration page url as a string
+        /// </returns>
+        string GetRegistrationPageUrl();
     }
 }

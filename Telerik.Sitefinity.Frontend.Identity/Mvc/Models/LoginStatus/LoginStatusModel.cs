@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
@@ -13,10 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
     public class LoginStatusModel : ILoginStatusModel
     {
         /// <inheritdoc />
-        public Guid? LogoutRedirectPageId { get; set; }
-
-        /// <inheritdoc />
-        public string LogoutRedirectUrl { get; set; }
+        public Guid? LogoutPageId { get; set; }
 
         /// <inheritdoc />
         public Guid? ProfilePageId { get; set; }
@@ -28,16 +27,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public string CssClass { get; set; }
 
         /// <inheritdoc />
-        public virtual string GetRedirectUrl()
+        public virtual string GetLogoutPageUrl()
         {
-            if (this.LogoutRedirectPageId.HasValue)
-            {
-                return PageManager.GetManager().GetPageNode(LogoutRedirectPageId.Value).Urls.FirstOrDefault().Url;
-            }
-            else
-            {
-                return this.LogoutRedirectUrl;
-            }
+            return this.GetPageUrl(this.LogoutPageId);
+        }
+
+        /// <inheritdoc />
+        public virtual string GetProfilePageUrl()
+        {
+            return this.GetPageUrl(this.ProfilePageId);
+        }
+
+        /// <inheritdoc />
+        public virtual string GetRegistrationPageUrl()
+        {
+            return this.GetPageUrl(this.RegistrationPageId);
         }
 
         /// <inheritdoc />
@@ -45,9 +49,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         {
             return new LoginStatusViewModel()
             {
-                RedirectUrl = this.GetRedirectUrl(),
-                ProfilePageUrl = this.GetPageUrl(this.ProfilePageId),
-                RegistrationPageUrl = this.GetPageUrl(this.RegistrationPageId)
+                LogoutPageUrl = this.GetLogoutPageUrl(),
+                ProfilePageUrl = this.GetProfilePageUrl(),
+                RegistrationPageUrl = this.GetRegistrationPageUrl()
             };
         }
 
