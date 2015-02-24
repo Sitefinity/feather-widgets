@@ -56,6 +56,26 @@
             true
         );
 
+        $scope.$watch(
+            'thumbnailSizeModel',
+            function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    $scope.properties.SerializedThumbnailSizeModel = JSON.stringify(newValue);
+                }
+            },
+            true
+        );
+
+        $scope.$watch(
+            'imageSizeModel',
+            function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    $scope.properties.SerializedImageSizeModel = JSON.stringify(newValue);
+                }
+            },
+            true
+        );
+
         $scope.updateSortOption = function (newSortOption) {
             if (newSortOption !== "Custom") {
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
@@ -81,6 +101,16 @@
                     else {
                         $scope.selectedSortOption = "Custom";
                     }
+
+                    //var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
+                    //if (thumbnailSizeModel) {
+                    //    $scope.thumbnailSizeModel = thumbnailSizeModel;
+                    //}
+
+                    //var imageSizeModel = $.parseJSON($scope.properties.SerializedImageSizeModel.PropertyValue);
+                    //if (imageSizeModel) {
+                    //    $scope.imageSizeModel = imageSizeModel;
+                    //}
                 }
             },
             function (data) {
