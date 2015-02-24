@@ -80,6 +80,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : User profile page
+        /// </summary>
+        [ResourceEntry("LoginPage",
+            Value = "Login page",
+            Description = "phrase : Login page",
+            LastModified = "2015/02/24")]
+        public string LoginPage
+        {
+            get
+            {
+                return this["LoginPage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : This is the page where you have dropped Profile widget
+        /// </summary>
+        [ResourceEntry("LoginPageInfo",
+            Value = "This is the page where you have dropped Login form widget",
+            Description = "phrase : This is the page where you have dropped Login form widget",
+            LastModified = "2015/02/24")]
+        public string LoginPageInfo
+        {
+            get
+            {
+                return this["LoginPageInfo"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Registration page
         /// </summary>
         [ResourceEntry("RegistrationPage",
