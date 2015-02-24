@@ -88,5 +88,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// The redirect url as a string
         /// </returns>
         string GetRedirectUrl();
+
+        /// <summary>
+        /// Gets the login redirect URL.
+        /// </summary>
+        /// <returns></returns>
+        string GetLoginRedirectUrl();
     }
 }

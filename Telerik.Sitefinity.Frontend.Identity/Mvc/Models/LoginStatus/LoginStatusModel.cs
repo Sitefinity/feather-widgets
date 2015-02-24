@@ -134,24 +134,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             return loginRedirectUrl;
         }
 
-        /// <summary>
-        /// Appends the URL parameter.
-        /// </summary>
-        /// <param name="baseUrl">The base URL.</param>
-        /// <param name="paramName">Name of the parameter.</param>
-        /// <param name="paramValue">The parameter value.</param>
-        /// <returns></returns>
-        private string AppendUrlParameter(string baseUrl, string paramName, string paramValue)
-        {
-            string delimiter = "?";
-            if (baseUrl.Contains(delimiter))
-            {
-                delimiter = "&";
-            }
-            baseUrl += string.Format("{0}{1}={2}", delimiter, paramName, paramValue);
-            return baseUrl;
-        }
-
         #region Private members
 
         /// <summary>
@@ -171,6 +153,24 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
             }
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Appends the URL parameter.
+        /// </summary>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <param name="paramName">Name of the parameter.</param>
+        /// <param name="paramValue">The parameter value.</param>
+        /// <returns></returns>
+        private string AppendUrlParameter(string baseUrl, string paramName, string paramValue)
+        {
+            string delimiter = "?";
+            if (baseUrl.Contains(delimiter))
+            {
+                delimiter = "&";
+            }
+            baseUrl += string.Format("{0}{1}={2}", delimiter, paramName, paramValue);
+            return baseUrl;
         }
 
         private const string HandleRejectedUser = "sf-hru";
