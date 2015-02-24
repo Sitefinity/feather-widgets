@@ -87,9 +87,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 
-            return this.View(this.TemplateName, viewModel);
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -122,8 +123,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         #region Private fields and constants
 
-        private string templateName = "LoginStatus";
+        private string templateName = "LoginButton";
         private ILoginStatusModel model;
+        private string templateNamePrefix = "LoginStatus.";
 
         #endregion
     }
