@@ -1,3 +1,7 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus.LoginStatusViewModel
 
-Login status view
+<div>Click to logout</div>
+<a href="@Model.RedirectUrl">@Model.RedirectUrl</a>
+
+<div>Json reply:</div>
+@Html.Action("Status", null);
