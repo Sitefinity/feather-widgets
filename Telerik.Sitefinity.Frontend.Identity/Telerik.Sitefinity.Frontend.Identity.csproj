@@ -132,6 +132,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\LoginFormController.cs" />
     <Compile Include="Mvc\Controllers\LoginStatusController.cs" />
     <Compile Include="Mvc\Models\LoginForm\ILoginFormModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\LoginFormModel.cs" />

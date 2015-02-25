@@ -10,5 +10,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// </summary>
     public class LoginFormViewModel
     {
+        public virtual string UserName { get; set; }
+        public virtual string Password { get; set; }
+        public virtual bool RememberMe { get; set; }
     }
 }
