@@ -82,7 +82,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
                 DisplayMode = this.DisplayMode,
                 ThumbnailName = this.ThumbnailName,
                 ThumbnailUrl = this.ThumbnailUrl,
-                CustomSize = this.CustomSize != null ? new JavaScriptSerializer().Deserialize<ImageViewModel.CustomSizeModel>(this.CustomSize) : null,
+                CustomSize = this.CustomSize != null ? new JavaScriptSerializer().Deserialize<CustomSizeModel>(this.CustomSize) : null,
                 UseAsLink = this.UseAsLink,
                 CssClass = this.CssClass
             };

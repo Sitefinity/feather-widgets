@@ -96,7 +96,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Telerik.Sitefinity.Content.7.3.5600.0\lib\net40\Telerik.Sitefinity.Forums.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend">
+    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.1.90.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model, Version=7.3.5600.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
@@ -150,10 +151,14 @@
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Helpers\ImageHelpers.cs" />
+    <Compile Include="Mvc\Models\Image\CustomSizeModel.cs" />
     <Compile Include="Mvc\Models\ImageGallery\ImageGalleryModel.cs" />
     <Compile Include="Mvc\Models\ImageGallery\IImageGalleryModel.cs" />
     <Compile Include="Mvc\Controllers\ImageController.cs" />
     <Compile Include="Mvc\Controllers\ImageGalleryController.cs" />
+    <Compile Include="Mvc\Models\ImageGallery\ThumbnailViewModel.cs" />
+    <Compile Include="Mvc\Models\Image\ImageSizeModel.cs" />
+    <Compile Include="Mvc\Models\Image\ThumbnailModel.cs" />
     <Compile Include="Mvc\StringResources\ImageGalleryResources.cs" />
     <Compile Include="Mvc\Models\Image\IImageModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageDisplayMode.cs" />
