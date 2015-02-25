@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             }
         }
 
-        protected override string GetQueryStringItemIndex()
+        protected override string GetQueryString(string key)
         {
             return string.Empty;
         }

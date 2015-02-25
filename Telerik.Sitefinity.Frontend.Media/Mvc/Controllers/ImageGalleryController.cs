@@ -198,7 +198,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Image item)
         {
-            var itemIndex = this.ParseToNullableInt32(this.GetQueryStringItemIndex());
+            var itemIndex = this.ParseToNullableInt32(this.GetQueryString("itemIndex"));
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
             if (item != null)
@@ -271,9 +271,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// Gets the item index from the query string.
         /// </summary>
         /// <returns></returns>
-        protected virtual string GetQueryStringItemIndex()
+        protected virtual string GetQueryString(string key)
         {
-            return Request.QueryString["itemIndex"];
+            return Request.QueryString[key];
         }
 
         /// <summary>
