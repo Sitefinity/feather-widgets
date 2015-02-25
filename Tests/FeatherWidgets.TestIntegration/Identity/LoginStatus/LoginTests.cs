@@ -137,7 +137,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
         [Description("Verify when logout Page id is provided, redirect link is constructed correctly.")]
         public void Logout_WithPageId_VerifyLogoutRedirectUrlIsCorrect()
         {
-            // string logoutStatusPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
+            string logoutStatusPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
             var basicPageOperations = new Telerik.Sitefinity.TestUtilities.CommonOperations.PagesOperations();
             var pageTitle = "Page Title1";
             var pageUrl = "PageTitle1";
@@ -154,8 +154,8 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
 
-                // var responseContent = PageInvoker.ExecuteWebRequest(logoutStatusPageUrl);
-                Assert.AreEqual(absoluteUrl, pageUrl, "Logout redirect url is not as expected");
+                var responseContent = PageInvoker.ExecuteWebRequest(logoutStatusPageUrl);
+                Assert.IsTrue(responseContent.Contains(absoluteUrl), "Logout redirect url is not as expected");
             }
             finally
             {
