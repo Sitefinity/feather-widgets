@@ -67,17 +67,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
                 else if (this.LoginPageId.HasValue)
                 {
-                    pageUrl = PageManager.GetManager().GetPageNode(this.LoginPageId.Value).Urls.FirstOrDefault().Url;
+                    pageUrl = this.GetPageUrl(this.LoginPageId);
                 }
                 else
                 {
                     pageUrl = GetLoginPageBackendSetting();
                 }
 
-                var currentUrl = HttpContext.Current.Request.RawUrl;
-                var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
-                loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
-                    pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
+                if (!pageUrl.IsNullOrEmpty())
+                {
+                    var currentUrl = HttpContext.Current.Request.RawUrl;
+                    var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
+                    loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
+                        pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
+                }
             }
 
             return loginRedirectUrl;
@@ -130,7 +133,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 LogoutPageUrl = this.GetLogoutPageUrl(),
                 ProfilePageUrl = this.GetProfilePageUrl(),
                 RegistrationPageUrl = this.GetRegistrationPageUrl(),
-                LoginPageUrl = this.GetLoginPageUrl()
+                LoginPageUrl = this.GetLoginPageUrl(),
+                CssClass = this.CssClass
             };
         }
 

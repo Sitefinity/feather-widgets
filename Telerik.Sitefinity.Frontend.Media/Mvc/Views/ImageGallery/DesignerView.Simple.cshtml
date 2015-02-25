@@ -22,7 +22,7 @@
                 <label for="allPublished" class="full-width">
                     <input id="allPublished" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
 
-                    @Html.Resource("AllPublishedImages")
+                    @Html.Resource("AllLibraries")
                 </label>
             </div>
             <div class="radio">
@@ -32,7 +32,7 @@
                     @Html.Resource("FromSelectedLibraries")
 
                     <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
-                                    sf-multiselect="true" sf-sortable="true" sf-master="true"
+                                    sf-multiselect="true"
                                     sf-provider="properties.ProviderName.PropertyValue"
                                     sf-selected-ids="parentSelector.selectedItemsIds"></sf-list-selector>
                 </label>
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
+        <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false'>
             <div class="radio m-top-none">
                 <label for="allItems" class="full-width">
                     <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
@@ -115,7 +115,6 @@
                         <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
                         <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
                         <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
-                        <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
                         <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
                     </select>
                 </div>
@@ -127,7 +126,7 @@
                 <div class="col-xs-6">
                     <label for="thumbnailSize">@Html.Resource("ThumbnailSize")</label>
 
-                    <div sf-thumbnail-size-selection sf-model="thumbnailSizeModel"></div>
+                    <div sf-thumbnail-size-selection sf-model="thumbnailSizeModel" sf-disable-custom-size-selection="true"></div>
                 </div>
             </div>
         </div>
@@ -187,7 +186,7 @@
                 <div class="col-xs-6">
                     <label for="thumbnailSize">@Html.Resource("ImageSize")</label>
 
-                    <div sf-thumbnail-size-selection sf-model="imageSizeModel"></div>
+                    <div sf-thumbnail-size-selection sf-model="imageSizeModel" sf-disable-custom-size-selection="true"></div>
                 </div>
             </div>
         </div>

@@ -96,12 +96,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: From currently open library
+        /// Phrase: From currently opened library
         /// </summary>
-        /// <value>From currently open library</value>
+        /// <value>From currently opened library</value>
         [ResourceEntry("FromCurrentlyOpen",
-            Value = "From currently open library",
-            Description = "Phrase: From currently open library",
+            Value = "From currently opened library",
+            Description = "Phrase: From currently opened library",
             LastModified = "2015/02/23")]
         public string FromCurrentlyOpen
         {
@@ -591,6 +591,38 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             get
             {
                 return this["BackToAllImages"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: [Index] of [TotalCount]
+        /// </summary>
+        /// <value>{0} of {1}</value>
+        [ResourceEntry("IndexOfTotal",
+            Value = "{0} of {1}",
+            Description = "phrase: [Index] of [TotalCount]",
+            LastModified = "2015/02/25")]
+        public string IndexOfTotal
+        {
+            get
+            {
+                return this["IndexOfTotal"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: From all libraries
+        /// </summary>
+        /// <value>From all libraries/value>
+        [ResourceEntry("AllLibraries",
+            Value = "From all libraries",
+            Description = "phrase: From all libraries",
+            LastModified = "2015/02/25")]
+        public string AllLibraries
+        {
+            get
+            {
+                return this["AllLibraries"];
             }
         }
     }
