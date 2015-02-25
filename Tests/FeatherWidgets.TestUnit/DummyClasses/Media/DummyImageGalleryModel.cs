@@ -110,15 +110,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
 
         public int? ItemsPerPage
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         public string ListCssClass

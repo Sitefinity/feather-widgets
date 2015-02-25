@@ -24,5 +24,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
                 return this.model ?? base.Model;
             }
         }
+
+        protected override string GetQueryString(string key)
+        {
+            return string.Empty;
+        }
     }
 }

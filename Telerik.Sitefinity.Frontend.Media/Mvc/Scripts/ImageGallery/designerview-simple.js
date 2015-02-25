@@ -2,7 +2,7 @@
     angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
-        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
+        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
 
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
@@ -143,12 +143,6 @@
 
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
-
-                        // If the sorting expression is AsSetManually but the selection mode is AllItems or FilteredItems, this is not a valid combination.
-                        // So set the sort expression to the default value: PublicationDate DESC
-                        if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
-                            $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
-                        }
                     }
                 });
             })
