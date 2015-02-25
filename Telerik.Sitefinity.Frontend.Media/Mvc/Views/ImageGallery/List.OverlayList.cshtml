@@ -2,6 +2,7 @@
 
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery)
@@ -16,7 +17,7 @@
       <a class="image-link"
          href="@item.Fields.MediaUrl"
          title="@item.Fields.AlternativeText">
-          <img src="@item.Fields.ThumbnailUrl" />
+          <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" />
       </a>
   }
 </div>

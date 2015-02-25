@@ -62,7 +62,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 LogoutPageUrl = this.GetLogoutPageUrl(),
                 ProfilePageUrl = this.GetProfilePageUrl(),
                 RegistrationPageUrl = this.GetRegistrationPageUrl(),
-                LoginPageUrl = this.GetLoginPageUrl()
+                LoginPageUrl = this.GetLoginPageUrl(),
+                CssClass = this.CssClass
             };
         }
 
@@ -107,7 +108,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
                 else if (this.LoginPageId.HasValue)
                 {
-                    pageUrl = PageManager.GetManager().GetPageNode(this.LoginPageId.Value).Urls.FirstOrDefault().Url;
+                    pageUrl = this.GetPageUrl(this.LoginPageId);
                 }
                 else
                 {

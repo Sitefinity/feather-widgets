@@ -27,5 +27,10 @@
         /// Gets or sets url of the page where user has to drop Registration widget
         /// </summary>
         public string RegistrationPageUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the css class that will be applied on the wrapping element of the widget.
+        /// </summary>
+        public string CssClass { get; set; }
     }
 }
