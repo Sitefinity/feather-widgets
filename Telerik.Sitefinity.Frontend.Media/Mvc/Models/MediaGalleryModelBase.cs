@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
@@ -142,6 +143,29 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 
 
             return base.UpdateExpression(query, skip, take, ref totalCount);
+        }
+
+        /// <inheritdoc />
+        public override IEnumerable<ContentLocations.IContentLocationInfo> GetLocations()
+        {
+            var result = base.GetLocations();
+            var firstLocation = result.FirstOrDefault() as ContentLocationInfo;
+
+            if (firstLocation != null && this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false && this.IncludeChildLibraries)
+            {
+                var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
+                if (selectedItemIds.Count >= 1)
+                {
+                    var mediaContentParentLocationFilterType = typeof(Telerik.Sitefinity.Constants).Assembly.GetType("Telerik.Sitefinity.Modules.Libraries.Web.UI.MediaContentParentLocationFilter");
+                    var filter = mediaContentParentLocationFilterType.GetConstructor(Type.EmptyTypes).Invoke(null);
+                    var value = mediaContentParentLocationFilterType.GetProperty("Value", BindingFlags.Public | BindingFlags.Instance);
+
+                    value.SetValue(filter, selectedItemIds[0], null);
+                    firstLocation.Filters.Add(filter as IContentLocationFilter);
+                }
+            }
+
+            return result;
         }
     }
 }
