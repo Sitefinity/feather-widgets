@@ -52,7 +52,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// Gets or sets a value indicating whether to resize smaller images to bigger dimensions.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if smaller images should be resizet to bigger dimensions; otherwise, <c>false</c>.
+        ///   <c>true</c> if smaller images should be resized to bigger dimensions; otherwise, <c>false</c>.
         /// </value>
         public bool? ScaleUp { get; set; }
 
