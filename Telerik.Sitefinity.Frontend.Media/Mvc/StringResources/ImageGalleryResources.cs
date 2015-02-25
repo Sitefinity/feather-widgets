@@ -593,5 +593,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["BackToAllImages"];
             }
         }
+
+        /// <summary>
+        /// phrase: [Index] of [TotalCount]
+        /// </summary>
+        /// <value>{0} of {1}</value>
+        [ResourceEntry("IndexOfTotal",
+            Value = "{0} of {1}",
+            Description = "phrase: [Index] of [TotalCount]",
+            LastModified = "2015/02/25")]
+        public string IndexOfTotal
+        {
+            get
+            {
+                return this["IndexOfTotal"];
+            }
+        }
     }
 }

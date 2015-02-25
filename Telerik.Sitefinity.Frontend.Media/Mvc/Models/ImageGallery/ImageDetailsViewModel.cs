@@ -7,6 +7,9 @@ using Telerik.Sitefinity.Model;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 {
+    /// <summary>
+    /// This class represents view model for Image gallery content.
+    /// </summary>
     public class ImageDetailsViewModel : ContentDetailsViewModel
     {
         /// <summary>
@@ -20,5 +23,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// </summary>
         /// <value>The next item.</value>
         public ItemViewModel NextItem { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total items count.
+        /// </summary>
+        /// <value>The total items count.</value>
+        public int TotalItemsCount { get; set; }
     }
 }

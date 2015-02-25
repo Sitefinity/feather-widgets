@@ -75,6 +75,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemName">Name of the item.</param>
         public void SelectUnselectAllSocialShareOptions(bool isSelectMode = true)
         {
+            HtmlFindExpression expression = new HtmlFindExpression("ng-model=group.IsChecked");
+            ActiveBrowser.WaitForElement(expression, TimeOut, false);
             var inputs = ActiveBrowser.Find.AllByExpression<HtmlInputCheckBox>("ng-model=group.IsChecked");
             foreach (var input in inputs)
             {
