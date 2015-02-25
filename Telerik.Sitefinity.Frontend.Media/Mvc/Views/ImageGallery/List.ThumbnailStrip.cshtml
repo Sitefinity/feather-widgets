@@ -3,6 +3,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using System.Web.Script.Serialization;
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Services;
@@ -55,7 +56,7 @@
     @foreach (var item in Model.Items)
     {
         <a class="pull-left text-center" href="#" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
-            <img src="@item.Fields.ThumbnailUrl" alt="@item.Fields.AlternativeText" />
+            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)"  alt="@item.Fields.AlternativeText"/>
         </a>
     }
 </div>
