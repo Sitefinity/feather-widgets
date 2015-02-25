@@ -45,9 +45,9 @@
         <p class="description"></p>
 
         <p class="sf-Gallery-image">
-	        <a class='sf-prev-link'><span class="sf-Gallery-prev glyphicon glyphicon-menu-left">Prev</span></a>
-	        <img class="img-responsive" />
-	        <a class='sf-next-link'><span class="sf-Gallery-next glyphicon glyphicon-menu-right">Next</span></a>
+            <a class='sf-prev-link'><span class="sf-Gallery-prev glyphicon glyphicon-menu-left">Prev</span></a>
+            <img class="img-responsive" />
+            <a class='sf-next-link'><span class="sf-Gallery-next glyphicon glyphicon-menu-right">Next</span></a>
         </p>
     }
 }
@@ -55,8 +55,8 @@
 <div class="sf-Gallery clearfix">
     @foreach (var item in Model.Items)
     {
-	    <a class="pull-left text-center" href="#" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
-		    <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)"  alt="@item.Fields.AlternativeText"/>
-	    </a>
+        <a class="pull-left text-center" href="#" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
+            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)"  alt="@item.Fields.AlternativeText"/>
+        </a>
     }
 </div>
