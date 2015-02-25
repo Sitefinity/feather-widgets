@@ -41,6 +41,11 @@
         @Html.ActionLink(Html.Resource("BackToAllImages"), "Index")
     }
 
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
+    }
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="/magnific/jquery.magnific-popup.min.js"></script>
 
