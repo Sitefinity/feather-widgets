@@ -107,7 +107,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
                 else if (this.LoginPageId.HasValue)
                 {
-                    pageUrl = PageManager.GetManager().GetPageNode(this.LoginPageId.Value).Urls.FirstOrDefault().Url;
+                    pageUrl = this.GetPageUrl(this.LoginPageId);
                 }
                 else
                 {
