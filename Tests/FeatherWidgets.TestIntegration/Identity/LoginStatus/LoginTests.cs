@@ -35,6 +35,8 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
             this.pageOperations.DeletePages();
         }
 
+        #region Login
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
         [Category(TestCategories.Identity)]
         [Author(FeatherTeams.Team2)]
@@ -104,6 +106,96 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
             var responseContent = PageInvoker.ExecuteWebRequest(loginStatusPageUrl);
             Assert.IsTrue(responseContent.Contains(this.GetExpectedUrlWithParams(absoluteUrl)), "Login redirect url is not as expected");
         }
+
+        #endregion
+
+        #region Logout
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout"), Test]
+        [Category(TestCategories.Identity)]
+        [Author(FeatherTeams.Team2)]
+        [Description("Verify when External logout page url is provided, redirect link is constructed correctly.")]
+        public void Logout_RedirectToExternalPage_VerifyLogoutRedirectUrlIsCorrect()
+        {
+            string logoutStatusPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
+            string expectedLogoutUrl = "www.telerik.com";
+
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(LoginStatusController).FullName;
+            var loginStatusController = new LoginStatusController();
+            loginStatusController.Model.ExternalLogoutUrl = expectedLogoutUrl;
+            mvcProxy.Settings = new ControllerSettings(loginStatusController);
+
+            this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
+            var responseContent = PageInvoker.ExecuteWebRequest(logoutStatusPageUrl);
+            Assert.IsTrue(responseContent.Contains(expectedLogoutUrl), "Logout redirect url is not as expected");
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout"), Test]
+        [Category(TestCategories.Identity)]
+        [Author(FeatherTeams.Team2)]
+        [Description("Verify when logout Page id is provided, redirect link is constructed correctly.")]
+        public void Logout_WithPageId_VerifyLogoutRedirectUrlIsCorrect()
+        {
+            string logoutStatusPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
+            var basicPageOperations = new Telerik.Sitefinity.TestUtilities.CommonOperations.PagesOperations();
+            var pageTitle = "Page Title1";
+            var pageUrl = "PageTitle1";
+            var absoluteUrl = UrlPath.GetDomainUrl() + "/" + pageUrl;
+            try
+            {
+                var logoutPageId = basicPageOperations.CreatePage(pageTitle, pageUrl);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(LoginStatusController).FullName;
+                var loginStatusController = new LoginStatusController();
+                loginStatusController.Model.LogoutPageId = logoutPageId;
+                mvcProxy.Settings = new ControllerSettings(loginStatusController);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
+
+                var responseContent = PageInvoker.ExecuteWebRequest(logoutStatusPageUrl);
+                Assert.IsTrue(responseContent.Contains(absoluteUrl), "Logout redirect url is not as expected");
+            }
+            finally
+            {
+                basicPageOperations.DeleteAllPages();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout"), Test]
+        [Category(TestCategories.Identity)]
+        [Author(FeatherTeams.Team2)]
+        [Description("Verify when logout Page id and external redirect url are provided, redirect link is constructed correctly.")]
+        public void Logout_WithPageIdAndRedirectUrl_VerifyLogoutRedirectUrlIsCorrect()
+        {
+            string expectedLogoutUrl = "www.telerik.com";
+            string logoutStatusPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
+            var basicPageOperations = new Telerik.Sitefinity.TestUtilities.CommonOperations.PagesOperations();
+            var pageTitle = "Page Title1";
+            var pageUrl = "PageTitle1";
+            try
+            {
+                var logoutPageId = basicPageOperations.CreatePage(pageTitle, pageUrl);
+
+                var mvcProxy = new MvcControllerProxy();
+                mvcProxy.ControllerName = typeof(LoginStatusController).FullName;
+                var loginStatusController = new LoginStatusController();
+                loginStatusController.Model.LogoutPageId = logoutPageId;
+                loginStatusController.Model.ExternalLogoutUrl = expectedLogoutUrl;
+                mvcProxy.Settings = new ControllerSettings(loginStatusController);
+
+                this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
+                var responseContent = PageInvoker.ExecuteWebRequest(logoutStatusPageUrl);
+                Assert.IsTrue(responseContent.Contains(expectedLogoutUrl), "Logout redirect url is not as expected");
+            }
+            finally
+            {
+                basicPageOperations.DeleteAllPages();
+            }
+        }
+        
+        #endregion
 
         #region Private members
 
