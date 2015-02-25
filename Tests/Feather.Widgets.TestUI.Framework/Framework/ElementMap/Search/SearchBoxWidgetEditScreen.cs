@@ -63,7 +63,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                //// return this.Get<HtmlAnchor>("tagname=a", "class=Tooltip");
                 return this.Find.ByExpression<HtmlAnchor>("tagname=a", "class=Tooltip");
             }
         }
@@ -75,7 +74,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                //// return this.Get<HtmlDiv>("tagname=div", "class=Tooltip-info Tooltip-info--bottom");
                 return this.Find.ByExpression<HtmlDiv>("tagname=div", "class=Tooltip-info Tooltip-info--bottom");
             }
         }
