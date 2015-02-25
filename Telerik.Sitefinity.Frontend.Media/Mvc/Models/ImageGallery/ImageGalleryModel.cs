@@ -22,6 +22,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// <inheritdoc />
         public string SerializedThumbnailSizeModel { get; set; }
 
+        /// <inheritdoc />
+        public string SerializedImageSizeModel { get; set; }
+
         /// <summary>
         /// Gets the size model of the thumbnails in the gallery.
         /// </summary>
@@ -41,6 +44,28 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
                 }
 
                 return this.thumbnailSizeModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the size model of the image in the details view.
+        /// </summary>
+        /// <value>The thumbnail size model.</value>
+        public ImageSizeModel ImageSizeModel
+        {
+            get
+            {
+                if (this.imageSizeModel == null)
+                {
+                    this.imageSizeModel = this.SerializedImageSizeModel != null ?
+                        new JavaScriptSerializer().Deserialize<ImageSizeModel>(this.SerializedImageSizeModel) :
+                        new ImageSizeModel()
+                        {
+                            DisplayMode = ImageDisplayMode.Original
+                        };
+                }
+
+                return this.imageSizeModel;
             }
         }
         #endregion
@@ -93,6 +118,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             viewModel.NextItem = next != null ? new ItemViewModel(next) : null;
             viewModel.TotalItemsCount = totalCount.Value;
 
+            viewModel.MediaUrl = this.GetSelectedSizeUrl((SfImage)item, this.ImageSizeModel);
+
             return viewModel;
         }
 
@@ -129,7 +156,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
             if (sizeModel.DisplayMode == ImageDisplayMode.Thumbnail && !string.IsNullOrWhiteSpace(sizeModel.Thumbnail.Name))
             {
-                imageUrl = image.ResolveThumbnailUrl(this.ThumbnailSizeModel.Thumbnail.Name, urlAsAbsolute);
+                imageUrl = image.ResolveThumbnailUrl(sizeModel.Thumbnail.Name, urlAsAbsolute);
             }
             else
             {
@@ -143,6 +170,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 
         #region Private fields and constants
         private ImageSizeModel thumbnailSizeModel;
+        private ImageSizeModel imageSizeModel;
         #endregion
     }
 }

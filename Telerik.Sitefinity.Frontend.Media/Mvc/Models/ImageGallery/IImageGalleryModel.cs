@@ -131,6 +131,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         string SerializedThumbnailSizeModel { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized single image size model. It determines the size of the image in the details view.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
+        string SerializedImageSizeModel { get; set; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]

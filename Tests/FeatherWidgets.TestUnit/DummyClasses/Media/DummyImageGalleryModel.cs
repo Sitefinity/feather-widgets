@@ -232,5 +232,18 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
                 throw new NotImplementedException();
             }
         }
+
+        public string SerializedImageSizeModel
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
