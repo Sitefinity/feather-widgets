@@ -149,9 +149,9 @@
     <EmbeddedResource Include="Mvc\Views\LoginStatus\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginButton.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginName.cshtml" />
-    <None Include="Mvc\Views\LoginForm\DesignerView.Simple.cshtml" />
-    <None Include="Mvc\Views\LoginForm\DesignerView.Simple.json" />
-    <None Include="Mvc\Views\LoginForm\LoginForm.Index.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Index.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
