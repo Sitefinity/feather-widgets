@@ -32,6 +32,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
+        public string LoginFormTemplate { get; set; }
+
+        /// <inheritDoc/>
+        public string ForgotPasswordTemplate { get; set; }
+
+        /// <inheritDoc/>
+        public string ResetPasswordTemplate { get; set; }
+
+        /// <inheritDoc/>
+        public bool AllowResetPassword { get; set; }
+
+        /// <inheritDoc/>
         public LoginFormViewModel GetViewModel()
         {
             return new LoginFormViewModel();

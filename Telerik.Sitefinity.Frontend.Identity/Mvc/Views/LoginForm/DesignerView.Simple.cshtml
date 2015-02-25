@@ -1,7 +1,6 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <form>
-
     <div class="form-group">
         <label>@Html.Resource("LandingPageAfterLoginInfo")</label>      
         <sf-list-selector
@@ -20,15 +19,15 @@
     </div>
 
     <div class="form-group">
-        <label>@Html.Resource("AllowResetPassword")</label>
         <input type="checkbox" ng-model="properties.AllowResetPassword.PropertyValue" />
+        <label>@Html.Resource("AllowResetPassword")</label>
     </div>
 
     <div class="form-group">
         <label for="templateName">@Html.Resource("LoginFormTemplate")</label>
         <div class="row">
             <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                <select id="templateName" ng-model="properties.LoginFormTemplate.PropertyValue" class="form-control">
                      @foreach (var viewName in Html.GetViewNames("LoginForm", @"LoginForm\.(?<viewName>\w*)$"))
                     {
                         <option value="@viewName">@viewName</option>
@@ -42,8 +41,8 @@
         <label for="templateName">@Html.Resource("ForgotPasswordTemplate")</label>
         <div class="row">
             <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("ForgotPassword", @"ForgotPassword\.(?<viewName>\w*)$"))
+                <select id="templateName" ng-model="properties.ForgotPasswordTemplate.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames("LoginForm", @"ForgotPassword\.(?<viewName>\w*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }
@@ -56,8 +55,8 @@
         <label for="templateName">@Html.Resource("ResetPasswordTemplate")</label>
         <div class="row">
             <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("ResetPassword", @"ResetPassword\.(?<viewName>\w*)$"))
+                <select id="templateName" ng-model="properties.ResetPasswordTemplate.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames("LoginForm", @"ResetPassword\.(?<viewName>\w*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }
