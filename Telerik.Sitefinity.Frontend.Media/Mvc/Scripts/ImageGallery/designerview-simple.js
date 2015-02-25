@@ -1,7 +1,7 @@
 ﻿(function ($) {
     angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
 
-    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serverData', function ($scope, propertyService, serverData) {
+    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
 
         $scope.feedback.showLoadingIndicator = true;
@@ -60,7 +60,7 @@
             'thumbnailSizeModel',
             function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    $scope.properties.SerializedThumbnailSizeModel = JSON.stringify(newValue);
+                    $scope.properties.SerializedThumbnailSizeModel.PropertyValue = JSON.stringify(newValue);
                 }
             },
             true
@@ -70,7 +70,7 @@
             'imageSizeModel',
             function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    $scope.properties.SerializedImageSizeModel = JSON.stringify(newValue);
+                    $scope.properties.SerializedImageSizeModel.PropertyValue = JSON.stringify(newValue);
                 }
             },
             true
@@ -102,15 +102,15 @@
                         $scope.selectedSortOption = "Custom";
                     }
 
-                    //var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
-                    //if (thumbnailSizeModel) {
-                    //    $scope.thumbnailSizeModel = thumbnailSizeModel;
-                    //}
+                    var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
+                    if (thumbnailSizeModel) {
+                        $scope.thumbnailSizeModel = thumbnailSizeModel;
+                    }
 
-                    //var imageSizeModel = $.parseJSON($scope.properties.SerializedImageSizeModel.PropertyValue);
-                    //if (imageSizeModel) {
-                    //    $scope.imageSizeModel = imageSizeModel;
-                    //}
+                    var imageSizeModel = $.parseJSON($scope.properties.SerializedImageSizeModel.PropertyValue);
+                    if (imageSizeModel) {
+                        $scope.imageSizeModel = imageSizeModel;
+                    }
                 }
             },
             function (data) {

@@ -85,7 +85,7 @@ namespace FeatherWidgets.TestUnit.Media.Image
                 Assert.IsNotNull(imageModel);
                 Assert.IsTrue(imageModel.AlternativeText == testModel.AlternativeText);
                 Assert.IsTrue(imageModel.CssClass == testModel.CssClass);
-                Assert.IsTrue(imageModel.CustomSize.Equals(new JavaScriptSerializer().Deserialize<ImageViewModel.CustomSizeModel>(testModel.CustomSize)));
+                Assert.IsTrue(imageModel.CustomSize.Equals(new JavaScriptSerializer().Deserialize<CustomSizeModel>(testModel.CustomSize)));
                 Assert.IsTrue(imageModel.DisplayMode == testModel.DisplayMode);
                 Assert.IsTrue(imageModel.ThumbnailName == testModel.ThumbnailName);
                 Assert.IsTrue(imageModel.ThumbnailUrl == testModel.ThumbnailUrl);

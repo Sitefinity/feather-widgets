@@ -29,5 +29,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// </summary>
         /// <value>The total items count.</value>
         public int TotalItemsCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL of the image.
+        /// </summary>
+        /// <value>The thumbnail URL.</value>
+        public string MediaUrl { get; set; }
     }
 }
