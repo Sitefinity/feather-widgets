@@ -96,12 +96,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: From currently open library
+        /// Phrase: From currently opened library
         /// </summary>
-        /// <value>From currently open library</value>
+        /// <value>From currently opened library</value>
         [ResourceEntry("FromCurrentlyOpen",
-            Value = "From currently open library",
-            Description = "Phrase: From currently open library",
+            Value = "From currently opened library",
+            Description = "Phrase: From currently opened library",
             LastModified = "2015/02/23")]
         public string FromCurrentlyOpen
         {
