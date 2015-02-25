@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
@@ -102,18 +104,42 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         {
             if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false && this.IncludeChildLibraries)
             {
-                var manager = (LibrariesManager)this.GetManager();
                 var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
-                foreach (var stringId in selectedItemIds)
+                Guid parentId;
+                if (selectedItemIds.Count >= 1 && Guid.TryParse(selectedItemIds[0], out parentId))
                 {
-                    Guid id;
-                    if (Guid.TryParse(stringId, out id))
+                    var parent = ((LibrariesManager)this.GetManager()).GetFolder(parentId);
+                    if (parent != null)
                     {
-                        var folder = manager.GetFolder(id);
-                        query = query.Union(manager.GetDescendants(folder));
+                        var compiledFilterExpression = this.CompileFilterExpression();
+                        compiledFilterExpression = this.AddLiveFilterExpression(compiledFilterExpression);
+                        compiledFilterExpression = this.AdaptMultilingualFilterExpression(compiledFilterExpression);
+
+                        var mediaQuery = (IQueryable<TMedia>)query;
+                        mediaQuery = DataProviderBase.SetExpressions(
+                                                              mediaQuery,
+                                                              compiledFilterExpression,
+                                                              this.SortExpression,
+                                                              0,
+                                                              0,
+                                                              ref totalCount);
+                        
+                        var getDescendants = typeof(LibrariesManager).GetMethod("GetDescendantsFromQuery", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TMedia));
+                        mediaQuery = (IQueryable<TMedia>)getDescendants.Invoke(this.GetManager(), new object[] { mediaQuery, parent });
+
+                        mediaQuery = DataProviderBase.SetExpressions(
+                                                      mediaQuery,
+                                                      null,
+                                                      null,
+                                                      skip,
+                                                      take,
+                                                      ref totalCount);
+
+                        return mediaQuery;
                     }
                 }
             }
+
 
             return base.UpdateExpression(query, skip, take, ref totalCount);
         }

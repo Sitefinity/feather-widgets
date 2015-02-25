@@ -2633,6 +2633,13 @@
             <param name="totalCount">The total count.</param>
             <returns></returns>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.AddLiveFilterExpression(System.String)">
+            <summary>
+            Appends the lifecycle conditions to the filter expression in order to get only live items.
+            </summary>
+            <param name="filterExpression">The filter expression.</param>
+            <returns>Filter expression for live items.</returns>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.AdaptMultilingualFilterExpression(System.String)">
             <summary>
             Adapts a filter expression in multilingual.
