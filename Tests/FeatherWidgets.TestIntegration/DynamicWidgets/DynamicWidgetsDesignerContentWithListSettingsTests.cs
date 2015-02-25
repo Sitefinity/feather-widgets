@@ -7,6 +7,7 @@ using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -35,7 +36,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithSortDescending()
         {
             string sortExpession = "Title DESC";
@@ -101,7 +102,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithPaging()
         { 
             this.pageOperations = new PagesOperations();
@@ -170,7 +171,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithUseLimit()
         {
             this.pageOperations = new PagesOperations();
@@ -236,7 +237,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void DynamicWidgets_VerifySelectedItemsFunctionalityWithNoLimit()
         {
             this.pageOperations = new PagesOperations();
@@ -306,7 +307,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies dynamic items by category.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByCategoryFunctionality()
         {
@@ -346,7 +347,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void DynamicWidgets_SelectByTagAndSortFunctionality()
         {
             int tagsCount = 3;
@@ -412,7 +413,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void DynamicWidgets_SelectByCategoryFunctionalityAndPaging()
         {
             var dynamicController = new DynamicContentController();
@@ -464,7 +465,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void DynamicWidgets_SelectByCategoryFunctionalityAndLimits()
         {
             var dynamicController = new DynamicContentController();
@@ -542,7 +543,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies dynamic items by tag.")]
         public void DynamicWidgetsDesignerContent_VerifyDynamicItemsByTagFunctionality()
         {
@@ -580,7 +581,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies dynamic items sorted by a valid As set in Advanced mode option.")]
         public void DynamicWidgetDesignerContent_VerifyValidSortingOptionAsSetInAdvancedMode()
         {
@@ -616,7 +617,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         [Description("Verifies dynamic items sorted by an invalid As set in Advanced mode option.")]
         public void DynamicWidgetDesignerContent_VerifyInvalidSortingOptionAsSetInAdvancedMode()
         {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.News.Model;
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NewsWidget_VerifyAllNewsFunctionality()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -88,7 +88,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_VerifySelectedItemsFunctionality()
         {
             int newsCount = 5;
@@ -116,7 +116,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithSortNewsDescending()
         {
             int newsCount = 10;
@@ -173,7 +173,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithPaging()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -235,7 +235,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithUseLimit()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -292,7 +292,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_VerifySelectedItemsFunctionalityWithNoLimit()
         {
             string testName = System.Reflection.MethodInfo.GetCurrentMethod().Name;
@@ -352,7 +352,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         public void NewsWidget_SelectByTagNewsFunctionality()
         {
             int newsCount = 2;
@@ -393,7 +393,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectByCategoryNewsFunctionality()
         {
             int newsCount = 4;
@@ -436,7 +436,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectByTagAndSortNewsFunctionality()
         {
             int tagsCount = 3;
@@ -503,7 +503,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectByCategoryNewsFunctionalityAndPaging()
         {       
             var newsController = new NewsController();
@@ -556,7 +556,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectByCategoryNewsFunctionalityAndLimits()
         {
             var newsController = new NewsController();
@@ -632,7 +632,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectByCategoryAndTagNewsFunctionality()
         {
             string newsTitle = "News ";
@@ -679,7 +679,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectByTagNewsFunctionalityAndLimits()
         {
             var newsController = new NewsController();
@@ -724,7 +724,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectByTagNewsFunctionalityAndPaging()
         {
             var newsController = new NewsController();
@@ -781,7 +781,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author("Sitefinity Team 7")]
+        [Author(FeatherTeams.Team7)]
         public void NewsWidget_SelectByTagNewsFunctionalityAndNoLimit()
         {
             var newsController = new NewsController();

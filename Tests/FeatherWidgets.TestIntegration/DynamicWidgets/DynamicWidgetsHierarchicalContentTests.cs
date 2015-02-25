@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-
 using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verifies that the ChildItems method of the ItemViewModelExtensions works properly.")]
         public void ItemViewModelExtensions_ChildItems_ReturnsChildren()
         {
@@ -60,7 +60,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author("FeatherTeam")]
+        [Author(FeatherTeams.Team2)]
         [Description("Verifies that the ParentItem method of the ItemViewModelExtensions works properly.")]
         public void ItemViewModelExtensions_ParentItem_ReturnsParentItem()
         {

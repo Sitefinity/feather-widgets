@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Text;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
@@ -33,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyHiddenTransformation()
@@ -72,7 +73,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyDropDownTransformation()
@@ -113,7 +114,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// Css classes related to transfomartions should be added directly to the css file
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         Ignore]
         public void NavigationWidgetBootstrapTemplateVerifyTransformationsWithSeveralCssClasses()

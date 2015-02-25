@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
@@ -16,14 +17,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public ItemViewModel Item { get; set; }
-
-        /// <summary>
-        /// Gets or sets the markup.
-        /// </summary>
-        /// <value>
-        /// The markup.
-        /// </value>
-        public string Markup { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
@@ -50,6 +43,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         public string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to use image as link.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if should use image as link; otherwise, <c>false</c>.
+        /// </value>
+        public bool UseAsLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets the content URL use as link.
+        /// </summary>
+        /// <value>
+        /// The content URL use as link.
+        /// </value>
+        public string LinkedContentUrl { get; set; }
+
+        /// <summary>
         /// Gets or sets whether the Image will be displayed in its original size or in a thumbnail.
         /// </summary>
         /// <value>
@@ -74,6 +83,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         public string ThumbnailUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the selected size URL.
+        /// </summary>
+        /// <value>
+        /// The selected size URL.
+        /// </value>
+        public string SelectedSizeUrl { get; set; }
+
+        /// <summary>
         /// Gets or sets the size of the custom thumbnail that is selected.
         /// </summary>
         /// <value>
@@ -84,7 +101,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// <summary>
         /// This class represents custom image size options.
         /// </summary>
-        public class CustomSizeModel
+        public class CustomSizeModel : IEquatable<CustomSizeModel>
         {
             /// <summary>
             /// Gets or sets the method for resizing the image. Probable values are ResizeFitToAreaArguments or CropCropArguments.
@@ -141,6 +158,26 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
             /// The quality.
             /// </value>
             public ImageQuality? Quality { get; set; }
+
+            /// <summary>
+            /// Equalses the specified other.
+            /// </summary>
+            /// <param name="other">The other.</param>
+            /// <returns></returns>
+            public bool Equals(CustomSizeModel other)
+            {
+                if (other == null)
+                {
+                    return false;
+                }
+                return this.Height == other.Height &&
+                       this.MaxHeight == other.MaxHeight &&
+                       this.MaxWidth == other.MaxWidth &&
+                       this.Method == other.Method &&
+                       this.Quality == other.Quality &&
+                       this.ScaleUp == other.ScaleUp &&
+                       this.Width == other.Width;
+            }
         }
     }
 }

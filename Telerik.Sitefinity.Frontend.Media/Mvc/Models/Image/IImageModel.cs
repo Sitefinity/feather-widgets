@@ -1,7 +1,9 @@
 ﻿﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 
@@ -19,14 +21,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// The identifier.
         /// </value>
         Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the markup.
-        /// </summary>
-        /// <value>
-        /// The markup.
-        /// </value>
-        string Markup { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the provider.
@@ -59,6 +53,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// The css class.
         /// </value>
         string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use image as link.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if should use image as link; otherwise, <c>false</c>.
+        /// </value>
+        bool UseAsLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets the page identifier to use as link.
+        /// </summary>
+        /// <value>
+        /// The page identifier to use as link.
+        /// </value>
+        Guid LinkedPageId { get; set; }
 
         /// <summary>
         /// Gets or sets whether the Image will be displayed in its original size or in a thumbnail.
@@ -97,5 +107,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image
         /// </summary>
         /// <returns></returns>
         ImageViewModel GetViewModel();
+
+        /// <summary>
+        /// Gets the information for all <see cref="Image"/> items that can be displayed by an Image widget.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        IEnumerable<IContentLocationInfo> GetLocations();
     }
 }

@@ -69,8 +69,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="name">The name.</param>
         public void AssertSingleItemIsSelectedInHierarchicalSelector(string name)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=active", "InnerText=~" + name, "ng-class=?'active': sfItemSelected({dataItem: dataItem})}")
-                                    .AssertIsPresent(name);
+            ActiveBrowser.Find
+                         .ByExpression<HtmlAnchor>("class=active", "InnerText=~" + name, "ng-class=?'active': sfItemSelected({dataItem: dataItem})}")
+                         .AssertIsPresent(name);
         }
 
         /// <summary>
@@ -80,8 +81,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="fullName">Full name of item with parents</param>
         public void CheckBreadcrumbAfterSearchInHierarchicalSelector(string name, string fullName)
         {
-            ActiveBrowser.Find.ByExpression<HtmlSpan>("InnerText=" + name, "sf-shrinked-breadcrumb=" + fullName)
-                                    .AssertIsPresent("Breadcrumb");
+            ActiveBrowser.Find
+                         .ByExpression<HtmlSpan>("InnerText=" + name, "sf-shrinked-breadcrumb=" + fullName)
+                         .AssertIsPresent("Breadcrumb");
         }
 
         /// <summary>
@@ -147,12 +149,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             if (divsCount > 12)
             {
                 HtmlControl itemsList = EM.Widgets
-                                     .WidgetDesignerContentScreen
-                                     .ItemsList
-                                     .AssertIsPresent("items list");
+                                          .WidgetDesignerContentScreen
+                                          .ItemsList
+                                          .AssertIsPresent("items list");
 
                 List<HtmlControl> itemDiv = itemsList.Find
-                                      .AllByExpression<HtmlControl>("class=~ng-scope list-group-item").ToList<HtmlControl>();
+                                                     .AllByExpression<HtmlControl>("class=~ng-scope list-group-item")
+                                                     .ToList<HtmlControl>();
                 divsCount = itemDiv.Count;
 
                 itemDiv[divsCount - 1].Wait.ForVisible();
@@ -208,6 +211,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Opens the external urls tab.
+        /// </summary>
+        public void OpenExternalUrlsTab()
+        {
+            HtmlAnchor externalUrlsTab = this.EM.Selectors.SelectorsScreen.ExternalUrlsTab.AssertIsPresent("external urls tab");
+
+            externalUrlsTab.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
         /// Reorders the selected items.
         /// </summary>
         /// <param name="expectedOrder">The expected order.</param>
@@ -239,6 +254,120 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             for (int i = 0; i < reorderedDivList.Count; i++)
             {
                 Assert.AreEqual(expectedOrder[i], reorderedDivList[i].InnerText, expectedOrder[i] + " is not reordered correctly");
+            }
+        }
+
+        /// <summary>
+        /// Verifies the page status and icon.
+        /// </summary>
+        /// <param name="pageName">Name of the page.</param>
+        /// <param name="status">The status.</param>
+        public void VerifyPageStatusAndIcon(string pageName, string status)
+        {
+            var pageLink = this.EM.Selectors.SelectorsScreen.PageLink(pageName).AssertIsPresent("page link");
+            string statusIconClass = "pull-left icon-item-" + status.ToString().ToLower();
+
+            pageLink.Find.ByExpression<HtmlContainerControl>("tagname=i", "class=" + statusIconClass).AssertIsPresent("icon");
+           
+            pageLink.Find.ByExpression<HtmlSpan>("tagname=span", "class=small text-muted ng-binding", "innertext=" + status).AssertIsPresent("status text");
+        }
+
+        /// <summary>
+        /// Verifies the page status and icon after search.
+        /// </summary>
+        /// <param name="pageName">Name of the page.</param>
+        /// <param name="status">The status.</param>
+        public void VerifyPageStatusAndIconAfterSearch(string pageName, string status)
+        {
+            var pageDiv = this.EM.Selectors.SelectorsScreen.PageDiv(pageName).AssertIsPresent("page div");
+            string statusIconClass = "pull-left icon-item-" + status.ToLower();
+
+            pageDiv.Find.ByExpression<HtmlContainerControl>("tagname=i", "class=" + statusIconClass).AssertIsPresent("icon");
+
+            pageDiv.Find.ByExpression<HtmlSpan>("tagname=span", "class=~u-db small ng-binding", "innertext=" + status).AssertIsPresent("status text");
+        }
+
+        /// <summary>
+        /// Enters the external urls title.
+        /// </summary>
+        /// <param name="titleContent">Content of the title.</param>
+        /// <param name="urlContent">Content of the URL.</param>
+        /// <param name="isFirstRowSelected">The is first row selected.</param>
+        public void EnterExternalUrlsInfo(string titleContent, string urlContent, bool isFirstRowSelected = true)
+        {
+            HtmlInputText title;
+            HtmlInputText url;
+            if (isFirstRowSelected)
+            {
+                title = this.EM.Selectors.SelectorsScreen.AllExternalUrlsTitles.FirstOrDefault().AssertIsPresent("first title");
+            }
+            else
+            {
+                title = this.EM.Selectors.SelectorsScreen.AllExternalUrlsTitles.LastOrDefault().AssertIsPresent("second title");
+            }
+
+            title.ScrollToVisible();
+            title.Focus();
+            title.MouseClick();
+            title.Text = string.Empty;
+            Manager.Current.Desktop.KeyBoard.TypeText(titleContent);
+
+            if (isFirstRowSelected)
+            {
+                url = this.EM.Selectors.SelectorsScreen.AllExternalUrlsUrls.FirstOrDefault().AssertIsPresent("first url");
+            }
+            else
+            {
+                url = this.EM.Selectors.SelectorsScreen.AllExternalUrlsUrls.LastOrDefault().AssertIsPresent("second url");
+            }
+
+            url.ScrollToVisible();
+            url.Focus();
+            url.MouseClick();
+            url.Text = string.Empty;
+            Manager.Current.Desktop.KeyBoard.TypeText(urlContent);
+        }
+
+        /// <summary>
+        /// Presses the add external urls button.
+        /// </summary>
+        public void PressAddExternalUrlsButton()
+        {
+            HtmlInputButton addExternalUrlsButton = this.EM.Selectors.SelectorsScreen.AddExternalUrlButton.AssertIsPresent("Add external urls button button");
+
+            addExternalUrlsButton.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Removes the external URL.
+        /// </summary>
+        public void RemoveExternalUrl()
+        {
+            HtmlAnchor removeIcon = this.EM.Selectors.SelectorsScreen.RemoveExternalUrlsIcon.AssertIsPresent("remove icon");
+
+            removeIcon.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Selects the open in new window option.
+        /// </summary>
+        /// <param name="isSelected">The is selected.</param>
+        public void SelectOpenInNewWindowOption(bool isSelected = true)
+        {
+            HtmlInputCheckBox checkbox = this.EM.Selectors
+                                                .SelectorsScreen
+                                                .OpenExternalUrlsInNewTabCheckbox
+                                                .AssertIsPresent("open in new window");
+            if (isSelected && !checkbox.Checked)
+            {
+                checkbox.Click();               
+            }
+            else if (!isSelected && checkbox.Checked) 
+            {
+                checkbox.Click();                
             }
         }
 

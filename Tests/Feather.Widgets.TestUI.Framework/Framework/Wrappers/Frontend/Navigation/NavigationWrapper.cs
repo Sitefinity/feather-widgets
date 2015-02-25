@@ -51,9 +51,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                     break;
             }
 
-            foreach (string page in pages)
+            for (int i = 0; i < pages.Count(); i++)
             {
-                navList.AssertContainsText<HtmlControl>(page, "Navigation does not contain the expected page " + page);
+                Assert.IsTrue(navList.ChildNodes[i].InnerText.Contains(pages[i]), "Navigation child node does not contain the expected page: " + pages[i]);
             }
         }
 
@@ -250,6 +250,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 .AssertIsPresent<HtmlAnchor>("Menu Button");
 
             toggleButton.Click();
+        }
+
+        /// <summary>
+        /// Verifies the created page with external url.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyCreatedPageWithExternalUrl(string name, string href, bool isOpenInNewWindowChecked = false)
+        {
+            if (isOpenInNewWindowChecked)
+            {
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name, "target=_blank").AssertIsPresent(name + " or " + href + " was not present.");
+            }
+            else
+            {
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name).AssertIsPresent(name + " or " + href + " was not present.");
+                ActiveBrowser.Find.ByExpression<HtmlAnchor>("href=" + href, "InnerText=" + name, "target=_blank").AssertIsNull(name + " or " + href + " was present.");
+            }
         }
 
         private HtmlAnchor GetPageLinkByTitleFromBootstrapNavigation(string cssClass, string pageTitle)

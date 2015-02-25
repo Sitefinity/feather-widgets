@@ -7,6 +7,7 @@ using ArtOfTest.WebAii.Controls.HtmlControls;
 using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Navigation
 {
@@ -54,7 +55,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DeleteNavigationWidgetFromPageFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void DeleteNavigationWidgetFromPageFoundationTemplate()
@@ -88,7 +89,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DeleteNavigationWidgetFromPageSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner("Feather team"),
+        Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void DeleteNavigationWidgetFromPageSemanticUITemplate()

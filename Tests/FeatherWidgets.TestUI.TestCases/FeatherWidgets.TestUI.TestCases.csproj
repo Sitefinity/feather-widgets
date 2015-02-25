@@ -56,6 +56,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework">
       <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.0.4\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
     </Reference>
@@ -137,7 +140,7 @@
     <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategoryAllTab.cs" />
     <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
-    <Compile Include="FeatherTeams.cs" />
+    <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\LightNavigationAndMvcNavigation.cs" />
@@ -148,6 +151,7 @@
     <Compile Include="Navigation\NavigationWidgetAllPagesUnderParticularPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAllSiblingPagesOfCurrentlyOpenedPage.cs" />
     <Compile Include="Navigation\NavigationWidgetAndContentBlockWidgetOnTheSamePage.cs" />
+    <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPages.cs" />
     <Compile Include="Navigation\NavigationWidgetFoundationResponsiveDesignTransformations.cs" />
     <Compile Include="Navigation\NavigationWidgetHorizontalTemplateWithOneLevelOnPage.cs" />
     <Compile Include="Navigation\NavigationWidgetBootstrapResponsiveDesignTransformations.cs" />
