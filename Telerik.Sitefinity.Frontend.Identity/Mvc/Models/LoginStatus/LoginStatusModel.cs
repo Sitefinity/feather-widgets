@@ -62,7 +62,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 LogoutPageUrl = this.GetLogoutPageUrl(),
                 ProfilePageUrl = this.GetProfilePageUrl(),
                 RegistrationPageUrl = this.GetRegistrationPageUrl(),
-                LoginPageUrl = this.GetLoginPageUrl()
+                LoginPageUrl = this.GetLoginPageUrl(),
+                CssClass = this.CssClass
             };
         }
 
@@ -141,7 +142,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                     return UrlPath.ResolveUrl(relativeUrl, true);
                 }
             }
-            return string.Empty;
+
+            return null;
         }
 
         /// <summary>

@@ -198,6 +198,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Image item)
         {
+            var itemIndex = this.ParseToNullableInt32(this.GetQueryString("itemIndex"));
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
             if (item != null)
@@ -205,8 +206,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.ItemIndex = itemIndex;
 
-            var viewModel = this.Model.CreateDetailsViewModel(item);
+            var viewModel = this.Model.CreateDetailsViewModel(item, itemIndex);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -262,6 +264,16 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
 
             return false;
+        }
+
+
+        /// <summary>
+        /// Gets the item index from the query string.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetQueryString(string key)
+        {
+            return Request.QueryString[key];
         }
 
         /// <summary>
@@ -322,8 +334,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
         }
-
 
         /// <summary>
         /// Fulls the name of the list template.
@@ -334,6 +346,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             return this.listTemplateNamePrefix + this.ListTemplateName;
         }
 
+        /// <summary>
+        /// Parses text to nullable int32.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        private int? ParseToNullableInt32(string text)
+        {
+            int i;
+            if (Int32.TryParse(text, out i))
+            {
+                return i;
+            }
+            return null;
+        }
+
         #endregion
 
         #region Private fields and constants
@@ -341,7 +368,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         internal const string AnyParentValue = "AnyParent";
 
         private IImageGalleryModel model;
-        private string listTemplateName = "ThumbnailsList";
+        private string listTemplateName = "ImageGallery";
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";

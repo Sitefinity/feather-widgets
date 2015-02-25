@@ -2,6 +2,7 @@
 
 @using System.Web.Script.Serialization;
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 
@@ -9,24 +10,23 @@
 @Html.Script(ScriptRef.JQuery)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"))
 
-@if(Model.Items.Count() > 0)
-{
-<p><span class="item-index"></span> of @Model.Items.Count()</p>
-<h2 class="image-title"></h2>
-<p class="description"></p>
+<h2 class="js-Gallery-title"></h2>
 
-<p class="sf-Gallery-image">
-	<a class='sf-prev-link'><span class="sf-Gallery-prev glyphicon glyphicon-menu-left">Prev</span></a>
-	<img class="img-responsive" />
-	<a class='sf-next-link'><span class="sf-Gallery-next glyphicon glyphicon-menu-right">Next</span></a>
+<p class="js-Gallery-description"></p>
+
+<div><span class="js-Gallery-index"></span> of @Model.Items.Count()</div>
+
+<p class="js-Gallery-image">
+	<a class='js-Gallery-prev'>Prev</span></a>
+	<a class='js-Gallery-next'>Next</a>
+	<img />
 </p>
-}
 
-<div class="sf-Gallery clearfix">
-    @foreach(var item in Model.Items)
-    {
-	<a class="pull-left text-center" href="#" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
-		<img src="@item.Fields.ThumbnailUrl"  alt="@item.Fields.AlternativeText"/>
+<div class="js-Gallery-thumbs">
+	@foreach(var item in Model.Items)
+	{
+	<a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
+		<img src="@(((ThumbnailViewModel)item).ThumbnailUrl)"  alt="@item.Fields.AlternativeText"/>
 	</a>
-    }
+	}
 </div>

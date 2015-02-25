@@ -1,8 +1,8 @@
 ﻿(function ($) {
     angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
 
-    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serverData', function ($scope, propertyService, serverData) {
-        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
+    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
 
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
@@ -24,8 +24,8 @@
 	        'properties.ProviderName.PropertyValue',
 	        function (newProviderName, oldProviderName) {
 	            if (newProviderName !== oldProviderName) {
-	                $scope.properties.SelectionMode.PropertyValue = 'AllItems';
-	                $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+	                $scope.properties.ParentFilterMode.PropertyValue = 'All';
+	                $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
 	            }
 	        },
 	        true
@@ -60,7 +60,7 @@
             'thumbnailSizeModel',
             function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    $scope.properties.SerializedThumbnailSizeModel = JSON.stringify(newValue);
+                    $scope.properties.SerializedThumbnailSizeModel.PropertyValue = JSON.stringify(newValue);
                 }
             },
             true
@@ -70,7 +70,7 @@
             'imageSizeModel',
             function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    $scope.properties.SerializedImageSizeModel = JSON.stringify(newValue);
+                    $scope.properties.SerializedImageSizeModel.PropertyValue = JSON.stringify(newValue);
                 }
             },
             true
@@ -102,15 +102,15 @@
                         $scope.selectedSortOption = "Custom";
                     }
 
-                    //var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
-                    //if (thumbnailSizeModel) {
-                    //    $scope.thumbnailSizeModel = thumbnailSizeModel;
-                    //}
+                    var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
+                    if (thumbnailSizeModel) {
+                        $scope.thumbnailSizeModel = thumbnailSizeModel;
+                    }
 
-                    //var imageSizeModel = $.parseJSON($scope.properties.SerializedImageSizeModel.PropertyValue);
-                    //if (imageSizeModel) {
-                    //    $scope.imageSizeModel = imageSizeModel;
-                    //}
+                    var imageSizeModel = $.parseJSON($scope.properties.SerializedImageSizeModel.PropertyValue);
+                    if (imageSizeModel) {
+                        $scope.imageSizeModel = imageSizeModel;
+                    }
                 }
             },
             function (data) {
@@ -143,12 +143,6 @@
 
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
-
-                        // If the sorting expression is AsSetManually but the selection mode is AllItems or FilteredItems, this is not a valid combination.
-                        // So set the sort expression to the default value: PublicationDate DESC
-                        if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
-                            $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
-                        }
                     }
                 });
             })
