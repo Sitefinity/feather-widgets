@@ -24,8 +24,8 @@
 	        'properties.ProviderName.PropertyValue',
 	        function (newProviderName, oldProviderName) {
 	            if (newProviderName !== oldProviderName) {
-	                $scope.properties.SelectionMode.PropertyValue = 'AllItems';
-	                $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+	                $scope.properties.ParentFilterMode.PropertyValue = 'All';
+	                $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
 	            }
 	        },
 	        true
