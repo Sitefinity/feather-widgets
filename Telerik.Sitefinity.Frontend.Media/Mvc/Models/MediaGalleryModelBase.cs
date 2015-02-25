@@ -117,30 +117,17 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
                         compiledFilterExpression = this.AdaptMultilingualFilterExpression(compiledFilterExpression);
 
                         var mediaQuery = (IQueryable<TMedia>)query;
-                        mediaQuery = DataProviderBase.SetExpressions(
-                                                              mediaQuery,
-                                                              compiledFilterExpression,
-                                                              this.SortExpression,
-                                                              0,
-                                                              0,
-                                                              ref totalCount);
+                        mediaQuery = this.SetExpression(mediaQuery, compiledFilterExpression, this.SortExpression, 0, 0, ref totalCount);
                         
                         var getDescendants = typeof(LibrariesManager).GetMethod("GetDescendantsFromQuery", BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(typeof(TMedia));
                         mediaQuery = (IQueryable<TMedia>)getDescendants.Invoke(this.GetManager(), new object[] { mediaQuery, parent });
 
-                        mediaQuery = DataProviderBase.SetExpressions(
-                                                      mediaQuery,
-                                                      null,
-                                                      null,
-                                                      skip,
-                                                      take,
-                                                      ref totalCount);
+                        mediaQuery = this.SetExpression(mediaQuery, null, null, skip, take, ref totalCount);
 
                         return mediaQuery;
                     }
                 }
             }
-
 
             return base.UpdateExpression(query, skip, take, ref totalCount);
         }
