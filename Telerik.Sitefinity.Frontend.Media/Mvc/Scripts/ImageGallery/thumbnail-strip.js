@@ -1,37 +1,37 @@
 ﻿jQuery(document).ready(function () {
     var populateDefaultItem = function () {
         var defaultElementIndex = 0;
-        var firstImageElement = jQuery('.sf-Gallery a')[defaultElementIndex];
+        var firstImageElement = jQuery('.js-Gallery-thumbs').find('a')[defaultElementIndex];
         if (firstImageElement) {
             populateSelecteditem(firstImageElement);
         }
     };
 
     var populateSelecteditem = function (element) {
-        jQuery(element).attr('selected', true);
+        jQuery(element).addClass('is-selected');
         var item = jQuery.parseJSON(jQuery(element).attr('data-item'));
         var selectedElementIndex = jQuery(element).index();
 
-        jQuery('.sf-Gallery-image .img-responsive').attr('src', item.MediaUrl);
-        jQuery('.sf-Gallery-image .img-responsive').attr('title', item.Title);
-        jQuery('.sf-Gallery-image .img-responsive').attr('alt', item.AlternativeText);
-        jQuery('.image-title').html(item.Title);
-        jQuery('.description').html(item.Description);
-        jQuery('.item-index').html(selectedElementIndex + 1);
+        jQuery('.js-Gallery-image').find('img').attr('src', item.MediaUrl);
+        jQuery('.js-Gallery-image').find('img').attr('title', item.Title);
+        jQuery('.js-Gallery-image').find('img').attr('alt', item.AlternativeText);
+        jQuery('.js-Gallery-title').html(item.Title);
+        jQuery('.js-Gallery-description').html(item.Description);
+        jQuery('.js-Gallery-index').html(selectedElementIndex + 1);
     };
 
     var removeCurrentlySelected = function () {
-        var currentlySelected = jQuery('.sf-Gallery a[selected]');
-        currentlySelected.removeAttr('selected');
+        var currentlySelected = jQuery('.js-Gallery-thumbs').find('a.is-selected');
+        currentlySelected.removeClass('is-selected');
     };
 
-    jQuery('.sf-Gallery a').bind('click', function (e) {
+    jQuery('.js-Gallery-thumbs').find('a').bind('click', function (e) {
         removeCurrentlySelected();
         populateSelecteditem(this);
     });
 
-    jQuery('.sf-prev-link').bind('click', function (e) {
-        var currentlySelected = jQuery('.sf-Gallery a[selected]');
+    jQuery('.js-Gallery-prev').bind('click', function (e) {
+        var currentlySelected = jQuery('.js-Gallery-thumbs').find('a.is-selected');
         if (currentlySelected && currentlySelected.length > 0) {
             var prevElement = currentlySelected.prev('a');
             if (prevElement && prevElement.length > 0) {
@@ -41,8 +41,8 @@
         }
     });
 
-    jQuery('.sf-next-link').bind('click', function (e) {
-        var currentlySelected = jQuery('.sf-Gallery a[selected]');
+    jQuery('.js-Gallery-next').bind('click', function (e) {
+        var currentlySelected = jQuery('.js-Gallery-thumbs').find('a.is-selected');
         if (currentlySelected && currentlySelected.length > 0) {
             var nextElement = currentlySelected.next('a');
             if (nextElement && nextElement.length > 0) {
