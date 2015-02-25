@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false'>
+        <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded="{{properties.SelectionMode.PropertyValue=='FilteredItems'}}">
             <div class="radio m-top-none">
                 <label for="allItems" class="full-width">
                     <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
