@@ -609,5 +609,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["IndexOfTotal"];
             }
         }
+
+        /// <summary>
+        /// phrase: From all libraries
+        /// </summary>
+        /// <value>From all libraries/value>
+        [ResourceEntry("AllLibraries",
+            Value = "From all libraries",
+            Description = "phrase: From all libraries",
+            LastModified = "2015/02/25")]
+        public string AllLibraries
+        {
+            get
+            {
+                return this["AllLibraries"];
+            }
+        }
     }
 }

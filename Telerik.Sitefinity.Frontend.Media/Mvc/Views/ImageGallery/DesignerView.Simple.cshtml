@@ -22,7 +22,7 @@
                 <label for="allPublished" class="full-width">
                     <input id="allPublished" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
 
-                    @Html.Resource("AllPublishedImages")
+                    @Html.Resource("AllLibraries")
                 </label>
             </div>
             <div class="radio">
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false' ng-show="properties.SelectionMode.PropertyValue!='SelectedItems'">
+        <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded='false'>
             <div class="radio m-top-none">
                 <label for="allItems" class="full-width">
                     <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
