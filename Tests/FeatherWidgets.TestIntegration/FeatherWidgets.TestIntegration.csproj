@@ -182,6 +182,7 @@
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\LoginStatus\LoginTests.cs" />
+    <Compile Include="Identity\LoginStatus\LogoutTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
     <Compile Include="News\NewsWidgetAdvancedSettingsTests.cs" />
