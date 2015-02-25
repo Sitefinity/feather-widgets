@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
     /// </summary>
     internal class DummyImageGalleryModel : IImageGalleryModel
     {
-        public Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModel(Telerik.Sitefinity.Model.IDataItem item)
+        public Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModel(Telerik.Sitefinity.Model.IDataItem item, int? itemIndex)
         {
             return new Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel();
         }
@@ -110,15 +110,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
 
         public int? ItemsPerPage
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         public string ListCssClass
@@ -228,6 +221,32 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
         public IEnumerable<Telerik.Sitefinity.ContentLocations.IContentLocationInfo> DummyLocations { get; set; }
 
         public bool IncludeChildLibraries
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string SerializedThumbnailSizeModel
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string SerializedImageSizeModel
         {
             get
             {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
@@ -129,6 +130,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// </value>
         bool IncludeChildLibraries { get; set; }
 
+        /// Gets or sets the serialized thumbnail size model. It determines the size of the gallery's thumbnails.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
+        string SerializedThumbnailSizeModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the serialized single image size model. It determines the size of the image in the details view.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
+        string SerializedImageSizeModel { get; set; }
+
         /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
@@ -148,8 +164,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// Creates the details view model.
         /// </summary>
         /// <param name="item">The item.</param>
+        /// <param name="itemIndex">Index of the item in collection.</param>
         /// <returns>A view model for use in detail views.</returns>
-        ContentDetailsViewModel CreateDetailsViewModel(IDataItem item);
+        ContentDetailsViewModel CreateDetailsViewModel(IDataItem item, int? itemIndex);
 
         /// <summary>
         /// Creates the ListView model by parent.

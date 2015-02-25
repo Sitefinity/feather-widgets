@@ -196,6 +196,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeatherTestCase.cs" />
     <Compile Include="FeatherTestCategories.cs" />
+    <Compile Include="Search\VerifySearchResults_ApplyCssClass.cs" />
     <Compile Include="Search\VerifySearchResults_BootstrapTemplate.cs" />
     <Compile Include="Search\VerifySearchResults_FoundationTemplate.cs" />
     <Compile Include="Search\VerifySearchResults_SemanticUITemplate.cs" />
