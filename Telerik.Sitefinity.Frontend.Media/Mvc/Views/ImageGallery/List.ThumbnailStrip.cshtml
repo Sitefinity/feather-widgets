@@ -1,16 +1,44 @@
 @model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
 
+@using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using System.Web.Script.Serialization;
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Services;
+@using System.Linq;
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"))
 
-@if(Model.Items.Count() > 0)
+@{
+    bool hasItems = Model.Items.Count() > 0;
+    bool isBackendDesignMode = SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+    dynamic firstItem = null;
+
+    if (hasItems && isBackendDesignMode)
+    {
+        firstItem = Model.Items.FirstOrDefault();
+    }
+}
+
+@if (hasItems)
+{
+    if (isBackendDesignMode)
+    {
+        <p><span class="item-index">1</span> of @Model.Items.Count()</p>
+        <h2 class="image-title">@firstItem.DataItem.Title</h2>
+        <p class="description">@firstItem.DataItem.Description</p>
+
+        <p class="sf-Gallery-image">
+            <a class='sf-prev-link'><span class="sf-Gallery-prev glyphicon glyphicon-menu-left">Prev</span></a>
+            <img class="img-responsive" src="@firstItem.DataItem.MediaUrl" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" />
+            <a class='sf-next-link'><span class="sf-Gallery-next glyphicon glyphicon-menu-right">Next</span></a>
+        </p>
+    }
+    else
 {
 <p><span class="item-index"></span> of @Model.Items.Count()</p>
 <h2 class="image-title"></h2>
@@ -22,9 +50,10 @@
 	<a class='sf-next-link'><span class="sf-Gallery-next glyphicon glyphicon-menu-right">Next</span></a>
 </p>
 }
+}
 
 <div class="sf-Gallery clearfix">
-    @foreach(var item in Model.Items)
+    @foreach (var item in Model.Items)
     {
 	<a class="pull-left text-center" href="#" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
 		<img src="@(((ThumbnailViewModel)item).ThumbnailUrl)"  alt="@item.Fields.AlternativeText"/>
