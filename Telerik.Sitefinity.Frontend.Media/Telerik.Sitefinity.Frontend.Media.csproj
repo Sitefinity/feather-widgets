@@ -175,9 +175,9 @@
     <EmbeddedResource Include="Mvc\Views\Image\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Image\Image.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\List.ThumbnailStrip.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\ImageGallery\List.ThumbnailsList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ImageGallery\List.ImageGallery.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\Detail.DetailPage.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\ImageGallery\List.OverlayList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ImageGallery\List.OverlayGallery.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
