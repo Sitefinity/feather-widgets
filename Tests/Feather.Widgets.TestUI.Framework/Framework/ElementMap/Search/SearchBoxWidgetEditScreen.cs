@@ -44,5 +44,104 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
                 return this.Get<HtmlSelect>("id=searchIndexes");
             }
         }
+
+        /// <summary>
+        /// Gets Where to search label.
+        /// </summary>
+        public HtmlContainerControl WhereToSearchLabel
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("innerText=Where to search?");
+            }
+        }
+
+        /// <summary>
+        /// Gets What is this link.
+        /// </summary>
+        public HtmlAnchor WhatsThisLink
+        {
+            get
+            {
+                return this.Find.ByExpression<HtmlAnchor>("tagname=a", "class=Tooltip");
+            }
+        }
+
+        /// <summary>
+        /// Gets What is this information div.
+        /// </summary>
+        public HtmlDiv WhatsThisInfo
+        {
+            get
+            {
+                return this.Find.ByExpression<HtmlDiv>("tagname=div", "class=Tooltip-info Tooltip-info--bottom");
+            }
+        }
+
+        /// <summary>
+        /// Gets Where to display search results label.
+        /// </summary>
+        public HtmlContainerControl WhereToDisplaySearchResultsLabel
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("tagname=label", "innerText=Where to display search results?");
+            }
+        }
+
+        /// <summary>
+        /// Gets Template label.
+        /// </summary>
+        public HtmlContainerControl TemplateLabel
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("tagname=label", "innerText=Template");
+            }
+        }
+
+        /// <summary>
+        /// Gets Templates dropdown.
+        /// </summary>
+        public HtmlSelect TemplateDropdown
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("id=searchTemplateName");
+            }
+        }
+
+        /// <summary>
+        /// Gets More options div.
+        /// </summary>
+        public HtmlSpan MoreOptionsSpan
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("class=Options-toggler text-muted ng-binding", "innerText=More options");
+            }
+        }
+
+        /// <summary>
+        /// Gets CSS classes label.
+        /// </summary>
+        public HtmlContainerControl CssClassesLabel
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("tagname=label", "innerText=CSS classes");
+            }
+        }
+
+        /// <summary>
+        /// Gets CSS classes label.
+        /// </summary>
+        public HtmlInputText CssClassesTextbox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("id=searchCssClass");
+            }
+        }
     }
 }

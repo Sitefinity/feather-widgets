@@ -149,8 +149,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// Creates the details view model.
         /// </summary>
         /// <param name="item">The item.</param>
+        /// <param name="itemIndex">Index of the item in collection.</param>
         /// <returns>A view model for use in detail views.</returns>
-        ContentDetailsViewModel CreateDetailsViewModel(IDataItem item);
+        ContentDetailsViewModel CreateDetailsViewModel(IDataItem item, int? itemIndex);
 
         /// <summary>
         /// Creates the ListView model by parent.

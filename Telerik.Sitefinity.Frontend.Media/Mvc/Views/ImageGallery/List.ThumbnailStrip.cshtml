@@ -10,6 +10,8 @@
 @Html.Script(ScriptRef.JQuery)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"))
 
+@if(Model.Items.Count() > 0)
+{
 <p><span class="item-index"></span> of @Model.Items.Count()</p>
 <h2 class="image-title"></h2>
 <p class="description"></p>
@@ -19,7 +21,7 @@
 	<img class="img-responsive" />
 	<a class='sf-next-link'><span class="sf-Gallery-next glyphicon glyphicon-menu-right">Next</span></a>
 </p>
-
+}
 
 <div class="sf-Gallery clearfix">
     @foreach(var item in Model.Items)

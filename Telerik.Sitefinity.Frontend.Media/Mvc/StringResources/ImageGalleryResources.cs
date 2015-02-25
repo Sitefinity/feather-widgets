@@ -96,12 +96,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: From currently open library
+        /// Phrase: From currently opened library
         /// </summary>
-        /// <value>From currently open library</value>
+        /// <value>From currently opened library</value>
         [ResourceEntry("FromCurrentlyOpen",
-            Value = "From currently open library",
-            Description = "Phrase: From currently open library",
+            Value = "From currently opened library",
+            Description = "Phrase: From currently opened library",
             LastModified = "2015/02/23")]
         public string FromCurrentlyOpen
         {
@@ -528,6 +528,86 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["ImageSize"];
             }
         }
+
+        /// <summary>
+        /// phrase: Next image
+        /// </summary>
+        /// <value>Next image</value>
+        [ResourceEntry("NextImage",
+            Value = "Next image",
+            Description = "phrase: Next image",
+            LastModified = "2015/02/24")]
+        public string NextImage
+        {
+            get
+            {
+                return this["NextImage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Previous image
+        /// </summary>
+        /// <value>Previous image</value>
+        [ResourceEntry("PreviousImage",
+            Value = "Previous image",
+            Description = "phrase: Previous image",
+            LastModified = "2015/02/24")]
+        public string PreviousImage
+        {
+            get
+            {
+                return this["PreviousImage"];
+            }
+        }
         #endregion
+
+        /// <summary>
+        /// word: by
+        /// </summary>
+        /// <value>by</value>
+        [ResourceEntry("By",
+            Value = "by",
+            Description = "word: by",
+            LastModified = "2015/02/24")]
+        public string By
+        {
+            get
+            {
+                return this["By"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Back to all images
+        /// </summary>
+        /// <value>Back to all images</value>
+        [ResourceEntry("BackToAllImages",
+            Value = "Back to all images",
+            Description = "phrase: Back to all images",
+            LastModified = "2015/02/24")]
+        public string BackToAllImages
+        {
+            get
+            {
+                return this["BackToAllImages"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: [Index] of [TotalCount]
+        /// </summary>
+        /// <value>{0} of {1}</value>
+        [ResourceEntry("IndexOfTotal",
+            Value = "{0} of {1}",
+            Description = "phrase: [Index] of [TotalCount]",
+            LastModified = "2015/02/25")]
+        public string IndexOfTotal
+        {
+            get
+            {
+                return this["IndexOfTotal"];
+            }
+        }
     }
 }

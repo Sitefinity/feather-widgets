@@ -1,0 +1,67 @@
+@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery.ImageDetailsViewModel
+
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Web.DataResolving;
+
+<div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
+    <h2>
+        <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
+    </h2>
+
+    <div class="text-muted">
+        @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
+        @Html.Resource("By")
+        @DataResolver.Resolve(@Model.Item.DataItem, "Author", null)
+    </div>
+
+    <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
+
+	<img src="@Model.Item.Fields.MediaUrl" alt='@System.Text.RegularExpressions.Regex.Replace(Model.Item.Fields.AlternativeText, @"[^\w\d_-]", "")' />
+
+    @if (ViewBag.ItemIndex != null)
+    {
+        <div class="m-bottom-lg text-center">
+            @{
+                var previousItemIndex = ViewBag.ItemIndex == 1 ? Model.TotalItemsCount : ViewBag.ItemIndex - 1;
+                var nextItemIndex = ViewBag.ItemIndex == Model.TotalItemsCount ? 1 : ViewBag.ItemIndex + 1;
+            }
+
+	        <a class="pull-left" href="@HyperLinkHelpers.GetDetailPageUrl(Model.PreviousItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, previousItemIndex)">
+                @Html.Resource("PreviousImage")
+	        </a>
+            
+            @string.Format(@Html.Resource("IndexOfTotal"), @ViewBag.ItemIndex, @Model.TotalItemsCount)
+
+	        <a class="pull-right" href="@HyperLinkHelpers.GetDetailPageUrl(Model.NextItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, nextItemIndex)">
+                @Html.Resource("NextImage")
+	        </a>
+        </div>
+
+        @Html.ActionLink(Html.Resource("BackToAllImages"), "Index")
+    }
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/magnific/jquery.magnific-popup.min.js"></script>
+
+    <script>
+	    $(document).ready(function() {
+		    $('.sf-Gallery-item').magnificPopup({
+			    gallery: {
+				    enabled: true
+			    },
+			    type:'image',
+			    zoom: {
+				    enabled: true,
+
+				    duration: 300,
+				    easing: 'ease-in-out',
+				    opener: function(openerElement) {
+					    return openerElement.is('img') ? openerElement : openerElement.find('img');
+				    }
+			    }
+
+		    });
+	    });
+    </script>
+</div>

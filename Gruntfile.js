@@ -12,7 +12,8 @@ module.exports = function (grunt) {
 					'**/*.js',
 					'!node_modules/**/*.js',
 					'!Tests/**/*.js',
-					'!Telerik.Sitefinity.Frontend.*/gruntfile.js'
+					'!Telerik.Sitefinity.Frontend.*/gruntfile.js',
+					'!Telerik.Sitefinity.Frontend.Media/assets/magnific/*'
 			]
 		},
 		

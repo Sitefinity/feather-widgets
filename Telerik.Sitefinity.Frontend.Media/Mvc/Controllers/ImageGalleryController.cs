@@ -198,12 +198,17 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Details(Image item)
         {
+            var itemIndex = this.ParseToNullableInt32(Request.QueryString["itemIndex"]);
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
             if (item != null)
                 this.ViewBag.Title = item.Title;
 
-            var viewModel = this.Model.CreateDetailsViewModel(item);
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.ItemIndex = itemIndex;
+
+            var viewModel = this.Model.CreateDetailsViewModel(item, itemIndex);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -319,8 +324,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
         }
-
 
         /// <summary>
         /// Fulls the name of the list template.
@@ -329,6 +334,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private string FullListTemplateName()
         {
             return this.listTemplateNamePrefix + this.ListTemplateName;
+        }
+
+        /// <summary>
+        /// Parses text to nullable int32.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        private int? ParseToNullableInt32(string text)
+        {
+            int i;
+            if (Int32.TryParse(text, out i))
+            {
+                return i;
+            }
+            return null;
         }
 
         #endregion
@@ -340,7 +360,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private IImageGalleryModel model;
         private string listTemplateName = "ThumbnailsList";
         private string listTemplateNamePrefix = "List.";
-        private string detailTemplateName;
+        private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
         private bool? disableCanonicalUrlMetaTag;
         private bool openInSamePage = true;
