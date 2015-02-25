@@ -9,10 +9,6 @@
     <p class="sf-logged-in-name"></p>
 </div>
 
-<div class="sf-logged-out-view" style="display: none">
-</div>
-
 <input type="hidden" class="sf-status-json-endpoint-url" value="@Url.Action("Status")"/>
-<input type="hidden" class="sf-logout-redirect-url" value="@(Model.RedirectUrl ?? "/")"/>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"))
