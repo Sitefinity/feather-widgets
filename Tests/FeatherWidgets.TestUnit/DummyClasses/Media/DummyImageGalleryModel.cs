@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
     /// </summary>
     internal class DummyImageGalleryModel : IImageGalleryModel
     {
-        public Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModel(Telerik.Sitefinity.Model.IDataItem item)
+        public Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModel(Telerik.Sitefinity.Model.IDataItem item, int? itemIndex)
         {
             return new Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel();
         }
