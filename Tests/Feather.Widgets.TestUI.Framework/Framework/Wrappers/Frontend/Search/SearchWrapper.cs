@@ -143,8 +143,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlDiv searchBoxDiv = this.ActiveBrowser.Find.ByExpression<HtmlDiv>("class=" + cssClass);
             searchBoxDiv.AssertIsNotNull("search box div is not found");
 
-            HtmlButton searchButton = this.ActiveBrowser.Find.ByExpression<HtmlButton>("tagname=button", "innerText=Search");
-            searchButton.AssertIsNotNull("search button is not found");
+            searchBoxDiv.Find.ByExpression<HtmlButton>("tagname=button", "innerText=Search").AssertIsNotNull("search button is not found");
         }
 
         /// <summary>
@@ -156,8 +155,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlDiv searchResultsDiv = this.ActiveBrowser.Find.ByExpression<HtmlDiv>("class=" + cssClass);
             searchResultsDiv.AssertIsNotNull("search results div is not found");
 
-            HtmlContainerControl searchResultLabel = this.ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h1");
-            searchResultLabel.AssertIsNotNull("search result label is not found");
+            searchResultsDiv.Find.ByExpression<HtmlContainerControl>("tagname=h1").AssertIsNotNull("search result label is not found");
         }
     }
 }
