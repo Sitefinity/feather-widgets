@@ -54,7 +54,7 @@
 <div class="sf-Gallery clearfix">
     @foreach (var item in Model.Items)
     {
-        <a class="pull-left text-center" selected="true" href="#" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
+        <a class="pull-left text-center" href="#" title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
             <img src="@item.Fields.ThumbnailUrl" alt="@item.Fields.AlternativeText" />
         </a>
     }
