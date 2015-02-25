@@ -31,7 +31,6 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(SearchResultsWidget);
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SearchBoxWidget);
-            //// BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().VerifyWhatsThis();
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().SelectSearchIndex(SearchIndexName);
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().VerifyWhereToDisplaySearchResultsLabel();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
