@@ -19,20 +19,27 @@
 
 	<img src="@Model.Item.Fields.MediaUrl" alt='@System.Text.RegularExpressions.Regex.Replace(Model.Item.Fields.AlternativeText, @"[^\w\d_-]", "")' />
 
-    <div class="m-bottom-lg text-center">
-	    @*<a class="pull-left" href="@HyperLinkHelpers.GetDetailPageUrl(Model.PrevItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
-            @Html.Resource("PreviousImage")
-	    </a>*@
+    @if (ViewBag.ItemIndex != null)
+    {
+        <div class="m-bottom-lg text-center">
+            @{
+                var previousItemIndex = ViewBag.ItemIndex == 1 ? Model.TotalItemsCount : ViewBag.ItemIndex - 1;
+                var nextItemIndex = ViewBag.ItemIndex == Model.TotalItemsCount ? 1 : ViewBag.ItemIndex + 1;
+            }
 
-        2 of 6
+	        <a class="pull-left" href="@HyperLinkHelpers.GetDetailPageUrl(Model.PreviousItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, previousItemIndex)">
+                @Html.Resource("PreviousImage")
+	        </a>
+            
+            @string.Format(@Html.Resource("IndexOfTotal"), @ViewBag.ItemIndex, @Model.TotalItemsCount)
 
-	    @*<a class="pull-right" href="@HyperLinkHelpers.GetDetailPageUrl(Model.NextItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
-            @Html.Resource("NextImage")
-	    </a>*@
-    </div>
+	        <a class="pull-right" href="@HyperLinkHelpers.GetDetailPageUrl(Model.NextItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, nextItemIndex)">
+                @Html.Resource("NextImage")
+	        </a>
+        </div>
 
-    @Html.ActionLink(Html.Resource("BackToAllImages"), "Index")
-
+        @Html.ActionLink(Html.Resource("BackToAllImages"), "Index")
+    }
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="/magnific/jquery.magnific-popup.min.js"></script>

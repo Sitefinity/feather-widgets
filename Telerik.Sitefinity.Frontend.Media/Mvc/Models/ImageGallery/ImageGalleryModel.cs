@@ -26,16 +26,40 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         }
 
         /// <inheritdoc />
-        public override Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModel(IDataItem item)
+        public Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModel(IDataItem item, int? itemIndex)
         {
             var viewModel = (ImageDetailsViewModel) base.CreateDetailsViewModel(item);
 
-            var query = this.GetItemsQuery();
             int? totalCount = 0;
-            query = this.UpdateExpression(query, null, null, ref totalCount);
+            IDataItem next = null;
+            IDataItem prev = null;
 
-            viewModel.PreviousItem = null;
-            viewModel.NextItem = null;
+            if (itemIndex != null)
+            {
+                var query = this.GetItemsQuery();
+                query = this.UpdateExpression(query, null, null, ref totalCount);
+
+                if (itemIndex == 1)
+                {
+                    next = query.Skip(itemIndex.Value).FirstOrDefault();
+                    prev = query.LastOrDefault();
+                }
+                else if (itemIndex == totalCount)
+                {
+                    next = query.FirstOrDefault();
+                    prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
+                }
+                else
+                {
+                    next = query.Skip(itemIndex.Value).FirstOrDefault();
+                    prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
+                }
+            }
+
+            viewModel.PreviousItem = prev != null ? new ItemViewModel(prev) : null;
+            viewModel.NextItem = next != null ? new ItemViewModel(next) : null;
+            viewModel.TotalItemsCount = totalCount.Value;
+
             return viewModel;
         }
     }
