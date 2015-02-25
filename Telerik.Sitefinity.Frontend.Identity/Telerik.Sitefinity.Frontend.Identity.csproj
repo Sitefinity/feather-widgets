@@ -152,6 +152,8 @@
     <EmbeddedResource Include="Mvc\Views\LoginForm\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Index.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Index.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Index.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

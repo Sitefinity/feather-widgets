@@ -50,17 +50,62 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase: Template
+        /// Gets phrase: Login form template
         /// </summary>
-        [ResourceEntry("Template",
-            Value = "Template",
-            Description = "phrase : Template",
-            LastModified = "2015/02/23")]
-        public string Template
+        [ResourceEntry("LoginFormTemplate",
+            Value = "Login form template",
+            Description = "phrase : Login form template",
+            LastModified = "2015/02/25")]
+        public string LoginFormTemplate
         {
             get
             {
-                return this["Template"];
+                return this["LoginFormTemplate"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Forgot your password template
+        /// </summary>
+        [ResourceEntry("ForgotPasswordTemplate",
+            Value = "Forgot your password template",
+            Description = "phrase : Forgot your password template",
+            LastModified = "2015/02/25")]
+        public string ForgotPasswordTemplate
+        {
+            get
+            {
+                return this["ForgotPasswordTemplate"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Reset password template
+        /// </summary>
+        [ResourceEntry("ResetPasswordTemplate",
+            Value = "Reset password template",
+            Description = "phrase : Reset password template",
+            LastModified = "2015/02/25")]
+        public string ResetPasswordTemplate
+        {
+            get
+            {
+                return this["ResetPasswordTemplate"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Allow users to reset password
+        /// </summary>
+        [ResourceEntry("AllowResetPassword",
+            Value = "Allow users to reset password",
+            Description = "phrase : Allow users to reset password",
+            LastModified = "2015/02/25")]
+        public string AllowResetPassword
+        {
+            get
+            {
+                return this["AllowResetPassword"];
             }
         }
 
