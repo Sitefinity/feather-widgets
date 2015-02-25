@@ -30,15 +30,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         {
             var viewModel = (ImageDetailsViewModel) base.CreateDetailsViewModel(item);
 
-            var query = this.GetItemsQuery();
             int? totalCount = 0;
-            query = this.UpdateExpression(query, null, null, ref totalCount);
-
             IDataItem next = null;
             IDataItem prev = null;
 
             if (itemIndex != null)
             {
+                var query = this.GetItemsQuery();
+                query = this.UpdateExpression(query, null, null, ref totalCount);
+
                 if (itemIndex == 1)
                 {
                     next = query.Skip(itemIndex.Value).FirstOrDefault();

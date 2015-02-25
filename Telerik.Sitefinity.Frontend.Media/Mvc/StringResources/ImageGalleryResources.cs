@@ -595,18 +595,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
-        /// word: of
+        /// phrase: [Index] of [TotalCount]
         /// </summary>
-        /// <value>of</value>
-        [ResourceEntry("Of",
-            Value = "of",
-            Description = "word: of",
-            LastModified = "2015/02/24")]
-        public string Of
+        /// <value>{0} of {1}</value>
+        [ResourceEntry("IndexOfTotal",
+            Value = "{0} of {1}",
+            Description = "phrase: [Index] of [TotalCount]",
+            LastModified = "2015/02/25")]
+        public string IndexOfTotal
         {
             get
             {
-                return this["Of"];
+                return this["IndexOfTotal"];
             }
         }
     }
