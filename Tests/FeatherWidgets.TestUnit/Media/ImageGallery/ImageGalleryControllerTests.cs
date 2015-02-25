@@ -18,6 +18,7 @@ namespace FeatherWidgets.TestUnit.Media.ImageGallery
         public void Index_ReturnsConfiguredView()
         {
             var model = new DummyImageGalleryModel();
+            model.ItemsPerPage = 20;
 
             using (var controller = new DummyImageGalleryController(model))
             {
