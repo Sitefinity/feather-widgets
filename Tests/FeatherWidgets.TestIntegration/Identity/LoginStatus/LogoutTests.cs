@@ -38,6 +38,25 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
             Assert.AreEqual(expectedLogoutUrl, viewModel.LogoutPageUrl, "Logout redirect url is not as expected");
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout")]
+        [Author(FeatherTeams.Team2)]
+        [Category(TestCategories.Identity)]
+        [Description("Verify that a logged in user is successfully logged out.")]
+        [Test]
+        public void Logout_LogoutUser_VerifyUserIsLoggedOut()
+        {
+            string expectedLogoutUrl = "www.telerik.com";
 
+            var mvcProxy = new MvcControllerProxy();
+            mvcProxy.ControllerName = typeof(LoginStatusController).FullName;
+            var controller = new LoginStatusController();
+            controller.Model.ExternalLogoutUrl = expectedLogoutUrl;
+            mvcProxy.Settings = new ControllerSettings(controller);
+
+            var actionResult = (ViewResult)controller.Index();
+            var viewModel = actionResult.Model as LoginStatusViewModel;
+
+            Assert.AreEqual(expectedLogoutUrl, viewModel.LogoutPageUrl, "Logout redirect url is not as expected");
+        }
     }
 }
