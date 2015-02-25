@@ -115,10 +115,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                     pageUrl = GetLoginPageBackendSetting();
                 }
 
-                var currentUrl = HttpContext.Current.Request.RawUrl;
-                var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
-                loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
-                    pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
+                if (!pageUrl.IsNullOrEmpty())
+                {
+                    var currentUrl = HttpContext.Current.Request.RawUrl;
+                    var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
+                    loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
+                        pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
+                }
             }
 
             return loginRedirectUrl;
