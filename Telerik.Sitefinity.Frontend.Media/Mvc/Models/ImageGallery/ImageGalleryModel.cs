@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Script.Serialization;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
-using Telerik.Sitefinity.Modules.Libraries.Configuration;
 using Telerik.Sitefinity.Services;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
@@ -18,6 +17,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
     /// </summary>
     public class ImageGalleryModel : MediaGalleryModelBase<SfImage>, IImageGalleryModel
     {
+        #region Initialization
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageGalleryModel"/> class.
+        /// </summary>
+        public ImageGalleryModel() : base()
+        {
+            this.SerializedThumbnailSizeModel = JsonSerializer.SerializeToString(this.DefaultThumbnailSize());
+        }
+
+        #endregion
+
         #region Properties
         /// <inheritdoc />
         public string SerializedThumbnailSizeModel { get; set; }
@@ -37,29 +48,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
                 {
                     if (this.SerializedThumbnailSizeModel != null)
                     {
-                        this.thumbnailSizeModel = new JavaScriptSerializer().Deserialize<ImageSizeModel>(this.SerializedThumbnailSizeModel);
+                        this.thumbnailSizeModel = JsonSerializer.DeserializeFromString<ImageSizeModel>(this.SerializedThumbnailSizeModel);
                     }
                     else
                     {
-                        var defaultThumbnail = ImageGalleryModel.DefaultThumbnailProfileName<Album>();
-                        if (defaultThumbnail != null)
-                        {
-                            this.thumbnailSizeModel = new ImageSizeModel()
-                            {
-                                DisplayMode = ImageDisplayMode.Thumbnail,
-                                Thumbnail = new ThumbnailModel()
-                                {
-                                    Name = ImageGalleryModel.DefaultThumbnailProfileName<Album>()
-                                }
-                            };
-                        }
-                        else
-                        {
-                            this.thumbnailSizeModel = new ImageSizeModel()
-                            {
-                                DisplayMode = ImageDisplayMode.Original
-                            };
-                        }
+                        this.thumbnailSizeModel = this.DefaultThumbnailSize();
                     }
                 }
 
@@ -78,7 +71,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
                 if (this.imageSizeModel == null)
                 {
                     this.imageSizeModel = this.SerializedImageSizeModel != null ?
-                        new JavaScriptSerializer().Deserialize<ImageSizeModel>(this.SerializedImageSizeModel) :
+                        JsonSerializer.DeserializeFromString<ImageSizeModel>(this.SerializedImageSizeModel) :
                         new ImageSizeModel()
                         {
                             DisplayMode = ImageDisplayMode.Original
@@ -190,9 +183,40 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         }
         #endregion
 
+        #region Private methods
+
+        private ImageSizeModel DefaultThumbnailSize()
+        {
+            ImageSizeModel result;
+            var defaultThumbnail = ImageGalleryModel.DefaultThumbnailProfileName<Album>();
+            if (defaultThumbnail != null)
+            {
+                result = new ImageSizeModel()
+                {
+                    DisplayMode = ImageDisplayMode.Thumbnail,
+                    Thumbnail = new ThumbnailModel()
+                    {
+                        Name = ImageGalleryModel.DefaultThumbnailProfileName<Album>()
+                    }
+                };
+            }
+            else
+            {
+                result = new ImageSizeModel()
+                {
+                    DisplayMode = ImageDisplayMode.Original
+                };
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region Private fields and constants
         private ImageSizeModel thumbnailSizeModel;
         private ImageSizeModel imageSizeModel;
+
         #endregion
     }
 }
