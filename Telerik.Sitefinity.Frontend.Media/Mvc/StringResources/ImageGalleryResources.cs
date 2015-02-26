@@ -528,22 +528,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["ImageSize"];
             }
         }
-
-        /// <summary>
-        /// phrase: Include images from child libraries, when such exist
-        /// </summary>
-        /// <value>Include images from child libraries, when such exist</value>
-        [ResourceEntry("IncludeImagesFromChildLibraries",
-            Value = "Include images from child libraries, when such exist",
-            Description = "phrase: Include images from child libraries, when such exist",
-            LastModified = "2015/02/24")]
-        public string IncludeImagesFromChildLibraries
-        {
-            get
-            {
-                return this["IncludeImagesFromChildLibraries"];
-            }
-        }
         #endregion
 
         /// <summary>
