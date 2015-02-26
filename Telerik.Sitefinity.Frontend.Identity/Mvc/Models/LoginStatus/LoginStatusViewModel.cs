@@ -16,16 +16,25 @@
         /// <summary>
         /// Holds the login page to be redirected, when clicking Log in
         /// </summary>
+        /// <value>
+        /// The redirect url.
+        /// </value>
         public string LoginPageUrl { get; set; }
 
          /// <summary>
         /// Gets or sets url of the page where user has to drop Profile widget
         /// </summary>
+        /// <value>
+        /// The redirect url.
+        /// </value>
         public string ProfilePageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets url of the page where user has to drop Registration widget
         /// </summary>
+        /// <value>
+        /// The redirect url.
+        /// </value>
         public string RegistrationPageUrl { get; set; }
 
         /// <summary>

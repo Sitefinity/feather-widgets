@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
     /// <summary>
-    /// This class represents view model for the <see cref="LoginFormController"/>.
+    /// This class represents login form view model for the <see cref="LoginFormController"/>.
     /// </summary>
     public class LoginFormViewModel
     {

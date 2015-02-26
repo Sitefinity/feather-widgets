@@ -1,7 +1,6 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <form>
-
     <div class="form-group">
         <label>@Html.Resource("LandingPageAfterLoginInfo")</label>      
         <sf-list-selector
@@ -20,11 +19,44 @@
     </div>
 
     <div class="form-group">
-        <label for="templateName">@Html.Resource("Template")</label>
+        <input type="checkbox" ng-model="properties.AllowResetPassword.PropertyValue" />
+        <label>@Html.Resource("AllowResetPassword")</label>
+    </div>
+
+    <div class="form-group">
+        <label for="templateName">@Html.Resource("LoginFormTemplate")</label>
         <div class="row">
             <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("LoginStatus", @"LoginStatus\.(?<viewName>\w*)$"))
+                <select id="templateName" ng-model="properties.LoginFormTemplate.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames("LoginForm", @"LoginForm\.(?<viewName>\w*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="properties.AllowResetPassword.PropertyValue == true">
+        <label for="templateName">@Html.Resource("ForgotPasswordTemplate")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.ForgotPasswordTemplate.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames("LoginForm", @"ForgotPassword\.(?<viewName>\w*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="properties.AllowResetPassword.PropertyValue == true">
+        <label for="templateName">@Html.Resource("ResetPasswordTemplate")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.ResetPasswordTemplate.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames("LoginForm", @"ResetPassword\.(?<viewName>\w*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }

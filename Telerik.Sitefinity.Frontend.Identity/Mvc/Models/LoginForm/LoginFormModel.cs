@@ -15,6 +15,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// </summary>
     public class LoginFormModel : ILoginFormModel
     {
+        #region Properties
+
         /// <inheritDoc/>
         public string ServiceUrl
         {
@@ -28,6 +30,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 this.serviceUrl = value;
             }
         }
+        
+        /// <inheritDoc/>
+        public bool AllowResetPassword { get; set; }
 
         /// <inheritDoc/>
         public string MembershipProvider
@@ -46,8 +51,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <inheritDoc/>
         public Guid? LoginRedirectPageId { get; set; }
 
+        #endregion 
+
+        #region Public Methods
+
         /// <inheritDoc/>
-        public LoginFormViewModel GetViewModel()
+        public LoginFormViewModel GetLoginFormViewModel()
         {
             return new LoginFormViewModel() 
             {
@@ -57,6 +66,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm()
             };
         }
+
+        /// <inheritDoc/>
+        public ResetPasswordViewModel GetResetPasswordViewModel()
+        {
+            return new ResetPasswordViewModel();
+        }
+
+        /// <inheritDoc/>
+        public ForgotPasswordViewModel GetForgotPasswordViewModel()
+        {
+            return new ForgotPasswordViewModel();
+        }
+
+        #endregion
+
+        #region Private Fields and methods
 
         /// <summary>
         /// Gets the claims issuer.
@@ -99,5 +124,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
+
+        #endregion
     }
 }

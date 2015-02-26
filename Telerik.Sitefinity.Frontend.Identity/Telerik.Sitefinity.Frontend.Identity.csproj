@@ -135,9 +135,11 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\LoginFormController.cs" />
     <Compile Include="Mvc\Controllers\LoginStatusController.cs" />
+    <Compile Include="Mvc\Models\LoginForm\ForgotPasswordViewModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\ILoginFormModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\LoginFormModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\LoginFormViewModel.cs" />
+    <Compile Include="Mvc\Models\LoginForm\ResetPasswordViewModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\ILoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusViewModel.cs" />
@@ -153,7 +155,9 @@
     <EmbeddedResource Include="Mvc\Views\LoginStatus\LoginStatus.LoginName.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Index.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Default.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
