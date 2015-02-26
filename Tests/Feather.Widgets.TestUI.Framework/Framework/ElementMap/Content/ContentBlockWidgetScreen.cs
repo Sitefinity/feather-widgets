@@ -285,5 +285,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Find.AllByExpression<HtmlUnorderedList>("class=k-editor-toolbar ng-scope", "data-role=editortoolbar");
             }
         }
+
+        /// <summary>
+        /// Gets the image selector.
+        /// </summary>
+        /// <value>The image selector anchor link.</value>
+        public HtmlAnchor ImageSelector
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "title=Insert image");
+            }
+        }
     }
 }

@@ -343,6 +343,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.AreEqual(src, image.Src, "src are not equal");
         }
 
+        /// <summary>
+        /// Opens the image selector.
+        /// </summary>
+        public void OpenImageSelector()
+        {
+            HtmlAnchor createContent = EM.GenericContent
+                                         .ContentBlockWidget
+                                         .ImageSelector
+                                         .AssertIsPresent("image selector");
+            createContent.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
         private Browser GetContentBlockFrame()
         {
             FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "javascript:\"\"", 1);
