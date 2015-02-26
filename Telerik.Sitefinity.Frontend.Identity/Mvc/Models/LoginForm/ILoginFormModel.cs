@@ -65,5 +65,24 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// An instance of <see cref="ForgotPasswordViewModel"/>
         /// </returns>
         ForgotPasswordViewModel GetForgotPasswordViewModel();
+        
+        /// <summary>
+        /// Tries the reset user password.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <returns>
+        /// <c>true</c> if the password reset succeeds; otherwise, <c>false</c>.
+        /// </returns>
+        bool TryResetUserPassword(Guid userId, string newPassword);
+        
+        /// <summary>
+        /// Tries the send reset password email.
+        /// </summary>
+        /// <param name="userEmail">The user email.</param>
+        /// <returns>
+        /// <c>true</c> if the email sending succeeds; otherwise, <c>false</c>.
+        /// </returns>
+        bool TrySendResetPasswordEmail(string userEmail);
     }
 }

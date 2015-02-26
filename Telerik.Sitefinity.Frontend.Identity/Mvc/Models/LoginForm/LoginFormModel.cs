@@ -79,6 +79,41 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             return new ForgotPasswordViewModel();
         }
 
+        /// <inheritDoc/>
+        public bool TryResetUserPassword(Guid userId, string newPassword)
+        {
+            var changePasswordSuccess = false;
+
+            var manager = UserManager.GetManager(this.MembershipProvider);
+
+            var user = manager.GetUser(userId);
+
+            if (user != null)
+            {
+                try
+                {
+                    manager.ChangePassword(user.Id, user.Password, newPassword);
+                    manager.Provider.SuppressSecurityChecks = true;
+                    manager.SaveChanges();
+
+                    changePasswordSuccess = true;
+                }
+                finally
+                {
+                    manager.Provider.SuppressSecurityChecks = false;
+                }
+            }
+
+            return changePasswordSuccess;
+        }
+
+        /// <inheritDoc/>
+        public bool TrySendResetPasswordEmail(string userEmail)
+        {
+            // TODO: Implement
+            return false;
+        }
+
         #endregion
 
         #region Private Fields and methods
@@ -124,6 +159,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
+
+        private readonly IdentityHelper identityHelper;
 
         #endregion
     }

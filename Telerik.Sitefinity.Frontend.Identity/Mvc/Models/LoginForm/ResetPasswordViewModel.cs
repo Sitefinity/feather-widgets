@@ -1,4 +1,6 @@
-﻿namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
     /// <summary>
     /// This class represents reset password view model for the <see cref="LoginFormController"/>.
@@ -19,6 +21,7 @@
         /// <value>
         /// The new password.
         /// </value>
+        [Required]
         public string NewPassword { get; set; }
 
         /// <summary>
@@ -27,6 +30,7 @@
         /// <value>
         /// The repeat new password.
         /// </value>
+        [Required]
         public string RepeatNewPassword { get; set; }
     }
 }

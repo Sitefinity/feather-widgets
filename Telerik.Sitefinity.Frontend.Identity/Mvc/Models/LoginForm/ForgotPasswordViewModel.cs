@@ -1,4 +1,6 @@
-﻿namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
     /// <summary>
     /// This class represents forgot password view model for the <see cref="LoginFormController"/>.
@@ -19,6 +21,7 @@
         /// <value>
         /// The email.
         /// </value>
+        [Required]
         public string Email { get; set; }
     }
 }

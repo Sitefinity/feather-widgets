@@ -9,6 +9,8 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -87,14 +89,28 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
-        [ValidateAntiForgeryToken]
-        public ActionResult PostForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult SetForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Send password.
+                var user = UserManager.GetManager().GetUsers().FirstOrDefault(u => u.Email == model.Email);
 
-                model.EmailSent = true;
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "User with such email does not exist.");
+                }
+                else
+                {
+                    try
+                    {
+                        this.Model.TrySendResetPasswordEmail(model.Email);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ModelState.AddModelError(string.Empty, ex.Message);
+                        model.EmailSent = false;
+                    }
+                }
             }
 
             return this.RedirectToAction("ForgotPassword", new { model = model });
@@ -112,14 +128,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
-        [ValidateAntiForgeryToken]
-        public ActionResult PostResetPassword(ResetPasswordViewModel model)
+        public ActionResult SetResetPassword(ResetPasswordViewModel model)
         {
+            if (model.NewPassword != model.RepeatNewPassword)
+            {
+                ModelState.AddModelError(string.Empty, "Both passwords must match.");
+            }
+
             if (ModelState.IsValid)
             {
-                // TODO: Send password.
+                // TODO: Get User Id
+                Guid userId = Guid.NewGuid();
 
-                model.PasswordChanged = true;
+                try
+                {
+                    model.PasswordChanged = this.Model.TryResetUserPassword(userId, model.NewPassword);    
+                }
+                catch (ArgumentException ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    model.PasswordChanged = false;
+                }
             }
 
             return this.RedirectToAction("ResetPassword", new { model = model });
