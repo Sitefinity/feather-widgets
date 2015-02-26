@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Localization.Data;
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
 {
     /// <summary>
-    /// Localizable strings for the Login Status widget
+    /// Localizable strings for the Login Form widget
     /// </summary>
     [ObjectInfo(typeof(LoginFormResources), Title = "LoginFormResources", Description = "LoginFormResources")]
     public class LoginFormResources : Resource
