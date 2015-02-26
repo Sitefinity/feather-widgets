@@ -4,8 +4,10 @@ using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Libraries.Configuration;
 using Telerik.Sitefinity.Services;
 using SfImage = Telerik.Sitefinity.Libraries.Model.Image;
 
@@ -33,12 +35,32 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             {
                 if (this.thumbnailSizeModel == null)
                 {
-                    this.thumbnailSizeModel = this.SerializedThumbnailSizeModel != null ?
-                        new JavaScriptSerializer().Deserialize<ImageSizeModel>(this.SerializedThumbnailSizeModel) :
-                        new ImageSizeModel()
+                    if (this.SerializedThumbnailSizeModel != null)
+                    {
+                        this.thumbnailSizeModel = new JavaScriptSerializer().Deserialize<ImageSizeModel>(this.SerializedThumbnailSizeModel);
+                    }
+                    else
+                    {
+                        var defaultThumbnail = ImageGalleryModel.DefaultThumbnailProfileName<Album>();
+                        if (defaultThumbnail != null)
                         {
-                            DisplayMode = ImageDisplayMode.Original
-                        };
+                            this.thumbnailSizeModel = new ImageSizeModel()
+                            {
+                                DisplayMode = ImageDisplayMode.Thumbnail,
+                                Thumbnail = new ThumbnailModel()
+                                {
+                                    Name = ImageGalleryModel.DefaultThumbnailProfileName<Album>()
+                                }
+                            };
+                        }
+                        else
+                        {
+                            this.thumbnailSizeModel = new ImageSizeModel()
+                            {
+                                DisplayMode = ImageDisplayMode.Original
+                            };
+                        }
+                    }
                 }
 
                 return this.thumbnailSizeModel;
