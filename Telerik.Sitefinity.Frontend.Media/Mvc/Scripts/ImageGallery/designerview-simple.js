@@ -141,8 +141,8 @@
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
-                        $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+                    if ($scope.properties.ParentFilterMode.PropertyValue !== 'Selected') {
+                        $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
                     }
                 });
             })
