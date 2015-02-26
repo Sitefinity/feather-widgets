@@ -2,8 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
@@ -34,14 +38,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
             }
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Gets or sets the parent filtering mode.
+        /// </summary>
+        /// <value>
+        /// The parent filtering mode.
+        /// </value>
         public ParentFilterMode ParentFilterMode { get; set; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Gets or sets the serialized selected parent ids.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
         public string SerializedSelectedParentsIds { get; set; }
-
-        /// <inheritdoc />
-        public bool ShowListViewOnEmpyParentFilter { get; set; }
 
         /// <inheritdoc />
         public virtual ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int page)

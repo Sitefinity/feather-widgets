@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
@@ -15,45 +16,115 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
     /// </summary>
     public class LoginStatusModel : ILoginStatusModel
     {
-        /// <inheritdoc />
-        public Guid? LogoutPageId { get; set; }
+        #region Properties
 
         /// <inheritdoc />
-        public Guid? ProfilePageId { get; set; }
+        public Guid? LoginPageId { get; set; }
+
+        /// <inheritdoc />
+        public Guid? LogoutPageId { get; set; }
 
         /// <inheritdoc />
         public Guid? RegistrationPageId { get; set; }
 
         /// <inheritdoc />
-        public string CssClass { get; set; }
-
-        /// <inheritdoc />
-        public virtual string GetLogoutPageUrl()
-        {
-            return this.GetPageUrl(this.LogoutPageId);
-        }
-
-        /// <inheritdoc />
-        public virtual string GetProfilePageUrl()
-        {
-            return this.GetPageUrl(this.ProfilePageId);
-        }
-
-        /// <inheritdoc />
-        public virtual string GetRegistrationPageUrl()
-        {
-            return this.GetPageUrl(this.RegistrationPageId);
-        }
-
-        /// <inheritdoc />
-        public Guid? LoginPageId { get; set; }
+        public Guid? ProfilePageId { get; set; }
 
         /// <inheritDoc/>
         public string ExternalLoginUrl { get; set; }
 
         /// <inheritDoc/>
-        public bool AllowInstantLogin { get; set; }
+        public string ExternalLogoutUrl { get; set; }
 
+        /// <inheritDoc/>
+        public string ExternalRegistrationUrl { get; set; }
+
+        /// <inheritDoc/>
+        public string ExternalProfileUrl { get; set; }
+
+        /// <inheritDoc/>
+        public bool AllowWindowsStsLogin { get; set; }
+
+        /// <inheritdoc />
+        public string CssClass { get; set; }
+
+        #endregion
+
+        #region Virtual Methods
+
+        /// <inheritDoc/>
+        public virtual string GetLoginPageUrl()
+        {
+            var loginRedirectUrl = this.ExternalLoginUrl;
+            if (string.IsNullOrEmpty(loginRedirectUrl))
+            {
+                var claimsModule = SitefinityClaimsAuthenticationModule.Current;
+                string pageUrl;
+
+
+                if (this.AllowWindowsStsLogin)
+                {
+                    pageUrl = claimsModule.GetIssuer();
+                }
+                else if (this.LoginPageId.HasValue)
+                {
+                    pageUrl = this.GetPageUrl(this.LoginPageId);
+                }
+                else
+                {
+                    pageUrl = GetLoginPageBackendSetting();
+                }
+
+                if (!pageUrl.IsNullOrEmpty())
+                {
+                    var currentUrl = HttpContext.Current.Request.RawUrl;
+                    var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
+                    loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
+                        pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
+                }
+            }
+
+            return loginRedirectUrl;
+        }
+
+        /// <inheritdoc />
+        public virtual string GetLogoutPageUrl()
+        {
+            var logoutRedirectUrl = this.ExternalLogoutUrl;
+            if (string.IsNullOrEmpty(logoutRedirectUrl))
+            {
+                logoutRedirectUrl = this.GetPageUrl(this.LogoutPageId);
+            }
+
+            return logoutRedirectUrl;
+        }
+
+        /// <inheritdoc />
+        public virtual string GetRegistrationPageUrl()
+        {
+            var registrationRedirectUrl = this.ExternalRegistrationUrl;
+            if (string.IsNullOrEmpty(registrationRedirectUrl))
+            {
+                registrationRedirectUrl = this.GetPageUrl(this.RegistrationPageId);
+            }
+
+            return registrationRedirectUrl;
+        }
+
+        /// <inheritdoc />
+        public virtual string GetProfilePageUrl()
+        {
+            var profileRedirectUrl = this.ExternalProfileUrl;
+            if (string.IsNullOrEmpty(profileRedirectUrl))
+            {
+                profileRedirectUrl = this.GetPageUrl(this.ProfilePageId);
+            }
+
+            return profileRedirectUrl;
+        }
+        #endregion
+
+        #region Public Methods
         /// <inheritDoc/>
         public LoginStatusViewModel GetViewModel()
         {
@@ -89,50 +160,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             return response;
         }
 
-        /// <summary>
-        /// Gets the login redirect URL.
-        /// </summary>
-        /// <returns></returns>
-        public virtual string GetLoginPageUrl()
-        {
-            var loginRedirectUrl = this.ExternalLoginUrl;
-            if (string.IsNullOrEmpty(loginRedirectUrl))
-            {
-                var claimsModule = SitefinityClaimsAuthenticationModule.Current;
-                string pageUrl;
-
-
-                if (this.AllowInstantLogin)
-                {
-                    pageUrl = claimsModule.GetIssuer();
-                }
-                else if (this.LoginPageId.HasValue)
-                {
-                    pageUrl = this.GetPageUrl(this.LoginPageId);
-                }
-                else
-                {
-                    pageUrl = GetLoginPageBackendSetting();
-                }
-
-                if (!pageUrl.IsNullOrEmpty())
-                {
-                    var currentUrl = HttpContext.Current.Request.RawUrl;
-                    var returnUrl = this.AppendUrlParameter(currentUrl, LoginStatusModel.HandleRejectedUser, "true");
-                    loginRedirectUrl = "{0}?realm={1}&redirect_uri={2}&deflate=true".Arrange(
-                        pageUrl, claimsModule.GetRealm(), HttpUtility.UrlEncode(returnUrl));
-                }
-            }
-
-            return loginRedirectUrl;
-        }
-
+        #endregion
+      
         #region Private members
 
         /// <summary>
         /// Gets the page URL by id.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The page url or null.
+        /// </returns>
         private string GetPageUrl(Guid? pageId)
         {
             if (pageId.HasValue)
@@ -152,7 +189,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <summary>
         /// Gets the login page backend setting.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The login page url.
+        /// </returns>
         private static string GetLoginPageBackendSetting()
         {
             RedirectStrategyType redirectStrategy = RedirectStrategyType.None;
@@ -176,7 +215,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <param name="baseUrl">The base URL.</param>
         /// <param name="paramName">Name of the parameter.</param>
         /// <param name="paramValue">The parameter value.</param>
-        /// <returns></returns>
+        /// <returns><
+        /// The url.
+        /// /returns>
         private string AppendUrlParameter(string baseUrl, string paramName, string paramValue)
         {
             string delimiter = "?";

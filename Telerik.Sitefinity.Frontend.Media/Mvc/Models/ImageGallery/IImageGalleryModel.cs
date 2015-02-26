@@ -122,7 +122,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// </value>
         string SerializedSelectedParentsIds { get; set; }
 
-        /// <summary>
         /// Gets or sets the serialized thumbnail size model. It determines the size of the gallery's thumbnails.
         /// </summary>
         /// <value>

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Libraries.Model;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
@@ -74,8 +72,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// <inheritdoc />
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
-            return ((LibrariesManager)this.GetManager()).GetImages();
+            var manager = (LibrariesManager)this.GetManager();
+            return manager.GetImages();
         }
+
 
         /// <inheritdoc />
         protected override Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModelInstance()

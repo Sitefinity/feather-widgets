@@ -9,6 +9,7 @@
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.thumbnailSizeModel = {};
         $scope.imageSizeModel = {};
+        $scope.errors = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -77,7 +78,7 @@
         );
 
         $scope.updateSortOption = function (newSortOption) {
-            if (newSortOption !== "Custom") {
+            if (newSortOption !== 'Custom') {
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
             }
         };
@@ -99,7 +100,7 @@
                         $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
                     }
                     else {
-                        $scope.selectedSortOption = "Custom";
+                        $scope.selectedSortOption = 'Custom';
                     }
 
                     var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
@@ -130,19 +131,19 @@
                         }
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue === "FilteredItems" &&
+                    if ($scope.properties.SelectionMode.PropertyValue === 'FilteredItems' &&
                         $scope.additionalFilters.value &&
                         $scope.additionalFilters.value.QueryItems &&
                         $scope.additionalFilters.value.QueryItems.length === 0) {
                         $scope.properties.SelectionMode.PropertyValue = 'AllItems';
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue !== "FilteredItems") {
+                    if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems') {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
-                        $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+                    if ($scope.properties.ParentFilterMode.PropertyValue !== 'Selected') {
+                        $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
                     }
                 });
             })

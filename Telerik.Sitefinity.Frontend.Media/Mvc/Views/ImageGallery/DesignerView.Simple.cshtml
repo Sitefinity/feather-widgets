@@ -9,6 +9,7 @@
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.Libraries.LibrariesManager.GetManager())'>
 </server-data>
 
+<div class="alert alert-danger" ng-show="errors.missingSelectedItems">@Html.Resource("MissingLibraries")</div>
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay")</h4>
@@ -31,10 +32,10 @@
 
                     @Html.Resource("FromSelectedLibraries")
 
-                    <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
-                                    sf-multiselect="true"
-                                    sf-provider="properties.ProviderName.PropertyValue"
-                                    sf-selected-ids="parentSelector.selectedItemsIds"></sf-list-selector>
+                    <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'" sf-master="true"
+                                    sf-provider="properties.ProviderName.PropertyValue" sf-multiselect="true"
+                                    sf-selected-ids="parentSelector.selectedItemsIds"
+                                    sf-missing-selected-items="errors.missingSelectedItems"></sf-list-selector>
                 </label>
             </div>
             <div class="radio form-inline">
