@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchBoxCssClass(SearchBoxCssClassesToApply);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsCssClass(SearchResultsCssClassesToApply);
         }
 

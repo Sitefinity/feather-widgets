@@ -24,6 +24,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.News().CreateNewsItem(NewsTitle2);
 
             ServerOperations.Pages().CreatePage(SearchPageTitle);
+            ServerOperations.Pages().CreatePage(ResultsPageTitle);
             Guid newsPageId = ServerOperations.Pages().CreatePage(NewsPageTitle);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(newsPageId);
 
@@ -46,6 +47,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsTitle1 = "test news";
         private const string NewsTitle2 = "another news";
         private const string SearchPageTitle = "SearchPage";
+        private const string ResultsPageTitle = "ResultsPage";
         private const string NewsPageTitle = "NewsPage";
     }
 }
