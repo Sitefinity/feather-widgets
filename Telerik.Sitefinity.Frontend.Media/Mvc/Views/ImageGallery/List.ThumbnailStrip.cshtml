@@ -1,34 +1,70 @@
 @model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
 
+@using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using System.Web.Script.Serialization;
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Services;
+@using System.Linq;
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"))
 
-<h2 class="js-Gallery-title"></h2>
+@{
+    bool hasItems = Model.Items.Count() > 0;
+    bool isBackendDesignMode = SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+    dynamic firstItem = null;
 
-<p class="js-Gallery-description"></p>
+    if (hasItems && isBackendDesignMode)
+    {
+        firstItem = Model.Items.FirstOrDefault();
+    }
+}
 
-<div><span class="js-Gallery-index"></span> of @Model.Items.Count()</div>
+@if (hasItems)
+{
+        if (isBackendDesignMode)
+        {
+    <h2 class="js-Gallery-title">@firstItem.DataItem.Title</h2>
 
-<p class="js-Gallery-image">
-    <a class='js-Gallery-prev'>Prev</span></a>
-    <a class='js-Gallery-next'>Next</a>
-    <img />
-</p>
+    <p class="js-Gallery-description">@firstItem.DataItem.Description</p>
+
+    <div><span class="js-Gallery-index">1</span> of @Model.Items.Count()</div>
+
+    <p class="js-Gallery-image">
+        <a class='js-Gallery-prev'></a>
+        <a class='js-Gallery-next'></a>
+        <img src="@firstItem.DataItem.MediaUrl" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" />
+
+    </p>
+        }
+        else
+        {
+    <h2 class="js-Gallery-title"></h2>
+
+    <p class="js-Gallery-description"></p>
+
+    <div><span class="js-Gallery-index"></span> of @Model.Items.Count()</div>
+
+    <p class="js-Gallery-image">
+        <a class='js-Gallery-prev'></a>
+        <a class='js-Gallery-next'></a>
+        <img />
+    </p>
+    }
+}
+
 
 <div class="js-Gallery-thumbs">
-    @{int itemIndex = 0;}
-    @foreach(var item in Model.Items)
-    {
-    <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, itemIndex)">
-        <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)"  alt="@item.Fields.AlternativeText"/>
+@{int itemIndex = 0;}
+@foreach(var item in Model.Items)
+{
+    <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
+        <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" alt="@item.Fields.AlternativeText"/>
     </a>
-        itemIndex++;
-    }
+    itemIndex++;
+}
 </div>
