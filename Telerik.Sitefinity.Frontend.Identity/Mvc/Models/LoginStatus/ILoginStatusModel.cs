@@ -38,7 +38,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// The profile page identifier.
         /// </value>
         Guid? ProfilePageId { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the external login page url.
         /// </summary>
@@ -56,6 +56,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         string ExternalLogoutUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the allow Windows STS login.
+        /// </summary>
+        ///   <c>true</c> if Windows STS login is allowed; otherwise, <c>false</c>.
+        /// </value>
+        bool AllowWindowsStsLogin { get; set; }
+
+        /// <summary>
         /// Gets or sets the external registartion page url.
         /// </summary>
         /// <value>
@@ -71,17 +78,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// </value>
         string ExternalProfileUrl { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether if instant login is allowed.
-        /// </summary>
-        /// <remarks>
-        /// This could be used in case using Windows authentication.
-        /// </remarks>
-        /// <value>
-        ///   <c>true</c> if instant login is allowed; otherwise, <c>false</c>.
-        /// </value>
-        bool AllowInstantLogin { get; set; }
-        
         /// <summary>
         /// Gets or sets the css class that will be applied on the wrapping element of the widget.
         /// </summary>
@@ -121,7 +117,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// The logout redirect url as a string.
         /// </returns>
         string GetLogoutPageUrl();
-        
+
         /// <summary>
         /// Gets the redirect url to be used for registration page.
         /// </summary>

@@ -183,5 +183,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["LogoutPageInfo"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : After logout users will be redirected to...
+        /// </summary>
+        [ResourceEntry("Advanced",
+            Value = "Advanced",
+            Description = "phrase : Advanced",
+            LastModified = "2015/02/25")]
+        public string Advanced
+        {
+            get
+            {
+                return this["Advanced"];
+            }
+        }
     }
 }

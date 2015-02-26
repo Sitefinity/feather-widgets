@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
@@ -42,7 +43,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public string ExternalProfileUrl { get; set; }
 
         /// <inheritDoc/>
-        public bool AllowInstantLogin { get; set; }
+        public bool AllowWindowsStsLogin { get; set; }
 
         /// <inheritdoc />
         public string CssClass { get; set; }
@@ -61,7 +62,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 string pageUrl;
 
 
-                if (this.AllowInstantLogin)
+                if (this.AllowWindowsStsLogin)
                 {
                     pageUrl = claimsModule.GetIssuer();
                 }
@@ -121,7 +122,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 
             return profileRedirectUrl;
         }
-
         #endregion
 
         #region Public Methods
@@ -161,7 +161,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         }
 
         #endregion
-
+      
         #region Private members
 
         /// <summary>
