@@ -17,16 +17,18 @@
 <div><span class="js-Gallery-index"></span> of @Model.Items.Count()</div>
 
 <p class="js-Gallery-image">
-	<a class='js-Gallery-prev'>Prev</span></a>
-	<a class='js-Gallery-next'>Next</a>
-	<img />
+    <a class='js-Gallery-prev'>Prev</span></a>
+    <a class='js-Gallery-next'>Next</a>
+    <img />
 </p>
 
 <div class="js-Gallery-thumbs">
-	@foreach(var item in Model.Items)
-	{
-	<a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)">
-		<img src="@(((ThumbnailViewModel)item).ThumbnailUrl)"  alt="@item.Fields.AlternativeText"/>
-	</a>
-	}
+    @{int itemIndex = 0;}
+    @foreach(var item in Model.Items)
+    {
+    <a title="@item.Fields.Title" data-item="@Html.GetSerializedImage(item)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, itemIndex)">
+        <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)"  alt="@item.Fields.AlternativeText"/>
+    </a>
+        itemIndex++;
+    }
 </div>
