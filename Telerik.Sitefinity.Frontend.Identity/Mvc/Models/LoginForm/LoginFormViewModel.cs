@@ -18,6 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The name of the user.
         /// </value>
         [Required(ErrorMessage = "User name is required")]
+        [Display(Name = "User name")]
         public string UserName { get; set; }
 
         /// <summary>
