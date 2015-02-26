@@ -32,16 +32,10 @@
 
                     @Html.Resource("FromSelectedLibraries")
 
-                    <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'"
-                                    sf-multiselect="{{properties.IncludeChildLibraries.PropertyValue === 'False'}}" sf-sortable="true" sf-master="true"
-                                    sf-provider="properties.ProviderName.PropertyValue"
+                    <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'" sf-master="true"
+                                    sf-provider="properties.ProviderName.PropertyValue" sf-multiselect="true"
                                     sf-selected-ids="parentSelector.selectedItemsIds"
                                     sf-missing-selected-items="errors.missingSelectedItems"></sf-list-selector>
-                    
-                    <label ng-show="properties.ParentFilterMode.PropertyValue=='Selected'">
-                        <input type="checkbox" ng-model="properties.IncludeChildLibraries.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" />
-                        @Html.Resource("IncludeImagesFromChildLibraries")
-                    </label>
                 </label>
             </div>
             <div class="radio form-inline">
