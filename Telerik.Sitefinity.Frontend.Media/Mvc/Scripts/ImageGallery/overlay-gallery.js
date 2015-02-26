@@ -16,7 +16,7 @@
                 }
             },
             callbacks: {
-                open: function () {
+                change: function () {
                     var img = this.currItem.el.is('img') ? this.currItem.el : this.currItem.el.find('img');
                     var detailUrl = img.attr('data-detail-url');
                     if (detailUrl) {
