@@ -8,6 +8,8 @@
 @Html.Script(ScriptRef.JQuery)
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="@Model.CssClass">
 <form id="loginForm" action="@Model.ServiceUrl" method="post">
     <div>
         <fieldset>
@@ -44,5 +46,6 @@
         </fieldset>
     </div>
 </form>
+</div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/LoginForm/login-form.js"))
