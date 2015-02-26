@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// The name of the user.
         /// </value>
-        [Required(ErrorMessage = "User name is required")]
+        [Required(ErrorMessage = "User name is required!")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
@@ -27,7 +27,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// The password.
         /// </value>
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = "Password is required!")]
         public string Password { get; set; }
 
         /// <summary>
