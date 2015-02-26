@@ -52,7 +52,24 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         /// <value>
         /// The serialized selected parents ids.
         /// </value>
-        public string SerializedSelectedParentsIds { get; set; }
+        public string SerializedSelectedParentsIds
+        {
+            get
+            {
+                return this.serializedSelectedParentsIds;
+            }
+            set
+            {
+                if (this.serializedSelectedParentsIds != value)
+                {
+                    this.serializedSelectedParentsIds = value;
+                    if (!this.serializedSelectedParentsIds.IsNullOrEmpty())
+                    {
+                        this.selectedItemsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedParentsIds);
+                    }
+                }
+            }
+        }
 
         /// <inheritdoc />
         public virtual ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int page)
@@ -71,14 +88,29 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         }
 
         /// <inheritdoc />
+        protected override void PopulateListViewModel(int page, IQueryable<IDataItem> query, ContentListViewModel viewModel)
+        {
+            int? totalPages = null;
+            if (this.ParentFilterMode == Models.ParentFilterMode.Selected && this.selectedItemsIds.Count() == 0)
+            {
+                viewModel.Items = Enumerable.Empty<ItemViewModel>();
+            }
+            else
+            {
+                viewModel.Items = this.ApplyListSettings(page, query, out totalPages);
+            }
+
+            this.SetViewModelProperties(viewModel, page, totalPages);
+        }
+
+        /// <inheritdoc />
         protected override string CompileFilterExpression()
         {
             var baseExpression = base.CompileFilterExpression();
 
-            if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
+            if (this.ParentFilterMode == ParentFilterMode.Selected && this.selectedItemsIds.Count() != 0)
             {
-                var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
-                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "((Parent.Id = " + id.Trim() + " AND FolderId = null)" + " OR FolderId = " + id.Trim() + ")"));
+                var parentFilterExpression = string.Join(" OR ", this.selectedItemsIds.Select(id => "((Parent.Id = " + id.Trim() + " AND FolderId = null)" + " OR FolderId = " + id.Trim() + ")"));
 
                 if (!parentFilterExpression.IsNullOrEmpty())
                 {
@@ -91,5 +123,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 
             return baseExpression;
         }
+
+        #region Private fields and constants
+        private string serializedSelectedParentsIds;
+        private IList<string> selectedItemsIds = new List<string>();
+        #endregion
     }
 }
