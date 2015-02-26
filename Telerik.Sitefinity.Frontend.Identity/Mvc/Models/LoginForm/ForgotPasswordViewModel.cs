@@ -20,5 +20,13 @@
         /// The email.
         /// </value>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the css class.
+        /// </summary>
+        /// <value>
+        /// The css class.
+        /// </value>
+        public string CssClass { get; set; }
     }
 }

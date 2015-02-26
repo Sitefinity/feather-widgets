@@ -48,6 +48,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
         }
 
+        /// <inheritdoc />
+        public string CssClass { get; set; }
+
         /// <inheritDoc/>
         public Guid? LoginRedirectPageId { get; set; }
 
@@ -64,19 +67,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 MembershipProvider = this.MembershipProvider,
                 RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm()
+                CssClass = this.CssClass
             };
         }
 
         /// <inheritDoc/>
         public ResetPasswordViewModel GetResetPasswordViewModel()
         {
-            return new ResetPasswordViewModel();
+            return new ResetPasswordViewModel()
+            {
+                CssClass = this.CssClass
+            };
         }
 
         /// <inheritDoc/>
         public ForgotPasswordViewModel GetForgotPasswordViewModel()
         {
-            return new ForgotPasswordViewModel();
+            return new ForgotPasswordViewModel()
+            {
+                CssClass = this.CssClass
+            };
         }
 
         #endregion
