@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Libraries.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 {
@@ -90,6 +92,31 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
             }
 
             return baseExpression;
+        }
+
+        /// <summary>
+        /// Gets the name of the default thumbnail profile.
+        /// </summary>
+        /// <typeparam name="TLibrary">The type of the library.</typeparam>
+        /// <returns>The name of the default thumbnail profile.</returns>
+        protected static string DefaultThumbnailProfileName<TLibrary>()
+            where TLibrary : Library
+        {
+            ConfigElementDictionary<string, ThumbnailProfileConfigElement> profiles;
+            Type libraryType = typeof(TLibrary);
+
+            if (libraryType == typeof(Album))
+                profiles = Config.Get<LibrariesConfig>().Images.Thumbnails.Profiles;
+            else if (libraryType == typeof(VideoLibrary))
+                profiles = Config.Get<LibrariesConfig>().Videos.Thumbnails.Profiles;
+            else
+                return null;
+
+            var defaultProfile = profiles.Values.FirstOrDefault(p => p.IsDefault) ?? profiles.Values.FirstOrDefault(p => p.Name == "thumbnail") ?? profiles.Values.FirstOrDefault();
+            if (defaultProfile != null)
+                return defaultProfile.Name;
+            else
+                return null;
         }
     }
 }
