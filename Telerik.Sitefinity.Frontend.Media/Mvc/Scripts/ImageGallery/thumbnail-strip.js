@@ -23,7 +23,7 @@
             if (updateUrl) {
                 var detailUrl = $(element).attr('data-detail-url');
                 if (detailUrl) {
-                    history.pushState('data', item.Title, detailUrl);
+                    history.pushState(detailUrl, item.Title, detailUrl);
                 }
             }
         };
@@ -61,5 +61,17 @@
         });
 
         populateDefaultItem();
+
+        window.addEventListener('popstate', function (e) {
+            if (e.state) {
+                var img = $('[data-detail-url="' + e.state + '"]');
+                if (img.length > 0) {
+                    populateSelecteditem(img[0]);
+                }
+            }
+            else {
+                populateDefaultItem();
+            }
+        });
     });
 })(jQuery);
