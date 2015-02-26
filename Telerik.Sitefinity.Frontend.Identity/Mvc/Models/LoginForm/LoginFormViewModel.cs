@@ -56,12 +56,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public string MembershipProvider { get; set; }
 
         /// <summary>
-        /// Gets or sets the login redirect URL.
+        /// Gets or sets the redirect URL after login.
         /// </summary>
         /// <value>
         /// The login redirect URL.
         /// </value>
-        public string LoginRedirectUrl { get; set; }
+        public string RedirectUrlAfterLogin { get; set; }
 
         /// <summary>
         /// Gets or sets the realm.

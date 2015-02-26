@@ -183,5 +183,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RememberMeInfo"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : You are already logged in.
+        /// </summary>
+        [ResourceEntry("AlreadyLogedIn",
+            Value = "You are already logged in",
+            Description = "phrase : You are already logged in.",
+            LastModified = "2015/02/26")]
+        public string AlreadyLogedIn
+        {
+            get
+            {
+                return this["AlreadyLogedIn"];
+            }
+        }
     }
 }

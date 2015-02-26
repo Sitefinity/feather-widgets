@@ -35,7 +35,7 @@
             </div>
             <div class="editor-label">
                 @Html.HiddenFor(u => u.MembershipProvider, new { Name = "sf_domain" })
-                @Html.HiddenFor(u => u.LoginRedirectUrl, new { Name = "redirect_uri" })
+                @Html.HiddenFor(u => u.RedirectUrlAfterLogin, new { Name = "redirect_uri" })
                 @Html.HiddenFor(u => u.Realm, new { Name = "realm" })
                 <input type="hidden" name="deflate" value="true" />
             </div>

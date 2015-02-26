@@ -62,7 +62,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 ServiceUrl = this.ServiceUrl,
                 MembershipProvider = this.MembershipProvider,
-                LoginRedirectUrl = this.GetPageUrl(this.LoginRedirectPageId),
+                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm()
             };
         }

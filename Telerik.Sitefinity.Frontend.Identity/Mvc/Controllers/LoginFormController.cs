@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -69,10 +67,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
-            var viewModel = this.Model.GetLoginFormViewModel();
-            var fullTemplateName = this.loginFormTemplatePrefix + this.GetViewName(this.LoginFormTemplate);
+            if (SecurityManager.GetCurrentUserId() == Guid.Empty)
+            {
+                var viewModel = this.Model.GetLoginFormViewModel();
+                var fullTemplateName = this.loginFormTemplatePrefix + this.GetViewName(this.LoginFormTemplate);
 
-            return this.View(fullTemplateName, viewModel);
+                return this.View(fullTemplateName, viewModel);
+            }
+            else
+            {
+                return this.Content(Res.Get<LoginFormResources>().AlreadyLogedIn);
+            }
         }
 
         public ActionResult ForgotPassword(ForgotPasswordViewModel model = null)
