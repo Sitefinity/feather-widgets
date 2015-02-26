@@ -87,6 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult PostForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -111,6 +112,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult PostResetPassword(ResetPasswordViewModel model)
         {
             if (ModelState.IsValid)
