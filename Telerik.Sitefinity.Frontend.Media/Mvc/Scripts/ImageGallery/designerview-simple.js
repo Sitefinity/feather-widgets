@@ -9,6 +9,7 @@
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.thumbnailSizeModel = {};
         $scope.imageSizeModel = {};
+        $scope.errors = {};
 
         $scope.$watch(
             'additionalFilters.value',
