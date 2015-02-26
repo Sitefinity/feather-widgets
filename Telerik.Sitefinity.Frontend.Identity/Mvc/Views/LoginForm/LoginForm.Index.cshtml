@@ -1,18 +1,25 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm.LoginFormViewModel
 
 @using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
+@using Telerik.Sitefinity.Modules.Pages;
 
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+@*Add scripts and stylesheets*@
+@Html.Script(ScriptRef.JQuery)
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
 <form id="loginForm" action="@Model.ServiceUrl" method="post">
     <div>
         <fieldset>
+		 @Html.ValidationSummary(true)
             <legend>Log in</legend>
             <div class="editor-label">
                 @Html.LabelFor(u => u.UserName)
             </div>
             <div class="editor-field">
                 @Html.TextBoxFor(u => u.UserName, new { Name = "wrap_name" })
-                 @Html.ValidationMessageFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
             </div>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Password)
@@ -22,7 +29,8 @@
                  @Html.ValidationMessageFor(model => model.Password)
             </div>
             <div class="editor-label">
-                @Html.CheckBoxFor(u => u.RememberMe, new { Name = "sf_persistent" })
+                @Html.CheckBoxFor(u => u.RememberMe)
+				<input type="hidden" id="sf_persistent" name="sf_persistent" value="false"/>
                 @Html.LabelFor(u => u.RememberMe)
             </div>
             <div class="editor-label">
@@ -31,8 +39,15 @@
                 @Html.HiddenFor(u => u.Realm, new { Name = "realm" })
                 <input type="hidden" name="deflate" value="true" />
             </div>
+            <div class="error" style="display:none"></div>
             <input type="submit" value="Log In" />
             <a href="#">Forgotten password</a>
         </fieldset>
     </div>
 </form>
+
+<script>
+    $("#RememberMe").bind("click", function () {
+        $("#sf_persistent").val($(this).val());
+    })
+</script>
