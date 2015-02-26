@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -10,8 +11,63 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// </summary>
     public class LoginFormViewModel
     {
-        public virtual string UserName { get; set; }
-        public virtual string Password { get; set; }
-        public virtual bool RememberMe { get; set; }
+        /// <summary>
+        /// Gets or sets the name of the user.
+        /// </summary>
+        /// <value>
+        /// The name of the user.
+        /// </value>
+        [Required(ErrorMessage = "User name is required")]
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the login settings should be persisted.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if login settings should be persisted; otherwise, <c>false</c>.
+        /// </value>
+        [Display(Name="Remember me")]
+        public bool RememberMe { get; set; }
+
+        /// <summary>
+        /// Gets or sets the token service URL.
+        /// </summary>
+        /// <value>
+        /// The token service URL.
+        /// </value>
+        public string ServiceUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the membership provider.
+        /// </summary>
+        /// <value>
+        /// The membership provider.
+        /// </value>
+        public string MembershipProvider { get; set; }
+
+        /// <summary>
+        /// Gets or sets the login redirect URL.
+        /// </summary>
+        /// <value>
+        /// The login redirect URL.
+        /// </value>
+        public string LoginRedirectUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the realm.
+        /// </summary>
+        /// <value>
+        /// The realm.
+        /// </value>
+        public string Realm { get; set; }
     }
 }

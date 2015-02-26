@@ -2,9 +2,8 @@
 
 @using Telerik.Sitefinity.UI.MVC;
 
-@using (Html.BeginFormSitefinity())
-{
-    @Html.ValidationSummary(true, "Login failed. Check your login details.");
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+<form id="loginForm" action="@Model.ServiceUrl" method="post">
     <div>
         <fieldset>
             <legend>Log in</legend>
@@ -12,22 +11,28 @@
                 @Html.LabelFor(u => u.UserName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(u => u.UserName)
-                @Html.ValidationMessageFor(u => u.UserName)
+                @Html.TextBoxFor(u => u.UserName, new { Name = "wrap_name" })
+                 @Html.ValidationMessageFor(model => model.UserName)
             </div>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Password)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(u => u.Password)
-                @Html.ValidationMessageFor(u => u.Password)
+                @Html.PasswordFor(u => u.Password, new { Name = "wrap_password" })
+                 @Html.ValidationMessageFor(model => model.Password)
             </div>
             <div class="editor-label">
-                @Html.CheckBoxFor(u => u.RememberMe)
+                @Html.CheckBoxFor(u => u.RememberMe, new { Name = "sf_persistent" })
                 @Html.LabelFor(u => u.RememberMe)
+            </div>
+            <div class="editor-label">
+                @Html.HiddenFor(u => u.MembershipProvider, new { Name = "sf_domain" })
+                @Html.HiddenFor(u => u.LoginRedirectUrl, new { Name = "redirect_uri" })
+                @Html.HiddenFor(u => u.Realm, new { Name = "realm" })
+                <input type="hidden" name="deflate" value="true" />
             </div>
             <input type="submit" value="Log In" />
             <a href="#">Forgotten password</a>
         </fieldset>
     </div>
-}
+</form>
