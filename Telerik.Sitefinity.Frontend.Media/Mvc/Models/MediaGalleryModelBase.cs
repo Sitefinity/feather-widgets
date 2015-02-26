@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
                     this.serializedSelectedParentsIds = value;
                     if (!this.serializedSelectedParentsIds.IsNullOrEmpty())
                     {
-                        this.selectedItemsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedParentsIds);
+                        this.selectedParentsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedParentsIds);
                     }
                 }
             }
@@ -94,7 +94,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         protected override void PopulateListViewModel(int page, IQueryable<IDataItem> query, ContentListViewModel viewModel)
         {
             int? totalPages = null;
-            if (this.ParentFilterMode == Models.ParentFilterMode.Selected && this.selectedItemsIds.Count() == 0)
+            if (this.ParentFilterMode == Models.ParentFilterMode.Selected && this.selectedParentsIds.Count() == 0)
             {
                 viewModel.Items = Enumerable.Empty<ItemViewModel>();
             }
@@ -111,9 +111,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         {
             var baseExpression = base.CompileFilterExpression();
 
-            if (this.ParentFilterMode == ParentFilterMode.Selected && this.selectedItemsIds.Count() != 0)
+            if (this.ParentFilterMode == ParentFilterMode.Selected && this.selectedParentsIds.Count() != 0)
             {
-                var parentFilterExpression = string.Join(" OR ", this.selectedItemsIds.Select(id => "((Parent.Id = " + id.Trim() + " AND FolderId = null)" + " OR FolderId = " + id.Trim() + ")"));
+                var parentFilterExpression = string.Join(" OR ", this.selectedParentsIds.Select(id => "((Parent.Id = " + id.Trim() + " AND FolderId = null)" + " OR FolderId = " + id.Trim() + ")"));
 
                 if (!parentFilterExpression.IsNullOrEmpty())
                 {
@@ -154,7 +154,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 
         #region Private fields and constants
         private string serializedSelectedParentsIds;
-        private IList<string> selectedItemsIds = new List<string>();
+        private IList<string> selectedParentsIds = new List<string>();
         #endregion
     }
 }
