@@ -12,12 +12,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// </summary>
     public class LoginFormModel : ILoginFormModel
     {
-        /// <summary>
-        /// Gets or sets the token service URL.
-        /// </summary>
-        /// <value>
-        /// The token service URL.
-        /// </value>
+        #region Properties
+
+        /// <inheritDoc/>
         public string ServiceUrl
         {
             get
@@ -30,24 +27,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 this.serviceUrl = value;
             }
         }
-
-        /// <inheritDoc/>
-        public string LoginFormTemplate { get; set; }
-
-        /// <inheritDoc/>
-        public string ForgotPasswordTemplate { get; set; }
-
-        /// <inheritDoc/>
-        public string ResetPasswordTemplate { get; set; }
-
+        
         /// <inheritDoc/>
         public bool AllowResetPassword { get; set; }
 
+        #endregion
+
+        #region Methods
+
         /// <inheritDoc/>
-        public LoginFormViewModel GetViewModel()
+        public LoginFormViewModel GetLoginFormViewModel()
         {
             return new LoginFormViewModel();
         }
+
+        /// <inheritDoc/>
+        public ResetPasswordViewModel GetResetPasswordViewModel()
+        {
+            return new ResetPasswordViewModel();
+        }
+
+        /// <inheritDoc/>
+        public ForgotPasswordViewModel GetForgotPasswordViewModel()
+        {
+            return new ForgotPasswordViewModel();
+        }
+
+        #endregion
+
+        #region Private Fields and methods
 
         /// <summary>
         /// Gets the claims issuer.
@@ -69,5 +77,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
+
+        #endregion
     }
 }

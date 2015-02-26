@@ -19,30 +19,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         string ServiceUrl { get; set; }
         
         /// <summary>
-        /// Gets or sets the login form template name.
-        /// </summary>
-        /// <value>
-        /// The login form template.
-        /// </value>
-        string LoginFormTemplate { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the forgot password template.
-        /// </summary>
-        /// <value>
-        /// The forgot password template.
-        /// </value>
-        string ForgotPasswordTemplate { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the reset password template.
-        /// </summary>
-        /// <value>
-        /// The reset password template.
-        /// </value>
-        string ResetPasswordTemplate { get; set; }
-        
-        /// <summary>
         /// Gets or sets a value indicating whether it is allowed to reset password.
         /// </summary>
         /// <value>
@@ -51,9 +27,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         bool AllowResetPassword { get; set; }
 
         /// <summary>
-        /// Gets the view model.
+        /// Gets the login form view model.
         /// </summary>
-        /// <returns></returns>
-        LoginFormViewModel GetViewModel();
+        /// <returns>
+        /// An instance of <see cref="LoginFormViewModel"/>
+        /// </returns>
+        LoginFormViewModel GetLoginFormViewModel();
+
+        /// <summary>
+        /// Gets the login form view model.
+        /// </summary>
+        /// <returns>
+        /// An instance of <see cref="ResetPasswordViewModel"/>
+        /// </returns>
+        ResetPasswordViewModel GetResetPasswordViewModel();
+
+        /// <summary>
+        /// Gets the login form view model.
+        /// </summary>
+        /// <returns>
+        /// An instance of <see cref="ForgotPasswordViewModel"/>
+        /// </returns>
+        ForgotPasswordViewModel GetForgotPasswordViewModel();
     }
 }
