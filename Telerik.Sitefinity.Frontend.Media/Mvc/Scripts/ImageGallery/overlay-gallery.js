@@ -5,7 +5,6 @@
             gallery: {
                 enabled: true
             },
-            type: 'image',
             zoom: {
                 enabled: true,
 
