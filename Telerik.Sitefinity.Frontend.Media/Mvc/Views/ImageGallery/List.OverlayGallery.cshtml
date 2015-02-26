@@ -8,18 +8,21 @@
 @Html.Script(ScriptRef.JQuery)
 
 <link rel="stylesheet" href='@Url.WidgetContent("assets/magnific/magnific-popup.css")'>
-<script type="text/javascript" src='@Url.WidgetContent("assets/magnific/jquery.magnific-popup.min.js")'></script>
+
+@Html.Script(Url.WidgetContent("assets/magnific/jquery.magnific-popup.min.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/overlay-gallery.js"))
 
 <div class="@Model.CssClass">
-
-  @foreach (var item in Model.Items)
-  {
-      <a class="image-link"
-         href="@item.Fields.MediaUrl"
-         title="@item.Fields.AlternativeText">
-          <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" />
-      </a>
-  }
+    @{int itemIndex = 0;}
+    @foreach (var item in Model.Items)
+    {
+        <a class="image-link"
+            href="@item.Fields.MediaUrl"
+            title="@item.Fields.AlternativeText">
+            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, itemIndex)" alt="@item.Fields.AlternativeText" />
+        </a>
+        itemIndex++;
+    }
 </div>
 
 @if (Model.ShowPager)
@@ -31,24 +34,3 @@
            redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
        })
 }
-
-<script type="text/javascript">
-    $(function () {
-        $('.image-link').magnificPopup({
-            type: 'image',
-            gallery: {
-                enabled: true
-            },
-            type:'image',
-            zoom: {
-              enabled: true,
-
-              duration: 300,
-              easing: 'ease-in-out',
-              opener: function(openerElement) {
-                return openerElement.is('img') ? openerElement : openerElement.find('img');
-              }
-            }
-        });
-    });
-</script>

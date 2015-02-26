@@ -195,6 +195,9 @@
     <EmbeddedResource Include="assets\magnific\jquery.magnific-popup.min.js" />
     <EmbeddedResource Include="assets\magnific\magnific-popup.css" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\ImageGallery\overlay-gallery.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

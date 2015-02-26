@@ -530,9 +530,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
         #endregion
 
+        /// <summary>
         /// phrase: Next image
         /// </summary>
-        /// <value>Next image</value>
         [ResourceEntry("NextImage",
             Value = "Next image",
             Description = "phrase: Next image",
@@ -612,7 +612,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         /// <summary>
         /// phrase: From all libraries
         /// </summary>
-        /// <value>From all libraries/value>
         [ResourceEntry("AllLibraries",
             Value = "From all libraries",
             Description = "phrase: From all libraries",
@@ -622,6 +621,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             get
             {
                 return this["AllLibraries"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Some of the selected libraries were moved or deleted.
+        /// </summary>
+        /// <value>Some of the selected libraries were moved or deleted.</value>
+        [ResourceEntry("MissingLibraries",
+            Value = "Some of the selected libraries were moved or deleted.",
+            Description = "phrase: Some of the selected libraries were moved or deleted.",
+            LastModified = "2015/02/26")]
+        public string MissingLibraries
+        {
+            get
+            {
+                return this["MissingLibraries"];
             }
         }
     }

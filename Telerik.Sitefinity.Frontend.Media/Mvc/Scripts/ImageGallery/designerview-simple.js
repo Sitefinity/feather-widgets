@@ -9,6 +9,7 @@
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.thumbnailSizeModel = {};
         $scope.imageSizeModel = {};
+        $scope.errors = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -35,7 +36,9 @@
             'parentSelector.selectedItemsIds',
             function (newSelectedItemsIds, oldSelectedItemsIds) {
                 if (newSelectedItemsIds !== oldSelectedItemsIds) {
-                    $scope.properties.SerializedSelectedParentsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                    if (newSelectedItemsIds) {
+                        $scope.properties.SerializedSelectedParentsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                    }
                 }
             },
             true
@@ -141,8 +144,8 @@
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
-                        $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+                    if ($scope.properties.ParentFilterMode.PropertyValue !== 'Selected') {
+                        $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
                     }
                 });
             })

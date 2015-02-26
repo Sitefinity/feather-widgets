@@ -91,7 +91,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
         [Category(TestCategories.Identity)]
         [Author(FeatherTeams.Team2)]
-        [Description("Verify when AllowInstantLogin is set to true, redirect link is constructed correctly.")]
+        [Description("Verify when AllowWindowsStsLogin is set to true, redirect link is constructed correctly.")]
         public void Login_WithInstantLogin_VerifyLoginRedirectUrlIsCorrect()
         {
             string loginStatusPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix + this.pageIndex);
@@ -99,7 +99,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
             var mvcProxy = new MvcControllerProxy();
             mvcProxy.ControllerName = typeof(LoginStatusController).FullName;
             var loginStatusController = new LoginStatusController();
-            loginStatusController.Model.AllowInstantLogin = true;
+            loginStatusController.Model.AllowWindowsStsLogin = true;
             mvcProxy.Settings = new ControllerSettings(loginStatusController);
 
             this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
