@@ -8,10 +8,9 @@
             }
         };
 
-        var populateSelecteditem = function (element) {
+        var populateSelecteditem = function (element, updateUrl) {
             $(element).addClass('is-selected');
             var item = $.parseJSON($(element).attr('data-item'));
-            var detailUrl = $(element).attr('data-detail-url');
             var selectedElementIndex = $(element).index();
 
             $('.js-Gallery-image').find('img').attr('src', item.MediaUrl);
@@ -21,7 +20,12 @@
             $('.js-Gallery-description').html(item.Description);
             $('.js-Gallery-index').html(selectedElementIndex + 1);
 
-            history.pushState('data', item.Title, detailUrl);
+            if (updateUrl) {
+                var detailUrl = $(element).attr('data-detail-url');
+                if (detailUrl) {
+                    history.pushState('data', item.Title, detailUrl);
+                }
+            }
         };
 
         var removeCurrentlySelected = function () {
@@ -31,7 +35,7 @@
 
         $('.js-Gallery-thumbs').find('a').bind('click', function (e) {
             removeCurrentlySelected();
-            populateSelecteditem(this);
+            populateSelecteditem(this, true);
         });
 
         $('.js-Gallery-prev').bind('click', function (e) {
@@ -40,7 +44,7 @@
                 var prevElement = currentlySelected.prev('a');
                 if (prevElement && prevElement.length > 0) {
                     removeCurrentlySelected();
-                    populateSelecteditem(prevElement);
+                    populateSelecteditem(prevElement, true);
                 }
             }
         });
@@ -51,7 +55,7 @@
                 var nextElement = currentlySelected.next('a');
                 if (nextElement && nextElement.length > 0) {
                     removeCurrentlySelected();
-                    populateSelecteditem(nextElement);
+                    populateSelecteditem(nextElement, true);
                 }
             }
         });
