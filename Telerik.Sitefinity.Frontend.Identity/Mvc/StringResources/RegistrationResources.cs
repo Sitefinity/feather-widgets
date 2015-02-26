@@ -138,5 +138,110 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["General"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: First name
+        /// </summary>
+        [ResourceEntry("FirstName",
+            Value = "First name",
+            Description = "phrase : First name",
+            LastModified = "2015/02/26")]
+        public string FirstName
+        {
+            get
+            {
+                return this["FirstName"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Last name
+        /// </summary>
+        [ResourceEntry("LastName",
+            Value = "Last name",
+            Description = "phrase : Last name",
+            LastModified = "2015/02/26")]
+        public string LastName
+        {
+            get
+            {
+                return this["LastName"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Email
+        /// </summary>
+        [ResourceEntry("Email",
+            Value = "Email",
+            Description = "phrase : Email",
+            LastModified = "2015/02/26")]
+        public string Email
+        {
+            get
+            {
+                return this["Email"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Username
+        /// </summary>
+        [ResourceEntry("Username",
+            Value = "Username",
+            Description = "phrase : Username",
+            LastModified = "2015/02/26")]
+        public string Username
+        {
+            get
+            {
+                return this["Username"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Password
+        /// </summary>
+        [ResourceEntry("Password",
+            Value = "Password",
+            Description = "phrase : Password",
+            LastModified = "2015/02/26")]
+        public string Password
+        {
+            get
+            {
+                return this["Password"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Re-type password
+        /// </summary>
+        [ResourceEntry("ReTypePassword",
+            Value = "Re-type password",
+            Description = "phrase : Re-type password",
+            LastModified = "2015/02/26")]
+        public string ReTypePassword
+        {
+            get
+            {
+                return this["ReTypePassword"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Register
+        /// </summary>
+        [ResourceEntry("Register",
+            Value = "Register",
+            Description = "phrase : Register",
+            LastModified = "2015/02/26")]
+        public string Register
+        {
+            get
+            {
+                return this["Register"];
+            }
+        }
     }
 }

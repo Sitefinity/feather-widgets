@@ -1,5 +1,34 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration.RegistrationViewModel
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 <div class="@Model.CssClass">
-    Registration form
+    <ol>
+        <li>
+            <label>@Html.Resource("FirstName")</label>
+            <input type="text" name="firstName" />
+        </li>
+        <li>
+            <label>@Html.Resource("LastName")</label>
+            <input type="text" name="lastName" />
+        </li>
+        <li>
+            <label>@Html.Resource("Email")</label>
+            <input type="email" name="email" />
+        </li>
+        <li>
+            <label>@Html.Resource("Username")</label>
+            <input type="text" name="username" required="required" />
+        </li>
+        <li>
+            <label>@Html.Resource("Password")</label>
+            <input type="password" name="pswd" required="required" />
+        </li>
+        <li>
+            <label>@Html.Resource("ReTypePassword")</label>
+            <input type="password" name="reTypePswd" />
+        </li>
+    </ol>
+    <div>
+        <input type="submit" value="@Html.Resource("Register")" />
+    </div>
 </div>
