@@ -198,5 +198,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["Advanced"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Login with Windows Security Token Service.
+        /// </summary>
+        [ResourceEntry("LoginWinSts",
+            Value = "Login with Windows Security Token Service",
+            Description = "phrase : Login with Windows Security Token Service",
+            LastModified = "2015/02/26")]
+        public string LoginWinSts
+        {
+            get
+            {
+                return this["LoginWinSts"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Learn more.
+        /// </summary>
+        [ResourceEntry("LearnMore",
+            Value = "Learn more",
+            Description = "phrase : Learn more",
+            LastModified = "2015/02/26")]
+        public string LearnMore
+        {
+            get
+            {
+                return this["LearnMore"];
+            }
+        }
     }
 }
