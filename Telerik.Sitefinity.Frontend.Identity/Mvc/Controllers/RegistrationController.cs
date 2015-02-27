@@ -84,6 +84,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return ControllerModelFactory.GetModel<IRegistrationModel>(this.GetType());
         }
 
+        /// <summary>
+        /// Sends the registration confirmation email.
+        /// </summary>
+        protected virtual void SendRegistrationConfirmationEmail()
+        {
+
+        }
+
+        /// <summary>
+        /// Sends the successful registration email.
+        /// </summary>
+        protected virtual void SendSuccessfulRegistrationEmail()
+        {
+
+        }
+
         #endregion
 
         #region Private fields and constants
