@@ -19,5 +19,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// Gets or sets the css class that will be applied on the wrapping element of the widget.
         /// </summary>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the membership provider.
+        /// </summary>
+        /// <value>
+        /// The name of the membership provider.
+        /// </value>
+        public string MembershipProviderName { get; set; }
     }
 }

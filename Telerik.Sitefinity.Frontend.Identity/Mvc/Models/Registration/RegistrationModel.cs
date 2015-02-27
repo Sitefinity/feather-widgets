@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Security;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -16,11 +17,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public string CssClass { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the provider.
-        /// </summary>
-        /// <value>The name of the provider.</value>
-        public string ProviderName { get; set; }
+        /// <inheritDoc/>
+        public string MembershipProviderName
+        {
+            get
+            {
+                this.membershipProviderName = this.membershipProviderName ?? UserManager.GetDefaultProviderName();
+                return this.membershipProviderName;
+            }
+            set
+            {
+                this.membershipProviderName = value;
+            }
+        }
 
         /// <inheritDoc/>
         public RegistrationViewModel GetViewModel()
@@ -28,6 +37,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return new RegistrationViewModel()
             {
                 LoginPageUrl = this.GetLoginPageUrl(),
+                MembershipProviderName = this.MembershipProviderName,
                 CssClass = this.CssClass
             };
         }
@@ -40,5 +50,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         {
             return null;
         }
+
+        private string membershipProviderName;
     }
 }

@@ -243,5 +243,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["Register"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Provider
+        /// </summary>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "phrase : Provider",
+            LastModified = "2015/02/27")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: where the user will be registered
+        /// </summary>
+        [ResourceEntry("ProviderDescription",
+            Value = "where the user will be registered",
+            Description = "phrase : Provider",
+            LastModified = "2015/02/27")]
+        public string ProviderDescription
+        {
+            get
+            {
+                return this["ProviderDescription"];
+            }
+        }
     }
 }

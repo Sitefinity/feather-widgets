@@ -24,10 +24,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string CssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the provider.
+        /// Gets or sets the name of the membership provider.
         /// </summary>
-        /// <value>The name of the provider.</value>
-        string ProviderName { get; set; }
+        /// <value>The name of the membership provider.</value>
+        string MembershipProviderName { get; set; }
 
         /// <summary>
         /// Gets the view model.

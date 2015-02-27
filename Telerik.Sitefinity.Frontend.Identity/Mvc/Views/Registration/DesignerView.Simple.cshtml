@@ -1,7 +1,22 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Security;
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("General")">
+        <div class="form-group">
+            <label>@Html.Resource("Provider")</label>
+            <p>@Html.Resource("ProviderDescription")</p>      
+            <div class="row">
+                <div class="col-xs-6">
+                    <select ng-model="properties.MembershipProviderName.PropertyValue" class="form-control">
+                         @foreach (var providerName in UserManager.ProvidersCollection)
+                        {
+                            <option value="@providerName">@providerName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             <label>@Html.Resource("LoginPage")</label>
