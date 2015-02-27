@@ -1,51 +1,61 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <form>
-    <div class="form-group">
-        <label>@Html.Resource("LoginPage")</label>
-        <p>@Html.Resource("LoginPageInfo")</p>      
-        <sf-list-selector
-                class="label-content"
-                sf-page-selector
-                sf-selected-item-id="properties.LoginPageId.PropertyValue"></sf-list-selector>
-    </div>
+    <fieldset style="border:none; padding:0" ng-disabled="properties.AllowWindowsStsLogin.PropertyValue.toLowerCase() === 'true'">
+        <div class="form-group">
+            <label>@Html.Resource("LoginPage")</label>
+            <p>@Html.Resource("LoginPageInfo")</p>
+            <sf-list-selector class="label-content"
+                              sf-page-selector
+                              sf-selected-item-id="properties.LoginPageId.PropertyValue"></sf-list-selector>
+        </div>
 
-    <div class="form-group">
-        <label>@Html.Resource("RegistrationPage")</label>
-        <p>@Html.Resource("RegistrationPageInfo")</p>       
-        <sf-list-selector
-                class="label-content"
-                sf-page-selector
-                sf-selected-item-id="properties.RegistrationPageId.PropertyValue"></sf-list-selector>
-    </div>
+        <div class="form-group" ng-disabled="properties.AllowWindowsStsLogin.PropertyValue">
+            <label>@Html.Resource("RegistrationPage")</label>
+            <p>@Html.Resource("RegistrationPageInfo")</p>
+            <sf-list-selector class="label-content"
+                              sf-page-selector
+                              ng-disabled="properties.AllowWindowsStsLogin.PropertyValue"
+                              sf-selected-item-id="properties.RegistrationPageId.PropertyValue"></sf-list-selector>
+        </div>
+    </fieldset>
 
     <div class="form-group">
         <label>@Html.Resource("LogoutPageInfo")</label>
-        <sf-list-selector
-                class="label-content"
-                sf-page-selector
-                sf-selected-item-id="properties.LogoutPageId.PropertyValue"></sf-list-selector>
+        <sf-list-selector class="label-content"
+                          sf-page-selector
+                          sf-selected-item-id="properties.LogoutPageId.PropertyValue"></sf-list-selector>
     </div>
 
     <div class="form-group">
         <label>@Html.Resource("ProfilePage")</label>
-        <p>@Html.Resource("ProfilePageInfo")</p>      
-        <sf-list-selector
-                class="label-content"
-                sf-page-selector
-                sf-selected-item-id="properties.ProfilePageId.PropertyValue"></sf-list-selector>
+        <p>@Html.Resource("ProfilePageInfo")</p>
+        <sf-list-selector class="label-content"
+                          sf-page-selector
+                          sf-selected-item-id="properties.ProfilePageId.PropertyValue"></sf-list-selector>
     </div>
-    
+
     <div class="form-group">
         <label for="templateName">@Html.Resource("Template")</label>
         <div class="row">
             <div class="col-xs-6">
                 <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("LoginStatus", @"LoginStatus\.(?<viewName>\w*)$"))
+                    @foreach (var viewName in Html.GetViewNames("LoginStatus", @"LoginStatus\.(?<viewName>\w*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }
                 </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="templateName">@Html.Resource("Advanced")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <input id="stsCheckbox" type="checkbox" ng-true-value="'True'" ng-model="properties.AllowWindowsStsLogin.PropertyValue" />
+                <label for="stsCheckbox">@Html.Resource("LoginWinSts")</label>
+                <a href="http://docs.sitefinity.com/administration-set-up-sso-with-windows-authentication" target="_blank">@Html.Resource("LearnMore")</a>
             </div>
         </div>
     </div>

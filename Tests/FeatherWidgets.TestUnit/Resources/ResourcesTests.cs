@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Configuration.Data;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
@@ -118,6 +119,30 @@ namespace FeatherWidgets.TestUnit.Resources
         {
             // Act & Assert: Iterate over each resource property and verify its correctness 
             this.TestResourceType<ImageGalleryResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Login status widget resources are correct.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that login status widget resources are correct.")]
+        public void LoginStatusResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<LoginStatusResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Login form widget resources are correct.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that form form widget resources are correct.")]
+        public void LoginFormResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<LoginFormResources>();
         }
 
         /// <summary>

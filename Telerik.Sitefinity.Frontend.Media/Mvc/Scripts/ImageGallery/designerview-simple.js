@@ -1,7 +1,7 @@
 ﻿(function ($) {
     angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
 
-    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serverData', function ($scope, propertyService, serverData) {
+    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
 
         $scope.feedback.showLoadingIndicator = true;
@@ -9,6 +9,7 @@
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.thumbnailSizeModel = {};
         $scope.imageSizeModel = {};
+        $scope.errors = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -24,8 +25,8 @@
 	        'properties.ProviderName.PropertyValue',
 	        function (newProviderName, oldProviderName) {
 	            if (newProviderName !== oldProviderName) {
-	                $scope.properties.SelectionMode.PropertyValue = 'AllItems';
-	                $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+	                $scope.properties.ParentFilterMode.PropertyValue = 'All';
+	                $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
 	            }
 	        },
 	        true
@@ -35,7 +36,9 @@
             'parentSelector.selectedItemsIds',
             function (newSelectedItemsIds, oldSelectedItemsIds) {
                 if (newSelectedItemsIds !== oldSelectedItemsIds) {
-                    $scope.properties.SerializedSelectedParentsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                    if (newSelectedItemsIds) {
+                        $scope.properties.SerializedSelectedParentsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                    }
                 }
             },
             true
@@ -60,7 +63,7 @@
             'thumbnailSizeModel',
             function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    $scope.properties.SerializedThumbnailSizeModel = JSON.stringify(newValue);
+                    $scope.properties.SerializedThumbnailSizeModel.PropertyValue = JSON.stringify(newValue);
                 }
             },
             true
@@ -70,14 +73,14 @@
             'imageSizeModel',
             function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    $scope.properties.SerializedImageSizeModel = JSON.stringify(newValue);
+                    $scope.properties.SerializedImageSizeModel.PropertyValue = JSON.stringify(newValue);
                 }
             },
             true
         );
 
         $scope.updateSortOption = function (newSortOption) {
-            if (newSortOption !== "Custom") {
+            if (newSortOption !== 'Custom') {
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
             }
         };
@@ -99,18 +102,18 @@
                         $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
                     }
                     else {
-                        $scope.selectedSortOption = "Custom";
+                        $scope.selectedSortOption = 'Custom';
                     }
 
-                    //var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
-                    //if (thumbnailSizeModel) {
-                    //    $scope.thumbnailSizeModel = thumbnailSizeModel;
-                    //}
+                    var thumbnailSizeModel = $.parseJSON($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
+                    if (thumbnailSizeModel) {
+                        $scope.thumbnailSizeModel = thumbnailSizeModel;
+                    }
 
-                    //var imageSizeModel = $.parseJSON($scope.properties.SerializedImageSizeModel.PropertyValue);
-                    //if (imageSizeModel) {
-                    //    $scope.imageSizeModel = imageSizeModel;
-                    //}
+                    var imageSizeModel = $.parseJSON($scope.properties.SerializedImageSizeModel.PropertyValue);
+                    if (imageSizeModel) {
+                        $scope.imageSizeModel = imageSizeModel;
+                    }
                 }
             },
             function (data) {
@@ -130,19 +133,19 @@
                         }
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue === "FilteredItems" &&
+                    if ($scope.properties.SelectionMode.PropertyValue === 'FilteredItems' &&
                         $scope.additionalFilters.value &&
                         $scope.additionalFilters.value.QueryItems &&
                         $scope.additionalFilters.value.QueryItems.length === 0) {
                         $scope.properties.SelectionMode.PropertyValue = 'AllItems';
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue !== "FilteredItems") {
+                    if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems') {
                         $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                     }
 
-                    if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
-                        $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+                    if ($scope.properties.ParentFilterMode.PropertyValue !== 'Selected') {
+                        $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
                     }
                 });
             })

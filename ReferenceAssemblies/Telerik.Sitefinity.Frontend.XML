@@ -390,6 +390,16 @@
             <param name="openInSamePage">if set to <c>true</c> [open in same page].</param>
             <returns></returns>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.HyperLinkHelpers.GetDetailPageUrl(Telerik.Sitefinity.Frontend.Mvc.Models.ItemViewModel,System.Guid,System.Boolean,System.Int32)">
+            <summary>
+            Gets the detail page URL for master/detail widgets.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="detailsPageId">The details page identifier.</param>
+            <param name="openInSamePage">if set to <c>true</c> [open in same page].</param>
+            <param name="itemIndex">Index of the item in collection.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper">
             <summary>
             This class contains helper methods for registering client resources.
@@ -2603,6 +2613,13 @@
             </summary>
             <returns>The details view model.</returns>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.CreateItemViewModelInstance(Telerik.Sitefinity.Model.IDataItem)">
+            <summary>
+            Creates an instance of the item view model by given data item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.CompileFilterExpression">
             <summary>
             Compiles a filter expression based on the widget settings.
@@ -2617,11 +2634,36 @@
             <param name="query">The query.</param>
             <param name="viewModel">The view model.</param>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.SetViewModelProperties(Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Sets the view model properties.
+            </summary>
+            <param name="viewModel">The view model.</param>
+            <param name="page">The page.</param>
+            <param name="totalPages">The total pages.</param>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.GetManager">
             <summary>
             Gets a manager instance for the model.
             </summary>
             <returns>The manager.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.UpdateExpression(System.Linq.IQueryable{Telerik.Sitefinity.Model.IDataItem},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32}@)">
+            <summary>
+            Updates the expression.
+            </summary>
+            <param name="query">The query.</param>
+            <param name="skip">The skip.</param>
+            <param name="take">The take.</param>
+            <param name="totalCount">The total count.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.AddLiveFilterExpression(System.String)">
+            <summary>
+            Appends the lifecycle conditions to the filter expression in order to get only live items.
+            </summary>
+            <param name="filterExpression">The filter expression.</param>
+            <returns>Filter expression for live items.</returns>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.AdaptMultilingualFilterExpression(System.String)">
             <summary>
@@ -2629,6 +2671,18 @@
             </summary>
             <param name="filterExpression">The filter expression.</param>
             <returns>Multilingual filter expression.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.SetExpression``1(System.Linq.IQueryable{``0},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32}@)">
+            <summary>
+            Modifies the given query with the given filter, sort expression and paging.
+            </summary>
+            <param name="query">The query.</param>
+            <param name="filterExpression">The filter expression.</param>
+            <param name="sortExpr">The sort expression.</param>
+            <param name="itemsToSkip">The items to skip.</param>
+            <param name="itemsToTake">The items to take.</param>
+            <param name="totalCount">The total count.</param>
+            <returns>Resulting filtered query.</returns>
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.ContentType">
             <summary>

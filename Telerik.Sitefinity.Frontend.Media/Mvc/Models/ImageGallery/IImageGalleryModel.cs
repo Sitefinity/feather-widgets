@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
@@ -120,6 +121,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// The serialized selected parents ids.
         /// </value>
         string SerializedSelectedParentsIds { get; set; }
+
+        /// Gets or sets the serialized thumbnail size model. It determines the size of the gallery's thumbnails.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
+        string SerializedThumbnailSizeModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the serialized single image size model. It determines the size of the image in the details view.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
+        string SerializedImageSizeModel { get; set; }
 
         /// <summary>
         /// Gets the information for all of the content types that a control is able to show.

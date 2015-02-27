@@ -17,7 +17,7 @@
 
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
-	<img src="@Model.Item.Fields.MediaUrl" alt='@System.Text.RegularExpressions.Regex.Replace(Model.Item.Fields.AlternativeText, @"[^\w\d_-]", "")' />
+	<img src="@Html.Raw(Model.MediaUrl)" alt='@System.Text.RegularExpressions.Regex.Replace(Model.Item.Fields.AlternativeText, @"[^\w\d_-]", "")' />
 
     @if (ViewBag.ItemIndex != null)
     {
@@ -30,7 +30,7 @@
 	        <a class="pull-left" href="@HyperLinkHelpers.GetDetailPageUrl(Model.PreviousItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, previousItemIndex)">
                 @Html.Resource("PreviousImage")
 	        </a>
-            
+
             @string.Format(@Html.Resource("IndexOfTotal"), @ViewBag.ItemIndex, @Model.TotalItemsCount)
 
 	        <a class="pull-right" href="@HyperLinkHelpers.GetDetailPageUrl(Model.NextItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, nextItemIndex)">
@@ -45,28 +45,4 @@
     {
         @Html.SocialShareOptions()
     }
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/magnific/jquery.magnific-popup.min.js"></script>
-
-    <script>
-	    $(document).ready(function() {
-		    $('.sf-Gallery-item').magnificPopup({
-			    gallery: {
-				    enabled: true
-			    },
-			    type:'image',
-			    zoom: {
-				    enabled: true,
-
-				    duration: 300,
-				    easing: 'ease-in-out',
-				    opener: function(openerElement) {
-					    return openerElement.is('img') ? openerElement : openerElement.find('img');
-				    }
-			    }
-
-		    });
-	    });
-    </script>
 </div>

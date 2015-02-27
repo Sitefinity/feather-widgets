@@ -83,6 +83,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 
+            this.ViewBag.IsDesignMode = SystemManager.IsDesignMode;
+
             return this.View(fullTemplateName, viewModel);
         }
 

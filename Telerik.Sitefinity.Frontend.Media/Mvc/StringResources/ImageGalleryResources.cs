@@ -528,11 +528,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["ImageSize"];
             }
         }
+        #endregion
 
         /// <summary>
         /// phrase: Next image
         /// </summary>
-        /// <value>Next image</value>
         [ResourceEntry("NextImage",
             Value = "Next image",
             Description = "phrase: Next image",
@@ -560,7 +560,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["PreviousImage"];
             }
         }
-        #endregion
 
         /// <summary>
         /// word: by
@@ -607,6 +606,37 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             get
             {
                 return this["IndexOfTotal"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: From all libraries
+        /// </summary>
+        [ResourceEntry("AllLibraries",
+            Value = "From all libraries",
+            Description = "phrase: From all libraries",
+            LastModified = "2015/02/25")]
+        public string AllLibraries
+        {
+            get
+            {
+                return this["AllLibraries"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Some of the selected libraries were moved or deleted.
+        /// </summary>
+        /// <value>Some of the selected libraries were moved or deleted.</value>
+        [ResourceEntry("MissingLibraries",
+            Value = "Some of the selected libraries were moved or deleted.",
+            Description = "phrase: Some of the selected libraries were moved or deleted.",
+            LastModified = "2015/02/26")]
+        public string MissingLibraries
+        {
+            get
+            {
+                return this["MissingLibraries"];
             }
         }
     }
