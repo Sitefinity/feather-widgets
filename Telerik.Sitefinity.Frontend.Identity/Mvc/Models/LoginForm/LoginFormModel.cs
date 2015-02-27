@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
@@ -65,7 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 ServiceUrl = this.ServiceUrl,
                 MembershipProvider = this.MembershipProvider,
-                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
+                RedirectUrlAfterLogin = HyperLinkHelpers.GetFullPageUrl(this.LoginRedirectPageId.Value),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
                 CssClass = this.CssClass
             };
@@ -109,26 +110,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 return LoginFormModel.DefaultRealmConfig;
             }
-        }
-
-        /// <summary>
-        /// Gets the page URL by id.
-        /// </summary>
-        /// <returns></returns>
-        private string GetPageUrl(Guid? pageId)
-        {
-            if (pageId.HasValue)
-            {
-                var pageManager = PageManager.GetManager();
-                var node = pageManager.GetPageNode(pageId.Value);
-                if (node != null)
-                {
-                    var relativeUrl = node.GetFullUrl();
-                    return UrlPath.ResolveUrl(relativeUrl, true);
-                }
-            }
-
-            return null;
         }
 
         private string serviceUrl;
