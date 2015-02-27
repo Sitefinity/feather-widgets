@@ -1,10 +1,21 @@
-﻿namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
     /// <summary>
     /// This class represents forgot password view model for the <see cref="LoginFormController"/>.
     /// </summary>
     public class ForgotPasswordViewModel
     {
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
+        [Required]
+        public string Email { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether the email is sent.
         /// </summary>
@@ -14,12 +25,12 @@
         public bool EmailSent { get; set; }
 
         /// <summary>
-        /// Gets or sets the email.
+        /// Gets or sets the error.
         /// </summary>
         /// <value>
-        /// The email.
+        /// The error.
         /// </value>
-        public string Email { get; set; }
+        public string Error { get; set; }
 
         /// <summary>
         /// Gets or sets the css class.
@@ -28,5 +39,13 @@
         /// The css class.
         /// </value>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the login page URL.
+        /// </summary>
+        /// <value>
+        /// The login page URL.
+        /// </value>
+        public string LoginPageUrl { get; set; }
     }
 }

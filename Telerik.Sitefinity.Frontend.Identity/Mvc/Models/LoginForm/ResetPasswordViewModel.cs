@@ -1,4 +1,8 @@
-﻿namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+
+namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
     /// <summary>
     /// This class represents reset password view model for the <see cref="LoginFormController"/>.
@@ -6,19 +10,12 @@
     public class ResetPasswordViewModel
     {
         /// <summary>
-        /// Gets or sets a value indicating whether the password is changed.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if the password is changed; otherwise, <c>false</c>.
-        /// </value>
-        public bool PasswordChanged { get; set; }
-
-        /// <summary>
         /// Gets or sets the new password.
         /// </summary>
         /// <value>
         /// The new password.
         /// </value>
+        [Required]
         public string NewPassword { get; set; }
 
         /// <summary>
@@ -27,6 +24,8 @@
         /// <value>
         /// The repeat new password.
         /// </value>
+        [Required]
+        [Compare("NewPassword")]
         public string RepeatNewPassword { get; set; }
 
         /// <summary>
@@ -36,5 +35,29 @@
         /// The css class.
         /// </value>
         public string CssClass { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether the reset is complete.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the reset is complete; otherwise, <c>false</c>.
+        /// </value>
+        public bool ResetComplete { get; set; }
+
+        /// <summary>
+        /// Gets or sets the error.
+        /// </summary>
+        /// <value>
+        /// The error.
+        /// </value>
+        public string Error { get; set; }
+
+        /// <summary>
+        /// Gets or sets the login page URL.
+        /// </summary>
+        /// <value>
+        /// The login page URL.
+        /// </value>
+        public string LoginPageUrl { get; set; }
     }
 }

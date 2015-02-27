@@ -42,8 +42,10 @@
             </div>
             <div class="error" style="display:none"></div>
             <input type="submit" value="Log In" />
-            <a href="#">Forgotten password</a>
+            
+            @Html.ActionLink("Forgotten Password", "ForgotPassword")
         </fieldset>
+        <a href="@Model.RegisterPageUrl">Register now</a>
     </div>
 </form>
 </div>

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
@@ -55,6 +55,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <inheritDoc/>
         public Guid? LoginRedirectPageId { get; set; }
 
+        /// <inheritDoc/>
+        public Guid? RegisterRedirectPageId { get; set; }
+
+        /// <inheritDoc/>
+        public bool EnablePasswordRetrieval 
+        {
+            get
+            {
+                return UserManager.GetManager(this.MembershipProvider).EnablePasswordRetrieval;
+            }
+
+            set
+            {
+            }
+        }
+
+        /// <inheritDoc/>
+        public bool EnablePasswordReset
+        {
+            get
+            {
+                return UserManager.GetManager(this.MembershipProvider).EnablePasswordReset;
+            }
+
+            set
+            {
+            }
+        }
+
         #endregion 
 
         #region Public Methods
@@ -66,7 +95,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 ServiceUrl = this.ServiceUrl,
                 MembershipProvider = this.MembershipProvider,
-                RedirectUrlAfterLogin = HyperLinkHelpers.GetFullPageUrl(this.LoginRedirectPageId.Value),
+                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
+                RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
                 CssClass = this.CssClass
             };
@@ -77,7 +107,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             return new ResetPasswordViewModel()
             {
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                LoginPageUrl = this.GetPageUrl(null)
             };
         }
 
@@ -86,8 +117,64 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             return new ForgotPasswordViewModel()
             {
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                LoginPageUrl = this.GetPageUrl(null)
             };
+        }
+
+        /// <inheritDoc/>
+        public void ResetUserPassword(string newPassword)
+        {
+            var userId = this.GetUserId();
+
+            if (userId == Guid.Empty)
+            {
+                throw new ArgumentNullException("User could not be retrieved.");
+            }
+
+            var userManager = UserManager.GetManager(this.MembershipProvider);
+
+            var resetPassword = userManager.ResetPassword(userId, null);
+            userManager.ChangePassword(userId, resetPassword, newPassword);
+            userManager.SaveChanges();
+        }
+
+        /// <inheritDoc/>
+        public bool TrySendResetPasswordEmail(string userEmail)
+        {
+            // TODO: Implement
+            return false;
+        }
+        
+        /// <inheritDoc/>
+        public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
+        {
+            var error = "Invalid data";
+
+            var firstErrorValue = modelStateDict.Values.FirstOrDefault(v => v.Errors.Any());
+            if (firstErrorValue != null)
+            {
+                var firstError = firstErrorValue.Errors.FirstOrDefault();
+                if (firstError != null)
+                {
+                    error = firstError.ErrorMessage;
+                }
+            }
+
+            return error;
+        }
+
+        /// <inheritDoc/>
+        public string GetPageUrl(Guid? pageId)
+        {
+            if (pageId.HasValue)
+            {
+                return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+            }
+            else
+            {
+                return HyperLinkHelpers.GetFullPageUrl(SiteMapBase.GetActualCurrentNode().Id);
+            }
         }
 
         #endregion
@@ -110,6 +197,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 return LoginFormModel.DefaultRealmConfig;
             }
+        }
+        
+        /// <summary>
+        /// Inners the get user identifier.
+        /// </summary>
+        /// <returns>
+        /// The user id or null.
+        /// </returns>
+        private Guid GetUserId()
+        {
+            Type type = Type.GetType("Telerik.Sitefinity.Security.Web.UI.UserChangePasswordWidget, Telerik.Sitefinity");
+            object instance = type.GetConstructor(Type.EmptyTypes).Invoke(new object[] { });
+            MethodInfo method = type.GetMethod("GetUser", BindingFlags.NonPublic | BindingFlags.Instance);
+            object claimsIdentityProxyObject = method.Invoke(instance, new object[] { });
+            var claimsIdentityProxy = claimsIdentityProxyObject as ClaimsIdentityProxy;
+            if (claimsIdentityProxy != null)
+            {
+                return claimsIdentityProxy.UserId;
+            }
+
+            return Guid.Empty;
         }
 
         private string serviceUrl;

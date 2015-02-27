@@ -168,7 +168,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RegistrationPageInfo"];
             }
         }
-
+        
         /// <summary>
         /// Gets phrase : Show "Remember me" checkbox
         /// </summary>
@@ -196,6 +196,96 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["AlreadyLogedIn"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : You must first enable password reset or password retrieval from the membership provider settings.
+        /// </summary>
+        [ResourceEntry("PaswordResetNotEnabled",
+            Value = "You must first enable password reset or password retrieval from the membership provider settings.",
+            Description = "phrase : You must first enable password reset or password retrieval from the membership provider settings.",
+            LastModified = "2015/02/27")]
+        public string PaswordResetNotEnabled
+        {
+            get
+            {
+                return this["PaswordResetNotEnabled"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : New password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordNewPassword",
+            Value = "New password",
+            Description = "phrase : New password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordNewPassword
+        {
+            get
+            {
+                return this["ResetPasswordNewPassword"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Repeat new password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordRepeatNewPassword",
+            Value = "Repeat new password",
+            Description = "phrase : Repeat new password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordRepeatNewPassword
+        {
+            get
+            {
+                return this["ResetPasswordRepeatNewPassword"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Reset password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordHeader",
+            Value = "Reset password",
+            Description = "phrase : Reset password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordHeader
+        {
+            get
+            {
+                return this["ResetPasswordHeader"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Forgot your password?
+        /// </summary>
+        [ResourceEntry("ForgotPasswordHeader",
+            Value = "Forgot your password?",
+            Description = "phrase : Forgot your password?",
+            LastModified = "2015/02/27")]
+        public string ForgotPasswordHeader
+        {
+            get
+            {
+                return this["ForgotPasswordHeader"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Forgot your password?
+        /// </summary>
+        [ResourceEntry("ForgotPasswordEmail",
+            Value = "Email",
+            Description = "phrase : Email",
+            LastModified = "2015/02/27")]
+        public string ForgotPasswordEmail
+        {
+            get
+            {
+                return this["ForgotPasswordEmail"];
             }
         }
     }
