@@ -94,19 +94,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritdoc />
         public virtual string GetLogoutPageUrl()
         {
-            var sfLogoutUrl = UrlPath.ResolveUrl("~/Sitefinity/SignOut?sts_signout=true&redirect=true", true, true);
-
             var logoutRedirectUrl = this.ExternalLogoutUrl;
             if (string.IsNullOrEmpty(logoutRedirectUrl) && this.LogoutPageId.HasValue)
             {
                 logoutRedirectUrl = HyperLinkHelpers.GetFullPageUrl(this.LogoutPageId.Value);
             }
 
-            string fullLogoutUrl = sfLogoutUrl;
-            if (!string.IsNullOrEmpty(logoutRedirectUrl))
-            {
-                fullLogoutUrl += "&redirect_uri=" + HttpUtility.UrlEncode(logoutRedirectUrl);
-            }
+            string fullLogoutUrl = UrlPath.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), true, true);
 
             return fullLogoutUrl;
         }
@@ -173,7 +167,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         }
 
         #endregion
-      
+
         #region Private members
 
         /// <summary>
