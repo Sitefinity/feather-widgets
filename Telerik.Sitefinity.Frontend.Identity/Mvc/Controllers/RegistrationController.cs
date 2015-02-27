@@ -69,6 +69,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
+        /// <summary>
+        /// Does the actual user registration and redirects to the configured page.
+        /// </summary>
+        /// <param name="model">The registration form model.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        [HttpPost]
+        public ActionResult Index(RegistrationViewModel model)
+        {
+            // TODO: Register and redirect to specified page.
+            return this.Content("Registered!");
+        }
+
         #endregion
 
         #region Private methods

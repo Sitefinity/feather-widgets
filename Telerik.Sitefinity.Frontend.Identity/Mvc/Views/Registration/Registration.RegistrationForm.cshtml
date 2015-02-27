@@ -1,34 +1,39 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration.RegistrationViewModel
+
+@using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 <div class="@Model.CssClass">
+    @using (Html.BeginFormSitefinity())
+    {
     <ol>
         <li>
             <label>@Html.Resource("FirstName")</label>
-            <input type="text" name="firstName" />
+            @Html.EditorFor(m => m.FirstName)
         </li>
         <li>
             <label>@Html.Resource("LastName")</label>
-            <input type="text" name="lastName" />
+            @Html.EditorFor(m => m.LastName)
         </li>
         <li>
             <label>@Html.Resource("Email")</label>
-            <input type="email" name="email" />
+            @Html.EditorFor(m => m.Email)
         </li>
         <li>
             <label>@Html.Resource("Username")</label>
-            <input type="text" name="username" required="required" />
+            @Html.EditorFor(m => m.Username)
         </li>
         <li>
             <label>@Html.Resource("Password")</label>
-            <input type="password" name="pswd" required="required" />
+            @Html.EditorFor(m => m.Password)
         </li>
         <li>
             <label>@Html.Resource("ReTypePassword")</label>
-            <input type="password" name="reTypePswd" />
+            @Html.EditorFor(m => m.ReTypePassword)
         </li>
     </ol>
     <div>
         <input type="submit" value="@Html.Resource("Register")" />
     </div>
+    }
 </div>
