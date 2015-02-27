@@ -83,6 +83,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public event MailMessageEventHandler SendingSuccessfulRegistrationMail;
 
         /// <inheritDoc/>
+        public bool SendRegistrationEmail { get; set; }
+
+        /// <inheritDoc/>
         public RegistrationViewModel GetViewModel()
         {
             return new RegistrationViewModel()

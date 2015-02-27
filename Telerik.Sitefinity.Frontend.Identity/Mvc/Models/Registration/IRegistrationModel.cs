@@ -76,6 +76,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         Guid? SuccessfulRegistrationPageId { get; set; }
 
         /// <summary>
+        /// Gets or sets whether to send email for user activation or activate it immediately.
+        /// </summary>
+        /// <value>The confirm registration.</value>
+        bool SendRegistrationEmail { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns>
