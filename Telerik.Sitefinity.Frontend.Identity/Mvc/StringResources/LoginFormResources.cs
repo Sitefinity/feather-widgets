@@ -213,5 +213,80 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["PaswordResetNotEnabled"];
             }
         }
+
+        /// </summary>
+        /// Gets phrase : New password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordNewPassword",
+            Value = "New password",
+            Description = "phrase : New password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordNewPassword
+        {
+            get
+            {
+                return this["ResetPasswordNewPassword"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Repeat new password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordRepeatNewPassword",
+            Value = "Repeat new password",
+            Description = "phrase : Repeat new password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordRepeatNewPassword
+        {
+            get
+            {
+                return this["ResetPasswordRepeatNewPassword"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Reset password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordHeader",
+            Value = "Reset password",
+            Description = "phrase : Reset password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordHeader
+        {
+            get
+            {
+                return this["ResetPasswordHeader"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Forgot your password?
+        /// </summary>
+        [ResourceEntry("ForgotPasswordHeader",
+            Value = "Forgot your password?",
+            Description = "phrase : Forgot your password?",
+            LastModified = "2015/02/27")]
+        public string ForgotPasswordHeader
+        {
+            get
+            {
+                return this["ForgotPasswordHeader"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Forgot your password?
+        /// </summary>
+        [ResourceEntry("ForgotPasswordEmail",
+            Value = "Email",
+            Description = "phrase : Email",
+            LastModified = "2015/02/27")]
+        public string ForgotPasswordEmail
+        {
+            get
+            {
+                return this["ForgotPasswordEmail"];
+            }
+        }
     }
 }

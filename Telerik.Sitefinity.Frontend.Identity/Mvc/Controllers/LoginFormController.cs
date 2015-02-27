@@ -144,21 +144,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.NewPassword != model.RepeatNewPassword)
+                try
                 {
-                    model.Error = "Both passwords must match.";
+                    this.Model.ResetUserPassword(model.NewPassword);
+                    model.ResetComplete = true;
                 }
-                else 
+                catch (ArgumentException ex)
                 {
-                    try
-                    {
-                        this.Model.ResetUserPassword(model.NewPassword);
-                        model.ResetComplete = true;
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        model.Error = ex.Message;
-                    }
+                    model.Error = ex.Message;
                 }
             }
             else 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -24,6 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The repeat new password.
         /// </value>
         [Required]
+        [Compare("NewPassword")]
         public string RepeatNewPassword { get; set; }
 
         /// <summary>
