@@ -35,6 +35,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         bool SendEmailOnSuccess { get; set; }
 
         /// <summary>
+        /// Gets or sets the subject of the success email.
+        /// </summary>
+        /// <value>The subject of the email.</value>
+        string SuccessEmailSubject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the template id of the email template used for the success email.
+        /// </summary>
+        Guid? SuccessEmailTemplateId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the email sender that will be used to send confirmation and successful registration emails.
+        /// </summary>
+        /// <value>The email sender.</value>
+        string EmailSenderName { get; set; }
+
+        /// <summary>
         /// Gets or sets the activation method.
         /// </summary>
         /// <value>

@@ -438,5 +438,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ProviderDescription"];
             }
         }
+
+        /// <summary>
+        /// phrase: Welcome
+        /// </summary>
+        [ResourceEntry("SuccessEmailDefaultSubject",
+            Value = "Welcome",
+            Description = "The default subject of the success email",
+            LastModified = "2015/02/27")]
+        public string SuccessEmailDefaultSubject
+        {
+            get
+            {
+                return this["SuccessEmailDefaultSubject"];
+            }
+        }
     }
 }
