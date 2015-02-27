@@ -105,7 +105,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             string fullLogoutUrl = sfLogoutUrl;
             if (!string.IsNullOrEmpty(logoutRedirectUrl))
             {
-                fullLogoutUrl += "&redirect-uri=" + HttpUtility.UrlEncode(logoutRedirectUrl);
+                fullLogoutUrl += "&redirect_uri=" + HttpUtility.UrlEncode(logoutRedirectUrl);
             }
 
             return fullLogoutUrl;

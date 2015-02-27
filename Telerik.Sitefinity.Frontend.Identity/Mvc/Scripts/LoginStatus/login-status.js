@@ -9,8 +9,8 @@
                     loggedInView.find('.sf-logged-in-email').html(statusViewModel.Email);
                     loggedInView.find('.sf-logged-in-log-out-btn').on('click', function () {
                         var redirectUrl = $('.sf-logout-redirect-url').val();
-                        if (redirectUrl.indexOf('&redirect-uri=') < 0){
-                            redirectUrl += '&redirect-uri=' + encodeURIComponent(window.location.href);
+                        if (redirectUrl.indexOf('&redirect_uri=') < 0){
+                            redirectUrl += '&redirect_uri=' + encodeURIComponent(window.location.href);
                         }
                         window.location.href = redirectUrl;
                         return false;
