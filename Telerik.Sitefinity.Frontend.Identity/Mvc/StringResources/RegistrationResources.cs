@@ -264,7 +264,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// </summary>
         [ResourceEntry("ProviderDescription",
             Value = "where the user will be registered",
-            Description = "phrase : Provider",
+            Description = "phrase : where the user will be registered",
             LastModified = "2015/02/27")]
         public string ProviderDescription
         {
