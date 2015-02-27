@@ -95,8 +95,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 ServiceUrl = this.ServiceUrl,
                 MembershipProvider = this.MembershipProvider,
-                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId.Value),
-                RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId.Value),
+                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
+                RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
                 CssClass = this.CssClass
             };
@@ -178,7 +178,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                return SiteMapBase.GetActualCurrentNode().GetUrl(System.Threading.Thread.CurrentThread.CurrentCulture);
+                return HyperLinkHelpers.GetFullPageUrl(SiteMapBase.GetActualCurrentNode().Id);
             }
         }
 
