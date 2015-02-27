@@ -30,6 +30,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string MembershipProviderName { get; set; }
 
         /// <summary>
+        /// Gets or sets the whether to send email message on successful registration confirmation.
+        /// </summary>
+        bool SendEmailOnSuccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets the activation method.
+        /// </summary>
+        /// <value>
+        /// The activation method.
+        /// </value>
+        ActivationMethod ActivationMethod { get; set;}
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns>

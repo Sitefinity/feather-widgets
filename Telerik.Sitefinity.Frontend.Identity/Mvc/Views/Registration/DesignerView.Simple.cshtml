@@ -59,13 +59,13 @@
                     @Html.Resource("Immediately")
                     <p>
                         <label>
-                            <input type="checkbox" ng-model="properties.SendEmailAfterRegistration.PropertyValue" />
+                            <input type="checkbox" ng-model="properties.SendEmailOnSuccess.PropertyValue" ng-disabled="properties.ActivationMethod.PropertyValue !== 'Immediately'" />
                             @Html.Resource("SendEmailAfterRegistration")
                         </label>
                     </p>
                 </label>
                 <label>
-                    <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="ByConfirmationEmail" />
+                    <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="AfterConfirmation" />
                     @Html.Resource("ByConfirmationEmail")
                 </label>
             </div>
@@ -76,7 +76,7 @@
                 <select></select>
             </div>
         </div>
-        <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'ByConfirmationEmail'">
+        <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'AfterConfirmation'">
             <div class="row">
                 <label>@Html.Resource("ConfirmationEmailTemplate")</label>
                 <select></select>

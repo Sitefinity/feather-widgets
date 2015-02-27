@@ -145,6 +145,7 @@
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusViewModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\StatusViewModel.cs" />
+    <Compile Include="Mvc\Models\Registration\ActivationMethod.cs" />
     <Compile Include="Mvc\Models\Registration\IRegistrationModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationModel.cs" />
