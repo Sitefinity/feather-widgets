@@ -1,0 +1,34 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery)
+
+<link rel="stylesheet" href='@Url.WidgetContent("assets/magnific/magnific-popup.css")'>
+
+@Html.Script(Url.WidgetContent("assets/magnific/jquery.magnific-popup.min.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/overlay-gallery.js"))
+
+<div class="@Model.CssClass">
+    @foreach (var item in Model.Items)
+    {
+        <a class="image-link"
+            href="@item.Fields.MediaUrl"
+            title="@item.Fields.AlternativeText">
+            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)" alt="@item.Fields.AlternativeText" />
+        </a>
+    }
+</div>
+
+@if (Model.ShowPager)
+{
+    @Html.Action("Index", "ContentPager", new
+       {
+           currentPage = Model.CurrentPage,
+           totalPagesCount = Model.TotalPagesCount.Value,
+           redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+       })
+}

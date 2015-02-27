@@ -1,0 +1,76 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Security;
+
+<tabset class="nav-tabs-wrapper">
+    <tab heading="@Html.Resource("General")">
+        <div class="form-group">
+            <label>@Html.Resource("Provider")</label>
+            <p>@Html.Resource("ProviderDescription")</p>      
+            <div class="row">
+                <div class="col-xs-6">
+                    <select ng-model="properties.MembershipProviderName.PropertyValue" class="form-control">
+                         @foreach (var providerName in UserManager.ProvidersCollection)
+                        {
+                            <option value="@providerName">@providerName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>@Html.Resource("FormSuccessfullySubmited")</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="showMessageOnSuccess" ng-value="true">@Html.Resource("ShowMsg")
+                </label>
+            </div>
+            <textarea ng-model="properties.SuccessfulRegistrationMsg.PropertyValue" class="label-content" ng-show="showMessageOnSuccess" rows="2" cols="20"></textarea>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="showMessageOnSuccess" ng-value="false">@Html.Resource("OpenPage")
+                </label>
+            </div>
+            <sf-list-selector
+                class="label-content"
+                sf-page-selector
+                sf-selected-item-id="properties.SuccessfulRegistrationPageId.PropertyValue"
+                ng-show="!showMessageOnSuccess"></sf-list-selector>
+        </div>
+
+        <div class="form-group">
+            <label>@Html.Resource("LoginPage")</label>
+            <p>@Html.Resource("LoginPageInfo")</p>      
+            <sf-list-selector
+                    class="label-content"
+                    sf-page-selector
+                    sf-selected-item-id="properties.LoginPageId.PropertyValue"></sf-list-selector>
+        </div>
+
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("Template")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames("Registration", @"Registration\.(?<viewName>\w*)$"))
+                        {
+                            <option value="@viewName">@viewName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label for="registrationCssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="registrationCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+            </div>
+        </expander>
+    </tab>
+    <tab heading="@Html.Resource("AccountActivation")">
+        Account activation
+    </tab>
+</tabset>
