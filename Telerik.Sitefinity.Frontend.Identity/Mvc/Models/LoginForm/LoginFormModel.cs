@@ -165,26 +165,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <summary>
-        /// Gets the page URL by id.
-        /// </summary>
-        /// <returns></returns>
-        private string GetPageUrl(Guid? pageId)
-        {
-            if (pageId.HasValue)
-            {
-                var pageManager = PageManager.GetManager();
-                var node = pageManager.GetPageNode(pageId.Value);
-                if (node != null)
-                {
-                    var relativeUrl = node.GetFullUrl();
-                    return UrlPath.ResolveUrl(relativeUrl, true);
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Inners the get user identifier.
         /// </summary>
         /// <returns>
