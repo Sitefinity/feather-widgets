@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Security;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -16,11 +17,25 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public string CssClass { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the provider.
-        /// </summary>
-        /// <value>The name of the provider.</value>
-        public string ProviderName { get; set; }
+        /// <inheritDoc/>
+        public string MembershipProviderName
+        {
+            get
+            {
+                this.membershipProviderName = this.membershipProviderName ?? UserManager.GetDefaultProviderName();
+                return this.membershipProviderName;
+            }
+            set
+            {
+                this.membershipProviderName = value;
+            }
+        }
+
+        /// <inheritDoc/>
+        public string SuccessfulRegistrationMsg { get; set; }
+
+        /// <inheritDoc/>
+        public Guid? SuccessfulRegistrationPageId { get; set; }
 
         /// <inheritDoc/>
         public RegistrationViewModel GetViewModel()
@@ -28,7 +43,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return new RegistrationViewModel()
             {
                 LoginPageUrl = this.GetLoginPageUrl(),
+                MembershipProviderName = this.MembershipProviderName,
                 CssClass = this.CssClass
+                SuccessfulRegistrationMsg = this.SuccessfulRegistrationMsg,
+                SuccessfulRegistrationPageUrl = this.GetSuccessfulRegistrationPageUrl()
             };
         }
 
@@ -40,5 +58,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         {
             return null;
         }
+
+        /// <summary>
+        /// Gets the URL of the page that will be opened on successful registration.
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetSuccessfulRegistrationPageUrl()
+        {
+            return null;
+        }
+
+        private string membershipProviderName;
     }
 }

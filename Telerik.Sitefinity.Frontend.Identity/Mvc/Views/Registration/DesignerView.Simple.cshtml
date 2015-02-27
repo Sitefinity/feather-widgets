@@ -1,7 +1,42 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Security;
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("General")">
+        <div class="form-group">
+            <label>@Html.Resource("Provider")</label>
+            <p>@Html.Resource("ProviderDescription")</p>      
+            <div class="row">
+                <div class="col-xs-6">
+                    <select ng-model="properties.MembershipProviderName.PropertyValue" class="form-control">
+                         @foreach (var providerName in UserManager.ProvidersCollection)
+                        {
+                            <option value="@providerName">@providerName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>@Html.Resource("FormSuccessfullySubmited")</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="showMessageOnSuccess" ng-value="true">@Html.Resource("ShowMsg")
+                </label>
+            </div>
+            <textarea ng-model="properties.SuccessfulRegistrationMsg.PropertyValue" class="label-content" ng-show="showMessageOnSuccess" rows="2" cols="20"></textarea>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="showMessageOnSuccess" ng-value="false">@Html.Resource("OpenPage")
+                </label>
+            </div>
+            <sf-list-selector
+                class="label-content"
+                sf-page-selector
+                sf-selected-item-id="properties.SuccessfulRegistrationPageId.PropertyValue"
+                ng-show="!showMessageOnSuccess"></sf-list-selector>
+        </div>
 
         <div class="form-group">
             <label>@Html.Resource("LoginPage")</label>
@@ -36,6 +71,44 @@
         </expander>
     </tab>
     <tab heading="@Html.Resource("AccountActivation")">
-        Account activation
+        <div class="form-group">
+            <label>@Html.Resource("ActivateAccounts")</label>   
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="Immediately" />
+                    @Html.Resource("Immediately")
+                    <p>
+                        <label>
+                            <input type="checkbox" ng-model="properties.SendEmailAfterRegistration.PropertyValue" />
+                            @Html.Resource("SendEmailAfterRegistration")
+                        </label>
+                    </p>
+                </label>
+                <label>
+                    <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="ByConfirmationEmail" />
+                    @Html.Resource("ByConfirmationEmail")
+                </label>
+            </div>
+        </div>
+        <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'Immediately'">
+            <label>@Html.Resource("SuccessEmailTemplate")</label>   
+            <div class="row">
+                <select></select>
+            </div>
+        </div>
+        <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'ByConfirmationEmail'">
+            <div class="row">
+                <label>@Html.Resource("ConfirmationEmailTemplate")</label>
+                <select></select>
+            </div>
+            <div class="row">
+                <label>@Html.Resource("ActivationPage")</label>
+                <p>@Html.Resource("ActivationPageDescription")</p>      
+                <sf-list-selector
+                        class="label-content"
+                        sf-page-selector
+                        sf-selected-item-id="properties.ActivationPageId.PropertyValue"></sf-list-selector>
+            </div>
+        </div>
     </tab>
 </tabset>

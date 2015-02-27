@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Libraries.Configuration;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 {
@@ -43,6 +45,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         /// </summary>
         /// <value>
         /// The parent filtering mode.
+
         /// </value>
         public ParentFilterMode ParentFilterMode { get; set; }
 
@@ -52,7 +55,24 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         /// <value>
         /// The serialized selected parents ids.
         /// </value>
-        public string SerializedSelectedParentsIds { get; set; }
+        public string SerializedSelectedParentsIds
+        {
+            get
+            {
+                return this.serializedSelectedParentsIds;
+            }
+            set
+            {
+                if (this.serializedSelectedParentsIds != value)
+                {
+                    this.serializedSelectedParentsIds = value;
+                    if (!this.serializedSelectedParentsIds.IsNullOrEmpty())
+                    {
+                        this.selectedParentsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedParentsIds);
+                    }
+                }
+            }
+        }
 
         /// <inheritdoc />
         public virtual ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int page)
@@ -71,14 +91,29 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         }
 
         /// <inheritdoc />
+        protected override void PopulateListViewModel(int page, IQueryable<IDataItem> query, ContentListViewModel viewModel)
+        {
+            int? totalPages = null;
+            if (this.ParentFilterMode == Models.ParentFilterMode.Selected && this.selectedParentsIds.Count() == 0)
+            {
+                viewModel.Items = Enumerable.Empty<ItemViewModel>();
+            }
+            else
+            {
+                viewModel.Items = this.ApplyListSettings(page, query, out totalPages);
+            }
+
+            this.SetViewModelProperties(viewModel, page, totalPages);
+        }
+
+        /// <inheritdoc />
         protected override string CompileFilterExpression()
         {
             var baseExpression = base.CompileFilterExpression();
 
-            if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
+            if (this.ParentFilterMode == ParentFilterMode.Selected && this.selectedParentsIds.Count() != 0)
             {
-                var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
-                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "((Parent.Id = " + id.Trim() + " AND FolderId = null)" + " OR FolderId = " + id.Trim() + ")"));
+                var parentFilterExpression = string.Join(" OR ", this.selectedParentsIds.Select(id => "((Parent.Id = " + id.Trim() + " AND FolderId = null)" + " OR FolderId = " + id.Trim() + ")"));
 
                 if (!parentFilterExpression.IsNullOrEmpty())
                 {
@@ -91,5 +126,35 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
 
             return baseExpression;
         }
+
+        /// <summary>
+        /// Gets the name of the default thumbnail profile.
+        /// </summary>
+        /// <typeparam name="TLibrary">The type of the library.</typeparam>
+        /// <returns>The name of the default thumbnail profile.</returns>
+        protected static string DefaultThumbnailProfileName<TLibrary>()
+            where TLibrary : Library
+        {
+            ConfigElementDictionary<string, ThumbnailProfileConfigElement> profiles;
+            Type libraryType = typeof(TLibrary);
+
+            if (libraryType == typeof(Album))
+                profiles = Config.Get<LibrariesConfig>().Images.Thumbnails.Profiles;
+            else if (libraryType == typeof(VideoLibrary))
+                profiles = Config.Get<LibrariesConfig>().Videos.Thumbnails.Profiles;
+            else
+                return null;
+
+            var defaultProfile = profiles.Values.FirstOrDefault(p => p.IsDefault) ?? profiles.Values.FirstOrDefault(p => p.Name == "thumbnail") ?? profiles.Values.FirstOrDefault();
+            if (defaultProfile != null)
+                return defaultProfile.Name;
+            else
+                return null;
+        }
+
+        #region Private fields and constants
+        private string serializedSelectedParentsIds;
+        private IList<string> selectedParentsIds = new List<string>();
+        #endregion
     }
 }

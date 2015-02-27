@@ -125,6 +125,126 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Activate accounts...
+        /// </summary>
+        [ResourceEntry("ActivateAccounts",
+            Value = "Activate accounts...",
+            Description = "phrase:Activate accounts...",
+            LastModified = "2015/02/27")]
+        public string ActivateAccounts
+        {
+            get
+            {
+                return this["ActivateAccounts"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Immediately
+        /// </summary>
+        [ResourceEntry("Immediately",
+            Value = "Immediately",
+            Description = "Account activation method : Immediately",
+            LastModified = "2015/02/27")]
+        public string Immediately
+        {
+            get
+            {
+                return this["Immediately"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Send an email for successful registration
+        /// </summary>
+        [ResourceEntry("SendEmailAfterRegistration",
+            Value = "Send an email for successful registration",
+            Description = "phrase: Send an email for successful registration",
+            LastModified = "2015/02/27")]
+        public string SendEmailAfterRegistration
+        {
+            get
+            {
+                return this["SendEmailAfterRegistration"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : By confirmation link sent to user email
+        /// </summary>
+        [ResourceEntry("ByConfirmationEmail",
+            Value = "By confirmation link sent to user email",
+            Description = "Account activation method : By confirmation link sent to user email",
+            LastModified = "2015/02/27")]
+        public string ByConfirmationEmail
+        {
+            get
+            {
+                return this["ByConfirmationEmail"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Activation page
+        /// </summary>
+        [ResourceEntry("ActivationPage",
+            Value = "Activation page",
+            Description = "phrase: Activation page",
+            LastModified = "2015/02/27")]
+        public string ActivationPage
+        {
+            get
+            {
+                return this["ActivationPage"];
+            }
+        }
+
+        /// <summary>
+        /// Activation page description
+        /// </summary>
+        [ResourceEntry("ActivationPageDescription",
+            Value = "This is the page which user will open by confirmation link. There you have dropped Account activation widget",
+            Description = "Activation page description",
+            LastModified = "2015/02/27")]
+        public string ActivationPageDescription
+        {
+            get
+            {
+                return this["ActivationPageDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Get phrase: Confirmation email template
+        /// </summary>
+        [ResourceEntry("ConfirmationEmailTemplate",
+            Value = "Confirmation email template",
+            Description = "phrase:Confirmation email template",
+            LastModified = "2015/02/27")]
+        public string ConfirmationEmailTemplate
+        {
+            get
+            {
+                return this["ConfirmationEmailTemplate"];
+            }
+        }
+
+        /// <summary>
+        /// Get phrase: Success email template
+        /// </summary>
+        [ResourceEntry("SuccessEmailTemplate",
+            Value = "Success email template",
+            Description = "phrase: Success email template",
+            LastModified = "2015/02/27")]
+        public string SuccessEmailTemplate
+        {
+            get
+            {
+                return this["SuccessEmailTemplate"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: General
         /// </summary>
         [ResourceEntry("General",
@@ -241,6 +361,81 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["Register"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: When the form is successfully submitted...
+        /// </summary>
+        [ResourceEntry("FormSuccessfullySubmited",
+            Value = "When the form is successfully submitted...",
+            Description = "phrase : When the form is successfully submitted...",
+            LastModified = "2015/02/27")]
+        public string FormSuccessfullySubmited
+        {
+            get
+            {
+                return this["FormSuccessfullySubmited"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Show message
+        /// </summary>
+        [ResourceEntry("ShowMsg",
+            Value = "Show message",
+            Description = "phrase : Show message",
+            LastModified = "2015/02/27")]
+        public string ShowMsg
+        {
+            get
+            {
+                return this["ShowMsg"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Open a specially prepared page...
+        /// </summary>
+        [ResourceEntry("OpenPage",
+            Value = "Open a specially prepared page...",
+            Description = "phrase : Open a specially prepared page...",
+            LastModified = "2015/02/27")]
+        public string OpenPage
+        {
+            get
+            {
+                return this["OpenPage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Provider
+        /// </summary>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "phrase : Provider",
+            LastModified = "2015/02/27")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: where the user will be registered
+        /// </summary>
+        [ResourceEntry("ProviderDescription",
+            Value = "where the user will be registered",
+            Description = "phrase : where the user will be registered",
+            LastModified = "2015/02/27")]
+        public string ProviderDescription
+        {
+            get
+            {
+                return this["ProviderDescription"];
             }
         }
     }
