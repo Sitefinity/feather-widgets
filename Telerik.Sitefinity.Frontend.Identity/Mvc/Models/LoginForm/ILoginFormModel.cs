@@ -49,6 +49,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The login redirect page identifier.
         /// </value>
         Guid? LoginRedirectPageId { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the register redirect page identifier.
+        /// </summary>
+        /// <value>
+        /// The register redirect page identifier.
+        /// </value>
+        Guid? RegisterRedirectPageId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether password retrieval is enabled.

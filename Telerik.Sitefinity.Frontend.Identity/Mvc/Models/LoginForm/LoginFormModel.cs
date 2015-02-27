@@ -56,6 +56,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public Guid? LoginRedirectPageId { get; set; }
 
         /// <inheritDoc/>
+        public Guid? RegisterRedirectPageId { get; set; }
+
+        /// <inheritDoc/>
         public bool EnablePasswordRetrieval 
         {
             get
@@ -92,7 +95,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 ServiceUrl = this.ServiceUrl,
                 MembershipProvider = this.MembershipProvider,
-                RedirectUrlAfterLogin = HyperLinkHelpers.GetFullPageUrl(this.LoginRedirectPageId.Value),
+                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId.Value),
+                RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId.Value),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
                 CssClass = this.CssClass
             };
@@ -103,7 +107,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             return new ResetPasswordViewModel()
             {
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                LoginPageUrl = this.GetPageUrl(null)
             };
         }
 
@@ -112,7 +117,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             return new ForgotPasswordViewModel()
             {
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                LoginPageUrl = this.GetPageUrl(null)
             };
         }
 
@@ -161,6 +167,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             else
             {
                 return LoginFormModel.DefaultRealmConfig;
+            }
+        }
+
+        private string GetPageUrl(Guid? pageId)
+        {
+            if (pageId.HasValue)
+            {
+                return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+            }
+            else
+            {
+                return SiteMapBase.GetActualCurrentNode().GetUrl(System.Threading.Thread.CurrentThread.CurrentCulture);
             }
         }
 

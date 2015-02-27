@@ -39,5 +39,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The css class.
         /// </value>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the login page URL.
+        /// </summary>
+        /// <value>
+        /// The login page URL.
+        /// </value>
+        public string LoginPageUrl { get; set; }
     }
 }
