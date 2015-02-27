@@ -37,7 +37,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
                 .AssertIsPresent("Image title field");
 
             titleField.Text = string.Empty;
-            titleField.Text = imageTitle; 
+            titleField.Text = imageTitle;
+            titleField.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
         /// <summary>
@@ -64,6 +65,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 
             altTextField.Text = string.Empty;
             altTextField.Text = imageAltText;
+            altTextField.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
         /// <summary>

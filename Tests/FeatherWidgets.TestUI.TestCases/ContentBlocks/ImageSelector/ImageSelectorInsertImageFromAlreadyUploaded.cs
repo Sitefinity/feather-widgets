@@ -31,7 +31,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyNoImagesEmptyScreen();
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().PressCancelButton();
 
-            BAT.Arrange(this.TestName).ExecuteArrangement("UploadImage");
+            // Uploading image after epmty screen is verified.
+            string imageId = BAT.Arrange(this.TestName).ExecuteArrangement("UploadImage").Result.Values["imageId"];
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
@@ -41,13 +42,18 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(ImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText), "Image alt text is not populated correctly");
-
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageTitle(NewImageName);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageAltText(NewImageAltText);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ImageDimensions);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImageProperties();
+
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
+                .VerifyContentBlockImageDesignMode(this.GetImageSource(true), this.GetSfRef(imageId), NewImageName, NewImageAltText);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(NewImageName, NewImageAltText, this.GetImageSource(false));
         }
 
         /// <summary>
@@ -67,11 +73,34 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
+        private string GetImageSource(bool isBaseUrlIncluded)
+        {
+            string libraryUrl = LibraryName.ToLower();
+            string contentType = "images";
+            string providerUrl = "default-source";
+            string imageUrl = ImageName.ToLower() + ImageType.ToLower();
+
+            if (isBaseUrlIncluded)
+            {
+                string baseUrl = this.BaseUrl;
+
+                return baseUrl + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+            }
+            else
+            {
+                return "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl; 
+            }
+        }
+
+        private string GetSfRef(string imageId)
+        {
+            return "[images|OpenAccessDataProvider]" + imageId;
+        }
+
         private const string PageName = "PageWithImage";
         private const string WidgetName = "ContentBlock";
         private const string ImageName = "Image1";
         private const string ImageAltText = "AltText_Image1";
-        private const string ImageNameEdited = "NewImageTitle";
         private const string LibraryName = "TestImageLibrary";
         private const string ImageDimensions = "300x300";
         private const string ImageType = ".JPG";
