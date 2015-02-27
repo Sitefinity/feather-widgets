@@ -71,7 +71,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             image.ScrollToVisible();
             image.Focus();
             image.MouseClick();
-            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
