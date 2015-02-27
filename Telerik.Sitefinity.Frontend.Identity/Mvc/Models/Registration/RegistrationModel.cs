@@ -32,6 +32,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         }
 
         /// <inheritDoc/>
+        public bool SendEmailOnSuccess { get; set; }
+
+        /// <inheritDoc/>
+        public ActivationMethod ActivationMethod { get; set; }
+
+        /// <inheritDoc/>
         public string SuccessfulRegistrationMsg { get; set; }
 
         /// <inheritDoc/>
