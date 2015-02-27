@@ -27,5 +27,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// The name of the membership provider.
         /// </value>
         public string MembershipProviderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message that would be displayed on successful registration.
+        /// </summary>
+        /// <value>The successful registration message.</value>
+        public string SuccessfulRegistrationMsg { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL of the page that will be opened on successful registration.
+        /// </summary>
+        /// <value>
+        /// The successful registration page URL.
+        /// </value>
+        public string SuccessfulRegistrationPageUrl { get; set; }
     }
 }

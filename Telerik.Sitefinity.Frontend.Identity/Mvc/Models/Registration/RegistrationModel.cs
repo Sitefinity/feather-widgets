@@ -38,13 +38,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public ActivationMethod ActivationMethod { get; set; }
 
         /// <inheritDoc/>
+        public string SuccessfulRegistrationMsg { get; set; }
+
+        /// <inheritDoc/>
+        public Guid? SuccessfulRegistrationPageId { get; set; }
+
+        /// <inheritDoc/>
         public RegistrationViewModel GetViewModel()
         {
             return new RegistrationViewModel()
             {
                 LoginPageUrl = this.GetLoginPageUrl(),
                 MembershipProviderName = this.MembershipProviderName,
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                SuccessfulRegistrationMsg = this.SuccessfulRegistrationMsg,
+                SuccessfulRegistrationPageUrl = this.GetSuccessfulRegistrationPageUrl()
             };
         }
 
@@ -53,6 +61,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </summary>
         /// <returns></returns>
         public virtual string GetLoginPageUrl()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the URL of the page that will be opened on successful registration.
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetSuccessfulRegistrationPageUrl()
         {
             return null;
         }
