@@ -125,6 +125,126 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Activate accounts...
+        /// </summary>
+        [ResourceEntry("ActivateAccounts",
+            Value = "Activate accounts...",
+            Description = "phrase:Activate accounts...",
+            LastModified = "2015/02/27")]
+        public string ActivateAccounts
+        {
+            get
+            {
+                return this["ActivateAccounts"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Immediately
+        /// </summary>
+        [ResourceEntry("Immediately",
+            Value = "Immediately",
+            Description = "Account activation method : Immediately",
+            LastModified = "2015/02/27")]
+        public string Immediately
+        {
+            get
+            {
+                return this["Immediately"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Send an email for successful registration
+        /// </summary>
+        [ResourceEntry("SendEmailAfterRegistration",
+            Value = "Send an email for successful registration",
+            Description = "phrase: Send an email for successful registration",
+            LastModified = "2015/02/27")]
+        public string SendEmailAfterRegistration
+        {
+            get
+            {
+                return this["SendEmailAfterRegistration"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : By confirmation link sent to user email
+        /// </summary>
+        [ResourceEntry("ByConfirmationEmail",
+            Value = "By confirmation link sent to user email",
+            Description = "Account activation method : By confirmation link sent to user email",
+            LastModified = "2015/02/27")]
+        public string ByConfirmationEmail
+        {
+            get
+            {
+                return this["ByConfirmationEmail"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Activation page
+        /// </summary>
+        [ResourceEntry("ActivationPage",
+            Value = "Activation page",
+            Description = "phrase: Activation page",
+            LastModified = "2015/02/27")]
+        public string ActivationPage
+        {
+            get
+            {
+                return this["ActivationPage"];
+            }
+        }
+
+        /// <summary>
+        /// Activation page description
+        /// </summary>
+        [ResourceEntry("ActivationPageDescription",
+            Value = "This is the page which user will open by confirmation link. There you have dropped Account activation widget",
+            Description = "Activation page description",
+            LastModified = "2015/02/27")]
+        public string ActivationPageDescription
+        {
+            get
+            {
+                return this["ActivationPageDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Get phrase: Confirmation email template
+        /// </summary>
+        [ResourceEntry("ConfirmationEmailTemplate",
+            Value = "Confirmation email template",
+            Description = "phrase:Confirmation email template",
+            LastModified = "2015/02/27")]
+        public string ConfirmationEmailTemplate
+        {
+            get
+            {
+                return this["ConfirmationEmailTemplate"];
+            }
+        }
+
+        /// <summary>
+        /// Get phrase: Success email template
+        /// </summary>
+        [ResourceEntry("SuccessEmailTemplate",
+            Value = "Success email template",
+            Description = "phrase: Success email template",
+            LastModified = "2015/02/27")]
+        public string SuccessEmailTemplate
+        {
+            get
+            {
+                return this["SuccessEmailTemplate"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: General
         /// </summary>
         [ResourceEntry("General",
