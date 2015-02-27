@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
 
@@ -16,6 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Media
         {
             Bind<ILoginStatusModel>().To<LoginStatusModel>();
             Bind<IRegistrationModel>().To<RegistrationModel>();
+            Bind<ILoginFormModel>().To<LoginFormModel>();
         }
     }
 }
