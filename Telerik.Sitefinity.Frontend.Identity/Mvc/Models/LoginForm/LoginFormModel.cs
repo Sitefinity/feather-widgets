@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Web.Security;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
@@ -119,10 +120,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public bool TrySendResetPasswordEmail(string userEmail)
+        public void SendResetPasswordEmail(MembershipUser user)
         {
-            // TODO: Implement
-            return false;
+
         }
 
         #endregion

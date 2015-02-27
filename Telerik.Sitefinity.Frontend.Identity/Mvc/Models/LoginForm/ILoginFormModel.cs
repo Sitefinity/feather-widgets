@@ -93,12 +93,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         void ResetUserPassword(string newPassword);
         
         /// <summary>
-        /// Tries the send reset password email.
+        /// Sends reset password email.
         /// </summary>
-        /// <param name="userEmail">The user email.</param>
-        /// <returns>
-        /// <c>true</c> if the email sending succeeds; otherwise, <c>false</c>.
-        /// </returns>
-        bool TrySendResetPasswordEmail(string userEmail);
+        /// <param name="userIdentifier"></param>
+        void SendResetPasswordEmail(string userIdentifier);
     }
 }

@@ -103,7 +103,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     try
                     {
-                        this.Model.TrySendResetPasswordEmail(model.Email);
+                        this.Model.SendResetPasswordEmail(model.Email);
                     }
                     catch (ArgumentException ex)
                     {
