@@ -168,7 +168,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RegistrationPageInfo"];
             }
         }
-
+        
         /// <summary>
         /// Gets phrase : Show "Remember me" checkbox
         /// </summary>
@@ -181,6 +181,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["RememberMeInfo"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : You must first enable password reset or password retrieval from the membership provider settings.
+        /// </summary>
+        [ResourceEntry("PaswordResetNotEnabled",
+            Value = "You must first enable password reset or password retrieval from the membership provider settings.",
+            Description = "phrase : You must first enable password reset or password retrieval from the membership provider settings.",
+            LastModified = "2015/02/27")]
+        public string PaswordResetNotEnabled
+        {
+            get
+            {
+                return this["PaswordResetNotEnabled"];
             }
         }
     }

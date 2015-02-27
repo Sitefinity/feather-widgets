@@ -22,6 +22,9 @@
         <input type="checkbox" ng-model="properties.AllowResetPassword.PropertyValue" />
         <label>@Html.Resource("AllowResetPassword")</label>
     </div>
+    <div ng-show="properties.AllowResetPassword.PropertyValue == true && (properties.EnablePasswordRetrieval.PropertyValue != true && properties.EnablePasswordReset.PropertyValue != true)">
+        <span>@Html.Resource("PaswordResetNotEnabled")</span>
+    </div>
 
     <div class="form-group">
         <label for="templateName">@Html.Resource("LoginFormTemplate")</label>
@@ -37,30 +40,32 @@
         </div>
     </div>
 
-    <div class="form-group" ng-show="properties.AllowResetPassword.PropertyValue == true">
-        <label for="templateName">@Html.Resource("ForgotPasswordTemplate")</label>
-        <div class="row">
-            <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.ForgotPasswordTemplate.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("LoginForm", @"ForgotPassword\.(?<viewName>\w*)$"))
-                    {
-                        <option value="@viewName">@viewName</option>
-                    }
-                </select>
+    <div ng-show="properties.AllowResetPassword.PropertyValue == true && (properties.EnablePasswordRetrieval.PropertyValue == true || properties.EnablePasswordReset.PropertyValue == true)">
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("ForgotPasswordTemplate")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.ForgotPasswordTemplate.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames("LoginForm", @"ForgotPassword\.(?<viewName>\w*)$"))
+                        {
+                            <option value="@viewName">@viewName</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group" ng-show="properties.AllowResetPassword.PropertyValue == true">
-        <label for="templateName">@Html.Resource("ResetPasswordTemplate")</label>
-        <div class="row">
-            <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.ResetPasswordTemplate.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("LoginForm", @"ResetPassword\.(?<viewName>\w*)$"))
-                    {
-                        <option value="@viewName">@viewName</option>
-                    }
-                </select>
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("ResetPasswordTemplate")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.ResetPasswordTemplate.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames("LoginForm", @"ResetPassword\.(?<viewName>\w*)$"))
+                        {
+                            <option value="@viewName">@viewName</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
     </div>

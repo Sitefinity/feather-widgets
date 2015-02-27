@@ -137,12 +137,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             if (ModelState.IsValid)
             {
-                // TODO: Get User Id
-                Guid userId = Guid.NewGuid();
-
                 try
                 {
-                    model.PasswordChanged = this.Model.TryResetUserPassword(userId, model.NewPassword);    
+                    this.Model.ResetUserPassword(model.NewPassword);
+                    model.PasswordChanged = true;
                 }
                 catch (ArgumentException ex)
                 {

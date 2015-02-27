@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Security.Configuration;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
@@ -51,6 +49,32 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <inheritDoc/>
         public Guid? LoginRedirectPageId { get; set; }
 
+        /// <inheritDoc/>
+        public bool EnablePasswordRetrieval 
+        {
+            get
+            {
+                return UserManager.GetManager(this.MembershipProvider).EnablePasswordRetrieval;
+            }
+
+            set
+            {
+            }
+        }
+
+        /// <inheritDoc/>
+        public bool EnablePasswordReset
+        {
+            get
+            {
+                return UserManager.GetManager(this.MembershipProvider).EnablePasswordReset;
+            }
+
+            set
+            {
+            }
+        }
+
         #endregion 
 
         #region Public Methods
@@ -80,31 +104,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public bool TryResetUserPassword(Guid userId, string newPassword)
+        public void ResetUserPassword(string newPassword)
         {
-            var changePasswordSuccess = false;
+            var userId = this.InnerGetUserId();
 
-            var manager = UserManager.GetManager(this.MembershipProvider);
-
-            var user = manager.GetUser(userId);
-
-            if (user != null)
+            if (userId.HasValue)
             {
-                try
-                {
-                    manager.ChangePassword(user.Id, user.Password, newPassword);
-                    manager.Provider.SuppressSecurityChecks = true;
-                    manager.SaveChanges();
+                var userManager = UserManager.GetManager(this.MembershipProvider);
 
-                    changePasswordSuccess = true;
-                }
-                finally
-                {
-                    manager.Provider.SuppressSecurityChecks = false;
-                }
+                var resetPassword = userManager.ResetPassword(userId.Value, null);
+                userManager.ChangePassword(userId.Value, resetPassword, newPassword);
+                userManager.SaveChanges();
             }
-
-            return changePasswordSuccess;
         }
 
         /// <inheritDoc/>
@@ -156,11 +167,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             return null;
         }
 
+        /// <summary>
+        /// Inners the get user identifier.
+        /// </summary>
+        /// <returns>
+        /// The user id or null.
+        /// </returns>
+        private Guid? InnerGetUserId()
+        {
+            Type type = Type.GetType("Telerik.Sitefinity.Security.Web.UI.UserChangePasswordWidget, Telerik.Sitefinity");
+            object instance = type.GetConstructor(Type.EmptyTypes).Invoke(new object[] { });
+            MethodInfo method = type.GetMethod("GetUser", BindingFlags.NonPublic | BindingFlags.Instance);
+            object claimsIdentityProxyObject = method.Invoke(instance, new object[] { });
+            var claimsIdentityProxy = claimsIdentityProxyObject as ClaimsIdentityProxy;
+            if (claimsIdentityProxy != null)
+            {
+                return claimsIdentityProxy.UserId;
+            }
+
+            return null;
+        }
+
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
-
-        private readonly IdentityHelper identityHelper;
 
         #endregion
     }

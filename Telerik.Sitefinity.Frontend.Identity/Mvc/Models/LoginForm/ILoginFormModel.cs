@@ -43,6 +43,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         Guid? LoginRedirectPageId { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether password retrieval is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordRetrieval { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether password reset is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordReset { get; set; }
+        
+        /// <summary>
         /// Gets the login form view model.
         /// </summary>
         /// <returns>
@@ -74,7 +90,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// <c>true</c> if the password reset succeeds; otherwise, <c>false</c>.
         /// </returns>
-        bool TryResetUserPassword(Guid userId, string newPassword);
+        void ResetUserPassword(string newPassword);
         
         /// <summary>
         /// Tries the send reset password email.
