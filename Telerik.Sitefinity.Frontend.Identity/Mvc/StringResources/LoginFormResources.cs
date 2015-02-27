@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Localization.Data;
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
 {
     /// <summary>
-    /// Localizable strings for the Login Status widget
+    /// Localizable strings for the Login Form widget
     /// </summary>
     [ObjectInfo(typeof(LoginFormResources), Title = "LoginFormResources", Description = "LoginFormResources")]
     public class LoginFormResources : Resource
@@ -185,6 +185,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : You are already logged in.
+        /// </summary>
+        [ResourceEntry("AlreadyLogedIn",
+            Value = "You are already logged in",
+            Description = "phrase : You are already logged in.",
+            LastModified = "2015/02/26")]
+        public string AlreadyLogedIn
+        {
+            get
+            {
+                return this["AlreadyLogedIn"];
+            }
+        }
+
+        /// </summary>
         /// Gets phrase : You must first enable password reset or password retrieval from the membership provider settings.
         /// </summary>
         [ResourceEntry("PaswordResetNotEnabled",

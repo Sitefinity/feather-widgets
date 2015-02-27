@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
@@ -46,6 +48,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
         }
 
+        /// <inheritdoc />
+        public string CssClass { get; set; }
+
         /// <inheritDoc/>
         public Guid? LoginRedirectPageId { get; set; }
 
@@ -86,21 +91,28 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 ServiceUrl = this.ServiceUrl,
                 MembershipProvider = this.MembershipProvider,
-                LoginRedirectUrl = this.GetPageUrl(this.LoginRedirectPageId),
-                Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm()
+                RedirectUrlAfterLogin = HyperLinkHelpers.GetFullPageUrl(this.LoginRedirectPageId.Value),
+                Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
+                CssClass = this.CssClass
             };
         }
 
         /// <inheritDoc/>
         public ResetPasswordViewModel GetResetPasswordViewModel()
         {
-            return new ResetPasswordViewModel();
+            return new ResetPasswordViewModel()
+            {
+                CssClass = this.CssClass
+            };
         }
 
         /// <inheritDoc/>
         public ForgotPasswordViewModel GetForgotPasswordViewModel()
         {
-            return new ForgotPasswordViewModel();
+            return new ForgotPasswordViewModel()
+            {
+                CssClass = this.CssClass
+            };
         }
 
         /// <inheritDoc/>
