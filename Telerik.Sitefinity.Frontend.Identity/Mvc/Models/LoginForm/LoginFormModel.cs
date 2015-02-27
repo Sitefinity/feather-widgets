@@ -129,6 +129,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 userManager.ChangePassword(userId.Value, resetPassword, newPassword);
                 userManager.SaveChanges();
             }
+            else
+            {
+                throw new ArgumentNullException("User could not be retrieved.");
+            }
         }
 
         /// <inheritDoc/>

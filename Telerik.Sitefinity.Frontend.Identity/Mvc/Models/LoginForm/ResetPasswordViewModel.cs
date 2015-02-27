@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The css class.
         /// </value>
         public string CssClass { get; set; }
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether the reset is complete.
         /// </summary>

@@ -8,14 +8,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     public class ForgotPasswordViewModel
     {
         /// <summary>
-        /// Gets or sets a value indicating whether the email is sent.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if the email is sent; otherwise, <c>false</c>.
-        /// </value>
-        public bool EmailSent { get; set; }
-
-        /// <summary>
         /// Gets or sets the email.
         /// </summary>
         /// <value>
@@ -23,6 +15,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </value>
         [Required]
         public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the email is sent.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the email is sent; otherwise, <c>false</c>.
+        /// </value>
+        public bool EmailSentComplete { get; set; }
+
+        /// <summary>
+        /// Gets or sets the error.
+        /// </summary>
+        /// <value>
+        /// The error.
+        /// </value>
+        public string Error { get; set; }
 
         /// <summary>
         /// Gets or sets the css class.

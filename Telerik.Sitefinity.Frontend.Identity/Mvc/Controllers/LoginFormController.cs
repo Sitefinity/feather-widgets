@@ -8,6 +8,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -81,12 +83,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
         }
 
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model = null)
+        public ActionResult ForgotPassword(bool emailSentComplete = false, string error = null)
         {
-            if (model == null)
-            {
-                model = this.Model.GetForgotPasswordViewModel();
-            }
+            var model = this.Model.GetForgotPasswordViewModel();
+
+            model.Error = error;
+            model.EmailSentComplete = emailSentComplete;
 
             var fullTemplateName = this.forgotPasswordFormTemplatePrefix + this.GetViewName(this.ForgotPasswordTemplate);
 
@@ -101,23 +103,29 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "User with such email does not exist.");
+                    model.Error = "User with such email does not exist.";
                 }
                 else
                 {
                     try
                     {
                         this.Model.TrySendResetPasswordEmail(model.Email);
+                        model.EmailSentComplete = true;
                     }
                     catch (ArgumentException ex)
                     {
-                        ModelState.AddModelError(string.Empty, ex.Message);
-                        model.EmailSent = false;
+                        model.Error = ex.Message;
                     }
                 }
             }
+            else
+            {
+                model.Error = this.GetErrorFromViewModel(ModelState);
+            }
 
-            return this.RedirectToAction("ForgotPassword", new { model = model });
+            var pageUrl = this.GetPageUrl();
+            var queryString = string.Format("emailSentComplete={0}&error={1}", model.EmailSentComplete, model.Error);
+            return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
         public ActionResult ResetPassword(bool resetComplete = false, string error = null)
@@ -125,7 +133,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var model = this.Model.GetResetPasswordViewModel();
 
             model.Error = error;
-            model.ResetComplete = resetComplete && string.IsNullOrEmpty(error);
+            model.ResetComplete = resetComplete;
 
             var fullTemplateName = this.resetPasswordFormTemplatePrefix + this.GetViewName(this.ResetPasswordTemplate);
 
@@ -155,22 +163,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
             else 
             {
-                var firstErrors = ViewData.ModelState.Values.FirstOrDefault();
-                if (firstErrors != null)
-	            {
-                    var error = firstErrors.Errors.FirstOrDefault();
-                    if (error != null)
-                    {
-                        model.Error = error.ErrorMessage;
-                    }
-                    else
-                    {
-                        model.Error = "Invalid data";
-                    }
-	            }
+                model.Error = this.GetErrorFromViewModel(ModelState);
             }
 
-            return this.RedirectToAction("ResetPassword", new { resetComplete = model.ResetComplete, error = model.Error });
+            var pageUrl = this.GetPageUrl(); 
+            var queryString = string.Format("resetComplete={0}&error={1}", model.ResetComplete, model.Error);
+            return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
 
         #endregion
@@ -203,6 +201,28 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
 
             return viewNameToReturn;
+        }
+
+        private string GetErrorFromViewModel(ModelStateDictionary modelStateDict)
+        {
+            var error = "Invalid data";
+
+            var firstErrorValue = modelStateDict.Values.FirstOrDefault();
+            if (firstErrorValue != null)
+            {
+                var firstError = firstErrorValue.Errors.FirstOrDefault();
+                if (firstError != null)
+                {
+                    error = firstError.ErrorMessage;
+                }
+            }
+
+            return error;
+        }
+
+        private string GetPageUrl()
+        {
+            return SiteMapBase.GetActualCurrentNode().GetUrl(System.Threading.Thread.CurrentThread.CurrentCulture);
         }
 
         #endregion
