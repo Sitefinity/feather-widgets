@@ -215,6 +215,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Get phrase: Confirmation email template
+        /// </summary>
+        [ResourceEntry("ConfirmationEmailTemplate",
+            Value = "Confirmation email template",
+            Description = "phrase:Confirmation email template",
+            LastModified = "2015/02/27")]
+        public string ConfirmationEmailTemplate
+        {
+            get
+            {
+                return this["ConfirmationEmailTemplate"];
+            }
+        }
+
+        /// <summary>
+        /// Get phrase: Success email template
+        /// </summary>
+        [ResourceEntry("SuccessEmailTemplate",
+            Value = "Success email template",
+            Description = "phrase: Success email template",
+            LastModified = "2015/02/27")]
+        public string SuccessEmailTemplate
+        {
+            get
+            {
+                return this["SuccessEmailTemplate"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: General
         /// </summary>
         [ResourceEntry("General",

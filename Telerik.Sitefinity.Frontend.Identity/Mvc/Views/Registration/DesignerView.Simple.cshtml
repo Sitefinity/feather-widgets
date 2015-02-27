@@ -57,10 +57,12 @@
                 <label>
                     <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="Immediately" />
                     @Html.Resource("Immediately")
-                    <label>
-                        <input type="checkbox" ng-model="properties.SendEmailAfterRegistration.PropertyValue" />
-                        @Html.Resource("SendEmailAfterRegistration")
-                    </label>
+                    <p>
+                        <label>
+                            <input type="checkbox" ng-model="properties.SendEmailAfterRegistration.PropertyValue" />
+                            @Html.Resource("SendEmailAfterRegistration")
+                        </label>
+                    </p>
                 </label>
                 <label>
                     <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="ByConfirmationEmail" />
