@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Web;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+using Telerik.Sitefinity.Localization.UrlLocalizationStrategies;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
@@ -68,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
                 else if (this.LoginPageId.HasValue)
                 {
-                    pageUrl = this.GetPageUrl(this.LoginPageId);
+                    pageUrl = HyperLinkHelpers.GetFullPageUrl(this.LoginPageId.Value);
                 }
                 else
                 {
@@ -91,9 +95,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public virtual string GetLogoutPageUrl()
         {
             var logoutRedirectUrl = this.ExternalLogoutUrl;
-            if (string.IsNullOrEmpty(logoutRedirectUrl))
+            if (string.IsNullOrEmpty(logoutRedirectUrl) && this.LogoutPageId.HasValue)
             {
-                logoutRedirectUrl = this.GetPageUrl(this.LogoutPageId);
+                logoutRedirectUrl = HyperLinkHelpers.GetFullPageUrl(this.LogoutPageId.Value);
             }
 
             return logoutRedirectUrl;
@@ -103,9 +107,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public virtual string GetRegistrationPageUrl()
         {
             var registrationRedirectUrl = this.ExternalRegistrationUrl;
-            if (string.IsNullOrEmpty(registrationRedirectUrl))
+            if (string.IsNullOrEmpty(registrationRedirectUrl) && this.RegistrationPageId.HasValue)
             {
-                registrationRedirectUrl = this.GetPageUrl(this.RegistrationPageId);
+                registrationRedirectUrl = HyperLinkHelpers.GetFullPageUrl(this.RegistrationPageId.Value);
             }
 
             return registrationRedirectUrl;
@@ -115,9 +119,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         public virtual string GetProfilePageUrl()
         {
             var profileRedirectUrl = this.ExternalProfileUrl;
-            if (string.IsNullOrEmpty(profileRedirectUrl))
+            if (string.IsNullOrEmpty(profileRedirectUrl) && this.ProfilePageId.HasValue)
             {
-                profileRedirectUrl = this.GetPageUrl(this.ProfilePageId);
+                profileRedirectUrl = HyperLinkHelpers.GetFullPageUrl(this.ProfilePageId.Value);
             }
 
             return profileRedirectUrl;
@@ -163,28 +167,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         #endregion
       
         #region Private members
-
-        /// <summary>
-        /// Gets the page URL by id.
-        /// </summary>
-        /// <returns>
-        /// The page url or null.
-        /// </returns>
-        private string GetPageUrl(Guid? pageId)
-        {
-            if (pageId.HasValue)
-            {
-                var pageManager = PageManager.GetManager();
-                var node = pageManager.GetPageNode(pageId.Value);
-                if (node != null)
-                {
-                    var relativeUrl = node.GetFullUrl();
-                    return UrlPath.ResolveUrl(relativeUrl, true);
-                }
-            }
-
-            return null;
-        }
 
         /// <summary>
         /// Gets the login page backend setting.
