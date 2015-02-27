@@ -22,7 +22,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// <c>true</c> if the email is sent; otherwise, <c>false</c>.
         /// </value>
-        public bool EmailSentComplete { get; set; }
+        public bool EmailSent { get; set; }
 
         /// <summary>
         /// Gets or sets the error.

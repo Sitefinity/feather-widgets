@@ -83,12 +83,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
         }
 
-        public ActionResult ForgotPassword(bool emailSentComplete = false, string error = null)
+        public ActionResult ForgotPassword(bool emailSent = false, string error = null)
         {
             var model = this.Model.GetForgotPasswordViewModel();
 
             model.Error = error;
-            model.EmailSentComplete = emailSentComplete;
+            model.EmailSent = emailSent;
 
             var fullTemplateName = this.forgotPasswordFormTemplatePrefix + this.GetViewName(this.ForgotPasswordTemplate);
 
@@ -110,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     try
                     {
                         this.Model.TrySendResetPasswordEmail(model.Email);
-                        model.EmailSentComplete = true;
+                        model.EmailSent = true;
                     }
                     catch (ArgumentException ex)
                     {
@@ -120,11 +120,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
             else
             {
-                model.Error = this.GetErrorFromViewModel(ModelState);
+                model.Error = this.Model.GetErrorFromViewModel(ModelState);
             }
 
-            var pageUrl = this.GetPageUrl();
-            var queryString = string.Format("emailSentComplete={0}&error={1}", model.EmailSentComplete, model.Error);
+            var pageUrl = this.Model.GetPageUrl(null);
+            var queryString = string.Format("emailSent={0}&error={1}", model.EmailSent, model.Error);
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
@@ -144,22 +144,29 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                if (model.NewPassword != model.RepeatNewPassword)
                 {
-                    this.Model.ResetUserPassword(model.NewPassword);
-                    model.ResetComplete = true;
+                    model.Error = "Both passwords should match.";
                 }
-                catch (ArgumentException ex)
+                else
                 {
-                    model.Error = ex.Message;
+                    try
+                    {
+                        this.Model.ResetUserPassword(model.NewPassword);
+                        model.ResetComplete = true;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        model.Error = ex.Message;
+                    }
                 }
             }
             else 
             {
-                model.Error = this.GetErrorFromViewModel(ModelState);
+                model.Error = this.Model.GetErrorFromViewModel(ModelState);
             }
 
-            var pageUrl = this.GetPageUrl(); 
+            var pageUrl = this.Model.GetPageUrl(null); 
             var queryString = string.Format("resetComplete={0}&error={1}", model.ResetComplete, model.Error);
             return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
@@ -194,28 +201,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
 
             return viewNameToReturn;
-        }
-
-        private string GetErrorFromViewModel(ModelStateDictionary modelStateDict)
-        {
-            var error = "Invalid data";
-
-            var firstErrorValue = modelStateDict.Values.FirstOrDefault();
-            if (firstErrorValue != null)
-            {
-                var firstError = firstErrorValue.Errors.FirstOrDefault();
-                if (firstError != null)
-                {
-                    error = firstError.ErrorMessage;
-                }
-            }
-
-            return error;
-        }
-
-        private string GetPageUrl()
-        {
-            return SiteMapBase.GetActualCurrentNode().GetUrl(System.Threading.Thread.CurrentThread.CurrentCulture);
         }
 
         #endregion

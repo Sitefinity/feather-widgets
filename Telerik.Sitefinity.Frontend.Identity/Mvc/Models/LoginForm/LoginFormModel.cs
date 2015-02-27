@@ -125,20 +125,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <inheritDoc/>
         public void ResetUserPassword(string newPassword)
         {
-            var userId = this.InnerGetUserId();
+            var userId = this.GetUserId();
 
-            if (userId.HasValue)
-            {
-                var userManager = UserManager.GetManager(this.MembershipProvider);
-
-                var resetPassword = userManager.ResetPassword(userId.Value, null);
-                userManager.ChangePassword(userId.Value, resetPassword, newPassword);
-                userManager.SaveChanges();
-            }
-            else
+            if (userId == Guid.Empty)
             {
                 throw new ArgumentNullException("User could not be retrieved.");
             }
+
+            var userManager = UserManager.GetManager(this.MembershipProvider);
+
+            var resetPassword = userManager.ResetPassword(userId, null);
+            userManager.ChangePassword(userId, resetPassword, newPassword);
+            userManager.SaveChanges();
         }
 
         /// <inheritDoc/>
@@ -146,6 +144,37 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             // TODO: Implement
             return false;
+        }
+        
+        /// <inheritDoc/>
+        public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
+        {
+            var error = "Invalid data";
+
+            var firstErrorValue = modelStateDict.Values.FirstOrDefault();
+            if (firstErrorValue != null)
+            {
+                var firstError = firstErrorValue.Errors.FirstOrDefault();
+                if (firstError != null)
+                {
+                    error = firstError.ErrorMessage;
+                }
+            }
+
+            return error;
+        }
+
+        /// <inheritDoc/>
+        public string GetPageUrl(Guid? pageId)
+        {
+            if (pageId.HasValue)
+            {
+                return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+            }
+            else
+            {
+                return HyperLinkHelpers.GetFullPageUrl(SiteMapBase.GetActualCurrentNode().Id);
+            }
         }
 
         #endregion
@@ -169,26 +198,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 return LoginFormModel.DefaultRealmConfig;
             }
         }
-
-        private string GetPageUrl(Guid? pageId)
-        {
-            if (pageId.HasValue)
-            {
-                return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
-            }
-            else
-            {
-                return HyperLinkHelpers.GetFullPageUrl(SiteMapBase.GetActualCurrentNode().Id);
-            }
-        }
-
+        
         /// <summary>
         /// Inners the get user identifier.
         /// </summary>
         /// <returns>
         /// The user id or null.
         /// </returns>
-        private Guid? InnerGetUserId()
+        private Guid GetUserId()
         {
             Type type = Type.GetType("Telerik.Sitefinity.Security.Web.UI.UserChangePasswordWidget, Telerik.Sitefinity");
             object instance = type.GetConstructor(Type.EmptyTypes).Invoke(new object[] { });
@@ -200,7 +217,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 return claimsIdentityProxy.UserId;
             }
 
-            return null;
+            return Guid.Empty;
         }
 
         private string serviceUrl;
