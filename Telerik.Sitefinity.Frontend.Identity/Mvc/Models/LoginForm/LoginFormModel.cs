@@ -151,7 +151,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             var error = "Invalid data";
 
-            var firstErrorValue = modelStateDict.Values.FirstOrDefault();
+            var firstErrorValue = modelStateDict.Values.FirstOrDefault(v => v.Errors.Any());
             if (firstErrorValue != null)
             {
                 var firstError = firstErrorValue.Errors.FirstOrDefault();
