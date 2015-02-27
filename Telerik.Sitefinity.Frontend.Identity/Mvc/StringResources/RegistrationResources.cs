@@ -243,5 +243,50 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["Register"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: When the form is successfully submitted...
+        /// </summary>
+        [ResourceEntry("FormSuccessfullySubmited",
+            Value = "When the form is successfully submitted...",
+            Description = "phrase : When the form is successfully submitted...",
+            LastModified = "2015/02/27")]
+        public string FormSuccessfullySubmited
+        {
+            get
+            {
+                return this["FormSuccessfullySubmited"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Show message
+        /// </summary>
+        [ResourceEntry("ShowMsg",
+            Value = "Show message",
+            Description = "phrase : Show message",
+            LastModified = "2015/02/27")]
+        public string ShowMsg
+        {
+            get
+            {
+                return this["ShowMsg"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Open a specially prepared page...
+        /// </summary>
+        [ResourceEntry("OpenPage",
+            Value = "Open a specially prepared page...",
+            Description = "phrase : Open a specially prepared page...",
+            LastModified = "2015/02/27")]
+        public string OpenPage
+        {
+            get
+            {
+                return this["OpenPage"];
+            }
+        }
     }
 }
