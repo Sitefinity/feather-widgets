@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -7,14 +8,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// </summary>
     public class ResetPasswordViewModel
     {
-        /// <summary>
-        /// Gets or sets a value indicating whether the password is changed.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if the password is changed; otherwise, <c>false</c>.
-        /// </value>
-        public bool PasswordChanged { get; set; }
-
         /// <summary>
         /// Gets or sets the new password.
         /// </summary>
@@ -40,5 +33,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The css class.
         /// </value>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the reset is complete.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the reset is complete; otherwise, <c>false</c>.
+        /// </value>
+        public bool ResetComplete { get; set; }
+
+        /// <summary>
+        /// Gets or sets the error.
+        /// </summary>
+        /// <value>
+        /// The error.
+        /// </value>
+        public string Error { get; set; }
     }
 }

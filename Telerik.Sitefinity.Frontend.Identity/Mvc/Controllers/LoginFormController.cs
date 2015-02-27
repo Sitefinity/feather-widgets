@@ -120,12 +120,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.RedirectToAction("ForgotPassword", new { model = model });
         }
 
-        public ActionResult ResetPassword(ResetPasswordViewModel model = null)
+        public ActionResult ResetPassword(bool resetComplete = false, string error = null)
         {
-            if (model == null)
-            {
-                model = this.Model.GetResetPasswordViewModel();
-            }
+            var model = this.Model.GetResetPasswordViewModel();
+
+            model.Error = error;
+            model.ResetComplete = resetComplete && string.IsNullOrEmpty(error);
 
             var fullTemplateName = this.resetPasswordFormTemplatePrefix + this.GetViewName(this.ResetPasswordTemplate);
 
@@ -134,26 +134,43 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult SetResetPassword(ResetPasswordViewModel model)
         {
-            if (model.NewPassword != model.RepeatNewPassword)
-            {
-                ModelState.AddModelError(string.Empty, "Both passwords must match.");
-            }
-
             if (ModelState.IsValid)
             {
-                try
+                if (model.NewPassword != model.RepeatNewPassword)
                 {
-                    this.Model.ResetUserPassword(model.NewPassword);
-                    model.PasswordChanged = true;
+                    model.Error = "Both passwords must match.";
                 }
-                catch (ArgumentException ex)
+                else 
                 {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                    model.PasswordChanged = false;
+                    try
+                    {
+                        this.Model.ResetUserPassword(model.NewPassword);
+                        model.ResetComplete = true;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        model.Error = ex.Message;
+                    }
                 }
             }
+            else 
+            {
+                var firstErrors = ViewData.ModelState.Values.FirstOrDefault();
+                if (firstErrors != null)
+	            {
+                    var error = firstErrors.Errors.FirstOrDefault();
+                    if (error != null)
+                    {
+                        model.Error = error.ErrorMessage;
+                    }
+                    else
+                    {
+                        model.Error = "Invalid data";
+                    }
+	            }
+            }
 
-            return this.RedirectToAction("ResetPassword", new { model = model });
+            return this.RedirectToAction("ResetPassword", new { resetComplete = model.ResetComplete, error = model.Error });
         }
 
         #endregion
