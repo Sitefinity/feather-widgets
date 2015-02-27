@@ -44,7 +44,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             {
                 LoginPageUrl = this.GetLoginPageUrl(),
                 MembershipProviderName = this.MembershipProviderName,
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
                 SuccessfulRegistrationMsg = this.SuccessfulRegistrationMsg,
                 SuccessfulRegistrationPageUrl = this.GetSuccessfulRegistrationPageUrl()
             };
