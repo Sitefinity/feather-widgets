@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -80,5 +82,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// A instance of <see cref="RegistrationViewModel"/> as view model
         /// </returns>
         RegistrationViewModel GetViewModel();
+
+        void RegisterUser(RegistrationViewModel model);
     }
 }

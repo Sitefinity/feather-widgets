@@ -69,6 +69,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
+        /// <summary>
+        /// Posts the registration form.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        public ActionResult PostRegistration(RegistrationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                this.Model.RegisterUser(model);
+            }
+
+            return this.RedirectToAction("Index");
+        }
+
         #endregion
 
         #region Private methods

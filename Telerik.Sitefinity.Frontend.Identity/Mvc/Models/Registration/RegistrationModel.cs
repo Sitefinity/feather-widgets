@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
@@ -116,9 +117,83 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return null;
         }
 
+        /// <summary>
+        /// Registers the user.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        public virtual void RegisterUser(RegistrationViewModel viewModel)
+        {
+            var userManager = UserManager.GetManager(this.MembershipProviderName);
+            User user;
+            MembershipCreateStatus status;
+            var userProviderSuppressSecurityChecks = userManager.Provider.SuppressSecurityChecks;
+            try
+            {
+                //LoginCancelEventArgs creatingUserArgs = this.OnCreatingUser();
+                //if (!creatingUserArgs.Cancel)
+                //{
+                userManager.Provider.SuppressSecurityChecks = true;
+                if (this.TryCreateUser(userManager, viewModel, out user, out status))
+                {
+                    userManager.SaveChanges();
+                    //this.OnUserCreated();
+
+                    //this.CreateUserProfiles(user);
+
+                    //this.AssignRolesToUser(user);
+
+                    this.ConfirmRegistration(userManager, user);
+                    //this.ExecuteUserProfileSuccessfullUpdateActions();
+                }
+                else
+                {
+                    //this.OnUserCreationError(status);
+                    //this.ShowErrorMessage(status, userManager);
+                }
+                // }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                userManager.Provider.SuppressSecurityChecks = userProviderSuppressSecurityChecks;
+            }
+        }
+
         #endregion
 
         #region Private members
+
+        /// <summary>
+        /// Attempt to create user. Returns true if the creation was successful, otherwise false.
+        /// </summary>
+        /// <param name="manager">The manager.</param>
+        /// <param name="user">The user.</param>
+        /// <param name="status">The status that will be set depending on the creation outcome.</param>
+        protected virtual bool TryCreateUser(UserManager manager, RegistrationViewModel userData, out User user, out MembershipCreateStatus status)
+        {
+            user = manager.CreateUser(userData.UserName, (string)userData.Password, (string)userData.Email, null, null, false, null, out status);
+            return status == MembershipCreateStatus.Success;
+        }
+
+        /// <summary>
+        /// Executes any user confirmations steps.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        protected virtual void ConfirmRegistration(UserManager userManager, User user)
+        {
+            if (this.ActivationMethod == Registration.ActivationMethod.AfterConfirmation)
+            {
+            }
+            else if (this.ActivationMethod == Registration.ActivationMethod.Immediately && this.SendEmailOnSuccess)
+            {
+                this.SendSuccessfulRegistrationEmail(userManager, user);
+            }
+
+            //this.RaiseRegistrationEvent(user);
+        }
 
         /// <summary>
         /// Sends the successful registration email.
