@@ -35,12 +35,28 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         string MembershipProvider { get; set; }
 
         /// <summary>
+        /// Gets or sets the css class.
+        /// </summary>
+        /// <value>
+        /// The css class.
+        /// </value>
+        string CssClass { get; set; }
+
+        /// <summary>
         /// Gets or sets the login redirect page identifier.
         /// </summary>
         /// <value>
         /// The login redirect page identifier.
         /// </value>
         Guid? LoginRedirectPageId { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the register redirect page identifier.
+        /// </summary>
+        /// <value>
+        /// The register redirect page identifier.
+        /// </value>
+        Guid? RegisterRedirectPageId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether password retrieval is enabled.
@@ -85,17 +101,32 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <summary>
         /// Tries the reset user password.
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="newPassword">The new password.</param>
+        /// <param name="answer">The answer.</param>
         /// <returns>
         /// <c>true</c> if the password reset succeeds; otherwise, <c>false</c>.
         /// </returns>
-        void ResetUserPassword(string newPassword);
+        void ResetUserPassword(string newPassword, string answer);
         
         /// <summary>
         /// Sends reset password email.
         /// </summary>
         /// <param name="userIdentifier"></param>
         void SendResetPasswordEmail(string userIdentifier);
+
+        /// <param name="userEmail">The user email.</param>
+        /// <returns>
+        /// <c>true</c> if the email sending succeeds; otherwise, <c>false</c>.
+        /// </returns>
+        bool TrySendResetPasswordEmail(string userEmail);
+
+        /// <summary>
+        /// Gets the page URL.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <returns>
+        /// The page url as string.
+        /// </returns>
+        string GetPageUrl(Guid? pageId);
     }
 }

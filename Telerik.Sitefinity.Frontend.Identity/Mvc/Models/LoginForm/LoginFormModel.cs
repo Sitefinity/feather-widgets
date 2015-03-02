@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.Security;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
@@ -14,6 +18,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// </summary>
     public class LoginFormModel : ILoginFormModel
     {
+        #region Constructors
+
+        public LoginFormModel()
+        {
+            this.userManager = UserManager.GetManager(this.MembershipProvider);
+        }
+
+        #endregion
+
+
         #region Properties
 
         /// <inheritDoc/>
@@ -47,15 +61,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
         }
 
+        /// <inheritdoc />
+        public string CssClass { get; set; }
+
         /// <inheritDoc/>
         public Guid? LoginRedirectPageId { get; set; }
+
+        /// <inheritDoc/>
+        public Guid? RegisterRedirectPageId { get; set; }
 
         /// <inheritDoc/>
         public bool EnablePasswordRetrieval 
         {
             get
             {
-                return UserManager.GetManager(this.MembershipProvider).EnablePasswordRetrieval;
+                return this.userManager.EnablePasswordRetrieval;
             }
 
             set
@@ -68,7 +88,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         {
             get
             {
-                return UserManager.GetManager(this.MembershipProvider).EnablePasswordReset;
+                return this.userManager.EnablePasswordReset;
             }
 
             set
@@ -87,42 +107,66 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 ServiceUrl = this.ServiceUrl,
                 MembershipProvider = this.MembershipProvider,
-                LoginRedirectUrl = this.GetPageUrl(this.LoginRedirectPageId),
-                Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm()
+                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
+                RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId),
+                Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
+                CssClass = this.CssClass
             };
         }
 
         /// <inheritDoc/>
         public ResetPasswordViewModel GetResetPasswordViewModel()
         {
-            return new ResetPasswordViewModel();
+            return new ResetPasswordViewModel()
+            {
+                CssClass = this.CssClass,
+                LoginPageUrl = this.GetPageUrl(null),
+                RequiresQuestionAndAnswer = this.userManager.RequiresQuestionAndAnswer
+            };
         }
 
         /// <inheritDoc/>
         public ForgotPasswordViewModel GetForgotPasswordViewModel()
         {
-            return new ForgotPasswordViewModel();
+            return new ForgotPasswordViewModel()
+            {
+                CssClass = this.CssClass,
+                LoginPageUrl = this.GetPageUrl(null)
+            };
         }
 
         /// <inheritDoc/>
-        public void ResetUserPassword(string newPassword)
+        public void ResetUserPassword(string newPassword, string answer)
         {
-            var userId = this.InnerGetUserId();
+            var userId = this.GetUserId();
 
-            if (userId.HasValue)
+            if (userId == Guid.Empty)
             {
-                var userManager = UserManager.GetManager(this.MembershipProvider);
-
-                var resetPassword = userManager.ResetPassword(userId.Value, null);
-                userManager.ChangePassword(userId.Value, resetPassword, newPassword);
-                userManager.SaveChanges();
+                throw new ArgumentNullException("User could not be retrieved.");
             }
+
+            var resetPassword = this.userManager.ResetPassword(userId, answer);
+            this.userManager.ChangePassword(userId, resetPassword, newPassword);
+            this.userManager.SaveChanges();
         }
 
         /// <inheritDoc/>
         public void SendResetPasswordEmail(MembershipUser user)
         {
 
+        }
+
+        /// <inheritDoc/>
+        public string GetPageUrl(Guid? pageId)
+        {
+            if (pageId.HasValue)
+            {
+                return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+            }
+            else
+            {
+                return HyperLinkHelpers.GetFullPageUrl(SiteMapBase.GetActualCurrentNode().Id);
+            }
         }
 
         #endregion
@@ -146,34 +190,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 return LoginFormModel.DefaultRealmConfig;
             }
         }
-
-        /// <summary>
-        /// Gets the page URL by id.
-        /// </summary>
-        /// <returns></returns>
-        private string GetPageUrl(Guid? pageId)
-        {
-            if (pageId.HasValue)
-            {
-                var pageManager = PageManager.GetManager();
-                var node = pageManager.GetPageNode(pageId.Value);
-                if (node != null)
-                {
-                    var relativeUrl = node.GetFullUrl();
-                    return UrlPath.ResolveUrl(relativeUrl, true);
-                }
-            }
-
-            return null;
-        }
-
+        
         /// <summary>
         /// Inners the get user identifier.
         /// </summary>
         /// <returns>
         /// The user id or null.
         /// </returns>
-        private Guid? InnerGetUserId()
+        private Guid GetUserId()
         {
             Type type = Type.GetType("Telerik.Sitefinity.Security.Web.UI.UserChangePasswordWidget, Telerik.Sitefinity");
             object instance = type.GetConstructor(Type.EmptyTypes).Invoke(new object[] { });
@@ -185,12 +209,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 return claimsIdentityProxy.UserId;
             }
 
-            return null;
+            return Guid.Empty;
         }
 
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
+        private readonly UserManager userManager;
 
         #endregion
     }

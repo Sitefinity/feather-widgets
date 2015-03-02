@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// The name of the user.
         /// </value>
-        [Required(ErrorMessage = "User name is required")]
+        [Required(ErrorMessage = "User name is required!")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
@@ -27,7 +27,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// The password.
         /// </value>
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = "Password is required!")]
         public string Password { get; set; }
 
         /// <summary>
@@ -56,13 +56,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public string MembershipProvider { get; set; }
 
         /// <summary>
-        /// Gets or sets the login redirect URL.
+        /// Gets or sets the redirect URL after login.
         /// </summary>
         /// <value>
         /// The login redirect URL.
         /// </value>
-        public string LoginRedirectUrl { get; set; }
+        public string RedirectUrlAfterLogin { get; set; }
 
+        /// <summary>
+        /// Gets or sets the register page URL.
+        /// </summary>
+        /// <value>
+        /// The register page URL.
+        /// </value>
+        public string RegisterPageUrl { get; set; }
+        
         /// <summary>
         /// Gets or sets the realm.
         /// </summary>
@@ -70,5 +78,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The realm.
         /// </value>
         public string Realm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the css class.
+        /// </summary>
+        /// <value>
+        /// The css class.
+        /// </value>
+        public string CssClass { get; set; }
     }
 }

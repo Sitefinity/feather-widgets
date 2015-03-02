@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
-using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -71,18 +71,25 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
-            var viewModel = this.Model.GetLoginFormViewModel();
-            var fullTemplateName = this.loginFormTemplatePrefix + this.GetViewName(this.LoginFormTemplate);
+            if (SecurityManager.GetCurrentUserId() == Guid.Empty)
+            {
+                var viewModel = this.Model.GetLoginFormViewModel();
+                var fullTemplateName = this.loginFormTemplatePrefix + this.GetViewName(this.LoginFormTemplate);
 
-            return this.View(fullTemplateName, viewModel);
+                return this.View(fullTemplateName, viewModel);
+            }
+            else
+            {
+                return this.Content(Res.Get<LoginFormResources>().AlreadyLogedIn);
+            }
         }
 
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model = null)
+        public ActionResult ForgotPassword(bool emailSent = false, string error = null)
         {
-            if (model == null)
-            {
-                model = this.Model.GetForgotPasswordViewModel();
-            }
+            var model = this.Model.GetForgotPasswordViewModel();
+
+            model.Error = error;
+            model.EmailSent = emailSent;
 
             var fullTemplateName = this.forgotPasswordFormTemplatePrefix + this.GetViewName(this.ForgotPasswordTemplate);
 
@@ -97,59 +104,69 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "User with such email does not exist.");
+                    model.Error = "User with such email does not exist.";
                 }
                 else
                 {
                     try
                     {
                         this.Model.SendResetPasswordEmail(model.Email);
+                        model.EmailSent = true;
                     }
-                    catch (ArgumentException ex)
+                    catch (Exception ex)
                     {
-                        ModelState.AddModelError(string.Empty, ex.Message);
-                        model.EmailSent = false;
+                        model.Error = "Invalid data";
                     }
                 }
             }
 
-            return this.RedirectToAction("ForgotPassword", new { model = model });
+            var pageUrl = this.Model.GetPageUrl(null);
+            var queryString = string.Format("emailSent={0}&error={1}", model.EmailSent, model.Error);
+            return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
-        public ActionResult ResetPassword(ResetPasswordViewModel model = null)
+        public ActionResult ResetPassword(bool resetComplete = false, string error = null)
         {
-            if (model == null)
-            {
-                model = this.Model.GetResetPasswordViewModel();
-            }
+            var model = this.Model.GetResetPasswordViewModel();
+            
+            model.Error = error;
+            model.ResetComplete = resetComplete;
+            model.SecurityToken = this.HttpContext.Request.QueryString.ToQueryString();
 
             var fullTemplateName = this.resetPasswordFormTemplatePrefix + this.GetViewName(this.ResetPasswordTemplate);
 
             return this.View(fullTemplateName, model);
         }
 
-        public ActionResult SetResetPassword(ResetPasswordViewModel model)
+        public ActionResult SetResetPassword(ResetPasswordInputModel model)
         {
+            bool resetComplete = false;
+            string error = null;
+
             if (model.NewPassword != model.RepeatNewPassword)
             {
-                ModelState.AddModelError(string.Empty, "Both passwords must match.");
+                error = Res.Get<LoginFormResources>().ResetPasswordNonMatchingPasswordsMessage;
             }
-
-            if (ModelState.IsValid)
+            else if (ModelState.IsValid)
             {
                 try
                 {
-                    this.Model.ResetUserPassword(model.NewPassword);
-                    model.PasswordChanged = true;
+                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
+                    resetComplete = true;
                 }
-                catch (ArgumentException ex)
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                    model.PasswordChanged = false;
+                    error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
                 }
             }
+            else
+            {
+                error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+            }
 
-            return this.RedirectToAction("ResetPassword", new { model = model });
+            var pageUrl = this.Model.GetPageUrl(null);
+            var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, error);
+            return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
 
         #endregion

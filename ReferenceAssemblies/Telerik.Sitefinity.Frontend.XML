@@ -2634,6 +2634,14 @@
             <param name="query">The query.</param>
             <param name="viewModel">The view model.</param>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.SetViewModelProperties(Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Sets the view model properties.
+            </summary>
+            <param name="viewModel">The view model.</param>
+            <param name="page">The page.</param>
+            <param name="totalPages">The total pages.</param>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.GetManager">
             <summary>
             Gets a manager instance for the model.

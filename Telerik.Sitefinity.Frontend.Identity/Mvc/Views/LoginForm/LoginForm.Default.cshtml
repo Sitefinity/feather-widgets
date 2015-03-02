@@ -2,13 +2,14 @@
 
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 @using Telerik.Sitefinity.Modules.Pages;
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="@Model.CssClass">
 <form id="loginForm" action="@Model.ServiceUrl" method="post">
     <div>
         <fieldset>
@@ -19,14 +20,14 @@
             </div>
             <div class="editor-field">
                 @Html.TextBoxFor(u => u.UserName, new { Name = "wrap_name" })
-                @Html.ValidationMessageFor(model => model.UserName)
+                @Html.ValidationMessage("wrap_name")
             </div>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Password)
             </div>
             <div class="editor-field">
                 @Html.PasswordFor(u => u.Password, new { Name = "wrap_password" })
-                 @Html.ValidationMessageFor(model => model.Password)
+                @Html.ValidationMessage("wrap_password")
             </div>
             <div class="editor-label">
                 @Html.CheckBoxFor(u => u.RememberMe)
@@ -35,7 +36,7 @@
             </div>
             <div class="editor-label">
                 @Html.HiddenFor(u => u.MembershipProvider, new { Name = "sf_domain" })
-                @Html.HiddenFor(u => u.LoginRedirectUrl, new { Name = "redirect_uri" })
+                @Html.HiddenFor(u => u.RedirectUrlAfterLogin, new { Name = "redirect_uri" })
                 @Html.HiddenFor(u => u.Realm, new { Name = "realm" })
                 <input type="hidden" name="deflate" value="true" />
             </div>
@@ -44,11 +45,9 @@
             
             @Html.ActionLink("Forgotten Password", "ForgotPassword")
         </fieldset>
+        <a href="@Model.RegisterPageUrl">Register now</a>
     </div>
 </form>
+</div>
 
-<script>
-    $("#RememberMe").bind("click", function () {
-        $("#sf_persistent").val($(this).val());
-    })
-</script>
+@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginForm/login-form.js"))
