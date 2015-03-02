@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -112,15 +113,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                         this.Model.TrySendResetPasswordEmail(model.Email);
                         model.EmailSent = true;
                     }
-                    catch (ArgumentException ex)
+                    catch (Exception ex)
                     {
-                        model.Error = ex.Message;
+                        model.Error = "Invalid data";
                     }
                 }
-            }
-            else
-            {
-                model.Error = this.Model.GetErrorFromViewModel(ModelState);
             }
 
             var pageUrl = this.Model.GetPageUrl(null);
@@ -131,36 +128,44 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult ResetPassword(bool resetComplete = false, string error = null)
         {
             var model = this.Model.GetResetPasswordViewModel();
-
+            
             model.Error = error;
             model.ResetComplete = resetComplete;
+            model.SecurityToken = this.HttpContext.Request.QueryString.ToQueryString();
 
             var fullTemplateName = this.resetPasswordFormTemplatePrefix + this.GetViewName(this.ResetPasswordTemplate);
 
             return this.View(fullTemplateName, model);
         }
 
-        public ActionResult SetResetPassword(ResetPasswordViewModel model)
+        public ActionResult SetResetPassword(ResetPasswordInputModel model)
         {
-            if (ModelState.IsValid)
+            bool resetComplete = false;
+            string error = null;
+
+            if (model.NewPassword != model.RepeatNewPassword)
+            {
+                error = Res.Get<LoginFormResources>().ResetPasswordNonMatchingPasswordsMessage;
+            }
+            else if (ModelState.IsValid)
             {
                 try
                 {
-                    this.Model.ResetUserPassword(model.NewPassword);
-                    model.ResetComplete = true;
+                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
+                    resetComplete = true;
                 }
-                catch (ArgumentException ex)
+                catch (Exception ex)
                 {
-                    model.Error = ex.Message;
+                    error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
                 }
             }
-            else 
+            else
             {
-                model.Error = this.Model.GetErrorFromViewModel(ModelState);
+                error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
             }
 
-            var pageUrl = this.Model.GetPageUrl(null); 
-            var queryString = string.Format("resetComplete={0}&error={1}", model.ResetComplete, model.Error);
+            var pageUrl = this.Model.GetPageUrl(null);
+            var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, error);
             return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
 

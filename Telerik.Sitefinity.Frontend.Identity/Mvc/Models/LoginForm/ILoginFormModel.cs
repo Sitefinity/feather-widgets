@@ -101,12 +101,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <summary>
         /// Tries the reset user password.
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="newPassword">The new password.</param>
+        /// <param name="answer">The answer.</param>
         /// <returns>
         /// <c>true</c> if the password reset succeeds; otherwise, <c>false</c>.
         /// </returns>
-        void ResetUserPassword(string newPassword);
+        void ResetUserPassword(string newPassword, string answer);
         
         /// <summary>
         /// Tries the send reset password email.
@@ -116,15 +116,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <c>true</c> if the email sending succeeds; otherwise, <c>false</c>.
         /// </returns>
         bool TrySendResetPasswordEmail(string userEmail);
-
-        /// <summary>
-        /// Gets the error from view model.
-        /// </summary>
-        /// <param name="modelStateDict">The model state dictionary.</param>
-        /// <returns>
-        /// The first error from the view state.
-        /// </returns>
-        string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict);
 
         /// <summary>
         /// Gets the page URL.

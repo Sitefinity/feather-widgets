@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-
-namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
+﻿namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
     /// <summary>
     /// This class represents reset password view model for the <see cref="LoginFormController"/>.
@@ -15,7 +11,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// The new password.
         /// </value>
-        [Required]
         public string NewPassword { get; set; }
 
         /// <summary>
@@ -24,8 +19,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// The repeat new password.
         /// </value>
-        [Required]
-        [Compare("NewPassword")]
         public string RepeatNewPassword { get; set; }
 
         /// <summary>
@@ -59,5 +52,29 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The login page URL.
         /// </value>
         public string LoginPageUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the membership provider settings require question and answer for reset/retrieval password functionality.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the membership provider requires question and answer; otherwise, <c>false</c>.
+        /// </value>
+        public bool RequiresQuestionAndAnswer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reset password answer.
+        /// </summary>
+        /// <value>
+        /// The reset password answer.
+        /// </value>
+        public string ResetPasswordAnswer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the security token.
+        /// </summary>
+        /// <value>
+        /// The security token.
+        /// </value>
+        public string SecurityToken { get; set; }
     }
 }

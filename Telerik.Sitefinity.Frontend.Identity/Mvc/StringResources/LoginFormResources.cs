@@ -288,5 +288,50 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ForgotPasswordEmail"];
             }
         }
+
+        /// </summary>
+        /// Gets phrase : Answer
+        /// </summary>
+        [ResourceEntry("ResetPasswordAnswer",
+            Value = "Answer",
+            Description = "phrase : Answer",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordAnswer
+        {
+            get
+            {
+                return this["ResetPasswordAnswer"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Both passwords must match.
+        /// </summary>
+        [ResourceEntry("ResetPasswordNonMatchingPasswordsMessage",
+            Value = "Both passwords must match.",
+            Description = "phrase : Both passwords must match.",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordNonMatchingPasswordsMessage
+        {
+            get
+            {
+                return this["ResetPasswordNonMatchingPasswordsMessage"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Both passwords must match.
+        /// </summary>
+        [ResourceEntry("ResetPasswordGeneralErrorMessage",
+            Value = "Invalid data.",
+            Description = "phrase : Invalid data.",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordGeneralErrorMessage
+        {
+            get
+            {
+                return this["ResetPasswordGeneralErrorMessage"];
+            }
+        }
     }
 }
