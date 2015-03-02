@@ -40,7 +40,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// <value>
         /// The repeat new password.
         /// </value>
-        public string RepeatNewPassword { get; set; }
+        public string RepeatPassword { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the password change was complete.
@@ -48,6 +48,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// <value>
         /// <c>true</c> if the password change was complete; otherwise, <c>false</c>.
         /// </value>
-        public bool ChangeComplete { get; set; }
+        public bool PasswordChanged { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the error.
+        /// </summary>
+        /// <value>
+        /// The error.
+        /// </value>
+        public string Error { get; set; }
     }
 }

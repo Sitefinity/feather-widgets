@@ -133,8 +133,14 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\ChangePasswordController.cs" />
     <Compile Include="Mvc\Controllers\LoginFormController.cs" />
     <Compile Include="Mvc\Controllers\LoginStatusController.cs" />
+    <Compile Include="Mvc\Models\ChangePassword\ChangePasswordCompleteAction.cs" />
+    <Compile Include="Mvc\Models\ChangePassword\ChangePasswordInputModel.cs" />
+    <Compile Include="Mvc\Models\ChangePassword\ChangePasswordModel.cs" />
+    <Compile Include="Mvc\Models\ChangePassword\ChangePasswordViewModel.cs" />
+    <Compile Include="Mvc\Models\ChangePassword\IChangePasswordModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\ForgotPasswordViewModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\ILoginFormModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\LoginFormModel.cs" />
@@ -145,6 +151,7 @@
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusViewModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\StatusViewModel.cs" />
+    <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
     <Compile Include="Mvc\StringResources\LoginFormResources.cs" />
     <Compile Include="Mvc\StringResources\LoginStatusResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -159,6 +166,9 @@
     <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

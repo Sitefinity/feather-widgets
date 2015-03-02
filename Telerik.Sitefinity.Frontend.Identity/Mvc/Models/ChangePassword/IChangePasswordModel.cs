@@ -51,6 +51,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         ChangePasswordViewModel GetViewModel();
 
         /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="oldPassword">The old password.</param>
+        /// <param name="newPassword">The new password.</param>
+        void ChangePassword(Guid userId, string oldPassword, string newPassword);
+
+        /// <summary>
         /// Gets the page URL.
         /// </summary>
         /// <param name="pageId">The page identifier.</param>

@@ -30,12 +30,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         public string NewPassword { get; set; }
 
         /// <summary>
-        /// Gets or sets the repeat new password.
+        /// Gets or sets the repeat password.
         /// </summary>
         /// <value>
-        /// The repeat new password.
+        /// The repeat password.
         /// </value>
         [Required]
-        public string RepeatNewPassword { get; set; }
+        public string RepeatPassword { get; set; }
     }
 }
