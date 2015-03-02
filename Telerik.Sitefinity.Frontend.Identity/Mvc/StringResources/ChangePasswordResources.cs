@@ -130,15 +130,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// <summary>
         /// Gets phrase : Save
         /// </summary>
-        [ResourceEntry("ChangePasswordSave",
+        [ResourceEntry("ChangePasswordSaveButton",
             Value = "Save",
             Description = "phrase : Save",
             LastModified = "2015/03/02")]
-        public string ChangePasswordSave
+        public string ChangePasswordSaveButton
         {
             get
             {
-                return this["ChangePasswordSave"];
+                return this["ChangePasswordSaveButton"];
             }
         }
 
