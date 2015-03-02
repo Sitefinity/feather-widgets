@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
@@ -166,7 +167,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 var firstError = firstErrorValue.Errors.FirstOrDefault();
                 if (firstError != null)
                 {
-                    error = firstError.ErrorMessage;
+                    // Replaces all new lines (forbiden in url) with underscore.
+                    error = Regex.Replace(firstError.ErrorMessage, @"(?:\r\n|[\r\n])", "_");
                 }
             }
 
