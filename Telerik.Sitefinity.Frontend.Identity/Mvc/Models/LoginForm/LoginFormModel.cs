@@ -155,25 +155,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             // TODO: Implement
             return false;
         }
-        
-        /// <inheritDoc/>
-        public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
-        {
-            var error = "Invalid data";
-
-            var firstErrorValue = modelStateDict.Values.FirstOrDefault(v => v.Errors.Any());
-            if (firstErrorValue != null)
-            {
-                var firstError = firstErrorValue.Errors.FirstOrDefault();
-                if (firstError != null)
-                {
-                    // Replaces all new lines (forbiden in url) with underscore.
-                    error = Regex.Replace(firstError.ErrorMessage, @"(?:\r\n|[\r\n])", "_");
-                }
-            }
-
-            return error;
-        }
 
         /// <inheritDoc/>
         public string GetPageUrl(Guid? pageId)

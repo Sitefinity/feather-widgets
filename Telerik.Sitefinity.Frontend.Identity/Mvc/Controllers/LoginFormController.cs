@@ -113,15 +113,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                         this.Model.TrySendResetPasswordEmail(model.Email);
                         model.EmailSent = true;
                     }
-                    catch (ArgumentException ex)
+                    catch (Exception ex)
                     {
-                        model.Error = ex.Message;
+                        model.Error = "Invalid data";
                     }
                 }
-            }
-            else
-            {
-                model.Error = this.Model.GetErrorFromViewModel(ModelState);
             }
 
             var pageUrl = this.Model.GetPageUrl(null);
@@ -147,21 +143,25 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             bool resetComplete = false;
             string error = null;
 
-            if (ModelState.IsValid)
+            if (model.NewPassword != model.RepeatNewPassword)
+            {
+                error = Res.Get<LoginFormResources>().ResetPasswordNonMatchingPasswordsMessage;
+            }
+            else if (ModelState.IsValid)
             {
                 try
                 {
                     this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
                     resetComplete = true;
                 }
-                catch (ArgumentException ex)
+                catch (Exception ex)
                 {
-                    error = ex.Message;
+                    error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
                 }
             }
-            else 
+            else
             {
-                error = this.Model.GetErrorFromViewModel(ModelState);
+                error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
             }
 
             var pageUrl = this.Model.GetPageUrl(null);
