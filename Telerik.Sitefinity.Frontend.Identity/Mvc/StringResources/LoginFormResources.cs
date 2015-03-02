@@ -288,5 +288,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ForgotPasswordEmail"];
             }
         }
+
+        /// </summary>
+        /// Gets phrase : Answer
+        /// </summary>
+        [ResourceEntry("ResetPasswordAnswer",
+            Value = "Answer",
+            Description = "phrase : Answer",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordAnswer
+        {
+            get
+            {
+                return this["ResetPasswordAnswer"];
+            }
+        }
     }
 }

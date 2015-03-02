@@ -139,6 +139,7 @@
     <Compile Include="Mvc\Models\LoginForm\ILoginFormModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\LoginFormModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\LoginFormViewModel.cs" />
+    <Compile Include="Mvc\Models\LoginForm\ResetPasswordInputModel.cs" />
     <Compile Include="Mvc\Models\LoginForm\ResetPasswordViewModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\ILoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />

@@ -101,12 +101,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <summary>
         /// Tries the reset user password.
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="newPassword">The new password.</param>
+        /// <param name="answer">The answer.</param>
         /// <returns>
         /// <c>true</c> if the password reset succeeds; otherwise, <c>false</c>.
         /// </returns>
-        void ResetUserPassword(string newPassword);
+        void ResetUserPassword(string newPassword, string answer);
         
         /// <summary>
         /// Tries the send reset password email.
