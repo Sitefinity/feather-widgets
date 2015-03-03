@@ -164,6 +164,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// </summary>
+        /// Gets phrase : This field is required.
+        /// </summary>
+        [ResourceEntry("ChangePasswordRequiredErrorMessage",
+            Value = "This field is required.",
+            Description = "phrase : This field is required.",
+            LastModified = "2015/03/03")]
+        public string ChangePasswordRequiredErrorMessage
+        {
+            get
+            {
+                return this["ChangePasswordRequiredErrorMessage"];
+            }
+        }
+
+        /// </summary>
         /// Gets phrase : Invalid data.
         /// </summary>
         [ResourceEntry("ChangePasswordGeneralErrorMessage",

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
@@ -143,25 +144,28 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             bool resetComplete = false;
             string error = null;
 
-            if (model.NewPassword != model.RepeatNewPassword)
-            {
-                error = Res.Get<LoginFormResources>().ResetPasswordNonMatchingPasswordsMessage;
-            }
-            else if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
                     this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
                     resetComplete = true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
                 }
             }
             else
             {
-                error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+                try
+                {
+                    error = Res.Get<LoginFormResources>().Get(this.Model.GetErrorFromViewModel(this.ModelState));
+                }
+                catch (KeyNotFoundException)
+                {
+                    error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+                }
             }
 
             var pageUrl = this.Model.GetPageUrl(null);

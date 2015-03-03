@@ -58,6 +58,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         }
 
         /// <inheritDoc/>
+        public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
+        {
+            var firstErrorValue = modelStateDict.Values.FirstOrDefault(v => v.Errors.Any());
+            if (firstErrorValue != null)
+            {
+                var firstError = firstErrorValue.Errors.FirstOrDefault();
+                if (firstError != null)
+                {
+                   return firstError.ErrorMessage;
+                }
+            }
+
+            return null;
+        }
+
+        /// <inheritDoc/>
         public string GetPageUrl(Guid? pageId)
         {
             if (!pageId.HasValue)

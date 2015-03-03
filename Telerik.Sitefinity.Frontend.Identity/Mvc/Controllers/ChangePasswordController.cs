@@ -104,11 +104,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             bool passwordChanged = false;
             string error = null;
 
-            if (model.NewPassword != model.OldPassword)
-            {
-                error = Res.Get<ChangePasswordResources>().ChangePasswordNonMatchingPasswordsMessage;
-            }
-            else if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -122,7 +118,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
             else
             {
-                error = Res.Get<ChangePasswordResources>().ChangePasswordGeneralErrorMessage;
+                try
+                {
+                    error = Res.Get<ChangePasswordResources>().Get(this.Model.GetErrorFromViewModel(this.ModelState));
+                }
+                catch (KeyNotFoundException)
+                {
+                    error = Res.Get<ChangePasswordResources>().ChangePasswordGeneralErrorMessage;
+                }
             }
 
             var pageUrl = this.Model.GetPageUrl(null);

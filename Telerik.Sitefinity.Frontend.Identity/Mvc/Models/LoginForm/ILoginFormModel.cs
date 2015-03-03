@@ -116,6 +116,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <c>true</c> if the email sending succeeds; otherwise, <c>false</c>.
         /// </returns>
         bool TrySendResetPasswordEmail(string userEmail);
+        
+        /// <summary>
+        /// Gets the error from view model.
+        /// </summary>
+        /// <param name="modelStateDict">The model state dictionary.</param>
+        /// <returns>
+        /// The first error from the view state.
+        /// </returns>
+        string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict);
 
         /// <summary>
         /// Gets the page URL.

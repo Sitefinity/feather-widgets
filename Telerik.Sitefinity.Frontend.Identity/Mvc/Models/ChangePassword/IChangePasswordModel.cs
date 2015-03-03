@@ -59,6 +59,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         void ChangePassword(Guid userId, string oldPassword, string newPassword);
 
         /// <summary>
+        /// Gets the error from view model.
+        /// </summary>
+        /// <param name="modelStateDict">The model state dictionary.</param>
+        /// <returns>
+        /// The first error from the view state.
+        /// </returns>
+        string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict);
+
+        /// <summary>
         /// Gets the page URL.
         /// </summary>
         /// <param name="pageId">The page identifier.</param>
