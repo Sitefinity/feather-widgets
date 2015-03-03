@@ -27,6 +27,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether an email should be send on password change.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if email should be send; otherwise, <c>false</c>.
+        /// </value>
+        bool SendEmailOnChangePassword { get; set; }
+
+        /// <summary>
         /// Gets or sets the change password page identifier.
         /// </summary>
         /// <value>

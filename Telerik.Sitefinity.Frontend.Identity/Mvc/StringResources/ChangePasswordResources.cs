@@ -35,8 +35,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
 
         #region Index
 
-        
-
         /// <summary>
         /// Gets phrase : You need to be logged in to change your password
         /// </summary>
@@ -209,6 +207,81 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["CssClasses"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : More options
+        /// </summary>
+        [ResourceEntry("MoreOptions",
+            Value = "More options",
+            Description = "phrase : More options",
+            LastModified = "2015/03/03")]
+        public string MoreOptions
+        {
+            get
+            {
+                return this["MoreOptions"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Template
+        /// </summary>
+        [ResourceEntry("Template",
+            Value = "Template",
+            Description = "phrase : Template",
+            LastModified = "2015/03/03")]
+        public string Template
+        {
+            get
+            {
+                return this["Template"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : After change users will be redirected to...
+        /// </summary>
+        [ResourceEntry("PasswordChangeCompleteAction",
+            Value = "After change users will be redirected to...",
+            Description = "phrase : After change users will be redirected to...",
+            LastModified = "2015/03/03")]
+        public string PasswordChangeCompleteAction
+        {
+            get
+            {
+                return this["PasswordChangeCompleteAction"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Show message
+        /// </summary>
+        [ResourceEntry("PasswordChangeShowMessage",
+            Value = "Show message",
+            Description = "phrase : Show message",
+            LastModified = "2015/03/03")]
+        public string PasswordChangeShowMessage
+        {
+            get
+            {
+                return this["PasswordChangeShowMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Open a specially prepared page...
+        /// </summary>
+        [ResourceEntry("PasswordChangeRedirectToPage",
+            Value = "Open a specially prepared page...",
+            Description = "phrase : Open a specially prepared page...",
+            LastModified = "2015/03/03")]
+        public string PasswordChangeRedirectToPage
+        {
+            get
+            {
+                return this["PasswordChangeRedirectToPage"];
             }
         }
 
