@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -39,6 +40,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             set
             {
                 this.membershipProviderName = value;
+            }
+        }
+
+        /// <inheritDoc/>
+        public string SerializedSelectedRolesIds { 
+            get
+            {
+                return this.serializedSelectedRolesIds;
+            }
+
+            set
+            {
+                if (this.serializedSelectedRolesIds != value)
+                {
+                    this.serializedSelectedRolesIds = value;
+                    if (!this.serializedSelectedRolesIds.IsNullOrEmpty())
+                    {
+                        this.selectedRolesIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedRolesIds);
+                    }
+                }
             }
         }
 
@@ -238,6 +259,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         private string membershipProviderName;
         private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
+
+        #endregion
+
+        private const string DefaultSortExpression = "PublicationDate DESC";
+
+        #region Private fields and constants
+
+        private string serializedSelectedRolesIds;
+        private IList<string> selectedRolesIds = new List<string>();
 
         #endregion
     }

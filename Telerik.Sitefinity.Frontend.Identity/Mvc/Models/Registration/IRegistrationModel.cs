@@ -32,6 +32,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string MembershipProviderName { get; set; }
 
         /// <summary>
+        /// Gets the list of roles that will be assigned to the user when registering.
+        /// </summary>
+        /// <value>
+        /// The selected roles items.
+        /// </value>
+        string SerializedSelectedRolesIds { get; set; }
+
+        /// <summary>
         /// Gets or sets the whether to send email message on successful registration confirmation.
         /// </summary>
         bool SendEmailOnSuccess { get; set; }
