@@ -169,7 +169,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
 
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, error);
+            var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, Url.Encode(error));
             return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
 
