@@ -142,7 +142,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult SetResetPassword(ResetPasswordInputModel model)
         {
             bool resetComplete = false;
-            string error = null;
+            string error = string.Empty;
 
             if (ModelState.IsValid)
             {
@@ -150,6 +150,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
                     resetComplete = true;
+                }
+                catch (NotSupportedException)
+                {
+                    error = Res.Get<LoginFormResources>().ResetPasswordNotEnabled;
                 }
                 catch (Exception)
                 {
@@ -168,8 +172,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
+            error = HttpUtility.UrlDecode(error);
+
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, Url.Encode(error));
+            var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, error);
             return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
 

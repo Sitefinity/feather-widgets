@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -128,8 +129,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
+            error = HttpUtility.UrlDecode(error);
+
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("?passwordChanged={0}&error={1}", passwordChanged, Url.Encode(error));
+            var queryString = string.Format("?passwordChanged={0}&error={1}", passwordChanged, error);
             return this.Redirect(pageUrl + queryString);
         }
 
