@@ -103,7 +103,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult SetChangePassword(ChangePasswordInputModel model)
         {
             bool passwordChanged = false;
-            string error = null;
+            string error = string.Empty;
 
             if (ModelState.IsValid)
             {
