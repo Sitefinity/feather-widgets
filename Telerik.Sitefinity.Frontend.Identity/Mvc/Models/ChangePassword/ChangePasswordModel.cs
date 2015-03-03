@@ -43,12 +43,34 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         #region Public Methods
 
         /// <inheritDoc/>
+        public void ChangePassword(Guid userId, string oldPassword, string newPassword)
+        {
+            UserManager.GetManager().ChangePassword(userId, oldPassword, newPassword);
+        }
+
+        /// <inheritDoc/>
         public virtual ChangePasswordViewModel GetViewModel()
         {
             return new ChangePasswordViewModel()
             {
                 CssClass = this.CssClass
             };
+        }
+
+        /// <inheritDoc/>
+        public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
+        {
+            var firstErrorValue = modelStateDict.Values.FirstOrDefault(v => v.Errors.Any());
+            if (firstErrorValue != null)
+            {
+                var firstError = firstErrorValue.Errors.FirstOrDefault();
+                if (firstError != null)
+                {
+                   return firstError.ErrorMessage;
+                }
+            }
+
+            return null;
         }
 
         /// <inheritDoc/>

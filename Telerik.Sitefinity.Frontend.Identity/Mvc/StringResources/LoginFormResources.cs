@@ -333,5 +333,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ResetPasswordGeneralErrorMessage"];
             }
         }
+
+        /// </summary>
+        /// Gets phrase : This field is required.
+        /// </summary>
+        [ResourceEntry("ResetPasswordRequiredErrorMessage",
+            Value = "This field is required.",
+            Description = "phrase : This field is required.",
+            LastModified = "2015/03/03")]
+        public string ResetPasswordRequiredErrorMessage
+        {
+            get
+            {
+                return this["ResetPasswordRequiredErrorMessage"];
+            }
+        }
     }
 }

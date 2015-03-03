@@ -8,7 +8,9 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -70,10 +72,24 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index(bool passwordChanged = false, string error = null)
         {
-            var viewModel = this.Model.GetViewModel();
-            var fullTemplateName = this.templateNamePrefix + this.TemplateName; 
+            if (passwordChanged && this.Model.ChangePasswordCompleteAction == ChangePasswordCompleteAction.RedirectToPage)
+            {
+                return this.Redirect(this.Model.GetPageUrl(this.Model.ChangePasswordRedirectPageId));
+            }
 
-            return this.View(fullTemplateName, viewModel);
+            if (SecurityManager.GetCurrentUserId() == Guid.Empty)
+            {
+                return this.Content(Res.Get<ChangePasswordResources>().LogInFirst);
+            }
+
+            var model = this.Model.GetViewModel();
+
+            model.Error = error;
+            model.PasswordChanged = passwordChanged;
+
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
+            return this.View(fullTemplateName, model);
         }
 
         /// <summary>
@@ -88,10 +104,32 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             bool passwordChanged = false;
             string error = null;
 
-            // Logic
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    this.Model.ChangePassword(SecurityManager.GetCurrentUserId(), model.OldPassword, model.NewPassword);
+                    passwordChanged = true;
+                }
+                catch (Exception)
+                {
+                    error = Res.Get<ChangePasswordResources>().ChangePasswordGeneralErrorMessage;
+                }
+            }
+            else
+            {
+                try
+                {
+                    error = Res.Get<ChangePasswordResources>().Get(this.Model.GetErrorFromViewModel(this.ModelState));
+                }
+                catch (KeyNotFoundException)
+                {
+                    error = Res.Get<ChangePasswordResources>().ChangePasswordGeneralErrorMessage;
+                }
+            }
 
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("?passwordChanged={0}&error={1}", passwordChanged, error);
+            var queryString = string.Format("?passwordChanged={0}&error={1}", passwordChanged, Url.Encode(error));
             return this.Redirect(pageUrl + queryString);
         }
 
