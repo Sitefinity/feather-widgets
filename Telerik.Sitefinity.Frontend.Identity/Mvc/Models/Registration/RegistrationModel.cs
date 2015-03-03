@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Security.Web.UI;
 using Telerik.Sitefinity.Web.Mail;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
@@ -44,22 +45,38 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         }
 
         /// <inheritDoc/>
-        public string SerializedSelectedRolesIds { 
+        public string SerializedSelectedRoles { 
             get
             {
-                return this.serializedSelectedRolesIds;
+                return this.serializedSelectedRoles;
             }
 
             set
             {
-                if (this.serializedSelectedRolesIds != value)
+                if (this.serializedSelectedRoles != value)
                 {
-                    this.serializedSelectedRolesIds = value;
-                    if (!this.serializedSelectedRolesIds.IsNullOrEmpty())
+                    this.serializedSelectedRoles = value;
+                    if (!this.serializedSelectedRoles.IsNullOrEmpty())
                     {
-                        this.selectedRolesIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedRolesIds);
+                        this.selectedRoles = JsonSerializer.DeserializeFromString<IList<Role>>(this.serializedSelectedRoles);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets the role managers to submit.
+        /// </summary>
+        /// <value>The role managers to submit.</value>
+        protected virtual Dictionary<string, RoleManager> RoleManagersToSubmit
+        {
+            get
+            {
+                if (this.roleManagersToSubmit == null)
+                {
+                    roleManagersToSubmit = new Dictionary<string, RoleManager>();
+                }
+                return this.roleManagersToSubmit;
             }
         }
 
@@ -119,6 +136,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             };
         }
 
+        /// <summary>
+        /// Occurs when assigning roles to a user.
+        /// </summary>
+        public event UserOperationInvokingEventHandler AssigningRolesToUser;
+
+        /// <summary>
+        /// Occurs when roles were assigned to a user.
+        /// </summary>
+        public event UserOperationInvokedEventHandler RolesAssignedToUser;
+
         #endregion
 
         #region Public methods
@@ -164,7 +191,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
                     //this.CreateUserProfiles(user);
 
-                    //this.AssignRolesToUser(user);
+                    this.AssignRolesToUser(user);
 
                     this.ConfirmRegistration(userManager, user);
                     //this.ExecuteUserProfileSuccessfullUpdateActions();
@@ -183,6 +210,85 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             finally
             {
                 userManager.Provider.SuppressSecurityChecks = userProviderSuppressSecurityChecks;
+            }
+        }
+
+        #endregion
+
+        #region Event Delegates
+
+        /// <summary>
+        /// Represents a method that operates on a <see cref="User"/> instance.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">An argument passed to event handlers operating on a user instance that contains a flag specifying whether the operation should be canceled or not.</param>
+        public delegate void UserOperationInvokingEventHandler(object sender, UserOperationInvokingEventArgs e);
+
+        /// <summary>
+        /// Represents a method that operates on a <see cref="User"/> instance.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">An argument passed to event handlers operating on a user instance.</param>
+        public delegate void UserOperationInvokedEventHandler(object sender, UserOperationInvokedEventArgs e);
+
+        #endregion
+
+        #region Protected methods
+
+        /// <summary>
+        /// Assigns the specified roles to the newly created user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        protected virtual void AssignRolesToUser(User user)
+        {
+            if (!this.OnAssigningUserRoles(user).Cancel && this.selectedRoles != null)
+            {
+                foreach (var roleInfo in this.selectedRoles)
+                {
+                    var roleManager = this.GetRoleManager(roleInfo.ProviderName);
+                    var roleToAssign = roleManager.GetRole(roleInfo.Id);
+                    if (!roleManager.Provider.Abilities.Keys.Contains("AssingUserToRole") || (roleManager.Provider.Abilities["AssingUserToRole"].Supported))
+                    {
+                        var suppressSecurityCheks = roleManager.Provider.SuppressSecurityChecks;
+                        try
+                        {
+                            roleManager.Provider.SuppressSecurityChecks = true;
+                            roleManager.AddUserToRole(user, roleToAssign);
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+                        finally
+                        {
+                            roleManager.Provider.SuppressSecurityChecks = suppressSecurityCheks;
+                        }
+                    }
+                }
+                foreach (var roleManagerPair in this.RoleManagersToSubmit)
+                {
+                    roleManagerPair.Value.SaveChanges();
+                }
+                this.OnUserRolesAssigned(user);
+            }
+        }
+
+        /// <summary>
+        /// Gets the manager.
+        /// </summary>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <returns></returns>
+        protected virtual RoleManager GetRoleManager(string providerName)
+        {
+            if (this.RoleManagersToSubmit.ContainsKey(providerName))
+            {
+                return this.RoleManagersToSubmit[providerName];
+            }
+            else
+            {
+                var manager = RoleManager.GetManager(providerName);
+                this.RoleManagersToSubmit.Add(providerName, manager);
+                return manager;
             }
         }
 
@@ -257,6 +363,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return mailMessageEventArgs;
         }
 
+        private UserOperationInvokingEventArgs OnAssigningUserRoles(User user)
+        {
+            UserOperationInvokingEventArgs assigningUserRolesArgs = new UserOperationInvokingEventArgs(user);
+            if (this.AssigningRolesToUser != null)
+            {
+                this.AssigningRolesToUser(this, assigningUserRolesArgs);
+            }
+            return assigningUserRolesArgs;
+        }
+
+        private UserOperationInvokedEventArgs OnUserRolesAssigned(User user)
+        {
+            UserOperationInvokedEventArgs userRolesAssigned = new UserOperationInvokedEventArgs(user);
+            if (this.RolesAssignedToUser != null)
+            {
+                this.RolesAssignedToUser(this, userRolesAssigned);
+            }
+            return userRolesAssigned;
+        }
+
         private string membershipProviderName;
         private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
 
@@ -266,9 +392,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         #region Private fields and constants
 
-        private string serializedSelectedRolesIds;
-        private IList<string> selectedRolesIds = new List<string>();
+        private string serializedSelectedRoles;
+        private IList<Role> selectedRoles = new List<Role>();
+        private Dictionary<string, RoleManager> roleManagersToSubmit = null;
 
         #endregion
+
+        private class Role
+        {
+            public Guid Id { get; set; }
+
+            public string Name { get; set; }
+
+            public string ProviderName { get; set; }
+        }
     }
 }

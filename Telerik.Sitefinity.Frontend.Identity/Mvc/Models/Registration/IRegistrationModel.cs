@@ -37,7 +37,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The selected roles items.
         /// </value>
-        string SerializedSelectedRolesIds { get; set; }
+        string SerializedSelectedRoles { get; set; }
 
         /// <summary>
         /// Gets or sets the whether to send email message on successful registration confirmation.

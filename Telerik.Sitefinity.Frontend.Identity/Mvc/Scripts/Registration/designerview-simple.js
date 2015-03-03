@@ -5,14 +5,14 @@
 
         $scope.feedback.showLoadingIndicator = true;
         $scope.showMessageOnSuccess = true;
-        $scope.rolesSelector = { selectedItemsIds: [] };
+        $scope.rolesSelector = { selectedItems: [] };
 
         $scope.$watch(
-            'rolesSelector.selectedItemsIds',
-            function (newSelectedItemsIds, oldSelectedItemsIds) {
-                if (newSelectedItemsIds !== oldSelectedItemsIds) {
-                    if (newSelectedItemsIds) {
-                        $scope.properties.SerializedSelectedRolesIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+            'rolesSelector.selectedItems',
+            function (newSelectedItems, oldSelectedItems) {
+                if (newSelectedItems !== oldSelectedItems) {
+                    if (newSelectedItems) {
+                        $scope.properties.SerializedSelectedRoles.PropertyValue = JSON.stringify(newSelectedItems);
                     }
                 }
             },
@@ -24,10 +24,10 @@
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    var selectedRolesIds = $.parseJSON($scope.properties.SerializedSelectedRolesIds.PropertyValue);
+                    var selectedRoles = $.parseJSON($scope.properties.SerializedSelectedRoles.PropertyValue);
 
-                    if (selectedRolesIds) {
-                        $scope.rolesSelector.selectedItemsIds = selectedRolesIds;
+                    if (selectedRoles) {
+                        $scope.rolesSelector.selectedItems = selectedRoles;
                     }
                 }
             },
