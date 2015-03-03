@@ -145,6 +145,7 @@
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusViewModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\StatusViewModel.cs" />
+    <Compile Include="Mvc\Models\Registration\ActivationMethod.cs" />
     <Compile Include="Mvc\Models\Registration\IRegistrationModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationModel.cs" />
@@ -163,9 +164,9 @@
     <EmbeddedResource Include="Mvc\Views\Registration\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Registration\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Registration\Registration.RegistrationForm.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

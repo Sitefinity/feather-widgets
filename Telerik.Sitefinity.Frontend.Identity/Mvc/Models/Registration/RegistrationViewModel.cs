@@ -40,16 +40,55 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </value>
         public string SuccessfulRegistrationPageUrl { get; set; }
 
-        // TODO: Document these.
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
+        /// <summary>
+        /// Gets or sets the name of the user.
+        /// </summary>
+        /// <value>
+        /// The name of the user.
+        /// </value>
         [Required]
-        public string Username { get; set; }
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
         [Required]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password confirmation value.
+        /// </summary>
+        /// <value>
+        /// The retyped password.
+        /// </value>
         [Compare("Password")]
         public string ReTypePassword { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the first name.
+        /// </summary>
+        /// <value>
+        /// The first name.
+        /// </value>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last name.
+        /// </summary>
+        /// <value>
+        /// The last name.
+        /// </value>
+        public string LastName { get; set; }
     }
 }

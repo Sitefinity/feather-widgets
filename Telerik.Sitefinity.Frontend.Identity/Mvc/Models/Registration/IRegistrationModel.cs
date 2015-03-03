@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -30,6 +32,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string MembershipProviderName { get; set; }
 
         /// <summary>
+        /// Gets or sets the whether to send email message on successful registration confirmation.
+        /// </summary>
+        bool SendEmailOnSuccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets the subject of the success email.
+        /// </summary>
+        /// <value>The subject of the email.</value>
+        string SuccessEmailSubject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the template id of the email template used for the success email.
+        /// </summary>
+        Guid? SuccessEmailTemplateId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the email sender that will be used to send confirmation and successful registration emails.
+        /// </summary>
+        /// <value>The email sender.</value>
+        string EmailSenderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the activation method.
+        /// </summary>
+        /// <value>
+        /// The activation method.
+        /// </value>
+        ActivationMethod ActivationMethod { get; set;}
+
+        /// <summary>
         /// Gets or sets the message that would be displayed on successful registration.
         /// </summary>
         /// <value>The successful registration message.</value>
@@ -44,11 +76,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         Guid? SuccessfulRegistrationPageId { get; set; }
 
         /// <summary>
+        /// Gets or sets whether to send email for user activation or activate it immediately.
+        /// </summary>
+        /// <value>The confirm registration.</value>
+        bool SendRegistrationEmail { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns>
         /// A instance of <see cref="RegistrationViewModel"/> as view model
         /// </returns>
         RegistrationViewModel GetViewModel();
+
+        void RegisterUser(RegistrationViewModel model);
     }
 }

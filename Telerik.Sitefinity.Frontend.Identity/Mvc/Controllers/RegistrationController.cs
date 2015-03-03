@@ -69,18 +69,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
-        /// <summary>
-        /// Does the actual user registration and redirects to the configured page.
+        /// Posts the registration form.
         /// </summary>
-        /// <param name="model">The registration form model.</param>
+        /// <param name="model">The model.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
-        [HttpPost]
-        public ActionResult Index(RegistrationViewModel model)
+        public ActionResult PostRegistration(RegistrationViewModel model)
         {
-            // TODO: Register and redirect to specified page.
-            return this.Content("Registered!");
+            if (ModelState.IsValid)
+            {
+                this.Model.RegisterUser(model);
+            }
+
+            return this.RedirectToAction("Index");
         }
 
         #endregion
@@ -96,6 +98,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IRegistrationModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IRegistrationModel>(this.GetType());
+        }
+
+        /// <summary>
+        /// Sends the registration confirmation email.
+        /// </summary>
+        protected virtual void SendRegistrationConfirmationEmail()
+        {
+
+        }
+
+        /// <summary>
+        /// Sends the successful registration email.
+        /// </summary>
+        protected virtual void SendSuccessfulRegistrationEmail()
+        {
+
         }
 
         #endregion

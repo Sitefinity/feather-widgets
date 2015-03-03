@@ -3,37 +3,40 @@
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
+@using Telerik.Sitefinity.UI.MVC;
+
 <div class="@Model.CssClass">
     @using (Html.BeginFormSitefinity())
     {
-    <ol>
-        <li>
-            <label>@Html.Resource("FirstName")</label>
-            @Html.EditorFor(m => m.FirstName)
-        </li>
-        <li>
-            <label>@Html.Resource("LastName")</label>
-            @Html.EditorFor(m => m.LastName)
-        </li>
-        <li>
-            <label>@Html.Resource("Email")</label>
-            @Html.EditorFor(m => m.Email)
-        </li>
-        <li>
-            <label>@Html.Resource("Username")</label>
-            @Html.EditorFor(m => m.Username)
-        </li>
-        <li>
-            <label>@Html.Resource("Password")</label>
-            @Html.EditorFor(m => m.Password)
-        </li>
-        <li>
-            <label>@Html.Resource("ReTypePassword")</label>
-            @Html.EditorFor(m => m.ReTypePassword)
-        </li>
-    </ol>
-    <div>
-        <input type="submit" value="@Html.Resource("Register")" />
-    </div>
+    @Html.ValidationSummary(true, "Registration failed - check your inputs");
+        <ol>
+            <li>
+                <label>@Html.Resource("FirstName")</label>
+                @Html.EditorFor(m => m.FirstName)
+            </li>
+            <li>
+                <label>@Html.Resource("LastName")</label>
+                @Html.EditorFor(m => m.LastName)
+            </li>
+            <li>
+                <label>@Html.Resource("Email")</label>
+                @Html.EditorFor(m => m.Email)
+            </li>
+            <li>
+                <label>@Html.Resource("Username")</label>
+                @Html.EditorFor(m => m.Username)
+            </li>
+            <li>
+                <label>@Html.Resource("Password")</label>
+                @Html.PasswordFor(m => m.Password)
+            </li>
+            <li>
+                <label>@Html.Resource("ReTypePassword")</label>
+                @Html.PasswordFor(m => m.ReTypePassword)
+            </li>
+        </ol>
+        <div>
+            <input type="submit" value="@Html.Resource("Register")" />
+        </div>
     }
 </div>
