@@ -13,11 +13,11 @@
         <ol>
             <li>
                 <label>@Html.Resource("FirstName")</label>
-                <input type="text" name='Profile["FirstName"]' value='@Model.Profile.GetValueOrDefault("FirstName")' />
+                <input type="text" name='Profile[FirstName]' value='@Model.Profile.GetValueOrDefault("FirstName")' />
             </li>
             <li>
                 <label>@Html.Resource("LastName")</label>
-                <input type="text" name='Profile["LastName"]' value='@Model.Profile.GetValueOrDefault("LastName")' />
+                <input type="text" name='Profile[LastName]' value='@Model.Profile.GetValueOrDefault("LastName")' />
             </li>
             <li>
                 <label>@Html.Resource("Email")</label>

@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
+using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web.Mail;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
@@ -144,7 +149,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 {
                     userManager.SaveChanges();
 
-                    //this.CreateUserProfiles(user);
+                    this.CreateUserProfiles(user, viewModel.Profile);
 
                     //this.AssignRolesToUser(user);
 
@@ -249,6 +254,44 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
         }
 
+        /// <summary>
+        /// Creates and populates the user profiles.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="profileProperties">A dictionary containing the profile properties.</param>
+        protected virtual void CreateUserProfiles(User user, IDictionary<string, string> profileProperties)
+        {
+            if (!VirtualPathManager.FileExists(RegistrationModel.ProfileBindingsFile))
+                return;
+
+            var fileStream = VirtualPathManager.OpenFile(RegistrationModel.ProfileBindingsFile);
+
+            List<ProfileBindingsModel> profiles;
+            using (var streamReader = new StreamReader(fileStream))
+            {
+                var text = streamReader.ReadToEnd();
+                profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsModel>>(text);
+            }
+
+            var userProfileManager = UserProfileManager.GetManager();
+            using (new ElevatedModeRegion(userProfileManager))
+            {
+                foreach (var profileBinding in profiles)
+                {
+                    var userProfile = userProfileManager.CreateProfile(user, profileBinding.ProfileType);
+                    foreach (var property in profileBinding.Properties)
+                    {
+                        var value = profileProperties.GetValueOrDefault(property.Name);
+                        userProfile.SetValue(property.FieldName, value);
+                    }
+
+                    userProfileManager.RecompileItemUrls(userProfile);
+                }
+
+                userProfileManager.SaveChanges();
+            }
+        }
+
         private MailMessageEventArgs OnSendingSuccessfulRegistrationMail(MailMessage registrationSuccessEmail)
         {
             MailMessageEventArgs mailMessageEventArgs = new MailMessageEventArgs(registrationSuccessEmail);
@@ -261,6 +304,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         private string membershipProviderName;
         private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
+
+        private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
 
         #endregion
     }

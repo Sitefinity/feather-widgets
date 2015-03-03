@@ -1,6 +1,9 @@
-{
-	"Telerik.Sitefinity.Security.Model.SitefinityProfile": [
-		{ Name: "FirstName", FieldName: "FirstName" },
-		{ Name: "LastName", FieldName: "LastName" }
-	]
-}
+[
+	{
+		ProfileType: "Telerik.Sitefinity.Security.Model.SitefinityProfile",
+		Properties: [
+			{ Name: "FirstName", FieldName: "FirstName" },
+			{ Name: "LastName", FieldName: "LastName" } 
+		]
+	}
+]
