@@ -14,7 +14,7 @@
     <div>
         <fieldset>
 		 @Html.ValidationSummary(true)
-            <legend>Log in</legend>
+            <legend>@Html.Resource("LoginFormLogInLegendHeader")</legend>
             <div class="editor-label">
                 @Html.LabelFor(u => u.UserName)
             </div>
@@ -41,11 +41,11 @@
                 <input type="hidden" name="deflate" value="true" />
             </div>
             <div class="error" style="display:none"></div>
-            <input type="submit" value="Log In" />
+            <input type="submit" value='@Html.Resource("LoginFormLogInButton")' />
             
             @Html.ActionLink("Forgotten Password", "ForgotPassword")
         </fieldset>
-        <a href="@Model.RegisterPageUrl">Register now</a>
+        <a href="@Model.RegisterPageUrl">@Html.Resource("LoginFormRegisterNow")</a>
     </div>
 </form>
 </div>
