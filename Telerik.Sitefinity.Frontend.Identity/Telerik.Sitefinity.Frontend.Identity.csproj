@@ -167,6 +167,7 @@
     <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Registration\ProfileBindings.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
