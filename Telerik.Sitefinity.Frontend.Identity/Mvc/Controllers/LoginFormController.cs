@@ -172,7 +172,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
-            error = HttpUtility.UrlDecode(error);
+            error = HttpUtility.UrlEncode(error);
 
             var pageUrl = this.Model.GetPageUrl(null);
             var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, error);
