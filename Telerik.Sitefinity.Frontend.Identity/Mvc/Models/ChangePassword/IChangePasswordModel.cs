@@ -27,6 +27,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether an email should be send on password change.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if email should be send; otherwise, <c>false</c>.
+        /// </value>
+        bool SendEmailOnChangePassword { get; set; }
+
+        /// <summary>
         /// Gets or sets the change password page identifier.
         /// </summary>
         /// <value>
@@ -49,6 +57,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// An instance of <see cref="ChangePasswordViewModel"/>
         /// </returns>
         ChangePasswordViewModel GetViewModel();
+
+        /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="oldPassword">The old password.</param>
+        /// <param name="newPassword">The new password.</param>
+        void ChangePassword(Guid userId, string oldPassword, string newPassword);
+
+        /// <summary>
+        /// Gets the error from view model.
+        /// </summary>
+        /// <param name="modelStateDict">The model state dictionary.</param>
+        /// <returns>
+        /// The first error from the view state.
+        /// </returns>
+        string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict);
 
         /// <summary>
         /// Gets the page URL.

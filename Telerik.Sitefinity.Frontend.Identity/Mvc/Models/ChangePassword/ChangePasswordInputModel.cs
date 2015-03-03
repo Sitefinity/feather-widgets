@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
 {
@@ -17,7 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// <value>
         /// The old password.
         /// </value>
-        [Required]
+        [Required(ErrorMessage = "ChangePasswordRequiredErrorMessage")]
         public string OldPassword { get; set; }
 
         /// <summary>
@@ -26,16 +27,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// <value>
         /// The new password.
         /// </value>
-        [Required]
+        [Required(ErrorMessage = "ChangePasswordRequiredErrorMessage")]
         public string NewPassword { get; set; }
 
         /// <summary>
-        /// Gets or sets the repeat new password.
+        /// Gets or sets the repeat password.
         /// </summary>
         /// <value>
-        /// The repeat new password.
+        /// The repeat password.
         /// </value>
-        [Required]
-        public string RepeatNewPassword { get; set; }
+        [Required(ErrorMessage = "ChangePasswordRequiredErrorMessage")]
+        [Compare("NewPassword", ErrorMessage = "ChangePasswordNonMatchingPasswordsMessage")]
+        public string RepeatPassword { get; set; }
     }
 }

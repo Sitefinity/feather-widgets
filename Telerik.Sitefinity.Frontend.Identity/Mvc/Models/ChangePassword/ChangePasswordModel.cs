@@ -32,6 +32,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// <inheritdoc />
         public string CssClass { get; set; }
 
+        /// <inheritdoc />
+        public bool SendEmailOnChangePassword { get; set; }
+
         /// <inheritDoc/>
         public Guid? ChangePasswordRedirectPageId { get; set; }
 
@@ -43,12 +46,34 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         #region Public Methods
 
         /// <inheritDoc/>
+        public void ChangePassword(Guid userId, string oldPassword, string newPassword)
+        {
+            UserManager.ChangePasswordForUser(UserManager.GetManager(this.MembershipProvider), userId, oldPassword, newPassword, this.SendEmailOnChangePassword);
+        }
+
+        /// <inheritDoc/>
         public virtual ChangePasswordViewModel GetViewModel()
         {
             return new ChangePasswordViewModel()
             {
                 CssClass = this.CssClass
             };
+        }
+
+        /// <inheritDoc/>
+        public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
+        {
+            var firstErrorValue = modelStateDict.Values.FirstOrDefault(v => v.Errors.Any());
+            if (firstErrorValue != null)
+            {
+                var firstError = firstErrorValue.Errors.FirstOrDefault();
+                if (firstError != null)
+                {
+                   return firstError.ErrorMessage;
+                }
+            }
+
+            return null;
         }
 
         /// <inheritDoc/>

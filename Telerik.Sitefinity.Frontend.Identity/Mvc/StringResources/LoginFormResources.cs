@@ -483,5 +483,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ForgotPasswordSendButton"];
             }
         }
+                
+        /// </summary>
+        /// Gets phrase : This field is required.
+        /// </summary>
+        [ResourceEntry("ResetPasswordRequiredErrorMessage",
+            Value = "This field is required.",
+            Description = "phrase : This field is required.",
+            LastModified = "2015/03/03")]
+        public string ResetPasswordRequiredErrorMessage
+        {
+            get
+            {
+                return this["ResetPasswordRequiredErrorMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Password reset is not enabled
+        /// </summary>
+        [ResourceEntry("ResetPasswordNotEnabled",
+            Value = "Password reset is not enabled",
+            Description = "phrase : Password reset is not enabled",
+            LastModified = "2015/02/25")]
+        public string ResetPasswordNotEnabled
+        {
+            get
+            {
+                return this["ResetPasswordNotEnabled"];
+            }
+        }
     }
 }
