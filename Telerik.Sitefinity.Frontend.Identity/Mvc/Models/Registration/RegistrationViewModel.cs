@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -48,6 +46,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The name of the user.
         /// </value>
+        [Required]
         public string UserName { get; set; }
 
         /// <summary>
@@ -56,7 +55,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The password.
         /// </value>
+        [Required]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password confirmation value.
+        /// </summary>
+        /// <value>
+        /// The retyped password.
+        /// </value>
+        [Compare("Password")]
+        public string ReTypePassword { get; set; }
 
         /// <summary>
         /// Gets or sets the email.

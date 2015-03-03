@@ -1,41 +1,44 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration.RegistrationViewModel
+
+@using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 @using Telerik.Sitefinity.UI.MVC;
 
 <div class="@Model.CssClass">
-   @using (Html.BeginFormSitefinity("PostRegistration", "RegistrationForm"))
+    @using (Html.BeginFormSitefinity())
     {
         @Html.ValidationSummary(true, "Registration failed - check your inputs");
-     
         <ol>
             <li>
                 <label>@Html.Resource("FirstName")</label>
-                <input type="text" name="FirstName" />
+                @Html.EditorFor(m => m.FirstName)
             </li>
             <li>
                 <label>@Html.Resource("LastName")</label>
-                <input type="text" name="LastName" />
+                @Html.EditorFor(m => m.LastName)
             </li>
             <li>
                 <label>@Html.Resource("Email")</label>
-                <input type="email" name="Email" />
+                @Html.EditorFor(m => m.Email)
             </li>
             <li>
-                <label>@Html.Resource("Username")</label>
-                <input type="text" name="UserName" required="required" />
+                <label>@Html.Resource("UserName")</label>
+                @Html.EditorFor(m => m.UserName)
             </li>
             <li>
                 <label>@Html.Resource("Password")</label>
-                <input type="password" name="Password" required="required" />
+                @Html.PasswordFor(m => m.Password)
             </li>
             <li>
                 <label>@Html.Resource("ReTypePassword")</label>
-                <input type="password" name="reTypePswd" />
+                @Html.PasswordFor(m => m.ReTypePassword)
             </li>
         </ol>
         <div>
             <input type="submit" value="@Html.Resource("Register")" />
         </div>
-   }
+    }
+
+    <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
 </div>
