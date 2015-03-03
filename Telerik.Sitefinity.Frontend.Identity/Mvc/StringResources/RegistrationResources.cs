@@ -483,5 +483,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RolesDescription"];
             }
         }
+
+        /// <summary>
+        /// phrase: Back to Login
+        /// </summary>
+        [ResourceEntry("BackToLogin",
+            Value = "Back to Login",
+            Description = "Back to Login",
+            LastModified = "2015/03/03")]
+        public string BackToLogin
+        {
+            get
+            {
+                return this["BackToLogin"];
+            }
+        }
     }
 }
