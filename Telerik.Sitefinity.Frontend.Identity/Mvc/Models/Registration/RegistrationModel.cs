@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Security;
 using System.Web.UI.WebControls;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
@@ -108,7 +109,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <returns></returns>
         public virtual string GetLoginPageUrl()
         {
-            return null;
+            string result;
+            if (this.LoginPageId.HasValue)
+            {
+                result = HyperLinkHelpers.GetFullPageUrl(this.LoginPageId.Value);
+            }
+            else
+            {
+                result = SitefinityContext.FrontendLoginUrl;
+            }
+
+            return result;
         }
 
         /// <summary>

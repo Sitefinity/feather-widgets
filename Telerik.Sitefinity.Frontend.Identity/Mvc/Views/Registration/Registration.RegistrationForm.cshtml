@@ -8,7 +8,7 @@
 <div class="@Model.CssClass">
     @using (Html.BeginFormSitefinity())
     {
-    @Html.ValidationSummary(true, "Registration failed - check your inputs");
+        @Html.ValidationSummary(true, "Registration failed - check your inputs");
         <ol>
             <li>
                 <label>@Html.Resource("FirstName")</label>
@@ -23,8 +23,8 @@
                 @Html.EditorFor(m => m.Email)
             </li>
             <li>
-                <label>@Html.Resource("Username")</label>
-                @Html.EditorFor(m => m.Username)
+                <label>@Html.Resource("UserName")</label>
+                @Html.EditorFor(m => m.UserName)
             </li>
             <li>
                 <label>@Html.Resource("Password")</label>
@@ -39,4 +39,6 @@
             <input type="submit" value="@Html.Resource("Register")" />
         </div>
     }
+
+    <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
 </div>
