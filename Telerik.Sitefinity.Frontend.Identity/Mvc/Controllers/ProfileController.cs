@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -9,22 +9,22 @@ using Telerik.Sitefinity.Mvc;
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
     /// <summary>
-    /// This class represents the controller of the Registration widget.
+    /// This class represents the controller of the Profile widget.
     /// </summary>
-    [Localization(typeof(RegistrationResources))]
-    [ControllerToolboxItem(Name = "Registration", Title = "Registration", SectionName = "MvcWidgets")]
-    public class RegistrationController : Controller
+    [Localization(typeof(ProfileResources))]
+    [ControllerToolboxItem(Name = "ProfileMVC", Title = "Profile", SectionName = "MvcWidgets")]
+    public class ProfileController : Controller
     {
         #region Properties
 
         /// <summary>
-        /// Gets the Registration widget model.
+        /// Gets the Profile widget model.
         /// </summary>
         /// <value>
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public virtual IRegistrationModel Model
+        public virtual IProfileModel Model
         {
             get
             {
@@ -66,33 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
-            return this.View(fullTemplateName, viewModel);
-        }
 
-        /// <summary>
-        /// Posts the registration form.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        /// <returns>
-        /// The <see cref="ActionResult" />.
-        /// </returns>
-        [HttpPost]
-        public ActionResult Index(RegistrationViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var status = this.Model.RegisterUser(viewModel);
-                if (status == System.Web.Security.MembershipCreateStatus.Success)
-                {
-                    return this.Content(this.Model.SuccessfulRegistrationMsg);
-                }
-                else
-                {
-                    this.ViewBag.Error = this.Model.ErrorMessage(status);
-                }
-            }
-
-            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -104,20 +78,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// Initializes the model.
         /// </summary>
         /// <returns>
-        /// The <see cref="IRegistrationModel"/>.
+        /// The <see cref="IProfileModel"/>.
         /// </returns>
-        private IRegistrationModel InitializeModel()
+        private IProfileModel InitializeModel()
         {
-            return ControllerModelFactory.GetModel<IRegistrationModel>(this.GetType());
+            return ControllerModelFactory.GetModel<IProfileModel>(this.GetType());
         }
 
         #endregion
 
         #region Private fields and constants
 
-        private string templateName = "RegistrationForm";
-        private IRegistrationModel model;
-        private string templateNamePrefix = "Registration.";
+        private string templateName = "ProfilePreview";
+        private IProfileModel model;
+        private string templateNamePrefix = "Profile.";
 
         #endregion
     }
