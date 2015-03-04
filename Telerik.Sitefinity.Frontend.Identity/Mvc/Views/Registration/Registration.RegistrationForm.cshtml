@@ -4,10 +4,13 @@
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Utilities;
 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+
 <div class="@Model.CssClass">
     @using (Html.BeginFormSitefinity())
     {
-        @Html.ValidationSummary(true, "Registration failed - check your inputs");
+        @Html.ValidationSummary(true);
         <div class="error">@ViewBag.Error</div>
         
         <ol>
@@ -22,18 +25,22 @@
             <li>
                 @Html.LabelFor(m => m.Email, Html.Resource("Email"))
                 @Html.EditorFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
             </li>
             <li>
                 @Html.LabelFor(m => m.UserName, Html.Resource("UserName"))
                 @Html.EditorFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
             </li>
             <li>
                 @Html.LabelFor(m => m.Password, Html.Resource("Password"))
                 @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
             </li>
             <li>
                 @Html.LabelFor(m => m.ReTypePassword, Html.Resource("ReTypePassword"))
                 @Html.PasswordFor(m => m.ReTypePassword)
+                @Html.ValidationMessageFor(m => m.ReTypePassword)
             </li>
         </ol>
         <div>

@@ -13,7 +13,7 @@
 <form id="loginForm" action="@Model.ServiceUrl" method="post">
     <div>
         <fieldset>
-		 @Html.ValidationSummary(true)
+         @Html.ValidationSummary(true)
             <legend>@Html.Resource("LoginFormLogInLegendHeader")</legend>
             <div class="editor-label">
                 @Html.LabelFor(u => u.UserName)
@@ -31,7 +31,7 @@
             </div>
             <div class="editor-label">
                 @Html.CheckBoxFor(u => u.RememberMe)
-				<input type="hidden" id="sf_persistent" name="sf_persistent" value="false"/>
+                <input type="hidden" id="sf_persistent" name="sf_persistent" value="false"/>
                 @Html.LabelFor(u => u.RememberMe)
             </div>
             <div class="editor-label">
