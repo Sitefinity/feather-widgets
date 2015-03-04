@@ -16,6 +16,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
     /// </summary>
     public class AccountActivationModel : IAccountActivationModel
     {
+        #region Properties
+
         /// <inheritdoc />
         public string CssClass { get; set; }
 
@@ -36,6 +38,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
             }
         }
 
+        #endregion
+
+        #region Public Methods
+
         /// <inheritDoc/>
         public virtual AccountActivationViewModel GetViewModel()
         {
@@ -48,6 +54,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
                 Activated = activationSuccess
             };
         }
+
+        #endregion
+
+        #region Private Fields and methods
 
         /// <summary>
         /// Activates the account.
@@ -115,8 +125,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
 
             return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
         }
-
-        #region Private Fields and methods
 
         private string membershipProvider;
 
