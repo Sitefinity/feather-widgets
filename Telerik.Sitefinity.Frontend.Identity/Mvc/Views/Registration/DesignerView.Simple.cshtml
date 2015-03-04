@@ -1,5 +1,6 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Security;
+@using Telerik.Sitefinity.Security.Web.UI;
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("General")">
@@ -107,7 +108,14 @@
         <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'Immediately'">
             <label>@Html.Resource("SuccessEmailTemplate")</label>   
             <div class="row">
-                <select></select>
+                <div class="col-xs-6">
+                    <select ng-model="properties.SuccessEmailTemplateId.PropertyValue" class="form-control">
+                         @foreach (var template in Html.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""0""", typeof(RegistrationForm).FullName)))
+                        {
+                            <option value="@template.Key">@template.Value</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
         <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'AfterConfirmation'">
