@@ -500,21 +500,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Registration successful
-        /// </summary>
-        [ResourceEntry("ConfirmationEmailDefaultSubject",
-            Value = "Registration successful",
-            Description = "The default subject of the confirmation email",
-            LastModified = "2015/03/04")]
-        public string ConfirmationEmailDefaultSubject
-        {
-            get
-            {
-                return this["ConfirmationEmailDefaultSubject"];
-            }
-        }
-
-        /// <summary>
         /// phrase: Success! Thanks for filling out our form!
         /// </summary>
         /// <value>Success! Thanks for filling out our form!</value>

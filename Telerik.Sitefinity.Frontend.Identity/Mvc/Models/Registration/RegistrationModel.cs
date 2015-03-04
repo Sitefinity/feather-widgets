@@ -19,6 +19,7 @@ using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
+using Telerik.Sitefinity.Modules.UserProfiles;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -199,15 +200,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// Gets the URL of the page that will be opened on successful registration.
-        /// </summary>
-        /// <returns></returns>
-        public virtual string GetSuccessfulRegistrationPageUrl()
-        {
-            return null;
         }
 
         /// <inheritdoc />
@@ -456,7 +448,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <returns></returns>
         protected virtual string GetConfirmationPageUrl(User user)
         {
-            string confirmationPageUrl = this.GetPageUrl(this.ConfirmationPageId.Value, UrlResolveOptions.Absolute);
+            if (!this.ConfirmationPageId.HasValue)
+            {
+                return string.Empty;
+            }
+            string confirmationPageUrl = HyperLinkHelpers.GetFullPageUrl(this.ConfirmationPageId.Value);
 
             if(string.IsNullOrWhiteSpace(confirmationPageUrl))
             {
@@ -483,21 +479,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return url.ToString();
         }
 
-        /// <summary>
-        /// Gets a url of a page by the id of its node.
-        /// </summary>
-        /// <param name="nodeId">The node id.</param>
-        /// <returns>The url of the node or <code>null</code> if none is found</returns>
-        private string GetPageUrl(Guid nodeId, UrlResolveOptions resolveOptions)
-        {
-            var pageNode = SitefinitySiteMap.GetCurrentProvider().FindSiteMapNodeFromKey(nodeId.ToString());
-            if (pageNode != null)
-            {
-                return RouteHelper.ResolveUrl(pageNode.Url, resolveOptions | UrlResolveOptions.RemoveTrailingSlash);
-            }
-            return null;
-        }
-
         protected virtual string GetEmailMessageBody(Guid? templateId)
         {
             if (templateId.HasValue && templateId.Value != Guid.Empty)
@@ -514,7 +495,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         private string membershipProviderName;
         private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
-        private string confirmationEmailSubject = Res.Get<RegistrationResources>().ConfirmationEmailDefaultSubject;
+        private string confirmationEmailSubject = Res.Get<UserProfilesResources>().ConfirmationEmailDefaultSubject;
         private const string ReturnUrlName = "ReturnUrl";
         private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
 
