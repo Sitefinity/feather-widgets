@@ -13,13 +13,15 @@
 
     @using (Html.BeginForm("EditProfile", "EditProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        @Html.HiddenFor(u => u.DeletePicture, new { @class = "edit-profile-delete-picture" })
-        @Html.HiddenFor(u => u.DefaultAvatarUrl, new { @class = "edit-profile-default-avatar-url" })
-        
-        <img class="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.Username" />
-        <input type="file" accept="image/*" name="uploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
-        
-        
+        <div>
+            @Html.HiddenFor(u => u.DeletePicture, new { @class = "edit-profile-delete-picture" })
+            @Html.HiddenFor(u => u.DefaultAvatarUrl, new { @class = "edit-profile-default-avatar-url" })
+
+            <img class="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.Username" />
+            <a href="#" class="edit-profile-delete-picture-button">x</a>
+            <input type="file" accept="image/*" name="uploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
+        </div>
+                
         <label>@Html.Resource("EditProfileFirstName")</label>
         <div class="editor-field">@Html.EditorFor(u => u.FirstName)</div>
         
@@ -35,7 +37,7 @@
         <label>@Html.Resource("EditProfileAbout")</label>
         <div class="editor-field">@Html.EditorFor(u => u.About)</div>
         
-        <a href="#" class="edit-profile-change-password-expander">@Html.Resource("EditProfileChangePasswordButton")</a>
+        <a href="#" class="edit-profile-change-password-button">@Html.Resource("EditProfileChangePasswordButton")</a>
         <div class="edit-profile-change-password-holder">
             <h4>@Html.Resource("EditProfileEditChangePasswordHeader")</h4>
 
@@ -58,12 +60,19 @@
     (function ($) {
         $(function () {
             var changePasswordHolder = $('.edit-profile-change-password-holder').hide();
-            $('.edit-profile-change-password-expander').on('click', function (e) {
+            $('.edit-profile-change-password-button').on('click', function (e) {
                 e.preventDefault();
+
                 changePasswordHolder.toggle('slow');
             });
 
+            $('.edit-profile-delete-picture-button').on('click', function (e) {
+                e.preventDefault();
 
+                $('.edit-profile-user-image').attr('src', $('.edit-profile-default-avatar-url').val());
+                $('.edit-profile-delete-picture').val(true);
+                $('.edit-profile-delete-picture-button').hide();
+            });
         });
     }(jQuery));
 </script>
