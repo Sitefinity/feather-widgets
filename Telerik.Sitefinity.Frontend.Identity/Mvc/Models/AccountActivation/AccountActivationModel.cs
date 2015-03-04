@@ -83,7 +83,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
 
                 success = true;
             }
-            catch (ItemNotFoundException)
+            catch (Exception)
             {
                 success = false;
             }
