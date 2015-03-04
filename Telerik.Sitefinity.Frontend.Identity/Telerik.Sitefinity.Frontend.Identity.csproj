@@ -148,7 +148,7 @@
     <Compile Include="Mvc\Models\LoginStatus\StatusViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\ActivationMethod.cs" />
     <Compile Include="Mvc\Models\Registration\IRegistrationModel.cs" />
-    <Compile Include="Mvc\Models\Registration\ProfileBindingsModel.cs" />
+    <Compile Include="Mvc\Models\Registration\ProfileBindingsContract.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationModel.cs" />
     <Compile Include="Mvc\StringResources\RegistrationResources.cs" />

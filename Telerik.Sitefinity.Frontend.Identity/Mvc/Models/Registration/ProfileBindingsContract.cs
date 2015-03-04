@@ -4,7 +4,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
     /// <summary>
     /// This class is used for serializing property binding configurations of a single user profile type.
     /// </summary>
-    public class ProfileBindingsModel
+    public class ProfileBindingsContract
     {
         /// <summary>
         /// Gets or sets the full type name of the profile.
@@ -20,12 +20,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The property bindings.
         /// </value>
-        public PropertyBindingModel[] Properties { get; set; }
+        public PropertyBindingContract[] Properties { get; set; }
 
         /// <summary>
         /// This class is used for serializing the binding of a single user profile property.
         /// </summary>
-        public class PropertyBindingModel
+        public class PropertyBindingContract
         {
             /// <summary>
             /// Gets or sets the name of the property as it appears in the view model.

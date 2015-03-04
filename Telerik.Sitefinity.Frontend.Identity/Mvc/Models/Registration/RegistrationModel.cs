@@ -266,11 +266,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
             var fileStream = VirtualPathManager.OpenFile(RegistrationModel.ProfileBindingsFile);
 
-            List<ProfileBindingsModel> profiles;
+            List<ProfileBindingsContract> profiles;
             using (var streamReader = new StreamReader(fileStream))
             {
                 var text = streamReader.ReadToEnd();
-                profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsModel>>(text);
+                profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(text);
             }
 
             var userProfileManager = UserProfileManager.GetManager();
