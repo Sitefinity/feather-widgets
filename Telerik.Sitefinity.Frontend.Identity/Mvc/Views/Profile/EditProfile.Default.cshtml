@@ -13,55 +13,40 @@
 
     @using (Html.BeginForm("EditProfile", "EditProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        @Html.HiddenFor(u => u.DeletePicture)
+        @Html.HiddenFor(u => u.DeletePicture, new { @class = "edit-profile-delete-picture" })
+        @Html.HiddenFor(u => u.DefaultAvatarUrl, new { @class = "edit-profile-default-avatar-url" })
         
-        <img src="@Model.AvatarImageUrl" />
-        
+        <img class="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.Username" />
         <input type="file" accept="image/*" name="uploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
         
+        
         <label>@Html.Resource("EditProfileFirstName")</label>
-        <div class="editor-field">
-            @Html.EditorFor(u => u.FirstName)
-        </div>
+        <div class="editor-field">@Html.EditorFor(u => u.FirstName)</div>
         
         <label>@Html.Resource("EditProfileLastName")</label>
-        <div class="editor-field">
-            @Html.EditorFor(u => u.LastName)
-        </div>
+        <div class="editor-field">@Html.EditorFor(u => u.LastName)</div>
         
         <label>@Html.Resource("EditProfileEmail")</label>
-        <div class="editor-field">
-            @Html.EditorFor(u => u.Email)
-        </div>
+        <div class="editor-field">@Html.EditorFor(u => u.Email)</div>
         
         <label>@Html.Resource("EditProfileUsername")</label>
-        <div class="editor-field">
-            @Html.EditorFor(u => u.Username)
-        </div>
+        <div class="editor-field">@Html.EditorFor(u => u.Username)</div>
         
         <label>@Html.Resource("EditProfileAbout")</label>
-        <div class="editor-field">
-            @Html.EditorFor(u => u.About)
-        </div>
+        <div class="editor-field">@Html.EditorFor(u => u.About)</div>
         
         <a href="#" class="edit-profile-change-password-expander">@Html.Resource("EditProfileChangePasswordButton")</a>
         <div class="edit-profile-change-password-holder">
             <h4>@Html.Resource("EditProfileEditChangePasswordHeader")</h4>
 
             <label>@Html.Resource("EditProfileOldPassword")</label>
-            <div class="editor-field">
-                @Html.EditorFor(u => u.OldPassword)
-            </div>
+            <div class="editor-field">@Html.EditorFor(u => u.OldPassword)</div>
 
             <label>@Html.Resource("EditProfileNewPassword")</label>
-            <div class="editor-field">
-                @Html.EditorFor(u => u.NewPassword)
-            </div>
+            <div class="editor-field">@Html.EditorFor(u => u.NewPassword)</div>
 
             <label>@Html.Resource("EditProfileRepeatPassword")</label>
-            <div class="editor-field">
-                @Html.EditorFor(u => u.RepeatPassword)
-            </div>
+            <div class="editor-field">@Html.EditorFor(u => u.RepeatPassword)</div>
         </div>
         
         <input type="submit" value='Html.Resource("EditProfileSave")' />
@@ -77,6 +62,8 @@
                 e.preventDefault();
                 changePasswordHolder.toggle('slow');
             });
+
+
         });
     }(jQuery));
 </script>
