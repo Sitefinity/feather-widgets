@@ -15,6 +15,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <inheritdoc />
         public string CssClass { get; set; }
 
+        /// <inheritdoc />
+        public SaveAction SaveChangesAction { get; set; }
+
+        /// <inheritdoc />
+        public Guid ProfileSavedPageId { get; set; }
+
+        /// <inheritdoc />
+        public string ProfileSaveMsg { get; set; }
+
         #endregion
 
         #region Public methods

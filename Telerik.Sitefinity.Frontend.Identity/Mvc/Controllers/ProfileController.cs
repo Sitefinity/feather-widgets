@@ -52,6 +52,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets the widget display mode.
+        /// </summary>
+        /// <value>
+        /// The widget display mode.
+        /// </value>
+        public ViewMode Mode { get; set; }
+
         #endregion
 
         #region Actions
@@ -64,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+            var fullTemplateName = this.Mode.ToString()+ "." + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 
             return this.View(fullTemplateName, viewModel);
@@ -91,7 +99,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         private string templateName = "ProfilePreview";
         private IProfileModel model;
-        private string templateNamePrefix = "Profile.";
 
         #endregion
     }

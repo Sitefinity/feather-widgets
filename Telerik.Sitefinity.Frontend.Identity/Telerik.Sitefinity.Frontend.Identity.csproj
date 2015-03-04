@@ -161,9 +161,11 @@
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusViewModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\StatusViewModel.cs" />
+    <Compile Include="Mvc\Models\Profile\SaveAction.cs" />
     <Compile Include="Mvc\Models\Profile\IProfileModel.cs" />
     <Compile Include="Mvc\Models\Profile\ProfileModel.cs" />
     <Compile Include="Mvc\Models\Profile\ProfileViewModel.cs" />
+    <Compile Include="Mvc\Models\Profile\ViewMode.cs" />
     <Compile Include="Mvc\Models\Registration\ActivationMethod.cs" />
     <Compile Include="Mvc\Models\Registration\IRegistrationModel.cs" />
     <Compile Include="Mvc\Models\Registration\ProfileBindingsContract.cs" />
@@ -195,10 +197,12 @@
     <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Profile\Profile.ProfilePreview.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Profile\ReadOnly.ProfilePreview.cshtml" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\AccountActivation.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -221,6 +225,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\AccountActivation\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Profile\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
