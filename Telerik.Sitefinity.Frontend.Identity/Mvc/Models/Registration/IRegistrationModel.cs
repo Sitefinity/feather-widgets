@@ -41,6 +41,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string SerializedSelectedRoles { get; set; }
 
         /// <summary>
+        /// Gets or sets the action that will be executed on successful user submission.
+        /// </summary>
+        /// <value>
+        /// The success action.
+        /// </value>
+        SuccessfulRegistrationAction SuccessfulRegistrationAction { get; set; }
+
+        /// <summary>
         /// Gets or sets the whether to send email message on successful registration confirmation.
         /// </summary>
         bool SendEmailOnSuccess { get; set; }
@@ -111,5 +119,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="status">The status.</param>
         /// <returns>The error message.</returns>
         string ErrorMessage(MembershipCreateStatus status);
+
+        /// <summary>
+        /// Gets the page URL.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <returns>
+        /// The page url as string.
+        /// </returns>
+        string GetPageUrl(Guid? pageId);
     }
 }
