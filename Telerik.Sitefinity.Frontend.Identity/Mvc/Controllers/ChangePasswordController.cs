@@ -150,7 +150,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// Initializes the model.
         /// </summary>
         /// <returns>
-        /// The <see cref="ILoginStatusModel"/>.
+        /// The <see cref="IChangePasswordModel"/>.
         /// </returns>
         private IChangePasswordModel InitializeModel()
         {
