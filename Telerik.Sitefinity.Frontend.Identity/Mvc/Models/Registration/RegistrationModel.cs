@@ -311,8 +311,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             {
                 this.SendSuccessfulRegistrationEmail(userManager, user);
             }
-
-            //this.RaiseRegistrationEvent(user);
         }
 
         /// <summary>
