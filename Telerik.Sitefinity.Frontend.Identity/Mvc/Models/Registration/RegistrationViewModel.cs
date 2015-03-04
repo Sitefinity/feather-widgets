@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
@@ -8,6 +9,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
     /// </summary>
     public class RegistrationViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegistrationViewModel"/> class.
+        /// </summary>
+        public RegistrationViewModel()
+        {
+            this.Profile = new Dictionary<string, string>();
+        }
+
         /// <summary>
         /// Holds the login page to be redirected, when clicking Log in
         /// </summary>
@@ -76,19 +85,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public string Email { get; set; }
 
         /// <summary>
-        /// Gets or sets the first name.
+        /// Gets or sets the profile object.
         /// </summary>
         /// <value>
-        /// The first name.
+        /// The profile.
         /// </value>
-        public string FirstName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last name.
-        /// </summary>
-        /// <value>
-        /// The last name.
-        /// </value>
-        public string LastName { get; set; }
+        public IDictionary<string, string> Profile { get; private set; }
     }
 }

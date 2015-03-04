@@ -53,6 +53,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -150,6 +151,7 @@
     <Compile Include="Mvc\Models\LoginStatus\StatusViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\ActivationMethod.cs" />
     <Compile Include="Mvc\Models\Registration\IRegistrationModel.cs" />
+    <Compile Include="Mvc\Models\Registration\ProfileBindingsContract.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationModel.cs" />
     <Compile Include="Mvc\StringResources\RegistrationResources.cs" />
@@ -170,6 +172,7 @@
     <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Registration\ProfileBindings.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -1,22 +1,23 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration.RegistrationViewModel
 
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.UI.MVC;
-@using Telerik.Sitefinity.Frontend.Mvc.Helpers
-
-@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Utilities;
 
 <div class="@Model.CssClass">
     @using (Html.BeginFormSitefinity())
     {
         @Html.ValidationSummary(true, "Registration failed - check your inputs");
+        <div class="error">@ViewBag.Error</div>
+        
         <ol>
             <li>
                 <label>@Html.Resource("FirstName")</label>
-                @Html.EditorFor(m => m.FirstName)
+                <input type="text" name='Profile[FirstName]' value='@Model.Profile.GetValueOrDefault("FirstName")' />
             </li>
             <li>
                 <label>@Html.Resource("LastName")</label>
-                @Html.EditorFor(m => m.LastName)
+                <input type="text" name='Profile[LastName]' value='@Model.Profile.GetValueOrDefault("LastName")' />
             </li>
             <li>
                 <label>@Html.Resource("Email")</label>

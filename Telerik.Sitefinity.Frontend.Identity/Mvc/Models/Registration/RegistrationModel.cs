@@ -1,19 +1,25 @@
 ﻿using ServiceStack.Text;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
+using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using Telerik.Sitefinity.Abstractions.VirtualPath;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Security.Web.UI;
+using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web.Mail;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
@@ -179,48 +185,59 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return null;
         }
 
-        /// <summary>
-        /// Registers the user.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        public virtual void RegisterUser(RegistrationViewModel viewModel)
+        /// <inheritdoc />
+        public virtual MembershipCreateStatus RegisterUser(RegistrationViewModel viewModel)
         {
             var userManager = UserManager.GetManager(this.MembershipProviderName);
             User user;
             MembershipCreateStatus status;
-            var userProviderSuppressSecurityChecks = userManager.Provider.SuppressSecurityChecks;
-            try
+            using (new ElevatedModeRegion(userManager))
             {
-                //LoginCancelEventArgs creatingUserArgs = this.OnCreatingUser();
-                //if (!creatingUserArgs.Cancel)
-                //{
-                userManager.Provider.SuppressSecurityChecks = true;
                 if (this.TryCreateUser(userManager, viewModel, out user, out status))
                 {
                     userManager.SaveChanges();
-                    //this.OnUserCreated();
 
-                    //this.CreateUserProfiles(user);
+                    this.CreateUserProfiles(user, viewModel.Profile);
 
                     this.AssignRolesToUser(user);
 
                     this.ConfirmRegistration(userManager, user);
                     //this.ExecuteUserProfileSuccessfullUpdateActions();
                 }
-                else
-                {
-                    //this.OnUserCreationError(status);
-                    //this.ShowErrorMessage(status, userManager);
-                }
-                // }
             }
-            catch (Exception)
+
+            return status;
+        }
+
+        /// <summary>
+        /// Gets the error message corresponding to the given status.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <returns>The error message.</returns>
+        public virtual string ErrorMessage(MembershipCreateStatus status)
+        {
+            switch (status)
             {
-                throw;
-            }
-            finally
-            {
-                userManager.Provider.SuppressSecurityChecks = userProviderSuppressSecurityChecks;
+                case MembershipCreateStatus.Success:
+                    return null;
+                case MembershipCreateStatus.InvalidPassword:
+                    {
+                        var manager = UserManager.GetManager(this.MembershipProviderName);
+                        var invalidPasswordErrorMessage = Res.Get<ErrorMessages>().CreateUserWizardDefaultInvalidPasswordErrorMessage.Arrange(manager.MinRequiredPasswordLength, manager.MinRequiredNonAlphanumericCharacters);
+                        return invalidPasswordErrorMessage;
+                    }
+                case MembershipCreateStatus.InvalidQuestion:
+                    return Res.Get<ErrorMessages>().CreateUserWizardDefaultInvalidQuestionErrorMessage;
+                case MembershipCreateStatus.InvalidAnswer:
+                    return Res.Get<ErrorMessages>().CreateUserWizardDefaultInvalidAnswerErrorMessage;
+                case MembershipCreateStatus.InvalidEmail:
+                    return Res.Get<ErrorMessages>().CreateUserWizardDefaultInvalidEmailErrorMessage;
+                case MembershipCreateStatus.DuplicateUserName:
+                    return Res.Get<ErrorMessages>().CreateUserWizardDefaultDuplicateUserNameErrorMessage;
+                case MembershipCreateStatus.DuplicateEmail:
+                    return Res.Get<ErrorMessages>().CreateUserWizardDefaultDuplicateEmailErrorMessage;
+                default:
+                    return Res.Get<ErrorMessages>().CreateUserWizardDefaultUnknownErrorMessage;
             }
         }
 
@@ -315,7 +332,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="status">The status that will be set depending on the creation outcome.</param>
         protected virtual bool TryCreateUser(UserManager manager, RegistrationViewModel userData, out User user, out MembershipCreateStatus status)
         {
-            user = manager.CreateUser(userData.UserName, (string)userData.Password, (string)userData.Email, null, null, false, null, out status);
+            user = manager.CreateUser(userData.UserName, userData.Password, userData.Email, null, null, !this.SendRegistrationEmail, null, out status);
             return status == MembershipCreateStatus.Success;
         }
 
@@ -364,6 +381,44 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
         }
 
+        /// <summary>
+        /// Creates and populates the user profiles.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="profileProperties">A dictionary containing the profile properties.</param>
+        protected virtual void CreateUserProfiles(User user, IDictionary<string, string> profileProperties)
+        {
+            if (!VirtualPathManager.FileExists(RegistrationModel.ProfileBindingsFile))
+                return;
+
+            var fileStream = VirtualPathManager.OpenFile(RegistrationModel.ProfileBindingsFile);
+
+            List<ProfileBindingsContract> profiles;
+            using (var streamReader = new StreamReader(fileStream))
+            {
+                var text = streamReader.ReadToEnd();
+                profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(text);
+            }
+
+            var userProfileManager = UserProfileManager.GetManager();
+            using (new ElevatedModeRegion(userProfileManager))
+            {
+                foreach (var profileBinding in profiles)
+                {
+                    var userProfile = userProfileManager.CreateProfile(user, profileBinding.ProfileType);
+                    foreach (var property in profileBinding.Properties)
+                    {
+                        var value = profileProperties.GetValueOrDefault(property.Name);
+                        userProfile.SetValue(property.FieldName, value);
+                    }
+
+                    userProfileManager.RecompileItemUrls(userProfile);
+                }
+
+                userProfileManager.SaveChanges();
+            }
+        }
+
         private MailMessageEventArgs OnSendingSuccessfulRegistrationMail(MailMessage registrationSuccessEmail)
         {
             MailMessageEventArgs mailMessageEventArgs = new MailMessageEventArgs(registrationSuccessEmail);
@@ -397,11 +452,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         private string membershipProviderName;
         private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
 
+        private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
+
         #endregion
 
-        private const string DefaultSortExpression = "PublicationDate DESC";
-
         #region Private fields and constants
+
+        private const string DefaultSortExpression = "PublicationDate DESC";
 
         private string serializedSelectedRoles;
         private IList<Role> selectedRoles = new List<Role>();
