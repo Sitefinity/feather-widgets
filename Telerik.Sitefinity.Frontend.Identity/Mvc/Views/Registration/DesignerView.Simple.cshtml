@@ -79,7 +79,9 @@
                     @Html.Resource("Immediately")
                     <p>
                         <label>
-                            <input type="checkbox" ng-model="properties.SendEmailOnSuccess.PropertyValue" ng-disabled="properties.ActivationMethod.PropertyValue !== 'Immediately'" />
+                            <input type="checkbox" ng-model="properties.SendEmailOnSuccess.PropertyValue"
+                                 ng-true-value="'True'" ng-false-value="'False'"
+                                 ng-disabled="properties.ActivationMethod.PropertyValue !== 'Immediately'" />
                             @Html.Resource("SendEmailAfterRegistration")
                         </label>
                     </p>

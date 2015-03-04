@@ -218,22 +218,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             var registrationSuccessEmail = EmailSender.CreateRegistrationSuccessEmail(userManager.SuccessfulRegistrationEmailAddress, user.Email, user.UserName, this.SuccessEmailSubject, messageBody);
-            MailMessageEventArgs mailMessageEventArgs = this.OnSendingSuccessfulRegistrationMail(registrationSuccessEmail);
-            if (!mailMessageEventArgs.Cancel)
-            {
-                var emailSender = EmailSender.Get(this.EmailSenderName);
-                emailSender.SendAsync(registrationSuccessEmail, null);
-            }
-        }
 
-        private MailMessageEventArgs OnSendingSuccessfulRegistrationMail(MailMessage registrationSuccessEmail)
-        {
-            MailMessageEventArgs mailMessageEventArgs = new MailMessageEventArgs(registrationSuccessEmail);
-            if (this.SendingSuccessfulRegistrationMail != null)
-            {
-                this.SendingSuccessfulRegistrationMail(this, mailMessageEventArgs);
-            }
-            return mailMessageEventArgs;
+            var emailSender = EmailSender.Get(this.EmailSenderName);
+            emailSender.SendAsync(registrationSuccessEmail, null);
         }
 
         private string membershipProviderName;
