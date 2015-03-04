@@ -64,6 +64,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public string RedirectUrlAfterLogin { get; set; }
 
         /// <summary>
+        /// Gets or sets the register page URL.
+        /// </summary>
+        /// <value>
+        /// The register page URL.
+        /// </value>
+        public string RegisterPageUrl { get; set; }
+        
+        /// <summary>
         /// Gets or sets the realm.
         /// </summary>
         /// <value>

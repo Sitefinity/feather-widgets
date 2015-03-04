@@ -49,7 +49,31 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The login redirect page identifier.
         /// </value>
         Guid? LoginRedirectPageId { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the register redirect page identifier.
+        /// </summary>
+        /// <value>
+        /// The register redirect page identifier.
+        /// </value>
+        Guid? RegisterRedirectPageId { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether password retrieval is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordRetrieval { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether password reset is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordReset { get; set; }
+        
         /// <summary>
         /// Gets the login form view model.
         /// </summary>
@@ -73,5 +97,42 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// An instance of <see cref="ForgotPasswordViewModel"/>
         /// </returns>
         ForgotPasswordViewModel GetForgotPasswordViewModel();
+        
+        /// <summary>
+        /// Tries the reset user password.
+        /// </summary>
+        /// <param name="newPassword">The new password.</param>
+        /// <param name="answer">The answer.</param>
+        /// <returns>
+        /// <c>true</c> if the password reset succeeds; otherwise, <c>false</c>.
+        /// </returns>
+        void ResetUserPassword(string newPassword, string answer);
+        
+        /// <summary>
+        /// Tries the send reset password email.
+        /// </summary>
+        /// <param name="userEmail">The user email.</param>
+        /// <returns>
+        /// <c>true</c> if the email sending succeeds; otherwise, <c>false</c>.
+        /// </returns>
+        bool TrySendResetPasswordEmail(string userEmail);
+        
+        /// <summary>
+        /// Gets the error from view model.
+        /// </summary>
+        /// <param name="modelStateDict">The model state dictionary.</param>
+        /// <returns>
+        /// The first error from the view state.
+        /// </returns>
+        string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict);
+
+        /// <summary>
+        /// Gets the page URL.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <returns>
+        /// The page url as string.
+        /// </returns>
+        string GetPageUrl(Guid? pageId);
     }
 }

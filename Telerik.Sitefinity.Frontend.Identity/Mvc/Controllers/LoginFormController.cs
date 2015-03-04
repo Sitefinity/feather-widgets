@@ -1,5 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
+using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -7,6 +10,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -80,54 +85,98 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
         }
 
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model = null)
+        public ActionResult ForgotPassword(bool emailSent = false, string error = null)
         {
-            if (model == null)
-            {
-                model = this.Model.GetForgotPasswordViewModel();
-            }
+            var model = this.Model.GetForgotPasswordViewModel();
+
+            model.Error = error;
+            model.EmailSent = emailSent;
 
             var fullTemplateName = this.forgotPasswordFormTemplatePrefix + this.GetViewName(this.ForgotPasswordTemplate);
 
             return this.View(fullTemplateName, model);
         }
 
-        [ValidateAntiForgeryToken]
-        public ActionResult PostForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult SetForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Send password.
+                var user = UserManager.GetManager().GetUsers().FirstOrDefault(u => u.Email == model.Email);
 
-                model.EmailSent = true;
+                if (user == null)
+                {
+                    model.Error = "User with such email does not exist.";
+                }
+                else
+                {
+                    try
+                    {
+                        this.Model.TrySendResetPasswordEmail(model.Email);
+                        model.EmailSent = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        model.Error = "Invalid data";
+                    }
+                }
             }
 
-            return this.RedirectToAction("ForgotPassword", new { model = model });
+            var pageUrl = this.Model.GetPageUrl(null);
+            var queryString = string.Format("emailSent={0}&error={1}", model.EmailSent, model.Error);
+            return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
-        public ActionResult ResetPassword(ResetPasswordViewModel model = null)
+        public ActionResult ResetPassword(bool resetComplete = false, string error = null)
         {
-            if (model == null)
-            {
-                model = this.Model.GetResetPasswordViewModel();
-            }
+            var model = this.Model.GetResetPasswordViewModel();
+            
+            model.Error = error;
+            model.ResetComplete = resetComplete;
+            model.SecurityToken = this.HttpContext.Request.QueryString.ToQueryString();
 
             var fullTemplateName = this.resetPasswordFormTemplatePrefix + this.GetViewName(this.ResetPasswordTemplate);
 
             return this.View(fullTemplateName, model);
         }
 
-        [ValidateAntiForgeryToken]
-        public ActionResult PostResetPassword(ResetPasswordViewModel model)
+        public ActionResult SetResetPassword(ResetPasswordInputModel model)
         {
+            bool resetComplete = false;
+            string error = string.Empty;
+
             if (ModelState.IsValid)
             {
-                // TODO: Send password.
-
-                model.PasswordChanged = true;
+                try
+                {
+                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
+                    resetComplete = true;
+                }
+                catch (NotSupportedException)
+                {
+                    error = Res.Get<LoginFormResources>().ResetPasswordNotEnabled;
+                }
+                catch (Exception)
+                {
+                    error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+                }
+            }
+            else
+            {
+                try
+                {
+                    error = Res.Get<LoginFormResources>().Get(this.Model.GetErrorFromViewModel(this.ModelState));
+                }
+                catch (KeyNotFoundException)
+                {
+                    error = Res.Get<LoginFormResources>().ResetPasswordGeneralErrorMessage;
+                }
             }
 
-            return this.RedirectToAction("ResetPassword", new { model = model });
+            error = HttpUtility.UrlEncode(error);
+
+            var pageUrl = this.Model.GetPageUrl(null);
+            var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, error);
+            return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
 
         #endregion

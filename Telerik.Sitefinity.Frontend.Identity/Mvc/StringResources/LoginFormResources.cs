@@ -168,7 +168,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RegistrationPageInfo"];
             }
         }
-
+        
         /// <summary>
         /// Gets phrase : Show "Remember me" checkbox
         /// </summary>
@@ -196,6 +196,321 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["AlreadyLogedIn"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : You must first enable password reset or password retrieval from the membership provider settings.
+        /// </summary>
+        [ResourceEntry("PaswordResetNotEnabled",
+            Value = "You must first enable password reset or password retrieval from the membership provider settings.",
+            Description = "phrase : You must first enable password reset or password retrieval from the membership provider settings.",
+            LastModified = "2015/02/27")]
+        public string PaswordResetNotEnabled
+        {
+            get
+            {
+                return this["PaswordResetNotEnabled"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : New password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordNewPassword",
+            Value = "New password",
+            Description = "phrase : New password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordNewPassword
+        {
+            get
+            {
+                return this["ResetPasswordNewPassword"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Repeat new password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordRepeatNewPassword",
+            Value = "Repeat new password",
+            Description = "phrase : Repeat new password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordRepeatNewPassword
+        {
+            get
+            {
+                return this["ResetPasswordRepeatNewPassword"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Reset password.
+        /// </summary>
+        [ResourceEntry("ResetPasswordHeader",
+            Value = "Reset password",
+            Description = "phrase : Reset password",
+            LastModified = "2015/02/27")]
+        public string ResetPasswordHeader
+        {
+            get
+            {
+                return this["ResetPasswordHeader"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Forgot your password?
+        /// </summary>
+        [ResourceEntry("ForgotPasswordHeader",
+            Value = "Forgot your password?",
+            Description = "phrase : Forgot your password?",
+            LastModified = "2015/02/27")]
+        public string ForgotPasswordHeader
+        {
+            get
+            {
+                return this["ForgotPasswordHeader"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Forgot your password?
+        /// </summary>
+        [ResourceEntry("ForgotPasswordEmail",
+            Value = "Email",
+            Description = "phrase : Email",
+            LastModified = "2015/02/27")]
+        public string ForgotPasswordEmail
+        {
+            get
+            {
+                return this["ForgotPasswordEmail"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Answer
+        /// </summary>
+        [ResourceEntry("ResetPasswordAnswer",
+            Value = "Answer",
+            Description = "phrase : Answer",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordAnswer
+        {
+            get
+            {
+                return this["ResetPasswordAnswer"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Both passwords must match.
+        /// </summary>
+        [ResourceEntry("ResetPasswordNonMatchingPasswordsMessage",
+            Value = "Both passwords must match.",
+            Description = "phrase : Both passwords must match.",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordNonMatchingPasswordsMessage
+        {
+            get
+            {
+                return this["ResetPasswordNonMatchingPasswordsMessage"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Invalid data.
+        /// </summary>
+        [ResourceEntry("ResetPasswordGeneralErrorMessage",
+            Value = "Invalid data.",
+            Description = "phrase : Invalid data.",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordGeneralErrorMessage
+        {
+            get
+            {
+                return this["ResetPasswordGeneralErrorMessage"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Your password is successfully changed.
+        /// </summary>
+        [ResourceEntry("ResetPasswordSuccess",
+            Value = "Your password is successfully changed.",
+            Description = "phrase : Your password is successfully changed.",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordSuccess
+        {
+            get
+            {
+                return this["ResetPasswordSuccess"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Back to login
+        /// </summary>
+        [ResourceEntry("ResetPasswordBackToLogin",
+            Value = "Back to login",
+            Description = "phrase : Back to login",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordBackToLogin
+        {
+            get
+            {
+                return this["ResetPasswordBackToLogin"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Save
+        /// </summary>
+        [ResourceEntry("ResetPasswordSaveButton",
+            Value = "Save",
+            Description = "phrase : Save",
+            LastModified = "2015/03/02")]
+        public string ResetPasswordSaveButton
+        {
+            get
+            {
+                return this["ResetPasswordSaveButton"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Log in
+        /// </summary>
+        [ResourceEntry("LoginFormLogInLegendHeader",
+            Value = "Log in",
+            Description = "phrase : Log in",
+            LastModified = "2015/03/02")]
+        public string LoginFormLogInLegendHeader
+        {
+            get
+            {
+                return this["LoginFormLogInLegendHeader"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Log in
+        /// </summary>
+        [ResourceEntry("LoginFormLogInButton",
+            Value = "Log in",
+            Description = "phrase : Log in",
+            LastModified = "2015/03/02")]
+        public string LoginFormLogInButton
+        {
+            get
+            {
+                return this["LoginFormLogInButton"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Register now
+        /// </summary>
+        [ResourceEntry("LoginFormRegisterNow",
+            Value = "Register now",
+            Description = "phrase : Register now",
+            LastModified = "2015/03/02")]
+        public string LoginFormRegisterNow
+        {
+            get
+            {
+                return this["LoginFormRegisterNow"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : You sent a request to reset your password.
+        /// </summary>
+        [ResourceEntry("ForgotPasswordRequestSent",
+            Value = "You sent a request to reset your password.",
+            Description = "phrase : You sent a request to reset your password.",
+            LastModified = "2015/03/02")]
+        public string ForgotPasswordRequestSent
+        {
+            get
+            {
+                return this["ForgotPasswordRequestSent"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Please use the link provided in your email to reset the password for your account.
+        /// </summary>
+        [ResourceEntry("ForgotPasswordRequestSentUseLink",
+            Value = "Please use the link provided in your email to reset the password for your account.",
+            Description = "phrase : Please use the link provided in your email to reset the password for your account.",
+            LastModified = "2015/03/02")]
+        public string ForgotPasswordRequestSentUseLink
+        {
+            get
+            {
+                return this["ForgotPasswordRequestSentUseLink"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Back to login
+        /// </summary>
+        [ResourceEntry("ForgotPasswordBackToLogin",
+            Value = "Back to login",
+            Description = "phrase : Back to login",
+            LastModified = "2015/03/02")]
+        public string ForgotPasswordBackToLogin
+        {
+            get
+            {
+                return this["ForgotPasswordBackToLogin"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Send
+        /// </summary>
+        [ResourceEntry("ForgotPasswordSendButton",
+            Value = "Send",
+            Description = "phrase : Send",
+            LastModified = "2015/03/02")]
+        public string ForgotPasswordSendButton
+        {
+            get
+            {
+                return this["ForgotPasswordSendButton"];
+            }
+        }
+                
+        /// </summary>
+        /// Gets phrase : This field is required.
+        /// </summary>
+        [ResourceEntry("ResetPasswordRequiredErrorMessage",
+            Value = "This field is required.",
+            Description = "phrase : This field is required.",
+            LastModified = "2015/03/03")]
+        public string ResetPasswordRequiredErrorMessage
+        {
+            get
+            {
+                return this["ResetPasswordRequiredErrorMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Password reset is not enabled
+        /// </summary>
+        [ResourceEntry("ResetPasswordNotEnabled",
+            Value = "Password reset is not enabled",
+            Description = "phrase : Password reset is not enabled",
+            LastModified = "2015/02/25")]
+        public string ResetPasswordNotEnabled
+        {
+            get
+            {
+                return this["ResetPasswordNotEnabled"];
             }
         }
     }
