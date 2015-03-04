@@ -72,16 +72,28 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <summary>
         /// Posts the registration form.
         /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
-        public ActionResult PostRegistration(RegistrationViewModel model)
+        /// <param name="viewModel">The view model.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        [HttpPost]
+        public ActionResult Index(RegistrationViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                this.Model.RegisterUser(model);
+                var status = this.Model.RegisterUser(viewModel);
+                if (status == System.Web.Security.MembershipCreateStatus.Success)
+                {
+                    return this.Content(this.Model.SuccessfulRegistrationMsg);
+                }
+                else
+                {
+                    this.ViewBag.Error = this.Model.ErrorMessage(status);
+                }
             }
 
-            return this.RedirectToAction("Index");
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+            return this.View(fullTemplateName, viewModel);
         }
 
         #endregion
