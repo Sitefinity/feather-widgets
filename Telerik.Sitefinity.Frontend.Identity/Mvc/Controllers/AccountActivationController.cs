@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -9,22 +9,22 @@ using Telerik.Sitefinity.Mvc;
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
     /// <summary>
-    /// This class represents the controller of the Profile widget.
+    /// This class represents the controller of the Account Activation widget.
     /// </summary>
-    [Localization(typeof(ProfileResources))]
-    [ControllerToolboxItem(Name = "ProfileMVC", Title = "Profile", SectionName = "MvcWidgets")]
-    public class ProfileController : Controller
+    [Localization(typeof(AccountActivationResources))]
+    [ControllerToolboxItem(Name = "AccountActivation", Title = "Account activation", SectionName = "MvcWidgets")]
+    public class AccountActivationController : Controller
     {
         #region Properties
 
         /// <summary>
-        /// Gets the Profile widget model.
+        /// Gets the Account Activation widget model.
         /// </summary>
         /// <value>
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public virtual IProfileModel Model
+        public virtual IAccountActivationModel Model
         {
             get
             {
@@ -38,7 +38,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <summary>
         /// Gets or sets the name of the template that widget will be displayed.
         /// </summary>
-        /// <value></value>
+        /// <value>
+        /// The name of the template that widget will be displayed.
+        /// </value>
         public string TemplateName
         {
             get
@@ -57,17 +59,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #region Actions
 
         /// <summary>
-        /// Renders appropriate list view depending on the <see cref="TemplateName" />
+        /// Renders appropriate view depending on the <see cref="TemplateName" />
         /// </summary>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
         public ActionResult Index()
         {
+            var model = this.Model.GetViewModel(); 
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
-            var viewModel = this.Model.GetViewModel();
 
-            return this.View(fullTemplateName, viewModel);
+            return this.View(fullTemplateName, model);
         }
 
         #endregion
@@ -78,20 +80,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// Initializes the model.
         /// </summary>
         /// <returns>
-        /// The <see cref="IProfileModel"/>.
+        /// The <see cref="IAccountActivationModel"/>.
         /// </returns>
-        private IProfileModel InitializeModel()
+        private IAccountActivationModel InitializeModel()
         {
-            return ControllerModelFactory.GetModel<IProfileModel>(this.GetType());
+            return ControllerModelFactory.GetModel<IAccountActivationModel>(this.GetType());
         }
 
         #endregion
 
         #region Private fields and constants
 
-        private string templateName = "ProfilePreview";
-        private IProfileModel model;
-        private string templateNamePrefix = "Profile.";
+        private string templateName = "Default";
+        private string templateNamePrefix = "AccountActivation.";
+
+        private IAccountActivationModel model;
 
         #endregion
     }

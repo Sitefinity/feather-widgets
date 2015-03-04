@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
@@ -22,6 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Media
             Bind<ILoginFormModel>().To<LoginFormModel>();
             Bind<IChangePasswordModel>().To<ChangePasswordModel>();
             Bind<IProfileModel>().To<ProfileModel>();
+            Bind<IAccountActivationModel>().To<AccountActivationModel>();
         }
     }
 }
