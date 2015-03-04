@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search;
@@ -79,6 +80,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             private set
             {
                 this.navigationMap = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the media element map.
+        /// </summary>
+        /// <value>An initialized instance of media element map.</value>
+        public MediaMap Media
+        {
+            get
+            {
+                if (this.mediaMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.mediaMap = new MediaMap(this.find);
+                }
+
+                return this.mediaMap;
+            }
+
+            private set
+            {
+                this.mediaMap = value;
             }
         }
 
@@ -237,5 +261,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private WidgetDesignerMap widgetDesignerMap;
         private SelectorsMap selectorsMap;
         private SearchMap searchMap;
+        private MediaMap mediaMap;
     }
 }

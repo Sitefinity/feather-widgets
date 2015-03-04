@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.WidgetTemplates;
 
@@ -84,6 +85,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public SearchWrapperFacade Search()
         {
             return new SearchWrapperFacade();
+        }
+
+        /// <summary>
+        /// Media.
+        /// </summary>
+        /// <returns></returns>
+        public MediaWrapperFacade Media()
+        {
+            return new MediaWrapperFacade();
         }
     }
 }
