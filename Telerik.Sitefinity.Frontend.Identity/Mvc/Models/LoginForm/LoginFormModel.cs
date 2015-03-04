@@ -163,15 +163,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             if (user != null)
             {
-                if (!string.IsNullOrEmpty(user.Password) && typeof(MembershipProviderWrapper).IsAssignableFrom(manager.Provider.GetType()))
+                if (string.IsNullOrEmpty(user.Password) &&
+                    !typeof(MembershipProviderWrapper).IsAssignableFrom(this.MembershipProvider.GetType()))
                 {
-                    var currentPageUrl = this.GetPageUrl(null);
-                                        
+                    viewModel.Error = "Not supported";
+                }
+                else
+                {
+                    var resetPassUrl = Url.Combine(SiteMapBase.GetActualCurrentNode().Url, "resetpassword");
+
                     try
                     {
-                        MethodInfo dynMethod = this.GetType().GetMethod("SendRecoveryPasswordMail", BindingFlags.NonPublic | BindingFlags.Static);
-                        dynMethod.Invoke(this, new object[] { UserManager.GetManager(user.ProviderName), email, currentPageUrl });
-                        
+                        MethodInfo dynMethod = typeof(UserManager).GetMethod("SendRecoveryPasswordMail", BindingFlags.NonPublic | BindingFlags.Static);
+                        dynMethod.Invoke(this, new object[] { UserManager.GetManager(user.ProviderName), email, resetPassUrl });
+
                         viewModel.EmailSent = true;
                     }
                     catch (Exception ex)
@@ -181,11 +186,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                         viewModel.Error = ex.Message;
                     }
-
-                }
-                else
-                {
-                    viewModel.Error = "Not supported";
                 }
             }
             else
