@@ -25,7 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #region Properties
 
         /// <summary>
-        /// Gets the Login Status widget model.
+        /// Gets the Change password widget model.
         /// </summary>
         /// <value>
         /// The model.
