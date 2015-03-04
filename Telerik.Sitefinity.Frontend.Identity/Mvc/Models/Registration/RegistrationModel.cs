@@ -269,6 +269,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
         }
 
+        /// <inheritDoc/>
+        public virtual string GetError()
+        {
+            if (this.ActivationMethod == ActivationMethod.AfterConfirmation && !this.ConfirmationPageId.HasValue)
+            {
+                return Res.Get<ErrorMessages>().NoConfirmationPageIsSet;
+            }
+            return string.Empty;
+        }
+
         #endregion
 
         #region Protected methods
