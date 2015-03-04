@@ -13,7 +13,10 @@
 
     @using (Html.BeginForm("EditProfile", "EditProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        @Html.HiddenFor(u => u.DeletePicture)
+        
         <img src="@Model.AvatarImageUrl" />
+        
         <input type="file" accept="image/*" name="uploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
         
         <label>@Html.Resource("EditProfileFirstName")</label>
