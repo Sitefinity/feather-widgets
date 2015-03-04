@@ -183,7 +183,7 @@
     <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
-    <None Include="Mvc\Views\Registration\ProfileBindings.json" />
+    <EmbeddedResource Include="Mvc\Views\Registration\ProfileBindings.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
