@@ -498,5 +498,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["BackToLogin"];
             }
         }
+
+        /// <summary>
+        /// phrase: Success! Thanks for filling out our form!
+        /// </summary>
+        /// <value>Success! Thanks for filling out our form!</value>
+        [ResourceEntry("DefaultSuccessfulRegistrationMessage",
+            Value = "Success! Thanks for filling out our form!",
+            Description = "phrase: Success! Thanks for filling out our form!",
+            LastModified = "2015/03/04")]
+        public string DefaultSuccessfulRegistrationMessage
+        {
+            get
+            {
+                return this["DefaultSuccessfulRegistrationMessage"];
+            }
+        }
     }
 }

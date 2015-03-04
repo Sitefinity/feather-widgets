@@ -123,7 +123,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             {
                 if (this.successfulRegistrationMsg.IsNullOrEmpty())
                 {
-                    return DefaultSuccessfulRegistrationMsg;
+                    return Res.Get<RegistrationResources>().DefaultSuccessfulRegistrationMessage;
                 }
                 else
                 {
@@ -420,7 +420,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         #region Private fields and constants
 
         private const string DefaultSortExpression = "PublicationDate DESC";
-        private const string DefaultSuccessfulRegistrationMsg = "Success! Thanks for filling out our form!";
 
         private string successfulRegistrationMsg;
         private string serializedSelectedRoles;
