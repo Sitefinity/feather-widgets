@@ -12,7 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Account Activation widget.
     /// </summary>
     [Localization(typeof(AccountActivationResources))]
-    [ControllerToolboxItem(Name = "AccountActivation", Title = "Account Activation", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "AccountActivation", Title = "Account activation", SectionName = "MvcWidgets")]
     public class AccountActivationController : Controller
     {
         #region Properties

@@ -3,7 +3,14 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
 
 <div class="@Model.CssClass">
-    <h3>@Html.Resource("AccountActivationSuccess")</h3>
+    @if (Model.Activated)
+    {
+        <h3>@Html.Resource("AccountActivationSuccess")</h3>
 
-    <a href="@Model.ProfilePageUrl">@Html.Resource("ProfilePageUrlTitle")</a>
+        <a href="@Model.ProfilePageUrl">@Html.Resource("ProfilePageUrlTitle")</a>
+    }
+    else
+    {
+        <h3>@Html.Resource("AccountActivationFail")</h3>
+    }
 </div>

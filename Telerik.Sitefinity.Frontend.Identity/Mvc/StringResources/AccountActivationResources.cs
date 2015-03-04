@@ -8,9 +8,9 @@ using Telerik.Sitefinity.Localization.Data;
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
 {
     /// <summary>
-    /// Localizable strings for the Change Password widget
+    /// Localizable strings for the Account Activation widget
     /// </summary>
-    [ObjectInfo(typeof(LoginStatusResources), Title = "ChangePasswordResources", Description = "ChangePasswordResources")]
+    [ObjectInfo(typeof(AccountActivationResources), Title = "AccountActivationResourcesResources", Description = "AccountActivationResourcesResources")]
     class AccountActivationResources : Resource
     {
         #region Constructors
@@ -48,6 +48,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Your account could not be activated
+        /// </summary>
+        [ResourceEntry("AccountActivationFail",
+            Value = "Your account could not be activated",
+            Description = "phrase : Your account could not be activated",
+            LastModified = "2015/03/03")]
+        public string AccountActivationFail
+        {
+            get
+            {
+                return this["AccountActivationFail"];
+            }
+        }
+        
         /// <summary>
         /// Gets phrase : Go to your profile
         /// </summary>

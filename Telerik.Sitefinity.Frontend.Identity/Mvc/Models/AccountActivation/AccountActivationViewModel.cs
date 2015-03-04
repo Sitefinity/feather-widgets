@@ -20,5 +20,13 @@
         /// The profile page URL.
         /// </value>
         public string ProfilePageUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the account is activated.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the account activated; otherwise, <c>false</c>.
+        /// </value>
+        public bool Activated { get; set; }
     }
 }
