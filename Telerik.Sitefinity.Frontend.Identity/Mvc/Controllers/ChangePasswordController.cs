@@ -25,7 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #region Properties
 
         /// <summary>
-        /// Gets the Login Status widget model.
+        /// Gets the Change password widget model.
         /// </summary>
         /// <value>
         /// The model.
@@ -150,7 +150,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// Initializes the model.
         /// </summary>
         /// <returns>
-        /// The <see cref="ILoginStatusModel"/>.
+        /// The <see cref="IChangePasswordModel"/>.
         /// </returns>
         private IChangePasswordModel InitializeModel()
         {

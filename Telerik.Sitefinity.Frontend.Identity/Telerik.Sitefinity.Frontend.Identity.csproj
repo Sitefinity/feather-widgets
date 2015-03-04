@@ -137,10 +137,14 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
-    <Compile Include="Mvc\Controllers\ChangePasswordController.cs" />
+    <Compile Include="Mvc\Controllers\AccountActivationController.cs" />
     <Compile Include="Mvc\Controllers\RegistrationController.cs" />
+    <Compile Include="Mvc\Controllers\ChangePasswordController.cs" />
     <Compile Include="Mvc\Controllers\LoginFormController.cs" />
     <Compile Include="Mvc\Controllers\LoginStatusController.cs" />
+    <Compile Include="Mvc\Models\AccountActivation\AccountActivationModel.cs" />
+    <Compile Include="Mvc\Models\AccountActivation\AccountActivationViewModel.cs" />
+    <Compile Include="Mvc\Models\AccountActivation\IAccountActivationModel.cs" />
     <Compile Include="Mvc\Models\ChangePassword\ChangePasswordCompleteAction.cs" />
     <Compile Include="Mvc\Models\ChangePassword\ChangePasswordInputModel.cs" />
     <Compile Include="Mvc\Models\ChangePassword\ChangePasswordModel.cs" />
@@ -161,8 +165,9 @@
     <Compile Include="Mvc\Models\Registration\ProfileBindingsContract.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationModel.cs" />
-    <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
+    <Compile Include="Mvc\StringResources\AccountActivationResources.cs" />
     <Compile Include="Mvc\StringResources\RegistrationResources.cs" />
+    <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
     <Compile Include="Mvc\StringResources\LoginFormResources.cs" />
     <Compile Include="Mvc\StringResources\LoginStatusResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,13 +182,16 @@
     <EmbeddedResource Include="Mvc\Views\Registration\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Registration\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Registration\Registration.RegistrationForm.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Registration\ProfileBindings.json" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Registration\ProfileBindings.json" />
+    <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\AccountActivation\AccountActivation.Default.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -203,6 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ChangePassword\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\AccountActivation\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
