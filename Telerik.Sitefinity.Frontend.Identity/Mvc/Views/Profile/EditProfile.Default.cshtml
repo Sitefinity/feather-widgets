@@ -11,8 +11,11 @@
         <div>@Model.Message</div>
     }
 
-    @using (Html.BeginForm("EditProfile", "EditProfile"))
+    @using (Html.BeginForm("EditProfile", "EditProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        <img src="@Model.AvatarImageUrl" />
+        <input type="file" accept="image/*" name="uploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
+        
         <label>@Html.Resource("EditProfileFirstName")</label>
         <div class="editor-field">
             @Html.EditorFor(u => u.FirstName)
