@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Change Password widget
     /// </summary>
-    [ObjectInfo(typeof(LoginStatusResources), Title = "ChangePasswordResources", Description = "ChangePasswordResources")]
+    [ObjectInfo(typeof(ChangePasswordResources), Title = "ChangePasswordResources", Description = "ChangePasswordResources")]
     public class ChangePasswordResources : Resource
     {
         #region Constructors

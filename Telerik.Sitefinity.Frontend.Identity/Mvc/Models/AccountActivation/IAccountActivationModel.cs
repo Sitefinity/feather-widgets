@@ -25,6 +25,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         /// The css class.
         /// </value>
         string CssClass { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the membership provider.
+        /// </summary>
+        /// <value>
+        /// The membership provider.
+        /// </value>
+        string MembershipProvider { get; set; }
 
         /// <summary>
         /// Gets or sets the profile page identifier.

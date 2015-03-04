@@ -97,32 +97,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
-        public ActionResult SetForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult SendPasswordResetEmail(string email)
         {
-            if (ModelState.IsValid)
-            {
-                var user = UserManager.GetManager().GetUsers().FirstOrDefault(u => u.Email == model.Email);
-
-                if (user == null)
-                {
-                    model.Error = "User with such email does not exist.";
-                }
-                else
-                {
-                    try
-                    {
-                        this.Model.TrySendResetPasswordEmail(model.Email);
-                        model.EmailSent = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        model.Error = "Invalid data";
-                    }
-                }
-            }
-
+            var viewModel = this.Model.SendResetPasswordEmail(email);
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("emailSent={0}&error={1}", model.EmailSent, model.Error);
+            var queryString = string.Format("emailSent={0}&error={1}", viewModel.EmailSent, viewModel.Error);
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
