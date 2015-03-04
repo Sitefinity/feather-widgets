@@ -373,7 +373,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                         var target = this.OpenExternalPageInNewTab ? "_blank" : "_self";
                         foreach (var page in this.selectedPages)
                         {
-                            if (page.Id != default(Guid))
+                            if (page.Id != default(Guid) && !page.IsExternal)
                             {
                                 var siteMapNode = siteMapProvider.FindSiteMapNodeFromKey(page.Id.ToString("D"));
                                 if (siteMapNode != null && this.CheckSiteMapNode(siteMapNode))
