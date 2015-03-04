@@ -19,6 +19,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets the save changes action.
+        /// </summary>
+        /// <value>
+        /// The save changes action.
+        /// </value>
+        SaveAction SaveChangesAction { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns>
