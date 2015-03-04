@@ -4,6 +4,7 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
@@ -66,6 +67,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
+
+            this.SetModelErrors();
+
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -116,6 +120,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IRegistrationModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IRegistrationModel>(this.GetType());
+        }
+
+        /// <summary>
+        /// Sets the model errors.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual void SetModelErrors()
+        {
+            if (this.Model.ActivationMethod == ActivationMethod.AfterConfirmation && !this.Model.ConfirmationPageId.HasValue)
+            {
+                this.ViewBag.Error = Res.Get<ErrorMessages>().NoConfirmationPageIsSet;
+            }
         }
 
         #endregion
