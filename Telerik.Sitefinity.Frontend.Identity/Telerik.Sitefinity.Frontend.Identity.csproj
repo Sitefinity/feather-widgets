@@ -180,9 +180,9 @@
     <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
-    <None Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
-    <None Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
-    <None Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
     <None Include="Mvc\Views\Registration\ProfileBindings.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -202,7 +202,7 @@
     <EmbeddedResource Include="Mvc\Scripts\LoginForm\login-form.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mvc\Scripts\ChangePassword\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\ChangePassword\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
