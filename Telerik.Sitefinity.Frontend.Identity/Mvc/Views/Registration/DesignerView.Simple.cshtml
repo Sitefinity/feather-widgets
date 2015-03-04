@@ -1,0 +1,136 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Security;
+@using Telerik.Sitefinity.Security.Web.UI;
+
+<tabset class="nav-tabs-wrapper">
+    <tab heading="@Html.Resource("General")">
+        <div class="form-group">
+            <label>@Html.Resource("Provider")</label>
+            <p>@Html.Resource("ProviderDescription")</p>      
+            <div class="row">
+                <div class="col-xs-6">
+                    <select ng-model="properties.MembershipProviderName.PropertyValue" class="form-control">
+                         @foreach (var providerName in UserManager.ProvidersCollection)
+                        {
+                            <option value="@providerName">@providerName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>@Html.Resource("Roles")</label>
+            <p>@Html.Resource("RolesDescription")</p>      
+            <div class="row">
+                <div class="col-xs-6">
+                    <sf-list-selector sf-role-selector sf-selected-items="rolesSelector.selectedItems" sf-multiselect="true"
+                        sf-hide-roles="Owner, Anonymous, Authenticated, Everyone">
+                    </sf-list-selector>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>@Html.Resource("FormSuccessfullySubmited")</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="showMessageOnSuccess" ng-value="true">@Html.Resource("ShowMsg")
+                </label>
+            </div>
+            <textarea ng-model="properties.SuccessfulRegistrationMsg.PropertyValue" class="label-content" ng-show="showMessageOnSuccess" rows="2" cols="20"></textarea>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="showMessageOnSuccess" ng-value="false">@Html.Resource("OpenPage")
+                </label>
+            </div>
+            <sf-list-selector
+                class="label-content"
+                sf-page-selector
+                sf-selected-item-id="properties.SuccessfulRegistrationPageId.PropertyValue"
+                ng-show="!showMessageOnSuccess"></sf-list-selector>
+        </div>
+
+        <div class="form-group">
+            <label>@Html.Resource("LoginPage")</label>
+            <p>@Html.Resource("LoginPageInfo")</p>      
+            <sf-list-selector
+                    class="label-content"
+                    sf-page-selector
+                    sf-selected-item-id="properties.LoginPageId.PropertyValue"></sf-list-selector>
+        </div>
+
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("Template")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames("Registration", @"Registration\.(?<viewName>\w*)$"))
+                        {
+                            <option value="@viewName">@viewName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label for="registrationCssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="registrationCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+            </div>
+        </expander>
+    </tab>
+    <tab heading="@Html.Resource("AccountActivation")">
+        <div class="form-group">
+            <label>@Html.Resource("ActivateAccounts")</label>   
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="Immediately" />
+                    @Html.Resource("Immediately")
+                    <p>
+                        <label>
+                            <input type="checkbox" ng-model="properties.SendEmailOnSuccess.PropertyValue"
+                                 ng-true-value="'True'" ng-false-value="'False'"
+                                 ng-disabled="properties.ActivationMethod.PropertyValue !== 'Immediately'" />
+                            @Html.Resource("SendEmailAfterRegistration")
+                        </label>
+                    </p>
+                </label>
+                <label>
+                    <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="AfterConfirmation" />
+                    @Html.Resource("ByConfirmationEmail")
+                </label>
+            </div>
+        </div>
+        <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'Immediately'">
+            <label>@Html.Resource("SuccessEmailTemplate")</label>   
+            <div class="row">
+                <div class="col-xs-6">
+                    <select ng-model="properties.SuccessEmailTemplateId.PropertyValue" class="form-control">
+                         @foreach (var template in Html.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""Success""", typeof(RegistrationForm).FullName)))
+                        {
+                            <option value="@template.Key">@template.Value</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'AfterConfirmation'">
+            <div class="row">
+                <label>@Html.Resource("ConfirmationEmailTemplate")</label>
+                <select></select>
+            </div>
+            <div class="row">
+                <label>@Html.Resource("ActivationPage")</label>
+                <p>@Html.Resource("ActivationPageDescription")</p>      
+                <sf-list-selector
+                        class="label-content"
+                        sf-page-selector
+                        sf-selected-item-id="properties.ActivationPageId.PropertyValue"></sf-list-selector>
+            </div>
+        </div>
+    </tab>
+</tabset>

@@ -27,8 +27,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         #endregion
-
-
+        
         #region Properties
 
         /// <inheritDoc/>
@@ -195,6 +194,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
 
             return viewModel;
+        }
+        
+        /// <inheritDoc/>
+        public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
+        {
+            var firstErrorValue = modelStateDict.Values.FirstOrDefault(v => v.Errors.Any());
+            if (firstErrorValue != null)
+            {
+                var firstError = firstErrorValue.Errors.FirstOrDefault();
+                if (firstError != null)
+                {
+                    return firstError.ErrorMessage;
+                }
+            }
+
+            return null;
         }
 
 

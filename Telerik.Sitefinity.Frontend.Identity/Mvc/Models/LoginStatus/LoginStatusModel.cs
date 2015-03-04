@@ -76,7 +76,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 }
                 else
                 {
-                    pageUrl = GetLoginPageBackendSetting();
+                    pageUrl = SitefinityContext.FrontendLoginUrl;
                 }
 
                 if (!pageUrl.IsNullOrEmpty())
@@ -94,19 +94,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritdoc />
         public virtual string GetLogoutPageUrl()
         {
-            var sfLogoutUrl = UrlPath.ResolveUrl("~/Sitefinity/SignOut?sts_signout=true&redirect=true", true, true);
-
             var logoutRedirectUrl = this.ExternalLogoutUrl;
             if (string.IsNullOrEmpty(logoutRedirectUrl) && this.LogoutPageId.HasValue)
             {
                 logoutRedirectUrl = HyperLinkHelpers.GetFullPageUrl(this.LogoutPageId.Value);
             }
 
-            string fullLogoutUrl = sfLogoutUrl;
-            if (!string.IsNullOrEmpty(logoutRedirectUrl))
-            {
-                fullLogoutUrl += "&redirect_uri=" + HttpUtility.UrlEncode(logoutRedirectUrl);
-            }
+            string fullLogoutUrl = UrlPath.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), true, true);
 
             return fullLogoutUrl;
         }
@@ -173,31 +167,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         }
 
         #endregion
-      
+
         #region Private members
-
-        /// <summary>
-        /// Gets the login page backend setting.
-        /// </summary>
-        /// <returns>
-        /// The login page url.
-        /// </returns>
-        private static string GetLoginPageBackendSetting()
-        {
-            RedirectStrategyType redirectStrategy = RedirectStrategyType.None;
-            var wrapper = new HttpContextWrapper(HttpContext.Current);
-            MethodInfo methodInfo = typeof(RouteHelper).GetMethod(
-                "GetFrontEndLogin",
-                BindingFlags.NonPublic | BindingFlags.Static,
-                Type.DefaultBinder,
-                new[] { typeof(HttpContextBase), typeof(RedirectStrategyType).MakeByRefType(), typeof(SiteMapProvider) },
-                null
-            );
-            var inputParameters = new object[] { wrapper, redirectStrategy, null };
-            var pageUrl = (string)methodInfo.Invoke(null, inputParameters);
-
-            return pageUrl;
-        }
 
         /// <summary>
         /// Appends the URL parameter.

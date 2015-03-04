@@ -400,6 +400,13 @@
             <param name="itemIndex">Index of the item in collection.</param>
             <returns></returns>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.HyperLinkHelpers.GetFullPageUrl(System.Guid)">
+            <summary>
+            Gets the full page URL.
+            </summary>
+            <param name="pageId">The page identifier.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper">
             <summary>
             This class contains helper methods for registering client resources.
@@ -519,6 +526,14 @@
             Determines whether this method is invoked from Sitefinity's backend.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.SitefinityContext.FrontendLoginUrl">
+            <summary>
+            Gets the frontend login URL for the current site as configured in the backend.
+            </summary>
+            <value>
+            The frontend login URL.
+            </value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.SitefinityHelper">
             <summary>
