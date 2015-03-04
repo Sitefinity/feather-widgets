@@ -137,9 +137,10 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\ChangePasswordController.cs" />
+    <Compile Include="Mvc\Controllers\ProfileController.cs" />
     <Compile Include="Mvc\Controllers\AccountActivationController.cs" />
     <Compile Include="Mvc\Controllers\RegistrationController.cs" />
-    <Compile Include="Mvc\Controllers\ChangePasswordController.cs" />
     <Compile Include="Mvc\Controllers\LoginFormController.cs" />
     <Compile Include="Mvc\Controllers\LoginStatusController.cs" />
     <Compile Include="Mvc\Models\AccountActivation\AccountActivationModel.cs" />
@@ -160,14 +161,18 @@
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\LoginStatusViewModel.cs" />
     <Compile Include="Mvc\Models\LoginStatus\StatusViewModel.cs" />
+    <Compile Include="Mvc\Models\Profile\IProfileModel.cs" />
+    <Compile Include="Mvc\Models\Profile\ProfileModel.cs" />
+    <Compile Include="Mvc\Models\Profile\ProfileViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\ActivationMethod.cs" />
     <Compile Include="Mvc\Models\Registration\IRegistrationModel.cs" />
     <Compile Include="Mvc\Models\Registration\ProfileBindingsContract.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationModel.cs" />
+    <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
+    <Compile Include="Mvc\StringResources\ProfileResources.cs" />
     <Compile Include="Mvc\StringResources\AccountActivationResources.cs" />
     <Compile Include="Mvc\StringResources\RegistrationResources.cs" />
-    <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
     <Compile Include="Mvc\StringResources\LoginFormResources.cs" />
     <Compile Include="Mvc\StringResources\LoginStatusResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -189,6 +194,7 @@
     <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Profile\Profile.ProfilePreview.cshtml" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\AccountActivation.Default.cshtml" />
