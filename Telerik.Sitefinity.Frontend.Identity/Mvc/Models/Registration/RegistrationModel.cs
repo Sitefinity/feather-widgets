@@ -1,5 +1,4 @@
-﻿using ServiceStack.Text;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,8 @@ using System.Text;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+
+using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -118,17 +119,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public Guid? SuccessfulRegistrationPageId { get; set; }
 
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        /// Occurs when sending a registration email.
-        /// </summary>
-        public event MailMessageEventHandler SendingSuccessfulRegistrationMail;
-
         /// <inheritDoc/>
         public bool SendRegistrationEmail { get; set; }
+
+        #endregion
+
+        #region Public methods
 
         /// <inheritDoc/>
         public RegistrationViewModel GetViewModel()
@@ -142,20 +138,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 SuccessfulRegistrationPageUrl = this.GetSuccessfulRegistrationPageUrl()
             };
         }
-
-        /// <summary>
-        /// Occurs when assigning roles to a user.
-        /// </summary>
-        public event UserOperationInvokingEventHandler AssigningRolesToUser;
-
-        /// <summary>
-        /// Occurs when roles were assigned to a user.
-        /// </summary>
-        public event UserOperationInvokedEventHandler RolesAssignedToUser;
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Gets the login redirect URL.
@@ -243,24 +225,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         #endregion
 
-        #region Event Delegates
-
-        /// <summary>
-        /// Represents a method that operates on a <see cref="User"/> instance.
-        /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">An argument passed to event handlers operating on a user instance that contains a flag specifying whether the operation should be canceled or not.</param>
-        public delegate void UserOperationInvokingEventHandler(object sender, UserOperationInvokingEventArgs e);
-
-        /// <summary>
-        /// Represents a method that operates on a <see cref="User"/> instance.
-        /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">An argument passed to event handlers operating on a user instance.</param>
-        public delegate void UserOperationInvokedEventHandler(object sender, UserOperationInvokedEventArgs e);
-
-        #endregion
-
         #region Protected methods
 
         /// <summary>
@@ -269,7 +233,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="user">The user.</param>
         protected virtual void AssignRolesToUser(User user)
         {
-            if (!this.OnAssigningUserRoles(user).Cancel && this.selectedRoles != null)
+            if (this.selectedRoles != null)
             {
                 foreach (var roleInfo in this.selectedRoles)
                 {
@@ -297,7 +261,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 {
                     roleManagerPair.Value.SaveChanges();
                 }
-                this.OnUserRolesAssigned(user);
             }
         }
 
@@ -373,12 +336,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             var registrationSuccessEmail = EmailSender.CreateRegistrationSuccessEmail(userManager.SuccessfulRegistrationEmailAddress, user.Email, user.UserName, this.SuccessEmailSubject, messageBody);
-            MailMessageEventArgs mailMessageEventArgs = this.OnSendingSuccessfulRegistrationMail(registrationSuccessEmail);
-            if (!mailMessageEventArgs.Cancel)
-            {
-                var emailSender = EmailSender.Get(this.EmailSenderName);
-                emailSender.SendAsync(registrationSuccessEmail, null);
-            }
+            var emailSender = EmailSender.Get(this.EmailSenderName);
+            emailSender.SendAsync(registrationSuccessEmail, null);
         }
 
         /// <summary>
@@ -417,36 +376,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
                 userProfileManager.SaveChanges();
             }
-        }
-
-        private MailMessageEventArgs OnSendingSuccessfulRegistrationMail(MailMessage registrationSuccessEmail)
-        {
-            MailMessageEventArgs mailMessageEventArgs = new MailMessageEventArgs(registrationSuccessEmail);
-            if (this.SendingSuccessfulRegistrationMail != null)
-            {
-                this.SendingSuccessfulRegistrationMail(this, mailMessageEventArgs);
-            }
-            return mailMessageEventArgs;
-        }
-
-        private UserOperationInvokingEventArgs OnAssigningUserRoles(User user)
-        {
-            UserOperationInvokingEventArgs assigningUserRolesArgs = new UserOperationInvokingEventArgs(user);
-            if (this.AssigningRolesToUser != null)
-            {
-                this.AssigningRolesToUser(this, assigningUserRolesArgs);
-            }
-            return assigningUserRolesArgs;
-        }
-
-        private UserOperationInvokedEventArgs OnUserRolesAssigned(User user)
-        {
-            UserOperationInvokedEventArgs userRolesAssigned = new UserOperationInvokedEventArgs(user);
-            if (this.RolesAssignedToUser != null)
-            {
-                this.RolesAssignedToUser(this, userRolesAssigned);
-            }
-            return userRolesAssigned;
         }
 
         private string membershipProviderName;
