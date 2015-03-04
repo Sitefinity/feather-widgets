@@ -5,6 +5,12 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Modules.Libraries;
 @using Telerik.Sitefinity.Libraries.Model;
+@using Telerik.Sitefinity.Services;
+
+@if (!SystemManager.IsDesignMode)
+{
+    @Html.Script(ScriptRef.JQuery)
+}
 
 <div class="@Model.CssClass">
 
