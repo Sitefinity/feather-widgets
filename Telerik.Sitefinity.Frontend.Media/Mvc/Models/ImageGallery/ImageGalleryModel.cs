@@ -110,7 +110,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             if (itemIndex != null)
             {
                 var query = this.GetItemsQuery();
-                query = this.UpdateExpression(query, null, null, ref totalCount);
+                int? take = this.DisplayMode == ListDisplayMode.Limit ? this.ItemsPerPage : null;
+                
+                query = this.UpdateExpression(query, null, take, ref totalCount);
+
+                if (this.DisplayMode == ListDisplayMode.Limit)
+                {
+                    totalCount = this.ItemsPerPage;
+                }
 
                 if (itemIndex == 1)
                 {
