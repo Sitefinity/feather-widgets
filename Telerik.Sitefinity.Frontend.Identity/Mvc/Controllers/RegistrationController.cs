@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 
-            this.SetModelErrors();
+            this.ViewBag.Error = this.Model.GetError();
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -120,18 +120,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IRegistrationModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IRegistrationModel>(this.GetType());
-        }
-
-        /// <summary>
-        /// Sets the model errors.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual void SetModelErrors()
-        {
-            if (this.Model.ActivationMethod == ActivationMethod.AfterConfirmation && !this.Model.ConfirmationPageId.HasValue)
-            {
-                this.ViewBag.Error = Res.Get<ErrorMessages>().NoConfirmationPageIsSet;
-            }
         }
 
         #endregion

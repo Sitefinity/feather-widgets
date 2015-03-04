@@ -130,6 +130,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         RegistrationViewModel GetViewModel();
 
         /// <summary>
+        /// Gets the model error.
+        /// </summary>
+        /// <returns></returns>
+        string GetError();
+
+        /// <summary>
         /// Registers a user with the data specified in the model.
         /// </summary>
         /// <param name="model">The model containing the registration form data.</param>
