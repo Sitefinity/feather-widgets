@@ -70,7 +70,8 @@
     (function ($) {
         $(function () {
             var changePasswordHolder = $('.edit-profile-change-password-holder').hide();
-            $('.edit-profile-change-password-expander').on('click', function () {
+            $('.edit-profile-change-password-expander').on('click', function (e) {
+                e.preventDefault();
                 changePasswordHolder.toggle('slow');
             });
         });
