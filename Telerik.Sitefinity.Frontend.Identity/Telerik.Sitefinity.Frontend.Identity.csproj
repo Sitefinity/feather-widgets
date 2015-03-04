@@ -171,6 +171,7 @@
     <Compile Include="Mvc\Models\Registration\ProfileBindingsContract.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationModel.cs" />
+    <Compile Include="Mvc\Models\Registration\SuccessfulRegistrationAction.cs" />
     <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
     <Compile Include="Mvc\StringResources\ProfileResources.cs" />
     <Compile Include="Mvc\StringResources\AccountActivationResources.cs" />
