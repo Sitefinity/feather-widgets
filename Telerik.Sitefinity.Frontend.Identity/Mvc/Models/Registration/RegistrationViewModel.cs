@@ -82,6 +82,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The email.
         /// </value>
+        [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         /// <summary>

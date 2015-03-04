@@ -7,7 +7,6 @@ using System.Text;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.UI.WebControls;
-
 using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
@@ -347,8 +346,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             {
                 this.SendSuccessfulRegistrationEmail(userManager, user);
             }
-
-            //this.RaiseRegistrationEvent(user);
         }
 
         /// <summary>
