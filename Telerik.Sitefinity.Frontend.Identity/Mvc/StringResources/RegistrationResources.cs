@@ -14,7 +14,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     public class RegistrationResources : Resource
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RegistrationResources"/> class. 
         /// Initializes new instance of <see cref="RegistrationResources"/> class with the default <see cref="ResourceDataProvider"/>.
@@ -31,7 +30,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             : base(dataProvider)
         {
         }
-
         #endregion
 
         /// <summary>
@@ -451,6 +449,38 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["SuccessEmailDefaultSubject"];
+            }
+        }
+
+        /// <summary>
+        /// word: Roles
+        /// </summary>
+        /// <value>Roles</value>
+        [ResourceEntry("Roles",
+            Value = "Roles",
+            Description = "word: Roles",
+            LastModified = "2015/03/03")]
+        public string Roles
+        {
+            get
+            {
+                return this["Roles"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: which the user will be assigned to
+        /// </summary>
+        /// <value>which the user will be assigned to</value>
+        [ResourceEntry("RolesDescription",
+            Value = "which the user will be assigned to",
+            Description = "phrase: which the user will be assigned to",
+            LastModified = "2015/03/03")]
+        public string RolesDescription
+        {
+            get
+            {
+                return this["RolesDescription"];
             }
         }
 

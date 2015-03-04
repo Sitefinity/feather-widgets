@@ -7,6 +7,8 @@ using System.Text;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+
+using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -17,6 +19,7 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Security.Web.UI;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web.Mail;
 
@@ -46,6 +49,42 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             set
             {
                 this.membershipProviderName = value;
+            }
+        }
+
+        /// <inheritDoc/>
+        public string SerializedSelectedRoles { 
+            get
+            {
+                return this.serializedSelectedRoles;
+            }
+
+            set
+            {
+                if (this.serializedSelectedRoles != value)
+                {
+                    this.serializedSelectedRoles = value;
+                    if (!this.serializedSelectedRoles.IsNullOrEmpty())
+                    {
+                        this.selectedRoles = JsonSerializer.DeserializeFromString<IList<Role>>(this.serializedSelectedRoles);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the role managers to submit.
+        /// </summary>
+        /// <value>The role managers to submit.</value>
+        protected virtual Dictionary<string, RoleManager> RoleManagersToSubmit
+        {
+            get
+            {
+                if (this.roleManagersToSubmit == null)
+                {
+                    roleManagersToSubmit = new Dictionary<string, RoleManager>();
+                }
+                return this.roleManagersToSubmit;
             }
         }
 
@@ -80,17 +119,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public Guid? SuccessfulRegistrationPageId { get; set; }
 
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        /// Occurs when sending a registration email.
-        /// </summary>
-        public event MailMessageEventHandler SendingSuccessfulRegistrationMail;
-
         /// <inheritDoc/>
         public bool SendRegistrationEmail { get; set; }
+
+        #endregion
+
+        #region Public methods
 
         /// <inheritDoc/>
         public RegistrationViewModel GetViewModel()
@@ -104,10 +138,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 SuccessfulRegistrationPageUrl = this.GetSuccessfulRegistrationPageUrl()
             };
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Gets the login redirect URL.
@@ -151,7 +181,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
                     this.CreateUserProfiles(user, viewModel.Profile);
 
-                    //this.AssignRolesToUser(user);
+                    this.AssignRolesToUser(user);
 
                     this.ConfirmRegistration(userManager, user);
                     //this.ExecuteUserProfileSuccessfullUpdateActions();
@@ -190,6 +220,66 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                     return Res.Get<ErrorMessages>().CreateUserWizardDefaultDuplicateEmailErrorMessage;
                 default:
                     return Res.Get<ErrorMessages>().CreateUserWizardDefaultUnknownErrorMessage;
+            }
+        }
+
+        #endregion
+
+        #region Protected methods
+
+        /// <summary>
+        /// Assigns the specified roles to the newly created user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        protected virtual void AssignRolesToUser(User user)
+        {
+            if (this.selectedRoles != null)
+            {
+                foreach (var roleInfo in this.selectedRoles)
+                {
+                    var roleManager = this.GetRoleManager(roleInfo.ProviderName);
+                    var roleToAssign = roleManager.GetRole(roleInfo.Id);
+                    if (!roleManager.Provider.Abilities.Keys.Contains("AssingUserToRole") || (roleManager.Provider.Abilities["AssingUserToRole"].Supported))
+                    {
+                        var suppressSecurityCheks = roleManager.Provider.SuppressSecurityChecks;
+                        try
+                        {
+                            roleManager.Provider.SuppressSecurityChecks = true;
+                            roleManager.AddUserToRole(user, roleToAssign);
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+                        finally
+                        {
+                            roleManager.Provider.SuppressSecurityChecks = suppressSecurityCheks;
+                        }
+                    }
+                }
+                foreach (var roleManagerPair in this.RoleManagersToSubmit)
+                {
+                    roleManagerPair.Value.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the manager.
+        /// </summary>
+        /// <param name="providerName">Name of the provider.</param>
+        /// <returns></returns>
+        protected virtual RoleManager GetRoleManager(string providerName)
+        {
+            if (this.RoleManagersToSubmit.ContainsKey(providerName))
+            {
+                return this.RoleManagersToSubmit[providerName];
+            }
+            else
+            {
+                var manager = RoleManager.GetManager(providerName);
+                this.RoleManagersToSubmit.Add(providerName, manager);
+                return manager;
             }
         }
 
@@ -246,12 +336,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             var registrationSuccessEmail = EmailSender.CreateRegistrationSuccessEmail(userManager.SuccessfulRegistrationEmailAddress, user.Email, user.UserName, this.SuccessEmailSubject, messageBody);
-            MailMessageEventArgs mailMessageEventArgs = this.OnSendingSuccessfulRegistrationMail(registrationSuccessEmail);
-            if (!mailMessageEventArgs.Cancel)
-            {
-                var emailSender = EmailSender.Get(this.EmailSenderName);
-                emailSender.SendAsync(registrationSuccessEmail, null);
-            }
+            var emailSender = EmailSender.Get(this.EmailSenderName);
+            emailSender.SendAsync(registrationSuccessEmail, null);
         }
 
         /// <summary>
@@ -292,21 +378,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
         }
 
-        private MailMessageEventArgs OnSendingSuccessfulRegistrationMail(MailMessage registrationSuccessEmail)
-        {
-            MailMessageEventArgs mailMessageEventArgs = new MailMessageEventArgs(registrationSuccessEmail);
-            if (this.SendingSuccessfulRegistrationMail != null)
-            {
-                this.SendingSuccessfulRegistrationMail(this, mailMessageEventArgs);
-            }
-            return mailMessageEventArgs;
-        }
-
         private string membershipProviderName;
         private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
 
         private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
 
         #endregion
+
+        #region Private fields and constants
+
+        private const string DefaultSortExpression = "PublicationDate DESC";
+
+        private string serializedSelectedRoles;
+        private IList<Role> selectedRoles = new List<Role>();
+        private Dictionary<string, RoleManager> roleManagersToSubmit = null;
+
+        #endregion
+
+        private class Role
+        {
+            public Guid Id { get; set; }
+
+            public string Name { get; set; }
+
+            public string ProviderName { get; set; }
+        }
     }
 }
