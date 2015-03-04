@@ -3,41 +3,41 @@
 
 <div class="form-group nav-wrapper">
 	<label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="ViewMode.EditOnly" />
+		<input type="radio" ng-model="properties.Mode.PropertyValue" value="EditOnly" />
 		@Html.Resource("EditModeOnly")
 	</label>
 
 	<label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="ViewMode.ReadOnly" />
+		<input type="radio" ng-model="properties.Mode.PropertyValue" value="ReadOnly" />
 		@Html.Resource("ReadModeOnly")
 	</label>
 
     <label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="ViewMode.Both" />
+		<input type="radio" ng-model="properties.Mode.PropertyValue" value="Both" />
 		@Html.Resource("BothModes")
 	</label>
 </div>
 
-<div ng-show="properties.Mode.PropertyValue===ViewMode.EditOnly">
+<div ng-show="properties.Mode.PropertyValue==='EditOnly'">
     <div class="form-group">
         <label>@Html.Resource("WhenChangesAreSaved")</label>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" ng-value="SaveAction.ShowMessage">@Html.Resource("ShowMsg")
+                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="ShowMessage">@Html.Resource("ShowMsg")
             </label>
         </div>
         <textarea ng-model="properties.ProfileSaveMsg.PropertyValue" class="label-content" 
-            ng-show="properties.SaveChangesAction.PropertyValue===SaveAction.ShowMessage" rows="2" cols="20"></textarea>
+            ng-show="properties.SaveChangesAction.PropertyValue==='ShowMessage'" rows="2" cols="20"></textarea>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" ng-value="SaveAction.ShowPage">@Html.Resource("OpenPage")
+                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="ShowPage">@Html.Resource("OpenPage")
             </label>
         </div>
         <sf-list-selector
             class="label-content"
             sf-page-selector
             sf-selected-item-id="properties.ProfileSavedPageId.PropertyValue"
-            ng-show="properties.SaveChangesAction.PropertyValue===SaveAction.ShowPage"></sf-list-selector>
+            ng-show="properties.SaveChangesAction.PropertyValue==='ShowPage'"></sf-list-selector>
     </div>
 
     <div class="form-group">
@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<div ng-show="properties.Mode.PropertyValue===ViewMode.ReadOnly">
+<div ng-show="properties.Mode.PropertyValue==='ReadOnly'">
     <div class="form-group">
         <label for="templateName">@Html.Resource("Template")</label>
         <div class="row">
@@ -71,30 +71,30 @@
     </div>
 </div>
 
-<div ng-show="properties.Mode.PropertyValue===ViewMode.Both">
+<div ng-show="properties.Mode.PropertyValue==='Both'">
     <div class="form-group">
         <label>@Html.Resource("WhenChangesAreSaved")</label>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" ng-value="SaveAction.SwitchToReadMode">@Html.Resource("SwitchToReadMode")
+                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="SwitchToReadMode">@Html.Resource("SwitchToReadMode")
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" ng-value="SaveAction.ShowMessage">@Html.Resource("ShowMsg")
+                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="ShowMessage">@Html.Resource("ShowMsg")
             </label>
         </div>
-        <textarea ng-model="properties.ProfileSaveMsg.PropertyValue" class="label-content" ng-show="properties.SaveChangesAction.PropertyValue==SaveAction.ShowMessage" rows="2" cols="20"></textarea>
+        <textarea ng-model="properties.ProfileSaveMsg.PropertyValue" class="label-content" ng-show="properties.SaveChangesAction.PropertyValue=='ShowMessage'" rows="2" cols="20"></textarea>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" ng-value="SaveAction.ShowPage">@Html.Resource("OpenPage")
+                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="ShowPage">@Html.Resource("OpenPage")
             </label>
         </div>
         <sf-list-selector
             class="label-content"
             sf-page-selector
             sf-selected-item-id="properties.ProfileSavedPageId.PropertyValue"
-            ng-show="properties.SaveChangesAction.PropertyValue===SaveAction.ShowPage"></sf-list-selector>
+            ng-show="properties.SaveChangesAction.PropertyValue==='ShowPage'"></sf-list-selector>
     </div>
 
     <div class="form-group">
