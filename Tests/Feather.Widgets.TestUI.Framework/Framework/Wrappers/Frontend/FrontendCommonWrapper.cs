@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
@@ -35,6 +36,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             HttpResponseMessage response = new HttpResponseMessage();
             Assert.AreEqual(200, (int)response.StatusCode);
+        }
+
+        /// <summary>
+        /// Verifies image on the frontend.
+        /// </summary>
+        /// <param name="title">The image title.</param>
+        /// <param name="altText">The image alt text.</param>
+        /// <param name="src">The image src.</param>
+        public void VerifyImage(string title, string altText, string src)
+        {
+            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText)
+                .AssertIsPresent("image");
+
+            Assert.IsTrue(image.Src.Contains(src), "src is not correct");
         }
 
         private const int TimeOut = 30000;

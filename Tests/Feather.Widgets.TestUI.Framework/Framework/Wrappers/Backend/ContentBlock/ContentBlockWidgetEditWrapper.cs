@@ -337,10 +337,41 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="src">The SRC.</param>
         public void VerifyContentBlockImageDesignMode(string src)
         {
-            Browser frame = this.GetContentBlockFrame();
+            var image = this.GetContentBlockImageDesignMode();
+            Assert.IsNotNull(image, "Unable to find image.");
+            Assert.IsTrue(image.Src.Contains(src), "src is not correct");
+        }
 
-            var image = frame.Find.AllByTagName("img").FirstOrDefault().As<HtmlImage>();
-            Assert.AreEqual(src, image.Src, "src are not equal");
+        /// <summary>
+        /// Verifies the content block image design mode.
+        /// </summary>
+        /// <param name="src">the src.</param>
+        /// <param name="sfref">the sfref.</param>
+        /// <param name="title">the title.</param>
+        /// <param name="altText">the altText.</param>
+        public void VerifyContentBlockImageDesignMode(string src, string sfref, string title, string altText)
+        {
+            var image = this.GetContentBlockImageDesignMode();
+            Assert.IsNotNull(image, "Unable to find image.");
+            Assert.IsTrue(image.Src.Contains(src), "src is not correct");
+
+            this.VerifyImageAttribute(image, "sfref", sfref);
+            this.VerifyImageAttribute(image, "title", title);
+            this.VerifyImageAttribute(image, "alt", altText);
+        }
+
+        /// <summary>
+        /// Opens the image selector.
+        /// </summary>
+        public void OpenImageSelector()
+        {
+            HtmlAnchor createContent = EM.GenericContent
+                                         .ContentBlockWidget
+                                         .ImageSelector
+                                         .AssertIsPresent("image selector");
+            createContent.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
         }
 
         private Browser GetContentBlockFrame()
@@ -348,6 +379,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "javascript:\"\"", 1);
             Browser frame = ActiveBrowser.Frames[frameInfo];
             return frame;
+        }
+
+        private HtmlImage GetContentBlockImageDesignMode()
+        {
+            Browser frame = this.GetContentBlockFrame();
+            return frame.Find.AllByTagName("img").FirstOrDefault().As<HtmlImage>();
+        }
+
+        private void VerifyImageAttribute(HtmlImage image, string attName, string attValue)
+        {
+            var attr = image.Attributes.FirstOrDefault(a => a.Name == attName);
+            Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
+            Assert.AreEqual(attValue, attr.Value, "Attribute " + attName + " value not as expected.");
         }
     }
 }

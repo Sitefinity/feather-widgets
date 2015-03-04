@@ -84,7 +84,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 var status = this.Model.RegisterUser(viewModel);
                 if (status == System.Web.Security.MembershipCreateStatus.Success)
                 {
-                    return this.Content(this.Model.SuccessfulRegistrationMsg);
+                    if (this.Model.SuccessfulRegistrationAction == SuccessfulRegistrationAction.ShowMessage)
+                    {
+                        return this.Content(this.Model.SuccessfulRegistrationMsg);
+                    }
+                    else if (this.Model.SuccessfulRegistrationAction == SuccessfulRegistrationAction.RedirectToPage)
+                    {
+                        return this.Redirect(this.Model.GetPageUrl(this.Model.SuccessfulRegistrationPageId));
+                    }
                 }
                 else
                 {
@@ -109,22 +116,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IRegistrationModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IRegistrationModel>(this.GetType());
-        }
-
-        /// <summary>
-        /// Sends the registration confirmation email.
-        /// </summary>
-        protected virtual void SendRegistrationConfirmationEmail()
-        {
-
-        }
-
-        /// <summary>
-        /// Sends the successful registration email.
-        /// </summary>
-        protected virtual void SendSuccessfulRegistrationEmail()
-        {
-
         }
 
         #endregion
