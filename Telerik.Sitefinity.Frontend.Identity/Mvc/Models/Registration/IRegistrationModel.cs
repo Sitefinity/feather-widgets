@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Security;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
 
@@ -89,6 +90,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </returns>
         RegistrationViewModel GetViewModel();
 
-        void RegisterUser(RegistrationViewModel model);
+        /// <summary>
+        /// Registers a user with the data specified in the model.
+        /// </summary>
+        /// <param name="model">The model containing the registration form data.</param>
+        /// <returns>Status indicating whether the user was created successfully.</returns>
+        MembershipCreateStatus RegisterUser(RegistrationViewModel model);
+
+        /// <summary>
+        /// Gets the error message corresponding to the given status.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <returns>The error message.</returns>
+        string ErrorMessage(MembershipCreateStatus status);
     }
 }

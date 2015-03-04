@@ -81,8 +81,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.Model.RegisterUser(viewModel);
-                return this.Content(this.Model.SuccessfulRegistrationMsg);
+                var status = this.Model.RegisterUser(viewModel);
+                if (status == System.Web.Security.MembershipCreateStatus.Success)
+                {
+                    return this.Content(this.Model.SuccessfulRegistrationMsg);
+                }
+                else
+                {
+                    this.ViewBag.Error = this.Model.ErrorMessage(status);
+                }
             }
 
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
