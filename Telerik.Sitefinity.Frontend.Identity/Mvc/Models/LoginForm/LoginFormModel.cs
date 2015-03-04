@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Security;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
@@ -151,10 +152,52 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public void SendResetPasswordEmail(MembershipUser user)
+        public ForgotPasswordViewModel SendResetPasswordEmail(string email)
         {
+            var viewModel = new ForgotPasswordViewModel();
+            viewModel.Email = email;
+            viewModel.EmailSent = false;
 
+
+            var manager = UserManager.GetManager(this.MembershipProvider);
+            var user = manager.GetUserByEmail(email);
+
+            if (user != null)
+            {
+                if (!string.IsNullOrEmpty(user.Password) && typeof(MembershipProviderWrapper).IsAssignableFrom(manager.Provider.GetType()))
+                {
+                    var currentPageUrl = this.GetPageUrl(null);
+                                        
+                    try
+                    {
+                        MethodInfo dynMethod = this.GetType().GetMethod("SendRecoveryPasswordMail", BindingFlags.NonPublic | BindingFlags.Static);
+                        dynMethod.Invoke(this, new object[] { UserManager.GetManager(user.ProviderName), email, currentPageUrl });
+                        
+                        viewModel.EmailSent = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (Exceptions.HandleException(ex, ExceptionPolicyName.IgnoreExceptions))
+                            throw ex;
+
+                        viewModel.Error = ex.Message;
+                    }
+
+                }
+                else
+                {
+                    viewModel.Error = "Not supported";
+                }
+            }
+            else
+            {
+                viewModel.Error = "Invalid data";
+            }
+
+            return viewModel;
         }
+
+
 
         /// <inheritDoc/>
         public string GetPageUrl(Guid? pageId)

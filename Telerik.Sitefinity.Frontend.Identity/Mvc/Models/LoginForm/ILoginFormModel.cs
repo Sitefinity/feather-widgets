@@ -112,14 +112,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// Sends reset password email.
         /// </summary>
         /// <param name="userIdentifier"></param>
-        void SendResetPasswordEmail(string userIdentifier);
-
-        /// <param name="userEmail">The user email.</param>
-        /// <returns>
-        /// <c>true</c> if the email sending succeeds; otherwise, <c>false</c>.
-        /// </returns>
-        bool TrySendResetPasswordEmail(string userEmail);
-
+        ForgotPasswordViewModel SendResetPasswordEmail(string email);
+        
         /// <summary>
         /// Gets the page URL.
         /// </summary>
