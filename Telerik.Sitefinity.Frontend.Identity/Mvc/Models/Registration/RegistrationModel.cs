@@ -1,5 +1,4 @@
-﻿using ServiceStack.Text;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -333,7 +333,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             var registrationSuccessEmail = EmailSender.CreateRegistrationSuccessEmail(userManager.SuccessfulRegistrationEmailAddress, user.Email, user.UserName, this.SuccessEmailSubject, messageBody);
-
             var emailSender = EmailSender.Get(this.EmailSenderName);
             emailSender.SendAsync(registrationSuccessEmail, null);
         }
