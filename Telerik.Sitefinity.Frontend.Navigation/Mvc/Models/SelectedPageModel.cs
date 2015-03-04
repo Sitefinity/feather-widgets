@@ -11,7 +11,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
     public class SelectedPageModel
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the identifier of the selected page.
         /// </summary>
         /// <value>
         /// The identifier.
@@ -19,12 +19,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the external page identifier.
+        /// Gets or sets a value indicating whether this page is external.
         /// </summary>
         /// <value>
-        /// The external page identifier.
+        /// True if the page is external and false otherwise.
         /// </value>
-        public Guid ExternalPageId { get; set; }
+        public bool IsExternal { get; set; }
 
         /// <summary>
         /// Gets or sets the title.

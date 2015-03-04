@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web.Security;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
@@ -149,10 +151,49 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public bool TrySendResetPasswordEmail(string userEmail)
+        public ForgotPasswordViewModel SendResetPasswordEmail(string email)
         {
-            // TODO: Implement
-            return false;
+            var viewModel = new ForgotPasswordViewModel();
+            viewModel.Email = email;
+            viewModel.EmailSent = false;
+
+
+            var manager = UserManager.GetManager(this.MembershipProvider);
+            var user = manager.GetUserByEmail(email);
+
+            if (user != null)
+            {
+                if (string.IsNullOrEmpty(user.Password) &&
+                    !typeof(MembershipProviderWrapper).IsAssignableFrom(this.MembershipProvider.GetType()))
+                {
+                    viewModel.Error = "Not supported";
+                }
+                else
+                {
+                    var resetPassUrl = Url.Combine(SiteMapBase.GetActualCurrentNode().Url, "resetpassword");
+
+                    try
+                    {
+                        MethodInfo dynMethod = typeof(UserManager).GetMethod("SendRecoveryPasswordMail", BindingFlags.NonPublic | BindingFlags.Static);
+                        dynMethod.Invoke(this, new object[] { UserManager.GetManager(user.ProviderName), email, resetPassUrl });
+
+                        viewModel.EmailSent = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (Exceptions.HandleException(ex, ExceptionPolicyName.IgnoreExceptions))
+                            throw ex;
+
+                        viewModel.Error = ex.Message;
+                    }
+                }
+            }
+            else
+            {
+                viewModel.Error = "Invalid data";
+            }
+
+            return viewModel;
         }
         
         /// <inheritDoc/>
@@ -170,6 +211,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             return null;
         }
+
+
 
         /// <inheritDoc/>
         public string GetPageUrl(Guid? pageId)

@@ -4,7 +4,6 @@
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
 
         $scope.feedback.showLoadingIndicator = true;
-        $scope.showMessageOnSuccess = true;
         $scope.rolesSelector = { selectedItems: [] };
 
         $scope.$watch(
@@ -38,7 +37,12 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
-                    
+                    if ($scope.properties.SuccessfulRegistrationAction.PropertyValue === 'ShowMessage') {
+                        $scope.properties.SuccessfulRegistrationPageId.PropertyValue = null;
+                    }
+                    else if ($scope.properties.SuccessfulRegistrationAction.PropertyValue === 'RedirectToPage') {
+                        $scope.properties.SuccessfulRegistrationMsg.PropertyValue = null;
+                    }
                 });
             })
             .finally(function () {

@@ -28,20 +28,32 @@
         );
 
         $scope.$watch(
-    'multiPageSelector.externalPages',
-    function (newExternalPages, oldExternalPages) {
-        if (newExternalPages !== oldExternalPages) {
-            $scope.properties.SerializedExternalPages.PropertyValue = JSON.stringify(newExternalPages);
-        }
-    },
-    true
-);
+            'multiPageSelector.externalPages',
+            function (newExternalPages, oldExternalPages) {
+                if (newExternalPages !== oldExternalPages) {
+                    $scope.properties.SerializedExternalPages.PropertyValue = JSON.stringify(newExternalPages);
+                }
+            },
+            true
+        );
 
         $scope.$watch(
             'properties.SerializedExternalPages.PropertyValue',
             function (newExternalPages, oldExternalPages) {
                 if (newExternalPages !== oldExternalPages || !$scope.multiPageSelector.externalPages) {
-                    $scope.multiPageSelector.externalPages = $.parseJSON(newExternalPages);
+                    var deserializedExternalPages = $.parseJSON(newExternalPages);
+
+                    // Make sure all external pages are marked as external.
+                    if (deserializedExternalPages) {
+                        for (var i = 0; i < deserializedExternalPages.length; i++) {
+                            if (deserializedExternalPages[i].ExternalPageId)
+                                deserializedExternalPages[i].Id = deserializedExternalPages[i].ExternalPageId;
+
+                            deserializedExternalPages[i].IsExternal = true;
+                        }
+                    }
+
+                    $scope.multiPageSelector.externalPages = deserializedExternalPages;
                 }
             },
             true

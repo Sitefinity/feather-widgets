@@ -21,6 +21,7 @@ using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Security.Web.UI;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web.Mail;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -71,6 +72,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
         }
 
+        /// <inheritDoc/>
+        public SuccessfulRegistrationAction SuccessfulRegistrationAction { get; set; }
+
         /// <summary>
         /// Gets the role managers to submit.
         /// </summary>
@@ -113,7 +117,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public ActivationMethod ActivationMethod { get; set; }
 
         /// <inheritDoc/>
-        public string SuccessfulRegistrationMsg { get; set; }
+        public string SuccessfulRegistrationMsg
+        {
+            get
+            {
+                if (this.successfulRegistrationMsg.IsNullOrEmpty())
+                {
+                    return Res.Get<RegistrationResources>().DefaultSuccessfulRegistrationMessage;
+                }
+                else
+                {
+                    return this.successfulRegistrationMsg;
+                }
+            }
+            set
+            {
+                if (this.successfulRegistrationMsg != value)
+                {
+                    this.successfulRegistrationMsg = value;
+                }
+            }
+        }
 
         /// <inheritDoc/>
         public Guid? SuccessfulRegistrationPageId { get; set; }
@@ -134,7 +158,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 MembershipProviderName = this.MembershipProviderName,
                 CssClass = this.CssClass,
                 SuccessfulRegistrationMsg = this.SuccessfulRegistrationMsg,
-                SuccessfulRegistrationPageUrl = this.GetSuccessfulRegistrationPageUrl()
+                SuccessfulRegistrationPageUrl = this.GetPageUrl(this.SuccessfulRegistrationPageId)
             };
         }
 
@@ -220,6 +244,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 default:
                     return Res.Get<ErrorMessages>().CreateUserWizardDefaultUnknownErrorMessage;
             }
+        }
+
+        /// <inheritDoc/>
+        public string GetPageUrl(Guid? pageId)
+        {
+            if (!pageId.HasValue)
+            {
+                pageId = SiteMapBase.GetActualCurrentNode().Id;
+            }
+
+            return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
         }
 
         #endregion
@@ -386,6 +421,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         private const string DefaultSortExpression = "PublicationDate DESC";
 
+        private string successfulRegistrationMsg;
         private string serializedSelectedRoles;
         private IList<Role> selectedRoles = new List<Role>();
         private Dictionary<string, RoleManager> roleManagersToSubmit = null;
