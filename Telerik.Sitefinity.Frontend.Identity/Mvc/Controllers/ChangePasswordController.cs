@@ -73,11 +73,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index(bool passwordChanged = false, string error = null)
         {
-            if (passwordChanged && this.Model.ChangePasswordCompleteAction == ChangePasswordCompleteAction.RedirectToPage)
-            {
-                return this.Redirect(this.Model.GetPageUrl(this.Model.ChangePasswordRedirectPageId));
-            }
-
             if (SecurityManager.GetCurrentUserId() == Guid.Empty)
             {
                 return this.Content(Res.Get<ChangePasswordResources>().LogInFirst);
@@ -129,11 +124,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
-            error = HttpUtility.UrlEncode(error);
+            string redirectUrl = string.Empty;
 
-            var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("?passwordChanged={0}&error={1}", passwordChanged, error);
-            return this.Redirect(pageUrl + queryString);
+            if (passwordChanged && this.Model.ChangePasswordCompleteAction == ChangePasswordCompleteAction.RedirectToPage)
+            {
+                redirectUrl = this.Model.GetPageUrl(this.Model.ChangePasswordRedirectPageId);
+            }
+            else
+            {
+                error = HttpUtility.UrlEncode(error);
+                var pageUrl = this.Model.GetPageUrl(null);
+                var queryString = string.Format("?passwordChanged={0}&error={1}", passwordChanged, error);
+
+                redirectUrl = pageUrl + queryString;
+            }
+
+            return this.Redirect(redirectUrl);
         }
 
         #endregion
