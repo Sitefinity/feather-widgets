@@ -29,8 +29,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public ActivationMethod ActivationMethod { get; set; }
 
-        public string SuccessfulRegistrationMsg { get; set; }
-
         public Guid? SuccessfulRegistrationPageId { get; set; }
 
         public bool SendRegistrationEmail { get; set; }
