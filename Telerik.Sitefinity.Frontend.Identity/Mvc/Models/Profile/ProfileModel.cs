@@ -1,14 +1,13 @@
-﻿using Microsoft.IdentityModel.Claims;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Model.ContentLinks;
@@ -16,8 +15,8 @@ using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Model;
-using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities;
+using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Workflow;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
@@ -178,6 +177,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 this.UserName.IsNullOrEmpty();
 
             return canEdit;
+        }
+
+        /// <inheritDoc/>
+        public string GetPageUrl(Guid? pageId)
+        {
+            if (!pageId.HasValue)
+            {
+                pageId = SiteMapBase.GetActualCurrentNode().Id;
+            }
+
+            return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
         }
 
         #endregion

@@ -102,10 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
             else
             {
-                var viewModel = this.Model.GetProfilePreviewViewModel();
-
-                var fullTemplateName = "Read." + this.ReadModeTemplateName;
-                return this.View(fullTemplateName, viewModel);
+                return this.ReadProfile();
             }
 
         }
@@ -143,11 +140,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 if (!isUpdated)
                     return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
 
-                if (this.Model.SaveChangesAction == SaveAction.SwitchToReadMode)
+                switch (this.Model.SaveChangesAction)
                 {
-                    var fullReadModeTemplateName = ViewMode.ReadOnly.ToString() + "." + this.ReadModeTemplateName;
-                    var readViewModel = this.Model.GetProfilePreviewViewModel();
-                    return this.View(fullReadModeTemplateName, readViewModel);
+                    case SaveAction.SwitchToReadMode:
+                        return this.ReadProfile();
+                    case SaveAction.ShowMessage:
+                        return this.Content(this.Model.ProfileSaveMsg);
+                    case SaveAction.ShowPage:
+                        return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
                 }
             }
 
@@ -168,6 +168,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IProfileModel InitializeModel()
         {
             return ControllerModelFactory.GetModel<IProfileModel>(this.GetType());
+        }
+
+        private ActionResult ReadProfile()
+        {
+            var viewModel = this.Model.GetProfilePreviewViewModel();
+
+            var fullTemplateName = "Read." + this.ReadModeTemplateName;
+            return this.View(fullTemplateName, viewModel);
         }
 
         #endregion

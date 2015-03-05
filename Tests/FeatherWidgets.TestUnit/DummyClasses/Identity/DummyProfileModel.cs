@@ -40,5 +40,17 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
         {
             return true;
         }
+
+        public string GetPageUrl(Guid? pageId)
+        {
+            if (pageId.HasValue)
+            {
+                return "http://" + pageId.Value.ToString("D");
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
