@@ -96,17 +96,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
 
             this.ViewBag.Mode = this.Mode;
-            var fullTemplateName = this.Mode.ToString() + "." + this.ReadModeTemplateName;
             if (this.Mode == ViewMode.EditOnly)
             {
-                var viewModel = this.Model.GetProfileEditViewModel();
-
-                return this.View(fullTemplateName, viewModel);
+                return this.EditProfile();
             }
             else
             {
                 var viewModel = this.Model.GetProfilePreviewViewModel();
 
+                var fullTemplateName = "Read." + this.ReadModeTemplateName;
                 return this.View(fullTemplateName, viewModel);
             }
 
@@ -123,7 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
             }
 
-            var fullTemplateName = ViewMode.EditOnly + "." + this.EditModeTemplateName;
+            var fullTemplateName = "Edit." + this.EditModeTemplateName;
             var viewModel = this.Model.GetProfileEditViewModel();
 
             return this.View(fullTemplateName, viewModel);

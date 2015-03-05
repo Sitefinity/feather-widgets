@@ -21,14 +21,24 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public string ProfileBindings { get; set; }
 
-        public ProfileViewModel GetViewModel()
+        public ProfilePreviewViewModel GetProfilePreviewViewModel()
         {
-            return new ProfileViewModel();
+            return new ProfilePreviewViewModel();
         }
 
-        public bool EditUserProfile(IDictionary<string, object> profileProperties)
+        public ProfileEditViewModel GetProfileEditViewModel()
         {
-            throw new NotImplementedException();
+            return new ProfileEditViewModel();
+        }
+
+        public bool CanEdit()
+        {
+            return true;
+        }
+
+        public bool EditUserProfile(IDictionary<string, string> profileProperties)
+        {
+            return true;
         }
     }
 }

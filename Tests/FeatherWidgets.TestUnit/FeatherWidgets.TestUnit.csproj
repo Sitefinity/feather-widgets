@@ -130,6 +130,7 @@
     <Compile Include="DummyClasses\DummyConfigProvider.cs" />
     <Compile Include="DummyClasses\Identity\DummyAccountActivationController.cs" />
     <Compile Include="DummyClasses\Identity\DummyAccountActivationModel.cs" />
+    <Compile Include="DummyClasses\Identity\DummyProfileController.cs" />
     <Compile Include="DummyClasses\Identity\DummyProfileModel.cs" />
     <Compile Include="DummyClasses\Identity\DummyRegistrationController.cs" />
     <Compile Include="DummyClasses\Identity\DummyRegistrationModel.cs" />

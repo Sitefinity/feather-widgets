@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 
+using FeatherWidgets.TestUnit.DummyClasses.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
@@ -17,7 +18,7 @@ namespace FeatherWidgets.TestUnit.Identity
         [Owner("Boyko-Karadzhov")]
         public void Index_ReadOnlyMode_ReturnsReadView()
         {
-            var controller = new ProfileController();
+            var controller = new DummyProfileController();
             controller.ReadModeTemplateName = "TestTemplate";
             controller.Mode = ViewMode.ReadOnly;
 
@@ -29,7 +30,7 @@ namespace FeatherWidgets.TestUnit.Identity
             var viewResult = (ViewResult)result;
             Assert.AreEqual("Read.TestTemplate", viewResult.ViewName, "The Index did not return the configured view according to its convention.");
             Assert.IsNotNull(viewResult.Model, "The Index action did not assign a view model.");
-            Assert.IsInstanceOfType(viewResult.Model, typeof(ProfileViewModel), "The Index action did not assign a view model of the expected type.");
+            Assert.IsInstanceOfType(viewResult.Model, typeof(ProfilePreviewViewModel), "The Index action did not assign a view model of the expected type.");
         }
     }
 }

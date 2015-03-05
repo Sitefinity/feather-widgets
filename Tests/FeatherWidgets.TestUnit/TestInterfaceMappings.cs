@@ -25,7 +25,6 @@ namespace FeatherWidgets.TestUnit
             Bind<INavigationModel>().To<DummyNavigationModel>().When(request => true);
             Bind<ISearchResultsModel>().To<DummySearchResultsModel>().When(request => true);
             Bind<IAccountActivationModel>().To<DummyAccountActivationModel>().When(request => true);
-            Bind<IProfileModel>().To<DummyProfileModel>();
         }
     }
 }
