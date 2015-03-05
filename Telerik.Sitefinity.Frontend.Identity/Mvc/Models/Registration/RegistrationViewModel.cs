@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -48,6 +49,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// The successful registration page URL.
         /// </value>
         public string SuccessfulRegistrationPageUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id of the page that will be used to confirm the registration.
+        /// </summary>
+        /// <value>The confirmation page id.</value>
+        public virtual Guid? ConfirmationPageId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the user.

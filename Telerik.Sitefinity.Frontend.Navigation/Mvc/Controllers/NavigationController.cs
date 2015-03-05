@@ -14,7 +14,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Navigation widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Navigation", Title = "Navigation", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "Navigation", Title = "Navigation", SectionName = "MvcWidgets", CssClass = "sfNavigationIcn")]
     [Localization(typeof(NavigationResources))]
     public class NavigationController : Controller
     {
