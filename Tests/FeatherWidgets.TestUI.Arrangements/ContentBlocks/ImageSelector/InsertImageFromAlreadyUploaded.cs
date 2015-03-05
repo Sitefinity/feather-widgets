@@ -8,7 +8,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
-    public class ImageSelectorInsertImageFromAlreadyUploaded : ITestArrangement
+    public class InsertImageFromAlreadyUploaded : ITestArrangement
     {
         /// <summary>
         /// Server side set up.

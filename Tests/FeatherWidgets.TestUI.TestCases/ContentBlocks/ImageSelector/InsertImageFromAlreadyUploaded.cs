@@ -13,16 +13,17 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
     /// This is a test class for content block > image selector tests
     /// </summary>
     [TestClass]
-    public class ImageSelectorInsertImageFromAlreadyUploaded_ : FeatherTestCase
+    public class InsertImageFromAlreadyUploaded_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test ImageSelectorInsertImageFromAlreadyUploaded
+        /// UI test InsertImageFromAlreadyUploaded
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.ImageSelector),
-        TestCategory(FeatherTestCategories.ContentBlock)]
-        public void ImageSelectorInsertImageFromAlreadyUploaded()
+        TestCategory(FeatherTestCategories.ContentBlock),
+        TestCategory(FeatherTestCategories.PagesAndContent)]
+        public void InsertImageFromAlreadyUploaded()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
