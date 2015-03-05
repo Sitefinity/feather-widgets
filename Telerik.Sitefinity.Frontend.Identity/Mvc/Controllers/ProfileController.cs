@@ -4,6 +4,7 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
@@ -89,10 +90,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            if (this.Mode == ViewMode.EditOnly && !this.Model.CanEdit())
+            {
+                return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+            }
+
+            this.ViewBag.Mode = this.Mode;
             var fullTemplateName = this.Mode.ToString() + "." + this.ReadModeTemplateName;
             var viewModel = this.Model.GetViewModel();
 
             return this.View(fullTemplateName, viewModel);
+
         }
 
         /// <summary>
@@ -108,6 +116,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var isUpdated = this.Model.EditUserProfile(viewModel.Profile);
+                if (!isUpdated)
+                    return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+
                 if (isUpdated && this.Model.SaveChangesAction == SaveAction.SwitchToReadMode)
                 {
                     var fullReadModeTemplateName = ViewMode.ReadOnly.ToString() + "." + this.ReadModeTemplateName;

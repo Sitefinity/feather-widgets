@@ -393,5 +393,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["EditProfileLink"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Edit is not allowed!
+        /// </summary>
+        [ResourceEntry("EditNotAllowed",
+            Value = "Edit is not allowed!",
+            Description = "phrase : Edit is not allowed!",
+            LastModified = "2015/03/05")]
+        public string EditNotAllowed
+        {
+            get
+            {
+                return this["EditNotAllowed"];
+            }
+        }
     }
 }

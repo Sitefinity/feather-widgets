@@ -92,7 +92,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             var viewModels = new ProfileViewModel(this.SelectedUserProfiles, profileFields)
             {
                 CssClass = this.CssClass,
-                ProfileSaveMsg = this.ProfileSaveMsg
+                ProfileSaveMsg = this.ProfileSaveMsg,
+                CanEdit = this.CanEdit()
             };
 
             return viewModels;
@@ -102,29 +103,47 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Edits the user profile.
         /// </summary>
         /// <param name="profileProperties">The profile properties.</param>
-        public bool EditUserProfile(IDictionary<string, object> profileProperties)
+        public bool EditUserProfile(IDictionary<string, string> profileProperties)
         {
-            var bindingContract = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
-
-            var userProfileManager = UserProfileManager.GetManager();
-            using (new ElevatedModeRegion(userProfileManager))
+            var canEdit = this.CanEdit();
+            if (canEdit)
             {
-                foreach (var profileBinding in bindingContract)
+                var bindingContract = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
+
+                var userProfileManager = UserProfileManager.GetManager();
+                using (new ElevatedModeRegion(userProfileManager))
                 {
-                    var userProfile = this.SelectedUserProfiles.Where(prof => prof.GetType().FullName == profileBinding.ProfileType).SingleOrDefault();
-                    foreach (var property in profileBinding.Properties)
+                    foreach (var profileBinding in bindingContract)
                     {
-                        var value = profileProperties.GetValueOrDefault(property.Name);
-                        userProfile.SetValue(property.FieldName, value);
+                        var userProfile = this.SelectedUserProfiles.Where(prof => prof.GetType().FullName == profileBinding.ProfileType).SingleOrDefault();
+                        foreach (var property in profileBinding.Properties)
+                        {
+                            var value = profileProperties.GetValueOrDefault(property.Name);
+                            userProfile.SetValue(property.FieldName, value);
+                        }
+
+                        userProfileManager.RecompileItemUrls(userProfile);
                     }
 
-                    userProfileManager.RecompileItemUrls(userProfile);
+                    userProfileManager.SaveChanges();
                 }
-
-                userProfileManager.SaveChanges();
             }
 
-            return true;
+            return canEdit;
+        }
+
+        /// <summary>
+        /// Determines whether this instance can edit.
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool CanEdit()
+        {
+            var currentIdentity = ClaimsManager.GetCurrentIdentity();
+            var canEdit = currentIdentity.IsUnrestricted ||
+                (!this.UserName.IsNullOrEmpty() && currentIdentity.Name == this.UserName) ||
+                this.UserName.IsNullOrEmpty();
+
+            return canEdit;
         }
 
         #endregion
@@ -133,9 +152,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Gets the profile field values.
         /// </summary>
         /// <returns></returns>
-        protected virtual IDictionary<string, object> GetProfileFieldValues()
+        protected virtual IDictionary<string, string> GetProfileFieldValues()
         {
-            IDictionary<string, object> profileFields = new Dictionary<string, object>();
+            IDictionary<string, string> profileFields = new Dictionary<string, string>();
             var bindingContract = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
 
             foreach (var profileBinding in bindingContract)
@@ -144,7 +163,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 foreach (var property in profileBinding.Properties)
                 {
                     var propValue = userProfile.GetValue(property.FieldName);
-                    profileFields.Add(property.Name, propValue);
+                    profileFields.Add(property.Name, (string)propValue);
                 }
             }
 

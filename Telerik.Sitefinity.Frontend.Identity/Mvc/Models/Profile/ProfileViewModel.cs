@@ -16,14 +16,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// </summary>
         public ProfileViewModel()
         {
-            this.Profile = new Dictionary<string, object>();
+            this.Profile = new Dictionary<string, string>();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileViewModel"/> class.
         /// </summary>
         /// <param name="userProfile">The user profile.</param>
-        public ProfileViewModel(IList<UserProfile> userProfiles, IDictionary<string, object> profile)
+        public ProfileViewModel(IList<UserProfile> userProfiles, IDictionary<string, string> profile)
         {
             this.Profile = profile;
             this.SelectedUserProfiles = new List<CustomProfileViewModel>();
@@ -35,13 +35,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
         public IList<CustomProfileViewModel> SelectedUserProfiles { get; private set; }
 
-        public IDictionary<string, object> Profile { get; set; }
+        public IDictionary<string, string> Profile { get; set; }
 
         public string NewPassword { get; set; }
 
         public string RepeatPassword { get; set; }
 
         public string OldPassword { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the profile can be edited.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [can edit]; otherwise, <c>false</c>.
+        /// </value>
+        public bool CanEdit { get; set; }
 
         /// <summary>
         /// Gets or sets the css class that will be applied on the wrapping element of the widget.
