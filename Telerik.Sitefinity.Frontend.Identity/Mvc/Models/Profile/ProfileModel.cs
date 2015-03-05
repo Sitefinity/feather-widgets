@@ -1,7 +1,15 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Claims;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Script.Serialization;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
@@ -24,6 +32,54 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <inheritdoc />
         public string ProfileSaveMsg { get; set; }
 
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public string ProfileBindings
+        {
+            get 
+            {
+                return this.profileBindings;
+            }
+            set 
+            {
+                this.profileBindings = value;
+            }
+        }
+
+
+        /// <summary>
+        /// Gets collection of <see cref="UserProfile"/> for selected user.
+        /// </summary>
+        /// <remarks>
+        /// If no <see cref="UserName"/> is selected gets the collection of <see cref="UserProfile"/> for current user.
+        /// </remarks>
+        /// <value>The current user.</value>
+        public IList<UserProfile> SelectedUserProfiles
+        {
+            get
+            {
+                if (this.selectedUserProfiles != null)
+                    return this.selectedUserProfiles;
+
+                UserProfileManager profileManager = UserProfileManager.GetManager();
+                if (!this.UserName.IsNullOrEmpty()){
+                    this.selectedUserProfiles = profileManager.GetUserProfiles().Where(prof=>prof.User.UserName == this.UserName).ToList();
+                }
+
+                if (this.selectedUserProfiles == null)
+                {
+                    var userId = ClaimsManager.GetCurrentIdentity().UserId;
+                    this.selectedUserProfiles = profileManager.GetUserProfiles(userId).ToList();
+                }
+
+                return this.selectedUserProfiles;
+            }
+        }
+
+        /// <inheritdoc />
+        public string UserName { get; set; }
+
         #endregion
 
         #region Public methods
@@ -31,9 +87,70 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <inheritdoc />
         public ProfileViewModel GetViewModel()
         {
-            return new ProfileViewModel();
+            var profileFields = this.GetProfileFieldValues();
+            var viewModels = new ProfileViewModel(this.SelectedUserProfiles, profileFields)
+            {
+                CssClass = this.CssClass,
+                ProfileSaveMsg = this.ProfileSaveMsg
+            };
+
+            return viewModels;
+        }
+
+        /// <summary>
+        /// Edits the user profile.
+        /// </summary>
+        /// <param name="profileProperties">The profile properties.</param>
+        public bool EditUserProfile(IDictionary<string, object> profileProperties)
+        {
+            var bindingContract = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
+
+            var userProfileManager = UserProfileManager.GetManager();
+            using (new ElevatedModeRegion(userProfileManager))
+            {
+                foreach (var profileBinding in bindingContract)
+                {
+                    var userProfile = this.SelectedUserProfiles.Where(prof => prof.GetType().FullName == profileBinding.ProfileType).SingleOrDefault();
+                    foreach (var property in profileBinding.Properties)
+                    {
+                        var value = profileProperties[property.Name];
+                        userProfile.SetValue(property.FieldName, value);
+                    }
+
+                    userProfileManager.RecompileItemUrls(userProfile);
+                }
+
+                userProfileManager.SaveChanges();
+            }
+
+            return true;
         }
 
         #endregion
+
+        /// <summary>
+        /// Gets the profile field values.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IDictionary<string, object> GetProfileFieldValues()
+        {
+            IDictionary<string, object> profileFields = new Dictionary<string, object>();
+            var bindingContract = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
+
+            foreach (var profileBinding in bindingContract)
+            {
+                var userProfile = this.SelectedUserProfiles.Where(prof => prof.GetType().FullName == profileBinding.ProfileType).SingleOrDefault();
+                foreach (var property in profileBinding.Properties)
+                {
+                    var propValue = userProfile.GetValue(property.FieldName);
+                    profileFields.Add(property.Name, propValue);
+                }
+            }
+
+            return profileFields;
+        }
+
+        private IList<UserProfile> selectedUserProfiles;
+        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName' },{ Name: 'LastName', FieldName: 'LastName' }, {Name:'About', FieldName:'About'} ]}]";
     }
 }

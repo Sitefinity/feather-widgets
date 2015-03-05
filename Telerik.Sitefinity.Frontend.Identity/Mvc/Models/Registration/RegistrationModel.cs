@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
-using System.Text;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Web.UI.WebControls;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
@@ -18,10 +15,10 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
-using Telerik.Sitefinity.Security.Web.UI;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web.Mail;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {

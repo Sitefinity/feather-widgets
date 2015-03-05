@@ -36,19 +36,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the name of the template that widget will be displayed.
+        /// Gets or sets the name of the edit mode template that widget will be displayed.
         /// </summary>
         /// <value></value>
-        public string TemplateName
+        public string EditModeTemplateName
         {
             get
             {
-                return this.templateName;
+                return this.editModeTemplateName;
             }
 
             set
             {
-                this.templateName = value;
+                this.editModeTemplateName = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the read mode template that widget will be displayed.
+        /// </summary>
+        /// <value></value>
+        public string ReadModeTemplateName
+        {
+            get
+            {
+                return this.readModeTemplateName;
+            }
+
+            set
+            {
+                this.readModeTemplateName = value;
             }
         }
 
@@ -72,9 +89,33 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var fullTemplateName = this.Mode.ToString()+ "." + this.TemplateName;
+            var fullTemplateName = this.Mode.ToString() + "." + this.ReadModeTemplateName;
             var viewModel = this.Model.GetViewModel();
 
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Posts the registration form.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        [HttpPost]
+        public ActionResult EditProfile(ProfileViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var isUpdated = this.Model.EditUserProfile(viewModel.Profile);
+                if (isUpdated && this.Model.SaveChangesAction == SaveAction.SwitchToReadMode)
+                {
+                    var fullReadModeTemplateName = ViewMode.ReadOnly.ToString() + "." + this.ReadModeTemplateName;
+                    return this.View(fullReadModeTemplateName, viewModel);
+                }
+            }
+
+            var fullTemplateName = this.Mode.ToString() + "." + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -97,7 +138,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         #region Private fields and constants
 
-        private string templateName = "ProfilePreview";
+        private string readModeTemplateName = "ProfilePreview";
+        private string editModeTemplateName = "Default";
         private IProfileModel model;
 
         #endregion

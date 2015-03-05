@@ -43,11 +43,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         string ProfileSaveMsg { get; set; }
 
         /// <summary>
-        /// Gets the view model.
+        /// Gets or sets the name of the user whose profile will be displayed in profile widget.
+        /// </summary>
+        /// <value>
+        /// The name of the user.
+        /// </value>
+        string UserName { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="ProfileViewModel"/>.
         /// </summary>
         /// <returns>
-        /// A instance of <see cref="ProfileViewModel"/> as view model.
+        /// A view model.
         /// </returns>
         ProfileViewModel GetViewModel();
+
+        /// <summary>
+        /// Edits the user profile.
+        /// </summary>
+        /// <param name="profileProperties">The profile properties.</param>
+        bool EditUserProfile(IDictionary<string, object> profileProperties);
+
+        string ProfileBindings { get; set; }
     }
 }

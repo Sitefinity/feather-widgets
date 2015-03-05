@@ -1,41 +1,34 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile.ProfileViewModel
 
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Utilities;
+
 <div class="@Model.CssClass">
-    @if (!string.IsNullOrEmpty(Model.Error))
+    @if (!string.IsNullOrEmpty(Model.ProfileSaveMsg))
     {
-        <div>@Model.Error</div>
+        <div>@Model.ProfileSaveMsg</div>
     }
 
-    @if (!string.IsNullOrEmpty(Model.Message))
-    {
-        <div>@Model.Message</div>
-    }
-
-    @using (Html.BeginForm("EditProfile", "EditProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
+    @using (Html.BeginFormSitefinity("EditProfile", "EditProfile", new { enctype = "multipart/form-data" }))
+    {@*
         <div>
             @Html.HiddenFor(u => u.DeletePicture, new { @class = "edit-profile-delete-picture" })
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new { @class = "edit-profile-default-avatar-url" })
 
-            <img class="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.Username" />
+            <img class="edit-profile-user-image" src="@Model.Profile["AvatarImageUrl"]" alt="@Model.Profile["UserName"]" />
             <a href="#" class="edit-profile-delete-picture-button">x</a>
             <input type="file" accept="image/*" name="uploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
         </div>
-                
+              *@  
         <label>@Html.Resource("EditProfileFirstName")</label>
-        <div class="editor-field">@Html.EditorFor(u => u.FirstName)</div>
+        <div class="editor-field">@Html.EditorFor(u => u.Profile["FirstName"])</div>
         
         <label>@Html.Resource("EditProfileLastName")</label>
-        <div class="editor-field">@Html.EditorFor(u => u.LastName)</div>
-        
-        <label>@Html.Resource("EditProfileEmail")</label>
-        <div class="editor-field">@Html.EditorFor(u => u.Email)</div>
-        
-        <label>@Html.Resource("EditProfileUsername")</label>
-        <div class="editor-field">@Html.EditorFor(u => u.Username)</div>
+        <div class="editor-field">@Html.EditorFor(u => u.Profile["LastName"])</div>
         
         <label>@Html.Resource("EditProfileAbout")</label>
-        <div class="editor-field">@Html.EditorFor(u => u.About)</div>
+        <div class="editor-field">@Html.EditorFor(u => u.Profile["About"])</div>
         
         <a href="#" class="edit-profile-change-password-button">@Html.Resource("EditProfileChangePasswordButton")</a>
         <div class="edit-profile-change-password-holder">
