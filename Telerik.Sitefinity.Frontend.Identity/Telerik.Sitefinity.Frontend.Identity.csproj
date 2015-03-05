@@ -199,13 +199,13 @@
     <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Profile\EditProfile.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Profile\EditOnly.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\AccountActivation\AccountActivation.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Profile\Profile.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Profile\ReadOnly.Default.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

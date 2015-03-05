@@ -14,6 +14,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileViewModel"/> class.
         /// </summary>
+        public ProfileViewModel()
+        {
+            this.Profile = new Dictionary<string, object>();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProfileViewModel"/> class.
+        /// </summary>
         /// <param name="userProfile">The user profile.</param>
         public ProfileViewModel(IList<UserProfile> userProfiles, IDictionary<string, object> profile)
         {

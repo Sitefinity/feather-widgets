@@ -103,7 +103,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// The <see cref="ActionResult" />.
         /// </returns>
         [HttpPost]
-        public ActionResult EditProfile(ProfileViewModel viewModel)
+        public ActionResult Index(ProfileViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         #region Private fields and constants
 
-        private string readModeTemplateName = "ProfilePreview";
+        private string readModeTemplateName = "Default";
         private string editModeTemplateName = "Default";
         private IProfileModel model;
 

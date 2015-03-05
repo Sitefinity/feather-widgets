@@ -183,5 +183,215 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["OpenPage"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Upload photo
+        /// </summary>
+        [ResourceEntry("EditProfileUploadImage",
+            Value = "Upload photo",
+            Description = "phrase : Upload photo",
+            LastModified = "2015/03/05")]
+        public string EditProfileUploadImage
+        {
+            get
+            {
+                return this["EditProfileUploadImage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: First name
+        /// </summary>
+        [ResourceEntry("EditProfileFirstName",
+            Value = "First name",
+            Description = "phrase : First name",
+            LastModified = "2015/03/05")]
+        public string EditProfileFirstName
+        {
+            get
+            {
+                return this["EditProfileFirstName"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Last name
+        /// </summary>
+        [ResourceEntry("EditProfileLastName",
+            Value = "Last name",
+            Description = "phrase : Last name",
+            LastModified = "2015/03/05")]
+        public string EditProfileLastName
+        {
+            get
+            {
+                return this["EditProfileLastName"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Email
+        /// </summary>
+        [ResourceEntry("EditProfileEmail",
+            Value = "Email",
+            Description = "phrase : Email",
+            LastModified = "2015/03/05")]
+        public string EditProfileEmail
+        {
+            get
+            {
+                return this["EditProfileEmail"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: User name
+        /// </summary>
+        [ResourceEntry("EditProfileUsername",
+            Value = "User name",
+            Description = "phrase : User name",
+            LastModified = "2015/03/05")]
+        public string EditProfileUsername
+        {
+            get
+            {
+                return this["EditProfileUsername"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: About
+        /// </summary>
+        [ResourceEntry("EditProfileAbout",
+            Value = "About",
+            Description = "phrase : About",
+            LastModified = "2015/03/05")]
+        public string EditProfileAbout
+        {
+            get
+            {
+                return this["EditProfileAbout"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Change password
+        /// </summary>
+        [ResourceEntry("EditProfileChangePasswordButton",
+            Value = "Change password",
+            Description = "phrase : Change password",
+            LastModified = "2015/03/05")]
+        public string EditProfileChangePasswordButton
+        {
+            get
+            {
+                return this["EditProfileChangePasswordButton"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Change password
+        /// </summary>
+        [ResourceEntry("EditProfileEditChangePasswordHeader",
+            Value = "Change password",
+            Description = "phrase : Change password",
+            LastModified = "2015/03/05")]
+        public string EditProfileEditChangePasswordHeader
+        {
+            get
+            {
+                return this["EditProfileEditChangePasswordHeader"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Old password
+        /// </summary>
+        [ResourceEntry("EditProfileOldPassword",
+            Value = "Old password",
+            Description = "phrase : Old password",
+            LastModified = "2015/03/05")]
+        public string EditProfileOldPassword
+        {
+            get
+            {
+                return this["EditProfileOldPassword"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: New password
+        /// </summary>
+        [ResourceEntry("EditProfileNewPassword",
+            Value = "New password",
+            Description = "phrase : New password",
+            LastModified = "2015/03/05")]
+        public string EditProfileNewPassword
+        {
+            get
+            {
+                return this["EditProfileNewPassword"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Repeat new password
+        /// </summary>
+        [ResourceEntry("EditProfileRepeatPassword",
+            Value = "Repeat new password",
+            Description = "phrase : Repeat new password",
+            LastModified = "2015/03/05")]
+        public string EditProfileRepeatPassword
+        {
+            get
+            {
+                return this["EditProfileRepeatPassword"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Save changes
+        /// </summary>
+        [ResourceEntry("EditProfileSave",
+            Value = "Save changes",
+            Description = "phrase : Save changes",
+            LastModified = "2015/03/05")]
+        public string EditProfileSave
+        {
+            get
+            {
+                return this["EditProfileSave"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Cancel
+        /// </summary>
+        [ResourceEntry("EditProfileCancel",
+            Value = "Cancel",
+            Description = "phrase : Cancel",
+            LastModified = "2015/03/05")]
+        public string EditProfileCancel
+        {
+            get
+            {
+                return this["EditProfileCancel"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Edit profile
+        /// </summary>
+        [ResourceEntry("EditProfileLink",
+            Value = "Edit profile",
+            Description = "phrase : Edit profile",
+            LastModified = "2015/03/05")]
+        public string EditProfileLink
+        {
+            get
+            {
+                return this["EditProfileLink"];
+            }
+        }
     }
 }

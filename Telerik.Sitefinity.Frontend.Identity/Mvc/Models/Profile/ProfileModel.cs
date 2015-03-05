@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Utilities;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
@@ -113,7 +114,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                     var userProfile = this.SelectedUserProfiles.Where(prof => prof.GetType().FullName == profileBinding.ProfileType).SingleOrDefault();
                     foreach (var property in profileBinding.Properties)
                     {
-                        var value = profileProperties[property.Name];
+                        var value = profileProperties.GetValueOrDefault(property.Name);
                         userProfile.SetValue(property.FieldName, value);
                     }
 
