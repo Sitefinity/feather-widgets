@@ -70,5 +70,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         /// Gets or sets the CSS class that will be applied on the wrapper div of the Search widget (if such is presented).
         /// </summary>
         string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the searchbox placeholder.
+        /// </summary>
+        string SearchboxPlaceholder { get; set; }
     }
 }
