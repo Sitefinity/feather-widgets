@@ -393,20 +393,5 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["EditProfileLink"];
             }
         }
-
-        /// <summary>
-        /// Gets phrase: Change password
-        /// </summary>
-        [ResourceEntry("ChangePasswordLink",
-            Value = "Change password",
-            Description = "phrase : Change password",
-            LastModified = "2015/03/05")]
-        public string ChangePasswordLink
-        {
-            get
-            {
-                return this["ChangePasswordLink"];
-            }
-        }
     }
 }
