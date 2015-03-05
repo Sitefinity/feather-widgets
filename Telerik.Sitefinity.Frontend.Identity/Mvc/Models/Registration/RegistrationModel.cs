@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
-using System.Text;
+using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Web.UI.WebControls;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
@@ -18,10 +16,10 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
-using Telerik.Sitefinity.Security.Web.UI;
 using Telerik.Sitefinity.Utilities;
-using Telerik.Sitefinity.Web.Mail;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.Mail;
+using Telerik.Sitefinity.Modules.UserProfiles;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -53,7 +51,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         }
 
         /// <inheritDoc/>
-        public string SerializedSelectedRoles { 
+        public string SerializedSelectedRoles
+        {
             get
             {
                 return this.serializedSelectedRoles;
@@ -108,7 +107,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         }
 
         /// <inheritDoc/>
+        public virtual string ConfirmationEmailSubject
+        {
+            get
+            {
+                return this.confirmationEmailSubject;
+            }
+            set
+            {
+                this.confirmationEmailSubject = value;
+            }
+        }
+
+        /// <inheritDoc/>
         public Guid? SuccessEmailTemplateId { get; set; }
+
+        /// <inheritDoc/>
+        public Guid? ConfirmationEmailTemplateId { get; set; }
 
         /// <inheritDoc/>
         public virtual string EmailSenderName { get; set; }
@@ -145,6 +160,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public bool SendRegistrationEmail { get; set; }
 
+        /// <inheritDoc/>
+        public virtual Guid? ConfirmationPageId { get; set; }
+
+        /// <inheritDoc/>
+        public virtual string DefaultReturnUrl { get; set; }
+
         #endregion
 
         #region Public methods
@@ -179,15 +200,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// Gets the URL of the page that will be opened on successful registration.
-        /// </summary>
-        /// <returns></returns>
-        public virtual string GetSuccessfulRegistrationPageUrl()
-        {
-            return null;
         }
 
         /// <inheritdoc />
@@ -255,6 +267,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+        }
+
+        /// <inheritDoc/>
+        public virtual string GetError()
+        {
+            if (this.ActivationMethod == ActivationMethod.AfterConfirmation && !this.ConfirmationPageId.HasValue)
+            {
+                return Res.Get<ErrorMessages>().NoConfirmationPageIsSet;
+            }
+            return string.Empty;
         }
 
         #endregion
@@ -341,6 +363,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         {
             if (this.ActivationMethod == Registration.ActivationMethod.AfterConfirmation)
             {
+                this.SendRegistrationConfirmationEmail(userManager, user);
             }
             else if (this.ActivationMethod == Registration.ActivationMethod.Immediately && this.SendEmailOnSuccess)
             {
@@ -355,19 +378,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="user">The user.</param>
         protected virtual void SendSuccessfulRegistrationEmail(UserManager userManager, User user)
         {
-            string messageBody = userManager.SuccessfulRegistrationEmailBody;
-            if (this.SuccessEmailTemplateId.HasValue && this.SuccessEmailTemplateId.Value != Guid.Empty)
-            {
-                var templateId = this.SuccessEmailTemplateId.Value;
-                var pageManager = PageManager.GetManager();
-                var emailTemplate = pageManager.GetPresentationItems<ControlPresentation>().Where(tmpl => tmpl.DataType == Presentation.EmailTemplate && tmpl.Id == templateId).SingleOrDefault();
-                if (emailTemplate != null)
-                {
-                    messageBody = emailTemplate.Data;
-                }
-            }
+            string messageBody = this.GetEmailMessageBody(this.SuccessEmailTemplateId) ?? userManager.SuccessfulRegistrationEmailBody;
 
-            var registrationSuccessEmail = EmailSender.CreateRegistrationSuccessEmail(userManager.SuccessfulRegistrationEmailAddress, user.Email, user.UserName, this.SuccessEmailSubject, messageBody);
+            var registrationSuccessEmail = 
+                EmailSender.CreateRegistrationSuccessEmail(
+                                userManager.SuccessfulRegistrationEmailAddress, 
+                                user.Email, 
+                                user.UserName, 
+                                this.SuccessEmailSubject, 
+                                messageBody);
             var emailSender = EmailSender.Get(this.EmailSenderName);
             emailSender.SendAsync(registrationSuccessEmail, null);
         }
@@ -410,9 +429,84 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
         }
 
+        /// <summary>
+        /// Sends the registration confirmation email.
+        /// </summary>
+        protected virtual void SendRegistrationConfirmationEmail(UserManager userManager, User user)
+        {
+            string messageBody = this.GetEmailMessageBody(this.ConfirmationEmailTemplateId) ?? userManager.ConfirmRegistrationMailBody;
+
+            string confirmationPageUrl = this.GetConfirmationPageUrl(user);
+
+            var confirmationEmail =
+                EmailSender.CreateRegistrationConfirmationEmail(
+                                userManager.SuccessfulRegistrationEmailAddress,
+                                user.Email,
+                                user.UserName,
+                                confirmationPageUrl,
+                                this.ConfirmationEmailSubject,
+                                messageBody);
+
+            var emailSender = EmailSender.Get(this.EmailSenderName);
+            emailSender.SendAsync(confirmationEmail, null);
+        }
+
+        /// <summary>
+        /// Gets the confirmation page URL.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
+        protected virtual string GetConfirmationPageUrl(User user)
+        {
+            if (!this.ConfirmationPageId.HasValue)
+            {
+                return string.Empty;
+            }
+            string confirmationPageUrl = HyperLinkHelpers.GetFullPageUrl(this.ConfirmationPageId.Value);
+
+            if(string.IsNullOrWhiteSpace(confirmationPageUrl))
+            {
+                return string.Empty;
+            }
+
+            var url = new Url(confirmationPageUrl);
+
+            url.Query["user"] = HttpUtility.UrlEncode(user.Id.ToString());
+
+            url.Query["provider"] = HttpUtility.UrlEncode(this.MembershipProviderName);
+            
+            var queryString = HttpContext.Current.Request.QueryString;
+
+            if (queryString.Keys.Contains(ReturnUrlName))
+            {
+                url.Query[ReturnUrlName] = HttpUtility.UrlEncode(queryString[ReturnUrlName]);
+            }
+            else if (!string.IsNullOrEmpty(this.DefaultReturnUrl))
+            {
+                url.Query[ReturnUrlName] = HttpUtility.UrlEncode(this.DefaultReturnUrl);
+            }
+
+            return url.ToString();
+        }
+
+        protected virtual string GetEmailMessageBody(Guid? templateId)
+        {
+            if (templateId.HasValue && templateId.Value != Guid.Empty)
+            {
+                var pageManager = PageManager.GetManager();
+                var emailTemplate = pageManager.GetPresentationItems<ControlPresentation>().Where(tmpl => tmpl.DataType == Presentation.EmailTemplate && tmpl.Id == templateId.Value).SingleOrDefault();
+                if (emailTemplate != null)
+                {
+                    return emailTemplate.Data;
+                }
+            }
+            return null;
+        }
+
         private string membershipProviderName;
         private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
-
+        private string confirmationEmailSubject = Res.Get<UserProfilesResources>().ConfirmationEmailDefaultSubject;
+        private const string ReturnUrlName = "ReturnUrl";
         private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
 
         #endregion

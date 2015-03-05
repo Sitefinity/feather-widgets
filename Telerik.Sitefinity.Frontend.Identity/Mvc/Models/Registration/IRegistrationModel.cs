@@ -60,9 +60,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string SuccessEmailSubject { get; set; }
 
         /// <summary>
+        /// Gets or sets the subject of the confirmation email.
+        /// </summary>
+        /// <value>The subject of the email.</value>
+        string ConfirmationEmailSubject { get; set; }
+
+        /// <summary>
         /// Gets or sets the template id of the email template used for the success email.
         /// </summary>
         Guid? SuccessEmailTemplateId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the template id of the email template used for the confirmation email.
+        /// </summary>
+        Guid? ConfirmationEmailTemplateId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the email sender that will be used to send confirmation and successful registration emails.
@@ -76,7 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The activation method.
         /// </value>
-        ActivationMethod ActivationMethod { get; set;}
+        ActivationMethod ActivationMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the message that would be displayed on successful registration.
@@ -99,12 +110,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         bool SendRegistrationEmail { get; set; }
 
         /// <summary>
+        /// Gets or sets the id of the page that will be used to confirm the registration.
+        /// </summary>
+        /// <value>The confirmation page id.</value>
+        Guid? ConfirmationPageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to redirect to a predefined Url
+        /// </summary>
+        /// <value>The default redirect Url</value>
+        string DefaultReturnUrl { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns>
         /// A instance of <see cref="RegistrationViewModel"/> as view model
         /// </returns>
         RegistrationViewModel GetViewModel();
+
+        /// <summary>
+        /// Gets the model error.
+        /// </summary>
+        /// <returns></returns>
+        string GetError();
 
         /// <summary>
         /// Registers a user with the data specified in the model.
