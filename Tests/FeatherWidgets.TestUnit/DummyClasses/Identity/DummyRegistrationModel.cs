@@ -43,6 +43,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public string DefaultReturnUrl { get; set; }
 
+        public string ProfileBindings { get; set; }
+
         public RegistrationViewModel GetViewModel()
         {
             return new RegistrationViewModel();
