@@ -50,6 +50,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase: Profile
+        /// </summary>
+        [ResourceEntry("Profile",
+            Value = "Profile",
+            Description = "phrase : Profile",
+            LastModified = "2015/03/05")]
+        public string Profile
+        {
+            get
+            {
+                return this["Profile"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Editing profile
+        /// </summary>
+        [ResourceEntry("EditingProfile",
+            Value = "Editing profile",
+            Description = "phrase : Editing profile",
+            LastModified = "2015/03/05")]
+        public string EditingProfile
+        {
+            get
+            {
+                return this["EditingProfile"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: Template
         /// </summary>
         [ResourceEntry("Template",
