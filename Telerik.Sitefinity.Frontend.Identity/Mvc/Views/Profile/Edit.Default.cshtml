@@ -10,15 +10,15 @@
         <div>@Model.ProfileSaveMsg</div>
     }
 
-    @using (Html.BeginFormSitefinity())
+    @using (Html.BeginFormSitefinity("Index", "EditProfileForm", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div>
             @Html.HiddenFor(u => u.DeletePicture, new { @class = "edit-profile-delete-picture" })
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new { @class = "edit-profile-default-avatar-url" })
 
-            <img class="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.UserName" />
+            <img class="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.UserName" width="100" height="100"/>
             <a href="#" class="edit-profile-delete-picture-button">x</a>
-            <input type="file" accept="image/*" name="UploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
+            <input type="file" class="edit-profile-upload-picture-button" accept="image/*" name="UploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
         </div>
                 
         <label>@Html.Resource("EditProfileFirstName")</label>
@@ -44,8 +44,10 @@
             <div class="editor-field">@Html.EditorFor(u => u.RepeatPassword)</div>
         </div>
         
-        <input type="submit" value='@Html.Resource("EditProfileSave")' />
-        @Html.ActionLink(Html.Resource("EditProfileCancel"), "Index")
+        <div>
+            <input type="submit" value='@Html.Resource("EditProfileSave")' />
+            @Html.ActionLink(Html.Resource("EditProfileCancel"), "Index")
+        </div>
     }
 </div>
 
@@ -53,6 +55,8 @@
     (function ($) {
         $(function () {
             var changePasswordHolder = $('.edit-profile-change-password-holder').hide();
+            var editProfileUserImage = $('.edit-profile-user-image');
+
             $('.edit-profile-change-password-button').on('click', function (e) {
                 e.preventDefault();
 
@@ -62,9 +66,18 @@
             $('.edit-profile-delete-picture-button').on('click', function (e) {
                 e.preventDefault();
 
-                $('.edit-profile-user-image').attr('src', $('.edit-profile-default-avatar-url').val());
+                editProfileUserImage.attr('src', $('.edit-profile-default-avatar-url').val()).hide();
                 $('.edit-profile-delete-picture').val(true);
-                $('.edit-profile-delete-picture-button').hide();
+            });
+
+            $('.edit-profile-upload-picture-button').on('change', function (e) {
+                if (e.target.files && e.target.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (readerLoadedEvent) {
+                        editProfileUserImage.attr('src', readerLoadedEvent.target.result);
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
+                }
             });
         });
     }(jQuery));
