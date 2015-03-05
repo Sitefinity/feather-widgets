@@ -116,20 +116,20 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         public string CssClass { get; set; }
         
         /// <inheritdoc />
-        public string SearchboxPlaceholder 
+        public string BackgroundHint 
         { 
             get
             {
-                if (string.IsNullOrEmpty(this.searchboxPlaceholder))
+                if (string.IsNullOrEmpty(this.backgroundHint))
 	            {
-                    this.searchboxPlaceholder = Res.Get<SearchWidgetsResources>().SearchPlaceholder;
+                    this.backgroundHint = Res.Get<SearchWidgetsResources>().BackgroundHint;
 	            }
 
-                return this.searchboxPlaceholder;
+                return this.backgroundHint;
             }
             set
             {
-                this.searchboxPlaceholder = value;
+                this.backgroundHint = value;
             }
         }
         #endregion
@@ -234,7 +234,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         private string resultsUrl;
         private string searchIndexPipeId;
         private string catalogueName;
-        private string searchboxPlaceholder;
+        private string backgroundHint;
         #endregion
     }
 }

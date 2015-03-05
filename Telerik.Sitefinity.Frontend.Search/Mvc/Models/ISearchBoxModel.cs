@@ -72,8 +72,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         string CssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets the searchbox placeholder.
+        /// Gets or sets the background hint text.
         /// </summary>
-        string SearchboxPlaceholder { get; set; }
+        string BackgroundHint { get; set; }
     }
 }

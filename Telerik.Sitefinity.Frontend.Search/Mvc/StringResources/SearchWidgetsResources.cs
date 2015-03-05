@@ -630,15 +630,15 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         /// Phrase: Search
         /// </summary>
         /// <value>Search</value>
-        [ResourceEntry("SearchPlaceholder",
+        [ResourceEntry("BackgroundHint",
             Value = "Search",
             Description = "Phrase: Search",
             LastModified = "2015/03/05")]
-        public string SearchPlaceholder
+        public string BackgroundHint
         {
             get
             {
-                return this["SearchPlaceholder"];
+                return this["BackgroundHint"];
             }
         }
 
