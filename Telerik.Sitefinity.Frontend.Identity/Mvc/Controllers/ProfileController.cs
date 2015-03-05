@@ -151,9 +151,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
-            var editViewModel = this.Model.GetProfileEditViewModel();
-            var fullTemplateName = this.Mode.ToString() + "." + this.EditModeTemplateName;
-            return this.View(fullTemplateName, editViewModel);
+            var fullTemplateName = "Edit." + this.EditModeTemplateName;
+            return this.View(fullTemplateName, viewModel);
         }
 
         #endregion
