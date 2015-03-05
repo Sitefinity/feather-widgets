@@ -104,6 +104,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         /// <summary>
+        /// Renders profile widget in edit mode.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult EditProfile()
+        {
+            if (!this.Model.CanEdit())
+            {
+                return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+            }
+
+            var fullTemplateName = ViewMode.EditOnly + "." + this.EditModeTemplateName;
+            var viewModel = this.Model.GetViewModel();
+
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
         /// Posts the registration form.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
