@@ -39,9 +39,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 this.SelectedUserProfiles.Add(new CustomProfileViewModel(item));
             }
         }
-
+        
+        /// <summary>
+        /// Gets the selected user profiles.
+        /// </summary>
+        /// <value>
+        /// The selected user profiles.
+        /// </value>
         public IList<CustomProfileViewModel> SelectedUserProfiles { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the profile.
+        /// </summary>
+        /// <value>
+        /// The profile.
+        /// </value>
         public IDictionary<string, string> Profile { get; set; }
         
         /// <summary>
