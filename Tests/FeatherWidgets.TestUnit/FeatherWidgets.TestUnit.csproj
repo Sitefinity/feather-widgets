@@ -128,6 +128,8 @@
     <Compile Include="DummyClasses\ContentBlock\DummyContentBlockModel.cs" />
     <Compile Include="DummyClasses\ContentBlock\DummyContentItem.cs" />
     <Compile Include="DummyClasses\DummyConfigProvider.cs" />
+    <Compile Include="DummyClasses\Identity\DummyAccountActivationController.cs" />
+    <Compile Include="DummyClasses\Identity\DummyAccountActivationModel.cs" />
     <Compile Include="DummyClasses\Identity\DummyRegistrationController.cs" />
     <Compile Include="DummyClasses\Identity\DummyRegistrationModel.cs" />
     <Compile Include="DummyClasses\Media\DummyImageController.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="DummyClasses\SocialShare\DummySocialShareController.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Identity\AccountActivationControllerTests.cs" />
     <Compile Include="Identity\RegistrationControllerTests.cs" />
     <Compile Include="Media\ImageGallery\ImageGalleryControllerTests.cs" />
     <Compile Include="Media\Image\ImageControllerTests.cs" />
