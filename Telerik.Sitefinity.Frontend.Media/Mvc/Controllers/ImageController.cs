@@ -21,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Image widget.
     /// </summary>
     [Localization(typeof(ImageResources))]
-    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets", ModuleName = "Libraries")]
+    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = "sfImageViewIcn")]
     public class ImageController : Controller, ICustomWidgetVisualization, IContentLocatableView
     {
         #region Properties

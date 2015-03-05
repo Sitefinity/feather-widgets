@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of News widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "News", Title = "News", SectionName = "MvcWidgets", ModuleName = "News")]
+    [ControllerToolboxItem(Name = "News", Title = "News", SectionName = "MvcWidgets", ModuleName = "News", CssClass = "sfNewsViewIcn")]
     [Localization(typeof(NewsWidgetResources))]
     public class NewsController : Controller, IContentLocatableView
     {
