@@ -11,16 +11,16 @@
     }
 
     @using (Html.BeginFormSitefinity())
-    {@*
+    {
         <div>
             @Html.HiddenFor(u => u.DeletePicture, new { @class = "edit-profile-delete-picture" })
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new { @class = "edit-profile-default-avatar-url" })
 
-            <img class="edit-profile-user-image" src="@Model.Profile["AvatarImageUrl"]" alt="@Model.Profile["UserName"]" />
+            <img class="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.UserName" />
             <a href="#" class="edit-profile-delete-picture-button">x</a>
-            <input type="file" accept="image/*" name="uploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
+            <input type="file" accept="image/*" name="UploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
         </div>
-              *@  
+                
         <label>@Html.Resource("EditProfileFirstName")</label>
         <div class="editor-field">@Html.EditorFor(u => u.Profile["FirstName"])</div>
         

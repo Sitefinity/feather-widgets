@@ -139,11 +139,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isUpdated = this.Model.EditUserProfile(viewModel.Profile);
+                var isUpdated = this.Model.EditUserProfile(viewModel);
                 if (!isUpdated)
                     return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
 
-                if (isUpdated && this.Model.SaveChangesAction == SaveAction.SwitchToReadMode)
+                if (this.Model.SaveChangesAction == SaveAction.SwitchToReadMode)
                 {
                     var fullReadModeTemplateName = ViewMode.ReadOnly.ToString() + "." + this.ReadModeTemplateName;
                     var readViewModel = this.Model.GetProfilePreviewViewModel();

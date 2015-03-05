@@ -41,6 +41,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Message to show when profile is saved.
         /// </value>
         string ProfileSaveMsg { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the membership provider.
+        /// </summary>
+        /// <value>
+        /// The membership provider.
+        /// </value>
+        string MembershipProvider { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether an email should be send on password change.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if email should be send; otherwise, <c>false</c>.
+        /// </value>
+        bool SendEmailOnChangePassword { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the user whose profile will be displayed in profile widget.
@@ -76,7 +92,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Edits the user profile.
         /// </summary>
         /// <param name="profileProperties">The profile properties.</param>
-        bool EditUserProfile(IDictionary<string, string> profileProperties);
+        bool EditUserProfile(ProfileEditViewModel model);
 
         string ProfileBindings { get; set; }
     }

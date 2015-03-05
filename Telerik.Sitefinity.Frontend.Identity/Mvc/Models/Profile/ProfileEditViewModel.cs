@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
 
@@ -42,12 +43,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         public IList<CustomProfileViewModel> SelectedUserProfiles { get; private set; }
 
         public IDictionary<string, string> Profile { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the old password.
+        /// </summary>
+        /// <value>
+        /// The old password.
+        /// </value>
+        public string OldPassword { get; set; }
 
+        /// <summary>
+        /// Gets or sets the new password.
+        /// </summary>
+        /// <value>
+        /// The new password.
+        /// </value>
         public string NewPassword { get; set; }
 
+        /// <summary>
+        /// Gets or sets the repeat password.
+        /// </summary>
+        /// <value>
+        /// The repeat password.
+        /// </value>
         public string RepeatPassword { get; set; }
-
-        public string OldPassword { get; set; }
 
         /// <summary>
         /// Gets or sets the user.
@@ -114,6 +133,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         public string AvatarImageUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the user wants to delete his picture.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the user wants to delete his picture; otherwise, <c>false</c>.
+        /// </value>
+        public bool DeletePicture { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default avatar URL.
+        /// </summary>
+        /// <value>
+        /// The default avatar URL.
+        /// </value>
+        public string DefaultAvatarUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the uploaded image.
+        /// </summary>
+        /// <value>
+        /// The uploaded image.
+        /// </value>
+        public HttpPostedFileBase UploadedImage { get; set; }
+
+        /// <summary>
         /// Initializes the user related data.
         /// </summary>
         /// <param name="user">The user.</param>
@@ -126,6 +169,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
             this.DisplayName = displayNameBuilder.GetUserDisplayName(this.User.Id);
             this.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(this.User.Id, out avatarImage);
+            this.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
         }
     }
 }
