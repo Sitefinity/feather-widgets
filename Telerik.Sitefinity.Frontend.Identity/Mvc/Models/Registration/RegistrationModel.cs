@@ -132,29 +132,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public ActivationMethod ActivationMethod { get; set; }
 
         /// <inheritDoc/>
-        public string SuccessfulRegistrationMsg
-        {
-            get
-            {
-                if (this.successfulRegistrationMsg.IsNullOrEmpty())
-                {
-                    return Res.Get<RegistrationResources>().DefaultSuccessfulRegistrationMessage;
-                }
-                else
-                {
-                    return this.successfulRegistrationMsg;
-                }
-            }
-            set
-            {
-                if (this.successfulRegistrationMsg != value)
-                {
-                    this.successfulRegistrationMsg = value;
-                }
-            }
-        }
-
-        /// <inheritDoc/>
         public Guid? SuccessfulRegistrationPageId { get; set; }
 
         /// <inheritDoc/>
@@ -181,7 +158,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 LoginPageUrl = this.GetLoginPageUrl(),
                 MembershipProviderName = this.MembershipProviderName,
                 CssClass = this.CssClass,
-                SuccessfulRegistrationMsg = this.SuccessfulRegistrationMsg,
                 SuccessfulRegistrationPageUrl = this.GetPageUrl(this.SuccessfulRegistrationPageId)
             };
         }
@@ -519,7 +495,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         private const string DefaultSortExpression = "PublicationDate DESC";
 
-        private string successfulRegistrationMsg;
         private string serializedSelectedRoles;
         private IList<Role> selectedRoles = new List<Role>();
         private Dictionary<string, RoleManager> roleManagersToSubmit = null;
