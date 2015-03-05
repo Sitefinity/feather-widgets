@@ -68,6 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 
+            this.ViewBag.ShowSuccessfulRegistrationMsg = false;
             this.ViewBag.Error = this.Model.GetError();
 
             return this.View(fullTemplateName, viewModel);
@@ -90,7 +91,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 {
                     if (this.Model.SuccessfulRegistrationAction == SuccessfulRegistrationAction.ShowMessage)
                     {
-                        return this.Content(this.Model.SuccessfulRegistrationMsg);
+                        this.ViewBag.ShowSuccessfulRegistrationMsg = true;
                     }
                     else if (this.Model.SuccessfulRegistrationAction == SuccessfulRegistrationAction.RedirectToPage)
                     {
