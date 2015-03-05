@@ -19,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Login Form widget.
     /// </summary>
     [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.Localization(typeof(LoginFormResources))]
-    [ControllerToolboxItem(Name = "LoginFormMVC", Title = "Login Form", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "LoginFormMVC", Title = "Login Form", SectionName = "MvcWidgets", CssClass = "sfLoginIcn")]
     public class LoginFormController : Controller
     {
         #region Properties
