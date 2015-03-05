@@ -86,17 +86,29 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         #region Public methods
 
         /// <inheritdoc />
-        public ProfileViewModel GetViewModel()
+        public ProfilePreviewViewModel GetProfilePreviewViewModel()
+        {
+            var viewModel = new ProfilePreviewViewModel(this.SelectedUserProfiles)
+            {
+                CssClass = this.CssClass,
+                CanEdit = this.CanEdit()
+            };
+
+            return viewModel;
+        }
+
+        /// <inheritdoc />
+        public ProfileEditViewModel GetProfileEditViewModel()
         {
             var profileFields = this.GetProfileFieldValues();
-            var viewModels = new ProfileViewModel(this.SelectedUserProfiles, profileFields)
+            var viewModel = new ProfileEditViewModel(this.SelectedUserProfiles, profileFields)
             {
                 CssClass = this.CssClass,
                 ProfileSaveMsg = this.ProfileSaveMsg,
                 CanEdit = this.CanEdit()
             };
 
-            return viewModels;
+            return viewModel;
         }
 
         /// <summary>

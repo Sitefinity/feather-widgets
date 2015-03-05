@@ -10,21 +10,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
     /// <summary>
     /// This class represents view model for Profile widget.
     /// </summary>
-    public class ProfileViewModel
+    public class ProfileEditViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProfileViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ProfileEditViewModel"/> class.
         /// </summary>
-        public ProfileViewModel()
+        public ProfileEditViewModel()
         {
             this.Profile = new Dictionary<string, string>();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProfileViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ProfileEditViewModel"/> class.
         /// </summary>
         /// <param name="userProfile">The user profile.</param>
-        public ProfileViewModel(IList<UserProfile> userProfiles, IDictionary<string, string> profile)
+        public ProfileEditViewModel(IList<UserProfile> userProfiles, IDictionary<string, string> profile)
         {
             this.Profile = profile;
             if (userProfiles != null && userProfiles.Count() > 0)

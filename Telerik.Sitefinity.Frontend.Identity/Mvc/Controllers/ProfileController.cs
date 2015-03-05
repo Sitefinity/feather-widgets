@@ -97,9 +97,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             this.ViewBag.Mode = this.Mode;
             var fullTemplateName = this.Mode.ToString() + "." + this.ReadModeTemplateName;
-            var viewModel = this.Model.GetViewModel();
+            if (this.Mode == ViewMode.EditOnly)
+            {
+                var viewModel = this.Model.GetProfileEditViewModel();
 
-            return this.View(fullTemplateName, viewModel);
+                return this.View(fullTemplateName, viewModel);
+            }
+            else
+            {
+                var viewModel = this.Model.GetProfilePreviewViewModel();
+
+                return this.View(fullTemplateName, viewModel);
+            }
 
         }
 
@@ -115,7 +124,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
 
             var fullTemplateName = ViewMode.EditOnly + "." + this.EditModeTemplateName;
-            var viewModel = this.Model.GetViewModel();
+            var viewModel = this.Model.GetProfileEditViewModel();
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -128,7 +137,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// The <see cref="ActionResult" />.
         /// </returns>
         [HttpPost]
-        public ActionResult Index(ProfileViewModel viewModel)
+        public ActionResult Index(ProfileEditViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -139,13 +148,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 if (isUpdated && this.Model.SaveChangesAction == SaveAction.SwitchToReadMode)
                 {
                     var fullReadModeTemplateName = ViewMode.ReadOnly.ToString() + "." + this.ReadModeTemplateName;
-                    var readViewModel = this.Model.GetViewModel();
+                    var readViewModel = this.Model.GetProfilePreviewViewModel();
                     return this.View(fullReadModeTemplateName, readViewModel);
                 }
             }
 
+            var editViewModel = this.Model.GetProfileEditViewModel();
             var fullTemplateName = this.Mode.ToString() + "." + this.EditModeTemplateName;
-            return this.View(fullTemplateName, viewModel);
+            return this.View(fullTemplateName, editViewModel);
         }
 
         #endregion

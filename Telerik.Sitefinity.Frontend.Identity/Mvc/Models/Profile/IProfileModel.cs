@@ -51,12 +51,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         string UserName { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="ProfileViewModel"/>.
+        /// Gets the <see cref="ProfilePreviewViewModel"/>.
         /// </summary>
         /// <returns>
         /// A view model.
         /// </returns>
-        ProfileViewModel GetViewModel();
+        ProfilePreviewViewModel GetProfilePreviewViewModel();
+
+        /// <summary>
+        /// Gets the <see cref="ProfileEditViewModel"/>.
+        /// </summary>
+        /// <returns>
+        /// A view model.
+        /// </returns>
+        ProfileEditViewModel GetProfileEditViewModel();
 
         /// <summary>
         /// Determines whether current user can edit the profile.
