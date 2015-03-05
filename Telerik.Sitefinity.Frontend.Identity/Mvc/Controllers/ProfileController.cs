@@ -139,7 +139,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 if (isUpdated && this.Model.SaveChangesAction == SaveAction.SwitchToReadMode)
                 {
                     var fullReadModeTemplateName = ViewMode.ReadOnly.ToString() + "." + this.ReadModeTemplateName;
-                    return this.View(fullReadModeTemplateName, viewModel);
+                    var readViewModel = this.Model.GetViewModel();
+                    return this.View(fullReadModeTemplateName, readViewModel);
                 }
             }
 
