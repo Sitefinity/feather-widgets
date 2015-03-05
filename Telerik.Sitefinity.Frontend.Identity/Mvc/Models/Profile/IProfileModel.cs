@@ -51,6 +51,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         string UserName { get; set; }
 
         /// <summary>
+        /// Gets or sets the profile property bindings.
+        /// </summary>
+        /// <value>
+        /// The profile property bindings.
+        /// </value>
+        string ProfileBindings { get; set; }
+
+        /// <summary>
         /// Gets the <see cref="ProfilePreviewViewModel"/>.
         /// </summary>
         /// <returns>
@@ -78,6 +86,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <param name="profileProperties">The profile properties.</param>
         bool EditUserProfile(IDictionary<string, string> profileProperties);
 
-        string ProfileBindings { get; set; }
+        /// <summary>
+        /// Gets the page URL.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <returns>
+        /// The page url as string.
+        /// </returns>
+        string GetPageUrl(Guid? pageId);
     }
 }

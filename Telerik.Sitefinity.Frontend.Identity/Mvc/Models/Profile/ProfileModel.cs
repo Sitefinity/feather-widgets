@@ -1,16 +1,15 @@
-﻿using Microsoft.IdentityModel.Claims;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Model;
-using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
@@ -156,6 +155,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 this.UserName.IsNullOrEmpty();
 
             return canEdit;
+        }
+
+        /// <inheritDoc/>
+        public string GetPageUrl(Guid? pageId)
+        {
+            if (!pageId.HasValue)
+            {
+                pageId = SiteMapBase.GetActualCurrentNode().Id;
+            }
+
+            return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
         }
 
         #endregion
