@@ -35,6 +35,14 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public bool SendRegistrationEmail { get; set; }
 
+        public string ConfirmationEmailSubject { get; set; }
+
+        public Guid? ConfirmationEmailTemplateId { get; set; }
+
+        public Guid? ConfirmationPageId { get; set; }
+
+        public string DefaultReturnUrl { get; set; }
+
         public RegistrationViewModel GetViewModel()
         {
             return new RegistrationViewModel();
@@ -63,6 +71,11 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
             {
                 return null;
             }
+        }
+
+        public string GetError()
+        {
+            return null;
         }
     }
 }
