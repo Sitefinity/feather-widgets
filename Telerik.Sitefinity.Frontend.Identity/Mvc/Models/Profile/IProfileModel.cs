@@ -59,10 +59,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         ProfileViewModel GetViewModel();
 
         /// <summary>
+        /// Determines whether current user can edit the profile.
+        /// </summary>
+        /// <returns></returns>
+        bool CanEdit();
+
+        /// <summary>
         /// Edits the user profile.
         /// </summary>
         /// <param name="profileProperties">The profile properties.</param>
-        bool EditUserProfile(IDictionary<string, object> profileProperties);
+        bool EditUserProfile(IDictionary<string, string> profileProperties);
 
         string ProfileBindings { get; set; }
     }
