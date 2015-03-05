@@ -166,6 +166,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <inheritDoc/>
         public virtual string DefaultReturnUrl { get; set; }
 
+        /// <inheritDoc/>
+        public string ProfileBindings { get; set; }
+
         #endregion
 
         #region Public methods
@@ -398,18 +401,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="profileProperties">A dictionary containing the profile properties.</param>
         protected virtual void CreateUserProfiles(User user, IDictionary<string, string> profileProperties)
         {
-            if (!VirtualPathManager.FileExists(RegistrationModel.ProfileBindingsFile))
-                return;
-
-            var fileStream = VirtualPathManager.OpenFile(RegistrationModel.ProfileBindingsFile);
-
-            List<ProfileBindingsContract> profiles;
-            using (var streamReader = new StreamReader(fileStream))
+            if (this.ProfileBindings.IsNullOrEmpty())
             {
-                var text = streamReader.ReadToEnd();
-                profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(text);
+                if (!VirtualPathManager.FileExists(RegistrationModel.ProfileBindingsFile))
+                    return;
+
+                var fileStream = VirtualPathManager.OpenFile(RegistrationModel.ProfileBindingsFile);
+                using (var streamReader = new StreamReader(fileStream))
+                {
+                    this.ProfileBindings = streamReader.ReadToEnd();
+                }
             }
 
+            var profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
             var userProfileManager = UserProfileManager.GetManager();
             using (new ElevatedModeRegion(userProfileManager))
             {

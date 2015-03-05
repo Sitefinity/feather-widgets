@@ -122,6 +122,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string DefaultReturnUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the profile property bindings serialized as JSON that override the default bindings.
+        /// </summary>
+        /// <value>
+        /// The profile property bindings JSON.
+        /// </value>
+        string ProfileBindings { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns>
