@@ -148,8 +148,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                         return this.ReadProfile();
                     case SaveAction.ShowMessage:
                         viewModel.ShowProfileChangedMsg = true;
-                        var templateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
-                        return this.View(templateName, viewModel);
+                        break;
                     case SaveAction.ShowPage:
                         return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
                 }
