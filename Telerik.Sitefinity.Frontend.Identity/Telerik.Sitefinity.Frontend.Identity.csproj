@@ -197,16 +197,16 @@
     <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.ForgottenPassword.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.ResetPassword.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.LoginForm.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Profile\Edit.Default.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\AccountActivation\AccountActivation.AccountActivation.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Profile\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.ChangePassword.cshtml" />
+  <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
+  <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
+  <EmbeddedResource Include="Mvc\Views\Profile\Edit.Default.cshtml" />
+  <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.json" />
+  <EmbeddedResource Include="Mvc\Views\AccountActivation\DesignerView.Simple.cshtml" />
+  <EmbeddedResource Include="Mvc\Views\AccountActivation\AccountActivation.AccountActivation.cshtml" />
+  <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.cshtml" />
+  <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.json" />
+  <EmbeddedResource Include="Mvc\Views\Profile\Read.Default.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
