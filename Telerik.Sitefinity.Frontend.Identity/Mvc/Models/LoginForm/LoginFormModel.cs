@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Data;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -151,9 +152,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 throw new ArgumentNullException("User could not be retrieved.");
             }
 
-            var resetPassword = this.userManager.ResetPassword(userId, answer);
-            this.userManager.ChangePassword(userId, resetPassword, newPassword);
-            this.userManager.SaveChanges();
+            using (new ElevatedModeRegion(this.userManager))
+            {
+                var resetPassword = this.userManager.ResetPassword(userId, answer);
+                this.userManager.ChangePassword(userId, resetPassword, newPassword);
+                this.userManager.SaveChanges();
+            }
         }
 
         /// <inheritDoc/>

@@ -117,6 +117,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public bool ShowForgotPasswordLink { get; set; }
 
         /// <summary>
+        /// Indicates that the provided credentials are not valid.
+        /// </summary>
+        /// <value>The incorrect credentials.</value>
+        public bool IncorrectCredentials { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether Remember me checkbox is displayed.
         /// </summary>
         /// <value>

@@ -21,12 +21,12 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
     /// <summary>
     ///     The content block controller
     /// </summary>
-    [ControllerToolboxItem(Name = "ContentBlock", Title = "ContentBlock", SectionName = "MvcWidgets", CssClass = "sfContentBlockIcn")]
+    [ControllerToolboxItem(Name = "ContentBlock", Title = "ContentBlock", SectionName = "MvcWidgets", CssClass = ContentBlockController.WidgetIconCssClass)]
     [Localization(typeof(ContentBlockResources))]
     public class ContentBlockController : Controller, 
                                           IHasContainerType,
-                                          IZoneEditorReloader, 
-                                          ICustomWidgetVisualization, 
+                                          IZoneEditorReloader,
+                                          ICustomWidgetVisualizationExtended, 
                                           ICustomWidgetTitlebar, 
                                           IHasEditCommands, 
                                           IContentItemControl
@@ -76,6 +76,21 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
             protected set
             {
                 this.isEmpty = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the widget CSS class.
+        /// </summary>
+        /// <value>
+        /// The widget CSS class.
+        /// </value>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get
+            {
+                return ContentBlockController.WidgetIconCssClass;
             }
         }
 
@@ -346,6 +361,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
 
         #region Private fields and constants
 
+        internal const string WidgetIconCssClass = "sfContentBlockIcn";
         private const string DesignerTemplate = "Telerik.Sitefinity.Frontend/Designer/Master/ContentBlock?view={0}";
         private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
         private string content;

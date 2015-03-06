@@ -10,7 +10,8 @@
 <script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="@Model.CssClass">
-<form id="loginForm" action="@Model.ServiceUrl" method="post">
+    @using (Html.BeginFormSitefinity())
+    {
     <div>
         <fieldset>
          @Html.ValidationSummary(true)
@@ -19,30 +20,23 @@
                 @Html.LabelFor(u => u.UserName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(u => u.UserName, new { Name = "wrap_name" })
-                @Html.ValidationMessage("wrap_name")
+                @Html.TextBoxFor(u => u.UserName)
+                @Html.ValidationMessage("UserName")
             </div>
             <div class="editor-label">
                 @Html.LabelFor(u => u.Password)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(u => u.Password, new { Name = "wrap_password" })
-                @Html.ValidationMessage("wrap_password")
+                @Html.PasswordFor(u => u.Password)
+                @Html.ValidationMessage("Password")
             </div>
             @if (Model.ShowRememberMe)
             {
             <div class="editor-label">
                 @Html.CheckBoxFor(u => u.RememberMe)
-                <input type="hidden" id="sf_persistent" name="sf_persistent" value="false"/>
                 @Html.LabelFor(u => u.RememberMe)
             </div>
             }
-            <div class="editor-label">
-                @Html.HiddenFor(u => u.MembershipProvider, new { Name = "sf_domain" })
-                @Html.HiddenFor(u => u.RedirectUrlAfterLogin, new { Name = "redirect_uri" })
-                @Html.HiddenFor(u => u.Realm, new { Name = "realm" })
-                <input type="hidden" name="deflate" value="true" />
-            </div>
             <div class="error" style="display:none"></div>
             <input type="submit" value='@Html.Resource("LoginFormLogInButton")' />
 
@@ -52,12 +46,18 @@
             }
         </fieldset>
 
+        @if (Model.IncorrectCredentials)
+        {
+            
+            <span>@Html.Resource("IncorrectCredentialsMessage")</span>
+        }
+
         @if (Model.ShowRegistrationLink)
         {
             <a href="@Model.RegisterPageUrl">@Html.Resource("LoginFormRegisterNow")</a>
         }
     </div>
-</form>
+    }
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/LoginForm/login-form.js"))
