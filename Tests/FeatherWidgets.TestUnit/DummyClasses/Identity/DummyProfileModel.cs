@@ -15,8 +15,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public Guid ProfileSavedPageId { get; set; }
 
-        public string ProfileSaveMsg { get; set; }
-
         public string UserName { get; set; }
 
         public string ProfileBindings { get; set; }
@@ -56,5 +54,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
         {
             return true;
         }
+
+        public string UserProvider { get; set; }
     }
 }

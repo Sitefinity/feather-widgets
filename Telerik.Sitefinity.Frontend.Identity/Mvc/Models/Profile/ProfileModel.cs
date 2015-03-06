@@ -67,6 +67,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         }
 
         /// <inheritDoc/>
+        public string UserProvider
+        {
+            get
+            {
+                this.userProvider = this.userProvider ?? UserManager.GetDefaultProviderName();
+                return this.userProvider;
+            }
+            set
+            {
+                this.userProvider = value;
+            }
+        }
+
+        /// <inheritDoc/>
         public bool SendEmailOnChangePassword { get; set; }
 
         /// <summary>
@@ -152,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
 
             var userProfileManager = UserProfileManager.GetManager(this.MembershipProvider);
-            var userManager = UserManager.GetManager(this.MembershipProvider);
+            var userManager = UserManager.GetManager(this.UserProvider);
 
             try
             {
@@ -377,6 +391,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         #region Private fields
 
         private string membershipProvider;
+        private string userProvider;
         private IList<UserProfile> selectedUserProfiles;
         private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName' },{ Name: 'LastName', FieldName: 'LastName' }, {Name:'About', FieldName:'About'} ]}]";
 
