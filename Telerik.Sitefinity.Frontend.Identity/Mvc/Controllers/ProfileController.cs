@@ -118,7 +118,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
             }
 
-            var fullTemplateName = "Edit." + this.EditModeTemplateName;
+            var fullTemplateName = EditModeTemplatePrefix + this.EditModeTemplateName;
             var viewModel = this.Model.GetProfileEditViewModel();
             if (viewModel == null)
                 return null;
@@ -155,7 +155,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
-            var fullTemplateName = "Edit." + this.EditModeTemplateName;
+            var fullTemplateName = EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -184,7 +184,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (viewModel == null)
                 return null;
 
-            var fullTemplateName = "Read." + this.ReadModeTemplateName;
+            var fullTemplateName = ReadModeTemplatePrefix + this.ReadModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -192,8 +192,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         #region Private fields and constants
 
-        private string readModeTemplateName = "Default";
-        private string editModeTemplateName = "Default";
+        private string readModeTemplateName = "ProfilePreview";
+        private string editModeTemplateName = "ProfileEdit";
+
+        private const string ReadModeTemplatePrefix = "Read.";
+        private const string EditModeTemplatePrefix = "Edit.";
+
         private IProfileModel model;
 
         #endregion

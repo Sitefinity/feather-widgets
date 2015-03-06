@@ -31,7 +31,7 @@ namespace FeatherWidgets.TestUnit.Identity
             {
                 var result = (ViewResult)controller.Index();
 
-                Assert.AreEqual("AccountActivation.Default", result.ViewName);
+                Assert.AreEqual("AccountActivation.AccountActivation", result.ViewName);
             }
         }
 
