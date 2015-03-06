@@ -626,6 +626,22 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Phrase: Search
+        /// </summary>
+        /// <value>Search</value>
+        [ResourceEntry("BackgroundHint",
+            Value = "Search",
+            Description = "Phrase: Search",
+            LastModified = "2015/03/05")]
+        public string BackgroundHint
+        {
+            get
+            {
+                return this["BackgroundHint"];
+            }
+        }
+
         #endregion
     }
 }
