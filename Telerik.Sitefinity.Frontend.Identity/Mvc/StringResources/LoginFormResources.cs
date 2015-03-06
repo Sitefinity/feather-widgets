@@ -166,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RegistrationPageInfo"];
             }
         }
-
+        
         /// <summary>
         /// Gets phrase : Show "Remember me" checkbox
         /// </summary>
@@ -481,7 +481,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ForgotPasswordSendButton"];
             }
         }
-
+                
         /// <summary>
         /// phrase : This field is required.
         /// </summary>
@@ -540,6 +540,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["IncorrectCredentialsMessage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Show \"Remember me\" checkbox
+        /// </summary>
+        /// <value>Show \"Remember me\" checkbox</value>
+        [ResourceEntry("ShowRememberMe",
+            Value = "Show \"Remember me\" checkbox",
+            Description = "phrase: Show \"Remember me\" checkbox",
+            LastModified = "2015/03/05")]
+        public string ShowRememberMe
+        {
+            get
+            {
+                return this["ShowRememberMe"];
             }
         }
     }

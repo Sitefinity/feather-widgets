@@ -34,10 +34,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// Gets or sets a value indicating whether the login settings should be persisted.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if login settings should be persisted; otherwise, <c>false</c>.
+        /// <c>true</c> if login settings should be persisted; otherwise, <c>false</c>.
         /// </value>
         [Display(Name="Remember me")]
-        public bool RememberMe { get; set; }
+        public bool RememberMe
+        {
+            get
+            {
+                return this.rememberMe;
+            }
+            set
+            {
+                if (this.rememberMe != value)
+                {
+                    this.rememberMe = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the token service URL.
@@ -108,5 +121,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </summary>
         /// <value>The incorrect credentials.</value>
         public bool IncorrectCredentials { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Remember me checkbox is displayed.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if Remember me checkbox will be displayed; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowRememberMe { get; set; }
+
+        private bool rememberMe = true;
     }
 }

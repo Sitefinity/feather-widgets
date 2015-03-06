@@ -135,22 +135,23 @@ namespace FeatherWidgets.TestUnit.Identity
         }
 
         [TestMethod]
-        [Description("Tests whether the Index action that is invoked with POST data will return a message when Save Action is ShowMessage.")]
+        [Description("Tests whether the Index action that is invoked with POST data will set correctly option for displaying success message when Save Action is ShowMessage.")]
         [Owner("Boyko-Karadzhov")]
-        public void IndexPostAction_ShowMessage_ReturnsMessage()
+        public void IndexPostAction_ShowMessage_ShowsSuccessMessage()
         {
             var controller = new DummyProfileController();
             controller.Model.SaveChangesAction = SaveAction.ShowMessage;
-            controller.Model.ProfileSaveMsg = "Your profile was saved successfully.";
             var viewModel = new ProfileEditViewModel();
 
             var result = controller.Index(viewModel);
 
             Assert.IsNotNull(result, "The action result is null.");
-            Assert.IsInstanceOfType(result, typeof(ContentResult), "The action result is not of the expected type.");
+            Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");
 
-            var contentResult = (ContentResult)result;
-            Assert.AreEqual(controller.Model.ProfileSaveMsg, contentResult.Content, "The action did not return the expected message.");
+            var viewResult = (ViewResult)result;
+            var model = viewResult.Model as ProfileEditViewModel;
+            Assert.IsNotNull(model, "The action result should return view with ProfileEditViewModel.");
+            Assert.AreEqual(true, model.ShowProfileChangedMsg, "The action did not set correctly option for displaying success message.");
         }
 
         [TestMethod]

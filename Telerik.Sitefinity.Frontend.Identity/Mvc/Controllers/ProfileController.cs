@@ -13,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Profile widget.
     /// </summary>
     [Localization(typeof(ProfileResources))]
-    [ControllerToolboxItem(Name = "ProfileMVC", Title = "Profile", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "ProfileMVC", Title = "Profile", SectionName = "MvcWidgets", CssClass = "sfProfilecn")]
     public class ProfileController : Controller
     {
         #region Properties
@@ -118,7 +118,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
             }
 
-            var fullTemplateName = "Edit." + this.EditModeTemplateName;
+            var fullTemplateName = EditModeTemplatePrefix + this.EditModeTemplateName;
             var viewModel = this.Model.GetProfileEditViewModel();
             if (viewModel == null)
                 return null;
@@ -147,13 +147,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     case SaveAction.SwitchToReadMode:
                         return this.ReadProfile();
                     case SaveAction.ShowMessage:
-                        return this.Content(this.Model.ProfileSaveMsg);
+                        viewModel.ShowProfileChangedMsg = true;
+                        break;
                     case SaveAction.ShowPage:
                         return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
                 }
             }
 
-            var fullTemplateName = "Edit." + this.EditModeTemplateName;
+            var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -182,7 +183,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (viewModel == null)
                 return null;
 
-            var fullTemplateName = "Read." + this.ReadModeTemplateName;
+            var fullTemplateName = ReadModeTemplatePrefix + this.ReadModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -190,8 +191,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         #region Private fields and constants
 
-        private string readModeTemplateName = "Default";
-        private string editModeTemplateName = "Default";
+        private string readModeTemplateName = "ProfilePreview";
+        private string editModeTemplateName = "ProfileEdit";
+
+        private const string ReadModeTemplatePrefix = "Read.";
+        private const string EditModeTemplatePrefix = "Edit.";
+
         private IProfileModel model;
 
         #endregion
