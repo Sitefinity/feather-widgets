@@ -19,8 +19,8 @@
     </div>
 
     <div class="form-group">
-        <input type="checkbox" ng-model="properties.AllowResetPassword.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.AllowResetPassword.PropertyValue === 'True'"/>
-        <label>@Html.Resource("AllowResetPassword")</label>
+        <input id="allow-reset-password-checkbox" type="checkbox" ng-model="properties.AllowResetPassword.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.AllowResetPassword.PropertyValue === 'True'"/>
+        <label for="allow-reset-password-checkbox">@Html.Resource("AllowResetPassword")</label>
         <div ng-show="properties.AllowResetPassword.PropertyValue && properties.EnablePasswordRetrieval.PropertyValue === 'False' && properties.EnablePasswordReset.PropertyValue === 'False'">
             <span>@Html.Resource("PaswordResetNotEnabled")</span>
         </div>
