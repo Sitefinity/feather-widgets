@@ -29,11 +29,14 @@
                 @Html.PasswordFor(u => u.Password, new { Name = "wrap_password" })
                 @Html.ValidationMessage("wrap_password")
             </div>
+            @if (Model.ShowRememberMe)
+            {
             <div class="editor-label">
                 @Html.CheckBoxFor(u => u.RememberMe)
                 <input type="hidden" id="sf_persistent" name="sf_persistent" value="false"/>
                 @Html.LabelFor(u => u.RememberMe)
             </div>
+            }
             <div class="editor-label">
                 @Html.HiddenFor(u => u.MembershipProvider, new { Name = "sf_domain" })
                 @Html.HiddenFor(u => u.RedirectUrlAfterLogin, new { Name = "redirect_uri" })

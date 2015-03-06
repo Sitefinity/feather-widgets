@@ -27,6 +27,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         bool AllowResetPassword { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether Remember me checkbox is displayed.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if Remember me checkbox will be displayed; otherwise, <c>false</c>.
+        /// </value>
+        bool ShowRememberMe { get; set; }
+
+        /// <summary>
         /// Gets or sets the membership provider.
         /// </summary>
         /// <value>

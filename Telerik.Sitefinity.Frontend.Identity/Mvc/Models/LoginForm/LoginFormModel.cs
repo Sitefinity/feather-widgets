@@ -48,6 +48,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public bool AllowResetPassword { get; set; }
 
         /// <inheritDoc/>
+        public bool ShowRememberMe { get; set; }
+
+        /// <inheritDoc/>
         public string MembershipProvider
         {
             get
@@ -110,7 +113,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
                 RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                ShowRememberMe = this.ShowRememberMe
             };
         }
 
