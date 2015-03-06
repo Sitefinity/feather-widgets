@@ -21,8 +21,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Image widget.
     /// </summary>
     [Localization(typeof(ImageResources))]
-    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = "sfImageViewIcn")]
-    public class ImageController : Controller, ICustomWidgetVisualization, IContentLocatableView
+    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = ImageController.WidgetIconCssClass)]
+    public class ImageController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
 
@@ -87,7 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #endregion
 
-        #region ICustomWidgetVisualization
+        #region ICustomWidgetVisualizationExtended
 
         /// <summary>
         /// Gets the empty link text.
@@ -116,6 +116,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             get
             {
                 return (this.Model.Id == Guid.Empty);
+            }
+        }
+
+        /// <summary>
+        /// Gets the widget CSS class.
+        /// </summary>
+        /// <value>
+        /// The widget CSS class.
+        /// </value>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get 
+            {
+                return ImageController.WidgetIconCssClass;
             }
         }
 
@@ -220,6 +235,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
+        internal const string WidgetIconCssClass = "sfImageViewIcn";
         private string templateName = "Image";
         private IImageModel model;
         private bool? disableCanonicalUrlMetaTag;
