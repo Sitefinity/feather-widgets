@@ -102,5 +102,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <c>true</c> if the forgot password link should be showed; otherwise, <c>false</c>.
         /// </value>
         public bool ShowForgotPasswordLink { get; set; }
+
+        /// <summary>
+        /// Indicates that the provided credentials are not valid.
+        /// </summary>
+        /// <value>The incorrect credentials.</value>
+        public bool IncorrectCredentials { get; set; }
     }
 }
