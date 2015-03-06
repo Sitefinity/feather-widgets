@@ -37,9 +37,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <inheritdoc />
         public Guid ProfileSavedPageId { get; set; }
 
-        /// <inheritdoc />
-        public string ProfileSaveMsg { get; set; }
-
         /// <summary>
         /// <inheritdoc />
         /// </summary>
@@ -137,7 +134,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             var viewModel = new ProfileEditViewModel(this.SelectedUserProfiles, profileFields)
             {
                 CssClass = this.CssClass,
-                ProfileSaveMsg = this.ProfileSaveMsg,
                 CanEdit = this.CanEdit()
             };
 

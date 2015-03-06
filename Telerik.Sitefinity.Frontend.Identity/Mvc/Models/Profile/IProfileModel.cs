@@ -33,14 +33,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// The profile saved page identifier.
         /// </value>
         Guid ProfileSavedPageId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the profile saved message.
-        /// </summary>
-        /// <value>
-        /// Message to show when profile is saved.
-        /// </value>
-        string ProfileSaveMsg { get; set; }
         
         /// <summary>
         /// Gets or sets the membership provider.
