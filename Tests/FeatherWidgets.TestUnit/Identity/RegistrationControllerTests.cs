@@ -56,23 +56,21 @@ namespace FeatherWidgets.TestUnit.Identity
         }
 
         [TestMethod]
-        [Description("Tests whether the Index action that is invoked with POST data will return a success message on valid model and ShowMessage success action.")]
+        [Description("Tests whether the Index action that is invoked with POST data will show a success message and ShowMessage success action.")]
         [Owner("Boyko-Karadzhov")]
         public void IndexPostAction_ValidModelShowMessageAction_ShowsSuccessMessage()
         {
             var controller = new DummyRegistrationController();
             controller.TemplateName = "TestTemplate";
             var viewModel = new RegistrationViewModel();
-            controller.Model.SuccessfulRegistrationMsg = "Registered successfully!";
             controller.Model.SuccessfulRegistrationAction = SuccessfulRegistrationAction.ShowMessage;
 
             var result = controller.Index(viewModel);
 
             Assert.IsNotNull(result, "The action result is null.");
-            Assert.IsInstanceOfType(result, typeof(ContentResult), "The action result is not of the expected type.");
+            Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");
 
-            var contentResult = (ContentResult)result;
-            Assert.AreEqual(controller.Model.SuccessfulRegistrationMsg, contentResult.Content, "The result did not contain the expected message.");
+            Assert.AreEqual(controller.ViewBag.ShowSuccessfulRegistrationMsg, true, "The result did not contain the expected message.");
         }
 
         [TestMethod]
