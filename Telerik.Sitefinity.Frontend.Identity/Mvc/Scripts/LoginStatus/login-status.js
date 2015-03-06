@@ -1,5 +1,9 @@
 ﻿(function ($) {
     $(function () {
+        $('.login-status-button').on('click', function () {
+            location.href = $('.sf-login-redirect-url').val() || '#';
+        });
+
         if ($('.sf-is-design-mode-value').val().toLowerCase() !== 'true') {
             $.get($('.sf-status-json-endpoint-url').val(), function (statusViewModel) {
                 if (statusViewModel && statusViewModel.IsLoggedIn) {
