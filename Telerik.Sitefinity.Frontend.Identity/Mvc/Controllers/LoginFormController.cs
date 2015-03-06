@@ -10,8 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -95,6 +94,37 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 return this.Content(Res.Get<LoginFormResources>().AlreadyLogedIn);
             }
+        }
+
+        [HttpPost]
+        public ActionResult Index(LoginFormViewModel model)
+        {
+            var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
+
+            if (ModelState.IsValid)
+            {
+                User user;
+                UserLoggingReason result = SecurityManager.AuthenticateUser(
+                    this.Model.MembershipProvider,
+                    model.UserName,
+                    model.Password,
+                    model.RememberMe,
+                    out user);
+
+                if (result == UserLoggingReason.Unknown)
+                {
+                    model.IncorrectCredentials = true;
+
+                    return this.View(fullTemplateName, model);
+                }
+
+                var redirectUrl = this.Model.GetPageUrl(this.Model.LoginRedirectPageId);
+                return this.Redirect(redirectUrl);
+            }
+            else
+            {
+                return this.View(fullTemplateName, model);
+            }            
         }
 
         public ActionResult ForgotPassword(bool emailSent = false, string error = null)

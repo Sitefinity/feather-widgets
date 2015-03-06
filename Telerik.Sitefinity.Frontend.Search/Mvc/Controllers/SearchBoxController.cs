@@ -23,11 +23,12 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Search box widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SearchBox", Title = "Search box", SectionName = "MvcWidgets", ModuleName = "Search", CssClass = "sfSearchBoxIcn")]
+    [ControllerToolboxItem(Name = "SearchBox", Title = "Search box", SectionName = "MvcWidgets", ModuleName = "Search", CssClass = SearchBoxController.WidgetIconCssClass)]
     [Localization(typeof(SearchWidgetsResources))]
-    public class SearchBoxController : Controller, ICustomWidgetVisualization
+    public class SearchBoxController : Controller, ICustomWidgetVisualizationExtended
     {
-        #region ICustomWidgetVisualization
+        #region ICustomWidgetVisualizationExtended
+
         /// <inheritdoc />
         [Browsable(false)]
         public string EmptyLinkText
@@ -47,6 +48,22 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                 return this.Model.IndexCatalogue.IsNullOrEmpty();
             }
         }
+
+        /// <summary>
+        /// Gets the widget CSS class.
+        /// </summary>
+        /// <value>
+        /// The widget CSS class.
+        /// </value>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get
+            {
+                return SearchBoxController.WidgetIconCssClass;
+            }
+        }
+
         #endregion
 
         #region Properties
@@ -197,6 +214,8 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         #endregion
 
         #region Private fields and constants
+
+        internal const string WidgetIconCssClass = "sfSearchBoxIcn";
         private ISearchBoxModel model;
         private string templateName = "SearchBox";
         #endregion        

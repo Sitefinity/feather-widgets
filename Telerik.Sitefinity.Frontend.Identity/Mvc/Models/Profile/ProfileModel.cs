@@ -37,9 +37,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <inheritdoc />
         public Guid ProfileSavedPageId { get; set; }
 
-        /// <inheritdoc />
-        public string ProfileSaveMsg { get; set; }
-
         /// <summary>
         /// <inheritdoc />
         /// </summary>
@@ -66,6 +63,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             set
             {
                 this.membershipProvider = value;
+            }
+        }
+
+        /// <inheritDoc/>
+        public string UserProvider
+        {
+            get
+            {
+                this.userProvider = this.userProvider ?? UserManager.GetDefaultProviderName();
+                return this.userProvider;
+            }
+            set
+            {
+                this.userProvider = value;
             }
         }
 
@@ -137,7 +148,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             var viewModel = new ProfileEditViewModel(this.SelectedUserProfiles, profileFields)
             {
                 CssClass = this.CssClass,
-                ProfileSaveMsg = this.ProfileSaveMsg,
                 CanEdit = this.CanEdit()
             };
 
@@ -156,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
 
             var userProfileManager = UserProfileManager.GetManager(this.MembershipProvider);
-            var userManager = UserManager.GetManager(this.MembershipProvider);
+            var userManager = UserManager.GetManager(this.UserProvider);
 
             try
             {
@@ -381,6 +391,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         #region Private fields
 
         private string membershipProvider;
+        private string userProvider;
         private IList<UserProfile> selectedUserProfiles;
         private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName' },{ Name: 'LastName', FieldName: 'LastName' }, {Name:'About', FieldName:'About'} ]}]";
 

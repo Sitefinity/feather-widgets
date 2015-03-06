@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Data;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -46,6 +47,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         
         /// <inheritDoc/>
         public bool AllowResetPassword { get; set; }
+
+        /// <inheritDoc/>
+        public bool ShowRememberMe { get; set; }
 
         /// <inheritDoc/>
         public string MembershipProvider
@@ -112,7 +116,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 ShowRegistrationLink = this.RegisterRedirectPageId.HasValue,
                 ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
-                CssClass = this.CssClass
+                CssClass = this.CssClass,
+                ShowRememberMe = this.ShowRememberMe
             };
         }
 
@@ -147,9 +152,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 throw new ArgumentNullException("User could not be retrieved.");
             }
 
-            var resetPassword = this.userManager.ResetPassword(userId, answer);
-            this.userManager.ChangePassword(userId, resetPassword, newPassword);
-            this.userManager.SaveChanges();
+            using (new ElevatedModeRegion(this.userManager))
+            {
+                var resetPassword = this.userManager.ResetPassword(userId, answer);
+                this.userManager.ChangePassword(userId, resetPassword, newPassword);
+                this.userManager.SaveChanges();
+            }
         }
 
         /// <inheritDoc/>

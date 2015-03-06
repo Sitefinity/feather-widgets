@@ -14,7 +14,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     public class LoginFormResources : Resource
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginFormResources"/> class. 
         /// Initializes new instance of <see cref="LoginFormResources"/> class with the default <see cref="ResourceDataProvider"/>.
@@ -31,7 +30,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             : base(dataProvider)
         {
         }
-
         #endregion
 
         /// <summary>
@@ -199,8 +197,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : You must first enable password reset or password retrieval from the membership provider settings.
+        /// <summary>
+        /// phrase : You must first enable password reset or password retrieval from the membership provider settings.
         /// </summary>
         [ResourceEntry("PaswordResetNotEnabled",
             Value = "You must first enable password reset or password retrieval from the membership provider settings.",
@@ -214,8 +212,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : New password.
+        /// <summary>
+        /// phrase : New password
         /// </summary>
         [ResourceEntry("ResetPasswordNewPassword",
             Value = "New password",
@@ -229,8 +227,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Repeat new password.
+        /// <summary>
+        /// phrase : Repeat new password
         /// </summary>
         [ResourceEntry("ResetPasswordRepeatNewPassword",
             Value = "Repeat new password",
@@ -244,8 +242,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Reset password.
+        /// <summary>
+        /// phrase : Reset password
         /// </summary>
         [ResourceEntry("ResetPasswordHeader",
             Value = "Reset password",
@@ -259,8 +257,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Forgot your password?
+        /// <summary>
+        /// phrase : Forgot your password?
         /// </summary>
         [ResourceEntry("ForgotPasswordHeader",
             Value = "Forgot your password?",
@@ -274,8 +272,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Forgot your password?
+        /// <summary>
+        /// phrase : Email
         /// </summary>
         [ResourceEntry("ForgotPasswordEmail",
             Value = "Email",
@@ -289,8 +287,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Answer
+        /// <summary>
+        /// phrase : Answer
         /// </summary>
         [ResourceEntry("ResetPasswordAnswer",
             Value = "Answer",
@@ -304,8 +302,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Both passwords must match.
+        /// <summary>
+        /// phrase : Both passwords must match.
         /// </summary>
         [ResourceEntry("ResetPasswordNonMatchingPasswordsMessage",
             Value = "Both passwords must match.",
@@ -319,8 +317,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Invalid data.
+        /// <summary>
+        /// phrase : Invalid data.
         /// </summary>
         [ResourceEntry("ResetPasswordGeneralErrorMessage",
             Value = "Invalid data.",
@@ -334,8 +332,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Your password is successfully changed.
+        /// <summary>
+        /// phrase : Your password is successfully changed.
         /// </summary>
         [ResourceEntry("ResetPasswordSuccess",
             Value = "Your password is successfully changed.",
@@ -349,8 +347,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Back to login
+        /// <summary>
+        /// phrase : Back to login
         /// </summary>
         [ResourceEntry("ResetPasswordBackToLogin",
             Value = "Back to login",
@@ -364,8 +362,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Save
+        /// <summary>
+        /// phrase : Save
         /// </summary>
         [ResourceEntry("ResetPasswordSaveButton",
             Value = "Save",
@@ -379,8 +377,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Log in
+        /// <summary>
+        /// phrase : Log in
         /// </summary>
         [ResourceEntry("LoginFormLogInLegendHeader",
             Value = "Log in",
@@ -394,8 +392,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Log in
+        /// <summary>
+        /// phrase : Log in
         /// </summary>
         [ResourceEntry("LoginFormLogInButton",
             Value = "Log in",
@@ -409,8 +407,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Register now
+        /// <summary>
+        /// phrase : Register now
         /// </summary>
         [ResourceEntry("LoginFormRegisterNow",
             Value = "Register now",
@@ -424,8 +422,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : You sent a request to reset your password.
+        /// <summary>
+        /// phrase : You sent a request to reset your password.
         /// </summary>
         [ResourceEntry("ForgotPasswordRequestSent",
             Value = "You sent a request to reset your password.",
@@ -439,8 +437,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Please use the link provided in your email to reset the password for your account.
+        /// <summary>
+        /// phrase : Please use the link provided in your email to reset the password for your account.
         /// </summary>
         [ResourceEntry("ForgotPasswordRequestSentUseLink",
             Value = "Please use the link provided in your email to reset the password for your account.",
@@ -454,8 +452,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Back to login
+        /// <summary>
+        /// phrase : Back to login
         /// </summary>
         [ResourceEntry("ForgotPasswordBackToLogin",
             Value = "Back to login",
@@ -469,8 +467,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
 
-        /// </summary>
-        /// Gets phrase : Send
+        /// <summary>
+        /// phrase : Send
         /// </summary>
         [ResourceEntry("ForgotPasswordSendButton",
             Value = "Send",
@@ -484,8 +482,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             }
         }
                 
-        /// </summary>
-        /// Gets phrase : This field is required.
+        /// <summary>
+        /// phrase : This field is required.
         /// </summary>
         [ResourceEntry("ResetPasswordRequiredErrorMessage",
             Value = "This field is required.",
@@ -526,6 +524,38 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["ForgottenPasword"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Incorrect Username/Password Combination
+        /// </summary>
+        /// <value>Incorrect Username/Password Combination</value>
+        [ResourceEntry("IncorrectCredentialsMessage",
+            Value = "Incorrect Username/Password Combination",
+            Description = "phrase: Incorrect Username/Password Combination",
+            LastModified = "2015/03/06")]
+        public string IncorrectCredentialsMessage
+        {
+            get
+            {
+                return this["IncorrectCredentialsMessage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Show \"Remember me\" checkbox
+        /// </summary>
+        /// <value>Show \"Remember me\" checkbox</value>
+        [ResourceEntry("ShowRememberMe",
+            Value = "Show \"Remember me\" checkbox",
+            Description = "phrase: Show \"Remember me\" checkbox",
+            LastModified = "2015/03/05")]
+        public string ShowRememberMe
+        {
+            get
+            {
+                return this["ShowRememberMe"];
             }
         }
     }

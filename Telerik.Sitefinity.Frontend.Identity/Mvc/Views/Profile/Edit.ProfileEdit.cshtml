@@ -5,9 +5,9 @@
 @using Telerik.Sitefinity.Utilities;
 
 <div class="@Model.CssClass">
-    @if (!string.IsNullOrEmpty(Model.ProfileSaveMsg))
+    @if (Model.ShowProfileChangedMsg)
     {
-        <div>@Model.ProfileSaveMsg</div>
+        <div>@Html.Resource("ChangesAreSaved")</div>
     }
 
     @using (Html.BeginFormSitefinity("Index", "EditProfileForm", FormMethod.Post, new { enctype = "multipart/form-data" }))

@@ -438,5 +438,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["EditNotAllowed"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Your changes are saved
+        /// </summary>
+        [ResourceEntry("ChangesAreSaved",
+            Value = "Your changes are saved",
+            Description = "phrase : Your changes are saved",
+            LastModified = "2015/03/06")]
+        public string ChangesAreSaved
+        {
+            get
+            {
+                return this["ChangesAreSaved"];
+            }
+        }
     }
 }
