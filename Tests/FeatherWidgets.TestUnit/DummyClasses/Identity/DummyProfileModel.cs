@@ -54,5 +54,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
         {
             return true;
         }
+
+        public string UserProvider { get; set; }
     }
 }

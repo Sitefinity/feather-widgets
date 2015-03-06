@@ -43,6 +43,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         string MembershipProvider { get; set; }
 
         /// <summary>
+        /// Gets or sets the user provider.
+        /// </summary>
+        /// <value>
+        /// The user provider.
+        /// </value>
+        string UserProvider { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether an email should be send on password change.
         /// </summary>
         /// <value>
