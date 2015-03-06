@@ -147,13 +147,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                     case SaveAction.SwitchToReadMode:
                         return this.ReadProfile();
                     case SaveAction.ShowMessage:
-                        return this.Content(this.Model.ProfileSaveMsg);
+                        viewModel.ShowProfileChangedMsg = true;
+                        break;
                     case SaveAction.ShowPage:
                         return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
                 }
             }
 
-            var fullTemplateName = EditModeTemplatePrefix + this.EditModeTemplateName;
+            var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 

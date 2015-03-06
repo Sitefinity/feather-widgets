@@ -105,12 +105,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         public string CssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets the profile saved message.
+        /// Gets or sets a value indicating whether to show profile changed message.
         /// </summary>
         /// <value>
-        /// Message to show when profile is saved.
+        /// <c>true</c> if should display profile changed message; otherwise, <c>false</c>.
         /// </value>
-        public string ProfileSaveMsg { get; set; }
+        public bool ShowProfileChangedMsg { get; set; }
 
         /// <summary>
         /// Gets or sets the email.
