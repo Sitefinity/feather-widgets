@@ -235,7 +235,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         [ResourceEntry("Login",
             Value = "Login",
             Description = "phrase : Login",
-            LastModified = "2015/02/26")]
+            LastModified = "2015/03/06")]
         public string Login
         {
             get
@@ -250,7 +250,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         [ResourceEntry("RegisterNow",
             Value = "Register now",
             Description = "phrase : Register now",
-            LastModified = "2015/02/26")]
+            LastModified = "2015/03/06")]
         public string RegisterNow
         {
             get
@@ -265,7 +265,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         [ResourceEntry("Logout",
             Value = "Logout",
             Description = "phrase : Logout",
-            LastModified = "2015/02/26")]
+            LastModified = "2015/03/06")]
         public string Logout
         {
             get
@@ -280,7 +280,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         [ResourceEntry("LoggedAs",
             Value = "Logged as",
             Description = "phrase : Logged as",
-            LastModified = "2015/02/26")]
+            LastModified = "2015/03/06")]
         public string LoggedAs
         {
             get
