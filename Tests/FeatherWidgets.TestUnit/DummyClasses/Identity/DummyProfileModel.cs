@@ -21,6 +21,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public string ProfileBindings { get; set; }
 
+        public string MembershipProvider { get; set; }
+
+        public bool SendEmailOnChangePassword { get; set; }
+
         public ProfilePreviewViewModel GetProfilePreviewViewModel()
         {
             return new ProfilePreviewViewModel();
@@ -36,11 +40,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
             return true;
         }
 
-        public bool EditUserProfile(IDictionary<string, string> profileProperties)
-        {
-            return true;
-        }
-
         public string GetPageUrl(Guid? pageId)
         {
             if (pageId.HasValue)
@@ -51,6 +50,11 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
             {
                 return null;
             }
+        }
+
+        public bool EditUserProfile(ProfileEditViewModel model)
+        {
+            return true;
         }
     }
 }
