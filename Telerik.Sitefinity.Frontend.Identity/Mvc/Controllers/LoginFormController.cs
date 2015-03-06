@@ -48,7 +48,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <value>
         /// The login form template.
         /// </value>
-        public string LoginFormTemplate { get; set; }
+        public string LoginFormTemplate 
+        {
+            get { return this.loginFormTemplateName; }
+            set { this.loginFormTemplateName = value; } 
+        }
 
         /// <summary>
         /// Gets or sets the forgot password template.
@@ -56,7 +60,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <value>
         /// The forgot password template.
         /// </value>
-        public string ForgotPasswordTemplate { get; set; }
+        public string ForgotPasswordTemplate
+        {
+            get { return this.forgotPasswordTemplateName; }
+            set { this.forgotPasswordTemplateName = value; }
+        }
 
         /// <summary>
         /// Gets or sets the reset password template.
@@ -64,7 +72,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <value>
         /// The reset password template.
         /// </value>
-        public string ResetPasswordTemplate { get; set; }
+        public string ResetPasswordTemplate
+        {
+            get { return this.resetPasswordTemplateName; }
+            set { this.resetPasswordTemplateName = value; }
+        }
 
         #endregion
 
@@ -75,7 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (SecurityManager.GetCurrentUserId() == Guid.Empty)
             {
                 var viewModel = this.Model.GetLoginFormViewModel();
-                var fullTemplateName = this.loginFormTemplatePrefix + this.GetViewName(this.LoginFormTemplate);
+                var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
 
                 return this.View(fullTemplateName, viewModel);
             }
@@ -92,7 +104,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             model.Error = error;
             model.EmailSent = emailSent;
 
-            var fullTemplateName = this.forgotPasswordFormTemplatePrefix + this.GetViewName(this.ForgotPasswordTemplate);
+            var fullTemplateName = this.forgotPasswordTemplatePrefix + this.ForgotPasswordTemplate;
 
             return this.View(fullTemplateName, model);
         }
@@ -113,7 +125,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             model.ResetComplete = resetComplete;
             model.SecurityToken = this.HttpContext.Request.QueryString.ToQueryString();
 
-            var fullTemplateName = this.resetPasswordFormTemplatePrefix + this.GetViewName(this.ResetPasswordTemplate);
+            var fullTemplateName = this.resetPasswordTemplatePrefix + this.ResetPasswordTemplate;
 
             return this.View(fullTemplateName, model);
         }
@@ -173,31 +185,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return ControllerModelFactory.GetModel<ILoginFormModel>(this.GetType());
         }
 
-        /// <summary>
-        /// Gets the name of the view or the default view name.
-        /// </summary>
-        /// <param name="viewName">Name of the view.</param>
-        /// <returns></returns>
-        private string GetViewName(string viewName)
-        {
-            var viewNameToReturn = viewName;
-
-            if (string.IsNullOrEmpty(viewNameToReturn))
-            {
-                viewNameToReturn = this.defaultTemplateName;
-            }
-
-            return viewNameToReturn;
-        }
-
         #endregion
 
         #region Private fields and constants
 
-        private string defaultTemplateName = "Default";
+        private string loginFormTemplateName = "Default";
+        private string forgotPasswordTemplateName = "Default";
+        private string resetPasswordTemplateName = "Default";
         private string loginFormTemplatePrefix = "LoginForm.";
-        private string forgotPasswordFormTemplatePrefix = "ForgotPassword.";
-        private string resetPasswordFormTemplatePrefix = "ResetPassword.";
+        private string forgotPasswordTemplatePrefix = "ForgotPassword.";
+        private string resetPasswordTemplatePrefix = "ResetPassword.";
 
         private ILoginFormModel model;
 
