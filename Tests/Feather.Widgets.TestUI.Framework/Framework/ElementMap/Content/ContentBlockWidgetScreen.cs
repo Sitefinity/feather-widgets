@@ -131,7 +131,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlAnchor>("tagname=a", "class=sfAddContentLnk");
+                return this.Get<HtmlAnchor>("tagname=a", "class=~sfAddContentLnk");
             }
         }
 
