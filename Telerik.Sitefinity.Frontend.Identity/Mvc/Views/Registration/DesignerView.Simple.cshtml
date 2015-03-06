@@ -1,4 +1,5 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Notifications;
 @using Telerik.Sitefinity.Security;
 @using Telerik.Sitefinity.Security.Web.UI;
 
@@ -108,7 +109,7 @@
             <div class="row">
                 <div class="col-xs-6">
                     <select ng-model="properties.SuccessEmailTemplateId.PropertyValue" class="form-control">
-                        @foreach (var template in Html.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""Success""", typeof(RegistrationForm).FullName)))
+                        @foreach (var template in EmailTemplateHelper.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""Success""", typeof(RegistrationForm).FullName)))
                         {
                             <option value="@template.Key">@template.Value</option>
                         }
@@ -121,7 +122,7 @@
             <div class="row">
                 <label>@Html.Resource("ConfirmationEmailTemplate")</label>
                 <select ng-model="properties.ConfirmationEmailTemplateId.PropertyValue" class="form-control">
-                    @foreach (var template in Html.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""{1}""", typeof(RegistrationForm).FullName, RegistrationEmailType.Confirmation.ToString())))
+                    @foreach (var template in EmailTemplateHelper.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""{1}""", typeof(RegistrationForm).FullName, RegistrationEmailType.Confirmation.ToString())))
                     {
                         <option value="@template.Key">@template.Value</option>
                     }

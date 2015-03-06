@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+using Telerik.Sitefinity.Frontend.Notifications;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
@@ -22,6 +23,7 @@ using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
+using Telerik.Sitefinity.Security.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -122,10 +124,42 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         }
 
         /// <inheritDoc/>
-        public Guid? SuccessEmailTemplateId { get; set; }
+        public Guid? SuccessEmailTemplateId
+        {
+            get
+            {
+                if (!this.successEmailTemplateId.HasValue)
+                {
+                    this.successEmailTemplateId = this.GetDefaultEmailTemplate("Success");
+                }
+
+                return this.successEmailTemplateId;
+            }
+
+            set 
+            {
+                this.successEmailTemplateId = value;
+            }
+        }
 
         /// <inheritDoc/>
-        public Guid? ConfirmationEmailTemplateId { get; set; }
+        public Guid? ConfirmationEmailTemplateId
+        {
+            get
+            {
+                if (!this.confirmationEmailTemplateId.HasValue)
+                {
+                    this.confirmationEmailTemplateId = this.GetDefaultEmailTemplate("Confirmation");
+                }
+
+                return this.confirmationEmailTemplateId;
+            }
+
+            set
+            {
+                this.confirmationEmailTemplateId = value;
+            }
+        }
 
         /// <inheritDoc/>
         public virtual string EmailSenderName { get; set; }
@@ -471,6 +505,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return url.ToString();
         }
 
+        /// <summary>
+        /// Gets the email message body.
+        /// </summary>
+        /// <param name="templateId">The template identifier.</param>
+        /// <returns></returns>
         protected virtual string GetEmailMessageBody(Guid? templateId)
         {
             if (templateId.HasValue && templateId.Value != Guid.Empty)
@@ -485,21 +524,40 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             return null;
         }
 
-        private string membershipProviderName;
-        private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
-        private string confirmationEmailSubject = Res.Get<UserProfilesResources>().ConfirmationEmailDefaultSubject;
-        private const string ReturnUrlName = "ReturnUrl";
-        private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
+        /// <summary>
+        /// Gets the default email template.
+        /// </summary>
+        /// <param name="emailType">Type of the email.</param>
+        /// <returns></returns>
+        protected virtual Guid GetDefaultEmailTemplate(string emailType)
+        {
+            Guid templateId = Guid.Empty;
+            var templates = EmailTemplateHelper.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""{1}""",
+                        typeof(RegistrationForm).FullName, emailType));
+            if (templates != null && templates.Count > 0)
+            {
+                templateId = templates.First().Key;
+            }
+
+            return templateId;
+        }
 
         #endregion
 
         #region Private fields and constants
 
+        private string membershipProviderName;
+        private string successEmailSubject = Res.Get<RegistrationResources>().SuccessEmailDefaultSubject;
+        private string confirmationEmailSubject = Res.Get<UserProfilesResources>().ConfirmationEmailDefaultSubject;
+        private const string ReturnUrlName = "ReturnUrl";
+        private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
         private const string DefaultSortExpression = "PublicationDate DESC";
 
         private string serializedSelectedRoles;
         private IList<Role> selectedRoles = new List<Role>();
         private Dictionary<string, RoleManager> roleManagersToSubmit = null;
+        private Guid? successEmailTemplateId;
+        private Guid? confirmationEmailTemplateId;
 
         #endregion
 
