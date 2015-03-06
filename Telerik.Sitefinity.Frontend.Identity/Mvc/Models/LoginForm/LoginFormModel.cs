@@ -112,6 +112,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 MembershipProvider = this.MembershipProvider,
                 RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
                 RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId),
+                ShowRegistrationLink = this.RegisterRedirectPageId.HasValue,
+                ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval),
                 Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
                 CssClass = this.CssClass,
                 ShowRememberMe = this.ShowRememberMe

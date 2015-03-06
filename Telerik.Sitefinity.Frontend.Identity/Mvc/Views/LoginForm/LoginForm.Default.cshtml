@@ -45,10 +45,17 @@
             </div>
             <div class="error" style="display:none"></div>
             <input type="submit" value='@Html.Resource("LoginFormLogInButton")' />
-            
-            @Html.ActionLink("Forgotten Password", "ForgotPassword")
+
+            @if (Model.ShowForgotPasswordLink)
+            {
+                <span>@Html.ActionLink(Html.Resource("ForgottenPasword"), "ForgotPassword")</span>
+            }
         </fieldset>
-        <a href="@Model.RegisterPageUrl">@Html.Resource("LoginFormRegisterNow")</a>
+
+        @if (Model.ShowRegistrationLink)
+        {
+            <a href="@Model.RegisterPageUrl">@Html.Resource("LoginFormRegisterNow")</a>
+        }
     </div>
 </form>
 </div>

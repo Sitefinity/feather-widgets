@@ -101,6 +101,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the registration link should be shown.
+        /// </summary>
+        /// <value>
+        //  <c>true</c> if the registration link should be showed; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowRegistrationLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the forgot password link should be shown.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the forgot password link should be showed; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowForgotPasswordLink { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether Remember me checkbox is displayed.
         /// </summary>
         /// <value>

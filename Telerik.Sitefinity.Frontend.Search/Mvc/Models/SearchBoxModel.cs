@@ -11,6 +11,8 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Multisite;
 using Telerik.Sitefinity.Multisite.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Frontend.Search.Mvc.StringResources;
 
 namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
 {
@@ -111,7 +113,25 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         public string Language { get; set; }
 
         /// <inheritdoc />
-        public string CssClass { get; set; }        
+        public string CssClass { get; set; }
+        
+        /// <inheritdoc />
+        public string BackgroundHint 
+        { 
+            get
+            {
+                if (string.IsNullOrEmpty(this.backgroundHint))
+	            {
+                    this.backgroundHint = Res.Get<SearchWidgetsResources>().BackgroundHint;
+	            }
+
+                return this.backgroundHint;
+            }
+            set
+            {
+                this.backgroundHint = value;
+            }
+        }
         #endregion
 
         #region Private methods
@@ -214,6 +234,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Models
         private string resultsUrl;
         private string searchIndexPipeId;
         private string catalogueName;
+        private string backgroundHint;
         #endregion
     }
 }

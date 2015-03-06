@@ -166,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RegistrationPageInfo"];
             }
         }
-
+        
         /// <summary>
         /// Gets phrase : Show "Remember me" checkbox
         /// </summary>
@@ -481,7 +481,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ForgotPasswordSendButton"];
             }
         }
-
+                
         /// <summary>
         /// phrase : This field is required.
         /// </summary>
@@ -509,6 +509,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["ResetPasswordNotEnabled"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Forgotten Password
+        /// </summary>
+        [ResourceEntry("ForgottenPasword",
+            Value = "Forgotten Password",
+            Description = "phrase : Forgotten Password",
+            LastModified = "2015/02/25")]
+        public string ForgottenPasword
+        {
+            get
+            {
+                return this["ForgottenPasword"];
             }
         }
 
