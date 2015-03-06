@@ -11,14 +11,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
     public enum SaveAction
     {
         /// <summary>
-        /// After save will switch to read mode view.
-        /// </summary>
-        SwitchToReadMode,
-
-        /// <summary>
         /// After save will show message.
         /// </summary>
         ShowMessage,
+
+        /// <summary>
+        /// After save will switch to read mode view.
+        /// </summary>
+        SwitchToReadMode,
 
         /// <summary>
         /// After save will open specially prepared page.

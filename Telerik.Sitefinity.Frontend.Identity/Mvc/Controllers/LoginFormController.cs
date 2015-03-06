@@ -189,9 +189,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         #region Private fields and constants
 
-        private string loginFormTemplateName = "Default";
-        private string forgotPasswordTemplateName = "Default";
-        private string resetPasswordTemplateName = "Default";
+        private string loginFormTemplateName = "LoginForm";
+        private string forgotPasswordTemplateName = "ForgottenPassword";
+        private string resetPasswordTemplateName = "ResetPassword";
         private string loginFormTemplatePrefix = "LoginForm.";
         private string forgotPasswordTemplatePrefix = "ForgotPassword.";
         private string resetPasswordTemplatePrefix = "ResetPassword.";
