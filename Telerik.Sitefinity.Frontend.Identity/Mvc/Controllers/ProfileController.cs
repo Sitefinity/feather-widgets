@@ -120,6 +120,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             var fullTemplateName = "Edit." + this.EditModeTemplateName;
             var viewModel = this.Model.GetProfileEditViewModel();
+            if (viewModel == null)
+                return null;
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -173,6 +175,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private ActionResult ReadProfile()
         {
             var viewModel = this.Model.GetProfilePreviewViewModel();
+            if (viewModel == null)
+                return null;
 
             var fullTemplateName = "Read." + this.ReadModeTemplateName;
             return this.View(fullTemplateName, viewModel);

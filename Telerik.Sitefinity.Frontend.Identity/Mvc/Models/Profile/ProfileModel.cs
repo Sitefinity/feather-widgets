@@ -95,7 +95,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 if (this.selectedUserProfiles == null)
                 {
                     var userId = ClaimsManager.GetCurrentIdentity().UserId;
-                    this.selectedUserProfiles = profileManager.GetUserProfiles(userId).ToList();
+                    if (userId != Guid.Empty)
+                    {
+                        this.selectedUserProfiles = profileManager.GetUserProfiles(userId).ToList();
+                    }
                 }
 
                 return this.selectedUserProfiles;
@@ -112,6 +115,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <inheritdoc />
         public ProfilePreviewViewModel GetProfilePreviewViewModel()
         {
+            if (this.SelectedUserProfiles == null || this.SelectedUserProfiles.Count == 0)
+                return null;
+
             var viewModel = new ProfilePreviewViewModel(this.SelectedUserProfiles)
             {
                 CssClass = this.CssClass,
@@ -124,6 +130,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <inheritdoc />
         public ProfileEditViewModel GetProfileEditViewModel()
         {
+            if (this.SelectedUserProfiles == null || this.SelectedUserProfiles.Count == 0)
+                return null;
+
             var profileFields = this.GetProfileFieldValues();
             var viewModel = new ProfileEditViewModel(this.SelectedUserProfiles, profileFields)
             {
