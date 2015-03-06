@@ -146,7 +146,7 @@ namespace FeatherWidgets.TestUnit.Identity
             var result = controller.Index(viewModel);
 
             Assert.IsNotNull(result, "The action result is null.");
-            Assert.IsInstanceOfType(result, typeof(ContentResult), "The action result is not of the expected type.");
+            Assert.IsInstanceOfType(result, typeof(ViewResult), "The action result is not of the expected type.");
 
             var viewResult = (ViewResult)result;
             var model = viewResult.Model as ProfileEditViewModel;
