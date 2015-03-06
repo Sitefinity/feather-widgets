@@ -19,9 +19,11 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public string ProfileBindings { get; set; }
 
-        public string MembershipProvider { get; set; }
+        public string ProfileProvider { get; set; }
 
         public bool SendEmailOnChangePassword { get; set; }
+
+        public string MembershipProvider { get; set; }
 
         public ProfilePreviewViewModel GetProfilePreviewViewModel()
         {
@@ -55,6 +57,9 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
             return true;
         }
 
-        public string UserProvider { get; set; }
+        public Guid GetUserId()
+        {
+            return Guid.NewGuid();
+        }
     }
 }

@@ -25,19 +25,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Initializes a new instance of the <see cref="ProfileEditViewModel"/> class.
         /// </summary>
         /// <param name="userProfile">The user profile.</param>
-        public ProfileEditViewModel(IList<UserProfile> userProfiles, IDictionary<string, string> profile)
+        public ProfileEditViewModel(IDictionary<string, string> profile)
         {
             this.Profile = profile;
-            if (userProfiles != null && userProfiles.Count() > 0)
-            {
-                this.InitializeUserRelatedData(userProfiles.First().User);
-            }
-
-            this.SelectedUserProfiles = new List<CustomProfileViewModel>();
-            foreach (var item in userProfiles)
-            {
-                this.SelectedUserProfiles.Add(new CustomProfileViewModel(item));
-            }
         }
         
         /// <summary>
@@ -171,10 +161,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <summary>
         /// Initializes the user related data.
         /// </summary>
-        /// <param name="user">The user.</param>
-        private void InitializeUserRelatedData(User user)
+        /// <param name="profileProvider">The profile provider.</param>
+        public void InitializeUserRelatedData(string profileProvider)
         {
-            this.User = user;
             this.Email = this.User.Email;
             this.UserName = this.User.UserName;
             Libraries.Model.Image avatarImage;
@@ -182,6 +171,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             this.DisplayName = displayNameBuilder.GetUserDisplayName(this.User.Id);
             this.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(this.User.Id, out avatarImage);
             this.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
+
+            this.SelectedUserProfiles = UserProfileManager.GetManager(profileProvider).GetUserProfiles(this.User).Select(p => new CustomProfileViewModel(p)).ToList();
         }
     }
 }

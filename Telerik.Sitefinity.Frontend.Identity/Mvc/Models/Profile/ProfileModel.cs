@@ -53,30 +53,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         }
 
         /// <inheritDoc/>
-        public string MembershipProvider
+        public string ProfileProvider
         {
             get
             {
-                this.membershipProvider = this.membershipProvider ?? UserProfileManager.GetDefaultProviderName();
-                return this.membershipProvider;
+                this.profileProvider = this.profileProvider ?? UserProfileManager.GetDefaultProviderName();
+                return this.profileProvider;
             }
             set
             {
-                this.membershipProvider = value;
+                this.profileProvider = value;
             }
         }
 
         /// <inheritDoc/>
-        public string UserProvider
+        public string MembershipProvider
         {
             get
             {
-                this.userProvider = this.userProvider ?? UserManager.GetDefaultProviderName();
-                return this.userProvider;
+                this.membrshipProvider = this.membrshipProvider ?? UserManager.GetDefaultProviderName();
+                return this.membrshipProvider;
             }
             set
             {
-                this.userProvider = value;
+                this.membrshipProvider = value;
             }
         }
 
@@ -97,19 +97,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 if (this.selectedUserProfiles != null)
                     return this.selectedUserProfiles;
 
-                UserProfileManager profileManager = UserProfileManager.GetManager();
-                if (!this.UserName.IsNullOrEmpty())
-                {
-                    this.selectedUserProfiles = profileManager.GetUserProfiles().Where(prof => prof.User.UserName == this.UserName).ToList();
-                }
+                Guid userId = this.GetUserId();
+                UserProfileManager profileManager = UserProfileManager.GetManager(this.ProfileProvider);
 
-                if (this.selectedUserProfiles == null)
+                if (userId != Guid.Empty)
                 {
-                    var userId = ClaimsManager.GetCurrentIdentity().UserId;
-                    if (userId != Guid.Empty)
-                    {
-                        this.selectedUserProfiles = profileManager.GetUserProfiles(userId).ToList();
-                    }
+                    this.selectedUserProfiles = profileManager.GetUserProfiles(userId).ToList();
                 }
 
                 return this.selectedUserProfiles;
@@ -145,11 +138,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 return null;
 
             var profileFields = this.GetProfileFieldValues();
-            var viewModel = new ProfileEditViewModel(this.SelectedUserProfiles, profileFields)
+            var viewModel = new ProfileEditViewModel(profileFields)
             {
                 CssClass = this.CssClass,
                 CanEdit = this.CanEdit()
             };
+
+            viewModel.User = SecurityManager.GetUser(this.GetUserId());
+            viewModel.InitializeUserRelatedData(this.ProfileProvider);
 
             return viewModel;
         }
@@ -165,16 +161,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 return false;
             }
 
-            var userProfileManager = UserProfileManager.GetManager(this.MembershipProvider);
-            var userManager = UserManager.GetManager(this.UserProvider);
+            var userProfileManager = UserProfileManager.GetManager(this.ProfileProvider);
 
             try
             {
                 this.EditProfileProperties(model.Profile, userProfileManager);
 
-                this.EditPassword(model, userManager);
+                this.EditPassword(model);
 
-                this.EditAvatar(model, userProfileManager, userManager);
+                this.EditAvatar(model, userProfileManager);
+
+                userProfileManager.SaveChanges();
 
                 return true;
             }
@@ -207,6 +204,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
 
             return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+        }
+
+        /// <inheritDoc/>
+        public Guid GetUserId()
+        {
+            Guid userId;
+            if (!this.UserName.IsNullOrEmpty())
+            {
+                userId = SecurityManager.GetUserId(this.MembershipProvider, this.UserName);
+            }
+            else
+            {
+                userId = ClaimsManager.GetCurrentUserId();
+            }
+
+            return userId;
         }
 
         #endregion
@@ -267,9 +280,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Edits the password.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <param name="userManager">The user manager.</param>
         /// <exception cref="System.ArgumentException">Both passwords must match</exception>
-        private void EditPassword(ProfileEditViewModel model, UserManager userManager)
+        private void EditPassword(ProfileEditViewModel model)
         {
             if (!string.IsNullOrEmpty(model.OldPassword))
             {
@@ -278,7 +290,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                     throw new ArgumentException("Both passwords must match");
                 }
 
-                UserManager.ChangePasswordForUser(userManager, model.User.Id, model.OldPassword, model.NewPassword, this.SendEmailOnChangePassword);
+                var userId = this.GetUserId();
+                var userManager = UserManager.GetManager(SecurityManager.GetUser(userId).ProviderName);
+                UserManager.ChangePasswordForUser(userManager, userId, model.OldPassword, model.NewPassword, this.SendEmailOnChangePassword);
             }
         }
 
@@ -287,13 +301,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="userProfileManager">The user profile manager.</param>
-        /// <param name="userManager">The user manager.</param>
-        private void EditAvatar(ProfileEditViewModel model, UserProfileManager userProfileManager, UserManager userManager)
+        private void EditAvatar(ProfileEditViewModel model, UserProfileManager userProfileManager)
         {
             if (model.UploadedImage != null)
             {
                 var imageId = this.UploadAvatar(model.UploadedImage, model.UserName);
-                this.ChangeProfileAvatar(model.User.Id, imageId, userProfileManager, userManager);
+                this.ChangeProfileAvatar(this.GetUserId(), imageId, userProfileManager);
             }
         }
 
@@ -303,12 +316,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <param name="userId">The user identifier.</param>
         /// <param name="imageId">The image identifier.</param>
         /// <param name="userProfileManager">The user profile manager.</param>
-        /// <param name="userManager">The user manager.</param>
-        private void ChangeProfileAvatar(Guid userId, Guid imageId, UserProfileManager userProfileManager, UserManager userManager)
+        private void ChangeProfileAvatar(Guid userId, Guid imageId, UserProfileManager userProfileManager)
         {
             LibrariesManager librariesManager = LibrariesManager.GetManager();
 
-            User user = userManager.GetUser(userId);
+            User user = SecurityManager.GetUser(userId);
 
             if (user != null)
             {
@@ -390,8 +402,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
         #region Private fields
 
-        private string membershipProvider;
-        private string userProvider;
+        private string profileProvider;
+        private string membrshipProvider;
         private IList<UserProfile> selectedUserProfiles;
         private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName' },{ Name: 'LastName', FieldName: 'LastName' }, {Name:'About', FieldName:'About'} ]}]";
 

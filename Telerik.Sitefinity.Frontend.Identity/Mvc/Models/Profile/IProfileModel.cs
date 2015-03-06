@@ -35,20 +35,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         Guid ProfileSavedPageId { get; set; }
         
         /// <summary>
-        /// Gets or sets the membership provider.
+        /// Gets or sets the profile provider.
         /// </summary>
         /// <value>
-        /// The membership provider.
+        /// The profile provider.
         /// </value>
-        string MembershipProvider { get; set; }
+        string ProfileProvider { get; set; }
 
         /// <summary>
-        /// Gets or sets the user provider.
+        /// Gets or sets the membership provider.
         /// </summary>
         /// <value>
         /// The user provider.
         /// </value>
-        string UserProvider { get; set; }
+        string MembershipProvider { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether an email should be send on password change.
@@ -110,5 +110,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// The page url as string.
         /// </returns>
         string GetPageUrl(Guid? pageId);
+
+        /// <summary>
+        /// Gets the Id of the user that owns the profiles.
+        /// </summary>
+        /// <returns>The user id.</returns>
+        Guid GetUserId();
     }
 }

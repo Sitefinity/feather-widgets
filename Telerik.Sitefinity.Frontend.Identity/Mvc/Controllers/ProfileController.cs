@@ -6,6 +6,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -138,6 +139,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                viewModel.User = SecurityManager.GetUser(this.Model.GetUserId());
+                viewModel.InitializeUserRelatedData(this.Model.ProfileProvider);
+
                 var isUpdated = this.Model.EditUserProfile(viewModel);
                 if (!isUpdated)
                     return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
