@@ -273,6 +273,19 @@
         <member name="P:Telerik.Sitefinity.Frontend.Modules.ControlTemplates.Web.UI.MvcControlTemplateEditor.ClientComponentType">
             <inheritdoc/>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.EmailTemplateSelectorHelper">
+            <summary>
+            This class contains helpers for working with email templates.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.EmailTemplateSelectorHelper.GetEmailTemplates(System.Web.Mvc.HtmlHelper,System.String)">
+            <summary>
+            Gets the email templates.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="filterExpression">The filter expression.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.ControllerMetadataAttribute">
             <summary>
             Controller attribute for determining wheater the controller is templatable control
