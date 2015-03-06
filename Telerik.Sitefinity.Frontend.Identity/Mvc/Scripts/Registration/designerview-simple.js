@@ -40,9 +40,6 @@
                     if ($scope.properties.SuccessfulRegistrationAction.PropertyValue === 'ShowMessage') {
                         $scope.properties.SuccessfulRegistrationPageId.PropertyValue = null;
                     }
-                    else if ($scope.properties.SuccessfulRegistrationAction.PropertyValue === 'RedirectToPage') {
-                        $scope.properties.SuccessfulRegistrationMsg.PropertyValue = null;
-                    }
                 });
             })
             .finally(function () {

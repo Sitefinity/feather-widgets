@@ -5,21 +5,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+
 using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Modules.UserProfiles;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
-using Telerik.Sitefinity.Modules.UserProfiles;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -132,29 +134,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public ActivationMethod ActivationMethod { get; set; }
 
         /// <inheritDoc/>
-        public string SuccessfulRegistrationMsg
-        {
-            get
-            {
-                if (this.successfulRegistrationMsg.IsNullOrEmpty())
-                {
-                    return Res.Get<RegistrationResources>().DefaultSuccessfulRegistrationMessage;
-                }
-                else
-                {
-                    return this.successfulRegistrationMsg;
-                }
-            }
-            set
-            {
-                if (this.successfulRegistrationMsg != value)
-                {
-                    this.successfulRegistrationMsg = value;
-                }
-            }
-        }
-
-        /// <inheritDoc/>
         public Guid? SuccessfulRegistrationPageId { get; set; }
 
         /// <inheritDoc/>
@@ -165,6 +144,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         /// <inheritDoc/>
         public virtual string DefaultReturnUrl { get; set; }
+
+        /// <inheritDoc/>
+        public string ProfileBindings { get; set; }
 
         #endregion
 
@@ -178,7 +160,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 LoginPageUrl = this.GetLoginPageUrl(),
                 MembershipProviderName = this.MembershipProviderName,
                 CssClass = this.CssClass,
-                SuccessfulRegistrationMsg = this.SuccessfulRegistrationMsg,
                 SuccessfulRegistrationPageUrl = this.GetPageUrl(this.SuccessfulRegistrationPageId)
             };
         }
@@ -398,18 +379,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="profileProperties">A dictionary containing the profile properties.</param>
         protected virtual void CreateUserProfiles(User user, IDictionary<string, string> profileProperties)
         {
-            if (!VirtualPathManager.FileExists(RegistrationModel.ProfileBindingsFile))
-                return;
-
-            var fileStream = VirtualPathManager.OpenFile(RegistrationModel.ProfileBindingsFile);
-
-            List<ProfileBindingsContract> profiles;
-            using (var streamReader = new StreamReader(fileStream))
+            if (this.ProfileBindings.IsNullOrEmpty())
             {
-                var text = streamReader.ReadToEnd();
-                profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(text);
+                if (!VirtualPathManager.FileExists(RegistrationModel.ProfileBindingsFile))
+                    return;
+
+                var fileStream = VirtualPathManager.OpenFile(RegistrationModel.ProfileBindingsFile);
+                using (var streamReader = new StreamReader(fileStream))
+                {
+                    this.ProfileBindings = streamReader.ReadToEnd();
+                }
             }
 
+            var profiles = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
             var userProfileManager = UserProfileManager.GetManager();
             using (new ElevatedModeRegion(userProfileManager))
             {
@@ -515,7 +497,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 
         private const string DefaultSortExpression = "PublicationDate DESC";
 
-        private string successfulRegistrationMsg;
         private string serializedSelectedRoles;
         private IList<Role> selectedRoles = new List<Role>();
         private Dictionary<string, RoleManager> roleManagersToSubmit = null;

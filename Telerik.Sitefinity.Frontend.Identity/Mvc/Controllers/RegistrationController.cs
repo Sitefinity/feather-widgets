@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
+using System.Web.Security;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -68,6 +69,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 
+            this.ViewBag.ShowSuccessfulRegistrationMsg = false;
             this.ViewBag.Error = this.Model.GetError();
 
             return this.View(fullTemplateName, viewModel);
@@ -86,11 +88,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var status = this.Model.RegisterUser(viewModel);
-                if (status == System.Web.Security.MembershipCreateStatus.Success)
+                if (status == MembershipCreateStatus.Success)
                 {
                     if (this.Model.SuccessfulRegistrationAction == SuccessfulRegistrationAction.ShowMessage)
                     {
-                        return this.Content(this.Model.SuccessfulRegistrationMsg);
+                        this.ViewBag.ShowSuccessfulRegistrationMsg = true;
                     }
                     else if (this.Model.SuccessfulRegistrationAction == SuccessfulRegistrationAction.RedirectToPage)
                     {
