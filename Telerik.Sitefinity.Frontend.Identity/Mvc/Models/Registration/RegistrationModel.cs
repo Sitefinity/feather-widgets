@@ -5,21 +5,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+
 using ServiceStack.Text;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Modules.UserProfiles;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
-using Telerik.Sitefinity.Modules.UserProfiles;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
