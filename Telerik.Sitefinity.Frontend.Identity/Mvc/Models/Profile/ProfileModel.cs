@@ -241,8 +241,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
         private void EditPassword(ProfileEditViewModel model, UserManager userManager)
         {
-            if (!string.IsNullOrEmpty(model.OldPassword) && model.NewPassword == model.OldPassword)
+            if (!string.IsNullOrEmpty(model.OldPassword))
             {
+                if (model.NewPassword != model.RepeatPassword)
+                {
+                    throw new ArgumentException("Both passwords must match");
+                }
+
                 UserManager.ChangePasswordForUser(userManager, model.User.Id, model.OldPassword, model.NewPassword, this.SendEmailOnChangePassword);
             }
         }
