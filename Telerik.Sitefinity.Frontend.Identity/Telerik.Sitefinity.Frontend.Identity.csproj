@@ -197,7 +197,6 @@
     <EmbeddedResource Include="Mvc\Views\LoginForm\ForgotPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\ResetPassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LoginForm\LoginForm.Default.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\ChangePassword\ChangePassword.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ChangePassword\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Profile\Edit.Default.cshtml" />
@@ -207,6 +206,7 @@
     <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Profile\Read.Default.cshtml" />
+    <None Include="Mvc\Views\ChangePassword\ChangePassword.ChangePassword.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

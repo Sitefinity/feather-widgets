@@ -161,7 +161,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         
         #region Private fields and constants
 
-        private string templateName = "Default";
+        private string templateName = "ChangePassword";
         private string templateNamePrefix = "ChangePassword.";
 
         private IChangePasswordModel model;
