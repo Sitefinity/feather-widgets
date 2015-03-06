@@ -528,6 +528,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: Incorrect Username/Password Combination
+        /// </summary>
+        /// <value>Incorrect Username/Password Combination</value>
+        [ResourceEntry("IncorrectCredentialsMessage",
+            Value = "Incorrect Username/Password Combination",
+            Description = "phrase: Incorrect Username/Password Combination",
+            LastModified = "2015/03/06")]
+        public string IncorrectCredentialsMessage
+        {
+            get
+            {
+                return this["IncorrectCredentialsMessage"];
+            }
+        }
+
+        /// <summary>
         /// phrase: Show \"Remember me\" checkbox
         /// </summary>
         /// <value>Show \"Remember me\" checkbox</value>
