@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Web.Mvc;
 using FeatherWidgets.TestUnit.DummyClasses.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -43,13 +44,16 @@ namespace FeatherWidgets.TestUnit.Identity
             {
                 controller.TemplateName = "MyTestTemplate";
 
+                var stubModel = controller.Model as DummyAccountActivationModel;
+                stubModel.QueryString = new NameValueCollection();
+                
                 var result = (ViewResult)controller.Index();
-
+              
                 var model = result.Model as AccountActivationViewModel;
 
                 Assert.IsNotNull(model);
                 Assert.IsNull(model.CssClass);
-                Assert.IsNull(model.ProfilePageUrl);
+                Assert.IsNotNull(model.ProfilePageUrl);
                 Assert.IsFalse(model.Activated);
             }
         }
@@ -68,6 +72,29 @@ namespace FeatherWidgets.TestUnit.Identity
                 Assert.IsNull(model.CssClass);
                 Assert.IsTrue(model.MembershipProvider.Length == 0);
                 Assert.IsNull(model.ProfilePageId);
+            }
+        }
+
+        [TestMethod]
+        [Owner("manev")]
+        public void Index_TestDefaultValuesWithActualUser()
+        {
+            using (var controller = new DummyAccountActivationController())
+            {
+                var stubModel = controller.Model as DummyAccountActivationModel;
+                stubModel.QueryString = new NameValueCollection();
+                stubModel.QueryString.Add("user", "DB798044-0F65-42B0-9AF6-126BA2AF6FA9");
+                stubModel.QueryString.Add("provider", "Provider name");
+
+                var viewResult = controller.Index() as ViewResult;
+
+                Assert.IsNotNull(viewResult);
+
+                var viewModel = viewResult.Model as AccountActivationViewModel;
+
+                Assert.IsNotNull(viewModel);
+                Assert.IsTrue(viewModel.Activated);
+                Assert.AreEqual(viewModel.ProfilePageUrl, DummyAccountActivationModel.PageUrl);
             }
         }
     }
