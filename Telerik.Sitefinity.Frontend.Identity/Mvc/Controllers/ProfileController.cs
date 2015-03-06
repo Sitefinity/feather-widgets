@@ -172,6 +172,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return ControllerModelFactory.GetModel<IProfileModel>(this.GetType());
         }
 
+        /// <summary>
+        /// Retrieves view for read only mode of Profile widget.
+        /// </summary>
+        /// <returns></returns>
         private ActionResult ReadProfile()
         {
             var viewModel = this.Model.GetProfilePreviewViewModel();

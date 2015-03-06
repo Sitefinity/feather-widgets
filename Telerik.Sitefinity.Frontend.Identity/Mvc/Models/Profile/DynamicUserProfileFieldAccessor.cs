@@ -8,6 +8,9 @@ using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
+    /// <summary>
+    /// Instances of this class are used to access fields of user profile dynamically.
+    /// </summary>
     public class DynamicUserProfileFieldAccessor :DynamicObject
     {
         /// <summary>

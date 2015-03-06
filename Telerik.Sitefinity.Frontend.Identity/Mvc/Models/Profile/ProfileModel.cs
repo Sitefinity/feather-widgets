@@ -201,6 +201,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
         #endregion
 
+        #region Private Methods
+
         /// <summary>
         /// Gets the profile field values.
         /// </summary>
@@ -223,8 +225,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             return profileFields;
         }
 
-        #region Private Methods
-
+        /// <summary>
+        /// Edits the profile properties.
+        /// </summary>
+        /// <param name="profileProperties">The profile properties.</param>
+        /// <param name="userProfileManager">The user profile manager.</param>
         private void EditProfileProperties(IDictionary<string, string> profileProperties, UserProfileManager userProfileManager)
         {
             if (profileProperties != null)
@@ -248,6 +253,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
         }
 
+        /// <summary>
+        /// Edits the password.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="userManager">The user manager.</param>
+        /// <exception cref="System.ArgumentException">Both passwords must match</exception>
         private void EditPassword(ProfileEditViewModel model, UserManager userManager)
         {
             if (!string.IsNullOrEmpty(model.OldPassword))
@@ -261,6 +272,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
         }
 
+        /// <summary>
+        /// Edits the avatar.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="userProfileManager">The user profile manager.</param>
+        /// <param name="userManager">The user manager.</param>
         private void EditAvatar(ProfileEditViewModel model, UserProfileManager userProfileManager, UserManager userManager)
         {
             if (model.UploadedImage != null)
@@ -270,6 +287,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
         }
 
+        /// <summary>
+        /// Changes the profile avatar.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="imageId">The image identifier.</param>
+        /// <param name="userProfileManager">The user profile manager.</param>
+        /// <param name="userManager">The user manager.</param>
         private void ChangeProfileAvatar(Guid userId, Guid imageId, UserProfileManager userProfileManager, UserManager userManager)
         {
             LibrariesManager librariesManager = LibrariesManager.GetManager();
@@ -294,6 +318,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
         }
 
+        /// <summary>
+        /// Uploads the avatar.
+        /// </summary>
+        /// <param name="uploadedImage">The uploaded image.</param>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
         private Guid UploadAvatar(HttpPostedFileBase uploadedImage, string username)
         {
             this.ValidateImage(uploadedImage);
@@ -324,6 +354,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             return id;
         }
 
+        /// <summary>
+        /// Validates the image.
+        /// </summary>
+        /// <param name="uploadedImage">The uploaded image.</param>
+        /// <exception cref="System.ArgumentException">Image type is not allowed</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Image size is too large</exception>
         private void ValidateImage(HttpPostedFileBase uploadedImage)
         {
             var allowedTypes = new string[] { "image/jpg", "image/jpeg", "image/pjpeg", "image/gif", "image/x-png", "image/png" };
