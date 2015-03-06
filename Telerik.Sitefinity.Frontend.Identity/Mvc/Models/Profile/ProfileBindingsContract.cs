@@ -1,5 +1,5 @@
 ﻿
-namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
+namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 {
     /// <summary>
     /// This class is used for serializing property binding configurations of a single user profile type.

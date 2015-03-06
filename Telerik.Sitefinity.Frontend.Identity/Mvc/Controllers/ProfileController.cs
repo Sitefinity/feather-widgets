@@ -4,6 +4,7 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
@@ -36,19 +37,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the name of the template that widget will be displayed.
+        /// Gets or sets the name of the edit mode template that widget will be displayed.
         /// </summary>
         /// <value></value>
-        public string TemplateName
+        public string EditModeTemplateName
         {
             get
             {
-                return this.templateName;
+                return this.editModeTemplateName;
             }
 
             set
             {
-                this.templateName = value;
+                this.editModeTemplateName = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the read mode template that widget will be displayed.
+        /// </summary>
+        /// <value></value>
+        public string ReadModeTemplateName
+        {
+            get
+            {
+                return this.readModeTemplateName;
+            }
+
+            set
+            {
+                this.readModeTemplateName = value;
             }
         }
 
@@ -72,9 +90,70 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var fullTemplateName = this.Mode.ToString()+ "." + this.TemplateName;
-            var viewModel = this.Model.GetViewModel();
+            if (this.Mode == ViewMode.EditOnly && !this.Model.CanEdit())
+            {
+                return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+            }
 
+            this.ViewBag.Mode = this.Mode;
+            if (this.Mode == ViewMode.EditOnly)
+            {
+                return this.EditProfile();
+            }
+            else
+            {
+                return this.ReadProfile();
+            }
+
+        }
+
+        /// <summary>
+        /// Renders profile widget in edit mode.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult EditProfile()
+        {
+            if (!this.Model.CanEdit())
+            {
+                return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+            }
+
+            var fullTemplateName = "Edit." + this.EditModeTemplateName;
+            var viewModel = this.Model.GetProfileEditViewModel();
+            if (viewModel == null)
+                return null;
+
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Posts the registration form.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        [HttpPost]
+        public ActionResult Index(ProfileEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var isUpdated = this.Model.EditUserProfile(viewModel);
+                if (!isUpdated)
+                    return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+
+                switch (this.Model.SaveChangesAction)
+                {
+                    case SaveAction.SwitchToReadMode:
+                        return this.ReadProfile();
+                    case SaveAction.ShowMessage:
+                        return this.Content(this.Model.ProfileSaveMsg);
+                    case SaveAction.ShowPage:
+                        return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
+                }
+            }
+
+            var fullTemplateName = "Edit." + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -93,11 +172,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return ControllerModelFactory.GetModel<IProfileModel>(this.GetType());
         }
 
+        /// <summary>
+        /// Retrieves view for read only mode of Profile widget.
+        /// </summary>
+        /// <returns></returns>
+        private ActionResult ReadProfile()
+        {
+            var viewModel = this.Model.GetProfilePreviewViewModel();
+            if (viewModel == null)
+                return null;
+
+            var fullTemplateName = "Read." + this.ReadModeTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
         #endregion
 
         #region Private fields and constants
 
-        private string templateName = "ProfilePreview";
+        private string readModeTemplateName = "Default";
+        private string editModeTemplateName = "Default";
         private IProfileModel model;
 
         #endregion

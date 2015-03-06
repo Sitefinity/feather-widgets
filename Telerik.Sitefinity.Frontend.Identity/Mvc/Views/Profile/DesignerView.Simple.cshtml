@@ -44,8 +44,8 @@
         <label for="templateName">@Html.Resource("Template")</label>
         <div class="row">
             <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames("Profile", @"EditOnly\.(?<viewName>\w*)$"))
+                <select id="templateName" ng-model="properties.EditModeTemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames("Profile", @"Edit\.(?<viewName>\w*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }
@@ -60,8 +60,8 @@
         <label for="templateName">@Html.Resource("Template")</label>
         <div class="row">
             <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames("Profile", @"ReadOnly\.(?<viewName>\w*)$"))
+                <select id="templateName" ng-model="properties.ReadModeTemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames("Profile", @"Read\.(?<viewName>\w*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }
@@ -99,10 +99,22 @@
 
     <div class="form-group">
         <label for="templateName">@Html.Resource("Template")</label>
+        <label for="templateName">@Html.Resource("Profile")</label>
         <div class="row">
             <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames("Profile", @"Both\.(?<viewName>\w*)$"))
+                <select id="templateName" ng-model="properties.ReadModeTemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames("Profile", @"Read\.(?<viewName>\w*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <label for="templateName">@Html.Resource("EditingProfile")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.EditModeTemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames("Profile", @"Edit\.(?<viewName>\w*)$"))
                     {
                         <option value="@viewName">@viewName</option>
                     }
@@ -113,7 +125,7 @@
 </div>
 
 <expander start-expanded ="true" expander-title='@Html.Resource("MoreOptions")'>
-    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.ReadModeTemplateName.PropertyValue"></style-dropdown>
 
     <div class="form-group">
         <label >@Html.Resource("CssClasses")

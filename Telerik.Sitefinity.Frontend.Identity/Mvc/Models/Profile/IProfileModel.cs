@@ -41,13 +41,74 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Message to show when profile is saved.
         /// </value>
         string ProfileSaveMsg { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the membership provider.
+        /// </summary>
+        /// <value>
+        /// The membership provider.
+        /// </value>
+        string MembershipProvider { get; set; }
 
         /// <summary>
-        /// Gets the view model.
+        /// Gets or sets a value indicating whether an email should be send on password change.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if email should be send; otherwise, <c>false</c>.
+        /// </value>
+        bool SendEmailOnChangePassword { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the user whose profile will be displayed in profile widget.
+        /// </summary>
+        /// <value>
+        /// The name of the user.
+        /// </value>
+        string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the profile property bindings.
+        /// </summary>
+        /// <value>
+        /// The profile property bindings.
+        /// </value>
+        string ProfileBindings { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="ProfilePreviewViewModel"/>.
         /// </summary>
         /// <returns>
-        /// A instance of <see cref="ProfileViewModel"/> as view model.
+        /// A view model.
         /// </returns>
-        ProfileViewModel GetViewModel();
+        ProfilePreviewViewModel GetProfilePreviewViewModel();
+
+        /// <summary>
+        /// Gets the <see cref="ProfileEditViewModel"/>.
+        /// </summary>
+        /// <returns>
+        /// A view model.
+        /// </returns>
+        ProfileEditViewModel GetProfileEditViewModel();
+
+        /// <summary>
+        /// Determines whether current user can edit the profile.
+        /// </summary>
+        /// <returns></returns>
+        bool CanEdit();
+
+        /// <summary>
+        /// Edits the user profile.
+        /// </summary>
+        /// <param name="profileProperties">The profile properties.</param>
+        bool EditUserProfile(ProfileEditViewModel model);
+
+        /// <summary>
+        /// Gets the page URL.
+        /// </summary>
+        /// <param name="pageId">The page identifier.</param>
+        /// <returns>
+        /// The page url as string.
+        /// </returns>
+        string GetPageUrl(Guid? pageId);
     }
 }

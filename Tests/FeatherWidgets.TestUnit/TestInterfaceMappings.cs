@@ -5,6 +5,7 @@ using FeatherWidgets.TestUnit.DummyClasses.SearchResults;
 using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 
