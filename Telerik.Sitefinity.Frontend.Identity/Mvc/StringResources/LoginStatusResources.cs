@@ -228,5 +228,65 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["LearnMore"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Login
+        /// </summary>
+        [ResourceEntry("Login",
+            Value = "Login",
+            Description = "phrase : Login",
+            LastModified = "2015/03/06")]
+        public string Login
+        {
+            get
+            {
+                return this["Login"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Register now
+        /// </summary>
+        [ResourceEntry("RegisterNow",
+            Value = "Register now",
+            Description = "phrase : Register now",
+            LastModified = "2015/03/06")]
+        public string RegisterNow
+        {
+            get
+            {
+                return this["RegisterNow"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Logout
+        /// </summary>
+        [ResourceEntry("Logout",
+            Value = "Logout",
+            Description = "phrase : Logout",
+            LastModified = "2015/03/06")]
+        public string Logout
+        {
+            get
+            {
+                return this["Logout"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Logged as
+        /// </summary>
+        [ResourceEntry("LoggedAs",
+            Value = "Logged as",
+            Description = "phrase : Logged as",
+            LastModified = "2015/03/06")]
+        public string LoggedAs
+        {
+            get
+            {
+                return this["LoggedAs"];
+            }
+        }
     }
 }
