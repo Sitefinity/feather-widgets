@@ -141,7 +141,6 @@ namespace FeatherWidgets.TestUnit.Identity
         {
             var controller = new DummyProfileController();
             controller.Model.SaveChangesAction = SaveAction.ShowMessage;
-            controller.Model.ProfileSaveMsg = "Your profile was saved successfully.";
             var viewModel = new ProfileEditViewModel();
 
             var result = controller.Index(viewModel);
@@ -149,8 +148,10 @@ namespace FeatherWidgets.TestUnit.Identity
             Assert.IsNotNull(result, "The action result is null.");
             Assert.IsInstanceOfType(result, typeof(ContentResult), "The action result is not of the expected type.");
 
-            var contentResult = (ContentResult)result;
-            Assert.AreEqual(controller.Model.ProfileSaveMsg, contentResult.Content, "The action did not return the expected message.");
+            var viewResult = (ViewResult)result;
+            var model = viewResult.Model as ProfileEditViewModel;
+            Assert.IsNotNull(model, "The action result should return view wiht ProfileEditViewModel.");
+            Assert.AreEqual(true, model.ShowProfileChangedMsg, "The action did not return the expected success message.");
         }
 
         [TestMethod]
