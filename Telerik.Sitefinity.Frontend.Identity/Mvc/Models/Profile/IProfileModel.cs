@@ -116,5 +116,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// </summary>
         /// <returns>The user id.</returns>
         Guid GetUserId();
+
+        /// <summary>
+        /// Updates the profile edit view model with the current User data.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        void InitializeUserRelatedData(ProfileEditViewModel model);
     }
 }

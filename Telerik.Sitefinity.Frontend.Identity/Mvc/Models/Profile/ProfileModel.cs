@@ -144,8 +144,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 CanEdit = this.CanEdit()
             };
 
-            viewModel.User = SecurityManager.GetUser(this.GetUserId());
-            viewModel.InitializeUserRelatedData(this.ProfileProvider);
+            this.InitializeUserRelatedData(viewModel);
 
             return viewModel;
         }
@@ -220,6 +219,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
 
             return userId;
+        }
+
+        /// <inheritDoc/>
+        public virtual void InitializeUserRelatedData(ProfileEditViewModel model)
+        {
+            model.User = SecurityManager.GetUser(this.GetUserId());
+            model.Email = model.User.Email;
+            model.UserName = model.User.UserName;
+            Libraries.Model.Image avatarImage;
+            var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
+            model.DisplayName = displayNameBuilder.GetUserDisplayName(model.User.Id);
+            model.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(model.User.Id, out avatarImage);
+            model.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
+
+            model.SelectedUserProfiles = UserProfileManager.GetManager(this.ProfileProvider).GetUserProfiles(model.User).Select(p => new CustomProfileViewModel(p)).ToList();
         }
 
         #endregion

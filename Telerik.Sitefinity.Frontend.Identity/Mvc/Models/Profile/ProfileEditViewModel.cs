@@ -36,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <value>
         /// The selected user profiles.
         /// </value>
-        public IList<CustomProfileViewModel> SelectedUserProfiles { get; private set; }
+        public IList<CustomProfileViewModel> SelectedUserProfiles { get; set; }
 
         /// <summary>
         /// Gets or sets the profile.
@@ -157,22 +157,5 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// The uploaded image.
         /// </value>
         public HttpPostedFileBase UploadedImage { get; set; }
-
-        /// <summary>
-        /// Initializes the user related data.
-        /// </summary>
-        /// <param name="profileProvider">The profile provider.</param>
-        public void InitializeUserRelatedData(string profileProvider)
-        {
-            this.Email = this.User.Email;
-            this.UserName = this.User.UserName;
-            Libraries.Model.Image avatarImage;
-            var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
-            this.DisplayName = displayNameBuilder.GetUserDisplayName(this.User.Id);
-            this.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(this.User.Id, out avatarImage);
-            this.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
-
-            this.SelectedUserProfiles = UserProfileManager.GetManager(profileProvider).GetUserProfiles(this.User).Select(p => new CustomProfileViewModel(p)).ToList();
-        }
     }
 }
