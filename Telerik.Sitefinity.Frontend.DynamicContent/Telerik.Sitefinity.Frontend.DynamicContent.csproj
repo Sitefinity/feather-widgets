@@ -50,7 +50,7 @@
     </Reference>
     <Reference Include="ServiceStack.Text">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Text.Signed.4.0.30\lib\net40\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.Signed.4.0.36\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -222,7 +222,9 @@
     <EmbeddedResource Include="WidgetTemplates\Fields\Templates\HierarchicalTaxonomyField.cshtml" />
     <EmbeddedResource Include="WidgetTemplates\Fields\Templates\PriceField.cshtml" />
     <EmbeddedResource Include="WidgetTemplates\Fields\Templates\SingleChoiceField.cshtml" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <EmbeddedResource Include="WidgetTemplates\Fields\Templates\ImageField.cshtml" />
     <EmbeddedResource Include="WidgetTemplates\Fields\Templates\MultiImageField.cshtml" />
     <EmbeddedResource Include="WidgetTemplates\Fields\Templates\MultiVideoField.cshtml" />
