@@ -8,7 +8,7 @@
 <script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="@Model.CssClass">
-    @if (ViewBag.ShowSuccessfulRegistrationMsg)
+    @if (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg)
     { 
         <div>@Html.Resource("DefaultSuccessfulRegistrationMessage")</div>
     }
