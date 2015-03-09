@@ -267,14 +267,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// </returns>
         private Guid GetUserId()
         {
-            Type type = Type.GetType("Telerik.Sitefinity.Security.Web.UI.UserChangePasswordWidget, Telerik.Sitefinity");
-            object instance = type.GetConstructor(Type.EmptyTypes).Invoke(new object[] { });
-            MethodInfo method = type.GetMethod("GetUser", BindingFlags.NonPublic | BindingFlags.Instance);
-            object claimsIdentityProxyObject = method.Invoke(instance, new object[] { });
-            var claimsIdentityProxy = claimsIdentityProxyObject as ClaimsIdentityProxy;
-            if (claimsIdentityProxy != null)
+            var cip = SecurityManager.GetManager().GetPasswordRecoveryUser();
+            if (cip != null)
             {
-                return claimsIdentityProxy.UserId;
+                return cip.UserId;
             }
 
             return Guid.Empty;
