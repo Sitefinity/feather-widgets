@@ -225,6 +225,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         public virtual void InitializeUserRelatedData(ProfileEditViewModel model)
         {
             model.User = SecurityManager.GetUser(this.GetUserId());
+
+            model.UserName = model.User.UserName;
             model.Email = model.User.Email;
             model.UserName = model.User.UserName;
             Libraries.Model.Image avatarImage;
@@ -366,11 +368,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
             LibrariesManager librariesManager = LibrariesManager.GetManager();
 
-            var id = Guid.NewGuid();
-            var image = librariesManager.CreateImage(id);
+            var image = librariesManager.CreateImage();
 
-            //Set the properties of the album post.
-            image.Title = string.Format("{0}_avatar_{1}", username, id);
+            // TODO: Use library from a selector.
+            image.Parent = librariesManager.GetAlbums().First();
+
+            image.Title = string.Format("{0}_avatar_{1}", username, Guid.NewGuid());
             image.DateCreated = DateTime.UtcNow;
             image.PublicationDate = DateTime.UtcNow;
             image.LastModified = DateTime.UtcNow;
@@ -385,9 +388,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             //Publish the Albums item. The live version acquires new ID.
             var bag = new Dictionary<string, string>();
             bag.Add("ContentType", typeof(Image).FullName);
-            WorkflowManager.MessageWorkflow(id, typeof(Image), null, "Publish", false, bag);
+            WorkflowManager.MessageWorkflow(image.Id, typeof(Image), null, "Publish", false, bag);
 
-            return id;
+            return image.Id;
         }
 
         /// <summary>
@@ -406,7 +409,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 throw new ArgumentException("Image type is not allowed");
             }
 
-            if (uploadedImage.ContentLength < allowedSize)
+            if (uploadedImage.ContentLength > allowedSize)
             {
                 throw new ArgumentOutOfRangeException("Image size is too large");
             }

@@ -139,11 +139,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                this.Model.InitializeUserRelatedData(viewModel);
+
                 var isUpdated = this.Model.EditUserProfile(viewModel);
                 if (!isUpdated)
                     return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
-
-                this.Model.InitializeUserRelatedData(viewModel);
 
                 switch (this.Model.SaveChangesAction)
                 {
