@@ -25,19 +25,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Initializes a new instance of the <see cref="ProfileEditViewModel"/> class.
         /// </summary>
         /// <param name="userProfile">The user profile.</param>
-        public ProfileEditViewModel(IList<UserProfile> userProfiles, IDictionary<string, string> profile)
+        public ProfileEditViewModel(IDictionary<string, string> profile)
         {
             this.Profile = profile;
-            if (userProfiles != null && userProfiles.Count() > 0)
-            {
-                this.InitializeUserRelatedData(userProfiles.First().User);
-            }
-
-            this.SelectedUserProfiles = new List<CustomProfileViewModel>();
-            foreach (var item in userProfiles)
-            {
-                this.SelectedUserProfiles.Add(new CustomProfileViewModel(item));
-            }
         }
         
         /// <summary>
@@ -46,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <value>
         /// The selected user profiles.
         /// </value>
-        public IList<CustomProfileViewModel> SelectedUserProfiles { get; private set; }
+        public IList<CustomProfileViewModel> SelectedUserProfiles { get; set; }
 
         /// <summary>
         /// Gets or sets the profile.
@@ -167,21 +157,5 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// The uploaded image.
         /// </value>
         public HttpPostedFileBase UploadedImage { get; set; }
-
-        /// <summary>
-        /// Initializes the user related data.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        private void InitializeUserRelatedData(User user)
-        {
-            this.User = user;
-            this.Email = this.User.Email;
-            this.UserName = this.User.UserName;
-            Libraries.Model.Image avatarImage;
-            var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
-            this.DisplayName = displayNameBuilder.GetUserDisplayName(this.User.Id);
-            this.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(this.User.Id, out avatarImage);
-            this.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
-        }
     }
 }
