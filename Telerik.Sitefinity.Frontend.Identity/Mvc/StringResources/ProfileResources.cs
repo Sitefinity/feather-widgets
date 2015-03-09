@@ -80,6 +80,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase: Templates
+        /// </summary>
+        [ResourceEntry("Templates",
+            Value = "Templates",
+            Description = "phrase : Templates",
+            LastModified = "2015/03/04")]
+        public string Templates
+        {
+            get
+            {
+                return this["Templates"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase: Template
         /// </summary>
         [ResourceEntry("Template",

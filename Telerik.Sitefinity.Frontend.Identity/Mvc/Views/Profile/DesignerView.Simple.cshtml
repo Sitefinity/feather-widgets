@@ -20,15 +20,17 @@
 
 <div ng-show="properties.Mode.PropertyValue==='EditOnly'">
     <div class="form-group">
-        <label>@Html.Resource("WhenChangesAreSaved")</label>
+        <strong>@Html.Resource("WhenChangesAreSaved")</strong>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="ShowMessage">@Html.Resource("ShowMsg")
+                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="ShowMessage">
+                @Html.Resource("ShowMsg")
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="ShowPage">@Html.Resource("OpenPage")
+                <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="ShowPage">
+                @Html.Resource("OpenPage")
             </label>
         </div>
         <sf-list-selector class="label-content"
@@ -70,7 +72,7 @@
 
 <div ng-show="properties.Mode.PropertyValue==='Both'">
     <div class="form-group">
-        <label>@Html.Resource("WhenChangesAreSaved")</label>
+        <strong>@Html.Resource("WhenChangesAreSaved")</strong>
         <div class="radio">
             <label>
                 <input type="radio" ng-model="properties.SaveChangesAction.PropertyValue" value="SwitchToReadMode">@Html.Resource("SwitchToReadMode")
@@ -93,31 +95,40 @@
             ng-show="properties.SaveChangesAction.PropertyValue==='ShowPage'"></sf-list-selector>
     </div>
 
-    <div class="form-group">
-        <label for="templateName">@Html.Resource("Template")</label>
-        <label for="templateName">@Html.Resource("Profile")</label>
-        <div class="row">
-            <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.ReadModeTemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames("Profile", @"Read\.(?<viewName>\w*)$"))
-                    {
-                        <option value="@viewName">@viewName</option>
-                    }
-                </select>
+    <h5>@Html.Resource("Templates")</h5>
+
+    <div class="form-group-list">
+
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("Profile")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.ReadModeTemplateName.PropertyValue" class="form-control">
+                            @foreach (var viewName in Html.GetViewNames("Profile", @"Read\.(?<viewName>\w*)$"))
+                        {
+                            <option value="@viewName">@viewName</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
-        <label for="templateName">@Html.Resource("EditingProfile")</label>
-        <div class="row">
-            <div class="col-xs-6">
-                <select id="templateName" ng-model="properties.EditModeTemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames("Profile", @"Edit\.(?<viewName>\w*)$"))
-                    {
-                        <option value="@viewName">@viewName</option>
-                    }
-                </select>
+
+        <div class="form-group">
+            <label for="templateName">@Html.Resource("EditingProfile")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="templateName" ng-model="properties.EditModeTemplateName.PropertyValue" class="form-control">
+                            @foreach (var viewName in Html.GetViewNames("Profile", @"Edit\.(?<viewName>\w*)$"))
+                        {
+                            <option value="@viewName">@viewName</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
+
     </div>
+
 </div>
 
 <expander start-expanded ="true" expander-title='@Html.Resource("MoreOptions")'>
