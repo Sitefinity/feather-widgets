@@ -7,7 +7,7 @@
     <tab heading="@Html.Resource("General")">
         <div class="form-group">
             <label>@Html.Resource("Provider")</label>
-            <p>@Html.Resource("ProviderDescription")</p>
+            <p class="description-note">@Html.Resource("ProviderDescription")</p>
             <div class="row">
                 <div class="col-xs-6">
                     <select ng-model="properties.MembershipProviderName.PropertyValue" class="form-control">
@@ -22,14 +22,12 @@
 
         <div class="form-group">
             <label>@Html.Resource("Roles")</label>
-            <p>@Html.Resource("RolesDescription")</p>
-            <div class="row">
-                <div class="col-xs-6">
-                    <sf-list-selector sf-role-selector sf-selected-items="rolesSelector.selectedItems" sf-multiselect="true"
-                                      sf-hide-roles="Owner, Anonymous, Authenticated, Everyone">
-                    </sf-list-selector>
-                </div>
-            </div>
+            <p class="description-note">@Html.Resource("RolesDescription")</p>
+
+            <sf-list-selector sf-role-selector sf-selected-items="rolesSelector.selectedItems" sf-multiselect="true"
+                                sf-hide-roles="Owner, Anonymous, Authenticated, Everyone">
+            </sf-list-selector>
+
         </div>
 
         <div class="form-group">
@@ -53,8 +51,8 @@
 
         <div class="form-group">
             <label>@Html.Resource("LoginPage")</label>
-            <p>@Html.Resource("LoginPageInfo")</p>
-            <sf-list-selector class="label-content"
+            <p class="description-note">@Html.Resource("LoginPageInfo")</p>
+            <sf-list-selector
                               sf-page-selector
                               sf-selected-item-id="properties.LoginPageId.PropertyValue"></sf-list-selector>
         </div>
@@ -84,30 +82,34 @@
     </tab>
     <tab heading="@Html.Resource("AccountActivation")">
         <div class="form-group">
-            <label>@Html.Resource("ActivateAccounts")</label>
+            <strong>@Html.Resource("ActivateAccounts")</strong>
             <div class="radio">
-                <label>
+                <label class="full-width">
                     <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="Immediately" />
                     @Html.Resource("Immediately")
-                    <p>
-                        <label>
-                            <input type="checkbox" ng-model="properties.SendEmailOnSuccess.PropertyValue"
+
+                    <div class="checkbox" ng-show="properties.ActivationMethod.PropertyValue === 'Immediately'">
+                        <label for="activateWidthEmailInput">
+                            <input id="activateWidthEmailInput" type="checkbox" ng-model="properties.SendEmailOnSuccess.PropertyValue"
                                    ng-true-value="'True'" ng-false-value="'False'"
                                    ng-disabled="properties.ActivationMethod.PropertyValue !== 'Immediately'" />
                             @Html.Resource("SendEmailAfterRegistration")
                         </label>
-                    </p>
+                    </div>
+
                 </label>
-                <label>
+            </div>
+            <div class="radio">
+                <label class="full-width">
                     <input type="radio" ng-model="properties.ActivationMethod.PropertyValue" value="AfterConfirmation" />
                     @Html.Resource("ByConfirmationEmail")
                 </label>
             </div>
         </div>
         <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'Immediately'">
-            <label>@Html.Resource("SuccessEmailTemplate")</label>
             <div class="row">
                 <div class="col-xs-6">
+                    <label>@Html.Resource("SuccessEmailTemplate")</label>
                     <select ng-model="properties.SuccessEmailTemplateId.PropertyValue" class="form-control">
                         @foreach (var template in EmailTemplateHelper.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""Success""", typeof(RegistrationForm).FullName)))
                         {
@@ -119,21 +121,29 @@
         </div>
 
         <div class="form-group" ng-show="properties.ActivationMethod.PropertyValue === 'AfterConfirmation'">
-            <div class="row">
-                <label>@Html.Resource("ConfirmationEmailTemplate")</label>
-                <select ng-model="properties.ConfirmationEmailTemplateId.PropertyValue" class="form-control">
-                    @foreach (var template in EmailTemplateHelper.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""{1}""", typeof(RegistrationForm).FullName, RegistrationEmailType.Confirmation.ToString())))
-                    {
-                        <option value="@template.Key">@template.Value</option>
-                    }
-                </select>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label>@Html.Resource("ConfirmationEmailTemplate")</label>
+                        <select ng-model="properties.ConfirmationEmailTemplateId.PropertyValue" class="form-control">
+                            @foreach (var template in EmailTemplateHelper.GetEmailTemplates(String.Format(@"ControlType == ""{0}"" && Condition==""{1}""", typeof(RegistrationForm).FullName, RegistrationEmailType.Confirmation.ToString())))
+                            {
+                                <option value="@template.Key">@template.Value</option>
+                            }
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="row">
+
+            <div class="form-group">
+
                 <label>@Html.Resource("ActivationPage")</label>
-                <p>@Html.Resource("ActivationPageDescription")</p>
-                <sf-list-selector class="label-content"
-                                  sf-page-selector
-                                  sf-selected-item-id="properties.ConfirmationPageId.PropertyValue"></sf-list-selector>
+                <p class="description-note">@Html.Resource("ActivationPageDescription")</p>
+                <sf-list-selector
+                                    sf-page-selector
+                                sf-selected-item-id="properties.ConfirmationPageId.PropertyValue"></sf-list-selector>
+
             </div>
         </div>
     </tab>

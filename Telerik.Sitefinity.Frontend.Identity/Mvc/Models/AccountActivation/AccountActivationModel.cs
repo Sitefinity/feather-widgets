@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Web;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.SitefinityExceptions;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
 {
@@ -69,13 +72,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         {
             bool success = false;
 
-            var userManager = UserManager.GetManager(this.MembershipProvider);
+            Guid userId = this.GetUserId();
+            if (userId == Guid.Empty)
+            {
+                return false;
+            }
+
+            UserManager userManager = this.GetUserManager();
             var userProviderSuppressSecurityChecks = userManager.Provider.SuppressSecurityChecks;
 
             try
             {
-                var userId = this.GetUserId();
-
                 userManager.Provider.SuppressSecurityChecks = true;
                 var user = userManager.GetUser(userId);
                 user.IsApproved = true;
@@ -95,6 +102,46 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
             return success;
         }
 
+        protected virtual UserManager GetUserManager()
+        {
+            string provider;
+
+            if (this.TryGetProviderFromQuery(out provider))
+            {
+                return this.GetUserManager(provider);
+            }
+            return this.GetUserManager(this.MembershipProvider);
+        }
+
+        protected virtual UserManager GetUserManager(string provider)
+        {
+            return UserManager.GetManager(provider);
+        }
+
+        /// <summary>
+        /// Gets the query string.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual NameValueCollection GetQueryString()
+        {
+            return HttpContext.Current.Request.QueryString;
+        }
+
+        /// <summary>
+        /// Gets the page URL.
+        /// </summary>
+        /// <param name="pageId">The page id.</param>
+        /// <returns></returns>
+        protected virtual string GetPageUrl(Guid? pageId)
+        {
+            if (!pageId.HasValue)
+            {
+                pageId = SiteMapBase.GetActualCurrentNode().Id;
+            }
+
+            return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+        }
+
         /// <summary>
         /// Inners the get user identifier.
         /// </summary>
@@ -103,27 +150,24 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         /// </returns>
         private Guid GetUserId()
         {
-            Type type = Type.GetType("Telerik.Sitefinity.Security.Web.UI.UserChangePasswordWidget, Telerik.Sitefinity");
-            object instance = type.GetConstructor(Type.EmptyTypes).Invoke(new object[] { });
-            MethodInfo method = type.GetMethod("GetUser", BindingFlags.NonPublic | BindingFlags.Instance);
-            object claimsIdentityProxyObject = method.Invoke(instance, new object[] { });
-            var claimsIdentityProxy = claimsIdentityProxyObject as ClaimsIdentityProxy;
-            if (claimsIdentityProxy != null)
-            {
-                return claimsIdentityProxy.UserId;
-            }
+            NameValueCollection queryString = this.GetQueryString();
 
-            return Guid.Empty;
+            string userIdString = queryString.Get("user");
+
+            Guid userId;
+
+            Guid.TryParse(userIdString, out userId);
+
+            return userId;
         }
 
-        private string GetPageUrl(Guid? pageId)
+        private bool TryGetProviderFromQuery(out string provider)
         {
-            if (!pageId.HasValue)
-            {
-                pageId = SiteMapBase.GetActualCurrentNode().Id;
-            }
+            NameValueCollection queryString = this.GetQueryString();
 
-            return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+            provider = queryString.Get("provider");
+
+            return provider != null;
         }
 
         private string membershipProvider;
