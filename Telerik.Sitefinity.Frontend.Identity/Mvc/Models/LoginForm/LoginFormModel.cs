@@ -173,8 +173,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             if (user != null)
             {
-                if (string.IsNullOrEmpty(user.Password) &&
-                    !typeof(MembershipProviderWrapper).IsAssignableFrom(this.MembershipProvider.GetType()))
+                if (!UserManager.ShouldSendPasswordEmail(user, this.MembershipProvider.GetType()))
                 {
                     viewModel.Error = "Not supported";
                 }
@@ -184,8 +183,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                     try
                     {
-                        MethodInfo dynMethod = typeof(UserManager).GetMethod("SendRecoveryPasswordMail", BindingFlags.NonPublic | BindingFlags.Static);
-                        dynMethod.Invoke(this, new object[] { UserManager.GetManager(user.ProviderName), email, resetPassUrl });
+                        UserManager.SendRecoveryPasswordMail(UserManager.GetManager(user.ProviderName), email, resetPassUrl);
 
                         viewModel.EmailSent = true;
                     }
@@ -221,9 +219,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             return null;
         }
-
-
-
+        
         /// <inheritDoc/>
         public string GetPageUrl(Guid? pageId)
         {
