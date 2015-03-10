@@ -45,7 +45,7 @@
         </div>
         
         <div>
-            <input type="submit" value='@Html.Resource("EditProfileSave")' />
+            <input class="profile-submit" type="submit" value='@Html.Resource("EditProfileSave")' />
             @Html.ActionLink(Html.Resource("EditProfileCancel"), "Index")
         </div>
     }
@@ -77,6 +77,13 @@
                         editProfileUserImage.attr('src', readerLoadedEvent.target.result);
                     };
                     reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+
+            $('.profile-submit').click(function () {
+                var form = document.forms["aspnetForm"];
+                if (form) {
+                    form.enctype = "multipart/form-data";
                 }
             });
         });

@@ -448,18 +448,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// </summary>
         protected virtual void SendRegistrationConfirmationEmail(UserManager userManager, User user)
         {
-            string messageBody = this.GetEmailMessageBody(this.ConfirmationEmailTemplateId) ?? userManager.ConfirmRegistrationMailBody;
-
             string confirmationPageUrl = this.GetConfirmationPageUrl(user);
 
             var confirmationEmail =
-                EmailSender.CreateRegistrationConfirmationEmail(
-                                userManager.SuccessfulRegistrationEmailAddress,
-                                user.Email,
-                                user.UserName,
+                UserRegistrationEmailGenerator.GenerateRegistrationConfirmationEmail(
+                                userManager,
+                                user,
+                                this.MembershipProviderName,
+                                this.ConfirmationEmailTemplateId,
                                 confirmationPageUrl,
-                                this.ConfirmationEmailSubject,
-                                messageBody);
+                                this.ConfirmationEmailSubject);
 
             var emailSender = EmailSender.Get(this.EmailSenderName);
             emailSender.SendAsync(confirmationEmail, null);
@@ -483,24 +481,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 return string.Empty;
             }
 
-            var url = new Url(confirmationPageUrl);
-
-            url.Query["user"] = HttpUtility.UrlEncode(user.Id.ToString());
-
-            url.Query["provider"] = HttpUtility.UrlEncode(this.MembershipProviderName);
-            
-            var queryString = HttpContext.Current.Request.QueryString;
-
-            if (queryString.Keys.Contains(ReturnUrlName))
-            {
-                url.Query[ReturnUrlName] = HttpUtility.UrlEncode(queryString[ReturnUrlName]);
-            }
-            else if (!string.IsNullOrEmpty(this.DefaultReturnUrl))
-            {
-                url.Query[ReturnUrlName] = HttpUtility.UrlEncode(this.DefaultReturnUrl);
-            }
-
-            return url.ToString();
+            return UserRegistrationEmailGenerator.GetConfirmationPageUrl(confirmationPageUrl, user.Id, this.MembershipProviderName, ReturnUrlName, this.DefaultReturnUrl);
         }
 
         /// <summary>
