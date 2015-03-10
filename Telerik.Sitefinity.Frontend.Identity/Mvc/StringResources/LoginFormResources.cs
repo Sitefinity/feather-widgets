@@ -560,6 +560,54 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: Username
+        /// </summary>
+        /// <value>Username</value>
+        [ResourceEntry("Username",
+            Value = "Username",
+            Description = "phrase: Username",
+            LastModified = "2015/03/09")]
+        public string Username
+        {
+            get
+            {
+                return this["Username"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Password
+        /// </summary>
+        /// <value>Password</value>
+        [ResourceEntry("Password",
+            Value = "Password",
+            Description = "phrase: Password",
+            LastModified = "2015/03/09")]
+        public string Password
+        {
+            get
+            {
+                return this["Password"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: RememberMe
+        /// </summary>
+        /// <value>RememberMe</value>
+        [ResourceEntry("RememberMe",
+            Value = "Remember me",
+            Description = "phrase: RememberMe",
+            LastModified = "2015/03/09")]
+        public string RememberMe
+        {
+            get
+            {
+                return this["RememberMe"];
+            }
+        }
+
+        /// <summary>
         /// phrase: Templates label
         /// </summary>
         /// <value>Templates label</value>
