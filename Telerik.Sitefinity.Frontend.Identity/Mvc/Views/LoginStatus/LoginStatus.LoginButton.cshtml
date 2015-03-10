@@ -7,8 +7,7 @@
 
 <div class="@Model.CssClass">
     <div class="sf-logged-in-view" style="display: none">
-        <img class="sf-logged-in-avatar" width="80" height="80" />
-        <br />
+        <div><img class="sf-logged-in-avatar" width="80" height="80" /></div>
         <a href="@(Model.ProfilePageUrl ?? "#")" class="sf-logged-in-name"></a>
         <p class="sf-logged-in-email"></p>
         <button class="sf-logged-in-log-out-btn">@Html.Resource("Logout")</button>
