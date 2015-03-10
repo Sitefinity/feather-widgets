@@ -35,17 +35,17 @@
             <h4>@Html.Resource("EditProfileEditChangePasswordHeader")</h4>
 
             <label>@Html.Resource("EditProfileOldPassword")</label>
-            <div class="editor-field">@Html.EditorFor(u => u.OldPassword)</div>
+            <div class="editor-field">@Html.PasswordFor(u => u.OldPassword)</div>
 
             <label>@Html.Resource("EditProfileNewPassword")</label>
-            <div class="editor-field">@Html.EditorFor(u => u.NewPassword)</div>
+            <div class="editor-field">@Html.PasswordFor(u => u.NewPassword)</div>
 
             <label>@Html.Resource("EditProfileRepeatPassword")</label>
-            <div class="editor-field">@Html.EditorFor(u => u.RepeatPassword)</div>
+            <div class="editor-field">@Html.PasswordFor(u => u.RepeatPassword)</div>
         </div>
         
         <div>
-            <input type="submit" value='@Html.Resource("EditProfileSave")' />
+            <input class="profile-submit" type="submit" value='@Html.Resource("EditProfileSave")' />
             @Html.ActionLink(Html.Resource("EditProfileCancel"), "Index")
         </div>
     }
@@ -77,6 +77,13 @@
                         editProfileUserImage.attr('src', readerLoadedEvent.target.result);
                     };
                     reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+
+            $('.profile-submit').click(function () {
+                var form = document.forms["aspnetForm"];
+                if (form) {
+                    form.enctype = "multipart/form-data";
                 }
             });
         });
