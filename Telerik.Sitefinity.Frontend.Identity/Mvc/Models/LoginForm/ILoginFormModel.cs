@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -114,7 +115,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// <c>true</c> if the password reset succeeds; otherwise, <c>false</c>.
         /// </returns>
-        void ResetUserPassword(string newPassword, string answer);
+        void ResetUserPassword(string newPassword, string answer, NameValueCollection securityParams);
         
         /// <summary>
         /// Sends reset password email.

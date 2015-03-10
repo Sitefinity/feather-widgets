@@ -169,7 +169,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 try
                 {
-                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
+                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer, this.HttpContext.Request.QueryString);
                     resetComplete = true;
                 }
                 catch (NotSupportedException)
