@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -84,7 +85,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
-            if (SecurityManager.GetCurrentUserId() == Guid.Empty)
+            if (SecurityManager.GetCurrentUserId() == Guid.Empty || SystemManager.IsInlineEditingMode || SystemManager.IsDesignMode)
             {
                 var viewModel = this.Model.GetLoginFormViewModel();
                 var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
