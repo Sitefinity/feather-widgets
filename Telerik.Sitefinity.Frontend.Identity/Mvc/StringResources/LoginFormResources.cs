@@ -233,7 +233,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         [ResourceEntry("ResetPasswordRepeatNewPassword",
             Value = "Repeat new password",
             Description = "phrase : Repeat new password",
-            LastModified = "2015/02/27")]
+            LastModified = "2015/03/09")]
         public string ResetPasswordRepeatNewPassword
         {
             get
