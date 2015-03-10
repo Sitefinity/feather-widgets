@@ -366,7 +366,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="status">The status that will be set depending on the creation outcome.</param>
         protected virtual bool TryCreateUser(UserManager manager, RegistrationViewModel userData, out User user, out MembershipCreateStatus status)
         {
-            user = manager.CreateUser(userData.UserName, userData.Password, userData.Email, null, null, !this.SendRegistrationEmail, null, out status);
+            user = manager.CreateUser(userData.UserName, userData.Password, userData.Email, null, null, this.ActivationMethod == ActivationMethod.Immediately, null, out status);
             return status == MembershipCreateStatus.Success;
         }
 

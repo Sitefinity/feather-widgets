@@ -51,7 +51,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// Gets phrase: Login form template
         /// </summary>
         [ResourceEntry("LoginFormTemplate",
-            Value = "Login form template",
+            Value = "Login form",
             Description = "phrase : Login form template",
             LastModified = "2015/02/25")]
         public string LoginFormTemplate
@@ -66,7 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// Gets phrase: Forgot your password template
         /// </summary>
         [ResourceEntry("ForgotPasswordTemplate",
-            Value = "Forgot your password template",
+            Value = "Forgot your password",
             Description = "phrase : Forgot your password template",
             LastModified = "2015/02/25")]
         public string ForgotPasswordTemplate
@@ -81,7 +81,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// Gets phrase: Reset password template
         /// </summary>
         [ResourceEntry("ResetPasswordTemplate",
-            Value = "Reset password template",
+            Value = "Reset password",
             Description = "phrase : Reset password template",
             LastModified = "2015/02/25")]
         public string ResetPasswordTemplate
@@ -201,7 +201,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// phrase : You must first enable password reset or password retrieval from the membership provider settings.
         /// </summary>
         [ResourceEntry("PaswordResetNotEnabled",
-            Value = "You must first enable password reset or password retrieval from the membership provider settings.",
+            Value = "Go to Administration/Settings/Advanced/Security to enable Password reset or Password retrieval from the membership provider settings.",
             Description = "phrase : You must first enable password reset or password retrieval from the membership provider settings.",
             LastModified = "2015/02/27")]
         public string PaswordResetNotEnabled
@@ -556,6 +556,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["ShowRememberMe"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Templates label
+        /// </summary>
+        /// <value>Templates label</value>
+        [ResourceEntry("Templates",
+            Value = "Templates",
+            Description = "phrase: Templates",
+            LastModified = "2015/03/09")]
+        public string Templates
+        {
+            get
+            {
+                return this["Templates"];
             }
         }
     }
