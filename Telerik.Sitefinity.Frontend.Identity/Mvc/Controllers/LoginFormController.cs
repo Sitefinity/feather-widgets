@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -84,17 +85,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
-            if (SecurityManager.GetCurrentUserId() == Guid.Empty)
-            {
-                var viewModel = this.Model.GetLoginFormViewModel();
-                var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
+            var viewModel = this.Model.GetLoginFormViewModel();
+            var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
 
-                return this.View(fullTemplateName, viewModel);
-            }
-            else
-            {
-                return this.Content(Res.Get<LoginFormResources>().AlreadyLogedIn);
-            }
+            return this.View(fullTemplateName, viewModel);
         }
 
         [HttpPost]
@@ -169,7 +163,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 try
                 {
-                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
+                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer, this.HttpContext.Request.QueryString);
                     resetComplete = true;
                 }
                 catch (NotSupportedException)

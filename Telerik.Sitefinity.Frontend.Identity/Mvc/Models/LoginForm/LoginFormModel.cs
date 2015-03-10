@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Data;
+using System.Collections.Specialized;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -143,9 +144,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public void ResetUserPassword(string newPassword, string answer)
+        public void ResetUserPassword(string newPassword, string answer, NameValueCollection securityParams)
         {
-            var userId = this.GetUserId();
+            var userId = this.GetUserId(securityParams);
 
             if (userId == Guid.Empty)
             {
@@ -173,8 +174,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             if (user != null)
             {
-                if (string.IsNullOrEmpty(user.Password) &&
-                    !typeof(MembershipProviderWrapper).IsAssignableFrom(this.MembershipProvider.GetType()))
+                if (!UserManager.ShouldSendPasswordEmail(user, this.MembershipProvider.GetType()))
                 {
                     viewModel.Error = "Not supported";
                 }
@@ -184,8 +184,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
                     try
                     {
-                        MethodInfo dynMethod = typeof(UserManager).GetMethod("SendRecoveryPasswordMail", BindingFlags.NonPublic | BindingFlags.Static);
-                        dynMethod.Invoke(this, new object[] { UserManager.GetManager(user.ProviderName), email, resetPassUrl });
+                        UserManager.SendRecoveryPasswordMail(UserManager.GetManager(user.ProviderName), email, resetPassUrl);
 
                         viewModel.EmailSent = true;
                     }
@@ -221,9 +220,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             return null;
         }
-
-
-
+        
         /// <inheritDoc/>
         public string GetPageUrl(Guid? pageId)
         {
@@ -265,16 +262,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// The user id or null.
         /// </returns>
-        private Guid GetUserId()
+        private Guid GetUserId(NameValueCollection securityParams)
         {
-            Type type = Type.GetType("Telerik.Sitefinity.Security.Web.UI.UserChangePasswordWidget, Telerik.Sitefinity");
-            object instance = type.GetConstructor(Type.EmptyTypes).Invoke(new object[] { });
-            MethodInfo method = type.GetMethod("GetUser", BindingFlags.NonPublic | BindingFlags.Instance);
-            object claimsIdentityProxyObject = method.Invoke(instance, new object[] { });
-            var claimsIdentityProxy = claimsIdentityProxyObject as ClaimsIdentityProxy;
-            if (claimsIdentityProxy != null)
+            var cip = SecurityManager.GetManager().GetPasswordRecoveryUser(securityParams);
+            if (cip != null)
             {
-                return claimsIdentityProxy.UserId;
+                return cip.UserId;
             }
 
             return Guid.Empty;

@@ -393,15 +393,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="user">The user.</param>
         protected virtual void SendSuccessfulRegistrationEmail(UserManager userManager, User user)
         {
-            string messageBody = this.GetEmailMessageBody(this.SuccessEmailTemplateId) ?? userManager.SuccessfulRegistrationEmailBody;
+            var registrationSuccessEmail =
+                UserRegistrationEmailGenerator.GenerateSuccessfulRegistrationEmail(
+                                                userManager,
+                                                user,
+                                                this.SuccessEmailTemplateId,
+                                                this.SuccessEmailSubject);
 
-            var registrationSuccessEmail = 
-                EmailSender.CreateRegistrationSuccessEmail(
-                                userManager.SuccessfulRegistrationEmailAddress, 
-                                user.Email, 
-                                user.UserName, 
-                                this.SuccessEmailSubject, 
-                                messageBody);
             var emailSender = EmailSender.Get(this.EmailSenderName);
             emailSender.SendAsync(registrationSuccessEmail, null);
         }
