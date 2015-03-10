@@ -13,60 +13,71 @@
 <div class="@Model.CssClass">
     @if (ViewBag.ShowActivationMsg is bool && ViewBag.ShowActivationMsg)
     { 
-        <h1>
+        <h3>
             @Html.Resource("VisitYourEmail")
-        </h1>
-        <div>
-            @string.Format(Html.Resource("ActivationLinkHasBeenSent"), Model.Email)
-            <a class="sendAgainLink">@Html.Resource("SendAgain")</a>
-        </div>
+        </h3>
+        
+        <p>@string.Format(Html.Resource("ActivationLinkHasBeenSent"), Model.Email)</p>
+        <a class="sendAgainLink">@Html.Resource("SendAgain")</a>
+        
         <div class="confirmationResendInfo" style="display:none;">
             @string.Format(Html.Resource("ActivationLinkHasBeenSentAgain"), Model.Email)
             <a class="sendAgainLink">@Html.Resource("SendAgain")</a>
         </div>
+        
         <input type="hidden" class="sf-resend-confirmation-endpoint-url" value="@Url.Action("ResendConfirmationEmail", new { email = Model.Email})" />
     }
     else if (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg)
     { 
-        <div>@Html.Resource("DefaultSuccessfulRegistrationMessage")</div>
+        <h3>@Html.Resource("ThankYou")</h3>
+        <p>@Html.Resource("DefaultSuccessfulRegistrationMessage")</p>
+
     }
     else
     {
         using (Html.BeginFormSitefinity())
         {
             @Html.ValidationSummary(true);
-            <div class="error">@ViewBag.Error</div>
+            @ViewBag.Error
         
-            <ol>
-                <li>
-                    @Html.Label("Profile[FirstName]", Html.Resource("FirstName"))
+
+            <div>
+                <label>
+                    @Html.Resource("FirstName")
                     @Html.Editor("Profile[FirstName]")
-                </li>
-                <li>
-                    @Html.Label("Profile[LastName]", Html.Resource("LastName"))
-                    @Html.Editor("Profile[LastName]")
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.Email, Html.Resource("Email"))
+                </label>
+            </div>
+            <div>
+                @Html.Resource("LastName")
+                @Html.Editor("Profile[LastName]")
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("Email")
                     @Html.EditorFor(m => m.Email)
-                    @Html.ValidationMessageFor(m => m.Email)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.UserName, Html.Resource("UserName"))
+                </label>
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("UserName")
                     @Html.EditorFor(m => m.UserName)
-                    @Html.ValidationMessageFor(m => m.UserName)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.Password, Html.Resource("Password"))
-                    @Html.PasswordFor(m => m.Password)
-                    @Html.ValidationMessageFor(m => m.Password)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.ReTypePassword, Html.Resource("ReTypePassword"))
+                </label>
+                @Html.ValidationMessageFor(m => m.UserName)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Password, Html.Resource("Password"))
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("ReTypePassword")
                     @Html.PasswordFor(m => m.ReTypePassword)
-                    @Html.ValidationMessageFor(m => m.ReTypePassword)
-                </li>
-            </ol>
+                </label>
+                @Html.ValidationMessageFor(m => m.ReTypePassword)
+            </div>
+
             <div>
                 <input type="submit" value="@Html.Resource("Register")" />
             </div>
