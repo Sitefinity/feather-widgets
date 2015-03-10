@@ -66,8 +66,10 @@
                 @Html.ValidationMessageFor(m => m.UserName)
             </div>
             <div>
-                @Html.LabelFor(m => m.Password, Html.Resource("Password"))
-                @Html.PasswordFor(m => m.Password)
+                <label>
+                    @Html.Resource("Password")
+                    @Html.PasswordFor(m => m.Password)
+                </label>
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
             <div>
