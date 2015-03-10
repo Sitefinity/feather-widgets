@@ -324,6 +324,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             {
                 var imageId = this.UploadAvatar(model.UploadedImage, model.UserName);
                 this.ChangeProfileAvatar(this.GetUserId(), imageId, userProfileManager);
+
+                Image avatarImage;
+                model.AvatarImageUrl = new UserDisplayNameBuilder().GetAvatarImageUrl(model.User.Id, out avatarImage);
             }
         }
 
