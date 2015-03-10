@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -16,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         /// <returns>
         /// An instance of <see cref="AccountActivationViewModel"/>
         /// </returns>
-        AccountActivationViewModel GetViewModel();
+        AccountActivationViewModel GetViewModel(NameValueCollection securityParams);
 
         /// <summary>
         /// Gets or sets the css class.
