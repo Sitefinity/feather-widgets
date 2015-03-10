@@ -28,7 +28,7 @@ using Telerik.Sitefinity.Security.Web.UI;
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
     /// <summary>
-    /// This class is used as a model for the <see cref="RegistrationController"/>.
+    /// This class is used as a model for the <see cref="RegistrationController" />.
     /// </summary>
     public class RegistrationModel : IRegistrationModel
     {
@@ -239,6 +239,25 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
 
             return status;
+        }
+
+        /// <summary>
+        /// Resends the confirmation email.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public virtual bool ResendConfirmationEmail(string email)
+        {
+            var isSend = false;
+            var userManager = UserManager.GetManager(this.MembershipProviderName);
+            User user = userManager.GetUserByEmail(email);
+            if (user != null)
+            {
+                this.SendRegistrationConfirmationEmail(userManager, user);
+                isSend = true;
+            }
+
+            return isSend;
         }
 
         /// <summary>

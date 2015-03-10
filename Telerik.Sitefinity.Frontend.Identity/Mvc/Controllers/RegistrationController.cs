@@ -113,6 +113,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
+        /// <summary>
+        /// Resends the confirmation email.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns></returns>
+        public JsonResult ResendConfirmationEmail(string email)
+        {
+            var isSend = this.Model.ResendConfirmationEmail(email);
+
+            return Json(isSend, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region Private methods

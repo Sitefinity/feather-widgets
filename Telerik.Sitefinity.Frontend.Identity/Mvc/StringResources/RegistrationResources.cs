@@ -547,6 +547,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: Another activation link has been sent to {email} If you do not received an email please check your spam box
+        /// </summary>
+        [ResourceEntry("ActivationLinkHasBeenSentAgain",
+            Value = "Another activation link has been sent to {0} If you do not received an email please check your spam box",
+            Description = "phrase: Another activation link has been sent to {email} If you do not received an email please check your spam box",
+            LastModified = "2015/03/09")]
+        public string ActivationLinkHasBeenSentAgain
+        {
+            get
+            {
+                return this["ActivationLinkHasBeenSentAgain"];
+            }
+        }
+
+        /// <summary>
         /// phrase: Send again
         /// </summary>
         [ResourceEntry("SendAgain",

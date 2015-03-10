@@ -145,6 +145,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         MembershipCreateStatus RegisterUser(RegistrationViewModel model);
 
         /// <summary>
+        /// Resends the confirmation email.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        bool ResendConfirmationEmail(string email);
+
+        /// <summary>
         /// Gets the error message corresponding to the given status.
         /// </summary>
         /// <param name="status">The status.</param>
