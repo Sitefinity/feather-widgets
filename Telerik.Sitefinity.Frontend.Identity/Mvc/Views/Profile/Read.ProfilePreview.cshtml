@@ -13,6 +13,6 @@
 
     @if (Model.CanEdit && ViewBag.Mode == ViewMode.Both)
     {
-        Html.ActionLink(Html.Resource("EditProfileLink"), "EditProfile");
+        @Html.ActionLink(Html.Resource("EditProfileLink"), "EditProfile");
     }
 </div>
