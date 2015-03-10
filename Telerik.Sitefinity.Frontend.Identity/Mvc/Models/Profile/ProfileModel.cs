@@ -322,8 +322,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         {
             if (model.UploadedImage != null)
             {
-                var imageId = this.UploadAvatar(model.UploadedImage, model.UserName);
-                this.ChangeProfileAvatar(this.GetUserId(), imageId, userProfileManager);
+                var image = this.UploadAvatar(model.UploadedImage, model.UserName);
+                this.ChangeProfileAvatar(this.GetUserId(), image, userProfileManager);
 
                 Image avatarImage;
                 model.AvatarImageUrl = new UserDisplayNameBuilder().GetAvatarImageUrl(model.User.Id, out avatarImage);
@@ -334,28 +334,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Changes the profile avatar.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
-        /// <param name="imageId">The image identifier.</param>
+        /// <param name="image">The profile image.</param>
         /// <param name="userProfileManager">The user profile manager.</param>
-        private void ChangeProfileAvatar(Guid userId, Guid imageId, UserProfileManager userProfileManager)
+        private void ChangeProfileAvatar(Guid userId, Image image, UserProfileManager userProfileManager)
         {
-            LibrariesManager librariesManager = LibrariesManager.GetManager();
-
             User user = SecurityManager.GetUser(userId);
 
-            if (user != null)
+            if (user != null && image != null)
             {
                 SitefinityProfile profile = userProfileManager.GetUserProfile<SitefinityProfile>(user);
 
                 if (profile != null)
                 {
-                    Image avatarImage = librariesManager.GetImages().Where(i => i.Id == imageId).SingleOrDefault();
+                    ContentLink avatarLink = ContentLinksExtensions.CreateContentLink(profile, image);
 
-                    if (avatarImage != null)
-                    {
-                        ContentLink avatarLink = ContentLinksExtensions.CreateContentLink(profile, avatarImage);
-
-                        profile.Avatar = avatarLink;
-                    }
+                    profile.Avatar = avatarLink;
                 }
             }
         }
@@ -366,16 +359,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <param name="uploadedImage">The uploaded image.</param>
         /// <param name="username">The username.</param>
         /// <returns></returns>
-        private Guid UploadAvatar(HttpPostedFileBase uploadedImage, string username)
+        private Image UploadAvatar(HttpPostedFileBase uploadedImage, string username)
         {
             this.ValidateImage(uploadedImage);
 
-            LibrariesManager librariesManager = LibrariesManager.GetManager();
+            LibrariesManager librariesManager = LibrariesManager.GetManager(LibrariesModule.SystemLibrariesProviderName);
 
             var image = librariesManager.CreateImage();
 
-            // TODO: Use library from a selector.
-            image.Parent = librariesManager.GetAlbums().First();
+            image.Parent = this.GetProfileImagesAlbum(librariesManager);
 
             image.Title = string.Format("{0}_avatar_{1}", username, Guid.NewGuid());
             image.DateCreated = DateTime.UtcNow;
@@ -394,7 +386,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             bag.Add("ContentType", typeof(Image).FullName);
             WorkflowManager.MessageWorkflow(image.Id, typeof(Image), null, "Publish", false, bag);
 
-            return image.Id;
+            return image;
         }
 
         /// <summary>
@@ -419,6 +411,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             }
         }
 
+        private Album GetProfileImagesAlbum(LibrariesManager manager)
+        {
+            var album = manager.GetAlbums().FirstOrDefault(l => l.Title == ProfileModel.ProfileImagesAlbumTitle);
+            if (album == null)
+            {
+                album = manager.CreateAlbum();
+                album.Title = ProfileModel.ProfileImagesAlbumTitle;
+                album.UrlName = ProfileModel.ProfileImagesAlbumUrl;
+            }
+
+            return album;
+        }
+
         #endregion
 
         #region Private fields
@@ -427,6 +432,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         private string membrshipProvider;
         private IList<UserProfile> selectedUserProfiles;
         private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName' },{ Name: 'LastName', FieldName: 'LastName' }, {Name:'About', FieldName:'About'} ]}]";
+
+        private const string ProfileImagesAlbumTitle = "Profile images";
+        private const string ProfileImagesAlbumUrl = "sys-profile-images";
 
         #endregion
     }

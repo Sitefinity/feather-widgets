@@ -48,13 +48,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         /// <inheritDoc/>
         public virtual AccountActivationViewModel GetViewModel()
         {
-            var activationSuccess = this.ActivateAccount();
+            var shouldAttemptActivation = this.ShouldAttemptActivation();
+            var activationSuccess = false;
+
+            if (shouldAttemptActivation)
+            {
+                activationSuccess = this.ActivateAccount();
+            }
 
             return new AccountActivationViewModel()
             {
                 CssClass = this.CssClass,
                 ProfilePageUrl = this.GetPageUrl(this.ProfilePageId),
-                Activated = activationSuccess
+                Activated = activationSuccess,
+                AttemptedActivation = shouldAttemptActivation
             };
         }
 
@@ -168,6 +175,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
             provider = queryString.Get("provider");
 
             return provider != null;
+        }
+
+        private bool ShouldAttemptActivation()
+        {
+            NameValueCollection queryString = this.GetQueryString();
+
+            if (queryString != null)
+            {
+                return !string.IsNullOrEmpty(queryString.Get("user"));
+            }
+
+            return false;
         }
 
         private string membershipProvider;
