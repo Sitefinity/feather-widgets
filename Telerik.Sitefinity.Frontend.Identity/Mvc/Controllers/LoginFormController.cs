@@ -1,7 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
@@ -10,10 +10,8 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
-using Telerik.Sitefinity.Security.Model;
 using Telerik.Sitefinity.Security.Claims;
-using System.Net;
-using System.Reflection;
+using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
