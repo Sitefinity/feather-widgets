@@ -116,7 +116,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         [ResourceEntry("ChangePasswordRepeatPassword",
             Value = "Repeat new password",
             Description = "phrase : Repeat new password",
-            LastModified = "2015/03/02")]
+            LastModified = "2015/03/10")]
         public string ChangePasswordRepeatPassword
         {
             get
