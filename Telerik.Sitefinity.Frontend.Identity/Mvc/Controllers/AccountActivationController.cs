@@ -66,7 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var model = this.Model.GetViewModel(); 
+            var model = this.Model.GetViewModel(this.HttpContext.Request.QueryString); 
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
             return this.View(fullTemplateName, model);

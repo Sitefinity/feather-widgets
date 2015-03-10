@@ -46,15 +46,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         #region Public Methods
 
         /// <inheritDoc/>
-        public virtual AccountActivationViewModel GetViewModel()
+        public virtual AccountActivationViewModel GetViewModel(NameValueCollection securityParams)
         {
-            var activationSuccess = this.ActivateAccount();
+            bool activationAttempted;
+            var activationSuccess = this.ActivateAccount(securityParams, out activationAttempted);
 
             return new AccountActivationViewModel()
             {
                 CssClass = this.CssClass,
                 ProfilePageUrl = this.GetPageUrl(this.ProfilePageId),
-                Activated = activationSuccess
+                Activated = activationSuccess,
+                AttemptedToActivate = activationAttempted
             };
         }
 
@@ -68,17 +70,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         /// <returns>
         /// <c>true</c> if it succeeded; otherwise, <c>false</c>.
         /// </returns>
-        private bool ActivateAccount()
+        private bool ActivateAccount(NameValueCollection securityParams, out bool activationAttempted)
         {
             bool success = false;
+            Guid userId;
 
-            Guid userId = this.GetUserId();
-            if (userId == Guid.Empty)
+            activationAttempted = this.TryGetUserId(securityParams, out userId);
+
+            if (!activationAttempted || userId == Guid.Empty)
             {
                 return false;
             }
 
-            UserManager userManager = this.GetUserManager();
+            UserManager userManager = this.GetUserManager(securityParams);
             var userProviderSuppressSecurityChecks = userManager.Provider.SuppressSecurityChecks;
 
             try
@@ -102,29 +106,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
             return success;
         }
 
-        protected virtual UserManager GetUserManager()
+        protected virtual UserManager GetUserManager(NameValueCollection securityParams)
         {
             string provider;
 
-            if (this.TryGetProviderFromQuery(out provider))
+            if (this.TryGetProvider(securityParams, out provider))
             {
                 return this.GetUserManager(provider);
             }
+
             return this.GetUserManager(this.MembershipProvider);
         }
 
         protected virtual UserManager GetUserManager(string provider)
         {
             return UserManager.GetManager(provider);
-        }
-
-        /// <summary>
-        /// Gets the query string.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual NameValueCollection GetQueryString()
-        {
-            return HttpContext.Current.Request.QueryString;
         }
 
         /// <summary>
@@ -148,26 +144,24 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation
         /// <returns>
         /// The user id or null.
         /// </returns>
-        private Guid GetUserId()
+        private bool TryGetUserId(NameValueCollection securityParams, out Guid userId)
         {
-            NameValueCollection queryString = this.GetQueryString();
+            string userIdString = securityParams.Get("user");
 
-            string userIdString = queryString.Get("user");
+            if (!string.IsNullOrEmpty(userIdString))
+            {
+                return Guid.TryParse(userIdString, out userId);
+            }
 
-            Guid userId;
-
-            Guid.TryParse(userIdString, out userId);
-
-            return userId;
+            userId = Guid.Empty;
+            return false;
         }
 
-        private bool TryGetProviderFromQuery(out string provider)
+        private bool TryGetProvider(NameValueCollection securityParams, out string provider)
         {
-            NameValueCollection queryString = this.GetQueryString();
+            provider = securityParams.Get("provider");
 
-            provider = queryString.Get("provider");
-
-            return provider != null;
+            return !string.IsNullOrEmpty(provider);
         }
 
         private string membershipProvider;
