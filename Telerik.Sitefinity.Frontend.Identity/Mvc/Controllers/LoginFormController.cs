@@ -1,7 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
@@ -10,7 +10,9 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security;
+using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 {
@@ -83,7 +85,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
-            if (SecurityManager.GetCurrentUserId() == Guid.Empty)
+            if (SecurityManager.GetCurrentUserId() == Guid.Empty || SystemManager.IsInlineEditingMode || SystemManager.IsDesignMode)
             {
                 var viewModel = this.Model.GetLoginFormViewModel();
                 var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
@@ -99,8 +101,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(LoginFormViewModel model)
         {
-            var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
-
             if (ModelState.IsValid)
             {
                 User user;
@@ -114,17 +114,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 if (result == UserLoggingReason.Unknown)
                 {
                     model.IncorrectCredentials = true;
-
-                    return this.View(fullTemplateName, model);
                 }
+                else
+                {
+                    var redirectUrl = this.Model.GetPageUrl(this.Model.LoginRedirectPageId);
+                    typeof(SFClaimsAuthenticationManager).GetMethod("ProcessRejectedUser", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { this.ControllerContext.HttpContext, redirectUrl });
 
-                var redirectUrl = this.Model.GetPageUrl(this.Model.LoginRedirectPageId);
-                return this.Redirect(redirectUrl);
+                    return this.Redirect(redirectUrl);
+                }
             }
-            else
-            {
-                return this.View(fullTemplateName, model);
-            }            
+
+            var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
+            return this.View(fullTemplateName, model);
         }
 
         public ActionResult ForgotPassword(bool emailSent = false, string error = null)
@@ -169,7 +170,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 try
                 {
-                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer);
+                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer, this.HttpContext.Request.QueryString);
                     resetComplete = true;
                 }
                 catch (NotSupportedException)

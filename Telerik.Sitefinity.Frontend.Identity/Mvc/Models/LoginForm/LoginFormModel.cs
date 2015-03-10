@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Data;
+using System.Collections.Specialized;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -143,9 +144,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public void ResetUserPassword(string newPassword, string answer)
+        public void ResetUserPassword(string newPassword, string answer, NameValueCollection securityParams)
         {
-            var userId = this.GetUserId();
+            var userId = this.GetUserId(securityParams);
 
             if (userId == Guid.Empty)
             {
@@ -261,9 +262,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// The user id or null.
         /// </returns>
-        private Guid GetUserId()
+        private Guid GetUserId(NameValueCollection securityParams)
         {
-            var cip = SecurityManager.GetManager().GetPasswordRecoveryUser();
+            var cip = SecurityManager.GetManager().GetPasswordRecoveryUser(securityParams);
             if (cip != null)
             {
                 return cip.UserId;
