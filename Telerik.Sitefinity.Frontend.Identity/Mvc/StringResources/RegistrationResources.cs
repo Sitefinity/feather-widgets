@@ -514,5 +514,66 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["DefaultSuccessfulRegistrationMessage"];
             }
         }
+
+        /// <summary>
+        /// phrase: Please, visit your email
+        /// </summary>
+        /// <value>Please, visit your email</value>
+        [ResourceEntry("VisitYourEmail",
+            Value = "Please, visit your email",
+            Description = "phrase: Please, visit your email",
+            LastModified = "2015/03/09")]
+        public string VisitYourEmail
+        {
+            get
+            {
+                return this["VisitYourEmail"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: An activation link has been sent to {email}
+        /// </summary>
+        [ResourceEntry("ActivationLinkHasBeenSent",
+            Value = "An activation link has been sent to {0}",
+            Description = "phrase: An activation link has been sent to {email}",
+            LastModified = "2015/03/09")]
+        public string ActivationLinkHasBeenSent
+        {
+            get
+            {
+                return this["ActivationLinkHasBeenSent"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Another activation link has been sent to {email} If you do not received an email please check your spam box
+        /// </summary>
+        [ResourceEntry("ActivationLinkHasBeenSentAgain",
+            Value = "Another activation link has been sent to {0} If you do not received an email please check your spam box",
+            Description = "phrase: Another activation link has been sent to {email} If you do not received an email please check your spam box",
+            LastModified = "2015/03/09")]
+        public string ActivationLinkHasBeenSentAgain
+        {
+            get
+            {
+                return this["ActivationLinkHasBeenSentAgain"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Send again
+        /// </summary>
+        [ResourceEntry("SendAgain",
+            Value = "Send again",
+            Description = "phrase: Send again",
+            LastModified = "2015/03/09")]
+        public string SendAgain
+        {
+            get
+            {
+                return this["SendAgain"];
+            }
+        }
     }
 }
