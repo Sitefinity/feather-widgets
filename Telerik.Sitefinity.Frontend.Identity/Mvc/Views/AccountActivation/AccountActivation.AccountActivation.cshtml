@@ -9,7 +9,7 @@
 
         <a href="@Model.ProfilePageUrl">@Html.Resource("ProfilePageUrlTitle")</a>
     }
-    else
+    else if (Model.AttemptedActivation)
     {
         <h3>@Html.Resource("AccountActivationFail")</h3>
     }

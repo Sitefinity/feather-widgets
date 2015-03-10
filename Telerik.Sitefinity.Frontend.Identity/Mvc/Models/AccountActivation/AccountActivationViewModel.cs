@@ -28,5 +28,13 @@
         /// <c>true</c> if the account activated; otherwise, <c>false</c>.
         /// </value>
         public bool Activated { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether an account activation has been atempted.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if the account activated; otherwise, <c>false</c>.
+        /// </value>
+        public bool AttemptedActivation { get; set; }
     }
 }
