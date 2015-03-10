@@ -514,5 +514,51 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["DefaultSuccessfulRegistrationMessage"];
             }
         }
+
+        /// <summary>
+        /// phrase: Please, visit your email
+        /// </summary>
+        /// <value>Please, visit your email</value>
+        [ResourceEntry("VisitYourEmail",
+            Value = "Please, visit your email",
+            Description = "phrase: Please, visit your email",
+            LastModified = "2015/03/09")]
+        public string VisitYourEmail
+        {
+            get
+            {
+                return this["VisitYourEmail"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: An activation link has been sent to {email}
+        /// </summary>
+        [ResourceEntry("ActivationLinkHasBeenSent",
+            Value = "An activation link has been sent to {0}",
+            Description = "phrase: An activation link has been sent to {email}",
+            LastModified = "2015/03/09")]
+        public string ActivationLinkHasBeenSent
+        {
+            get
+            {
+                return this["ActivationLinkHasBeenSent"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Send again
+        /// </summary>
+        [ResourceEntry("SendAgain",
+            Value = "Send again",
+            Description = "phrase: Send again",
+            LastModified = "2015/03/09")]
+        public string SendAgain
+        {
+            get
+            {
+                return this["SendAgain"];
+            }
+        }
     }
 }

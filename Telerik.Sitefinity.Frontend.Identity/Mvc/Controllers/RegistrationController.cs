@@ -90,6 +90,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 var status = this.Model.RegisterUser(viewModel);
                 if (status == MembershipCreateStatus.Success)
                 {
+                    if (this.Model.ActivationMethod == ActivationMethod.AfterConfirmation)
+                    {
+                        this.ViewBag.ShowActivationMsg = true;
+                    }
                     if (this.Model.SuccessfulRegistrationAction == SuccessfulRegistrationAction.ShowMessage)
                     {
                         this.ViewBag.ShowSuccessfulRegistrationMsg = true;
