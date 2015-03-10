@@ -77,5 +77,11 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
         {
             return null;
         }
+
+
+        public bool ResendConfirmationEmail(string email)
+        {
+            return true;
+        }
     }
 }
