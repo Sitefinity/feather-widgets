@@ -3,6 +3,7 @@
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Services;
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
@@ -10,9 +11,11 @@
 <script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="@Model.CssClass">
-    @using (Html.BeginFormSitefinity())
+    @if (Telerik.Sitefinity.Security.SecurityManager.GetCurrentUserId() == Guid.Empty || SystemManager.IsInlineEditingMode || SystemManager.IsDesignMode)
     {
     <div>
+        using (Html.BeginFormSitefinity())
+        {
          @Html.ValidationSummary(true)
             <h3>@Html.Resource("LoginFormLogInLegendHeader")</h3>
 
@@ -50,18 +53,24 @@
                 @Html.ActionLink(Html.Resource("ForgottenPasword"), "ForgotPassword")
             }
  
-
-        @if (Model.IncorrectCredentials)
-        {
+            @if (Model.IncorrectCredentials)
+            {
             
             <p>@Html.Resource("IncorrectCredentialsMessage")</p>
-        }
+                
+            }
 
-        @if (Model.ShowRegistrationLink)
-        {
-            <strong><a href="@Model.RegisterPageUrl">@Html.Resource("LoginFormRegisterNow")</a></strong>
-        }
+            @if (Model.ShowRegistrationLink)
+            {
+                <strong><a href="@Model.RegisterPageUrl">@Html.Resource("LoginFormRegisterNow")</a></strong>
+            }
+
     </div>
+    }
+    
+    else
+    {
+        <p>@Html.Resource("AlreadyLogedIn")</p>
     }
 </div>
 

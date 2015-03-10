@@ -85,17 +85,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
-            if (SecurityManager.GetCurrentUserId() == Guid.Empty || SystemManager.IsInlineEditingMode || SystemManager.IsDesignMode)
-            {
-                var viewModel = this.Model.GetLoginFormViewModel();
-                var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
+            var viewModel = this.Model.GetLoginFormViewModel();
+            var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
 
-                return this.View(fullTemplateName, viewModel);
-            }
-            else
-            {
-                return this.Content(Res.Get<LoginFormResources>().AlreadyLogedIn);
-            }
+            return this.View(fullTemplateName, viewModel);
         }
 
         [HttpPost]
