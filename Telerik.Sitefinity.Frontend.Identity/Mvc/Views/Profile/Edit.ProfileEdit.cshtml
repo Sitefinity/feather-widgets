@@ -1,8 +1,13 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile.ProfileEditViewModel
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Utilities;
+
+@Html.Script(ScriptRef.JQuery)
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="@Model.CssClass">
     @if (Model.ShowProfileChangedMsg)
@@ -13,8 +18,8 @@
     @using (Html.BeginFormSitefinity("Index", "EditProfileForm", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div>
-            @Html.HiddenFor(u => u.DeletePicture, new { @data_sf_role = "edit-profile-delete-picture" })
-            @Html.HiddenFor(u => u.DefaultAvatarUrl, new { @data_sf_role = "edit-profile-default-avatar-url" })
+            @Html.HiddenFor(u => u.DeletePicture, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-delete-picture"} })
+            @Html.HiddenFor(u => u.DefaultAvatarUrl, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-default-avatar-url"} })
 
             <img data-sf-role="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.UserName" width="100" height="100"/>
             <a href="#" data-sf-role="edit-profile-delete-picture-button">x</a>
