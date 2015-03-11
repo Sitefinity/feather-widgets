@@ -90,7 +90,7 @@
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    var additionalFilters = JSON.parse($scope.properties.SerializedAdditionalFilters.PropertyValue);
+                    var additionalFilters = JSON.parse($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
                     $scope.additionalFilters.value = additionalFilters;
 
                     var selectedParentsIds = $scope.properties.SerializedSelectedParentsIds.PropertyValue ? JSON.parse($scope.properties.SerializedSelectedParentsIds.PropertyValue) : null;
@@ -105,12 +105,12 @@
                         $scope.selectedSortOption = 'Custom';
                     }
 
-                    var thumbnailSizeModel = JSON.parse($scope.properties.SerializedThumbnailSizeModel.PropertyValue);
+                    var thumbnailSizeModel = JSON.parse($scope.properties.SerializedThumbnailSizeModel.PropertyValue || null);
                     if (thumbnailSizeModel) {
                         $scope.thumbnailSizeModel = thumbnailSizeModel;
                     }
 
-                    var imageSizeModel = JSON.parse($scope.properties.SerializedImageSizeModel.PropertyValue);
+                    var imageSizeModel = JSON.parse($scope.properties.SerializedImageSizeModel.PropertyValue || null);
                     if (imageSizeModel) {
                         $scope.imageSizeModel = imageSizeModel;
                     }

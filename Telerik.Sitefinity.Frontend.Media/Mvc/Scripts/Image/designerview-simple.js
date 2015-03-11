@@ -44,7 +44,7 @@
         var updateProperties = function () {
             var savingPromise;
 
-            var parsedCustomSize = JSON.parse($scope.properties.CustomSize.PropertyValue);
+            var parsedCustomSize = JSON.parse($scope.properties.CustomSize.PropertyValue || null);
 
             if ($scope.openOriginalImageOnClick || $scope.properties.UseAsLink.PropertyValue === 'False') {
                 $scope.properties.LinkedPageId.PropertyValue = null;

@@ -23,7 +23,7 @@
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    var selectedRoles = $.parseJSON($scope.properties.SerializedSelectedRoles.PropertyValue);
+                    var selectedRoles = $.parseJSON($scope.properties.SerializedSelectedRoles.PropertyValue || null);
 
                     if (selectedRoles) {
                         $scope.rolesSelector.selectedItems = selectedRoles;

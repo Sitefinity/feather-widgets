@@ -10,7 +10,7 @@
 
         var populateSelecteditem = function (element, updateUrl) {
             $(element).addClass('is-selected');
-            var item = $.parseJSON($(element).attr('data-item'));
+            var item = $.parseJSON($(element).attr('data-item') || null);
             var selectedElementIndex = $(element).index();
 
             $('.js-Gallery-image').find('img').attr('src', item.MediaUrl);
