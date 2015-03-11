@@ -182,6 +182,7 @@
     <Compile Include="Mvc\StringResources\RegistrationResources.cs" />
     <Compile Include="Mvc\StringResources\LoginFormResources.cs" />
     <Compile Include="Mvc\StringResources\LoginStatusResources.cs" />
+    <Compile Include="Mvc\StringResources\RegistrationStaticResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
