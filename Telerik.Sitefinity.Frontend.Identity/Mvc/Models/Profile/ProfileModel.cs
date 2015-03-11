@@ -365,26 +365,27 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
             LibrariesManager librariesManager = LibrariesManager.GetManager(LibrariesModule.SystemLibrariesProviderName);
 
-            var image = librariesManager.CreateImage();
+            Image image;
+            using (new ElevatedModeRegion(librariesManager))
+            {
+                image = librariesManager.CreateImage();
 
-            image.Parent = this.GetProfileImagesAlbum(librariesManager);
+                image.Parent = this.GetProfileImagesAlbum(librariesManager);
 
-            image.Title = string.Format("{0}_avatar_{1}", username, Guid.NewGuid());
-            image.DateCreated = DateTime.UtcNow;
-            image.PublicationDate = DateTime.UtcNow;
-            image.LastModified = DateTime.UtcNow;
-            image.UrlName = Regex.Replace(image.Title.ToLower(), @"[^\w\-\!\$\'\(\)\=\@\d_]+", "-");
+                image.Title = string.Format("{0}_avatar_{1}", username, Guid.NewGuid());
+                image.DateCreated = DateTime.UtcNow;
+                image.PublicationDate = DateTime.UtcNow;
+                image.LastModified = DateTime.UtcNow;
+                image.UrlName = Regex.Replace(image.Title.ToLower(), @"[^\w\-\!\$\'\(\)\=\@\d_]+", "-");
 
-            //Upload the image file.
-            librariesManager.Upload(image, uploadedImage.InputStream, Path.GetExtension(uploadedImage.FileName));
+                //Upload the image file.
+                librariesManager.Upload(image, uploadedImage.InputStream, Path.GetExtension(uploadedImage.FileName));
 
-            //Save the changes.
-            librariesManager.SaveChanges();
+                librariesManager.Lifecycle.Publish(image);
 
-            //Publish the Albums item. The live version acquires new ID.
-            var bag = new Dictionary<string, string>();
-            bag.Add("ContentType", typeof(Image).FullName);
-            WorkflowManager.MessageWorkflow(image.Id, typeof(Image), null, "Publish", false, bag);
+                //Save the changes.
+                librariesManager.SaveChanges();
+            }
 
             return image;
         }
