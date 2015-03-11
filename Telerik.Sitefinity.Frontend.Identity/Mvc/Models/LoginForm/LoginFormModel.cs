@@ -21,15 +21,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
     /// </summary>
     public class LoginFormModel : ILoginFormModel
     {
-        #region Constructors
-
-        public LoginFormModel()
-        {
-            this.userManager = UserManager.GetManager(this.MembershipProvider);
-        }
-
-        #endregion
-        
         #region Properties
 
         /// <inheritDoc/>
@@ -75,29 +66,31 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <inheritDoc/>
         public Guid? RegisterRedirectPageId { get; set; }
 
-        /// <inheritDoc/>
-        public bool EnablePasswordRetrieval 
+        /// <summary>
+        /// Gets or sets a value indicating whether password retrieval is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
+        /// </value>
+        protected virtual bool EnablePasswordRetrieval 
         {
             get
             {
-                return this.userManager.EnablePasswordRetrieval;
-            }
-
-            set
-            {
+                return UserManager.GetManager(this.MembershipProvider).EnablePasswordRetrieval;
             }
         }
 
-        /// <inheritDoc/>
-        public bool EnablePasswordReset
+        /// <summary>
+        /// Gets or sets a value indicating whether password reset is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
+        /// </value>
+        protected virtual bool EnablePasswordReset
         {
             get
             {
-                return this.userManager.EnablePasswordReset;
-            }
-
-            set
-            {
+                return UserManager.GetManager(this.MembershipProvider).EnablePasswordReset;
             }
         }
 
@@ -129,7 +122,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 CssClass = this.CssClass,
                 LoginPageUrl = this.GetPageUrl(null),
-                RequiresQuestionAndAnswer = this.userManager.RequiresQuestionAndAnswer
+                RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProvider).RequiresQuestionAndAnswer
             };
         }
 
@@ -153,11 +146,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 throw new ArgumentNullException("User could not be retrieved.");
             }
 
-            using (new ElevatedModeRegion(this.userManager))
+            var manager = UserManager.GetManager(this.MembershipProvider);
+            using (new ElevatedModeRegion(manager))
             {
-                var resetPassword = this.userManager.ResetPassword(userId, answer);
-                this.userManager.ChangePassword(userId, resetPassword, newPassword);
-                this.userManager.SaveChanges();
+                var resetPassword = manager.ResetPassword(userId, answer);
+                manager.ChangePassword(userId, resetPassword, newPassword);
+                manager.SaveChanges();
             }
         }
 
@@ -276,7 +270,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         private string serviceUrl;
         private const string DefaultRealmConfig = "http://localhost";
         private string membershipProvider;
-        private readonly UserManager userManager;
 
         #endregion
     }
