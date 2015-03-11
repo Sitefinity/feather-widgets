@@ -179,6 +179,7 @@
     <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
     <Compile Include="Mvc\StringResources\ProfileResources.cs" />
     <Compile Include="Mvc\StringResources\AccountActivationResources.cs" />
+    <Compile Include="Mvc\StringResources\LoginFormStaticResources.cs" />
     <Compile Include="Mvc\StringResources\RegistrationResources.cs" />
     <Compile Include="Mvc\StringResources\LoginFormResources.cs" />
     <Compile Include="Mvc\StringResources\LoginStatusResources.cs" />
