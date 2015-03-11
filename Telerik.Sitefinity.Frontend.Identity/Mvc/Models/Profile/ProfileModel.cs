@@ -8,8 +8,10 @@ using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
 using Telerik.Sitefinity.Data.Metadata;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Model.ContentLinks;
 using Telerik.Sitefinity.Modules.Libraries;
@@ -256,7 +258,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
                     if (!viewModel.Profile.TryGetValue(prop.FieldName, out propValue) || string.IsNullOrWhiteSpace(propValue))
                     {
-                        modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format("The {0} is required!", prop.Name));
+                        modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format(Res.Get<ProfileResources>().RequiredProfileField, prop.Name));
                     }
                 }
             }

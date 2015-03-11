@@ -162,18 +162,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
-
-        private bool IsProfileDataValid(ProfileEditViewModel viewModel)
-        {
-            if (!string.IsNullOrWhiteSpace(viewModel.Profile["FirstName"]))
-            {
-                this.ModelState.AddModelError("Profile[FirstName]", "FirstName can not be empty string");
-                return false;
-            }
-
-            return true;
-        }
-
+        
         #endregion
 
         #region Private methods

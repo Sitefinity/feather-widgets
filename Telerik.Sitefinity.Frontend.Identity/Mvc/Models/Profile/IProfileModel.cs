@@ -127,7 +127,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Validates the profile related data.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
-        /// <param name="viewModel">The modelState dictionary.</param>
+        /// <param name="modelState">The modelState dictionary.</param>
         void ValidateProfileData(ProfileEditViewModel viewModel, System.Web.Mvc.ModelStateDictionary modelState);
     }
 }

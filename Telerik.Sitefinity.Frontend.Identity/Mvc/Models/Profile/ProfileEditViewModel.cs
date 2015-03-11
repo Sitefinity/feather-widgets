@@ -74,7 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// The repeat password.
         /// </value>
         [Compare("NewPassword")]
-        [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("NewPassword")]
+        [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("OldPassword")]
         public string RepeatPassword { get; set; }
 
         /// <summary>
