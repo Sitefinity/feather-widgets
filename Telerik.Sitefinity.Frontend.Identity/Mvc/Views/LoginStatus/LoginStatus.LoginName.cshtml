@@ -6,20 +6,20 @@
 @Html.Script(ScriptRef.JQuery)
 
 <div class="@Model.CssClass">
-    <div class="sf-logged-in-view" style="display: none">
+    <div data-sf-role="sf-logged-in-view" style="display: none">
         <span>@Html.Resource("LoggedAs") </span>
-        <a href="@(Model.ProfilePageUrl ?? "#")" class="sf-logged-in-name"></a>
-        <a class="sf-logged-in-log-out-btn">@Html.Resource("Logout")</a>
+        <a href="@(Model.ProfilePageUrl ?? "#")" data-sf-role="sf-logged-in-name"></a>
+        <a data-sf-role="sf-logged-in-log-out-btn">@Html.Resource("Logout")</a>
     </div>
 
-    <div class="sf-logged-out-view" style="display: none">
+    <div data-sf-role="sf-logged-out-view" style="display: none">
         <a href="@(Model.LoginPageUrl ?? "#")">@Html.Resource("Login")</a>
         <a href="@(Model.RegistrationPageUrl ?? "#")">@Html.Resource("RegisterNow")</a>
     </div>
 </div>
 
-<input type="hidden" class="sf-status-json-endpoint-url" value="@Url.Action("Status")"/>
-<input type="hidden" class="sf-logout-redirect-url" value="@Model.LogoutPageUrl"/>
-<input type="hidden" class="sf-is-design-mode-value" value="@ViewBag.IsDesignMode.ToString()" />
+<input type="hidden" data-sf-role="sf-status-json-endpoint-url" value="@Url.Action("Status")"/>
+<input type="hidden" data-sf-role="sf-logout-redirect-url" value="@Model.LogoutPageUrl"/>
+<input type="hidden" data-sf-role="sf-is-design-mode-value" value="@ViewBag.IsDesignMode.ToString()" />
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"))

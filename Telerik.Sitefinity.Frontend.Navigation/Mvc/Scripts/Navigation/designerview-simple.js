@@ -21,7 +21,7 @@
             'properties.SerializedSelectedPages.PropertyValue',
             function (newSelectedPages, oldSelectedPages) {
                 if (newSelectedPages !== oldSelectedPages || !$scope.multiPageSelector.selectedPages) {
-                    $scope.multiPageSelector.selectedPages = $.parseJSON(newSelectedPages);
+                    $scope.multiPageSelector.selectedPages = $.parseJSON(newSelectedPages || null);
                 }
             },
             true
@@ -41,7 +41,7 @@
             'properties.SerializedExternalPages.PropertyValue',
             function (newExternalPages, oldExternalPages) {
                 if (newExternalPages !== oldExternalPages || !$scope.multiPageSelector.externalPages) {
-                    var deserializedExternalPages = $.parseJSON(newExternalPages);
+                    var deserializedExternalPages = $.parseJSON(newExternalPages || null);
 
                     // Make sure all external pages are marked as external.
                     if (deserializedExternalPages) {

@@ -15,7 +15,7 @@
 
                          if ($scope.properties.SerializedSocialShareOptionsList &&
                              $scope.properties.SerializedSocialShareOptionsList.PropertyValue) {
-                             $scope.socialShareGroups = JSON.parse($scope.properties.SerializedSocialShareOptionsList.PropertyValue);
+                             $scope.socialShareGroups = JSON.parse($scope.properties.SerializedSocialShareOptionsList.PropertyValue || null);
                          }
                      }
                  },
