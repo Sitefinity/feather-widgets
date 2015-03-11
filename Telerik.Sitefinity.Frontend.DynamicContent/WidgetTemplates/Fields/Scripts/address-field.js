@@ -45,7 +45,7 @@
         var mapWrappers = jQuery('.addressMapWrp');
         var i, addressValue, mapContainer, latlng;
         for (i = 0 ; i < mapWrappers.length; i++) {
-            addressValue = $.parseJSON(jQuery(mapWrappers[i]).find('.addressValueInput').attr('value'));
+            addressValue = $.parseJSON(jQuery(mapWrappers[i]).find('.addressValueInput').attr('value') || null);
             mapContainer = jQuery(mapWrappers[i]).find('.mapContainer');
 
             if (mapContainer.gmap('get', 'map') != 'object') {

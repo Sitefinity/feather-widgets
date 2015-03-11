@@ -31,7 +31,7 @@
 		    //sends request for creating new content block item
 		    var publish = function (title, content, providerName) {
 			    var deferred = $q.defer(),
-			        blankItem = $.parseJSON(serverData.get('blankContentItem')),
+			        blankItem = $.parseJSON(serverData.get('blankContentItem') || null),
 			        putUrl = getServiceUrl() + blankItem.Id + '/';
 
 			    if (providerName)

@@ -9,7 +9,7 @@
         $scope.itemSelector = { selectedItemsIds: [] };
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.itemType = serverData.get('itemType');
-        $scope.parentTypes = $.parseJSON(serverData.get('parentTypes'));
+        $scope.parentTypes = $.parseJSON(serverData.get('parentTypes') || null);
 
         $scope.$watch(
             'additionalFilters.value',
@@ -78,15 +78,15 @@
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
 
-                    var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue);
+                    var additionalFilters = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
                     $scope.additionalFilters.value = additionalFilters;
 
-                    var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue);
+                    var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
                     if (selectedItemsIds) {
                         $scope.itemSelector.selectedItemsIds = selectedItemsIds;
                     }
 
-                    var selectedParentsIds = $.parseJSON($scope.properties.SerializedSelectedParentsIds.PropertyValue);
+                    var selectedParentsIds = $.parseJSON($scope.properties.SerializedSelectedParentsIds.PropertyValue || null);
                     if (selectedParentsIds) {
                         $scope.parentSelector.selectedItemsIds = selectedParentsIds;
                     }
