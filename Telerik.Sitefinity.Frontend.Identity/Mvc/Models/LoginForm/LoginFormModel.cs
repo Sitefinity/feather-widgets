@@ -174,7 +174,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             if (user != null)
             {
-                if (!UserManager.ShouldSendPasswordEmail(user, this.MembershipProvider.GetType()))
+                if (!UserManager.ShouldSendPasswordEmail(user, manager.Provider.GetType()))
                 {
                     viewModel.Error = "Not supported";
                 }
