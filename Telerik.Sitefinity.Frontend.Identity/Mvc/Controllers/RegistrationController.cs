@@ -109,6 +109,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
+            viewModel = this.Model.GetViewModel();
+
+            this.ViewBag.ShowSuccessfulRegistrationMsg = false;
+            this.ViewBag.Error = this.Model.GetError();
+
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             return this.View(fullTemplateName, viewModel);
         }
