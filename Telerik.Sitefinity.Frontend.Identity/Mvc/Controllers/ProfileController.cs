@@ -137,6 +137,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ProfileEditViewModel viewModel)
         {
+            this.Model.ValidateProfileData(viewModel, this.ModelState);
+
             if (ModelState.IsValid)
             {
                 this.Model.InitializeUserRelatedData(viewModel);
@@ -159,6 +161,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
+        }
+
+        private bool IsProfileDataValid(ProfileEditViewModel viewModel)
+        {
+            if (!string.IsNullOrWhiteSpace(viewModel.Profile["FirstName"]))
+            {
+                this.ModelState.AddModelError("Profile[FirstName]", "FirstName can not be empty string");
+                return false;
+            }
+
+            return true;
         }
 
         #endregion

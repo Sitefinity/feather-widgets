@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
 
@@ -52,6 +53,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <value>
         /// The old password.
         /// </value>
+        [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("NewPassword")]
+        [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("RepeatPassword")]
         public string OldPassword { get; set; }
 
         /// <summary>
@@ -60,6 +63,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <value>
         /// The new password.
         /// </value>
+        [Compare("RepeatPassword")]
+        [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("OldPassword")]
         public string NewPassword { get; set; }
 
         /// <summary>
@@ -68,6 +73,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// <value>
         /// The repeat password.
         /// </value>
+        [Compare("NewPassword")]
+        [Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExist("OldPassword")]
         public string RepeatPassword { get; set; }
 
         /// <summary>

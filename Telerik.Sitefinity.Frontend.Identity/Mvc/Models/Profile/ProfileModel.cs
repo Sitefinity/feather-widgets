@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
+using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
@@ -99,7 +100,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
                 Guid userId = this.GetUserId();
                 UserProfileManager profileManager = UserProfileManager.GetManager(this.ProfileProvider);
-
+                
                 if (userId != Guid.Empty)
                 {
                     this.selectedUserProfiles = profileManager.GetUserProfiles(userId).ToList();
@@ -239,6 +240,28 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             model.SelectedUserProfiles = UserProfileManager.GetManager(this.ProfileProvider).GetUserProfiles(model.User).Select(p => new CustomProfileViewModel(p)).ToList();
         }
 
+        /// <inheritDoc/>
+        public virtual void ValidateProfileData(ProfileEditViewModel viewModel, System.Web.Mvc.ModelStateDictionary modelState)
+        {
+            List<ProfileBindingsContract> profileBindingsList = this.GetDeserializedProfileBindings();
+
+            foreach (var profile in this.SelectedUserProfiles)
+            {
+                var profileBindings = profileBindingsList.Single(p=>p.ProfileType == profile.GetType().FullName);
+                var requiredProperties =  profileBindings.Properties.Where(p=> p.Required);
+
+                foreach (var prop in requiredProperties)
+                {
+                    string propValue;
+
+                    if (!viewModel.Profile.TryGetValue(prop.FieldName, out propValue) || string.IsNullOrWhiteSpace(propValue))
+                    {
+                        modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format("The {0} is required!", prop.Name));
+                    }
+                }
+            }
+        }
+        
         #endregion
 
         #region Private Methods
@@ -250,7 +273,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         protected virtual IDictionary<string, string> GetProfileFieldValues()
         {
             IDictionary<string, string> profileFields = new Dictionary<string, string>();
-            var bindingContract = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
+            var bindingContract = this.GetDeserializedProfileBindings();
 
             foreach (var profileBinding in bindingContract)
             {
@@ -291,6 +314,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                     }
                 }
             }
+        }
+
+        private List<ProfileBindingsContract> GetDeserializedProfileBindings()
+        {
+            return new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
         }
 
         /// <summary>
@@ -431,7 +459,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         private string profileProvider;
         private string membrshipProvider;
         private IList<UserProfile> selectedUserProfiles;
-        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName' },{ Name: 'LastName', FieldName: 'LastName' }, {Name:'About', FieldName:'About'} ]}]";
+        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName', Required: true },{ Name: 'LastName', FieldName: 'LastName', Required: true }, {Name:'About', FieldName:'About' } ]}]";
 
         private const string ProfileImagesAlbumTitle = "Profile images";
         private const string ProfileImagesAlbumUrl = "sys-profile-images";
