@@ -16,32 +16,54 @@
             @Html.HiddenFor(u => u.DeletePicture, new { @data_sf_role = "edit-profile-delete-picture" })
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new { @data_sf_role = "edit-profile-default-avatar-url" })
 
-            <img data-sf-role="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.UserName" width="100" height="100" />
-            <a href="#" data-sf-role="edit-profile-delete-picture-button">x</a>
-            <input type="file" data-sf-role="edit-profile-upload-picture-button" accept="image/*" name="UploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
+            <img class="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.UserName" width="100" height="100"/>
+            <a href="#" class="edit-profile-delete-picture-button">x</a>
+            <input type="file" class="edit-profile-upload-picture-button" accept="image/*" name="UploadedImage" value="@Html.Resource("EditProfileUploadImage")" />
+        </div>  
+        
+        <div>
+             <label>
+                 @Html.Resource("EditProfileFirstName")
+                 @Html.EditorFor(u => u.Profile["FirstName"])
+             </label>
+        </div>
+        <div>
+            <label>
+                @Html.Resource("EditProfileLastName")
+                @Html.EditorFor(u => u.Profile["LastName"])
+            </label>
         </div>
 
-        <label>@Html.Resource("EditProfileFirstName")</label>
-        <div class="editor-field">@Html.EditorFor(u => u.Profile["FirstName"])</div>
+        <div>
+            <label>
+                @Html.Resource("EditProfileAbout")
+                 @Html.EditorFor(u => u.Profile["About"])
+            </label>
+        </div>
+        
+        <a href="#" class="edit-profile-change-password-button">@Html.Resource("EditProfileChangePasswordButton")</a>
+        <div class="edit-profile-change-password-holder">
 
-        <label>@Html.Resource("EditProfileLastName")</label>
-        <div class="editor-field">@Html.EditorFor(u => u.Profile["LastName"])</div>
-
-        <label>@Html.Resource("EditProfileAbout")</label>
-        <div class="editor-field">@Html.EditorFor(u => u.Profile["About"])</div>
-
-        <a href="#" data-sf-role="edit-profile-change-password-button">@Html.Resource("EditProfileChangePasswordButton")</a>
-        <div data-sf-role="edit-profile-change-password-holder">
             <h4>@Html.Resource("EditProfileEditChangePasswordHeader")</h4>
-
-            <label>@Html.Resource("EditProfileOldPassword")</label>
-            <div class="editor-field">@Html.PasswordFor(u => u.OldPassword)</div>
-
-            <label>@Html.Resource("EditProfileNewPassword")</label>
-            <div class="editor-field">@Html.PasswordFor(u => u.NewPassword)</div>
-
-            <label>@Html.Resource("EditProfileRepeatPassword")</label>
-            <div class="editor-field">@Html.PasswordFor(u => u.RepeatPassword)</div>
+            
+            <div>
+                <label>
+                    @Html.Resource("EditProfileOldPassword")
+                    @Html.PasswordFor(u => u.OldPassword)
+                </label>
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("EditProfileNewPassword")
+                    @Html.PasswordFor(u => u.NewPassword)
+                </label>
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("EditProfileRepeatPassword")
+                    @Html.PasswordFor(u => u.RepeatPassword)
+                </label>
+            </div>
         </div>
 
         <div>
