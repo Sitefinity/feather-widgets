@@ -2,6 +2,7 @@
     $(function () {
         $('[data-sf-role="login-status-button"]').on('click', function () {
             location.href = $('[data-sf-role="sf-login-redirect-url"]').val() || '#';
+            return false;
         });
 
         if ($('[data-sf-role="sf-is-design-mode-value"]').val().toLowerCase() !== 'true') {
