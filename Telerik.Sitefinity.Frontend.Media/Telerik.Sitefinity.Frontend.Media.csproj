@@ -178,9 +178,6 @@
     <EmbeddedResource Include="Mvc\Views\ImageGallery\List.ImageGallery.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\Detail.DetailPage.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\List.OverlayGallery.cshtml" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Mvc\Views\ImageGallery\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\List.SimpleList.cshtml" />

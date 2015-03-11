@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -17,8 +18,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// The name of the user.
         /// </value>
-        [Required(ErrorMessage = "User name is required!")]
-        [Display(Name = "User name")]
+        [Required]
+        [Display(Name = "Username", ResourceType = typeof(LoginFormStaticResources))]
         public string UserName { get; set; }
 
         /// <summary>
@@ -27,7 +28,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// The password.
         /// </value>
-        [Required(ErrorMessage = "Password is required!")]
+        [Required]
+        [Display(Name = "Password", ResourceType = typeof(LoginFormStaticResources))]
         public string Password { get; set; }
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// <c>true</c> if login settings should be persisted; otherwise, <c>false</c>.
         /// </value>
-        [Display(Name="Remember me")]
+        [Display(Name = "RememberMe", ResourceType = typeof(LoginFormStaticResources))]
         public bool RememberMe
         {
             get

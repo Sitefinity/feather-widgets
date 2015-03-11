@@ -500,13 +500,29 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Success! Thanks for filling out our form!
+        /// phrase: Thank you!
         /// </summary>
-        /// <value>Success! Thanks for filling out our form!</value>
+        /// <value>Thank you!</value>
+        [ResourceEntry("ThankYou",
+            Value = "Thank you!",
+            Description = "Thank you!",
+            LastModified = "2015/03/10")]
+        public string ThankYou
+        {
+            get
+            {
+                return this["ThankYou"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: You are successfully registered and logged in.
+        /// </summary>
+        /// <value>You are successfully registered and logged in.</value>
         [ResourceEntry("DefaultSuccessfulRegistrationMessage",
-            Value = "Success! Thanks for filling out our form!",
-            Description = "phrase: Success! Thanks for filling out our form!",
-            LastModified = "2015/03/04")]
+            Value = "You are successfully registered and logged in.",
+            Description = "You are successfully registered and logged in.",
+            LastModified = "2015/03/10")]
         public string DefaultSuccessfulRegistrationMessage
         {
             get

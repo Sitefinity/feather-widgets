@@ -111,14 +111,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 else
                 {
                     var redirectUrl = this.Model.GetPageUrl(this.Model.LoginRedirectPageId);
-                    typeof(SFClaimsAuthenticationManager).GetMethod("ProcessRejectedUser", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { this.ControllerContext.HttpContext, redirectUrl });
+                    SFClaimsAuthenticationManager.ProcessRejectedUser(this.ControllerContext.HttpContext, redirectUrl);
 
                     return this.Redirect(redirectUrl);
                 }
             }
 
+            var viewModel = this.Model.GetLoginFormViewModel();
+            viewModel.IncorrectCredentials = model.IncorrectCredentials;
+            viewModel.UserName = model.UserName;
+            viewModel.RememberMe = model.RememberMe;
+
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
-            return this.View(fullTemplateName, model);
+            return this.View(fullTemplateName, viewModel);
         }
 
         public ActionResult ForgotPassword(bool emailSent = false, string error = null)

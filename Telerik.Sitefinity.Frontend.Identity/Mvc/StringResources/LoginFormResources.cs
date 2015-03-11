@@ -233,7 +233,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         [ResourceEntry("ResetPasswordRepeatNewPassword",
             Value = "Repeat new password",
             Description = "phrase : Repeat new password",
-            LastModified = "2015/02/27")]
+            LastModified = "2015/03/10")]
         public string ResetPasswordRepeatNewPassword
         {
             get
@@ -269,6 +269,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["ForgotPasswordHeader"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : Enter your login email address and you will receive email with a link to reset your password.
+        /// </summary>
+        [ResourceEntry("EnterLoginEmailAddress",
+            Value = "Enter your login email address and you will receive email with a link to reset your password.",
+            Description = "phrase : Enter your login email address and you will receive email with a link to reset your password.",
+            LastModified = "2015/03/11")]
+        public string EnterLoginEmailAddress
+        {
+            get
+            {
+                return this["EnterLoginEmailAddress"];
             }
         }
 

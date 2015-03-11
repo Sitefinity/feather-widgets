@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -57,6 +58,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// The name of the user.
         /// </value>
         [Required]
+        [Display(Name = "Username", ResourceType = typeof(RegistrationStaticResources))]
         public string UserName { get; set; }
 
         /// <summary>
@@ -66,6 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// The password.
         /// </value>
         [Required]
+        [Display(Name = "Password", ResourceType = typeof(RegistrationStaticResources))]
         public string Password { get; set; }
 
         /// <summary>
@@ -75,6 +78,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// The retyped password.
         /// </value>
         [Compare("Password")]
+        [Display(Name = "ReTypePassword", ResourceType = typeof(RegistrationStaticResources))]
         public string ReTypePassword { get; set; }
 
         /// <summary>
@@ -83,7 +87,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The email.
         /// </value>
-        [Required, DataType(DataType.EmailAddress)]
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email", ResourceType = typeof(RegistrationStaticResources))]
         public string Email { get; set; }
 
         /// <summary>
