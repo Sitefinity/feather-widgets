@@ -111,7 +111,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 else
                 {
                     var redirectUrl = this.Model.GetPageUrl(this.Model.LoginRedirectPageId);
-                    typeof(SFClaimsAuthenticationManager).GetMethod("ProcessRejectedUser", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { this.ControllerContext.HttpContext, redirectUrl });
+                    typeof(SFClaimsAuthenticationManager).GetMethod("ProcessRejectedUser", BindingFlags.Static | BindingFlags.Public).Invoke(null, new object[] { this.ControllerContext.HttpContext, redirectUrl });
 
                     return this.Redirect(redirectUrl);
                 }
