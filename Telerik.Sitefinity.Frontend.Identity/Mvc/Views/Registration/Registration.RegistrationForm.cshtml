@@ -47,22 +47,22 @@
                     @Html.Editor("Profile[LastName]")
                 </li>
                 <li>
-                    @Html.LabelFor(m => m.Email, Html.Resource("Email"))
+                    @Html.LabelFor(m => m.Email)
                     @Html.EditorFor(m => m.Email)
                     @Html.ValidationMessageFor(m => m.Email)
                 </li>
                 <li>
-                    @Html.LabelFor(m => m.UserName, Html.Resource("UserName"))
+                    @Html.LabelFor(m => m.UserName)
                     @Html.EditorFor(m => m.UserName)
                     @Html.ValidationMessageFor(m => m.UserName)
                 </li>
                 <li>
-                    @Html.LabelFor(m => m.Password, Html.Resource("Password"))
+                    @Html.LabelFor(m => m.Password)
                     @Html.PasswordFor(m => m.Password)
                     @Html.ValidationMessageFor(m => m.Password)
                 </li>
                 <li>
-                    @Html.LabelFor(m => m.ReTypePassword, Html.Resource("ReTypePassword"))
+                    @Html.LabelFor(m => m.ReTypePassword)
                     @Html.PasswordFor(m => m.ReTypePassword)
                     @Html.ValidationMessageFor(m => m.ReTypePassword)
                 </li>
