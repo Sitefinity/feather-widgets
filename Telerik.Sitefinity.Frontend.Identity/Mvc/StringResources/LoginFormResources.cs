@@ -273,6 +273,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase : Enter your login email address and you will receive email with a link to reset your password.
+        /// </summary>
+        [ResourceEntry("EnterLoginEmailAddress",
+            Value = "Enter your login email address and you will receive email with a link to reset your password.",
+            Description = "phrase : Enter your login email address and you will receive email with a link to reset your password.",
+            LastModified = "2015/03/11")]
+        public string EnterLoginEmailAddress
+        {
+            get
+            {
+                return this["EnterLoginEmailAddress"];
+            }
+        }
+
+        /// <summary>
         /// phrase : Email
         /// </summary>
         [ResourceEntry("ForgotPasswordEmail",
