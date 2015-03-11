@@ -68,22 +68,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         Guid? RegisterRedirectPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether password retrieval is enabled.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
-        /// </value>
-        bool EnablePasswordRetrieval { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether password reset is enabled.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
-        /// </value>
-        bool EnablePasswordReset { get; set; }
-        
-        /// <summary>
         /// Gets the login form view model.
         /// </summary>
         /// <returns>
