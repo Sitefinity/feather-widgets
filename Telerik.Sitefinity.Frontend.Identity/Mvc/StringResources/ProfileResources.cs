@@ -468,5 +468,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ChangesAreSaved"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: The {0} profile field is required!
+        /// </summary>
+        [ResourceEntry("RequiredProfileField",
+            Value = "The {0} profile field is required!",
+            Description = "phrase : The {0} profile field is required!",
+            LastModified = "2015/03/11")]
+        public string RequiredProfileField
+        {
+            get
+            {
+                return this["RequiredProfileField"];
+            }
+        }
     }
 }

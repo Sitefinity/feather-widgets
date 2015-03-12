@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
@@ -111,7 +112,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// </returns>
         private ILoginStatusModel InitializeModel()
         {
-            return ControllerModelFactory.GetModel<ILoginStatusModel>(this.GetType());
+            var parameters = new Dictionary<string, object>() 
+            {
+                { "currentPageUrl", this.GetCurrentPageUrl() }
+            };
+
+            return ControllerModelFactory.GetModel<ILoginStatusModel>(this.GetType(), parameters);
         }
 
         #endregion

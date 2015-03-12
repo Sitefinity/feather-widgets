@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -44,6 +42,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         string MembershipProvider { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether password retrieval is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordRetrieval { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether password reset is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordReset { get; }
+
+        /// <summary>
         /// Gets or sets the css class.
         /// </summary>
         /// <value>
@@ -68,12 +82,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         Guid? RegisterRedirectPageId { get; set; }
 
         /// <summary>
-        /// Gets the login form view model.
+        /// Initializes the login view model.
         /// </summary>
-        /// <returns>
-        /// An instance of <see cref="LoginFormViewModel"/>
-        /// </returns>
-        LoginFormViewModel GetLoginFormViewModel();
+        /// <param name="viewModel">The view model.</param>
+        void InitializeLoginViewModel(LoginFormViewModel viewModel);
 
         /// <summary>
         /// Gets the login form view model.

@@ -77,9 +77,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Search
         public void ApplyCssClasses(string cssClassName)
         {
             this.EM.Search.SearchBoxWidgetEditScreen.CssClassesLabel.AssertIsPresent("Css classes label");
-            HtmlInputText CssClassesTextbox = this.EM.Search.SearchBoxWidgetEditScreen.CssClassesTextbox.AssertIsPresent("Css classes textbox");
-            CssClassesTextbox.Text = cssClassName;
-            CssClassesTextbox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            HtmlInputText cssClassesTextbox = this.EM.Search.SearchBoxWidgetEditScreen.CssClassesTextbox.AssertIsPresent("Css classes textbox");
+            cssClassesTextbox.Text = cssClassName;
+            cssClassesTextbox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
     }
 }

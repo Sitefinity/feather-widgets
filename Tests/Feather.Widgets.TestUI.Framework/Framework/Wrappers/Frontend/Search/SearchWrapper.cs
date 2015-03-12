@@ -38,12 +38,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <summary>
         /// Click search button
         /// </summary>
-        public void ClickSearchButton()
+        /// <param name="resultPageUrl">results page URL</param>
+        public void ClickSearchButton(string resultsPageUrl)
         {
             HtmlButton searchButton = this.EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
             
             searchButton.Click();
             ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForUrl(resultsPageUrl);
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
 
@@ -63,12 +65,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <summary>
         /// Click search link
         /// </summary>
-        public void ClickSearchLink()
+        /// <param name="resultPageUrl">results page URL</param>
+        public void ClickSearchLink(string resultsPageUrl)
         {
             HtmlAnchor searchButton = this.EM.Search.SearchFrontend.SearchLink.AssertIsPresent("Search link");
 
             searchButton.Click();
             ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForUrl(resultsPageUrl);
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
 

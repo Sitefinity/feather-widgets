@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.Security;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
@@ -36,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 this.serviceUrl = value;
             }
         }
-        
+
         /// <inheritDoc/>
         public bool AllowResetPassword { get; set; }
 
@@ -67,12 +61,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public Guid? RegisterRedirectPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether password retrieval is enabled.
+        /// Gets a value indicating whether password retrieval is enabled.
         /// </summary>
         /// <value>
         /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
         /// </value>
-        protected virtual bool EnablePasswordRetrieval 
+        public virtual bool EnablePasswordRetrieval
         {
             get
             {
@@ -81,12 +75,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether password reset is enabled.
+        /// Gets a value indicating whether password reset is enabled.
         /// </summary>
         /// <value>
         /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
         /// </value>
-        protected virtual bool EnablePasswordReset
+        public virtual bool EnablePasswordReset
         {
             get
             {
@@ -94,25 +88,25 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
         }
 
-        #endregion 
+        #endregion
 
         #region Public Methods
 
         /// <inheritDoc/>
-        public LoginFormViewModel GetLoginFormViewModel()
+        public void InitializeLoginViewModel(LoginFormViewModel viewModel)
         {
-            return new LoginFormViewModel() 
+            if (viewModel != null)
             {
-                ServiceUrl = this.ServiceUrl,
-                MembershipProvider = this.MembershipProvider,
-                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
-                RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId),
-                ShowRegistrationLink = this.RegisterRedirectPageId.HasValue,
-                ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval),
-                Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
-                CssClass = this.CssClass,
-                ShowRememberMe = this.ShowRememberMe
-            };
+                viewModel.ServiceUrl = this.ServiceUrl;
+                viewModel.MembershipProvider = this.MembershipProvider;
+                viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
+                viewModel.RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId);
+                viewModel.ShowRegistrationLink = this.RegisterRedirectPageId.HasValue;
+                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);
+                viewModel.Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm();
+                viewModel.CssClass = this.CssClass;
+                viewModel.ShowRememberMe = this.ShowRememberMe;
+            }
         }
 
         /// <inheritDoc/>
@@ -198,7 +192,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             return viewModel;
         }
-        
+
         /// <inheritDoc/>
         public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
         {
@@ -214,7 +208,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             return null;
         }
-        
+
         /// <inheritDoc/>
         public string GetPageUrl(Guid? pageId)
         {
@@ -249,7 +243,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 return LoginFormModel.DefaultRealmConfig;
             }
         }
-        
+
         /// <summary>
         /// Inners the get user identifier.
         /// </summary>
