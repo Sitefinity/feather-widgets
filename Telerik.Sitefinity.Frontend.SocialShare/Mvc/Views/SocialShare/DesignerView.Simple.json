@@ -3,5 +3,5 @@
 	"scripts": [
 		"Mvc/Scripts/Angular/angular-resource.min.js"
 	],
-	components : ["sf-expander", "sf-loading", "sf-style-dropdown"]
+	"components" : ["sf-expander", "sf-loading", "sf-style-dropdown"]
 }

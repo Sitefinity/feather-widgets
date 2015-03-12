@@ -3,5 +3,5 @@
 	"scripts": [
 		"client-components/selectors/search/sf-search-service.js"
 	],
-	components : ["sf-page-selector", "sf-expander", "sf-loading", "sf-style-dropdown"]
+	"components" : ["sf-page-selector", "sf-expander", "sf-loading", "sf-style-dropdown"]
 }
