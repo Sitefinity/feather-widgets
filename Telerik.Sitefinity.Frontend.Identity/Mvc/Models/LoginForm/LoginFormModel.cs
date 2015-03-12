@@ -36,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 this.serviceUrl = value;
             }
         }
-        
+
         /// <inheritDoc/>
         public bool AllowResetPassword { get; set; }
 
@@ -72,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <value>
         /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
         /// </value>
-        protected virtual bool EnablePasswordRetrieval 
+        protected virtual bool EnablePasswordRetrieval
         {
             get
             {
@@ -94,25 +94,25 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
         }
 
-        #endregion 
+        #endregion
 
         #region Public Methods
 
         /// <inheritDoc/>
-        public LoginFormViewModel GetLoginFormViewModel()
+        public void InitializeLoginViewModel(LoginFormViewModel viewModel)
         {
-            return new LoginFormViewModel() 
+            if (viewModel != null)
             {
-                ServiceUrl = this.ServiceUrl,
-                MembershipProvider = this.MembershipProvider,
-                RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId),
-                RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId),
-                ShowRegistrationLink = this.RegisterRedirectPageId.HasValue,
-                ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval),
-                Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm(),
-                CssClass = this.CssClass,
-                ShowRememberMe = this.ShowRememberMe
-            };
+                viewModel.ServiceUrl = this.ServiceUrl;
+                viewModel.MembershipProvider = this.MembershipProvider;
+                viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
+                viewModel.RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId);
+                viewModel.ShowRegistrationLink = this.RegisterRedirectPageId.HasValue;
+                viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);
+                viewModel.Realm = SitefinityClaimsAuthenticationModule.Current.GetRealm();
+                viewModel.CssClass = this.CssClass;
+                viewModel.ShowRememberMe = this.ShowRememberMe;
+            }
         }
 
         /// <inheritDoc/>
@@ -198,7 +198,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             return viewModel;
         }
-        
+
         /// <inheritDoc/>
         public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
         {
@@ -214,7 +214,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             return null;
         }
-        
+
         /// <inheritDoc/>
         public string GetPageUrl(Guid? pageId)
         {
@@ -249,7 +249,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 return LoginFormModel.DefaultRealmConfig;
             }
         }
-        
+
         /// <summary>
         /// Inners the get user identifier.
         /// </summary>

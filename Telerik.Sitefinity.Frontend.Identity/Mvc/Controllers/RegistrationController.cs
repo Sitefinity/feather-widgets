@@ -67,7 +67,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult Index()
         {
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
-            var viewModel = this.Model.GetViewModel();
+
+            var viewModel = new RegistrationViewModel();
+            this.Model.InitializeViewModel(viewModel);
 
             this.ViewBag.ShowSuccessfulRegistrationMsg = false;
             this.ViewBag.Error = this.Model.GetError();
@@ -109,10 +111,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
-            viewModel = this.Model.GetViewModel();
-
-            this.ViewBag.ShowSuccessfulRegistrationMsg = false;
-            this.ViewBag.Error = this.Model.GetError();
+            this.Model.InitializeViewModel(viewModel);
 
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
             return this.View(fullTemplateName, viewModel);
