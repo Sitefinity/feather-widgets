@@ -7,8 +7,11 @@ using System.Web;
 using System.Web.Script.Serialization;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
+using Telerik.Sitefinity.Data.Metadata;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Model.ContentLinks;
 using Telerik.Sitefinity.Modules.Libraries;
@@ -99,7 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
                 Guid userId = this.GetUserId();
                 UserProfileManager profileManager = UserProfileManager.GetManager(this.ProfileProvider);
-
+                
                 if (userId != Guid.Empty)
                 {
                     this.selectedUserProfiles = profileManager.GetUserProfiles(userId).ToList();
@@ -231,14 +234,36 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             model.UserName = model.User.UserName;
             Libraries.Model.Image avatarImage;
 
-            var displayNameBuilder = new UserDisplayNameBuilder();
+            var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
             model.DisplayName = displayNameBuilder.GetUserDisplayName(model.User.Id);
             model.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(model.User.Id, out avatarImage);
-            model.DefaultAvatarUrl = new SitefinityUserDisplayNameBuilder().GetAvatarImageUrl(Guid.Empty, out avatarImage);
+            model.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
 
             model.SelectedUserProfiles = UserProfileManager.GetManager(this.ProfileProvider).GetUserProfiles(model.User).Select(p => new CustomProfileViewModel(p)).ToList();
         }
 
+        /// <inheritDoc/>
+        public virtual void ValidateProfileData(ProfileEditViewModel viewModel, System.Web.Mvc.ModelStateDictionary modelState)
+        {
+            List<ProfileBindingsContract> profileBindingsList = this.GetDeserializedProfileBindings();
+
+            foreach (var profile in this.SelectedUserProfiles)
+            {
+                var profileBindings = profileBindingsList.Single(p=>p.ProfileType == profile.GetType().FullName);
+                var requiredProperties =  profileBindings.Properties.Where(p=> p.Required);
+
+                foreach (var prop in requiredProperties)
+                {
+                    string propValue;
+
+                    if (!viewModel.Profile.TryGetValue(prop.FieldName, out propValue) || string.IsNullOrWhiteSpace(propValue))
+                    {
+                        modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format(Res.Get<ProfileResources>().RequiredProfileField, prop.Name));
+                    }
+                }
+            }
+        }
+        
         #endregion
 
         #region Private Methods
@@ -250,7 +275,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         protected virtual IDictionary<string, string> GetProfileFieldValues()
         {
             IDictionary<string, string> profileFields = new Dictionary<string, string>();
-            var bindingContract = new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
+            var bindingContract = this.GetDeserializedProfileBindings();
 
             foreach (var profileBinding in bindingContract)
             {
@@ -291,6 +316,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                     }
                 }
             }
+        }
+
+        private List<ProfileBindingsContract> GetDeserializedProfileBindings()
+        {
+            return new JavaScriptSerializer().Deserialize<List<ProfileBindingsContract>>(this.ProfileBindings);
         }
 
         /// <summary>
@@ -349,6 +379,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                     ContentLink avatarLink = ContentLinksExtensions.CreateContentLink(profile, image);
 
                     profile.Avatar = avatarLink;
+
+                    // Setting the Avatar does not modify the actual Profile persistent object and cache entries that depend on the Profile are not invalidated.
+                    // By setting another property of the Profile we force all cache entries that depend ot this profile to be invalidated.
+                    profile.LastModified = DateTime.UtcNow;
                 }
             }
         }
@@ -432,7 +466,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         private string profileProvider;
         private string membrshipProvider;
         private IList<UserProfile> selectedUserProfiles;
-        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName' },{ Name: 'LastName', FieldName: 'LastName' }, {Name:'About', FieldName:'About'} ]}]";
+        private string profileBindings = "[{ProfileType: 'Telerik.Sitefinity.Security.Model.SitefinityProfile',Properties: [{ Name: 'FirstName', FieldName: 'FirstName', Required: true },{ Name: 'LastName', FieldName: 'LastName', Required: true }, {Name:'About', FieldName:'About' } ]}]";
 
         private const string ProfileImagesAlbumTitle = "Profile images";
         private const string ProfileImagesAlbumUrl = "sys-profile-images";

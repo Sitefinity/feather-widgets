@@ -1,9 +1,10 @@
 ﻿(function ($) {
-    var url = $('.sf-resend-confirmation-endpoint-url').val();
-    $(".sendAgainLink").bind("click", function (e) {
+
+    var url = $("[data-sf-role='sf-resend-confirmation-endpoint-url']").val();
+    $("[data-sf-role='sendAgainLink']").bind("click", function (e) {
         $.get(url, function (data) {
             if (JSON.parse(data)) {
-                $(".confirmationResendInfo").show();
+                $("[data-sf-role='confirmationResendInfo']").show();
             }
         });
     });

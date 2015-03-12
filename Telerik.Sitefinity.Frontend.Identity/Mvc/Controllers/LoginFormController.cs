@@ -117,8 +117,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
+            var viewModel = this.Model.GetLoginFormViewModel();
+            viewModel.IncorrectCredentials = model.IncorrectCredentials;
+            viewModel.UserName = model.UserName;
+            viewModel.RememberMe = model.RememberMe;
+
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
-            return this.View(fullTemplateName, model);
+            return this.View(fullTemplateName, viewModel);
         }
 
         public ActionResult ForgotPassword(bool emailSent = false, string error = null)
