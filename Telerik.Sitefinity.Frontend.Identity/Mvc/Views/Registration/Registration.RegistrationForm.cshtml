@@ -43,24 +43,26 @@
             <div>
                 <label>
                     @Html.Resource("FirstName")
-                    @Html.Editor("Profile[FirstName]")
+                    @Html.TextBoxFor("Profile[FirstName]")
                 </label>
             </div>
             <div>
-                @Html.Resource("LastName")
-                @Html.Editor("Profile[LastName]")
+                <label>
+                    @Html.Resource("LastName")
+                    @Html.TextBoxFor("Profile[LastName]")
+                </label>
             </div>
             <div>
                 <label>
                     @Html.Resource("Email")
-                    @Html.EditorFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email)
                 </label>
                 @Html.ValidationMessageFor(m => m.Email)
             </div>
             <div>
                 <label>
                     @Html.Resource("UserName")
-                    @Html.EditorFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
                 </label>
                 @Html.ValidationMessageFor(m => m.UserName)
             </div>
