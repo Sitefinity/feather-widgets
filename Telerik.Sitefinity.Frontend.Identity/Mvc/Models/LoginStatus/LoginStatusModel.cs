@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
 using System.Web;
-using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-using Telerik.Sitefinity.Localization.UrlLocalizationStrategies;
-using Telerik.Sitefinity.Modules.Pages;
-using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
-using Telerik.Sitefinity.Web.Events;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 {
@@ -21,6 +14,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
     /// </summary>
     public class LoginStatusModel : ILoginStatusModel
     {
+        #region Construction
+        public LoginStatusModel(string currentPageUrl)
+        {
+            this.currentPageUrl = currentPageUrl;
+        }
+        #endregion
+
         #region Properties
 
         /// <inheritdoc />
@@ -95,10 +95,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
         /// <inheritdoc />
         public virtual string GetLogoutPageUrl()
         {
-            var logoutRedirectUrl = this.ExternalLogoutUrl;
-            if (string.IsNullOrEmpty(logoutRedirectUrl) && this.LogoutPageId.HasValue)
+            string logoutRedirectUrl = this.ExternalLogoutUrl;
+
+            if (string.IsNullOrEmpty(logoutRedirectUrl))
             {
-                logoutRedirectUrl = HyperLinkHelpers.GetFullPageUrl(this.LogoutPageId.Value);
+                if (this.LogoutPageId.HasValue)
+                {
+                    logoutRedirectUrl = HyperLinkHelpers.GetFullPageUrl(this.LogoutPageId.Value);
+                }
+                else
+                {
+                    logoutRedirectUrl = UrlPath.ResolveAbsoluteUrl(this.currentPageUrl, true);
+                }                
             }
 
             string fullLogoutUrl = RouteHelper.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), UrlResolveOptions.Rooted);
@@ -199,6 +207,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
 
         private const string HandleRejectedUser = "sf-hru";
 
+        #endregion
+
+        #region Private fields and constants
+        private string currentPageUrl;
         #endregion
     }
 }
