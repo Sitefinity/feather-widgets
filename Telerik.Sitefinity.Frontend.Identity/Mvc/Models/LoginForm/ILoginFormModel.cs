@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -42,6 +40,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The membership provider.
         /// </value>
         string MembershipProvider { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether password retrieval is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordRetrieval { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether password reset is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordReset { get; }
 
         /// <summary>
         /// Gets or sets the css class.
