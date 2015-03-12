@@ -4,6 +4,8 @@
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
 
+        var emptyGuid = '00000000-0000-0000-0000-000000000000';
+
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
         $scope.parentSelector = { selectedItemsIds: [] };
@@ -124,11 +126,11 @@
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
                     if ($scope.properties.OpenInSamePage.PropertyValue && $scope.properties.OpenInSamePage.PropertyValue.toLowerCase() === 'true') {
-                        $scope.properties.DetailsPageId.PropertyValue = null;
+                        $scope.properties.DetailsPageId.PropertyValue = emptyGuid;
                     }
                     else {
                         if (!$scope.properties.DetailsPageId.PropertyValue ||
-                                $scope.properties.DetailsPageId.PropertyValue === '00000000-0000-0000-0000-000000000000') {
+                                $scope.properties.DetailsPageId.PropertyValue === emptyGuid) {
                             $scope.properties.OpenInSamePage.PropertyValue = true;
                         }
                     }
