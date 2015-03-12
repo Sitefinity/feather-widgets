@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.Security;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
@@ -67,12 +61,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public Guid? RegisterRedirectPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether password retrieval is enabled.
+        /// Gets a value indicating whether password retrieval is enabled.
         /// </summary>
         /// <value>
         /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
         /// </value>
-        protected virtual bool EnablePasswordRetrieval
+        public virtual bool EnablePasswordRetrieval
         {
             get
             {
@@ -81,12 +75,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether password reset is enabled.
+        /// Gets a value indicating whether password reset is enabled.
         /// </summary>
         /// <value>
         /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
         /// </value>
-        protected virtual bool EnablePasswordReset
+        public virtual bool EnablePasswordReset
         {
             get
             {
