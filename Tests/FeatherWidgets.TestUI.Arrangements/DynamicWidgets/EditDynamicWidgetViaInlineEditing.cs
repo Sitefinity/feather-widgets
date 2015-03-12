@@ -39,7 +39,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
+            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, TransactionName);          
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }
@@ -52,5 +52,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "TestPage";
         private readonly string[] categoryName = { "Categories", "New category" };
         private readonly string[] tagName = { "Tags", "New tag" };
+        private const string TransactionName = "Module Installations";
     }
 }
