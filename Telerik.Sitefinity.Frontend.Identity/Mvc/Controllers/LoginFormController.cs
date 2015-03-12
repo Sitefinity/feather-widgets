@@ -133,6 +133,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
+        [HttpPost]
         public ActionResult SendPasswordResetEmail(string email)
         {
             var viewModel = this.Model.SendResetPasswordEmail(email);
