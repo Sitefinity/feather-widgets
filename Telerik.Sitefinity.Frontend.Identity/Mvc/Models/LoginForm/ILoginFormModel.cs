@@ -68,12 +68,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         Guid? RegisterRedirectPageId { get; set; }
 
         /// <summary>
-        /// Gets the login form view model.
+        /// Initializes the login view model.
         /// </summary>
-        /// <returns>
-        /// An instance of <see cref="LoginFormViewModel"/>
-        /// </returns>
-        LoginFormViewModel GetLoginFormViewModel();
+        /// <param name="viewModel">The view model.</param>
+        void InitializeLoginViewModel(LoginFormViewModel viewModel);
 
         /// <summary>
         /// Gets the login form view model.

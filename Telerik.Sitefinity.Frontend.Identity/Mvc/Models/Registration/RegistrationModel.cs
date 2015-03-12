@@ -136,7 +136,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 return this.successEmailTemplateId;
             }
 
-            set 
+            set
             {
                 this.successEmailTemplateId = value;
             }
@@ -187,15 +187,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         #region Public methods
 
         /// <inheritDoc/>
-        public RegistrationViewModel GetViewModel()
+        public void InitializeViewModel(RegistrationViewModel viewModel)
         {
-            return new RegistrationViewModel()
+            if(viewModel != null)
             {
-                LoginPageUrl = this.GetLoginPageUrl(),
-                MembershipProviderName = this.MembershipProviderName,
-                CssClass = this.CssClass,
-                SuccessfulRegistrationPageUrl = this.GetPageUrl(this.SuccessfulRegistrationPageId)
-            };
+                viewModel.LoginPageUrl = this.GetLoginPageUrl();
+                viewModel.MembershipProviderName = this.MembershipProviderName;
+                viewModel.CssClass = this.CssClass;
+                viewModel.SuccessfulRegistrationPageUrl = this.GetPageUrl(this.SuccessfulRegistrationPageId);
+            }
         }
 
         /// <summary>
@@ -495,7 +495,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
             }
             string confirmationPageUrl = HyperLinkHelpers.GetFullPageUrl(this.ConfirmationPageId.Value);
 
-            if(string.IsNullOrWhiteSpace(confirmationPageUrl))
+            if (string.IsNullOrWhiteSpace(confirmationPageUrl))
             {
                 return string.Empty;
             }

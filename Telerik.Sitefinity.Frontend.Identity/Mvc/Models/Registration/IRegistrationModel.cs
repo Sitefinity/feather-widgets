@@ -124,14 +124,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string ProfileBindings { get; set; }
 
         /// <summary>
-        /// Gets the view model.
-        /// </summary>
-        /// <returns>
-        /// A instance of <see cref="RegistrationViewModel"/> as view model
-        /// </returns>
-        RegistrationViewModel GetViewModel();
-
-        /// <summary>
         /// Gets the model error.
         /// </summary>
         /// <returns></returns>
@@ -166,5 +158,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// The page url as string.
         /// </returns>
         string GetPageUrl(Guid? pageId);
+
+        /// <summary>
+        /// Initializes the view model.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        void InitializeViewModel(RegistrationViewModel viewModel);
     }
 }
