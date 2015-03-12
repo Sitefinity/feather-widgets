@@ -66,5 +66,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
         {
             // Do nothing.
         }
+
+        public void ValidateProfileData(ProfileEditViewModel viewModel, System.Web.Mvc.ModelStateDictionary modelState)
+        {
+            // Do nothing.
+        }
     }
 }

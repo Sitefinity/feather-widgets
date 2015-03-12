@@ -1,7 +1,7 @@
 ﻿@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile.ProfileEditViewModel
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Modules.Pages
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Utilities;
 
@@ -34,18 +34,21 @@
              <label>
                  @Html.Resource("EditProfileFirstName")
                  @Html.TextBoxFor(u => u.Profile["FirstName"])
+                 @Html.ValidationMessageFor(u =>  u.Profile["FirstName"])
              </label>
         </div>
         <div>
             <label>
                 @Html.Resource("EditProfileLastName")
                 @Html.TextBoxFor(u => u.Profile["LastName"])
+                @Html.ValidationMessageFor(u => u.Profile["LastName"])
             </label>
         </div>
 
         <div>
             <label>
                 @Html.Resource("EditProfileAbout")
+
                 @Html.TextBoxFor(u => u.Profile["About"])
             </label>
         </div>
@@ -59,18 +62,21 @@
                 <label>
                     @Html.Resource("EditProfileOldPassword")
                     @Html.PasswordFor(u => u.OldPassword)
+                	@Html.ValidationMessageFor(u => u.OldPassword)
                 </label>
             </div>
             <div>
                 <label>
                     @Html.Resource("EditProfileNewPassword")
                     @Html.PasswordFor(u => u.NewPassword)
+                	@Html.ValidationMessageFor(u => u.NewPassword)
                 </label>
             </div>
             <div>
                 <label>
                     @Html.Resource("EditProfileRepeatPassword")
                     @Html.PasswordFor(u => u.RepeatPassword)
+                	@Html.ValidationMessageFor(u => u.RepeatPassword)
                 </label>
             </div>
         </div>

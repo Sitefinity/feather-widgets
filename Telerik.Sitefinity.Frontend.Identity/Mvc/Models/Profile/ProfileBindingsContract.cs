@@ -42,6 +42,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             /// The field name.
             /// </value>
             public string FieldName { get; set; }
+
+            /// <summary>
+            /// Gets or sets whether the field is required.
+            /// </summary>
+            public bool Required { get; set; }
         }
     }
 }
