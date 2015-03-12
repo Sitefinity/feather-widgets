@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Events;
 
@@ -103,7 +104,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
             string fullLogoutUrl = RouteHelper.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), UrlResolveOptions.Rooted);
 
             // Workaround an issue when the application is hosted under an application path.
-            fullLogoutUrl = fullLogoutUrl.Replace("sts_signout=true&", "");
+            if (SystemManager.CurrentHttpContext != null && SystemManager.CurrentHttpContext.Request.ApplicationPath != "/")
+            {
+                fullLogoutUrl = fullLogoutUrl.Replace("sts_signout=true&", "");
+            }
 
             return fullLogoutUrl;
         }
