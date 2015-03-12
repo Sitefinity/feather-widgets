@@ -112,7 +112,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             this.Email = this.User.Email;
             this.UserName = this.User.UserName;
             Libraries.Model.Image avatarImage;
-            var displayNameBuilder = new UserDisplayNameBuilder();
+            var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
             this.DisplayName = displayNameBuilder.GetUserDisplayName(this.User.Id);
             this.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(this.User.Id, out avatarImage);
         }

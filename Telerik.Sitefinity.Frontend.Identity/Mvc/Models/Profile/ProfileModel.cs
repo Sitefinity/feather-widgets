@@ -234,10 +234,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
             model.UserName = model.User.UserName;
             Libraries.Model.Image avatarImage;
 
-            var displayNameBuilder = new UserDisplayNameBuilder();
+            var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
             model.DisplayName = displayNameBuilder.GetUserDisplayName(model.User.Id);
             model.AvatarImageUrl = displayNameBuilder.GetAvatarImageUrl(model.User.Id, out avatarImage);
-            model.DefaultAvatarUrl = new SitefinityUserDisplayNameBuilder().GetAvatarImageUrl(Guid.Empty, out avatarImage);
+            model.DefaultAvatarUrl = displayNameBuilder.GetAvatarImageUrl(Guid.Empty, out avatarImage);
 
             model.SelectedUserProfiles = UserProfileManager.GetManager(this.ProfileProvider).GetUserProfiles(model.User).Select(p => new CustomProfileViewModel(p)).ToList();
         }
@@ -379,6 +379,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                     ContentLink avatarLink = ContentLinksExtensions.CreateContentLink(profile, image);
 
                     profile.Avatar = avatarLink;
+
+                    // Setting the Avatar does not modify the actual Profile persistent object and cache entries that depend on the Profile are not invalidated.
+                    // By setting another property of the Profile we force all cache entries that depend ot this profile to be invalidated.
+                    profile.LastModified = DateTime.UtcNow;
                 }
             }
         }
