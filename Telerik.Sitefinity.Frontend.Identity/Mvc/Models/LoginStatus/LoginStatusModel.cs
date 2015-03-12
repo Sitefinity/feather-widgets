@@ -100,7 +100,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus
                 logoutRedirectUrl = HyperLinkHelpers.GetFullPageUrl(this.LogoutPageId.Value);
             }
 
-            string fullLogoutUrl = UrlPath.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), true, true);
+            string fullLogoutUrl = RouteHelper.ResolveUrl(ClaimsManager.GetLogoutUrl(logoutRedirectUrl), UrlResolveOptions.Rooted);
+
+            // Workaround an issue when the application is hosted under an application path.
+            fullLogoutUrl = fullLogoutUrl.Replace("sts_signout=true&", "");
 
             return fullLogoutUrl;
         }
