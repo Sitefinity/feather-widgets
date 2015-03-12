@@ -38,52 +38,51 @@
         using (Html.BeginFormSitefinity())
         {
             @Html.ValidationSummary(true);
-        @ViewBag.Error
+            @ViewBag.Error
 
+            <div>
+                <label>
+                    @Html.Resource("FirstName")
+                    @Html.Editor("Profile[FirstName]")
+                </label>
+            </div>
+            <div>
+                @Html.Resource("LastName")
+                @Html.Editor("Profile[LastName]")
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("Email")
+                    @Html.EditorFor(m => m.Email)
+                </label>
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("UserName")
+                    @Html.EditorFor(m => m.UserName)
+                </label>
+                @Html.ValidationMessageFor(m => m.UserName)
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("Password")
+                    @Html.PasswordFor(m => m.Password)
+                </label>
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <div>
+                <label>
+                    @Html.Resource("ReTypePassword")
+                    @Html.PasswordFor(m => m.ReTypePassword)
+                </label>
+                @Html.ValidationMessageFor(m => m.ReTypePassword)
+            </div>
 
-        <div>
-            <label>
-                @Html.Resource("FirstName")
-                @Html.Editor("Profile[FirstName]")
-            </label>
-        </div>
-        <div>
-            @Html.Resource("LastName")
-            @Html.Editor("Profile[LastName]")
-        </div>
-        <div>
-            <label>
-                @Html.Resource("Email")
-                @Html.EditorFor(m => m.Email)
-            </label>
-            @Html.ValidationMessageFor(m => m.Email)
-        </div>
-        <div>
-            <label>
-                @Html.Resource("UserName")
-                @Html.EditorFor(m => m.UserName)
-            </label>
-            @Html.ValidationMessageFor(m => m.UserName)
-        </div>
-        <div>
-            <label>
-                @Html.Resource("Password")
-                @Html.PasswordFor(m => m.Password)
-            </label>
-            @Html.ValidationMessageFor(m => m.Password)
-        </div>
-        <div>
-            <label>
-                @Html.Resource("ReTypePassword")
-                @Html.PasswordFor(m => m.ReTypePassword)
-            </label>
-            @Html.ValidationMessageFor(m => m.ReTypePassword)
-        </div>
-
-        <div>
-            <input type="submit" value="@Html.Resource("Register")" />
-        </div>
-        }
+            <div>
+                <input type="submit" value="@Html.Resource("Register")" />
+            </div>
+            }
 
         <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
     }
