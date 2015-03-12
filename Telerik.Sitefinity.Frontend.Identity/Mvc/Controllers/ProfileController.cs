@@ -137,6 +137,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ProfileEditViewModel viewModel)
         {
+            this.Model.ValidateProfileData(viewModel, this.ModelState);
+
             if (ModelState.IsValid)
             {
                 this.Model.InitializeUserRelatedData(viewModel);
@@ -160,7 +162,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
-
+        
         #endregion
 
         #region Private methods
