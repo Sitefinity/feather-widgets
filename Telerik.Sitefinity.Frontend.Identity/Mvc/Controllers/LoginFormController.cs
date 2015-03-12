@@ -85,7 +85,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
-            var viewModel = this.Model.GetLoginFormViewModel();
+            var viewModel = new LoginFormViewModel();
+
+            this.Model.InitializeLoginViewModel(viewModel);
+
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
 
             return this.View(fullTemplateName, viewModel);
@@ -117,13 +120,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
-            var viewModel = this.Model.GetLoginFormViewModel();
-            viewModel.IncorrectCredentials = model.IncorrectCredentials;
-            viewModel.UserName = model.UserName;
-            viewModel.RememberMe = model.RememberMe;
+            this.Model.InitializeLoginViewModel(model);
 
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
-            return this.View(fullTemplateName, viewModel);
+            return this.View(fullTemplateName, model);
         }
 
         public ActionResult ForgotPassword(bool emailSent = false, string error = null)

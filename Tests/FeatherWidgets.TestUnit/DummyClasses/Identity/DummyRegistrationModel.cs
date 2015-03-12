@@ -43,11 +43,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public string ProfileBindings { get; set; }
 
-        public RegistrationViewModel GetViewModel()
-        {
-            return new RegistrationViewModel();
-        }
-
         public MembershipCreateStatus RegisterUser(RegistrationViewModel model)
         {
             if (model.UserName != "Fail")
@@ -81,6 +76,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
         public bool ResendConfirmationEmail(string email)
         {
             return true;
+        }
+
+        public void InitializeViewModel(RegistrationViewModel viewModel)
+        {
         }
     }
 }
