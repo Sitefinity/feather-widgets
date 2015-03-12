@@ -42,20 +42,20 @@ namespace FeatherWidgets.TestUI.TestCases.Search
 
             BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(NoResultsSearchText);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(SearchText1);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(1, SearchText1);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle1);
 
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(NoResultsSearchText);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchInput(SearchText2);
-            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton();
+            BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(1, SearchText2);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle2);
         }
