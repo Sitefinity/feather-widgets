@@ -12,23 +12,23 @@
 
 <div class="@Model.CssClass">
     @if (ViewBag.ShowActivationMsg is bool && ViewBag.ShowActivationMsg)
-    { 
+    {
         <h3>
             @Html.Resource("VisitYourEmail")
         </h3>
-        
+
         <p>@string.Format(Html.Resource("ActivationLinkHasBeenSent"), Model.Email)</p>
-        <a class="sendAgainLink">@Html.Resource("SendAgain")</a>
-        
-        <div class="confirmationResendInfo" style="display:none;">
+        <a data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
+
+        <div data-sf-role="confirmationResendInfo" style="display:none;">
             @string.Format(Html.Resource("ActivationLinkHasBeenSentAgain"), Model.Email)
-            <a class="sendAgainLink">@Html.Resource("SendAgain")</a>
+            <a data-sf-role="sendAgainLink">@Html.Resource("SendAgain")</a>
         </div>
-        
-        <input type="hidden" class="sf-resend-confirmation-endpoint-url" value="@Url.Action("ResendConfirmationEmail", new { email = Model.Email})" />
+
+        <input type="hidden" data-sf-role="sf-resend-confirmation-endpoint-url" value="@Url.Action("ResendConfirmationEmail", new { email = Model.Email})" />
     }
     else if (ViewBag.ShowSuccessfulRegistrationMsg is bool && ViewBag.ShowSuccessfulRegistrationMsg)
-    { 
+    {
         <h3>@Html.Resource("ThankYou")</h3>
         <p>@Html.Resource("DefaultSuccessfulRegistrationMessage")</p>
 
@@ -39,7 +39,6 @@
         {
             @Html.ValidationSummary(true);
             @ViewBag.Error
-        
 
             <div>
                 <label>
@@ -83,7 +82,7 @@
             <div>
                 <input type="submit" value="@Html.Resource("Register")" />
             </div>
-        }
+         }
 
         <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
     }
