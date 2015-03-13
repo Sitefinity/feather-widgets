@@ -97,7 +97,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                model = this.Model.Authenticate(model);
+                model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
 
                 if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
                     return this.Redirect(model.RedirectUrlAfterLogin);

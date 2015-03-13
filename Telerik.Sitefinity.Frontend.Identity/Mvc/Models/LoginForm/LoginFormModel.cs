@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Data;
 using System.Collections.Specialized;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Security.Model;
+using System.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -240,7 +241,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public virtual LoginFormViewModel Authenticate(LoginFormViewModel input)
+        public virtual LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context)
         {
             User user;
             UserLoggingReason result = SecurityManager.AuthenticateUser(
@@ -257,7 +258,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             else
             {
                 input.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
-                SFClaimsAuthenticationManager.ProcessRejectedUser(SystemManager.CurrentHttpContext, input.RedirectUrlAfterLogin);
+                SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
             }
 
             return input;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -149,7 +150,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// Authenticates a specific user.
         /// </summary>
         /// <param name="input">The input data.</param>
+        /// <param name="context">The HTTP context that is to be authenticated.</param>
         /// <returns>View model that is populated depending on the outcome of the authentication.</returns>
-        LoginFormViewModel Authenticate(LoginFormViewModel input);
+        LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context);
     }
 }
