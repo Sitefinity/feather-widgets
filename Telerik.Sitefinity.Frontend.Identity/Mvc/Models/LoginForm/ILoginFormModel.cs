@@ -91,9 +91,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// Gets the login form view model.
         /// </summary>
         /// <returns>
+        /// An instance of <see cref="LoginFormViewModel"/>
+        /// </returns>
+        LoginFormViewModel GetLoginFormViewModel();
+
+        /// <summary>
+        /// Gets the login form view model.
+        /// </summary>
+        /// <returns>
         /// An instance of <see cref="ResetPasswordViewModel"/>
         /// </returns>
-        ResetPasswordViewModel GetResetPasswordViewModel();
+        ResetPasswordViewModel GetResetPasswordViewModel(bool resetComplete, string error);
 
         /// <summary>
         /// Gets the <see cref="ForgotPasswordViewModel"/>.
@@ -101,7 +109,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// An instance of <see cref="ForgotPasswordViewModel"/>
         /// </returns>
-        ForgotPasswordViewModel GetForgotPasswordViewModel();
+        ForgotPasswordViewModel GetForgotPasswordViewModel(bool emailSent, string error);
         
         /// <summary>
         /// Tries the reset user password.
@@ -136,5 +144,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The page url as string.
         /// </returns>
         string GetPageUrl(Guid? pageId);
+
+        /// <summary>
+        /// Authenticates a specific user.
+        /// </summary>
+        /// <param name="input">The input data.</param>
+        /// <returns>View model that is populated depending on the outcome of the authentication.</returns>
+        LoginFormViewModel Authenticate(LoginFormViewModel input);
     }
 }
