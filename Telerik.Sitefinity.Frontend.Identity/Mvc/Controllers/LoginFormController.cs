@@ -108,11 +108,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
             return this.View(fullTemplateName, model);
         }
-        
-        public ActionResult ForgotPassword(bool emailSent = false, string error = null)
+
+        public ActionResult ForgotPassword(bool emailSent = false, string email = null, bool emailNotFound = false, string error = null)
         {
-            var model = this.Model.GetForgotPasswordViewModel(emailSent, error);
-            
+            var model = this.Model.GetForgotPasswordViewModel(email, emailNotFound, emailSent, error);
+
             var fullTemplateName = this.forgotPasswordTemplatePrefix + this.ForgotPasswordTemplate;
 
             return this.View(fullTemplateName, model);
@@ -123,14 +123,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var viewModel = this.Model.SendResetPasswordEmail(email);
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("emailSent={0}&error={1}", viewModel.EmailSent, viewModel.Error);
+            var queryString = string.Format(
+                "emailSent={0}&email={1}&emailNotFound={2}&error={3}",
+                viewModel.EmailSent,
+                HttpUtility.UrlEncode(viewModel.Email),
+                viewModel.EmailNotFound,
+                HttpUtility.UrlEncode(viewModel.Error));
+
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
         public ActionResult ResetPassword(bool resetComplete = false, string error = null)
         {
             var model = this.Model.GetResetPasswordViewModel(resetComplete, error);
-            
+
             var fullTemplateName = this.resetPasswordTemplatePrefix + this.ResetPasswordTemplate;
 
             return this.View(fullTemplateName, model);
