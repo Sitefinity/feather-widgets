@@ -273,6 +273,27 @@
         <member name="P:Telerik.Sitefinity.Frontend.Modules.ControlTemplates.Web.UI.MvcControlTemplateEditor.ClientComponentType">
             <inheritdoc/>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel">
+            <summary>
+            This class represents a JSON configuration for component cefinitions.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel.Scripts">
+            <summary>
+            Gets or sets the scripts.
+            </summary>
+            <value>
+            the scripts.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel.Components">
+            <summary>
+            Gets or sets the components.
+            </summary>
+            <value>
+            the components.
+            </value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExistAttribute">
             <summary>
             This class represents <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/> and should be used when one needs to validate property only if another property has value.
@@ -2473,6 +2494,18 @@
             The parameter value.
             </value>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyResolver">
+            <summary>
+            This class resolves script dependencies for components.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyResolver.GetScripts(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Gets the scripts.
+            </summary>
+            <param name="components">The components.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel">
             <summary>
             View model for views that display the details of a single content item.
@@ -2976,6 +3009,14 @@
             </summary>
             <value>
             The scripts.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.DesignerViewConfigModel.Components">
+            <summary>
+            Gets or sets the components.
+            </summary>
+            <value>
+            The components.
             </value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.DynamicDataItemFieldAccessor">
