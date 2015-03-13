@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -101,7 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// An instance of <see cref="ResetPasswordViewModel"/>
         /// </returns>
-        ResetPasswordViewModel GetResetPasswordViewModel(bool resetComplete, string error);
+        ResetPasswordViewModel GetResetPasswordViewModel(HttpContextBase context, bool resetComplete, string error);
 
         /// <summary>
         /// Gets the <see cref="ForgotPasswordViewModel"/>.
@@ -109,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// An instance of <see cref="ForgotPasswordViewModel"/>
         /// </returns>
-        ForgotPasswordViewModel GetForgotPasswordViewModel(bool emailSent, string error);
+        ForgotPasswordViewModel GetForgotPasswordViewModel(string email, bool emailNotFound, bool emailSent, string error);
         
         /// <summary>
         /// Tries the reset user password.
@@ -149,7 +150,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// Authenticates a specific user.
         /// </summary>
         /// <param name="input">The input data.</param>
+        /// <param name="context">The HTTP context that is to be authenticated.</param>
         /// <returns>View model that is populated depending on the outcome of the authentication.</returns>
-        LoginFormViewModel Authenticate(LoginFormViewModel input);
+        LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context);
     }
 }

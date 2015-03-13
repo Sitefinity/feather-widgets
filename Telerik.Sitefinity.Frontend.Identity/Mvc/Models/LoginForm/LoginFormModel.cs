@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Data;
 using System.Collections.Specialized;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Security.Model;
+using System.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -120,7 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public virtual ResetPasswordViewModel GetResetPasswordViewModel(bool resetComplete = false, string error = null)
+        public virtual ResetPasswordViewModel GetResetPasswordViewModel(HttpContextBase context, bool resetComplete = false, string error = null)
         {
             return new ResetPasswordViewModel()
             {
@@ -129,19 +130,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProvider).RequiresQuestionAndAnswer,
                 Error = error,
                 ResetComplete = resetComplete,
-                SecurityToken = SystemManager.CurrentHttpContext.Request.QueryString.ToQueryString()
+                SecurityToken = context.Request.QueryString.ToQueryString()
             };
         }
 
         /// <inheritDoc/>
-        public virtual ForgotPasswordViewModel GetForgotPasswordViewModel(bool emailSent = false, string error = null)
+        public virtual ForgotPasswordViewModel GetForgotPasswordViewModel(string email = null, bool emailNotFound = false, bool emailSent = false, string error = null)
         {
             return new ForgotPasswordViewModel()
             {
                 CssClass = this.CssClass,
                 LoginPageUrl = this.GetPageUrl(null),
                 EmailSent = emailSent,
-                Error = error
+                Error = error,
+                EmailNotFound = emailNotFound,
+                Email = email
             };
         }
 
@@ -202,7 +205,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                viewModel.Error = "Invalid data";
+                viewModel.EmailNotFound = true;
             }
 
             return viewModel;
@@ -238,7 +241,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public virtual LoginFormViewModel Authenticate(LoginFormViewModel input)
+        public virtual LoginFormViewModel Authenticate(LoginFormViewModel input, HttpContextBase context)
         {
             User user;
             UserLoggingReason result = SecurityManager.AuthenticateUser(
@@ -255,7 +258,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             else
             {
                 input.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
-                SFClaimsAuthenticationManager.ProcessRejectedUser(SystemManager.CurrentHttpContext, input.RedirectUrlAfterLogin);
+                SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
             }
 
             return input;

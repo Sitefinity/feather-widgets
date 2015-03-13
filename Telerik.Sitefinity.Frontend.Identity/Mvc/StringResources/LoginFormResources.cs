@@ -166,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RegistrationPageInfo"];
             }
         }
-        
+
         /// <summary>
         /// Gets phrase : Show "Remember me" checkbox
         /// </summary>
@@ -438,12 +438,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase : You sent a request to reset your password.
+        /// phrase : You sent a request to reset your password to
         /// </summary>
+        /// <value>You sent a request to reset your password to</value>
         [ResourceEntry("ForgotPasswordRequestSent",
-            Value = "You sent a request to reset your password.",
-            Description = "phrase : You sent a request to reset your password.",
-            LastModified = "2015/03/02")]
+            Value = "You sent a request to reset your password to",
+            Description = "phrase : You sent a request to reset your password to",
+            LastModified = "2015/03/13")]
         public string ForgotPasswordRequestSent
         {
             get
@@ -496,7 +497,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ForgotPasswordSendButton"];
             }
         }
-                
+
         /// <summary>
         /// phrase : This field is required.
         /// </summary>
@@ -635,6 +636,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["Templates"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: {0} does not exist
+        /// </summary>
+        /// <value>{0} does not exist</value>
+        [ResourceEntry("DoesNotExist",
+            Value = "{0} does not exist",
+            Description = "phrase: {0} does not exist",
+            LastModified = "2015/03/13")]
+        public string DoesNotExist
+        {
+            get
+            {
+                return this["DoesNotExist"];
             }
         }
     }
