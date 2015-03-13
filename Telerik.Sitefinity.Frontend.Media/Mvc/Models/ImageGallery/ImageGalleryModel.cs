@@ -114,25 +114,28 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
                 
                 query = this.UpdateExpression(query, null, take, ref totalCount);
 
-                if (this.DisplayMode == ListDisplayMode.Limit)
+                if (this.DisplayMode == ListDisplayMode.Limit && this.ItemsPerPage < totalCount)
                 {
                     totalCount = this.ItemsPerPage;
                 }
 
-                if (itemIndex == 1)
+                if (totalCount > 1)
                 {
-                    next = query.Skip(itemIndex.Value).FirstOrDefault();
-                    prev = query.LastOrDefault();
-                }
-                else if (itemIndex == totalCount)
-                {
-                    next = query.FirstOrDefault();
-                    prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
-                }
-                else
-                {
-                    next = query.Skip(itemIndex.Value).FirstOrDefault();
-                    prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
+                    if (itemIndex == 1)
+                    {
+                        next = query.Skip(itemIndex.Value).FirstOrDefault();
+                        prev = query.LastOrDefault();
+                    }
+                    else if (itemIndex == totalCount)
+                    {
+                        next = query.FirstOrDefault();
+                        prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
+                    }
+                    else
+                    {
+                        next = query.Skip(itemIndex.Value).FirstOrDefault();
+                        prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
+                    }
                 }
             }
 

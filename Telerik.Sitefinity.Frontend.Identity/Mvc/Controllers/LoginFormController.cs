@@ -85,9 +85,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult Index()
         {
-            var viewModel = new LoginFormViewModel();
-
-            this.Model.InitializeLoginViewModel(viewModel);
+            var viewModel = this.Model.GetLoginFormViewModel();
 
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
 
@@ -99,25 +97,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user;
-                UserLoggingReason result = SecurityManager.AuthenticateUser(
-                    this.Model.MembershipProvider,
-                    model.UserName,
-                    model.Password,
-                    model.RememberMe,
-                    out user);
+                model = this.Model.Authenticate(model);
 
-                if (result == UserLoggingReason.Unknown)
-                {
-                    model.IncorrectCredentials = true;
-                }
-                else
-                {
-                    var redirectUrl = this.Model.GetPageUrl(this.Model.LoginRedirectPageId);
-                    SFClaimsAuthenticationManager.ProcessRejectedUser(this.ControllerContext.HttpContext, redirectUrl);
-
-                    return this.Redirect(redirectUrl);
-                }
+                if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
+                    return this.Redirect(model.RedirectUrlAfterLogin);
             }
 
             this.Model.InitializeLoginViewModel(model);
@@ -126,33 +109,33 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
-        public ActionResult ForgotPassword(bool emailSent = false, string error = null)
+        public ActionResult ForgotPassword(bool emailSent = false, string email = null, bool emailNotFound = false, string error = null)
         {
-            var model = this.Model.GetForgotPasswordViewModel();
-
-            model.Error = error;
-            model.EmailSent = emailSent;
+            var model = this.Model.GetForgotPasswordViewModel(email, emailNotFound, emailSent, error);
 
             var fullTemplateName = this.forgotPasswordTemplatePrefix + this.ForgotPasswordTemplate;
 
             return this.View(fullTemplateName, model);
         }
 
+        [HttpPost]
         public ActionResult SendPasswordResetEmail(string email)
         {
             var viewModel = this.Model.SendResetPasswordEmail(email);
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("emailSent={0}&error={1}", viewModel.EmailSent, viewModel.Error);
+            var queryString = string.Format(
+                "emailSent={0}&email={1}&emailNotFound={2}&error={3}",
+                viewModel.EmailSent,
+                HttpUtility.UrlEncode(viewModel.Email),
+                viewModel.EmailNotFound,
+                HttpUtility.UrlEncode(viewModel.Error));
+
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
         public ActionResult ResetPassword(bool resetComplete = false, string error = null)
         {
-            var model = this.Model.GetResetPasswordViewModel();
-            
-            model.Error = error;
-            model.ResetComplete = resetComplete;
-            model.SecurityToken = this.HttpContext.Request.QueryString.ToQueryString();
+            var model = this.Model.GetResetPasswordViewModel(resetComplete, error);
 
             var fullTemplateName = this.resetPasswordTemplatePrefix + this.ResetPasswordTemplate;
 

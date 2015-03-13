@@ -483,5 +483,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["RequiredProfileField"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase: Password length must be at least {0} symbols long!
+        /// </summary>
+        [ResourceEntry("MinimumPasswordLength",
+            Value = "Password length must be at least {0} symbols long!",
+            Description = "phrase : Password length must be at least {0} symbols long!",
+            LastModified = "2015/03/13")]
+        public string MinimumPasswordLength
+        {
+            get
+            {
+                return this["MinimumPasswordLength"];
+            }
+        }
     }
 }

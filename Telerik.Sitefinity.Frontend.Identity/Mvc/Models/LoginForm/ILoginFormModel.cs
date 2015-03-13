@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -44,6 +42,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         string MembershipProvider { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether password retrieval is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordRetrieval { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether password reset is enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
+        /// </value>
+        bool EnablePasswordReset { get; }
+
+        /// <summary>
         /// Gets or sets the css class.
         /// </summary>
         /// <value>
@@ -77,9 +91,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// Gets the login form view model.
         /// </summary>
         /// <returns>
+        /// An instance of <see cref="LoginFormViewModel"/>
+        /// </returns>
+        LoginFormViewModel GetLoginFormViewModel();
+
+        /// <summary>
+        /// Gets the login form view model.
+        /// </summary>
+        /// <returns>
         /// An instance of <see cref="ResetPasswordViewModel"/>
         /// </returns>
-        ResetPasswordViewModel GetResetPasswordViewModel();
+        ResetPasswordViewModel GetResetPasswordViewModel(bool resetComplete, string error);
 
         /// <summary>
         /// Gets the <see cref="ForgotPasswordViewModel"/>.
@@ -87,7 +109,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// An instance of <see cref="ForgotPasswordViewModel"/>
         /// </returns>
-        ForgotPasswordViewModel GetForgotPasswordViewModel();
+        ForgotPasswordViewModel GetForgotPasswordViewModel(string email, bool emailNotFound, bool emailSent, string error);
         
         /// <summary>
         /// Tries the reset user password.
@@ -122,5 +144,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// The page url as string.
         /// </returns>
         string GetPageUrl(Guid? pageId);
+
+        /// <summary>
+        /// Authenticates a specific user.
+        /// </summary>
+        /// <param name="input">The input data.</param>
+        /// <returns>View model that is populated depending on the outcome of the authentication.</returns>
+        LoginFormViewModel Authenticate(LoginFormViewModel input);
     }
 }

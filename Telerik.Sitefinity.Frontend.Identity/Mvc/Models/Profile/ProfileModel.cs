@@ -262,6 +262,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                     }
                 }
             }
+
+            var minPassLength = UserManager.GetManager(this.MembershipProvider).MinRequiredPasswordLength;
+            if (!string.IsNullOrEmpty(viewModel.OldPassword) && !string.IsNullOrEmpty(viewModel.NewPassword) && !string.IsNullOrEmpty(viewModel.RepeatPassword))
+            {
+                if (viewModel.NewPassword.Length < minPassLength)
+                {
+                    modelState.AddModelError("NewPassword", string.Format(Res.Get<ProfileResources>().MinimumPasswordLength, minPassLength));
+                }
+
+                if (viewModel.RepeatPassword.Length < minPassLength)
+                {
+                    modelState.AddModelError("RepeatPassword", string.Format(Res.Get<ProfileResources>().MinimumPasswordLength, minPassLength));
+                }
+            }
         }
         
         #endregion
@@ -415,7 +429,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 //Upload the image file.
                 librariesManager.Upload(image, uploadedImage.InputStream, Path.GetExtension(uploadedImage.FileName));
 
-                librariesManager.Lifecycle.Publish(image);
+                image = librariesManager.Lifecycle.Publish(image) as Image;
 
                 //Save the changes.
                 librariesManager.SaveChanges();

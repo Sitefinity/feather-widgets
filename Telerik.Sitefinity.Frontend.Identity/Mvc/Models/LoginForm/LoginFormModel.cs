@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.Security;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Data;
 using System.Collections.Specialized;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Security.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -67,12 +63,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         public Guid? RegisterRedirectPageId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether password retrieval is enabled.
+        /// Gets a value indicating whether password retrieval is enabled.
         /// </summary>
         /// <value>
         /// <c>true</c> if password retrieval is enabled; otherwise, <c>false</c>.
         /// </value>
-        protected virtual bool EnablePasswordRetrieval
+        public virtual bool EnablePasswordRetrieval
         {
             get
             {
@@ -81,12 +77,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether password reset is enabled.
+        /// Gets a value indicating whether password reset is enabled.
         /// </summary>
         /// <value>
         /// <c>true</c> if password reset is enabled; otherwise, <c>false</c>.
         /// </value>
-        protected virtual bool EnablePasswordReset
+        public virtual bool EnablePasswordReset
         {
             get
             {
@@ -98,8 +94,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
         #region Public Methods
 
+         /// <inheritDoc/>
+        public virtual LoginFormViewModel GetLoginFormViewModel()
+        {
+            var viewModel = new LoginFormViewModel();
+            this.InitializeLoginViewModel(viewModel);
+            return viewModel;
+        }
+
         /// <inheritDoc/>
-        public void InitializeLoginViewModel(LoginFormViewModel viewModel)
+        public virtual void InitializeLoginViewModel(LoginFormViewModel viewModel)
         {
             if (viewModel != null)
             {
@@ -116,28 +120,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public ResetPasswordViewModel GetResetPasswordViewModel()
+        public virtual ResetPasswordViewModel GetResetPasswordViewModel(bool resetComplete = false, string error = null)
         {
             return new ResetPasswordViewModel()
             {
                 CssClass = this.CssClass,
                 LoginPageUrl = this.GetPageUrl(null),
-                RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProvider).RequiresQuestionAndAnswer
+                RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProvider).RequiresQuestionAndAnswer,
+                Error = error,
+                ResetComplete = resetComplete,
+                SecurityToken = SystemManager.CurrentHttpContext.Request.QueryString.ToQueryString()
             };
         }
 
         /// <inheritDoc/>
-        public ForgotPasswordViewModel GetForgotPasswordViewModel()
+        public virtual ForgotPasswordViewModel GetForgotPasswordViewModel(string email = null, bool emailNotFound = false, bool emailSent = false, string error = null)
         {
             return new ForgotPasswordViewModel()
             {
                 CssClass = this.CssClass,
-                LoginPageUrl = this.GetPageUrl(null)
+                LoginPageUrl = this.GetPageUrl(null),
+                EmailSent = emailSent,
+                Error = error,
+                EmailNotFound = emailNotFound,
+                Email = email
             };
         }
 
         /// <inheritDoc/>
-        public void ResetUserPassword(string newPassword, string answer, NameValueCollection securityParams)
+        public virtual void ResetUserPassword(string newPassword, string answer, NameValueCollection securityParams)
         {
             var userId = this.GetUserId(securityParams);
 
@@ -156,7 +167,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public ForgotPasswordViewModel SendResetPasswordEmail(string email)
+        public virtual ForgotPasswordViewModel SendResetPasswordEmail(string email)
         {
             var viewModel = new ForgotPasswordViewModel();
             viewModel.Email = email;
@@ -193,14 +204,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                viewModel.Error = "Invalid data";
+                viewModel.EmailNotFound = true;
             }
 
             return viewModel;
         }
 
         /// <inheritDoc/>
-        public string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
+        public virtual string GetErrorFromViewModel(System.Web.Mvc.ModelStateDictionary modelStateDict)
         {
             var firstErrorValue = modelStateDict.Values.FirstOrDefault(v => v.Errors.Any());
             if (firstErrorValue != null)
@@ -216,7 +227,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public string GetPageUrl(Guid? pageId)
+        public virtual string GetPageUrl(Guid? pageId)
         {
             if (pageId.HasValue)
             {
@@ -226,6 +237,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 return HyperLinkHelpers.GetFullPageUrl(SiteMapBase.GetActualCurrentNode().Id);
             }
+        }
+
+        /// <inheritDoc/>
+        public virtual LoginFormViewModel Authenticate(LoginFormViewModel input)
+        {
+            User user;
+            UserLoggingReason result = SecurityManager.AuthenticateUser(
+                this.MembershipProvider,
+                input.UserName,
+                input.Password,
+                input.RememberMe,
+                out user);
+
+            if (result == UserLoggingReason.Unknown)
+            {
+                input.IncorrectCredentials = true;
+            }
+            else
+            {
+                input.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
+                SFClaimsAuthenticationManager.ProcessRejectedUser(SystemManager.CurrentHttpContext, input.RedirectUrlAfterLogin);
+            }
+
+            return input;
         }
 
         #endregion
