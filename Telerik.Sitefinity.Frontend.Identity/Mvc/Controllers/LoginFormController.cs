@@ -136,7 +136,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
-        public ActionResult SetResetPassword(ResetPasswordInputModel model)
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordInputModel model)
         {
             bool resetComplete = false;
             string error = string.Empty;
