@@ -135,7 +135,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult ResetPassword(bool resetComplete = false, string error = null)
         {
-            var model = this.Model.GetResetPasswordViewModel(resetComplete, error);
+            var model = this.Model.GetResetPasswordViewModel(this.ControllerContext.HttpContext, resetComplete, error);
 
             var fullTemplateName = this.resetPasswordTemplatePrefix + this.ResetPasswordTemplate;
 

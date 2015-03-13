@@ -102,7 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// <returns>
         /// An instance of <see cref="ResetPasswordViewModel"/>
         /// </returns>
-        ResetPasswordViewModel GetResetPasswordViewModel(bool resetComplete, string error);
+        ResetPasswordViewModel GetResetPasswordViewModel(HttpContextBase context, bool resetComplete, string error);
 
         /// <summary>
         /// Gets the <see cref="ForgotPasswordViewModel"/>.
