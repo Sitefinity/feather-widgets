@@ -1,7 +1,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <form>
-    <fieldset ng-disabled="properties.AllowWindowsStsLogin.PropertyValue.toLowerCase() === 'true'">
+    <fieldset class="form-group" ng-disabled="properties.AllowWindowsStsLogin.PropertyValue.toLowerCase() === 'true'">
         <div class="form-group">
             <label>@Html.Resource("LoginPage")</label>
             <p class="description-note">@Html.Resource("LoginPageInfo")</p>
