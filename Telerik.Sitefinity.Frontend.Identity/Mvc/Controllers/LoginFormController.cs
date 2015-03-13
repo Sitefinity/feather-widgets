@@ -126,12 +126,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, model);
         }
 
-        public ActionResult ForgotPassword(bool emailSent = false, string error = null)
+        public ActionResult ForgotPassword(bool emailSent = false, string email = null, bool emailNotFound = false, string error = null)
         {
             var model = this.Model.GetForgotPasswordViewModel();
 
+            model.Email = email;
             model.Error = error;
             model.EmailSent = emailSent;
+            model.EmailNotFound = emailNotFound;
 
             var fullTemplateName = this.forgotPasswordTemplatePrefix + this.ForgotPasswordTemplate;
 
@@ -143,7 +145,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var viewModel = this.Model.SendResetPasswordEmail(email);
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("emailSent={0}&error={1}", viewModel.EmailSent, viewModel.Error);
+            var queryString = string.Format("emailSent={0}&email={1}&emailNotFound={2}&error={3}", viewModel.EmailSent, viewModel.Email, viewModel.EmailNotFound, viewModel.Error);
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 

@@ -187,7 +187,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                viewModel.Error = "Invalid data";
+                viewModel.EmailNotFound = true;
             }
 
             return viewModel;
