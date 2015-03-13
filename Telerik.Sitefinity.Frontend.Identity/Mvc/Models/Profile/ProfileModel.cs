@@ -256,7 +256,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 {
                     string propValue;
 
-                    if (!viewModel.Profile.TryGetValue(prop.FieldName, out propValue) || string.IsNullOrWhiteSpace(propValue))
+                    if (!viewModel.Profile.TryGetValue(prop.Name, out propValue) || string.IsNullOrWhiteSpace(propValue))
                     {
                         modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format(Res.Get<ProfileResources>().RequiredProfileField, prop.Name));
                     }
