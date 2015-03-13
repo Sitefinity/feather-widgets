@@ -123,7 +123,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var viewModel = this.Model.SendResetPasswordEmail(email);
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("emailSent={0}&email={1}&emailNotFound={2}&error={3}", viewModel.EmailSent, viewModel.Email, viewModel.EmailNotFound, viewModel.Error);
+            var queryString = string.Format(
+                "emailSent={0}&email={1}&emailNotFound={2}&error={3}",
+                viewModel.EmailSent,
+                HttpUtility.UrlEncode(viewModel.Email),
+                viewModel.EmailNotFound,
+                HttpUtility.UrlEncode(viewModel.Error));
+
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
