@@ -516,12 +516,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: You are successfully registered and logged in.
+        /// phrase: You are successfully registered.
         /// </summary>
-        /// <value>You are successfully registered and logged in.</value>
+        /// <value>You are successfully registered.</value>
         [ResourceEntry("DefaultSuccessfulRegistrationMessage",
-            Value = "You are successfully registered and logged in.",
-            Description = "You are successfully registered and logged in.",
+            Value = "You are successfully registered.",
+            Description = "You are successfully registered.",
             LastModified = "2015/03/10")]
         public string DefaultSuccessfulRegistrationMessage
         {
