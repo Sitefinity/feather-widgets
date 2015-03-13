@@ -97,7 +97,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                model = this.Model.Authenticate(model);
+                model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
 
                 if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
                     return this.Redirect(model.RedirectUrlAfterLogin);
@@ -135,7 +135,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
         public ActionResult ResetPassword(bool resetComplete = false, string error = null)
         {
-            var model = this.Model.GetResetPasswordViewModel(resetComplete, error);
+            var model = this.Model.GetResetPasswordViewModel(this.ControllerContext.HttpContext, resetComplete, error);
 
             var fullTemplateName = this.resetPasswordTemplatePrefix + this.ResetPasswordTemplate;
 
