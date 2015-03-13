@@ -119,20 +119,23 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
                     totalCount = this.ItemsPerPage;
                 }
 
-                if (itemIndex == 1)
+                if (totalCount > 1)
                 {
-                    next = query.Skip(itemIndex.Value).FirstOrDefault();
-                    prev = query.LastOrDefault();
-                }
-                else if (itemIndex == totalCount)
-                {
-                    next = query.FirstOrDefault();
-                    prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
-                }
-                else
-                {
-                    next = query.Skip(itemIndex.Value).FirstOrDefault();
-                    prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
+                    if (itemIndex == 1)
+                    {
+                        next = query.Skip(itemIndex.Value).FirstOrDefault();
+                        prev = query.LastOrDefault();
+                    }
+                    else if (itemIndex == totalCount)
+                    {
+                        next = query.FirstOrDefault();
+                        prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
+                    }
+                    else
+                    {
+                        next = query.Skip(itemIndex.Value).FirstOrDefault();
+                        prev = query.Skip(itemIndex.Value - 2).FirstOrDefault();
+                    }
                 }
             }
 
