@@ -159,6 +159,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 }
             }
 
+            this.ViewBag.HasPasswordErrors = !this.ModelState.IsValidField("OldPassword") ||
+                                             !this.ModelState.IsValidField("NewPassword") ||
+                                             !this.ModelState.IsValidField("RepeatPassword");
+
             var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
