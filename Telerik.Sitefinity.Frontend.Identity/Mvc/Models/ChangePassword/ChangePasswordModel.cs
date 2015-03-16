@@ -81,7 +81,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         {
             if (!pageId.HasValue)
             {
-                pageId = SiteMapBase.GetActualCurrentNode().Id;
+                var currentNode = SiteMapBase.GetActualCurrentNode();
+                if (currentNode == null)
+                    return null;
+
+                pageId = currentNode.Id;
             }
 
             return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
