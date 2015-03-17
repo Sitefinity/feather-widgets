@@ -186,20 +186,24 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 }
                 else
                 {
-                    var resetPassUrl = Url.Combine(SiteMapBase.GetActualCurrentNode().Url, "resetpassword");
-
-                    try
+                    var currentNode = SiteMapBase.GetActualCurrentNode();
+                    if (currentNode != null)
                     {
-                        UserManager.SendRecoveryPasswordMail(UserManager.GetManager(user.ProviderName), email, resetPassUrl);
+                        var resetPassUrl = Url.Combine(currentNode.Url, "resetpassword");
 
-                        viewModel.EmailSent = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        if (Exceptions.HandleException(ex, ExceptionPolicyName.IgnoreExceptions))
-                            throw ex;
+                        try
+                        {
+                            UserManager.SendRecoveryPasswordMail(UserManager.GetManager(user.ProviderName), email, resetPassUrl);
 
-                        viewModel.Error = ex.Message;
+                            viewModel.EmailSent = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            if (Exceptions.HandleException(ex, ExceptionPolicyName.IgnoreExceptions))
+                                throw ex;
+
+                            viewModel.Error = ex.Message;
+                        }
                     }
                 }
             }
@@ -236,7 +240,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                return HyperLinkHelpers.GetFullPageUrl(SiteMapBase.GetActualCurrentNode().Id);
+                var currentNode = SiteMapBase.GetActualCurrentNode();
+                return currentNode != null ? HyperLinkHelpers.GetFullPageUrl(currentNode.Id) : null;
             }
         }
 
