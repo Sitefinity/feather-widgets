@@ -1,6 +1,10 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-<sf-image-field class="sf-Media--info modal-settings" sf-model="properties.Id.PropertyValue" sf-image="model.item" sf-provider="properties.ProviderName.PropertyValue"></sf-image-field>
+<sf-image-field class="sf-Media--info modal-settings" 
+    sf-auto-open-selector 
+    sf-model="properties.Id.PropertyValue" 
+    sf-image="model.item" 
+    sf-provider="properties.ProviderName.PropertyValue"></sf-image-field>
 
 <form name="imageProperties">
     <div class="form-group" ng-class="{ 'has-error' : hasErrors() }">
