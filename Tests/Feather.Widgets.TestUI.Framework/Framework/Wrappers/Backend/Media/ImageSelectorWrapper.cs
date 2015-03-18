@@ -169,6 +169,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         {
             HtmlAnchor filter = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "class=ng-binding", "InnerText=" + filterName).AssertIsPresent(filterName);
             filter.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>

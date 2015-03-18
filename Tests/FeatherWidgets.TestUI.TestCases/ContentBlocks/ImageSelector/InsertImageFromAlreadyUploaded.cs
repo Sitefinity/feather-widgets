@@ -56,6 +56,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(NewImageName, NewImageAltText, this.GetImageSource(false));
         }
 
+        private string GetImageSource(bool isBaseUrlIncluded)
+        {
+            string libraryUrl = LibraryName.ToLower();
+            string imageUrl = ImageName.ToLower() + ImageType.ToLower();
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);            
+            return scr;
+        }
+
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
@@ -71,25 +79,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
-        }
-
-        private string GetImageSource(bool isBaseUrlIncluded)
-        {
-            string libraryUrl = LibraryName.ToLower();
-            string contentType = "images";
-            string providerUrl = "default-source";
-            string imageUrl = ImageName.ToLower() + ImageType.ToLower();
-
-            if (isBaseUrlIncluded)
-            {
-                string baseUrl = this.BaseUrl;
-
-                return baseUrl + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
-            }
-            else
-            {
-                return "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl; 
-            }
         }
 
         private string GetSfRef(string imageId)
