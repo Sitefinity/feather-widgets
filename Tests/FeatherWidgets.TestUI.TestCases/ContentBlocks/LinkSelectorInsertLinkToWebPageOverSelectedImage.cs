@@ -55,7 +55,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().PressFullScreenButton();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyFullScreenMode(false);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SwitchToDesignView();
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCountOfButtonsIsCorrect(24);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyCountOfButtonsIsCorrect(25);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyFullScreenMode(false);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

@@ -353,7 +353,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var image = this.GetContentBlockImageDesignMode();
             Assert.IsNotNull(image, "Unable to find image.");
-            Assert.IsTrue(image.Src.Contains(src), "src is not correct");
+            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
 
             this.VerifyImageAttribute(image, "sfref", sfref);
             this.VerifyImageAttribute(image, "title", title);

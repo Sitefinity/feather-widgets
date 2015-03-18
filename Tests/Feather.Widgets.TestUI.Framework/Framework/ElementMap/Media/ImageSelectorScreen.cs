@@ -102,6 +102,34 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+        /// <summary>
+        /// Gets the image selector media file divs.
+        /// </summary>
+        /// <value>The image selector media file divs.</value>
+        public ICollection<HtmlDiv> ImageSelectorMediaImageFileDivs
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=~Media-file ng-scope");
+            }
+        }
+
+        /// <summary>
+        /// Gets the image selector media folder divs.
+        /// </summary>
+        /// <value>The image selector media folder divs.</value>
+        public ICollection<HtmlDiv> ImageSelectorMediaFolderDivs
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=Media-folder ng-scope");
+            }
+        }
+
+        /// <summary>
+        /// Gets the empty image elements parent div.
+        /// </summary>
+        /// <value>The empty image elements parent div.</value>
         private HtmlDiv EmptyImageElementsParentDiv
         {
             get
@@ -110,6 +138,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+        /// <summary>
+        /// Gets the image selector modal dialog.
+        /// </summary>
+        /// <value>The image selector modal dialog.</value>
         private HtmlDiv ImageSelectorModalDialog
         {
             get
@@ -117,5 +149,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
                 return this.Get<HtmlDiv>("tagName=div", "class=~modal-dialog-2");
             }
         }
+
+        /// <summary>
+        /// Gets the not expanded arrow.
+        /// </summary>
+        /// <value>The not expanded arrow.</value>
+        public HtmlAnchor NotExpandedArrow
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=sf-Tree-expander ng-scope");
+            }
+        }
+
     }
 }

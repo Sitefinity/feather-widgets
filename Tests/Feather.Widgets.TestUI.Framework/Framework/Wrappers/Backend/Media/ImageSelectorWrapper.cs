@@ -74,6 +74,83 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Verifies the correct images.
+        /// </summary>
+        /// <param name="imageTitles">The image titles.</param>
+        public void VerifyCorrectImages(params string[] imageTitles)
+        {
+            foreach (var image in imageTitles)
+            {
+                ActiveBrowser.Find.ByExpression<HtmlImage>("tagName=img", "alt=" + image).AssertIsPresent(image);
+            }          
+        }
+
+        /// <summary>
+        /// Selects the folder.
+        /// </summary>
+        /// <param name="folderTitle">The folder title.</param>
+        public void SelectFolder(string folderTitle)
+        {
+            var allFolders = this.EM.Media.ImageSelectorScreen.ImageSelectorMediaFolderDivs;
+            var folder = allFolders.Where(i => i.InnerText.Contains(folderTitle)).FirstOrDefault();
+            folder.ScrollToVisible();
+            folder.Focus();
+            folder.MouseClick();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Verifies the correct folders.
+        /// </summary>
+        /// <param name="folderTitles">The folder titles.</param>
+        public void VerifyCorrectFolders(params string[] folderTitles)
+        {
+            foreach (var folder in folderTitles)
+            {
+                var allFolders = this.EM.Media.ImageSelectorScreen.ImageSelectorMediaFolderDivs;
+                allFolders.Where(i => i.InnerText.Contains(folder)).FirstOrDefault().AssertIsPresent(folder);
+            }
+        }
+
+        /// <summary>
+        /// Selects the folder from bread crumb.
+        /// </summary>
+        /// <param name="folderTitle">The folder title.</param>
+        public void SelectFolderFromBreadCrumb(string folderTitle)
+        {
+            HtmlAnchor folder = ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=ng-binding", "innertext=" + folderTitle).AssertIsPresent(folderTitle);           
+            folder.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Selects the folder from side bar.
+        /// </summary>
+        /// <param name="folderTitle">The folder title.</param>
+        public void SelectFolderFromSideBar(string folderTitle)
+        {
+            HtmlSpan folder = null;
+            do
+            {
+                folder = ActiveBrowser.Find.ByExpression<HtmlSpan>("tagName=span", "innertext=" + folderTitle);
+                if (folder != null && folder.IsVisible())
+                {
+                    folder.Click();
+                    ActiveBrowser.WaitForAsyncOperations();
+                    ActiveBrowser.RefreshDomTree();
+                }
+                else
+                {
+                    HtmlAnchor arrow = this.EM.Media.ImageSelectorScreen.NotExpandedArrow.AssertIsPresent("not expanded arrow");
+                    arrow.Click();
+                }
+            }
+            while (folder == null);
+        }
+
+        /// <summary>
         /// Verifies that a given filter is selected.
         /// </summary>
         /// <param name="filterName">The filter name.</param>
@@ -82,6 +159,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlAnchor filter = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "InnerText=" + filterName);
 
             Assert.IsTrue(filter.Parent<HtmlListItem>().CssClass == "ng-scope active");
+        }
+
+        /// <summary>
+        /// Selects the filter.
+        /// </summary>
+        /// <param name="filterName">Name of the filter.</param>
+        public void SelectFilter(string filterName)
+        {
+            HtmlAnchor filter = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "class=ng-binding", "InnerText=" + filterName).AssertIsPresent(filterName);
+            filter.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Verifies the correct count of images.
+        /// </summary>
+        /// <param name="expectedCount">The expected count.</param>
+        public void VerifyCorrectCountOfImages(int expectedCount)
+        {
+            int divsCount = this.EM.Media.ImageSelectorScreen.ImageSelectorMediaImageFileDivs.Count;
+            Assert.AreEqual(expectedCount, divsCount, "Count of " + expectedCount + " is not equal" + divsCount);           
+        }
+
+        /// <summary>
+        /// Verifies the correct count of folders.
+        /// </summary>
+        /// <param name="expectedCount">The expected count.</param>
+        public void VerifyCorrectCountOfFolders(int expectedCount)
+        {
+            int divsCount = this.EM.Media.ImageSelectorScreen.ImageSelectorMediaFolderDivs.Count;
+            Assert.AreEqual(expectedCount, divsCount, "Count of" + expectedCount + "is not equal" + divsCount);
         }
 
         /// <summary>

@@ -40,9 +40,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyImageTooltip(ImageName, LibraryName, ImageDimensions, ImageType);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmImageSelection();
-
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(ImageName), "Image title is not populated correctly");
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText), "Image alt text is not populated correctly");
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText), "Image alt text is not populated correctly"); 
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageTitle(NewImageName);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageAltText(NewImageAltText);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ImageDimensions);
@@ -55,6 +54,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(NewImageName, NewImageAltText, this.GetImageSource(false));
+        }
+
+        private string GetImageSource(bool isBaseUrlIncluded)
+        {
+            string libraryUrl = LibraryName.ToLower();
+            string imageUrl = ImageName.ToLower() + ImageType.ToLower();
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);            
+            return scr;
         }
 
         /// <summary>
@@ -72,25 +79,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
-        }
-
-        private string GetImageSource(bool isBaseUrlIncluded)
-        {
-            string libraryUrl = LibraryName.ToLower();
-            string contentType = "images";
-            string providerUrl = "default-source";
-            string imageUrl = ImageName.ToLower() + ImageType.ToLower();
-
-            if (isBaseUrlIncluded)
-            {
-                string baseUrl = this.BaseUrl;
-
-                return baseUrl + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
-            }
-            else
-            {
-                return "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl; 
-            }
         }
 
         private string GetSfRef(string imageId)
