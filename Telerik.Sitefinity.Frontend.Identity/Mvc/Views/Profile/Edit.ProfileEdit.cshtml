@@ -61,7 +61,7 @@
             <div>
                 <label>
                     @Html.Resource("EditProfileOldPassword")
-                    @Html.PasswordFor(u => u.OldPassword)
+                    @Html.PasswordFor(u => u.OldPassword, new { autocomplete = "off" })
                     @Html.ValidationMessageFor(u => u.OldPassword)
                 </label>
             </div>
@@ -99,7 +99,7 @@
 
             var changePasswordHolder = $('[data-sf-role=edit-profile-change-password-holder]');
 
-            if(!hasPasswordErrors){
+            if (!hasPasswordErrors && !changePasswordHolder.find('input').val()) {
                 changePasswordHolder.hide();
             }
 
