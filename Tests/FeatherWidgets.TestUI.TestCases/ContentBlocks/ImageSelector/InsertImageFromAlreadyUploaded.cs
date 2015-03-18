@@ -24,7 +24,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void InsertImageFromAlreadyUploaded()
-
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
