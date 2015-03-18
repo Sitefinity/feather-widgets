@@ -3278,6 +3278,46 @@
             Advanced
             </summary>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor">
+            <summary>
+            Instances of this class run and compile Razor template files and return the output. It also manages cache dependencies on the template internally.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor"/> class.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor.#ctor(RazorEngine.Templating.ITemplateService,System.Web.Hosting.VirtualPathProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor"/> class.
+            </summary>
+            <param name="templateService">The template service.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor.Run(System.String,System.Object)">
+            <summary>
+            Runs the Razor template that is on the specified path.
+            </summary>
+            <param name="templatePath">The template path.</param>
+            <param name="model">The model.</param>
+            <returns>The output of the template. If compilation error occurs it will be returned and NOT thrown.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor.Run(System.String,System.Object,System.Boolean)">
+            <summary>
+            Runs the specified template path.
+            </summary>
+            <param name="templatePath">The template path.</param>
+            <param name="model">The model.</param>
+            <param name="throwOnError">if set to <c>true</c> compilation errors will be thrown otherwise the errors will be returned as string.</param>
+            <returns>The output of the template.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor.GetTemplate(System.String)">
+            <summary>
+            Gets the template from a file at the specified path as string.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>The template as string.</returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Resources.ResourceRegister">
             <summary>
             This class provides functionality for registering client resources.
@@ -3488,6 +3528,27 @@
             </summary>
             <param name="context">The context.</param>
             <param name="buffer">The buffer.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler.IsWhitelisted(System.String)">
+            <summary>
+            Determines whether the specified path is whitelisted for executing server code.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>Whether the specified path is whitelisted for execution server code.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler.SendStaticResource(System.Web.HttpContext,System.IO.Stream,System.String)">
+            <summary>
+            Writes the contents of a static resource to the response.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="fileStream">The file stream.</param>
+            <param name="fileName">Name of the file.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler.SendParsedTemplate(System.Web.HttpContext)">
+            <summary>
+            Sends a parsed template that is processed with the Razor engine.
+            </summary>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler.GetMimeMapping(System.String)">
             <summary>

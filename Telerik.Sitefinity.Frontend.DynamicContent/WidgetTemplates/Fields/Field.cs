@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Web.Caching;
-using System.Web.Hosting;
-using Telerik.Sitefinity.Abstractions.VirtualPath;
-using Telerik.Sitefinity.DynamicModules.Builder.Model;
+﻿using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Frontend.Resources;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
 {
@@ -36,12 +31,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
         public virtual string GetMarkup(DynamicModuleField field)
         {
             var templatePath = this.GetTemplatePath(field);
-            var markup = this.GetDefaultTemplate(templatePath);
-
-            Field.EnsureTemplateIsCompiled(markup, templatePath);
-            var parsedMarkup = RazorEngine.Razor.Run(templatePath, field);
-
-            return parsedMarkup;
+            return Field.templateProcessor.Run(templatePath, field);
         }
 
         /// <summary>
@@ -51,43 +41,6 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields
         /// <returns></returns>
         protected abstract string GetTemplatePath(DynamicModuleField field);
 
-        /// <summary>
-        /// Gets the default template.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns></returns>
-        protected string GetDefaultTemplate(string path)
-        {
-            var templateText = string.Empty;
-
-            if (VirtualPathManager.FileExists(path))
-            {
-                var fileStream = VirtualPathManager.OpenFile(path);
-
-                using (var streamReader = new StreamReader(fileStream))
-                {
-                    templateText = streamReader.ReadToEnd();
-                }
-            }
-
-            return templateText;
-        }
-
-        private static void EnsureTemplateIsCompiled(string markup, string templatePath)
-        {
-            if (!Field.templateDependencies.ContainsKey(templatePath) || Field.templateDependencies[templatePath].HasChanged)
-            {
-                lock (Field.templateDependencies)
-                {
-                    if (!Field.templateDependencies.ContainsKey(templatePath) || Field.templateDependencies[templatePath].HasChanged)
-                    {
-                        RazorEngine.Razor.Compile(markup, templatePath);
-                        Field.templateDependencies[templatePath] = HostingEnvironment.VirtualPathProvider.GetCacheDependency(templatePath, null, DateTime.UtcNow);
-                    }
-                }
-            }
-        }
-
-        private static readonly Dictionary<string, CacheDependency> templateDependencies = new Dictionary<string, CacheDependency>();
+        private static readonly RazorTemplateProcessor templateProcessor = new RazorTemplateProcessor();
     }
 }
