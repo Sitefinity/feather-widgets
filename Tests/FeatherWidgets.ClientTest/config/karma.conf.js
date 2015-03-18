@@ -3,14 +3,14 @@ module.exports = function (config) {
         basePath: '../',
 
         files: [
-	              'helpers/jquery-1.8.3.min.js',
+	              'helpers/jquery.min.js',
 	              'helpers/angular.js',
                   'helpers/angular-route.js',
                   'helpers/angular-resource.js',
                   'helpers/angular-mocks.js',
                   'helpers/kendo.all.min.js',
                   'helpers/angular-kendo.js',
-                  'helpers/Telerik.Sitefinity.Frontend/Mvc/Scripts/Bootstrap/js/ui-bootstrap-tpls-0.11.0.min.js',
+                  'helpers/Telerik.Sitefinity.Frontend/Mvc/Scripts/Bootstrap/js/ui-bootstrap-tpls.min.js',
 
                   'helpers/Telerik.Sitefinity.Frontend/Designers/Scripts/*.js',
 	              'helpers/Telerik.Sitefinity.Frontend/MVC/Scripts/Designer/*.js',

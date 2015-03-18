@@ -24,7 +24,7 @@ module.exports = function (grunt) {
 				],
 				options: {
 					vendor:[
-					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/jquery-1.8.3.min.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/jquery.min.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-resource.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-route.js',
@@ -75,7 +75,7 @@ module.exports = function (grunt) {
 			    ],
 			    options: {
 			        vendor:[
-					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/jquery-1.8.3.min.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/jquery.min.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-resource.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-route.js',
@@ -120,7 +120,7 @@ module.exports = function (grunt) {
 				],
 				options: {
 					vendor:[
-					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/jquery-1.8.3.min.js',
+					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/jquery.min.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-resource.js',
 					'../feather/Tests/Telerik.Sitefinity.Frontend.ClientTest/helpers/angular-route.js',
