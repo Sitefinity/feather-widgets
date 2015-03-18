@@ -185,15 +185,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// <summary>
         /// Gets phrase : You are already logged in.
         /// </summary>
-        [ResourceEntry("AlreadyLogedIn",
+        [ResourceEntry("AlreadyLoggedIn",
             Value = "You are already logged in",
             Description = "phrase : You are already logged in.",
             LastModified = "2015/02/26")]
-        public string AlreadyLogedIn
+        public string AlreadyLoggedIn
         {
             get
             {
-                return this["AlreadyLogedIn"];
+                return this["AlreadyLoggedIn"];
             }
         }
 
