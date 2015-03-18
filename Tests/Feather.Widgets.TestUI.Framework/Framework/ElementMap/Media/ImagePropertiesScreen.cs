@@ -56,11 +56,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+        /// <summary>
+        /// Gets the done button.
+        /// </summary>
+        /// <value>The done button.</value>
         public HtmlButton DoneButton
         {
             get
             {
                 return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Done");
+            }
+        }
+
+        /// <summary>
+        /// Gets the change image button.
+        /// </summary>
+        /// <value>The change image button.</value>
+        public HtmlButton ChangeImageButton
+        {
+            get
+            {
+                return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Change image");
             }
         }
 

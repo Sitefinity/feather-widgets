@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
@@ -92,6 +93,31 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             selector.SelectByValue(optionValue);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Changes the image.
+        /// </summary>
+        public void ChangeImage()
+        {
+            HtmlButton changeBtn = this.EM.Media.ImagePropertiesScreen.ChangeImageButton.AssertIsPresent("Change image button");
+
+            changeBtn.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Verifies image on the frontend.
+        /// </summary>
+        /// <param name="title">The image title.</param>
+        /// <param name="altText">The image alt text.</param>
+        /// <param name="src">The image src.</param>
+        public void VerifyImageInPropertiesDialog(string altText, string src)
+        {
+            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=" + altText)
+                .AssertIsPresent("image");
+
+            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
         }
 
         /// <summary>
