@@ -8,7 +8,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// 
+    /// Check Navigation in Image Selector arrangement class.
     /// </summary>
     public class CheckNavigationInImageSelector : ITestArrangement
     {
