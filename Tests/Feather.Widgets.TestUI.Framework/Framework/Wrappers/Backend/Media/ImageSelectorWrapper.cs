@@ -177,20 +177,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// Verifies the correct count of images.
         /// </summary>
         /// <param name="expectedCount">The expected count.</param>
-        public void VerifyCorrectCountOfImages(int expectedCount)
+        public void WaitCorrectCountOfImages(int expectedCount)
         {
+            Manager.Current.Wait.For(() => this.IsCountOfImagesCorrect(expectedCount), 20000);          
+        }
+ 
+        private bool IsCountOfImagesCorrect(int expectedCount)
+        {
+            ActiveBrowser.RefreshDomTree();
             int divsCount = this.EM.Media.ImageSelectorScreen.ImageSelectorMediaImageFileDivs.Count;
-            Assert.AreEqual(expectedCount, divsCount, "Count of " + expectedCount + " is not equal" + divsCount);           
+            return expectedCount == divsCount;
         }
 
         /// <summary>
         /// Verifies the correct count of folders.
         /// </summary>
         /// <param name="expectedCount">The expected count.</param>
-        public void VerifyCorrectCountOfFolders(int expectedCount)
+        public void WaitCorrectCountOfFolders(int expectedCount)
         {
+            Manager.Current.Wait.For(() => this.IsCountOfFoldersCorrect(expectedCount), 20000);
+        }
+ 
+        private bool IsCountOfFoldersCorrect(int expectedCount)
+        {
+            ActiveBrowser.RefreshDomTree();
             int divsCount = this.EM.Media.ImageSelectorScreen.ImageSelectorMediaFolderDivs.Count;
-            Assert.AreEqual(expectedCount, divsCount, "Count of" + expectedCount + "is not equal" + divsCount);
+            return expectedCount == divsCount;
         }
 
         /// <summary>
