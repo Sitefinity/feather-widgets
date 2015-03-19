@@ -35,7 +35,7 @@
         });
 
         $('[data-sf-role=profile-submit]').click(function () {
-            var form = document.forms['aspnetForm'];
+            var form = document.forms.aspnetForm;
             if (form) {
                 form.enctype = 'multipart/form-data';
             }
