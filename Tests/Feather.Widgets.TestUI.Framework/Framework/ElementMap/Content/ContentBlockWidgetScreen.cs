@@ -136,18 +136,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Gets the select provider dropdown.
-        /// </summary>
-        /// <value>The select provider dropdown.</value>
-        public HtmlAnchor SelectProviderDropdown
-        {
-            get
-            {
-                return this.Get<HtmlAnchor>("class=?btn-default dropdown-toggle ng-binding");
-            }
-        }
-
-        /// <summary>
         /// Gets title is required.
         /// </summary>
         public HtmlControl TitleIsRequired

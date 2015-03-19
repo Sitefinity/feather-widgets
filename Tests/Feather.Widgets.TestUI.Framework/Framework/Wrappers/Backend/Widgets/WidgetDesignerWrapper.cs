@@ -343,20 +343,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="providerName">Name of the provider.</param>
         public void SelectProvider(string providerName)
         {
-            HtmlAnchor providerDropDown = this.EM.Widgets.WidgetDesignerContentScreen.ProviderDropDown
+            HtmlSelect providerDropDown = this.EM.Widgets.WidgetDesignerContentScreen.ProviderDropDown
                                     .AssertIsPresent("Provider DropDown");
 
-            providerDropDown.Click();
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
+            providerDropDown.SelectByText(providerName);
+            providerDropDown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            providerDropDown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
 
-            HtmlUnorderedList providerList = this.EM.Widgets.WidgetDesignerContentScreen.ProvidersList
-                                    .AssertIsPresent("Provider DropDown");
-
-            HtmlAnchor provider = providerList.Find.ByCustom<HtmlAnchor>(a => a.InnerText.Equals(providerName))
-                                    .AssertIsPresent("Provider DropDown");
-
-            provider.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
         }
