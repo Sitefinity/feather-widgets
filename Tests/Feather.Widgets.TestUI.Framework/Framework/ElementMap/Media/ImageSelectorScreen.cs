@@ -151,6 +151,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets the image selector thumbnail holder div.
+        /// </summary>
+        /// <value>The image selector thumbnail holder div.</value>
+        public HtmlDiv ImageSelectorThumbnailHolderDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagName=div", "class=Media-file-thumb-holder");
+            }
+        }
+
+        /// <summary>
         /// Gets the not expanded arrow.
         /// </summary>
         /// <value>The not expanded arrow.</value>
@@ -162,5 +174,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+        /// <summary>
+        /// Gets the search box.
+        /// </summary>
+        /// <value>The search box.</value>
+        public HtmlInputText SearchBox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("ng-change=sfSearchCallback()");
+            }
+        }
+
+        /// <summary>
+        /// Gets the no items found div.
+        /// </summary>
+        /// <value>The no items found div.</value>
+        public HtmlDiv NoItemsFoundDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagName=div", "innertext=~No items found");
+            }
+        }
     }
 }
