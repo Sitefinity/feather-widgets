@@ -121,7 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public virtual ResetPasswordViewModel GetResetPasswordViewModel(HttpContextBase context, bool resetComplete = false, string error = null)
+        public virtual ResetPasswordViewModel GetResetPasswordViewModel(string securityToken, bool resetComplete = false, string error = null)
         {
             return new ResetPasswordViewModel()
             {
@@ -130,7 +130,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 RequiresQuestionAndAnswer = UserManager.GetManager(this.MembershipProvider).RequiresQuestionAndAnswer,
                 Error = error,
                 ResetComplete = resetComplete,
-                SecurityToken = context.Request.QueryString.ToQueryString()
+                SecurityToken = securityToken
             };
         }
 
