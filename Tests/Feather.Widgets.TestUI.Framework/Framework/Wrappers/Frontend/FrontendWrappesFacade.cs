@@ -1,4 +1,5 @@
-﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
+﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -68,6 +69,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public FrontendCommonWrapper CommonWrapper()
         {
             return new FrontendCommonWrapper();
+        }
+
+        /// <summary>
+        /// Provides access to Login and registration widgets wrappers on the frontend.
+        /// </summary>
+        /// <returns></returns>
+        public IdentityWrapperFacade Identity()
+        {
+            return new IdentityWrapperFacade();
         }
     }
 }
