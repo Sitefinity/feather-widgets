@@ -88,6 +88,15 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BATFeather.cs" />
+    <Compile Include="Framework\ElementMap\Identity\IdentityMap.cs" />
+    <Compile Include="Framework\ElementMap\Identity\LoginFormEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\Identity\LoginFormFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Identity\LoginStatusEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\Identity\LoginStatusFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Identity\ProfileEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\Identity\ProfileFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Identity\RegistrationEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\Identity\RegistrationFrontend.cs" />
     <Compile Include="Framework\ElementMap\Media\ImagePropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImageSelectorScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\MediaMap.cs" />
@@ -117,6 +126,11 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Identity\IdentityWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Identity\LoginFormWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Identity\LoginStatusWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Identity\ProfileWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Identity\RegistrationWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\ImagePropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\ImageSelectorWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\MediaWrapperFacade.cs" />
@@ -149,6 +163,7 @@
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FrontendWrappesFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Identity\IdentityWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\InlineEditingWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapperFacade.cs" />
