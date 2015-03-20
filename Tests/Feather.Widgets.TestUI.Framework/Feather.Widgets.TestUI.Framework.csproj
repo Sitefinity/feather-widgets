@@ -164,6 +164,10 @@
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FrontendWrappesFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Identity\IdentityWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Identity\LoginFormWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Identity\LoginStatusWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Identity\ProfileWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Identity\RegistrationWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\InlineEditingWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapperFacade.cs" />
