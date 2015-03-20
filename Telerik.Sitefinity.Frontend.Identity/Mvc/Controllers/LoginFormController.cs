@@ -133,9 +133,29 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
-        public ActionResult ResetPassword(string vk = null, string cp = null, bool resetComplete = false, string error = null)
+        public ActionResult ResetPassword()
         {
-            var securityToken = string.Format("vk={0}&cp={1}", HttpUtility.UrlEncode(vk), HttpUtility.UrlEncode(cp));
+            var query = this.HttpContext.Request.QueryString;
+            var queryString = query.ToString();
+            var securityToken = string.Empty;
+            var resetComplete = false;
+            var error = string.Empty;
+
+            var index = queryString.IndexOf("&resetComplete");
+            if (index > 0)
+            {
+                securityToken = queryString.Substring(0, index);
+
+                if (!query["resetComplete"].IsNullOrEmpty())
+                {
+                    resetComplete = Convert.ToBoolean(query["resetComplete"]);
+                }
+                error = query["error"];
+            }
+            else
+            {
+                securityToken = queryString;
+            }
             
             var model = this.Model.GetResetPasswordViewModel(securityToken, resetComplete, error);
 
