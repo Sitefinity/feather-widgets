@@ -137,7 +137,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         {
             var query = this.HttpContext.Request.QueryString;
             var queryString = query.ToString();
-            var securityToken = string.Empty;
+            var securityToken = queryString;
             var resetComplete = false;
             var error = string.Empty;
 
@@ -145,16 +145,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (index > 0)
             {
                 securityToken = queryString.Substring(0, index);
-
-                if (!query["resetComplete"].IsNullOrEmpty())
-                {
-                    resetComplete = Convert.ToBoolean(query["resetComplete"]);
-                }
+                resetComplete = Convert.ToBoolean(query["resetComplete"]);
                 error = query["error"];
-            }
-            else
-            {
-                securityToken = queryString;
             }
             
             var model = this.Model.GetResetPasswordViewModel(securityToken, resetComplete, error);
