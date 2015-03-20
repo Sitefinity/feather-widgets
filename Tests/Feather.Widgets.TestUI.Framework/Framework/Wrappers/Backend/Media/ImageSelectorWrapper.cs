@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using ArtOfTest.Common.UnitTesting;
@@ -79,9 +80,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="imageTitles">The image titles.</param>
         public void VerifyCorrectImages(params string[] imageTitles)
         {
+            HtmlDiv holder = this.EM.Media.ImageSelectorScreen.ImageSelectorThumbnailHolderDiv.AssertIsPresent("holder");
             foreach (var image in imageTitles)
             {
-                ActiveBrowser.Find.ByExpression<HtmlImage>("tagName=img", "alt=" + image).AssertIsPresent(image);
+                holder.Find.ByExpression<HtmlImage>("tagName=img", "alt=" + image).AssertIsPresent(image);
             }          
         }
 
@@ -216,6 +218,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        public void SearchInImageSelector(string searchText)
+        {
+            HtmlInputText input = this.EM.Media.ImageSelectorScreen.SearchBox.AssertIsPresent("Search field");
+
+            Manager.Current.Desktop.Mouse.Click(MouseClickType.LeftClick, input.GetRectangle());
+            input.Text = string.Empty;
+            Manager.Current.Desktop.KeyBoard.TypeText(searchText);
+            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Verifies the no items found message.
+        /// </summary>
+        public void VerifyNoItemsFoundMessage()
+        {
+            this.EM.Media.ImageSelectorScreen.NoItemsFoundDiv.AssertIsPresent("No items found").AssertIsPresent("No items found");
         }
     }
 }

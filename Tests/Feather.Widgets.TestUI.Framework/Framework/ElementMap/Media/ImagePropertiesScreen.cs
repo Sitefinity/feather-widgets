@@ -80,6 +80,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+        /// <summary>
+        /// Gets the edit all properties button.
+        /// </summary>
+        /// <value>The edit all properties button.</value>
+        public HtmlButton EditAllPropertiesButton
+        {
+            get
+            {
+                return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Edit all properties");
+            }
+        }
+
         private HtmlDiv ImagePropertiesModalDialog
         {
             get
