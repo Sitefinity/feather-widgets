@@ -88,6 +88,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BATFeather.cs" />
+    <Compile Include="Framework\ElementMap\Media\ImageUploadPropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImagePropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImageSelectorScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\MediaMap.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Media\ImageUploadPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\ImagePropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\ImageSelectorWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\MediaWrapperFacade.cs" />

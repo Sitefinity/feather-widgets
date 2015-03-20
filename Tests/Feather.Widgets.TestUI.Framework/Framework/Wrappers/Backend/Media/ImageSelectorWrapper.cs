@@ -28,6 +28,59 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Selects the image from your computer.
+        /// </summary>
+        public void SelectImageFromYourComputer()
+        {
+            var selectImageFromYourComputer = this.EM.Media.ImageSelectorScreen.SelectImageFromYourComputerLink.AssertIsPresent("Select image link");
+            selectImageFromYourComputer.MouseClick();            
+        }
+
+        /// <summary>
+        /// Waits for content to be loaded.
+        /// </summary>
+        /// <param name="isEmptyScreen">The is empty screen.</param>
+        public void WaitForContentToBeLoaded(bool isEmptyScreen)
+        {
+            Manager.Current.Wait.For(() => this.IsContentLoadedInImageSelector(isEmptyScreen), 20000);
+        }
+ 
+        private bool IsContentLoadedInImageSelector(bool isEmptyScreen)
+        {
+            bool result = false;
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            if (isEmptyScreen)
+            {
+                var selectImageFromYourComputer = this.EM.Media.ImageSelectorScreen.SelectImageFromYourComputerLink;
+                if (selectImageFromYourComputer != null && selectImageFromYourComputer.IsVisible())
+                {
+                    result = true;
+                }
+            }
+            else
+            {
+                HtmlSpan tooltip = this.EM.Media.ImageSelectorScreen.Tooltip;
+                if (tooltip != null && tooltip.IsVisible())
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Switches to upload mode.
+        /// </summary>
+        public void SwitchToUploadMode()
+        {
+            HtmlAnchor uploadImage = this.EM.Media.ImageSelectorScreen.UploadImage.AssertIsPresent("upload image");
+            uploadImage.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
         /// Press cancel button from image selector footer. 
         /// </summary>
         public void PressCancelButton()

@@ -92,6 +92,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets the upload image.
+        /// </summary>
+        /// <value>The upload image.</value>
+        public HtmlAnchor UploadImage
+        {
+            get
+            {
+                return this.ImageSelectorModalDialog.Find.ByExpression<HtmlAnchor>("ng-click=switchToUploadMode()", "InnerText=Upload image");
+            }
+        }
+
+        /// <summary>
         /// Gets Done button.
         /// </summary>
         public HtmlButton DoneButton

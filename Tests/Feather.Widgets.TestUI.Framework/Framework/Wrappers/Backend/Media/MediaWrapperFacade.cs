@@ -28,5 +28,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         {
             return new ImagePropertiesWrapper();
         }
+
+        /// <summary>
+        /// Provides access to ImageUploadPropertiesWrapper
+        /// </summary>
+        /// <returns>New instance of ImageUploadPropertiesWrapper</returns>
+        public ImageUploadPropertiesWrapper ImageUploadPropertiesWrapper()
+        {
+            return new ImageUploadPropertiesWrapper();
+        }
     }
 }
