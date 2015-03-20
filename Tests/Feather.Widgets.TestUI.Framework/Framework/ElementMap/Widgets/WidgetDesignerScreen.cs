@@ -174,23 +174,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         /// Gets the provider drop down.
         /// </summary>
         /// <value>The provider drop down.</value>
-        public HtmlAnchor ProviderDropDown
+        public HtmlSelect ProviderDropDown
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=?btn-default dropdown-toggle ng-binding");
-            }
-        }
-
-        /// <summary>
-        /// Gets the providers list.
-        /// </summary>
-        /// <value>The providers list.</value>
-        public HtmlUnorderedList ProvidersList
-        {
-            get
-            {
-                return this.Get<HtmlUnorderedList>("class=dropdown-menu");
+                return this.Get<HtmlSelect>("tagname=select", "ng-model=selectedProvider");
             }
         }
 
