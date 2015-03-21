@@ -17,12 +17,12 @@
             changePasswordHolder.toggle('slow');
         });
 
-        $('[data-sf-role=edit-profile-delete-picture-button]').on('click', function (e) {
-            e.preventDefault();
+        //$('[data-sf-role=edit-profile-delete-picture-button]').on('click', function (e) {
+        //    e.preventDefault();
 
-            editProfileUserImage.attr('src', $('[data-sf-role=edit-profile-default-avatar-url]').val()).hide();
-            $('[data-sf-role=edit-profile-delete-picture]').val(true);
-        });
+        //    editProfileUserImage.attr('src', $('[data-sf-role=edit-profile-default-avatar-url]').val()).hide();
+        //    $('[data-sf-role=edit-profile-delete-picture]').val(true);
+        //});
 
         fileInput.on('change', function (e) {
             if (e.target.files && e.target.files[0]) {

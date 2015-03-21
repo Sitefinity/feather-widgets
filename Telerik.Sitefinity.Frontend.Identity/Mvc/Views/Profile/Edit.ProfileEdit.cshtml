@@ -22,7 +22,7 @@
             @Html.HiddenFor(u => u.DefaultAvatarUrl, new Dictionary<string, object>() { { "data-sf-role", "edit-profile-default-avatar-url" } })
 
             <img data-sf-role="edit-profile-user-image" src="@Model.AvatarImageUrl" alt="@Model.UserName" width="100" height="100" />
-            <a data-sf-role="edit-profile-delete-picture-button">x</a>
+            @*<a data-sf-role="edit-profile-delete-picture-button">x</a>*@
 
             <input type="file" data-sf-role="edit-profile-upload-picture-input" name="UploadedImage" style="display: none;" />
 
