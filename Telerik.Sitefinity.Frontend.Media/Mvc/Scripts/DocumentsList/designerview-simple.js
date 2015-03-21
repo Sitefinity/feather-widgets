@@ -4,11 +4,19 @@
     angular.module('designer').requires.push('simpleViewModule');
 
     simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
-        $scope.feedback.showLoadingIndicator = true;
+        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
+        var emptyGuid = '00000000-0000-0000-0000-000000000000';
 
+        $scope.feedback.showLoadingIndicator = true;
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.additionalFilters = {};
         $scope.errors = {};
+
+        $scope.updateSortOption = function (newSortOption) {
+            if (newSortOption !== 'Custom') {
+                $scope.properties.SortExpression.PropertyValue = newSortOption;
+            }
+        };
 
         $scope.$watch(
           'properties.ProviderName.PropertyValue',
@@ -62,6 +70,13 @@
                     if (selectedParentsIds) {
                         $scope.parentSelector.selectedItemsIds = selectedParentsIds;
                     }
+
+                    if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
+                        $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
+                    }
+                    else {
+                        $scope.selectedSortOption = 'Custom';
+                    }
                 }
             },
             function (data) {
@@ -71,6 +86,31 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+
+                    if ($scope.properties.OpenInSamePage.PropertyValue && $scope.properties.OpenInSamePage.PropertyValue.toLowerCase() === 'true') {
+                        $scope.properties.DetailsPageId.PropertyValue = emptyGuid;
+                    }
+                    else {
+                        if (!$scope.properties.DetailsPageId.PropertyValue ||
+                                $scope.properties.DetailsPageId.PropertyValue === emptyGuid) {
+                            $scope.properties.OpenInSamePage.PropertyValue = true;
+                        }
+                    }
+
+                    if ($scope.properties.SelectionMode.PropertyValue === 'FilteredItems' &&
+                        $scope.additionalFilters.value &&
+                        $scope.additionalFilters.value.QueryItems &&
+                        $scope.additionalFilters.value.QueryItems.length === 0) {
+                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
+                    }
+
+                    if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems') {
+                        $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
+                    }
+
+                    if ($scope.properties.ParentFilterMode.PropertyValue !== 'Selected') {
+                        $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
+                    }
                 });
             })
             .finally(function () {
