@@ -60,8 +60,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertEmptyUserNameFieldMessage()
         {
-            HtmlSpan message = this.EM.Identity.LoginFormFrontend.UserNameRequiredMessage
-                .AssertIsPresent("The Username field is required.");
+            this.EM.Identity.LoginFormFrontend.UserNameRequiredMessage.AssertIsPresent("The Username field is required.");
         }
 
         /// <summary>
@@ -69,8 +68,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertEmptyPasswordFieldMessage()
         {
-            HtmlSpan message = this.EM.Identity.LoginFormFrontend.PasswordRequiredMessage
-                .AssertIsPresent("The Password field is required.");
+            this.EM.Identity.LoginFormFrontend.PasswordRequiredMessage.AssertIsPresent("The Password field is required.");
         }
 
         /// <summary>
@@ -78,8 +76,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertIncorrectUserNamePasswordMessage()
         {
-            HtmlSpan message = this.EM.Identity.LoginFormFrontend.IncorrectUserNamePasswordMessage
-                .AssertIsPresent("Incorrect Username/Password Message"); 
+            this.EM.Identity.LoginFormFrontend.IncorrectUserNamePasswordMessage.AssertIsPresent("Incorrect Username/Password Message"); 
         }
     }
 }

@@ -27,10 +27,13 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.Pages().DeleteAllPages();
         }
 
         private const string PageName = "LoginPage";
         private const string TemplateTitle = "Bootstrap.default";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
     }
 }
