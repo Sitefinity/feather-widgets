@@ -133,9 +133,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.Redirect(string.Format("{0}/ForgotPassword?{1}", pageUrl, queryString));
         }
 
-        public ActionResult ResetPassword(bool resetComplete = false, string error = null)
+        public ActionResult ResetPassword()
         {
-            var model = this.Model.GetResetPasswordViewModel(this.ControllerContext.HttpContext, resetComplete, error);
+            var query = this.HttpContext.Request.QueryString;
+            var queryString = query.ToString();
+            var securityToken = queryString;
+            var resetComplete = false;
+            var error = string.Empty;
+
+            var index = queryString.IndexOf("&resetComplete");
+            if (index > 0)
+            {
+                securityToken = queryString.Substring(0, index);
+                resetComplete = Convert.ToBoolean(query["resetComplete"]);
+                error = query["error"];
+            }
+            
+            var model = this.Model.GetResetPasswordViewModel(securityToken, resetComplete, error);
 
             var fullTemplateName = this.resetPasswordTemplatePrefix + this.ResetPasswordTemplate;
 
@@ -152,7 +166,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             {
                 try
                 {
-                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer, this.HttpContext.Request.QueryString);
+                    var securityParams = HttpUtility.ParseQueryString(model.SecurityToken);
+                    this.Model.ResetUserPassword(model.NewPassword, model.ResetPasswordAnswer, securityParams);
                     resetComplete = true;
                 }
                 catch (NotSupportedException)
@@ -179,7 +194,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             error = HttpUtility.UrlEncode(error);
 
             var pageUrl = this.Model.GetPageUrl(null);
-            var queryString = string.Format("resetComplete={0}&error={1}", resetComplete, error);
+            var queryString = string.Format("{0}&resetComplete={1}&error={2}",model.SecurityToken, resetComplete, error);
             return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
 
