@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
@@ -244,6 +245,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the identity element map.
+        /// </summary>
+        /// <value>An initialized instance of identity element map.</value>
+        public IdentityMap Identity
+        {
+            get
+            {
+                if (this.identityMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.identityMap = new IdentityMap(this.find);
+                }
+
+                return this.identityMap;
+            }
+
+            private set
+            {
+                this.identityMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -262,5 +286,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private SelectorsMap selectorsMap;
         private SearchMap searchMap;
         private MediaMap mediaMap;
+        private IdentityMap identityMap;
     }
 }
