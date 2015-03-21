@@ -171,6 +171,7 @@
     <Compile Include="DynamicWidgets\InvalidateCacheWhenAddNewItem.cs" />
     <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Identity\LoginAndVerifyUserStatusOnTheSamePage.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
@@ -251,9 +252,7 @@
       <Name>FeatherWidgets.TestUtilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Identity\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
