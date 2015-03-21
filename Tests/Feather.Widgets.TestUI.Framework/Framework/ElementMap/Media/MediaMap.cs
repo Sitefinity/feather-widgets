@@ -43,6 +43,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+        /// <summary>
+        /// Gets the image upload properties main screen.
+        /// </summary>
+        public ImageUploadPropertiesScreen ImageUploadPropertiesScreen
+        {
+            get
+            {
+                return new ImageUploadPropertiesScreen(this.find);
+            }
+        }
+
         private Find find;
     }
 }

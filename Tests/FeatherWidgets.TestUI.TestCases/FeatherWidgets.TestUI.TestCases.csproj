@@ -97,6 +97,7 @@
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
     <Compile Include="ContentBlocks\ImageSelector\CheckNavigationInImageSelector.cs" />
     <Compile Include="ContentBlocks\ImageSelector\EditAllPropertiesOfSelectedImageAndSearch.cs" />
+    <Compile Include="ContentBlocks\ImageSelector\UploadImageWithCategoryAndTag.cs" />
     <Compile Include="ContentBlocks\ImageSelector\EditAndChangeSelectedImage.cs" />
     <Compile Include="ContentBlocks\ImageSelector\InsertImageFromAlreadyUploaded.cs" />
     <Compile Include="ContentBlocks\LinkSelectorInsertLinkToWebPageOverSelectedImage.cs" />
