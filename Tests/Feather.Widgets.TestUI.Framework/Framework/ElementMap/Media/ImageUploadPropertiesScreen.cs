@@ -153,6 +153,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+        /// <summary>
+        /// Gets the add tag.
+        /// </summary>
+        /// <value>The add tag.</value>
         public HtmlInputText AddTag
         {
             get

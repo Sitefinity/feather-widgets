@@ -8,7 +8,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Edit And Change Selected Image arrangement class.
+    /// Upload Image With Category And Tag arrangement class.
     /// </summary>
     public class UploadImageWithCategoryAndTag : ITestArrangement
     {
