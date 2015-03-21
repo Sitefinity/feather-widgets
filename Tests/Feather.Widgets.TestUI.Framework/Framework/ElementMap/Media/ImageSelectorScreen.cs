@@ -170,7 +170,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlDiv>("tagName=div", "class=Media-file-thumb-holder");
+                return this.Get<HtmlDiv>("tagName=div", "class=Media-items ng-isolate-scope");
             }
         }
 
