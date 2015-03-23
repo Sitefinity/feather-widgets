@@ -155,6 +155,10 @@
     <Compile Include="Mvc\Models\DocumentsList\DocumentsListModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentsListViewModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\IDocumentsListModel.cs" />
+    <Compile Include="Mvc\Controllers\DocumentController.cs" />
+    <Compile Include="Mvc\Models\Document\DocumentModel.cs" />
+    <Compile Include="Mvc\Models\Document\DocumentViewModel.cs" />
+    <Compile Include="Mvc\Models\Document\IDocumentModel.cs" />
     <Compile Include="Mvc\Models\ImageGallery\ImageDetailsViewModel.cs" />
     <Compile Include="Mvc\Helpers\ImageHelpers.cs" />
     <Compile Include="Mvc\Models\Image\CustomSizeModel.cs" />
@@ -166,6 +170,7 @@
     <Compile Include="Mvc\Models\Image\ImageSizeModel.cs" />
     <Compile Include="Mvc\Models\Image\ThumbnailModel.cs" />
     <Compile Include="Mvc\StringResources\DocumentsListResources.cs" />
+    <Compile Include="Mvc\StringResources\DocumentResources.cs" />
     <Compile Include="Mvc\StringResources\ImageGalleryResources.cs" />
     <Compile Include="Mvc\Models\Image\IImageModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageDisplayMode.cs" />
@@ -192,6 +197,7 @@
     <EmbeddedResource Include="Mvc\Views\DocumentsList\Detail.DocumentDetails.cshtml" />
     <EmbeddedResource Include="Mvc\Views\DocumentsList\List.DocumentsList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\DocumentsList\List.DocumentsTable.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Document\DocumentLink.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
