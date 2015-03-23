@@ -1,0 +1,31 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<sf-media-field class="sf-Media--info modal-settings"
+    sf-auto-open-selector
+    sf-model="properties.Id.PropertyValue"
+    sf-provider="properties.ProviderName.PropertyValue"></sf-media-field>
+
+<form name="imageProperties">
+    <div class="form-group">
+        <label for="templateName">@Html.Resource("Template")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames("Document", @"(?<viewName>^DocumentLink.*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+        <div class="form-group">
+            <label for="imageCssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="imageCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
+</form>
