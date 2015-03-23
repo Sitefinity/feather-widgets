@@ -35,5 +35,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
         /// </summary>
         /// <value>The title.</value>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file extension of the document.
+        /// </summary>
+        /// <value>The extension.</value>
+        public string Extension { get; set; }
     }
 }

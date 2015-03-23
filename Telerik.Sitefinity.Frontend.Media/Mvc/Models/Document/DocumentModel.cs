@@ -41,8 +41,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
             if (this.Id != Guid.Empty)
             {
                 var document = this.GetDocument();
+
                 viewModel.MediaUrl = document.ResolveMediaUrl();
                 viewModel.Title = document.Title;
+
+                var ext = document.Extension;
+                if (ext.Length > 0)
+                    ext = ext.Remove(0, 1);
+
+                viewModel.Extension = ext;
             }
             else
             {
