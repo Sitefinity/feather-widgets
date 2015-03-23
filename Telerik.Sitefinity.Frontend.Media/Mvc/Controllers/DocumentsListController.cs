@@ -306,9 +306,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         internal const string WidgetIconCssClass = "";
         private IDocumentsListModel model;
-        private string listTemplateName;
-        private string detailTemplateName;
-        private bool openInSamePage;
+        private string listTemplateName = "DocumentsList";
+        private string detailTemplateName = "DocumentDetails";
+        private bool openInSamePage = true;
         private readonly string listTemplateNamePrefix = "List.";
         private readonly string detailTemplateNamePrefix = "Detail.";
         private bool? disableCanonicalUrlMetaTag;
