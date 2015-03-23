@@ -1,0 +1,36 @@
+@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList.DocumentsListViewModel
+
+@using System;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<div class="@Model.CssClass">
+
+    @foreach (var item in Model.Items)
+    {
+        <div>
+            <div>
+                <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
+                    @item.Fields.Title
+                </a>
+                (@item.Fields.Extension)
+            </div>
+            <div>
+                <a href="@item.Fields.MediaUrl" target="_blank">Download</a>
+                (@(Math.Ceiling((double)item.Fields.TotalSize / 1024) + " KB"))
+            </div>
+        </div>
+    }
+
+</div>
+
+@if (Model.ShowPager)
+{
+    @Html.Action("Index", "ContentPager", new
+       {
+           currentPage = Model.CurrentPage,
+           totalPagesCount = Model.TotalPagesCount.Value,
+           redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+       })
+}
+
+
