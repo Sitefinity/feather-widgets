@@ -3,6 +3,7 @@
   <Description>These are default test settings for a remote test run.</Description>
   <Deployment>
     <DeploymentItem filename="Telerik.Sitefinity.Frontend.TestUI.TestCases\app.config" />
+    <DeploymentItem filename="MediaFiles\" />
   </Deployment>
   <NamingScheme baseName="TestExecution@Sitefinity_UITests" useDefault="false" />
   <RemoteController name="100.76.0.127:6901" />
