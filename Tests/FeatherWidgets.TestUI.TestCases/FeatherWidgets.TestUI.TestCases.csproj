@@ -147,6 +147,7 @@
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
     <Compile Include="Identity\LoginFormAndLoginStatusOnTheSamePage.cs" />
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs" />
+    <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
