@@ -41,5 +41,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
         /// </summary>
         /// <value>The extension.</value>
         public string Extension { get; set; }
+
+        /// <summary>
+        /// Gets or sets the size of the file in KB.
+        /// </summary>
+        /// <value>The size of the file.</value>
+        public long FileSize { get; set; }
     }
 }
