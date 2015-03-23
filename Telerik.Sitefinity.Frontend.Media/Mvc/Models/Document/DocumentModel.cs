@@ -48,6 +48,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
 
                 viewModel.MediaUrl = document.ResolveMediaUrl();
                 viewModel.Title = document.Title;
+                viewModel.FileSize = (long)Math.Ceiling(document.TotalSize / 1024d);
 
                 var ext = document.Extension;
                 if (ext.Length > 0)
