@@ -166,8 +166,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
             var viewModel = this.Model.CreateDetailsViewModel(item);
-            //if (SystemManager.CurrentHttpContext != null)
-            //    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -185,8 +185,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
 
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
-            //if (SystemManager.CurrentHttpContext != null)
-            //    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.GetFullListTemplateName();
             return this.View(fullTemplateName, viewModel);

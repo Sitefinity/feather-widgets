@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -151,5 +152,29 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         IEnumerable<IContentLocationInfo> GetLocations();
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel);
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentDetailsViewModel viewModel);
     }
 }
