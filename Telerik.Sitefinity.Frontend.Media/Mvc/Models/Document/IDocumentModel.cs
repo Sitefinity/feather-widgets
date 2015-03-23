@@ -12,7 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
     public interface IDocumentModel
     {
         /// <summary>
-        /// Gets or sets the image identifier.
+        /// Gets or sets the document identifier.
         /// </summary>
         /// <value>
         /// The identifier.
