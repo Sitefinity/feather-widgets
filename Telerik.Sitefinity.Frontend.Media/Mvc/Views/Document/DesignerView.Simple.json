@@ -1,0 +1,7 @@
+﻿{
+	"priority": 1,
+	"scripts": [
+		"client-components/selectors/taxonomies/sf-taxonomy-service.js"
+	],
+	"components": ["sf-media-field", "sf-expander", "sf-style-dropdown"]
+}
