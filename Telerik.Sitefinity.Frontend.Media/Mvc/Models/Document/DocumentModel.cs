@@ -40,7 +40,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
 
             if (this.Id != Guid.Empty)
             {
-                var document = this.GetDocument();
+                SfDocument document;
+                viewModel.DocumentWasNotFound = !this.TryGetDocument(out document);
+
+                if (viewModel.DocumentWasNotFound)
+                    return viewModel;
 
                 viewModel.MediaUrl = document.ResolveMediaUrl();
                 viewModel.Title = document.Title;
@@ -79,13 +83,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
         /// Gets the document.
         /// </summary>
         /// <returns></returns>
-        protected virtual SfDocument GetDocument()
+        protected virtual bool TryGetDocument(out SfDocument document)
         {
             LibrariesManager librariesManager = LibrariesManager.GetManager(this.ProviderName);
-            return librariesManager.GetDocuments()
+            document = librariesManager.GetDocuments()
                 .Where(i => i.Id == this.Id)
                 .Where(PredefinedFilters.PublishedItemsFilter<SfDocument>())
                 .FirstOrDefault();
+
+            return document != null;
         }
         #endregion
     }
