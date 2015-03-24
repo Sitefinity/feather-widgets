@@ -57,14 +57,15 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector("Category1");
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().VerifySelectedCategory("Category0 > Category1");
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().AddTag("Tag0");
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().VerifySelectedTag("Tag0");
+            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().AddTag(TagName);
+            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().VerifySelectedTag(TagName);
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().UploadImage();
 
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
             string scr = this.GetImageSource(true, NewImageName, ImageTypeInPropertiesDialog);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageInPropertiesDialog(NewImageName, scr);
+
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(NewImageName, scr);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ThumbnailOption);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImageProperties();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
@@ -111,5 +112,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private const string ImageType = ".JPG";
         private const string ImageTypeInPropertiesDialog = ".TMB";
         private const string ThumbnailOption = "Original size: 320x214 px";
+        private const string TagName = "Tag0";
     }
 }

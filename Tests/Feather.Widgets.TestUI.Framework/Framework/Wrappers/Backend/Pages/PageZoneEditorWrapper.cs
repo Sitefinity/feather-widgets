@@ -209,6 +209,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             anchor.Find.ByExpression<HtmlImage>("src=" + src).AssertIsPresent(src + " was not present.");
         }
 
+        /// <summary>
+        /// Verifies the image thumbnail.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        /// <param name="src">The SRC.</param>
+        public void VerifyImageThumbnail(string altText, string src)
+        {
+            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText)
+                .AssertIsPresent(altText);
+
+            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+        }
+
         private bool WaitForSaveButton()
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();

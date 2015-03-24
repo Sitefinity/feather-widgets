@@ -149,6 +149,7 @@
     <Compile Include="Identity\LoginFormAndLoginStatusOnTheSamePage.cs" />
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
+    <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />
@@ -234,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MediaFiles\IMG01648.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MediaFiles\IMG01648.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
