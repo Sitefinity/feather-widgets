@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText), "Image alt text is not populated correctly"); 
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageTitle(NewImageName);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageAltText(NewImageAltText);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ImageDimensions);
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ThumbnailOption);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImageProperties();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
@@ -92,6 +92,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private const string ImageAltText = "AltText_Image1";
         private const string LibraryName = "TestImageLibrary";
         private const string ImageDimensions = "300x300";
+        private const string ThumbnailOption = "Original size: 300x300 px";
         private const string ImageType = ".JPG";
         private const string SelectedFilterName = "Recent Images";
         private const string NewImageName = "ImageTitleEdited";

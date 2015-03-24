@@ -64,8 +64,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
             string scr = this.GetImageSource(true, NewImageName, ImageTypeInPropertiesDialog);
+
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(NewImageName, scr);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ImageDimensions);
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ThumbnailOption);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImageProperties();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -110,7 +111,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private const string NewImageAltText = "ImageAltTextEdited";
         private const string ImageType = ".JPG";
         private const string ImageTypeInPropertiesDialog = ".TMB";
-        private const string ImageDimensions = "320x214";
+        private const string ThumbnailOption = "Original size: 320x214 px";
         private const string TagName = "Tag0";
     }
 }
