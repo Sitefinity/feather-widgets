@@ -135,8 +135,11 @@
     <Compile Include="DummyClasses\Identity\DummyProfileModel.cs" />
     <Compile Include="DummyClasses\Identity\DummyRegistrationController.cs" />
     <Compile Include="DummyClasses\Identity\DummyRegistrationModel.cs" />
+    <Compile Include="DummyClasses\Media\DocumentsList\DummyDocument.cs" />
+    <Compile Include="DummyClasses\Media\DocumentsList\DummyDocumentsListController.cs" />
     <Compile Include="DummyClasses\Media\Document\DummyDocumentController.cs" />
     <Compile Include="DummyClasses\Media\Document\DummyDocumentModel.cs" />
+    <Compile Include="DummyClasses\Media\DocumentsList\DummyDocumentsListModel.cs" />
     <Compile Include="DummyClasses\Media\DummyImageController.cs" />
     <Compile Include="DummyClasses\Media\DummyImageGalleryController.cs" />
     <Compile Include="DummyClasses\Media\DummyImageGalleryModel.cs" />
@@ -153,6 +156,7 @@
     <Compile Include="Identity\AccountActivationControllerTests.cs" />
     <Compile Include="Identity\ProfileControllerTests.cs" />
     <Compile Include="Identity\RegistrationControllerTests.cs" />
+    <Compile Include="Media\DocumentsList\DocumentControllerTests.cs" />
     <Compile Include="Media\Document\DocumentControllerTests.cs" />
     <Compile Include="Media\ImageGallery\ImageGalleryControllerTests.cs" />
     <Compile Include="Media\Image\ImageControllerTests.cs" />
