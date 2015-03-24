@@ -26,14 +26,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id);
 
             ServerOperations.Images().CreateLibrary(ImageLibraryTitle);
-            Guid id1 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle1, ImageResource1);
-            Guid id2 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle2, ImageResource2);
-            Guid id3 = ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle3, ImageResource3);
-
-            var manager = LibrariesManager.GetManager();
-            manager.Lifecycle.GetLive(manager.GetImage(id1));
-            manager.Lifecycle.GetLive(manager.GetImage(id2));
-            manager.Lifecycle.GetLive(manager.GetImage(id3));
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle1, ImageResource1);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle2, ImageResource2);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle3, ImageResource3);
         }
 
         /// <summary>

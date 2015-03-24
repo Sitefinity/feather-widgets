@@ -83,8 +83,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="altText">Image alternative text</param>
         public void VerifyStyle(string style, string title, string altText)
         {
-            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText, "style="+style)
-                           .AssertIsPresent("image");
+            ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText, "style="+style).AssertIsPresent("image");
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText)
                            .AssertIsPresent("image");
 
-            Assert.IsTrue(image.Src.Contains(thumbnail), "src is not correct");
+            Assert.IsTrue(image.Src.Contains(thumbnail), "src does not contain thumbnail substring");
         }
 
         private const int TimeOut = 30000;
