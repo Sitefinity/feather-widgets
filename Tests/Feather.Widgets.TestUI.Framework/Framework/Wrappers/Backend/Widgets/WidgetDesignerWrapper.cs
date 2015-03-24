@@ -49,14 +49,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="taxonomy">The taxonomy.</param>
         public void SelectCheckBox(string taxonomy)
         {
-            ActiveBrowser.WaitForAsyncOperations();
-
             HtmlInputCheckBox optionButton = ActiveBrowser.Find
                                                           .ByExpression<HtmlInputCheckBox>("id=" + taxonomy)
                                                           .AssertIsPresent("Taxonomy option");
-
             optionButton.Click();
-            ActiveBrowser.WaitForAsyncOperations();
         }
 
         /// <summary>
@@ -215,9 +211,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             hoursSelector[fromOrTo].SelectByValue(hour);
             hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             hoursSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
-            Manager.Current.ActiveBrowser.WaitUntilReady();
-            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
-            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -245,9 +238,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             minutesSelector[fromOrTo].SelectByValue(minute);
             minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             minutesSelector[fromOrTo].AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
-            Manager.Current.ActiveBrowser.WaitUntilReady();
-            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
-            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -302,9 +292,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             selectDetailTemplate.SelectByValue(option);
             selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
-            Manager.Current.ActiveBrowser.WaitUntilReady();
-            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
-            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -319,9 +306,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             selectDetailTemplate.SelectByValue(templateName);
             selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             selectDetailTemplate.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
-            Manager.Current.ActiveBrowser.WaitUntilReady();
-            Manager.Current.ActiveBrowser.WaitForAsyncJQueryRequests();
-            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
@@ -331,10 +315,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             HtmlInputRadioButton selectExistingPage = this.EM.Widgets.WidgetDesignerContentScreen.SelectedExistingPage.AssertIsPresent("Selected existing page");
             selectExistingPage.Click();
-
-            Manager.Current.ActiveBrowser.WaitUntilReady();
-            Manager.Current.ActiveBrowser.WaitForAsyncOperations();
-            Manager.Current.ActiveBrowser.RefreshDomTree();
         }
        
         /// <summary>
@@ -349,9 +329,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             providerDropDown.SelectByText(providerName);
             providerDropDown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             providerDropDown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
-
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>

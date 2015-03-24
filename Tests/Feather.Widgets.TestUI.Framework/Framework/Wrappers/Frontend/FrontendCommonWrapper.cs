@@ -60,9 +60,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="imageType">Type of the image.</param>
         /// <param name="baseUrl">The base URL.</param>
         /// <returns></returns>
-        public string GetImageSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl)
+        public string GetImageSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl, string contentType = "images")
         {
-            string contentType = "images";
             string providerUrl = "default-source";
 
             if (isBaseUrlIncluded)
