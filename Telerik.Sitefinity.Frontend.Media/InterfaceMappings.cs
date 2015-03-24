@@ -1,4 +1,6 @@
 ﻿using Ninject.Modules;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 
@@ -15,7 +17,9 @@ namespace Telerik.Sitefinity.Frontend.Media
         public override void Load()
         {
             Bind<IImageModel>().To<ImageModel>();
+            Bind<IDocumentModel>().To<DocumentModel>();
             Bind<IImageGalleryModel>().To<ImageGalleryModel>();
+            Bind<IDocumentsListModel>().To<DocumentsListModel>();
         }
     }
 }

@@ -145,6 +145,9 @@
     <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategoryAllTab.cs" />
     <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
+    <Compile Include="Identity\LoginFormAndLoginStatusOnTheSamePage.cs" />
+    <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs" />
+    <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
@@ -230,7 +233,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Identity\" />
+    <EmbeddedResource Include="MediaFiles\IMG01648.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MediaFiles\IMG01648.jpg" />

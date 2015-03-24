@@ -89,5 +89,15 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for test fixes
         /// </summary>
         public const string Fixes = "Fixes";
+
+        /// <summary>
+        /// LoginForm test category
+        /// </summary>
+        public const string LoginForm = "LoginForm";
+
+		/// <summary>
+        /// New category for Registration tests
+        /// </summary>
+        public const string Registration = "Registration";
     }
 }

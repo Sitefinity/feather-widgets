@@ -49,8 +49,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGalle
             arrow.Click();
         }
 
+        /// <summary>
+        /// Changes the paging or limit value.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <param name="selectedListSettingOption">The selected list setting option.</param>
         public void ChangePagingOrLimitValue(string number, string selectedListSettingOption)
-        {         
+        { 
             HtmlInputText itemsTextBox = ActiveBrowser.Find.ByExpression<HtmlInputText>("ng-disabled=~" + selectedListSettingOption)
                  .AssertIsPresent("text box");
 

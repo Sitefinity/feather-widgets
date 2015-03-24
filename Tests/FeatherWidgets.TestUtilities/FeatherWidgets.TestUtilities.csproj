@@ -169,6 +169,10 @@
       <Project>{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}</Project>
       <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Identity\Telerik.Sitefinity.Frontend.Identity.csproj">
+      <Project>{3b1b1ee2-84ee-4744-a8fb-bed1236da342}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
       <Name>Telerik.Sitefinity.Frontend.Navigation</Name>

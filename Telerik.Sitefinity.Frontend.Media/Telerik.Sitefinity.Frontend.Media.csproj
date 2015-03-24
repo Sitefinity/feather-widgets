@@ -150,6 +150,15 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\DocumentsListController.cs" />
+    <Compile Include="Mvc\Models\DocumentsList\DocumentDetailViewModel.cs" />
+    <Compile Include="Mvc\Models\DocumentsList\DocumentsListModel.cs" />
+    <Compile Include="Mvc\Models\DocumentsList\DocumentsListViewModel.cs" />
+    <Compile Include="Mvc\Models\DocumentsList\IDocumentsListModel.cs" />
+    <Compile Include="Mvc\Controllers\DocumentController.cs" />
+    <Compile Include="Mvc\Models\Document\DocumentModel.cs" />
+    <Compile Include="Mvc\Models\Document\DocumentViewModel.cs" />
+    <Compile Include="Mvc\Models\Document\IDocumentModel.cs" />
     <Compile Include="Mvc\Models\ImageGallery\ImageDetailsViewModel.cs" />
     <Compile Include="Mvc\Helpers\ImageHelpers.cs" />
     <Compile Include="Mvc\Models\Image\CustomSizeModel.cs" />
@@ -160,6 +169,8 @@
     <Compile Include="Mvc\Models\ImageGallery\ThumbnailViewModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageSizeModel.cs" />
     <Compile Include="Mvc\Models\Image\ThumbnailModel.cs" />
+    <Compile Include="Mvc\StringResources\DocumentsListResources.cs" />
+    <Compile Include="Mvc\StringResources\DocumentResources.cs" />
     <Compile Include="Mvc\StringResources\ImageGalleryResources.cs" />
     <Compile Include="Mvc\Models\Image\IImageModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageDisplayMode.cs" />
@@ -181,6 +192,14 @@
     <EmbeddedResource Include="Mvc\Views\ImageGallery\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\ImageGallery\List.SimpleList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\DocumentsList\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\DocumentsList\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\DocumentsList\Detail.DocumentDetails.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\DocumentsList\List.DocumentsList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\DocumentsList\List.DocumentsTable.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Document\DocumentLink.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Document\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Document\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +213,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ImageGallery\overlay-gallery.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\DocumentsList\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Document\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
