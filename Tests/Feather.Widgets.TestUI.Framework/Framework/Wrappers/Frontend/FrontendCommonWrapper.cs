@@ -24,6 +24,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             link.Click();
 
+            this.WaitForNewPageToLoad(expectedUrl, openInNewWindow);
+        }
+
+        /// <summary>
+        /// Waits for a new page to load on the frontend.
+        /// </summary>
+        /// <param name="expectedUrl">The expected url after the item is loaded.</param>
+        /// <param name="openInNewWindow">true or false dependingon Open in new window option</param>
+        public void WaitForNewPageToLoad(string expectedUrl, bool openInNewWindow)
+        {
             if (openInNewWindow)
             {
                 Manager.WaitForNewBrowserConnect(expectedUrl, true, TimeOut);
