@@ -186,7 +186,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             var fullFilePath = string.Concat(projectDir, fileTitle);
 
             BAT.Macros().DialogOperations().StartFileUploadDialogMonitoring(fullFilePath, DialogButton.OPEN);
-
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();

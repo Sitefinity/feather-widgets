@@ -141,7 +141,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="title">The image title.</param>
         /// <param name="altText">The image alt text.</param>
         /// <param name="src">The image src.</param>
-        public void VerifyImageInPropertiesDialog(string altText, string src)
+        public void VerifyImageThumbnailInPropertiesDialog(string altText, string src)
         {
             HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=" + altText)
                 .AssertIsPresent("image");
