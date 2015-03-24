@@ -27,4 +27,8 @@
         <h1>@Model.Item.Fields.Extension</h1>
     </div>
 
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
+    }
 </div>
