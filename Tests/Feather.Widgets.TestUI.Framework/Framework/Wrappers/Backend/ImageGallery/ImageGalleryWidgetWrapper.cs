@@ -43,7 +43,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGalle
         /// </summary>
         public void ExpandNarrowSelectionByArrow()
         {
-            HtmlSpan arrow = this.EM.ImageGallery.ImageGalleryWidgetEditScreen.NarroSelectionByArrow
+            HtmlSpan arrow = this.EM.ImageGallery.ImageGalleryWidgetEditScreen.NarrowSelectionByArrow
                   .AssertIsPresent("radio button");
 
             arrow.Click();

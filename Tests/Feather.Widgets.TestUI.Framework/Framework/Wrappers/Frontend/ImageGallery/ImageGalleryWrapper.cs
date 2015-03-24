@@ -44,7 +44,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
-        /// Determines whether [is image title present on detail master page] [the specified image title].
+        /// Determines whether is image title present on detail master page.
         /// </summary>
         /// <param name="imageTitle">The image title.</param>
         /// <returns></returns>
@@ -53,12 +53,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             ActiveBrowser.RefreshDomTree();
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            if (frontendPageMainDiv.InnerText.Contains(imageTitle))
-            {
-                return true;
-            }
-
-            return false;
+            return frontendPageMainDiv.InnerText.Contains(imageTitle);           
         }
 
         /// <summary>

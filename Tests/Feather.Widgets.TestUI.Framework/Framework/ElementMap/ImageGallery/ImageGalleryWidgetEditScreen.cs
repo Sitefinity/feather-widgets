@@ -26,8 +26,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ImageGallery
         /// <summary>
         /// Gets the narro selection by arrow.
         /// </summary>
-        /// <value>The narro selection by arrow.</value>
-        public HtmlSpan NarroSelectionByArrow
+        /// <value>The narrow selection by arrow.</value>
+        public HtmlSpan NarrowSelectionByArrow
         {
             get
             {
