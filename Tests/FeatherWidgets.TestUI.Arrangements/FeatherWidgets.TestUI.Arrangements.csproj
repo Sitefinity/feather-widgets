@@ -178,6 +178,7 @@
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />

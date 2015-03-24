@@ -26,6 +26,5 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
-
     }
 }

@@ -191,6 +191,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds profile widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddProfileWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(ProfileController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Registration", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Deletes the pages.
         /// </summary>
         public void DeletePages()
