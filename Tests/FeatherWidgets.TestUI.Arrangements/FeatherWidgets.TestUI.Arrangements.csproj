@@ -176,6 +176,7 @@
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />

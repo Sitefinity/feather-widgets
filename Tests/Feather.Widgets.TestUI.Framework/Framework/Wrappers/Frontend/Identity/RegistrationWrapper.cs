@@ -24,6 +24,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             HtmlInputText firstNameInput = EM.Identity.RegistrationFrontend.FirstName
                 .AssertIsPresent("First name field");
 
+            firstNameInput.Text = string.Empty;
             firstNameInput.Text = firstName;
         }
 
@@ -36,6 +37,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             HtmlInputText lastNameInput = EM.Identity.RegistrationFrontend.LastName
                 .AssertIsPresent("Last name field");
 
+            lastNameInput.Text = string.Empty;
             lastNameInput.Text = lastName;
         }
 
@@ -48,6 +50,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             HtmlInputText emailInput = EM.Identity.RegistrationFrontend.Email
                 .AssertIsPresent("Email field");
 
+            emailInput.Text = string.Empty;
             emailInput.Text = email;
         }
 
@@ -60,6 +63,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             HtmlInputText userNameInput = EM.Identity.RegistrationFrontend.Username
                 .AssertIsPresent("User name field");
 
+            userNameInput.Text = string.Empty;
             userNameInput.Text = userName;
         }
 
@@ -72,6 +76,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             HtmlInputPassword passwordInput = EM.Identity.RegistrationFrontend.Password
                 .AssertIsPresent("Password field");
 
+            passwordInput.Text = string.Empty;
             passwordInput.Text = password;
         }
 
@@ -84,6 +89,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
             HtmlInputPassword passwordInput = EM.Identity.RegistrationFrontend.ReTypePassword
                 .AssertIsPresent("Re-type passord field");
 
+            passwordInput.Text = string.Empty;
             passwordInput.Text = password;
         }
 
@@ -108,6 +114,62 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
 
             var isContained = frontendPageMainDiv.InnerText.Contains("Thank you!You are successfully registered.");
             Assert.IsTrue(isContained, "Successfully message ");
+        }
+
+        /// <summary>
+        /// Verifies required message for email field.
+        /// </summary>
+        public void AssertEmptyEmailFieldMessage()
+        {
+            this.EM.Identity.RegistrationFrontend.EmailRequiredMessage.AssertIsPresent("The username field is required.");
+        }
+
+        /// <summary>
+        /// Verifies required message for username field.
+        /// </summary>
+        public void AssertEmptyUsernameFieldMessage()
+        {
+            this.EM.Identity.RegistrationFrontend.UserNameRequiredMessage.AssertIsPresent("The username field is required.");
+        }
+
+        /// <summary>
+        /// Verifies required message for password field.
+        /// </summary>
+        public void AssertEmptyPasswordFieldMessage()
+        {
+            this.EM.Identity.RegistrationFrontend.PasswordRequiredMessage.AssertIsPresent("The Password field is required.");
+        }
+
+        /// <summary>
+        /// Verifies required message for re type password field.
+        /// </summary>
+        public void AssertReTypePasswordFieldMessage()
+        {
+            this.EM.Identity.RegistrationFrontend.PasswordRetypeMessage.AssertIsPresent("The Password field is required.");
+        }
+
+        /// <summary>
+        /// Verifies required message for short password field.
+        /// </summary>
+        public void AssertShortPasswordFieldMessage()
+        {
+            this.EM.Identity.RegistrationFrontend.PasswordLengthMessage.AssertIsPresent("The Password field is required.");
+        }
+
+        /// <summary>
+        /// Verifies existing user message.
+        /// </summary>
+        public void AssertExistingUserNameFieldMessage()
+        {
+            this.EM.Identity.RegistrationFrontend.DuplicateUserNameMessage.AssertIsPresent("The existing user field.");
+        }
+
+        /// <summary>
+        /// Verifies existing email address message.
+        /// </summary>
+        public void AssertExistingEmailAddressMessage()
+        {
+            this.EM.Identity.RegistrationFrontend.DuplicateEmailMessage.AssertIsPresent("The existing user field.");
         }
     }
 }

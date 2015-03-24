@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 
@@ -27,7 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
         {
             get
             {
-                return typeof(Document);
+                return typeof(Telerik.Sitefinity.Libraries.Model.Document);
             }
 
             set
