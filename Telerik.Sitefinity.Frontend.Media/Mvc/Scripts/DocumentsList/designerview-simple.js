@@ -87,6 +87,8 @@
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
 
+                    $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify($scope.additionalFilters.value);
+
                     if ($scope.properties.OpenInSamePage.PropertyValue && $scope.properties.OpenInSamePage.PropertyValue.toLowerCase() === 'true') {
                         $scope.properties.DetailsPageId.PropertyValue = emptyGuid;
                     }
