@@ -173,6 +173,7 @@
     <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\LoginAndVerifyUserStatusOnTheSamePage.cs" />
+    <Compile Include="Identity\LoginFormAddChangeRemoveRedirectToPageAfterLogin.cs" />
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs">
       <SubType>Code</SubType>
     </Compile>
