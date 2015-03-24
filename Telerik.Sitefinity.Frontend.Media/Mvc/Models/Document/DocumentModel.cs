@@ -31,7 +31,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
         public string CssClass { get; set; }
 
         /// <inheritdoc />
-        public DocumentViewModel GetViewModel()
+        public virtual DocumentViewModel GetViewModel()
         {
             var viewModel = new DocumentViewModel()
             {               
@@ -46,15 +46,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
                 if (viewModel.DocumentWasNotFound)
                     return viewModel;
 
-                viewModel.MediaUrl = document.ResolveMediaUrl();
-                viewModel.Title = document.Title;
-                viewModel.FileSize = (long)Math.Ceiling(document.TotalSize / 1024d);
-
-                var ext = document.Extension;
-                if (ext.Length > 0)
-                    ext = ext.Remove(0, 1);
-
-                viewModel.Extension = ext;
+                viewModel.MediaUrl = this.ResolveMediaUrl(document);
+                viewModel.Title = this.GetTitle(document);
+                viewModel.FileSize = this.GetFileSize(document);
+                viewModel.Extension = this.GetExtension(document);
             }
             else
             {
@@ -93,6 +88,50 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
                 .FirstOrDefault();
 
             return document != null;
+        }
+
+        /// <summary>
+        /// Resolves the media URL of the given document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>The absolute media url.</returns>
+        protected virtual string ResolveMediaUrl(SfDocument document)
+        {
+            return document.ResolveMediaUrl();
+        }
+
+        /// <summary>
+        /// Gets the title of the document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns></returns>
+        protected virtual string GetTitle(SfDocument document)
+        {
+            return document.Title;
+        }
+
+        /// <summary>
+        /// Gets the file extension of the given document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>The extension without the dot at the beginning.</returns>
+        protected virtual string GetExtension(SfDocument document)
+        {
+            var ext = document.Extension;
+            if (ext.Length > 0)
+                ext = ext.Remove(0, 1);
+
+            return ext;
+        }
+
+        /// <summary>
+        /// Gets the file size of the given document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <returns>The size in KB.</returns>
+        protected virtual long GetFileSize(SfDocument document)
+        {
+            return (long)Math.Ceiling(document.TotalSize / 1024d);
         }
         #endregion
     }
