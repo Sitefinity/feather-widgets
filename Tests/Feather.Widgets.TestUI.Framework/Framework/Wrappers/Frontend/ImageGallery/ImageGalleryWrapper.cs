@@ -29,6 +29,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verifies the image is not present.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        public void VerifyImageIsNotPresent(string altText)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlImage>("tagname=img", "alt=" + altText).AssertIsNull(altText);
+        }
+
+        /// <summary>
         /// Clicks the image.
         /// </summary>
         /// <param name="altText">The alt text.</param>

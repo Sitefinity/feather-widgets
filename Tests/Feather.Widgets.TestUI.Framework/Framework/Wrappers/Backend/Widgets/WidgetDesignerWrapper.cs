@@ -39,7 +39,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
 
             HtmlInputRadioButton optionButton = itemsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
-                                                                  .AssertIsPresent("Which items to display option radio button");
+                                                                   .AssertIsPresent("Which items to display option radio button");
             optionButton.Click();
         }
  
@@ -135,7 +135,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             }
 
             HtmlInputRadioButton optionButton = itemsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
-                                                                  .AssertIsPresent("Which items to display option radio button");
+                                                                   .AssertIsPresent("Which items to display option radio button");
 
             optionButton.Click();
         }
@@ -259,7 +259,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SwitchToSingleItemSettingsTab()
         {
             HtmlAnchor singleTab = this.EM.Widgets.WidgetDesignerContentScreen.SingleItemSetting
-                                    .AssertIsPresent("Single item settings tab");
+                                       .AssertIsPresent("Single item settings tab");
 
             singleTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
@@ -272,7 +272,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SwitchToListSettingsTab()
         {
             HtmlAnchor listSettingsTab = this.EM.Widgets.WidgetDesignerContentScreen.ListSettings
-                                    .AssertIsPresent("List settings tab");
+                                             .AssertIsPresent("List settings tab");
 
             listSettingsTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
@@ -286,7 +286,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectSortingOption(string option)
         {
             HtmlSelect selectDetailTemplate = this.EM.Widgets.WidgetDesignerContentScreen.SortingOptionsDropdown
-                                    .AssertIsPresent("Sorting dropdown");
+                                                  .AssertIsPresent("Sorting dropdown");
 
             selectDetailTemplate.Click();
             selectDetailTemplate.SelectByValue(option);
@@ -300,7 +300,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectDetailTemplate(string templateName)
         {
             HtmlSelect selectDetailTemplate = this.EM.Widgets.WidgetDesignerContentScreen.SelectDetailTemplate
-                                    .AssertIsPresent("Detail template select");
+                                                  .AssertIsPresent("Detail template select");
 
             selectDetailTemplate.Click();
             selectDetailTemplate.SelectByValue(templateName);
@@ -324,7 +324,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void SelectProvider(string providerName)
         {
             HtmlSelect providerDropDown = this.EM.Widgets.WidgetDesignerContentScreen.ProviderDropDown
-                                    .AssertIsPresent("Provider DropDown");
+                                              .AssertIsPresent("Provider DropDown");
 
             providerDropDown.SelectByText(providerName);
             providerDropDown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
@@ -358,10 +358,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             int divListCount = divList.Count;
             Assert.IsNotNull(divListCount, "Invalid count");
             Assert.AreNotEqual(0, divListCount, "Count equals 0");
+            int notVisibleItemNames = 0;
 
             for (int i = 0; i < divListCount; i++)
             {
-                divList[i].Find.ByAttributes<HtmlSpan>("sf-shrinked-breadcrumb=" + itemNames[i]).AssertIsPresent("Span for " + itemNames[i] + " was not present.");
+                if(!divList[i].IsVisible())
+                {
+                    notVisibleItemNames++;
+                }
+                else
+                {
+                    divList[i].Find.ByAttributes<HtmlSpan>("sf-shrinked-breadcrumb=" + itemNames[i - notVisibleItemNames]).AssertIsPresent("Span for " + itemNames[i - notVisibleItemNames] + " was not present.");                 
+                }
             }
         }
     }
