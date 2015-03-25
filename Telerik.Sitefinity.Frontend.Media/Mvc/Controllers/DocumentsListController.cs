@@ -193,6 +193,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         }
 
         /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index(null).ExecuteResult(this.ControllerContext);
+        }
+
+        /// <summary>
         /// Maps the route parameters from URL and returns true if the URL is a valid route.
         /// </summary>
         /// <param name="urlParams">The URL parameters.</param>
@@ -263,6 +272,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             return false;
         }
 
+        #endregion
+
+        #region Private methods
+
         /// <summary>
         /// Gets the full name of the list template.
         /// </summary>
@@ -271,10 +284,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             return this.listTemplateNamePrefix + this.ListTemplateName;
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Initializes the model.
