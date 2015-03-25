@@ -76,6 +76,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string ImageSelector = "ImageSelector";
 
         /// <summary>
+        /// ImageGallery category for ImageGallery tests
+        /// </summary>
+        public const string ImageGallery = "ImageGallery";
+
+        /// <summary>
         /// Search category for Search tests
         /// </summary>
         public const string Search = "Search";
@@ -90,9 +95,14 @@ namespace FeatherWidgets.TestUI.TestCases
         /// </summary>
         public const string LoginForm = "LoginForm";
 
-		/// <summary>
+        /// <summary>
         /// New category for Registration tests
         /// </summary>
         public const string Registration = "Registration";
+
+        /// <summary>
+        /// New category for Profile tests
+        /// </summary>
+        public const string Profile = "Profile";
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
 
@@ -20,6 +21,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         public LoginFormEditScreen(Find find)
             : base(find)
         {
+        }
+
+        /// <summary>
+        /// Gets the select button in redirect to section.
+        /// </summary>
+        public HtmlButton RedirectToPageSelectButton
+        {
+            get
+            {
+                return this.RedirectPageSection.Find.ByExpression<HtmlButton>("tagname=button", "class=~openSelectorBtn");
+            }
+        }
+
+        private HtmlDiv RedirectPageSection
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=~After login users will be redirected to...", "class=form-group");
+            }
         }
     }
 }

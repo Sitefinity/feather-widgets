@@ -79,5 +79,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             return new IdentityWrapperFacade();
         }
+
+        /// <summary>
+        /// Images the gallery.
+        /// </summary>
+        /// <returns></returns>
+        public ImageGalleryWrapperFacade ImageGallery()
+        {
+            return new ImageGalleryWrapperFacade();
+        }
     }
 }

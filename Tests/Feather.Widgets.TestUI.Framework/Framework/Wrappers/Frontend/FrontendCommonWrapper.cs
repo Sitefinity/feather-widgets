@@ -24,6 +24,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 
             link.Click();
 
+            this.WaitForNewPageToLoad(expectedUrl, openInNewWindow);
+        }
+
+        /// <summary>
+        /// Waits for a new page to load on the frontend.
+        /// </summary>
+        /// <param name="expectedUrl">The expected url after the item is loaded.</param>
+        /// <param name="openInNewWindow">true or false dependingon Open in new window option</param>
+        public void WaitForNewPageToLoad(string expectedUrl, bool openInNewWindow)
+        {
             if (openInNewWindow)
             {
                 Manager.WaitForNewBrowserConnect(expectedUrl, true, TimeOut);
@@ -57,13 +67,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         /// <param name="isBaseUrlIncluded">The is base URL included.</param>
         /// <param name="libraryUrl">The library URL.</param>
-        /// <param name="imageName">Name of the image.</param>
         /// <param name="imageType">Type of the image.</param>
         /// <param name="baseUrl">The base URL.</param>
         /// <returns></returns>
-        public string GetImageSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl)
+        public string GetImageSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl, string contentType = "images")
         {
-            string contentType = "images";
             string providerUrl = "default-source";
 
             if (isBaseUrlIncluded)
@@ -74,6 +82,31 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             {
                 return "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
             }
+        }
+
+        /// <summary>
+        /// Verifies the style attribute value.
+        /// </summary>
+        /// <param name="style">Expected style attribute value.</param>
+        /// <param name="title">Image title</param>
+        /// <param name="altText">Image alternative text</param>
+        public void VerifyStyle(string style, string title, string altText)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText, "style="+style).AssertIsPresent("image");
+        }
+
+        /// <summary>
+        /// Verifies the thumbnail string in source attribute.
+        /// </summary>
+        /// <param name="thumbnail">Thumbnail string in source attribute</param>
+        /// <param name="title">Image title</param>
+        /// <param name="altText">Image alternative text</param>
+        public void VerifyThumbnail(string thumbnail, string title, string altText)
+        {
+            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText)
+                           .AssertIsPresent("image");
+
+            Assert.IsTrue(image.Src.Contains(thumbnail), "src does not contain thumbnail substring");
         }
 
         private const int TimeOut = 30000;

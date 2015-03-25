@@ -97,6 +97,8 @@
     <Compile Include="Framework\ElementMap\Identity\ProfileFrontend.cs" />
     <Compile Include="Framework\ElementMap\Identity\RegistrationEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Identity\RegistrationFrontend.cs" />
+    <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryMap.cs" />
+    <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImageUploadPropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImagePropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImageSelectorScreen.cs" />
@@ -127,6 +129,8 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\ImageGallery\ImageGalleryWidgetWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\ImageGallery\ImageGalleryWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\ImageUploadPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Identity\IdentityWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Identity\LoginFormWrapper.cs" />
@@ -170,6 +174,8 @@
     <Compile Include="Framework\Wrappers\Frontend\Identity\LoginStatusWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Identity\ProfileWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Identity\RegistrationWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\ImageGallery\ImageGalleryWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\ImageGallery\ImageGalleryWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\InlineEditingWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapperFacade.cs" />

@@ -46,6 +46,50 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets the image None alignment.
+        /// </summary>
+        public HtmlInputRadioButton AlignmentNone
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("tagName=input", "ng-model=model.alignment", "value=None");
+            }
+        }
+
+        /// <summary>
+        /// Gets the image Left alignment.
+        /// </summary>
+        public HtmlInputRadioButton AlignmentLeft
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("tagName=input", "ng-model=model.alignment", "value=Left");
+            }
+        }
+
+        /// <summary>
+        /// Gets the image Center alignment.
+        /// </summary>
+        public HtmlInputRadioButton AlignmentCenter
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("tagName=input", "ng-model=model.alignment", "value=Center");
+            }
+        }
+
+        /// <summary>
+        /// Gets the image Right alignment.
+        /// </summary>
+        public HtmlInputRadioButton AlignmentRight
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("tagName=input", "ng-model=model.alignment", "value=Right");
+            }
+        }
+
+        /// <summary>
         /// Gets the image thumbnail selector.
         /// </summary>
         public HtmlSelect ThumbnailSelector

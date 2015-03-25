@@ -70,15 +70,59 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Selects None alignment option
+        /// </summary>
+        public void SelectNoneAlignmentOption()
+        {
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentNone
+                .AssertIsPresent("None alignment");
+
+            alignmentOption.Click();
+        }
+
+        /// <summary>
+        /// Selects Left alignment option
+        /// </summary>
+        public void SelectLeftAlignmentOption()
+        {
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentLeft
+                .AssertIsPresent("Left alignment");
+
+            alignmentOption.Click();
+        }
+
+        /// <summary>
+        /// Selects Center alignment option
+        /// </summary>
+        public void SelectCenterAlignmentOption()
+        {
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentCenter
+                .AssertIsPresent("Center alignment");
+
+            alignmentOption.Click();
+        }
+
+        /// <summary>
+        /// Selects Right alignment option
+        /// </summary>
+        public void SelectRightAlignmentOption()
+        {
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentRight
+                .AssertIsPresent("Right alignment");
+
+            alignmentOption.Click();
+        }
+
+        /// <summary>
         /// Verifies the selected option in thumbnail selector
         /// </summary>
-        /// <param name="imageSize">The image size.</param>
-        public void VerifySelectedOptionThumbnailSelector(string imageSize)
+        /// <param name="thumbnailOption">The thumbnail option.</param>
+        public void VerifySelectedOptionThumbnailSelector(string thumbnailOption)
         {
             HtmlSelect selector = this.EM.Media.ImagePropertiesScreen.ThumbnailSelector
                 .AssertIsPresent("Thumbnail selector");
 
-            Assert.AreEqual("Original size: " + imageSize + " px", selector.SelectedOption.Text, "Selected option is not as expected");
+            Assert.AreEqual(thumbnailOption, selector.SelectedOption.Text);
         }
 
         /// <summary>
@@ -90,7 +134,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlSelect selector = this.EM.Media.ImagePropertiesScreen.ThumbnailSelector
                 .AssertIsPresent("Thumbnail selector");
 
-            selector.SelectByValue(optionValue);
+            selector.SelectByText(optionValue);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
@@ -141,7 +185,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="title">The image title.</param>
         /// <param name="altText">The image alt text.</param>
         /// <param name="src">The image src.</param>
-        public void VerifyImageInPropertiesDialog(string altText, string src)
+        public void VerifyImageThumbnailInPropertiesDialog(string altText, string src)
         {
             HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=" + altText)
                 .AssertIsPresent("image");

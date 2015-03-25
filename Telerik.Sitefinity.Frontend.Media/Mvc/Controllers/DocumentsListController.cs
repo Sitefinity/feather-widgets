@@ -26,7 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                            Title = "Documents list",
                            SectionName = "MvcWidgets",
                            ModuleName = "Libraries",
-                           CssClass = WidgetIconCssClass)]
+                           CssClass = DocumentsListController.WidgetIconCssClass)]
     public class DocumentsListController : Controller, IRouteMapper, IContentLocatableView
     {
         #region Properties
@@ -304,7 +304,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "";
+        internal const string WidgetIconCssClass = "sfDownloadListIcn";
         private IDocumentsListModel model;
         private string listTemplateName = "DocumentsList";
         private string detailTemplateName = "DocumentDetails";
