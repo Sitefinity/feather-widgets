@@ -7,6 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
 namespace FeatherWidgets.TestUI.TestCases.News
 {
@@ -29,18 +30,18 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption("allPublished");
+            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.allPublished);
             BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().ExpandNarrowSelectionByArrow();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption("allItems");
+            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.allItems);
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption("usePaging");
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectRadioButtonOption("useLimit");
+            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.usePaging);
+            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectRadioButtonOption(ImageGalleryRadioButtonIds.useLimit);
 
             //// Can't find way to persist values and because of that the following line is commented
             //// BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().ChangePagingOrLimitValue("2", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption("samePage");           
+            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.samePage);           
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             foreach (var image in this.imageTitles)
             {
@@ -63,10 +64,10 @@ namespace FeatherWidgets.TestUI.TestCases.News
             var scr = this.GetImageSource(false, this.imageTitles[1], ImageTypeFrontend);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, scr);
 
-            var hrefPrevious = this.GetImageHref(true, this.imageTitles[0], ImageTypeFrontend);
+            var hrefPrevious = this.GetImageHref(true, this.imageTitles[0]);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyPreviousImage(hrefPrevious);
 
-            var hrefNext = this.GetImageHref(true, this.imageTitles[2], ImageTypeFrontend);
+            var hrefNext = this.GetImageHref(true, this.imageTitles[2]);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyNextImage(hrefNext);
 
             var hrefBack = "/" + PageName.ToLower() + "/" + "Index/";
@@ -98,7 +99,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
             return scr;
         }
 
-        private string GetImageHref(bool isBaseUrlIncluded, string imageName, string imageType)
+        private string GetImageHref(bool isBaseUrlIncluded, string imageName)
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower();

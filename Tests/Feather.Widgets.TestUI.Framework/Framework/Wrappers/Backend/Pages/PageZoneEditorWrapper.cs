@@ -222,6 +222,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
         }
 
+        /// <summary>
+        /// Verifies the image is not present.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        public void VerifyImageIsNotPresent(string altText)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText).AssertIsNull(altText);
+        }
+
         private bool WaitForSaveButton()
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();
