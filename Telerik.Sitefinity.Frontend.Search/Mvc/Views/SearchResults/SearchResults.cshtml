@@ -139,31 +139,11 @@
                })
                 }
 
+        <input type="hidden" data-sf-role="searchResOrderBy" value="@Request.QueryString["orderBy"]" />
+        <input type="hidden" data-sf-role="searchResLanguage" value="@Request.QueryString["language"]" />
+        <input type="hidden" data-sf-role="searchResIndexCatalogue" value="@Request.QueryString["indexCatalogue"]" />
+        <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryString["searchQuery"]' />
+        <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryString["wordsMode"]' />
     </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        //Dropdownlist Selectedchange event
-        $(".userSortDropdown").change(function (value) {
-            var selectedValue = $(value.currentTarget).val();
-            var url = getResultsUrl(selectedValue);
-            window.location.search = url;
-        });
-
-        // Returns url with all needed parameters
-        function getResultsUrl(orderBy, language) {
-            var orderByValue = orderBy || '@Request.QueryString["orderBy"]';
-            var languageValue = language || '@Request.QueryString["language"]';
-
-            var orderByParam = orderByValue ? '&orderBy=' + orderByValue : '';
-            var languageParam = languageValue ? '&language=' + languageValue : '';
-
-            return '?indexCatalogue=' + '@Request.QueryString["indexCatalogue"]' + '&' +
-                'searchQuery=' + '@Request.QueryString["searchQuery"]' + '&' +
-                'wordsMode=' + '@Request.QueryString["wordsMode"]' +
-                orderByParam +
-                languageParam;
-        }
-    });
-</script>
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/Search-results.js"))
