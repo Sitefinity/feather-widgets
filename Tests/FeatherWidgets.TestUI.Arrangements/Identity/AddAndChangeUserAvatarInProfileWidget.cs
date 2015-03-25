@@ -23,11 +23,11 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
 
-            ////ViewMode bothMode = ViewMode.Both;
-            ////Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-            ////Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
-            ////pageId = ServerOperations.Pages().GetPageNodeId(pageId);
-            ////ServerOperationsFeather.Pages().AddProfileWidgetToPage(pageId, PlaceHolderId, bothMode);
+            ViewMode bothMode = ViewMode.Both;
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
+            pageId = ServerOperations.Pages().GetPageNodeId(pageId);
+            ServerOperationsFeather.Pages().AddProfileWidgetToPage(pageId, PlaceHolderId, bothMode);
 
             ServerOperations.Users().CreateUserWithProfileAndRoles(NewUserName, NewUserPassword, NewUserFirstName, NewUserLastName, NewUserEmail, new List<string> { "BackendUsers", "Administrators" });
             AuthenticationHelper.LogoutUser(AdminUserName);

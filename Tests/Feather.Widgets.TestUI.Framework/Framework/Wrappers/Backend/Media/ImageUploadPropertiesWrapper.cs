@@ -188,8 +188,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             var uploadDialog = BAT.Macros().DialogOperations().StartFileUploadDialogMonitoring(fullFilePath, DialogButton.OPEN);
             BAT.Macros().DialogOperations().WaitUntillFileUploadDialogIsHandled(uploadDialog);
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
-            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>

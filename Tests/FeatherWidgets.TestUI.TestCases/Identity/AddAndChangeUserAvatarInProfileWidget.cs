@@ -28,14 +28,16 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(),false);
 
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickEditProfileLink();
-            ////BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyDefaultUserAvatar();
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyDefaultUserAvatar();
 
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickUploadPhotoLink();
-
-            string fullImagesPath = DeploymentDirectory + @"\";
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().PerformSingleFileUpload(FileToUpload, fullImagesPath);
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
+            this.UploadUserAvatar();           
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyNotDefaultUserAvatarSrc();
+            string oldUserAvatarSrc = BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().UserAvatarSrc(); 
+
+            this.UploadUserAvatar();
+
+            string currentUserAvatarSrc = BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().UserAvatarSrc();
+            Assert.AreNotEqual(oldUserAvatarSrc, currentUserAvatarSrc, "Old avatar source and new avatar source are equal");
         }
 
         /// <summary>
@@ -51,12 +53,21 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
         }
 
+        public void UploadUserAvatar()
+        {
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickUploadPhotoLink();
+            string fullImagesPath = DeploymentDirectory + @"\";
+            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().PerformSingleFileUpload(FileToUpload, fullImagesPath);
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();
+        }
+
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
         protected override void ServerSetup()
         {
-            ////BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -64,14 +75,13 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// </summary>
         protected override void ServerCleanup()
         {
-            ////BAT.Arrange(this.TestName).ExecuteTearDown();
+           BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "ProfilePage";
         private const string LoginPage = "Sitefinity";
         private const string UserName = "newUser";
         private const string UserPassword = "password";
-
         private const string FileToUpload = "IMG01648.jpg";
     }
 }

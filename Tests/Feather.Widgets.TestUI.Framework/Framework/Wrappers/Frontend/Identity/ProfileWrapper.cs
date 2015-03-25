@@ -42,7 +42,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         {
             HtmlButton saveChangesButton = EM.Identity.ProfileFrontend.SaveChanges
             .AssertIsPresent("Save changes button");
-            saveChangesButton.Click();
+
+            saveChangesButton.ScrollToVisible();
+            saveChangesButton.Focus();
+            saveChangesButton.MouseClick();
+            saveChangesButton.InvokeClick();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
@@ -193,7 +197,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// <summary>
         /// Verifies successfully saved message.
         /// </summary>
-        public void SuccessfullySavedMessage()
+        public void AssertSuccessfullySavedMessage()
         {
             this.EM.Identity.ProfileFrontend.SuccessfullySavedMessage.AssertIsPresent("Successfully saved changes message.");
         }
@@ -223,7 +227,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// <summary>
         /// Verifies user avatar src
         /// </summary>
-        /// <param name="src">Image src</param>
         public void VerifyNotDefaultUserAvatarSrc()
         {
             string src = this.UserAvatarSrc();
