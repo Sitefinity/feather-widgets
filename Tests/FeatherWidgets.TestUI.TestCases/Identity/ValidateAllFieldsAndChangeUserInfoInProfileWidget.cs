@@ -29,7 +29,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ////Verify first and last name empty fields message
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().RemoveFirstAndLastName();
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillFirstName(string.Empty);
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillLastName(string.Empty);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertFirstNameFieldMessage();
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertLastNameFieldMessage();

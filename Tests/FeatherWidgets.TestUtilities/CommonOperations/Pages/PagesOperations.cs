@@ -206,7 +206,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             {
                 mvcWidget.ControllerName = typeof(ProfileController).FullName;
 
-                this.CreateControl(pageManager, page, mvcWidget, "Registration", placeholder);
+                this.CreateControl(pageManager, page, mvcWidget, "Profile", placeholder);
             }
         }
 

@@ -52,25 +52,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void ChangePasswordLink()
         {
-            HtmlAnchor registerButton = EM.Identity.ProfileFrontend.ChangePasswordLink
+            HtmlAnchor changePassworLink = EM.Identity.ProfileFrontend.ChangePasswordLink
             .AssertIsPresent("Change password link");
-            registerButton.Click();
+            changePassworLink.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
-        }
-
-        /// <summary>
-        /// Remove first and last name
-        /// </summary>
-        public void RemoveFirstAndLastName()
-        {
-            HtmlInputText firstNameInput = EM.Identity.ProfileFrontend.FirstName
-                .AssertIsPresent("Last name field");
-            HtmlInputText lastNameInput = EM.Identity.ProfileFrontend.LastName
-                .AssertIsPresent("Last name field");
-
-            firstNameInput.Text = string.Empty;
-            lastNameInput.Text = string.Empty;
         }
 
         /// <summary>
@@ -143,7 +129,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertFirstNameFieldMessage()
         {
-            this.EM.Identity.ProfileFrontend.FirstNameRequiredMessage.AssertIsPresent("The first name field is required.");
+            this.EM.Identity.ProfileFrontend.FirstNameRequiredMessage.AssertIsPresent("The first name field");
         }
 
         /// <summary>
@@ -151,7 +137,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertLastNameFieldMessage()
         {
-            this.EM.Identity.ProfileFrontend.LastNameRequiredMessage.AssertIsPresent("The last name field is required.");
+            this.EM.Identity.ProfileFrontend.LastNameRequiredMessage.AssertIsPresent("The last name ");
         }
 
         /// <summary>
@@ -159,7 +145,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertPasswordLengthFieldMessage()
         {
-            this.EM.Identity.ProfileFrontend.PasswordLengthMessage.AssertIsPresent("The password length field.");
+            this.EM.Identity.ProfileFrontend.PasswordLengthMessage.AssertIsPresent("The password length ");
         }
 
         /// <summary>
@@ -167,7 +153,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertOldPasswordInvalidFieldMessage()
         {
-            this.EM.Identity.ProfileFrontend.OldPasswordInvalidMessage.AssertIsPresent("The password field is wrong.");
+            this.EM.Identity.ProfileFrontend.OldPasswordInvalidMessage.AssertIsPresent("The old password ");
         }
 
         /// <summary>
@@ -175,7 +161,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertNewPasswordInvalidFieldMessage()
         {
-            this.EM.Identity.ProfileFrontend.NewPasswordInvalidMessage.AssertIsPresent("The password field is wrong.");
+            this.EM.Identity.ProfileFrontend.NewPasswordInvalidMessage.AssertIsPresent("The new password ");
         }
 
         /// <summary>
@@ -183,7 +169,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// </summary>
         public void AssertRetypePasswordInvalidFieldMessage()
         {
-            this.EM.Identity.ProfileFrontend.PasswordRetypeInvalidMessage.AssertIsPresent("The password field is wrong.");
+            this.EM.Identity.ProfileFrontend.PasswordRetypeInvalidMessage.AssertIsPresent("The re type password ");
         }
 
         /// <summary>
@@ -192,7 +178,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         public void AssertNewAndRepeatPassDoNotMatchFieldMessage()
         {
             this.EM.Identity.ProfileFrontend.NewAndRetypePasswordDoNotMatchMessage
-                .AssertIsPresent("The new and retype password do not match.");
+                .AssertIsPresent("The new and retype password ");
         }
 
         /// <summary>
@@ -201,7 +187,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         public void AssertRepeatAndNewPassDoNotMatchFieldMessage()
         {
             this.EM.Identity.ProfileFrontend.RetypeAndNewPasswordDoNotMatchMessage
-                .AssertIsPresent("The retype and new password do not match.");
+                .AssertIsPresent("The retype and new password ");
         }
 
         /// <summary>
