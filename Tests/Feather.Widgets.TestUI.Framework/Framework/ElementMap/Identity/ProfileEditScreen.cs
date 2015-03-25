@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
 
@@ -20,6 +21,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         public ProfileEditScreen(Find find)
             : base(find)
         {
+        }
+
+        /// <summary>
+        /// Gets Read mode only button.
+        /// </summary>
+        public HtmlInputRadioButton ReadModeOnly
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("tagname=input", "value=ReadOnly");
+            }
         }
     }
 }

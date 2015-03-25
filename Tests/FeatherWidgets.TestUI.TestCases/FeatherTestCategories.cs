@@ -95,9 +95,14 @@ namespace FeatherWidgets.TestUI.TestCases
         /// </summary>
         public const string LoginForm = "LoginForm";
 
-		/// <summary>
+        /// <summary>
         /// New category for Registration tests
         /// </summary>
         public const string Registration = "Registration";
+
+        /// <summary>
+        /// New category for Profile tests
+        /// </summary>
+        public const string Profile = "Profile";
     }
 }

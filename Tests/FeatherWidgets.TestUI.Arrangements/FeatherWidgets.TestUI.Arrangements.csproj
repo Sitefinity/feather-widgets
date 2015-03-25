@@ -173,10 +173,13 @@
     <Compile Include="DynamicWidgets\InvalidateCacheWhenAddNewItem.cs" />
     <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Identity\DragAndDropProfileWidgetAndSetReadMode.cs" />
     <Compile Include="Identity\LoginAndVerifyUserStatusOnTheSamePage.cs" />
+    <Compile Include="Identity\LoginFormAddChangeRemoveRedirectToPageAfterLogin.cs" />
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
