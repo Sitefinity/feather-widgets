@@ -146,6 +146,7 @@
     <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategoryAllTab.cs" />
     <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
+    <Compile Include="Identity\AddAndChangeUserAvatarInProfileWidget.cs" />
     <Compile Include="Identity\DragAndDropProfileWidgetAndSetReadMode.cs" />
     <Compile Include="Identity\LoginFormAndLoginStatusOnTheSamePage.cs" />
     <Compile Include="Identity\LoginFormRedirectToPageAfterLogin.cs" />

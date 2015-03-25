@@ -198,5 +198,49 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
                 return this.Get<HtmlDiv>("TagName=div", "InnerText=Your changes are saved");
             }
         }
+
+        /// <summary>
+        /// Gets the edit profile link 
+        /// </summary>
+        public HtmlAnchor EditProfileLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Edit profile");
+            }
+        }
+
+        /// <summary>
+        /// Gets the upload photo link 
+        /// </summary>
+        public HtmlAnchor UploadPhotoLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Upload photo");
+            }
+        }
+
+        /// <summary>
+        /// Gets img of user avatar 
+        /// </summary>
+        public HtmlImage UserAvatar
+        {
+            get
+            {
+                return this.Get<HtmlImage>("tagname=img", "data-sf-role=edit-profile-user-image");
+            }
+        }
+
+        /// <summary>
+        /// Gets default user avatar 
+        /// </summary>
+        public HtmlImage DefaultUserAvatar
+        {
+            get
+            {
+                return this.Get<HtmlImage>("tagname=img", "src=/SFRes/images/Telerik.Sitefinity.Resources/Images.DefaultPhoto.png");
+            }
+        }
     }
 }
