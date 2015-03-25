@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
 
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 3); 
             var scr = this.GetImageSource(false, ImageBaseTitle + 3, "");
-            string url = SingleItemPageInUrl + scr;
+            string url = SingleItemPage.ToLower() + scr;
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().IsImageTitlePresentOnDetailMasterPage(ImageBaseTitle + 3));
 
@@ -123,7 +123,6 @@ namespace FeatherWidgets.TestUI.TestCases.News
         private const string ImageType = ".TMB";
         private const string ImageTypeFrontend = ".JPG";
         private const string ChildImageLibrary = "ChildImageLibrary";
-        private const string SingleItemPage = "Test Page";
-        private const string SingleItemPageInUrl = "test-page";
+        private const string SingleItemPage = "TestPage";
     }
 }

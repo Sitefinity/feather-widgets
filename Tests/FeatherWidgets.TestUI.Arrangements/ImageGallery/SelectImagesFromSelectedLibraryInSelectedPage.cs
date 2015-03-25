@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageName = "PageWithImage";
-        private const string SingleItemPage = "Test Page";
+        private const string SingleItemPage = "TestPage";
         private const string ImageLibraryTitle = "TestImageLibrary";
         private const string ImageTitle = "Image";
         private const string ChildLibraryTitle = "ChildImageLibrary";
