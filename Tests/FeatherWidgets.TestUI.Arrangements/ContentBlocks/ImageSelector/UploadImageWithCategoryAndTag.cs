@@ -1,6 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using MbUnit.Framework;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -37,6 +40,17 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Libraries().DeleteLibraries(false, "Image");
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
+        }
+
+        /// <summary>
+        /// Verifies the created tag.
+        /// </summary>
+        [ServerArrangement]
+        public void VerifyCreatedTag()
+        {
+            var taxonomyManager = TaxonomyManager.GetManager();
+            var tag = taxonomyManager.GetTaxa<FlatTaxon>().Single(t => t.Title == "Tag0");
+            Assert.IsNotNull(tag);
         }
 
         private const string PageName = "PageWithImage";
