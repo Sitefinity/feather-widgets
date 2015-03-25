@@ -7,7 +7,7 @@
 
 @Html.Script(ScriptRef.JQuery)
 
-<link rel="stylesheet" href='@Url.WidgetContent("assets/magnific/magnific-popup.css")'>
+@Html.StyleSheet(Url.WidgetContent("assets/magnific/magnific-popup.css"))
 
 @Html.Script(Url.WidgetContent("assets/magnific/jquery.magnific-popup.min.js"))
 @Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/overlay-gallery.js"))
