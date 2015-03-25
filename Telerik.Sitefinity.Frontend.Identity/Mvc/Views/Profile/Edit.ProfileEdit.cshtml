@@ -6,8 +6,8 @@
 @using Telerik.Sitefinity.Utilities;
 
 @Html.Script(ScriptRef.JQuery)
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+@Html.Script("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js")
+@Html.Script("http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js")
 
 <div class="@Model.CssClass">
     @if (Model.ShowProfileChangedMsg)
