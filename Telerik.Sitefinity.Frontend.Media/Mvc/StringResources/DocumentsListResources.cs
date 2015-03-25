@@ -545,5 +545,53 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["MissingLibraries"];
             }
         }
+
+        /// <summary>
+        /// word: Title
+        /// </summary>
+        /// <value>Title</value>
+        [ResourceEntry("Title",
+            Value = "Title",
+            Description = "word: Title",
+            LastModified = "2015/02/25")]
+        public string Title
+        {
+            get
+            {
+                return this["Title"];
+            }
+        }
+
+        /// <summary>
+        /// word: Type
+        /// </summary>
+        /// <value>Type</value>
+        [ResourceEntry("Type",
+            Value = "Type",
+            Description = "word: Type",
+            LastModified = "2015/02/25")]
+        public string Type
+        {
+            get
+            {
+                return this["Title"];
+            }
+        }
+
+        /// <summary>
+        /// word: Size
+        /// </summary>
+        /// <value>Size</value>
+        [ResourceEntry("Size",
+            Value = "Size",
+            Description = "word: Size",
+            LastModified = "2015/02/25")]
+        public string Size
+        {
+            get
+            {
+                return this["Size"];
+            }
+        }
     }
 }
