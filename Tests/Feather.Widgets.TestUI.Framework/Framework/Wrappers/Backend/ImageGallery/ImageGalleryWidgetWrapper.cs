@@ -18,7 +18,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGalle
         /// Selects the radio button option.
         /// </summary>
         /// <param name="optionId">The option id.</param>
-        public void SelectRadioButtonOption(string optionId)
+        public void SelectRadioButtonOption(ImageGalleryRadioButtonIds optionId)
         {
             HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
                   .AssertIsPresent("radio button");
@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGalle
         /// Verifies the checked radio button option.
         /// </summary>
         /// <param name="optionId">The option id.</param>
-        public void VerifyCheckedRadioButtonOption(string optionId)
+        public void VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds optionId)
         {
             HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
                   .AssertIsPresent("radio button");
