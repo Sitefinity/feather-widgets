@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Pages.Model;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
 {
@@ -50,5 +51,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         /// </value>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public string Url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the node.
+        /// </summary>
+        /// <value>
+        /// The type of the node.
+        /// </value>
+        public NodeType NodeType { get; set; }
     }
 }

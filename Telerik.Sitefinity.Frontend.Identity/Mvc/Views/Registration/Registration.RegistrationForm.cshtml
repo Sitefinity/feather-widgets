@@ -55,7 +55,7 @@
             <div>
                 <label>
                     @Html.Resource("Email")
-                    @Html.TextBoxFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { type = "email" })
                 </label>
                 @Html.ValidationMessageFor(m => m.Email)
             </div>
