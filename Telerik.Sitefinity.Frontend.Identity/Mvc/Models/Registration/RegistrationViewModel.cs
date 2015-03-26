@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -90,6 +91,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email", ResourceType = typeof(RegistrationStaticResources))]
+        [EmailAddress]
         public string Email { get; set; }
 
         /// <summary>
