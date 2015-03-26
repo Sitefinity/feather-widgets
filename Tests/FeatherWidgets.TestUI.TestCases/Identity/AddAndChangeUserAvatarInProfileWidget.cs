@@ -1,4 +1,5 @@
-﻿using Feather.Widgets.TestUI.Framework;
+﻿using ArtOfTest.WebAii.Win32.Dialogs;
+using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,11 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void AddAndChangeUserAvatarInProfileWidget()
         {
-            this.LoginUser(UserName, UserPassword);
+            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
+            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(UserName);
+            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(UserPassword);
+            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(),false);
-
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickEditProfileLink();
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyDefaultUserAvatar();
 
             this.UploadUserAvatar();           
@@ -40,24 +42,16 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             Assert.AreNotEqual(oldUserAvatarSrc, currentUserAvatarSrc, "Old avatar source and new avatar source are equal");
         }
 
-        /// <summary>
-        /// Log in user
-        /// </summary>
-        /// <param name="userName">User name</param>
-        /// <param name="password">Password</param>
-        public void LoginUser(string userName, string password)
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
-            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(userName);
-            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(password);
-            BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
-        }
-
         public void UploadUserAvatar()
         {
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickUploadPhotoLink();
             string fullImagesPath = DeploymentDirectory + @"\";
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().PerformSingleFileUpload(FileToUpload, fullImagesPath);
+
+            var fullFilePath = string.Concat(FileToUpload, fullImagesPath);
+            var uploadDialog = BAT.Macros().DialogOperations().StartFileUploadDialogMonitoring(fullFilePath, DialogButton.OPEN);
+            BAT.Macros().DialogOperations().WaitUntillFileUploadDialogIsHandled(uploadDialog);
+            ActiveBrowser.WaitUntilReady();
+
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();
         }

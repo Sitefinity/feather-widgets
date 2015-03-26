@@ -197,7 +197,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="pageId">Page id value</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public void AddProfileWidgetToPage(Guid pageId, string placeholder = "Body", ViewMode editMode = ViewMode.EditOnly)
+        public void AddProfileWidgetToPage(Guid pageId, string placeholder = "Body")
         {
             PageManager pageManager = PageManager.GetManager();
             pageManager.Provider.SuppressSecurityChecks = true;
@@ -207,11 +207,6 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
             {
                 mvcWidget.ControllerName = typeof(ProfileController).FullName;
-
-                mvcWidget.Settings = new Telerik.Sitefinity.Mvc.Proxy.ControllerSettings(new ProfileController()
-                {
-                    Mode = editMode
-                });
 
                 this.CreateControl(pageManager, page, mvcWidget, "Profile", placeholder);
             }
