@@ -173,6 +173,7 @@
     <Compile Include="DynamicWidgets\InvalidateCacheWhenAddNewItem.cs" />
     <Compile Include="Framework\Utilities\Utilities.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Identity\AddAndChangeUserAvatarInProfileWidget.cs" />
     <Compile Include="Identity\DragAndDropProfileWidgetAndSetReadMode.cs" />
     <Compile Include="Identity\LoginAndVerifyUserStatusOnTheSamePage.cs" />
     <Compile Include="Identity\LoginFormAddChangeRemoveRedirectToPageAfterLogin.cs" />

@@ -42,7 +42,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         {
             HtmlButton saveChangesButton = EM.Identity.ProfileFrontend.SaveChanges
             .AssertIsPresent("Save changes button");
-            saveChangesButton.Click();
+
+            saveChangesButton.ScrollToVisible();
+            saveChangesButton.Focus();
+            saveChangesButton.MouseClick();
+            saveChangesButton.InvokeClick();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
@@ -193,9 +197,61 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         /// <summary>
         /// Verifies successfully saved message.
         /// </summary>
-        public void SuccessfullySavedMessage()
+        public void AssertSuccessfullySavedMessage()
         {
             this.EM.Identity.ProfileFrontend.SuccessfullySavedMessage.AssertIsPresent("Successfully saved changes message.");
+        }
+
+        /// <summary>
+        /// Click edit profile link
+        /// </summary>
+        public void ClickEditProfileLink()
+        {
+            HtmlAnchor editProfileLink = EM.Identity.ProfileFrontend.EditProfileLink
+            .AssertIsPresent("Edit profile link");
+            editProfileLink.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
+
+        /// <summary>
+        /// Click upload photo link
+        /// </summary>
+        public void ClickUploadPhotoLink()
+        {
+            HtmlAnchor uploadPhotoLink = EM.Identity.ProfileFrontend.UploadPhotoLink
+            .AssertIsPresent("Edit profile link");
+            uploadPhotoLink.MouseClick();    
+        }
+
+        /// <summary>
+        /// Verifies user avatar src
+        /// </summary>
+        public void VerifyNotDefaultUserAvatarSrc()
+        {
+            string src = this.UserAvatarSrc();
+            bool isContained = src.Contains("/images/SystemLibrariesProvider/sys-profile-images/");
+            Assert.IsTrue(isContained, "Avatar is default");
+        }
+
+        /// <summary>
+        /// Return avatar src
+        /// </summary>
+        /// <returns>Avatar src</returns>
+        public string UserAvatarSrc()
+        {
+            HtmlImage avatar = EM.Identity.ProfileFrontend.UserAvatar.AssertIsPresent("The image");
+            string srcAvatar = avatar.Src.ToString();
+
+            return srcAvatar;
+        }
+
+        /// <summary>
+        /// Verifies default user avatar
+        /// </summary>
+        public void VerifyDefaultUserAvatar()
+        {
+            this.EM.Identity.ProfileFrontend.DefaultUserAvatar.AssertIsPresent("Default user avatar");
         }
     }
 }
