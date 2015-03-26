@@ -74,6 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             scr = this.GetImageSource(false, NewImageName, ImageType);
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(NewImageName, NewImageAltText, scr);
+            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyCreatedTag");
         }
 
         private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
