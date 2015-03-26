@@ -435,16 +435,6 @@
             This class represents <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/> and should be used when one needs to validate email property.
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute"/> class with a custom regex pattern matcher.
-            </summary>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute"/> class the default regex pattern matcher.
-            </summary>
-        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute.GetClientValidationRules(System.Web.Mvc.ModelMetadata,System.Web.Mvc.ControllerContext)">
             <inheritDoc/>
         </member>
