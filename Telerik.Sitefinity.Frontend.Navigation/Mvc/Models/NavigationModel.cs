@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI.NavigationControls;
 
@@ -373,7 +374,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                         var target = this.OpenExternalPageInNewTab ? "_blank" : "_self";
                         foreach (var page in this.selectedPages)
                         {
-                            if (page.Id != default(Guid) && !page.IsExternal)
+                            var isExternalSiteMapNode = page.NodeType == NodeType.Rewriting || page.NodeType == NodeType.InnerRedirect || page.NodeType == NodeType.OuterRedirect;
+                            if (page.Id != default(Guid) && (!page.IsExternal || isExternalSiteMapNode))
                             {
                                 var siteMapNode = siteMapProvider.FindSiteMapNodeFromKey(page.Id.ToString("D"));
                                 if (siteMapNode != null && this.CheckSiteMapNode(siteMapNode))
