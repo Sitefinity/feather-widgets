@@ -26,5 +26,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
+
+        /// <summary>
+        /// Switch to Both mode only
+        /// </summary>
+        public void SwitchToBothMode()
+        {
+            HtmlInputRadioButton bothMode = EM.Identity.ProfileEditScreen.BothReadModeCanBeEditedMode
+            .AssertIsPresent("Both mode only button");
+            bothMode.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
+
+        /// <summary>
+        /// Select specially prepared page
+        /// </summary>
+        public void SelectSpeciallyPreparedPage()
+        {
+            HtmlInputRadioButton speciallyPreparedPage = EM.Identity.ProfileEditScreen.OpenSpeciallyPreparedPage
+            .AssertIsPresent("Specially prepared page button");
+            speciallyPreparedPage.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
     }
 }
