@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
+    <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
