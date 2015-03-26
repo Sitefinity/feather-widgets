@@ -70,7 +70,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         private const string PageName = "FeatherPage";
         private const string TemplateTitle = "TestLayout";
         private const string ContentBlockContent = "Test content";
-        private const string WidgetName = "ContentBlock";
+        private const string WidgetName = "Content Block";
         private const string PlaceHolder = "TestPlaceHolder";
         private const string LayoutText = "Test Layout";
         private const string ServerErrorMessage = "Server Error"; 

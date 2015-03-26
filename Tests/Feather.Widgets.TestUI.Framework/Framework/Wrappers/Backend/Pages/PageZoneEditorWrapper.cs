@@ -48,7 +48,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <returns>The Mvc widget div element.</returns>
         public HtmlDiv GetMvcWidget(string mvcWidgetName)
         {
-            var siblingWidgetLabel = "ContentBlock";
+            var siblingWidgetLabel = "Login / Logout button";
 
             ActiveBrowser.RefreshDomTree();
             RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("ControlToolboxContainer");

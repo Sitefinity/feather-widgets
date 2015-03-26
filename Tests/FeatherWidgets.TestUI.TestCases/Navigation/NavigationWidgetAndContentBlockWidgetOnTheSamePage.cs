@@ -70,6 +70,6 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string NavigationWidgetName = "Navigation";
         private const string NavTemplateClass = "nav navbar-nav";
         private const string ContentBlockContent = "Test content";
-        private const string ContentBlockWidgetName = "ContentBlock";
+        private const string ContentBlockWidgetName = "Content Block";
     }
 }
