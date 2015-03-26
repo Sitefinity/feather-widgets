@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickUploadPhotoLink();
             string fullImagesPath = DeploymentDirectory + @"\";
 
-            var fullFilePath = string.Concat(FileToUpload, fullImagesPath);
+            var fullFilePath = string.Concat(fullImagesPath, FileToUpload);
             var uploadDialog = BAT.Macros().DialogOperations().StartFileUploadDialogMonitoring(fullFilePath, DialogButton.OPEN);
             BAT.Macros().DialogOperations().WaitUntillFileUploadDialogIsHandled(uploadDialog);
             ActiveBrowser.WaitUntilReady();
