@@ -189,12 +189,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         private INavigationModel InitializeModel()
         {
-            var selectedPageIds = JsonSerializer.DeserializeFromString<SelectedPageModel[]>(this.SerializedSelectedPages);
+            var selectedPages = JsonSerializer.DeserializeFromString<SelectedPageModel[]>(this.SerializedSelectedPages);
             var constructorParameters = new Dictionary<string, object> 
                          {
                             { "selectionMode", this.SelectionMode },
                             { "selectedPageId", this.SelectedPageId },
-                            { "selectedPages", selectedPageIds },
+                            { "selectedPages", selectedPages },
                             { "levelsToInclude", this.LevelsToInclude },
                             { "showParentPage", this.ShowParentPage }, 
                             { "cssClass", this.CssClass },
