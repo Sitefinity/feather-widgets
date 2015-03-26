@@ -4585,5 +4585,49 @@
             </summary>
             <param name="controller">Type of the controller.</param>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest">
+            <summary>
+            <c>SpecificListsGetRequest</c>Represents a filter for retrieving a specific items of list objects.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest.Ids">
+            <summary>
+            Gets or sets the list ids.
+            </summary>
+            <value>The list ids.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest.Provider">
+            <summary>
+            Gets or sets the name of the provider.
+            </summary>
+            <value>The name of the provider.</value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ListsService.ListsServiceStackPlugin">
+            <summary>
+            Represents a ServiceStack plug-in for the Lists web service.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ListsService.ListsServiceStackPlugin.Register(ServiceStack.IAppHost)">
+            <summary>
+            Adding the lists service routes
+            </summary>
+            <param name="appHost">The service stack appHost</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ListsService.ListsWebService">
+            <summary>
+            This class provides methods, which are not currently presented in Sitefinity ListService.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ListsService.ListsWebService.Put(Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest)">
+            <summary>
+            Get specifi lists based on provided ids and provider name.
+            </summary>
+            <param name="listsRequest">
+            The list requests object from which the content ought to be retrieved.
+            </param>
+            <returns>        
+            An enumerable oflist view model objects.
+            </returns>
+        </member>
     </members>
 </doc>
