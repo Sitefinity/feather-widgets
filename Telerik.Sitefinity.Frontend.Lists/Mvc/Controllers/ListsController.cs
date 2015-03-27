@@ -10,8 +10,11 @@ using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
 {
+    /// <summary>
+    /// This class represents the controller of the List widget.
+    /// </summary>
     [ControllerToolboxItem(Name = "ListMVC", Title = "List", SectionName = "MvcWidgets", ModuleName = "Lists", CssClass = "sfListitemsIcn")]
-    [Localization(typeof(ListsResources))]
+    [Localization(typeof(ListsWidgetResources))]
     public class ListsController : Controller
     {
         #region Properties
@@ -93,6 +96,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         }
 
         #endregion
+
         #region Private method
 
         private IListsModel InitializeModel()

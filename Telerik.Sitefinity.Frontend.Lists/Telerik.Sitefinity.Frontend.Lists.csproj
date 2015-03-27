@@ -135,7 +135,7 @@
     <Compile Include="Mvc\Controllers\ListsController.cs" />
     <Compile Include="Mvc\Models\IListsModel.cs" />
     <Compile Include="Mvc\Models\ListsModel.cs" />
-    <Compile Include="Mvc\StringResources\ListsResources.cs" />
+    <Compile Include="Mvc\StringResources\ListsWidgetResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
