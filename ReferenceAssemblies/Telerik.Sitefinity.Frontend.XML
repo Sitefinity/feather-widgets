@@ -4,6 +4,119 @@
         <name>Telerik.Sitefinity.Frontend</name>
     </assembly>
     <members>
+        <member name="T:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager">
+            <summary>
+            This class manages the behavior when a grid file is moved over the application folder structure.
+            </summary>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.FilesMonitoring.IFileManager">
+            <summary>
+            Classes that implement this interface should define the Sitefinity's behavior when a file is moved over the application folder structure.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.IFileManager.FileAdded(System.String,System.String,System.String)">
+            <summary>
+            Reacts when a file is added to the folder.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <param name="filePath">The file path.</param>
+            <param name="packageName">Name of the package.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.IFileManager.FileDeleted(System.String,System.String)">
+            <summary>
+            Reacts on file deletion.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <param name="packageName">Name of the package.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.IFileManager.FileRenamed(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Reacts on file renaming.
+            </summary>
+            <param name="newFileName">New name of the file.</param>
+            <param name="oldFileName">Old name of the file.</param>
+            <param name="newFilePath">The new file path.</param>
+            <param name="oldFilePath">The old file path.</param>
+            <param name="packageName">Name of the package.</param>
+        </member>
+        <member name="F:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.GridTemplateExtension">
+            <summary>
+            Allowed extension for grid template files.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.FileAdded(System.String,System.String,System.String)">
+            <summary>
+            Process the file if such is added to the existing folder.
+            </summary>
+            <param name="fileName"></param>
+            <param name="filePath"></param>
+            <param name="packageName">Name of the package.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.FileDeleted(System.String,System.String)">
+            <summary>
+            Called on file deletion
+            </summary>
+            <param name="filePath">The file path.</param>
+            <param name="packageName">Name of the package.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.FileRenamed(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Reacts on file renaming
+            </summary>
+            <param name="newFileName">New name of the file.</param>
+            <param name="oldFileName">Old name of the file.</param>
+            <param name="newFilePath"></param>
+            <param name="oldFilePath"></param>
+            <param name="packageName">Name of the package.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.IsFileInValidFolder(System.String,System.String)">
+            <summary>
+            Determines whether a file exists on the specified location and whether it is applicable for the current application.
+            </summary>
+            <remarks>
+            Valid locations depends on the values inside the <see cref="P:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.FolderPathStructure"/>.
+            </remarks>
+            <param name="filePath">The file path.</param>
+            <param name="packageName">Name of the package.</param>
+            <returns>true if the file exists and is placed under the application root in a folder [package]/GridSystem/Templates/ .</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.IsFileValid(System.String,System.String,System.String)">
+            <summary>
+            Determines whether specified file is exist and is eligible for registration.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <param name="filePath">The file path.</param>
+            <param name="packageName">Name of the package.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.GetFileName(System.String)">
+            <summary>
+            Gets the name of the file.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <returns></returns>
+        </member>
+        <member name="F:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.folderPathStructure">
+            <summary>
+            The folder path structure
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.FolderPathStructure">
+            <summary>
+            Gets the required folder path structure. Only grid files placed inside the specified folder structure will trigger automatic creation of the templates.
+            </summary>
+            <value>
+            The folder path structure.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.FilesMonitoring.GridFileManager.WidgetRegistrator">
+            <summary>
+            Gets the widget registrator.
+            </summary>
+            <value>
+            The widget registrator.
+            </value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.FilesMonitoring.FileChangeType">
             <summary>
             Represents the file operations that would trigger reactions during the file monitoring.
@@ -91,6 +204,13 @@
             </summary>
             <param name="settings">The settings.</param>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FrontendModule.Upgrade(Telerik.Sitefinity.Abstractions.SiteInitializer,System.Version)">
+            <summary>
+            Upgrades this module from the specified version.
+            </summary>
+            <param name="initializer">The Site Initializer. A helper class for installing Sitefinity modules.</param>
+            <param name="upgradeFrom">The version this module us upgrading from.</param>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.FrontendModule.GetModuleConfig">
             <summary>
             Gets the module configuration.
@@ -115,41 +235,78 @@
             </summary>
             <value>An array of <see cref="T:System.Type"/> objects.</value>
         </member>
-        <member name="T:Telerik.Sitefinity.Frontend.GridSystem.GridSystemInitializer">
+        <member name="T:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator">
             <summary>
-            This class contains logic for registering and initializing the grid controls.
+            This class register the grid template files in the PageLayout section of the toolbox.
             </summary>
         </member>
-        <member name="F:Telerik.Sitefinity.Frontend.GridSystem.GridSystemInitializer.GridFolderPathStringTemplate">
+        <member name="F:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.GridFolderPathStringTemplate">
             <summary>
             The grid folder path string template
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridSystemInitializer.Initialize">
+        <member name="F:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.GridSectionNameSuffix">
             <summary>
-            Registers the grid controls.
+            The grid section name suffix
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridSystemInitializer.GetOrCreateToolBoxSection(Telerik.Sitefinity.Modules.Pages.Configuration.ToolboxesConfig)">
+        <member name="F:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.GridSectionTitleSuffix">
+            <summary>
+            The grid section title suffix
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.RegisterToolboxItem(System.String,System.String,System.String)">
+            <summary>
+            Registers the grid widget in toolbox.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <param name="packageName">Name of the package.</param>
+            <param name="oldFileName">Old name of the file.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.UnregisterToolboxItem(System.String,System.String)">
+            <summary>
+            Unregisters the toolbox item.
+            </summary>
+            <param name="contentTypeName">Name of the content type.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.UpdateControlData(System.String,System.String)">
+            <summary>
+            Updates the control data.
+            </summary>
+            <param name="newFileName">New name of the file.</param>
+            <param name="oldFileName">Old name of the file.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.GetOrCreateToolBoxSection(Telerik.Sitefinity.Modules.Pages.Configuration.ToolboxesConfig,System.String,System.String)">
             <summary>
             Gets existing or create a tool box section for the grid controls.
             </summary>
             <param name="toolboxConfig">The toolbox configuration.</param>
+            <param name="sectionName">Name of the section.</param>
+            <param name="sectionTitle">The section title.</param>
             <returns></returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridSystemInitializer.CreateLayoutControlsData(System.String)">
+        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.AddOrRenameGridControl(Telerik.Sitefinity.Configuration.ConfigElementList{Telerik.Sitefinity.Modules.Pages.Configuration.ToolboxItem},Telerik.Sitefinity.Frontend.GridSystem.GridControlData,System.String)">
             <summary>
-            Creates the layout controls data.
-            </summary>
-            <param name="baseTemplatePath">The base template path.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridSystemInitializer.AddLayoutControl(Telerik.Sitefinity.Configuration.ConfigElementList{Telerik.Sitefinity.Modules.Pages.Configuration.ToolboxItem},Telerik.Sitefinity.Frontend.GridSystem.GridControlData)">
-            <summary>
-            Adds the layout control.
+            Adds or renames the grid control.
             </summary>
             <param name="parent">The parent.</param>
             <param name="data">The data.</param>
+            <param name="oldFileName">Old name of the file.</param>
+            <exception cref="T:System.ArgumentNullException">data</exception>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.CreateGridControlsData(System.String)">
+            <summary>
+            Creates the grid controls data.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator.GetFileNameWithoutExtension(System.String)">
+            <summary>
+            Gets the file name without extension.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <returns></returns>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.GridSystem.GridControlData">
             <summary>
@@ -272,6 +429,68 @@
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Modules.ControlTemplates.Web.UI.MvcControlTemplateEditor.ClientComponentType">
             <inheritdoc/>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute">
+            <summary>
+            This class represents <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/> and should be used when one needs to validate email property.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute.GetClientValidationRules(System.Web.Mvc.ModelMetadata,System.Web.Mvc.ControllerContext)">
+            <inheritDoc/>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute.IsValid(System.Object)">
+            <inheritDoc/>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <inheritDoc/>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.MvcMasterPage">
+            <summary>
+            A MasterPage that is dynamically constructed from the MasterPageFile without compilation.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.MvcMasterPage.ApplyToPage(System.Web.UI.Page)">
+            <summary>
+            Applies the master to the specified page.
+            </summary>
+            <param name="page">The page.</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.PageInitializer">
+            <summary>
+            Instances of this are used to manipulated a page right after it is created.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.PageInitializer.Initialize(System.Web.IHttpHandler)">
+            <summary>
+            Initializes the specified handler as a page. This method is called right after the handler is created and can be used to add controls to the Page.
+            </summary>
+            <param name="handler">The handler.</param>
+            <exception cref="T:System.ArgumentNullException">handler</exception>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcPageEditorRouteHandler">
+            <summary>
+            Represents an extended route handler for Sitefinity's page editor that injects MVC specific logic.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcPageEditorRouteHandler.BuildHandler(System.Web.Routing.RequestContext,Telerik.Sitefinity.Pages.Model.IPageData)">
+            <summary>
+            Builds a handler for the specified request and page data.
+            </summary>
+            <param name="requestContext">The request context.</param>
+            <param name="pageData">The page data.</param>
+            <returns>The handelr.</returns>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcPageRouteHandler">
+            <summary>
+            Extended route handler for Sitefinity pages that injects MVC specific logic.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcPageRouteHandler.BuildHttpHandler(System.Web.Routing.RequestContext)">
+            <summary>
+            Provides the object that processes the request.
+            </summary>
+            <param name="requestContext">An object that encapsulates information about the request.</param>
+            <returns>An object that processes the request.</returns>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel">
             <summary>
@@ -643,6 +862,15 @@
             <param name="totalPagesCount">The total pages count.</param>
             <param name="redirectUrlTemplate">The redirect URL template.</param>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel.#ctor(System.Int32,System.Int32,System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel"/> class.
+            </summary>
+            <param name="currentPage">The current page.</param>
+            <param name="totalPagesCount">The total pages count.</param>
+            <param name="redirectUrlTemplate">The redirect URL template.</param>
+            <param name="redirectUrlTemplate">The amount of page nodes to render</param>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel.CurrentPage">
             <summary>
             Gets or sets the current page.
@@ -659,12 +887,44 @@
             The total pages count.
             </value>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel.DisplayCount">
+            <summary>
+            Gets or sets the total item count to render.
+            </summary>
+            <value>
+            The total numbers that will render.
+            </value>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel.RedirectUrlTemplate">
             <summary>
             Gets or sets the redirect URL template.
             </summary>
             <value>
             The redirect URL template.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel.PagerNodes">
+            <summary>
+            Gets or sets the pager node
+            </summary>
+            <value>
+            The amount of nodes to render
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel.PreviousNode">
+            <summary>
+            Gets or sets the previous node
+            </summary>
+            <value>
+            The previous page
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewModels.PagerViewModel.NextNode">
+            <summary>
+            Gets or sets the next node
+            </summary>
+            <value>
+            The next page
             </value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.ViewSelectorHelpers">
@@ -1189,33 +1449,6 @@
             <param name="widgetType">Type of the widget.</param>
             <returns></returns>
         </member>
-        <member name="T:Telerik.Sitefinity.Frontend.FilesMonitoring.IFileManager">
-            <summary>
-            Classes that implement this interface should define the Sitefinity's behavior when a file is moved over the application folder structure.
-            </summary>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.IFileManager.FileAdded(System.String,System.String,System.String)">
-            <summary>
-            Reacts when a file is added to the folder.
-            </summary>
-            <param name="virtualFilePath">The virtual file path.</param>
-            <param name="packageName">Name of the package.</param>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.IFileManager.FileDeleted(System.String)">
-            <summary>
-            Reacts on file deletion.
-            </summary>
-            <param name="path">The file path.</param>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.IFileManager.FileRenamed(System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            Reacts on file renaming.
-            </summary>
-            <param name="newFileName">New name of the file.</param>
-            <param name="oldFileName">Old name of the file.</param>
-            <param name="path">The file path.</param>
-            <param name="packageName">Name of the package.</param>
-        </member>
         <member name="T:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager">
             <summary>
             This class manages the behavior when a layout file is moved over the application folder structure.
@@ -1228,11 +1461,12 @@
             <param name="virtualFilePath">The virtual file path.</param>
             <param name="packageName">Name of the package.</param>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.FileDeleted(System.String)">
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.FileDeleted(System.String,System.String)">
             <summary>
             Called on file deletion
             </summary>
-            <param name="path">The file path.</param>
+            <param name="filePath">The file path.</param>
+            <param name="packageName">Name of the package.</param>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.FileRenamed(System.String,System.String,System.String,System.String,System.String)">
             <summary>
@@ -1327,14 +1561,14 @@
             Removes the non existing files data.
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.FileMonitor.GetResourceFileManager(System.String)">
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.FileMonitor.GetResourceFileManager(System.String,System.String)">
             <summary>
             Gets the resource file manager.
             </summary>
             <param name="resourceType">Type of the resource.</param>
             <returns>FileManager</returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.FileMonitor.GetResourceType(System.String)">
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.FileMonitor.GetResourceType(System.String,System.String)">
             <summary>
             Gets the type of the resource.
             </summary>
@@ -1564,29 +1798,6 @@
             is being proxied.
             </summary>
         </member>
-        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.VoidViewLocationCache">
-            <summary>
-            This class is used to disable view location cache for controllers.
-            </summary>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.VoidViewLocationCache.GetViewLocation(System.Web.HttpContextBase,System.String)">
-            <summary>
-            Gets the view location by using the specified HTTP context and the cache key.
-            </summary>
-            <param name="httpContext">The HTTP context.</param>
-            <param name="key">The cache key.</param>
-            <returns>
-            The view location.
-            </returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.VoidViewLocationCache.InsertViewLocation(System.Web.HttpContextBase,System.String,System.String)">
-            <summary>
-            Inserts the specified view location into the cache by using the specified HTTP context and the cache key.
-            </summary>
-            <param name="httpContext">The HTTP context.</param>
-            <param name="key">The cache key.</param>
-            <param name="virtualPath">The virtual path.</param>
-        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.InfrastructureResources">
             <summary>
             Localizable strings for the Frontend infrastructure.
@@ -1612,6 +1823,13 @@
             Instances of this class render virtual page files for pure MVC pages that can be based on a layout file.
             </summary>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutMvcPageResolver.IsLayoutPath(System.String)">
+            <summary>
+            Determines whether the specified virtual path is path of a layout file.
+            </summary>
+            <param name="virtualPath">The virtual path.</param>
+            <returns>True if the specified virtual path is path of a layout file.</returns>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutMvcPageResolver.BuildWithMasterPage(System.String,System.Web.Routing.RequestContext,System.Text.StringBuilder,Telerik.Sitefinity.Abstractions.VirtualPath.CursorCollection,Telerik.Sitefinity.Abstractions.VirtualPath.DirectiveCollection)">
             <summary>
             Appends markup to the virtual page file depending on the current master page.
@@ -1620,6 +1838,20 @@
             <param name="context">The context.</param>
             <param name="output">The output.</param>
             <param name="placeHolders">The place holders.</param>
+            <param name="directives">The directives.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutMvcPageResolver.AppendLayout(System.String,System.String,Telerik.Sitefinity.Abstractions.VirtualPath.PlaceHolderCursor,Telerik.Sitefinity.Abstractions.VirtualPath.CursorCollection,System.String,Telerik.Sitefinity.Abstractions.VirtualPath.DirectiveCollection)">
+            <summary>
+            Appends the layout.
+            </summary>
+            <remarks>
+            If the layout is not found error message will be rendered instead.
+            </remarks>
+            <param name="layoutTemplate">The layout template.</param>
+            <param name="assemblyInfo">The assembly information.</param>
+            <param name="parentPlaceHolder">The parent place holder.</param>
+            <param name="placeHolders">The place holders.</param>
+            <param name="layoutId">The layout identifier.</param>
             <param name="directives">The directives.</param>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.PageTemplateExtensions">
@@ -4352,6 +4584,50 @@
             Registers the controller string resources.
             </summary>
             <param name="controller">Type of the controller.</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest">
+            <summary>
+            <c>SpecificListsGetRequest</c>Represents a filter for retrieving a specific items of list objects.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest.Ids">
+            <summary>
+            Gets or sets the list ids.
+            </summary>
+            <value>The list ids.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest.Provider">
+            <summary>
+            Gets or sets the name of the provider.
+            </summary>
+            <value>The name of the provider.</value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ListsService.ListsServiceStackPlugin">
+            <summary>
+            Represents a ServiceStack plug-in for the Lists web service.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ListsService.ListsServiceStackPlugin.Register(ServiceStack.IAppHost)">
+            <summary>
+            Adding the lists service routes
+            </summary>
+            <param name="appHost">The service stack appHost</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ListsService.ListsWebService">
+            <summary>
+            This class provides methods, which are not currently presented in Sitefinity ListService.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ListsService.ListsWebService.Put(Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest)">
+            <summary>
+            Get specifi lists based on provided ids and provider name.
+            </summary>
+            <param name="listsRequest">
+            The list requests object from which the content ought to be retrieved.
+            </param>
+            <returns>        
+            An enumerable oflist view model objects.
+            </returns>
         </member>
     </members>
 </doc>

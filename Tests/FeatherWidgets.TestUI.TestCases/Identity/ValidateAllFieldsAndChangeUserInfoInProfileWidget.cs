@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillFirstName(UserFirstNameEdited);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillLastName(UserLastNameEdited);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SuccessfullySavedMessage();
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();
 
             ////Verify new password and retype empty fields message
 
@@ -80,7 +80,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillNewPassword(UserPasswordEdited);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillRetypePassword(UserPasswordEdited);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SuccessfullySavedMessage();
 
             ////Log in with new password 
 

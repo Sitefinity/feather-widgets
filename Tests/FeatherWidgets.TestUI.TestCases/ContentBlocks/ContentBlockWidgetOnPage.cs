@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
@@ -58,6 +58,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 
         private const string PageName = "ContentBlock";
         private const string ContentBlockContent = "Test content";
-        private const string WidgetName = "ContentBlock";
+        private const string WidgetName = "Content Block";
     }
 }

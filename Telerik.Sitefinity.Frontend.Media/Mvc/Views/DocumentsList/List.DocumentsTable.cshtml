@@ -6,6 +6,14 @@
 <div class="@Model.CssClass">
 
     <table width="100%">
+        <thead>
+            <tr>
+                <td>@Html.Resource("Title")</td>
+                <td>@Html.Resource("Type")</td>
+                <td>@Html.Resource("Size")</td>
+                <td></td>
+            </tr>
+        </thead>
         @foreach (var item in Model.Items)
         {
             <tr>

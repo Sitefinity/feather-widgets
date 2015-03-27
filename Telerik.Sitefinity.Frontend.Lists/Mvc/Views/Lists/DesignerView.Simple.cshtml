@@ -1,0 +1,85 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryData.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryDataItem.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryItem.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryGroup.js")
+@Html.Script("Telerik.Sitefinity.Web.UI.QueryBuilder", "Telerik.Sitefinity.Web.UI.QueryBuilder.Scripts.QueryBuilder.js")
+
+<sf-provider-selector 
+    class="m-bottom-sm" 
+    sf-manager-type='Telerik.Sitefinity.Modules.Lists.ListsManager'
+    sf-provider-label='@Html.Resource("Provider")'
+    ng-model="properties.ProviderName.PropertyValue">
+</sf-provider-selector>
+
+<div class="form-group">
+    <div class="row">
+        <div  class="col-xs-6">
+            <label class="full-width">
+                @Html.Resource("WhichListToDisplay")
+                <sf-list-selector 
+                    sf-lists-selector 
+                    sf-master="true"
+                    sf-multiselect="true"
+                    sf-provider="properties.ProviderName.PropertyValue"
+                    sf-selected-ids="listSelector.selectedItemsIds"
+                    sf-missing-selected-items="errors.missingSelectedItems">
+                </sf-list-selector>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div  class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <label class="full-width">
+                    @Html.Resource("FilterListItems")
+                    <sf-filter-selector sf-query-data="additionalFilters.value"
+                                        sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Lists.Model.ListItem))"
+                                        sf-provider="properties.ProviderName.PropertyValue"
+                                        class="sf-filter-selector">
+                    </sf-filter-selector>
+                </label>
+        </div>
+    </div>
+</div>
+
+<div  class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <label for="sortOptions">@Html.Resource("SortListItems")</label>
+            <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
+                <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
+                <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
+                <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
+                <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
+                <option value="Ordinal ASC"> @Html.Resource("AsSetManually")</option>
+                <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="form-group m-top-md row">
+    <div class="col-xs-6">
+        <label for="listTemplateName">@Html.Resource("Template")</label>
+
+        <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>[\w\s]*)$"))
+                {
+                    <option value="@viewName"> @viewName</option>
+                }
+        </select>
+    </div>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name ="properties.ListTemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>

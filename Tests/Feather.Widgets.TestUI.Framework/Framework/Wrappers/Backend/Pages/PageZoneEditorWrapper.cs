@@ -48,7 +48,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <returns>The Mvc widget div element.</returns>
         public HtmlDiv GetMvcWidget(string mvcWidgetName)
         {
-            var siblingWidgetLabel = "ContentBlock";
+            var siblingWidgetLabel = "Login / Logout button";
 
             ActiveBrowser.RefreshDomTree();
             RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("ControlToolboxContainer");
@@ -222,6 +222,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
         }
 
+        /// <summary>
+        /// Verifies the image is not present.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        public void VerifyImageIsNotPresent(string altText)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText).AssertIsNull(altText);
+        }
+
         private bool WaitForSaveButton()
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();
@@ -231,6 +240,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             bool result = saveButton != null && saveButton.IsVisible();
 
             return result;
+        }
+
+        /// <summary>
+        /// Verifies the correct order of items on backend.
+        /// </summary>
+        /// <param name="itemAlts">The item names.</param>
+        public void VerifyCorrectOrderOfImagesOnBackend(params string[] itemAlts)
+        {
+            var items = ActiveBrowser.Find.AllByExpression<HtmlImage>("tagname=img", "alt=~AltText_Image");
+
+            int itemsCount = items.Count;
+            Assert.IsNotNull(itemsCount);
+            Assert.AreNotEqual(0, itemsCount);
+
+            for (int i = 0; i < itemsCount; i++)
+            {
+                Assert.IsTrue(items[i].Alt.Contains(itemAlts[i]));
+            }
         }
 
         private const int TimeOut = 60000;

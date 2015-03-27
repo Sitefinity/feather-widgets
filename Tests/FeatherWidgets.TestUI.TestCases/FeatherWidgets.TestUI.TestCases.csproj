@@ -146,12 +146,16 @@
     <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategoryAllTab.cs" />
     <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
+    <Compile Include="Identity\AddAndChangeUserAvatarInProfileWidget.cs" />
     <Compile Include="Identity\DragAndDropProfileWidgetAndSetReadMode.cs" />
     <Compile Include="Identity\LoginFormAndLoginStatusOnTheSamePage.cs" />
     <Compile Include="Identity\LoginFormRedirectToPageAfterLogin.cs" />
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs" />
     <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
+    <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
+    <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
+    <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
