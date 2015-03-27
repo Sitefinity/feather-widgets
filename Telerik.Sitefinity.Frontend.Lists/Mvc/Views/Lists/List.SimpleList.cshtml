@@ -4,7 +4,13 @@
 
     @foreach (var item in Model.Items)
     {
-        <p>@item.Fields.Title</p>
+        <h3>@item.Fields.Title</h3>
+        <ol>
+            @foreach (var listItem in @item.Fields.ListItems)
+            {
+                <li>@listItem.Title</li>
+            }
+        </ol>
     }
 
 </div>
