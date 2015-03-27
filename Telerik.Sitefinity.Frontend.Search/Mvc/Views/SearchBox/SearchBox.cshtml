@@ -4,7 +4,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-@Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-search-box.min.css"), preserveLocation:true)
+@Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-search-box.min.css"))
 
 @{
     var searchTextBoxId = Guid.NewGuid();
@@ -36,4 +36,4 @@
     @Html.Script(ScriptRef.JQueryUI)   
 }
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchBox/Search-box.js"), preserveLocation:true)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchBox/Search-box.js"))

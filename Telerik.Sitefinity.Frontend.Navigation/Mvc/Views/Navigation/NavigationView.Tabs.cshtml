@@ -7,7 +7,7 @@
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"), preserveLocation:true)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"))
 
 <div class="@Model.CssClass">
     @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
