@@ -33,6 +33,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ImageGallery
             }
         }
 
+        /// <summary>
+        /// Gets the image gallery frontend.
+        /// </summary>
+        /// <value>The image gallery frontend.</value>
+        public ImageGalleryFrontend ImageGalleryFrontend
+        {
+            get
+            {
+                return new ImageGalleryFrontend(this.find);
+            }
+        }
+
         private Find find;
     }
 }

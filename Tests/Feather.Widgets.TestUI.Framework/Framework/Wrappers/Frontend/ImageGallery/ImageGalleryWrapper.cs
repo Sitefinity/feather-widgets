@@ -112,5 +112,58 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=Back to all images", "href=" + href)
                 .AssertIsPresent("Back to all images");
         }
+
+        /// <summary>
+        /// Verifies the selected image overlay template.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        public void VerifySelectedImageOverlayTemplate(string altText)
+        {
+            ActiveBrowser.WaitForElementWithCssClass("mfp-img");
+            ActiveBrowser.Find.ByExpression<HtmlImage>("class=mfp-img", "alt=" + altText)
+                .AssertIsPresent("Overlay image");
+        }
+
+        /// <summary>
+        /// Verifies the alt text div.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        public void VerifyAltTextDiv(string altText)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlDiv>("class=mfp-title", "innertext=" + altText)
+                .AssertIsPresent("Alt text div");
+        }
+
+        /// <summary>
+        /// Verifies the count div.
+        /// </summary>
+        /// <param name="count">The count.</param>
+        public void VerifyCountDiv(string count)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlDiv>("class=mfp-counter", "innertext=" + count)
+                .AssertIsPresent("count div");
+        }
+
+        /// <summary>
+        /// Verifies the previous and next image arrows overlay template.
+        /// </summary>
+        public void VerifyPreviousAndNextImageArrowsOverlayTemplate()
+        {
+            EM.ImageGallery.ImageGalleryFrontend.PreviousButtonOverlayTemplate
+               .AssertIsPresent("previous button");
+
+            EM.ImageGallery.ImageGalleryFrontend.NextButtonOverlayTemplate
+               .AssertIsPresent("next button");
+        }
+
+        /// <summary>
+        /// Closes the selected image overlay template.
+        /// </summary>
+        public void CloseSelectedImageOverlayTemplate()
+        {
+            var close = EM.ImageGallery.ImageGalleryFrontend.CloseButtonOverlayTemplate
+               .AssertIsPresent("close button");
+            close.Click();
+        }
     }
 }

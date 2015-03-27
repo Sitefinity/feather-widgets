@@ -8,9 +8,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Edit And Change Selected Image arrangement class.
+    /// SelectAllPublishedImagesWithOverlayGalleryTemplate arrangement class.
     /// </summary>
-    public class EditAndChangeSelectedImage : ITestArrangement
+    public class SelectAllPublishedImagesWithOverlayGalleryTemplate : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -22,12 +22,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
 
-            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, string.Empty, PlaceHolderId);
+            ServerOperationsFeather.Pages().AddImageGalleryWidgetToPage(pageId, PlaceHolderId);
 
             ServerSideUpload.CreateAlbum(ImageLibraryTitle);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
 
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResourceChild);
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResource2);
+
+            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 3, ImageResource3);
         }
 
         /// <summary>
@@ -40,12 +42,13 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Libraries().DeleteLibraries(false, "Image");
         }
 
+        private const string PageTemplateName = "Bootstrap.default";
         private const string PageName = "PageWithImage";
         private const string ImageLibraryTitle = "TestImageLibrary";
         private const string ImageTitle = "Image";
-        private const string ImageResource = "Telerik.Sitefinity.TestUtilities.Data.Images.1.jpg";
-        private const string ImageResourceChild = "Telerik.Sitefinity.TestUtilities.Data.Images.2.jpg";
-        private const string PageTemplateName = "Bootstrap.default";
+        private const string ImageResource1 = "Telerik.Sitefinity.TestUtilities.Data.Images.1.jpg";
+        private const string ImageResource2 = "Telerik.Sitefinity.TestUtilities.Data.Images.2.jpg";
+        private const string ImageResource3 = "Telerik.Sitefinity.TestUtilities.Data.Images.3.jpg";
         private const string PlaceHolderId = "Contentplaceholder1";
     }
 }

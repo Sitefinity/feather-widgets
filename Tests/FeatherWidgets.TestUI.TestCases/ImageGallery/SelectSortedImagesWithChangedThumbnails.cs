@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
     /// </summary>
     [TestClass]
     public class SelectSortedImagesWithChangedThumbnails_ : FeatherTestCase
-    {
+    {      
         /// <summary>
         /// UI test SelectSortedImagesWithChangedThumbnails
         /// </summary>
@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
 
             BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectRadioButtonOption(ImageGalleryRadioButtonIds.currentlyOpenLibrary);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInSortingSelector("Title ASC");
+            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInSortingSelector(TitleAsc);
             BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInThumbnailSelector("Small: 240 px width");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
             BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInImageSelector("Thumbnail: 120x120 px cropped");                  
@@ -42,12 +42,12 @@ namespace FeatherWidgets.TestUI.TestCases.News
             {
                 if (k == 0)
                 {
-                    string src = this.GetImageSource(false, this.imageTitles[k], ImageType, LibraryName, "-small.jpg");
+                    string src = this.GetImageSource(false, this.imageTitles[k], ImageType, LibraryName, ThumbnailSizeExtension);
                     BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(this.imageTitles[k], src);
                 }
                 else
                 {
-                    string src = this.GetImageSource(false, this.imageTitles[k], ImageType, AnotherImageLibraryTitle, "-small.jpg");
+                    string src = this.GetImageSource(false, this.imageTitles[k], ImageType, AnotherImageLibraryTitle, ThumbnailSizeExtension);
                     BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(this.imageTitles[k], src);
                 }
             }
@@ -60,12 +60,12 @@ namespace FeatherWidgets.TestUI.TestCases.News
             {
                 if (i == 0)
                 {
-                    string src = this.GetImageSource(false, this.imageTitles[i], ImageType, LibraryName, "-small.jpg");
+                    string src = this.GetImageSource(false, this.imageTitles[i], ImageType, LibraryName, ThumbnailSizeExtension);
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + (i + 1), src);                   
                 }
                 else
                 {
-                    string src = this.GetImageSource(false, this.imageTitles[i], ImageType, AnotherImageLibraryTitle, "-small.jpg");
+                    string src = this.GetImageSource(false, this.imageTitles[i], ImageType, AnotherImageLibraryTitle, ThumbnailSizeExtension);
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + (i + 1), src);
                 }
             }
@@ -94,7 +94,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
                 }
                 else
                 {
-                    var src = this.GetImageSource(false, this.imageTitles[j - 1], ImageType, AnotherImageLibraryTitle, "-small.jpg");
+                    var src = this.GetImageSource(false, this.imageTitles[j - 1], ImageType, AnotherImageLibraryTitle, ThumbnailSizeExtension);
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + j, src);
                 }
             }
@@ -139,5 +139,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         private const string ImageAltText = "AltText_Image";
         private const string ImageType = ".TMB";
         private const string AnotherImageLibraryTitle = "AnotherImageLibrary";
+        private const string ThumbnailSizeExtension = "-small.jpg";
+        private const string TitleAsc = "Title ASC";
     }
 }
