@@ -241,8 +241,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
         /// </summary>
         /// <value>Which list to display?</value>
         [ResourceEntry("WhichListToDisplay",
-            Value = "Which list to display?",
-            Description = "phrase: Which list to display?",
+            Value = "Set which list to display",
+            Description = "phrase: Set which list to display",
             LastModified = "2015/03/26")]
         public string WhichListToDisplay
         {

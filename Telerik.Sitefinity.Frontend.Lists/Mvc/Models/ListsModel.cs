@@ -28,6 +28,29 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             }
         }
 
+        public override string SerializedSelectedItemsIds
+        {
+            get
+            {
+                return base.SerializedSelectedItemsIds;
+            }
+            set
+            {
+                base.SerializedSelectedItemsIds = value;
+
+                this.selectedItems = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedItemsIds);
+            }
+        }
+
+        /// <inheritdoc />
+        public bool IsEmpty
+        {
+            get
+            {
+                return this.selectedItems.Count == 0;
+            }
+        }
+
         /// <inheritdoc />
         public override ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
         {
@@ -68,7 +91,14 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         {
             var elements = new List<string>();
 
-            elements.Add(this.GetSelectedItemsFilterExpression());
+            string filterExpression = this.GetSelectedItemsFilterExpression();
+
+            if (string.IsNullOrWhiteSpace(filterExpression))
+            {
+                return string.Empty;
+            }
+
+            elements.Add(filterExpression);
 
             return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
         }
@@ -90,8 +120,6 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
         private string GetSelectedItemsFilterExpression()
         {
-            var selectedItems = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedItemsIds);
-
             var selectedItemGuids = selectedItems.Select(id => new Guid(id));
             var masterIds = this.GetItemsQuery()
                                 .OfType<Content>()
@@ -112,5 +140,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             return manager.GetLists();
         }
+
+        private IList<string> selectedItems = new List<string>();
+
     }
 }
