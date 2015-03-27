@@ -38,11 +38,12 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             var viewModel = this.CreateListViewModelInstance();
             this.PopulateListViewModel(page, query, viewModel);
-
+            
             var listItemsViewModel = new ListItemsViewModel
             {
                 SortExpression = this.SortExpression,
-                FilterExpression = this.FilterExpression
+                FilterExpression = this.FilterExpression,
+                SerializedAdditionalFilters = this.SerializedAdditionalFilters
             };
             var listItemViewModel = listItemsViewModel.CreateListViewModel(taxonFilter, page);
 

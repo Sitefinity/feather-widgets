@@ -132,7 +132,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         #region Private fields and constants
 
         private IListsModel model;
-        private string listTemplateName = "ExpandedList";
+        private string listTemplateName = "SimpleList";
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
