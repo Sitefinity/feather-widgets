@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
@@ -50,19 +51,21 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertExistingEmailAddressMessage();
 
-            ////Verify wrong email format validation message - NOT working because of bug
+            ////Verify wrong email format validation message 
 
-            ////BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(WrongEmail);
-            ////BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
-            ////BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
-            ////BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
-            ////BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
+            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(WrongEmail);
+            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
+            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
+            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(Password);
+            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
+            Assert.IsFalse(ActiveBrowser.ContainsText(SuccessfullyRegisteredUserMessage), "Successfully registered message was found on the page");
             
             ////Verify emtpy re-type password validation message
 
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillUserName(UserName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillPassword(Password);
+            BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillRetypePassword(string.Empty);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().RegisterButton();
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().AssertReTypePasswordFieldMessage();
 
@@ -110,5 +113,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string Password = "password";
         private const string WrongPassword = "password1";
         private const string ShortPassword = "pass";
+        private const string SuccessfullyRegisteredUserMessage = "Thank you!You are successfully registered.";
     }
 }

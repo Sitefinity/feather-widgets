@@ -48,11 +48,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         /// <summary>
         /// Gets email field.
         /// </summary>
-        public HtmlInputText Email
+        public HtmlInputEmail Email
         {
             get
             {
-                return this.Get<HtmlInputText>("tagname=input", "id=Email");
+                return this.Get<HtmlInputEmail>("tagname=input", "name=Email");
             }
         }
 
