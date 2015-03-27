@@ -7,7 +7,7 @@
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"), preserveLocation:true)
 
 <select class="nav-select form-control">
     @foreach (var node in Model.Nodes)

@@ -146,4 +146,4 @@
         <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryString["wordsMode"]' />
     </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/Search-results.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/Search-results.js"), preserveLocation:true)

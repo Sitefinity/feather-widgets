@@ -22,4 +22,4 @@
 <input type="hidden" data-sf-role="sf-logout-redirect-url" value="@Model.LogoutPageUrl"/>
 <input type="hidden" data-sf-role="sf-is-design-mode-value" value="@ViewBag.IsDesignMode.ToString()" />
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginStatus/login-status.js"), preserveLocation:true)

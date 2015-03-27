@@ -7,8 +7,8 @@
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
-@Html.Script("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js")
-@Html.Script("http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js")
+@Html.Script("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", preserveLocation:true)
+@Html.Script("http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", preserveLocation:true)
 
 <div class="@Model.CssClass">
     @if (Telerik.Sitefinity.Security.SecurityManager.GetCurrentUserId() == Guid.Empty || SystemManager.IsInlineEditingMode || SystemManager.IsDesignMode)
@@ -74,4 +74,4 @@
     }
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginForm/login-form.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/LoginForm/login-form.js"), preserveLocation:true)

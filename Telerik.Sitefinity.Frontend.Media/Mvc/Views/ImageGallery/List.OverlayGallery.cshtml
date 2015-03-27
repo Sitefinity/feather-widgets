@@ -7,10 +7,10 @@
 
 @Html.Script(ScriptRef.JQuery)
 
-@Html.StyleSheet(Url.WidgetContent("assets/magnific/magnific-popup.css"))
+@Html.StyleSheet(Url.WidgetContent("assets/magnific/magnific-popup.css"), preserveLocation:true)
 
-@Html.Script(Url.WidgetContent("assets/magnific/jquery.magnific-popup.min.js"))
-@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/overlay-gallery.js"))
+@Html.Script(Url.WidgetContent("assets/magnific/jquery.magnific-popup.min.js"), preserveLocation:true)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/overlay-gallery.js"), preserveLocation:true)
 
 <div class="@Model.CssClass">
     @foreach (var item in Model.Items)

@@ -11,7 +11,7 @@
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery)
-@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"), preserveLocation:true)
 
 @{
     bool hasItems = Model.Items.Count() > 0;
