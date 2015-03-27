@@ -49,6 +49,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -93,6 +95,9 @@
     <Reference Include="Telerik.Sitefinity">
       <HintPath>..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.ContentModules">
+      <HintPath>..\packages\Telerik.Sitefinity.Content.8.0.5700.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend">
       <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
@@ -134,13 +139,16 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\ListsController.cs" />
     <Compile Include="Mvc\Models\IListsModel.cs" />
+    <Compile Include="Mvc\Models\ListItemViewModel.cs" />
     <Compile Include="Mvc\Models\ListsModel.cs" />
+    <Compile Include="Mvc\Models\ListsViewModel.cs" />
     <Compile Include="Mvc\StringResources\ListsWidgetResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\Lists\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Lists\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Lists\List.ExpandedList.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -80,7 +80,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillNewPassword(UserPasswordEdited);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillRetypePassword(UserPasswordEdited);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();
 
             ////Log in with new password 
 

@@ -6,7 +6,9 @@ using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
 {
@@ -88,11 +90,32 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/{0}";
 
-            //var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
-            //if (SystemManager.CurrentHttpContext != null)
-            //    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            return this.View(fullTemplateName, this.Model);
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="DetailTemplateName"/>
+        /// </summary>
+        /// <param name="item">The item which details will be displayed.</param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        public ActionResult Details(ListItem item)
+        {
+            var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
+
+            if (item != null)
+                this.ViewBag.Title = item.Title;
+
+            var viewModel = this.Model.CreateDetailsViewModel(item);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            return this.View(fullTemplateName, viewModel);
         }
 
         #endregion
