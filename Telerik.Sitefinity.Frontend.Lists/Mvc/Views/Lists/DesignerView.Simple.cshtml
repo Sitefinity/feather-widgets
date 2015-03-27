@@ -23,7 +23,7 @@
                     sf-master="true"
                     sf-multiselect="true"
                     sf-provider="properties.ProviderName.PropertyValue"
-                    sf-selected-ids="parentSelector.selectedItemsIds"
+                    sf-selected-ids="listSelector.selectedItemsIds"
                     sf-missing-selected-items="errors.missingSelectedItems">
                 </sf-list-selector>
             </label>
@@ -55,7 +55,7 @@
                 <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
                 <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
                 <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
-                <option value="Order ASC"> @Html.Resource("AsSetManually")</option>
+                <option value="Ordinal ASC"> @Html.Resource("AsSetManually")</option>
                 <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
             </select>
         </div>
