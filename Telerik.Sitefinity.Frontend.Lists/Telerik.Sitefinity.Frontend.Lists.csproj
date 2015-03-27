@@ -149,6 +149,7 @@
     <EmbeddedResource Include="Mvc\Views\Lists\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Lists\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Lists\List.ExpandedList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Lists\List.SimpleList.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
