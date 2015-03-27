@@ -19,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Document link widget.
     /// </summary>
     [Localization(typeof(DocumentResources))]
-    [ControllerToolboxItem(Name = "DocumentLink", Title = "Document link", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = DocumentController.WidgetIconCssClass)]
+    ////[ControllerToolboxItem(Name = "DocumentLink", Title = "Document link", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = DocumentController.WidgetIconCssClass)]
     public class DocumentController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties

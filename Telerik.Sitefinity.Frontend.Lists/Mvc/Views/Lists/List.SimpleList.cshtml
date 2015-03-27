@@ -1,0 +1,10 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+<div class="@Model.CssClass">
+
+    @foreach (var item in Model.Items)
+    {
+        <p>@item.Fields.Title</p>
+    }
+
+</div>
