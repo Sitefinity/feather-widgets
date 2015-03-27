@@ -53,7 +53,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                 };
                 var listItemViewModel = listItemsViewModel.CreateListViewModel(taxonFilter, page);
 
-                listModel.ListItemsViewModel = listItemViewModel.Items.Where(l => ((ListItem)l.DataItem).Parent.Id == listModel.DataItem.Id);
+                listModel.ListItemsViewModel = listItemViewModel.Items;
             }
 
             return viewModel;
