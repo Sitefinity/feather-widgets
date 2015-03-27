@@ -242,6 +242,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             return result;
         }
 
+        /// <summary>
+        /// Verifies the correct order of items on backend.
+        /// </summary>
+        /// <param name="itemAlts">The item names.</param>
+        public void VerifyCorrectOrderOfImagesOnBackend(params string[] itemAlts)
+        {
+            var items = ActiveBrowser.Find.AllByExpression<HtmlImage>("tagname=img", "alt=~AltText_Image");
+
+            int itemsCount = items.Count;
+            Assert.IsNotNull(itemsCount);
+            Assert.AreNotEqual(0, itemsCount);
+
+            for (int i = 0; i < itemsCount; i++)
+            {
+                Assert.IsTrue(items[i].Alt.Contains(itemAlts[i]));
+            }
+        }
+
         private const int TimeOut = 60000;
     }
 }

@@ -29,6 +29,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verifies the correct order of images.
+        /// </summary>
+        /// <param name="itemAlts">The item names.</param>
+        public void VerifyCorrectOrderOfImages(params string[] itemAlts)
+        {
+            var items = ActiveBrowser.Find.AllByExpression<HtmlImage>("tagname=img");
+
+            int itemsCount = items.Count;
+            Assert.IsNotNull(itemsCount);
+            Assert.AreNotEqual(0, itemsCount);
+
+            for (int i = 0; i < itemsCount; i++)
+            {
+                Assert.IsTrue(items[i].Alt.Contains(itemAlts[i]));
+            }
+        }
+
+        /// <summary>
         /// Verifies the image is not present.
         /// </summary>
         /// <param name="altText">The alt text.</param>
