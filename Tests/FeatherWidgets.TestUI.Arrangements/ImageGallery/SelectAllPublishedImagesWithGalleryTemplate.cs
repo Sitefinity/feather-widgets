@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework.Server;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// SelectAllPublishedImagesWithOverlayGalleryTemplate arrangement class.
+    /// SelectAllPublishedImagesWithGalleryTemplate arrangement class.
     /// </summary>
-    public class SelectAllPublishedImagesWithOverlayGalleryTemplate : ITestArrangement
+    public class SelectAllPublishedImagesWithGalleryTemplate : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -18,7 +18,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
+            string templateName = ServerArrangementContext.GetCurrent().Values["templateName"];
+
+            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(templateName);
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
 
@@ -42,7 +44,6 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Libraries().DeleteLibraries(false, "Image");
         }
 
-        private const string PageTemplateName = "Bootstrap.default";
         private const string PageName = "PageWithImage";
         private const string ImageLibraryTitle = "TestImageLibrary";
         private const string ImageTitle = "Image";
