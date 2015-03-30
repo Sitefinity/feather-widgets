@@ -10,6 +10,9 @@ using System.Collections.Specialized;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Security.Model;
 using System.Web;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Claims;
+using Microsoft.IdentityModel.Web;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 {
@@ -255,6 +258,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 input.Password,
                 input.RememberMe,
                 out user);
+
+            var identity = ClaimsManager.GetCurrentIdentity();
+            if (user != null && identity != null && identity.OriginalIdentity is SitefinityIdentity)
+            {
+                IClaimsPrincipal cp = new ClaimsPrincipal(new [] { new ClaimsIdentity(identity) });
+                var wifCredentials = new FederatedServiceCredentials(FederatedAuthentication.ServiceConfiguration);
+                cp = wifCredentials.ClaimsAuthenticationManager.Authenticate(context.Request.RequestType, cp);
+                SitefinityClaimsAuthenticationModule.Current.AuthenticatePrincipalWithCurrentToken(cp, input.RememberMe);
+            }
 
             if (result == UserLoggingReason.Unknown)
             {
