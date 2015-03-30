@@ -6,6 +6,9 @@ using Telerik.Sitefinity.Model;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 {
+    /// <summary>
+    /// This class represents List view model.
+    /// </summary>
     public class ListViewModel : ItemViewModel
     {
         public ListViewModel(IDataItem listItem)
