@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             foreach (var listModel in viewModel.Items.Cast<ListViewModel>())
             {
-                var listItemsViewModel = new ListItemViewModel(listModel)
+                var listItemModel = new ListItemModel(listModel)
                 {
                     SortExpression = this.SortExpression,
                     FilterExpression = this.FilterExpression,
@@ -76,9 +76,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                     // We need only filter list items.
                     SelectionMode = SelectionMode.FilteredItems
                 };
-                var listItemViewModel = listItemsViewModel.CreateListViewModel(taxonFilter, page);
 
-                listModel.ListItemsViewModel = listItemViewModel.Items;
+                listModel.ListItemViewModel = listItemModel.CreateListViewModel(taxonFilter, page);
             }
 
             return viewModel;
