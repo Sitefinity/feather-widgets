@@ -1,0 +1,32 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
+
+@Html.Script(ScriptRef.JQuery)
+
+<div class="@Model.CssClass" data-sf-role="lists">
+
+    @foreach (var item in Model.Items)
+    {
+        <h3>@item.Fields.Title</h3>
+        
+        foreach (var listItem in ((ListViewModel)item).ListItemsViewModel)
+        {
+            <div>
+                <a data-sf-role="toggleLink">@listItem.Fields.Title</a>
+                <div style="display:none;">
+                    @listItem.Fields.Content
+                </div>
+            </div>
+        }
+    }
+
+    <a data-sf-role="expandAll">@Html.Resource("ExpandAll")</a>
+
+    <a data-sf-role="collapseAll" style="display:none;">@Html.Resource("CollapseAll")</a>
+
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Lists/lists.js"))

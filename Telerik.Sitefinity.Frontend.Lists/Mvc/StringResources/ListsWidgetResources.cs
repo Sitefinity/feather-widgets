@@ -10,7 +10,6 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
     public class ListsWidgetResources : Resource
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ListsWidgetResources"/> class. 
         /// Initializes new instance of <see cref="ListsWidgetResources"/> class with the default <see cref="ResourceDataProvider"/>.
@@ -27,11 +26,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
             : base(dataProvider)
         {
         }
-
         #endregion
 
         #region Class Description
-
         /// <summary>
         /// Gets Title for the List widget resources class.
         /// </summary>
@@ -61,7 +58,6 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
                 return this["ListsWidgetResourcesDescription"];
             }
         }
-
         #endregion
 
         /// <summary>
@@ -249,6 +245,38 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
             get
             {
                 return this["WhichListToDisplay"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Expand all
+        /// </summary>
+        /// <value>Expand all</value>
+        [ResourceEntry("ExpandAll",
+            Value = "Expand all",
+            Description = "phrase: Expand all",
+            LastModified = "2015/03/30")]
+        public string ExpandAll
+        {
+            get
+            {
+                return this["ExpandAll"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Collapse all
+        /// </summary>
+        /// <value>Collapse all</value>
+        [ResourceEntry("CollapseAll",
+            Value = "Collapse all",
+            Description = "phrase: Collapse all",
+            LastModified = "2015/03/30")]
+        public string CollapseAll
+        {
+            get
+            {
+                return this["CollapseAll"];
             }
         }
     }
