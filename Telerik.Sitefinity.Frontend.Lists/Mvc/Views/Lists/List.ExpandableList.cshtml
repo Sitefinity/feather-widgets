@@ -10,14 +10,18 @@
 
     @foreach (var item in Model.Items)
     {
-        <h3>@item.Fields.Title</h3>
+        <h3 @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
+            <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>
+                @item.Fields.Title
+            </span>
+        </h3>
         
-        foreach (var listItem in ((ListViewModel)item).ListItemsViewModel)
+        foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
         {
-            <div>
-                <a data-sf-role="toggleLink">@listItem.Fields.Title</a>
-                <div style="display:none;">
-                    @listItem.Fields.Content
+            <div @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
+                <a @Html.InlineEditingFieldAttributes("Title", "ShortText") data-sf-role="toggleLink">@listItem.Fields.Title</a>
+                <div @Html.InlineEditingFieldAttributes("Content", "LongText") style="display:none;">
+                    @Html.Raw(@listItem.Fields.Content)
                 </div>
             </div>
         }
