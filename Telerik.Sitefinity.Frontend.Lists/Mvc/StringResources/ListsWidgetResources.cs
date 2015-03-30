@@ -267,5 +267,21 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
                 return this["SetWhichListToDisplay"];
             }
         }
+
+        /// <summary>
+        /// phrase: Back to top
+        /// </summary>
+        /// <value>Back to top</value>
+        [ResourceEntry("BackToTop",
+            Value = "Back to top",
+            Description = "phrase: Back to top",
+            LastModified = "2015/03/26")]
+        public string BackToTop
+        {
+            get
+            {
+                return this["BackToTop"];
+            }
+        }
     }
 }
