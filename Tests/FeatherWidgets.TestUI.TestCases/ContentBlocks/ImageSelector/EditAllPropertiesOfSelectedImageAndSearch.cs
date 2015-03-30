@@ -30,7 +30,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
           
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
-            
+
+            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitForContentToBeLoaded(false);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmImageSelection();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(ImageName), "Image title is not populated correctly");
