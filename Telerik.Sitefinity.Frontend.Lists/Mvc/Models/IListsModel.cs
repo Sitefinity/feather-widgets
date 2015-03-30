@@ -11,6 +11,9 @@ using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 {
+    /// <summary>
+    /// This interface is used as a model for ListsController.
+    /// </summary>    
     public interface IListsModel
     {
         /// <summary>
