@@ -106,6 +106,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGalle
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
+
+        /// <summary>
+        /// Selects the option in list template selector.
+        /// </summary>
+        /// <param name="optionValue">The option value.</param>
+        public void SelectOptionInListTemplateSelector(string optionValue)
+        {
+            HtmlSelect selector = this.EM.ImageGallery.ImageGalleryWidgetEditScreen.ListTemplateSelector
+               .AssertIsPresent("Image selector");
+
+            selector.SelectByValue(optionValue);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
     }
 }
 

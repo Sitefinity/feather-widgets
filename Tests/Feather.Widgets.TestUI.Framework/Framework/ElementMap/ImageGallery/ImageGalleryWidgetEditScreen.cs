@@ -57,5 +57,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ImageGallery
                 return this.Get<HtmlSelect>("tagName=select", "ng-model=selectedSortOption");
             }
         }
+
+        /// <summary>
+        /// Gets the list template selector.
+        /// </summary>
+        /// <value>The list template selector.</value>
+        public HtmlSelect ListTemplateSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagName=select", "ng-model=properties.ListTemplateName.PropertyValue");
+            }
+        }
     }
 }
