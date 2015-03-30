@@ -273,6 +273,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             ActiveBrowser.WaitForAsyncRequests();
         }
 
+        /// <summary>
+        /// Confirms the image selection in image widget.
+        /// </summary>
+        public void ConfirmImageSelectionInImageWidget()
+        {
+            var doneBtn = this.EM.Media.ImageSelectorScreen.DoneButtonInImageWidget.AssertIsPresent("Done button");
+
+            doneBtn.Click();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
         public void SearchInImageSelector(string searchText)
         {
             HtmlInputText input = this.EM.Media.ImageSelectorScreen.SearchBox.AssertIsPresent("Search field");
