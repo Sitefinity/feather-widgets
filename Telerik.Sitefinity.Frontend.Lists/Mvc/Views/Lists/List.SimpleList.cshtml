@@ -1,4 +1,5 @@
 @model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+@using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 
 <div class="@Model.CssClass">
 
@@ -6,9 +7,9 @@
     {
         <h3>@item.Fields.Title</h3>
         <ol>
-            @foreach (var listItem in @item.Fields.ListItems)
+            @foreach (var listItem in ((ListViewModel)item).ListItemsViewModel)
             {
-                <li>@listItem.Title</li>
+                <li>@listItem.Fields.Title</li>
             }
         </ol>
     }
