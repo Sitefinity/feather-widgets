@@ -15,11 +15,11 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             : base(listItem)
         {
         }
-
+      
         /// <summary>
-        /// Gets or sets the list items view model.
+        /// Gets or sets the list item view model.
         /// </summary>
-        /// <value>The list items.</value>
-        public IEnumerable<ItemViewModel> ListItemsViewModel { get; set; }
+        /// <value>The list item view model.</value>
+        public ContentListViewModel ListItemViewModel { get; set; }
     }
 }
