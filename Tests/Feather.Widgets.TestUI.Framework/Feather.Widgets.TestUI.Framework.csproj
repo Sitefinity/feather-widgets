@@ -97,6 +97,7 @@
     <Compile Include="Framework\ElementMap\Identity\ProfileFrontend.cs" />
     <Compile Include="Framework\ElementMap\Identity\RegistrationEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Identity\RegistrationFrontend.cs" />
+    <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryMap.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImageUploadPropertiesScreen.cs" />

@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Image widget
     /// </summary>
-    [ObjectInfo(typeof(ImageResources), Title = "ImageResources", Description = "ImageResources")]
+    [ObjectInfo(typeof(ImageResources), ResourceClassId = "ImageResources", Title = "ImageResourcesTitle", Description = "ImageResourcesDescription")]
     public class ImageResources : Resource
     {
         #region Constructors
@@ -30,6 +30,40 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         public ImageResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
+        }
+
+        #endregion
+
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Image widget resources class.
+        /// </summary>
+        [ResourceEntry("ImageResourcesTitle",
+            Value = "Image widget resources",
+            Description = "Title for the Image widget resources class.",
+            LastModified = "2015/03/30")]
+        public string ImageResourcesTitle
+        {
+            get
+            {
+                return this["ImageResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Image widget resources class.
+        /// </summary>
+        [ResourceEntry("ImageResourcesDescription",
+            Value = "Localizable strings for the Image widget.",
+            Description = "Description for the Image widget resources class.",
+            LastModified = "2015/03/30")]
+        public string ImageResourcesDescription
+        {
+            get
+            {
+                return this["ImageResourcesDescription"];
+            }
         }
 
         #endregion

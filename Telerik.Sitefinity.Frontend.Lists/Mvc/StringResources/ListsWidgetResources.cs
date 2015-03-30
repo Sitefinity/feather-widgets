@@ -6,7 +6,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Content block widget
     /// </summary>
-    [ObjectInfo(typeof(ListsWidgetResources), Title = "ListsWidgetResourcesTitle", Description = "ListsWidgetResourcesDescription")]
+    [ObjectInfo(typeof(ListsWidgetResources), ResourceClassId = "ListsWidgetResources", Title = "ListsWidgetResourcesTitle", Description = "ListsWidgetResourcesDescription")]
     public class ListsWidgetResources : Resource
     {
         #region Constructors

@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Login Status widget
     /// </summary>
-    [ObjectInfo(typeof(LoginStatusResources), Title = "LoginStatusResources", Description = "LoginStatusResources")]
+    [ObjectInfo(typeof(LoginStatusResources), ResourceClassId = "LoginStatusResources", Title = "LoginStatusResourcesTitle", Description = "LoginStatusResourcesDescription")]
     public class LoginStatusResources : Resource
     {
         #region Constructors
@@ -30,6 +30,40 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         public LoginStatusResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
+        }
+
+        #endregion
+
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Login status widget resources class.
+        /// </summary>
+        [ResourceEntry("LoginStatusResourcesTitle",
+            Value = "Login status widget resources",
+            Description = "Title for the Login status widget resources class.",
+            LastModified = "2015/03/30")]
+        public string LoginStatusResourcesTitle
+        {
+            get
+            {
+                return this["LoginStatusResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Login status widget resources class.
+        /// </summary>
+        [ResourceEntry("LoginStatusResourcesDescription",
+            Value = "Localizable strings for the Login status widget.",
+            Description = "Description for the Login status widget resources class.",
+            LastModified = "2015/03/26")]
+        public string LoginStatusResourcesDescription
+        {
+            get
+            {
+                return this["LoginStatusResourcesDescription"];
+            }
         }
 
         #endregion
