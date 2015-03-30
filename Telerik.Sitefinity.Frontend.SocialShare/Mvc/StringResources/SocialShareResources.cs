@@ -5,7 +5,7 @@ using Telerik.Sitefinity.Localization.Data;
 
 namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.StringResources
 {
-    [ObjectInfo(typeof(SocialShareResources), Title = "SocialShareResourcesTitle", Description = "SocialShareResourcesDescription")]
+    [ObjectInfo(typeof(SocialShareResources), ResourceClassId = "SocialShareResources", Title = "SocialShareResourcesTitle", Description = "SocialShareResourcesDescription")]
     public class SocialShareResources : Resource
     {
         #region Constructions
@@ -25,6 +25,40 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.StringResources
             : base(dataProvider)
         {
         }
+        #endregion
+
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Social Share widget resources class.
+        /// </summary>
+        [ResourceEntry("SocialShareResourcesTitle",
+            Value = "Social Share widget resources",
+            Description = "Title for the Social Share widget resources class.",
+            LastModified = "2015/03/30")]
+        public string SocialShareResourcesTitle
+        {
+            get
+            {
+                return this["SocialShareResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Social Share widget resources class.
+        /// </summary>
+        [ResourceEntry("SocialShareResourcesDescription",
+            Value = "Localizable strings for the Social Share widget.",
+            Description = "Description for the Social Share widget resources class.",
+            LastModified = "2015/03/30")]
+        public string SocialShareResourcesDescription
+        {
+            get
+            {
+                return this["SocialShareResourcesDescription"];
+            }
+        }
+
         #endregion
 
         #region Properties
