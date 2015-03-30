@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Change Password widget
     /// </summary>
-    [ObjectInfo(typeof(ChangePasswordResources), Title = "ChangePasswordResources", Description = "ChangePasswordResources")]
+    [ObjectInfo(typeof(ChangePasswordResources), ResourceClassId = "ChangePasswordResources", Title = "ChangePasswordResourcesTitle", Description = "ChangePasswordResourcesDescription")]
     public class ChangePasswordResources : Resource
     {
         #region Constructors
@@ -29,6 +29,40 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         public ChangePasswordResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
+        }
+
+        #endregion
+
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Change password widget resources class.
+        /// </summary>
+        [ResourceEntry("ChangePasswordResourcesTitle",
+            Value = "Change password widget resources",
+            Description = "Title for the Change password widget resources class.",
+            LastModified = "2015/03/30")]
+        public string ChangePasswordResourcesTitle
+        {
+            get
+            {
+                return this["ChangePasswordResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Change password widget resources class.
+        /// </summary>
+        [ResourceEntry("ChangePasswordResourcesDescription",
+            Value = "Localizable strings for the Change password widget.",
+            Description = "Description for the Change password widget resources class.",
+            LastModified = "2015/03/30")]
+        public string ChangePasswordResourcesDescription
+        {
+            get
+            {
+                return this["ChangePasswordResourcesDescription"];
+            }
         }
 
         #endregion

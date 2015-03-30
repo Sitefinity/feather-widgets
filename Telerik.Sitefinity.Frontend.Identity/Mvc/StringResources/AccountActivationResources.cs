@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Account Activation widget
     /// </summary>
-    [ObjectInfo(typeof(AccountActivationResources), Title = "AccountActivationResources", Description = "AccountActivationResources")]
+    [ObjectInfo(typeof(AccountActivationResources), ResourceClassId = "AccountActivationResources", Title = "AccountActivationResourcesTitle", Description = "AccountActivationResourcesDescription")]
     class AccountActivationResources : Resource
     {
         #region Constructors
@@ -32,7 +32,41 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         #endregion
-        
+
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Account activation widget resources class.
+        /// </summary>
+        [ResourceEntry("AccountActivationResourcesTitle",
+            Value = "Account activation widget resources",
+            Description = "Title for the Account activation widget resources class.",
+            LastModified = "2015/03/30")]
+        public string AccountActivationResourcesTitle
+        {
+            get
+            {
+                return this["AccountActivationResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Account activation widget resources class.
+        /// </summary>
+        [ResourceEntry("AccountActivationResourcesDescription",
+            Value = "Localizable strings for the Account activation widget.",
+            Description = "Description for the Account activation widget resources class.",
+            LastModified = "2015/03/30")]
+        public string AccountActivationResourcesDescription
+        {
+            get
+            {
+                return this["AccountActivationResourcesDescription"];
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Gets phrase : Your account is activated
         /// </summary>

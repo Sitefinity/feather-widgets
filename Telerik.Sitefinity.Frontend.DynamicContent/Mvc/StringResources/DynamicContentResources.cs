@@ -6,7 +6,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the News widget
     /// </summary>
-    [ObjectInfo(typeof(DynamicContentResources), Title = "NewsResourcesTitle", Description = "NewsResourcesDescription")]
+    [ObjectInfo(typeof(DynamicContentResources), ResourceClassId = "DynamicContentResources", Title = "DynamicContentResourcesTitle", Description = "DynamicContentResourcesDescription")]
     public class DynamicContentResources : Resource
     {
         #region Constructions

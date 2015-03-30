@@ -139,7 +139,7 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\ListsController.cs" />
     <Compile Include="Mvc\Models\IListsModel.cs" />
-    <Compile Include="Mvc\Models\ListItemViewModel.cs" />
+    <Compile Include="Mvc\Models\ListItemModel.cs" />
     <Compile Include="Mvc\Models\ListsModel.cs" />
     <Compile Include="Mvc\Models\ListViewModel.cs" />
     <Compile Include="Mvc\StringResources\ListsWidgetResources.cs" />
@@ -151,6 +151,7 @@
     <EmbeddedResource Include="Mvc\Views\Lists\List.ExpandedList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Lists\List.SimpleList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Lists\List.ExpandableList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Lists\List.AnchorList.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

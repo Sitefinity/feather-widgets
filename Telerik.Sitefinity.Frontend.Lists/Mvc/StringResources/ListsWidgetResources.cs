@@ -6,7 +6,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Content block widget
     /// </summary>
-    [ObjectInfo(typeof(ListsWidgetResources), Title = "ListsWidgetResourcesTitle", Description = "ListsWidgetResourcesDescription")]
+    [ObjectInfo(typeof(ListsWidgetResources), ResourceClassId = "ListsWidgetResources", Title = "ListsWidgetResourcesTitle", Description = "ListsWidgetResourcesDescription")]
     public class ListsWidgetResources : Resource
     {
         #region Constructors
@@ -261,6 +261,22 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
             get
             {
                 return this["SetWhichListToDisplay"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Back to top
+        /// </summary>
+        /// <value>Back to top</value>
+        [ResourceEntry("BackToTop",
+            Value = "Back to top",
+            Description = "phrase: Back to top",
+            LastModified = "2015/03/26")]
+        public string BackToTop
+        {
+            get
+            {
+                return this["BackToTop"];
             }
         }
 

@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Documents list resources widget.
     /// </summary>
-    [ObjectInfo(typeof(DocumentsListResources), Title = "DocumentsListResources", Description = "DocumentsListResources")]
+    [ObjectInfo(typeof(DocumentsListResources), ResourceClassId = "DocumentsListResources", Title = "DocumentsListResourcesTitle", Description = "DocumentsListResourcesDescription")]
     public class DocumentsListResources : Resource
     {
         #region Constructors
@@ -30,6 +30,40 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             : base(dataProvider)
         {
         }
+        #endregion
+
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Documents List widget resources class.
+        /// </summary>
+        [ResourceEntry("DocumentsListResourcesTitle",
+            Value = "Documents List widget resources",
+            Description = "Title for the Documents List widget resources class.",
+            LastModified = "2015/03/30")]
+        public string DocumentsListResourcesTitle
+        {
+            get
+            {
+                return this["DocumentsListResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Documents List widget resources class.
+        /// </summary>
+        [ResourceEntry("DocumentsListResourcesDescription",
+            Value = "Localizable strings for the Documents List widget.",
+            Description = "Description for the Documents List widget resources class.",
+            LastModified = "2015/03/30")]
+        public string DocumentsListResourcesDescription
+        {
+            get
+            {
+                return this["DocumentsListResourcesDescription"];
+            }
+        }
+
         #endregion
 
         #region Designer
