@@ -99,7 +99,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         [Browsable(false)]
         public string EmptyLinkText
         {
-            get { return Res.Get<ListsWidgetResources>().WhichListToDisplay; }
+            get { return Res.Get<ListsWidgetResources>().SetWhichListToDisplay; }
         }
 
         /// <summary>
