@@ -112,5 +112,11 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         IEnumerable<IContentLocationInfo> GetLocations();
+
+        /// <summary>
+        /// Gets whether model has selected lists.
+        /// </summary>
+        /// <value>The is empty.</value>
+        bool IsEmpty { get; }
     }
 }

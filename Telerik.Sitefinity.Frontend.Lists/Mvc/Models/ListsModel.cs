@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Lists;
@@ -26,6 +28,29 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             }
         }
 
+        public override string SerializedSelectedItemsIds
+        {
+            get
+            {
+                return base.SerializedSelectedItemsIds;
+            }
+            set
+            {
+                base.SerializedSelectedItemsIds = value;
+
+                this.selectedItems = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedItemsIds);
+            }
+        }
+
+        /// <inheritdoc />
+        public bool IsEmpty
+        {
+            get
+            {
+                return this.selectedItems.Count == 0;
+            }
+        }
+
         /// <inheritdoc />
         public override ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
         {
@@ -38,18 +63,20 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             var viewModel = this.CreateListViewModelInstance();
             this.PopulateListViewModel(page, query, viewModel);
-            
-            var listItemsViewModel = new ListItemsViewModel
-            {
-                SortExpression = this.SortExpression,
-                FilterExpression = this.FilterExpression,
-                SerializedAdditionalFilters = this.SerializedAdditionalFilters
-            };
-            var listItemViewModel = listItemsViewModel.CreateListViewModel(taxonFilter, page);
 
             foreach (var listModel in viewModel.Items.Cast<ListViewModel>())
             {
-                listModel.ListItemsViewModel = listItemViewModel.Items.Where(l => ((ListItem)l.DataItem).Parent.Id == listModel.DataItem.Id);
+                var listItemsViewModel = new ListItemsViewModel(listModel)
+                {
+                    SortExpression = this.SortExpression,
+                    FilterExpression = this.FilterExpression,
+                    SerializedAdditionalFilters = this.SerializedAdditionalFilters,
+                    // We need only filter list items.
+                    SelectionMode = SelectionMode.FilteredItems
+                };
+                var listItemViewModel = listItemsViewModel.CreateListViewModel(taxonFilter, page);
+
+                listModel.ListItemsViewModel = listItemViewModel.Items;
             }
 
             return viewModel;
@@ -60,21 +87,50 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             return new ListViewModel(item);
         }
 
-        /// <inheritdoc />
-        protected override IEnumerable<ItemViewModel> ApplyListSettings(int page, IQueryable<IDataItem> query, out int? totalPages)
+        protected override string CompileFilterExpression()
         {
-            totalPages = 0;
+            var elements = new List<string>();
 
-            IList<ItemViewModel> result = new List<ItemViewModel>();
+            string filterExpression = this.GetSelectedItemsFilterExpression();
 
-            var queryResult = query.ToArray<IDataItem>();
-
-            foreach (var item in queryResult)
+            if (string.IsNullOrWhiteSpace(filterExpression))
             {
-                result.Add(this.CreateItemViewModelInstance(item));
+                return string.Empty;
             }
 
-            return result;
+            elements.Add(filterExpression);
+
+            return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
+        }
+
+        protected override IQueryable<IDataItem> UpdateExpression(IQueryable<IDataItem> query, int? skip, int? take, ref int? totalCount)
+        {
+            var compiledFilterExpression = this.CompileFilterExpression();
+
+            query = this.SetExpression(
+                         query,
+                         compiledFilterExpression,
+                         this.SortExpression,
+                         skip,
+                         take,
+                         ref totalCount);
+
+            return query;
+        }
+
+        private string GetSelectedItemsFilterExpression()
+        {
+            var selectedItemGuids = selectedItems.Select(id => new Guid(id));
+            var masterIds = this.GetItemsQuery()
+                                .OfType<Content>()
+                                .Where(c => selectedItemGuids.Contains(c.Id) || selectedItemGuids.Contains(c.OriginalContentId))
+                                .Select(n => n.OriginalContentId != Guid.Empty ? n.OriginalContentId : n.Id)
+                                .Distinct();
+
+            var selectedItemConditions = masterIds.Select(id => "Id = {0} OR OriginalContentId = {0}".Arrange(id.ToString("D")));
+            var selectedItemsFilterExpression = string.Join(" OR ", selectedItemConditions);
+
+            return selectedItemsFilterExpression;
         }
 
         /// <inheritdoc />
@@ -84,5 +140,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             return manager.GetLists();
         }
+
+        private IList<string> selectedItems = new List<string>();
+
     }
 }

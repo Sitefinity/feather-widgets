@@ -249,6 +249,22 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
         }
 
         /// <summary>
+        /// phrase: Set which list to display?
+        /// </summary>
+        /// <value>Which list to display?</value>
+        [ResourceEntry("SetWhichListToDisplay",
+            Value = "Set which list to display",
+            Description = "phrase: Set which list to display",
+            LastModified = "2015/03/26")]
+        public string SetWhichListToDisplay
+        {
+            get
+            {
+                return this["SetWhichListToDisplay"];
+            }
+        }
+
+        /// <summary>
         /// phrase: Expand all
         /// </summary>
         /// <value>Expand all</value>

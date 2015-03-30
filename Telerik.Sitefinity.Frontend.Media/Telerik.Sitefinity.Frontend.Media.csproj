@@ -151,7 +151,7 @@
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\DocumentsListController.cs" />
-    <Compile Include="Mvc\Models\DocumentsList\DocumentDetailViewModel.cs" />
+    <Compile Include="Mvc\Models\DocumentsList\DocumentDetailsViewModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentsListModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentsListViewModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\IDocumentsListModel.cs" />

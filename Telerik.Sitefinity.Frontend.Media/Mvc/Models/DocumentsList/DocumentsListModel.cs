@@ -7,12 +7,15 @@ using SfDocument = Telerik.Sitefinity.Libraries.Model.Document;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
 {
+    /// <summary>
+    /// This class is used as a model for DocumentsListController.
+    /// </summary>
     public class DocumentsListModel : MediaGalleryModelBase<SfDocument>, IDocumentsListModel
     {
         /// <inheritdoc />
         protected override ContentDetailsViewModel CreateDetailsViewModelInstance()
         {
-            return new DocumentDetailViewModel();
+            return new DocumentDetailsViewModel();
         }
 
         /// <inheritdoc />
