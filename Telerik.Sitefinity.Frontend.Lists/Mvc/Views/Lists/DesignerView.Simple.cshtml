@@ -79,9 +79,9 @@
 
     <div class="row">
         <div class="col-xs-6">
-            <label for="newsTemplateName">@Html.Resource("ListItemDetails")</label>
+            <label for="listDetailTemplateName">@Html.Resource("ListItemDetails")</label>
 
-            <select id="newsTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
+            <select id="listDetailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>[\w\s]*)$"))
                     {
                         <option value="@viewName"> @viewName</option>
