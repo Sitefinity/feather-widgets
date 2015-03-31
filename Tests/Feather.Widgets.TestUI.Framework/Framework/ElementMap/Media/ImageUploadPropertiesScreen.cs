@@ -89,7 +89,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlDiv>("tagName=div", "InnerText=~Title is required!", "class=text-danger");
+                return this.Get<HtmlDiv>("tagName=div", "InnerText=~Title is required", "class=text-danger");
             }
         }
 
