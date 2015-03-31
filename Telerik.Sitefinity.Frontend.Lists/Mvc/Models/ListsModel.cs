@@ -74,7 +74,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                     FilterExpression = this.FilterExpression,
                     SerializedAdditionalFilters = this.SerializedAdditionalFilters,
                     // We need only filter list items.
-                    SelectionMode = SelectionMode.FilteredItems
+                    SelectionMode = SelectionMode.FilteredItems,
+                    ProviderName = this.ProviderName
                 };
 
                 listModel.ListItemViewModel = listItemModel.CreateListViewModel(taxonFilter, page);
