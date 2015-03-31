@@ -41,6 +41,14 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         string DetailCssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to enable social sharing.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
+        /// </value>
+        bool EnableSocialSharing { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the provider.
         /// </summary>
         /// <value>The name of the provider.</value>
