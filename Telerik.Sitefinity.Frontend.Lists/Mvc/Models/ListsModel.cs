@@ -34,13 +34,18 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         {
             get
             {
-                return base.SerializedSelectedItemsIds;
+                return this.serializedSelectedItemsIds;
             }
             set
             {
-                base.SerializedSelectedItemsIds = value;
-
-                this.selectedItems = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedItemsIds);
+                if (this.serializedSelectedItemsIds != value)
+                {
+                    this.serializedSelectedItemsIds = value;
+                    if (!this.serializedSelectedItemsIds.IsNullOrEmpty())
+                    {
+                        this.selectedItemsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedItemsIds);
+                    }
+                }
             }
         }
 
@@ -49,7 +54,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         {
             get
             {
-                return this.selectedItems.Count == 0;
+                return this.selectedItemsIds.Count == 0;
             }
         }
 
@@ -125,7 +130,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
         private string GetSelectedItemsFilterExpression()
         {
-            var selectedItemGuids = selectedItems.Select(id => new Guid(id));
+            var selectedItemGuids = selectedItemsIds.Select(id => new Guid(id));
             var masterIds = this.GetItemsQuery()
                                 .OfType<Content>()
                                 .Where(c => selectedItemGuids.Contains(c.Id) || selectedItemGuids.Contains(c.OriginalContentId))
@@ -146,6 +151,11 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             return manager.GetLists();
         }
 
-        private IList<string> selectedItems = new List<string>();
+        #region Private fields
+
+        private IList<string> selectedItemsIds = new List<string>();
+        private string serializedSelectedItemsIds;
+
+        #endregion
     }
 }
