@@ -68,9 +68,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
 
         #region Designer
         /// <summary>
-        /// Phrase: All published images
+        /// Phrase: All published documents
         /// </summary>
-        /// <value>All published images</value>
+        /// <value>All published documents</value>
         [ResourceEntry("AllPublishedDocuments",
             Value = "All published documents",
             Description = "Phrase: All published documents",
@@ -86,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         /// <summary>
         /// Phrase: Selection of documents...
         /// </summary>
-        /// <value>Selection of images...</value>
+        /// <value>Selection of documents...</value>
         [ResourceEntry("SelectionOfDocuments",
             Value = "Selection of documents...",
             Description = "Phrase: Selection of documents...",
@@ -442,11 +442,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Which images to display?
+        /// Gets phrase : Which documents to display?
         /// </summary>
         [ResourceEntry("ItemsToDisplay",
-            Value = "Which images to display?",
-            Description = "phrase : Which images to display?",
+            Value = "Which documents to display?",
+            Description = "phrase : Which documents to display?",
             LastModified = "2015/02/23")]
         public string ItemsToDisplay
         {
