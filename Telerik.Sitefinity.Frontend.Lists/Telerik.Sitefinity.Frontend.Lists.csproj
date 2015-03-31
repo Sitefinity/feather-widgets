@@ -152,7 +152,7 @@
     <EmbeddedResource Include="Mvc\Views\Lists\List.SimpleList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Lists\List.ExpandableList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Lists\List.AnchorList.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\Lists\List.PageList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Lists\List.PagesList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Lists\Detail.DetailPage.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
