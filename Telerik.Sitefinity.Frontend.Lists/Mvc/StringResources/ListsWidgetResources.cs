@@ -283,5 +283,21 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
                 return this["BackToTop"];
             }
         }
+
+        /// <summary>
+        /// word: Provider
+        /// </summary>
+        /// <value>Provider</value>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "word: Provider",
+            LastModified = "2015/03/31")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
+            }
+        }
     }
 }
