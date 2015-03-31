@@ -93,18 +93,18 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
         }
 
         /// <summary>
-        /// word: Template
+        /// word: Templates
         /// </summary>
-        /// <value>Template</value>
-        [ResourceEntry("Template",
-            Value = "Template",
-            Description = "word: Template",
-            LastModified = "2015/03/26")]
-        public string Template
+        /// <value>Templates</value>
+        [ResourceEntry("Templates",
+            Value = "Templates",
+            Description = "word: Templates",
+            LastModified = "2015/03/31")]
+        public string Templates
         {
             get
             {
-                return this["Template"];
+                return this["Templates"];
             }
         }
 
@@ -325,6 +325,38 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
             get
             {
                 return this["Provider"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List items
+        /// </summary>
+        /// <value>List items</value>
+        [ResourceEntry("ListItems",
+            Value = "List items",
+            Description = "phrase: List items",
+            LastModified = "2015/03/31")]
+        public string ListItems
+        {
+            get
+            {
+                return this["ListItems"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List item details
+        /// </summary>
+        /// <value>List item details</value>
+        [ResourceEntry("ListItemDetails",
+            Value = "List item details",
+            Description = "phrase: List item details",
+            LastModified = "2015/03/31")]
+        public string ListItemDetails
+        {
+            get
+            {
+                return this["ListItemDetails"];
             }
         }
     }
