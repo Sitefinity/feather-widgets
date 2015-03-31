@@ -233,18 +233,18 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Which list to display?
+        /// phrase: Which lists to display?
         /// </summary>
-        /// <value>Which list to display?</value>
-        [ResourceEntry("WhichListToDisplay",
-            Value = "Which list to display?",
-            Description = "phrase: Which list to display?",
+        /// <value>Which lists to display?</value>
+        [ResourceEntry("WhichListsToDisplay",
+            Value = "Which lists to display?",
+            Description = "phrase: Which lists to display?",
             LastModified = "2015/03/26")]
-        public string WhichListToDisplay
+        public string WhichListsToDisplay
         {
             get
             {
-                return this["WhichListToDisplay"];
+                return this["WhichListsToDisplay"];
             }
         }
 
