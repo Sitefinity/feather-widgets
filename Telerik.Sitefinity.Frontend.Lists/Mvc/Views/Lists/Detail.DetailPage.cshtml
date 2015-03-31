@@ -9,4 +9,9 @@
     </h3>
 
     <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Item.Fields.Content)</div>
+
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
+    }
 </div>
