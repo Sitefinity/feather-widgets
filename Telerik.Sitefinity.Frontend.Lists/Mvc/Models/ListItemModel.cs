@@ -8,9 +8,9 @@ using Telerik.Sitefinity.Modules.Lists;
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 {
     /// <summary>
-    /// A model for the list items MVC widget.
+    /// This class represents model for list item.
     /// </summary>
-    public class ListItemsViewModel : ContentModelBase
+    public class ListItemModel : ContentModelBase
     {
         private readonly ListViewModel parentList;
 
@@ -27,10 +27,10 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListItemsViewModel" /> class.
+        /// Initializes a new instance of the <see cref="ListItemModel" /> class.
         /// </summary>
         /// <param name="parentList">The parent list.</param>
-        public ListItemsViewModel(ListViewModel parentList)
+        public ListItemModel(ListViewModel parentList)
         {
             if (parentList == null)
             {
@@ -44,7 +44,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             var manager = (ListsManager)this.GetManager();
-
+            
             return manager.GetListItems().Where(l => l.Parent.Id == parentList.DataItem.Id);
         }
     }

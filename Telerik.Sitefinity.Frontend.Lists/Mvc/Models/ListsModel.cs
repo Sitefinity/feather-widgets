@@ -12,10 +12,11 @@ using Telerik.Sitefinity.Taxonomies.Model;
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 {
     /// <summary>
-    /// A model for the lists MVC widget.
+    /// This class is used as a model for Lists widget.
     /// </summary>
     public class ListsModel : ContentModelBase, IListsModel
     {
+        /// <inheritdoc />
         public override Type ContentType
         {
             get
@@ -28,6 +29,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             }
         }
 
+        /// <inheritdoc />
         public override string SerializedSelectedItemsIds
         {
             get
@@ -66,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
             foreach (var listModel in viewModel.Items.Cast<ListViewModel>())
             {
-                var listItemsViewModel = new ListItemsViewModel(listModel)
+                var listItemModel = new ListItemModel(listModel)
                 {
                     SortExpression = this.SortExpression,
                     FilterExpression = this.FilterExpression,
@@ -74,19 +76,20 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                     // We need only filter list items.
                     SelectionMode = SelectionMode.FilteredItems
                 };
-                var listItemViewModel = listItemsViewModel.CreateListViewModel(taxonFilter, page);
 
-                listModel.ListItemsViewModel = listItemViewModel.Items;
+                listModel.ListItemViewModel = listItemModel.CreateListViewModel(taxonFilter, page);
             }
 
             return viewModel;
         }
 
+        /// <inheritdoc />
         protected override ItemViewModel CreateItemViewModelInstance(IDataItem item)
         {
             return new ListViewModel(item);
         }
 
+        /// <inheritdoc />
         protected override string CompileFilterExpression()
         {
             var elements = new List<string>();
@@ -103,6 +106,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
         }
 
+        /// <inheritdoc />
         protected override IQueryable<IDataItem> UpdateExpression(IQueryable<IDataItem> query, int? skip, int? take, ref int? totalCount)
         {
             var compiledFilterExpression = this.CompileFilterExpression();
@@ -142,6 +146,5 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         }
 
         private IList<string> selectedItems = new List<string>();
-
     }
 }

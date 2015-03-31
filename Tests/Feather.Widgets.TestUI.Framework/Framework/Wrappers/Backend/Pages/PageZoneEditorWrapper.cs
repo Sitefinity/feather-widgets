@@ -116,10 +116,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             if (!isMediaWidgetEdited)
             {
-                HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
-                ActiveBrowser.WaitForElement(expression, TimeOut, false);
-                Manager.Current.Wait.For(this.WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
-            }
+            HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
+            ActiveBrowser.WaitForElement(expression, TimeOut, false);
+            Manager.Current.Wait.For(this.WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
+        }
         }
 
         /// <summary>
@@ -223,6 +223,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 .AssertIsPresent(altText);
 
             Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+        }
+
+        /// <summary>
+        /// Verifies the thumbnail strip template info.
+        /// </summary>
+        /// <param name="countLabel">The count label.</param>
+        /// <param name="imageName">Name of the image.</param>
+        public void VerifyThumbnailStripTemplateInfo(string countLabel, string imageName)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=~js-Gallery-prev").AssertIsPresent("Prev");
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=~js-Gallery-next").AssertIsPresent("Next");
+            ActiveBrowser.Find.ByExpression<HtmlDiv>("innertext=" + countLabel).AssertIsPresent(countLabel);
+            ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h2", "class=js-Gallery-title", "innertext=" + imageName).AssertIsPresent("Next");
         }
 
         /// <summary>

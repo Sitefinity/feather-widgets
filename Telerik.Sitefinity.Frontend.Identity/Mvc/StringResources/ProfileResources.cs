@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Profile widget
     /// </summary>
-    [ObjectInfo(typeof(ProfileResources), Title = "ProfileResources", Description = "ProfileResources")]
+    [ObjectInfo(typeof(ProfileResources), ResourceClassId = "ProfileResources", Title = "ProfileResourcesTitle", Description = "ProfileResourcesDescription")]
     public class ProfileResources : Resource
     {
         #region Constructors
@@ -30,6 +30,40 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         public ProfileResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
+        }
+
+        #endregion
+
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Profile widget resources class.
+        /// </summary>
+        [ResourceEntry("ProfileResourcesTitle",
+            Value = "Profile widget resources",
+            Description = "Title for the Profile widget resources class.",
+            LastModified = "2015/03/30")]
+        public string ProfileResourcesTitle
+        {
+            get
+            {
+                return this["ProfileResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Profile widget resources class.
+        /// </summary>
+        [ResourceEntry("ProfileResourcesDescription",
+            Value = "Localizable strings for the Profile widget.",
+            Description = "Description for the Profile widget resources class.",
+            LastModified = "2015/03/30")]
+        public string ProfileResourcesDescription
+        {
+            get
+            {
+                return this["ProfileResourcesDescription"];
+            }
         }
 
         #endregion

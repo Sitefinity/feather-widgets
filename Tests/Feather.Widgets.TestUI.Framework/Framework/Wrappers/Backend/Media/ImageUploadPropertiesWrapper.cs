@@ -42,7 +42,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             titleField.Text = string.Empty;
             titleField.Click();
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Space);
-            this.EM.Media.ImageUploadPropertiesScreen.VisibleTitleIsRequiredMessage.AssertIsPresent("Title is required!");
+            this.EM.Media.ImageUploadPropertiesScreen.VisibleTitleIsRequiredMessage.AssertIsPresent("Title is required");
             this.EM.Media.ImageUploadPropertiesScreen.UploadDisabledButton.AssertIsPresent("Upload disabled button");
             titleField.Text = imageTitle;
             titleField.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);            

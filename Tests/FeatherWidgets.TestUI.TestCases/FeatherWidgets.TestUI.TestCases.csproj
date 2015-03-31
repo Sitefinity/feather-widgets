@@ -153,6 +153,7 @@
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs" />
     <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
+    <Compile Include="ImageGallery\SelectAllPublishedImagesWithGalleryTemplate.cs" />
     <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
