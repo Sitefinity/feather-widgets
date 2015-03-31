@@ -196,6 +196,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+        /// <summary>
+        /// Gets the save button in image widget.
+        /// </summary>
+        /// <value>The save button in image widget.</value>
         public HtmlButton SaveButtonInImageWidget
         {
             get
@@ -244,7 +248,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-
                 return this.Get<HtmlDiv>("tagName=div", "class=~modal-dialog-1");
             }
         }

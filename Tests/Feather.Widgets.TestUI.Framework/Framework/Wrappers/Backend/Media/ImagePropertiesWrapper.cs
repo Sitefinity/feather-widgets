@@ -225,8 +225,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void VerifyWidthIsRequiredMessage()
         {
-            this.EM.Media.ImagePropertiesScreen.WidthIsRequiredMessage
-                .AssertIsPresent("width message");
+            this.EM.Media.ImagePropertiesScreen.WidthIsRequiredMessage.AssertIsPresent("width message");
         }
 
         /// <summary>
@@ -234,8 +233,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void VerifyHeightIsRequiredMessage()
         {
-            this.EM.Media.ImagePropertiesScreen.HeightIsRequiredMessage
-                .AssertIsPresent("height message");
+            this.EM.Media.ImagePropertiesScreen.HeightIsRequiredMessage.AssertIsPresent("height message");
         }
 
         /// <summary>
