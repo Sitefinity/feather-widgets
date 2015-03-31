@@ -74,9 +74,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void SelectNoneAlignmentOption()
         {
-            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentNone
-                                                       .AssertIsPresent("None alignment");
-
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentNone.AssertIsPresent("None alignment");
             alignmentOption.Click();
         }
 
@@ -85,9 +83,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void SelectLeftAlignmentOption()
         {
-            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentLeft
-                                                       .AssertIsPresent("Left alignment");
-
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentLeft.AssertIsPresent("Left alignment");
             alignmentOption.Click();
         }
 
@@ -96,9 +92,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void SelectCenterAlignmentOption()
         {
-            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentCenter
-                                                       .AssertIsPresent("Center alignment");
-
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentCenter.AssertIsPresent("Center alignment");
             alignmentOption.Click();
         }
 
@@ -107,9 +101,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void SelectRightAlignmentOption()
         {
-            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentRight
-                                                       .AssertIsPresent("Right alignment");
-
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentRight.AssertIsPresent("Right alignment");
             alignmentOption.Click();
         }
 
