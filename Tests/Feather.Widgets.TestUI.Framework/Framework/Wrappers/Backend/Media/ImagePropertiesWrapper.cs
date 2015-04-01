@@ -23,7 +23,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public bool IsImageTitlePopulated(string imageTitle)
         {
             HtmlInputText titleField = this.EM.Media.ImagePropertiesScreen.ImageTitleField
-                .AssertIsPresent("Image title field");
+                                           .AssertIsPresent("Image title field");
 
             return imageTitle.Equals(titleField.Text);
         }
@@ -35,7 +35,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void EnterImageTitle(string imageTitle)
         {
             HtmlInputText titleField = this.EM.Media.ImagePropertiesScreen.ImageTitleField
-                .AssertIsPresent("Image title field");
+                                           .AssertIsPresent("Image title field");
 
             titleField.Text = string.Empty;
             titleField.Text = imageTitle;
@@ -50,7 +50,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public bool IsImageAltTextPopulated(string imageAltText)
         {
             HtmlInputText altTextField = this.EM.Media.ImagePropertiesScreen.ImageAltTextField
-                .AssertIsPresent("Image alt text field");
+                                             .AssertIsPresent("Image alt text field");
 
             return imageAltText.Equals(altTextField.Text);
         }
@@ -62,7 +62,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void EnterImageAltText(string imageAltText)
         {
             HtmlInputText altTextField = this.EM.Media.ImagePropertiesScreen.ImageAltTextField
-                .AssertIsPresent("Image alt text field");
+                                             .AssertIsPresent("Image alt text field");
 
             altTextField.Text = string.Empty;
             altTextField.Text = imageAltText;
@@ -74,9 +74,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void SelectNoneAlignmentOption()
         {
-            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentNone
-                .AssertIsPresent("None alignment");
-
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentNone.AssertIsPresent("None alignment");
             alignmentOption.Click();
         }
 
@@ -85,9 +83,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void SelectLeftAlignmentOption()
         {
-            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentLeft
-                .AssertIsPresent("Left alignment");
-
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentLeft.AssertIsPresent("Left alignment");
             alignmentOption.Click();
         }
 
@@ -96,9 +92,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void SelectCenterAlignmentOption()
         {
-            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentCenter
-                .AssertIsPresent("Center alignment");
-
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentCenter.AssertIsPresent("Center alignment");
             alignmentOption.Click();
         }
 
@@ -107,9 +101,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void SelectRightAlignmentOption()
         {
-            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentRight
-                .AssertIsPresent("Right alignment");
-
+            HtmlInputRadioButton alignmentOption = this.EM.Media.ImagePropertiesScreen.AlignmentRight.AssertIsPresent("Right alignment");
             alignmentOption.Click();
         }
 
@@ -120,7 +112,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void VerifySelectedOptionThumbnailSelector(string thumbnailOption)
         {
             HtmlSelect selector = this.EM.Media.ImagePropertiesScreen.ThumbnailSelector
-                .AssertIsPresent("Thumbnail selector");
+                                      .AssertIsPresent("Thumbnail selector");
 
             Assert.AreEqual(thumbnailOption, selector.SelectedOption.Text);
         }
@@ -132,7 +124,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void SelectOptionThumbnailSelector(string optionValue)
         {
             HtmlSelect selector = this.EM.Media.ImagePropertiesScreen.ThumbnailSelector
-                .AssertIsPresent("Thumbnail selector");
+                                      .AssertIsPresent("Thumbnail selector");
 
             selector.SelectByText(optionValue);
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
@@ -168,8 +160,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void EnterNewTitleInPropertiesDialogAndPublish(string imageTitle)
         {
             var frames = Manager.Current.ActiveBrowser.Frames;
-           HtmlInputText titleField = frames[0].Find.ByExpression<HtmlInputText>("tagName=input", "id=?_ImageTitleFieldControl_0_ctl00_0_ctl00_0_textBox_write_0")
-                .AssertIsPresent("Image title field");
+            HtmlInputText titleField = frames[0].Find.ByExpression<HtmlInputText>("tagName=input", "id=?_ImageTitleFieldControl_0_ctl00_0_ctl00_0_textBox_write_0")
+                                                .AssertIsPresent("Image title field");
             titleField.Text = string.Empty;
             titleField.Text = imageTitle;
 
@@ -187,10 +179,106 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="src">The image src.</param>
         public void VerifyImageThumbnailInPropertiesDialog(string altText, string src)
         {
-            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=" + altText)
-                .AssertIsPresent("image");
+            HtmlImage image = ActiveBrowser.Find
+                                           .ByExpression<HtmlImage>("alt=" + altText)
+                                           .AssertIsPresent("image");
 
             Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+        }
+
+        /// <summary>
+        /// Enters the width of the max.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        public void EnterWidth(string number)
+        {
+            HtmlInputNumber numberField = this.EM.Media.ImagePropertiesScreen.MaxWidthNumber
+                                              .AssertIsPresent("max width");
+
+            numberField.Text = number;
+            numberField.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Enters the height of the max.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        public void EnterHeight(string number)
+        {
+            HtmlInputNumber numberField = this.EM.Media.ImagePropertiesScreen.MaxHeightNumber
+                                              .AssertIsPresent("max height");
+
+            numberField.Text = number;
+            numberField.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Verifies the width is required message.
+        /// </summary>
+        public void VerifyWidthIsRequiredMessage()
+        {
+            this.EM.Media.ImagePropertiesScreen.WidthIsRequiredMessage.AssertIsPresent("width message");
+        }
+
+        /// <summary>
+        /// Verifies the height is required message.
+        /// </summary>
+        public void VerifyHeightIsRequiredMessage()
+        {
+            this.EM.Media.ImagePropertiesScreen.HeightIsRequiredMessage.AssertIsPresent("height message");
+        }
+
+        /// <summary>
+        /// Selects option from thumbnail selector.
+        /// </summary>
+        /// <param name="optionValue">Option value.</param>
+        public void SelectResizeImageOption(string optionValue)
+        {
+            HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=Custom thumbnail size");
+            ActiveBrowser.WaitForElement(expression, 30000, false);
+
+            HtmlSelect selector = this.EM.Media.ImagePropertiesScreen.ResizeImageSelector
+                                      .AssertIsPresent("resize image selector");
+
+            selector.SelectByText(optionValue);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Selects the quality option.
+        /// </summary>
+        /// <param name="optionValue">The option value.</param>
+        public void SelectQualityOption(string optionValue)
+        {
+            HtmlSelect selector = this.EM.Media.ImagePropertiesScreen.QualitySelector
+                                      .AssertIsPresent("Quality selector");
+
+            selector.SelectByText(optionValue);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Dones the resizing.
+        /// </summary>
+        public void DoneResizing()
+        {
+            HtmlButton doneBtn = this.EM.Media.ImagePropertiesScreen.DoneResizingButton.AssertIsPresent("Done button");
+
+            doneBtn.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Clicks the this image is A link.
+        /// </summary>
+        public void ClickThisImageIsALink()
+        {
+            HtmlInputCheckBox link = this.EM.Media.ImagePropertiesScreen.ThisImageIsALinkCheckBox.AssertIsPresent("this image is a link");
+
+            link.Click();
         }
 
         /// <summary>
@@ -201,6 +289,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlButton doneBtn = this.EM.Media.ImagePropertiesScreen.DoneButton.AssertIsPresent("Done button");
 
             doneBtn.Click();
+        }
+
+        /// <summary>
+        /// Confirms the image properties in image widget.
+        /// </summary>
+        public void ConfirmImagePropertiesInImageWidget()
+        {
+            HtmlButton saveBtn = this.EM.Media.ImagePropertiesScreen.SaveButtonInImageWidget.AssertIsPresent("Done button");
+
+            saveBtn.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
         }
     }
 }

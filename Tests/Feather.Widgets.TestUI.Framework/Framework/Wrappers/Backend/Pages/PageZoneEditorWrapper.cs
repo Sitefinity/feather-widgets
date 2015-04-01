@@ -97,7 +97,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="widgetName">The widget name</param>
         /// <param name="dropZoneIndex">The drop zone index</param>
-        public void EditWidget(string widgetName, int dropZoneIndex = 0)
+        public void EditWidget(string widgetName, int dropZoneIndex = 0, bool isMediaWidgetEdited = false)
         {
             ActiveBrowser.RefreshDomTree();
             var widgetHeader = ActiveBrowser
@@ -114,9 +114,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncOperations();
             ActiveBrowser.RefreshDomTree();
 
+            if (!isMediaWidgetEdited)
+            {
             HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
             ActiveBrowser.WaitForElement(expression, TimeOut, false);
             Manager.Current.Wait.For(this.WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
+        }
         }
 
         /// <summary>
@@ -233,6 +236,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=~js-Gallery-next").AssertIsPresent("Next");
             ActiveBrowser.Find.ByExpression<HtmlDiv>("innertext=" + countLabel).AssertIsPresent(countLabel);
             ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h2", "class=js-Gallery-title", "innertext=" + imageName).AssertIsPresent("Next");
+        }
+
+        /// <summary>
+        /// Verifies the image resizing properties.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        /// <param name="src">The SRC.</param>
+        public void VerifyImageResizingProperties(string altText, string srcWidth, string srcHeight, string srcQuality, string srcResizingOption)
+        {
+            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText)
+                .AssertIsPresent(altText);
+
+            Assert.IsTrue(image.Src.Contains(srcWidth) && image.Src.Contains(srcHeight) && image.Src.Contains(srcQuality) && image.Src.Contains(srcResizingOption), "src is not correct");
         }
 
         /// <summary>

@@ -158,6 +158,7 @@
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
+    <Compile Include="MediaWidgets\ImageWidgetInsertImageWithCustomThumbnail.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />
     <Compile Include="Navigation\DuplicateNavigationWidgetFromPage.cs" />

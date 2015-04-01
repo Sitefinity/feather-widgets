@@ -101,6 +101,90 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets the max width number.
+        /// </summary>
+        /// <value>The max width number.</value>
+        public HtmlInputNumber MaxWidthNumber
+        {
+            get
+            {
+                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=model.MaxWidth");
+            }
+        }
+
+        /// <summary>
+        /// Gets the max height number.
+        /// </summary>
+        /// <value>The max height number.</value>
+        public HtmlInputNumber MaxHeightNumber
+        {
+            get
+            {
+                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=model.MaxHeight");
+            }
+        }
+
+        /// <summary>
+        /// Gets the resize image selector.
+        /// </summary>
+        /// <value>The resize image selector.</value>
+        public HtmlSelect ResizeImageSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagName=select", "ng-model=model.Method");
+            }
+        }
+
+        /// <summary>
+        /// Gets the quality selector.
+        /// </summary>
+        /// <value>The quality selector.</value>
+        public HtmlSelect QualitySelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagName=select", "ng-model=model.Quality");
+            }
+        }
+
+        /// <summary>
+        /// Gets the max width is required message.
+        /// </summary>
+        /// <value>The max width is required message.</value>
+        public HtmlContainerControl WidthIsRequiredMessage
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("tagName=p", "InnerText=Max width is required", "class=text-danger");
+            }
+        }
+
+        /// <summary>
+        /// Gets the max height is required message.
+        /// </summary>
+        /// <value>The max height is required message.</value>
+        public HtmlContainerControl HeightIsRequiredMessage
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("tagName=p", "InnerText=Max height is required", "class=text-danger");
+            }
+        }
+
+        /// <summary>
+        /// Gets the done resizing button.
+        /// </summary>
+        /// <value>The done resizing button.</value>
+        public HtmlButton DoneResizingButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagName=button", "ng-disabled=~areCustomSizeOptionsValid()", "InnerText=Done");
+            }
+        }
+
+        /// <summary>
         /// Gets the done button.
         /// </summary>
         /// <value>The done button.</value>
@@ -109,6 +193,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             get
             {
                 return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Done");
+            }
+        }
+
+        /// <summary>
+        /// Gets the save button in image widget.
+        /// </summary>
+        /// <value>The save button in image widget.</value>
+        public HtmlButton SaveButtonInImageWidget
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagName=button", "InnerText=Save");
             }
         }
 
@@ -133,6 +229,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             get
             {
                 return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Edit all properties");
+            }
+        }
+
+        /// <summary>
+        /// Gets the this image is A link check box.
+        /// </summary>
+        /// <value>The this image is A link check box.</value>
+        public HtmlInputCheckBox ThisImageIsALinkCheckBox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.UseAsLink.PropertyValue");
             }
         }
 
