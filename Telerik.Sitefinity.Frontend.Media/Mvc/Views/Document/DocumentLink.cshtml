@@ -3,8 +3,10 @@
 <div class="@Model.CssClass">
     @if(!string.IsNullOrEmpty(Model.MediaUrl))
     {
-        <a class="@String.Concat("sf", Model.Extension)" href="@Model.MediaUrl">@Model.Title</a>
-        <span>(@Model.Extension)</span>
-        <span>@Model.FileSize KB</span>
+        <div>
+            <a class="@String.Concat("sf", Model.Extension)" href="@Model.MediaUrl">@Model.Title</a>
+            <span>(@Model.FileSize KB)</span>
+        </div>
+        <span>@Model.Extension</span>
     }
 </div>
