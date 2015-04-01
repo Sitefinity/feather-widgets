@@ -2,6 +2,7 @@
 
 @using System;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList;
 
 <div class="@Model.CssClass">
 
@@ -23,7 +24,7 @@
                     </a>
                 </td>
                 <td>
-                    (@item.Fields.Extension)
+                    @(((DocumentItemViewModel)item).Extension)
                 </td>
                 <td>
                     (@(Math.Ceiling((double)item.Fields.TotalSize / 1024) + " KB"))

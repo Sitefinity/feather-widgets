@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Telerik.Sitefinity.Frontend.Mvc.Models;
+﻿using Telerik.Sitefinity.Frontend.Mvc.Models;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
 {
@@ -9,5 +7,10 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
     /// </summary>
     public class DocumentDetailsViewModel : ContentDetailsViewModel
     {
+        /// <summary>
+        /// Gets or sets the file extension of the document.
+        /// </summary>
+        /// <value>The extension.</value>
+        public string Extension { get; set; }
     }
 }
