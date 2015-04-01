@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -19,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "ListMVC", Title = "List", SectionName = "MvcWidgets", ModuleName = "Lists", CssClass = CssClass)]
     [Localization(typeof(ListsWidgetResources))]
-    public class ListsController : Controller, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended
+    public class ListsController : Controller, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
 
@@ -164,6 +166,40 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         }
 
         #endregion
+         
+        #region IContentLocatableView
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
+        /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
+        /// </summary>
+        /// <value>The disable canonical URLs.</value>
+        public bool? DisableCanonicalUrlMetaTag
+        {
+            get
+            {
+                return this.disableCanonicalUrlMetaTag;
+            }
+
+            set
+            {
+                this.disableCanonicalUrlMetaTag = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        /// <returns>
+        /// List of location info of the content that this control is able to show.
+        /// </returns>
+        [NonAction]
+        public IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return this.Model.GetLocations();
+        }
+
+        #endregion
 
         #region Private method
 
@@ -182,6 +218,8 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
         private const string CssClass = "sfListitemsIcn";
+
+        private bool? disableCanonicalUrlMetaTag;
 
         #endregion
     }

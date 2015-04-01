@@ -8,12 +8,16 @@
 
     @foreach (var item in Model.Items)
     {
-        <h3>@item.Fields.Title</h3>
+        <h3 @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)
+            @Html.InlineEditingFieldAttributes("Title", "ShortText")>
+            @item.Fields.Title
+        </h3>
         <ul>
             @foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
             {
-                <li>
-                    <a href="@HyperLinkHelpers.GetDetailPageUrl(listItem, Guid.Empty, true)">@listItem.Fields.Title</a>
+                <li @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
+                    <a href="@HyperLinkHelpers.GetDetailPageUrl(listItem, Guid.Empty, true)"
+                        @Html.InlineEditingFieldAttributes("Title", "ShortText")>@listItem.Fields.Title</a>
                 </li>
             }
         </ul>
