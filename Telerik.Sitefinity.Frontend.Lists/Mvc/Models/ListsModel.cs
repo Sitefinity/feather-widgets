@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lists.Model;
@@ -151,7 +152,37 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             return manager.GetLists();
         }
 
-        #region Private fields
+        /// <inheritdoc />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Expr"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "5#")]
+        protected override IQueryable<TItem> SetExpression<TItem>(IQueryable<TItem> query, string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
+        {
+            try
+            {
+                query = DataProviderBase.SetExpressions(
+                                                  query,
+                                                  filterExpression,
+                                                  sortExpr,
+                                                  itemsToSkip,
+                                                  itemsToTake,
+                                                  ref totalCount);
+            }
+            catch (MemberAccessException)
+            {
+                query = DataProviderBase.SetExpressions(
+                                                  query,
+                                                  filterExpression,
+                                                  ListsModel.DefaultSortExpression,
+                                                  itemsToSkip,
+                                                  itemsToTake,
+                                                  ref totalCount);
+            }
+
+            return query;
+        }
+
+        #region Private fields and constants
+
+        private const string DefaultSortExpression = "PublicationDate DESC";
 
         private IList<string> selectedItemsIds = new List<string>();
         private string serializedSelectedItemsIds;
