@@ -11,7 +11,7 @@
 
             @item.Fields.Title
         </h3>
-        <ol>
+        <ul>
             @foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
             {
                 <li @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
@@ -20,7 +20,7 @@
                     </div>
                 </li>
             }
-        </ol>
+        </ul>
     }
 
 </div>
