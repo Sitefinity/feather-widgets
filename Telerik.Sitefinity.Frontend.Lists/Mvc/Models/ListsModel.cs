@@ -17,6 +17,11 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
     /// </summary>
     public class ListsModel : ContentModelBase, IListsModel
     {
+        public ListsModel()
+        {
+            this.SortExpression = "Ordinal ASC";
+        }
+
         /// <inheritdoc />
         public override Type ContentType
         {
