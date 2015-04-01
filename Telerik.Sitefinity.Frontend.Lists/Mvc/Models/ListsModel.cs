@@ -91,6 +91,18 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         }
 
         /// <inheritdoc />
+        public override ContentDetailsViewModel CreateDetailsViewModel(IDataItem item)
+        {
+            var viewModel =  base.CreateDetailsViewModel(item);
+
+            var listItemModel = new ListItemModel((ListViewModel)viewModel.Item);
+
+            ((ListViewModel)(viewModel.Item)).ListItemViewModel = listItemModel.CreateListViewModel(null, 1);
+
+            return viewModel;
+        }
+
+        /// <inheritdoc />
         protected override ItemViewModel CreateItemViewModelInstance(IDataItem item)
         {
             return new ListViewModel(item);
