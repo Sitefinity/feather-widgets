@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -58,6 +59,43 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                 return this.selectedItemsIds.Count == 0;
             }
         }
+
+        public override IEnumerable<ContentLocations.IContentLocationInfo> GetLocations()
+        {
+            var location = new ContentLocationInfo();
+
+            location.ContentType = typeof(ListItem);
+            location.ProviderName = this.ProviderName;
+
+            var listsFilterExpression = this.CompileFilterExpression();
+            // TODO: Replace does not work in this case. Use regular expression? 
+            var newListsFilterExpression = listsFilterExpression.Replace("Id", "Parent.Id").Replace("OriginalContentId", "Parent.OriginalContentId");
+            if (!string.IsNullOrEmpty(newListsFilterExpression))
+            {
+                location.Filters.Add(new BasicContentLocationFilter(newListsFilterExpression));
+            }
+
+            var listItemModel = new ListItemModel()
+            {
+                SortExpression = this.SortExpression,
+                FilterExpression = this.FilterExpression,
+                SerializedAdditionalFilters = this.SerializedAdditionalFilters,
+                // We need only filter list items.
+                SelectionMode = SelectionMode.FilteredItems,
+                ProviderName = this.ProviderName
+            };
+
+            var listItemsFilterExpression = listItemModel.GetFilterExpression();
+
+            if (!string.IsNullOrEmpty(listItemsFilterExpression))
+            {
+                location.Filters.Add(new BasicContentLocationFilter(listItemsFilterExpression));
+            }
+
+            return new[] { location };
+        }
+
+
 
         /// <inheritdoc />
         public override ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
