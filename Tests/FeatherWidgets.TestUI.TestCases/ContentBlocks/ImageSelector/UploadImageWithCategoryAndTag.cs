@@ -33,24 +33,24 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitForContentToBeLoaded(true);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SwitchToUploadMode();
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitForContentToBeLoaded(true);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImageFromYourComputer();
+            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectMediaFileFromYourComputer();
             string fullImagesPath = DeploymentDirectory + @"\";
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().PerformSingleFileUpload(FileToUpload, fullImagesPath);
 
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().WaitForContentToBeLoaded();
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().CancelImageUpload();
+            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().CancelUpload();
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImageFromYourComputer();
+            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectMediaFileFromYourComputer();
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().PerformSingleFileUpload(FileToUpload, fullImagesPath);
 
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().WaitForContentToBeLoaded();
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().VerifyImageToUploadSection(FileToUpload, "6 KB");
+            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().VerifyMediaToUploadSection(FileToUpload, "6 KB");
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().ClickSelectLibraryButton();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(ChildImageLibrary);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().VerifySelectedLibrary(LibraryName + " > " + ChildImageLibrary);
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().IsImageTitlePopulated(ImageName);
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().EnterImageTitle(NewImageName);
+            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().IsMediaFileTitlePopulated(ImageName);
+            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().EnterTitle(NewImageName);
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().EnterImageAltText(NewImageAltText);
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().ExpandCategoriesAndTagsSection();
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().ClickSelectCategoryButton();
@@ -59,7 +59,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().VerifySelectedCategory("Category0 > Category1");
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().AddTag(TagName);
             BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().VerifySelectedTag(TagName);
-            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().UploadImage();
+            BATFeather.Wrappers().Backend().Media().ImageUploadPropertiesWrapper().UploadMediaFile();
 
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(NewImageName, scr);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ThumbnailOption);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImageProperties();
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
@@ -81,7 +81,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
             return scr;
         }
 

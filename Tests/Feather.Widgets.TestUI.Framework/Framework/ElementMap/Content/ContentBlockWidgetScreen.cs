@@ -285,5 +285,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlAnchor>("tagname=a", "title=Insert image");
             }
         }
+
+        /// <summary>
+        /// Gets the document selector.
+        /// </summary>
+        /// <value>The document selector.</value>
+        public HtmlAnchor DocumentSelector
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "title=Insert file");
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
     /// <summary>
     /// Provides access to ImagePropertiesScreen
     /// </summary>
-    public class ImagePropertiesScreen : HtmlElementContainer
+    public class ImagePropertiesScreen : MediaPropertiesBaseScreen
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ImagePropertiesScreen" /> class.
@@ -185,54 +185,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
-        /// Gets the done button.
-        /// </summary>
-        /// <value>The done button.</value>
-        public HtmlButton DoneButton
-        {
-            get
-            {
-                return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Done");
-            }
-        }
-
-        /// <summary>
-        /// Gets the save button in image widget.
-        /// </summary>
-        /// <value>The save button in image widget.</value>
-        public HtmlButton SaveButtonInImageWidget
-        {
-            get
-            {
-                return this.Get<HtmlButton>("tagName=button", "InnerText=Save");
-            }
-        }
-
-        /// <summary>
-        /// Gets the change image button.
-        /// </summary>
-        /// <value>The change image button.</value>
-        public HtmlButton ChangeImageButton
-        {
-            get
-            {
-                return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Change image");
-            }
-        }
-
-        /// <summary>
-        /// Gets the edit all properties button.
-        /// </summary>
-        /// <value>The edit all properties button.</value>
-        public HtmlButton EditAllPropertiesButton
-        {
-            get
-            {
-                return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Edit all properties");
-            }
-        }
-
-        /// <summary>
         /// Gets the this image is A link check box.
         /// </summary>
         /// <value>The this image is A link check box.</value>
@@ -241,14 +193,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             get
             {
                 return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.UseAsLink.PropertyValue");
-            }
-        }
-
-        private HtmlDiv ImagePropertiesModalDialog
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagName=div", "class=~modal-dialog-1");
             }
         }
     }

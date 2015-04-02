@@ -13,7 +13,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
     /// <summary>
     /// This is an netry point for ImagePropertiesWrapper.
     /// </summary>
-    public class ImagePropertiesWrapper : BaseWrapper
+    public class ImagePropertiesWrapper : MediaPropertiesBaseWrapper
     {
         /// <summary>
         /// Checks if image title is populated correctly.
@@ -31,7 +31,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <summary>
         /// Enters new title for image.
         /// </summary>
-        /// <param name="imageTitle">The image title.</param>
+        /// <param name="documentTitle">The image title.</param>
         public void EnterImageTitle(string imageTitle)
         {
             HtmlInputText titleField = this.EM.Media.ImagePropertiesScreen.ImageTitleField
@@ -131,46 +131,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
-        /// <summary>
-        /// Changes the image.
-        /// </summary>
-        public void ChangeImage()
-        {
-            HtmlButton changeBtn = this.EM.Media.ImagePropertiesScreen.ChangeImageButton.AssertIsPresent("Change image button");
-
-            changeBtn.Click();
-            ActiveBrowser.WaitForAsyncRequests();
-        }
-
-        /// <summary>
-        /// Edits all properties.
-        /// </summary>
-        public void EditAllProperties()
-        {
-            HtmlButton editBtn = this.EM.Media.ImagePropertiesScreen.EditAllPropertiesButton.AssertIsPresent("Edit all properties button");
-            editBtn.Click();
-            ActiveBrowser.WaitForAsyncOperations();
-            ActiveBrowser.RefreshDomTree();
-        }
-
-        /// <summary>
-        /// Enters the new title.
-        /// </summary>
-        /// <param name="imageTitle">The image title.</param>
-        public void EnterNewTitleInPropertiesDialogAndPublish(string imageTitle)
-        {
-            var frames = Manager.Current.ActiveBrowser.Frames;
-            HtmlInputText titleField = frames[0].Find.ByExpression<HtmlInputText>("tagName=input", "id=?_ImageTitleFieldControl_0_ctl00_0_ctl00_0_textBox_write_0")
-                                                .AssertIsPresent("Image title field");
-            titleField.Text = string.Empty;
-            titleField.Text = imageTitle;
-
-            HtmlAnchor publishBtn = frames[0].Find.ByExpression<HtmlAnchor>("class=sfLinkBtn sfSave", "title=~Publish", "id=?_Publish").AssertIsPresent("Publish button");
-            publishBtn.Click();
-            ActiveBrowser.WaitForAsyncOperations();
-            ActiveBrowser.RefreshDomTree();
-        }
-   
         /// <summary>
         /// Verifies image on the frontend.
         /// </summary>
@@ -279,28 +239,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlInputCheckBox link = this.EM.Media.ImagePropertiesScreen.ThisImageIsALinkCheckBox.AssertIsPresent("this image is a link");
 
             link.Click();
-        }
-
-        /// <summary>
-        /// Clicks Done button on image properties dialog.
-        /// </summary>
-        public void ConfirmImageProperties()
-        {
-            HtmlButton doneBtn = this.EM.Media.ImagePropertiesScreen.DoneButton.AssertIsPresent("Done button");
-
-            doneBtn.Click();
-        }
-
-        /// <summary>
-        /// Confirms the image properties in image widget.
-        /// </summary>
-        public void ConfirmImagePropertiesInImageWidget()
-        {
-            HtmlButton saveBtn = this.EM.Media.ImagePropertiesScreen.SaveButtonInImageWidget.AssertIsPresent("Done button");
-
-            saveBtn.Click();
-            ActiveBrowser.WaitForAsyncOperations();
-            ActiveBrowser.RefreshDomTree();
         }
     }
 }

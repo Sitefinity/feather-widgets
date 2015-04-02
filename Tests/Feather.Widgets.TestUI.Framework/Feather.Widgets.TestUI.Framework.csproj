@@ -100,9 +100,10 @@
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryMap.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryWidgetEditScreen.cs" />
-    <Compile Include="Framework\ElementMap\Media\ImageUploadPropertiesScreen.cs" />
+    <Compile Include="Framework\ElementMap\Media\MediaPropertiesBaseScreen.cs" />
+    <Compile Include="Framework\ElementMap\Media\MediaUploadPropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImagePropertiesScreen.cs" />
-    <Compile Include="Framework\ElementMap\Media\ImageSelectorScreen.cs" />
+    <Compile Include="Framework\ElementMap\Media\MediaSelectorScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\MediaMap.cs" />
     <Compile Include="Framework\ElementMap\Search\SearchFrontend.cs" />
     <Compile Include="Framework\ElementMap\Search\SearchBoxWidgetEditScreen.cs" />
@@ -133,7 +134,11 @@
     <Compile Include="Framework\Wrappers\Backend\ImageGallery\ImageGalleryRadioButtonIds.cs" />
     <Compile Include="Framework\Wrappers\Backend\ImageGallery\ImageGalleryWidgetWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ImageGallery\ImageGalleryWrapperFacade.cs" />
-    <Compile Include="Framework\Wrappers\Backend\Media\ImageUploadPropertiesWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Media\DocumentPropertiesWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Media\MediaPropertiesBaseWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Media\DocumentSelectorWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Media\MediaSelectorBaseWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Media\MediaUploadPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Identity\IdentityWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Identity\LoginFormWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Identity\LoginStatusWrapper.cs" />

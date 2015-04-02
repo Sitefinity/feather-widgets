@@ -21,6 +21,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Provides access to DocumentSelectorWrapper
+        /// </summary>
+        /// <returns>New instance of DocumentSelectorWrapper</returns>
+        public DocumentSelectorWrapper DocumentSelectorWrapper()
+        {
+            return new DocumentSelectorWrapper();
+        }
+
+        /// <summary>
         /// Provides access to ImagePropertiesWrapper
         /// </summary>
         /// <returns>New instance of ImagePropertiesWrapper</returns>
@@ -30,12 +39,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Provides access to DocumentPropertiesWrapper
+        /// </summary>
+        /// <returns>New instance of DocumentPropertiesWrapper</returns>
+        public DocumentPropertiesWrapper DocumentPropertiesWrapper()
+        {
+            return new DocumentPropertiesWrapper();
+        }
+
+        /// <summary>
         /// Provides access to ImageUploadPropertiesWrapper
         /// </summary>
         /// <returns>New instance of ImageUploadPropertiesWrapper</returns>
-        public ImageUploadPropertiesWrapper ImageUploadPropertiesWrapper()
+        public MediaUploadPropertiesWrapper ImageUploadPropertiesWrapper()
         {
-            return new ImageUploadPropertiesWrapper();
+            return new MediaUploadPropertiesWrapper();
         }
     }
 }

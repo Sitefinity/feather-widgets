@@ -10,50 +10,17 @@ using ArtOfTest.WebAii.TestTemplates;
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
 {
     /// <summary>
-    /// Provides access to ImageSelectorScreen
+    /// Provides access to MediaSelectorScreen
     /// </summary>
-    public class ImageSelectorScreen : HtmlElementContainer
+    public class MediaSelectorScreen : HtmlElementContainer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ImageSelectorScreen" /> class.
+        /// Initializes a new instance of the <see cref="MediaSelectorScreen" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
-        public ImageSelectorScreen(Find find)
+        public MediaSelectorScreen(Find find)
             : base(find)
         {
-        }
-
-        /// <summary>
-        /// Gets no images icon element.
-        /// </summary>
-        public HtmlDiv NoImagesIcon
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagName=div", "class=icon-no-image");
-            }
-        }
-
-        /// <summary>
-        /// Gets no images paragraph text.
-        /// </summary>
-        public HtmlControl NoImagesText
-        {
-            get
-            {
-                return this.Get<HtmlControl>("tagName=p", "class=text-muted", "InnerText=No images");
-            }
-        }        
-
-        /// <summary>
-        /// Gets select image from your computer anchor link.
-        /// </summary>
-        public HtmlAnchor SelectImageFromYourComputerLink
-        {
-            get
-            {
-                return this.EmptyImageElementsParentDiv.Find.ByExpression<HtmlAnchor>("tagName=a", "InnerText=Select image from your computer");
-            }
         }
 
         /// <summary>
@@ -63,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.EmptyImageElementsParentDiv.Find.ByExpression<HtmlDiv>("tagName=div", "InnerText=or simply drag & drop it here");
+                return this.EmptyMediaElementsParentDiv.Find.ByExpression<HtmlDiv>("tagName=div", "InnerText=or simply drag & drop it here");
             }
         }
 
@@ -95,11 +62,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the upload image.
         /// </summary>
         /// <value>The upload image.</value>
-        public HtmlAnchor UploadImage
+        public HtmlAnchor UploadMediaFile
         {
             get
             {
-                return this.ImageSelectorModalDialog.Find.ByExpression<HtmlAnchor>("ng-click=switchToUploadMode()", "InnerText=Upload image");
+                return this.MediaSelectorModalDialog.Find.ByExpression<HtmlAnchor>("ng-click=switchToUploadMode()", "InnerText=~Upload");
             }
         }
 
@@ -110,7 +77,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.ImageSelectorModalDialog.Find.ByExpression<HtmlButton>("tagname=button", "InnerText=Done");
+                return this.MediaSelectorModalDialog.Find.ByExpression<HtmlButton>("tagname=button", "InnerText=Done");
             }
         }
 
@@ -118,7 +85,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the done button in image widget.
         /// </summary>
         /// <value>The done button in image widget.</value>
-        public HtmlButton DoneButtonInImageWidget
+        public HtmlButton DoneButtonInMediaWidget
         {
             get
             {
@@ -130,7 +97,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the image selector media file divs.
         /// </summary>
         /// <value>The image selector media file divs.</value>
-        public ICollection<HtmlDiv> ImageSelectorMediaImageFileDivs
+        public ICollection<HtmlDiv> MediaSelectorMediaImageFileDivs
         {
             get
             {
@@ -142,7 +109,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the image selector media folder divs.
         /// </summary>
         /// <value>The image selector media folder divs.</value>
-        public ICollection<HtmlDiv> ImageSelectorMediaFolderDivs
+        public ICollection<HtmlDiv> MediaSelectorMediaFolderDivs
         {
             get
             {
@@ -151,10 +118,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets select image from your computer anchor link.
+        /// </summary>
+        public HtmlAnchor SelectMediaFileFromYourComputerLink
+        {
+            get
+            {
+                return this.EmptyMediaElementsParentDiv.Find.ByExpression<HtmlAnchor>("tagName=a", "InnerText=~from your computer");
+            }
+        }
+
+        /// <summary>
         /// Gets the empty image elements parent div.
         /// </summary>
         /// <value>The empty image elements parent div.</value>
-        private HtmlDiv EmptyImageElementsParentDiv
+        private HtmlDiv EmptyMediaElementsParentDiv
         {
             get
             {
@@ -166,7 +144,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the image selector modal dialog.
         /// </summary>
         /// <value>The image selector modal dialog.</value>
-        private HtmlDiv ImageSelectorModalDialog
+        private HtmlDiv MediaSelectorModalDialog
         {
             get
             {
@@ -178,7 +156,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the image selector thumbnail holder div.
         /// </summary>
         /// <value>The image selector thumbnail holder div.</value>
-        public HtmlDiv ImageSelectorThumbnailHolderDiv
+        public HtmlDiv MediaSelectorThumbnailHolderDiv
         {
             get
             {
@@ -220,6 +198,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             {
                 return this.Get<HtmlDiv>("tagName=div", "innertext=~No items found");
             }
+        }
+
+        /// <summary>
+        /// Gets no media icon element.
+        /// </summary>
+        public HtmlDiv NoMediaIcon
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagName=div", "class=icon-no-image");
+            }
+        }
+
+        /// <summary>
+        /// Notes the media text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        public HtmlControl NoMediaText(string text)
+        {
+            return this.Get<HtmlControl>("tagName=p", "class=text-muted", "InnerText=" + text);
         }
     }
 }

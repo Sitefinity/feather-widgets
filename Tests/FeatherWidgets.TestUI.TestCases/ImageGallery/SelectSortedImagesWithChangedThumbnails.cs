@@ -121,14 +121,14 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType, string libraryUrl, string imageThumbnailSize = "")
         {
             string imageUrl = imageName.ToLower() + imageType.ToLower() + imageThumbnailSize;
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl);
             return scr;
         }
 
         private string GetImageHref(bool isBaseUrlIncluded, string imageName, string libraryUrl)
         {
             string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
+            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
             return href;
         }
 

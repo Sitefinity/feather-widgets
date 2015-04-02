@@ -121,6 +121,7 @@
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
+    <Compile Include="ContentBlocks\DocumentSelector\InsertDocumentFromAlreadyUploaded.cs" />
     <Compile Include="ContentBlocks\ImageSelector\CheckNavigationInImageSelector.cs" />
     <Compile Include="ContentBlocks\ImageSelector\UploadImageWithCategoryAndTag.cs" />
     <Compile Include="ContentBlocks\ImageSelector\EditAndChangeSelectedImage.cs" />
@@ -187,7 +188,6 @@
     <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
-
     <Compile Include="MediaWidgets\ImageWidgetInsertImageWithCustomThumbnail.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />

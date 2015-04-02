@@ -32,29 +32,29 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             //// image 1
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmImageSelection();
+            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectLeftAlignmentOption();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectOptionThumbnailSelector(ImageThumbnailOption1);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ImageThumbnailOption1);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImageProperties();
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
 
             //// image 2
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName2);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmImageSelection();
+            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectCenterAlignmentOption();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectOptionThumbnailSelector(ImageThumbnailOption2);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ImageThumbnailOption2);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImageProperties();
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
 
             //// image 3
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName3);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmImageSelection();
+            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectRightAlignmentOption();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().SelectOptionThumbnailSelector(ImageThumbnailOption3);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(ImageThumbnailOption3);
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImageProperties();
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
