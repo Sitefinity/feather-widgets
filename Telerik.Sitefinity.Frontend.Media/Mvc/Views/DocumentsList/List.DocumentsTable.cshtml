@@ -27,7 +27,7 @@
                     @(((DocumentItemViewModel)item).Extension)
                 </td>
                 <td>
-                    (@(Math.Ceiling((double)item.Fields.TotalSize / 1024) + " KB"))
+                    @(Math.Ceiling((double)item.Fields.TotalSize / 1024) + " KB")
                 </td>
                 <td>
                     <a href="@item.Fields.MediaUrl" target="_blank">Download</a>

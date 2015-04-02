@@ -9,8 +9,6 @@
         @Model.Item.Fields.Title
     </h1>
 
-    <br />
-
     <div class="text-muted">
         @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
         @Html.Resource("By")
@@ -23,8 +21,8 @@
 
     <div>
         <a href="@Model.Item.Fields.MediaUrl" target="_blank">Download</a>
-        (@(Math.Ceiling((double)Model.Item.Fields.TotalSize / 1024) + " KB")) <br />
-        <h1>@Model.Extension</h1>
+        (@(Math.Ceiling((double)Model.Item.Fields.TotalSize / 1024) + " KB"))
+        <span>@Model.Extension</span>
     </div>
 
     @if (Model.EnableSocialSharing)
