@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -65,6 +66,40 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         }
 
         /// <inheritdoc />
+        public override IEnumerable<ContentLocations.IContentLocationInfo> GetLocations()
+        {
+            var location = new ContentLocationInfo();
+
+            location.ContentType = typeof(ListItem);
+            location.ProviderName = this.ProviderName;
+
+            var listsFilterExpression = this.CompileFilterExpression(ListItemFilterExpression);
+            if (!string.IsNullOrEmpty(listsFilterExpression))
+            {
+                location.Filters.Add(new BasicContentLocationFilter(listsFilterExpression));
+            }
+
+            var listItemModel = new ListItemModel()
+            {
+                FilterExpression = this.FilterExpression,
+                SerializedAdditionalFilters = this.SerializedAdditionalFilters,
+                // We need only filter list items.
+                SelectionMode = SelectionMode.FilteredItems
+            };
+
+            var listItemsFilterExpression = listItemModel.GetFilterExpression();
+
+            if (!string.IsNullOrEmpty(listItemsFilterExpression))
+            {
+                location.Filters.Add(new BasicContentLocationFilter(listItemsFilterExpression));
+            }
+
+            return new[] { location };
+        }
+
+
+
+        /// <inheritdoc />
         public override ContentListViewModel CreateListViewModel(ITaxon taxonFilter, int page)
         {
             if (page < 1)
@@ -116,16 +151,25 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// <inheritdoc />
         protected override string CompileFilterExpression()
         {
+            return this.CompileFilterExpression(ListFilterExpression);
+        }
+
+        /// <summary>
+        /// Compiles a filter expression based on the widget settings.
+        /// </summary>
+        /// <returns>Filter expression that will be applied on the query.</returns>
+        protected string CompileFilterExpression(string filterExpression)
+        {
             var elements = new List<string>();
 
-            string filterExpression = this.GetSelectedItemsFilterExpression();
+            string filter = this.GetSelectedItemsFilterExpression(filterExpression);
 
-            if (string.IsNullOrWhiteSpace(filterExpression))
+            if (string.IsNullOrWhiteSpace(filter))
             {
                 return string.Empty;
             }
 
-            elements.Add(filterExpression);
+            elements.Add(filter);
 
             return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
         }
@@ -146,7 +190,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             return query;
         }
 
-        private string GetSelectedItemsFilterExpression()
+        private string GetSelectedItemsFilterExpression(string filterExpression)
         {
             var selectedItemGuids = selectedItemsIds.Select(id => new Guid(id));
             var masterIds = this.GetItemsQuery()
@@ -155,7 +199,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                                 .Select(n => n.OriginalContentId != Guid.Empty ? n.OriginalContentId : n.Id)
                                 .Distinct();
 
-            var selectedItemConditions = masterIds.Select(id => "Id = {0} OR OriginalContentId = {0}".Arrange(id.ToString("D")));
+            var selectedItemConditions = masterIds.Select(id => filterExpression.Arrange(id.ToString("D")));
             var selectedItemsFilterExpression = string.Join(" OR ", selectedItemConditions);
 
             return selectedItemsFilterExpression;
@@ -203,6 +247,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
         private IList<string> selectedItemsIds = new List<string>();
         private string serializedSelectedItemsIds;
+
+        private const string ListFilterExpression = "Id = {0} OR OriginalContentId = {0}";
+        private const string ListItemFilterExpression = "Parent.Id = {0} OR Parent.OriginalContentId = {0}";
 
         #endregion
     }

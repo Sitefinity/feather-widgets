@@ -29,6 +29,13 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ListItemModel" /> class.
         /// </summary>
+        internal ListItemModel()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListItemModel" /> class.
+        /// </summary>
         /// <param name="parentList">The parent list.</param>
         public ListItemModel(ListViewModel parentList)
         {
@@ -38,6 +45,15 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             }
 
             this.parentList = parentList;
+        }
+
+        /// <summary>
+        /// Gets compiled filter expression based on the widget settings.
+        /// </summary>
+        /// <returns></returns>
+        public string GetFilterExpression()
+        {
+            return this.CompileFilterExpression();
         }
 
         /// <inheritdoc />
