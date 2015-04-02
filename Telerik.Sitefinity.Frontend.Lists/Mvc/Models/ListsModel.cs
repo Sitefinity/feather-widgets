@@ -67,22 +67,19 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             location.ContentType = typeof(ListItem);
             location.ProviderName = this.ProviderName;
 
-            var listsFilterExpression = this.CompileFilterExpression();
-            // TODO: Replace does not work in this case. Use regular expression? 
-            var newListsFilterExpression = listsFilterExpression.Replace("Id", "Parent.Id").Replace("OriginalContentId", "Parent.OriginalContentId");
-            if (!string.IsNullOrEmpty(newListsFilterExpression))
+            var filterExpression = "Parent.Id = {0} OR Parent.OriginalContentId = {0}";
+            var listsFilterExpression = this.CompileFilterExpression(filterExpression);
+            if (!string.IsNullOrEmpty(listsFilterExpression))
             {
-                location.Filters.Add(new BasicContentLocationFilter(newListsFilterExpression));
+                location.Filters.Add(new BasicContentLocationFilter(listsFilterExpression));
             }
 
             var listItemModel = new ListItemModel()
             {
-                SortExpression = this.SortExpression,
                 FilterExpression = this.FilterExpression,
                 SerializedAdditionalFilters = this.SerializedAdditionalFilters,
                 // We need only filter list items.
-                SelectionMode = SelectionMode.FilteredItems,
-                ProviderName = this.ProviderName
+                SelectionMode = SelectionMode.FilteredItems
             };
 
             var listItemsFilterExpression = listItemModel.GetFilterExpression();
@@ -149,16 +146,26 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// <inheritdoc />
         protected override string CompileFilterExpression()
         {
+            var filterExpression = "Id = {0} OR OriginalContentId = {0}";
+            return this.CompileFilterExpression(filterExpression);
+        }
+
+        /// <summary>
+        /// Compiles a filter expression based on the widget settings.
+        /// </summary>
+        /// <returns>Filter expression that will be applied on the query.</returns>
+        protected string CompileFilterExpression(string filterExpression)
+        {
             var elements = new List<string>();
 
-            string filterExpression = this.GetSelectedItemsFilterExpression();
+            string filter = this.GetSelectedItemsFilterExpression(filterExpression);
 
-            if (string.IsNullOrWhiteSpace(filterExpression))
+            if (string.IsNullOrWhiteSpace(filter))
             {
                 return string.Empty;
             }
 
-            elements.Add(filterExpression);
+            elements.Add(filter);
 
             return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
         }
@@ -179,7 +186,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             return query;
         }
 
-        private string GetSelectedItemsFilterExpression()
+        private string GetSelectedItemsFilterExpression(string filterExpression)
         {
             var selectedItemGuids = selectedItemsIds.Select(id => new Guid(id));
             var masterIds = this.GetItemsQuery()
@@ -188,7 +195,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
                                 .Select(n => n.OriginalContentId != Guid.Empty ? n.OriginalContentId : n.Id)
                                 .Distinct();
 
-            var selectedItemConditions = masterIds.Select(id => "Id = {0} OR OriginalContentId = {0}".Arrange(id.ToString("D")));
+            var selectedItemConditions = masterIds.Select(id => filterExpression.Arrange(id.ToString("D")));
             var selectedItemsFilterExpression = string.Join(" OR ", selectedItemConditions);
 
             return selectedItemsFilterExpression;
