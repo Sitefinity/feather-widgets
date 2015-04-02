@@ -68,8 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             location.ContentType = typeof(ListItem);
             location.ProviderName = this.ProviderName;
 
-            var filterExpression = "Parent.Id = {0} OR Parent.OriginalContentId = {0}";
-            var listsFilterExpression = this.CompileFilterExpression(filterExpression);
+            var listsFilterExpression = this.CompileFilterExpression(ListItemFilterExpression);
             if (!string.IsNullOrEmpty(listsFilterExpression))
             {
                 location.Filters.Add(new BasicContentLocationFilter(listsFilterExpression));
@@ -147,8 +146,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
         /// <inheritdoc />
         protected override string CompileFilterExpression()
         {
-            var filterExpression = "Id = {0} OR OriginalContentId = {0}";
-            return this.CompileFilterExpression(filterExpression);
+            return this.CompileFilterExpression(ListFilterExpression);
         }
 
         /// <summary>
@@ -244,6 +242,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
 
         private IList<string> selectedItemsIds = new List<string>();
         private string serializedSelectedItemsIds;
+
+        private const string ListFilterExpression = "Id = {0} OR OriginalContentId = {0}";
+        private const string ListItemFilterExpression = "Parent.Id = {0} OR Parent.OriginalContentId = {0}";
 
         #endregion
     }
