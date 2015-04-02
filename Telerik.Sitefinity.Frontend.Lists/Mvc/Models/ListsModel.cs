@@ -60,6 +60,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
             }
         }
 
+        /// <inheritdoc />
         public override IEnumerable<ContentLocations.IContentLocationInfo> GetLocations()
         {
             var location = new ContentLocationInfo();
