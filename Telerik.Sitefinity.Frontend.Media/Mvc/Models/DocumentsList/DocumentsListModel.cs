@@ -65,7 +65,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
         protected virtual string GetExtension(SfDocument document)
         {
             var ext = document.Extension;
-            if (ext.Length > 0)
+            if (!string.IsNullOrWhiteSpace(ext) && ext.Length > 0)
                 ext = ext.Remove(0, 1);
 
             return ext;

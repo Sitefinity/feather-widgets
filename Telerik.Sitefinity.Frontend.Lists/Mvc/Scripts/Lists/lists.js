@@ -47,16 +47,16 @@
                 content.css('display', 'block');
             else
                 content.css('display', 'none');
-        };
+        }
 
         function hideExpandAllLink(wrapper) {
             wrapper.find('[data-sf-role=expandAll]').css('display', 'none');
             wrapper.find('[data-sf-role=collapseAll]').css('display', 'block');
-        };
+        }
 
         function hideCollapseAllLink(wrapper) {
             wrapper.find('[data-sf-role=expandAll]').css('display', 'block');
             wrapper.find('[data-sf-role=collapseAll]').css('display', 'none');
-        };
+        }
     });
 }(jQuery));
