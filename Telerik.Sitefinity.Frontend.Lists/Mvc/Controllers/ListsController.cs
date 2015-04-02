@@ -130,7 +130,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         public ActionResult Index(int? page)
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.CurrentPageUrl = this.GetPageUrl();
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/{0}";
 
             if (!this.IsEmpty)
@@ -197,6 +197,15 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         public IEnumerable<IContentLocationInfo> GetLocations()
         {
             return this.Model.GetLocations();
+        }
+
+        /// <summary>
+        /// Gets the URL of the current page.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetPageUrl()
+        {
+            return this.GetCurrentPageUrl();
         }
 
         #endregion
