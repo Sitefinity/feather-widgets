@@ -13,37 +13,37 @@ using ArtOfTest.WebAii.Win32.Dialogs;
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 {
     /// <summary>
-    /// This is an netry point for ImageUploadPropertiesWrapper.
+    /// This is an netry point for MediaUploadPropertiesWrapper.
     /// </summary>
-    public class ImageUploadPropertiesWrapper : BaseWrapper
+    public class MediaUploadPropertiesWrapper : BaseWrapper
     {
         /// <summary>
-        /// Checks if image title is populated correctly.
+        /// Checks if media file title is populated correctly.
         /// </summary>
-        /// <param name="imageTitle">The image title.</param>
-        /// <returns>true or false depending on the image title in the textbox.</returns>
-        public bool IsImageTitlePopulated(string imageTitle)
+        /// <param name="imageTitle">The media file title.</param>
+        /// <returns>true or false depending on the media file title in the textbox.</returns>
+        public bool IsMediaFileTitlePopulated(string imageTitle)
         {
-            HtmlInputText titleField = this.EM.Media.ImageUploadPropertiesScreen.ImageTitleField
+            HtmlInputText titleField = this.EM.Media.MediaUploadPropertiesScreen.TitleField
                                            .AssertIsPresent("Image title field");
 
             return imageTitle.Equals(titleField.Text);
         }
 
         /// <summary>
-        /// Enters new title for image.
+        /// Enters new title for media files.
         /// </summary>
-        /// <param name="imageTitle">The image title.</param>
-        public void EnterImageTitle(string imageTitle)
+        /// <param name="documentTitle">The title.</param>
+        public void EnterTitle(string imageTitle)
         {
-            HtmlInputText titleField = this.EM.Media.ImageUploadPropertiesScreen.ImageTitleField
-                                           .AssertIsPresent("Image title field");
+            HtmlInputText titleField = this.EM.Media.MediaUploadPropertiesScreen.TitleField
+                                           .AssertIsPresent("title field");
 
             titleField.Text = string.Empty;
             titleField.Click();
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Space);
-            this.EM.Media.ImageUploadPropertiesScreen.VisibleTitleIsRequiredMessage.AssertIsPresent("Title is required!");
-            this.EM.Media.ImageUploadPropertiesScreen.UploadDisabledButton.AssertIsPresent("Upload disabled button");
+            this.EM.Media.MediaUploadPropertiesScreen.VisibleTitleIsRequiredMessage.AssertIsPresent("Title is required");
+            this.EM.Media.MediaUploadPropertiesScreen.UploadDisabledButton.AssertIsPresent("Upload disabled button");
             titleField.Text = imageTitle;
             titleField.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);            
         }
@@ -51,10 +51,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <summary>
         /// Enters new alt tetx for image.
         /// </summary>
-        /// <param name="imageTitle">The image alt text.</param>
+        /// <param name="documentTitle">The image alt text.</param>
         public void EnterImageAltText(string imageAltText)
         {
-            HtmlInputText altTextField = this.EM.Media.ImageUploadPropertiesScreen.ImageAltTextFields.LastOrDefault()
+            HtmlInputText altTextField = this.EM.Media.MediaUploadPropertiesScreen.ImageAltTextFields.LastOrDefault()
                                              .AssertIsPresent("Image alt text field");
 
             altTextField.Text = string.Empty;
@@ -63,15 +63,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
-        /// Verifies the image to upload section.
+        /// Verifies the media file to upload section.
         /// </summary>
-        /// <param name="imageName">Name of the image.</param>
+        /// <param name="imageName">Name of the media file.</param>
         /// <param name="size">The size.</param>
-        public void VerifyImageToUploadSection(string imageName, string size)
+        public void VerifyMediaToUploadSection(string imageName, string size)
         {
             ActiveBrowser.Find.ByExpression<HtmlSpan>("innertext=" + imageName).AssertIsPresent("name");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("innertext=" + size).AssertIsPresent("size");
-            this.EM.Media.ImageUploadPropertiesScreen.CancelUploadIcon.AssertIsPresent("Cancel upload");
+            this.EM.Media.MediaUploadPropertiesScreen.CancelUploadIcon.AssertIsPresent("Cancel upload");
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void ClickSelectLibraryButton()
         {
-            this.EM.Media.ImageUploadPropertiesScreen.UploadDisabledButton.AssertIsPresent("Upload disabled button");
-            HtmlSpan select = this.EM.Media.ImageUploadPropertiesScreen.SelectButtons.FirstOrDefault().AssertIsPresent("select button");
+            this.EM.Media.MediaUploadPropertiesScreen.UploadDisabledButton.AssertIsPresent("Upload disabled button");
+            HtmlSpan select = this.EM.Media.MediaUploadPropertiesScreen.SelectButtons.FirstOrDefault().AssertIsPresent("select button");
             select.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -93,7 +93,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void VerifySelectedLibrary(string libraryName)
         {
             ActiveBrowser.Find.ByExpression<HtmlSpan>("sf-shrinked-breadcrumb=" + libraryName).AssertIsPresent("name");
-            this.EM.Media.ImageUploadPropertiesScreen.ChangeButtons.FirstOrDefault().AssertIsPresent("change button");
+            this.EM.Media.MediaUploadPropertiesScreen.ChangeButtons.FirstOrDefault().AssertIsPresent("change button");
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void ClickSelectCategoryButton()
         {
-            HtmlSpan select = this.EM.Media.ImageUploadPropertiesScreen.SelectButtons.LastOrDefault().AssertIsPresent("select button");
+            HtmlSpan select = this.EM.Media.MediaUploadPropertiesScreen.SelectButtons.LastOrDefault().AssertIsPresent("select button");
             select.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -114,7 +114,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void VerifySelectedCategory(string categoryName)
         {
             ActiveBrowser.Find.ByExpression<HtmlSpan>("sf-shrinked-breadcrumb=" + categoryName).AssertIsPresent("name");
-            this.EM.Media.ImageUploadPropertiesScreen.ChangeButtons.LastOrDefault().AssertIsPresent("change button");
+            this.EM.Media.MediaUploadPropertiesScreen.ChangeButtons.LastOrDefault().AssertIsPresent("change button");
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="tagName">Name of the tag.</param>
         public void AddTag(string tagName)
         {
-            HtmlInputText addTag = this.EM.Media.ImageUploadPropertiesScreen.AddTag
+            HtmlInputText addTag = this.EM.Media.MediaUploadPropertiesScreen.AddTag
                                        .AssertIsPresent("tag field");
             addTag.Text = tagName;
             addTag.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
@@ -148,29 +148,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void ExpandCategoriesAndTagsSection()
         {
-            HtmlSpan expandArrow = this.EM.Media.ImageUploadPropertiesScreen.CategoriesAndTagsArrow.AssertIsPresent("expand button");
+            HtmlSpan expandArrow = this.EM.Media.MediaUploadPropertiesScreen.CategoriesAndTagsArrow.AssertIsPresent("expand button");
             expandArrow.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
-        /// Uploads the image.
+        /// Uploads the file.
         /// </summary>
-        public void UploadImage()
+        public void UploadMediaFile()
         {
-            HtmlButton uploadBtn = this.EM.Media.ImageUploadPropertiesScreen.UploadButton.AssertIsPresent("Upload button");
+            HtmlButton uploadBtn = this.EM.Media.MediaUploadPropertiesScreen.UploadButton.AssertIsPresent("Upload button");
             uploadBtn.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
-        /// Cancels the image.
+        /// Cancels the upload.
         /// </summary>
-        public void CancelImageUpload()
+        public void CancelUpload()
         {
-            HtmlButton cancelBtn = this.EM.Media.ImageUploadPropertiesScreen.CancelButton.AssertIsPresent("Cancel button");
+            HtmlButton cancelBtn = this.EM.Media.MediaUploadPropertiesScreen.CancelButton.AssertIsPresent("Cancel button");
             cancelBtn.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -197,13 +197,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void WaitForContentToBeLoaded()
         {
-            Manager.Current.Wait.For(() => this.IsContentLoadedInImageUploadPropertiesDialog(), 20000);
+            Manager.Current.Wait.For(() => this.IsContentLoadedInUploadPropertiesDialog(), 20000);
         }
 
-        private bool IsContentLoadedInImageUploadPropertiesDialog()
+        private bool IsContentLoadedInUploadPropertiesDialog()
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();
-            var cancelUpload = this.EM.Media.ImageUploadPropertiesScreen.CancelButton.AssertIsPresent("Cancel upload");
+            var cancelUpload = this.EM.Media.MediaUploadPropertiesScreen.CancelButton.AssertIsPresent("Cancel upload");
             return cancelUpload != null && cancelUpload.IsVisible();              
         }
     }

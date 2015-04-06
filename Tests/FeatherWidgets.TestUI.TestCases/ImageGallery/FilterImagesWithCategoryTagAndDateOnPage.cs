@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
-namespace FeatherWidgets.TestUI.TestCases.News
+namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
     /// <summary>
     /// FilterImagesWithCategoryTagAndDateOnPage test class.
@@ -94,7 +89,6 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
-
         /// <summary>
         /// Performs clean up and clears all data created by the test.
         /// </summary>
@@ -107,7 +101,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
             return scr;
         }
 

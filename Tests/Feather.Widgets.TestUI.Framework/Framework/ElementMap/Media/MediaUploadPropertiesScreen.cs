@@ -10,23 +10,23 @@ using ArtOfTest.WebAii.TestTemplates;
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
 {
     /// <summary>
-    /// Provides access to ImageUploadPropertiesScreen
+    /// Provides access to MediaUploadPropertiesScreen
     /// </summary>
-    public class ImageUploadPropertiesScreen : HtmlElementContainer
+    public class MediaUploadPropertiesScreen : HtmlElementContainer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ImagePropertiesScreen" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
-        public ImageUploadPropertiesScreen(Find find)
+        public MediaUploadPropertiesScreen(Find find)
             : base(find)
         {
         }
 
         /// <summary>
-        /// Gets the image title text field.
+        /// Gets the title text field.
         /// </summary>
-        public HtmlInputText ImageTitleField
+        public HtmlInputText TitleField
         {
             get
             {
@@ -89,7 +89,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlDiv>("tagName=div", "InnerText=~Title is required!", "class=text-danger");
+                return this.Get<HtmlDiv>("tagName=div", "InnerText=~Title is required", "class=text-danger");
             }
         }
 
@@ -164,18 +164,5 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
                 return this.Get<HtmlInputText>("tagName=input", "placeholder=Add a tag");
             }
         }
-
-        /// <summary>
-        /// Gets the image upload properties modal dialog.
-        /// </summary>
-        /// <value>The image upload properties modal dialog.</value>
-        private HtmlDiv ImageUploadPropertiesModalDialog
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagName=div", "class=modal-content");
-            }
-        }
-
     }
 }

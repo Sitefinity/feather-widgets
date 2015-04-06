@@ -1,0 +1,36 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
+
+@Html.Script(ScriptRef.JQuery)
+
+<div class="@Model.CssClass" data-sf-role="lists">
+
+    @foreach (var item in Model.Items)
+    {
+        <h3 @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
+            <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>
+                @item.Fields.Title
+            </span>
+        </h3>
+        
+        foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
+        {
+            <div @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
+                <span @Html.InlineEditingFieldAttributes("Title", "ShortText") data-sf-role="toggleLink">@listItem.Fields.Title</span>
+                <div @Html.InlineEditingFieldAttributes("Content", "LongText") style="display:none;">
+                    @Html.Raw(@listItem.Fields.Content)
+                </div>
+            </div>
+        }
+    }
+
+    <p data-sf-role="expandAll">@Html.Resource("ExpandAll")</p>
+
+    <p data-sf-role="collapseAll" style="display:none;">@Html.Resource("CollapseAll")</p>
+
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Lists/lists.js"))

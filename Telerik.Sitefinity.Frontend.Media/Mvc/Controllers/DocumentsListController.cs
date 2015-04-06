@@ -22,11 +22,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Documents list widget.
     /// </summary>
     [Localization(typeof(DocumentsListResources))]
-    [ControllerToolboxItem(Name = "DocumentsList",
-                           Title = "Documents list",
-                           SectionName = "MvcWidgets",
-                           ModuleName = "Libraries",
-                           CssClass = DocumentsListController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "DocumentsList", Title = "Documents list", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = DocumentsListController.WidgetIconCssClass)]
     public class DocumentsListController : Controller, IRouteMapper, IContentLocatableView
     {
         #region Properties

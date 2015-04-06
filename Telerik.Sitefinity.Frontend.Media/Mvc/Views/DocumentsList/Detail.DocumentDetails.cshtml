@@ -1,4 +1,4 @@
-@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList.DocumentDetailViewModel
+@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList.DocumentDetailsViewModel
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Web.DataResolving;
@@ -8,8 +8,6 @@
     <h1>
         @Model.Item.Fields.Title
     </h1>
-
-    <br />
 
     <div class="text-muted">
         @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
@@ -23,8 +21,8 @@
 
     <div>
         <a href="@Model.Item.Fields.MediaUrl" target="_blank">Download</a>
-        (@(Math.Ceiling((double)Model.Item.Fields.TotalSize / 1024) + " KB")) <br />
-        <h1>@Model.Item.Fields.Extension</h1>
+        (@Model.Extension)
+        <span>@(Math.Ceiling((double)Model.Item.Fields.TotalSize / 1024) + " KB")</span>
     </div>
 
     @if (Model.EnableSocialSharing)

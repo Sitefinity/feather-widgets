@@ -1,0 +1,24 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<div class="@Model.CssClass">
+
+    @foreach (var item in Model.Items)
+    {
+        <h1 @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)
+            @Html.InlineEditingFieldAttributes("Title", "ShortText")>
+            @item.Fields.Title
+        </h1>
+
+        foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
+        {
+            <div @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
+                <h2 @Html.InlineEditingFieldAttributes("Title", "ShortText")>@listItem.Fields.Title</h2>
+                <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(listItem.Fields.Content)</div>
+            </div>
+        }
+    }
+
+</div>

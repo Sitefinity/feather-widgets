@@ -1,0 +1,51 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using System.Linq;
+
+<div class="@Model.CssClass">
+
+    @foreach (var item in Model.Items)
+    {
+        <h1 @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
+            <a id="@item.Fields.Id-Top"
+               @Html.InlineEditingFieldAttributes("Title", "ShortText")
+               href="#@item.Fields.Id">@item.Fields.Title</a>
+        </h1>
+
+        <ul>
+            @foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
+            {
+                <li @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
+                    <a @Html.InlineEditingFieldAttributes("Title", "ShortText")
+                       href="#@listItem.Fields.Id">@listItem.Fields.Title</a>
+                </li>
+            }
+        </ul>
+    }
+
+    @foreach (var item in Model.Items)
+    {
+        <h1 @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)
+            @Html.InlineEditingFieldAttributes("Title", "ShortText")
+            id="@item.Fields.Id">
+            @item.Fields.Title
+        </h1>
+
+        foreach (var listItem in ((ListViewModel)item).ListItemViewModel.Items)
+        {
+            <div @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)item).ListItemViewModel.ContentType.FullName, (Guid)listItem.Fields.Id)>
+                <h3 @Html.InlineEditingFieldAttributes("Title", "ShortText")
+                    id="@listItem.Fields.Id">
+                    @listItem.Fields.Title
+                </h3>
+
+                <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(listItem.Fields.Content)</div>
+
+                <p><a href="#@item.Fields.Id-Top">@Html.Resource("BackToTop")</a></p>
+            </div>
+        }
+    }
+
+</div>
