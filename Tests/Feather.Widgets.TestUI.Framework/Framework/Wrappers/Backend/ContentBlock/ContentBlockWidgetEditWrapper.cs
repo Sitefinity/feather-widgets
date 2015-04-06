@@ -322,6 +322,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the content block document design mode.
+        /// </summary>
+        /// <param name="href">The href.</param>
+        /// <param name="sfref">The sfref.</param>
+        /// <param name="title">The title.</param>
+        public void VerifyContentBlockDocumentDesignMode(string href, string sfref, string title)
+        {
+            Browser frame = this.GetContentBlockFrame();
+            var doc = frame.Find.ByExpression<HtmlAnchor>("tagname=a", "title=" + title).AssertIsPresent(title);
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+            var attr = doc.Attributes.FirstOrDefault(a => a.Name == "sfref");
+            Assert.IsNotNull(attr, "Unable to find attribute: sfref");
+            Assert.AreEqual(sfref, attr.Value, "Attribute sfref value not as expected.");
+        }
+
+        /// <summary>
         /// Opens the image selector.
         /// </summary>
         public void OpenImageSelector()
@@ -330,6 +346,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                          .ContentBlockWidget
                                          .ImageSelector
                                          .AssertIsPresent("image selector");
+            createContent.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
+        /// <summary>
+        /// Opens the document selector.
+        /// </summary>
+        public void OpenDocumentSelector()
+        {
+            HtmlAnchor createContent = EM.GenericContent
+                                         .ContentBlockWidget
+                                         .DocumentSelector
+                                         .AssertIsPresent("document selector");
             createContent.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();

@@ -64,7 +64,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGalle
             itemsTextBox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
-
         /// <summary>
         /// Selects option from thumbnail selector.
         /// </summary>
@@ -122,4 +121,3 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGalle
         }
     }
 }
-
