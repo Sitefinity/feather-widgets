@@ -14,7 +14,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     /// </summary>
     public class ImageGalleryWrapper : BaseWrapper
     {
-
         /// <summary>
         /// Verifies image on the frontend.
         /// </summary>
