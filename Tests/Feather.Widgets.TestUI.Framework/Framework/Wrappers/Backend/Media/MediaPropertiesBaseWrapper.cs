@@ -16,6 +16,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
     public class MediaPropertiesBaseWrapper : BaseWrapper
     {
         /// <summary>
+        /// Checks if document or image title is populated correctly.
+        /// </summary>
+        /// <param name="imageTitle">The document or image title.</param>
+        /// <returns>true or false depending on the document or image  title in the textbox.</returns>
+        public bool IsTitlePopulated(string imageTitle)
+        {
+            HtmlInputText titleField = this.EM.Media.MediaPropertiesBaseScreen.TitleField
+                                           .AssertIsPresent("title field");
+
+            return imageTitle.Equals(titleField.Text);
+        }
+
+        /// <summary>
+        /// Enters new title for document or image.
+        /// </summary>
+        /// <param name="documentTitle">The document or image title.</param>
+        public void EnterTitle(string imageTitle)
+        {
+            HtmlInputText titleField = this.EM.Media.MediaPropertiesBaseScreen.TitleField
+                                           .AssertIsPresent("Title field");
+
+            titleField.Text = string.Empty;
+            titleField.Text = imageTitle;
+            titleField.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
         /// Changes the media file.
         /// </summary>
         public void ChangeMediaFile()

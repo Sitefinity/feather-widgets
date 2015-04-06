@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
 namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
@@ -58,6 +53,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + i, src);
                 i--;
             }
+
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().IsImageTitlePresentOnDetailMasterPage(this.imageTitles[1]));
 

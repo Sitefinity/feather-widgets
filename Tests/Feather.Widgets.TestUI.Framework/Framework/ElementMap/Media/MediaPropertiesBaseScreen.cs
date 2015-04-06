@@ -24,6 +24,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets the title text field.
+        /// </summary>
+        public HtmlInputText TitleField
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagName=input", "name=title");
+            }
+        }
+
+        /// <summary>
         /// Gets the done button.
         /// </summary>
         /// <value>The done button.</value>

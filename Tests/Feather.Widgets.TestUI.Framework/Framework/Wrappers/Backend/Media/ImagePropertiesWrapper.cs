@@ -16,33 +16,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
     public class ImagePropertiesWrapper : MediaPropertiesBaseWrapper
     {
         /// <summary>
-        /// Checks if image title is populated correctly.
-        /// </summary>
-        /// <param name="imageTitle">The image title.</param>
-        /// <returns>true or false depending on the image title in the textbox.</returns>
-        public bool IsImageTitlePopulated(string imageTitle)
-        {
-            HtmlInputText titleField = this.EM.Media.ImagePropertiesScreen.ImageTitleField
-                                           .AssertIsPresent("Image title field");
-
-            return imageTitle.Equals(titleField.Text);
-        }
-
-        /// <summary>
-        /// Enters new title for image.
-        /// </summary>
-        /// <param name="documentTitle">The image title.</param>
-        public void EnterImageTitle(string imageTitle)
-        {
-            HtmlInputText titleField = this.EM.Media.ImagePropertiesScreen.ImageTitleField
-                                           .AssertIsPresent("Image title field");
-
-            titleField.Text = string.Empty;
-            titleField.Text = imageTitle;
-            titleField.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
-        }
-
-        /// <summary>
         /// Checks if image alt text is populated correctly.
         /// </summary>
         /// <param name="imageTitle">The image title.</param>

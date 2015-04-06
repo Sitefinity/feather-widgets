@@ -331,7 +331,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             Browser frame = this.GetContentBlockFrame();
             var doc = frame.Find.ByExpression<HtmlAnchor>("tagname=a", "title=" + title).AssertIsPresent(title);
-            Assert.IsTrue(doc.HRef.StartsWith(href), "src is not correct");
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
             var attr = doc.Attributes.FirstOrDefault(a => a.Name == "sfref");
             Assert.IsNotNull(attr, "Unable to find attribute: sfref");
             Assert.AreEqual(sfref, attr.Value, "Attribute sfref value not as expected.");

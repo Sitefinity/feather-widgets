@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
 namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
@@ -93,7 +88,6 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
-
 
         /// <summary>
         /// Performs clean up and clears all data created by the test.

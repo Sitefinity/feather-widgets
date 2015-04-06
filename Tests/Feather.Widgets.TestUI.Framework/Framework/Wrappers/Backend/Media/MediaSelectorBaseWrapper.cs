@@ -17,7 +17,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
     /// </summary>
     public abstract class MediaSelectorBaseWrapper : BaseWrapper
     {
-
         /// <summary>
         /// Selects media file from your computer.
         /// </summary>
@@ -34,30 +33,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void WaitForContentToBeLoaded(bool isEmptyScreen)
         {
             Manager.Current.Wait.For(() => this.IsContentLoadedInMediaSelector(isEmptyScreen), 20000);
-        }
-
-        private bool IsContentLoadedInMediaSelector(bool isEmptyScreen)
-        {
-            bool result = false;
-            Manager.Current.ActiveBrowser.RefreshDomTree();
-            if (isEmptyScreen)
-            {
-                var selectImageFromYourComputer = this.EM.Media.MediaSelectorScreen.SelectMediaFileFromYourComputerLink;
-                if (selectImageFromYourComputer != null && selectImageFromYourComputer.IsVisible())
-                {
-                    result = true;
-                }
-            }
-            else
-            {
-                HtmlSpan tooltip = this.EM.Media.MediaSelectorScreen.Tooltip;
-                if (tooltip != null && tooltip.IsVisible())
-                {
-                    result = true;
-                }
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -80,7 +55,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 
             cancel.Click();
         }
-
 
         /// <summary>
         /// Selects the folder.
@@ -179,13 +153,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             Manager.Current.Wait.For(() => this.IsCountOfImagesCorrect(expectedCount), 20000);
         }
 
-        private bool IsCountOfImagesCorrect(int expectedCount)
-        {
-            ActiveBrowser.RefreshDomTree();
-            int divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaImageFileDivs.Count;
-            return expectedCount == divsCount;
-        }
-
         /// <summary>
         /// Verifies the correct count of folders.
         /// </summary>
@@ -193,13 +160,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void WaitCorrectCountOfFolders(int expectedCount)
         {
             Manager.Current.Wait.For(() => this.IsCountOfFoldersCorrect(expectedCount), 20000);
-        }
-
-        private bool IsCountOfFoldersCorrect(int expectedCount)
-        {
-            ActiveBrowser.RefreshDomTree();
-            int divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaFolderDivs.Count;
-            return expectedCount == divsCount;
         }
 
         /// <summary>
@@ -249,6 +209,44 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void VerifyNoItemsFoundMessage()
         {
             this.EM.Media.MediaSelectorScreen.NoItemsFoundDiv.AssertIsPresent("No items found").AssertIsPresent("No items found");
+        }
+
+        private bool IsContentLoadedInMediaSelector(bool isEmptyScreen)
+        {
+            bool result = false;
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            if (isEmptyScreen)
+            {
+                var selectImageFromYourComputer = this.EM.Media.MediaSelectorScreen.SelectMediaFileFromYourComputerLink;
+                if (selectImageFromYourComputer != null && selectImageFromYourComputer.IsVisible())
+                {
+                    result = true;
+                }
+            }
+            else
+            {
+                HtmlSpan tooltip = this.EM.Media.MediaSelectorScreen.Tooltip;
+                if (tooltip != null && tooltip.IsVisible())
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        private bool IsCountOfImagesCorrect(int expectedCount)
+        {
+            ActiveBrowser.RefreshDomTree();
+            int divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaImageFileDivs.Count;
+            return expectedCount == divsCount;
+        }
+
+        private bool IsCountOfFoldersCorrect(int expectedCount)
+        {
+            ActiveBrowser.RefreshDomTree();
+            int divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaFolderDivs.Count;
+            return expectedCount == divsCount;
         }
     }
 }

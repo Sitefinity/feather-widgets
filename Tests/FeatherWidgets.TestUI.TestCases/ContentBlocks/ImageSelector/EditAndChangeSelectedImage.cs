@@ -34,17 +34,17 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitForContentToBeLoaded(false);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName1);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(ImageName1), "Image title is not populated correctly");
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName1), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText1), "Image alt text is not populated correctly");
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectAllContentInEditableArea();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(ImageName1), "Image title is not populated correctly");
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName1), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText1), "Image alt text is not populated correctly");
 
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageTitle(NewImageName);
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterTitle(NewImageName);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageAltText(NewImageAltText);
 
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectAllContentInEditableArea();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(NewImageName), "Image title is not populated correctly");
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
             string scr = this.GetImageSource(true, ImageName1, ImageTypeInPropertiesDialog);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName1, scr);
@@ -61,7 +61,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName2);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
 
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(NewImageName), "Image title is not populated correctly");
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(NewImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(NewImageAltText), "Image alt text is not populated correctly");
             scr = this.GetImageSource(true, ImageName2, ImageTypeInPropertiesDialog);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifyImageThumbnailInPropertiesDialog(ImageName2, scr);
@@ -72,14 +72,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             scr = this.GetImageSource(false, ImageName2, ImageType);
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(NewImageName, NewImageAltText, scr);
-        }
-
-        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
-        {
-            string libraryUrl = LibraryName.ToLower();
-            string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
-            return scr;
         }
 
         /// <summary>
@@ -97,6 +89,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
+        {
+            string libraryUrl = LibraryName.ToLower();
+            string imageUrl = imageName.ToLower() + imageType.ToLower();
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            return scr;
         }
 
         private const string PageName = "PageWithImage";

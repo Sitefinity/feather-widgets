@@ -129,30 +129,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
-        /// Gets the empty image elements parent div.
-        /// </summary>
-        /// <value>The empty image elements parent div.</value>
-        private HtmlDiv EmptyMediaElementsParentDiv
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagName=div", "class=Media-upload-text text-center");
-            }
-        }
-
-        /// <summary>
-        /// Gets the image selector modal dialog.
-        /// </summary>
-        /// <value>The image selector modal dialog.</value>
-        private HtmlDiv MediaSelectorModalDialog
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagName=div", "class=~modal-dialog-2");
-            }
-        }
-
-        /// <summary>
         /// Gets the image selector thumbnail holder div.
         /// </summary>
         /// <value>The image selector thumbnail holder div.</value>
@@ -219,6 +195,30 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         public HtmlControl NoMediaText(string text)
         {
             return this.Get<HtmlControl>("tagName=p", "class=text-muted", "InnerText=" + text);
+        }
+
+        /// <summary>
+        /// Gets the empty image elements parent div.
+        /// </summary>
+        /// <value>The empty image elements parent div.</value>
+        private HtmlDiv EmptyMediaElementsParentDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagName=div", "class=Media-upload-text text-center");
+            }
+        }
+
+        /// <summary>
+        /// Gets the image selector modal dialog.
+        /// </summary>
+        /// <value>The image selector modal dialog.</value>
+        private HtmlDiv MediaSelectorModalDialog
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagName=div", "class=~modal-dialog-2");
+            }
         }
     }
 }

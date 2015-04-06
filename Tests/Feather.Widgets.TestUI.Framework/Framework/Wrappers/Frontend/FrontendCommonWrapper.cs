@@ -105,7 +105,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="altText">Image alternative text</param>
         public void VerifyStyle(string style, string title, string altText)
         {
-            ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText, "style="+style).AssertIsPresent("image");
+            ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText, "style=" + style).AssertIsPresent("image");
         }
 
         /// <summary>

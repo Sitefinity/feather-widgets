@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
 namespace FeatherWidgets.TestUI.TestCases.News
 {
@@ -43,10 +37,11 @@ namespace FeatherWidgets.TestUI.TestCases.News
                 BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + i, src);
                 i--;
             }
+
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifySelectedImageOverlayTemplate(ImageAltText + 2);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyPreviousAndNextImageArrowsOverlayTemplate();
-            var scr = this.GetImageSource(false, this.imageTitles[1], "");
+            var scr = this.GetImageSource(false, this.imageTitles[1], string.Empty);
             string url = PageName.ToLower() + scr + "?itemIndex=1";
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().CloseSelectedImageOverlayTemplate();
@@ -92,7 +87,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
             src = this.GetImageSource(true, this.imageTitles[1], ImageOriginalType);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, src);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyThumbnailStripTemplateInfo("2of 3", this.imageTitles[1]);
-            var scr = this.GetImageSource(false, this.imageTitles[1], "");
+            var scr = this.GetImageSource(false, this.imageTitles[1], string.Empty);
             string url = PageName.ToLower() + scr + "?itemIndex=1";
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
         }

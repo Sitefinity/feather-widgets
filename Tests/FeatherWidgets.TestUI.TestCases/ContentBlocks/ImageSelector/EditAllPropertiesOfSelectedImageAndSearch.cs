@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitForContentToBeLoaded(false);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageTitlePopulated(ImageName), "Image title is not populated correctly");
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText1), "Image alt text is not populated correctly");
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EditAllProperties();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterNewTitleInPropertiesDialogAndPublish(ImageNewName);            
@@ -53,15 +53,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             this.VerifyFrontend();
         }
 
-        private void VerifyFrontend()
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            string libraryUrl = LibraryName.ToLower();
-            string imageUrl = ImageName.ToLower() + ImageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl);
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(ImageNewName, ImageAltText1, scr);
-        }
-
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
@@ -77,6 +68,15 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         protected override void ServerCleanup()
         {
             BAT.Arrange(EditAndChangeSelectedImageArrangement).ExecuteTearDown();
+        }
+
+        private void VerifyFrontend()
+        {
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            string libraryUrl = LibraryName.ToLower();
+            string imageUrl = ImageName.ToLower() + ImageType.ToLower();
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl);
+            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(ImageNewName, ImageAltText1, scr);
         }
 
         private const string PageName = "PageWithImage";

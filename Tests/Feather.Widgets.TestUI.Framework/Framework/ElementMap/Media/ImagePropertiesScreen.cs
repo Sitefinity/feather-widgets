@@ -24,17 +24,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
-        /// Gets the image title text field.
-        /// </summary>
-        public HtmlInputText ImageTitleField
-        {
-            get
-            {
-                return this.Get<HtmlInputText>("tagName=input", "name=title");
-            }
-        }
-
-        /// <summary>
         /// Gets the image alt text field.
         /// </summary>
         public HtmlInputText ImageAltTextField

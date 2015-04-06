@@ -362,7 +362,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             for (int i = 0; i < divListCount; i++)
             {
-                if(!divList[i].IsVisible())
+                if (!divList[i].IsVisible())
                 {
                     notVisibleItemNames++;
                 }

@@ -260,17 +260,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText).AssertIsNull(altText);
         }
 
-        private bool WaitForSaveButton()
-        {
-            Manager.Current.ActiveBrowser.RefreshDomTree();
-            var saveButton = EM.Widgets
-                                   .WidgetDesignerContentScreen.SaveChangesButton;
-
-            bool result = saveButton != null && saveButton.IsVisible();
-
-            return result;
-        }
-
         /// <summary>
         /// Verifies the correct order of items on backend.
         /// </summary>
@@ -287,6 +276,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 Assert.IsTrue(items[i].Alt.Contains(itemAlts[i]));
             }
+        }
+
+        private bool WaitForSaveButton()
+        {
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var saveButton = EM.Widgets
+                                   .WidgetDesignerContentScreen.SaveChangesButton;
+
+            bool result = saveButton != null && saveButton.IsVisible();
+
+            return result;
         }
 
         private const int TimeOut = 60000;

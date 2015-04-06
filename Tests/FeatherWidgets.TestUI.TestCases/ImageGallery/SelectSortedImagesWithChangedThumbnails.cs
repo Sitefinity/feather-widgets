@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
 namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
@@ -37,7 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
             BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInImageSelector("Thumbnail: 120x120 px cropped");                  
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfImagesOnBackend(ImageAltText + 1, ImageAltText + 2, ImageAltText+3);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfImagesOnBackend(ImageAltText + 1, ImageAltText + 2, ImageAltText + 3);
             for (int k = 0; k <= 2; k++)
             {
                 if (k == 0)
@@ -98,6 +93,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + j, src);
                 }
             }
+
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyCorrectOrderOfImages(ImageAltText + 2, ImageAltText + 3);
         }
 
@@ -133,7 +129,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         }
 
         private const string PageName = "PageWithImage";
-        private readonly string[] imageTitles = new string[] { "Image1", "Image2", "Image3"};
+        private readonly string[] imageTitles = new string[] { "Image1", "Image2", "Image3" };
         private const string WidgetName = "Image gallery";
         private const string LibraryName = "TestImageLibrary";
         private const string ImageAltText = "AltText_Image";

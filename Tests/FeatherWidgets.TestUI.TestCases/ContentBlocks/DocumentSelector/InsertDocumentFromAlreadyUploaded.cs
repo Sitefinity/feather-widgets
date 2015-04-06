@@ -40,9 +40,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyDocumentTooltip(DocumentName, LibraryName, DocumentType);
             BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectDocument(DocumentName);
             BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().ConfirmMediaFileSelection();
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsDocumentTitlePopulated(DocumentName), "Document title is not populated correctly");
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(DocumentName), "Document title is not populated correctly");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true));
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().EnterDocumentTitle(NewDocumentName);
+            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().EnterTitle(NewDocumentName);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
@@ -52,14 +52,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().CommonWrapper().VerifyDocument(NewDocumentName, this.GetDocumentHref(false));
-        }
-
-        private string GetDocumentHref(bool isBaseUrlIncluded)
-        {
-            string libraryUrl = LibraryName.ToLower();
-            string documentUrl = DocumentName.ToLower() + DocumentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs");            
-            return href;
         }
 
         /// <summary>
@@ -82,6 +74,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         private string GetSfRef(string documentId)
         {
             return "[documents|OpenAccessDataProvider]" + documentId;
+        }
+
+        private string GetDocumentHref(bool isBaseUrlIncluded)
+        {
+            string libraryUrl = LibraryName.ToLower();
+            string documentUrl = DocumentName.ToLower() + DocumentType.ToLower();
+            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs");
+            return href;
         }
 
         private const string PageName = "PageWithDocument";

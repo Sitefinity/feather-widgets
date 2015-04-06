@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
 namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
@@ -72,8 +67,8 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
                 }
             }
 
-            BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 3); 
-            var scr = this.GetImageSource(false, ImageBaseTitle + 3, "");
+            BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 3);
+            var scr = this.GetImageSource(false, ImageBaseTitle + 3, string.Empty);
             string url = SingleItemPage.ToLower() + scr;
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().IsImageTitlePresentOnDetailMasterPage(ImageBaseTitle + 3));

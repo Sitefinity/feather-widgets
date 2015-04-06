@@ -29,16 +29,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
-        /// Verifies image tooltip on mouse over.
+        /// Verifies document tooltip on mouse over.
         /// </summary>
-        /// /// <param name="documentTitle">The image name.</param>
+        /// /// <param name="documentTitle">The document name.</param>
         /// <param name="libraryName">The library name.</param>
-        /// <param name="documentType">The image type.</param>
+        /// <param name="documentType">The document type.</param>
         public void VerifyDocumentTooltip(string documentTitle, string libraryName, string documentType)
         {
             HtmlSpan tooltip = this.EM.Media.MediaSelectorScreen.Tooltip.AssertIsNotNull("tooltip icon");
             string imageTooltipTitle = tooltip.Attributes.Where(a => a.Name == "sf-popover-title").First().Value;
-            Assert.AreEqual(documentTitle, imageTooltipTitle, "Image title in tooltip is not correct");
+            Assert.AreEqual(documentTitle, imageTooltipTitle, "document title in tooltip is not correct");
 
             tooltip.ScrollToVisible();
             tooltip.Focus();
@@ -47,7 +47,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             var tooltipContent = tooltip.Attributes.Where(a => a.Name == "sf-popover-content").First().Value;
 
             Assert.IsTrue(tooltipContent.Contains(libraryName), "Library name not found in the tooltip");
-            Assert.IsTrue(tooltipContent.Contains(documentType), "Image type not found in the tooltip");
+            Assert.IsTrue(tooltipContent.Contains(documentType), "document type not found in the tooltip");
         }
 
         /// <summary>
