@@ -84,7 +84,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
                     var queryStringFormat = "?indexCatalogue={0}&searchQuery={1}&wordsMode={2}&orderBy={3}";
                     var languageParamFormat = "&language={0}";
 
-                    var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode, this.Model.OrderBy);
+                    var queryString = string.Format(queryStringFormat, indexCatalogue, searchQuery, wordsMode, orderBy ?? this.Model.OrderBy.ToString());
                     var languageParam = String.IsNullOrEmpty(language) ? String.Empty : String.Format(languageParamFormat, language);
                     var currentPageUrl = this.GetCurrentUrl();
 
