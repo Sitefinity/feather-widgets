@@ -150,7 +150,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="expectedCount">The expected count.</param>
         public void WaitCorrectCountOfMediaFiles(int expectedCount)
         {
-            Manager.Current.Wait.For(() => this.IsCountOfImagesCorrect(expectedCount), 20000);
+            Manager.Current.Wait.For(() => this.IsCountOfMediaFilesCorrect(expectedCount), 20000);
         }
 
         /// <summary>
@@ -235,10 +235,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             return result;
         }
 
-        private bool IsCountOfImagesCorrect(int expectedCount)
+        private bool IsCountOfMediaFilesCorrect(int expectedCount)
         {
             ActiveBrowser.RefreshDomTree();
             int divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaImageFileDivs.Count;
+            if (divsCount == 0)
+            {
+                divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaDocFileDivs.Count;
+            }
             return expectedCount == divsCount;
         }
 

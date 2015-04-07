@@ -53,7 +53,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlButton>("tagName=button", "InnerText=Upload", "ng-click=uploadImage()");
+                return this.Get<HtmlButton>("tagName=button", "InnerText=Upload", "ng-click=~upload");
             }
         }
 
