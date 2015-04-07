@@ -106,6 +106,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets the document selector media file divs.
+        /// </summary>
+        /// <value>The document selector media file divs.</value>
+        public ICollection<HtmlDiv> MediaSelectorMediaDocFileDivs
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=Media-file Media-file--doc ng-scope");
+            }
+        }
+
+        /// <summary>
         /// Gets the image selector media folder divs.
         /// </summary>
         /// <value>The image selector media folder divs.</value>

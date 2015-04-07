@@ -133,6 +133,7 @@
     <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />
+    <Compile Include="CommonOperations\Pages\MediaOperations.cs" />
     <Compile Include="CommonOperations\Pages\NavigationOperations.cs" />
     <Compile Include="CommonOperations\Pages\NewsOperations.cs" />
     <Compile Include="CommonOperations\Pages\PagesOperations.cs" />
@@ -189,6 +190,11 @@
       <Project>{33171BB5-9918-41BE-B06D-0D8347846B0C}</Project>
       <Name>Telerik.Sitefinity.Frontend.SocialShare</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\MediaFiles\1.jpg" />
+    <EmbeddedResource Include="Data\MediaFiles\2.jpg" />
+    <EmbeddedResource Include="Data\MediaFiles\3.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

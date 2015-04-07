@@ -27,5 +27,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 
             Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
         }
+
+        /// <summary>
+        /// Verifies the document icon.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        public void VerifyDocumentIcon(string type)
+        {
+            var divHolder = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=sf-Media--info-doc-holder")
+                .AssertIsPresent("divHolder");
+            var icon = divHolder.Find.ByExpression<HtmlContainerControl>("class=icon-file icon-txt icon-lg")
+                .AssertIsPresent("icon");
+
+            icon.Find.ByExpression<HtmlSpan>("class=~icon-txt", "innertext=" + type)
+                .AssertIsPresent("type");
+        }
     }
 }
