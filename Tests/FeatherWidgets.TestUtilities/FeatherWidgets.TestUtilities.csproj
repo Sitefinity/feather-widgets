@@ -192,7 +192,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\MediaFiles\1.jpg" />
     <EmbeddedResource Include="Data\MediaFiles\2.jpg" />
     <EmbeddedResource Include="Data\MediaFiles\3.jpg" />
   </ItemGroup>

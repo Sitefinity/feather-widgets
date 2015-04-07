@@ -27,13 +27,11 @@ namespace FeatherWidgets.TestUI.Arrangements
             var nextChildId = ServerSideUpload.CreateFolder(NextChildLibraryTitle, childId);
             ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 1, DocumentResource);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(childId, DocumentTitle + 2, DocumentResourceChild);
-            //// ServerSideUpload.UploadImageInFolder(childId, ImageTitle + 2, ImageResourceChild);
 
             ServerOperations.Users().CreateUserWithProfileAndRoles("administrator", "password", "Administrator", "User", "administrator@test.test", new List<string> { "BackendUsers", "Administrators" });
 
             AuthenticationHelper.AuthenticateUser("administrator", "password", true);
             ServerOperationsFeather.MediaOperations().UploadDocumentInFolder(nextChildId, DocumentTitle + 3, DocumentResourceNextChild);
-            //// ServerSideUpload.UploadImageInFolder(nextChildId, DocumentTitle + 3, DocumentResourceNextChild);
         }
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Users().DeleteUserAndProfile("administrator");
-            ServerOperations.Libraries().DeleteLibraries(false, "Image");
+            ServerOperations.Libraries().DeleteLibraries(false, "Document");
         }
 
         private const string PageName = "PageWithDocument";
