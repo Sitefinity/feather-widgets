@@ -226,6 +226,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the document.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyDocument(string text, string href)
+        {
+            HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + text)
+                .AssertIsPresent("document");
+
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+        }
+
+        /// <summary>
+        /// Verifies the document icon.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        public void VerifyDocumentIconOnTemplate(string type)
+        {
+            var icon = ActiveBrowser.Find.ByExpression<HtmlContainerControl>("class=icon-file icon-txt icon-md")
+                .AssertIsPresent("icon");
+
+            icon.Find.ByExpression<HtmlSpan>("class=~icon-txt", "innertext=" + type)
+                .AssertIsPresent("type");
+        }
+
+        /// <summary>
         /// Verifies the thumbnail strip template info.
         /// </summary>
         /// <param name="countLabel">The count label.</param>

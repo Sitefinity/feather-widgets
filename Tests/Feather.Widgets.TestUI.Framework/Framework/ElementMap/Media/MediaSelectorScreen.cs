@@ -113,7 +113,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=Media-file Media-file--doc ng-scope");
+                return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=~Media-file Media-file--doc ng-scope");
             }
         }
 

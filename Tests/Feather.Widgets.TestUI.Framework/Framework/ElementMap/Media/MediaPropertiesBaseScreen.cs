@@ -82,6 +82,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+
+        /// <summary>
+        /// Gets More options div.
+        /// </summary>
+        public HtmlSpan MoreOptionsSpan
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("class=Options-toggler text-muted ng-binding", "innerText=More options");
+            }
+        }
+
+        /// <summary>
+        /// Gets CSS classes label.
+        /// </summary>
+        public HtmlInputText CssClassesTextbox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("id=imageCssClass");
+            }
+        }
+
         private HtmlDiv MediaPropertiesModalDialog
         {
             get

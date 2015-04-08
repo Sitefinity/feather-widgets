@@ -7,7 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
+namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
 {
     /// <summary>
     /// This is a test class for ImageWidgetInsertImageWithCustomThumbnail tests
@@ -21,7 +21,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void ImageWidgetInsertImageWithCustomThumbnail()
         {
@@ -31,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, 0, true);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitForContentToBeLoaded(false);
             BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelectionInAWidget();
+            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelectionInWidget();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText1), "Image alt text is not populated correctly");
             string scr = this.GetImageSource(true, ImageName, ImageTypeInPropertiesDialog);
@@ -41,7 +40,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterTitle(NewImageName);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterImageAltText(NewImageAltText);
 
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImagePropertiesInImageWidget();
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaPropertiesInWidget();
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, 0, true);
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(NewImageName), "Image title is not populated correctly");
@@ -59,7 +58,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().DoneResizing();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().VerifySelectedOptionThumbnailSelector(NewThumbnailOption);
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ClickThisImageIsALink();
-            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmImagePropertiesInImageWidget();
+            BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaPropertiesInWidget();
 
             string src = this.GetImageSource(false, ImageName, ImageType);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(NewImageAltText, src);
