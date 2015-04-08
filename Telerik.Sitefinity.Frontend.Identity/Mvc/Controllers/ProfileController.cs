@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Configuration.Provider;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
@@ -142,25 +144,39 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             if (ModelState.IsValid)
             {
-                var isUpdated = this.Model.EditUserProfile(viewModel);
-                if (!isUpdated)
-                    return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
-
-                switch (this.Model.SaveChangesAction)
+                try
                 {
-                    case SaveAction.SwitchToReadMode:
-                        return this.ReadProfile();
-                    case SaveAction.ShowMessage:
-                        viewModel.ShowProfileChangedMsg = true;
-                        break;
-                    case SaveAction.ShowPage:
-                        return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
+                    var isUpdated = this.Model.EditUserProfile(viewModel);
+                    if (!isUpdated)
+                    {
+                        return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+                    }
+
+                    switch (this.Model.SaveChangesAction)
+                    {
+                        case SaveAction.SwitchToReadMode:
+                            return this.ReadProfile();
+                        case SaveAction.ShowMessage:
+                            viewModel.ShowProfileChangedMsg = true;
+                            break;
+                        case SaveAction.ShowPage:
+                            return this.Redirect(this.Model.GetPageUrl(this.Model.ProfileSavedPageId));
+                    }
+                }
+                catch (ProviderException ex)
+                {
+                    this.ViewBag.ErrorMessage = ex.Message;
+                }
+                catch (Exception)
+                {
+                    this.ViewBag.ErrorMessage = Res.Get<ProfileResources>().ChangePasswordGeneralErrorMessage;
                 }
             }
 
             this.ViewBag.HasPasswordErrors = !this.ModelState.IsValidField("OldPassword") ||
                                              !this.ModelState.IsValidField("NewPassword") ||
-                                             !this.ModelState.IsValidField("RepeatPassword");
+                                             !this.ModelState.IsValidField("RepeatPassword") ||
+                                             !string.IsNullOrEmpty(this.ViewBag.ErrorMessage);
 
             var fullTemplateName = ProfileController.EditModeTemplatePrefix + this.EditModeTemplateName;
             return this.View(fullTemplateName, viewModel);

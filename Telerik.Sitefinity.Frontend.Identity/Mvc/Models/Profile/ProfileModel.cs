@@ -165,22 +165,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
             var userProfileManager = UserProfileManager.GetManager(this.ProfileProvider);
 
-            try
-            {
-                this.EditProfileProperties(model.Profile, userProfileManager);
+            this.EditProfileProperties(model.Profile, userProfileManager);
 
-                this.EditPassword(model);
+            this.EditPassword(model);
 
-                this.EditAvatar(model, userProfileManager);
+            this.EditAvatar(model, userProfileManager);
 
-                userProfileManager.SaveChanges();
+            userProfileManager.SaveChanges();
 
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         /// <summary>
