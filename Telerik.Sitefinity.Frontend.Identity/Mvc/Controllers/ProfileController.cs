@@ -144,14 +144,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
 
             if (ModelState.IsValid)
             {
-                if (!this.Model.CanEdit())
-                {
-                    return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
-                }
-
                 try
                 {
-                    this.Model.EditUserProfile(viewModel);
+                    var isUpdated = this.Model.EditUserProfile(viewModel);
+                    if (!isUpdated)
+                    {
+                        return this.Content(Res.Get<ProfileResources>().EditNotAllowed);
+                    }
 
                     switch (this.Model.SaveChangesAction)
                     {

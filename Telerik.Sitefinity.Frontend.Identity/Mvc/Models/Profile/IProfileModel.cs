@@ -100,7 +100,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Edits the user profile.
         /// </summary>
         /// <param name="profileProperties">The profile properties.</param>
-        void EditUserProfile(ProfileEditViewModel model);
+        bool EditUserProfile(ProfileEditViewModel model);
 
         /// <summary>
         /// Gets the page URL.
