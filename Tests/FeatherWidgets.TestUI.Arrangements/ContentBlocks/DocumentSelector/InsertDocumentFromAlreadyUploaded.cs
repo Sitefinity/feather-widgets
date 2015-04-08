@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteLibraries(false, "Document");
+            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithDocument";
