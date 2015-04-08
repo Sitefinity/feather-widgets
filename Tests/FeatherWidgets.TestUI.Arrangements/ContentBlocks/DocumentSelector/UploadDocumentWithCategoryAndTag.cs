@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.Libraries().DeleteLibraries(false, "Document");
+            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
             ServerOperations.Taxonomies().ClearAllCategories(TaxonomiesConstants.CategoriesTaxonomyId);
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
         }
