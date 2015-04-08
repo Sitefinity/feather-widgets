@@ -156,31 +156,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
         /// Edits the user profile.
         /// </summary>
         /// <param name="profileProperties">The profile properties.</param>
-        public bool EditUserProfile(ProfileEditViewModel model)
+        public void EditUserProfile(ProfileEditViewModel model)
         {
-            if (!this.CanEdit())
-            {
-                return false;
-            }
-
             var userProfileManager = UserProfileManager.GetManager(this.ProfileProvider);
 
-            try
-            {
-                this.EditProfileProperties(model.Profile, userProfileManager);
+            this.EditProfileProperties(model.Profile, userProfileManager);
 
-                this.EditPassword(model);
+            this.EditPassword(model);
 
-                this.EditAvatar(model, userProfileManager);
+            this.EditAvatar(model, userProfileManager);
 
-                userProfileManager.SaveChanges();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            userProfileManager.SaveChanges();
         }
 
         /// <summary>

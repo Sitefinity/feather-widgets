@@ -52,9 +52,9 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
             }
         }
 
-        public bool EditUserProfile(ProfileEditViewModel model)
+        public void EditUserProfile(ProfileEditViewModel model)
         {
-            return true;
+            // Do nothing.
         }
 
         public Guid GetUserId()
