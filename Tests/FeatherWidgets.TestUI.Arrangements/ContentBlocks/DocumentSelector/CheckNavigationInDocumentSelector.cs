@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Users().DeleteUserAndProfile("administrator");
-            ServerOperations.Libraries().DeleteLibraries(false, "Document");
+            ServerOperations.Libraries().DeleteAllDocumentLibrariesExceptDefaultOne();
         }
 
         private const string PageName = "PageWithDocument";
