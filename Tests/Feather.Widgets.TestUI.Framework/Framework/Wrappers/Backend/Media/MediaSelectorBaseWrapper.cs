@@ -243,6 +243,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             {
                 divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaDocFileDivs.Count;
             }
+
             return expectedCount == divsCount;
         }
 

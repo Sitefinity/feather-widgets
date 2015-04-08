@@ -82,7 +82,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
-
         /// <summary>
         /// Gets More options div.
         /// </summary>
