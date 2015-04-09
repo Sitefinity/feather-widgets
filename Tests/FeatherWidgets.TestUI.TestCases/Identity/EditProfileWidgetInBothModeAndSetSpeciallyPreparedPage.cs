@@ -29,27 +29,27 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(UserPassword);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
 
-            ////BAT.Macros().NavigateTo().Pages();
-            ////BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(ProfilePage);           
-            ////BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            ////BATFeather.Wrappers().Backend().Identity().ProfileWrapper().SwitchToBothMode();
-            ////BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            ////BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(ProfilePage);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Identity().ProfileWrapper().SwitchToBothMode();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            ////BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + ProfilePage.ToLower(), false);
 
-            ////BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyUserFirstAndLastName(NewUserFirstAndLastName);
-            ////BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyUserEmailAddress(NewUserEmail);
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyUserFirstAndLastName(NewUserFirstAndLastName);
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyUserEmailAddress(NewUserEmail);
 
-            ////BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickEditProfileLink();
-            ////BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillFirstName(UserFirstNameEdited);
-            ////BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
-            ////BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickEditProfileLink();
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillFirstName(UserFirstNameEdited);
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(ProfilePage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Identity().ProfileWrapper().SelectSpeciallyPreparedPage();
+            BATFeather.Wrappers().Backend().Identity().ProfileWrapper().SelectDisplayModeWhenChangesAreSaved("Open a specially prepared page...");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(SpeciallPage);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
@@ -61,6 +61,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickEditProfileLink();
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().FillLastName(UserLastNameEdited);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
+            BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockText);
+            Assert.IsTrue(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(ContentBlockText), "Page not found");
         }
 
         /// <summary>
@@ -68,7 +70,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// </summary>
         protected override void ServerSetup()
         {
-            ////BAT.Arrange(this.TestName).ExecuteSetUp();
+           BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -76,7 +78,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// </summary>
         protected override void ServerCleanup()
         {
-            ////BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string ProfilePage = "ProfilePage";
@@ -89,5 +91,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string UserLastNameEdited = "Last name Edited";
         private const string LoginPage = "Sitefinity";
         private const string SpeciallPage = "SpeciallPage";
+        private const string ContentBlockText = "Specially prepared page";
     }
 }

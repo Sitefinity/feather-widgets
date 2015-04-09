@@ -40,15 +40,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity
         }
 
         /// <summary>
-        /// Select specially prepared page
+        /// Selects profile widget display mode in the widget designer
         /// </summary>
-        public void SelectSpeciallyPreparedPage()
+        /// <param name="mode">Profile display mode</param>
+        public void SelectDisplayModeWhenChangesAreSaved(string mode)
         {
-            HtmlInputRadioButton speciallyPreparedPage = EM.Identity.ProfileEditScreen.OpenSpeciallyPreparedPage
-            .AssertIsPresent("Specially prepared page button");
-            speciallyPreparedPage.Click();
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncJQueryRequests();
+            HtmlDiv optionsDiv = EM.Identity.ProfileEditScreen.WhenChangesAreSavedDiv 
+                .AssertIsPresent("Profile div");
+
+            List<HtmlDiv> profileDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
+
+            foreach (var div in profileDivs)
+            {
+                if (div.InnerText.Contains(mode))
+                {
+                    HtmlInputRadioButton optionButton = div.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "type=radio");
+
+                    if (optionButton != null && optionButton.IsVisible())
+                    {
+                        optionButton.Click();
+                    }
+                }
+            }         
         }
     }
 }

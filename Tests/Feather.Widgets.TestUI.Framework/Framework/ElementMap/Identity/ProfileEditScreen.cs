@@ -48,11 +48,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
         /// <summary>
         /// Gets open specially prepared page button.
         /// </summary>
-        public HtmlInputRadioButton OpenSpeciallyPreparedPage
+        public HtmlDiv WhenChangesAreSavedDiv
         {
             get
             {
-                return this.Get<HtmlInputRadioButton>("tagname=input", "InnerText=Open a specially prepared page...");
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=~When the changes are saved...");
             }
         }
     }
