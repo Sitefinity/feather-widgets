@@ -178,7 +178,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <summary>
         /// Confirms the document selection in image widget.
         /// </summary>
-        public void ConfirmMediaFileSelectionInAWidget()
+        public void ConfirmMediaFileSelectionInWidget()
         {
             var doneBtn = this.EM.Media.MediaSelectorScreen.DoneButtonInMediaWidget.AssertIsPresent("Done button");
 
@@ -243,6 +243,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             {
                 divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaDocFileDivs.Count;
             }
+
             return expectedCount == divsCount;
         }
 

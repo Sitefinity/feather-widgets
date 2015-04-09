@@ -76,6 +76,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verifies the document.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyDocumentFromWidget(string title, string href)
+        {
+            HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + title)
+                .AssertIsPresent("document");
+
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+        }
+
+        /// <summary>
+        /// Verify css class of div element containing document
+        /// </summary>
+        /// <param name="cssClass">css class</param>
+        /// <param name="title">The title.</param>
+        public void VerifyDocumentCssClass(string cssClass, string title)
+        {
+            HtmlDiv documentDiv = this.ActiveBrowser.Find.ByExpression<HtmlDiv>("class=" + cssClass);
+            documentDiv.AssertIsNotNull("div is not found");
+
+            documentDiv.Find.ByExpression<HtmlAnchor>("innertext=" + title).AssertIsNotNull("document is not found");
+        }
+
+        /// <summary>
         /// Gets the image source.
         /// </summary>
         /// <param name="isBaseUrlIncluded">The is base URL included.</param>

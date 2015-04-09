@@ -95,7 +95,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <summary>
         /// Confirms the image properties in image widget.
         /// </summary>
-        public void ConfirmImagePropertiesInImageWidget()
+        public void ConfirmMediaPropertiesInWidget()
         {
             HtmlButton saveBtn = this.EM.Media.MediaPropertiesBaseScreen.SaveButtonInMediaWidget.AssertIsPresent("Done button");
 
