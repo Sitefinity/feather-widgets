@@ -26,5 +26,42 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
+
+        /// <summary>
+        /// Switch to Both mode only
+        /// </summary>
+        public void SwitchToBothMode()
+        {
+            HtmlInputRadioButton bothMode = EM.Identity.ProfileEditScreen.BothReadModeCanBeEditedMode
+            .AssertIsPresent("Both mode only button");
+            bothMode.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
+
+        /// <summary>
+        /// Selects profile widget display mode in the widget designer
+        /// </summary>
+        /// <param name="mode">Profile display mode</param>
+        public void SelectDisplayModeWhenChangesAreSaved(string mode)
+        {
+            HtmlDiv optionsDiv = EM.Identity.ProfileEditScreen.WhenChangesAreSavedDiv 
+                .AssertIsPresent("Profile div");
+
+            List<HtmlDiv> profileDivs = optionsDiv.Find.AllByExpression<HtmlDiv>("tagname=div", "class=radio").ToList<HtmlDiv>();
+
+            foreach (var div in profileDivs)
+            {
+                if (div.InnerText.Contains(mode))
+                {
+                    HtmlInputRadioButton optionButton = div.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "type=radio");
+
+                    if (optionButton != null && optionButton.IsVisible())
+                    {
+                        optionButton.Click();
+                    }
+                }
+            }         
+        }
     }
 }

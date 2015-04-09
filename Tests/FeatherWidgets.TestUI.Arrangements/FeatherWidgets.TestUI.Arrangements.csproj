@@ -179,6 +179,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AddAndChangeUserAvatarInProfileWidget.cs" />
     <Compile Include="Identity\DragAndDropProfileWidgetAndSetReadMode.cs" />
+    <Compile Include="Identity\EditProfileWidgetInBothModeAndSetSpeciallyPreparedPage.cs" />
     <Compile Include="Identity\LoginAndVerifyUserStatusOnTheSamePage.cs" />
     <Compile Include="Identity\LoginFormAddChangeRemoveRedirectToPageAfterLogin.cs" />
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs">
