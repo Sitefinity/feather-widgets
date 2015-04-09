@@ -1,6 +1,6 @@
 ﻿using System;
 using Feather.Widgets.TestUI.Framework;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
@@ -25,12 +25,12 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectRadioButtonOption(ImageGalleryRadioButtonIds.currentlyOpenLibrary);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.currentlyOpenLibrary);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInSortingSelector("Title ASC");
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInThumbnailSelector("Small: 240 px width");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInSortingSelector("Title ASC");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInThumbnailSelector("Small: 240 px width");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInImageSelector("Thumbnail: 120x120 px cropped");                  
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInThumbnailSelector("Thumbnail: 120x120 px cropped", false);                  
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfImagesOnBackend(ImageAltText + 1, ImageAltText + 2, ImageAltText + 3);
             for (int k = 0; k <= 2; k++)

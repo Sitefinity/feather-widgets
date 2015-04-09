@@ -1,6 +1,6 @@
 ﻿using System;
 using Feather.Widgets.TestUI.Framework;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
@@ -25,18 +25,18 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.allPublished);
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().ExpandNarrowSelectionByArrow();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.allItems);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.allPublished);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ExpandNarrowSelectionByArrow();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.allItems);
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.usePaging);
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectRadioButtonOption(ImageGalleryRadioButtonIds.useLimit);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.usePaging);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.useLimit);
 
             //// Can't find way to persist values and because of that the following line is commented
-            //// BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().ChangePagingOrLimitValue("2", "Limit");
+            //// BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ChangePagingOrLimitValue("2", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.samePage);           
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.samePage);           
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             foreach (var image in this.imageTitles)
             {

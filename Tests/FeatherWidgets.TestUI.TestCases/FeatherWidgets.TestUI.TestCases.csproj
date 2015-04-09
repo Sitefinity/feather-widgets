@@ -134,6 +134,7 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
+    <Compile Include="DocumentList\SelectAllPublishedDocuments.cs" />
     <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
     <Compile Include="DynamicWidgets\EditDeleteTagAndEditDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />

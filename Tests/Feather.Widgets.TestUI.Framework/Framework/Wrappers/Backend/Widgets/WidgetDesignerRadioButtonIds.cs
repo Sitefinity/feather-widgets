@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery
+namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets
 {
-    public enum ImageGalleryRadioButtonIds
+    public enum WidgetDesignerRadioButtonIds
     {
         allPublished,
         selectedLibrariesOnly,
