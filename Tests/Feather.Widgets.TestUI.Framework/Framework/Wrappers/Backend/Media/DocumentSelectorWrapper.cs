@@ -71,7 +71,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlDiv holder = this.EM.Media.MediaSelectorScreen.MediaSelectorThumbnailHolderDiv.AssertIsPresent("holder");
             foreach (var doc in documentTitles)
             {
-                holder.Find.ByExpression<HtmlImage>("tagName=div", "class=Media-item-title ng-binding", "innertext=" + doc).AssertIsPresent(doc);
+                holder.Find.ByExpression<HtmlDiv>("tagName=div", "class=Media-item-title ng-binding", "innertext=" + doc).AssertIsPresent(doc);
             }          
         }
     }

@@ -97,6 +97,22 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
         }
 
         /// <summary>
+        /// Word: Search input
+        /// </summary>
+        /// <value>Search input</value>
+        [ResourceEntry("SearchInput",
+            Value = "Search input",
+            Description = "Word: Search",
+            LastModified = "2015/07/04")]
+        public string SearchInput
+        {
+            get
+            {
+                return this["SearchInput"];
+            }
+        }
+
+        /// <summary>
         /// Phrase: Where to search?
         /// </summary>
         /// <value>Where to search?</value>

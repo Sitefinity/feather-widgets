@@ -7,7 +7,7 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
+namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
 {
     /// <summary>
     /// This is a test class for content block > document selector tests
@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ImageSelector),
+        TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void InsertDocumentFromAlreadyUploaded()
@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyNoDocumentsEmptyScreen();
             BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().PressCancelButton();
 
-            // Uploading image after epmty screen is verified.
+            // Uploading document after epmty screen is verified.
             string documentId = BAT.Arrange(this.TestName).ExecuteArrangement("UploadDocument").Result.Values["documentId"];
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();

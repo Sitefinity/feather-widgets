@@ -71,9 +71,9 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string LinkSelector = "LinkSelector";
 
         /// <summary>
-        /// ImageSelector category for ImageSelector tests
+        /// MediaSelector category for MediaSelector tests
         /// </summary>
-        public const string ImageSelector = "ImageSelector";
+        public const string MediaSelector = "MediaSelector";
 
         /// <summary>
         /// ImageGallery category for ImageGallery tests
