@@ -42,5 +42,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             icon.Find.ByExpression<HtmlSpan>("class=~icon-txt", "innertext=" + type)
                 .AssertIsPresent("type");
         }
+
+        /// <summary>
+        /// Verifies the template dropdown in widget.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        public void VerifyTemplateDropdownValueInWidget()
+        {
+            HtmlSelect templateDropdown = ActiveBrowser.Find.ByExpression<HtmlSelect>("ng-model=properties.TemplateName.PropertyValue", "id=templateName")
+                .AssertIsPresent("template");
+            Assert.IsTrue(templateDropdown.SelectedOption.Text.Equals("DocumentLink"));
+        }
+
+        /// <summary>
+        /// Apply css class
+        /// </summary>
+        /// <param name="cssClassName">css class name</param>
+        public void ApplyCssClasses(string cssClassName)
+        {
+            HtmlSpan moreOptions = this.EM.Media.MediaPropertiesBaseScreen.MoreOptionsSpan.AssertIsPresent("More options span");
+            moreOptions.Click();
+            HtmlInputText cssClassesTextbox = this.EM.Media.MediaPropertiesBaseScreen.CssClassesTextbox.AssertIsPresent("Css classes textbox");
+            cssClassesTextbox.Text = cssClassName;
+            cssClassesTextbox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
     }
 }

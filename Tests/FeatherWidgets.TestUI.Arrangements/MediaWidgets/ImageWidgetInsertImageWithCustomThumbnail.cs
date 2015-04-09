@@ -8,7 +8,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// EImageWidgetInsertImageWithCustomThumbnail arrangement class.
+    /// ImageWidgetInsertImageWithCustomThumbnail arrangement class.
     /// </summary>
     public class ImageWidgetInsertImageWithCustomThumbnail : ITestArrangement
     {
