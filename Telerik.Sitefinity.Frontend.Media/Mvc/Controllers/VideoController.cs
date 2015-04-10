@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Web.Mvc;
-using Telerik.Sitefinity.ContentLocations;
-using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document;
-using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 {
@@ -21,11 +12,50 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     [ControllerToolboxItem(Name = "Video", Title = "Video", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = VideoController.WidgetIconCssClass)]
     public class VideoController : Controller
     {
-        public ActionResult Index()
+        #region Properties
+
+        /// <summary>
+        /// Gets the model.
+        /// </summary>
+        /// <value>
+        /// The model.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public virtual IVideoModel Model
         {
-            return this.View();
+            get
+            {
+                if (this.model == null)
+                    this.model = ControllerModelFactory.GetModel<IVideoModel>(this.GetType());
+
+                return this.model;
+            }
         }
 
+        #endregion
+
+        #region Public methods
+
+        /// <summary>
+        /// Renders the Index view.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult Index()
+        {
+            var viewModel = this.Model.GetViewModel();
+
+            return View("Index", viewModel);
+        }
+
+        #endregion
+        
+        #region Private fields and constants
+
+        private IVideoModel model;
         private const string WidgetIconCssClass = "sfVideoIcn";
+        
+        #endregion
     }
 }
