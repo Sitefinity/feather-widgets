@@ -171,6 +171,9 @@
     <Compile Include="Mvc\Models\ImageGallery\ThumbnailViewModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageSizeModel.cs" />
     <Compile Include="Mvc\Models\Image\ThumbnailModel.cs" />
+    <Compile Include="Mvc\Models\Video\IVideoModel.cs" />
+    <Compile Include="Mvc\Models\Video\VideoModel.cs" />
+    <Compile Include="Mvc\Models\Video\VideoViewModel.cs" />
     <Compile Include="Mvc\StringResources\DocumentsListResources.cs" />
     <Compile Include="Mvc\StringResources\DocumentResources.cs" />
     <Compile Include="Mvc\StringResources\ImageGalleryResources.cs" />
