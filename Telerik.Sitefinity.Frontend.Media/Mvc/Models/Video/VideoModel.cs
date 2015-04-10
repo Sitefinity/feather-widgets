@@ -11,6 +11,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
     public class VideoModel: IVideoModel
     {
         /// <inheritdoc />
+        public Guid Id { get; set; }
+
+        /// <inheritdoc />
         public VideoViewModel GetViewModel()
         {
             throw new NotImplementedException();

@@ -12,6 +12,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
     public interface IVideoModel
     {
         /// <summary>
+        /// Gets or sets the Id  of the selected <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        Guid Id { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns></returns>

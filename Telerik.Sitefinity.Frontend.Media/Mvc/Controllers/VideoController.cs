@@ -1,8 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 {
@@ -10,7 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Video widget.
     /// </summary>
     [ControllerToolboxItem(Name = "Video", Title = "Video", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = VideoController.WidgetIconCssClass)]
-    public class VideoController : Controller
+    public class VideoController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
 
@@ -31,6 +33,51 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 return this.model;
             }
         }
+        
+        /// <summary>
+        /// Gets the widget CSS class.
+        /// </summary>
+        /// <value>
+        /// The widget CSS class.
+        /// </value>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get
+            {
+                return VideoController.WidgetIconCssClass;
+            }
+        }
+
+        /// <summary>
+        /// Gets the empty link text.
+        /// </summary>
+        /// <value>
+        /// The empty link text.
+        /// </value>
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get
+            {
+                return "Select a video or other file";
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether widget is empty.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if widget has no video selected; otherwise, <c>false</c>.
+        /// </value>
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get
+            {
+                return (this.Model.Id == Guid.Empty);
+            }
+        }
 
         #endregion
 
@@ -46,7 +93,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            return View("Index", viewModel);
+            if (!this.IsEmpty)
+                return Content("A video was not selected or has been deleted. Please select another one.");
+            else if (this.Model.Id != Guid.Empty)
+                return View("Index", viewModel);
+            else
+                return new EmptyResult();
         }
 
         #endregion
