@@ -27,7 +27,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         #region Public methods
 
         /// <inheritdoc />
-        public VideoViewModel GetViewModel()
+        public virtual VideoViewModel GetViewModel()
         {
             var viewModel = new VideoViewModel();
             viewModel.CssClass = this.CssClass;
