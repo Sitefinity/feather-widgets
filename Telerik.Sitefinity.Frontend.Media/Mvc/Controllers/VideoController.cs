@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
@@ -79,6 +80,28 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets whether the page is in design mode.
+        /// </summary>
+        protected virtual bool IsDesignMode
+        {
+            get
+            {
+                return SystemManager.IsDesignMode;
+            }
+        }
+
+        /// <summary>
+        /// Gets whether the page is in inline editing mode.
+        /// </summary>
+        protected virtual bool IsInlineEditingMode
+        {
+            get
+            {
+                return SystemManager.IsInlineEditingMode;
+            }
+        }
+
         #endregion
 
         #region Public methods
@@ -93,7 +116,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            if (!this.IsEmpty)
+            if (viewModel.HasSelectedVideo && !this.IsEmpty && this.IsDesignMode && !this.IsInlineEditingMode)
                 return Content("A video was not selected or has been deleted. Please select another one.");
             else if (this.Model.Id != Guid.Empty)
                 return View("Index", viewModel);

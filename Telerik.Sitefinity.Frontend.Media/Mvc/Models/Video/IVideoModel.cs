@@ -20,6 +20,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         Guid Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the provider.
+        /// </summary>
+        /// <value>
+        /// The name of the provider.
+        /// </value>
+        string ProviderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the css class.
+        /// </summary>
+        /// <value>
+        /// The css class.
+        /// </value>
+        string CssClass { get; set; }
+
+        /// <summary>
         /// Gets the view model.
         /// </summary>
         /// <returns></returns>
