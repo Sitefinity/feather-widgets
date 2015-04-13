@@ -20,6 +20,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         public string ProviderName { get; set; }
 
         /// <inheritdoc />
+        public string AspectRatio { get; set; }
+
+        /// <inheritdoc />
         public string CssClass { get; set; }
 
         #endregion

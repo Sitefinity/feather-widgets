@@ -28,6 +28,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         string ProviderName { get; set; }
 
         /// <summary>
+        /// Gets or sets the ascpect ration of the selected <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The aspect ratio.
+        /// </value>
+        string AspectRatio { get; set; }
+
+        /// <summary>
         /// Gets or sets the css class.
         /// </summary>
         /// <value>
