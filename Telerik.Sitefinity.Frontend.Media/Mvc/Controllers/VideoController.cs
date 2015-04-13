@@ -102,12 +102,29 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the template that widget will be displayed.
+        /// </summary>
+        /// <value></value>
+        public string TemplateName
+        {
+            get
+            {
+                return this.templateName;
+            }
+
+            set
+            {
+                this.templateName = value;
+            }
+        }
+
         #endregion
 
         #region Public methods
 
         /// <summary>
-        /// Renders the Index view.
+        /// Renders appropriate view depending on the <see cref="TemplateName" />
         /// </summary>
         /// <returns>
         /// The <see cref="ActionResult" />.
@@ -119,7 +136,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             if (viewModel.HasSelectedVideo && !this.IsEmpty && this.IsDesignMode && !this.IsInlineEditingMode)
                 return Content("A video was not selected or has been deleted. Please select another one.");
             else if (this.Model.Id != Guid.Empty)
-                return View("Index", viewModel);
+                return View(this.TemplateName, viewModel);
             else
                 return new EmptyResult();
         }
@@ -130,6 +147,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         private IVideoModel model;
         private const string WidgetIconCssClass = "sfVideoIcn";
+        private string templateName = "Video.Index";
         
         #endregion
     }

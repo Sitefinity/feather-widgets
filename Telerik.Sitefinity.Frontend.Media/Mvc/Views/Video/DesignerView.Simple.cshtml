@@ -21,3 +21,19 @@
         </div>
     </div>
 </div>
+
+<form name="videoProperties">
+    <div class="form-group">
+        <label for="templateName">@Html.Resource("Template")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames("Video", @"Video\.(?<viewName>[\w\s]*)$")) 
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
