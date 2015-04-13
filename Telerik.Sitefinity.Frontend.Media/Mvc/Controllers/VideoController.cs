@@ -2,7 +2,10 @@
 using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video;
+using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
@@ -12,6 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Video widget.
     /// </summary>
+    [Localization(typeof(VideoResources))]
     [ControllerToolboxItem(Name = "Video", Title = "Video", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = VideoController.WidgetIconCssClass)]
     public class VideoController : Controller, ICustomWidgetVisualizationExtended
     {
@@ -61,7 +65,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             get
             {
-                return "Select a video or other file";
+                return Res.Get<VideoResources>().SelectVideo; 
             }
         }
 
@@ -134,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             var viewModel = this.Model.GetViewModel();
 
             if (viewModel.HasSelectedVideo && !this.IsEmpty && this.IsDesignMode && !this.IsInlineEditingMode)
-                return Content("A video was not selected or has been deleted. Please select another one.");
+                return Content(Res.Get<VideoResources>().VideoWasNotSelectedOrHasBeenDeleted);
             else if (this.Model.Id != Guid.Empty)
                 return View(this.TemplateName, viewModel);
             else
