@@ -8,19 +8,10 @@
                 sf-media-type="videos"
                 sf-provider="properties.ProviderName.PropertyValue"></sf-media-field>
 
-<div class="form-group">
-    <div class="row">
-        <div class="col-xs-6">
-        <label>@(Res.Get<ClientComponentsResources>().AspectRatio)</label>
-            <select class="form-control" ng-model="properties.AspectRatio.PropertyValue">
-                <option value="auto">@(Res.Get<ClientComponentsResources>().Auto)</option>
-                <option value="4x3">@(Res.Get<ClientComponentsResources>().Ratio4X3)</option>
-                <option value="16x9">@(Res.Get<ClientComponentsResources>().Ratio16X9)</option>
-                <option value="custom">@(Res.Get<ClientComponentsResources>().Custom)</option>
-            </select>
-        </div>
-    </div>
-</div>
+<div sf-aspect-ratio-selection 
+    sf-ratio="properties.AspectRatio.PropertyValue"
+    sf-width="properties.Width.PropertyValue" 
+    sf-height="properties.Height.PropertyValue"></div>
 
 <form name="videoProperties">
     <div class="form-group">

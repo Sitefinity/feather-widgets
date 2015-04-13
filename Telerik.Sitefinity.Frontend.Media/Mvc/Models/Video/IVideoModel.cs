@@ -36,6 +36,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         string AspectRatio { get; set; }
 
         /// <summary>
+        /// Gets or sets the width of the <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The width.
+        /// </value>
+        int Width { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height of the <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
+        int Height { get; set; }
+
+        /// <summary>
         /// Gets or sets the css class.
         /// </summary>
         /// <value>
