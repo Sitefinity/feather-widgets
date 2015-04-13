@@ -38,5 +38,10 @@
     </div>
 
     <expander expander-title='@Html.Resource("MoreOptions")'>
+        <div class="form-group">
+            <label for="imageCssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="imageCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
     </expander>
 </form>
