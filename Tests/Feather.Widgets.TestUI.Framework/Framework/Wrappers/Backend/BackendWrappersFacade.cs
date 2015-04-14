@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.WidgetTemplates;
@@ -105,15 +104,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public IdentityWrapperFacade Identity()
         {
             return new IdentityWrapperFacade();
-        }
-
-        /// <summary>
-        /// Images the gallery.
-        /// </summary>
-        /// <returns></returns>
-        public ImageGalleryWrapperFacade ImageGallery()
-        {
-            return new ImageGalleryWrapperFacade();
         }
     }
 }
