@@ -99,5 +99,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
                 return this.Get<HtmlSpan>("TagName=span", "InnerText=Incorrect Username/Password Combination");
             }
         }
+
+        /// <summary>
+        /// Register now.
+        /// </summary>
+        public HtmlAnchor RegisterNow
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("TagName=a", "InnerText=Register now");
+            }
+        }
     }
 }
