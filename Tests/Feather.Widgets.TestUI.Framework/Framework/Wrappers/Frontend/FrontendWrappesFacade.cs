@@ -88,5 +88,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         {
             return new ImageGalleryWrapperFacade();
         }
+
+        /// <summary>
+        /// Documents the list.
+        /// </summary>
+        /// <returns></returns>
+        public DocumentListWrapperFacade DocumentList()
+        {
+            return new DocumentListWrapperFacade();
+        }
     }
 }

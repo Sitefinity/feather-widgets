@@ -193,5 +193,52 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Find.AllByExpression<HtmlDiv>("ng-repeat=item in sfSelectedItems | limitTo:5");
             }
         }
+
+        /// <summary>
+        /// Gets the narro selection by arrow.
+        /// </summary>
+        /// <value>The narrow selection by arrow.</value>
+        public HtmlSpan NarrowSelectionByArrow
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("tagName=span", "ng-click=toggle()", "innertext=~Narrow selection by...");
+            }
+        }
+
+        /// <summary>
+        /// Gets the sort images selector.
+        /// </summary>
+        /// <value>The sort images selector.</value>
+        public HtmlSelect SortImagesSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagName=select", "ng-model=selectedSortOption");
+            }
+        }
+
+        /// <summary>
+        /// Gets the list template selector.
+        /// </summary>
+        /// <value>The list template selector.</value>
+        public HtmlSelect ListTemplateSelector
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagName=select", "ng-model=properties.ListTemplateName.PropertyValue");
+            }
+        }
+
+        /// <summary>
+        /// Gets the image thumbnail selector.
+        /// </summary>
+        public ICollection<HtmlSelect> ThumbnailSelector
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlSelect>("tagName=select", "ng-model=sizeSelection");
+            }
+        }
     }
 }
