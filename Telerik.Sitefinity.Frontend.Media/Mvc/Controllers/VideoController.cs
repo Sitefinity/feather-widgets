@@ -151,7 +151,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         private IVideoModel model;
         private const string WidgetIconCssClass = "sfVideoIcn";
-        private string templateName = "Video.Index";
+        private string templateName = "Video";
         
         #endregion
     }

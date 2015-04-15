@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-xs-6">
                 <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                    @foreach (var viewName in Html.GetViewNames("Video", @"Video\.(?<viewName>[\w\s]*)$")) 
+                    @foreach (var viewName in Html.GetViewNames("Video", @"(?<viewName>^Video.*)$")) 
                     {
                         <option value="@viewName">@viewName</option>
                     }

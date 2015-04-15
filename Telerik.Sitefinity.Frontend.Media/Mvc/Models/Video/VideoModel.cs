@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules.Libraries;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
@@ -56,6 +57,19 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
                 viewModel.FileSize = (long)Math.Ceiling(videoItem.TotalSize / 1024d);
                 viewModel.Extension = videoItem.Extension.Length > 0 ? videoItem.Extension.Remove(0, 1) : string.Empty;
                 viewModel.HasSelectedVideo = true;
+                viewModel.AspectRatio = this.AspectRatio;
+                viewModel.Item = new ItemViewModel(videoItem);
+
+                if (this.AspectRatio == "auto")
+                {
+                    viewModel.Width = videoItem.Width;
+                    viewModel.Height = videoItem.Height;
+                }
+                else
+                {
+                    viewModel.Width = this.Width;
+                    viewModel.Height = this.Height;
+                }
             }
 
             return viewModel;

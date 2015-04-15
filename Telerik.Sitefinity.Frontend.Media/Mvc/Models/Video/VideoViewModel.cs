@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
 {
@@ -10,6 +12,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
     /// </summary>
     public class VideoViewModel
     {
+        /// <summary>
+        /// Gets or sets the <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The item.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public ItemViewModel Item { get; set; }
+
         /// <summary>
         /// Gets or sets the applied css class.
         /// </summary>
@@ -47,5 +58,30 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         /// </summary>
         /// <value>The title.</value>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The width.
+        /// </value>
+        public int Width { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height of the <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
+        public int Height { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ascpect ration of the selected <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The aspect ratio.
+        /// </value>
+        public string AspectRatio { get; set; }
+
     }
 }
