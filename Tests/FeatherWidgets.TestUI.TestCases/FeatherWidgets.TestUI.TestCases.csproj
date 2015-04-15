@@ -134,7 +134,10 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
-    <Compile Include="DocumentList\SelectAllPublishedDocuments.cs" />
+    <Compile Include="DocumentsList\FilterDocumentsWithCategoryTagAndDateOnPage.cs" />
+    <Compile Include="DocumentsList\SelectAllPublishedDocuments.cs" />
+    <Compile Include="DocumentsList\SelectDocumentsFromSelectedLibraryInSelectedPage.cs" />
+    <Compile Include="DocumentsList\SelectSortedDocumentsInTableView.cs" />
     <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
     <Compile Include="DynamicWidgets\EditDeleteTagAndEditDynamicWidget.cs" />
     <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />

@@ -254,6 +254,22 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddDocumentsListWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(DocumentsListController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Documents list", placeholder);
+            }
+        }
+
         /// <summary>
         /// Deletes the pages.
         /// </summary>

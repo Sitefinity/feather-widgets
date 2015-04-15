@@ -93,7 +93,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Documents the list.
         /// </summary>
         /// <returns></returns>
-        public DocumentListWrapperFacade DocumentList()
+        public DocumentListWrapperFacade DocumentsList()
         {
             return new DocumentListWrapperFacade();
         }
