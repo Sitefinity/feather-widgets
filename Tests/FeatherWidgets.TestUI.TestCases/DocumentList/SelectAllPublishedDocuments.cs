@@ -54,7 +54,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             ActiveBrowser.WaitForUrl(this.GetDocumentHref(false, SelectedDocument, PageName + "/" + ContentType), true, 60000);
             BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().IsDocumentTitlePresentOnDetailMasterPage(SelectedDocument);
             BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifyDownloadButton(this.GetDocumentHref(true, SelectedDocument, ContentType));
-            BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifySizeAndExtension("(5 KB)", DocumentType);
+            BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifySizeAndExtension("5 KB", "(" + DocumentType + ")");
         }
 
         /// <summary>

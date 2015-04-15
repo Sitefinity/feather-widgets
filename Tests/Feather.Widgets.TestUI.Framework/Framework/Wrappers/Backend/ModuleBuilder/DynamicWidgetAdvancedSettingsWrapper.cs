@@ -20,7 +20,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ModuleBuil
             HtmlDiv dynamicFooter = EM.ModuleBuilder.DynamicWidgetAdvancedSettings.DynamicWidgetFooter
                 .AssertIsPresent("Footer");
 
-            HtmlAnchor advanceButton = dynamicFooter.Find.ByExpression<HtmlAnchor>("class=btn btn-default btn-xs m-top-xs ng-scope", "InnerText=Advanced")
+            HtmlAnchor advanceButton = dynamicFooter.Find.ByExpression<HtmlAnchor>("class=btn btn-default btn-xs m-top-xs designer-btn-PropertyGrid ng-scope", "InnerText=Advanced")
             .AssertIsPresent("Advance selecting button");
 
             advanceButton.Click();
