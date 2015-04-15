@@ -161,6 +161,7 @@
     <Compile Include="Identity\LoginFormAndLoginStatusOnTheSamePage.cs" />
     <Compile Include="Identity\LoginFormRedirectToPageAfterLogin.cs" />
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs" />
+    <Compile Include="Identity\RegisterNewUserAndLoginTheUser.cs" />
     <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithGalleryTemplate.cs" />
