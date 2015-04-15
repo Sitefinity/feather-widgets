@@ -4,8 +4,8 @@
 
         var changePasswordHolder = $('[data-sf-role=edit-profile-change-password-holder]');
 
-        if (!hasPasswordErrors && !changePasswordHolder.find('input').val()) {
-            changePasswordHolder.hide();
+        if (hasPasswordErrors || changePasswordHolder.find('input').val()) {
+            changePasswordHolder.show();
         }
 
         var editProfileUserImage = $('[data-sf-role=edit-profile-user-image]');
