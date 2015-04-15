@@ -26,5 +26,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncOperations();
         }
+
+        /// <summary>
+        /// Clicks the select button in registration page section.
+        /// </summary>
+        public void ClickSelectButtonForRegistrationPage()
+        {
+            var button = EM.Identity.LoginFormEditScreen.RegistrationPageSelectButton.AssertIsPresent("Select button");
+
+            button.Click();
+
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncOperations();
+        }
     }
 }
