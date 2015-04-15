@@ -1,0 +1,8 @@
+﻿@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video.VideoViewModel
+
+<div class="@Model.CssClass">
+    @if(!string.IsNullOrEmpty(Model.MediaUrl))
+    {
+        <video src="@Model.MediaUrl" class="@String.Concat("sf", Model.Extension)" width="@Model.Width" height="@Model.Height" controls="true"/>
+    }
+</div>
