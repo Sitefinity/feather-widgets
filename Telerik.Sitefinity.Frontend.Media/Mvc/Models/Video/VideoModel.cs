@@ -52,24 +52,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
                 if (videoItem == null)
                     return viewModel;
 
-                viewModel.MediaUrl = videoItem.ResolveMediaUrl();
-                viewModel.Title = videoItem.Title;
-                viewModel.FileSize = (long)Math.Ceiling(videoItem.TotalSize / 1024d);
-                viewModel.Extension = videoItem.Extension.Length > 0 ? videoItem.Extension.Remove(0, 1) : string.Empty;
                 viewModel.HasSelectedVideo = true;
                 viewModel.AspectRatio = this.AspectRatio;
+                viewModel.Width = this.Width;
+                viewModel.Height = this.Height;
                 viewModel.Item = new ItemViewModel(videoItem);
-
-                if (this.AspectRatio == "auto")
-                {
-                    viewModel.Width = videoItem.Width;
-                    viewModel.Height = videoItem.Height;
-                }
-                else
-                {
-                    viewModel.Width = this.Width;
-                    viewModel.Height = this.Height;
-                }
             }
 
             return viewModel;
