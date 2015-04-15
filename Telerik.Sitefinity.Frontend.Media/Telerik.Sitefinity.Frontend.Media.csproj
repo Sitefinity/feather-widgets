@@ -152,6 +152,7 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\DocumentsListController.cs" />
     <Compile Include="Mvc\Controllers\VideoController.cs" />
+    <Compile Include="Mvc\Helpers\MediaContentLocationHelper.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentDetailsViewModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentItemViewModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentsListModel.cs" />

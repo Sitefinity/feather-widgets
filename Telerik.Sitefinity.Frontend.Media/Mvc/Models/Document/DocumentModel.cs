@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Modules;
 using Telerik.Sitefinity.Modules.Libraries;
 using SfDocument = Telerik.Sitefinity.Libraries.Model.Document;
@@ -65,15 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
         /// <inheritdoc />
         public IEnumerable<IContentLocationInfo> GetLocations()
         {
-            var location = new ContentLocationInfo();
-            location.ContentType = typeof(SfDocument);
-            location.ProviderName = this.ProviderName;
-
-            var imageItem = LibrariesManager.GetManager(this.ProviderName).GetImage(this.Id);
-            var filterExpression = string.Format("(Id = {0} OR OriginalContentId = {1})", this.Id.ToString("D"), imageItem.OriginalContentId);
-            location.Filters.Add(new BasicContentLocationFilter(filterExpression));
-
-            return new[] { location };
+            return ContentLocationHelper.GetLocations(this.Id, this.ProviderName, typeof(SfDocument));
         }
         #endregion
 
