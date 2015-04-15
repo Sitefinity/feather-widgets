@@ -4,8 +4,9 @@
 
         var changePasswordHolder = $('[data-sf-role=edit-profile-change-password-holder]');
 
-        if (!hasPasswordErrors && !changePasswordHolder.find('input').val()) {
-            changePasswordHolder.hide();
+        if (hasPasswordErrors || changePasswordHolder.find('input').val()) {
+            changePasswordHolder.show();
+            $('[data-sf-role=edit-profile-change-password-button]').hide();
         }
 
         var editProfileUserImage = $('[data-sf-role=edit-profile-user-image]');
@@ -14,16 +15,9 @@
         $('[data-sf-role=edit-profile-change-password-button]').on('click', function (e) {
             e.preventDefault();
 
-            changePasswordHolder.toggle();
+            changePasswordHolder.show();
             $(this).hide();
         });
-
-        //$('[data-sf-role=edit-profile-delete-picture-button]').on('click', function (e) {
-        //    e.preventDefault();
-
-        //    editProfileUserImage.attr('src', $('[data-sf-role=edit-profile-default-avatar-url]').val()).hide();
-        //    $('[data-sf-role=edit-profile-delete-picture]').val(true);
-        //});
 
         fileInput.on('change', function (e) {
             if (e.target.files && e.target.files[0]) {

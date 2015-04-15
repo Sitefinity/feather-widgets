@@ -147,7 +147,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                            .AssertIsPresent("Footer");
 
             HtmlAnchor advanceButton = contentBlockFooter.Find
-                                                         .ByExpression<HtmlAnchor>("class=btn btn-default btn-xs m-top-xs ng-scope", "InnerText=Advanced")
+                                                         .ByExpression<HtmlAnchor>("class=btn btn-default btn-xs m-top-xs designer-btn-PropertyGrid ng-scope", "InnerText=Advanced")
                                                          .AssertIsPresent("Advance selecting button");
 
             advanceButton.Click();

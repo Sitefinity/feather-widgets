@@ -151,6 +151,8 @@
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\DocumentsListController.cs" />
+    <Compile Include="Mvc\Controllers\VideoController.cs" />
+    <Compile Include="Mvc\Helpers\MediaContentLocationHelper.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentDetailsViewModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentItemViewModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentsListModel.cs" />
@@ -170,6 +172,10 @@
     <Compile Include="Mvc\Models\ImageGallery\ThumbnailViewModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageSizeModel.cs" />
     <Compile Include="Mvc\Models\Image\ThumbnailModel.cs" />
+    <Compile Include="Mvc\Models\Video\IVideoModel.cs" />
+    <Compile Include="Mvc\Models\Video\VideoModel.cs" />
+    <Compile Include="Mvc\Models\Video\VideoViewModel.cs" />
+    <Compile Include="Mvc\StringResources\VideoResources.cs" />
     <Compile Include="Mvc\StringResources\DocumentsListResources.cs" />
     <Compile Include="Mvc\StringResources\DocumentResources.cs" />
     <Compile Include="Mvc\StringResources\ImageGalleryResources.cs" />
@@ -201,6 +207,9 @@
     <EmbeddedResource Include="Mvc\Views\Document\DocumentLink.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Document\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Document\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Video\Video.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Video\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Video\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +229,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Document\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Video\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

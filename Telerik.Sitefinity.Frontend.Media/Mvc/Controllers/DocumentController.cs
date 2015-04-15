@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -202,26 +203,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         #endregion
 
         #region Overriden methods
+
         /// <inheritDoc/>
         protected override void HandleUnknownAction(string actionName)
         {
-            string contentAction = HttpContext.Request.QueryString["sf-content-action"];
-
-            if (contentAction != null && contentAction == "preview")
-            {
-                var document = Telerik.Sitefinity.Modules.Libraries.LibrariesManager.GetManager(this.Model.ProviderName).GetDocuments().FirstOrDefault(i => i.Id == this.Model.Id);
-
-                if (document != null)
-                {
-                    var routeDataParams = this.HttpContext.Request.RequestContext.RouteData.Values["params"] as string[];
-
-                    if (routeDataParams != null && routeDataParams.Contains(document.UrlName.Value))
-                        Telerik.Sitefinity.Web.RouteHelper.SetUrlParametersResolved();
-                }
-            }
+            ContentLocationHelper.HandlePreview<Telerik.Sitefinity.Libraries.Model.Document>(HttpContext.Request, this.Model.Id, this.Model.ProviderName);
 
             this.Index().ExecuteResult(this.ControllerContext);
         }
+
         #endregion
 
         #region Private methods

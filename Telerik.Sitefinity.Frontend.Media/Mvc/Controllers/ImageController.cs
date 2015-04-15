@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -170,20 +171,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// <inheritDoc/>
         protected override void HandleUnknownAction(string actionName)
         {
-            string contentAction = HttpContext.Request.QueryString["sf-content-action"];
-            
-            if (contentAction != null && contentAction == "preview")
-            {
-                var image = Telerik.Sitefinity.Modules.Libraries.LibrariesManager.GetManager(this.Model.ProviderName).GetImages().FirstOrDefault(i => i.Id == this.Model.Id);
-
-                if (image != null)
-                {
-                    var routeDataParams = this.HttpContext.Request.RequestContext.RouteData.Values["params"] as string[];
-
-                    if (routeDataParams != null && routeDataParams.Contains(image.UrlName.Value))
-                        Telerik.Sitefinity.Web.RouteHelper.SetUrlParametersResolved();
-                }
-            }
+            ContentLocationHelper.HandlePreview<Telerik.Sitefinity.Libraries.Model.Image>(HttpContext.Request, this.Model.Id, this.Model.ProviderName);
 
             this.Index().ExecuteResult(this.ControllerContext);
         }
