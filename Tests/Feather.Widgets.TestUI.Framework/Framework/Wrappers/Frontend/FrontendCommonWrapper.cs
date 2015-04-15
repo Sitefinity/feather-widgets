@@ -63,6 +63,45 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verifies the document.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyDocument(string title, string href)
+        {
+            HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("title=" + title)
+                .AssertIsPresent("document");
+
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+        }
+
+        /// <summary>
+        /// Verifies the document.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyDocumentFromWidget(string title, string href)
+        {
+            HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + title)
+                .AssertIsPresent("document");
+
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+        }
+
+        /// <summary>
+        /// Verify css class of div element containing document
+        /// </summary>
+        /// <param name="cssClass">css class</param>
+        /// <param name="title">The title.</param>
+        public void VerifyDocumentCssClass(string cssClass, string title)
+        {
+            HtmlDiv documentDiv = this.ActiveBrowser.Find.ByExpression<HtmlDiv>("class=" + cssClass);
+            documentDiv.AssertIsNotNull("div is not found");
+
+            documentDiv.Find.ByExpression<HtmlAnchor>("innertext=" + title).AssertIsNotNull("document is not found");
+        }
+
+        /// <summary>
         /// Gets the image source.
         /// </summary>
         /// <param name="isBaseUrlIncluded">The is base URL included.</param>
@@ -70,7 +109,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="imageType">Type of the image.</param>
         /// <param name="baseUrl">The base URL.</param>
         /// <returns></returns>
-        public string GetImageSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl, string contentType = "images")
+        public string GetMediaSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl, string contentType = "images")
         {
             string providerUrl = "default-source";
 
@@ -92,7 +131,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="altText">Image alternative text</param>
         public void VerifyStyle(string style, string title, string altText)
         {
-            ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText, "style="+style).AssertIsPresent("image");
+            ActiveBrowser.Find.ByExpression<HtmlImage>("title=" + title, "alt=" + altText, "style=" + style).AssertIsPresent("image");
         }
 
         /// <summary>

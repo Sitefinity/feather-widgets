@@ -12,7 +12,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
     /// <summary>
     /// Provides access to ImagePropertiesScreen
     /// </summary>
-    public class ImagePropertiesScreen : HtmlElementContainer
+    public class ImagePropertiesScreen : MediaPropertiesBaseScreen
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ImagePropertiesScreen" /> class.
@@ -21,17 +21,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         public ImagePropertiesScreen(Find find)
             : base(find)
         {
-        }
-
-        /// <summary>
-        /// Gets the image title text field.
-        /// </summary>
-        public HtmlInputText ImageTitleField
-        {
-            get
-            {
-                return this.Get<HtmlInputText>("tagName=input", "name=title");
-            }
         }
 
         /// <summary>
@@ -101,46 +90,98 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
-        /// Gets the done button.
+        /// Gets the max width number.
         /// </summary>
-        /// <value>The done button.</value>
-        public HtmlButton DoneButton
+        /// <value>The max width number.</value>
+        public HtmlInputNumber MaxWidthNumber
         {
             get
             {
-                return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Done");
+                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=model.MaxWidth");
             }
         }
 
         /// <summary>
-        /// Gets the change image button.
+        /// Gets the max height number.
         /// </summary>
-        /// <value>The change image button.</value>
-        public HtmlButton ChangeImageButton
+        /// <value>The max height number.</value>
+        public HtmlInputNumber MaxHeightNumber
         {
             get
             {
-                return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Change image");
+                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=model.MaxHeight");
             }
         }
 
         /// <summary>
-        /// Gets the edit all properties button.
+        /// Gets the resize image selector.
         /// </summary>
-        /// <value>The edit all properties button.</value>
-        public HtmlButton EditAllPropertiesButton
+        /// <value>The resize image selector.</value>
+        public HtmlSelect ResizeImageSelector
         {
             get
             {
-                return this.ImagePropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Edit all properties");
+                return this.Get<HtmlSelect>("tagName=select", "ng-model=model.Method");
             }
         }
 
-        private HtmlDiv ImagePropertiesModalDialog
+        /// <summary>
+        /// Gets the quality selector.
+        /// </summary>
+        /// <value>The quality selector.</value>
+        public HtmlSelect QualitySelector
         {
             get
             {
-                return this.Get<HtmlDiv>("tagName=div", "class=~modal-dialog-1");
+                return this.Get<HtmlSelect>("tagName=select", "ng-model=model.Quality");
+            }
+        }
+
+        /// <summary>
+        /// Gets the max width is required message.
+        /// </summary>
+        /// <value>The max width is required message.</value>
+        public HtmlContainerControl WidthIsRequiredMessage
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("tagName=p", "InnerText=Max width is required", "class=text-danger");
+            }
+        }
+
+        /// <summary>
+        /// Gets the max height is required message.
+        /// </summary>
+        /// <value>The max height is required message.</value>
+        public HtmlContainerControl HeightIsRequiredMessage
+        {
+            get
+            {
+                return this.Get<HtmlContainerControl>("tagName=p", "InnerText=Max height is required", "class=text-danger");
+            }
+        }
+
+        /// <summary>
+        /// Gets the done resizing button.
+        /// </summary>
+        /// <value>The done resizing button.</value>
+        public HtmlButton DoneResizingButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagName=button", "ng-disabled=~areCustomSizeOptionsValid()", "InnerText=Done");
+            }
+        }
+
+        /// <summary>
+        /// Gets the this image is A link check box.
+        /// </summary>
+        /// <value>The this image is A link check box.</value>
+        public HtmlInputCheckBox ThisImageIsALinkCheckBox
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("type=checkbox", "ng-model=properties.UseAsLink.PropertyValue");
             }
         }
     }

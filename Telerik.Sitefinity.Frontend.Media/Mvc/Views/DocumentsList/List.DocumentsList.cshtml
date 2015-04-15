@@ -2,6 +2,7 @@
 
 @using System;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList;
 
 <div class="@Model.CssClass">
 
@@ -12,7 +13,7 @@
                 <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
                     @item.Fields.Title
                 </a>
-                (@item.Fields.Extension)
+                (@(((DocumentItemViewModel)item).Extension))
             </div>
             <div>
                 <a href="@item.Fields.MediaUrl" target="_blank">Download</a>

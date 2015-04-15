@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Login Status widget
     /// </summary>
-    [ObjectInfo(typeof(RegistrationResources), Title = "RegistrationResources", Description = "RegistrationResources")]
+    [ObjectInfo(typeof(RegistrationResources), ResourceClassId = "RegistrationResources", Title = "RegistrationResourcesTitle", Description = "RegistrationResourcesDescription")]
     public class RegistrationResources : Resource
     {
         #region Constructors
@@ -30,6 +30,40 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             : base(dataProvider)
         {
         }
+        #endregion
+
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Registration widget resources class.
+        /// </summary>
+        [ResourceEntry("RegistrationResourcesTitle",
+            Value = "Registration widget resources",
+            Description = "Title for the Registration widget resources class.",
+            LastModified = "2015/03/30")]
+        public string RegistrationResourcesTitle
+        {
+            get
+            {
+                return this["RegistrationResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Registration widget resources class.
+        /// </summary>
+        [ResourceEntry("RegistrationResourcesDescription",
+            Value = "Localizable strings for the Registration widget.",
+            Description = "Description for the Registration widget resources class.",
+            LastModified = "2015/03/30")]
+        public string RegistrationResourcesDescription
+        {
+            get
+            {
+                return this["RegistrationResourcesDescription"];
+            }
+        }
+
         #endregion
 
         /// <summary>

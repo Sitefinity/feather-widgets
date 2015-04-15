@@ -139,9 +139,9 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\ListsController.cs" />
     <Compile Include="Mvc\Models\IListsModel.cs" />
-    <Compile Include="Mvc\Models\ListItemViewModel.cs" />
+    <Compile Include="Mvc\Models\ListItemModel.cs" />
     <Compile Include="Mvc\Models\ListsModel.cs" />
-    <Compile Include="Mvc\Models\ListsViewModel.cs" />
+    <Compile Include="Mvc\Models\ListViewModel.cs" />
     <Compile Include="Mvc\StringResources\ListsWidgetResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -150,12 +150,18 @@
     <EmbeddedResource Include="Mvc\Views\Lists\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Lists\List.ExpandedList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Lists\List.SimpleList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Lists\List.ExpandableList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Lists\List.AnchorList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Lists\List.PagesList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Lists\Detail.DetailPage.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Lists\designerview-simple.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Lists\lists.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

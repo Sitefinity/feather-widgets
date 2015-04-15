@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
-namespace FeatherWidgets.TestUI.TestCases.News
+namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
     /// <summary>
     /// SelectAllPublishedImagesWithLimitOption test class.
@@ -30,18 +25,18 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.allPublished);
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().ExpandNarrowSelectionByArrow();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.allItems);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.allPublished);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ExpandNarrowSelectionByArrow();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.allItems);
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.usePaging);
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectRadioButtonOption(ImageGalleryRadioButtonIds.useLimit);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.usePaging);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.useLimit);
 
             //// Can't find way to persist values and because of that the following line is commented
-            //// BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().ChangePagingOrLimitValue("2", "Limit");
+            //// BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ChangePagingOrLimitValue("2", "Limit");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().VerifyCheckedRadioButtonOption(ImageGalleryRadioButtonIds.samePage);           
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds.samePage);           
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             foreach (var image in this.imageTitles)
             {
@@ -58,6 +53,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
                 BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + i, src);
                 i--;
             }
+
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 2);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().IsImageTitlePresentOnDetailMasterPage(this.imageTitles[1]));
 
@@ -95,7 +91,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
             return scr;
         }
 
@@ -103,7 +99,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
+            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
             return href;
         }
 

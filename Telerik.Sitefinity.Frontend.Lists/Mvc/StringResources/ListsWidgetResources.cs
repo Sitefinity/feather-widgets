@@ -6,11 +6,10 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Content block widget
     /// </summary>
-    [ObjectInfo(typeof(ListsWidgetResources), Title = "ListsWidgetResourcesTitle", Description = "ListsWidgetResourcesDescription")]
+    [ObjectInfo(typeof(ListsWidgetResources), ResourceClassId = "ListsWidgetResources", Title = "ListsWidgetResourcesTitle", Description = "ListsWidgetResourcesDescription")]
     public class ListsWidgetResources : Resource
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ListsWidgetResources"/> class. 
         /// Initializes new instance of <see cref="ListsWidgetResources"/> class with the default <see cref="ResourceDataProvider"/>.
@@ -27,11 +26,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
             : base(dataProvider)
         {
         }
-
         #endregion
 
         #region Class Description
-
         /// <summary>
         /// Gets Title for the List widget resources class.
         /// </summary>
@@ -61,7 +58,6 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
                 return this["ListsWidgetResourcesDescription"];
             }
         }
-
         #endregion
 
         /// <summary>
@@ -97,18 +93,18 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
         }
 
         /// <summary>
-        /// word: Template
+        /// word: Templates
         /// </summary>
-        /// <value>Template</value>
-        [ResourceEntry("Template",
-            Value = "Template",
-            Description = "word: Template",
-            LastModified = "2015/03/26")]
-        public string Template
+        /// <value>Templates</value>
+        [ResourceEntry("Templates",
+            Value = "Templates",
+            Description = "word: Templates",
+            LastModified = "2015/03/31")]
+        public string Templates
         {
             get
             {
-                return this["Template"];
+                return this["Templates"];
             }
         }
 
@@ -237,18 +233,130 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Which list to display?
+        /// phrase: Which lists to display?
         /// </summary>
-        /// <value>Which list to display?</value>
-        [ResourceEntry("WhichListToDisplay",
-            Value = "Which list to display?",
-            Description = "phrase: Which list to display?",
+        /// <value>Which lists to display?</value>
+        [ResourceEntry("WhichListsToDisplay",
+            Value = "Which lists to display?",
+            Description = "phrase: Which lists to display?",
             LastModified = "2015/03/26")]
-        public string WhichListToDisplay
+        public string WhichListsToDisplay
         {
             get
             {
-                return this["WhichListToDisplay"];
+                return this["WhichListsToDisplay"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Set which list to display?
+        /// </summary>
+        /// <value>Which list to display?</value>
+        [ResourceEntry("SetWhichListToDisplay",
+            Value = "Set which list to display",
+            Description = "phrase: Set which list to display",
+            LastModified = "2015/03/26")]
+        public string SetWhichListToDisplay
+        {
+            get
+            {
+                return this["SetWhichListToDisplay"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Back to top
+        /// </summary>
+        /// <value>Back to top</value>
+        [ResourceEntry("BackToTop",
+            Value = "Back to top",
+            Description = "phrase: Back to top",
+            LastModified = "2015/03/26")]
+        public string BackToTop
+        {
+            get
+            {
+                return this["BackToTop"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Expand all
+        /// </summary>
+        /// <value>Expand all</value>
+        [ResourceEntry("ExpandAll",
+            Value = "Expand all",
+            Description = "phrase: Expand all",
+            LastModified = "2015/03/30")]
+        public string ExpandAll
+        {
+            get
+            {
+                return this["ExpandAll"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Collapse all
+        /// </summary>
+        /// <value>Collapse all</value>
+        [ResourceEntry("CollapseAll",
+            Value = "Collapse all",
+            Description = "phrase: Collapse all",
+            LastModified = "2015/03/30")]
+        public string CollapseAll
+        {
+            get
+            {
+                return this["CollapseAll"];
+            }
+        }
+
+        /// <summary>
+        /// word: Provider
+        /// </summary>
+        /// <value>Provider</value>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "word: Provider",
+            LastModified = "2015/03/31")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List items
+        /// </summary>
+        /// <value>List items</value>
+        [ResourceEntry("ListItems",
+            Value = "List items",
+            Description = "phrase: List items",
+            LastModified = "2015/03/31")]
+        public string ListItems
+        {
+            get
+            {
+                return this["ListItems"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List item details
+        /// </summary>
+        /// <value>List item details</value>
+        [ResourceEntry("ListItemDetails",
+            Value = "List item details",
+            Description = "phrase: List item details",
+            LastModified = "2015/03/31")]
+        public string ListItemDetails
+        {
+            get
+            {
+                return this["ListItemDetails"];
             }
         }
     }

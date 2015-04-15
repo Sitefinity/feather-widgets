@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
-using FeatherWidgets.TestUI.TestCases;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.ImageGallery;
 
-namespace FeatherWidgets.TestUI.TestCases.News
+namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
     /// <summary>
     /// SelectSortedImagesWithChangedThumbnails test class.
@@ -30,14 +25,14 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectRadioButtonOption(ImageGalleryRadioButtonIds.currentlyOpenLibrary);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.currentlyOpenLibrary);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInSortingSelector("Title ASC");
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInThumbnailSelector("Small: 240 px width");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInSortingSelector("Title ASC");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInThumbnailSelector("Small: 240 px width");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
-            BATFeather.Wrappers().Backend().ImageGallery().ImageGalleryWrapper().SelectOptionInImageSelector("Thumbnail: 120x120 px cropped");                  
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInThumbnailSelector("Thumbnail: 120x120 px cropped", false);                  
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfImagesOnBackend(ImageAltText + 1, ImageAltText + 2, ImageAltText+3);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfImagesOnBackend(ImageAltText + 1, ImageAltText + 2, ImageAltText + 3);
             for (int k = 0; k <= 2; k++)
             {
                 if (k == 0)
@@ -98,6 +93,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + j, src);
                 }
             }
+
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyCorrectOrderOfImages(ImageAltText + 2, ImageAltText + 3);
         }
 
@@ -121,19 +117,19 @@ namespace FeatherWidgets.TestUI.TestCases.News
         private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType, string libraryUrl, string imageThumbnailSize = "")
         {
             string imageUrl = imageName.ToLower() + imageType.ToLower() + imageThumbnailSize;
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl);
             return scr;
         }
 
         private string GetImageHref(bool isBaseUrlIncluded, string imageName, string libraryUrl)
         {
             string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetImageSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
+            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
             return href;
         }
 
         private const string PageName = "PageWithImage";
-        private readonly string[] imageTitles = new string[] { "Image1", "Image2", "Image3"};
+        private readonly string[] imageTitles = new string[] { "Image1", "Image2", "Image3" };
         private const string WidgetName = "Image gallery";
         private const string LibraryName = "TestImageLibrary";
         private const string ImageAltText = "AltText_Image";

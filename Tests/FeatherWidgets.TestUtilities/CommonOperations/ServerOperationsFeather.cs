@@ -28,6 +28,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Medias the operations.
+        /// </summary>
+        /// <returns></returns>
+        public static MediaOperations MediaOperations()
+        {
+            return new MediaOperations();
+        }
+
+        /// <summary>
         /// Entry point for Templates operations.
         /// </summary>
         /// <returns>TemplateOperations instance</returns>

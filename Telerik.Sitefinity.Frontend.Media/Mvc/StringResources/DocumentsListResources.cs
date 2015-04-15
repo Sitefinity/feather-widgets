@@ -10,7 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Documents list resources widget.
     /// </summary>
-    [ObjectInfo(typeof(DocumentsListResources), Title = "DocumentsListResources", Description = "DocumentsListResources")]
+    [ObjectInfo(typeof(DocumentsListResources), ResourceClassId = "DocumentsListResources", Title = "DocumentsListResourcesTitle", Description = "DocumentsListResourcesDescription")]
     public class DocumentsListResources : Resource
     {
         #region Constructors
@@ -32,11 +32,45 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
         #endregion
 
+        #region Class Description
+
+        /// <summary>
+        /// Gets Title for the Documents List widget resources class.
+        /// </summary>
+        [ResourceEntry("DocumentsListResourcesTitle",
+            Value = "Documents List widget resources",
+            Description = "Title for the Documents List widget resources class.",
+            LastModified = "2015/03/30")]
+        public string DocumentsListResourcesTitle
+        {
+            get
+            {
+                return this["DocumentsListResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Gets Description for the Documents List widget resources class.
+        /// </summary>
+        [ResourceEntry("DocumentsListResourcesDescription",
+            Value = "Localizable strings for the Documents List widget.",
+            Description = "Description for the Documents List widget resources class.",
+            LastModified = "2015/03/30")]
+        public string DocumentsListResourcesDescription
+        {
+            get
+            {
+                return this["DocumentsListResourcesDescription"];
+            }
+        }
+
+        #endregion
+
         #region Designer
         /// <summary>
-        /// Phrase: All published images
+        /// Phrase: All published documents
         /// </summary>
-        /// <value>All published images</value>
+        /// <value>All published documents</value>
         [ResourceEntry("AllPublishedDocuments",
             Value = "All published documents",
             Description = "Phrase: All published documents",
@@ -52,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         /// <summary>
         /// Phrase: Selection of documents...
         /// </summary>
-        /// <value>Selection of images...</value>
+        /// <value>Selection of documents...</value>
         [ResourceEntry("SelectionOfDocuments",
             Value = "Selection of documents...",
             Description = "Phrase: Selection of documents...",
@@ -408,11 +442,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Which images to display?
+        /// Gets phrase : Which documents to display?
         /// </summary>
         [ResourceEntry("ItemsToDisplay",
-            Value = "Which images to display?",
-            Description = "phrase : Which images to display?",
+            Value = "Which documents to display?",
+            Description = "phrase : Which documents to display?",
             LastModified = "2015/02/23")]
         public string ItemsToDisplay
         {

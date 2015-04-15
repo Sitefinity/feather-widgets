@@ -6,7 +6,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the News widget
     /// </summary>
-    [ObjectInfo(typeof(NewsWidgetResources), Title = "NewsResourcesTitle", Description = "NewsResourcesDescription")]
+    [ObjectInfo(typeof(NewsWidgetResources), ResourceClassId = "NewsWidgetResources", Title = "NewsResourcesTitle", Description = "NewsResourcesDescription")]
     public class NewsWidgetResources : Resource
     {
         #region Constructions

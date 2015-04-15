@@ -97,7 +97,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         /// <param name="widgetName">The widget name</param>
         /// <param name="dropZoneIndex">The drop zone index</param>
-        public void EditWidget(string widgetName, int dropZoneIndex = 0)
+        public void EditWidget(string widgetName, int dropZoneIndex = 0, bool isMediaWidgetEdited = false)
         {
             ActiveBrowser.RefreshDomTree();
             var widgetHeader = ActiveBrowser
@@ -114,9 +114,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncOperations();
             ActiveBrowser.RefreshDomTree();
 
+            if (!isMediaWidgetEdited)
+            {
             HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
             ActiveBrowser.WaitForElement(expression, TimeOut, false);
             Manager.Current.Wait.For(this.WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
+        }
         }
 
         /// <summary>
@@ -223,23 +226,64 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the document.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyDocument(string text, string href)
+        {
+            HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + text)
+                .AssertIsPresent("document");
+
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+        }
+
+        /// <summary>
+        /// Verifies the document icon.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        public void VerifyDocumentIconOnTemplate(string type)
+        {
+            var icon = ActiveBrowser.Find.ByExpression<HtmlContainerControl>("class=icon-file icon-txt icon-md")
+                .AssertIsPresent("icon");
+
+            icon.Find.ByExpression<HtmlSpan>("class=~icon-txt", "innertext=" + type)
+                .AssertIsPresent("type");
+        }
+
+        /// <summary>
+        /// Verifies the thumbnail strip template info.
+        /// </summary>
+        /// <param name="countLabel">The count label.</param>
+        /// <param name="imageName">Name of the image.</param>
+        public void VerifyThumbnailStripTemplateInfo(string countLabel, string imageName)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=~js-Gallery-prev").AssertIsPresent("Prev");
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=~js-Gallery-next").AssertIsPresent("Next");
+            ActiveBrowser.Find.ByExpression<HtmlDiv>("innertext=" + countLabel).AssertIsPresent(countLabel);
+            ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h2", "class=js-Gallery-title", "innertext=" + imageName).AssertIsPresent("Next");
+        }
+
+        /// <summary>
+        /// Verifies the image resizing properties.
+        /// </summary>
+        /// <param name="altText">The alt text.</param>
+        /// <param name="src">The SRC.</param>
+        public void VerifyImageResizingProperties(string altText, string srcWidth, string srcHeight, string srcQuality, string srcResizingOption)
+        {
+            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText)
+                .AssertIsPresent(altText);
+
+            Assert.IsTrue(image.Src.Contains(srcWidth) && image.Src.Contains(srcHeight) && image.Src.Contains(srcQuality) && image.Src.Contains(srcResizingOption), "src is not correct");
+        }
+
+        /// <summary>
         /// Verifies the image is not present.
         /// </summary>
         /// <param name="altText">The alt text.</param>
         public void VerifyImageIsNotPresent(string altText)
         {
             ActiveBrowser.Find.ByExpression<HtmlImage>("alt=~" + altText).AssertIsNull(altText);
-        }
-
-        private bool WaitForSaveButton()
-        {
-            Manager.Current.ActiveBrowser.RefreshDomTree();
-            var saveButton = EM.Widgets
-                                   .WidgetDesignerContentScreen.SaveChangesButton;
-
-            bool result = saveButton != null && saveButton.IsVisible();
-
-            return result;
         }
 
         /// <summary>
@@ -258,6 +302,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
                 Assert.IsTrue(items[i].Alt.Contains(itemAlts[i]));
             }
+        }
+
+        private bool WaitForSaveButton()
+        {
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var saveButton = EM.Widgets
+                                   .WidgetDesignerContentScreen.SaveChangesButton;
+
+            bool result = saveButton != null && saveButton.IsVisible();
+
+            return result;
         }
 
         private const int TimeOut = 60000;

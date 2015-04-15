@@ -14,7 +14,8 @@
         $('[data-sf-role=edit-profile-change-password-button]').on('click', function (e) {
             e.preventDefault();
 
-            changePasswordHolder.toggle('slow');
+            changePasswordHolder.toggle();
+            $(this).hide();
         });
 
         //$('[data-sf-role=edit-profile-delete-picture-button]').on('click', function (e) {

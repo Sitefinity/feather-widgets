@@ -22,13 +22,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
-        /// Gets the image selector main screen.
+        /// Gets the media selector main screen.
         /// </summary>
-        public ImageSelectorScreen ImageSelectorScreen
+        public MediaSelectorScreen MediaSelectorScreen
         {
             get
             {
-                return new ImageSelectorScreen(this.find);
+                return new MediaSelectorScreen(this.find);
             }
         }
 
@@ -44,13 +44,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
-        /// Gets the image upload properties main screen.
+        /// Gets the image properties main screen.
         /// </summary>
-        public ImageUploadPropertiesScreen ImageUploadPropertiesScreen
+        public MediaPropertiesBaseScreen MediaPropertiesBaseScreen
         {
             get
             {
-                return new ImageUploadPropertiesScreen(this.find);
+                return new MediaPropertiesBaseScreen(this.find);
+            }
+        }
+
+        /// <summary>
+        /// Gets the media upload properties main screen.
+        /// </summary>
+        public MediaUploadPropertiesScreen MediaUploadPropertiesScreen
+        {
+            get
+            {
+                return new MediaUploadPropertiesScreen(this.find);
             }
         }
 

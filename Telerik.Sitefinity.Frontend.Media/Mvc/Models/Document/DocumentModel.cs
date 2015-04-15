@@ -9,6 +9,9 @@ using SfDocument = Telerik.Sitefinity.Libraries.Model.Document;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Document
 {
+    /// <summary>
+    /// This class is used as a model for DocumentController.
+    /// </summary>
     public class DocumentModel :IDocumentModel
     {
         #region Construction

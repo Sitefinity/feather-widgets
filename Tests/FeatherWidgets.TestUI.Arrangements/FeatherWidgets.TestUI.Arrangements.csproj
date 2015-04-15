@@ -121,6 +121,10 @@
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
+    <Compile Include="ContentBlocks\DocumentSelector\CheckNavigationInDocumentSelector.cs" />
+    <Compile Include="ContentBlocks\DocumentSelector\EditAndChangeSelectedDocument.cs" />
+    <Compile Include="ContentBlocks\DocumentSelector\InsertDocumentFromAlreadyUploaded.cs" />
+    <Compile Include="ContentBlocks\DocumentSelector\UploadDocumentWithCategoryAndTag.cs" />
     <Compile Include="ContentBlocks\ImageSelector\CheckNavigationInImageSelector.cs" />
     <Compile Include="ContentBlocks\ImageSelector\UploadImageWithCategoryAndTag.cs" />
     <Compile Include="ContentBlocks\ImageSelector\EditAndChangeSelectedImage.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
+    <Compile Include="DocumentList\SelectAllPublishedDocuments.cs" />
     <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
     <Compile Include="DynamicWidgets\EditDynamicWidgetViaInlineEditing.cs" />
     <Compile Include="DynamicWidgets\ReorderSelectedDynamicItems.cs" />
@@ -175,17 +180,22 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AddAndChangeUserAvatarInProfileWidget.cs" />
     <Compile Include="Identity\DragAndDropProfileWidgetAndSetReadMode.cs" />
+    <Compile Include="Identity\EditProfileWidgetInBothModeAndSetSpeciallyPreparedPage.cs" />
     <Compile Include="Identity\LoginAndVerifyUserStatusOnTheSamePage.cs" />
     <Compile Include="Identity\LoginFormAddChangeRemoveRedirectToPageAfterLogin.cs" />
     <Compile Include="Identity\RegisterNewBackendUserWithAdministratorRole.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Identity\RegisterNewUserAndLoginTheUser.cs" />
     <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
+    <Compile Include="ImageGallery\SelectAllPublishedImagesWithGalleryTemplate.cs" />
+    <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
     <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
-    <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
+    <Compile Include="MediaWidgets\ImageWidgetInsertImageWithCustomThumbnail.cs" />
+    <Compile Include="MediaWidgets\DocumentWidgetInsertDocument.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />
     <Compile Include="Navigation\DeleteNavigationWidgetFromPage.cs" />

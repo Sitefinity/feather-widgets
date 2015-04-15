@@ -78,5 +78,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         {
             this.EM.Identity.LoginFormFrontend.IncorrectUserNamePasswordMessage.AssertIsPresent("Incorrect Username/Password Message"); 
         }
+
+        /// <summary>
+        /// Click the register now link.
+        /// </summary>
+        public void PressRegisterNowLink()
+        {
+            HtmlAnchor registerNowLink = this.EM.Identity.LoginFormFrontend.RegisterNow.AssertIsPresent("Register now link");
+            registerNowLink.Click();
+        }
     }
 }

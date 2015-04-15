@@ -526,6 +526,1077 @@
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.RequiredIfExistAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
             <inheritDoc/>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources">
+            <summary>
+            Localizable strings for the client components.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources"/> class. 
+            Initializes new instance of <see cref="T:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources"/> class with the default <see cref="T:Telerik.Sitefinity.Localization.Data.ResourceDataProvider"/>.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.#ctor(Telerik.Sitefinity.Localization.Data.ResourceDataProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources"/> class.
+            </summary>
+            <param name="dataProvider">The data provider.</param>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ClientComponentsResourcesTitle">
+            <summary>
+            Gets Title for the Client Components resources class.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ClientComponentsResourcesDescription">
+            <summary>
+            Gets Description for the Client Components resources class.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertHyperlink">
+            <summary>
+            Insert hyperlink
+            </summary>
+            <value>Insert hyperlink</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertImage">
+            <summary>
+            Insert image
+            </summary>
+            <value>Insert image</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertFile">
+            <summary>
+            Insert file
+            </summary>
+            <value>Insert file</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertVideo">
+            <summary>
+            Insert video
+            </summary>
+            <value>Insert video</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SfActionAttrRequired">
+            <summary>
+            phrase: sfAction attribute is required!
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertDocumentLink">
+            <summary>
+            phrase: Insert a document link
+            </summary>
+            <value>Insert a document link</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Title">
+            <summary>
+            word: Title
+            </summary>
+            <value>Title</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.RecommendedCharacters">
+            <summary>
+            phrase: Less than 35 characters are recommended
+            </summary>
+            <value>Less than 35 characters are recommended</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.TitleRequired">
+            <summary>
+            phrase: Title is required
+            </summary>
+            <value>Title is required</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CssClasses">
+            <summary>
+            phrase: CSS classes
+            </summary>
+            <value>CSS classes</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Done">
+            <summary>
+            word: Done
+            </summary>
+            <value>Done</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Image">
+            <summary>
+            word: Image
+            </summary>
+            <value>Image</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AlternativeText">
+            <summary>
+            phrase: Alternative text
+            </summary>
+            <value>Alternative text</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Alignment">
+            <summary>
+            word: Alignment
+            </summary>
+            <value>Alignment</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.None">
+            <summary>
+            word: None
+            </summary>
+            <value>None</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Left">
+            <summary>
+            word: Left
+            </summary>
+            <value>Left</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Center">
+            <summary>
+            word: Center
+            </summary>
+            <value>Center</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Right">
+            <summary>
+            word: Right
+            </summary>
+            <value>Right</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ImageThumbnail">
+            <summary>
+            phrase: Image thumbnail
+            </summary>
+            <value>Image thumbnail</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Margins">
+            <summary>
+            word: Margins
+            </summary>
+            <value>Margins</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Top">
+            <summary>
+            word: Top
+            </summary>
+            <value>Top</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Bottom">
+            <summary>
+            word: Bottom
+            </summary>
+            <value>Bottom</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Type">
+            <summary>
+            word: Type
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.FileSize">
+            <summary>
+            phrase: File size:
+            </summary>
+            <value>File size:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Uploaded">
+            <summary>
+            word: Uploaded:
+            </summary>
+            <value>Uploaded:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ChangeImage">
+            <summary>
+            phrase: Change image
+            </summary>
+            <value>Change image</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.EditAllProperties">
+            <summary>
+            phrase: Edit all properties
+            </summary>
+            <value>Edit all properties</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectImage">
+            <summary>
+            phrase: Select image
+            </summary>
+            <value>Select image</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ChangeDocument">
+            <summary>
+            phrase: Change document
+            </summary>
+            <value>Change document</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectDocument">
+            <summary>
+            phrase: Select document
+            </summary>
+            <value>Select document</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.DocumentHasBeenDeleted">
+            <summary>
+            phrase: The document has been deleted or unpublished
+            </summary>
+            <value>The document has been deleted or unpublished</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CreatedOn">
+            <summary>
+            phrase: Created on:
+            </summary>
+            <value>Created on:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Library">
+            <summary>
+            word: Library:
+            </summary>
+            <value>Library:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Size">
+            <summary>
+            word: Size:
+            </summary>
+            <value>Size:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.By">
+            <summary>
+            word: by
+            </summary>
+            <value>by</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectDocumentFromComputer">
+            <summary>
+            phrase: Select document from your computer
+            </summary>
+            <value>Select document from your computer</value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SimplyDragAndDrop" -->
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SearchByTitle">
+            <summary>
+            phrase: Search by title...
+            </summary>
+            <value>Search by title...</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AllLibraries">
+            <summary>
+            phrase: All libraries
+            </summary>
+            <value>All libraries</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NoDocuments">
+            <summary>
+            phrase: No documents
+            </summary>
+            <value>No documents</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SortingAndView">
+            <summary>
+            phrase: Sorting and view
+            </summary>
+            <value>Sorting and view</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.UploadDocument">
+            <summary>
+            phrase: Upload document
+            </summary>
+            <value>Upload document</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AlreadyUploadedDocuments">
+            <summary>
+            phrase: Already uploaded documents
+            </summary>
+            <value>Already uploaded documents</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Libraries">
+            <summary>
+            word: Libraries
+            </summary>
+            <value>Libraries</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Tags">
+            <summary>
+            word: Tags
+            </summary>
+            <value>Tags</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Categories">
+            <summary>
+            word: Categories
+            </summary>
+            <value>Categories</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Dates">
+            <summary>
+            word: Dates
+            </summary>
+            <value>Dates</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.OtherFilterOptions">
+            <summary>
+            phrase: Other filter options
+            </summary>
+            <value>Other filter options</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NarrowByTyping">
+            <summary>
+            phrase: Narrow by typing...
+            </summary>
+            <value>Narrow by typing...</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.DocumentToUpload">
+            <summary>
+            phrase: Document to upload
+            </summary>
+            <value>Document to upload</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.WhereToStoreDocument">
+            <summary>
+            phrase: Where to store the uploaded document?
+            </summary>
+            <value>Where to store the uploaded document?</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NoItemsCreated">
+            <summary>
+            No items have been created yet.
+            phrase: No items have been created yet.
+            </summary>
+            <value>No items have been created yet.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NoItemsFound">
+            <summary>
+            phrase: No items found
+            </summary>
+            <value>No items found</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.All">
+            <summary>
+            word: All
+            </summary>
+            <value>All</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Selected">
+            <summary>
+            word: Selected
+            </summary>
+            <value>Selected</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.DoneSelecting">
+            <summary>
+            phrase: Done selecting
+            </summary>
+            <value>Done selecting</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Cancel">
+            <summary>
+            word: Cancel
+            </summary>
+            <value>Cancel</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Close">
+            <summary>
+            word: Close
+            </summary>
+            <value>Close</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NoItemsSelected">
+            <summary>
+            phrase: No items have been selected yet.
+            </summary>
+            <value>No items have been selected yet.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NotTranslated">
+            <summary>
+            phrase: not translated
+            </summary>
+            <value>not translated</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Date">
+            <summary>
+            phrase: Date...
+            </summary>
+            <value>Date... 1</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AddHour">
+            <summary>
+            phrase: Add hour
+            </summary>
+            <value>Add hour</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AddMinutes">
+            <summary>
+            phrase: Add minutes
+            </summary>
+            <value>Add minutes</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Select">
+            <summary>
+            word: Select
+            </summary>
+            <value>Select</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Change">
+            <summary>
+            word: Change
+            </summary>
+            <value>Change</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectDates">
+            <summary>
+            phrase: Select dates
+            </summary>
+            <value>Select dates</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.DisplayPublishedItems">
+            <summary>
+            phrase: Display items published in...
+            </summary>
+            <value>Display items published in...</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AnyTime">
+            <summary>
+            phrase: Any time
+            </summary>
+            <value>Any time</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last">
+            <summary>
+            word: Last
+            </summary>
+            <value>Last</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Day">
+            <summary>
+            word: day
+            </summary>
+            <value>day</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Week">
+            <summary>
+            word: week
+            </summary>
+            <value>week</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Month">
+            <summary>
+            word: month
+            </summary>
+            <value>month</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Year">
+            <summary>
+            word: year
+            </summary>
+            <value>year</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Plural">
+            <summary>
+            (s)
+            </summary>
+            <value>(s)</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CustomRange">
+            <summary>
+            phrase: Custom range...
+            </summary>
+            <value>Custom range...</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.From">
+            <summary>
+            word: From
+            </summary>
+            <value>From</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.To">
+            <summary>
+            word: To
+            </summary>
+            <value>To</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Language">
+            <summary>
+            word: Language
+            </summary>
+            <value>Language</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Site">
+            <summary>
+            word: Site
+            </summary>
+            <value>Site</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ExternalUrls">
+            <summary>
+            phrase: External URLs
+            </summary>
+            <value>External URLs</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertLinkButton">
+            <summary>
+            phrase: Insert link
+            </summary>
+            <value>Insert link</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertLinkHeader">
+            <summary>
+            phrase: Insert a link
+            </summary>
+            <value>Insert a link</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.TextToDisplay">
+            <summary>
+            phrase: Text to display
+            </summary>
+            <value>Text to display</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.LinkTo">
+            <summary>
+            phrase: Link to
+            </summary>
+            <value>Link to</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.WebAddress">
+            <summary>
+            phrase: Web address
+            </summary>
+            <value>Web address</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.PageFromThisSite">
+            <summary>
+            phrase: Page from this site
+            </summary>
+            <value>Page from this site</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Anchor">
+            <summary>
+            word: Anchor
+            </summary>
+            <value>Anchor</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Email">
+            <summary>
+            word: Email
+            </summary>
+            <value>Email</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.WebAddressTextToDisplayExample">
+            <summary>
+            phrase: Weather forecast
+            </summary>
+            <value>Weather forecast</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.OpenInNewWindow">
+            <summary>
+            phrase: Open this link in a new window
+            </summary>
+            <value>Open this link in a new window</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.TestThisLink">
+            <summary>
+            phrase: Test this link:
+            </summary>
+            <value>Test this link:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectOption">
+            <summary>
+            phrase: - Select -
+            </summary>
+            <value>- Select -</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Example">
+            <summary>
+            phrase: Example:
+            </summary>
+            <value>Example:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AnchorDescription">
+            <summary>
+            phrase: A list of anchors already inserted in the text.
+            </summary>
+            <value>A list of anchors already inserted in the text.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.HowToInsertAnchor">
+            <summary>
+            phrase: How to insert an anchor?
+            </summary>
+            <value>How to insert an anchor?</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AnchorTextToDisplayExample">
+            <summary>
+            phrase: FAQ list
+            </summary>
+            <value>FAQ list</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NoAnchorsSelected">
+            <summary>
+            phrase: No anchors have been inserted in the text.
+            </summary>
+            <value>No anchors have been inserted in the text.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.EmailAddress">
+            <summary>
+            phrase: Email address
+            </summary>
+            <value>Email address</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InvalidEmailMessage">
+            <summary>
+            phrase: You have entered an invalid email address
+            </summary>
+            <value>You have entered an invalid email address</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.EmailTextToDisplayExample">
+            <summary>
+            phrase: Send email to John
+            </summary>
+            <value>Send email to John</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NewsSelectorHeader">
+            <summary>
+            phrase: Select news
+            </summary>
+            <value>Select news</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.DynamicItemsSelectorHeader">
+            <summary>
+            phrase: Select content
+            </summary>
+            <value>Select content</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.RoleSelectorHeader">
+            <summary>
+            phrase: Select a role
+            </summary>
+            <value>Select a role</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.LibrarySelectorHeader">
+            <summary>
+            phrase: Select a library
+            </summary>
+            <value>Select a library</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.PageSelectorHeader">
+            <summary>
+            phrase: Select a page
+            </summary>
+            <value>Select a page</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CategorySelectorHeader">
+            <summary>
+            phrase: Select categories
+            </summary>
+            <value>Select categories</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NoExternalUrlsAdded">
+            <summary>
+            phrase: No external URLs have been added.
+            </summary>
+            <value>No external URLs have been added.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.EnterTitle">
+            <summary>
+            phrase: Enter Title
+            </summary>
+            <value>Enter Title</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.EnterUrl">
+            <summary>
+            phrase: Enter URL
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.OpenExternalUrlInNewWindow">
+            <summary>
+            phrase: Open external URLs in new tab/window
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AddExternalUrl">
+            <summary>
+            phrase: Add external URL
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.HourOption">
+            <summary>
+            phrase: - Hour -
+            </summary>
+            <value>- Hour -</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MinuteOption">
+            <summary>
+            phrase: - Minute -
+            </summary>
+            <value>- Minute -</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.UploadImage">
+            <summary>
+            phrase: Upload image
+            </summary>
+            <value>Upload image</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ImageToUpload">
+            <summary>
+            phrase: Image to upload
+            </summary>
+            <value>Image to upload</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.WhereToStoreImage">
+            <summary>
+            phrase: Where to store the uploaded image?
+            </summary>
+            <value>Where to store the uploaded image?</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectLibraryErrorMessage">
+            <summary>
+            phrase: You must select the library in which the files ought to be uploaded.
+            </summary>
+            <value>You must select the library in which the files ought to be uploaded.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Upload">
+            <summary>
+            word: Upload
+            </summary>
+            <value>Upload</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CategoriesAndTags">
+            <summary>
+            phrase: Categories and tags
+            </summary>
+            <value>Categories and tags</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CustomThumbnailSize">
+            <summary>
+            phrase: Custom thumbnail size
+            </summary>
+            <value>Custom thumbnail size</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ResizeImage">
+            <summary>
+            phrase: Resize image
+            </summary>
+            <value>Resize image</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ResizeToAreaDescription">
+            <summary>
+            phrase: Generated image will be resized to desired area
+            </summary>
+            <value>Generated image will be resized to desired area</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ResizeToAreaExample">
+            <summary>
+            phrase: resize to area example
+            </summary>
+            <value>resize to area example</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CropToAreaDescription">
+            <summary>
+            phrase: Generated image will be resized and cropped to desired area
+            </summary>
+            <value>Generated image will be resized and cropped to desired area</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CropToAreaExample">
+            <summary>
+            phrase: crop to area example
+            </summary>
+            <value>crop to area example</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ResizeToArea">
+            <summary>
+            phrase: Resize to area
+            </summary>
+            <value>Resize to area</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.CropToArea">
+            <summary>
+            phrase: Crop to area
+            </summary>
+            <value>Crop to area</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.WhatIsThisLink">
+            <summary>
+            phrase: What's this?
+            </summary>
+            <value>What's this?</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MaxWidth">
+            <summary>
+            phrase: Max width
+            </summary>
+            <value>Max width</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.WidthHeightErrorMessage">
+            <summary>
+            phrase: Value must be an integer between 1 and 9999 inclusive.
+            </summary>
+            <value>Value must be an integer between 1 and 9999 inclusive.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MaxHeight">
+            <summary>
+            phrase: Max height
+            </summary>
+            <value>Max height</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MaxWidthRequired">
+            <summary>
+            phrase: Max width is required
+            </summary>
+            <value>Max width is required</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MaxHeightRequired">
+            <summary>
+            phrase: Max height is required
+            </summary>
+            <value>Max height is required</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Width">
+            <summary>
+            word: Width
+            </summary>
+            <value>Width</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.WidthRequired">
+            <summary>
+            phrase: Width is required
+            </summary>
+            <value>Width is required</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Height">
+            <summary>
+            word: Height
+            </summary>
+            <value>Height</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.HeightRequired">
+            <summary>
+            phrase: Height is required
+            </summary>
+            <value>Height is required</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ResizeSmallerToBigger">
+            <summary>
+            phrase: Resize smaller images to bigger dimensions
+            </summary>
+            <value>Resize smaller images to bigger dimensions</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Quality">
+            <summary>
+            word: Quality
+            </summary>
+            <value>Quality</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Dimensions">
+            <summary>
+            phrase: Dimensions:
+            </summary>
+            <value>Dimensions:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ModifiedOn">
+            <summary>
+            phrase: Date modified:
+            </summary>
+            <value>Date modified:</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Style">
+            <summary>
+            word: Style
+            </summary>
+            <value>Style</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectStyle">
+            <summary>
+            phrase: - Select -
+            </summary>
+            <value>- Select -</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectImageFromComputer">
+            <summary>
+            phrase: Select image from your computer
+            </summary>
+            <value>Select image from your computer</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NoImages">
+            <summary>
+            phrase: No images
+            </summary>
+            <value>No images</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AlreadyUploadedImages">
+            <summary>
+            phrase: Already uploaded images
+            </summary>
+            <value>Already uploaded images</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ListSelectorHeader">
+            <summary>
+            phrase: Select lists
+            </summary>
+            <value>Select lists</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.NoVideos">
+            <summary>
+            phrase: No videos
+            </summary>
+            <value>No videos</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.UploadVideo">
+            <summary>
+            phrase: Upload video
+            </summary>
+            <value>Upload video</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AlreadyUploadedVideos">
+            <summary>
+            phrase: Already uploaded videos
+            </summary>
+            <value>Already uploaded videos</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.VideoSingular">
+            <summary>
+            word: Video
+            </summary>
+            <value>Video</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.VideoPlural">
+            <summary>
+            word: Videos
+            </summary>
+            <value>Videos</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectVideoFromComputer">
+            <summary>
+            word: Select video from your computer
+            </summary>
+            <value>Select video from your computer</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertVideoLink">
+            <summary>
+            phrase: Insert a video
+            </summary>
+            <value>Insert a video</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AspectRatio">
+            <summary>
+            phrase: Aspect ratio
+            </summary>
+            <value>Aspect ratio</value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.VideoHasBeenDeleted" -->
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Auto">
+            <summary>
+            word: Auto
+            </summary>
+            <value>Auto</value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ChangeVideo" -->
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Ratio4X3">
+            <summary>
+            word: 4x3
+            </summary>
+            <value>4x3</value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectVideo" -->
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Ratio16X9">
+            <summary>
+            word: 16x9
+            </summary>
+            <value>16x9</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.VideoToUpload">
+            <summary>
+            phrase: Video to upload
+            </summary>
+            <value>Video to upload</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.WhereToStoreVideo">
+            <summary>
+            phrase: Where to store video
+            </summary>
+            <value>Where to store video</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.RecentVideos">
+            <summary>
+            phrase: Recent videos
+            </summary>
+            <value>Recent videos</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MyVideos">
+            <summary>
+            phrase: My videos
+            </summary>
+            <value>My videos</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.FolderSingular">
+            <summary>
+            word: Folder
+            </summary>
+            <value>Folder</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.FolderPlural">
+            <summary>
+            word: Folders
+            </summary>
+            <value>Folders</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MoreOptions">
+            <summary>
+            phrase: More options
+            </summary>
+            <value>More options</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Custom">
+            <summary>
+            word: Custom
+            </summary>
+            <value>Custom</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.PixelShort">
+            <summary>
+            word: px
+            </summary>
+            <value>px</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last1Day">
+            <summary>
+            phrase: Last 1 day
+            </summary>
+            <value>Last 1 day</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last3Days">
+            <summary>
+            phrase: Last 3 days
+            </summary>
+            <value>Last 3 days</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last1Week">
+            <summary>
+            phrase: Last 1 week
+            </summary>
+            <value>Last 1 week</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last1Month">
+            <summary>
+            phrase: Last 1 month
+            </summary>
+            <value>Last 1 month</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last6Months">
+            <summary>
+            phrase: Last 6 months
+            </summary>
+            <value>Last 6 months</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last1Year">
+            <summary>
+            phrase: Last 1 year
+            </summary>
+            <value>Last 1 year</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last2Years">
+            <summary>
+            phrase: Last 2 years
+            </summary>
+            <value>Last 2 years</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Last5Years">
+            <summary>
+            phrase: Last 5 years
+            </summary>
+            <value>Last 5 years</value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Notifications.EmailTemplateHelper">
             <summary>
             This class contains helpers for working with email templates.
@@ -2001,6 +3072,12 @@
             <param name="viewType">Type of the view which is requested. For example Simple, Advanced</param>
             <returns></returns>
             <exception cref="T:System.InvalidOperationException">View cannot be found on the searched locations.</exception>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Controllers.DesignerController.GetHttpContext">
+            <summary>
+            Gets the HTTP context.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Controllers.DesignerController.GetModel(System.String,System.Guid)">
             <summary>
@@ -3510,6 +4587,28 @@
             Advanced
             </summary>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Resources.GenericRouteHandler`1">
+            <summary>
+            Instances of this class should instantiate HTTP handlers of a specified type.
+            </summary>
+            <typeparam name="THttpHandler">The type of the HTTP handler.</typeparam>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.GenericRouteHandler`1.#ctor(System.Func{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.GenericRouteHandler`1"/> class.
+            </summary>
+            <param name="construct">A method used to construct an HTTP handler.</param>
+            <exception cref="T:System.ArgumentNullException">construct</exception>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.GenericRouteHandler`1.GetHttpHandler(System.Web.Routing.RequestContext)">
+            <summary>
+            Provides the object that processes the request.
+            </summary>
+            <param name="requestContext">An object that encapsulates information about the request.</param>
+            <returns>
+            An object that processes the request.
+            </returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor">
             <summary>
             Instances of this class run and compile Razor template files and return the output. It also manages cache dependencies on the template internally.
@@ -3520,11 +4619,18 @@
             Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor"/> class.
             </summary>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor.#ctor(RazorEngine.Templating.ITemplateService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor"/> class.
+            </summary>
+            <param name="templateService">The template service.</param>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor.#ctor(RazorEngine.Templating.ITemplateService,System.Web.Hosting.VirtualPathProvider)">
             <summary>
             Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor"/> class.
             </summary>
             <param name="templateService">The template service.</param>
+            <param name="virtualPathProvider">The virtual path provider for retrieving files.</param>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Resources.RazorTemplateProcessor.Run(System.String,System.Object)">
             <summary>
@@ -3734,6 +4840,11 @@
             This class is an HttpHandler that is used for delivering files from a virtual path.
             </summary>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler"/> class.
+            </summary>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler.ProcessRequest(System.Web.HttpContext)">
             <summary>
             Enables processing of HTTP Web requests by a custom HttpHandler that implements the <see cref="T:System.Web.IHttpHandler"/> interface.
@@ -3782,6 +4893,13 @@
             </summary>
             <param name="context">The context.</param>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler.SetResponseClientCache(System.Web.HttpContext,System.String)">
+            <summary>
+            Sets client cache for the requested resource. In debug mode this caching is disabled.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="fileName">Name of the file.</param>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceHttpHandler.GetMimeMapping(System.String)">
             <summary>
             Gets the mime type of the file.
@@ -3805,6 +4923,52 @@
             Modifies newly created <see cref="T:Telerik.Sitefinity.Pages.Model.ControlPresentation"/> by adding suffix, when creating a widget template for MVC Widget.
             </summary>
             <param name="eventArgs">The event args.</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor">
+            <summary>
+            Instance of this class replaces resources in a given template with their localized values.
+            The instance provides in-memory cache for all parsed templates.
+            A template's cache is invalidated when the file with the given file path is changed and also when the app is restarted.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor"/> class.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor.#ctor(System.Web.Hosting.VirtualPathProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor"/> class.
+            </summary>
+            <param name="virtualPathProvider">The virtual path provider for retrieving files.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor.Process(System.String)">
+            <summary>
+            Localizes the template at the specified path.
+            </summary>
+            <param name="templatePath">The template path.</param>
+            <returns>The localized template.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor.ReplaceResources(System.String)">
+            <summary>
+            Replaces the resources in the given markup with their respective localized values.
+            </summary>
+            <param name="markup">The markup.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor.GetTemplate(System.String)">
+            <summary>
+            Gets the template from a file at the specified path as string.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>The template as string.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceTemplateProcessor.ShouldProcessTemplate(System.String)">
+            <summary>
+            Determines whether the template should be parsed - when the file is changed or if it is not in the cache.
+            </summary>
+            <param name="templatePath">The template path.</param>
+            <returns></returns>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Resources.ServerContextHandler">
             <summary>

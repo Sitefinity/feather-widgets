@@ -1,23 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Lists.Model;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of the List widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "ListMVC", Title = "List", SectionName = "MvcWidgets", ModuleName = "Lists", CssClass = "sfListitemsIcn")]
+    [ControllerToolboxItem(Name = "ListMVC", Title = "List", SectionName = "MvcWidgets", ModuleName = "Lists", CssClass = CssClass)]
     [Localization(typeof(ListsWidgetResources))]
-    public class ListsController : Controller
+    public class ListsController : Controller, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
 
@@ -73,6 +77,45 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether widget is empty.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if widget has no lists selected; otherwise, <c>false</c>.
+        /// </value>
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get
+            {
+                return this.Model.IsEmpty;
+            }
+        }
+
+        /// <summary>
+        /// Gets the empty link text.
+        /// </summary>
+        /// <value>
+        /// The empty link text.
+        /// </value>
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get { return Res.Get<ListsWidgetResources>().SetWhichListToDisplay; }
+        }
+
+        /// <summary>
+        /// Gets the widget CSS class.
+        /// </summary>
+        /// <value>
+        /// The widget CSS class.
+        /// </value>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get { return CssClass; }
+        }
+
         #endregion
 
         #region Actions
@@ -87,14 +130,18 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         public ActionResult Index(int? page)
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.CurrentPageUrl = this.GetPageUrl();
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/{0}";
 
-            var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (!this.IsEmpty)
+            {
+                var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
+                if (SystemManager.CurrentHttpContext != null)
+                    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            return this.View(fullTemplateName, viewModel);
+                return this.View(fullTemplateName, viewModel);
+            }
+            return new EmptyResult();
         }
 
         /// <summary>
@@ -119,6 +166,49 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         }
 
         #endregion
+         
+        #region IContentLocatableView
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
+        /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
+        /// </summary>
+        /// <value>The disable canonical URLs.</value>
+        public bool? DisableCanonicalUrlMetaTag
+        {
+            get
+            {
+                return this.disableCanonicalUrlMetaTag;
+            }
+
+            set
+            {
+                this.disableCanonicalUrlMetaTag = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        /// <returns>
+        /// List of location info of the content that this control is able to show.
+        /// </returns>
+        [NonAction]
+        public IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return this.Model.GetLocations();
+        }
+
+        /// <summary>
+        /// Gets the URL of the current page.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetPageUrl()
+        {
+            return this.GetCurrentPageUrl();
+        }
+
+        #endregion
 
         #region Private method
 
@@ -136,6 +226,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
+        private const string CssClass = "sfListitemsIcn";
+
+        private bool? disableCanonicalUrlMetaTag;
 
         #endregion
     }

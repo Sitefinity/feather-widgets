@@ -1,11 +1,7 @@
-﻿using ArtOfTest.WebAii.Win32.Dialogs;
+﻿using System;
+using ArtOfTest.WebAii.Win32.Dialogs;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.Identity
@@ -22,14 +18,14 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Profile),
-        TestCategory(FeatherTestCategories.Bootstrap)]
+        TestCategory(FeatherTestCategories.Bootstrap), Ignore]
         public void AddAndChangeUserAvatarInProfileWidget()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetUsername(UserName);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().SetPassword(UserPassword);
             BAT.Wrappers().Backend().LoginView().LoginViewWrapper().ExecuteLogin();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(),false);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyDefaultUserAvatar();
 
             this.UploadUserAvatar();           

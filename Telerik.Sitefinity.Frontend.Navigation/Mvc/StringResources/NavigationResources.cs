@@ -6,7 +6,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Navigation widget
     /// </summary>
-    [ObjectInfo(typeof(NavigationResources), Title = "NavigationResourcesTitle", Description = "NavigationResourcesDescription")]
+    [ObjectInfo(typeof(NavigationResources), ResourceClassId = "NavigationResources", Title = "NavigationResourcesTitle", Description = "NavigationResourcesDescription")]
     public class NavigationResources : Resource
     {
         #region Constructions
