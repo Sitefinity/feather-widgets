@@ -52,6 +52,22 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         int Height { get; set; }
 
         /// <summary>
+        /// Gets the actual width of the <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The width.
+        /// </value>
+        int OriginallWidth { get; set; }
+
+        /// <summary>
+        /// Gets the actual height of the <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> item.
+        /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
+        int OriginalHeight { get; set; }
+
+        /// <summary>
         /// Gets or sets the css class.
         /// </summary>
         /// <value>
@@ -64,5 +80,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         /// </summary>
         /// <returns></returns>
         VideoViewModel GetViewModel();
+
+        /// <summary>
+        /// Gets the information for all <see cref="Telerik.Sitefinity.Libraries.Model.Video"/> items that can be displayed by a Video widget.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        IEnumerable<IContentLocationInfo> GetLocations();
     }
 }
