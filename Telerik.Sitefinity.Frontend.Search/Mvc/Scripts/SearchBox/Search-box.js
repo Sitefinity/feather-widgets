@@ -23,10 +23,7 @@
             var searchTextBox = $(serverData.searchTextBoxSelector),
                     searchButton = $(serverData.searchButtonSelector);
 
-            searchButton.click(function (e) {
-                navigateToResults(e);
-            });
-
+            searchButton.click(navigateToResults);
             searchTextBox.keypress(keypressHandler);
 
             /* Initialization */
