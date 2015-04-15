@@ -99,7 +99,6 @@
     <Compile Include="Framework\ElementMap\Identity\RegistrationFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryMap.cs" />
-    <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\MediaPropertiesBaseScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\MediaUploadPropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImagePropertiesScreen.cs" />
@@ -131,9 +130,7 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
-    <Compile Include="Framework\Wrappers\Backend\ImageGallery\ImageGalleryRadioButtonIds.cs" />
-    <Compile Include="Framework\Wrappers\Backend\ImageGallery\ImageGalleryWidgetWrapper.cs" />
-    <Compile Include="Framework\Wrappers\Backend\ImageGallery\ImageGalleryWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerRadioButtonIds.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\DocumentPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\MediaPropertiesBaseWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\DocumentSelectorWrapper.cs" />
@@ -175,6 +172,8 @@
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockLinkSelectorWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\DocumentList\DocumentListWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\DocumentList\DocumentListWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FrontendWrappesFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Identity\IdentityWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Identity\LoginFormWrapper.cs" />

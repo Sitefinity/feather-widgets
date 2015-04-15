@@ -33,5 +33,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
                 return this.Get<HtmlInputRadioButton>("tagname=input", "value=ReadOnly");
             }
         }
+
+        /// <summary>
+        /// Gets both mode button.
+        /// </summary>
+        public HtmlInputRadioButton BothReadModeCanBeEditedMode
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("tagname=input", "value=Both");
+            }
+        }
+
+        /// <summary>
+        /// Gets open specially prepared page button.
+        /// </summary>
+        public HtmlDiv WhenChangesAreSavedDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=~When the changes are saved...");
+            }
+        }
     }
 }

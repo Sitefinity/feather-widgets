@@ -22,18 +22,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ImageGallery
         }
 
         /// <summary>
-        /// Gets the image gallery widget edit screen.
-        /// </summary>
-        /// <value>The image gallery widget edit screen.</value>
-        public ImageGalleryWidgetEditScreen ImageGalleryWidgetEditScreen
-        {
-            get
-            {
-                return new ImageGalleryWidgetEditScreen(this.find);
-            }
-        }
-
-        /// <summary>
         /// Gets the image gallery frontend.
         /// </summary>
         /// <value>The image gallery frontend.</value>

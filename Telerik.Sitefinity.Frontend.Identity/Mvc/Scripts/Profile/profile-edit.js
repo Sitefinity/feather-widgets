@@ -4,8 +4,8 @@
 
         var changePasswordHolder = $('[data-sf-role=edit-profile-change-password-holder]');
 
-        if (!hasPasswordErrors && !changePasswordHolder.find('input').val()) {
-            changePasswordHolder.hide();
+        if (hasPasswordErrors || changePasswordHolder.find('input').val()) {
+            changePasswordHolder.show();
         }
 
         var editProfileUserImage = $('[data-sf-role=edit-profile-user-image]');
@@ -14,7 +14,8 @@
         $('[data-sf-role=edit-profile-change-password-button]').on('click', function (e) {
             e.preventDefault();
 
-            changePasswordHolder.toggle('slow');
+            changePasswordHolder.toggle();
+            $(this).hide();
         });
 
         //$('[data-sf-role=edit-profile-delete-picture-button]').on('click', function (e) {

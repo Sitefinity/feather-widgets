@@ -81,6 +81,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string ImageGallery = "ImageGallery";
 
         /// <summary>
+        /// DocumentsList category for DocumentsList tests
+        /// </summary>
+        public const string DocumentsList = "DocumentsList";
+
+        /// <summary>
         /// Search category for Search tests
         /// </summary>
         public const string Search = "Search";

@@ -226,6 +226,59 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the document.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyDocument(string text, string href)
+        {
+            HtmlAnchor doc = ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=" + text)
+                .AssertIsPresent("document");
+
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+        }
+
+        /// <summary>
+        /// Verifies the document.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="href">The href.</param>
+        public void VerifyDocumentInTableView(string text, string href)
+        {
+            HtmlTable table = ActiveBrowser.Find.ByExpression<HtmlTable>("class=rdTable")
+                .AssertIsPresent("table");
+            HtmlAnchor doc = table.Find.ByExpression<HtmlAnchor>("innertext=" + text)
+                .AssertIsPresent("document");
+            var parent = doc.Parent<HtmlTableCell>();
+            Assert.IsTrue(parent.TagName == "td");
+            Assert.IsTrue(parent.Parent<HtmlTableRow>().TagName == "tr");
+            Assert.IsTrue(doc.HRef.StartsWith(href), "href is not correct");
+        }
+
+        /// <summary>
+        /// Verifies the document icon.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="isTableViewSelected">The is table view selected.</param>
+        public void VerifyDocumentIconOnTemplate(string type, bool isTableViewSelected = false)
+        {
+            HtmlContainerControl icon = null;
+            if (isTableViewSelected)
+            {
+                icon = ActiveBrowser.Find.ByExpression<HtmlContainerControl>("class=icon-file icon-txt icon-sm")
+                    .AssertIsPresent("icon");
+            }
+            else 
+            {
+                icon = ActiveBrowser.Find.ByExpression<HtmlContainerControl>("class=icon-file icon-txt icon-md")
+                    .AssertIsPresent("icon");
+            }
+
+            icon.Find.ByExpression<HtmlSpan>("class=~icon-txt", "innertext=" + type)
+                .AssertIsPresent("type");
+        }
+
+        /// <summary>
         /// Verifies the thumbnail strip template info.
         /// </summary>
         /// <param name="countLabel">The count label.</param>
@@ -261,6 +314,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the document is not present.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void VerifyDocumentIsNotPresent(string text)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=~" + text).AssertIsNull(text);
+        }
+
+        /// <summary>
         /// Verifies the correct order of items on backend.
         /// </summary>
         /// <param name="itemAlts">The item names.</param>
@@ -275,6 +337,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             for (int i = 0; i < itemsCount; i++)
             {
                 Assert.IsTrue(items[i].Alt.Contains(itemAlts[i]));
+            }
+        }
+
+        /// <summary>
+        /// Verifies the correct order of images.
+        /// </summary>
+        /// <param name="itemAlts">The item names.</param>
+        public void VerifyCorrectOrderOfDocumentsInTableView(params string[] itemTitles)
+        {
+            var anchors = ActiveBrowser.Find.AllByExpression<HtmlAnchor>("tagname=a", "class=sf-title");
+            Assert.IsTrue(anchors.Count != 0);
+            int i = 0;
+
+            foreach (var anchor in anchors)
+            {
+                Assert.IsTrue(anchor.InnerText.Contains(itemTitles[i]));
+                i++;
             }
         }
 

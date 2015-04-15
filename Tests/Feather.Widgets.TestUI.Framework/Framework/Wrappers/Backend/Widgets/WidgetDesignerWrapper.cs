@@ -6,6 +6,7 @@ using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.jQuery;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
@@ -371,6 +372,105 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                     divList[i].Find.ByAttributes<HtmlSpan>("sf-shrinked-breadcrumb=" + itemNames[i - notVisibleItemNames]).AssertIsPresent("Span for " + itemNames[i - notVisibleItemNames] + " was not present.");                 
                 }
             }
+        }
+
+        /// <summary>
+        /// Selects the radio button option.
+        /// </summary>
+        /// <param name="optionId">The option id.</param>
+        public void SelectRadioButtonOption(WidgetDesignerRadioButtonIds optionId)
+        {
+            HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
+                  .AssertIsPresent("radio button");
+
+            radioButton.Click();
+        }
+
+        /// <summary>
+        /// Verifies the checked radio button option.
+        /// </summary>
+        /// <param name="optionId">The option id.</param>
+        public void VerifyCheckedRadioButtonOption(WidgetDesignerRadioButtonIds optionId)
+        {
+            HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
+                  .AssertIsPresent("radio button");
+
+            Assert.IsTrue(radioButton.Checked);
+        }
+
+        /// <summary>
+        /// Expands the narrow selection by arrow.
+        /// </summary>
+        public void ExpandNarrowSelectionByArrow()
+        {
+            HtmlSpan arrow = this.EM.Widgets.WidgetDesignerContentScreen.NarrowSelectionByArrow
+                  .AssertIsPresent("radio button");
+
+            arrow.Click();
+        }
+
+        /// <summary>
+        /// Changes the paging or limit value.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <param name="selectedListSettingOption">The selected list setting option.</param>
+        public void ChangePagingOrLimitValue(string number, string selectedListSettingOption)
+        {
+            HtmlInputText itemsTextBox = ActiveBrowser.Find.ByExpression<HtmlInputText>("ng-disabled=~" + selectedListSettingOption)
+                 .AssertIsPresent("text box");
+
+            itemsTextBox.Text = string.Empty;
+            itemsTextBox.Text = number;
+            itemsTextBox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Sorts the options selector.
+        /// </summary>
+        /// <param name="optionValue">The option value.</param>
+        public void SelectOptionInSortingSelector(string optionValue)
+        {
+            HtmlSelect selector = this.EM.Widgets.WidgetDesignerContentScreen.SortImagesSelector
+               .AssertIsPresent("sorting selector");
+
+            selector.SelectByValue(optionValue);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Selects the option in list template selector.
+        /// </summary>
+        /// <param name="optionValue">The option value.</param>
+        public void SelectOptionInListTemplateSelector(string optionValue)
+        {
+            HtmlSelect selector = this.EM.Widgets.WidgetDesignerContentScreen.ListTemplateSelector
+               .AssertIsPresent("List template selector");
+
+            selector.SelectByValue(optionValue);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
+
+        /// <summary>
+        /// Selects option from thumbnail selector.
+        /// </summary>
+        /// <param name="optionValue">Option value.</param>
+        public void SelectOptionInThumbnailSelector(string optionValue, bool isListSettingsTabSelected = true)
+        {
+            HtmlSelect selector = null;
+            if (isListSettingsTabSelected)
+            {
+                selector = this.EM.Widgets.WidgetDesignerContentScreen.ThumbnailSelector.FirstOrDefault().AssertIsPresent("Thumbnail selector");
+            }
+            else
+            {
+                selector = this.EM.Widgets.WidgetDesignerContentScreen.ThumbnailSelector.LastOrDefault().AssertIsPresent("Image selector");
+            }
+
+            selector.SelectByText(optionValue);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            selector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
     }
 }

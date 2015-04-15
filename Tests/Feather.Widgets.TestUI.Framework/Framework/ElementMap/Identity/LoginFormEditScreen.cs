@@ -41,5 +41,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
                 return this.Get<HtmlDiv>("tagname=div", "InnerText=~After login users will be redirected to...", "class=form-group");
             }
         }
+
+        private HtmlDiv RegistrationPageSection
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=~This is the page where you have dropped Registration widget", "class=form-group");
+            }
+        }
+
+        /// <summary>
+        /// Gets the select button in registration to section.
+        /// </summary>
+        public HtmlButton RegistrationPageSelectButton
+        {
+            get
+            {
+                return this.RegistrationPageSection.Find.ByExpression<HtmlButton>("tagname=button", "class=~openSelectorBtn");
+            }
+        }
     }
 }
