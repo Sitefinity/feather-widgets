@@ -9,10 +9,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     public class DocumentListWrapperFacade
     {
         /// <summary>
-        /// Provides unified access to the DocumentListWrapper
+        /// Provides unified access to the DocumentsListWrapper
         /// </summary>
-        /// <returns>Returns the DocumentListWrapper</returns>
-        public DocumentListWrapper DocumentListWrapper()
+        /// <returns>Returns the DocumentsListWrapper</returns>
+        public DocumentListWrapper DocumentsListWrapper()
         {
             return new DocumentListWrapper();
         }

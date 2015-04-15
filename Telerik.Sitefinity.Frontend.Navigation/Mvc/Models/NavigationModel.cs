@@ -380,7 +380,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                                 var siteMapNode = siteMapProvider.FindSiteMapNodeFromKey(page.Id.ToString("D"));
                                 if (siteMapNode != null && this.CheckSiteMapNode(siteMapNode))
                                 {
-                                    var siteMapHierarchy = this.CreateNodeViewModelRecursive(siteMapNode, 1);
+                                    var siteMapHierarchy = this.CreateNodeViewModelRecursive(siteMapNode, this.LevelsToInclude);
                                     this.Nodes.Add(siteMapHierarchy);
                                 }
                             }

@@ -4,7 +4,7 @@ using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.ImageGallery
+namespace FeatherWidgets.TestUI.TestCases.DocumentsList
 {
     /// <summary>
     /// SelectAllPublishedDocuments test class.
@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.ImageGallery)]
+        TestCategory(FeatherTestCategories.DocumentsList)]
         public void SelectAllPublishedDocuments()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -42,19 +42,21 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+
             foreach (var doc in this.documentTitles)
             {
-                BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
-                BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifyDocumentIconOnTemplate(DocumentType);
-                BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifyCorrectOrderOfDocuments(this.documentTitles);
-                BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifyDownloadButton(this.GetDocumentHref(true, doc, ContentType));              
+                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
+                BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDocumentHref(true, doc, ContentType));              
             }
 
-            BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().ClickDocument(SelectedDocument);
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyCorrectOrderOfDocuments(this.documentTitles);
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDocumentIconOnTemplate(DocumentType);
+
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().ClickDocument(SelectedDocument);
             ActiveBrowser.WaitForUrl(this.GetDocumentHref(false, SelectedDocument, PageName + "/" + ContentType), true, 60000);
-            BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().IsDocumentTitlePresentOnDetailMasterPage(SelectedDocument);
-            BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifyDownloadButton(this.GetDocumentHref(true, SelectedDocument, ContentType));
-            BATFeather.Wrappers().Frontend().DocumentList().DocumentListWrapper().VerifySizeAndExtension("5 KB", "(" + DocumentType + ")");
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().IsDocumentTitlePresentOnDetailMasterPage(SelectedDocument);
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDocumentHref(true, SelectedDocument, ContentType));
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifySizeAndExtensionOnTemplate("5 KB", "(" + DocumentType + ")");
         }
 
         /// <summary>
@@ -83,7 +85,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         }
 
         private const string PageName = "PageWithDocument";
-        private readonly string[] documentTitles = new string[] { SelectedDocument, "Image2", "Image1" };
+        private readonly string[] documentTitles = new string[] { "Image3", "Image2", "Image1" };
         private const string WidgetName = "Documents list";
         private const string LibraryName = "TestDocumentLibrary";
         private const string DocumentType = "jpg";

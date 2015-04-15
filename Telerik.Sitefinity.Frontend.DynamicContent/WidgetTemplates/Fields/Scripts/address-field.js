@@ -67,7 +67,7 @@
         }
     };
 
-    jQuery('.viewMapLnk').last().bind('click', function (e) {
+    jQuery('.viewMapLnk').bind('click', function (e) {
         var mapWrapper = jQuery(e.currentTarget).siblings('.addressMapWrp');
         mapWrapper.toggle();
 
