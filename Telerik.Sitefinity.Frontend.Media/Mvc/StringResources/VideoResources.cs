@@ -102,18 +102,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: was not selected or has been deleted. Please select another one.
+        /// Phrase: The video will not be displayed before the page is published.To see the video click Preview on the top of this page.
         /// </summary>
-        /// <value>A video was not selected or has been deleted. Please select another one.</value>
-        [ResourceEntry("VideoWasNotSelectedOrHasBeenDeleted",
-            Value = "A video was not selected or has been deleted. Please select another one.",
-            Description = "Phrase:A video was not selected or has been deleted. Please select another one.",
+        /// <value>The video will not be displayed before the page is published.To see the video click Preview on the top of this page.</value>
+        [ResourceEntry("VideoWillNotBeDisplayed",
+            Value = "The video will not be displayed before the page is published.To see the video click Preview on the top of this page.",
+            Description = "Phrase:The video will not be displayed before the page is published.To see the video click Preview on the top of this page.",
             LastModified = "2015/04/13")]
-        public string VideoWasNotSelectedOrHasBeenDeleted
+        public string VideoWillNotBeDisplayed
         {
             get
             {
-                return this["VideoWasNotSelectedOrHasBeenDeleted"];
+                return this["VideoWillNotBeDisplayed"];
             }
         }
 
