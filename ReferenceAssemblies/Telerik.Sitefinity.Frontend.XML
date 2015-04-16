@@ -1900,51 +1900,6 @@
             MvcHtmlString
             </returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.EmbeddedScript(System.Web.Mvc.HtmlHelper,System.String,System.String)">
-            <summary>
-            Registers JavaScript reference and ensures that it loads maximum once for a page.
-            </summary>
-            <remarks>
-            Use this helper to resolve embedded resource path.
-            </remarks>
-            <param name="helper">The helper.</param>
-            <param name="type">Full name of the type in which assembly is located the embedded resource.</param>
-            <param name="embeddedScriptPath">The embedded script path.</param>
-            <returns>
-            MvcHtmlString
-            </returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,System.String,System.String,System.String)">
-            <summary>
-            Registers JavaScript reference and ensures that it loads maximum once for a page.
-            </summary>
-            <remarks>
-            Use this helper to resolve embedded resource path.
-            </remarks>
-            <param name="helper">The helper.</param>
-            <param name="type">Full name of the type in which assembly is located the embedded resource.</param>
-            <param name="embeddedScriptPath">The embedded script path.</param>
-            <param name="sectionName">The name of the section that will render this script. If null it will render on the same place of the page</param>
-            <returns>
-            MvcHtmlString
-            </returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            Registers JavaScript reference and ensures that it loads maximum once for a page.
-            </summary>
-            <remarks>
-            Use this helper to resolve embedded resource path.
-            </remarks>
-            <param name="helper">The helper.</param>
-            <param name="type">Full name of the type in which assembly is located the embedded resource.</param>
-            <param name="embeddedScriptPath">The embedded script path.</param>
-            <param name="sectionName">The name of the section that will render this script. If null it will render on the same place of the page</param>
-            <param name="throwException">Indicates whether to throw an exception if the specified section does not exist.</param>
-            <returns>
-            MvcHtmlString
-            </returns>
-        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.StyleSheet(System.Web.Mvc.HtmlHelper,System.String)">
             <summary>
             Registers style sheet reference and ensures that it loads maximum once for a page.
@@ -3424,6 +3379,15 @@
             <param name="assemblyName">Name of the assembly.</param>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException">contentPath</exception>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.UrlHelpers.EmbeddedResource(System.Web.Mvc.UrlHelper,System.String,System.String)">
+            <summary>
+            Gets the URL of an embedded resource.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="type">A type from the assembly that embeds the resource.</param>
+            <param name="path">The resource path.</param>
+            <returns>The resource URL.</returns>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.UrlHelpers.GetResourcePath(System.String,System.String,System.String,System.String)">
             <summary>
