@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -17,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(VideoResources))]
     [ControllerToolboxItem(Name = "Video", Title = "Video", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = VideoController.WidgetIconCssClass)]
-    public class VideoController : Controller, ICustomWidgetVisualizationExtended
+    public class VideoController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
 
@@ -123,6 +126,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
+        /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
+        /// </summary>
+        /// <value>The disable canonical URLs.</value>
+        public bool? DisableCanonicalUrlMetaTag { get; set; }
+
         #endregion
 
         #region Public methods
@@ -138,13 +148,33 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             var viewModel = this.Model.GetViewModel();
 
             if (viewModel.HasSelectedVideo && !this.IsEmpty && this.IsDesignMode && !this.IsInlineEditingMode)
-                return Content(Res.Get<VideoResources>().VideoWasNotSelectedOrHasBeenDeleted);
+                return Content(Res.Get<VideoResources>().VideoWillNotBeDisplayed);
             else if (this.Model.Id != Guid.Empty)
                 return View(this.TemplateName, viewModel);
             else
                 return new EmptyResult();
         }
 
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        /// <returns>
+        /// List of location info of the content that this control is able to show.
+        /// </returns>
+        [NonAction]
+        public IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return this.Model.GetLocations();
+        }
+
+        /// <inheritDoc/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            ContentLocationHelper.HandlePreview<Telerik.Sitefinity.Libraries.Model.Video>(HttpContext.Request, this.Model.Id, this.Model.ProviderName);
+
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+        
         #endregion
         
         #region Private fields and constants

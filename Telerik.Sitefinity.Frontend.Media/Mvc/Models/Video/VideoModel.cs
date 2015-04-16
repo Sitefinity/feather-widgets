@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Modules.Libraries;
 
@@ -30,6 +32,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
         public int Height { get; set; }
 
         /// <inheritdoc />
+        public int OriginallWidth { get; set; }
+
+        /// <inheritdoc />
+        public int OriginalHeight { get; set; }
+
+        /// <inheritdoc />
         public string CssClass { get; set; }
 
         #endregion
@@ -52,27 +60,20 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
                 if (videoItem == null)
                     return viewModel;
 
-                viewModel.MediaUrl = videoItem.ResolveMediaUrl();
-                viewModel.Title = videoItem.Title;
-                viewModel.FileSize = (long)Math.Ceiling(videoItem.TotalSize / 1024d);
-                viewModel.Extension = videoItem.Extension.Length > 0 ? videoItem.Extension.Remove(0, 1) : string.Empty;
                 viewModel.HasSelectedVideo = true;
                 viewModel.AspectRatio = this.AspectRatio;
+                viewModel.Width = this.Width;
+                viewModel.Height = this.Height;
                 viewModel.Item = new ItemViewModel(videoItem);
-
-                if (this.AspectRatio == "auto")
-                {
-                    viewModel.Width = videoItem.Width;
-                    viewModel.Height = videoItem.Height;
-                }
-                else
-                {
-                    viewModel.Width = this.Width;
-                    viewModel.Height = this.Height;
-                }
             }
 
             return viewModel;
+        }
+
+        /// <inheritDoc/>
+        public virtual IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return ContentLocationHelper.GetLocations(this.Id, this.ProviderName, typeof(Telerik.Sitefinity.Libraries.Model.Video));
         }
 
         #endregion

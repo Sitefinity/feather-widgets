@@ -1,12 +1,15 @@
 ﻿@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video.VideoViewModel
 
 <div class="@Model.CssClass">
-    @if (!string.IsNullOrEmpty(Model.MediaUrl) && Model.AspectRatio != "auto")
+    @if (!string.IsNullOrEmpty(Model.Item.Fields.MediaUrl) && Model.AspectRatio != "auto")
     {
-        <video src="@Model.MediaUrl" class="@String.Concat("sf", Model.Extension)" width="@Model.Width" height="@Model.Height" controls="true"/>
+        <video src="@Model.Item.Fields.MediaUrl" class="@String.Concat("sf", Model.Item.Fields.Extension)" width="@Model.Width" height="@Model.Height" controls="controls">
+		</video>
     }
-    else if (!string.IsNullOrEmpty(Model.MediaUrl))
+    else if (!string.IsNullOrEmpty(Model.Item.Fields.MediaUrl))
     { 
-        <video src="@Model.MediaUrl" class="@String.Concat("sf", Model.Extension)" controls="true"/>
+        <video src="@Model.Item.Fields.MediaUrl" class="@String.Concat("sf", Model.Item.Fields.Extension)" controls="controls"/>
     }
+    <p>@Model.Item.Fields.Title</p>
+    <p>@Model.Item.Fields.Description</p>
 </div>
