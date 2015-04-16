@@ -8,7 +8,8 @@
     }
     else if (!string.IsNullOrEmpty(Model.Item.Fields.MediaUrl))
     { 
-        <video src="@Model.Item.Fields.MediaUrl" class="@String.Concat("sf", Model.Item.Fields.Extension)" controls="controls"/>
+        <video src="@Model.Item.Fields.MediaUrl" class="@String.Concat("sf", Model.Item.Fields.Extension)" controls="controls">
+        </video>
     }
     <p>@Model.Item.Fields.Title</p>
     <p>@Model.Item.Fields.Description</p>
