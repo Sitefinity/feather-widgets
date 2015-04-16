@@ -158,15 +158,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            // Design mode should not show video, unless it's preview mode
-            if ((this.IsDesignMode && !this.IsPreviewMode) || this.IsInlineEditingMode)
+            if ((this.IsDesignMode && !this.IsPreviewMode) || this.IsInlineEditingMode) // Design mode should not show video, unless it's preview mode
                 return this.Content(Res.Get<VideoResources>().VideoWillNotBeDisplayed);
-
-            // Preview mode should display if a video has been removed
-            if (this.IsPreviewMode && !viewModel.HasSelectedVideo)
+            else if (this.IsPreviewMode && !viewModel.HasSelectedVideo) // Preview mode should display if a video has been removed
                 return this.Content(Res.Get<VideoResources>().VideoNotSelectedOrDeleted);
-
-            if (viewModel.HasSelectedVideo)
+            else if (viewModel.HasSelectedVideo)
                 return this.View(this.TemplateName, viewModel);
             else
                 return new EmptyResult();
