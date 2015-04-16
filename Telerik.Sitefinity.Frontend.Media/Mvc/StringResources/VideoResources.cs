@@ -102,18 +102,34 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: The video will not be displayed before the page is published.To see the video click Preview on the top of this page.
+        /// Phrase: If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.
         /// </summary>
-        /// <value>The video will not be displayed before the page is published.To see the video click Preview on the top of this page.</value>
+        /// <value>If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.</value>
         [ResourceEntry("VideoWillNotBeDisplayed",
-            Value = "The video will not be displayed before the page is published.To see the video click Preview on the top of this page.",
-            Description = "Phrase:The video will not be displayed before the page is published.To see the video click Preview on the top of this page.",
+            Value = "If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.",
+            Description = "Phrase:If you add a video here it will not be displayed before the page is published.To see the video click Preview on the top of this page.",
             LastModified = "2015/04/13")]
         public string VideoWillNotBeDisplayed
         {
             get
             {
                 return this["VideoWillNotBeDisplayed"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: A video was not selected or has been deleted. Please select another one.
+        /// </summary>
+        /// <value>A video was not selected or has been deleted. Please select another one.</value>
+        [ResourceEntry("VideoNotSelectedOrDeleted",
+            Value = "A video was not selected or has been deleted. Please select another one.",
+            Description = "Phrase:A video was not selected or has been deleted. Please select another one.",
+            LastModified = "2015/04/16")]
+        public string VideoNotSelectedOrDeleted
+        {
+            get
+            {
+                return this["VideoNotSelectedOrDeleted"];
             }
         }
 
