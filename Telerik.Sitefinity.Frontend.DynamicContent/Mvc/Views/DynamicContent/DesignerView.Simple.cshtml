@@ -3,7 +3,7 @@
 @using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-@Html.QueryBuilderReferences()
+@Html.QueryBuilderScriptReferences()
 
 <server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.DynamicModules.DynamicModuleManager.GetManager(), Model.DynamicModuleName())' item-type="@Model.DynamicContentType().FullName" parent-types="@Model.SerializedParentTypes()">
 </server-data>

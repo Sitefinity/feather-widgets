@@ -1933,7 +1933,7 @@
             MvcHtmlString
             </returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.QueryBuilderReferences(System.Web.Mvc.HtmlHelper)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.QueryBuilderScriptReferences(System.Web.Mvc.HtmlHelper)">
             <summary>
             Adds script references required by the Sitefinity's QueryBuilder component.
             </summary>

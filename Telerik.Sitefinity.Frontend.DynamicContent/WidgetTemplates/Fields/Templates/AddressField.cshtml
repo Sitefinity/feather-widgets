@@ -35,10 +35,10 @@
 
 @@if (FieldExtensions.IsApiKeyValid())
 {
-    @@Html.Script(ScriptRef.JQuery)
-    @@Html.Script("http://maps.googleapis.com/maps/api/js?key=" + FieldExtensions.GetApiKey() + "&sensor=false")
-    @@Html.Script(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js"))
-    @@Html.Script(Url.WidgetContent("WidgetTemplates/Fields/Scripts/address-field.js", "Telerik.Sitefinity.Frontend.DynamicContent"))
+    @@Html.Script(ScriptRef.JQuery, "top", false)
+    @@Html.Script("http://maps.googleapis.com/maps/api/js?key=" + FieldExtensions.GetApiKey() + "&sensor=false", "top", false)
+    @@Html.Script(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ui.map.js"), "top", false)
+    @@Html.Script(Url.WidgetContent("WidgetTemplates/Fields/Scripts/address-field.js", "Telerik.Sitefinity.Frontend.DynamicContent"), "bottom", false)
 }
 
 @@*End @Model.Name field*@@
