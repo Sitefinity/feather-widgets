@@ -4,7 +4,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 
-@Html.Script(ScriptRef.JQuery)
+@Html.Script(ScriptRef.JQuery, "top", false)
 
 <div class="@Model.CssClass" data-sf-role="lists">
 
@@ -33,4 +33,4 @@
 
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Lists/lists.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Lists/lists.js"), "bottom", false)

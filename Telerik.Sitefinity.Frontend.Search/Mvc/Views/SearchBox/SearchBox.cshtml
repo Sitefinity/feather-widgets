@@ -4,7 +4,7 @@
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-@Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-search-box.min.css"))
+@Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-search-box.min.css"), "head", false)
 
 @{
     var searchTextBoxId = Guid.NewGuid();
@@ -32,8 +32,8 @@
 @* Avoid conflicts because the designer is loading kendo too. *@
 @if (!SystemManager.IsDesignMode)
 {
-    @Html.Script(ScriptRef.JQuery)
-    @Html.Script(ScriptRef.JQueryUI)   
+    @Html.Script(ScriptRef.JQuery, "top", false)
+    @Html.Script(ScriptRef.JQueryUI, "top", false)
 }
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchBox/Search-box.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchBox/Search-box.js"), "bottom", false)

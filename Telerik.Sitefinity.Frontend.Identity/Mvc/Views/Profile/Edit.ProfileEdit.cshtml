@@ -5,9 +5,9 @@
 @using Telerik.Sitefinity.UI.MVC;
 @using Telerik.Sitefinity.Utilities;
 
-@Html.Script(ScriptRef.JQuery)
-@Html.Script("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js")
-@Html.Script("http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js")
+@Html.Script(ScriptRef.JQuery, "top", false)
+@Html.Script("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
+@Html.Script("http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
 
 <div class="@Model.CssClass">
     @if (Model.ShowProfileChangedMsg)
@@ -94,4 +94,4 @@
 
 <input type="hidden" data-sf-role="has-password-errors" value="@hasPasswordErrors.ToString().ToLowerInvariant()" />
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Profile/profile-edit.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Profile/profile-edit.js"), "bottom", false)

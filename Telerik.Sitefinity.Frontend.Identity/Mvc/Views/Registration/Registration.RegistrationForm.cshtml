@@ -6,9 +6,9 @@
 @using Telerik.Sitefinity.Utilities;
 
 @*Add scripts and stylesheets*@
-@Html.Script(ScriptRef.JQuery)
-@Html.Script("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js")
-@Html.Script("http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js")
+@Html.Script(ScriptRef.JQuery, "top", false)
+@Html.Script("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
+@Html.Script("http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
 
 <div class="@Model.CssClass">
     @if (ViewBag.ShowActivationMsg is bool && ViewBag.ShowActivationMsg)
@@ -89,4 +89,4 @@
         <a href="@Model.LoginPageUrl">@Html.Resource("BackToLogin")</a>
     }
 </div>
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Registration/registration-form.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Registration/registration-form.js"), "bottom", false)

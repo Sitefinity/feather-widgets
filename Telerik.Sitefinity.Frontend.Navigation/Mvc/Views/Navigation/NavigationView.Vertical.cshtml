@@ -5,9 +5,9 @@
 @using Telerik.Sitefinity.Modules.Pages;
 
 @*Add scripts and stylesheets*@
-@Html.Script(ScriptRef.JQuery)
+@Html.Script(ScriptRef.JQuery, "top", false)
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Navigation.js"), "bottom", false)
 
 <div class="@Model.CssClass">
     @Html.Action("GetView", new { viewName = "Dropdown", model= Model})
