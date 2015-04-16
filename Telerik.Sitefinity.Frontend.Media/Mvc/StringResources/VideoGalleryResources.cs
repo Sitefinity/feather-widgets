@@ -14,8 +14,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
     public class VideoGalleryResources : Resource
     {
         #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="VideoGalleryResources"/> class. 
         /// Initializes new instance of <see cref="VideoGalleryResources"/> class with the default <see cref="ResourceDataProvider"/>.
         /// </summary>
         public VideoGalleryResources()
@@ -30,6 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
             : base(dataProvider)
         {
         }
+
         #endregion
 
         #region Class Description
@@ -40,7 +41,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("VideoGalleryResourcesTitle",
             Value = "Video Gallery widget resources",
             Description = "Title for the Video Gallery widget resources class.",
-            LastModified = "2015/04/15")]
+            LastModified = "2015/04/16")]
         public string VideoGalleryResourcesTitle
         {
             get
@@ -55,7 +56,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("VideoGalleryResourcesDescription",
             Value = "Localizable strings for the Video Gallery widget.",
             Description = "Description for the Video Gallery widget resources class.",
-            LastModified = "2015/04/15")]
+            LastModified = "2015/04/16")]
         public string VideoGalleryResourcesDescription
         {
             get
@@ -72,7 +73,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("MoreOptions",
             Value = "More options",
             Description = "phrase : More options",
-            LastModified = "2015/04/15")]
+            LastModified = "2015/04/16")]
         public string MoreOptions
         {
             get
@@ -87,7 +88,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         [ResourceEntry("CssClasses",
             Value = "CSS classes",
             Description = "phrase : CSS classes",
-            LastModified = "2015/04/15")]
+            LastModified = "2015/04/16")]
         public string CssClasses
         {
             get
@@ -95,7 +96,5 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
-
-    
     }
 }

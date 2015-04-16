@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 {
     /// <summary>
-    /// Classes that implement this interface provide business logic for getting Video items.
+    /// This interface is used as a model for the <see cref="VideoGalleryController"/>.
     /// </summary>
     public interface IVideoGalleryModel
     {
@@ -155,9 +155,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
-        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
-        ///     notification.
-        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        /// notification.
+        /// When notified, all cached objects with dependency on the provided keys will expire.
         /// </summary>
         /// <param name="viewModel">View model that will be used for displaying the data.</param>
         /// <returns>
@@ -167,9 +167,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
-        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
-        ///     notification.
-        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        /// notification.
+        /// When notified, all cached objects with dependency on the provided keys will expire.
         /// </summary>
         /// <param name="viewModel">View model that will be used for displaying the data.</param>
         /// <returns>

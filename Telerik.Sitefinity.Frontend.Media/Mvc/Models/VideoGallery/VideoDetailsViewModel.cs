@@ -7,10 +7,10 @@ using Telerik.Sitefinity.Frontend.Mvc.Models;
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 {
     /// <summary>
-    /// This class represents view model for Video gallery content.
+    /// This class represents details view model for Video gallery content.
     /// </summary>
     public class VideoDetailsViewModel : ContentDetailsViewModel
-    {
+    { 
         /// <summary>
         /// Gets or sets the previous item.
         /// </summary>

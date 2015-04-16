@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Services;
@@ -12,11 +12,11 @@ using SfVideo = Telerik.Sitefinity.Libraries.Model.Video;
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 {
     /// <summary>
-    /// A model for the Video Gallery MVC widget.
+    /// This class is used as a model for the <see cref="VideoGalleryController"/>.
     /// </summary>
     public class VideoGalleryModel : MediaGalleryModelBase<SfVideo>, IVideoGalleryModel
     {
-            #region Initialization
+        #region Initialization
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoGalleryModel"/> class.
@@ -28,6 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         #endregion
 
         #region Protected overriden methods
+
         /// <inheritdoc />
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
@@ -43,9 +44,9 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         }
 
         /// <inheritdoc />
-        public Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModel(IDataItem item, int? itemIndex)
+        public ContentDetailsViewModel CreateDetailsViewModel(IDataItem item, int? itemIndex)
         {
-            var viewModel = (VideoDetailsViewModel) base.CreateDetailsViewModel(item);
+            var viewModel = (VideoDetailsViewModel)base.CreateDetailsViewModel(item);
 
             int? totalCount = 0;
             IDataItem next = null;
@@ -55,7 +56,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
             {
                 var query = this.GetItemsQuery();
                 int? take = this.DisplayMode == ListDisplayMode.Limit ? this.ItemsPerPage : null;
-                
+
                 query = this.UpdateExpression(query, null, take, ref totalCount);
 
                 if (this.DisplayMode == ListDisplayMode.Limit && this.ItemsPerPage < totalCount)
@@ -95,4 +96,3 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         #endregion
     }
 }
-
