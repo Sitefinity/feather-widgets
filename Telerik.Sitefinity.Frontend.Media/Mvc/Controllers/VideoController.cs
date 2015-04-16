@@ -147,9 +147,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            if (viewModel.HasSelectedVideo && !this.IsEmpty && this.IsDesignMode && !this.IsInlineEditingMode)
-                return Content(Res.Get<VideoResources>().VideoWillNotBeDisplayed);
-            else if (this.Model.Id != Guid.Empty)
+            if (this.Model.Id != Guid.Empty)
                 return View(this.TemplateName, viewModel);
             else
                 return new EmptyResult();
