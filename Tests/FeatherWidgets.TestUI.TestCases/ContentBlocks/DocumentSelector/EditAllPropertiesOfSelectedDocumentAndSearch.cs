@@ -31,20 +31,20 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitForContentToBeLoaded(false);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectDocument(DocumentName1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().ConfirmMediaFileSelection();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(false);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName1, true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(DocumentName1), "Document title is not populated correctly");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().EditAllProperties();
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().EnterNewTitleInPropertiesDialogAndPublish(DocumentNewName);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ChangeMediaFile();
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SearchInMediaSelector(DocumentName1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyNoItemsFoundMessage();
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SearchInMediaSelector(DocumentNewName);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectDocuments(DocumentNewName);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().PressCancelButton();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SearchInMediaSelector(DocumentName1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoItemsFoundMessage();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SearchInMediaSelector(DocumentNewName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentNewName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

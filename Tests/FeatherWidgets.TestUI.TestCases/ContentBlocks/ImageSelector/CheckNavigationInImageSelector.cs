@@ -30,51 +30,51 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
           
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(3);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfFolders(0);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectImages(ImageName1, ImageName2, ImageName3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(ImageName1, ImageName2, ImageName3);
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectFilter(MyImages);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(2);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfFolders(0);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectImages(ImageName1, ImageName2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFilter(MyImages);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(ImageName1, ImageName2);
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectFilter(AllLibraries);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfFolders(2);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectFolders(DefaultLibrary, LibraryName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFilter(AllLibraries);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(DefaultLibrary, LibraryName);
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectFolder(LibraryName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfFolders(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectImages(ImageName1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectFolders(ChildImageLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(LibraryName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(ImageName1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(ChildImageLibrary);
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectFolder(ChildImageLibrary);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfFolders(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectImages(ImageName2);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectFolders(NextChildImageLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(ChildImageLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(ImageName2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(NextChildImageLibrary);
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectFolder(NextChildImageLibrary);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfFolders(0);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectImages(ImageName3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(NextChildImageLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(ImageName3);
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectFolderFromBreadCrumb(ChildImageLibrary);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfFolders(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectImages(ImageName2);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectFolders(NextChildImageLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolderFromBreadCrumb(ChildImageLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(ImageName2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(NextChildImageLibrary);
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectFolderFromSideBar(NextChildImageLibrary);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfFolders(0);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectImages(ImageName3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolderFromSideBar(NextChildImageLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(ImageName3);
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName3);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(ImageName3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName3), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText), "Image alt text is not populated correctly");
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();

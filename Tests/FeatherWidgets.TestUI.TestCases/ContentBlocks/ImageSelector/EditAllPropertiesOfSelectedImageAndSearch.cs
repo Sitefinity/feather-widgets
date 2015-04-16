@@ -31,21 +31,21 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
           
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitForContentToBeLoaded(false);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(false);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(ImageName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText1), "Image alt text is not populated correctly");
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EditAllProperties();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterNewTitleInPropertiesDialogAndPublish(ImageNewName);            
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ChangeMediaFile();
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SearchInMediaSelector(ImageName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyNoItemsFoundMessage();
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SearchInMediaSelector(ImageNewName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyCorrectImages(ImageNewName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().PressCancelButton();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SearchInMediaSelector(ImageName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoItemsFoundMessage();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SearchInMediaSelector(ImageNewName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(ImageNewName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaProperties();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

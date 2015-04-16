@@ -365,6 +365,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             ActiveBrowser.WaitForAsyncRequests();
         }
 
+        /// <summary>
+        /// Opens the video selector.
+        /// </summary>
+        public void OpenVideoSelector()
+        {
+            HtmlAnchor createContent = EM.GenericContent
+                                         .ContentBlockWidget
+                                         .VideoSelector
+                                         .AssertIsPresent("video selector");
+            createContent.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
+        }
+
         private Browser GetContentBlockFrame()
         {
             FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "javascript:\"\"", 1);

@@ -7,41 +7,41 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
+namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
 {
     /// <summary>
-    /// This is a test class for content block > document selector tests
+    /// This is a test class for content block > video selector tests
     /// </summary>
     [TestClass]
-    public class InsertDocumentFromAlreadyUploaded_ : FeatherTestCase
+    public class InsertVideoFromAlreadyUploaded_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test InsertDocumentFromAlreadyUploaded
+        /// UI test InsertVideoFromAlreadyUploaded
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
-        public void InsertDocumentFromAlreadyUploaded()
+        public void InsertVideoFromAlreadyUploaded()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoMediaEmptyScreen("No documents");
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenVideoSelector();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoMediaEmptyScreen("No videos");
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
 
             // Uploading document after epmty screen is verified.
-            string documentId = BAT.Arrange(this.TestName).ExecuteArrangement("UploadDocument").Result.Values["documentId"];
+            string documentId = BAT.Arrange(this.TestName).ExecuteArrangement("UploadVideo").Result.Values["videoId"];
 
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenVideoSelector();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(DocumentName, LibraryName, DocumentType);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName, true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(VideoName, LibraryName, DocumentType);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(VideoName);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(DocumentName), "Document title is not populated correctly");
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true));
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(VideoName), "Document title is not populated correctly");
+            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(VideoName, this.GetDocumentHref(true));
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().EnterTitle(NewDocumentName);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
 
@@ -79,14 +79,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         private string GetDocumentHref(bool isBaseUrlIncluded)
         {
             string libraryUrl = LibraryName.ToLower();
-            string documentUrl = DocumentName.ToLower() + DocumentType.ToLower();
+            string documentUrl = VideoName.ToLower() + DocumentType.ToLower();
             string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs");
             return href;
         }
 
         private const string PageName = "PageWithDocument";
         private const string WidgetName = "ContentBlock";
-        private const string DocumentName = "Image1";
+        private const string VideoName = "Image1";
         private const string LibraryName = "TestDocumentLibrary";
         private const string DocumentType = ".JPG";
         private const string SelectedFilterName = "Recent Documents";
