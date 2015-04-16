@@ -152,6 +152,7 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\DocumentsListController.cs" />
     <Compile Include="Mvc\Controllers\VideoController.cs" />
+    <Compile Include="Mvc\Controllers\VideoGalleryController.cs" />
     <Compile Include="Mvc\Helpers\MediaContentLocationHelper.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentDetailsViewModel.cs" />
     <Compile Include="Mvc\Models\DocumentsList\DocumentItemViewModel.cs" />
@@ -172,9 +173,12 @@
     <Compile Include="Mvc\Models\ImageGallery\ThumbnailViewModel.cs" />
     <Compile Include="Mvc\Models\Image\ImageSizeModel.cs" />
     <Compile Include="Mvc\Models\Image\ThumbnailModel.cs" />
+    <Compile Include="Mvc\Models\VideoGallery\IVideoGalleryModel.cs" />
+    <Compile Include="Mvc\Models\VideoGallery\VideoGalleryModel.cs" />
     <Compile Include="Mvc\Models\Video\IVideoModel.cs" />
     <Compile Include="Mvc\Models\Video\VideoModel.cs" />
     <Compile Include="Mvc\Models\Video\VideoViewModel.cs" />
+    <Compile Include="Mvc\StringResources\VideoGalleryResources.cs" />
     <Compile Include="Mvc\StringResources\VideoResources.cs" />
     <Compile Include="Mvc\StringResources\DocumentsListResources.cs" />
     <Compile Include="Mvc\StringResources\DocumentResources.cs" />
