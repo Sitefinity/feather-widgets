@@ -110,6 +110,17 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets whether the page is in preview mode.
+        /// </summary>
+        protected virtual bool IsPreviewMode
+        {
+            get
+            {
+                return SystemManager.IsPreviewMode;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the name of the template that widget will be displayed.
         /// </summary>
         /// <value></value>
@@ -147,8 +158,16 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            if (this.Model.Id != Guid.Empty)
-                return View(this.TemplateName, viewModel);
+            // Design mode should not show video, unless it's preview mode
+            if ((this.IsDesignMode && !this.IsPreviewMode) || this.IsInlineEditingMode)
+                return this.Content(Res.Get<VideoResources>().VideoWillNotBeDisplayed);
+
+            // Preview mode should display if a video has been removed
+            if (this.IsPreviewMode && !viewModel.HasSelectedVideo)
+                return this.Content(Res.Get<VideoResources>().VideoNotSelectedOrDeleted);
+
+            if (viewModel.HasSelectedVideo)
+                return this.View(this.TemplateName, viewModel);
             else
                 return new EmptyResult();
         }
