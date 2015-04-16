@@ -163,7 +163,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             else if (this.IsPreviewMode && !viewModel.HasSelectedVideo) // Preview mode should display if a video has been removed
                 return this.Content(Res.Get<VideoResources>().VideoNotSelectedOrDeleted);
             else if (viewModel.HasSelectedVideo)
-                return this.View(this.TemplateName, viewModel);
+                return this.View(VideoController.TemplatePrefix + this.TemplateName, viewModel);
             else
                 return new EmptyResult();
         }
@@ -194,7 +194,8 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         private IVideoModel model;
         private const string WidgetIconCssClass = "sfVideoIcn";
-        private string templateName = "Video";
+        private string templateName = "Default";
+        private const string TemplatePrefix = "Video.";
         
         #endregion
     }
