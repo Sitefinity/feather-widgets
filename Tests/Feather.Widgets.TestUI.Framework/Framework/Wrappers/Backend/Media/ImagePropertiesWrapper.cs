@@ -31,7 +31,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <summary>
         /// Enters new alt tetx for image.
         /// </summary>
-        /// <param name="imageTitle">The image alt text.</param>
+        /// <param name="imageAltText">The image alt text.</param>
         public void EnterImageAltText(string imageAltText)
         {
             HtmlInputText altTextField = this.EM.Media.ImagePropertiesScreen.ImageAltTextField

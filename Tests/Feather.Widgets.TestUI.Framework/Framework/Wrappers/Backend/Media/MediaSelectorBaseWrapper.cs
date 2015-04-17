@@ -13,9 +13,9 @@ using ArtOfTest.WebAii.jQuery;
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 {
     /// <summary>
-    /// This is an entry point for MediaSelectorBaseWrapper.
+    /// This is an entry point for MediaSelectorWrapper.
     /// </summary>
-    public abstract class MediaSelectorBaseWrapper : BaseWrapper
+    public class MediaSelectorBaseWrapper : BaseWrapper
     {
         /// <summary>
         /// Selects media file from your computer.
@@ -24,6 +24,84 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         {
             var selectImageFromYourComputer = this.EM.Media.MediaSelectorScreen.SelectMediaFileFromYourComputerLink.AssertIsPresent("Select image link");
             selectImageFromYourComputer.MouseClick();
+        }
+
+        /// <summary>
+        /// Verifies media tooltip on mouse over.
+        /// </summary>
+        /// /// <param name="documentTitle">The media name.</param>
+        /// <param name="libraryName">The library name.</param>
+        /// <param name="dimensions">The media dimensions.</param>
+        /// <param name="documentType">The media type.</param>
+        public void VerifyMediaTooltip(string title, string libraryName, string type, string dimensions = "")
+        {
+            HtmlSpan tooltip = this.EM.Media.MediaSelectorScreen.Tooltip.AssertIsNotNull("tooltip icon");
+            string imageTooltipTitle = tooltip.Attributes.Where(a => a.Name == "sf-popover-title").First().Value;
+            Assert.AreEqual(title, imageTooltipTitle, "Media title in tooltip is not correct");
+
+            tooltip.ScrollToVisible();
+            tooltip.Focus();
+            tooltip.MouseHover();
+
+            var tooltipContent = tooltip.Attributes.Where(a => a.Name == "sf-popover-content").First().Value;
+
+            Assert.IsTrue(tooltipContent.Contains(libraryName), "Library name not found in the tooltip");
+            if (!dimensions.Equals(string.Empty))
+            {
+                Assert.IsTrue(tooltipContent.Contains(dimensions), "Media dimensions not found in the tooltip");
+            }
+
+            Assert.IsTrue(tooltipContent.Contains(type), "Media type not found in the tooltip");
+        }
+
+        /// <summary>
+        /// Verifies that all elements from no media screen are present.
+        /// </summary>
+        public void VerifyNoMediaEmptyScreen(string text)
+        {
+            this.EM.Media.MediaSelectorScreen.NoMediaIcon.AssertIsPresent("No media icon");
+            this.EM.Media.MediaSelectorScreen.NoMediaText(text).AssertIsPresent("No media text");
+            this.EM.Media.MediaSelectorScreen.SelectMediaFileFromYourComputerLink.AssertIsPresent("Select media link");
+            this.EM.Media.MediaSelectorScreen.DragAndDropLabel.AssertIsPresent("Drag and drop label");
+        }
+
+        /// <summary>
+        /// Selects media from media selector.
+        /// </summary>
+        /// <param name="title">The media title.</param>
+        public void SelectMediaFile(string title, bool isDocumentFile = false)
+        {
+            if (isDocumentFile)
+            {
+                HtmlDiv doc = ActiveBrowser.Find.ByExpression<HtmlDiv>("tagName=div", "class=Media-item-title ng-binding", "innertext=" + title);
+                doc.ScrollToVisible();
+                doc.Focus();
+                doc.MouseClick();
+            }
+            else
+            {
+                HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("tagName=img", "alt=" + title);
+                image.ScrollToVisible();
+                image.Focus();
+                image.MouseClick();
+            }
+        }
+
+        /// <summary>
+        /// Verifies the correct media files.
+        /// </summary>
+        /// <param name="titles">The media files titles.</param>
+        public void VerifyCorrectMediaFiles(params string[] titles)
+        {
+            HtmlDiv holder = this.EM.Media.MediaSelectorScreen.MediaSelectorThumbnailHolderDiv.AssertIsPresent("holder");
+            foreach (var title in titles)
+            {
+                var file = holder.Find.ByExpression<HtmlImage>("tagName=img", "alt=" + title);
+                if (file == null)
+                {
+                    holder.Find.ByExpression<HtmlDiv>("tagName=div", "class=Media-item-title ng-binding", "innertext=" + title).AssertIsPresent(title);                 
+                }
+            }
         }
 
         /// <summary>
@@ -129,7 +207,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         {
             HtmlAnchor filter = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "InnerText=" + filterName);
 
-            Assert.IsTrue(filter.Parent<HtmlListItem>().CssClass == "ng-scope active");
+            Assert.IsTrue(filter.Parent<HtmlListItem>().CssClass.Contains("active"));
         }
 
         /// <summary>

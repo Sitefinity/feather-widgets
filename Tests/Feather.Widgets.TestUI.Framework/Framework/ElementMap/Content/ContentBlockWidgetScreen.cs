@@ -297,5 +297,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
                 return this.Get<HtmlAnchor>("tagname=a", "title=Insert file");
             }
         }
+
+        /// <summary>
+        /// Gets the video selector.
+        /// </summary>
+        /// <value>The video selector.</value>
+        public HtmlAnchor VideoSelector
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "title=Insert video");
+            }
+        }
     }
 }

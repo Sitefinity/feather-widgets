@@ -99,6 +99,7 @@
     <Compile Include="Framework\ElementMap\Identity\RegistrationFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryMap.cs" />
+    <Compile Include="Framework\ElementMap\Media\VideoPropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\MediaPropertiesBaseScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\MediaUploadPropertiesScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\ImagePropertiesScreen.cs" />
@@ -130,10 +131,10 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Media\VideoPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerRadioButtonIds.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\DocumentPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\MediaPropertiesBaseWrapper.cs" />
-    <Compile Include="Framework\Wrappers\Backend\Media\DocumentSelectorWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\MediaSelectorBaseWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\MediaUploadPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Identity\IdentityWrapperFacade.cs" />
@@ -142,7 +143,6 @@
     <Compile Include="Framework\Wrappers\Backend\Identity\ProfileWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Identity\RegistrationWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\ImagePropertiesWrapper.cs" />
-    <Compile Include="Framework\Wrappers\Backend\Media\ImageSelectorWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\MediaWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Search\SearchBoxWidgetWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Search\SearchResultsWidgetWrapper.cs" />

@@ -12,21 +12,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
     public class MediaWrapperFacade
     {
         /// <summary>
-        /// Provides access to ImageSelectorWrapper
+        /// Provides access to MediaSelectorWrapper
         /// </summary>
-        /// <returns>New instance of ImageSelectorWrapper</returns>
-        public ImageSelectorWrapper ImageSelectorWrapper()
+        /// <returns>New instance of MediaSelectorWrapper</returns>
+        public MediaSelectorBaseWrapper MediaSelectorWrapper()
         {
-            return new ImageSelectorWrapper();
-        }
-
-        /// <summary>
-        /// Provides access to DocumentSelectorWrapper
-        /// </summary>
-        /// <returns>New instance of DocumentSelectorWrapper</returns>
-        public DocumentSelectorWrapper DocumentSelectorWrapper()
-        {
-            return new DocumentSelectorWrapper();
+            return new MediaSelectorBaseWrapper();
         }
 
         /// <summary>
@@ -45,6 +36,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public DocumentPropertiesWrapper DocumentPropertiesWrapper()
         {
             return new DocumentPropertiesWrapper();
+        }
+
+        /// <summary>
+        /// Provides access to VideoPropertiesWrapper
+        /// </summary>
+        /// <returns>New instance of VideoPropertiesWrapper</returns>
+        public VideoPropertiesWrapper VideoPropertiesWrapper()
+        {
+            return new VideoPropertiesWrapper();
         }
 
         /// <summary>
