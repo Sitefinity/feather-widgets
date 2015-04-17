@@ -50,6 +50,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             {
                 Assert.IsTrue(tooltipContent.Contains(dimensions), "Media dimensions not found in the tooltip");
             }
+
             Assert.IsTrue(tooltipContent.Contains(type), "Media type not found in the tooltip");
         }
 
@@ -206,7 +207,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         {
             HtmlAnchor filter = ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagName=a", "InnerText=" + filterName);
 
-            Assert.IsTrue(filter.Parent<HtmlListItem>().CssClass == "ng-scope active");
+            Assert.IsTrue(filter.Parent<HtmlListItem>().CssClass.Contains("active"));
         }
 
         /// <summary>

@@ -39,6 +39,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Provides access to VideoPropertiesWrapper
+        /// </summary>
+        /// <returns>New instance of VideoPropertiesWrapper</returns>
+        public VideoPropertiesWrapper VideoPropertiesWrapper()
+        {
+            return new VideoPropertiesWrapper();
+        }
+
+        /// <summary>
         /// Provides access to MediaUploadPropertiesWrapper
         /// </summary>
         /// <returns>New instance of MediaUploadPropertiesWrapper</returns>

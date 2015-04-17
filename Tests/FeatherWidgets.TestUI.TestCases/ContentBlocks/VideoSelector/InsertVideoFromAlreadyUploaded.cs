@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         /// UI test InsertVideoFromAlreadyUploaded
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
@@ -32,26 +32,30 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoMediaEmptyScreen("No videos");
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
 
-            // Uploading document after epmty screen is verified.
-            string documentId = BAT.Arrange(this.TestName).ExecuteArrangement("UploadVideo").Result.Values["videoId"];
+            // Uploading video after epmty screen is verified.
+            string videoId = BAT.Arrange(this.TestName).ExecuteArrangement("UploadVideo").Result.Values["videoId"];
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenVideoSelector();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(VideoName, LibraryName, DocumentType);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(VideoName, LibraryName, VideoType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(VideoName);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(VideoName), "Document title is not populated correctly");
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(VideoName, this.GetDocumentHref(true));
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().EnterTitle(NewDocumentName);
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySmallVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifySelectedOptionAspectRatioSelector("Auto");
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().PlayVideo();
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyBigVideoProperites(this.GetVideoSource(true));
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().SelectOptionAspectRatioSelector("4x3");
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyWidthAndHeightValues("600", "450");
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().ConfirmMediaProperties();
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
-                .VerifyContentBlockDocumentDesignMode(this.GetDocumentHref(true), this.GetSfRef(documentId), NewDocumentName);
+                .VerifyContentBlockVideoDesignMode(this.GetVideoSource(true), this.GetSfRef(videoId), "600", "450");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyVideo(this.GetVideoSource(false), Width, Height);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyDocument(NewDocumentName, this.GetDocumentHref(false));
+            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyVideo(this.GetVideoSource(false), Width, Height);
         }
 
         /// <summary>
@@ -71,25 +75,26 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetSfRef(string documentId)
+        private string GetSfRef(string videoId)
         {
-            return "[documents|OpenAccessDataProvider]" + documentId;
+            return "[videos|OpenAccessDataProvider]" + videoId;
         }
 
-        private string GetDocumentHref(bool isBaseUrlIncluded)
+        private string GetVideoSource(bool isBaseUrlIncluded)
         {
             string libraryUrl = LibraryName.ToLower();
-            string documentUrl = VideoName.ToLower() + DocumentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs");
-            return href;
+            string imageUrl = VideoName.ToLower() + VideoType.ToLower();
+            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos");
+            return scr;
         }
 
-        private const string PageName = "PageWithDocument";
+        private const string PageName = "PageWithVideo";
         private const string WidgetName = "ContentBlock";
-        private const string VideoName = "Image1";
-        private const string LibraryName = "TestDocumentLibrary";
-        private const string DocumentType = ".JPG";
-        private const string SelectedFilterName = "Recent Documents";
-        private const string NewDocumentName = "DocumentTitleEdited";
+        private const string VideoName = "big_buck_bunny";
+        private const string LibraryName = "TestVideoLibrary";
+        private const string VideoType = ".MP4";
+        private const string SelectedFilterName = "Recent Videos";
+        private const int Width = 600;
+        private const int Height = 450;
     }
 }

@@ -239,6 +239,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Verifies the video.
+        /// </summary>
+        /// <param name="src">The SRC.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        public void VerifyVideo(string src, int width = 0, int height = 0)
+        {
+            HtmlVideo video = ActiveBrowser.Find.ByExpression<HtmlVideo>("src=~" + src)
+                .AssertIsPresent("video");
+            if (width != 0 && height != 0)
+            {
+                Assert.IsTrue(video.Width.Equals(width), "width is not correct");
+                Assert.IsTrue(video.Height.Equals(height), "height is not correct");
+            }
+        }
+
+        /// <summary>
         /// Verifies the document.
         /// </summary>
         /// <param name="title">The title.</param>
