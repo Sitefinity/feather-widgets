@@ -5,6 +5,7 @@ using System.Text;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
@@ -57,7 +58,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video
                     .Where(i => i.Id == this.Id)
                     .SingleOrDefault();
 
-                if (videoItem == null)
+                if (videoItem == null || !videoItem.Visible || videoItem.Status != ContentLifecycleStatus.Live)
                     return viewModel;
 
                 viewModel.HasSelectedVideo = true;
