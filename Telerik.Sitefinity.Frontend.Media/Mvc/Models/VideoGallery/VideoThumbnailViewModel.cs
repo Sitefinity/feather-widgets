@@ -23,11 +23,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         public string ThumbnailUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the video.
+        /// Gets or sets the duration of the video.
         /// </summary>
         /// <value>
-        /// The length of the video.
+        /// The duration of the video.
         /// </value>
-        public int VideoLength { get; set; }
+        public int VideoDuration { get; set; }
     }
 }
