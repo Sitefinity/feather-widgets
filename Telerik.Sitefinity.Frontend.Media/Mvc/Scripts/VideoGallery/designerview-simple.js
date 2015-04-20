@@ -1,10 +1,10 @@
 ﻿(function ($) {
     angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
 
-    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serviceHelper', function ($scope, propertyService, serviceHelper) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
 
-        var emptyGuid = '00000000-0000-0000-0000-000000000000';
+        var emptyGuid = serviceHelper.emptyGuid();
 
         $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
@@ -23,14 +23,14 @@
         );
 
         $scope.$watch(
-            'properties.ProviderName.PropertyValue',
-            function (newProviderName, oldProviderName) {
-                if (newProviderName !== oldProviderName) {
-                    $scope.properties.ParentFilterMode.PropertyValue = 'All';
-                    $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
-                }
-            },
-            true
+	        'properties.ProviderName.PropertyValue',
+	        function (newProviderName, oldProviderName) {
+	            if (newProviderName !== oldProviderName) {
+	                $scope.properties.ParentFilterMode.PropertyValue = 'All';
+	                $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
+	            }
+	        },
+	        true
         );
 
         $scope.$watch(
