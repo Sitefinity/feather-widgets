@@ -219,8 +219,6 @@
     <EmbeddedResource Include="Mvc\Views\VideoGallery\Detail.DetailPage.cshtml" />
     <EmbeddedResource Include="Mvc\Views\VideoGallery\List.OverlayGallery.cshtml" />
     <EmbeddedResource Include="Mvc\Views\VideoGallery\List.VideoGallery.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\VideoGallery\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\VideoGallery\DesignerView.Simple.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
