@@ -28,7 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         #region Properties
         
         /// <summary>
-        /// Gets the Image gallery widget model.
+        /// Gets the Video gallery widget model.
         /// </summary>
         /// <value>
         /// The model.
