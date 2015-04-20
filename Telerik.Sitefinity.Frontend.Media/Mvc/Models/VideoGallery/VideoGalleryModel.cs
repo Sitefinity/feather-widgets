@@ -42,16 +42,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         {
             get
             {
-                if (this.thumbnailSizeModel == null)
+                if (this.SerializedThumbnailSizeModel != null)
                 {
-                    if (this.SerializedThumbnailSizeModel != null)
-                    {
-                        this.thumbnailSizeModel = JsonSerializer.DeserializeFromString<ImageSizeModel>(this.SerializedThumbnailSizeModel);
-                    }
-                    else
-                    {
-                        this.thumbnailSizeModel = this.DefaultThumbnailSize();
-                    }
+                    this.thumbnailSizeModel = JsonSerializer.DeserializeFromString<ImageSizeModel>(this.SerializedThumbnailSizeModel);
+                }
+                else
+                {
+                    this.thumbnailSizeModel = this.DefaultThumbnailSize();
                 }
 
                 return this.thumbnailSizeModel;
