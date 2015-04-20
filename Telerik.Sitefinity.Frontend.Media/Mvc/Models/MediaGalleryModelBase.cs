@@ -141,7 +141,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
             if (libraryType == typeof(Album))
                 profiles = Config.Get<LibrariesConfig>().Images.Thumbnails.Profiles;
             else if (libraryType == typeof(VideoLibrary))
-                profiles = Config.Get<LibrariesConfig>().Videos.Thumbnails.Profiles;
+                return VideoSystemThumbnailName;
             else
                 return null;
 
@@ -153,6 +153,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models
         }
 
         #region Private fields and constants
+        internal const string VideoSystemThumbnailName = "0";
         private string serializedSelectedParentsIds;
         private IList<string> selectedParentsIds = new List<string>();
         #endregion
