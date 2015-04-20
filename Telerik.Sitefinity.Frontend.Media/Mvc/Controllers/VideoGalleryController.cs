@@ -325,7 +325,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfVideoGalleryIcn";
+        internal const string WidgetIconCssClass = "sfVideoListIcn";
 
         private IVideoGalleryModel model;
 
