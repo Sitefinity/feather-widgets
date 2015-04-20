@@ -17,7 +17,7 @@
 
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
-    <video src="@Html.Raw(Model.MediaUrl)" controls="controls" />
+    <video src="@Html.Raw(Model.MediaUrl)" controls="controls" ></video>
 
     @if (ViewBag.ItemIndex != null)
     {
@@ -34,7 +34,7 @@
                 </a>
             }
 
-            @if (Model.PreviousItem != null || @Model.NextItem != null)
+            @if (Model.PreviousItem != null || Model.NextItem != null)
             {
                 string.Format(@Html.Resource("IndexOfTotal"), @ViewBag.ItemIndex, @Model.TotalItemsCount);
             }

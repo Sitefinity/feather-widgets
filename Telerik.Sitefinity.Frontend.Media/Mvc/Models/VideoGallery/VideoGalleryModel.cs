@@ -120,8 +120,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
             viewModel.PreviousItem = prev != null ? new ItemViewModel(prev) : null;
             viewModel.NextItem = next != null ? new ItemViewModel(next) : null;
             viewModel.TotalItemsCount = totalCount.Value;
-
-            //viewModel.MediaUrl = this.GetSelectedSizeUrl((SfVideo)item, this.VideoSizeModel);
+            viewModel.MediaUrl = ((SfVideo)item).MediaUrl;
 
             return viewModel;
         }
