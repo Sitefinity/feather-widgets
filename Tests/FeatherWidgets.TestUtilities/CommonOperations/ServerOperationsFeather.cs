@@ -134,5 +134,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new DynamicModuleModule2Operations();
         }
+
+        /// <summary>
+        /// Entry point for common operations related to Lists
+        /// </summary>
+        /// <returns></returns>
+        public static ListsOperations ListsOperations()
+        {
+            return new ListsOperations();
+        }
     }
 }

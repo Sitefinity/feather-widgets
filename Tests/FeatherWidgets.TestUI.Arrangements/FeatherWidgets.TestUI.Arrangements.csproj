@@ -198,6 +198,7 @@
     <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
+    <Compile Include="Lists\SimpleListTemplate.cs" />
     <Compile Include="MediaWidgets\ImageWidgetInsertImageWithCustomThumbnail.cs" />
     <Compile Include="MediaWidgets\DocumentWidgetInsertDocument.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
