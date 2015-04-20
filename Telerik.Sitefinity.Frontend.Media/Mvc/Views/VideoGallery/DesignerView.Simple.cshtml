@@ -71,7 +71,7 @@
     </tab>
 
     <tab heading="@Html.Resource("ListSettings")">
-                <div class="form-group">
+        <div class="form-group">
             <div class="radio">
                 <label for="usePaging">
                     <input id="usePaging" type="radio" ng-model="properties.DisplayMode.PropertyValue" value="Paging" />
@@ -111,7 +111,6 @@
             <div class="row">
                 <div class="col-xs-6">
                     <label for="sortOptions">@Html.Resource("SortItems")</label>
-
 
                     <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
                         <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
