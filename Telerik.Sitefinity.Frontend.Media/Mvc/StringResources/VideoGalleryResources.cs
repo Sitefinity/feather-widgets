@@ -394,5 +394,36 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["ListTemplate"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Use limit
+        /// </summary>
+        [ResourceEntry("UseLimit",
+            Value = "Use limit",
+            Description = "phrase : Use limit",
+            LastModified = "2015/04/20")]
+        public string UseLimit
+        {
+            get
+            {
+                return this["UseLimit"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Thumbnail size
+        /// </summary>
+        /// <value>Thumbnail size</value>
+        [ResourceEntry("ThumbnailSize",
+            Value = "Thumbnail size",
+            Description = "phrase: Thumbnail size",
+            LastModified = "2015/04/20")]
+        public string ThumbnailSize
+        {
+            get
+            {
+                return this["ThumbnailSize"];
+            }
+        }
     }
 }
