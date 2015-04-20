@@ -37,11 +37,11 @@
     window.addEventListener('popstate', function (e) {
         if (e.state !== undefined && e.state !== null && typeof e.state === 'number') {
             if (e.state >= 0 && e.state < $.magnificPopup.instance.items.length) {
-                $('.image-link').magnificPopup('open', e.state);
+                $('.video-link').magnificPopup('open', e.state);
             }
         }
         else {
-            $('.image-link').magnificPopup('close');
+            $('.video-link').magnificPopup('close');
         }
     });
 })(jQuery);
