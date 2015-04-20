@@ -156,6 +156,7 @@
     <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\BlogPostController.cs" />
     <Compile Include="Mvc\Models\BlogPostModel.cs" />
     <Compile Include="Mvc\Models\BlogPostViewModel.cs" />
