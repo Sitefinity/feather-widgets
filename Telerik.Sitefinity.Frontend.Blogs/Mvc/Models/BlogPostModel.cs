@@ -10,7 +10,7 @@ using Telerik.Sitefinity.Modules.Blogs;
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
 {
     /// <summary>
-    /// A model for the Blog Post MVC widget.
+    /// Provides API for working with <see cref="Telerik.Sitefinity.Blogs.Model.BlogPost"/> items.
     /// </summary>
     public class BlogPostModel : ContentModelBase, IBlogPostModel
     {

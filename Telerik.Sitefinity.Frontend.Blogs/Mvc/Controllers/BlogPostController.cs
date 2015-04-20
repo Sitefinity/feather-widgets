@@ -31,7 +31,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             get
             {
                 if (this.model == null)
-                    this.model = this.InitializeModel();
+                    this.model = ControllerModelFactory.GetModel<IBlogPostModel>(this.GetType());
 
                 return this.model;
             }
@@ -178,17 +178,6 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         #endregion
 
         #region Private Methods
-
-        /// <summary>
-        /// Initializes the model.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IBlogPostModel"/>.
-        /// </returns>
-        private IBlogPostModel InitializeModel()
-        {
-            return ControllerModelFactory.GetModel<IBlogPostModel>(this.GetType());
-        }
 
         /// <summary>
         /// Initializes the ListView bag.
