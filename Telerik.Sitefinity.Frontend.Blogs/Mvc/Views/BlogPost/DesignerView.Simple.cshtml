@@ -1,11 +1,3 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 @Html.QueryBuilderScriptReferences()
-
-<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.News.NewsManager.GetManager())'>
-</server-data>
-
-<sf-list-selector sf-blog-post-selector ng-show="true"
-                                  sf-multiselect="true" sf-sortable="true"
-                                  sf-provider="">
-</sf-list-selector>
