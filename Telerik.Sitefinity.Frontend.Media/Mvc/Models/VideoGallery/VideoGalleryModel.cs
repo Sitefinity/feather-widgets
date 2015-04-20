@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Services;
 using SfVideo = Telerik.Sitefinity.Libraries.Model.Video;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 {
@@ -23,9 +24,41 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         /// </summary>
         public VideoGalleryModel() : base()
         {
+            this.SerializedThumbnailSizeModel = JsonSerializer.SerializeToString(this.DefaultThumbnailSize());
         }
 
         #endregion
+
+        #region Public methods
+
+        /// <inheritdoc />
+        public string SerializedThumbnailSizeModel { get; set; }
+
+        /// <summary>
+        /// Gets the size model of the thumbnails in the gallery.
+        /// </summary>
+        /// <value>The thumbnail size model.</value>
+        public ImageSizeModel ThumbnailSizeModel
+        {
+            get
+            {
+                if (this.thumbnailSizeModel == null)
+                {
+                    if (this.SerializedThumbnailSizeModel != null)
+                    {
+                        this.thumbnailSizeModel = JsonSerializer.DeserializeFromString<ImageSizeModel>(this.SerializedThumbnailSizeModel);
+                    }
+                    else
+                    {
+                        this.thumbnailSizeModel = this.DefaultThumbnailSize();
+                    }
+                }
+
+                return this.thumbnailSizeModel;
+            }
+        }
+
+        #endregion 
 
         #region Protected overriden methods
 
@@ -92,6 +125,88 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
 
             return viewModel;
         }
+
+        /// <inheritdoc />
+        protected override ItemViewModel CreateItemViewModelInstance(IDataItem item)
+        {
+            return new VideoThumbnailViewModel(item);
+        }
+
+        /// <inheritdoc />
+        protected override void PopulateListViewModel(int page, IQueryable<IDataItem> query, ContentListViewModel viewModel)
+        {
+            base.PopulateListViewModel(page, query, viewModel);
+
+            foreach (var item in viewModel.Items)
+            {
+                ((VideoThumbnailViewModel)item).ThumbnailUrl = this.GetSelectedSizeUrl((SfVideo)item.DataItem, this.ThumbnailSizeModel);
+            }
+        }
+
+        #endregion
+
+        #region Protected virtual methods
+
+        /// <summary>
+        /// Gets the thumbnail URL for the selected size.
+        /// </summary>
+        /// <param name="video">The video.</param>
+        /// <param name="sizeModel">The size model.</param>
+        /// <returns></returns>
+        protected virtual string GetSelectedSizeUrl(SfVideo video, ImageSizeModel sizeModel)
+        {
+            if (video.Id == Guid.Empty)
+                return string.Empty;
+
+            string videoThumbnailUrl;
+            var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
+            if (sizeModel.DisplayMode == ImageDisplayMode.Thumbnail && !string.IsNullOrWhiteSpace(sizeModel.Thumbnail.Name))
+            {
+                videoThumbnailUrl = video.ResolveThumbnailUrl(sizeModel.Thumbnail.Name, urlAsAbsolute);
+            }
+            else
+            {
+                var originalThumbnailUrl = video.ResolveMediaUrl(urlAsAbsolute);
+                videoThumbnailUrl = originalThumbnailUrl;
+            }
+
+            return videoThumbnailUrl;
+        }
+        #endregion
+
+        #region Private methods
+
+        private ImageSizeModel DefaultThumbnailSize()
+        {
+            ImageSizeModel result;
+            var defaultThumbnail = VideoGalleryModel.DefaultThumbnailProfileName<VideoLibrary>();
+            if (defaultThumbnail != null)
+            {
+                result = new ImageSizeModel()
+                {
+                    DisplayMode = ImageDisplayMode.Thumbnail,
+                    Thumbnail = new ThumbnailModel()
+                    {
+                        Name = VideoGalleryModel.DefaultThumbnailProfileName<VideoLibrary>()
+                    }
+                };
+            }
+            else
+            {
+                result = new ImageSizeModel()
+                {
+                    DisplayMode = ImageDisplayMode.Original
+                };
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region Private fields and constants
+
+        private ImageSizeModel thumbnailSizeModel;
 
         #endregion
     }

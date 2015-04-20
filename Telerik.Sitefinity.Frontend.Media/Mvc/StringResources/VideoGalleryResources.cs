@@ -68,6 +68,85 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         #endregion
 
         /// <summary>
+        /// phrase: Next video
+        /// </summary>
+        [ResourceEntry("NextVideo",
+            Value = "Next video",
+            Description = "phrase: Next video",
+            LastModified = "2015/04/20")]
+        public string NextVideo
+        {
+            get
+            {
+                return this["NextVideo"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Previous video
+        /// </summary>
+        /// <value>Previous video</value>
+        [ResourceEntry("PreviousVideo",
+            Value = "Previous video",
+            Description = "phrase: Previous video",
+            LastModified = "2015/04/20")]
+        public string PreviousVideo
+        {
+            get
+            {
+                return this["PreviousVideo"];
+            }
+        }
+
+        /// <summary>
+        /// word: by
+        /// </summary>
+        /// <value>by</value>
+        [ResourceEntry("By",
+            Value = "by",
+            Description = "word: by",
+            LastModified = "2015/04/20")]
+        public string By
+        {
+            get
+            {
+                return this["By"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Back to all videos
+        /// </summary>
+        /// <value>Back to all videos</value>
+        [ResourceEntry("BackToAllVideos",
+            Value = "Back to all videos",
+            Description = "phrase: Back to all videos",
+            LastModified = "2015/04/20")]
+        public string BackToAllVideos
+        {
+            get
+            {
+                return this["BackToAllVideos"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: [Index] of [TotalCount]
+        /// </summary>
+        /// <value>{0} of {1}</value>
+        [ResourceEntry("IndexOfTotal",
+            Value = "{0} of {1}",
+            Description = "phrase: [Index] of [TotalCount]",
+            LastModified = "2015/04/20")]
+        public string IndexOfTotal
+        {
+            get
+            {
+                return this["IndexOfTotal"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : More options
         /// </summary>
         [ResourceEntry("MoreOptions",

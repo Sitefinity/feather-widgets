@@ -123,6 +123,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
+            this.InitializeListViewBag("/{0}");
             var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
 
             if (SystemManager.CurrentHttpContext != null)
@@ -288,7 +289,20 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             return ControllerModelFactory.GetModel<IVideoGalleryModel>(this.GetType());
         }
-        
+
+        /// <summary>
+        /// Initializes the ListView bag.
+        /// </summary>
+        /// <param name="redirectPageUrl">The redirect page URL.</param>
+        private void InitializeListViewBag(string redirectPageUrl)
+        {
+            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
+        }
+      
         /// <summary>
         /// Parses text to nullable int32.
         /// </summary>
