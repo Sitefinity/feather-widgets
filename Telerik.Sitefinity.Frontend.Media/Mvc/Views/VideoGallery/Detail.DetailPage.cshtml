@@ -1,0 +1,57 @@
+@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery.VideoDetailsViewModel
+
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Web.DataResolving;
+
+<div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
+    <h2>
+        <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
+    </h2>
+
+    <div class="text-muted">
+        @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
+        @Html.Resource("By")
+        @DataResolver.Resolve(@Model.Item.DataItem, "Author", null)
+    </div>
+
+    <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
+
+    <video src="@Html.Raw(Model.MediaUrl)" controls="controls" ></video>
+
+    @if (ViewBag.ItemIndex != null)
+    {
+        <div class="m-bottom-lg text-center">
+            @{
+                var previousItemIndex = ViewBag.ItemIndex == 1 ? Model.TotalItemsCount : ViewBag.ItemIndex - 1;
+                var nextItemIndex = ViewBag.ItemIndex == Model.TotalItemsCount ? 1 : ViewBag.ItemIndex + 1;
+            }
+
+            @if (Model.PreviousItem != null) 
+            {
+                <a class="pull-left" href="@HyperLinkHelpers.GetDetailPageUrl(Model.PreviousItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, previousItemIndex)">
+                    @Html.Resource("PreviousVideo")
+                </a>
+            }
+
+            @if (Model.PreviousItem != null || Model.NextItem != null)
+            {
+                @Html.Raw(string.Format(Html.Resource("IndexOfTotal"), ViewBag.ItemIndex, Model.TotalItemsCount));
+            }
+
+            @if (Model.NextItem != null) 
+            {
+                <a class="pull-right" href="@HyperLinkHelpers.GetDetailPageUrl(Model.NextItem, ViewBag.DetailsPageId, ViewBag.OpenInSamePage, nextItemIndex)">
+                    @Html.Resource("NextVideo")
+                </a>
+            }
+        </div>
+
+        @Html.ActionLink(Html.Resource("BackToAllVideos"), "Index")
+    }
+
+    @if (Model.EnableSocialSharing)
+    {
+        @Html.SocialShareOptions()
+    }
+</div>
