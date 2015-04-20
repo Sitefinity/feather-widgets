@@ -2,23 +2,26 @@
 
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
+@using Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery;
 @using Telerik.Sitefinity.Modules.Pages;
 
-@Html.Script(ScriptRef.JQuery)
-
-@Html.StyleSheet(Url.WidgetContent("assets/magnific/magnific-popup.css"))
-
-@Html.Script(Url.WidgetContent("assets/magnific/jquery.magnific-popup.min.js"))
-@Html.Script(Url.WidgetContent("Mvc/Scripts/VideoGallery/overlay-gallery.js"))
+@Html.StyleSheet(Url.WidgetContent("assets/magnific/magnific-popup.css"), "head", false)
+@Html.Script(ScriptRef.JQuery, "top", false)
+@Html.Script(Url.WidgetContent("assets/magnific/jquery.magnific-popup.min.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/VideoGallery/overlay-gallery.js"), "bottom", false)
 
 <div class="@Model.CssClass">
     @foreach (var item in Model.Items)
     {
+        var alternativeText = System.Text.RegularExpressions.Regex.Replace(item.Fields.Title, @"[^\w\d_-]", "");
+        
         <a class="video-link"
             href="@item.Fields.MediaUrl"
-            title="@item.Fields.AlternativeText">
-            <img src="@(((ThumbnailViewModel)item).ThumbnailUrl)" data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)" alt="@item.Fields.AlternativeText" />
+            title="@alternativeText">
+
+            <img src="@(((VideoThumbnailViewModel)item).ThumbnailUrl)" alt="@alternativeText" 
+                data-detail-url="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)" />
+            <!--<p>@item.Fields.Title</p>-->
         </a>
     }
 </div>
