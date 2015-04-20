@@ -6,6 +6,7 @@
         function ($scope, propertyService, serviceHelper) {
 
             $scope.feedback.showLoadingIndicator = true;
+            $scope.videoModel = {};
 
             $scope.$watch('properties.Id.PropertyValue', function (newVal, oldVal) {
                 // Cancel is selected with no document selected - close the designer
@@ -17,6 +18,12 @@
                 .then(function (data) {
                     if (data) {
                         $scope.properties = propertyService.toAssociativeArray(data.Items);
+
+                        $scope.videoModel = {
+                            aspectRatio: $scope.properties.AspectRatio.PropertyValue,
+                            width: parseInt($scope.properties.Width.PropertyValue, 10),
+                            height: parseInt($scope.properties.Height.PropertyValue, 10)
+                        };
                     }
                 },
                 function (data) {
