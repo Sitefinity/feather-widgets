@@ -216,7 +216,7 @@
     <EmbeddedResource Include="Mvc\Views\Video\Video.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Video\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Video\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\VideoGallery\Detail.DetailPage.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\VideoGallery\Detail.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\VideoGallery\List.OverlayGallery.cshtml" />
     <EmbeddedResource Include="Mvc\Views\VideoGallery\List.VideoGallery.cshtml" />
     <EmbeddedResource Include="Mvc\Views\VideoGallery\DesignerView.Simple.cshtml">
