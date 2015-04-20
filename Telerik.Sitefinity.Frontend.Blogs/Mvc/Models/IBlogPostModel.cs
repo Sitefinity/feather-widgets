@@ -12,7 +12,7 @@ using Telerik.Sitefinity.Taxonomies.Model;
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
 {
     /// <summary>
-    /// This interface is used as a model for the <see cref="BlogPostController"/>.
+    /// This interface defines API for working with <see cref="Telerik.Sitefinity.Blogs.Model.BlogPost"/> items.
     /// </summary>
     public interface IBlogPostModel
     {
