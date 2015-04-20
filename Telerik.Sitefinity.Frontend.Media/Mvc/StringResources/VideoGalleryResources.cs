@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Telerik.Sitefinity.Localization;
+﻿using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Data;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
@@ -175,5 +171,198 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
+
+        #region Designer
+
+        /// <summary>
+        /// phrase: Some of the selected libraries were moved or deleted.
+        /// </summary>
+        /// <value>Some of the selected libraries were moved or deleted.</value>
+        [ResourceEntry("MissingLibraries",
+            Value = "Some of the selected libraries were moved or deleted.",
+            Description = "phrase: Some of the selected libraries were moved or deleted.",
+            LastModified = "2015/04/20")]
+        public string MissingLibraries
+        {
+            get
+            {
+                return this["MissingLibraries"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Content
+        /// </summary>
+        [ResourceEntry("Content",
+            Value = "Content",
+            Description = "word: Content",
+            LastModified = "2015/04/20")]
+        public string Content
+        {
+            get
+            {
+                return this["Content"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Which videos to display?
+        /// </summary>
+        [ResourceEntry("ItemsToDisplay",
+            Value = "Which videos to display?",
+            Description = "phrase : Which videos to display?",
+            LastModified = "2015/04/20")]
+        public string ItemsToDisplay
+        {
+            get
+            {
+                return this["ItemsToDisplay"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Provider
+        /// </summary>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "Provider",
+            LastModified = "2015/04/20")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
+            }
+        }
+
+
+        /// <summary>
+        /// phrase: From all libraries
+        /// </summary>
+        [ResourceEntry("AllLibraries",
+            Value = "From all libraries",
+            Description = "phrase: From all libraries",
+            LastModified = "2015/04/20")]
+        public string AllLibraries
+        {
+            get
+            {
+                return this["AllLibraries"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: From selected libraries only...
+        /// </summary>
+        /// <value>From selected libraries only...</value>
+        [ResourceEntry("FromSelectedLibraries",
+            Value = "From selected libraries only...",
+            Description = "Phrase: From selected libraries only...",
+            LastModified = "2015/04/20")]
+        public string FromSelectedLibraries
+        {
+            get
+            {
+                return this["FromSelectedLibraries"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: From currently opened library
+        /// </summary>
+        /// <value>From currently opened library</value>
+        [ResourceEntry("FromCurrentlyOpen",
+            Value = "From currently opened library",
+            Description = "Phrase: From currently opened library",
+            LastModified = "2015/04/20")]
+        public string FromCurrentlyOpen
+        {
+            get
+            {
+                return this["FromCurrentlyOpen"];
+            }
+        }
+
+
+        /// <summary>
+        /// Phrase: Selection of videos...
+        /// </summary>
+        /// <value>Selection of videos...</value>
+        [ResourceEntry("SelectionOfVideos",
+            Value = "Selection of videos...",
+            Description = "Phrase: Selection of videos...",
+            LastModified = "2015/04/20")]
+        public string SelectionOfVideos
+        {
+            get
+            {
+                return this["SelectionOfVideos"];
+            }
+        }
+
+        /// <summary>
+        /// phrase : Narrow selection by...
+        /// </summary>
+        /// <value>Narrow selection by...</value>
+        [ResourceEntry("NarrowSelection",
+            Value = "Narrow selection by...",
+            Description = "phrase : Narrow selection by...",
+            LastModified = "2015/04/20")]
+        public string NarrowSelection
+        {
+            get
+            {
+                return this["NarrowSelection"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: All published videos
+        /// </summary>
+        /// <value>All published videos</value>
+        [ResourceEntry("AllPublishedVideos",
+            Value = "All published videos",
+            Description = "Phrase: All published videos",
+            LastModified = "2015/04/20")]
+        public string AllPublishedVideos
+        {
+            get
+            {
+                return this["AllPublishedVideos"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List settings
+        /// </summary>
+        /// <value>List settings</value>
+        [ResourceEntry("ListSettings",
+            Value = "List settings",
+            Description = "phrase: List settings",
+            LastModified = "2015/04/20")]
+        public string ListSettings
+        {
+            get
+            {
+                return this["ListSettings"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Single item settings
+        /// </summary>
+        [ResourceEntry("SingleItemSettings",
+            Value = "Single item settings",
+            Description = "phrase : Single item settings",
+            LastModified = "2015/04/20")]
+        public string SingleItemSettings
+        {
+            get
+            {
+                return this["SingleItemSettings"];
+            }
+        }
+
+        #endregion
     }
 }

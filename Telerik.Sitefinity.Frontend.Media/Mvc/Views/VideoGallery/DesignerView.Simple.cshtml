@@ -1,0 +1,80 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+@Html.QueryBuilderScriptReferences()
+
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.Libraries.LibrariesManager.GetManager())'>
+</server-data>
+
+<div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingLibraries")</div>
+<tabset class="nav-tabs-wrapper">
+    <tab heading="@Html.Resource("Content")">
+        <h4>@Html.Resource("ItemsToDisplay")</h4>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <sf-provider-selector sf-manager-type='Telerik.Sitefinity.Modules.Libraries.LibrariesManager'
+                        sf-provider-label='@Html.Resource("Provider")'
+                        ng-model="properties.ProviderName.PropertyValue">
+                    </sf-provider-selector>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="radio">
+                <label for="allPublished" class="full-width">
+                    <input id="allPublished" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
+
+                    @Html.Resource("AllLibraries")
+                </label>
+            </div>
+            <div class="radio">
+                <label for="selectedLibrariesOnly" class="full-width">
+                    <input id="selectedLibrariesOnly" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
+
+                    @Html.Resource("FromSelectedLibraries")
+
+                    <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'" sf-master="true"
+                                    sf-provider="properties.ProviderName.PropertyValue" sf-multiselect="true"
+                                    sf-selected-ids="parentSelector.selectedItemsIds"
+                                    sf-missing-selected-items="errors.missingSelectedItems"></sf-list-selector>
+                </label>
+            </div>
+            <div class="radio form-inline">
+                <label for="currentlyOpenLibrary">
+                    <input id="currentlyOpenLibrary" type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
+
+                    @Html.Resource("FromCurrentlyOpen")
+                </label>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("NarrowSelection")' start-expanded="{{properties.SelectionMode.PropertyValue=='FilteredItems'}}">
+            <div class="radio m-top-none">
+                <label for="allItems" class="full-width">
+                    <input id="allItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                    @Html.Resource("AllPublishedVideos")
+                </label>
+            </div>
+            <div class="radio">
+                <label for="filterItems" class="full-width">
+                    <input id="filterItems" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+                    @Html.Resource("SelectionOfVideos")
+                    <sf-filter-selector sf-query-data="additionalFilters.value"
+                        sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Libraries.Model.Video))"
+                        sf-provider="properties.ProviderName.PropertyValue"
+                        ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+                        class="sf-filter-selector"></sf-filter-selector>
+                </label>
+            </div>
+        </expander>
+    </tab>
+
+    <tab heading="@Html.Resource("ListSettings")">
+
+    </tab>
+
+    <tab heading="@Html.Resource("SingleItemSettings")">
+
+    </tab>
+</tabset>
