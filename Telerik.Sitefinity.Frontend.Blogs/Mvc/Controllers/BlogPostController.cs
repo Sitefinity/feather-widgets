@@ -11,6 +11,11 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     [ControllerToolboxItem(Name = "BlogPost", Title = "Blog post", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
     public class BlogPostController: Controller
     {
+        public ActionResult Index()
+        {
+            return this.View("List.BlogPostList");
+        }
+
         internal const string WidgetIconCssClass = "sfBlogsViewIcn";
     }
 }

@@ -157,6 +157,7 @@
     <EmbeddedResource Include="Data\DynamicModules\AllTypesModule.zip" />
     <EmbeddedResource Include="Data\DynamicModules\RelatedModule.zip" />
     <EmbeddedResource Include="Data\DynamicModules\PressReleaseWithCategoriesField.zip" />
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

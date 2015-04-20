@@ -144,14 +144,17 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Mvc\Controllers\BlogPostController.cs" />
+    <Compile Include="Mvc\Models\BlogPostModel.cs" />
+    <Compile Include="Mvc\Models\BlogPostViewModel.cs" />
+    <Compile Include="Mvc\Models\IBlogPostModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mvc\Models\" />
     <Folder Include="Mvc\Views\BlogPost\" />
     <Folder Include="Mvc\Views\Blog\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>
