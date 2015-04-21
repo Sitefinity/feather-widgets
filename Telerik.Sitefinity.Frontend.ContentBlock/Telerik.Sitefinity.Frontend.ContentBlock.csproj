@@ -164,6 +164,7 @@
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Unshare.json" />
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Unshare.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Share.cshtml" />
+    <None Include="app.config" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>

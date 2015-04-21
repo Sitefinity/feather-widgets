@@ -557,6 +557,19 @@
             <param name="requestContext">An object that encapsulates information about the request.</param>
             <returns>An object that processes the request.</returns>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcTemplateEditorRouteHandler">
+            <summary>
+            Extended version of the TemplateEditorRouteHandler that injects logic handling MVC layout files.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcTemplateEditorRouteHandler.BuildHandler(System.Web.Routing.RequestContext,Telerik.Sitefinity.Pages.Model.IPageData)">
+            <summary>
+            Builds the handler.
+            </summary>
+            <param name="requestContext">The request context.</param>
+            <param name="pageData">The page data.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel">
             <summary>
             This class represents a JSON configuration for component cefinitions.
