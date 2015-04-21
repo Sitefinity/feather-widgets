@@ -410,6 +410,51 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Open single item in...
+        /// </summary>
+        [ResourceEntry("OpenSingleItem",
+            Value = "Open single item in...",
+            Description = "phrase : Open single item in...",
+            LastModified = "2015/04/21")]
+        public string OpenSingleItem
+        {
+            get
+            {
+                return this["OpenSingleItem"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Auto-generated page
+        /// </summary>
+        [ResourceEntry("ShowInSamePage",
+            Value = "Auto-generated page",
+            Description = "phrase : Auto-generated page (with the same layout as the list page)",
+            LastModified = "2015/04/21")]
+        public string ShowInSamePage
+        {
+            get
+            {
+                return this["ShowInSamePage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Selected existing page...
+        /// </summary>
+        [ResourceEntry("ShowInExistingPage",
+            Value = "Selected existing page...",
+            Description = "phrase : Selected existing page...",
+            LastModified = "2015/04/21")]
+        public string ShowInExistingPage
+        {
+            get
+            {
+                return this["ShowInExistingPage"];
+            }
+        }
+
         #endregion
     }
 }
