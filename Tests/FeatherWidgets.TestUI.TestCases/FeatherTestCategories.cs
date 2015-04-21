@@ -109,5 +109,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Profile tests
         /// </summary>
         public const string Profile = "Profile";
+
+        /// <summary>
+        /// New category for Lists tests
+        /// </summary>
+        public const string Lists = "Lists";
     }
 }

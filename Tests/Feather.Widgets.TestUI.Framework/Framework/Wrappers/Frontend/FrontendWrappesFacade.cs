@@ -1,4 +1,5 @@
 ﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
@@ -96,6 +97,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public DocumentListWrapperFacade DocumentsList()
         {
             return new DocumentListWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides access to lists frontend wrapper. 
+        /// </summary>
+        /// <returns></returns>
+        public ListsWrapperFacade Lists()
+        {
+            return new ListsWrapperFacade();
         }
     }
 }

@@ -393,6 +393,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : List template
+        /// </summary>
+        [ResourceEntry("ListTemplate",
+            Value = "List template",
+            Description = "phrase : List template",
+            LastModified = "2015/04/21")]
+        public string ListTemplate
+        {
+            get
+            {
+                return this["ListTemplate"];
+            }
+        }
+
         #endregion
     }
 }

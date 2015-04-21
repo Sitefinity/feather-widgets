@@ -7,6 +7,7 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ImageGallery;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
@@ -292,6 +293,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the lists element map.
+        /// </summary>
+        /// <value>The list map.</value>
+        public ListsMap Lists
+        {
+            get
+            {
+                if (this.ListsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.ListsMap = new ListsMap(this.find);
+                }
+
+                return this.ListsMap;
+            }
+
+            private set
+            {
+                this.ListsMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -312,5 +336,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private MediaMap mediaMap;
         private IdentityMap identityMap;
         private ImageGalleryMap imageGalleryMap;
+        private ListsMap ListsMap;
     }
 }
