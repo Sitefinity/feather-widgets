@@ -180,9 +180,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         {
             if (video.Id == Guid.Empty)
                 return string.Empty;
+                        
+            var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
+            
+            //TODO: Remove when ThumbnailSizeModel is implemented
+            return video.ResolveThumbnailUrl("0", urlAsAbsolute);
 
             string videoThumbnailUrl;
-            var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
             if (sizeModel.DisplayMode == ImageDisplayMode.Thumbnail && !string.IsNullOrWhiteSpace(sizeModel.Thumbnail.Name))
             {
                 videoThumbnailUrl = video.ResolveThumbnailUrl(sizeModel.Thumbnail.Name, urlAsAbsolute);
