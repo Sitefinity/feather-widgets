@@ -162,6 +162,7 @@
     <Compile Include="Mvc\Models\BlogPostModel.cs" />
     <Compile Include="Mvc\Models\BlogPostViewModel.cs" />
     <Compile Include="Mvc\Models\IBlogPostModel.cs" />
+    <Compile Include="Mvc\Models\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\BlogPostResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
