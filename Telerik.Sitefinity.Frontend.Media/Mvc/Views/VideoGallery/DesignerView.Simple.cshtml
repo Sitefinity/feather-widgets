@@ -35,6 +35,7 @@
                     @Html.Resource("FromSelectedLibraries")
 
                     <sf-list-selector sf-library-selector ng-show="properties.ParentFilterMode.PropertyValue=='Selected'" sf-master="true"
+                                    sf-media-type="videos"            
                                     sf-provider="properties.ProviderName.PropertyValue" sf-multiselect="true"
                                     sf-selected-ids="parentSelector.selectedItemsIds"
                                     sf-missing-selected-items="errors.missingSelectedItems"></sf-list-selector>
