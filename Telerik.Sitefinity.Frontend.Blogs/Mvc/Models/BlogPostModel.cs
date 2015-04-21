@@ -14,6 +14,9 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
     /// </summary>
     public class BlogPostModel : ContentModelBase, IBlogPostModel
     {
+        /// <inheritdoc />
+        public ParentFilterMode ParentFilterMode { get; set; }
+
         /// <summary>
         /// Gets or sets the type of content that is loaded.
         /// </summary>
@@ -30,6 +33,22 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
             set
             {
             }
+        }
+
+        /// <inheritdoc />
+        public virtual ContentListViewModel CreateListViewModelByParent(Blog parentItem, int page)
+        {
+            if (page < 1)
+                throw new ArgumentException("'page' argument has to be at least 1.", "page");
+
+            var query = ((BlogsManager)this.GetManager()).GetBlogPosts().Where(bp => bp.Parent.Id == parentItem.Id);
+            if (query == null)
+                return this.CreateListViewModelInstance();
+
+            var viewModel = this.CreateListViewModelInstance();
+            this.PopulateListViewModel(page, query, viewModel);
+
+            return viewModel;
         }
 
         /// <summary>

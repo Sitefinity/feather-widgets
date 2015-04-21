@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -101,6 +102,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         string FilterExpression { get; set; }
 
         /// <summary>
+        /// Gets or sets the parent filtering mode.
+        /// </summary>
+        /// <value>
+        /// The parent filtering mode.
+        /// </value>
+        ParentFilterMode ParentFilterMode { get; set; }
+
+        /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
         /// <param name="taxonFilter">The taxon filter.</param>
@@ -115,6 +124,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         /// <param name="item">The item.</param>
         /// <returns>A view model for use in detail views.</returns>
         ContentDetailsViewModel CreateDetailsViewModel(IDataItem item);
+
+        /// <summary>
+        /// Creates the ListView model by parent.
+        /// </summary>
+        /// <param name="parentItem">The parent item.</param>
+        /// <param name="p">The page.</param>
+        /// <returns>A list view model containing all descendant items from the given parent.</returns>
+        ContentListViewModel CreateListViewModelByParent(Blog parentItem, int page);
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
