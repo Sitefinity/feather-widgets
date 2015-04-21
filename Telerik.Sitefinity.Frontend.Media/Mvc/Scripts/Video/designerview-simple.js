@@ -14,6 +14,15 @@
                     $scope.$parent.cancel();
                 }
             });
+
+            $scope.$watch('videoModel', function (newVal, oldVal) {
+                if (newVal) {
+                    $scope.properties.AspectRatio.PropertyValue = newVal.aspectRatio;
+                    $scope.properties.Width.PropertyValue = newVal.width;
+                    $scope.properties.Height.PropertyValue = newVal.height;
+                }
+            }, true);
+
             propertyService.get()
                 .then(function (data) {
                     if (data) {
@@ -30,13 +39,6 @@
                     $scope.feedback.showError = true;
                     if (data)
                         $scope.feedback.errorMessage = data.Detail;
-                })
-                .then(function () {
-                    $scope.feedback.savingHandlers.push(function () {
-                        $scope.properties.AspectRatio.PropertyValue = $scope.videoModel.aspectRatio;
-                        $scope.properties.Width.PropertyValue = $scope.videoModel.width;
-                        $scope.properties.Height.PropertyValue = $scope.videoModel.height;
-                    });
                 })
                 .finally(function () {
                     $scope.feedback.showLoadingIndicator = false;
