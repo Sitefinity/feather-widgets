@@ -123,11 +123,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            this.InitializeListViewBag("/{0}");
             var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
-
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -143,12 +139,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult Successors(Blog parentItem, int? page)
         {
-            if (parentItem != null)
-                this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
-
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -164,12 +155,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
-            if (taxonFilter != null)
-                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
-
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -186,15 +172,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         {
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
-            if (item != null)
-                this.ViewBag.Title = item.Title;
-
-            this.ViewBag.DetailsPageId = this.DetailsPageId;
-            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
-
             var viewModel = this.Model.CreateDetailsViewModel(item);
-            if (SystemManager.CurrentHttpContext != null)
-                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             return this.View(fullTemplateName, viewModel);
         }
