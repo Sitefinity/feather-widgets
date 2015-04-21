@@ -32,6 +32,31 @@
                 </div>
             </div>
         </div>
+
+        <expander ng-hide="properties.ParentFilterMode.PropertyValue === 'SelectedItems'" expander-title='@Html.Resource("NarrowSelection")'>
+            <div class="form-group">
+                <div class="radio">
+                    <label class="full-width">
+                        <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                        @Html.Resource("AllPublishedBlogPosts")
+                    </label>
+                </div>
+
+                <div class="radio">
+                    <label class="full-width">
+                        <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+
+                        @Html.Resource("SelectionOfBlogPosts")
+
+                        <sf-filter-selector sf-query-data="additionalFilters.value"
+                            sf-taxonomy-fields="@CustomFieldsHelpers.GetTaxonomyFields(typeof(Telerik.Sitefinity.Blogs.Model.BlogPost))"
+                            sf-provider="properties.ProviderName.PropertyValue"
+                            ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+                            class="sf-filter-selector"></sf-filter-selector>
+                    </label>
+                </div>
+            </div>
+        </expander>
     </tab>
 
     <tab heading="@Html.Resource("ListSettings")">

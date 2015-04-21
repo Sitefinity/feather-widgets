@@ -1,4 +1,4 @@
 ﻿{
 	"priority": 1,
-	"components": ["sf-provider-selector", "sf-blog-post-selector", "sf-filter-selector", "sf-page-selector", "sf-expander", "sf-style-dropdown"]
+	"components": ["sf-provider-selector", "sf-blog-post-selector", "sf-filter-selector", "sf-page-selector", "sf-expander", "sf-style-dropdown", "sf-filter-selector"]
 }

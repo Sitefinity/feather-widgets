@@ -177,6 +177,51 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Narrow selection
+        /// </summary>
+        [ResourceEntry("NarrowSelection",
+            Value = "Narrow selection",
+            Description = "phrase :Narrow selection",
+            LastModified = "2015/04/21")]
+        public string NarrowSelection
+        {
+            get
+            {
+                return this["NarrowSelection"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : All published blog posts
+        /// </summary>
+        [ResourceEntry("AllPublishedBlogPosts",
+            Value = "All published blog posts",
+            Description = "phrase :All published blog posts",
+            LastModified = "2015/04/21")]
+        public string AllPublishedBlogPosts
+        {
+            get
+            {
+                return this["AllPublishedBlogPosts"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Selection of blog posts...
+        /// </summary>
+        [ResourceEntry("SelectionOfBlogPosts",
+            Value = "Selection of blog posts...",
+            Description = "phrase :Selection of blog posts...",
+            LastModified = "2015/04/21")]
+        public string SelectionOfBlogPosts
+        {
+            get
+            {
+                return this["SelectionOfBlogPosts"];
+            }
+        }
+
         /// Phrase: Use paging
         /// </summary>
         /// <value>Use paging</value>
