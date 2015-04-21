@@ -182,9 +182,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
                 return string.Empty;
                         
             var urlAsAbsolute = Config.Get<SystemConfig>().SiteUrlSettings.GenerateAbsoluteUrls;
-            
-            //TODO: Remove when ThumbnailSizeModel is implemented
-            return video.ResolveThumbnailUrl("0", urlAsAbsolute);
 
             string videoThumbnailUrl;
             if (sizeModel.DisplayMode == ImageDisplayMode.Thumbnail && !string.IsNullOrWhiteSpace(sizeModel.Thumbnail.Name))
@@ -193,8 +190,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
             }
             else
             {
-                var originalThumbnailUrl = video.ResolveMediaUrl(urlAsAbsolute);
-                videoThumbnailUrl = originalThumbnailUrl;
+                videoThumbnailUrl = video.ResolveThumbnailUrl("0", urlAsAbsolute);
             }
 
             return videoThumbnailUrl;
