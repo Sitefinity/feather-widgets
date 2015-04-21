@@ -129,7 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         /// Creates the ListView model by parent.
         /// </summary>
         /// <param name="parentItem">The parent item.</param>
-        /// <param name="p">The page.</param>
+        /// <param name="page">The page.</param>
         /// <returns>A list view model containing all descendant items from the given parent.</returns>
         ContentListViewModel CreateListViewModelByParent(Blog parentItem, int page);
 
