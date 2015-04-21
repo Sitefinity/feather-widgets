@@ -1,3 +1,21 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 @Html.QueryBuilderScriptReferences()
+
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.Blogs.BlogsManager.GetManager())'>
+</server-data>
+
+<div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingBlogs")</div>
+<tabset class="nav-tabs-wrapper">
+    <tab heading="@Html.Resource("Content")">
+        
+    </tab>
+
+    <tab heading="@Html.Resource("ListSettings")">
+       
+    </tab>
+
+    <tab heading="@Html.Resource("SingleItemSettings")">
+        
+    </tab>
+</tabset>

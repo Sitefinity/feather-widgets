@@ -97,5 +97,71 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         #endregion
+
+        #region Designer resources
+
+        /// <summary>
+        /// Gets word : Content
+        /// </summary>
+        [ResourceEntry("Content",
+            Value = "Content",
+            Description = "word: Content",
+            LastModified = "2015/04/21")]
+        public string Content
+        {
+            get
+            {
+                return this["Content"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List settings
+        /// </summary>
+        /// <value>List settings</value>
+        [ResourceEntry("ListSettings",
+            Value = "List settings",
+            Description = "phrase: List settings",
+            LastModified = "2015/04/21")]
+        public string ListSettings
+        {
+            get
+            {
+                return this["ListSettings"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Single item settings
+        /// </summary>
+        [ResourceEntry("SingleItemSettings",
+            Value = "Single item settings",
+            Description = "phrase : Single item settings",
+            LastModified = "2015/04/21")]
+        public string SingleItemSettings
+        {
+            get
+            {
+                return this["SingleItemSettings"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Some of the selected blog were deleted.
+        /// </summary>
+        /// <value>Some of the selected blogs were deleted.</value>
+        [ResourceEntry("MissingBlogs",
+            Value = "Some of the selected blogs were deleted.",
+            Description = "phrase: Some of the selected blogs were deleted.",
+            LastModified = "2015/04/21")]
+        public string MissingBlogs
+        {
+            get
+            {
+                return this["MissingBlogs"];
+            }
+        }
+
+        #endregion
     }
 }
