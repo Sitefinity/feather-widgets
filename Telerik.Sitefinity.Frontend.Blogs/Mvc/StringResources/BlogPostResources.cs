@@ -274,11 +274,11 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Last published
+        /// Gets phrase : Last published on top
         /// </summary>
         [ResourceEntry("LastPublished",
-            Value = "Last published",
-            Description = "phrase : Last published",
+            Value = "Last published on top",
+            Description = "phrase : Last published on top",
             LastModified = "2015/04/21")]
         public string LastPublished
         {
@@ -289,11 +289,11 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Last modified
+        /// Gets phrase : Last modified on top
         /// </summary>
         [ResourceEntry("LastModified",
-            Value = "Last modified",
-            Description = "phrase : Last modified",
+            Value = "Last modified on top",
+            Description = "phrase : Last modified on top",
             LastModified = "2015/04/21")]
         public string LastModified
         {
