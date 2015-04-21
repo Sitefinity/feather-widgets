@@ -26,6 +26,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         string SerializedSelectedItemsIds { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized selected parent ids.
+        /// </summary>
+        /// <value>
+        /// The serialized selected parents ids.
+        /// </value>
+        string SerializedSelectedParentsIds { get; set; }
+
+        /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when it is in List view.
         /// </summary>
         /// <value>
