@@ -8,8 +8,17 @@ using Telerik.Sitefinity.Workflow;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
 {
+    /// <summary>
+    /// This class provides access to lists common server operations
+    /// </summary>
     public class ListsOperations
     {
+        /// <summary>
+        /// Creates list
+        /// </summary>
+        /// <param name="listId">list id</param>
+        /// <param name="title">list title</param>
+        /// <param name="description">list description</param>
         public void CreateList(Guid listId, string title, string description)
         {
             ListsManager listsManager = ListsManager.GetManager();
@@ -26,6 +35,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             listsManager.SaveChanges();
         }
 
+        /// <summary>
+        /// Deletes list by given id
+        /// </summary>
+        /// <param name="listId">list id</param>
         public void DeleteList(Guid listId)
         {
             ListsManager listsManager = ListsManager.GetManager();
@@ -40,6 +53,13 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             }
         }
 
+        /// <summary>
+        /// Creates list list item for given list
+        /// </summary>
+        /// <param name="listItemId">list item id</param>
+        /// <param name="parentListId">list id</param>
+        /// <param name="title">list item title</param>
+        /// <param name="content">list item content</param>
         public void CreateListItem(Guid listItemId, Guid parentListId, string title, string content)
         {
             ListsManager listManager = ListsManager.GetManager();
@@ -67,6 +87,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
             }
         }
 
+        /// <summary>
+        /// Deletes list item by given id
+        /// </summary>
+        /// <param name="masterListItemId">list item id</param>
         public void DeleteListItem(Guid masterListItemId)
         {
             ListsManager listsManager = ListsManager.GetManager();
