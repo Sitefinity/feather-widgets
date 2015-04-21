@@ -1,8 +1,8 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('sfSelectors');
+    angular.module('designer').requires.push('expander', 'sfSelectors');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
-        $scope.feedback.showLoadingIndicator = true;
+        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
         $scope.blogPostSelector = { selectedItemsIds: [] };
 
         $scope.$watch(
@@ -16,7 +16,15 @@
             },
             true
         );
-        
+
+        $scope.feedback.showLoadingIndicator = true;
+
+        $scope.updateSortOption = function (newSortOption) {
+            if (newSortOption !== "Custom") {
+                $scope.properties.SortExpression.PropertyValue = newSortOption;
+            }
+        };
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -26,12 +34,33 @@
                     if (selectedItemsIds) {
                         $scope.blogPostSelector.selectedItemsIds = selectedItemsIds;
                     }
+
+                    if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
+                        $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
+                    }
+                    else {
+                        $scope.selectedSortOption = "Custom";
+                    }
                 }
             },
             function (data) {
                 $scope.feedback.showError = true;
                 if (data)
                     $scope.feedback.errorMessage = data.Detail;
+            })
+            .then(function () {
+                $scope.feedback.savingHandlers.push(function () {
+
+                    if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
+                        $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
+
+                        // If the sorting expression is AsSetManually but the selection mode is AllItems or FilteredItems, this is not a valid combination.
+                        // So set the sort expression to the default value: PublicationDate DESC
+                        if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
+                            $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
+                        }
+                    }
+                });
             })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;

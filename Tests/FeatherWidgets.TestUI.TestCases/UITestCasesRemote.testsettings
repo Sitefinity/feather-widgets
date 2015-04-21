@@ -6,7 +6,7 @@
     <DeploymentItem filename="MediaFiles\" />
   </Deployment>
   <NamingScheme baseName="TestExecution@Sitefinity_UITests" useDefault="false" />
-  <RemoteController name="100.76.0.127:6901" />
+  <RemoteController name="FEATHER-CI" />
   <Execution location="Remote">
     <Buckets size="1" />
     <Timeouts agentNotRespondingTimeout="90000" scriptTimeout="600000" />
