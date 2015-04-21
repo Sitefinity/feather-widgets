@@ -179,6 +179,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         {
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
 
+            if (item != null)
+                this.ViewBag.Title = item.Title;
+
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+
             var viewModel = this.Model.CreateDetailsViewModel(item);
 
             return this.View(fullTemplateName, viewModel);
