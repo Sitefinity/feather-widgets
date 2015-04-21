@@ -14,6 +14,15 @@
                     $scope.$parent.cancel();
                 }
             });
+
+            $scope.$watch('videoModel', function (newVal, oldVal) {
+                if (newVal) {
+                    $scope.properties.AspectRatio.PropertyValue = newVal.aspectRatio;
+                    $scope.properties.Width.PropertyValue = newVal.width;
+                    $scope.properties.Height.PropertyValue = newVal.height;
+                }
+            }, true);
+
             propertyService.get()
                 .then(function (data) {
                     if (data) {
