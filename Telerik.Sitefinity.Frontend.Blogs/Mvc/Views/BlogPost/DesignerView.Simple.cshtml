@@ -7,10 +7,16 @@
 
 <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingBlogs")</div>
 <tabset class="nav-tabs-wrapper">
-    <h4>@Html.Resource("ItemsToDisplay")</h4>
-
     <tab heading="@Html.Resource("Content")">
+        <h4>@Html.Resource("ItemsToDisplay")</h4>
+
         <div class="form-group">
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                    @Html.Resource("FromAllBlogs")
+                </label>
+            </div>
             <div class="radio">
                 <label class="full-width">
                     <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
