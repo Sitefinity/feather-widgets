@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,9 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
     {
         /// <inheritdoc />
         public ParentFilterMode ParentFilterMode { get; set; }
+
+        /// <inheritdoc />
+        public string SerializedSelectedParentsIds { get; set; }
 
         /// <summary>
         /// Gets or sets the type of content that is loaded.
@@ -58,6 +62,27 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             return ((BlogsManager)this.GetManager()).GetBlogPosts();
+        }
+
+
+        /// <inheritdoc />
+        protected override string CompileFilterExpression()
+        {
+            var baseExpression = base.CompileFilterExpression();
+
+            if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
+            {
+                var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
+                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "SystemParentId = " + id.Trim()));
+                if (baseExpression.IsNullOrEmpty())
+                    return "({0})".Arrange(parentFilterExpression);
+                else
+                    return "({0}) and ({1})".Arrange(baseExpression, parentFilterExpression);
+            }
+            else
+            {
+                return baseExpression;
+            }
         }
     }
 }

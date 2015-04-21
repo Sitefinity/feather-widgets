@@ -4,6 +4,8 @@
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
         $scope.blogPostSelector = { selectedItemsIds: [] };
+        $scope.parentSelector = { selectedItemsIds: [] };
+        $scope.feedback.showLoadingIndicator = true;
         $scope.additionalFilters = {};
 
         $scope.$watch(
@@ -19,6 +21,16 @@
         );
 
         $scope.$watch(
+            'parentSelector.selectedItemsIds',
+            function (newSelectedItemsIds, oldSelectedItemsIds) {
+                if (newSelectedItemsIds !== oldSelectedItemsIds) {
+                    $scope.properties.SerializedSelectedParentsIds.PropertyValue = JSON.stringify(newSelectedItemsIds);
+                }
+            }, 
+            true
+            );
+
+        $scope.$watch(
             'additionalFilters.value',
             function (newAdditionalFilters, oldAdditionalFilters) {
                 if (newAdditionalFilters !== oldAdditionalFilters) {
@@ -28,7 +40,20 @@
             true
         );
 
-        $scope.feedback.showLoadingIndicator = true;
+        $scope.$watch(
+            'properties.ParentFilterMode.PropertyValue',
+            function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    if (newValue == 'NotApplicable') {
+                        $scope.properties.SelectionMode.PropertyValue = 'SelectedItems';
+                    }
+                    else if (oldValue == 'NotApplicable') {
+                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
+                    }
+                }
+            },
+            true
+        );
 
         $scope.updateSortOption = function (newSortOption) {
             if (newSortOption !== "Custom") {
@@ -48,6 +73,11 @@
                         $scope.blogPostSelector.selectedItemsIds = selectedItemsIds;
                     }
 
+                    var selectedParentsIds = $.parseJSON($scope.properties.SerializedSelectedParentsIds.PropertyValue || null);
+                    if (selectedParentsIds) {
+                        $scope.parentSelector.selectedItemsIds = selectedParentsIds;
+                    }
+
                     if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
                         $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
                     }
@@ -63,6 +93,15 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+                    if ($scope.properties.OpenInSamePage.PropertyValue && $scope.properties.OpenInSamePage.PropertyValue.toLowerCase() === 'true') {
+                        $scope.properties.DetailsPageId.PropertyValue = emptyGuid;
+                    }
+                    else {
+                        if (!$scope.properties.DetailsPageId.PropertyValue ||
+                                $scope.properties.DetailsPageId.PropertyValue === emptyGuid) {
+                            $scope.properties.OpenInSamePage.PropertyValue = true;
+                        }
+                    }
 
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;

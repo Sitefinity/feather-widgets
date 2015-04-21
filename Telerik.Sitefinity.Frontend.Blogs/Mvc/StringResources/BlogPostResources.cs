@@ -178,6 +178,22 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         /// <summary>
+        /// Phrase: From selected blogs only...
+        /// </summary>
+        /// <value>From selected blogs only...</value>
+        [ResourceEntry("FromSelectedBlogs",
+            Value = "From selected blogs only...",
+            Description = "Phrase: From selected blogs only...",
+            LastModified = "2015/04/21")]
+        public string FromSelectedBlogs
+        {
+            get
+            {
+                return this["FromSelectedBlogs"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Narrow selection
         /// </summary>
         [ResourceEntry("NarrowSelection",

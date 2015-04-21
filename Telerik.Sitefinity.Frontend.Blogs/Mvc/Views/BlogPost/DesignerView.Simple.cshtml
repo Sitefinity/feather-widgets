@@ -13,13 +13,20 @@
         <div class="form-group">
             <div class="radio">
                 <label class="full-width">
-                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                    <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="All" />
                     @Html.Resource("FromAllBlogs")
                 </label>
             </div>
             <div class="radio">
                 <label class="full-width">
-                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
+                    <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
+
+                    @Html.Resource("FromSelectedBlogs")
+                </label>
+            </div>
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="NotApplicable" />
 
                     @Html.Resource("SelectedItems")
                 </label>
