@@ -483,6 +483,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Detail template
+        /// </summary>
+        [ResourceEntry("DetailTemplate",
+            Value = "Detail template",
+            Description = "phrase : Detail template",
+            LastModified = "2015/04/21")]
+        public string DetailTemplate
+        {
+            get
+            {
+                return this["DetailTemplate"];
+            }
+        }
+
         #endregion
     }
 }
