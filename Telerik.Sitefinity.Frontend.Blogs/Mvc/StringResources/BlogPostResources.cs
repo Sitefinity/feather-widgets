@@ -72,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         [ResourceEntry("By",
             Value = "by",
             Description = "word: by",
-            LastModified = "2014/04/21")]
+            LastModified = "2015/04/21")]
         public string By
         {
             get
