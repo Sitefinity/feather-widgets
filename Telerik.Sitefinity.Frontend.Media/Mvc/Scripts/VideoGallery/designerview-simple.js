@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection');
+    angular.module('designer').requires.push('expander', 'sfSelectors', 'sfThumbnailSizeSelection', 'sfAspectRatioSelection');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'serviceHelper', function ($scope, propertyService, serviceHelper) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC'];
@@ -11,6 +11,7 @@
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.thumbnailSizeModel = {};
         $scope.errors = {};
+        $scope.videoModel = {};
 
         $scope.$watch(
             'additionalFilters.value',
@@ -100,6 +101,15 @@
                     if (thumbnailSizeModel) {
                         $scope.thumbnailSizeModel = thumbnailSizeModel;
                     }
+
+                    var videoSizeViewModel = JSON.parse($scope.properties.SerializedVideoSizeViewModel.PropertyValue || null);
+                    if (videoSizeViewModel) {
+                        $scope.videoModel = {
+                            aspectRatio: videoSizeViewModel.aspectRatio,
+                            width: videoSizeViewModel.width,
+                            height: videoSizeViewModel.height,
+                        };
+                    }
                 }
             },
             function (data) {
@@ -133,6 +143,8 @@
                     if ($scope.properties.ParentFilterMode.PropertyValue !== 'Selected') {
                         $scope.properties.SerializedSelectedParentsIds.PropertyValue = null;
                     }
+
+                    $scope.properties.SerializedVideoSizeViewModel.PropertyValue = JSON.stringify($scope.videoModel);
                 });
             })
             .finally(function () {

@@ -131,6 +131,14 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         string SerializedThumbnailSizeModel { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized video size view model.
+        /// </summary>
+        /// <value>
+        /// The serialized video size view model.
+        /// </value>
+        string SerializedVideoSizeViewModel { get; set; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]

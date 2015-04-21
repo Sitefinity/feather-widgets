@@ -25,6 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         public VideoGalleryModel() : base()
         {
             this.SerializedThumbnailSizeModel = JsonSerializer.SerializeToString(this.DefaultThumbnailSize());
+            this.SerializedVideoSizeViewModel = JsonSerializer.SerializeToString(this.DefaultVideoSize());
         }
 
         #endregion
@@ -52,6 +53,32 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
                 }
 
                 return this.thumbnailSizeModel;
+            }
+        }
+
+        /// <inheritdoc />
+        public string SerializedVideoSizeViewModel { get; set; }
+
+        /// <summary>
+        /// Gets the video size view model.
+        /// </summary>
+        /// <value>
+        /// The video size view model.
+        /// </value>
+        public VideoSizeViewModel VideoSizeViewModel
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.SerializedVideoSizeViewModel))
+                {
+                    this.videoSizeViewModel = this.DefaultVideoSize();
+                }
+                else
+                {
+                    this.videoSizeViewModel = JsonSerializer.DeserializeFromString<VideoSizeViewModel>(this.SerializedVideoSizeViewModel);
+                }
+
+                return this.videoSizeViewModel;
             }
         }
 
@@ -198,11 +225,20 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
             return result;
         }
 
+        private VideoSizeViewModel DefaultVideoSize()
+        {
+            return new VideoSizeViewModel()
+            {
+                AspectRatio = "Auto"
+            };
+        }
+
         #endregion
 
         #region Private fields and constants
 
         private ImageSizeModel thumbnailSizeModel;
+        private VideoSizeViewModel videoSizeViewModel;
 
         #endregion
     }
