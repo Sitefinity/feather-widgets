@@ -257,6 +257,114 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Phrase: Sort blog posts.
+        /// </summary>
+        /// <value>Sort blog posts</value>
+        [ResourceEntry("SortItems",
+            Value = "Sort blog posts",
+            Description = "Phrase: Sort blog posts",
+            LastModified = "2015/04/21")]
+        public string SortItems
+        {
+            get
+            {
+                return this["SortItems"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Last published
+        /// </summary>
+        [ResourceEntry("LastPublished",
+            Value = "Last published",
+            Description = "phrase : Last published",
+            LastModified = "2015/04/21")]
+        public string LastPublished
+        {
+            get
+            {
+                return this["LastPublished"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Last modified
+        /// </summary>
+        [ResourceEntry("LastModified",
+            Value = "Last modified",
+            Description = "phrase : Last modified",
+            LastModified = "2015/04/21")]
+        public string LastModified
+        {
+            get
+            {
+                return this["LastModified"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : By Title (A-Z)
+        /// </summary>
+        [ResourceEntry("ByTitleAZ",
+            Value = "By Title (A-Z)",
+            Description = "phrase : By Title (A-Z)",
+            LastModified = "2015/04/21")]
+        public string ByTitleAZ
+        {
+            get
+            {
+                return this["ByTitleAZ"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : By Title (Z-A)
+        /// </summary>
+        [ResourceEntry("ByTitleZA",
+            Value = "By Title (Z-A)",
+            Description = "phrase : By Title (Z-A)",
+            LastModified = "2015/04/21")]
+        public string ByTitleZA
+        {
+            get
+            {
+                return this["ByTitleZA"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: As set manually
+        /// </summary>
+        /// <value>As set manually</value>
+        [ResourceEntry("AsSetManually",
+            Value = "As set manually",
+            Description = "phrase: As set manually",
+            LastModified = "2015/04/21")]
+        public string AsSetManually
+        {
+            get
+            {
+                return this["AsSetManually"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: As set in Advanced mode
+        /// </summary>
+        /// <value>As set in Advanced mode</value>
+        [ResourceEntry("AsSetInAdvancedMode",
+            Value = "As set in Advanced mode",
+            Description = "phrase: As set in Advanced mode",
+            LastModified = "2015/04/21")]
+        public string AsSetInAdvancedMode
+        {
+            get
+            {
+                return this["AsSetInAdvancedMode"];
+            }
+        }
+
         #endregion
     }
 }
