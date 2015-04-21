@@ -4,6 +4,7 @@
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
         $scope.blogPostSelector = { selectedItemsIds: [] };
+        $scope.additionalFilters = {};
 
         $scope.$watch(
             'blogPostSelector.selectedItemsIds',
@@ -12,6 +13,16 @@
                     if (newVal) {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
                     }
+                }
+            },
+            true
+        );
+
+        $scope.$watch(
+            'additionalFilters.value',
+            function (newAdditionalFilters, oldAdditionalFilters) {
+                if (newAdditionalFilters !== oldAdditionalFilters) {
+                    $scope.properties.SerializedAdditionalFilters.PropertyValue = JSON.stringify(newAdditionalFilters);
                 }
             },
             true
@@ -29,6 +40,8 @@
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
+
+                    $scope.additionalFilters.value = $.parseJSON($scope.properties.SerializedAdditionalFilters.PropertyValue || null);
 
                     var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
                     if (selectedItemsIds) {
@@ -59,6 +72,17 @@
                         if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
                         }
+                    }
+
+                    if ($scope.properties.SelectionMode.PropertyValue === "FilteredItems" &&
+                        $scope.additionalFilters.value &&
+                        $scope.additionalFilters.value.QueryItems &&
+                        $scope.additionalFilters.value.QueryItems.length === 0) {
+                        $scope.properties.SelectionMode.PropertyValue = 'AllItems';
+                    }
+
+                    if ($scope.properties.SelectionMode.PropertyValue !== "FilteredItems") {
+                        $scope.properties.SerializedAdditionalFilters.PropertyValue = null;
                     }
                 });
             })
