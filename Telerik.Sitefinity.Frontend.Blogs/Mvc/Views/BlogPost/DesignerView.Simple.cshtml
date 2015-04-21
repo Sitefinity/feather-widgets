@@ -64,6 +64,21 @@
                 </div>
             </div>
         </div>
+        
+        <div class="form-group">
+            <label for="listTemplateName">@Html.Resource("ListTemplate")</label>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>[\w\s]*)$"))
+                         {
+                             <option value="@viewName"> @viewName</option>
+                         }
+                    </select>
+                </div>
+            </div>
+        </div>
     </tab>
 
     <tab heading="@Html.Resource("SingleItemSettings")">
