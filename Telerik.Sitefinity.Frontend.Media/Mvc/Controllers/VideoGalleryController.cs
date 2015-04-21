@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
@@ -126,6 +127,48 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.InitializeListViewBag("/{0}");
             var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
 
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Displays successors of the specified parent item.
+        /// </summary>
+        /// <param name="parentItem">The parent item.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult Successors(VideoLibrary parentItem, int? page)
+        {
+            if (parentItem != null)
+                this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
+
+            var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// </summary>
+        /// <param name="taxonFilter">The taxonomy filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
+        {
+            if (taxonFilter != null)
+                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
@@ -258,7 +301,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
             string redirectUrl;
 
-            var item = libraryManager.GetItemFromUrl(typeof(Album), param, out redirectUrl);
+            var item = libraryManager.GetItemFromUrl(typeof(VideoLibrary), param, out redirectUrl);
 
             if (item != null)
             {
