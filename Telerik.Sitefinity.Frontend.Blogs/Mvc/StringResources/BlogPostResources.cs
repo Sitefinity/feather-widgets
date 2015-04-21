@@ -162,6 +162,101 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Phrase: Use paging
+        /// </summary>
+        /// <value>Use paging</value>
+        [ResourceEntry("UsePaging",
+            Value = "Use paging",
+            Description = "Phrase: Use paging",
+            LastModified = "2015/04/21")]
+        public string UsePaging
+        {
+            get
+            {
+                return this["UsePaging"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Divide the list on pages up to {0} items per page
+        /// </summary>
+        /// <value>Divide the list on pages up to {0} items per page</value>
+        [ResourceEntry("DivideToItemPerPage",
+            Value = "Divide the list on pages up to {0} items per page",
+            Description = "Phrase: Divide the list on pages up to {0} items per page",
+            LastModified = "2015/04/21")]
+        public string DivideToItemPerPage
+        {
+            get
+            {
+                return this["DivideToItemPerPage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Use limit
+        /// </summary>
+        [ResourceEntry("UseLimit",
+            Value = "Use limit",
+            Description = "phrase : Use limit",
+            LastModified = "2015/04/21")]
+        public string UseLimit
+        {
+            get
+            {
+                return this["UseLimit"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Show only limited number of items {0} items in total
+        /// </summary>
+        /// <value>Show only limited number of items {0} items in total</value>
+        [ResourceEntry("ShowLimitedItems",
+            Value = "Show only limited number of items {0} items in total",
+            Description = "Phrase: Show only limited number of items {0} items in total",
+            LastModified = "2015/04/21")]
+        public string ShowLimitedItems
+        {
+            get
+            {
+                return this["ShowLimitedItems"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: No limit and paging
+        /// </summary>
+        /// <value>No limit and paging</value>
+        [ResourceEntry("NoLimitPaging",
+            Value = "No limit and paging",
+            Description = "Phrase: No limit and paging",
+            LastModified = "2015/04/21")]
+        public string NoLimitPaging
+        {
+            get
+            {
+                return this["NoLimitPaging"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Show all published items at once
+        /// </summary>
+        /// <value>Show all published items at once</value>
+        [ResourceEntry("ShowAllItems",
+            Value = "Show all published items at once",
+            Description = "Phrase: Show all published items at once",
+            LastModified = "2015/04/21")]
+        public string ShowAllItems
+        {
+            get
+            {
+                return this["ShowAllItems"];
+            }
+        }
+
         #endregion
     }
 }
