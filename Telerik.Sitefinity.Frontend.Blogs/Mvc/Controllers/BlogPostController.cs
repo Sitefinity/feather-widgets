@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 
@@ -14,6 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Blog post widget.
     /// </summary>
+    [Localization(typeof(BlogPostResources))]
     [ControllerToolboxItem(Name = "BlogPost", Title = "Blog post", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
     public class BlogPostController: Controller, IContentLocatableView
     {
