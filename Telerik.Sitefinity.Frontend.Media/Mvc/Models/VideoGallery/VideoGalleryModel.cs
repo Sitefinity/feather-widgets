@@ -146,6 +146,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
             viewModel.TotalItemsCount = totalCount.Value;
             viewModel.MediaUrl = ((SfVideo)item).MediaUrl;
 
+            if (!this.VideoSizeViewModel.AspectRatio.Equals(VideoSizeViewModel.AspectRatioDefaultValue, StringComparison.OrdinalIgnoreCase))
+            {
+                viewModel.Width = this.VideoSizeViewModel.Width;
+                viewModel.Height = this.VideoSizeViewModel.Height;
+            }
+
             return viewModel;
         }
 
@@ -229,7 +235,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         {
             return new VideoSizeViewModel()
             {
-                AspectRatio = "Auto"
+                AspectRatio = VideoSizeViewModel.AspectRatioDefaultValue
             };
         }
 

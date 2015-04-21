@@ -34,5 +34,21 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         /// </summary>
         /// <value>The thumbnail URL.</value>
         public string MediaUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the video.
+        /// </summary>
+        /// <value>
+        /// The width.
+        /// </value>
+        public int? Width { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height of the video.
+        /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
+        public int? Height { get; set; }
     }
 }
