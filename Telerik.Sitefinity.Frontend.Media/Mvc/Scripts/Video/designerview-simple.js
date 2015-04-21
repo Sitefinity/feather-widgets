@@ -31,6 +31,13 @@
                     if (data)
                         $scope.feedback.errorMessage = data.Detail;
                 })
+                .then(function () {
+                    $scope.feedback.savingHandlers.push(function () {
+                        $scope.properties.AspectRatio.PropertyValue = $scope.videoModel.aspectRatio;
+                        $scope.properties.Width.PropertyValue = $scope.videoModel.width;
+                        $scope.properties.Height.PropertyValue = $scope.videoModel.height;
+                    });
+                })
                 .finally(function () {
                     $scope.feedback.showLoadingIndicator = false;
                 });
