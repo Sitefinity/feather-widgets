@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Modules.Blogs;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 {
@@ -15,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// This class represents the controller of the Blog post widget.
     /// </summary>
     [ControllerToolboxItem(Name = "BlogPost", Title = "Blog post", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
-    public class BlogPostController: Controller, IContentLocatableView
+    public class BlogPostController : Controller, IContentLocatableView, IRouteMapper
     {
         #region Properties
 
@@ -125,6 +130,72 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
+        /// <summary>
+        /// Displays successors of the specified parent item.
+        /// </summary>
+        /// <param name="parentItem">The parent item.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult Successors(Blog parentItem, int? page)
+        {
+            if (parentItem != null)
+                this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
+
+            var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// </summary>
+        /// <param name="taxonFilter">The taxonomy filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
+        {
+            if (taxonFilter != null)
+                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="DetailTemplateName"/>
+        /// </summary>
+        /// <param name="item">The item which details will be displayed.</param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        public ActionResult Details(BlogPost item)
+        {
+            var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
+
+            if (item != null)
+                this.ViewBag.Title = item.Title;
+
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+
+            var viewModel = this.Model.CreateDetailsViewModel(item);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            return this.View(fullTemplateName, viewModel);
+        }
+
         #endregion
 
         #region Overrides
@@ -136,6 +207,65 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         protected override void HandleUnknownAction(string actionName)
         {
             this.Index(null).ExecuteResult(this.ControllerContext);
+        }
+
+        /// <summary>
+        /// Maps the route parameters from URL and returns true if the URL is a valid route.
+        /// </summary>
+        /// <param name="urlParams">The URL parameters.</param>
+        /// <param name="requestContext">The request context.</param>
+        /// <returns>True if the URL is a valid route. False otherwise.</returns>
+        [NonAction]
+        public bool TryMapRouteParameters(string[] urlParams, RequestContext requestContext)
+        {
+            if (urlParams == null)
+                throw new ArgumentNullException("urlParams");
+
+            if (requestContext == null)
+                throw new ArgumentNullException("requestContext");
+
+            if (urlParams.Length == 0)
+                return false;
+
+            if (this.Model.ParentFilterMode == ParentFilterMode.CurrentlyOpen)
+            {
+                return this.TryResolveParentFilterMode(urlParams, requestContext);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to resolve parent filter mode.
+        /// </summary>
+        /// <param name="urlParams">The URL params.</param>
+        /// <param name="requestContext">The request context.</param>
+        /// <returns></returns>
+        protected virtual bool TryResolveParentFilterMode(string[] urlParams, RequestContext requestContext, BlogsManager manager = null)
+        {
+            var blogsManager = manager ?? BlogsManager.GetManager(this.Model.ProviderName);
+
+            string param = RouteHelper.GetUrlParameterString(urlParams);
+
+            string redirectUrl;
+
+            var item = blogsManager.GetItemFromUrl(typeof(Blog), param, out redirectUrl);
+
+            if (item != null)
+            {
+                requestContext.RouteData.Values["action"] = "Successors";
+                requestContext.RouteData.Values["parentItem"] = item;
+
+                if (this.Request["page"] != null)
+                    requestContext.RouteData.Values["page"] = int.Parse(this.Request["page"]);
+
+                return true;
+            }
+            if (urlParams.Length > 1)
+            {
+                this.TryResolveParentFilterMode(urlParams.Take(urlParams.Length - 1).ToArray(), requestContext, manager);
+            }
+            return false;
         }
 
         #endregion
