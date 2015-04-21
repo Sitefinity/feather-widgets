@@ -438,6 +438,22 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// phrase: From all blogs
+        /// </summary>
+        /// <value>From all blogs</value>
+        [ResourceEntry("FromAllBlogs",
+            Value = "From all blogs",
+            Description = "phrase: From all blogs",
+            LastModified = "2015/04/21")]
+        public string FromAllBlogs
+        {
+            get
+            {
+                return this["FromAllBlogs"];
+            }
+        }
+
         #endregion
     }
 }
