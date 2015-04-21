@@ -3,6 +3,19 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
+        $scope.blogPostSelector = { selectedItemsIds: [] };
+
+        $scope.$watch(
+            'blogPostSelector.selectedItemsIds',
+            function (newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    if (newVal) {
+                        $scope.properties.SerializedSelectedItemsIds.PropertyValue = JSON.stringify(newVal);
+                    }
+                }
+            },
+            true
+        );
 
         $scope.feedback.showLoadingIndicator = true;
 
@@ -16,6 +29,11 @@
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
+
+                    var selectedItemsIds = $.parseJSON($scope.properties.SerializedSelectedItemsIds.PropertyValue || null);
+                    if (selectedItemsIds) {
+                        $scope.blogPostSelector.selectedItemsIds = selectedItemsIds;
+                    }
 
                     if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
                         $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;

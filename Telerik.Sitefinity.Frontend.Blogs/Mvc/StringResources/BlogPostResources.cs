@@ -163,6 +163,20 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Which blog posts to display?
+        /// </summary>
+        [ResourceEntry("ItemsToDisplay",
+            Value = "Which blog posts to display?",
+            Description = "phrase : Which blog posts to display?",
+            LastModified = "2015/04/21")]
+        public string ItemsToDisplay
+        {
+            get
+            {
+                return this["ItemsToDisplay"];
+            }
+        }
+
         /// Phrase: Use paging
         /// </summary>
         /// <value>Use paging</value>
@@ -179,6 +193,20 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Selected blog posts...
+        /// </summary>
+        [ResourceEntry("SelectedItems",
+            Value = "Selected blog posts...",
+            Description = "phrase : Selected blog posts...",
+            LastModified = "2015/04/21")]
+        public string SelectedItems
+        {
+            get
+            {
+                return this["SelectedItems"];
+            }
+        }
+
         /// Phrase: Divide the list on pages up to {0} items per page
         /// </summary>
         /// <value>Divide the list on pages up to {0} items per page</value>

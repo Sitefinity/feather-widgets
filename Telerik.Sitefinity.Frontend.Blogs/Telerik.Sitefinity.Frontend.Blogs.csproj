@@ -166,9 +166,7 @@
     <Compile Include="Mvc\StringResources\BlogPostResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mvc\Views\Blog\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\BlogPost\List.BlogPostList.cshtml" />
