@@ -123,6 +123,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
+            this.InitializeListViewBag("/{0}");
             var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
@@ -139,6 +140,9 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult Successors(Blog parentItem, int? page)
         {
+            if (parentItem != null)
+                this.InitializeListViewBag(parentItem.ItemDefaultUrl + "?page={0}");
+
             var viewModel = this.Model.CreateListViewModelByParent(parentItem, page ?? 1);
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
@@ -155,6 +159,9 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
         {
+            if (taxonFilter != null)
+                this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
