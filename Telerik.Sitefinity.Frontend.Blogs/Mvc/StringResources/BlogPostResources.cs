@@ -63,5 +63,39 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         #endregion
+
+        #region Frontend resources
+
+        /// <summary>
+        /// Gets word : by
+        /// </summary>
+        [ResourceEntry("By",
+            Value = "by",
+            Description = "word: by",
+            LastModified = "2014/04/21")]
+        public string By
+        {
+            get
+            {
+                return this["By"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Full story
+        /// </summary>
+        [ResourceEntry("FullStory",
+            Value = "Full story",
+            Description = "phrase : Full story",
+            LastModified = "2015/04/21")]
+        public string FullStory
+        {
+            get
+            {
+                return this["FullStory"];
+            }
+        }
+
+        #endregion
     }
 }
