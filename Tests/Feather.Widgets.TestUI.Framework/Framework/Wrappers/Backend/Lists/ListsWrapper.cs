@@ -19,11 +19,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Lists
         /// <param name="sortingOption">sorting option</param>
         public void SelectSortingOption(string sortingOption)
         {
-            HtmlSelect sortingOptionDropdown = this.EM.Lists.ListsWidgetEditScreen.SortDropdown.AssertIsPresent("Sorting option dropdown");
+            HtmlSelect sortingOptionsDropdown = this.EM.Lists.ListsWidgetEditScreen.SortDropdown.AssertIsPresent("Sorting option dropdown");
 
-            sortingOptionDropdown.SelectByText(sortingOption);
-            sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
-            sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            sortingOptionsDropdown.SelectByText(sortingOption);
+            sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            sortingOptionsDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
         /// <summary>
@@ -32,11 +32,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Lists
         /// <param name="templateName">template name</param>
         public void SelectListTemplate(string templateName)
         {
-            HtmlSelect sortingOptionDropdown = this.EM.Lists.ListsWidgetEditScreen.ListItemsTemplateDropdown.AssertIsPresent("List template dropdown");
+            HtmlSelect listTemplateDropdown = this.EM.Lists.ListsWidgetEditScreen.ListItemsTemplateDropdown.AssertIsPresent("List template dropdown");
 
-            sortingOptionDropdown.SelectByText(templateName);
-            sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
-            sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            listTemplateDropdown.SelectByText(templateName);
+            listTemplateDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            listTemplateDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
 
         /// <summary>
@@ -45,11 +45,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Lists
         /// <param name="templateName">template name</param>
         public void SelectListDetailsTemplate(string templateName)
         {
-            HtmlSelect sortingOptionDropdown = this.EM.Lists.ListsWidgetEditScreen.ListDetailsTemplateDropdown.AssertIsPresent("List details template dropdown");
+            HtmlSelect listDetailsTemplateDropdown = this.EM.Lists.ListsWidgetEditScreen.ListDetailsTemplateDropdown.AssertIsPresent("List details template dropdown");
 
-            sortingOptionDropdown.SelectByText(templateName);
-            sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
-            sortingOptionDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            listDetailsTemplateDropdown.SelectByText(templateName);
+            listDetailsTemplateDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            listDetailsTemplateDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
     }
 }
