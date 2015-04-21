@@ -80,15 +80,15 @@
             </div>
         </div>
         
-        <sf-expander expander-title='@Html.Resource("MoreOptions")'>
-            <sf-style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></sf-style-dropdown>
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
                 <label>@Html.Resource("CssClasses")
                     <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
                 </label>
             </div>
-        </sf-expander>
+        </expander>
     </tab>
 
     <tab heading="@Html.Resource("SingleItemSettings")">
