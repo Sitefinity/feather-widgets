@@ -35,11 +35,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists
         /// <summary>
         /// Gets the Lists widet frontend screen
         /// </summary>
-        public ListsFrontend ListsFrontend
+        public SimpleListsFrontend SimpleListsFrontend
         {
             get
             {
-                return new ListsFrontend(this.find);
+                return new SimpleListsFrontend(this.find);
             }
         }
 

@@ -99,7 +99,7 @@
     <Compile Include="Framework\ElementMap\Identity\RegistrationFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryMap.cs" />
-    <Compile Include="Framework\ElementMap\Lists\ListsFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Lists\SimpleListsFrontend.cs" />
     <Compile Include="Framework\ElementMap\Lists\ListsMap.cs" />
     <Compile Include="Framework\ElementMap\Lists\ListsWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\VideoPropertiesScreen.cs" />
@@ -134,6 +134,8 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Lists\ListsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Lists\ListsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\VideoPropertiesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Widgets\WidgetDesignerRadioButtonIds.cs" />
     <Compile Include="Framework\Wrappers\Backend\Media\DocumentPropertiesWrapper.cs" />
@@ -185,6 +187,8 @@
     <Compile Include="Framework\Wrappers\Frontend\Identity\RegistrationWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ImageGallery\ImageGalleryWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ImageGallery\ImageGalleryWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Lists\ListsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\Lists\ListsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\InlineEditingWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapperFacade.cs" />
@@ -205,10 +209,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Framework\Wrappers\Backend\Lists\" />
-    <Folder Include="Framework\Wrappers\Frontend\Lists\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

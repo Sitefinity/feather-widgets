@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
     public class SimpleListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test AddAndChangeUserAvatarInProfileWidget
+        /// UI test verifying Simple list template, Z-A sorting and no filter applied
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
@@ -28,6 +28,16 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectSortingOption(SortingOption);
+            BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListTemplate(ListTemplate);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, listItems);
         }
 
         /// <summary>
@@ -49,5 +59,10 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
 
         private const string PageName = "TestPage";
         private const string WidgetName = "Lists";
+        private const string ListTitle = "Test list";
+        private const string SortingOption = "By Title (Z-A)";
+        private const string ListTemplate = "SimpleList";
+
+        private readonly string[] listItems = new string[] { "list item 2", "list item 1" };
     }
 }
