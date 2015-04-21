@@ -7,8 +7,25 @@
 
 <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingBlogs")</div>
 <tabset class="nav-tabs-wrapper">
+    <h4>@Html.Resource("ItemsToDisplay")</h4>
+
     <tab heading="@Html.Resource("Content")">
-        
+        <div class="form-group">
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
+
+                    @Html.Resource("SelectedItems")
+                </label>
+                <div class="label-content">
+                    <sf-list-selector sf-blog-post-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                                  sf-multiselect="true" sf-sortable="true"
+                                  sf-provider="properties.ProviderName.PropertyValue"
+                                  sf-selected-ids ="blogPostSelector.selectedItemsIds"></sf-list-selector>
+
+                </div>
+            </div>
+        </div>
     </tab>
 
     <tab heading="@Html.Resource("ListSettings")">
