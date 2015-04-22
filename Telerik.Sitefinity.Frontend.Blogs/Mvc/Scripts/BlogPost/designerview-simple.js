@@ -3,6 +3,8 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
+        var emptyGuid = '00000000-0000-0000-0000-000000000000';
+
         $scope.blogPostSelector = { selectedItemsIds: [] };
         $scope.parentSelector = { selectedItemsIds: [] };
         $scope.feedback.showLoadingIndicator = true;
