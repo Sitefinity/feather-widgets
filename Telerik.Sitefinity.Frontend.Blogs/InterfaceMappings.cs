@@ -14,6 +14,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs
         public override void Load()
         {
             Bind<IBlogPostModel>().To<BlogPostModel>();
+            Bind<IBlogModel>().To<BlogModel>();
         }
     }
 }
