@@ -70,6 +70,37 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
 
         #region Designer resources
 
+        /// <summary>
+        /// Gets word : Content
+        /// </summary>
+        [ResourceEntry("Content",
+            Value = "Content",
+            Description = "word: Content",
+            LastModified = "2015/04/22")]
+        public string Content
+        {
+            get
+            {
+                return this["Content"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List settings
+        /// </summary>
+        /// <value>List settings</value>
+        [ResourceEntry("ListSettings",
+            Value = "List settings",
+            Description = "phrase: List settings",
+            LastModified = "2015/04/22")]
+        public string ListSettings
+        {
+            get
+            {
+                return this["ListSettings"];
+            }
+        }
+
         #endregion
     }
 }
