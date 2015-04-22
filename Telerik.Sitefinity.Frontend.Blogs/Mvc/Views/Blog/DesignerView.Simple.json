@@ -1,4 +1,4 @@
 ﻿{
 	"priority": 1,
-	"components": []
+	"components": ["sf-blog-selector"]
 }
