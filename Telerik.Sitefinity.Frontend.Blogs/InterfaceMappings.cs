@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
-using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
 
 namespace Telerik.Sitefinity.Frontend.Blogs
 {

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
-using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
+using SfBlog = Telerik.Sitefinity.Blogs.Model.Blog;
 
-namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
 {
     /// <summary>
     /// This interface defines API for working with <see cref="Telerik.Sitefinity.Blogs.Model.BlogPost"/> items.
@@ -139,7 +139,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         /// <param name="parentItem">The parent item.</param>
         /// <param name="page">The page.</param>
         /// <returns>A list view model containing all descendant items from the given parent.</returns>
-        ContentListViewModel CreateListViewModelByParent(Blog parentItem, int page);
+        ContentListViewModel CreateListViewModelByParent(SfBlog parentItem, int page);
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
