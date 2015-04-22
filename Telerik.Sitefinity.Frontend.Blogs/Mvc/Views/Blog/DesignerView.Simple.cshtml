@@ -4,7 +4,16 @@
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
-        
+        <h4>@Html.Resource("ItemsToDisplay")</h4>
+
+        <div class="form-group">
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                    @Html.Resource("AllBlogs")
+                </label>
+            </div>
+        </div>
     </tab>
 
     <tab heading="@Html.Resource("ListSettings")">

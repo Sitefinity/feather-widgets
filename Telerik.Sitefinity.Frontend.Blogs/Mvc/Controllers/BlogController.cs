@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 {
@@ -92,6 +93,8 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         public ActionResult Index(int? page)
         {
             var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
+
+            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
