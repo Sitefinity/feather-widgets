@@ -45,26 +45,18 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         string DetailCssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>
+        /// The sort expression.
+        /// </value>
+        string SortExpression { get; set; }
+
+        /// <summary>
         /// Gets or sets which blog posts to be displayed in the list view.
         /// </summary>
         /// <value>The page display mode.</value>
         SelectionMode SelectionMode { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to divide items in the list.
-        /// </summary>
-        /// <value>
-        /// The display mode.
-        /// </value>
-        ListDisplayMode DisplayMode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the items count per page.
-        /// </summary>
-        /// <value>
-        /// The items per page.
-        /// </value>
-        int? ItemsPerPage { get; set; }
 
         /// <summary>
         /// Creates a view model for use in list views.

@@ -100,22 +100,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
                 return this["ListSettings"];
             }
         }
-
-        /// Phrase: Use paging
-        /// </summary>
-        /// <value>Use paging</value>
-        [ResourceEntry("UsePaging",
-            Value = "Use paging",
-            Description = "Phrase: Use paging",
-            LastModified = "2015/04/22")]
-        public string UsePaging
-        {
-            get
-            {
-                return this["UsePaging"];
-            }
-        }
-
+        
         /// <summary>
         /// Gets phrase : Use limit
         /// </summary>
@@ -393,81 +378,63 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
-        /// Phrase: Divide the list on pages up to {0} items per page
+        /// <summary>
+        /// Gets phrase : Single item settings
         /// </summary>
-        /// <value>Divide the list on pages up to {0} items per page</value>
-        [ResourceEntry("DivideToItemPerPage",
-            Value = "Divide the list on pages up to {0} items per page",
-            Description = "Phrase: Divide the list on pages up to {0} items per page",
+        [ResourceEntry("SingleItemSettings",
+            Value = "Single item settings",
+            Description = "phrase : Single item settings",
             LastModified = "2015/04/21")]
-        public string DivideToItemPerPage
+        public string SingleItemSettings
         {
             get
             {
-                return this["DivideToItemPerPage"];
+                return this["SingleItemSettings"];
+            }
+        }
+
+        /// </summary>
+        /// Gets phrase : Open single item in...
+        /// </summary>
+        [ResourceEntry("OpenSingleItem",
+            Value = "Open single item in...",
+            Description = "phrase : Open single item in...",
+            LastModified = "2015/04/21")]
+        public string OpenSingleItem
+        {
+            get
+            {
+                return this["OpenSingleItem"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Use limit
+        /// Gets phrase : Auto-generated page
         /// </summary>
-        [ResourceEntry("UseLimit",
-            Value = "Use limit",
-            Description = "phrase : Use limit",
+        [ResourceEntry("ShowInSamePage",
+            Value = "Auto-generated page",
+            Description = "phrase : Auto-generated page (with the same layout as the list page)",
             LastModified = "2015/04/21")]
-        public string UseLimit
+        public string ShowInSamePage
         {
             get
             {
-                return this["UseLimit"];
+                return this["ShowInSamePage"];
             }
         }
 
         /// <summary>
-        /// Phrase: Show only limited number of items {0} items in total
+        /// Gets phrase : Selected existing page...
         /// </summary>
-        /// <value>Show only limited number of items {0} items in total</value>
-        [ResourceEntry("ShowLimitedItems",
-            Value = "Show only limited number of items {0} items in total",
-            Description = "Phrase: Show only limited number of items {0} items in total",
+        [ResourceEntry("ShowInExistingPage",
+            Value = "Selected existing page...",
+            Description = "phrase : Selected existing page...",
             LastModified = "2015/04/21")]
-        public string ShowLimitedItems
+        public string ShowInExistingPage
         {
             get
             {
-                return this["ShowLimitedItems"];
-            }
-        }
-
-        /// <summary>
-        /// Phrase: No limit and paging
-        /// </summary>
-        /// <value>No limit and paging</value>
-        [ResourceEntry("NoLimitPaging",
-            Value = "No limit and paging",
-            Description = "Phrase: No limit and paging",
-            LastModified = "2015/04/21")]
-        public string NoLimitPaging
-        {
-            get
-            {
-                return this["NoLimitPaging"];
-            }
-        }
-
-        /// <summary>
-        /// Phrase: Show all published items at once
-        /// </summary>
-        /// <value>Show all published items at once</value>
-        [ResourceEntry("ShowAllItems",
-            Value = "Show all published items at once",
-            Description = "Phrase: Show all published items at once",
-            LastModified = "2015/04/21")]
-        public string ShowAllItems
-        {
-            get
-            {
-                return this["ShowAllItems"];
+                return this["ShowInExistingPage"];
             }
         }
 
