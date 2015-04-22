@@ -94,7 +94,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         {
             var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
 
-            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
+            this.InitializeListViewBag("/{0}");
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -117,6 +117,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             var viewModel = this.Model.CreateDetailsViewModel(item);
 
             return this.View(fullTemplateName, viewModel);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Initializes the ListView bag.
+        /// </summary>
+        /// <param name="redirectPageUrl">The redirect page URL.</param>
+        private void InitializeListViewBag(string redirectPageUrl)
+        {
+            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
         }
 
         #endregion
