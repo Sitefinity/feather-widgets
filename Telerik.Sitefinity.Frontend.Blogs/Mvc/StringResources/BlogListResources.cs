@@ -101,6 +101,37 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Which blogs to display?
+        /// </summary>
+        [ResourceEntry("ItemsToDisplay",
+            Value = "Which blogs to display?",
+            Description = "phrase : Which blogs to display?",
+            LastModified = "2015/04/22")]
+        public string ItemsToDisplay
+        {
+            get
+            {
+                return this["ItemsToDisplay"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: All blogs
+        /// </summary>
+        /// <value>All blogs</value>
+        [ResourceEntry("AllBlogs",
+            Value = "All blogs",
+            Description = "phrase: All blogs",
+            LastModified = "2015/04/22")]
+        public string AllBlogs
+        {
+            get
+            {
+                return this["AllBlogs"];
+            }
+        }
+
         #endregion
     }
 }
