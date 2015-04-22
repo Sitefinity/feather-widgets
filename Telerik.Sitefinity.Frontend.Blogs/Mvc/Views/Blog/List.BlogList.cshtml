@@ -12,9 +12,19 @@
         {
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 <h3>
-                    <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="#Todo">@item.Fields.Title</a>
+                    <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item, item.DefaultPageId, ViewBag.OpenInSamePage)">@item.Fields.Title</a>
                 </h3>
             </li>
         }
     </ul>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new
+           {
+               currentPage = Model.CurrentPage,
+               totalPagesCount = Model.TotalPagesCount.Value,
+               redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+           })
+    }
 </div>
