@@ -163,7 +163,9 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\BlogController.cs" />
     <Compile Include="Mvc\Controllers\BlogPostController.cs" />
+    <Compile Include="Mvc\Models\BlogModel.cs" />
     <Compile Include="Mvc\Models\BlogPostModel.cs" />
+    <Compile Include="Mvc\Models\IBlogModel.cs" />
     <Compile Include="Mvc\Models\IBlogPostModel.cs" />
     <Compile Include="Mvc\Models\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\BlogPostResources.cs" />
