@@ -180,6 +180,8 @@
     <EmbeddedResource Include="Mvc\Views\BlogPost\Detail.DetailPage.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Blog\Detail.DetailPage.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Blog\List.BlogList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Blog\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Blog\DesignerView.Simple.json" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>
