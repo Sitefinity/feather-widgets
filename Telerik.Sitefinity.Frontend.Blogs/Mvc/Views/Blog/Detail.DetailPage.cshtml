@@ -11,9 +11,4 @@
 
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
-    <div class="text-muted">
-        @Html.Resource("LastPost")
-        @Model.Item.GetDateTime("LastPostDate", "MMM/d/yyyy")
-    </div>
-
 </div>
