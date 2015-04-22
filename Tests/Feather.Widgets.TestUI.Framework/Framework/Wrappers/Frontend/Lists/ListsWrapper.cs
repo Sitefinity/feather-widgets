@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
 {
@@ -138,6 +139,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
                 listItemDivs[i].ChildNodes[0].As<HtmlContainerControl>().AssertIsPresent("list item title");
                 listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsPresent("list item content");
                 listItemDivs[i].ChildNodes[2].As<HtmlContainerControl>().AssertIsPresent("list item content");
+            }
+        }
+
+        /// <summary>
+        /// Verifies pages list template
+        /// </summary>
+        /// <param name="listTitle">list title</param>
+        /// <param name="listItemsToVerify">list items to be verified</param>
+        public void VerifyPagesListTemplate(string listTitleToVerify, Dictionary<string, string> listItemsToVerify)
+        {
+            //// verify list title
+            HtmlContainerControl listTitle = this.EM.Lists.PagesListFrontend.ListTitleLabel.AssertIsPresent("list title");
+            Assert.AreEqual(listTitleToVerify, listTitle.InnerText, "list title");
+
+            //// verify unordered list of links
+            HtmlUnorderedList listItemLinks = this.EM.Lists.PagesListFrontend.ListItemsUnorderedList.AssertIsPresent("unordered list of list items");
+            Assert.AreEqual(listItemLinks.Items.Count(), listItemsToVerify.Count, "Expected and actual count of list items are not equal");
+
+            for (int i = 0; i < listItemsToVerify.Count; i++)
+            {
+                Assert.AreEqual(listItemsToVerify.Keys.ElementAt(i), listItemLinks.Items[i].InnerText, "list item title");
+                Assert.IsTrue(listItemLinks.Items[i].ChildNodes[0].TagName.Equals("a"));
+
+                //// verify details of list item
+                listItemLinks.Items[i].ChildNodes[0].As<HtmlAnchor>().Click();
+                ActiveBrowser.WaitForUrl("/lists/", true);
+
+                HtmlDiv listItemDetails = this.EM.Lists.PagesListFrontend.ListItemsDiv.AssertIsPresent("list item details");
+                Assert.AreEqual(listItemsToVerify.Keys.ElementAt(i), listItemDetails.ChildNodes[0].InnerText, "list item title in details");
+                Assert.AreEqual(listItemsToVerify.Values.ElementAt(i), listItemDetails.ChildNodes[1].InnerText, "list item content in details");
+
+                //// go back to the main list page
+                ActiveBrowser.GoBack();
             }
         }
     }

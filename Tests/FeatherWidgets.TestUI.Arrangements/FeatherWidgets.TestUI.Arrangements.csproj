@@ -201,6 +201,7 @@
     <Compile Include="Lists\AnchorListTemplate.cs" />
     <Compile Include="Lists\ExpandableListTemplate.cs" />
     <Compile Include="Lists\ExpandedListTemplate.cs" />
+    <Compile Include="Lists\PagesListTemplate.cs" />
     <Compile Include="Lists\SimpleListTemplate.cs" />
     <Compile Include="MediaWidgets\ImageWidgetInsertImageWithCustomThumbnail.cs" />
     <Compile Include="MediaWidgets\DocumentWidgetInsertDocument.cs" />

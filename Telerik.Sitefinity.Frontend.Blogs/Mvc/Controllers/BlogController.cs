@@ -10,14 +10,15 @@ using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of the Blog widget.
     /// </summary>
-    [Localization(typeof(BlogResources))]
-    [ControllerToolboxItem(Name = "Blog", Title = "Blog", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogController.WidgetIconCssClass)]
+    [Localization(typeof(BlogListResources))]
+    [ControllerToolboxItem(Name = "Blog", Title = "Blog list", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogController.WidgetIconCssClass)]
     public class BlogController: Controller
     {
         #region Properties
@@ -78,6 +79,25 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether detail view for the blog post should be opened in the same page.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if details link should be opened in the same page; otherwise, (if should redirect to custom selected page)<c>false</c>.
+        /// </value>
+        public bool OpenInSamePage
+        {
+            get
+            {
+                return this.openInSamePage;
+            }
+
+            set
+            {
+                this.openInSamePage = value;
+            }
+        }
+
         #endregion
 
         #region Actions
@@ -92,6 +112,8 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         public ActionResult Index(int? page)
         {
             var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
+
+            this.InitializeListViewBag("/{0}");
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -118,6 +140,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
         #endregion
 
+        #region Private Methods
+
+        /// <summary>
+        /// Initializes the ListView bag.
+        /// </summary>
+        /// <param name="redirectPageUrl">The redirect page URL.</param>
+        private void InitializeListViewBag(string redirectPageUrl)
+        {
+            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
+            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
+        }
+
+        #endregion
+
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfBlogsListViewIcn";
@@ -127,6 +164,8 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
+
+        private bool openInSamePage;
 
         #endregion
     }

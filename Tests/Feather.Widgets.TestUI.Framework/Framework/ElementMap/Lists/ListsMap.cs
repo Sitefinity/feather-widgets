@@ -76,6 +76,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists
             }
         }
 
+        /// <summary>
+        /// Gets the Pages list template
+        /// </summary>
+        public PagesListFrontend PagesListFrontend
+        {
+            get
+            {
+                return new PagesListFrontend(this.find);
+            }
+        }
+
         private Find find;
     }
 }
