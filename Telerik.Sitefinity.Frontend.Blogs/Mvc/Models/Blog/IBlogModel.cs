@@ -6,7 +6,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 
-namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
 {
     /// <summary>
     /// This interface defines API for working with <see cref="Telerik.Sitefinity.Blogs.Model.Blog"/> items.

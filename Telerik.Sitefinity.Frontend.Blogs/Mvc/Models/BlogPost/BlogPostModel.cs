@@ -7,8 +7,10 @@ using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Blogs;
+using SfBlog = Telerik.Sitefinity.Blogs.Model.Blog;
+using SfBlogPost = Telerik.Sitefinity.Blogs.Model.BlogPost;
 
-namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
 {
     /// <summary>
     /// Provides API for working with <see cref="Telerik.Sitefinity.Blogs.Model.BlogPost"/> items.
@@ -31,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         {
             get
             {
-                return typeof(BlogPost);
+                return typeof(SfBlogPost);
             }
 
             set
@@ -40,7 +42,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         }
 
         /// <inheritdoc />
-        public virtual ContentListViewModel CreateListViewModelByParent(Blog parentItem, int page)
+        public virtual ContentListViewModel CreateListViewModelByParent(SfBlog parentItem, int page)
         {
             if (page < 1)
                 throw new ArgumentException("'page' argument has to be at least 1.", "page");

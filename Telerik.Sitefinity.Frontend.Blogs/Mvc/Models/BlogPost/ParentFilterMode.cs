@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost
 {
     /// <summary>
     /// Mode for filtering blog posts by parent.

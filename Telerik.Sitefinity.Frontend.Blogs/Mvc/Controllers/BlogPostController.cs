@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.ContentLocations;
-using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;

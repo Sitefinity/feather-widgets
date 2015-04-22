@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Blogs;
+using SfBlog = Telerik.Sitefinity.Blogs.Model.Blog;
 
-namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
 {
     /// <summary>
     /// Provides API for working with <see cref="Telerik.Sitefinity.Blogs.Model.Blog"/> items.
@@ -24,7 +22,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
         {
             get
             {
-                return typeof(Blog);
+                return typeof(SfBlog);
             }
 
             set
