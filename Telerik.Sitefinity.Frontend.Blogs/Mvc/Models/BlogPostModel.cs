@@ -73,7 +73,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models
             if (this.ParentFilterMode == ParentFilterMode.Selected && this.SerializedSelectedParentsIds.IsNullOrEmpty() == false)
             {
                 var selectedItemIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedParentsIds);
-                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "SystemParentId = " + id.Trim()));
+                var parentFilterExpression = string.Join(" OR ", selectedItemIds.Select(id => "Parent.Id = " + id.Trim()));
                 if (baseExpression.IsNullOrEmpty())
                     return "({0})".Arrange(parentFilterExpression);
                 else
