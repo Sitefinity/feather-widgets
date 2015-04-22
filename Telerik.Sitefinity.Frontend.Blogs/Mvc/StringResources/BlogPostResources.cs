@@ -161,7 +161,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
                 return this["MissingBlogs"];
             }
         }
-
+        
         /// <summary>
         /// Gets phrase : Which blog posts to display?
         /// </summary>
@@ -174,6 +174,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             get
             {
                 return this["ItemsToDisplay"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : From currently open blog
+        /// </summary>
+        [ResourceEntry("FromCurrentlyOpen",
+            Value = "From currently open blog",
+            Description = "phrase : From currently open blog",
+            LastModified = "2015/04/21")]
+        public string FromCurrentlyOpen
+        {
+            get
+            {
+                return this["FromCurrentlyOpen"];
             }
         }
 

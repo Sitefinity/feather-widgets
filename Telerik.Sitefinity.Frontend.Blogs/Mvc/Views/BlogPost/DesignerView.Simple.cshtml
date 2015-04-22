@@ -17,6 +17,7 @@
                     @Html.Resource("FromAllBlogs")
                 </label>
             </div>
+
             <div class="radio">
                 <label class="full-width">
                     <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="Selected" />
@@ -24,6 +25,14 @@
                     @Html.Resource("FromSelectedBlogs")
                 </label>
             </div>
+
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="CurrentlyOpen" />
+                    @Html.Resource("FromCurrentlyOpen")
+                </label>
+            </div>
+
             <div class="radio">
                 <label class="full-width">
                     <input type="radio" ng-model="properties.ParentFilterMode.PropertyValue" value="NotApplicable" />
