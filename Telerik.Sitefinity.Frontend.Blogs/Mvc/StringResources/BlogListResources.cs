@@ -6,24 +6,24 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Blog widget
     /// </summary>
-    [ObjectInfo(typeof(BlogResources), ResourceClassId = "BlogResources", Title = "BlogResourcesTitle", Description = "BlogResourcesDescription")]
-    public class BlogResources : Resource
+    [ObjectInfo(typeof(BlogListResources), ResourceClassId = "BlogResources", Title = "BlogResourcesTitle", Description = "BlogResourcesDescription")]
+    public class BlogListResources : Resource
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlogResources"/> class. 
-        /// Initializes new instance of <see cref="BlogResources"/> class with the default <see cref="ResourceDataProvider"/>.
+        /// Initializes a new instance of the <see cref="BlogListResources"/> class. 
+        /// Initializes new instance of <see cref="BlogListResources"/> class with the default <see cref="ResourceDataProvider"/>.
         /// </summary>
-        public BlogResources()
+        public BlogListResources()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BlogResources"/> class.
+        /// Initializes a new instance of the <see cref="BlogListResources"/> class.
         /// </summary>
         /// <param name="dataProvider">The data provider.</param>
-        public BlogResources(ResourceDataProvider dataProvider)
+        public BlogListResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
         }
@@ -69,6 +69,37 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         #endregion
 
         #region Designer resources
+
+        /// <summary>
+        /// Gets word : Content
+        /// </summary>
+        [ResourceEntry("Content",
+            Value = "Content",
+            Description = "word: Content",
+            LastModified = "2015/04/22")]
+        public string Content
+        {
+            get
+            {
+                return this["Content"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: List settings
+        /// </summary>
+        /// <value>List settings</value>
+        [ResourceEntry("ListSettings",
+            Value = "List settings",
+            Description = "phrase: List settings",
+            LastModified = "2015/04/22")]
+        public string ListSettings
+        {
+            get
+            {
+                return this["ListSettings"];
+            }
+        }
 
         #endregion
     }
