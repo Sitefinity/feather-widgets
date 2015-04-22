@@ -10,20 +10,20 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Lists
 {
     /// <summary>
-    /// SimpleListTemplate_ test class.
+    /// ExpandedListTemplate_ test class.
     /// </summary>
     [TestClass]
-    public class SimpleListTemplate_ : FeatherTestCase
+    public class ExpandedListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test verifying Simple list template, Z-A sorting and no filter applied
+        /// UI test verifying Expanded list template
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]
-        public void SimpleListTemplate()
+        public void ExpandedListTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, this.listItems);
+            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyExpandedListTemplate(ListTitle, this.listItems);
         }
 
         /// <summary>
@@ -60,9 +60,13 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string PageName = "TestPage";
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
-        private const string SortingOption = "By Title (Z-A)";
-        private const string ListTemplate = "SimpleList";
+        private const string SortingOption = "By Title (A-Z)";
+        private const string ListTemplate = "ExpandedList";
 
-        private readonly string[] listItems = new string[] { "list item 2", "list item 1" };
+        private readonly Dictionary<string, string> listItems = new Dictionary<string, string>()
+                                                                {
+                                                                    { "list item 1", "list content 1" },
+                                                                    { "list item 2", "list content 2" }
+                                                                };
     }
 }

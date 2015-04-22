@@ -33,13 +33,46 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists
         }
 
         /// <summary>
-        /// Gets the Lists widet frontend screen
+        /// Gets the Simple list template
         /// </summary>
-        public SimpleListsFrontend SimpleListsFrontend
+        public SimpleListFrontend SimpleListFrontend
         {
             get
             {
-                return new SimpleListsFrontend(this.find);
+                return new SimpleListFrontend(this.find);
+            }
+        }
+
+        /// <summary>
+        /// Gets the Expanded list template
+        /// </summary>
+        public ExpandedListFrontend ExpandedListFrontend
+        {
+            get
+            {
+                return new ExpandedListFrontend(this.find);
+            }
+        }
+
+        /// <summary>
+        /// Gets the Expandable list template
+        /// </summary>
+        public ExpandableListFrontend ExpandableListFrontend
+        {
+            get
+            {
+                return new ExpandableListFrontend(this.find);
+            }
+        }
+
+        /// <summary>
+        /// Gets the Anchor list template
+        /// </summary>
+        public AnchorListFrontend AnchorListFrontend
+        {
+            get
+            {
+                return new AnchorListFrontend(this.find);
             }
         }
 
