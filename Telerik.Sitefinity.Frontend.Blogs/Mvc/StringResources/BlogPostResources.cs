@@ -35,7 +35,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         /// <summary>
         /// Gets Blog post widget resources title.
         /// </summary>
-        [ResourceEntry("ContentBlockResourcesTitle", 
+        [ResourceEntry("BlogPostResourcesTitle", 
             Value = "Blog post widget resources", 
             Description = "Title for the blog post widget resources class.", 
             LastModified = "2015/04/21")]
