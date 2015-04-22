@@ -53,4 +53,29 @@
             </div>
         </div>
     </tab>
+    <tab heading="@Html.Resource("SingleItemSettings")">
+        <div class="form-group">
+            <strong>@Html.Resource("OpenSingleItem")</strong>
+            <div class="radio">
+                <label for="samePage">
+                    <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
+                    <span>
+                        @Html.Resource("ShowInSamePage")
+                    </span>
+                </label>
+            </div>
+            <div class="radio">
+                <label for="existingPage">
+                    <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
+                    @Html.Resource("ShowInExistingPage")
+                </label>
+                <div class="label-content">
+                    <sf-list-selector
+                            sf-page-selector
+                            sf-selected-item-id="properties.DetailsPageId.PropertyValue"
+                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
+                </div>
+            </div>
+        </div>
+    </tab>
 </tabset>
