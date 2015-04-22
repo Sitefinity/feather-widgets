@@ -102,6 +102,7 @@
     <Compile Include="Framework\ElementMap\Lists\AnchorListFrontend.cs" />
     <Compile Include="Framework\ElementMap\Lists\ExpandableListFrontend.cs" />
     <Compile Include="Framework\ElementMap\Lists\ExpandedListFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Lists\PagesListFrontend.cs" />
     <Compile Include="Framework\ElementMap\Lists\SimpleListFrontend.cs" />
     <Compile Include="Framework\ElementMap\Lists\ListsMap.cs" />
     <Compile Include="Framework\ElementMap\Lists\ListsWidgetEditScreen.cs" />
