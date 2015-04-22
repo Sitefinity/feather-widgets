@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -39,9 +40,81 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the template that will be displayed when widget is in List view.
+        /// </summary>
+        /// <value>
+        /// The name of the list template.
+        /// </value>
+        public string ListTemplateName
+        {
+            get
+            {
+                return this.listTemplateName;
+            }
+
+            set
+            {
+                this.listTemplateName = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the template that will be displayed when widget is in Detail view.
+        /// </summary>
+        /// <value>
+        /// The name of the details template.
+        /// </value>
+        public string DetailTemplateName
+        {
+            get
+            {
+                return this.detailTemplateName;
+            }
+
+            set
+            {
+                this.detailTemplateName = value;
+            }
+        }
+
         #endregion
 
         #region Actions
+
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult Index(int? page)
+        {
+            var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
+
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Renders appropriate list view depending on the <see cref="DetailTemplateName"/>
+        /// </summary>
+        /// <param name="item">The item which details will be displayed.</param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        public ActionResult Details(Blog item)
+        {
+            var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
+
+            if (item != null)
+                this.ViewBag.Title = item.Title;
+
+            var viewModel = this.Model.CreateDetailsViewModel(item);
+
+            return this.View(fullTemplateName, viewModel);
+        }
 
         #endregion
 
@@ -49,6 +122,11 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
         internal const string WidgetIconCssClass = "sfBlogsListViewIcn";
         private IBlogModel model;
+
+        private string listTemplateName = "BlogList";
+        private string listTemplateNamePrefix = "List.";
+        private string detailTemplateName = "DetailPage";
+        private string detailTemplateNamePrefix = "Detail.";
 
         #endregion
     }
