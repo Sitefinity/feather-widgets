@@ -301,18 +301,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         {
             get
             {
-                if (this.ListsMap == null)
+                if (this.listsMap == null)
                 {
                     this.EnsureFindIsInitialized();
-                    this.ListsMap = new ListsMap(this.find);
+                    this.listsMap = new ListsMap(this.find);
                 }
 
-                return this.ListsMap;
+                return this.listsMap;
             }
 
             private set
             {
-                this.ListsMap = value;
+                this.listsMap = value;
             }
         }
 
@@ -336,6 +336,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private MediaMap mediaMap;
         private IdentityMap identityMap;
         private ImageGalleryMap imageGalleryMap;
-        private ListsMap ListsMap;
+        private ListsMap listsMap;
     }
 }

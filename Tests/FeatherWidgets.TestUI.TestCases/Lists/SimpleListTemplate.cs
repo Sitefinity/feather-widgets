@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, listItems);
+            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, this.listItems);
         }
 
         /// <summary>

@@ -30,8 +30,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists
         {
             get
             {
-                return this.Find.AllByTagName<HtmlContainerControl>("h1").Where(d => (d.ChildNodes.Count == 1)
-                                                                                    && (d.ChildNodes[0].TagName.Equals("a"))).SingleOrDefault();
+                return this.Find.AllByTagName<HtmlContainerControl>("h1").Where(d => d.ChildNodes.Count == 1
+                                                                                    && d.ChildNodes[0].TagName.Equals("a")).SingleOrDefault();
             }
         }
 
@@ -53,11 +53,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists
         {
             get
             {
-                return this.Find.AllByTagName<HtmlDiv>("div").Where(d => (d.ChildNodes.Count == 3)
-                                                                        && (d.ChildNodes[0].TagName.Equals("h3"))
-                                                                        && (d.ChildNodes[1].TagName.Equals("div"))
-                                                                        && (d.ChildNodes[2].TagName.Equals("p"))
-                                                                        && (d.ChildNodes[2].ChildNodes[0].TagName.Equals("a"))).ToList();
+                return this.Find.AllByTagName<HtmlDiv>("div").Where(d => d.ChildNodes.Count == 3
+                                                                        && d.ChildNodes[0].TagName.Equals("h3")
+                                                                        && d.ChildNodes[1].TagName.Equals("div")
+                                                                        && d.ChildNodes[2].TagName.Equals("p")
+                                                                        && d.ChildNodes[2].ChildNodes[0].TagName.Equals("a")).ToList();
             }
         }
     }

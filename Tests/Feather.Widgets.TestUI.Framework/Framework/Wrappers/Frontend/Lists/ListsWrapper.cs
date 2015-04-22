@@ -80,6 +80,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
                 listItemDivs[i].ChildNodes[0].As<HtmlSpan>().AssertIsPresent("list item title");
                 listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsNotVisible("list item content");
             }
+
             expandAll.Click();
 
             //// verify list items after expanding all items
@@ -93,6 +94,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
                 listItemDivs[i].ChildNodes[0].As<HtmlSpan>().AssertIsPresent("list item title");
                 listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsPresent("list item content");
             }
+
             collapseAll.Click();
 
             for (int i = 0; i < listItemsToVerify.Count; i++)
