@@ -36,6 +36,22 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         SelectionMode SelectionMode { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to divide items in the list.
+        /// </summary>
+        /// <value>
+        /// The display mode.
+        /// </value>
+        ListDisplayMode DisplayMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the items count per page.
+        /// </summary>
+        /// <value>
+        /// The items per page.
+        /// </value>
+        int? ItemsPerPage { get; set; }
+
+        /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
         /// <param name="page">The page.</param>
