@@ -51,5 +51,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Lists
             listDetailsTemplateDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             listDetailsTemplateDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
+
+        /// <summary>
+        /// Check filter by category
+        /// </summary>
+        public void FilterByCategory()
+        {
+            HtmlInputCheckBox filterByCategory = this.EM.Lists.ListsWidgetEditScreen.FilterByCategoryCheckbox.AssertIsPresent("Filter by category checkbox");
+            filterByCategory.Click();
+        }
+
+        /// <summary>
+        /// Check filter by tag
+        /// </summary>
+        public void FilterByTag()
+        {
+            HtmlInputCheckBox filterByTag = this.EM.Lists.ListsWidgetEditScreen.FilterByTagCheckbox.AssertIsPresent("Filter by tag checkbox");
+            filterByTag.Click();
+        }
+
+        /// <summary>
+        /// Check filter by date
+        /// </summary>
+        public void FilterByDate()
+        {
+            HtmlInputCheckBox filterByDate = this.EM.Lists.ListsWidgetEditScreen.FilterByDateCheckbox.AssertIsPresent("Filter by date checkbox");
+            filterByDate.Click();
+        }
     }
 }

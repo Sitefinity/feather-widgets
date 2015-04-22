@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Modules.Lists;
+using Telerik.Sitefinity.SitefinityExceptions;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Workflow;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
@@ -103,6 +107,57 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
 
                 listsManager.SaveChanges();
             }
+        }
+
+        /// <summary>
+        /// Adds the taxonomies to list item.
+        /// </summary>
+        /// <param name="listItemId">The list item id.</param>
+        /// <param name="categories">The categories.</param>
+        /// <param name="tags">The tags.</param>
+        public void AddTaxonomiesToListItem(Guid listItemId, IEnumerable<string> categories, IEnumerable<string> tags)
+        {
+            ListsManager listManager = ListsManager.GetManager();
+
+            ListItem listItemMaster = listManager.GetListItems().Where(i => i.Id == listItemId).FirstOrDefault();
+
+            if (listItemMaster == null)
+            {
+                throw new ItemNotFoundException(string.Format(CultureInfo.CurrentCulture, "List item with id {0} was not found.", listItemId));
+            }
+
+            ListItem listItemTemp = listManager.Lifecycle.CheckOut(listItemMaster) as ListItem;
+
+            var taxonomyManager = TaxonomyManager.GetManager();
+            if (categories != null)
+            {
+                if (categories.Count() > 0)
+                {
+                    HierarchicalTaxon category = null;
+                    foreach (var c in categories)
+                    {
+                        category = taxonomyManager.GetTaxa<HierarchicalTaxon>().Single(t => t.Title == c);
+                        listItemTemp.Organizer.AddTaxa("Category", category.Id);
+                    }
+                }
+            }
+
+            if (tags != null)
+            {
+                if (tags.Count() > 0)
+                {
+                    FlatTaxon tag = null;
+                    foreach (var tg in tags)
+                    {
+                        tag = taxonomyManager.GetTaxa<FlatTaxon>().Single(t => t.Title == tg);
+                        listItemTemp.Organizer.AddTaxa("Tags", tag.Id);
+                    }
+                }
+            }
+
+            listItemMaster = listManager.Lifecycle.CheckIn(listItemTemp) as ListItem;
+            listManager.Lifecycle.Publish(listItemMaster);
+            listManager.SaveChanges();
         }
     }
 }
