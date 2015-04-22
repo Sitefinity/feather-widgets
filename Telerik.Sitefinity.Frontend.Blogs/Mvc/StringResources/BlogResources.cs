@@ -66,6 +66,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
 
         #region Frontend resources
 
+        /// <summary>
+        /// Gets Last Post.
+        /// </summary>
+        [ResourceEntry("LastPost",
+            Value = "Last post:",
+            Description = "phrase: Last post:",
+            LastModified = "2015/04/22")]
+        public string LastPost
+        {
+            get
+            {
+                return this["LastPost"];
+            }
+        }
+
         #endregion
 
         #region Designer resources
