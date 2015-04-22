@@ -161,20 +161,29 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\BlogController.cs" />
     <Compile Include="Mvc\Controllers\BlogPostController.cs" />
+    <Compile Include="Mvc\Models\BlogModel.cs" />
     <Compile Include="Mvc\Models\BlogPostModel.cs" />
+    <Compile Include="Mvc\Models\IBlogModel.cs" />
     <Compile Include="Mvc\Models\IBlogPostModel.cs" />
     <Compile Include="Mvc\Models\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\BlogPostResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Blog\designerview-simple.js" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\BlogPost\List.BlogPostList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\BlogPost\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\BlogPost\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\BlogPost\Detail.DetailPage.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Blog\Detail.DetailPage.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Blog\List.BlogList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Blog\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Blog\DesignerView.Simple.json" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>
