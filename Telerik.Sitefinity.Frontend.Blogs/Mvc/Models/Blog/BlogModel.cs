@@ -35,6 +35,16 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         {
             return base.CreateListViewModel(null, page);
         }
+        
+        protected override string AdaptMultilingualFilterExpression(string filterExpression)
+        {
+            return filterExpression;
+        }
+
+        protected override string AddLiveFilterExpression(string filterExpression)
+        {
+            return filterExpression;
+        }
 
         /// <summary>
         /// Gets the items query.
