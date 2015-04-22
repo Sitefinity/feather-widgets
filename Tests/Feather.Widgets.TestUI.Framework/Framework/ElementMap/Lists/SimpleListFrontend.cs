@@ -12,13 +12,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists
     /// <summary>
     /// Provides access to frontend elements of simple list template.
     /// </summary>
-    public class SimpleListsFrontend : HtmlElementContainer
+    public class SimpleListFrontend : HtmlElementContainer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleListsFrontend" /> class.
+        /// Initializes a new instance of the <see cref="SimpleListFrontend" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
-        public SimpleListsFrontend(Find find)
+        public SimpleListFrontend(Find find)
             : base(find)
         {
         }

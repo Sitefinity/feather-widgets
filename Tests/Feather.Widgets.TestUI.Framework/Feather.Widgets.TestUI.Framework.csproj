@@ -99,7 +99,10 @@
     <Compile Include="Framework\ElementMap\Identity\RegistrationFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryFrontend.cs" />
     <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryMap.cs" />
-    <Compile Include="Framework\ElementMap\Lists\SimpleListsFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Lists\AnchorListFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Lists\ExpandableListFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Lists\ExpandedListFrontend.cs" />
+    <Compile Include="Framework\ElementMap\Lists\SimpleListFrontend.cs" />
     <Compile Include="Framework\ElementMap\Lists\ListsMap.cs" />
     <Compile Include="Framework\ElementMap\Lists\ListsWidgetEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Media\VideoPropertiesScreen.cs" />
