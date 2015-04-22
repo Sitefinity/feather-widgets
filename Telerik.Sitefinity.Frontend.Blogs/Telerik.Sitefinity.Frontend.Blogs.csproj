@@ -169,7 +169,7 @@
     <Compile Include="Mvc\Models\BlogPost\IBlogPostModel.cs" />
     <Compile Include="Mvc\Models\BlogPost\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\BlogPostResources.cs" />
-    <Compile Include="Mvc\StringResources\BlogResources.cs" />
+    <Compile Include="Mvc\StringResources\BlogListResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
