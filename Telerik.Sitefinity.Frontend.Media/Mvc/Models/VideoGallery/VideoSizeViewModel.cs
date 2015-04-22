@@ -28,5 +28,10 @@
         /// The aspect ratio.
         /// </value>
         public string AspectRatio { get; set; }
+
+        /// <summary>
+        /// The default value for the AspectRatio property.
+        /// </summary>
+        public const string AspectRatioDefaultValue = "Auto";
     }
 }

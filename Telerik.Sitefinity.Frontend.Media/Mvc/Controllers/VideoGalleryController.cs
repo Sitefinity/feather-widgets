@@ -374,7 +374,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         private string listTemplateName = "VideoGallery";
         private string listTemplateNamePrefix = "List.";
-        private string detailTemplateName = "DetailPage";
+        private string detailTemplateName = "Default";
         private string detailTemplateNamePrefix = "Detail.";
 
         private bool? disableCanonicalUrlMetaTag;

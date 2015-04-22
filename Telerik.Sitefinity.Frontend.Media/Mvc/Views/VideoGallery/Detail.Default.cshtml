@@ -17,7 +17,7 @@
 
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
-    <video src="@Html.Raw(Model.MediaUrl)" controls="controls" ></video>
+    <video src="@Html.Raw(Model.MediaUrl)" controls="controls" width="@Model.Width" height="@Model.Height"></video>
 
     @if (ViewBag.ItemIndex != null)
     {
