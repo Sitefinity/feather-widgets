@@ -179,6 +179,7 @@
     <EmbeddedResource Include="Mvc\Views\BlogPost\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\BlogPost\Detail.DetailPage.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Blog\Detail.DetailPage.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Blog\List.BlogList.cshtml" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>
