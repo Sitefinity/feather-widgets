@@ -163,6 +163,7 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\BlogController.cs" />
     <Compile Include="Mvc\Controllers\BlogPostController.cs" />
+    <Compile Include="Mvc\Helpers\BlogPostHelper.cs" />
     <Compile Include="Mvc\Helpers\DetailLocationHyperLinkHelper.cs" />
     <Compile Include="Mvc\Models\Blog\BlogDetailLocationMode.cs" />
     <Compile Include="Mvc\Models\Blog\BlogModel.cs" />
