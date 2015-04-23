@@ -454,6 +454,38 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         /// <summary>
+        /// Phrase: Blogs with more than {0} posts
+        /// </summary>
+        /// <value>Blogs with more than {0} posts</value>
+        [ResourceEntry("BlogsWithMoreThanPosts",
+            Value = "Blogs with more than {0} posts",
+            Description = "Phrase: Blogs with more than {0} posts",
+            LastModified = "2015/04/23")]
+        public string BlogsWithMoreThanPosts
+        {
+            get
+            {
+                return this["BlogsWithMoreThanPosts"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Only blogs that have posts not older than {0} months
+        /// </summary>
+        /// <value>Only blogs that have posts not older than {0} months</value>
+        [ResourceEntry("OnlyBlogsThatHavePostsNotOlderYhanMonths",
+            Value = "Only blogs that have posts not older than {0} months",
+            Description = "Phrase: Only blogs that have posts not older than {0} months",
+            LastModified = "2015/04/23")]
+        public string OnlyBlogsThatHavePostsNotOlderYhanMonths
+        {
+            get
+            {
+                return this["OnlyBlogsThatHavePostsNotOlderYhanMonths"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Selected existing page...
         /// </summary>
         [ResourceEntry("ShowInExistingPage",

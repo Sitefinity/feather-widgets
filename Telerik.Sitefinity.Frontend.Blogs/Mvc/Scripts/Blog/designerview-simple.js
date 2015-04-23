@@ -6,6 +6,19 @@
         $scope.blogSelector = { selectedItemsIds: [] };
         $scope.feedback.showLoadingIndicator = true;
 
+        $scope.changeFilteredSelectionMode = function (filteredSelectionMode) {
+            if ($scope.properties) {
+                $scope.properties.SelectionMode.PropertyValue = 'FilteredItems';
+                $scope.properties.FilteredSelectionMode.PropertyValue = filteredSelectionMode;
+            }
+        };
+
+        $scope.isFilteredSelectionModeChecked = function (filteredSelectionMode) {
+            if ($scope.properties && $scope.properties.SelectionMode.PropertyValue == "FilteredItems") {
+                return $scope.properties.FilteredSelectionMode.PropertyValue === filteredSelectionMode;
+            }
+        };
+
         $scope.updateSortOption = function (newSortOption) {
             if (newSortOption !== "Custom") {
                 $scope.properties.SortExpression.PropertyValue = newSortOption;
@@ -49,7 +62,6 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
-
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
 
@@ -58,6 +70,16 @@
                         if ($scope.properties.SortExpression.PropertyValue === "AsSetManually") {
                             $scope.properties.SortExpression.PropertyValue = "PublicationDate DESC";
                         }
+                    }
+
+                    // Set MaxPostsAge to 0 if not used
+                    if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems' || $scope.properties.FilteredSelectionMode.PropertyValue === 'MinPostsCount') {
+                        $scope.properties.MaxPostsAge.PropertyValue = 0;
+                    }
+
+                    // Set MinPostsCount to 0 if not used
+                    if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems' || $scope.properties.FilteredSelectionMode.PropertyValue === 'MaxPostsAge') {
+                        $scope.properties.MinPostsCount.PropertyValue = 0;
                     }
                 });
             })

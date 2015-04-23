@@ -31,6 +31,15 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         }
 
         /// <inheritDoc/>
+        public int MinPostsCount { get; set; }
+
+        /// <inheritDoc/>
+        public int MaxPostsAge { get; set; }
+
+        /// <inheritDoc/>
+        public FilteredSelectionMode FilteredSelectionMode { get; set; }
+
+        /// <inheritDoc/>
         public ContentListViewModel CreateListViewModel(int page)
         {
             return base.CreateListViewModel(null, page);

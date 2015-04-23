@@ -26,6 +26,23 @@
                     sf-selected-ids ="blogSelector.selectedItemsIds"></sf-list-selector>
             </label>
         </div>
+
+        
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-click="changeFilteredSelectionMode('MinPostsCount')" ng-checked="isFilteredSelectionModeChecked('MinPostsCount')"/>
+                @Html.Raw(String.Format(Html.Resource("BlogsWithMoreThanPosts"),
+                "<input type='text' style='width: 40px' ng-model='properties.MinPostsCount.PropertyValue' ng-disabled='!isFilteredSelectionModeChecked(\"MinPostsCount\")' />"))
+            </label>
+        </div>
+
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-click="changeFilteredSelectionMode('MaxPostsAge')" ng-checked="isFilteredSelectionModeChecked('MaxPostsAge')" />
+                @Html.Raw(String.Format(Html.Resource("OnlyBlogsThatHavePostsNotOlderYhanMonths"),
+                "<input type='text' style='width: 40px' ng-model='properties.MaxPostsAge.PropertyValue' ng-disabled='!isFilteredSelectionModeChecked(\"MaxPostsAge\")' />"))
+            </label>
+        </div>
     </tab>
 
     <tab heading="@Html.Resource("ListSettings")">
