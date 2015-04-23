@@ -28,7 +28,7 @@
                         var lastPostDate = item.GetLastPostDate();
                         if (lastPostDate != null && lastPostDate.HasValue)
                         {
-                            <span>@Html.Resource("LastPost") : @lastPostDate.ToString("MMM/d/yyyy") </span>
+                            <span>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </span>
                         }
                     }
                 </div>
