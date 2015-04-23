@@ -2,9 +2,22 @@
 
 @Html.QueryBuilderScriptReferences()
 
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.Blogs.BlogsManager.GetManager())'>
+</server-data>
+
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay")</h4>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <sf-provider-selector sf-manager-type='Telerik.Sitefinity.Modules.Blogs.BlogsManager'
+                        sf-provider-label='@Html.Resource("Provider")'
+                        ng-model="properties.ProviderName.PropertyValue">
+                    </sf-provider-selector>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="radio">
