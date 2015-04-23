@@ -422,6 +422,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
                 return this["ShowInSamePage"];
             }
         }
+        
+        /// <summary>
+        /// Gets phrase : Detail template
+        /// </summary>
+        [ResourceEntry("DetailTemplate",
+            Value = "Detail template",
+            Description = "phrase : Detail template",
+            LastModified = "2015/04/23")]
+        public string DetailTemplate
+        {
+            get
+            {
+                return this["DetailTemplate"];
+            }
+        }
 
         /// <summary>
         /// Gets phrase : Selected existing page...
