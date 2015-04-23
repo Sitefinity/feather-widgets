@@ -101,6 +101,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var selectButtons = EM.Widgets.WidgetDesignerContentScreen.SelectButtons;
             Assert.IsNotNull(selectButtons);
             Assert.IsTrue(selectButtons.Count != 0, "no select numbers found");
+            Assert.IsTrue(selectButtonNumber < selectButtons.Count, "number is higher than the length of buttons list");
 
             var selectButton = selectButtons.ElementAt(selectButtonNumber);
             Assert.IsTrue(selectButton.IsVisible());
