@@ -36,6 +36,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         ListDisplayMode DisplayMode { get; set; }
 
         /// <summary>
+        /// Specifies the least amount of posts needed to show a blog in the list (when selection mode is Filtered)
+        /// </summary>
+        int MinPostsCount { get; set; }
+
+        /// <summary>
+        /// Specifies the minimum age of the posts in months (when selection mode is Filtered)
+        /// </summary>
+        int MaxPostsAge { get; set; }
+
+        /// <summary>
+        /// Specifies when <see cref="SelectionMode"/> is Filtered, By which value is it filtered
+        /// </summary>
+        FilteredSelectionMode FilteredSelectionMode { get; set; }
+
+        /// <summary>
         /// Gets or sets the items count per page.
         /// </summary>
         /// <value>
