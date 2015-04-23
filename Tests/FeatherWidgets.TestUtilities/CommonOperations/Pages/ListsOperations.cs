@@ -115,6 +115,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         /// <param name="listItemId">The list item id.</param>
         /// <param name="categories">The categories.</param>
         /// <param name="tags">The tags.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         public void AddTaxonomiesToListItem(Guid listItemId, IEnumerable<string> categories, IEnumerable<string> tags)
         {
             ListsManager listManager = ListsManager.GetManager();
