@@ -14,6 +14,20 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
     public interface IBlogModel
     {
         /// <summary>
+        /// Gets the list of blog to be displayed inside the widget when option "Selected blogs" is enabled.
+        /// </summary>
+        /// <value>
+        /// The selected blog items.
+        /// </value>
+        string SerializedSelectedItemsIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the provider.
+        /// </summary>
+        /// <value>The name of the provider.</value>
+        string ProviderName { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to divide items in the list.
         /// </summary>
         /// <value>
