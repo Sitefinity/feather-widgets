@@ -167,6 +167,7 @@
     <Compile Include="Mvc\Models\Blog\BlogDetailLocationMode.cs" />
     <Compile Include="Mvc\Models\Blog\BlogModel.cs" />
     <Compile Include="Mvc\Models\BlogPost\BlogPostModel.cs" />
+    <Compile Include="Mvc\Models\Blog\FilteredSelectionMode.cs" />
     <Compile Include="Mvc\Models\Blog\IBlogModel.cs" />
     <Compile Include="Mvc\Models\BlogPost\IBlogPostModel.cs" />
     <Compile Include="Mvc\Models\BlogPost\ParentFilterMode.cs" />
