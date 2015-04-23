@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// UI test ImageWidgetInsertImageWithCustomThumbnail
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void DocumentWidgetInsertDocument()
@@ -28,11 +28,11 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName, 0, true);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().WaitForContentToBeLoaded(false);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyDocumentTooltip(DocumentName, LibraryName, DocumentType);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectDocument(DocumentName);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().ConfirmMediaFileSelectionInWidget();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(false);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(DocumentName, LibraryName, DocumentType);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName, true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelectionInWidget();
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true));
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentIcon(DocumentExtension);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyTemplateDropdownValueInWidget();

@@ -4,6 +4,7 @@ using Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Image;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery;
 
 namespace Telerik.Sitefinity.Frontend.Media
 {
@@ -22,6 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Media
             Bind<IImageGalleryModel>().To<ImageGalleryModel>();
             Bind<IDocumentsListModel>().To<DocumentsListModel>();
             Bind<IVideoModel>().To<VideoModel>();
+            Bind<IVideoGalleryModel>().To<VideoGalleryModel>();
         }
     }
 }

@@ -73,7 +73,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Content.8.0.5700.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.1.20.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Frontend">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
@@ -133,6 +133,7 @@
     <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />
+    <Compile Include="CommonOperations\Pages\ListsOperations.cs" />
     <Compile Include="CommonOperations\Pages\MediaOperations.cs" />
     <Compile Include="CommonOperations\Pages\NavigationOperations.cs" />
     <Compile Include="CommonOperations\Pages\NewsOperations.cs" />
@@ -157,6 +158,7 @@
     <EmbeddedResource Include="Data\DynamicModules\AllTypesModule.zip" />
     <EmbeddedResource Include="Data\DynamicModules\RelatedModule.zip" />
     <EmbeddedResource Include="Data\DynamicModules\PressReleaseWithCategoriesField.zip" />
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -173,6 +175,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Identity\Telerik.Sitefinity.Frontend.Identity.csproj">
       <Project>{3b1b1ee2-84ee-4744-a8fb-bed1236da342}</Project>
       <Name>Telerik.Sitefinity.Frontend.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Lists\Telerik.Sitefinity.Frontend.Lists.csproj">
+      <Project>{18142e99-a5a2-4f28-94b6-06c36c125fca}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Lists</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Media\Telerik.Sitefinity.Frontend.Media.csproj">
       <Project>{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}</Project>

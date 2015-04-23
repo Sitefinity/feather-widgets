@@ -30,17 +30,17 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitForContentToBeLoaded(true);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SwitchToUploadMode();
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitForContentToBeLoaded(true);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectMediaFileFromYourComputer();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SwitchToUploadMode();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFileFromYourComputer();
             string fullImagesPath = DeploymentDirectory + @"\";
             BATFeather.Wrappers().Backend().Media().MediaUploadPropertiesWrapper().PerformSingleFileUpload(FileToUpload, fullImagesPath);
 
             BATFeather.Wrappers().Backend().Media().MediaUploadPropertiesWrapper().WaitForContentToBeLoaded();
             BATFeather.Wrappers().Backend().Media().MediaUploadPropertiesWrapper().CancelUpload();
 
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectMediaFileFromYourComputer();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFileFromYourComputer();
             BATFeather.Wrappers().Backend().Media().MediaUploadPropertiesWrapper().PerformSingleFileUpload(FileToUpload, fullImagesPath);
 
             BATFeather.Wrappers().Backend().Media().MediaUploadPropertiesWrapper().WaitForContentToBeLoaded();

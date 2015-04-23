@@ -31,9 +31,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
           
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitForContentToBeLoaded(false);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectDocument(DocumentName1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().ConfirmMediaFileSelection();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(false);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName1, true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(DocumentName1), "Document title is not populated correctly");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
 
@@ -53,9 +53,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName1, this.GetDocumentHref(true, DocumentName1, ".jpg"));
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentIcon("jpg");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ChangeMediaFile();
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitForContentToBeLoaded(false);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectDocument(DocumentName2);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().ConfirmMediaFileSelection();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitForContentToBeLoaded(false);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName2, true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
 
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(NewDocumentName), "Document title is not populated correctly");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName2, this.GetDocumentHref(true, DocumentName2, ".docx"));

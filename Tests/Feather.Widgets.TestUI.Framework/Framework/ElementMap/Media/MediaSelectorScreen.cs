@@ -141,9 +141,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
-        /// Gets the image selector thumbnail holder div.
+        /// Gets the media selector thumbnail holder div.
         /// </summary>
-        /// <value>The image selector thumbnail holder div.</value>
+        /// <value>The media selector thumbnail holder div.</value>
         public HtmlDiv MediaSelectorThumbnailHolderDiv
         {
             get
@@ -206,7 +206,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// <returns></returns>
         public HtmlControl NoMediaText(string text)
         {
-            return this.Get<HtmlControl>("tagName=p", "class=text-muted", "InnerText=" + text);
+            return this.Get<HtmlControl>("tagName=p", "class=~text-muted", "InnerText=" + text);
         }
 
         /// <summary>

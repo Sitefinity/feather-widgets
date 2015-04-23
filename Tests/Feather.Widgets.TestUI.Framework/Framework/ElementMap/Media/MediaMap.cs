@@ -44,6 +44,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
+        /// Gets the video properties main screen.
+        /// </summary>
+        public VideoPropertiesScreen VideoPropertiesScreen
+        {
+            get
+            {
+                return new VideoPropertiesScreen(this.find);
+            }
+        }
+
+        /// <summary>
         /// Gets the image properties main screen.
         /// </summary>
         public MediaPropertiesBaseScreen MediaPropertiesBaseScreen
