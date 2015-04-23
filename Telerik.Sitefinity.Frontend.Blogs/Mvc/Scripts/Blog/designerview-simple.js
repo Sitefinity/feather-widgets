@@ -72,9 +72,9 @@
                         }
                     }
 
-                    // Set MaxPostsAge to 0 if not used
+                    // Set MaxPostsAge to 1 if not used
                     if ($scope.properties.SelectionMode.PropertyValue !== 'FilteredItems' || $scope.properties.FilteredSelectionMode.PropertyValue === 'MinPostsCount') {
-                        $scope.properties.MaxPostsAge.PropertyValue = 0;
+                        $scope.properties.MaxPostsAge.PropertyValue = 1;
                     }
 
                     // Set MinPostsCount to 0 if not used
