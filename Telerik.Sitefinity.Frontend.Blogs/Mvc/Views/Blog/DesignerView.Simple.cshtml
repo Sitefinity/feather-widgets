@@ -132,5 +132,30 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group">
+            <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>[\w\s]*)$"))
+                         {
+                             <option value="@viewName"> @viewName</option>
+                         }
+                    </select>
+                </div>
+            </div>
+        </div>
+                
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label>@Html.Resource("CssClasses")
+                    <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                </label>
+            </div>
+        </expander>
     </tab>
 </tabset>
