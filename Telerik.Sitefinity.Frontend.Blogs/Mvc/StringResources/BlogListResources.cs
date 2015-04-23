@@ -210,12 +210,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: Sort blog posts.
+        /// Phrase: Sort blogs
         /// </summary>
-        /// <value>Sort blog posts</value>
+        /// <value>Sort blogs</value>
         [ResourceEntry("SortItems",
-            Value = "Sort blog posts",
-            Description = "Phrase: Sort blog posts",
+            Value = "Sort blogs",
+            Description = "Phrase: Sort blogs",
             LastModified = "2015/04/22")]
         public string SortItems
         {
