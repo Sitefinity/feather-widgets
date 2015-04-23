@@ -13,7 +13,7 @@
         };
 
         $scope.$watch(
-            'blogPostSelector.selectedItemsIds',
+            'blogSelector.selectedItemsIds',
             function (newVal, oldVal) {
                 if (newVal !== oldVal) {
                     if (newVal) {
