@@ -86,6 +86,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets the Provider
+        /// </summary>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "Provider",
+            LastModified = "2015/04/23")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
+            }
+        }
+
+        /// <summary>
         /// phrase: List settings
         /// </summary>
         /// <value>List settings</value>
