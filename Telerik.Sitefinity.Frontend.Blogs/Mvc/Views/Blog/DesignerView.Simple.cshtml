@@ -113,7 +113,7 @@
             <strong>@Html.Resource("OpenSingleItem")</strong>
             <div class="radio">
                 <label for="samePage">
-                    <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
+                    <input id="samePage" type="radio" ng-model="properties.DetailPageMode.PropertyValue" value="SamePage" />
                     <span>
                         @Html.Resource("ShowInSamePage")
                     </span>
@@ -121,15 +121,21 @@
             </div>
             <div class="radio">
                 <label for="existingPage">
-                    <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
+                    <input id="existingPage" type="radio" ng-model="properties.DetailPageMode.PropertyValue" value="SelectedExistingPage" />
                     @Html.Resource("ShowInExistingPage")
                 </label>
                 <div class="label-content">
                     <sf-list-selector
                             sf-page-selector
                             sf-selected-item-id="properties.DetailsPageId.PropertyValue"
-                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
+                            ng-hide="properties.DetailPageMode.PropertyValue == 'SelectedExistingPage'"></sf-list-selector>
                 </div>
+            </div>
+            <div clas="radio">
+                <label>
+                    <input type="radio" ng-model="properties.DetailPageMode.PropertyValue" value="PerItem" />
+                    @Html.Resource("DefaultPageForBlog")
+                </label>
             </div>
         </div>
 

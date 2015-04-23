@@ -437,6 +437,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
                 return this["ShowInSamePage"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Default page for blog
+        /// </summary>
+        [ResourceEntry("DefaultPageForBlog",
+            Value = "Default page for blog",
+            Description = "phrase : Default page for blog",
+            LastModified = "2015/04/23")]
+        public string DefaultPageForBlog
+        {
+            get
+            {
+                return this["DefaultPageForBlog"];
+            }
+        }
         
         /// <summary>
         /// Gets phrase : Detail template

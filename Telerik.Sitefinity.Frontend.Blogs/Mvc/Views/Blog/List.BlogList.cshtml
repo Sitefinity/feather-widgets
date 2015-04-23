@@ -1,6 +1,8 @@
 @model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
 
 @using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 
@@ -10,9 +12,16 @@
     <ul>
         @foreach (var item in Model.Items)
         {
+            var detailPageUrl = DetailLocationHyperLinkHelper.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.DetailPageMode);
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 <h3>
-                    <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="#TODO">@item.Fields.Title</a>
+                    @if (detailPageUrl)
+                    {
+                        <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@detailPageUrl">@item.Fields.Title</a>
+                    }
+                    else{
+                        <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@item.Fields.Title</span>
+                    }
                 </h3>
             </li>
         }
@@ -21,10 +30,10 @@
     @if (Model.ShowPager)
     {
         @Html.Action("Index", "ContentPager", new
-           {
-               currentPage = Model.CurrentPage,
-               totalPagesCount = Model.TotalPagesCount.Value,
-               redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
-           })
+   {
+       currentPage = Model.CurrentPage,
+       totalPagesCount = Model.TotalPagesCount.Value,
+       redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+   })
     }
 </div>
