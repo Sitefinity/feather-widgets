@@ -3,6 +3,8 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
+        var emptyGuid = '00000000-0000-0000-0000-000000000000';
+
         $scope.blogSelector = { selectedItemsIds: [] };
         $scope.feedback.showLoadingIndicator = true;
 
@@ -49,6 +51,15 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+                    if ($scope.properties.DetailPageMode.PropertyValue && $scope.properties.DetailPageMode.PropertyValue != 'SelectedExistingPage') {
+                        $scope.properties.DetailsPageId.PropertyValue = emptyGuid;
+                    }
+                    else {
+                        if (!$scope.properties.DetailsPageId.PropertyValue ||
+                                $scope.properties.DetailsPageId.PropertyValue === emptyGuid) {
+                            $scope.properties.DetailPageMode.PropertyValue = 'SamePage';
+                        }
+                    }
 
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;
