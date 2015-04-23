@@ -80,7 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets a value indicating where detail view for the blog post should be opened.
+        /// Gets or sets a value indicating where detail view for the blog should be opened.
         /// </summary>
         /// <value>
         /// The detail page mode.
@@ -112,6 +112,9 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
             this.InitializeListViewBag("/{0}");
 
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
         }
@@ -131,6 +134,9 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
                 this.ViewBag.Title = item.Title;
 
             var viewModel = this.Model.CreateDetailsViewModel(item);
+
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             return this.View(fullTemplateName, viewModel);
         }
