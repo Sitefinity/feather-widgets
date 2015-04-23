@@ -24,22 +24,21 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDuplicate);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend(this.dynamicTitlesDyplicated, DuplicatedCount);
+            this.NavigatePageOnTheFrontend(this.dynamicTitlesDyplicated);
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDelete);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.NavigatePageOnTheFrontend(this.dynamicTitles, DeletedCount);
+            this.NavigatePageOnTheFrontend(this.dynamicTitles);
         }
 
         /// <summary>
         /// Navigate page on the frontend
         /// </summary>
-        public void NavigatePageOnTheFrontend(string[] dynamicTitles, int count)
+        public void NavigatePageOnTheFrontend(string[] dynamicTitles)
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(dynamicTitles));
-            Assert.AreEqual(count, BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().ListWithDynamicWidgets().Count);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().ModuleBuilder().ModuleBuilderWrapper().VerifyDynamicContentPresentOnTheFrontend(dynamicTitles));            
         }
 
         /// <summary>
@@ -62,8 +61,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string PageName = "TestPage";
         private const string WidgetName = "Press Articles MVC";
         private string[] dynamicTitlesDyplicated = { "Angel", "Angel" };
-        private const int DuplicatedCount = 2;
-        private const int DeletedCount = 1;
         private string[] dynamicTitles = { "Angel" };
         private const string OperationNameDuplicate = "Duplicate";
         private const string OperationNameDelete = "Delete";

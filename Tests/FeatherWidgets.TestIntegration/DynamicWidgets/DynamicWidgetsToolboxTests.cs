@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author(FeatherTeams.Team2)]
-        [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
+        [Description("Used the imported dynamic module and verifies that the proper widgets are generated."), Ignore]
         public void DynamicWidgets_ImportDynamicModule_VerifyGeneratedWidgetInPageToolbox()
         {
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);

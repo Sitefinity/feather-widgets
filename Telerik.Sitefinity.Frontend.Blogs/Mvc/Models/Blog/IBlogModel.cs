@@ -82,7 +82,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         string SortExpression { get; set; }
 
         /// <summary>
-        /// Gets or sets which blog posts to be displayed in the list view.
+        /// Gets or sets which blogs to be displayed in the list view.
         /// </summary>
         /// <value>The page display mode.</value>
         SelectionMode SelectionMode { get; set; }
@@ -101,5 +101,29 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         /// <param name="item">The item.</param>
         /// <returns>A view model for use in detail views.</returns>
         ContentDetailsViewModel CreateDetailsViewModel(IDataItem item);
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel);
+
+        /// <summary>
+        /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
+        ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
+        ///     notification.
+        ///     When notified, all cached objects with dependency on the provided keys will expire.
+        /// </summary>
+        /// <param name="viewModel">View model that will be used for displaying the data.</param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentDetailsViewModel viewModel);
     }
 }

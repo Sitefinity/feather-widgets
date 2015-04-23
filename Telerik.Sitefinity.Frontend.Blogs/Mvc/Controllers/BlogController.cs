@@ -80,23 +80,20 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether detail view for the blog post should be opened in the same page.
+        /// Gets or sets a value indicating where detail view for the blog should be opened.
         /// </summary>
         /// <value>
-        /// <c>true</c> if details link should be opened in the same page; otherwise, (if should redirect to custom selected page)<c>false</c>.
+        /// The detail page mode.
         /// </value>
-        public bool OpenInSamePage
-        {
-            get
-            {
-                return this.openInSamePage;
-            }
+        public BlogDetailLocationMode DetailPageMode { get; set; }
 
-            set
-            {
-                this.openInSamePage = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets the id of the page where will be displayed details view for selected item when <see cref="DetailPageMode"/> is set to SelectedExistingPage.
+        /// </summary>
+        /// <value>
+        /// The details page id.
+        /// </value>
+        public Guid DetailsPageId { get; set; }
 
         #endregion
 
@@ -114,6 +111,9 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
 
             this.InitializeListViewBag("/{0}");
+
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             return this.View(fullTemplateName, viewModel);
@@ -135,6 +135,9 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
             var viewModel = this.Model.CreateDetailsViewModel(item);
 
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -151,6 +154,8 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ? this.GetCurrentPageUrl() : string.Empty;
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + redirectPageUrl;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
+            this.ViewBag.DetailPageMode = this.DetailPageMode;
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
         }
 
         #endregion
@@ -164,8 +169,6 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         private string listTemplateNamePrefix = "List.";
         private string detailTemplateName = "DetailPage";
         private string detailTemplateNamePrefix = "Detail.";
-
-        private bool openInSamePage;
 
         #endregion
     }
