@@ -22,10 +22,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers
         {
             var blog = item.DataItem as Blog;
 
-            if(blog == null)
+            if (blog == null)
                 return null;
 
-            var lastPostDate = blog.BlogPosts().Max(bp => bp.PublicationDate);
+            var blogPosts = blog.BlogPosts();
+            DateTime? lastPostDate = null;
+
+            if (blogPosts.Count() > 0)
+                lastPostDate = blogPosts.Max(bp => bp.PublicationDate);
 
             return lastPostDate;
         }
