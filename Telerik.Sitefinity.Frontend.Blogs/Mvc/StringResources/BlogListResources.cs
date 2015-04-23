@@ -66,6 +66,36 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
 
         #region Frontend resources
 
+        /// <summary>
+        /// phrase: {PostCount} posts
+        /// </summary>
+        [ResourceEntry("PostsCount",
+            Value = "{0} posts",
+            Description = "phrase: {PostCount} posts",
+            LastModified = "2015/04/23")]
+        public string PostsCount
+        {
+            get
+            {
+                return this["PostsCount"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Last post
+        /// </summary>
+        [ResourceEntry("LastPost",
+            Value = "Last post",
+            Description = "phrase: Last post",
+            LastModified = "2015/04/23")]
+        public string LastPost
+        {
+            get
+            {
+                return this["LastPost"];
+            }
+        }
+
         #endregion
 
         #region Designer resources
@@ -82,6 +112,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             get
             {
                 return this["Content"];
+            }
+        }
+
+        /// <summary>
+        /// Gets the Provider
+        /// </summary>
+        [ResourceEntry("Provider",
+            Value = "Provider",
+            Description = "Provider",
+            LastModified = "2015/04/23")]
+        public string Provider
+        {
+            get
+            {
+                return this["Provider"];
             }
         }
 
@@ -437,6 +482,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
                 return this["ShowInSamePage"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Default page for blog
+        /// </summary>
+        [ResourceEntry("DefaultPageForBlog",
+            Value = "Default page for blog",
+            Description = "phrase : Default page for blog",
+            LastModified = "2015/04/23")]
+        public string DefaultPageForBlog
+        {
+            get
+            {
+                return this["DefaultPageForBlog"];
+            }
+        }
         
         /// <summary>
         /// Gets phrase : Detail template
@@ -450,6 +510,38 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             get
             {
                 return this["DetailTemplate"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Blogs with more than {0} posts
+        /// </summary>
+        /// <value>Blogs with more than {0} posts</value>
+        [ResourceEntry("BlogsWithMoreThanPosts",
+            Value = "Blogs with more than {0} posts",
+            Description = "Phrase: Blogs with more than {0} posts",
+            LastModified = "2015/04/23")]
+        public string BlogsWithMoreThanPosts
+        {
+            get
+            {
+                return this["BlogsWithMoreThanPosts"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Only blogs that have posts not older than {0} months
+        /// </summary>
+        /// <value>Only blogs that have posts not older than {0} months</value>
+        [ResourceEntry("OnlyBlogsThatHavePostsNotOlderYhanMonths",
+            Value = "Only blogs that have posts not older than {0} months",
+            Description = "Phrase: Only blogs that have posts not older than {0} months",
+            LastModified = "2015/04/23")]
+        public string OnlyBlogsThatHavePostsNotOlderYhanMonths
+        {
+            get
+            {
+                return this["OnlyBlogsThatHavePostsNotOlderYhanMonths"];
             }
         }
 

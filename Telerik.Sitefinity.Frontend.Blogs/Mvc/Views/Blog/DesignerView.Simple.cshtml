@@ -2,9 +2,22 @@
 
 @Html.QueryBuilderScriptReferences()
 
+<server-data default-provider-name='@Html.DefaultProviderName(Telerik.Sitefinity.Modules.Blogs.BlogsManager.GetManager())'>
+</server-data>
+
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
         <h4>@Html.Resource("ItemsToDisplay")</h4>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <sf-provider-selector sf-manager-type='Telerik.Sitefinity.Modules.Blogs.BlogsManager'
+                        sf-provider-label='@Html.Resource("Provider")'
+                        ng-model="properties.ProviderName.PropertyValue">
+                    </sf-provider-selector>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="radio">
@@ -25,6 +38,23 @@
                         sf-selected-ids ="blogSelector.selectedItemsIds"></sf-list-selector>
                 </div>
             </div>
+        </div>
+
+        
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-click="changeFilteredSelectionMode('MinPostsCount')" ng-checked="isFilteredSelectionModeChecked('MinPostsCount')"/>
+                @Html.Raw(String.Format(Html.Resource("BlogsWithMoreThanPosts"),
+                "<input type='text' style='width: 40px' ng-model='properties.MinPostsCount.PropertyValue' ng-disabled='!isFilteredSelectionModeChecked(\"MinPostsCount\")' />"))
+            </label>
+        </div>
+
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-click="changeFilteredSelectionMode('MaxPostsAge')" ng-checked="isFilteredSelectionModeChecked('MaxPostsAge')" />
+                @Html.Raw(String.Format(Html.Resource("OnlyBlogsThatHavePostsNotOlderYhanMonths"),
+                "<input type='text' style='width: 40px' ng-model='properties.MaxPostsAge.PropertyValue' ng-disabled='!isFilteredSelectionModeChecked(\"MaxPostsAge\")' />"))
+            </label>
         </div>
     </tab>
 
@@ -113,7 +143,7 @@
             <strong>@Html.Resource("OpenSingleItem")</strong>
             <div class="radio">
                 <label for="samePage">
-                    <input id="samePage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="True" />
+                    <input id="samePage" type="radio" ng-model="properties.DetailPageMode.PropertyValue" value="SamePage" />
                     <span>
                         @Html.Resource("ShowInSamePage")
                     </span>
@@ -121,15 +151,21 @@
             </div>
             <div class="radio">
                 <label for="existingPage">
-                    <input id="existingPage" type="radio" ng-model="properties.OpenInSamePage.PropertyValue" value="False" />
+                    <input id="existingPage" type="radio" ng-model="properties.DetailPageMode.PropertyValue" value="SelectedExistingPage" />
                     @Html.Resource("ShowInExistingPage")
                 </label>
                 <div class="label-content">
                     <sf-list-selector
                             sf-page-selector
                             sf-selected-item-id="properties.DetailsPageId.PropertyValue"
-                            ng-hide="properties.OpenInSamePage.PropertyValue == 'True'"></sf-list-selector>
+                            ng-hide="properties.DetailPageMode.PropertyValue == 'SelectedExistingPage'"></sf-list-selector>
                 </div>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="properties.DetailPageMode.PropertyValue" value="PerItem" />
+                    @Html.Resource("DefaultPageForBlog")
+                </label>
             </div>
         </div>
 

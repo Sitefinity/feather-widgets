@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Blogs;
 using SfBlog = Telerik.Sitefinity.Blogs.Model.Blog;
@@ -33,6 +34,25 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         }
 
         /// <inheritDoc/>
+        public int MinPostsCount { get; set; }
+
+        /// <inheritDoc/>
+        public int MaxPostsAge
+        {
+            get
+            {
+                return this.maxPostsAge;
+            }
+            set
+            {
+                this.maxPostsAge = Math.Max(1, value);
+            }
+        }
+
+        /// <inheritDoc/>
+        public FilteredSelectionMode FilteredSelectionMode { get; set; }
+
+        /// <inheritDoc/>
         public ContentListViewModel CreateListViewModel(int page)
         {
             return base.CreateListViewModel(null, page);
@@ -54,7 +74,39 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         /// <returns>The query.</returns>
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
-            return ((BlogsManager)this.GetManager()).GetBlogs();
+            var manager = (BlogsManager)this.GetManager();
+
+            IQueryable<SfBlog> query = manager.GetBlogs();
+
+            if (this.SelectionMode == Frontend.Mvc.Models.SelectionMode.FilteredItems)
+            {
+                if (this.FilteredSelectionMode == Blog.FilteredSelectionMode.MinPostsCount)
+                {
+                    var minPostsCount = this.MinPostsCount;
+                    var blogIdsArray = manager.GetBlogPosts()
+                        .Where(bp => bp.Status == ContentLifecycleStatus.Live)
+                        .GroupBy(bp => bp.Parent)
+                        .Where(g => g.Count() > minPostsCount)
+                        .Select(kv => kv.Key.Id)
+                        .Distinct()
+                        .ToArray();
+
+                    query = query.Where(b => blogIdsArray.Contains(b.Id));
+                }
+                else if (this.FilteredSelectionMode == Blog.FilteredSelectionMode.MaxPostsAge)
+                {
+                    var minPublicationDate = DateTime.UtcNow.AddMonths(this.MaxPostsAge * -1);
+                    var blogIdsArray = manager.GetBlogPosts()
+                        .Where(bp => bp.Status == ContentLifecycleStatus.Live && bp.PublicationDate > minPublicationDate)
+                        .Select(bp => bp.Parent.Id)
+                        .Distinct()
+                        .ToArray();
+
+                    query = query.Where(b => blogIdsArray.Contains(b.Id));
+                }
+            }
+
+            return query;
         }
 
         /// <summary>
@@ -101,5 +153,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
 
             return selectedItemsFilterExpression;
         }
+
+        private int maxPostsAge = 1;
     }
 }

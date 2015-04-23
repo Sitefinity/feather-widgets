@@ -70,6 +70,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="title">The image title.</param>
         public void EnterNewTitleInPropertiesDialogAndPublish(string title)
         {
+            FrameInfo frameInfo = new FrameInfo("", "", "~/Sitefinity/Dialog/ContentViewEditDialog", "", 1, false, false);
+            Manager.Current.ActiveBrowser.WaitForFrame(frameInfo);
+
             var frames = Manager.Current.ActiveBrowser.Frames;
             HtmlInputText titleField = frames[0].Find.ByExpression<HtmlInputText>("tagName=input", "id=?TitleFieldControl_0_ctl00_0_ctl00_0_textBox_write_0")
                                                 .AssertIsPresent("Image title field");
