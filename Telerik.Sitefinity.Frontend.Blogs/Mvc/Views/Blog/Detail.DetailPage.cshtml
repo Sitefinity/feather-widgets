@@ -1,6 +1,7 @@
 @model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
 
 @using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Web.DataResolving;
 
@@ -8,6 +9,17 @@
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
     </h3>
+
+    <div>
+        <span>@string.Format(Html.Resource("PostsCount"), Model.Item.Fields.PostsCount)</span>
+        @{
+            var lastPostDate = Model.Item.GetLastPostDate();
+            if (lastPostDate!=null && lastPostDate.HasValue)
+            {
+                <span>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </span>
+            }
+        }
+    </div>
 
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
