@@ -49,6 +49,15 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+                    if ($scope.properties.DetailPageMode.PropertyValue && $scope.properties.DetailPageMode.PropertyValue != 'SelectedExistingPage') {
+                        $scope.properties.DetailsPageId.PropertyValue = emptyGuid;
+                    }
+                    else {
+                        if (!$scope.properties.DetailsPageId.PropertyValue ||
+                                $scope.properties.DetailsPageId.PropertyValue === emptyGuid) {
+                            $scope.properties.DetailPageMode.PropertyValue = 'SamePage';
+                        }
+                    }
 
                     if ($scope.properties.SelectionMode.PropertyValue !== 'SelectedItems') {
                         $scope.properties.SerializedSelectedItemsIds.PropertyValue = null;

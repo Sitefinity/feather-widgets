@@ -15,7 +15,7 @@
             var detailPageUrl = DetailLocationHyperLinkHelper.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.DetailPageMode);
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 <h3>
-                    @if (detailPageUrl)
+                    @if (!string.IsNullOrEmpty(detailPageUrl))
                     {
                         <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@detailPageUrl">@item.Fields.Title</a>
                     }
