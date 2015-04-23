@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
 
-            BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().FilterByTag();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox("Tag");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(1);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(TagName);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();

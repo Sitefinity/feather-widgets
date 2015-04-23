@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
     public class SimpleListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test verifying Simple list template, Z-A sorting and no filter applied
+        /// UI test verifying Simple list template, sort Z-A, no filter applied
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),

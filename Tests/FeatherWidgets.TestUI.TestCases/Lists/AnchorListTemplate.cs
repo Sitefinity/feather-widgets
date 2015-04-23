@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
     public class AnchorListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test verifying Anchor list template
+        /// UI test verifying Anchor list template, sort A-Z, no filter applied
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),

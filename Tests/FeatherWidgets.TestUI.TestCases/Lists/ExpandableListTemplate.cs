@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
     public class ExpandableListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test verifying Expandable list template
+        /// UI test verifying Expandable list template, sort A-Z, no filter applied
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
