@@ -21,7 +21,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="option">The aspect ratio option.</param>
         public void VerifySelectedOptionAspectRatioSelector(string option)
         {
-            HtmlFindExpression expression = new HtmlFindExpression("tagName=select", "ng-model=sfRatio");
+            HtmlFindExpression expression = new HtmlFindExpression("tagName=select", "ng-model=model.aspectRatio");
             ActiveBrowser.WaitForElement(expression, 60000, false);
 
             HtmlSelect selector = this.EM.Media.VideoPropertiesScreen.AspectRatioSelector

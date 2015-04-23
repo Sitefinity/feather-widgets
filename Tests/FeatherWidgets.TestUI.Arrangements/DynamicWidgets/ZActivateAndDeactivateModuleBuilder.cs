@@ -9,9 +9,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Test arrangements for ActivateAndDeactivateModuleBuilder
+    /// Test arrangements for ZActivateAndDeactivateModuleBuilder
     /// </summary>
-    public class ActivateAndDeactivateModuleBuilder : ITestArrangement
+    public class ZActivateAndDeactivateModuleBuilder : ITestArrangement
     {
         /// <summary>
         /// Server side set up.

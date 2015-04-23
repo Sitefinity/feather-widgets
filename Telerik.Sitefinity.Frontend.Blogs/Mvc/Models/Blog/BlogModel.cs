@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
@@ -62,6 +64,51 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             return ((BlogsManager)this.GetManager()).GetBlogs();
+        }
+
+        /// <summary>
+        /// Compiles a filter expression based on the widget settings.
+        /// </summary>
+        /// <returns>Filter expression that will be applied on the query.</returns>
+        protected override string CompileFilterExpression()
+        {
+            var elements = new List<string>();
+
+            if (this.SelectionMode == SelectionMode.SelectedItems)
+            {
+                var selectedItemsFilterExpression = this.GetSelectedItemsFilterExpression();
+                if (!selectedItemsFilterExpression.IsNullOrEmpty())
+                {
+                    elements.Add(selectedItemsFilterExpression);
+                }
+            }
+
+            if (!this.FilterExpression.IsNullOrEmpty())
+            {
+                elements.Add(this.FilterExpression);
+            }
+
+            return string.Join(" AND ", elements.Select(el => "(" + el + ")"));
+        }
+
+        private string GetSelectedItemsFilterExpression()
+        {
+            IList<string> selectedItemsIds = new List<string>();
+            if (!this.SerializedSelectedItemsIds.IsNullOrEmpty())
+            {
+                selectedItemsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedItemsIds);
+            }
+
+            var selectedItemGuids = selectedItemsIds.Select(id => new Guid(id));
+            var masterIds = this.GetItemsQuery()
+                .Where(c => selectedItemGuids.Contains(c.Id))
+                .Select(n => n.Id)
+                .Distinct();
+
+            var selectedItemConditions = masterIds.Select(id => "Id = {0}".Arrange(id.ToString("D")));
+            var selectedItemsFilterExpression = string.Join(" OR ", selectedItemConditions);
+
+            return selectedItemsFilterExpression;
         }
     }
 }
