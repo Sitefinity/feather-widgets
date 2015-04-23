@@ -174,7 +174,7 @@
     <Compile Include="DynamicWidgets\SearchAndSelectDynamicItemsByCategorySelectedTab.cs" />
     <Compile Include="DynamicWidgets\SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb.cs" />
     <Compile Include="DynamicWidgets\SelectItemInDynamicWidgetFromDifferentProvider.cs" />
-    <Compile Include="DynamicWidgets\ActivateAndDeactivateModuleBuilder.cs" />
+    <Compile Include="DynamicWidgets\ZActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DeactivateDynamicModuleVerifyPageToolbox.cs" />
     <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
     <Compile Include="DynamicWidgets\DynamicModuleAddNewContentTypeVerifyPageToolbox.cs" />
