@@ -149,6 +149,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="anchorName">Name of the anchor.</param>
         public void SelectAnchor(string anchorName)
         {
+            ActiveBrowser.RefreshDomTree();
+
             var anchorSelector = EM.GenericContent
                                    .ContentBlockLinkSelector
                                    .AnchorSelector
@@ -215,6 +217,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="content">The content.</param>
         public void EnterEmail(string content)
         {
+            ActiveBrowser.RefreshDomTree();
+
             HtmlInputEmail email = EM.GenericContent
                                      .ContentBlockLinkSelector
                                      .Email
