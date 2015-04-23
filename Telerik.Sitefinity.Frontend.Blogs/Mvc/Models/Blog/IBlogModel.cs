@@ -59,6 +59,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         string DetailCssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>
+        /// The sort expression.
+        /// </value>
+        string SortExpression { get; set; }
+
+        /// <summary>
         /// Gets or sets which blog posts to be displayed in the list view.
         /// </summary>
         /// <value>The page display mode.</value>

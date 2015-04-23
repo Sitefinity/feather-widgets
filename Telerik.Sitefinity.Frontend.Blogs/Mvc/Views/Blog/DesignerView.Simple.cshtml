@@ -64,7 +64,50 @@
                 </label>
             </div>
         </div>
+
+        <div  class="form-group">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label for="sortOptions">@Html.Resource("SortItems")</label>
+
+                    <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
+                        <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
+                        <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
+                        <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
+                        <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
+                        <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
+                        <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="listTemplateName">@Html.Resource("ListTemplate")</label>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>[\w\s]*)$"))
+                         {
+                             <option value="@viewName"> @viewName</option>
+                         }
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label>@Html.Resource("CssClasses")
+                    <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
+                </label>
+            </div>
+        </expander>
     </tab>
+
     <tab heading="@Html.Resource("SingleItemSettings")">
         <div class="form-group">
             <strong>@Html.Resource("OpenSingleItem")</strong>
