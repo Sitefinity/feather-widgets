@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlSelect>("tagName=select", "ng-model=sfRatio");
+                return this.Get<HtmlSelect>("tagName=select", "ng-model=model.aspectRatio");
             }
         }
 
@@ -78,7 +78,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=sfWidth");
+                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=model.width");
             }
         }
 
@@ -90,7 +90,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=sfHeight");
+                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=model.height");
             }
         }
     }
