@@ -124,6 +124,7 @@
         <div class="form-group">
             <div class="col-xs-6">
                 <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
+
                 <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
                      @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>[\w\s]*)$"))
                      {
