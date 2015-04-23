@@ -9,6 +9,10 @@
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
     </h3>
 
+    <div>
+        <span>@string.Format(Html.Resource("PostsCount"), Model.Item.Fields.PostsCount)</span>
+    </div>
+
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
 </div>
