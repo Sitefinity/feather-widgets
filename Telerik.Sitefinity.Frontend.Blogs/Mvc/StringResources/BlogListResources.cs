@@ -363,6 +363,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Selected blogs...
+        /// </summary>
+        [ResourceEntry("SelectedItems",
+            Value = "Selected blogs...",
+            Description = "phrase : Selected blogs...",
+            LastModified = "2015/04/22")]
+        public string SelectedItems
+        {
+            get
+            {
+                return this["SelectedItems"];
+            }
+        }
+
         /// Phrase: Use paging
         /// </summary>
         /// <value>Use paging</value>
