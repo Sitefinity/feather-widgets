@@ -10,7 +10,7 @@
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
     </h3>
 
-        <p>@string.Format(Html.Resource("PostsCount"), ((Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog.BlogDetailsViewModel)Model).BlogsCount)</p>
+        <p>@string.Format(Html.Resource("PostsCount"), ((Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog.BlogDetailsViewModel)Model).PostsCount)</p>
         @{
             var lastPostDate = Model.Item.GetLastPostDate();
             if (lastPostDate!=null && lastPostDate.HasValue)

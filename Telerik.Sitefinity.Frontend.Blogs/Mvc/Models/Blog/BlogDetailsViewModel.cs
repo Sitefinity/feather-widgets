@@ -17,6 +17,6 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         /// <value>
         /// The blogs count.
         /// </value>
-        public int BlogsCount { get; set; }
+        public int PostsCount { get; set; }
     }
 }
