@@ -1,4 +1,4 @@
-@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
+@model Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog.BlogDetailsViewModel
 
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers;
@@ -10,15 +10,14 @@
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
     </h3>
 
-        <p>@string.Format(Html.Resource("PostsCount"), ((Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog.BlogDetailsViewModel)Model).PostsCount)</p>
-        @{
-            var lastPostDate = Model.Item.GetLastPostDate();
-            if (lastPostDate!=null && lastPostDate.HasValue)
-            {
-                <p>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </p>
-            }
+    <p>@string.Format(Html.Resource("PostsCount"), Model.PostsCount)</p>
+    @{
+        var lastPostDate = Model.Item.GetLastPostDate();
+        if (lastPostDate!=null && lastPostDate.HasValue)
+        {
+            <p>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </p>
         }
+    }
 
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
-
 </div>
