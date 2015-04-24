@@ -11,7 +11,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     /// Localizable strings for the Account Activation widget
     /// </summary>
     [ObjectInfo(typeof(AccountActivationResources), ResourceClassId = "AccountActivationResources", Title = "AccountActivationResourcesTitle", Description = "AccountActivationResourcesDescription")]
-    class AccountActivationResources : Resource
+    public class AccountActivationResources : Resource
     {
         #region Constructors
 

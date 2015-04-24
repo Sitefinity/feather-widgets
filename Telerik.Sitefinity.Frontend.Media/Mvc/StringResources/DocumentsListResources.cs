@@ -608,7 +608,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.StringResources
         {
             get
             {
-                return this["Title"];
+                return this["Type"];
             }
         }
 

@@ -5,9 +5,11 @@ using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Configuration.Data;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
@@ -122,6 +124,90 @@ namespace FeatherWidgets.TestUnit.Resources
         }
 
         /// <summary>
+        /// The test ensures that document widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that document widget resources are correct.")]
+        public void DocumentWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<DocumentResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that document list widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that document list widget resources are correct.")]
+        public void DocumentListResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<DocumentsListResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that video widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that video widgets resources are correct.")]
+        public void VideoWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<VideoResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that video gallery widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that video gallery widget resources are correct.")]
+        public void VideoGalleryResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<VideoGalleryResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that blogs widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that blogs widgets resources are correct.")]
+        public void BlogsWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<BlogListResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that blog post widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that blog post widget resources are correct.")]
+        public void BlogPostResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<BlogPostResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that lists widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that lists widgets resources are correct.")]
+        public void ListsWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<ListsWidgetResources>();
+        }
+
+        /// <summary>
         /// The test ensures that Login status widget resources are correct.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), TestMethod]
@@ -131,6 +217,50 @@ namespace FeatherWidgets.TestUnit.Resources
         {
             // Act & Assert: Iterate over each resource property and verify its correctness 
             this.TestResourceType<LoginStatusResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Account activation widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that account activation widget resources are correct.")]
+        public void AccountActivationResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<AccountActivationResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Change password widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that change password widget resources are correct.")]
+        public void ChangePasswordResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<ChangePasswordResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Profile widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that profile widget resources are correct.")]
+        public void ProfileResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<ProfileResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that Registration widget resources are correct.
+        /// </summary>
+        [Owner("EGaneva")]
+        [Description("The test ensures that registration widget resources are correct.")]
+        public void RegistrationResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<RegistrationResources>();
         }
 
         /// <summary>
