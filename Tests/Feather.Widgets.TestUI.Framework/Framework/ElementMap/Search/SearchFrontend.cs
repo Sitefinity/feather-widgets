@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Get<HtmlInputText>("tagname=input", "class=~ui-autocomplete-input");
+                return this.Get<HtmlInputText>("title=Search input");
             }
         }
 
@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Get<HtmlInputSearch>("tagname=input", "class=~ui-autocomplete-input");
+                return this.Get<HtmlInputSearch>("title=Search input");
             }
         }
 
@@ -89,7 +89,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
                                                                         && d.ChildNodes[0].TagName.Equals("h3")
                                                                         && d.ChildNodes[1].TagName.Equals("p")
                                                                         && d.ChildNodes[2].TagName.Equals("a")).ToList();
-
             }
         }
 
