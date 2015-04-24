@@ -1994,14 +1994,6 @@
             <param name="httpHandler">The httpHandler.</param>
             <returns></returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.GenerateTag(System.String,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
-            <summary>
-            Creates a string representation of a tag. 
-            </summary>
-            <param name="tagName">The type of the HTML tag that would be generated for every registered resource.</param>
-            <param name="attributes">The attributes associated with the tag.</param>
-            <returns>The string representation of a tag.</returns>
-        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.ResourceType">
             <summary>
             This enum represents supported resource types.
