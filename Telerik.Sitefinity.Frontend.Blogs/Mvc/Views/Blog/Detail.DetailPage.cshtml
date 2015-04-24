@@ -10,16 +10,14 @@
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
     </h3>
 
-    <div>
-        <span>@string.Format(Html.Resource("PostsCount"), Model.Item.Fields.PostsCount)</span>
+        <p>@string.Format(Html.Resource("PostsCount"), Model.Item.Fields.PostsCount)</p>
         @{
             var lastPostDate = Model.Item.GetLastPostDate();
             if (lastPostDate!=null && lastPostDate.HasValue)
             {
-                <span>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </span>
+                <p>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </p>
             }
         }
-    </div>
 
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 

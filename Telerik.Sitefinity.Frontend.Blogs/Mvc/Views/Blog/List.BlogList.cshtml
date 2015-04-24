@@ -23,15 +23,15 @@
                         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@item.Fields.Title</span>
                     }
                 </h3>
-                <div>
-                    @{
-                        var lastPostDate = item.GetLastPostDate();
-                        if (lastPostDate != null && lastPostDate.HasValue)
-                        {
-                            <span>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </span>
-                        }
+                
+                @{
+                    var lastPostDate = item.GetLastPostDate();
+                    if (lastPostDate != null && lastPostDate.HasValue)
+                    {
+                        <p>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </p>
                     }
-                </div>
+                }
+               
             </li>
         }
     </ul>
