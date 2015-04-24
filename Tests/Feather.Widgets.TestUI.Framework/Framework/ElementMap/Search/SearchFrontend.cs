@@ -85,7 +85,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Find.AllByExpression<HtmlDiv>("class=~sf-media-body");
+                return this.Find.AllByTagName<HtmlDiv>("div").Where(d => d.ChildNodes.Count == 3
+                                                                        && d.ChildNodes[0].TagName.Equals("h3")
+                                                                        && d.ChildNodes[1].TagName.Equals("p")
+                                                                        && d.ChildNodes[2].TagName.Equals("a")).ToList();
+
             }
         }
 

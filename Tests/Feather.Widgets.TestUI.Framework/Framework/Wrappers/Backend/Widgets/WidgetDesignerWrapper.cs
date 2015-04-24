@@ -93,6 +93,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
+        /// Click select button
+        /// </summary>
+        /// <param name="selectButtonNumber">select button number among all select buttons starting from 0</param>
+        public void ClickSelectButton(int selectButtonNumber)
+        {
+            var selectButtons = EM.Widgets.WidgetDesignerContentScreen.SelectButtons;
+            Assert.IsNotNull(selectButtons);
+            Assert.IsTrue(selectButtons.Count != 0, "no select numbers found");
+            Assert.IsTrue(selectButtonNumber < selectButtons.Count, "number is higher than the length of buttons list");
+
+            var selectButton = selectButtons.ElementAt(selectButtonNumber);
+            Assert.IsTrue(selectButton.IsVisible());
+
+            selectButton.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+        }
+
+        /// <summary>
         /// Click select button by date
         /// </summary>
         public void ClickSelectButtonByDate()

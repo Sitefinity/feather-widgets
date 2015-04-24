@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
     public class ExpandedListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test verifying Expanded list template
+        /// UI test verifying Expanded list template, sort A-Z, filter by tag
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
@@ -28,12 +28,20 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox("Tag");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(1);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(TagName);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectSortingOption(SortingOption);
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListTemplate(ListTemplate);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
@@ -62,10 +70,10 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string ListTitle = "Test list";
         private const string SortingOption = "By Title (A-Z)";
         private const string ListTemplate = "ExpandedList";
+        private const string TagName = "TestTag";
 
         private readonly Dictionary<string, string> listItems = new Dictionary<string, string>()
                                                                 {
-                                                                    { "list item 1", "list content 1" },
                                                                     { "list item 2", "list content 2" }
                                                                 };
     }

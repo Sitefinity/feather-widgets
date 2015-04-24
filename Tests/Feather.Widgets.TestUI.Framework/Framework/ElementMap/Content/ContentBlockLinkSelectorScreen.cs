@@ -90,7 +90,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlSelect>("ng-model=sfSelectedItem.selectedAnchor");
+                return this.Get<HtmlSelect>("tagname=select", "ng-model=sfSelectedItem.selectedAnchor");
             }
         }
 
@@ -150,7 +150,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         {
             get
             {
-                return this.Get<HtmlInputEmail>("ng-model=sfSelectedItem.emailAddress");
+                return this.Get<HtmlInputEmail>("tagname=input", "ng-model=sfSelectedItem.emailAddress");
             }
         }
 

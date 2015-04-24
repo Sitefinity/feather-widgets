@@ -18,7 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// This class represents the controller of the Blog widget.
     /// </summary>
     [Localization(typeof(BlogListResources))]
-    [ControllerToolboxItem(Name = "Blog", Title = "Blog list", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "Blog", Title = "Blogs", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogController.WidgetIconCssClass)]
     public class BlogController: Controller
     {
         #region Properties
