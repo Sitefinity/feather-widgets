@@ -58,21 +58,37 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         {
             return base.CreateListViewModel(null, page);
         }
-        
+
+        /// <inheritDoc/>
         protected override string AdaptMultilingualFilterExpression(string filterExpression)
         {
             return filterExpression;
         }
 
+        /// <inheritDoc/>
         protected override string AddLiveFilterExpression(string filterExpression)
         {
             return filterExpression;
         }
 
-        /// <summary>
-        /// Gets the items query.
-        /// </summary>
-        /// <returns>The query.</returns>
+        /// <inheritDoc/>
+        protected override ContentDetailsViewModel CreateDetailsViewModelInstance()
+        {
+            return new BlogDetailsViewModel();
+        }
+
+        /// <inheritDoc/>
+        public override ContentDetailsViewModel CreateDetailsViewModel(IDataItem item)
+        {
+            var viewModel = base.CreateDetailsViewModel(item) as BlogDetailsViewModel;
+
+            var manager = (BlogsManager)this.GetManager();
+            viewModel.PostsCount = manager.GetBlogPosts().Where(bp => bp.Parent.Id == item.Id && bp.Status == ContentLifecycleStatus.Live).Count();
+
+            return viewModel;
+        }
+
+        /// <inheritDoc/>
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             var manager = (BlogsManager)this.GetManager();
@@ -111,6 +127,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         }
 
         // Base SetExpression applyes ILifecycleDataItemGeneric filter when sort is AsSetManually, which is not applicable on blogs.
+        /// <inheritDoc/>
         protected override IQueryable<TItem> SetExpression<TItem>(IQueryable<TItem> query, string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
         {
             if (sortExpr == "AsSetManually")
@@ -156,10 +173,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
             return query;
         }
 
-        /// <summary>
-        /// Compiles a filter expression based on the widget settings.
-        /// </summary>
-        /// <returns>Filter expression that will be applied on the query.</returns>
+        /// <inheritDoc/>
         protected override string CompileFilterExpression()
         {
             var elements = new List<string>();
