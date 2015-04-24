@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
@@ -104,6 +105,52 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
 
                     query = query.Where(b => blogIdsArray.Contains(b.Id));
                 }
+            }
+
+            return query;
+        }
+
+        // Base SetExpression applyes ILifecycleDataItemGeneric filter when sort is AsSetManually, which is not applicable on blogs.
+        protected override IQueryable<TItem> SetExpression<TItem>(IQueryable<TItem> query, string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
+        {
+            if (sortExpr == "AsSetManually")
+            {
+                IList<string> selectedItemsIds = new List<string>();
+                if (!this.SerializedSelectedItemsIds.IsNullOrEmpty())
+                {
+                    selectedItemsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedItemsIds);
+                }
+
+                query = DataProviderBase.SetExpressions(
+                                                  query,
+                                                  filterExpression,
+                                                  string.Empty,
+                                                  null,
+                                                  null,
+                                                  ref totalCount);
+
+                query = query.Select(x => new
+                    {
+                        item = x,
+                        orderIndex = selectedItemsIds.IndexOf(x.Id.ToString())
+                    })
+                    .OrderBy(x => x.orderIndex)
+                    .Select(x => x.item)
+                    .OfType<TItem>();
+
+                if (itemsToSkip.HasValue && itemsToSkip.Value > 0)
+                {
+                    query = query.Skip(itemsToSkip.Value);
+                }
+
+                if (itemsToTake.HasValue && itemsToTake.Value > 0)
+                {
+                    query = query.Take(itemsToTake.Value);
+                }
+            }
+            else
+            {
+                query = base.SetExpression<TItem>(query, filterExpression, sortExpr, itemsToSkip, itemsToTake, ref totalCount);
             }
 
             return query;
