@@ -22,7 +22,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// This class represents the controller of the Blog post widget.
     /// </summary>
     [Localization(typeof(BlogPostResources))]
-    [ControllerToolboxItem(Name = "BlogPost", Title = "Blog post", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "BlogPost", Title = "Blog posts", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
     public class BlogPostController : Controller, IContentLocatableView, IRouteMapper
     {
         #region Properties

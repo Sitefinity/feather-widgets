@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.Blogs.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Modules.Blogs;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers
@@ -25,13 +24,15 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers
             if (blog == null)
                 return null;
 
-            var blogPosts = blog.BlogPosts();
-            DateTime? lastPostDate = null;
-
-            if (blogPosts.Count() > 0)
-                lastPostDate = blogPosts.Max(bp => bp.PublicationDate);
-
-            return lastPostDate;
+            var lastPost = blog.BlogPosts().Where(bp => bp.Status == ContentLifecycleStatus.Live).OrderByDescending(p => p.DateCreated).FirstOrDefault();
+            if (lastPost != null)
+            {
+                return lastPost.DateCreated;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

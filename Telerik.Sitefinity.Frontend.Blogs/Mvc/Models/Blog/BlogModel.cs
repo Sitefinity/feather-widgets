@@ -1,11 +1,14 @@
 ﻿using ServiceStack.Text;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Blogs;
+using Telerik.Sitefinity.Services;
 using SfBlog = Telerik.Sitefinity.Blogs.Model.Blog;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
@@ -57,21 +60,44 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
         {
             return base.CreateListViewModel(null, page);
         }
-        
+
+        /// <inheritDoc/>
         protected override string AdaptMultilingualFilterExpression(string filterExpression)
         {
             return filterExpression;
         }
 
+        /// <inheritDoc/>
         protected override string AddLiveFilterExpression(string filterExpression)
         {
             return filterExpression;
         }
 
-        /// <summary>
-        /// Gets the items query.
-        /// </summary>
-        /// <returns>The query.</returns>
+        /// <inheritDoc/>
+        protected override ContentDetailsViewModel CreateDetailsViewModelInstance()
+        {
+            return new BlogDetailsViewModel();
+        }
+
+        /// <inheritDoc/>
+        public override ContentDetailsViewModel CreateDetailsViewModel(IDataItem item)
+        {
+            var viewModel = base.CreateDetailsViewModel(item) as BlogDetailsViewModel;
+
+            var manager = (BlogsManager)this.GetManager();
+            var postsQuery = manager.GetBlogPosts().Where(bp => bp.Parent.Id == item.Id && bp.Status == ContentLifecycleStatus.Live);
+
+            if(SystemManager.CurrentContext.AppSettings.Multilingual) 
+            {
+                var curentUiCulture = CultureInfo.CurrentUICulture.Name;
+                postsQuery = postsQuery.Where(bp => bp.PublishedTranslations.Contains(curentUiCulture));
+            }
+            viewModel.PostsCount = postsQuery.Count();
+
+            return viewModel;
+        }
+
+        /// <inheritDoc/>
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             var manager = (BlogsManager)this.GetManager();
@@ -109,10 +135,54 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
             return query;
         }
 
-        /// <summary>
-        /// Compiles a filter expression based on the widget settings.
-        /// </summary>
-        /// <returns>Filter expression that will be applied on the query.</returns>
+        // Base SetExpression applyes ILifecycleDataItemGeneric filter when sort is AsSetManually, which is not applicable on blogs.
+        /// <inheritDoc/>
+        protected override IQueryable<TItem> SetExpression<TItem>(IQueryable<TItem> query, string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
+        {
+            if (sortExpr == "AsSetManually")
+            {
+                IList<string> selectedItemsIds = new List<string>();
+                if (!this.SerializedSelectedItemsIds.IsNullOrEmpty())
+                {
+                    selectedItemsIds = JsonSerializer.DeserializeFromString<IList<string>>(this.SerializedSelectedItemsIds);
+                }
+
+                query = DataProviderBase.SetExpressions(
+                                                  query,
+                                                  filterExpression,
+                                                  string.Empty,
+                                                  null,
+                                                  null,
+                                                  ref totalCount);
+
+                query = query.Select(x => new
+                    {
+                        item = x,
+                        orderIndex = selectedItemsIds.IndexOf(x.Id.ToString())
+                    })
+                    .OrderBy(x => x.orderIndex)
+                    .Select(x => x.item)
+                    .OfType<TItem>();
+
+                if (itemsToSkip.HasValue && itemsToSkip.Value > 0)
+                {
+                    query = query.Skip(itemsToSkip.Value);
+                }
+
+                if (itemsToTake.HasValue && itemsToTake.Value > 0)
+                {
+                    query = query.Take(itemsToTake.Value);
+                }
+            }
+            else
+            {
+                query = base.SetExpression<TItem>(query, filterExpression, sortExpr, itemsToSkip, itemsToTake, ref totalCount);
+            }
+
+            return query;
+        }
+
+        /// <inheritDoc/>
         protected override string CompileFilterExpression()
         {
             var elements = new List<string>();
