@@ -1,7 +1,7 @@
 ﻿(function ($) {
     angular.module('designer').requires.push('expander', 'sfSelectors');
 
-    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', 'sfProviderService', function ($scope, propertyService, sfProviderService) {
         var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
         var emptyGuid = '00000000-0000-0000-0000-000000000000';
 
@@ -98,5 +98,23 @@
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;
             });
+
+        var onGetProvidersSuccess = function (data) {
+            $scope.isProviderSelectorVisible = data && data.Items && data.Items.length >= 2;
+        };
+
+        var onGetProvidersError = function () {
+            throw 'Error occurred while populating providers list!';
+        };
+
+        sfProviderService.getAll('Telerik.Sitefinity.Modules.Blogs.BlogsManager').then(
+            function (data) {
+                $scope.isProviderSelectorVisible = data && data.Items && data.Items.length >= 2;
+            },
+            function (err) {
+                throw 'Error occurred while populating provider list! Please provide value to the managerType attribute!';
+            });
+        
+
     }]);
 })(jQuery);
