@@ -70,7 +70,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="title">The image title.</param>
         public void EnterNewTitleInPropertiesDialogAndPublish(string title)
         {
-            FrameInfo frameInfo = new FrameInfo("", "", "~/Sitefinity/Dialog/ContentViewEditDialog", "", 1, false, false);
+            FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, "~/Sitefinity/Dialog/ContentViewEditDialog", string.Empty, 1, false, false);
             Manager.Current.ActiveBrowser.WaitForFrame(frameInfo);
 
             var frames = Manager.Current.ActiveBrowser.Frames;
