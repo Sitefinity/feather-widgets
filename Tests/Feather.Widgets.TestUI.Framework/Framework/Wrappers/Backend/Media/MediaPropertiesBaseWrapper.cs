@@ -95,6 +95,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             HtmlButton doneBtn = this.EM.Media.MediaPropertiesBaseScreen.DoneButton.AssertIsPresent("Done button");
 
             doneBtn.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
         }
 
         /// <summary>
