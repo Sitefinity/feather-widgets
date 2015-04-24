@@ -326,6 +326,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             option.AssertIsPresent(tabName);
 
             option.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
         }
     }
 }
