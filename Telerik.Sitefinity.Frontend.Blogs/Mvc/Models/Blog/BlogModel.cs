@@ -69,6 +69,21 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
             return filterExpression;
         }
 
+        protected override ContentDetailsViewModel CreateDetailsViewModelInstance()
+        {
+            return new BlogDetailsViewModel();
+        }
+
+        public override ContentDetailsViewModel CreateDetailsViewModel(IDataItem item)
+        {
+            var viewModel = base.CreateDetailsViewModel(item) as BlogDetailsViewModel;
+
+            var manager = (BlogsManager)this.GetManager();
+            viewModel.BlogsCount = manager.GetBlogPosts().Where(bp => bp.Parent.Id == item.Id && bp.Status == ContentLifecycleStatus.Live).Count();
+
+            return viewModel;
+        }
+
         /// <summary>
         /// Gets the items query.
         /// </summary>
