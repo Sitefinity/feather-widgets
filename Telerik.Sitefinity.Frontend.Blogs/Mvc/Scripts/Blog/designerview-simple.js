@@ -99,14 +99,6 @@
                 $scope.feedback.showLoadingIndicator = false;
             });
 
-        var onGetProvidersSuccess = function (data) {
-            $scope.isProviderSelectorVisible = data && data.Items && data.Items.length >= 2;
-        };
-
-        var onGetProvidersError = function () {
-            throw 'Error occurred while populating providers list!';
-        };
-
         sfProviderService.getAll('Telerik.Sitefinity.Modules.Blogs.BlogsManager').then(
             function (data) {
                 $scope.isProviderSelectorVisible = data && data.Items && data.Items.length >= 2;
