@@ -7,7 +7,9 @@
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
+
         <h4>@Html.Resource("ItemsToDisplay")</h4>
+
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-6">
@@ -26,18 +28,18 @@
                     @Html.Resource("AllBlogs")
                 </label>
             </div>
-        </div>
-
-        <div class="radio">
-            <label class="full-width">
-                <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
-                @Html.Resource("SelectedItems")
-
-                <sf-list-selector sf-blog-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-                    sf-multiselect="true" sf-sortable="true"
-                    sf-provider="properties.ProviderName.PropertyValue"
-                    sf-selected-ids ="blogSelector.selectedItemsIds"></sf-list-selector>
-            </label>
+            <div class="radio">
+                <label class="full-width">
+                    <input type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
+                    @Html.Resource("SelectedItems")
+                </label>
+                <div class="label-content">
+                    <sf-list-selector sf-blog-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
+                        sf-multiselect="true" sf-sortable="true"
+                        sf-provider="properties.ProviderName.PropertyValue"
+                        sf-selected-ids ="blogSelector.selectedItemsIds"></sf-list-selector>
+                </div>
+            </div>
         </div>
 
         
@@ -131,9 +133,8 @@
             <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
-                <label>@Html.Resource("CssClasses")
-                    <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
-                </label>
+                <label>@Html.Resource("CssClasses")</label>
+                <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </tab>
@@ -188,9 +189,8 @@
             <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
-                <label>@Html.Resource("CssClasses")
-                    <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
-                </label>
+                <label>@Html.Resource("CssClasses") </label>
+                <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </tab>

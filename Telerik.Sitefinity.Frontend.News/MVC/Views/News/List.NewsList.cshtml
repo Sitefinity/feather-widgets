@@ -17,7 +17,6 @@
                     <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">@item.Fields.Title</a>
                 </h3>
 
-
                 <div>
                     @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
                     @Html.Resource("By")
