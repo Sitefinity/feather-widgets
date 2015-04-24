@@ -75,9 +75,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 
             var frames = Manager.Current.ActiveBrowser.Frames;
 
-            HtmlFindExpression expression = new HtmlFindExpression("tagName=input", "id=?TitleFieldControl_0_ctl00_0_ctl00_0_textBox_write_0");
-            ActiveBrowser.WaitForElement(expression, 100000, false);
-
+            frames[0].WaitForAsyncOperations();
             HtmlInputText titleField = frames[0].Find.ByExpression<HtmlInputText>("tagName=input", "id=?TitleFieldControl_0_ctl00_0_ctl00_0_textBox_write_0")
                                                 .AssertIsPresent("Image title field");
             titleField.Text = string.Empty;
