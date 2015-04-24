@@ -7,7 +7,9 @@
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Content")">
+
         <h4>@Html.Resource("ItemsToDisplay")</h4>
+
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-6">
@@ -131,9 +133,8 @@
             <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
-                <label>@Html.Resource("CssClasses")
-                    <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
-                </label>
+                <label>@Html.Resource("CssClasses")</label>
+                <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </tab>
