@@ -1675,6 +1675,18 @@
             </summary>
             <value>Last 5 years</value>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectBlogs">
+            <summary>
+            phrase: Select blogs
+            </summary>
+            <value>Select blogs</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectBlogPosts">
+            <summary>
+            phrase: Select blog posts
+            </summary>
+            <value>Select blog posts</value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Notifications.EmailTemplateHelper">
             <summary>
             This class contains helpers for working with email templates.

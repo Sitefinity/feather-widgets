@@ -1,12 +1,14 @@
 ﻿using ServiceStack.Text;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Blogs;
+using Telerik.Sitefinity.Services;
 using SfBlog = Telerik.Sitefinity.Blogs.Model.Blog;
 
 namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
@@ -83,7 +85,14 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog
             var viewModel = base.CreateDetailsViewModel(item) as BlogDetailsViewModel;
 
             var manager = (BlogsManager)this.GetManager();
-            viewModel.PostsCount = manager.GetBlogPosts().Where(bp => bp.Parent.Id == item.Id && bp.Status == ContentLifecycleStatus.Live).Count();
+            var postsQuery = manager.GetBlogPosts().Where(bp => bp.Parent.Id == item.Id && bp.Status == ContentLifecycleStatus.Live);
+
+            if(SystemManager.CurrentContext.AppSettings.Multilingual) 
+            {
+                var curentUiCulture = CultureInfo.CurrentUICulture.Name;
+                postsQuery = postsQuery.Where(bp => bp.PublishedTranslations.Contains(curentUiCulture));
+            }
+            viewModel.PostsCount = postsQuery.Count();
 
             return viewModel;
         }
