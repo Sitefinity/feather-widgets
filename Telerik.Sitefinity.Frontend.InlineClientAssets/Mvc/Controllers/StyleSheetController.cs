@@ -69,7 +69,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         #region Private fields and constants
 
         private IStyleSheetModel model;
-        private const string WidgetIconCssClass = "sfLinkedFileViewIcn";
+        private const string WidgetIconCssClass = "sfLinkedFileViewIcn sfMvcIcn";
 
         #endregion
     }
