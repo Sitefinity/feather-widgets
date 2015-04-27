@@ -48,7 +48,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Blogs", "Telerik.Sitefinity.Frontend.Blogs\Telerik.Sitefinity.Frontend.Blogs.csproj", "{7FDAC868-95EF-4B9D-BCDB-4DD7C93B3A4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.InlineClientAssets", "Telerik.Sitefinity.Frontend.Embed\Telerik.Sitefinity.Frontend.InlineClientAssets.csproj", "{D3773581-78B7-44AD-96B8-5168DCF2795C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.InlineClientAssets", "Telerik.Sitefinity.Frontend.InlineClientAssets\Telerik.Sitefinity.Frontend.InlineClientAssets.csproj", "{D3773581-78B7-44AD-96B8-5168DCF2795C}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
