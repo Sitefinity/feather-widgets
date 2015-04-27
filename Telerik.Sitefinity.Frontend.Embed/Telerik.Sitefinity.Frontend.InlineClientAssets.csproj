@@ -67,8 +67,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Sitefinity.Frontend">
+      <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\JavaScriptController.cs" />
     <Compile Include="Mvc\Models\JavaScript\IJavaScriptModel.cs" />
     <Compile Include="Mvc\Models\JavaScript\JavaScriptModel.cs" />
