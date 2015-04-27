@@ -8,32 +8,33 @@
 
         <div class="form-group">
             <div class="radio">
-                <label for="allNews" class="full-width">
-                    <input id="allNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
+                <label for="allUsers" class="full-width">
+                    <input id="allUsers" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="AllItems" />
                     @Html.Resource("AllRegisteredUsers")
                 </label>
             </div>
             <div class="radio">
-                <label for="selectedNews" class="full-width">
-                    <input id="selectedNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
+                <label for="selectedUsers" class="full-width">
+                    <input id="selectedUsers" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="SelectedItems" />
 
                     @Html.Resource("SelectedUsers")
                 </label>
                 <div class="label-content">
                     <sf-list-selector sf-user-selector ng-show="properties.SelectionMode.PropertyValue=='SelectedItems'"
-                                  sf-multiselect="true" sf-sortable="true"
-                                  sf-selected-ids ="newsSelector.selectedItemsIds"></sf-list-selector>
+                                  sf-multiselect="true"
+                                  sf-selected-ids ="usersSelector.selectedItemsIds"></sf-list-selector>
 
                 </div>
             </div>
             <div class="radio">
-                <label for="filterNews" class="full-width">
-                    <input id="filterNews" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
+                <label for="filterUsers" class="full-width">
+                    <input id="filterUsers" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
                     <sf-list-selector sf-role-selector ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
                                   sf-multiselect="true" sf-sortable="true"
-                                  sf-selected-ids ="additionalFilters.value"></sf-list-selector>
+                                  sf-selected-items ="additionalFilters.value"
+                                    sf-hide-roles="Owner, Anonymous, Authenticated, Everyone"></sf-list-selector>
                 </label>
             </div>
         </div>
@@ -95,12 +96,12 @@
         </div>
 
         <div class="form-group">
-            <label for="newsTemplateName">@Html.Resource("ListTemplate")</label>
+            <label for="usersTemplateName">@Html.Resource("ListTemplate")</label>
 
             <div class="row">
                 <div class="col-xs-6">
-                    <select id="newsTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                         @foreach (var viewName in Html.GetViewNames("News", @"List\.(?<viewName>[\w\s]*)$"))
+                    <select id="usersTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames("UsersList", @"List\.(?<viewName>[\w\s]*)$"))
                          {
                              <option value="@viewName"> @viewName</option>
                          }
@@ -145,10 +146,10 @@
 
         <div  class="form-group m-top-md row">
             <div class="col-xs-6">
-                <label for="newsTemplateName">@Html.Resource("DetailTemplate")</label>
+                <label for="usersTemplateName">@Html.Resource("DetailTemplate")</label>
 
-                <select id="newsTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames("News", @"Detail\.(?<viewName>[\w\s]*)$"))
+                <select id="usersTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
+                     @foreach (var viewName in Html.GetViewNames("UsersList", @"Detail\.(?<viewName>[\w\s]*)$"))
                      {
                          <option value="@viewName"> @viewName</option>
                      }
@@ -160,8 +161,8 @@
             <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
-                <label for="newsCssClass">@Html.Resource("CssClasses")</label>
-                <input type="text" id="newsCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                <label for="usersCssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="usersCssClass" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </tab>
