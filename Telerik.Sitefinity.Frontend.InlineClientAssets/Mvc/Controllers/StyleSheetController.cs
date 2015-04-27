@@ -57,7 +57,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         private void AddCssInHead()
         {
             var page = this.HttpContext.CurrentHandler as Page;
-            if (page != null)
+            if (page != null && page.Header !=null)
             {
                 var cssMarkup = this.Model.GetMarkup();
                 page.Header.Controls.Add(new LiteralControl(cssMarkup));
