@@ -40,6 +40,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
         #region Actions
 
+        /// <summary>
+        /// Handles CSS referencing on the page.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             this.AddCssInHead();
