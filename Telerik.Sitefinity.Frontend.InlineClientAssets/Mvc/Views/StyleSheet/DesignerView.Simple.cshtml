@@ -16,7 +16,7 @@
 
 <!-- Write CSS -->
 <div ng-show="properties.Mode.PropertyValue=='Inline'">
-    <textarea cssArea></textarea>
+    <textarea cssArea ng-model="properties.CustomCssCode.PropertyValue"></textarea>
 
     <label>@Html.Resource("Media")</label>
 	<div class="form-group">
