@@ -29,7 +29,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
             }
         }
 
-        public ScriptEmbedPosition EmbedPosition
+        public EmbedPosition EmbedPosition
         {
             get
             {

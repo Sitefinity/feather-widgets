@@ -1,9 +1,9 @@
-﻿namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
+﻿namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models
 {
     /// <summary>
-    /// Specifies where to embed the script
+    /// Specifies where to embed the asset
     /// </summary>
-    public enum ScriptEmbedPosition
+    public enum EmbedPosition
     {
         /// <summary>
         /// Embeded in the head tag

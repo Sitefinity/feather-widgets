@@ -73,7 +73,7 @@
     <Compile Include="Mvc\Models\JavaScript\IJavaScriptModel.cs" />
     <Compile Include="Mvc\Models\JavaScript\JavaScriptModel.cs" />
     <Compile Include="Mvc\Models\JavaScript\JavaScriptViewModel.cs" />
-    <Compile Include="Mvc\Models\JavaScript\ScriptEmbedPosition.cs" />
+    <Compile Include="Mvc\Models\EmbedPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
