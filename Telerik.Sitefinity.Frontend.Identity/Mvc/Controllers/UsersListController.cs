@@ -167,7 +167,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private IUsersListModel model;
         private string listTemplateName = "UsersList";
         private string listTemplateNamePrefix = "List.";
-        private string detailTemplateName = "DetailPage";
+        private string detailTemplateName = "UserDetails";
         private string detailTemplateNamePrefix = "Detail.";
         private bool openInSamePage = true;
 
