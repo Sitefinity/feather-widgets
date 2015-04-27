@@ -2,12 +2,12 @@
 
 <div class="form-group nav-wrapper">
 	<label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="Inline" />
+		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Inline'" />
         @Html.Resource("WriteCss")
 	</label>
 
 	<label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="Reference" />
+		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Reference'" />
         @Html.Resource("LinkToCssFile")
 	</label>
 </div>
