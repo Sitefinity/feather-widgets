@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Social Share widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SocialShare", Title = "Social share", SectionName = "MvcWidgets", CssClass = "sfPageSharingIcn")]
+    [ControllerToolboxItem(Name = "SocialShare_MVC", Title = "Social share", SectionName = "Social", CssClass = "sfPageSharingIcn")]
     [Localization(typeof(SocialShareResources))]
     public class SocialShareController : Controller
     {

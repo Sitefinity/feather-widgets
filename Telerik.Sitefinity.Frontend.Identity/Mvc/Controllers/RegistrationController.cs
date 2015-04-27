@@ -14,7 +14,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Registration widget.
     /// </summary>
     [Localization(typeof(RegistrationResources))]
-    [ControllerToolboxItem(Name = "Registration", Title = "Registration", SectionName = "MvcWidgets", CssClass = "sfCreateAccountIcn")]
+    [ControllerToolboxItem(Name = "Registration_MVC", Title = "Registration", SectionName = "Users", CssClass = "sfCreateAccountIcn")]
     public class RegistrationController : Controller
     {
         #region Properties

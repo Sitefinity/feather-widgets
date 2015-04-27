@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
@@ -19,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the List widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "ListMVC", Title = "List", SectionName = "MvcWidgets", ModuleName = "Lists", CssClass = CssClass)]
+    [ControllerToolboxItem(Name = "List_MVC", Title = "List", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Lists", CssClass = CssClass)]
     [Localization(typeof(ListsWidgetResources))]
     public class ListsController : Controller, ICustomWidgetVisualization, ICustomWidgetVisualizationExtended, IContentLocatableView
     {

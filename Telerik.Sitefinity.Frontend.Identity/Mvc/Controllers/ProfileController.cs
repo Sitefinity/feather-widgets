@@ -14,7 +14,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Profile widget.
     /// </summary>
     [Localization(typeof(ProfileResources))]
-    [ControllerToolboxItem(Name = "ProfileMVC", Title = "Profile", SectionName = "MvcWidgets", CssClass = "sfProfilecn")]
+    [ControllerToolboxItem(Name = "Profile_MVC", Title = "Profile", SectionName = "Users", CssClass = "sfProfilecn")]
     public class ProfileController : Controller
     {
         #region Properties
