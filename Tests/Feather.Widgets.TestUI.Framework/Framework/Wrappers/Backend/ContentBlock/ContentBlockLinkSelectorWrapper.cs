@@ -169,7 +169,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var anchorSelector = EM.GenericContent
                                    .ContentBlockLinkSelector
                                    .AnchorSelector
-                                   .AssertIsPresent("select anchor dropdown");
+                                   .AssertIsNotNull("select anchor dropdown");
+            if (!anchorSelector.IsVisible())
+            {
+                HtmlFindExpression expression = new HtmlFindExpression("tagname=select", "ng-model=sfSelectedItem.selectedAnchor");
+                ActiveBrowser.WaitForElement(expression, 60000, false);
+            }
+
             Assert.IsTrue(anchorSelector.SelectedOption.Text.Equals(anchorName));
         }
 
@@ -222,8 +228,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlInputEmail email = EM.GenericContent
                                      .ContentBlockLinkSelector
                                      .Email
-                                     .AssertIsPresent("email address");
-
+                                     .AssertIsNotNull("email address");
+            if (!email.IsVisible())
+            {
+                HtmlFindExpression expression = new HtmlFindExpression("tagname=input", "ng-model=sfSelectedItem.emailAddress");
+                ActiveBrowser.WaitForElement(expression, 60000, false);
+            }
             email.MouseClick();
 
             email.Text = string.Empty;
