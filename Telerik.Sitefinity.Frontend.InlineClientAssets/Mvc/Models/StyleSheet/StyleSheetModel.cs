@@ -7,7 +7,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
     public class StyleSheetModel : IStyleSheetModel
     {
         /// <inheritDocs/>
-        public string CustomCssCode { get; set; }
+        public string InlineStyles { get; set; }
 
         /// <inheritDocs/>
         public string ResourceUrl { get; set; }
