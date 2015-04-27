@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 
@@ -61,6 +62,15 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         {
             var model = this.Model.GetViewModel();
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
+            var viewModel = this.model.GetViewModel();
+
+            var page = this.HttpContext.CurrentHandler as Page;
+
+            if (page != null)
+            {
+                this.model.PlaceScriptInDocument(page, viewModel.JavaScriptCode);
+            }
 
             return this.View(fullTemplateName, model);
         }
