@@ -10,6 +10,9 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         public string CustomCssCode { get; set; }
 
         /// <inheritDocs/>
+        public string ResourceUrl { get; set; }
+
+        /// <inheritDocs/>
         public string Description { get; set; }
 
         /// <inheritDocs/>
