@@ -43,10 +43,16 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// Gets the markup for inline CSS.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
         protected virtual string GetInlineMarkup()
         {
-            throw new System.NotImplementedException();
+            var markup = string.Empty;
+            if (!string.IsNullOrEmpty(this.InlineStyles))
+            {
+                markup = string.Format(@"<style type=""text/css"">{0}</style>",
+                                      this.InlineStyles);
+            }
+
+            return markup;
         }
     }
 }
