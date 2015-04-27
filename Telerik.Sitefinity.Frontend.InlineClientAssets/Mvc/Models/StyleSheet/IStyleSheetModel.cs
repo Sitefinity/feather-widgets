@@ -4,7 +4,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
     /// <summary>
     /// This is a contract for the model of the StyleSheet widget.
     /// </summary>
-    public class IStyleSheetModel
+    public interface IStyleSheetModel
     {
         /// <summary>
         /// Custom CSS code for inline style sheets.
@@ -25,5 +25,11 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// Gets or sets how the css will be referenced.
         /// </summary>
         ResourceMode Mode { get; set; }
+
+        /// <summary>
+        /// Gets the stylesheet markup.
+        /// </summary>
+        /// <returns></returns>
+        string GetMarkup();
     }
 }
