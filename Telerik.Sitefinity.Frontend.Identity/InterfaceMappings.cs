@@ -5,6 +5,7 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginStatus;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
+using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList;
 
 namespace Telerik.Sitefinity.Frontend.Media
 {
@@ -24,6 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Media
             Bind<IChangePasswordModel>().To<ChangePasswordModel>();
             Bind<IProfileModel>().To<ProfileModel>();
             Bind<IAccountActivationModel>().To<AccountActivationModel>();
+            Bind<IUsersListModel>().To<UsersListModel>();
         }
     }
 }

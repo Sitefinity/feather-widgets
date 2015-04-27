@@ -293,8 +293,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
                 var userProfile = this.SelectedUserProfiles.Where(prof => prof.GetType().FullName == profileBinding.ProfileType).SingleOrDefault();
                 foreach (var property in profileBinding.Properties)
                 {
-                    var propValue = userProfile.GetValue(property.FieldName);
-                    profileFields.Add(property.Name, (string)propValue);
+                    object propValue = userProfile.GetValue(property.FieldName);
+                    if (propValue != null)
+                    {
+                        string propValueAsString = propValue as string;
+                        if (propValueAsString != null)
+                        {
+                            profileFields.Add(property.Name, propValueAsString);
+                        }
+                        else
+                        {
+                            profileFields.Add(property.Name, propValue.ToString());
+                        }
+                    }
+                    else
+                    {
+                        profileFields.Add(property.Name, string.Empty);
+                    }
                 }
             }
 

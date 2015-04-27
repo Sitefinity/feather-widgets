@@ -3,7 +3,7 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.News
+namespace FeatherWidgets.TestUI.TestCases.ImageGallery
 {
     /// <summary>
     /// SelectAllPublishedImagesWithGalleryTemplate test class.

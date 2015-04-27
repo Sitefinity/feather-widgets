@@ -8,10 +8,7 @@
                 sf-media-type="videos"
                 sf-provider="properties.ProviderName.PropertyValue"></sf-media-field>
 
-<div sf-aspect-ratio-selection 
-    sf-ratio="properties.AspectRatio.PropertyValue"
-    sf-width="properties.Width.PropertyValue" 
-    sf-height="properties.Height.PropertyValue"></div>
+<div sf-aspect-ratio-selection sf-model="videoModel"></div>
 
 <form name="videoProperties">
     <div class="form-group">
@@ -19,7 +16,7 @@
         <div class="row">
             <div class="col-xs-6">
                 <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                    @foreach (var viewName in Html.GetViewNames("Video", @"(?<viewName>^Video.*)$")) 
+                    @foreach (var viewName in Html.GetViewNames("Video", @"^Video\.(?<viewName>[\w\s]*)$")) 
                     {
                         <option value="@viewName">@viewName</option>
                     }
@@ -33,6 +30,5 @@
             <label for="imageCssClass">@Html.Resource("CssClasses")</label>
             <input type="text" id="imageCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
         </div>
-    </expander>
     </expander>
 </form>

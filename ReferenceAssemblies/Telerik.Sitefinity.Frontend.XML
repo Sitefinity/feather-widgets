@@ -444,6 +444,36 @@
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
             <inheritDoc/>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException">
+            <summary>
+            This type of exception is thrown when sections with duplicating names are found on the current page.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException"/> class.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException"/> class.
+            </summary>
+            <param name="sectionName">Name of the section.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException"/> class.
+            </summary>
+            <param name="sectionName">Name of the section.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.MvcMasterPage">
             <summary>
             A MasterPage that is dynamically constructed from the MasterPageFile without compilation.
@@ -454,6 +484,41 @@
             Applies the master to the specified page.
             </summary>
             <param name="page">The page.</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.SectionRenderer">
+            <summary>
+            This control is responsible for rendering the section content.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.SectionRenderer.IsAvailable(System.Web.UI.Page,System.String)">
+            <summary>
+            Determines whether the specified section is available on the page.
+            </summary>
+            <param name="page">The page.</param>
+            <param name="sectionName">Name of the section.</param>
+            <returns>True if the section is available on the page and false otherwise.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.SectionRenderer.MarkAvailability(System.Web.UI.Page,System.String)">
+            <summary>
+            Marks the specified section as availabile.
+            </summary>
+            <param name="page">The page.</param>
+            <param name="sectionName">Name of the section.</param>
+            <exception cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException"></exception>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.SectionRenderer.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Sends server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object, which writes the content to be rendered on the client.
+            </summary>
+            <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.SectionRenderer.Name">
+            <summary>
+            Gets or sets the name of the section.
+            </summary>
+            <value>
+            The name.
+            </value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.PageInitializer">
             <summary>
@@ -491,6 +556,19 @@
             </summary>
             <param name="requestContext">An object that encapsulates information about the request.</param>
             <returns>An object that processes the request.</returns>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcTemplateEditorRouteHandler">
+            <summary>
+            Extended version of the TemplateEditorRouteHandler that injects logic handling MVC layout files.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcTemplateEditorRouteHandler.BuildHandler(System.Web.Routing.RequestContext,Telerik.Sitefinity.Pages.Model.IPageData)">
+            <summary>
+            Builds the handler.
+            </summary>
+            <param name="requestContext">The request context.</param>
+            <param name="pageData">The page data.</param>
+            <returns></returns>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel">
             <summary>
@@ -1597,6 +1675,18 @@
             </summary>
             <value>Last 5 years</value>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectBlogs">
+            <summary>
+            phrase: Select blogs
+            </summary>
+            <value>Select blogs</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectBlogPosts">
+            <summary>
+            phrase: Select blog posts
+            </summary>
+            <value>Select blog posts</value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Notifications.EmailTemplateHelper">
             <summary>
             This class contains helpers for working with email templates.
@@ -1748,19 +1838,52 @@
             This class contains helper methods for registering client resources.
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,System.String,System.Boolean)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,System.String)">
             <summary>
             Registers JavaScript reference and ensures that it loads maximum once for a page.
             </summary>
+            <param name="helper">The helper.</param>
+            <param name="scriptPath">The path to the JavaScript file.</param>
+            <returns>
+            MvcHtmlString
+            </returns>
             <remarks>
-            This method uses directly the resource from the <see cref="!:scriptPath"/>. 
+            This method uses directly the resource from the <see cref="!:scriptPath"/>.
             In case you want to use embedded scripts from Sitefinity check <see cref="!:ResourceHelper.Script(this HtmlHelper helper, ScriptRef scriptReference, bool throwException = false)"/>.
             </remarks>
-            <param name="scriptPath">The path to the JavaScript file.</param>
-            <param name="throwException">OPTIONAL: Indicates whether to throw an exception if the JavaScript is already registered. By default the value is set to <value>false</value>.</param>
-            <returns>MvcHtmlString</returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,Telerik.Sitefinity.Modules.Pages.ScriptRef,System.Boolean)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+            <summary>
+            Registers JavaScript reference and ensures that it loads maximum once for a page.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="scriptPath">The path to the JavaScript file.</param>
+            <param name="sectionName">The name of the section that will render this script. If null it will render on the same place of the page</param>
+            <returns>
+            MvcHtmlString
+            </returns>
+            <remarks>
+            This method uses directly the resource from the <see cref="!:scriptPath"/>.
+            In case you want to use embedded scripts from Sitefinity check <see cref="!:ResourceHelper.Script(this HtmlHelper helper, ScriptRef scriptReference, bool throwException = false)"/>.
+            </remarks>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Boolean)">
+            <summary>
+            Registers JavaScript reference and ensures that it loads maximum once for a page.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="scriptPath">The path to the JavaScript file.</param>
+            <param name="sectionName">The name of the section that will render this script. If null it will render on the same place of the page</param>
+            <param name="throwException">Indicates whether to throw an exception if the specified section does not exist.</param>
+            <returns>
+            MvcHtmlString
+            </returns>
+            <remarks>
+            This method uses directly the resource from the <see cref="!:scriptPath"/>.
+            In case you want to use embedded scripts from Sitefinity check <see cref="!:ResourceHelper.Script(this HtmlHelper helper, ScriptRef scriptReference, bool throwException = false)"/>.
+            </remarks>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,Telerik.Sitefinity.Modules.Pages.ScriptRef)">
             <summary>
             Registers JavaScript reference and ensures that it loads maximum once for a page.
             </summary>
@@ -1769,21 +1892,80 @@
             </remarks>
             <param name="helper">The helper.</param>
             <param name="scriptReference">The script reference.</param>
-            <param name="throwException">if set to <c>true</c> throw exception.</param>
-            <returns></returns>
+            <returns>
+            MvcHtmlString
+            </returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Boolean)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,Telerik.Sitefinity.Modules.Pages.ScriptRef,System.String)">
             <summary>
             Registers JavaScript reference and ensures that it loads maximum once for a page.
             </summary>
             <remarks>
-            Use this helper to resolve embedded resource path.
+            This helper references the same resource existing in Sitefinity.
             </remarks>
             <param name="helper">The helper.</param>
-            <param name="type">The type.</param>
-            <param name="embeddedScriptPath">The embedded script path.</param>
-            <param name="throwException">if set to <c>true</c> throws exception.</param>
-            <returns>MvcHtmlString</returns>
+            <param name="scriptReference">The script reference.</param>
+            <param name="sectionName">The name of the section that will render this script. If null it will render on the same place of the page</param>
+            <returns>
+            MvcHtmlString
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.Script(System.Web.Mvc.HtmlHelper,Telerik.Sitefinity.Modules.Pages.ScriptRef,System.String,System.Boolean)">
+            <summary>
+            Registers JavaScript reference and ensures that it loads maximum once for a page.
+            </summary>
+            <remarks>
+            This helper references the same resource existing in Sitefinity.
+            </remarks>
+            <param name="helper">The helper.</param>
+            <param name="scriptReference">The script reference.</param>
+            <param name="sectionName">The name of the section that will render this script. If null it will render on the same place of the page</param>
+            <param name="throwException">Indicates whether to throw an exception if the specified section does not exist.</param>
+            <returns>
+            MvcHtmlString
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.StyleSheet(System.Web.Mvc.HtmlHelper,System.String)">
+            <summary>
+            Registers style sheet reference and ensures that it loads maximum once for a page.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="resourcePath">The path to the CSS file.</param>
+            <returns>
+            MvcHtmlString
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.StyleSheet(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+            <summary>
+            Registers style sheet reference and ensures that it loads maximum once for a page.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="resourcePath">The path to the CSS file.</param>
+            <param name="sectionName">The name of the section that will render this script. If null it will render on the same place of the page</param>
+            <returns>
+            MvcHtmlString
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.StyleSheet(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Boolean)">
+            <summary>
+            Registers style sheet reference and ensures that it loads maximum once for a page.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="resourcePath">The path to the CSS file.</param>
+            <param name="sectionName">The name of the section that will render this script. If null it will render on the same place of the page</param>
+            <param name="throwException">Indicates whether to throw an exception if the specified section does not exist.</param>
+            <returns>
+            MvcHtmlString
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.QueryBuilderScriptReferences(System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Adds script references required by the Sitefinity's QueryBuilder component.
+            </summary>
+            <param name="helper">The helper.</param>
+            <returns>
+            MvcHtmlString
+            </returns>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.GetWebResourceUrl(Telerik.Sitefinity.Modules.Pages.ScriptRef)">
             <summary>
@@ -1792,41 +1974,42 @@
             <param name="scriptReference">The script reference.</param>
             <returns></returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.TryConfigureScriptManager(Telerik.Sitefinity.Modules.Pages.ScriptRef)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.RenderAllScripts(System.Web.HttpContextBase,System.String)">
+            <summary>
+            Renders all scripts.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="sectionName">The section name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.RenderAllStylesheets(System.Web.HttpContextBase,System.String)">
+            <summary>
+            Renders all stylesheets.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="sectionName">The section name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.TryConfigureScriptManager(Telerik.Sitefinity.Modules.Pages.ScriptRef,System.Web.IHttpHandler)">
             <summary>
             Tries the configure script manager.
             </summary>
             <param name="scriptReference">The script reference.</param>
+            <param name="httpHandler">The httpHandler.</param>
             <returns></returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.RegisterResource(System.Web.HttpContextBase,System.String,System.String,System.Boolean)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.TryConfigureScriptManager(System.String,System.Web.IHttpHandler)">
             <summary>
-            Registers the resource.
+            Tries the configure script manager.
             </summary>
-            <param name="context">The context.</param>
-            <param name="scriptKey">The script key.</param>
-            <param name="scriptPath">The script path.</param>
-            <param name="throwException">if set to <c>true</c> throws exception.</param>
+            <param name="scriptReference">The script reference.</param>
+            <param name="httpHandler">The httpHandler.</param>
             <returns></returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.RegisterResource(Telerik.Sitefinity.Frontend.Resources.ResourceRegister,System.String,System.Boolean,System.String,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.ResourceType">
             <summary>
-            Registers resource reference.
+            This enum represents supported resource types.
             </summary>
-            <param name="register">The register.</param>
-            <param name="resourceKey">The resource key.</param>
-            <param name="throwException">if set to <c>true</c> [throw exception].</param>
-            <param name="tagName">Name of the tag.</param>
-            <param name="attribbutes">The attribbutes.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.GenerateTag(System.String,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
-            <summary>
-            Creates a string representation of a tag. 
-            </summary>
-            <param name="tag">The type of the HTML tag that would be generated for every registered resource.</param>
-            <param name="attributes">The attributes associated with the tag.</param>
-            <returns>The string representation of a tag.</returns>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.SitefinityContext">
             <summary>
@@ -1862,6 +2045,11 @@
             Determines whether this method is invoked from Sitefinity's backend.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.SitefinityContext.IsPreviewMode">
+            <summary>
+            Determines whether this method is invoked from Sitefinity's preview mode.
+            </summary>
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.Helpers.SitefinityContext.FrontendLoginUrl">
             <summary>
@@ -2978,14 +3166,13 @@
             <returns></returns>
             <exception cref="T:System.InvalidOperationException">Can't create Controller Context if no active HttpContext instance is available.</exception>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutRenderer.RenderViewToString(System.Web.Mvc.ControllerContext,System.String,System.Object,System.Boolean)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutRenderer.RenderViewToString(System.Web.Mvc.ControllerContext,System.String,System.Boolean)">
             <summary>
             Renders the view to string.
             </summary>
             <param name="context">The context.</param>
             <param name="viewPath">The view path.</param>
-            <param name="model">The model.</param>
-            <param name="isPartial">if set to <c>true</c> the view should be partial.</param>
+            <param name="placeholdersOnly"></param>
             <returns></returns>
             <exception cref="T:System.IO.FileNotFoundException">View cannot be found.</exception>
         </member>
@@ -2999,13 +3186,12 @@
             <returns></returns>
             <exception cref="T:System.IO.FileNotFoundException">View cannot be found.</exception>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutRenderer.GetLayoutTemplate(System.String,System.Object,System.Boolean)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutRenderer.GetLayoutTemplate(System.String,System.Boolean)">
             <summary>
             Gets the layout template.
             </summary>
-            <param name="templateName"></param>
-            <param name="model">The model.</param>
-            <param name="isPartial">if set to <c>true</c> requested view is partial.</param>
+            <param name="templateName">The name of the layout template to render.</param>
+            <param name="placeholdersOnly">When true the method returns a master page containing only content placeholders.</param>
             <returns></returns>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutRenderer.LayoutExists(System.String,System.Boolean)">
@@ -3089,12 +3275,42 @@
             Helper methods for work with Sitefinity layout templates.
             </summary>
         </member>
+        <member name="F:Telerik.Sitefinity.Frontend.Mvc.Helpers.LayoutsHelpers.SectionTag">
+            <summary>
+            The section tag name.
+            </summary>
+        </member>
+        <member name="F:Telerik.Sitefinity.Frontend.Mvc.Helpers.LayoutsHelpers.SectionHtml">
+            <summary>
+            The section HTML markup.
+            </summary>
+        </member>
+        <member name="F:Telerik.Sitefinity.Frontend.Mvc.Helpers.LayoutsHelpers.PlaceHolderDefaultName">
+            <summary>
+            The content place holder default name.
+            </summary>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.LayoutsHelpers.SfPlaceHolder(System.Web.Mvc.HtmlHelper,System.String)">
             <summary>
             HTML helper which adds the required content placeholder.
             </summary>
             <param name="helper">The helper.</param>
             <param name="containerName">Name of the container.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.LayoutsHelpers.Section(System.Web.Mvc.HtmlHelper,System.String)">
+            <summary>
+            Html helper which renders all script tags.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="name">The name of the section.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.LayoutsHelpers.ContentPlaceHolderMarkup(System.String)">
+            <summary>
+            Gets the ASPX markup of a content place holder.
+            </summary>
+            <param name="placeHolderName">Name of the place holder.</param>
             <returns></returns>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.LocalizationHelpers">
@@ -3109,6 +3325,14 @@
             <param name="helper">The helper.</param>
             <param name="key">The key.</param>
             <param name="fallbackToKey">If true then if a resource is not found with the specified key the key is returned.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.LocalizationHelpers.Resource(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+            <summary>
+            Get the resource string with the specified key from the resource files.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="key">The key</param>
+            <param name="className">The class to search in</param>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.LocalizationHelpers.Label(System.Web.Mvc.WebViewPage,System.String)">
             <summary>
@@ -3172,6 +3396,15 @@
             <param name="assemblyName">Name of the assembly.</param>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException">contentPath</exception>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.UrlHelpers.EmbeddedResource(System.Web.Mvc.UrlHelper,System.String,System.String)">
+            <summary>
+            Gets the URL of an embedded resource.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="type">A type from the assembly that embeds the resource.</param>
+            <param name="path">The resource path.</param>
+            <returns>The resource URL.</returns>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.UrlHelpers.GetResourcePath(System.String,System.String,System.String,System.String)">
             <summary>
@@ -4666,18 +4899,65 @@
             Constructs a new instances of the <see cref="T:Telerik.Sitefinity.Frontend.Resources.ResourceRegister"/> class.
             </summary>
             <param name="name">The name of the register.</param>
+            <param name="httpContext">The HTTP context.</param>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.RegisterResource(System.String)">
-            <summary>
-            Registers a client resource.
-            </summary>
-            <param name="resourceKey">The attributes associated with the resource.</param>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.TryRegisterResource(System.String)">
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.Register(System.String,System.String,System.Boolean)">
             <summary>
             Registers a client resource. A return value indicates whether the registration succeeded.
             </summary>
-            <returns><value>true</value> if s was registered successfully; otherwise, <value>false</value>.</returns>
+            <param name="resourceKey">The attributes associated with the resource.</param>
+            <param name="sectionName">The section name in which the resource should be rendered.</param>
+            <param name="throwException">The section name in which the resource should be rendered.</param>
+            <returns>
+            <value>true</value> if s was registered successfully; otherwise, <value>false</value>.
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.IsRegistered(System.String,System.String)">
+            <summary>
+            Checks if a client resource is registered for a section.
+            </summary>
+            <param name="resourceKey">The attributes associated with the resource.</param>
+            <param name="sectionName">The section name in which the resource should be rendered.</param>
+            <returns>
+            <value>true</value> if s was registered; otherwise, <value>false</value>.
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.IsRendered(System.String)">
+            <summary>
+            Determines whether the specified resource is already rendered.
+            </summary>
+            <param name="resourceKey">The resource key.</param>
+            <returns>
+            Whether the specified resource is already rendered.
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.MarkAsRendered(System.String)">
+            <summary>
+            Marks the resource as rendered.
+            </summary>
+            <param name="resourceKey">The resource key.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.GetResourcesForSection(System.String)">
+            <summary>
+            Get all resources for a section.
+            </summary>
+            <param name="sectionName">The name of the section key.</param>
+            <returns>
+            A collection of all resources for a section.
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.GetInlineResources">
+            <summary>
+            Get all inline resources.
+            </summary>
+            <returns>
+            A collection of all inline resources.
+            </returns>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.Rendered">
+            <summary>
+            Gets a set of already rendered resources.
+            </summary>
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Resources.ResourceRegister.Container">
             <summary>
@@ -5503,13 +5783,6 @@
             <returns>
             A <see cref="T:System.Web.Caching.CacheDependency"/> object for the specified virtual resources.
             </returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutVirtualFileResolver.RenderLayout(System.String)">
-            <summary>
-            Renders the layout.
-            </summary>
-            <param name="layoutFileName">Filename of the layout.</param>
-            <returns>Rendered layout as HTML.</returns>
         </member>
         <member name="F:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.LayoutVirtualFileResolver.virtualPathBuilder">
             <summary>

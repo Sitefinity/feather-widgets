@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             ActiveBrowser.WaitForUrl(this.GetDocumentHref(false, SelectedDocument, PageName + "/" + ContentType, AnotherDocumentLibraryTitle), true, 60000);
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().IsDocumentTitlePresentOnDetailMasterPage(SelectedDocument);
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyDownloadButton(this.GetDocumentHref(true, SelectedDocument, ContentType, AnotherDocumentLibraryTitle));
-            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifySizeAndExtensionOnTemplate("(5 KB)", DocumentType);
+            BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifySizeAndExtensionOnTemplate("5 KB", "(" + DocumentType + ")");
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/" + AnotherDocumentLibraryTitle.ToLower());
             for (int j = 1; j <= 3; j++)
@@ -90,7 +90,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            //// BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         /// </summary>
         protected override void ServerCleanup()
         {
-            //// BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private string GetDocumentHref(bool isBaseUrlIncluded, string documentName, string contentType, string libraryUrl)

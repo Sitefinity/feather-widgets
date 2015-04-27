@@ -1,0 +1,5 @@
+﻿{
+	"priority": 1,
+
+	"components": ["sf-provider-selector", "sf-blog-selector", "sf-page-selector", "sf-expander", "sf-style-dropdown"]
+}

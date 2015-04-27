@@ -30,51 +30,51 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
           
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenDocumentSelector();
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(3);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfFolders(0);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectDocuments(DocumentName1, DocumentName2, DocumentName3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentName1, DocumentName2, DocumentName3);
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectFilter(MyDocuments);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(2);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfFolders(0);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectDocuments(DocumentName1, DocumentName2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFilter(MyDocuments);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentName1, DocumentName2);
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectFilter(AllLibraries);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfFolders(2);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectFolders(DefaultLibrary, LibraryName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFilter(AllLibraries);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(DefaultLibrary, LibraryName);
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectFolder(LibraryName);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfFolders(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectDocuments(DocumentName1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectFolders(ChildLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(LibraryName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentName1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(ChildLibrary);
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectFolder(ChildLibrary);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfFolders(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectDocuments(DocumentName2);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectFolders(NextChildLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(ChildLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentName2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(NextChildLibrary);
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectFolder(NextChildLibrary);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfFolders(0);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectDocuments(DocumentName3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(NextChildLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentName3);
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectFolderFromBreadCrumb(ChildLibrary);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfFolders(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectDocuments(DocumentName2);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectFolders(NextChildLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolderFromBreadCrumb(ChildLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentName2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(NextChildLibrary);
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectFolderFromSideBar(NextChildLibrary);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().WaitCorrectCountOfFolders(0);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().VerifyCorrectDocuments(DocumentName3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolderFromSideBar(NextChildLibrary);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentName3);
 
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().SelectDocument(DocumentName3);
-            BATFeather.Wrappers().Backend().Media().DocumentSelectorWrapper().ConfirmMediaFileSelection();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(DocumentName3, true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(DocumentName3), "Document title is not populated correctly");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
         

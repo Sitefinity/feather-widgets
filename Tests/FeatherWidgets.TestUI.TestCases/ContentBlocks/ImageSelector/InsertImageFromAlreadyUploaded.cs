@@ -29,17 +29,17 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyNoImagesEmptyScreen();
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().PressCancelButton();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoMediaEmptyScreen("No images");
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
 
             // Uploading image after epmty screen is verified.
             string imageId = BAT.Arrange(this.TestName).ExecuteArrangement("UploadImage").Result.Values["imageId"];
 
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenImageSelector();
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().VerifyImageTooltip(ImageName, LibraryName, ImageDimensions, ImageType);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().SelectImage(ImageName);
-            BATFeather.Wrappers().Backend().Media().ImageSelectorWrapper().ConfirmMediaFileSelection();
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyMediaTooltip(ImageName, LibraryName, ImageType, ImageDimensions);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(ImageName);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsTitlePopulated(ImageName), "Image title is not populated correctly");
             Assert.IsTrue(BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().IsImageAltTextPopulated(ImageAltText), "Image alt text is not populated correctly"); 
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().EnterTitle(NewImageName);

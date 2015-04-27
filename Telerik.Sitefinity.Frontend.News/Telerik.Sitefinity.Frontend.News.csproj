@@ -75,7 +75,7 @@
     <Reference Include="Telerik.Sitefinity.Forums">
       <HintPath>..\packages\Telerik.Sitefinity.Content.8.0.5700.0\lib\net40\Telerik.Sitefinity.Forums.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.1.90.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Frontend">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>

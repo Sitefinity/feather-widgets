@@ -10,15 +10,15 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 {
     [TestClass]
-    public class ActivateAndDeactivateModuleBuilder_ : FeatherTestCase
+    public class ZActivateAndDeactivateModuleBuilder_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test ActivateAndDeactivateModuleBuilder
+        /// UI test ZActivateAndDeactivateModuleBuilder
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ModuleBuilder)]
-        public void ActivateAndDeactivateModuleBuilder()
+        TestCategory(FeatherTestCategories.ModuleBuilder), Ignore]
+        public void ZActivateAndDeactivateModuleBuilder()
         {
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().NavigateToModules();
             BAT.Wrappers().Backend().ModulesAndServices().ModulesAndServicesWrapper().DeactivateModule(ModuleName);

@@ -149,6 +149,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="anchorName">Name of the anchor.</param>
         public void SelectAnchor(string anchorName)
         {
+            ActiveBrowser.RefreshDomTree();
+
             var anchorSelector = EM.GenericContent
                                    .ContentBlockLinkSelector
                                    .AnchorSelector
@@ -167,7 +169,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var anchorSelector = EM.GenericContent
                                    .ContentBlockLinkSelector
                                    .AnchorSelector
-                                   .AssertIsPresent("select anchor dropdown");
+                                   .AssertIsNotNull("select anchor dropdown");
+            if (!anchorSelector.IsVisible())
+            {
+                HtmlFindExpression expression = new HtmlFindExpression("tagname=select", "ng-model=sfSelectedItem.selectedAnchor");
+                ActiveBrowser.WaitForElement(expression, 60000, false);
+            }
+
             Assert.IsTrue(anchorSelector.SelectedOption.Text.Equals(anchorName));
         }
 
@@ -215,11 +223,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="content">The content.</param>
         public void EnterEmail(string content)
         {
+            ActiveBrowser.RefreshDomTree();
+
             HtmlInputEmail email = EM.GenericContent
                                      .ContentBlockLinkSelector
                                      .Email
-                                     .AssertIsPresent("email address");
-
+                                     .AssertIsNotNull("email address");
+            if (!email.IsVisible())
+            {
+                HtmlFindExpression expression = new HtmlFindExpression("tagname=input", "ng-model=sfSelectedItem.emailAddress");
+                ActiveBrowser.WaitForElement(expression, 60000, false);
+            }
             email.MouseClick();
 
             email.Text = string.Empty;
@@ -322,6 +336,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             option.AssertIsPresent(tabName);
 
             option.Click();
+            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
         }
     }
 }

@@ -1,0 +1,33 @@
+@model Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList.UsersListViewModel
+
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Web.DataResolving;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+<div class="@Model.CssClass">
+    <ul>
+
+        @foreach (var item in Model.Items)
+        {
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
+                <h3>
+                    <a @Html.InlineEditingFieldAttributes("UserName", "ShortText")>@item.Fields.UserName</a>
+                </h3>
+
+            </li>
+        }
+    </ul>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new
+           {
+               currentPage = Model.CurrentPage,
+               totalPagesCount = Model.TotalPagesCount.Value,
+               redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+           })
+    }
+</div>

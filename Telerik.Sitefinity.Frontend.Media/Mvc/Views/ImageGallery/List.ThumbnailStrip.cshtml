@@ -10,8 +10,8 @@
 @using System.Linq;
 
 @*Add scripts and stylesheets*@
-@Html.Script(ScriptRef.JQuery)
-@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"))
+@Html.Script(ScriptRef.JQuery, "top", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/ImageGallery/thumbnail-strip.js"), "bottom", false)
 
 @{
     bool hasItems = Model.Items.Count() > 0;

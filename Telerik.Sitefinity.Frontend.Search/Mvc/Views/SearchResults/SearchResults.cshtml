@@ -9,7 +9,7 @@
 
 @if (!SystemManager.IsDesignMode)
 {
-    @Html.Script(ScriptRef.JQuery)
+    @Html.Script(ScriptRef.JQuery, "top", false)
 }
 
 <div class="@Model.CssClass">
@@ -86,7 +86,7 @@
                 }
             }
 
-            <div class="media-body sf-media-body">
+            <div>
                 @{
                     var hasLink = item.GetValue("Link") != null && !String.IsNullOrEmpty(item.GetValue("Link").ToString());
                 }
@@ -120,12 +120,6 @@
         {
             <em>@Model.ItemsPerPage of @Model.Results.TotalCount results</em>
         }
-
-        <input type="hidden" data-sf-role="searchResOrderBy" value="@Request.QueryString["orderBy"]" />
-        <input type="hidden" data-sf-role="searchResLanguage" value="@Request.QueryString["language"]" />
-        <input type="hidden" data-sf-role="searchResIndexCatalogue" value="@Request.QueryString["indexCatalogue"]" />
-        <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryString["searchQuery"]' />
-        <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryString["wordsMode"]' />
     
         @Html.Action("Index", "ContentPager", new
         {
@@ -134,7 +128,13 @@
             redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
         })
     }
+   
+    <input type="hidden" data-sf-role="searchResOrderBy" value="@Request.QueryString["orderBy"]" />
+    <input type="hidden" data-sf-role="searchResLanguage" value="@Request.QueryString["language"]" />
+    <input type="hidden" data-sf-role="searchResIndexCatalogue" value="@Request.QueryString["indexCatalogue"]" />
+    <input type="hidden" data-sf-role="searchResQuery" value='@Request.QueryString["searchQuery"]' />
+    <input type="hidden" data-sf-role="searchResWordsMode" value='@Request.QueryString["wordsMode"]' />
 
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/Search-results.js"))
+@Html.Script(Url.WidgetContent("Mvc/Scripts/SearchResults/Search-results.js"), "bottom", false)

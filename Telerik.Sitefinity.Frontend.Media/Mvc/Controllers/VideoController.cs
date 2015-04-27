@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
+using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -17,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(VideoResources))]
     [ControllerToolboxItem(Name = "Video", Title = "Video", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = VideoController.WidgetIconCssClass)]
-    public class VideoController : Controller, ICustomWidgetVisualizationExtended
+    public class VideoController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
 
@@ -107,6 +110,17 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets whether the page is in preview mode.
+        /// </summary>
+        protected virtual bool IsPreviewMode
+        {
+            get
+            {
+                return SystemManager.IsPreviewMode;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the name of the template that widget will be displayed.
         /// </summary>
         /// <value></value>
@@ -123,6 +137,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
+        /// If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
+        /// </summary>
+        /// <value>The disable canonical URLs.</value>
+        public bool? DisableCanonicalUrlMetaTag { get; set; }
+
         #endregion
 
         #region Public methods
@@ -137,21 +158,47 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            if (viewModel.HasSelectedVideo && !this.IsEmpty && this.IsDesignMode && !this.IsInlineEditingMode)
-                return Content(Res.Get<VideoResources>().VideoWasNotSelectedOrHasBeenDeleted);
-            else if (this.Model.Id != Guid.Empty)
-                return View(this.TemplateName, viewModel);
+            // Design mode should not show video, unless it's preview mode
+            var canDispalyVideo = (!this.IsDesignMode || this.IsPreviewMode) && !this.IsInlineEditingMode;
+
+            if (!canDispalyVideo && viewModel.HasSelectedVideo)
+                return this.Content(Res.Get<VideoResources>().VideoWillNotBeDisplayed);
+            else if (this.IsDesignMode && !viewModel.HasSelectedVideo && this.Model.Id != Guid.Empty) // Design mode should display if a video has been removed
+                return this.Content(Res.Get<VideoResources>().VideoNotSelectedOrDeleted);
+            else if (viewModel.HasSelectedVideo)
+                return this.View(VideoController.TemplatePrefix + this.TemplateName, viewModel);
             else
                 return new EmptyResult();
         }
 
+        /// <summary>
+        /// Gets the information for all of the content types that a control is able to show.
+        /// </summary>
+        /// <returns>
+        /// List of location info of the content that this control is able to show.
+        /// </returns>
+        [NonAction]
+        public IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return this.Model.GetLocations();
+        }
+
+        /// <inheritDoc/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            ContentLocationHelper.HandlePreview<Telerik.Sitefinity.Libraries.Model.Video>(HttpContext.Request, this.Model.Id, this.Model.ProviderName);
+
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+        
         #endregion
         
         #region Private fields and constants
 
         private IVideoModel model;
         private const string WidgetIconCssClass = "sfVideoIcn";
-        private string templateName = "Video";
+        private string templateName = "Default";
+        private const string TemplatePrefix = "Video.";
         
         #endregion
     }

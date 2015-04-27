@@ -1,0 +1,48 @@
+@model Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel
+
+@using Telerik.Sitefinity;
+@using Telerik.Sitefinity.Frontend.Blogs.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+<div class="@Model.CssClass">
+    <ul>
+        @foreach (var item in Model.Items)
+        {
+            var detailPageUrl = DetailLocationHyperLinkHelper.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.DetailPageMode);
+            <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
+                <h3>
+                    @if (!string.IsNullOrEmpty(detailPageUrl))
+                    {
+                        <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@detailPageUrl">@item.Fields.Title</a>
+                    }
+                    else{
+                        <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@item.Fields.Title</span>
+                    }
+                </h3>
+                
+                @{
+                    var lastPostDate = item.GetLastPostDate();
+                    if (lastPostDate != null && lastPostDate.HasValue)
+                    {
+                        <p>@Html.Resource("LastPost") : @lastPostDate.Value.ToShortDateString() </p>
+                    }
+                }
+               
+            </li>
+        }
+    </ul>
+
+    @if (Model.ShowPager)
+    {
+        @Html.Action("Index", "ContentPager", new
+   {
+       currentPage = Model.CurrentPage,
+       totalPagesCount = Model.TotalPagesCount.Value,
+       redirectUrlTemplate = ViewBag.RedirectPageUrlTemplate
+   })
+    }
+</div>

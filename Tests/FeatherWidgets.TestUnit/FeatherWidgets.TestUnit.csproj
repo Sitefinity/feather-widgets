@@ -85,7 +85,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Content.8.0.5700.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Frontend, Version=1.1.90.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Frontend">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
@@ -180,11 +180,16 @@
     <Compile Include="Lists\ListsControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Blogs\Telerik.Sitefinity.Frontend.Blogs.csproj">
+      <Project>{7fdac868-95ef-4b9d-bcdb-4dd7c93b3a4e}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Blogs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
       <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>

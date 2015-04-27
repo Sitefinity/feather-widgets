@@ -1,0 +1,17 @@
+﻿@model Telerik.Sitefinity.Frontend.Media.Mvc.Models.Video.VideoViewModel
+
+@{
+    var videoUrl = Model.Item.Fields.MediaUrl;
+    var videoWidth = Model.AspectRatio.ToLowerInvariant() == "auto" ? string.Empty : string.Format("width={0}", Model.Width);
+    var videoHeight = Model.AspectRatio.ToLowerInvariant() == "auto" ? string.Empty : string.Format("height={0}", Model.Height);
+}
+
+<div class="@Model.CssClass">
+    @if (!string.IsNullOrEmpty(videoUrl))
+    {
+        <video src="@videoUrl" @videoWidth @videoHeight class="@String.Concat("sf", Model.Item.Fields.Extension)" controls="controls"></video>
+        
+        <p>@Model.Item.Fields.Title</p>
+        <p>@Model.Item.Fields.Description</p>
+    }
+</div>

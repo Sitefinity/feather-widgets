@@ -9,13 +9,13 @@
 @using Telerik.Sitefinity.Model.ContentLinks;
 @using Telerik.Sitefinity.Modules.Pages;
 
-@Html.Script(ScriptRef.JQuery)
+@Html.Script(ScriptRef.JQuery, "top", false)
 
 <div class="@Model.CssClass">
     <ul class="list-unstyled">
         @foreach (var item in Model.Items)
         {
-		<p> List template </p>
+        <p> List template </p>
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 
 @*Start Image field*@
