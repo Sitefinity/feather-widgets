@@ -4,19 +4,19 @@
 
 <div class="form-group nav-wrapper">
 	<label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="writeCss" />
+		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="Inline" />
         @Html.Resource("WriteCss")
 	</label>
 
 	<label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="linkToCss" />
+		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="Reference" />
         @Html.Resource("LinkToCssFile")
 	</label>
 </div>
 
 <!-- Write CSS -->
-<div ng-show="properties.Mode.PropertyValue=='writeCss'">
-    <textarea></textarea>
+<div ng-show="properties.Mode.PropertyValue=='Inline'">
+    <textarea cssArea></textarea>
 
     <label>@Html.Resource("Media")</label>
 	<div class="form-group">
@@ -38,7 +38,7 @@
 </div>
 
 <!-- Link to Css file -->
-<div ng-show="properties.Mode.PropertyValue=='linkToCss'">
+<div ng-show="properties.Mode.PropertyValue=='Reference'">
 	
 </div>
 
