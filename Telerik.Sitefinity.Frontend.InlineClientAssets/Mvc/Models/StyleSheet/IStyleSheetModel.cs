@@ -7,9 +7,9 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
     public class IStyleSheetModel
     {
         /// <summary>
-        /// Custom CSS code for linking style sheets
+        /// Custom CSS code for inline style sheets.
         /// </summary>
-        string CustomCssCode { get; set; }
+        string InlineStyles { get; set; }
 
         /// <summary>
         /// Description of the CSS resource.
