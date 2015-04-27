@@ -1,1 +1,30 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<div class="form-group nav-wrapper">
+	<label class="radio-inline">
+		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="writeCss" />
+        @Html.Resource("WriteCss")
+	</label>
+
+	<label class="radio-inline">
+		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="linkToCss" />
+        @Html.Resource("LinkToCssFile")
+	</label>
+</div>
+
+<!-- Write CSS -->
+<div ng-show="properties.Mode.PropertyValue=='writeCss'">
+	
+</div>
+
+<!-- Link to Css file -->
+<div ng-show="properties.Mode.PropertyValue=='linkToCss'">
+	
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <label>@Html.Resource("Description")</label>
+        <input type="text" ng-model="properties.Description.PropertyValue" class="form-control" />
+    </div>
+</expander>
