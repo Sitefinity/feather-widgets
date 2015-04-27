@@ -196,7 +196,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         #region Private fields and constants
 
         private IVideoModel model;
-        private const string WidgetIconCssClass = "sfVideoIcn";
+        private const string WidgetIconCssClass = "sfVideoIcn sfMvcIcn";
         private string templateName = "Default";
         private const string TemplatePrefix = "Video.";
         

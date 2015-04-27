@@ -331,7 +331,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfBlogsViewIcn";
+        internal const string WidgetIconCssClass = "sfBlogsViewIcn sfMvcIcn";
 
         private IBlogPostModel model;
 

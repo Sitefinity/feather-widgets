@@ -361,7 +361,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfContentBlockIcn";
+        internal const string WidgetIconCssClass = "sfContentBlockIcn sfMvcIcn";
         private const string DesignerTemplate = "Telerik.Sitefinity.Frontend/Designer/Master/ContentBlock?view={0}";
         private const string IZoneEditorReloaderKeyStringFormat = "ContentBlock_{0}";
         private string content;

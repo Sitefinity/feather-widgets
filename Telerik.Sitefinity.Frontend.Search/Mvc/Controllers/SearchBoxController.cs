@@ -224,7 +224,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfSearchBoxIcn";
+        internal const string WidgetIconCssClass = "sfSearchBoxIcn sfMvcIcn";
         private ISearchBoxModel model;
         private string templateName = "SearchBox";
         #endregion        
