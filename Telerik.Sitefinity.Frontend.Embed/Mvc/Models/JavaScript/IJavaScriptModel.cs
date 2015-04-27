@@ -24,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         /// Gets or sets the position in the document where the code will be inserted.
         /// </summary>
         /// <value>The embed position.</value>
-        ScriptEmbedPosition EmbedPosition { get; set; }
+        EmbedPosition EmbedPosition { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the used code.
