@@ -14,7 +14,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
     public class ProfileResources : Resource
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileResources"/> class. 
         /// Initializes new instance of <see cref="ProfileResources"/> class with the default <see cref="ResourceDataProvider"/>.
@@ -31,11 +30,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             : base(dataProvider)
         {
         }
-
         #endregion
 
         #region Class Description
-
         /// <summary>
         /// Gets Title for the Profile widget resources class.
         /// </summary>
@@ -65,7 +62,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ProfileResourcesDescription"];
             }
         }
-
         #endregion
 
         /// <summary>
@@ -530,6 +526,22 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["MinimumPasswordLength"];
+            }
+        }
+
+        /// <summary>
+        /// Description: Invalid data.
+        /// </summary>
+        /// <value>Invalid data.</value>
+        [ResourceEntry("ChangePasswordGeneralErrorMessage",
+            Value = "Invalid data.",
+            Description = "Description: Invalid data.",
+            LastModified = "2015/04/08")]
+        public string ChangePasswordGeneralErrorMessage
+        {
+            get
+            {
+                return this["ChangePasswordGeneralErrorMessage"];
             }
         }
     }
