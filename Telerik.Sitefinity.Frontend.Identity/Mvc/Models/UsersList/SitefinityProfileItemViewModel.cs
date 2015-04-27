@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Security.Model;
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 {
     /// <summary>
-    /// This class represents view model for user items.
+    /// This class represents view model for sitefinity profile items.
     /// </summary>
     public class SitefinityProfileItemViewModel : ItemViewModel
     {
