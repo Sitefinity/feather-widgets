@@ -180,6 +180,7 @@
     <Compile Include="Mvc\Models\Registration\SuccessfulRegistrationAction.cs" />
     <Compile Include="Mvc\Models\UsersList\IUsersListModel.cs" />
     <Compile Include="Mvc\Models\UsersList\UserDetailsViewModel.cs" />
+    <Compile Include="Mvc\Models\UsersList\SitefinityProfileItemViewModel.cs" />
     <Compile Include="Mvc\Models\UsersList\UsersListModel.cs" />
     <Compile Include="Mvc\Models\UsersList\UsersListViewModel.cs" />
     <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
