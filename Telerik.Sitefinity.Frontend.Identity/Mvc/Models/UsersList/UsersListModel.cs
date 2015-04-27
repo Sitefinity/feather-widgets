@@ -29,7 +29,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         {
             get
             {
-                return typeof(User);
+                return typeof(SitefinityProfile);
             }
 
             set
@@ -91,7 +91,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// Gets or sets the name of the provider.
         /// </summary>
         /// <value>The name of the provider.</value>
-        public string ProviderName { get; set; }
+        public string ProviderName
+        {
+            get
+            {
+                this.providerName = this.providerName ?? UserProfileManager.GetDefaultProviderName();
+                return this.providerName;
+            }
+            set
+            {
+                this.providerName = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets which items to be displayed in the list view.
@@ -159,7 +170,39 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <value>
         /// The serialized additional filters.
         /// </value>
-        public string SerializedAdditionalFilters { get; set; }
+        public string SerializedAdditionalFilters
+        {
+            get
+            {
+                return this.serializedAdditionalFilters;
+            }
+            set
+            {
+                if (this.serializedAdditionalFilters != value)
+                {
+                    this.serializedAdditionalFilters = value;
+                    if (!this.serializedAdditionalFilters.IsNullOrEmpty())
+                    {
+                        this.selectedRolesFilter = JsonSerializer.DeserializeFromString<IList<Role>>(this.serializedAdditionalFilters);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the a configured instance of the UserProfileManager.
+        /// </summary>
+        /// <value>The manager.</value>
+        public UserProfileManager Manager
+        {
+            get
+            {
+                if (this.manager == null)
+                    this.manager = UserProfileManager.GetManager(this.ProviderName);
+
+                return this.manager;
+            }
+        }
 
         #endregion
 
@@ -176,12 +219,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             if (page < 1)
                 throw new ArgumentException("'page' argument has to be at least 1.", "page");
 
-            var query = this.GetItemsQuery();
-            if (query == null)
-                return this.CreateListViewModelInstance();
-
             var viewModel = this.CreateListViewModelInstance();
-            this.PopulateListViewModel(page, query, viewModel);
+            this.PopulateListViewModel(page, viewModel);
 
             return viewModel;
         }
@@ -207,15 +246,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         #endregion
 
         #region Protected methods
-
-        /// <summary>
-        /// Gets the items query.
-        /// </summary>
-        /// <returns>The query.</returns>
-        protected IQueryable<IDataItem> GetItemsQuery()
-        {
-            return UserManager.GetManager(this.ProviderName).GetUsers();
-        }
 
         /// <summary>
         /// Creates a blank instance of a list view model.
@@ -249,9 +279,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// Populates the list ViewModel.
         /// </summary>
         /// <param name="page">The current page.</param>
-        /// <param name="query">The query.</param>
         /// <param name="viewModel">The view model.</param>
-        protected void PopulateListViewModel(int page, IQueryable<IDataItem> query, UsersListViewModel viewModel)
+        protected void PopulateListViewModel(int page, UsersListViewModel viewModel)
         {
             int? totalPages = null;
             if (this.SelectionMode == SelectionMode.SelectedItems && this.selectedItemsIds.Count == 0)
@@ -260,7 +289,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             }
             else
             {
-                viewModel.Items = this.ApplyListSettings(page, query, out totalPages);
+                viewModel.Items = this.ApplyListSettings(page, out totalPages);
             }
 
             this.SetViewModelProperties(viewModel, page, totalPages);
@@ -286,9 +315,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// Applies the list settings.
         /// </summary>
         /// <param name="page">The page.</param>
-        /// <param name="query">The items query.</param>
+        /// <param name="totalPages">The total pages.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
-        protected IEnumerable<ItemViewModel> ApplyListSettings(int page, IQueryable<IDataItem> query, out int? totalPages)
+        protected IEnumerable<ItemViewModel> ApplyListSettings(int page, out int? totalPages)
         {
             if (page < 1)
                 throw new ArgumentException("'page' argument has to be at least 1.", "page");
@@ -300,9 +329,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 
             IList<ItemViewModel> result = new List<ItemViewModel>();
 
-            query = this.UpdateExpression(query, itemsToSkip, take, ref totalCount);
+            var query = this.UpdateExpression(itemsToSkip, take, ref totalCount);
 
-            var queryResult = query.ToArray<IDataItem>();
+            var queryResult = query.Cast<IDataItem>().ToArray<IDataItem>();
 
             foreach (var item in queryResult)
             {
@@ -318,18 +347,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <summary>
         /// Updates the expression.
         /// </summary>
-        /// <param name="query">The query.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="take">The take.</param>
         /// <param name="totalCount">The total count.</param>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "3#")]
-        protected IQueryable<IDataItem> UpdateExpression(IQueryable<IDataItem> query, int? skip, int? take, ref int? totalCount)
+        protected IQueryable UpdateExpression(int? skip, int? take, ref int? totalCount)
         {
             var compiledFilterExpression = this.CompileFilterExpression();
 
-            query = this.SetExpression(
-                query,
+            IQueryable query = this.SetExpression(
                 compiledFilterExpression,
                 this.SortExpression,
                 skip,
@@ -342,7 +369,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <summary>
         /// Modifies the given query with the given filter, sort expression and paging.
         /// </summary>
-        /// <param name="query">The query.</param>
         /// <param name="filterExpression">The filter expression.</param>
         /// <param name="sortExpr">The sort expression.</param>
         /// <param name="itemsToSkip">The items to skip.</param>
@@ -350,64 +376,30 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <param name="totalCount">The total count.</param>
         /// <returns>Resulting filtered query.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Expr"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "5#")]
-        protected IQueryable<TItem> SetExpression<TItem>(IQueryable<TItem> query, string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
-            where TItem : IDataItem
+        protected IQueryable SetExpression(string filterExpression, string sortExpr, int? itemsToSkip, int? itemsToTake, ref int? totalCount)
         {
-            if (sortExpr == "AsSetManually")
+            IQueryable query = null;
+
+            try
             {
-                query = DataProviderBase.SetExpressions(
-                                                  query,
-                                                  filterExpression,
-                                                  string.Empty,
-                                                  null,
-                                                  null,
-                                                  ref totalCount);
-
-                query = query.OfType<ILifecycleDataItemGeneric>()
-                    .Select(x => new
-                    {
-                        item = x,
-                        orderIndex = this.selectedItemsIds.IndexOf(x.OriginalContentId.ToString()) >= 0 ?
-                                        this.selectedItemsIds.IndexOf(x.OriginalContentId.ToString()) :
-                                        this.selectedItemsIds.IndexOf(x.Id.ToString())
-                    })
-                    .OrderBy(x => x.orderIndex)
-                    .Select(x => x.item)
-                    .OfType<TItem>();
-
-                if (itemsToSkip.HasValue && itemsToSkip.Value > 0)
-                {
-                    query = query.Skip(itemsToSkip.Value);
-                }
-
-                if (itemsToTake.HasValue && itemsToTake.Value > 0)
-                {
-                    query = query.Take(itemsToTake.Value);
-                }
+                query = this.Manager.Provider.GetItems(
+                                                    this.ContentType,
+                                                    filterExpression,
+                                                    sortExpr,
+                                                    itemsToSkip.Value,
+                                                    itemsToTake.Value,
+                                                    ref totalCount).AsQueryable();
             }
-            else
+            catch (MemberAccessException)
             {
-                try
-                {
-                    query = DataProviderBase.SetExpressions(
-                                                      query,
-                                                      filterExpression,
-                                                      sortExpr,
-                                                      itemsToSkip,
-                                                      itemsToTake,
-                                                      ref totalCount);
-                }
-                catch (MemberAccessException)
-                {
-                    this.SortExpression = DefaultSortExpression;
-                    query = DataProviderBase.SetExpressions(
-                                                      query,
-                                                      filterExpression,
-                                                      this.SortExpression,
-                                                      itemsToSkip,
-                                                      itemsToTake,
-                                                      ref totalCount);
-                }
+                this.SortExpression = DefaultSortExpression;
+                query = this.Manager.Provider.GetItems(
+                                                    this.ContentType,
+                                                    filterExpression,
+                                                    this.SortExpression,
+                                                    itemsToSkip.Value,
+                                                    itemsToTake.Value,
+                                                    ref totalCount).AsQueryable();
             }
 
             return query;
@@ -423,9 +415,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 
             if (this.SelectionMode == SelectionMode.FilteredItems)
             {
-                if (!this.SerializedAdditionalFilters.IsNullOrEmpty())
+                var selectedUsersByRolesFilterExpression = this.GetUsersByRolesFilterExpression();
+                if (!selectedUsersByRolesFilterExpression.IsNullOrEmpty())
                 {
-                    //// TODO: filter by role ids
+                    elements.Add(selectedUsersByRolesFilterExpression);
                 }
             }
             else if (this.SelectionMode == SelectionMode.SelectedItems)
@@ -449,13 +442,40 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         private string GetSelectedItemsFilterExpression()
         {
             var selectedItemGuids = this.selectedItemsIds.Select(id => new Guid(id));
-            //var masterIds = this.GetItemsQuery()
-            //    .OfType<ILifecycleDataItemGeneric>()
-            //    .Where(c => selectedItemGuids.Contains(c.Id) || selectedItemGuids.Contains(c.OriginalContentId))
-            //    .Select(n => n.OriginalContentId != Guid.Empty ? n.OriginalContentId : n.Id)
-            //    .Distinct();
 
-            var selectedItemConditions = selectedItemGuids.Select(id => "Id = {0}".Arrange(id.ToString("D")));
+            List<Guid> userProfilesGuids = new List<Guid>();
+            foreach (var id in selectedItemGuids)
+            {
+                var currentProfile = this.Manager.GetUserProfile(id, this.ContentType.FullName);
+                if (currentProfile != null && !userProfilesGuids.Contains(currentProfile.Id))
+                    userProfilesGuids.Add(currentProfile.Id);
+            }
+
+            var selectedItemConditions = userProfilesGuids.Select(id => "Id = {0}".Arrange(id.ToString("D")));
+            var selectedItemsFilterExpression = string.Join(" OR ", selectedItemConditions);
+
+            return selectedItemsFilterExpression;
+        }
+
+        private string GetUsersByRolesFilterExpression()
+        {
+            List<Telerik.Sitefinity.Security.Model.User> allUsers = new List<Telerik.Sitefinity.Security.Model.User>();
+            foreach (var role in this.selectedRolesFilter)
+            {
+                var roleManager = RoleManager.GetManager(role.ProviderName);
+                var usersInRole = roleManager.GetUsersInRole(role.Id);
+                allUsers.AddRange(usersInRole);
+            }
+
+            List<Guid> userProfilesGuids = new List<Guid>();
+            foreach (var user in allUsers)
+            {
+                var currentProfile = this.Manager.GetUserProfile(user, this.ContentType);
+                if (currentProfile != null && !userProfilesGuids.Contains(currentProfile.Id))
+                    userProfilesGuids.Add(currentProfile.Id);
+            }
+
+            var selectedItemConditions = userProfilesGuids.Select(id => "Id = {0}".Arrange(id.ToString("D")));
             var selectedItemsFilterExpression = string.Join(" OR ", selectedItemConditions);
 
             return selectedItemsFilterExpression;
@@ -464,13 +484,26 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 
         #region Private fields and constants
 
-        private const string DefaultSortExpression = "UserName DESC";
+        private const string DefaultSortExpression = "";
 
+        private UserProfileManager manager;
+        private string providerName;
         private int? itemsPerPage = 20;
         private string sortExpression = DefaultSortExpression;
         private string serializedSelectedItemsIds;
+        private string serializedAdditionalFilters;
         private IList<string> selectedItemsIds = new List<string>();
+        private IList<Role> selectedRolesFilter = new List<Role>();
 
         #endregion
+
+        private class Role
+        {
+            public Guid Id { get; set; }
+
+            public string Name { get; set; }
+
+            public string ProviderName { get; set; }
+        }
     }
 }

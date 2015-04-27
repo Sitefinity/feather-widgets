@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript;
+using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets
 {
@@ -14,6 +15,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets
         public override void Load()
         {
             Bind<IJavaScriptModel>().To<JavaScriptModel>();
+            Bind<IStyleSheetModel>().To<StyleSheetModel>();
         }
     }
 }
