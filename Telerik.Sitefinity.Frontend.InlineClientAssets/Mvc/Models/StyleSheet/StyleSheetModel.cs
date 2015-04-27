@@ -14,5 +14,8 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
 
         /// <inheritDocs/>
         public string MediaType { get; set; }
+
+        /// <inheritDocs/>
+        public ResourceMode Mode { get; set; }
     }
 }

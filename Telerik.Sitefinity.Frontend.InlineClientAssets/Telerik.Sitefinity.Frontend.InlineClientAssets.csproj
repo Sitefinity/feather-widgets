@@ -83,6 +83,7 @@
     <Compile Include="Mvc\Models\JavaScript\JavaScriptViewModel.cs" />
     <Compile Include="Mvc\Models\EmbedPosition.cs" />
     <Compile Include="Mvc\Models\StyleSheet\IStyleSheetModel.cs" />
+    <Compile Include="Mvc\Models\StyleSheet\ResourceMode.cs" />
     <Compile Include="Mvc\Models\StyleSheet\StyleSheetModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

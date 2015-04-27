@@ -20,5 +20,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// Gets or sets the media type.
         /// </summary>
         string MediaType { get; set; }
+
+        /// <summary>
+        /// Gets or sets how the css will be referenced.
+        /// </summary>
+        ResourceMode Mode { get; set; }
     }
 }
