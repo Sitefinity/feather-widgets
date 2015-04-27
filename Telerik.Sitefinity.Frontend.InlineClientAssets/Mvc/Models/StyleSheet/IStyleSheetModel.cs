@@ -6,5 +6,19 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
     /// </summary>
     public class IStyleSheetModel
     {
+        /// <summary>
+        /// Custom CSS code for linking style sheets
+        /// </summary>
+        string CustomCssCode { get; set; }
+
+        /// <summary>
+        /// Description of the CSS resource.
+        /// </summary>
+        string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the media type.
+        /// </summary>
+        string MediaType { get; set; }
     }
 }
