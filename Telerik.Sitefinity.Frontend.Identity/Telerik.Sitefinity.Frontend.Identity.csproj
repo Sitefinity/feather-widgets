@@ -219,7 +219,7 @@
     <EmbeddedResource Include="Mvc\Views\Profile\Read.ProfilePreview.cshtml" />
     <EmbeddedResource Include="Mvc\Views\UsersList\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\UsersList\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\UsersList\Detail.DetailPage.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\UsersList\Detail.UserDetails.cshtml" />
     <EmbeddedResource Include="Mvc\Views\UsersList\List.UsersList.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

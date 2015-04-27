@@ -77,16 +77,22 @@
   <ItemGroup>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\JavaScriptController.cs" />
+    <Compile Include="Mvc\Controllers\StyleSheetController.cs" />
     <Compile Include="Mvc\Models\JavaScript\IJavaScriptModel.cs" />
     <Compile Include="Mvc\Models\JavaScript\JavaScriptModel.cs" />
     <Compile Include="Mvc\Models\JavaScript\JavaScriptViewModel.cs" />
     <Compile Include="Mvc\Models\EmbedPosition.cs" />
+    <Compile Include="Mvc\Models\StyleSheet\IStyleSheetModel.cs" />
+    <Compile Include="Mvc\Models\StyleSheet\StyleSheetModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mvc\Views\" />
+    <EmbeddedResource Include="Mvc\Scripts\StyleSheet\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Mvc\Views\StyleSheet\Index.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\StyleSheet\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\StyleSheet\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
