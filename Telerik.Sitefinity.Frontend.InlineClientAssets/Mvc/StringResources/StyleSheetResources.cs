@@ -94,6 +94,95 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
             }
         }
 
+        /// Gets phrase : Write CSS
+        /// </summary>
+        [ResourceEntry("WriteCss",
+            Value = "Write CSS",
+            Description = "phrase : Write CSS",
+            LastModified = "2015/04/27")]
+        public string WriteCss
+        {
+            get
+            {
+                return this["WriteCss"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Link to CSS file
+        /// </summary>
+        [ResourceEntry("LinkToCssFile",
+            Value = "Link to CSS file",
+            Description = "phrase : Link to CSS file",
+            LastModified = "2015/04/27")]
+        public string LinkToCssFile
+        {
+            get
+            {
+                return this["LinkToCssFile"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Media
+        /// </summary>
+        [ResourceEntry("Media",
+            Value = "Media",
+            Description = "phrase : Media",
+            LastModified = "2015/04/27")]
+        public string Media
+        {
+            get
+            {
+                return this["Media"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : All
+        /// </summary>
+        [ResourceEntry("All",
+            Value = "All",
+            Description = "phrase : All",
+            LastModified = "2015/04/27")]
+        public string All
+        {
+            get
+            {
+                return this["All"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Select media types...
+        /// </summary>
+        [ResourceEntry("SelectedMediaTypes",
+            Value = "Select media types...",
+            Description = "phrase : Select media types...",
+            LastModified = "2015/04/27")]
+        public string SelectedMediaTypes
+        {
+            get
+            {
+                return this["AllSelectedMediaTypes"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Description
+        /// </summary>
+        [ResourceEntry("Description",
+            Value = "Description",
+            Description = "phrase : Description",
+            LastModified = "2015/04/27")]
+        public string Description
+        {
+            get
+            {
+                return this["Description"];
+            }
+        }
+
         #endregion
     }
 }
