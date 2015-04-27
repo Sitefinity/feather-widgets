@@ -6,6 +6,8 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
     /// </summary>
     public class StyleSheetModel : IStyleSheetModel
     {
+        #region Properties
+
         /// <inheritDocs/>
         public string InlineStyles { get; set; }
 
@@ -20,5 +22,40 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
 
         /// <inheritDocs/>
         public ResourceMode Mode { get; set; }
+
+        /// <inheritDocs/>
+        public virtual string GetMarkup()
+        {
+            string markup;
+
+            if (this.Mode == ResourceMode.Inline)
+            {
+                markup = this.GetInlineMarkup();
+            }
+            else
+            {
+                markup = string.Empty;
+            }
+
+            return markup;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Gets the markup for inline CSS.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string GetInlineMarkup()
+        {
+            var markup = string.Empty;
+            if (!string.IsNullOrEmpty(this.InlineStyles))
+            {
+                markup = string.Format(@"<style type=""text/css"">{0}</style>",
+                                      this.InlineStyles);
+            }
+
+            return markup;
+        }
     }
 }

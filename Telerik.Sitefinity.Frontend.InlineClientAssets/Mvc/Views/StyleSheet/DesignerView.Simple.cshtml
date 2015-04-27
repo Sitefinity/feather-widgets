@@ -1,7 +1,5 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-@Html.CodeMirrorScriptReferences()
-
 <div class="form-group nav-wrapper">
     <label class="radio-inline">
         <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="Inline" />
@@ -25,6 +23,24 @@
         <label>
             <p>@Html.Resource("Url")</p>
             <input type="text" ng-model="properties.ResourceUrl.PropertyValue" />
+        </label>
+    </div>
+</div>
+
+<label>@Html.Resource("Media")</label>
+<div class="form-group">
+    <div class="radio">
+        <label class="full-width">
+            <input type="radio" ng-model="properties.MediaType.PropertyValue" value="All" />
+
+            @Html.Resource("All")
+        </label>
+    </div>
+    <div class="radio">
+        <label class="full-width">
+            <input type="radio" ng-model="properties.MediaType.PropertyValue" value="Selected" />
+
+            @Html.Resource("SelectedMediaTypes")
         </label>
     </div>
 </div>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Telerik.Sitefinity.Localization;
+﻿using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Data;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
@@ -80,6 +76,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
             get
             {
                 return this["MoreOptions"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word: URL
+        /// </summary>
+        [ResourceEntry("Url",
+            Value = "URL",
+            Description = "word : URL",
+            LastModified = "2015/04/27")]
+        public string Url
+        {
+            get
+            {
+                return this["Url"];
             }
         }
 
