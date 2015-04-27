@@ -1,26 +1,30 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <div class="form-group nav-wrapper">
-	<label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Inline'" />
+    <label class="radio-inline">
+        <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Inline'" />
         @Html.Resource("WriteCss")
-	</label>
+    </label>
 
-	<label class="radio-inline">
-		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Reference'" />
+    <label class="radio-inline">
+        <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Reference'" />
         @Html.Resource("LinkToCssFile")
-	</label>
+    </label>
 </div>
 
 <!-- Write CSS -->
 <div ng-show="properties.Mode.PropertyValue=='Inline'">
     <textarea cssArea ng-model="properties.InlineStyles.PropertyValue"></textarea>
-
 </div>
 
 <!-- Link to Css file -->
 <div ng-show="properties.Mode.PropertyValue=='Reference'">
-	
+    <div class="form-group">
+        <label>
+            <p>@Html.Resource("Url")</p>
+            <input type="text" ng-model="properties.ResourceUrl.PropertyValue" />
+        </label>
+    </div>
 </div>
 
 <label>@Html.Resource("Media")</label>

@@ -12,6 +12,11 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         string InlineStyles { get; set; }
 
         /// <summary>
+        /// Gets or sets the URL to the StyleSheet.
+        /// </summary>
+        string ResourceUrl { get; set; }
+
+        /// <summary>
         /// Description of the CSS resource.
         /// </summary>
         string Description { get; set; }

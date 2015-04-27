@@ -60,7 +60,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             if (page != null && page.Header !=null)
             {
                 var cssMarkup = this.Model.GetMarkup();
-                page.Header.Controls.Add(new LiteralControl(cssMarkup));
+                if (!string.IsNullOrEmpty(cssMarkup))
+                {
+                    page.Header.Controls.Add(new LiteralControl(cssMarkup));
+                }
             }
         }
 
