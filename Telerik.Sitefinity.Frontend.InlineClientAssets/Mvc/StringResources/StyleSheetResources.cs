@@ -11,14 +11,14 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
     {
         #region Construction
         /// <summary>
-        /// Initializes new instance of <see cref="DocumentResources"/> class with the default <see cref="ResourceDataProvider"/>.
+        /// Initializes new instance of <see cref="StyleSheetResources"/> class with the default <see cref="ResourceDataProvider"/>.
         /// </summary>
         public StyleSheetResources()
         {
         }
 
         /// <summary>
-        /// Initializes new instance of <see cref="DocumentResources"/> class with the provided <see cref="ResourceDataProvider"/>.
+        /// Initializes new instance of <see cref="StyleSheetResources"/> class with the provided <see cref="ResourceDataProvider"/>.
         /// </summary>
         /// <param name="dataProvider"><see cref="ResourceDataProvider"/></param>
         public StyleSheetResources(ResourceDataProvider dataProvider)

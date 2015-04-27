@@ -40,6 +40,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
         #region Actions
 
+        /// <summary>
+        /// Handles CSS referencing on the page.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             this.AddCssInHead();
@@ -53,7 +57,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         private void AddCssInHead()
         {
             var page = this.HttpContext.CurrentHandler as Page;
-            if (page != null)
+            if (page != null && page.Header !=null)
             {
                 var cssMarkup = this.Model.GetMarkup();
                 if (!string.IsNullOrEmpty(cssMarkup))
@@ -68,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         #region Private fields and constants
 
         private IStyleSheetModel model;
-        private const string WidgetIconCssClass = "sfLinkedFileViewIcn";
+        private const string WidgetIconCssClass = "sfLinkedFileViewIcn sfMvcIcn";
 
         #endregion
     }

@@ -1,6 +1,8 @@
 ﻿
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Web;
+
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
 {
     /// <summary>
@@ -54,7 +56,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
             if (!string.IsNullOrEmpty(this.InlineStyles))
             {
                 markup = string.Format(@"<style type=""text/css"">{0}</style>",
-                                      this.InlineStyles);
+                                      HttpContext.Current.Server.HtmlEncode(this.InlineStyles));
             }
             else
             {
