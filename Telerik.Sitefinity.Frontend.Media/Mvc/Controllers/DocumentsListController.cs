@@ -309,7 +309,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfDownloadListIcn";
+        internal const string WidgetIconCssClass = "sfDownloadListIcn sfMvcIcn";
         private IDocumentsListModel model;
         private string listTemplateName = "DocumentsList";
         private string detailTemplateName = "DocumentDetails";

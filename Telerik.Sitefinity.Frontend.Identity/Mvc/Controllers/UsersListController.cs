@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Users list widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "UsersList", Title = "Users list", SectionName = "MvcWidgets")]
+    [ControllerToolboxItem(Name = "UsersList", Title = "Users list", SectionName = "MvcWidgets", CssClass=UsersListController.WidgetIconCssClass)]
     [Localization(typeof(UsersListResources))]
     public class UsersListController :  Controller
     {
@@ -163,6 +163,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #endregion
 
         #region Private fields and constants
+
+        internal const string WidgetIconCssClass = "sfMvcIcn";
 
         private IUsersListModel model;
         private string listTemplateName = "UsersList";
