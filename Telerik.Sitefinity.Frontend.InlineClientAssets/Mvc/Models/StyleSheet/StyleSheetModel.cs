@@ -1,4 +1,6 @@
 ﻿
+using System.Web.Mvc;
+using Telerik.Sitefinity.Web;
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
 {
     /// <summary>
@@ -34,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
             }
             else
             {
-                markup = string.Empty;
+                markup = this.GetReferenceMarkup();
             }
 
             return markup;
@@ -45,17 +47,40 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// <summary>
         /// Gets the markup for inline CSS.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>HTML markup for inline CSS.</returns>
         protected virtual string GetInlineMarkup()
         {
-            var markup = string.Empty;
+            string markup;
             if (!string.IsNullOrEmpty(this.InlineStyles))
             {
                 markup = string.Format(@"<style type=""text/css"">{0}</style>",
                                       this.InlineStyles);
             }
+            else
+            {
+                markup = null;
+            }
 
             return markup;
+        }
+
+        /// <summary>
+        /// Gets the reference markup.
+        /// </summary>
+        /// <returns>HTML markup for referenced CSS.</returns>
+        protected virtual string GetReferenceMarkup()
+        {
+            if (this.ResourceUrl == null)
+                return null;
+
+            var url = this.ResourceUrl.StartsWith("/") ? RouteHelper.ResolveUrl("~" + this.ResourceUrl, UrlResolveOptions.Rooted) : this.ResourceUrl;
+
+            var tag = new TagBuilder("link");
+            tag.Attributes["href"] = url;
+            tag.Attributes["rel"] = "stylesheet";
+            tag.Attributes["type"] = "text/css";
+
+            return tag.ToString(TagRenderMode.SelfClosing);
         }
     }
 }
