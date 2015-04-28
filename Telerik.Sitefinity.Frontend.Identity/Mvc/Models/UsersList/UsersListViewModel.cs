@@ -36,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <value>
         /// The items.
         /// </value>
-        public IEnumerable<ItemViewModel> Items { get; set; }
+        public IEnumerable<SitefinityProfileItemViewModel> Items { get; set; }
 
         /// <summary>
         /// Gets or sets the total pages count.
