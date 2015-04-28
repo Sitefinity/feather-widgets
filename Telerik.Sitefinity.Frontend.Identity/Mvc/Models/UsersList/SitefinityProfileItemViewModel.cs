@@ -12,13 +12,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
     /// </summary>
     public class SitefinityProfileItemViewModel : ItemViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SitefinityProfileItemViewModel" /> class.
+        /// </summary>
+        /// <param name="dataItem">The data item.</param>
         public SitefinityProfileItemViewModel(IDataItem dataItem)
             : base(dataItem)
         {
             var sfProfile = dataItem as SitefinityProfile;
             if (sfProfile == null)
             {
-                throw new ArgumentNullException("dataItem is not a user object");
+                throw new ArgumentNullException("dataItem is not a SitefinityProfile object");
             }
 
             var displayNameBuilder = new SitefinityUserDisplayNameBuilder();
