@@ -31,10 +31,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             {
                 return typeof(SitefinityProfile);
             }
-
-            set
-            {
-            }
         }
 
         /// <summary>
@@ -78,14 +74,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// The CSS class.
         /// </value>
         public string DetailCssClass { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to enable social sharing.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
-        /// </value>
-        public bool EnableSocialSharing { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the provider.
@@ -238,11 +226,32 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             viewModel.Item = this.CreateItemViewModelInstance(item);
             viewModel.ContentType = this.ContentType;
             viewModel.ProviderName = this.ProviderName;
-            viewModel.EnableSocialSharing = this.EnableSocialSharing;
-
+            
             return viewModel;
         }
 
+        /// <inheritDoc/>
+        public IEnumerable<CacheDependencyKey> GetKeysOfDependentObjects(UsersListViewModel viewModel)
+        {
+            var contentResolvedType = this.ContentType;
+            var result = new List<CacheDependencyKey>(1);
+            result.Add(new CacheDependencyKey { Key = contentResolvedType.FullName, Type = contentResolvedType });
+            
+            return result;
+        }
+
+        /// <inheritDoc/>
+        public IEnumerable<CacheDependencyKey> GetKeysOfDependentObjects(UserDetailsViewModel viewModel)
+        {
+            var contentResolvedType = this.ContentType;
+            var result = new List<CacheDependencyKey>(1);
+            if (viewModel.Item != null && viewModel.Item.Fields.Id != Guid.Empty)
+            {
+                result.Add(new CacheDependencyKey { Key = viewModel.Item.Fields.Id.ToString(), Type = contentResolvedType });
+            }
+
+            return result;
+        }
         #endregion
 
         #region Protected methods
