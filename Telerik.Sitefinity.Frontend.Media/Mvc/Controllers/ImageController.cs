@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
@@ -22,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Image widget.
     /// </summary>
     [Localization(typeof(ImageResources))]
-    [ControllerToolboxItem(Name = "Image", Title = "Image", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = ImageController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "Image_MVC", Title = "Image", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageController.WidgetIconCssClass)]
     public class ImageController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
@@ -223,7 +224,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfImageViewIcn";
+        internal const string WidgetIconCssClass = "sfImageViewIcn sfMvcIcn";
         private string templateName = "Image";
         private IImageModel model;
         private bool? disableCanonicalUrlMetaTag;

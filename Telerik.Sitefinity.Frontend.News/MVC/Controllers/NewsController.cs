@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.News.Mvc.Models;
 using Telerik.Sitefinity.Frontend.News.Mvc.StringResources;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Services;
@@ -17,7 +18,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of News widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "News", Title = "News", SectionName = "MvcWidgets", ModuleName = "News", CssClass = "sfNewsViewIcn sfMvcWidget")]
+    [ControllerToolboxItem(Name = "News_MVC", Title = "News", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "News", CssClass = NewsController.WidgetIconCssClass)]
     [Localization(typeof(NewsWidgetResources))]
     public class NewsController : Controller, IContentLocatableView
     {
@@ -217,6 +218,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
 
         #region Private fields and constants
 
+        internal const string WidgetIconCssClass = "sfNewsViewIcn sfMvcIcn";
         private INewsModel model;
         private string listTemplateName = "NewsList";
         private string listTemplateNamePrefix = "List.";

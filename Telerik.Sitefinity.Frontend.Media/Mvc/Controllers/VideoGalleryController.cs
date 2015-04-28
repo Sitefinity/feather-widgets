@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -23,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents controller for the Video Gallery widget.
     /// </summary>
     [Localization(typeof(VideoGalleryResources))]
-    [ControllerToolboxItem(Name = "VideoGallery", Title = "Video gallery", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = VideoGalleryController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "VideoGallery_MVC", Title = "Video gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = VideoGalleryController.WidgetIconCssClass)]
     public class VideoGalleryController : Controller, IContentLocatableView, IRouteMapper
     {
         #region Properties
@@ -368,7 +369,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfVideoListIcn";
+        internal const string WidgetIconCssClass = "sfVideoListIcn sfMvcIcn";
 
         private IVideoGalleryModel model;
 

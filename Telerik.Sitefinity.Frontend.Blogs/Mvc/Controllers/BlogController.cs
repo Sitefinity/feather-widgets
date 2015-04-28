@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.Blog;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 
@@ -18,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// This class represents the controller of the Blog widget.
     /// </summary>
     [Localization(typeof(BlogListResources))]
-    [ControllerToolboxItem(Name = "Blog", Title = "Blogs", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "Blog_MVC", Title = "Blogs", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Blogs", CssClass = BlogController.WidgetIconCssClass)]
     public class BlogController: Controller
     {
         #region Properties
@@ -162,7 +163,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfBlogsListViewIcn";
+        internal const string WidgetIconCssClass = "sfBlogsListViewIcn sfMvcIcn";
         private IBlogModel model;
 
         private string listTemplateName = "BlogList";

@@ -13,10 +13,18 @@
         @foreach (var item in Model.Items)
         {
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
-                <h3>
-                    <a @Html.InlineEditingFieldAttributes("UserName", "ShortText")>@item.Fields.UserName</a>
-                </h3>
+                <div>
+                    <img src="@item.AvatarImageUrl" alt="@item.Fields.FirstName" width="150" height="150" />
 
+                    <h3>
+                        <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)"
+                           @Html.InlineEditingFieldAttributes("FirstName", "ShortText")>@item.Fields.FirstName</a>
+                    </h3>
+
+                    <p>
+                        @item.About
+                    </p>
+                </div>
             </li>
         }
     </ul>

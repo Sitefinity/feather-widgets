@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
@@ -22,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Documents list widget.
     /// </summary>
     [Localization(typeof(DocumentsListResources))]
-    [ControllerToolboxItem(Name = "DocumentsList", Title = "Documents list", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = DocumentsListController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "DocumentsList_MVC", Title = "Documents list", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = DocumentsListController.WidgetIconCssClass)]
     public class DocumentsListController : Controller, IRouteMapper, IContentLocatableView
     {
         #region Properties
@@ -309,7 +310,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfDownloadListIcn";
+        internal const string WidgetIconCssClass = "sfDownloadListIcn sfMvcIcn";
         private IDocumentsListModel model;
         private string listTemplateName = "DocumentsList";
         private string detailTemplateName = "DocumentDetails";

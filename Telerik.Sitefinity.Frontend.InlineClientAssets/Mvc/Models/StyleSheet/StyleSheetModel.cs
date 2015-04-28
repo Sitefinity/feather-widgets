@@ -22,7 +22,17 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         public string Description { get; set; }
 
         /// <inheritDocs/>
-        public string MediaType { get; set; }
+        public string MediaType
+        {
+            get
+            {
+                return this.mediaType;
+            }
+            set
+            {
+                this.mediaType = value;
+            }
+        }
 
         /// <inheritDocs/>
         public ResourceMode Mode { get; set; }
@@ -55,8 +65,8 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
             string markup;
             if (!string.IsNullOrEmpty(this.InlineStyles))
             {
-                markup = string.Format(@"<style type=""text/css"">{0}</style>",
-                                      HttpContext.Current.Server.HtmlEncode(this.InlineStyles));
+                markup = string.Format(@"<style type=""text/css"" media=""{1}"">{0}</style>",
+                                      HttpUtility.HtmlEncode(this.InlineStyles), HttpUtility.HtmlEncode(this.MediaType));
             }
             else
             {
@@ -81,8 +91,11 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
             tag.Attributes["href"] = url;
             tag.Attributes["rel"] = "stylesheet";
             tag.Attributes["type"] = "text/css";
+            tag.Attributes["media"] = this.MediaType;
 
             return tag.ToString(TagRenderMode.SelfClosing);
         }
+
+        private string mediaType = "all";
     }
 }

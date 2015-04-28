@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
     /// <summary>
     /// Represents the Controller of the Search results widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SearchResults", Title = "Search results", SectionName = "MvcWidgets", ModuleName = "Search", CssClass = "sfSearchResultIcn")]
+    [ControllerToolboxItem(Name = "SearchResults_MVC", Title = "Search results", SectionName = "Search", ModuleName = "Search", CssClass = SearchResultsController.WidgetIconCssClass)]
     [Localization(typeof(SearchWidgetsResources))]
     public class SearchResultsController : Controller
     {
@@ -168,10 +168,10 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
         #endregion
 
         #region Private fields and constants
+        internal const string WidgetIconCssClass = "sfSearchResultIcn sfMvcIcn";
         private ISearchResultsModel model;
         private string templateName = "SearchResults";
         private const string ValidationErrorViewName = "InputValidationError";
         #endregion
-
     }
 }

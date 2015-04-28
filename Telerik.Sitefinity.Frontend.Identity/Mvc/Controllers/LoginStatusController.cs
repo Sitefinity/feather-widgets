@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// This class represents the controller of the Login Status widget.
     /// </summary>
     [Localization(typeof(LoginStatusResources))]
-    [ControllerToolboxItem(Name = "LoginStatusMVC", Title = "Login / Logout button", SectionName = "MvcWidgets", CssClass = "sfLoginNameIcn")]
+    [ControllerToolboxItem(Name = "LoginStatus_MVC", Title = "Login / Logout button", SectionName = "Login", CssClass = LoginStatusController.WidgetIconCssClass)]
     public class LoginStatusController : Controller
     {
         #region Properties
@@ -123,6 +123,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #endregion
 
         #region Private fields and constants
+
+        internal const string WidgetIconCssClass = "sfLoginNameIcn sfMvcIcn";
 
         private string templateName = "LoginButton";
         private ILoginStatusModel model;
