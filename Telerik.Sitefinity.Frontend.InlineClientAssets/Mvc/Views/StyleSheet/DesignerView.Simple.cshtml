@@ -1,5 +1,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
+@Html.CodeMirrorScriptReferences()
+
 <div class="form-group nav-wrapper">
 	<label class="radio-inline">
 		<input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Inline'" />
@@ -14,7 +16,7 @@
 
 <!-- Write CSS -->
 <div ng-show="properties.Mode.PropertyValue=='Inline'">
-    <textarea cssArea ng-model="properties.InlineStyles.PropertyValue"></textarea>
+    <sf-code-area sf-type="css" sf-tab-mode="classic" sf-line-numbers="true" sf-match-brackets="true" sf-model="properties.InlineStyles.PropertyValue" placeholder="@Html.Resource("StartWritingCss")"></sf-code-area>
 
 </div>
 

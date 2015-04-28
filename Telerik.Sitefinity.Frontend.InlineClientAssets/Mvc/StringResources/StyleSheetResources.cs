@@ -173,6 +173,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Start writing CSS rules directly
+        /// </summary>
+        [ResourceEntry("StartWritingCss",
+            Value = "Start writing CSS rules directly",
+            Description = "phrase : Start writing CSS rules directly",
+            LastModified = "2015/04/27")]
+        public string StartWritingCss
+        {
+            get
+            {
+                return this["StartWritingCss"];
+            }
+        }
+
         #endregion
     }
 }
