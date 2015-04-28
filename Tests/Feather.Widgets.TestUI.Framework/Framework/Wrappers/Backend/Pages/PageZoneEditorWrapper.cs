@@ -48,20 +48,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <returns>The Mvc widget div element.</returns>
         public HtmlDiv GetMvcWidget(string mvcWidgetName)
         {
-            var siblingWidgetLabel = "Login / Logout button";
-
             ActiveBrowser.RefreshDomTree();
             RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("ControlToolboxContainer");
             foreach (var item in toolbox.AllItems)
             {
                 var dockZone = item.Find.ByCustom<RadDockZone>(zone => zone.CssClass.Contains("RadDockZone"));
-                var contentBlockWidgetLabel = dockZone.Find.ByContent(siblingWidgetLabel);
-                if (contentBlockWidgetLabel != null)
+                var mvcWidgetLabel = dockZone.Find.ByExpression("class=~sfMvcIcn", "InnerText=" + mvcWidgetName);
+                if (mvcWidgetLabel != null)
                 {
                     if (!item.Expanded)
                         item.Expand();
 
-                    var mvcWidgetLabel = dockZone.Find.ByContent(mvcWidgetName);
                     return new HtmlDiv(mvcWidgetLabel.Parent);
                 }
             }

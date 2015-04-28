@@ -2,11 +2,12 @@
 <TestSettings name="UITestCasesRemote" id="a38b8bb3-bace-4a57-8cdb-1968dece9c64" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Description>These are default test settings for a local test run.</Description>
   <Deployment>
-    <DeploymentItem filename="Telerik.Sitefinity.DataIntelligenceConnector.TestUI.TestCases\app.config" />
-    <DeploymentItem filename="SetupScripts\" />
+	<DeploymentItem filename="app.config" />
+    <DeploymentItem filename="MediaFiles\" />
+    <DeploymentItem filename="..\..\SetupScripts\" />
   </Deployment>
   <NamingScheme baseName="TestExecution@Sitefinity_UITestCases" useDefault="false" />
-  <Scripts setupScript=".\SetupScripts\Setup.bat" cleanupScript=".\SetupScripts\Cleanup.bat" />
+  <Scripts setupScript=".\FeatherWidgets\SetupScripts\Setup.bat" cleanupScript=".\FeatherWidgets\SetupScripts\Cleanup.bat" />
   <RemoteController name="FEATHER-CI" />
   <Execution location="Remote">
     <Buckets size="1" />
