@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.Controllers
     /// <summary>
     /// Represents the Controller of the Search results widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "SearchResults", Title = "Search results", SectionName = "MvcWidgets", ModuleName = "Search", CssClass = SearchResultsController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "SearchResults_MVC", Title = "Search results", SectionName = "Search", ModuleName = "Search", CssClass = SearchResultsController.WidgetIconCssClass)]
     [Localization(typeof(SearchWidgetsResources))]
     public class SearchResultsController : Controller
     {

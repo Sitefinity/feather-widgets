@@ -202,6 +202,101 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Start writing CSS rules directly
+        /// </summary>
+        [ResourceEntry("StartWritingCss",
+            Value = "Start writing CSS rules directly",
+            Description = "phrase : Start writing CSS rules directly",
+            LastModified = "2015/04/27")]
+        public string StartWritingCss
+        {
+            get
+            {
+                return this["StartWritingCss"];
+            }
+        }
+
+        /// <summary>
+        /// word: Tips
+        /// </summary>
+        /// <value>Tips</value>
+        [ResourceEntry("Tips",
+            Value = "Tips",
+            Description = "word: Tips",
+            LastModified = "2015/04/28")]
+        public string Tips
+        {
+            get
+            {
+                return this["Tips"];
+            }
+        }
+
+        /// <summary>
+        /// CssAreaDescription
+        /// </summary>
+        /// <value>CSS written here will be included in the HTML <head> tag.</value>
+        [ResourceEntry("CssAreaDescription",
+            Value = "CSS written here will be included in the HTML &lt;head&gt; tag.",
+            Description = "Description for the css area field.",
+            LastModified = "2015/04/28")]
+        public string CssAreaDescription
+        {
+            get
+            {
+                return this["CssAreaDescription"];
+            }
+        }
+
+        /// <summary>
+        /// DoNotAddStyleTag
+        /// </summary>
+        /// <value>Do not add <style> tag, it will be added automatically. Start writing CSS rules directly.</value>
+        [ResourceEntry("DoNotAddStyleTag",
+            Value = "Do not add &lt;style&gt; tag, it will be added automatically. Start writing CSS rules directly.",
+            Description = "Description for the css area field.",
+            LastModified = "2015/04/28")]
+        public string DoNotAddStyleTag
+        {
+            get
+            {
+                return this["DoNotAddStyleTag"];
+            }
+        }
+
+        /// <summary>
+        /// word: Example
+        /// </summary>
+        /// <value>Example</value>
+        [ResourceEntry("Example",
+            Value = "Example",
+            Description = "word: Example",
+            LastModified = "2015/04/28")]
+        public string Example
+        {
+            get
+            {
+                return this["Example"];
+            }
+        }
+
+        /// <summary>
+        /// Css code example
+        /// </summary>
+        /// <value><code>body {<br/>background: #fff;<br/>font-size: 12px;<br/>}</code></value>
+        [ResourceEntry("CssCodeExample",
+            Value = "<code>body {<br/>background: #fff;<br/>font-size: 12px;<br/>}</code>",
+            Description = "word: Example",
+            LastModified = "2015/04/28")]
+        public string CssCodeExample
+        {
+            get
+            {
+                return this["CssCodeExample"];
+            }
+        }
+
         #endregion
     }
 }

@@ -1,5 +1,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
+@Html.CodeMirrorScriptReferences()
+
 <div class="form-group nav-wrapper">
     <label class="radio-inline">
         <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Inline'" />
@@ -14,7 +16,29 @@
 
 <!-- Write CSS -->
 <div ng-show="properties.Mode.PropertyValue=='Inline'">
-    <textarea cssArea ng-model="properties.InlineStyles.PropertyValue"></textarea>
+    <textarea sf-code-area sf-type="css" sf-tab-mode="classic" sf-line-numbers="true" sf-match-brackets="true" ng-model="properties.InlineStyles.PropertyValue" placeholder="@Html.Resource("StartWritingCss")"></textarea>
+    <a href=""
+                    sf-popover-html=""
+                    sf-popover-placement="bottom"
+                    sf-popover-trigger="focus"
+                    sf-popover-content="
+      <div>
+        <div class='small m-bottom-sm'>
+          <p>
+              @Html.Resource("CssAreaDescription")<br/>
+              @Html.Resource("DoNotAddStyleTag")
+          </p>
+          <p>
+              <strong>@Html.Resource("Example")</strong><br/>
+              @Html.Resource("CssCodeExample")
+          </p>
+        </div>
+      </div>
+      "
+      sf-popover-title="@Html.Resource("Tips")"
+        >
+        @Html.Resource("Tips")
+    </a>
 </div>
 
 <!-- Link to Css file -->

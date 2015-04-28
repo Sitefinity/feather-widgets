@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Blogs;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -22,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
     /// This class represents the controller of the Blog post widget.
     /// </summary>
     [Localization(typeof(BlogPostResources))]
-    [ControllerToolboxItem(Name = "BlogPost", Title = "Blog posts", SectionName = "MvcWidgets", ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "BlogPost_MVC", Title = "Blog posts", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Blogs", CssClass = BlogPostController.WidgetIconCssClass)]
     public class BlogPostController : Controller, IContentLocatableView, IRouteMapper
     {
         #region Properties
