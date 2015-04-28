@@ -9,8 +9,6 @@ $variables = Join-Path $currentPath "\Variables.ps1"
 
 write-output "------- Installing Sitefinity --------"
 
-EnsureDBDeleted $databaseServer $databaseName
-
 DeleteAllSitesWithSameBinding $defaultWebsitePort
 
 write-output "Setting up Application pool..."
@@ -32,15 +30,9 @@ if (Test-Path $defaultWebsiteRootDirectory){
 
 write-output "Sitefinity deploying from $projectLocationShare..."
 
-Copy-Item -Path Microsoft.PowerShell.Core\FileSystem::$projectLocationShare $projectDeploymentDirectory -Recurse -ErrorAction stop
+Copy-Item "\\feather-ci\c$\Tests\SitefinityWebApp" $projectDeploymentDirectory -Recurse -ErrorAction stop
 
 write-output "Sitefinity successfully deployed."
-
-function CopyTestAssemblies($workingDirectory, $destinationDirectory)
-{
-   write-output "Start copying test assemblies from $workingDirectory to $destinationDirectory."
-   Get-ChildItem *Test*.dll -recurse  -path $workingDirectory | Copy-Item -destination $destinationDirectory
-}
 
 function InstallSitefinity()
 {
