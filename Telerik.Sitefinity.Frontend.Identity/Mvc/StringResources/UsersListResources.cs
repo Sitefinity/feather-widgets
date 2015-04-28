@@ -583,5 +583,20 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["TheSelectedTemplateCannotBeUsed"];
             }
         }
+
+        /// <summary>
+        /// phrase: Which profile type to use?
+        /// </summary>
+        [ResourceEntry("SelectProfileType",
+            Value = "Which profile type to use?",
+            Description = "phrase: Which profile type to use?",
+            LastModified = "2015/05/04")]
+        public string SelectProfileType
+        {
+            get
+            {
+                return this["SelectProfileType"];
+            }
+        }
     }
 }
