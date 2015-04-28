@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -23,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents controller for the Image Gallery widget.
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
-    [ControllerToolboxItem(Name = "ImageGallery", Title = "Image gallery", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = ImageGalleryController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "ImageGallery_MVC", Title = "Image gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageGalleryController.WidgetIconCssClass)]
     public class ImageGalleryController : Controller, IContentLocatableView, IRouteMapper
     {
         #region Properties

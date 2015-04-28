@@ -1,0 +1,38 @@
+﻿@model Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript.JavaScriptViewModel
+
+@using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Services;
+
+@if (Model.Position == EmbedPosition.InPlace)
+{
+    @Html.Raw(Model.JavaScriptCode)
+}
+
+@if (SystemManager.IsDesignMode)
+{   
+    if (string.IsNullOrEmpty(Model.Description))
+    {
+        @Model.CodeSummary
+        <br />
+        
+        switch (Model.Position)
+        {
+            case EmbedPosition.Head:
+                @Html.Resource("IncludedInTheHead")
+                break;
+            case EmbedPosition.InPlace:
+                @Html.Resource("IncludedWhereDropped")
+                break;
+            case EmbedPosition.BeforeBodyEndTag:
+                @Html.Resource("IncludedBeforeTheBodyEnd")
+                break;
+            default:
+                break;
+        }
+    }
+    else
+    {
+        @Model.Description
+    }
+}

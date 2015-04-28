@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
@@ -19,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents the controller of the Video widget.
     /// </summary>
     [Localization(typeof(VideoResources))]
-    [ControllerToolboxItem(Name = "Video", Title = "Video", SectionName = "MvcWidgets", ModuleName = "Libraries", CssClass = VideoController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "Video_MVC", Title = "Video", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = VideoController.WidgetIconCssClass)]
     public class VideoController : Controller, ICustomWidgetVisualizationExtended, IContentLocatableView
     {
         #region Properties
