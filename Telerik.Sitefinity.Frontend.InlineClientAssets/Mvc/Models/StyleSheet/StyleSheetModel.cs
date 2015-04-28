@@ -37,6 +37,8 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// <inheritDocs/>
         public ResourceMode Mode { get; set; }
 
+        #endregion
+
         /// <inheritDocs/>
         public virtual string GetMarkup()
         {
@@ -53,8 +55,6 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
 
             return markup;
         }
-
-        #endregion
 
         /// <summary>
         /// Gets the markup for inline CSS.

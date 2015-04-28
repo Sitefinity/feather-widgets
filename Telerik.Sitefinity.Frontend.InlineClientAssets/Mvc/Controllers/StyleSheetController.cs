@@ -5,7 +5,10 @@ using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 {
@@ -14,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
     /// </summary>
     [Localization(typeof(StyleSheetResources))]
     [ControllerToolboxItem(Name = "StyleSheet_MVC", Title = "CSS", SectionName = "ScriptsAndStylesControlsSection", CssClass = StyleSheetController.WidgetIconCssClass)]
-    public class StyleSheetController : Controller
+    public class StyleSheetController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
 
@@ -46,20 +49,55 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            this.AddCssInHead();
-            return this.View();
+            var cssMarkup = this.Model.GetMarkup();
+            this.AddCssInHead(cssMarkup);
+
+            if (!this.IsEmpty && SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode)
+            {
+                if (!string.IsNullOrEmpty(this.Model.Description))
+                {
+                    return this.Content(this.Model.Description);
+                }
+                else 
+                {
+                    return this.Content(cssMarkup);
+                }
+            }
+
+            return new EmptyResult();
+        }
+
+        #endregion
+
+        #region ICustomWidgetVisualizationExtended
+
+        /// <inheritDocs/>
+        public string WidgetCssClass
+        {
+            get { return StyleSheetController.WidgetIconCssClass; }
+        }
+
+        /// <inheritDocs/>
+        public string EmptyLinkText
+        {
+            get { return Res.Get<StyleSheetResources>().SetCss; }
+        }
+
+        /// <inheritDocs/>
+        public bool IsEmpty
+        {
+            get { return string.IsNullOrEmpty(this.Model.InlineStyles) && string.IsNullOrEmpty(this.Model.ResourceUrl); }
         }
 
         #endregion
 
         #region Helpers
 
-        private void AddCssInHead()
+        private void AddCssInHead(string cssMarkup)
         {
             var page = this.HttpContext.CurrentHandler as Page;
             if (page != null && page.Header !=null)
             {
-                var cssMarkup = this.Model.GetMarkup();
                 if (!string.IsNullOrEmpty(cssMarkup))
                 {
                     page.Header.Controls.Add(new LiteralControl(cssMarkup));
