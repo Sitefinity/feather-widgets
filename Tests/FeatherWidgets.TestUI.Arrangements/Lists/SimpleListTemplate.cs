@@ -42,13 +42,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.ListsOperations().DeleteList(this.listId);
         }
 
+        private const string PageName = "TestPage";
+
         private const string ListTitle = "Test list";
         private const string ListDescription = "Test list description";
         private const string ListItem1Title = "list item 1";
         private const string ListItem1Content = "list content 1";
         private const string ListItem2Title = "list item 2";
         private const string ListItem2Content = "list content 2";
-        private const string PageName = "TestPage";
         private readonly Guid listId = new Guid("0D3937D3-A690-4F19-9DA4-53F0880F5B62");
     }
 }
