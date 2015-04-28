@@ -79,6 +79,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
             }
         }
 
+        // <summary>
+        /// Gets phrase : Included in the HTML &lt;head&gt; tag
+        /// </summary>
+        [ResourceEntry("IncludedInHead",
+            Value = "Included in the HTML &lt;head&gt; tag",
+            Description = "phrase : Included in the HTML &lt;head&gt; tag",
+            LastModified = "2015/04/28")]
+        public string IncludedInHead
+        {
+            get
+            {
+                return this["IncludedInHead"];
+            }
+        }
+
         #endregion
 
         #region Designer resources

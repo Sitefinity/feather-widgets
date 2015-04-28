@@ -56,6 +56,24 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
             return markup;
         }
 
+        /// <inheritDocs/>
+        public virtual string GetShortInlineStyles()
+        {
+            var inlineStyles = this.InlineStyles;
+            var inlineStylesByLine = inlineStyles.Split(new[] { '\r', '\n' });
+            string firstLinesContent;
+            if (inlineStylesByLine.Length > 1)
+            {
+                firstLinesContent = inlineStylesByLine[0] + inlineStylesByLine[1] + "...";
+            }
+            else
+            {
+                firstLinesContent = inlineStyles;
+            }
+
+            return firstLinesContent;
+        }
+
         /// <summary>
         /// Gets the markup for inline CSS.
         /// </summary>

@@ -54,13 +54,26 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
             if (!this.IsEmpty && SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode)
             {
+                string encodedMarkup = null;
                 if (!string.IsNullOrEmpty(this.Model.Description))
                 {
                     return this.Content(this.Model.Description);
                 }
-                else 
+                else if(this.Model.Mode == Models.ResourceMode.Inline)
                 {
-                    return this.Content(cssMarkup);
+                    var firstLinesContent = this.Model.GetShortInlineStyles();
+
+                    encodedMarkup = this.HttpContext.Server.HtmlEncode(firstLinesContent);
+                }
+                else if (this.Model.Mode == Models.ResourceMode.Reference)
+                {
+                    encodedMarkup = this.HttpContext.Server.HtmlEncode(cssMarkup);
+                }
+
+                if (string.IsNullOrEmpty(encodedMarkup))
+                {
+                    var includedIn = Res.Get<StyleSheetResources>().IncludedInHead;
+                    return this.Content(encodedMarkup + includedIn);
                 }
             }
 

@@ -36,5 +36,11 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// </summary>
         /// <returns></returns>
         string GetMarkup();
+
+        /// <summary>
+        /// Gets the short part of the whole inline styles code.
+        /// </summary>
+        /// <returns></returns>
+        string GetShortInlineStyles();
     }
 }
