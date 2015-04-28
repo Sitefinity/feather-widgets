@@ -31,17 +31,31 @@
 <div class="form-group">
     <div class="radio">
         <label class="full-width">
-            <input type="radio" ng-model="properties.MediaType.PropertyValue" value="All" />
+            <input type="radio" ng-model="mediaTypeSelection" ng-value="'all'" ng-change="updateMediaTypeProeprty()" />
 
             @Html.Resource("All")
         </label>
     </div>
     <div class="radio">
         <label class="full-width">
-            <input type="radio" ng-model="properties.MediaType.PropertyValue" value="Selected" />
+            <input type="radio" ng-model="mediaTypeSelection" ng-value="'selected'" ng-change="updateMediaTypeProeprty()" />
 
             @Html.Resource("SelectedMediaTypes")
         </label>
+
+        <div ng-show="mediaTypeSelection === 'selected'">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-4" ng-repeat="mediaCol in mediaTypeColumns">
+                        <div class="checkbox" ng-repeat="mediaType in mediaCol">
+                            <label>
+                                <input type="checkbox" ng-model="mediaType.checked" ng-change="updateMediaTypeProeprty()">{{::mediaType.value}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
