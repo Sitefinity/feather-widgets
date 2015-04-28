@@ -37,6 +37,8 @@ $databaseName = $siteName
 $secondSiteDatabaseName = $secondSiteName
 $websiteBinariesDirectory = $defaultWebsiteRootDirectory + "\bin"
 
+$emptyWebsiteShare = "\\feather-ci\c$\Tests\SitefinityWebApp"
+
 #TEST AGENT
 $testAgentExe = "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\QTAgentProcessUI.exe"
 $agentTempFolder = "C:\Users\sfbuild\AppData\Local\VSEQT\QTAgent"

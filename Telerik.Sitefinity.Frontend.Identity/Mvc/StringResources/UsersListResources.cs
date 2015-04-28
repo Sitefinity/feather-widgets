@@ -353,17 +353,18 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Last published
+        /// phrase : Last created
         /// </summary>
-        [ResourceEntry("LastPublished",
-            Value = "Last published",
-            Description = "phrase : Last published",
+        /// <value>Last created</value>
+        [ResourceEntry("LastCreated",
+            Value = "Last created",
+            Description = "phrase : Last created",
             LastModified = "2015/04/27")]
-        public string LastPublished
+        public string LastCreated
         {
             get
             {
-                return this["LastPublished"];
+                return this["LastCreated"];
             }
         }
 
@@ -379,36 +380,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["LastModified"];
-            }
-        }
-
-        /// <summary>
-        /// Gets phrase : By Title (A-Z)
-        /// </summary>
-        [ResourceEntry("ByTitleAZ",
-            Value = "By Title (A-Z)",
-            Description = "phrase : By Title (A-Z)",
-            LastModified = "2015/04/27")]
-        public string ByTitleAZ
-        {
-            get
-            {
-                return this["ByTitleAZ"];
-            }
-        }
-
-        /// <summary>
-        /// Gets phrase : By Title (Z-A)
-        /// </summary>
-        [ResourceEntry("ByTitleZA",
-            Value = "By Title (Z-A)",
-            Description = "phrase : By Title (Z-A)",
-            LastModified = "2015/04/27")]
-        public string ByTitleZA
-        {
-            get
-            {
-                return this["ByTitleZA"];
             }
         }
 
@@ -503,22 +474,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: As set manually
-        /// </summary>
-        /// <value>As set manually</value>
-        [ResourceEntry("AsSetManually",
-            Value = "As set manually",
-            Description = "phrase: As set manually",
-            LastModified = "2015/01/12")]
-        public string AsSetManually
-        {
-            get
-            {
-                return this["AsSetManually"];
-            }
-        }
-
-        /// <summary>
         /// phrase: As set in Advanced mode
         /// </summary>
         /// <value>As set in Advanced mode</value>
@@ -531,6 +486,70 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
             get
             {
                 return this["AsSetInAdvancedMode"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: First name (A-Z)
+        /// </summary>
+        /// <value>First name (A-Z)</value>
+        [ResourceEntry("ByFirstNameAZ",
+            Value = "First name (A-Z)",
+            Description = "phrase: First name (A-Z)",
+            LastModified = "2015/04/27")]
+        public string ByFirstNameAZ
+        {
+            get
+            {
+                return this["ByFirstNameAZ"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: First name (Z-A)
+        /// </summary>
+        /// <value>First name (Z-A)</value>
+        [ResourceEntry("ByFirstNameZA",
+            Value = "First name (Z-A)",
+            Description = "phrase: First name (Z-A)",
+            LastModified = "2015/04/27")]
+        public string ByFirstNameZA
+        {
+            get
+            {
+                return this["ByFirstNameZA"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Last name (A-Z)
+        /// </summary>
+        /// <value>Last name (A-Z)</value>
+        [ResourceEntry("ByLastNameAZ",
+            Value = "Last name (A-Z)",
+            Description = "phrase: Last name (A-Z)",
+            LastModified = "2015/04/27")]
+        public string ByLastNameAZ
+        {
+            get
+            {
+                return this["ByLastNameAZ"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Last name (Z-A)
+        /// </summary>
+        /// <value>Last name (Z-A)</value>
+        [ResourceEntry("ByLastNameZA",
+            Value = "Last name (Z-A)",
+            Description = "phrase: Last name (Z-A)",
+            LastModified = "2015/04/27")]
+        public string ByLastNameZA
+        {
+            get
+            {
+                return this["ByLastNameZA"];
             }
         }
     }

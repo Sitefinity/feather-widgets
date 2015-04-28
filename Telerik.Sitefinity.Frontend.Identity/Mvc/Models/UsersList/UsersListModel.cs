@@ -79,7 +79,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// </value>
         public string DetailCssClass { get; set; }
 
-         /// <summary>
+        /// <summary>
         /// Gets or sets a value indicating whether to enable social sharing.
         /// </summary>
         /// <value>
@@ -110,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <value>The page display mode.</value>
         public SelectionMode SelectionMode { get; set; }
 
-         /// <summary>
+        /// <summary>
         /// Gets or sets a value indicating whether to divide items in the list.
         /// </summary>
         /// <value>
@@ -270,9 +270,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        protected ItemViewModel CreateItemViewModelInstance(IDataItem item)
+        protected SitefinityProfileItemViewModel CreateItemViewModelInstance(IDataItem item)
         {
-            return new ItemViewModel(item);
+            return new SitefinityProfileItemViewModel(item);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             int? totalPages = null;
             if (this.SelectionMode == SelectionMode.SelectedItems && this.selectedItemsIds.Count == 0)
             {
-                viewModel.Items = Enumerable.Empty<ItemViewModel>();
+                viewModel.Items = Enumerable.Empty<SitefinityProfileItemViewModel>();
             }
             else
             {
@@ -317,7 +317,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <param name="page">The page.</param>
         /// <param name="totalPages">The total pages.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
-        protected IEnumerable<ItemViewModel> ApplyListSettings(int page, out int? totalPages)
+        protected IEnumerable<SitefinityProfileItemViewModel> ApplyListSettings(int page, out int? totalPages)
         {
             if (page < 1)
                 throw new ArgumentException("'page' argument has to be at least 1.", "page");
@@ -327,7 +327,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             int? totalCount = 0;
             int? take = this.DisplayMode == ListDisplayMode.All ? null : this.ItemsPerPage;
 
-            IList<ItemViewModel> result = new List<ItemViewModel>();
+            var result = new List<SitefinityProfileItemViewModel>();
 
             var query = this.UpdateExpression(itemsToSkip, take, ref totalCount);
 
@@ -484,7 +484,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 
         #region Private fields and constants
 
-        private const string DefaultSortExpression = "";
+        private const string DefaultSortExpression = "FirstName ASC";
 
         private UserProfileManager manager;
         private string providerName;

@@ -225,7 +225,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         private IDocumentModel model;
         private bool? disableCanonicalUrlMetaTag;
         private string templateName = "DocumentLink";
-        private const string WidgetIconCssClass = "sfDownloadLinkIcn";
+        private const string WidgetIconCssClass = "sfDownloadLinkIcn sfMvcIcn";
         #endregion
     }
 }

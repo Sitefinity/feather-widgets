@@ -223,7 +223,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfImageViewIcn";
+        internal const string WidgetIconCssClass = "sfImageViewIcn sfMvcIcn";
         private string templateName = "Image";
         private IImageModel model;
         private bool? disableCanonicalUrlMetaTag;
