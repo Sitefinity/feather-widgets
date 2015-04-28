@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -60,7 +61,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// <inheritDocs/>
         public virtual string GetShortInlineStylesEncoded()
         {
-            var inlineStylesByLine = this.InlineStyles.Split(new[] { '\r', '\n' });
+            var inlineStylesByLine = this.InlineStyles.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             string firstLinesContent;
             if (inlineStylesByLine.Length > 1)
             {
