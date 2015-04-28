@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
-using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -120,8 +118,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
             var viewModel = this.Model.CreateListViewModel(page: page ?? 1);
-            ////if (SystemManager.CurrentHttpContext != null)
-            ////    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             return this.View(fullTemplateName, viewModel);
         }
@@ -133,15 +131,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// The <see cref="ActionResult"/>.
         /// </returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
-        public ActionResult Details(User user)
+        public ActionResult Details(SitefinityProfile user)
         {
             var fullTemplateName = this.detailTemplateNamePrefix + this.DetailTemplateName;
-            this.ViewBag.UserName = user.UserName;
 
             var viewModel = this.Model.CreateDetailsViewModel(user);
-            ////if (SystemManager.CurrentHttpContext != null)
-            ////    this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
-
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            
             return this.View(fullTemplateName, viewModel);
         }
 

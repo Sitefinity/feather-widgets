@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 {
@@ -49,14 +47,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// </summary>
         /// <value>The page display mode.</value>
         SelectionMode SelectionMode { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to enable social sharing.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
-        /// </value>
-        bool EnableSocialSharing { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to divide items in the list.
@@ -113,7 +103,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <returns>A view model for use in detail views.</returns>
         UserDetailsViewModel CreateDetailsViewModel(IDataItem item);
 
-         /// <summary>
+        /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
         ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
         ///     notification.
@@ -121,9 +111,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// </summary>
         /// <param name="viewModel">View model that will be used for displaying the data.</param>
         /// <returns>
-        /// The <see cref="IList"/>.
+        /// The <see cref="IEnumerable"/>.
         /// </returns>
-        ////IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentListViewModel viewModel);
+        IEnumerable<CacheDependencyKey> GetKeysOfDependentObjects(UsersListViewModel viewModel);
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
@@ -133,8 +123,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// </summary>
         /// <param name="viewModel">View model that will be used for displaying the data.</param>
         /// <returns>
-        /// The <see cref="IList"/>.
+        /// The <see cref="IEnumerable"/>.
         /// </returns>
-        ////IList<CacheDependencyKey> GetKeysOfDependentObjects(ContentDetailsViewModel viewModel);
+        IEnumerable<CacheDependencyKey> GetKeysOfDependentObjects(UserDetailsViewModel viewModel);
     }
 }

@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
     public class ExpandableListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test verifying Expandable list template, sort A-Z, no filter applied
+        /// UI test verifying Expandable list template, sort Last modified, no filter applied
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
@@ -29,9 +29,10 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { ListTitle });
 
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectSortingOption(SortingOption);
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListTemplate(ListTemplate);
@@ -63,13 +64,14 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string PageName = "TestPage";
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
-        private const string SortingOption = "By Title (A-Z)";
+        private const string SortingOption = "Last modified";
         private const string ListTemplate = "ExpandableList";
 
         private readonly Dictionary<string, string> listItems = new Dictionary<string, string>()
                                                                 {
-                                                                    { "list item 1", "list content 1" },
-                                                                    { "list item 2", "list content 2" }
+                                                                    { "edited title", "edited content" },
+                                                                    { "list item 3", "list content 3" }, 
+                                                                    { "list item 1", "list content 1" }
                                                                 };
     }
 }

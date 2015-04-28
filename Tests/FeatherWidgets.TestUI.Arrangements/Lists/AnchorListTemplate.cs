@@ -23,6 +23,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.ListsOperations().CreateList(this.listId, ListTitle, ListDescription);
             ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem1Title, ListItem1Content);
             ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem2Title, ListItem2Content);
+            ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem3Title, ListItem3Content);
 
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddListsWidgetToPage(pageId);
@@ -44,6 +45,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ListItem1Content = "list content 1";
         private const string ListItem2Title = "list item 2";
         private const string ListItem2Content = "list content 2";
+        private const string ListItem3Title = "list item 3";
+        private const string ListItem3Content = "list content 3";
         private const string PageName = "TestPage";
         private readonly Guid listId = new Guid("0D3937D3-A690-4F19-9DA4-53F0880F5B62");
     }

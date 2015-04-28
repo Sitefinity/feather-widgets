@@ -113,6 +113,33 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         /// Adds the taxonomies to list item.
         /// </summary>
         /// <param name="listItemId">The list item id.</param>
+        /// <param name="newTitle">The list item title.</param>
+        /// <param name="newContent">The list item content.</param>
+        public void EditListItem(Guid listItemId, string newTitle, string newContent)
+        {
+            ListsManager listManager = ListsManager.GetManager();
+
+            ListItem listItemMaster = listManager.GetListItems().Where(i => i.Id == listItemId).FirstOrDefault();
+
+            if (listItemMaster == null)
+            {
+                throw new ItemNotFoundException(string.Format(CultureInfo.CurrentCulture, "List item with id {0} was not found.", listItemId));
+            }
+
+            ListItem listItemTemp = listManager.Lifecycle.CheckOut(listItemMaster) as ListItem;
+
+            listItemTemp.Title = newTitle;
+            listItemTemp.Content = newContent;
+
+            listItemMaster = listManager.Lifecycle.CheckIn(listItemTemp) as ListItem;
+            listManager.Lifecycle.Publish(listItemMaster);
+            listManager.SaveChanges();
+        }
+
+        /// <summary>
+        /// Adds the taxonomies to list item.
+        /// </summary>
+        /// <param name="listItemId">The list item id.</param>
         /// <param name="categories">The categories.</param>
         /// <param name="tags">The tags.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]

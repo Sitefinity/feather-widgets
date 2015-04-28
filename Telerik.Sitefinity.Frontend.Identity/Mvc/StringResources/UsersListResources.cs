@@ -552,5 +552,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["ByLastNameZA"];
             }
         }
+
+        /// <summary>
+        /// Gets the You are not logged in.
+        /// </summary>
+        /// <value>You are not logged in.</value>
+        [ResourceEntry("NotLoggedInUser",
+            Value = "You are not logged in.",
+            Description = "phrase: You are not logged in.",
+            LastModified = "2015/04/27")]
+        public string NotLoggedInUser
+        {
+            get
+            {
+                return this["NotLoggedInUser"];
+            }
+        }
     }
 }
