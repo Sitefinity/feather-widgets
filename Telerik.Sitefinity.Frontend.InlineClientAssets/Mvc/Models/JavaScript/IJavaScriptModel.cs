@@ -46,10 +46,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         string BuildScriptTag();
 
         /// <summary>
-        /// Places the script in the given Page object.
+        /// Places the script before the end of the body.
         /// </summary>
         /// <param name="page">The page.</param>
         /// <param name="script">The script.</param>
-        void PlaceScriptInDocument(Page page, string script);
+        void PlaceScriptBeforeBodyEnd(Page page, string script);
     }
 }
