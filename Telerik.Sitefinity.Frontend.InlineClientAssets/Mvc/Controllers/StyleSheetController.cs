@@ -70,7 +70,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                     encodedMarkup = this.HttpContext.Server.HtmlEncode(cssMarkup);
                 }
 
-                if (string.IsNullOrEmpty(encodedMarkup))
+                if (!string.IsNullOrEmpty(encodedMarkup))
                 {
                     var includedIn = Res.Get<StyleSheetResources>().IncludedInHead;
                     return this.Content(encodedMarkup + includedIn);
