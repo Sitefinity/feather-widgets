@@ -15,7 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Navigation widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Navigation_MVC", Title = "Navigation", SectionName = ToolboxesConfig.NavigationControlsSectionName, CssClass = "sfNavigationIcn")]
+    [ControllerToolboxItem(Name = "Navigation_MVC", Title = "Navigation", SectionName = ToolboxesConfig.NavigationControlsSectionName, CssClass = NavigationController.WidgetIconCssClass)]
     [Localization(typeof(NavigationResources))]
     public class NavigationController : Controller
     {
@@ -209,6 +209,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 
         #region Private fields and constants
 
+        internal const string WidgetIconCssClass = "sfNavigationIcn sfMvcIcn";
         private INavigationModel model;
         private int? levelsToInclude = 1;
         private string templateName = "Horizontal";

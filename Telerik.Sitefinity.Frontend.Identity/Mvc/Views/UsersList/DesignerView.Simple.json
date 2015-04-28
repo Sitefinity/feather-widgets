@@ -1,0 +1,4 @@
+﻿{
+	"priority": 1,
+	"components": ["sf-user-selector", "sf-role-selector", "sf-page-selector", "sf-expander", "sf-style-dropdown"]
+}

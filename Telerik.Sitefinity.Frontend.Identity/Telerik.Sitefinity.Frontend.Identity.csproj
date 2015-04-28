@@ -145,6 +145,7 @@
     <Compile Include="Mvc\Controllers\RegistrationController.cs" />
     <Compile Include="Mvc\Controllers\LoginFormController.cs" />
     <Compile Include="Mvc\Controllers\LoginStatusController.cs" />
+    <Compile Include="Mvc\Controllers\UsersListController.cs" />
     <Compile Include="Mvc\Models\AccountActivation\AccountActivationModel.cs" />
     <Compile Include="Mvc\Models\AccountActivation\AccountActivationViewModel.cs" />
     <Compile Include="Mvc\Models\AccountActivation\IAccountActivationModel.cs" />
@@ -177,6 +178,11 @@
     <Compile Include="Mvc\Models\Registration\RegistrationViewModel.cs" />
     <Compile Include="Mvc\Models\Registration\RegistrationModel.cs" />
     <Compile Include="Mvc\Models\Registration\SuccessfulRegistrationAction.cs" />
+    <Compile Include="Mvc\Models\UsersList\IUsersListModel.cs" />
+    <Compile Include="Mvc\Models\UsersList\UserDetailsViewModel.cs" />
+    <Compile Include="Mvc\Models\UsersList\SitefinityProfileItemViewModel.cs" />
+    <Compile Include="Mvc\Models\UsersList\UsersListModel.cs" />
+    <Compile Include="Mvc\Models\UsersList\UsersListViewModel.cs" />
     <Compile Include="Mvc\StringResources\ChangePasswordResources.cs" />
     <Compile Include="Mvc\StringResources\ProfileResources.cs" />
     <Compile Include="Mvc\StringResources\AccountActivationResources.cs" />
@@ -185,6 +191,7 @@
     <Compile Include="Mvc\StringResources\LoginFormResources.cs" />
     <Compile Include="Mvc\StringResources\LoginStatusResources.cs" />
     <Compile Include="Mvc\StringResources\RegistrationStaticResources.cs" />
+    <Compile Include="Mvc\StringResources\UsersListResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +218,10 @@
     <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Profile\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Profile\Read.ProfilePreview.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\UsersList\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\UsersList\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\UsersList\Detail.UserDetails.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\UsersList\List.UsersList.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -242,6 +253,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Profile\profile-edit.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\UsersList\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

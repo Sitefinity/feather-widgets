@@ -24,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// This class represents controller for the Image Gallery widget.
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
-    [ControllerToolboxItem(Name = "ImageGallery_MVC", Title = "Image gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = "sfImageLibraryViewIcn")]
+    [ControllerToolboxItem(Name = "ImageGallery_MVC", Title = "Image gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageGalleryController.WidgetIconCssClass)]
     public class ImageGalleryController : Controller, IContentLocatableView, IRouteMapper
     {
         #region Properties
@@ -366,6 +366,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
 
         #region Private fields and constants
 
+        private const string WidgetIconCssClass = "sfImageLibraryViewIcn sfMvcIcn";
         internal const string AnyParentValue = "AnyParent";
 
         private IImageGalleryModel model;
