@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
 {
@@ -24,7 +25,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         /// Gets or sets the position in the document where the code will be inserted.
         /// </summary>
         /// <value>The embed position.</value>
-        EmbedPosition EmbedPosition { get; set; }
+        EmbedPosition Position { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the used code.
@@ -37,5 +38,18 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         /// </summary>
         /// <returns></returns>
         JavaScriptViewModel GetViewModel();
+
+        /// <summary>
+        /// Builds the script tag with url pointing to the script file or containig the script in its content.
+        /// </summary>
+        /// <returns></returns>
+        string BuildScriptTag();
+
+        /// <summary>
+        /// Places the script before the end of the body.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="script">The script.</param>
+        void PlaceScriptBeforeBodyEnd(Page page, string script);
     }
 }

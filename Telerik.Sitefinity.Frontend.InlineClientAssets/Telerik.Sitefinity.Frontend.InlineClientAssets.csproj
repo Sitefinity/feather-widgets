@@ -137,6 +137,7 @@
     <Compile Include="Mvc\Models\StyleSheet\IStyleSheetModel.cs" />
     <Compile Include="Mvc\Models\ResourceMode.cs" />
     <Compile Include="Mvc\Models\StyleSheet\StyleSheetModel.cs" />
+    <Compile Include="Mvc\StringResources\JavaScriptResources.cs" />
     <Compile Include="Mvc\StringResources\StyleSheetResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -148,6 +149,7 @@
     <EmbeddedResource Include="Mvc\Views\StyleSheet\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\StyleSheet\DesignerView.Simple.json" />
     <None Include="app.config" />
+    <EmbeddedResource Include="Mvc\Views\JavaScript\Index.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
