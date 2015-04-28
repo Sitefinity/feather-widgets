@@ -1,4 +1,5 @@
 ﻿
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Web;
@@ -57,18 +58,26 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         }
 
         /// <inheritDocs/>
-        public virtual string GetShortInlineStyles()
+        public virtual string GetShortInlineStylesEncoded()
         {
-            var inlineStyles = this.InlineStyles;
-            var inlineStylesByLine = inlineStyles.Split(new[] { '\r', '\n' });
+            var inlineStylesByLine = this.InlineStyles.Split(new[] { '\r', '\n' });
             string firstLinesContent;
             if (inlineStylesByLine.Length > 1)
             {
-                firstLinesContent = inlineStylesByLine[0] + inlineStylesByLine[1] + "...";
+                var divider = "<br/>";
+                var shortContentBuilder = new StringBuilder();
+                for (var i = 0; i < 2; i++)
+                {
+                    shortContentBuilder.Append(HttpContext.Current.Server.HtmlEncode(inlineStylesByLine[i]));
+                    shortContentBuilder.Append(divider);
+                }
+                shortContentBuilder.Append("...");
+                shortContentBuilder.Append(divider);
+                firstLinesContent = shortContentBuilder.ToString();
             }
             else
             {
-                firstLinesContent = inlineStyles;
+                firstLinesContent = this.InlineStyles;
             }
 
             return firstLinesContent;

@@ -61,9 +61,9 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
                 else if(this.Model.Mode == Models.ResourceMode.Inline)
                 {
-                    var firstLinesContent = this.Model.GetShortInlineStyles();
+                    var firstLinesContent = this.Model.GetShortInlineStylesEncoded();
 
-                    encodedMarkup = this.HttpContext.Server.HtmlEncode(firstLinesContent);
+                    encodedMarkup = firstLinesContent;
                 }
                 else if (this.Model.Mode == Models.ResourceMode.Reference)
                 {

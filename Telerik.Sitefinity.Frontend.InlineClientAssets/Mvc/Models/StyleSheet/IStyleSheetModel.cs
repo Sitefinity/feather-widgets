@@ -41,6 +41,6 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// Gets the short part of the whole inline styles code.
         /// </summary>
         /// <returns></returns>
-        string GetShortInlineStyles();
+        string GetShortInlineStylesEncoded();
     }
 }
