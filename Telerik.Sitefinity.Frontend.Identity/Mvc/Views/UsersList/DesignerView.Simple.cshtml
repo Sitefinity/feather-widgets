@@ -84,11 +84,12 @@
 
 
                     <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
-                        <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
+                        <option value="FirstName ASC"> @Html.Resource("ByFirstNameAZ")</option>
+                        <option value="FirstName DESC"> @Html.Resource("ByFirstNameZA")</option>
+                        <option value="LastName ASC"> @Html.Resource("ByLastNameAZ")</option>
+                        <option value="LastName DESC"> @Html.Resource("ByLastNameZA")</option>
+                        <option value="DateCreated DESC"> @Html.Resource("LastCreated")</option>
                         <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
-                        <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
-                        <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
-                        <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
                         <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
                     </select>
                 </div>
@@ -167,3 +168,4 @@
         </expander>
     </tab>
 </tabset>
+

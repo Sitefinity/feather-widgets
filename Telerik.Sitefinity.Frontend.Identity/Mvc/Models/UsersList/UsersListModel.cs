@@ -484,7 +484,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 
         #region Private fields and constants
 
-        private const string DefaultSortExpression = "";
+        private const string DefaultSortExpression = "FirstName ASC";
 
         private UserProfileManager manager;
         private string providerName;
