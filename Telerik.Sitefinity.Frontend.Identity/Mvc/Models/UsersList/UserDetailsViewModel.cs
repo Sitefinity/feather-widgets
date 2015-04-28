@@ -36,7 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <value>
         /// The detail news.
         /// </value>
-        public SitefinityProfileItemViewModel Item { get; set; }
+        public ItemViewModel Item { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to enable social sharing.
