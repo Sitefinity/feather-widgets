@@ -34,30 +34,25 @@ Copy-Item "\\feather-ci\c$\Tests\SitefinityWebApp" $projectDeploymentDirectory -
 
 write-output "Sitefinity successfully deployed."
 
-function InstallSitefinity()
-{
-	$siteId = GetNextWebsiteId
-	write-output "Registering $siteName website with id $siteId in IIS."
-	New-WebSite -Id $siteId -Name $siteName -Port $defaultWebsitePort -HostHeader localhost -PhysicalPath $defaultWebsiteRootDirectory -ApplicationPool $appPollName -Force
-	Start-WebSite -Name $siteName
+$siteId = GetNextWebsiteId
+write-output "Registering $siteName website with id $siteId in IIS."
+New-WebSite -Id $siteId -Name $siteName -Port $defaultWebsitePort -HostHeader localhost -PhysicalPath $defaultWebsiteRootDirectory -ApplicationPool $appPollName -Force
+Start-WebSite -Name $siteName
 
-	write-output "Setting up Sitefinity..."
+write-output "Setting up Sitefinity..."
 
-	$installed = $false
+$installed = $false
 
-	while(!$installed){
-		try{    
-			$response = GetRequest $defaultWebsiteUrl
-			if($response.StatusCode -eq "OK"){
-				$installed = $true;
-				$response
-			}
-		}catch [Exception]{
-			Restart-WebAppPool $appPollName -ErrorAction Continue
-			write-output "$_.Exception.Message"
-			$installed = $false
+while(!$installed){
+	try{    
+		$response = GetRequest $defaultWebsiteUrl
+		if($response.StatusCode -eq "OK"){
+			$installed = $true;
+			$response
 		}
+	}catch [Exception]{
+		Restart-WebAppPool $appPollName -ErrorAction Continue
+		write-output "$_.Exception.Message"
+		$installed = $false
 	}
-
-	write-output "----- Sitefinity successfully installed ------"
 }
