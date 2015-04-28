@@ -128,5 +128,181 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
             }
         }
         #endregion
+
+        /// <summary>
+        /// Phrase: Write JavaScript
+        /// </summary>
+        /// <value>Write JavaScript</value>
+        [ResourceEntry("WriteJavaScript",
+            Value = "Write JavaScript",
+            Description = "Phrase: Write JavaScript",
+            LastModified = "2015/04/28")]
+        public string WriteJavaScript
+        {
+            get
+            {
+                return this["WriteJavaScript"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Link to JavaScript file
+        /// </summary>
+        /// <value>Link to JavaScript file</value>
+        [ResourceEntry("LinkToJavaScriptFile",
+            Value = "Link to JavaScript file",
+            Description = "Phrase: Link to JavaScript file",
+            LastModified = "2015/04/28")]
+        public string LinkToJavaScriptFile
+        {
+            get
+            {
+                return this["LinkToJavaScriptFile"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Start writing your JavaScript directly
+        /// </summary>
+        /// <value>Start writing your JavaScript directly</value>
+        [ResourceEntry("StartWritingJavaScript",
+            Value = "Start writing your JavaScript directly",
+            Description = "Phrase: Start writing your JavaScript directly",
+            LastModified = "2015/04/28")]
+        public string StartWritingJavaScript
+        {
+            get
+            {
+                return this["StartWritingJavaScript"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Do not add <script> tag, it will be added automatically. Start writing your JavaScript directly.
+        /// </summary>
+        /// <value>Do not add &lt;script&gt; tag, it will be added automatically. Start writing your JavaScript directly.</value>
+        [ResourceEntry("DoNotAddScriptTag",
+            Value = "Do not add &lt;script&gt; tag, it will be added automatically. Start writing your JavaScript directly.",
+            Description = "Phrase: Do not add <script> tag, it will be added automatically. Start writing your JavaScript directly.",
+            LastModified = "2015/04/28")]
+        public string DoNotAddScriptTag
+        {
+            get
+            {
+                return this["DoNotAddScriptTag"];
+            }
+        }
+
+        /// <summary>
+        /// Code
+        /// </summary>
+        /// <value><code>var str = \"Hello World!\";</code></value>
+        [ResourceEntry("JavaScriptCodeExample",
+            Value = "<code>var str = \"Hello World!\";</code>",
+            Description = "Code",
+            LastModified = "2015/04/28")]
+        public string JavaScriptCodeExample
+        {
+            get
+            {
+                return this["JavaScriptCodeExample"];
+            }
+        }
+
+        /// <summary>
+        /// Word: Tips
+        /// </summary>
+        /// <value>Tips</value>
+        [ResourceEntry("Tips",
+            Value = "Tips",
+            Description = "Word: Tips",
+            LastModified = "2015/04/28")]
+        public string Tips
+        {
+            get
+            {
+                return this["Tips"];
+            }
+        }
+
+        /// <summary>
+        /// Word: URL
+        /// </summary>
+        /// <value>URL</value>
+        [ResourceEntry("Url",
+            Value = "URL",
+            Description = "Word: URL",
+            LastModified = "2015/04/28")]
+        public string Url
+        {
+            get
+            {
+                return this["Url"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Where to include in HTML?
+        /// </summary>
+        /// <value>Where to include in HTML?</value>
+        [ResourceEntry("WhereToInclude",
+            Value = "Where to include in HTML?",
+            Description = "Phrase: Where to include in HTML?",
+            LastModified = "2015/04/28")]
+        public string WhereToInclude
+        {
+            get
+            {
+                return this["WhereToInclude"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: More options
+        /// </summary>
+        /// <value>More options</value>
+        [ResourceEntry("MoreOptions",
+            Value = "More options",
+            Description = "Phrase: More options",
+            LastModified = "2015/04/28")]
+        public string MoreOptions
+        {
+            get
+            {
+                return this["MoreOptions"];
+            }
+        }
+
+        /// <summary>
+        /// Word: Description
+        /// </summary>
+        /// <value>Description</value>
+        [ResourceEntry("Description",
+            Value = "Description",
+            Description = "Word: Description",
+            LastModified = "2015/04/28")]
+        public string Description
+        {
+            get
+            {
+                return this["Description"];
+            }
+        }
+
+        /// <summary>
+        /// Word: Example
+        /// </summary>
+        /// <value>Example</value>
+        [ResourceEntry("Example",
+            Value = "Example",
+            Description = "Word: Example",
+            LastModified = "2015/04/28")]
+        public string Example
+        {
+            get
+            {
+                return this["Example"];
+            }
+        }
     }
 }

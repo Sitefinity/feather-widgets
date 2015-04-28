@@ -1,0 +1,87 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+@Html.CodeMirrorScriptReferences()
+
+<div class="form-group nav-wrapper">
+    <label class="radio-inline">
+        <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Inline'" />
+        @Html.Resource("WriteJavaScript")
+    </label>
+
+    <label class="radio-inline">
+        <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Reference'" />
+        @Html.Resource("LinkToJavaScriptFile")
+    </label>
+</div>
+
+<!-- Write JavaScript -->
+<div ng-show="properties.Mode.PropertyValue=='Inline'">
+    <textarea sf-code-area
+        sf-type="javascript"
+        sf-tab-mode="classic"
+        sf-line-numbers="true"
+        sf-match-brackets="true"
+        ng-model="properties.CustomCode.PropertyValue"
+        placeholder="@Html.Resource("StartWritingJavaScript")"></textarea>
+
+    <a href=""
+        sf-popover-html=""
+        sf-popover-placement="bottom"
+        sf-popover-trigger="focus"
+        sf-popover-content="<div>
+                                <div class='small m-bottom-sm'>
+                                  <p>
+                                      @Html.Resource("DoNotAddScriptTag")
+                                  </p>
+                                  <p>
+                                      <strong>@Html.Resource("Example")</strong><br/>
+                                      @Html.Resource("JavaScriptCodeExample")
+                                  </p>
+                                </div>
+                              </div>"
+        sf-popover-title="@Html.Resource("Tips")">
+        @Html.Resource("Tips")
+    </a>
+</div>
+
+<!-- Link to JavaScript file -->
+<div ng-show="properties.Mode.PropertyValue=='Reference'">
+    <div class="form-group">
+        <label>
+            <p>@Html.Resource("Url")</p>
+            <input type="text" ng-model="properties.FileUrl.PropertyValue" />
+        </label>
+    </div>
+</div>
+
+<label>@Html.Resource("WhereToInclude")</label>
+<div class="form-group">
+    <div class="radio">
+        <label class="full-width">
+            <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'Head'" />
+
+            @Html.Resource("IncludedInTheHead")
+        </label>
+    </div>
+    <div class="radio">
+        <label class="full-width">
+            <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'InPlace'" />
+
+            @Html.Resource("IncludedWhereDropped")
+        </label>
+    </div>
+    <div class="radio">
+        <label class="full-width">
+            <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'BeforeBodyEndTag'" />
+
+            @Html.Resource("IncludedBeforeTheBodyEnd")
+        </label>
+    </div>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <label>@Html.Resource("Description")</label>
+        <input type="text" ng-model="properties.Description.PropertyValue" class="form-control" />
+    </div>
+</expander>
