@@ -29,9 +29,22 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
+            //// select a list
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[]{ ListTitle });
+
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+
+            //// select another list after page is published
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { ListTitle });
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(SecondListTitle);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { SecondListTitle });
 
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectSortingOption(SortingOption);
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListTemplate(ListTemplate);
@@ -63,9 +76,10 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string PageName = "TestPage";
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
+        private const string SecondListTitle = "Second list";
         private const string SortingOption = "By Title (Z-A)";
         private const string ListTemplate = "SimpleList";
 
-        private readonly string[] listItems = new string[] { "list item 2", "list item 1" };
+        private readonly string[] listItems = new string[] { "second list item 2", "second list item 1" };
     }
 }
