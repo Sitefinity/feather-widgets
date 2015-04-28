@@ -30,7 +30,7 @@ if (Test-Path $defaultWebsiteRootDirectory){
 
 write-output "Sitefinity deploying from $projectLocationShare..."
 
-Copy-Item "\\feather-ci\c$\Tests\SitefinityWebApp" $projectDeploymentDirectory -Recurse -ErrorAction stop
+Copy-Item $emptyWebsiteShare $projectDeploymentDirectory -Recurse -ErrorAction stop
 
 write-output "Sitefinity successfully deployed."
 
