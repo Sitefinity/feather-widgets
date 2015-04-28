@@ -34,6 +34,13 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[]{ ListTitle });
 
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox(ByDateFilter);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButtonByDate();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectDisplayItemsPublishedIn(CustomRangeFilterOption);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetFromDateByTyping(DayAgo);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SetToDateByDatePicker(DayForward);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectSortingOption(SortingOption);
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListTemplate(ListTemplate);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
@@ -67,6 +74,11 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string SortingOption = "By Title (Z-A)";
         private const string ListTemplate = "SimpleList";
 
-        private readonly string[] listItems = new string[] { "list item 2", "list item 1" };
+        private const string ByDateFilter = "dateInput";
+        private const string CustomRangeFilterOption = "Custom range...";
+        private const int DayAgo = -1;
+        private const int DayForward = 1;
+
+        private readonly string[] listItems = new string[] { "list item 3", "list item 2" };
     }
 }
