@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
@@ -14,7 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Navigation widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Navigation", Title = "Navigation", SectionName = "MvcWidgets", CssClass = NavigationController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "Navigation_MVC", Title = "Navigation", SectionName = ToolboxesConfig.NavigationControlsSectionName, CssClass = NavigationController.WidgetIconCssClass)]
     [Localization(typeof(NavigationResources))]
     public class NavigationController : Controller
     {

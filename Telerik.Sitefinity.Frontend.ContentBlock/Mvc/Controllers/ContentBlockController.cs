@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -21,7 +22,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
     /// <summary>
     ///     The content block controller
     /// </summary>
-    [ControllerToolboxItem(Name = "ContentBlock", Title = "Content Block", SectionName = "MvcWidgets", CssClass = ContentBlockController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "ContentBlock_MVC", Title = "Content Block", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = ContentBlockController.WidgetIconCssClass)]
     [Localization(typeof(ContentBlockResources))]
     public class ContentBlockController : Controller, 
                                           IHasContainerType,
