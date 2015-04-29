@@ -52,6 +52,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ListItem2Content = "list content 2";
         private const string PageName = "TestPage";
         private const string CategoryName = "TestCategory";
+
         private readonly Guid listId = new Guid("0D3937D3-A690-4F19-9DA4-53F0880F5B62");
     }
 }
