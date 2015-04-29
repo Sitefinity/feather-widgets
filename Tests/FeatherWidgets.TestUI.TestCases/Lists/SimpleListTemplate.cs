@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[]{ ListTitle });
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { ListTitle });
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox(ByDateFilter);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButtonByDate();
