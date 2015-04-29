@@ -110,7 +110,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         }
 
         /// <summary>
-        /// Adds the taxonomies to list item.
+        /// Edit title and content of list item.
         /// </summary>
         /// <param name="listItemId">The list item id.</param>
         /// <param name="newTitle">The list item title.</param>
@@ -133,6 +133,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
 
             listItemMaster = listManager.Lifecycle.CheckIn(listItemTemp) as ListItem;
             listManager.Lifecycle.Publish(listItemMaster);
+            listManager.SaveChanges();
+        }
+
+        /// <summary>
+        /// Publish list item with specific date.
+        /// </summary>
+        /// <param name="listItemId">The list item id.</param>
+        /// <param name="publicationDate">Publication datetime.</param>
+        public void PublishListItemWithSpecificDate(Guid listItemId, DateTime publicationDate)
+        {
+            ListsManager listManager = ListsManager.GetManager();
+
+            ListItem listItemMaster = listManager.GetListItems().Where(i => i.Id == listItemId).FirstOrDefault();
+
+            if (listItemMaster == null)
+            {
+                throw new ItemNotFoundException(string.Format(CultureInfo.CurrentCulture, "List item with id {0} was not found.", listItemId));
+            }
+
+            listManager.Lifecycle.PublishWithSpecificDate(listItemMaster, publicationDate);
             listManager.SaveChanges();
         }
 

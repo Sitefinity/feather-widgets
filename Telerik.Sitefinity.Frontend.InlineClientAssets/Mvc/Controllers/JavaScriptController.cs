@@ -48,26 +48,24 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var model = this.Model.GetViewModel();
-
-            var viewModel = this.model.GetViewModel();
+            var viewModel = this.Model.GetViewModel();
 
             var page = this.HttpContext.CurrentHandler as Page;
 
             if (page != null)
             {
-                if (this.model.Position == Models.EmbedPosition.Head)
+                if (this.Model.Position == Models.EmbedPosition.Head)
                 {
                     page.Header.Controls.Add(new LiteralControl(viewModel.JavaScriptCode));
                 }
 
-                if (this.model.Position == Models.EmbedPosition.BeforeBodyEndTag)
+                if (this.Model.Position == Models.EmbedPosition.BeforeBodyEndTag)
                 {
                     page.PreRenderComplete += PagePreRenderCompleteHandler;
                 }
             }
 
-            return this.View(model);
+            return this.View(viewModel);
         }
         #endregion
 

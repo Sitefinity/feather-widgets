@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
@@ -36,7 +35,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <value>
         /// The items.
         /// </value>
-        public IEnumerable<SitefinityProfileItemViewModel> Items { get; set; }
+        public IEnumerable<ItemViewModel> Items { get; set; }
 
         /// <summary>
         /// Gets or sets the total pages count.

@@ -8,10 +8,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
     public class JavaScriptModel : IJavaScriptModel
     {
         /// <summary>
-        /// Gets or sets the javascript code entered by the user.
+        /// Gets or sets the javascript code entered by the user which will be inlined in the page.
         /// </summary>
-        /// <value>The cusotm code.</value>
-        public string CustomCode { get; set; }
+        /// <value>The inline code.</value>
+        public string InlineCode { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the file where the javascript is stored.
@@ -24,6 +24,12 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         /// </summary>
         /// <value>The embed position.</value>
         public EmbedPosition Position { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the widget will use entered by the user custom code or the url to a file.
+        /// </summary>
+        /// <value>The mode.</value>
+        public ResourceMode Mode { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the used code.
@@ -39,27 +45,11 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         {
             var script = this.BuildScriptTag();
 
-            var isCustomCode = string.IsNullOrEmpty(this.FileUrl);
-
-            string summary;
-            if (isCustomCode)
-            {
-                var lines = this.CustomCode
-                    .Split(new string[1] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-                summary = string.Join(Environment.NewLine, lines.Take(2));
-            }
-            else
-            {
-                summary = script;
-            }
-
             return new JavaScriptViewModel()
             {
                 Description = this.Description,
                 Position = this.Position,
-                JavaScriptCode = script,
-                CodeSummary = summary
+                JavaScriptCode = script
             };
         }
 
@@ -70,7 +60,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         public virtual string BuildScriptTag()
         {
             var scriptTag = string.Empty;
-            if (!string.IsNullOrEmpty(this.FileUrl))
+            if (this.Mode == ResourceMode.Reference && !string.IsNullOrEmpty(this.FileUrl))
             {
                 var scriptUrl = this.FileUrl;
                 if (scriptUrl.StartsWith("~/"))
@@ -82,10 +72,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
 
 				scriptTag = string.Format(@"<script type=""text/javascript"" src=""{0}""></script>", scriptUrl);
             }
-            else if (!string.IsNullOrEmpty(this.CustomCode))
+            else if(this.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(this.InlineCode))
             {
                 scriptTag = string.Format(@"<script type=""text/javascript"">{0}</script>",
-                                                    this.CustomCode);
+                                                    this.InlineCode);
             }
 
             return scriptTag;

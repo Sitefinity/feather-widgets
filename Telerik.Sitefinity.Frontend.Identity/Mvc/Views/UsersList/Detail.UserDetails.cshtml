@@ -4,6 +4,7 @@
 @using Telerik.Sitefinity.Security.Model;
 @using Telerik.Sitefinity.Security.Claims;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList;
 
 @{
     bool isAuthenticated = false;
@@ -19,10 +20,10 @@
 
     @if (isAuthenticated)
     {
-        <img src="@Model.Item.AvatarImageUrl" alt="@Model.Item.Fields.FirstName" width="100" height="100" />
+        <img src="@(((SitefinityProfileItemViewModel)Model.Item).AvatarImageUrl)" alt="@Model.Item.Fields.FirstName" width="100" height="100" />
         <h3>@((Model.Item.DataItem as SitefinityProfile).GetUserDisplayName())</h3>
         <p>@((Model.Item.DataItem as SitefinityProfile).User.Email)</p>
-        <p>@Model.Item.About</p>
+        <p>@Html.Raw((((SitefinityProfileItemViewModel)Model.Item).About))</p>
     }
     else
     {

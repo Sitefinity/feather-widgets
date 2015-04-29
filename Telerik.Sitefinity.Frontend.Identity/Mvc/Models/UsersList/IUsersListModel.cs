@@ -89,6 +89,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         string FilterExpression { get; set; }
 
         /// <summary>
+        /// Gets or sets the full name of the profile type.
+        /// </summary>
+        /// <value>The full name of the profile type.</value>
+        string ProfileTypeFullName { get; set; }
+         
+        /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
         /// <param name="page">The page.</param>

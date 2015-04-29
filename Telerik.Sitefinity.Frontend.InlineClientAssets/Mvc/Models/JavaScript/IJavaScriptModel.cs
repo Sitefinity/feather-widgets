@@ -10,10 +10,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
     public interface IJavaScriptModel
     {
         /// <summary>
-        /// Gets or sets the javascript code entered by the user.
+        /// Gets or sets the javascript code entered by the user which will be inlined in the page.
         /// </summary>
-        /// <value>The cusotm code.</value>
-        string CustomCode { get; set; }
+        /// <value>The inline code.</value>
+        string InlineCode { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the file where the javascript is stored.
@@ -26,6 +26,12 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         /// </summary>
         /// <value>The embed position.</value>
         EmbedPosition Position { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the widget will use entered by the user custom code or the url to a file.
+        /// </summary>
+        /// <value>The mode.</value>
+        ResourceMode Mode { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the used code.

@@ -234,6 +234,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 HtmlFindExpression expression = new HtmlFindExpression("tagname=input", "ng-model=sfSelectedItem.emailAddress");
                 ActiveBrowser.WaitForElement(expression, 60000, false);
             }
+
             email.MouseClick();
 
             email.Text = string.Empty;
