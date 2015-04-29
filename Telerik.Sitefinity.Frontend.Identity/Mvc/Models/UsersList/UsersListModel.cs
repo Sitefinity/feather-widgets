@@ -1,14 +1,14 @@
-﻿using ServiceStack.Text;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
-using Telerik.Sitefinity.Lifecycle;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Model;
+using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Versioning.Comparison;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 {
@@ -17,6 +17,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
     /// </summary>
     public class UsersListModel : IUsersListModel
     {
+        public UsersListModel()
+        {
+            this.ProfileTypeFullName = this.ContentType.FullName;
+        }
+
         #region Properties
 
         /// <summary>
@@ -192,6 +197,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             }
         }
 
+        /// <inheritDoc/>
+        public string ProfileTypeFullName { get; set; }
+
         #endregion
 
         #region Public methods
@@ -226,7 +234,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             viewModel.Item = this.CreateItemViewModelInstance(item);
             viewModel.ContentType = this.ContentType;
             viewModel.ProviderName = this.ProviderName;
-            
+
             return viewModel;
         }
 
@@ -236,7 +244,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             var contentResolvedType = this.ContentType;
             var result = new List<CacheDependencyKey>(1);
             result.Add(new CacheDependencyKey { Key = contentResolvedType.FullName, Type = contentResolvedType });
-            
+
             return result;
         }
 
@@ -279,9 +287,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        protected SitefinityProfileItemViewModel CreateItemViewModelInstance(IDataItem item)
+        protected ItemViewModel CreateItemViewModelInstance(IDataItem item)
         {
-            return new SitefinityProfileItemViewModel(item);
+            if (item.GetType() == typeof(SitefinityProfile))
+            {
+                return new SitefinityProfileItemViewModel(item);
+            }
+            else
+            {
+                return new ItemViewModel(item);
+            }
         }
 
         /// <summary>
@@ -315,7 +330,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             viewModel.CurrentPage = page;
             viewModel.TotalPagesCount = totalPages;
             viewModel.ProviderName = this.ProviderName;
-            viewModel.ContentType = this.ContentType;
+            viewModel.ContentType = TypeResolutionService.ResolveType(this.ProfileTypeFullName);
             viewModel.CssClass = this.ListCssClass;
             viewModel.ShowPager = this.DisplayMode == ListDisplayMode.Paging && totalPages.HasValue && totalPages > 1;
         }
@@ -326,7 +341,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         /// <param name="page">The page.</param>
         /// <param name="totalPages">The total pages.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
-        protected IEnumerable<SitefinityProfileItemViewModel> ApplyListSettings(int page, out int? totalPages)
+        protected IEnumerable<ItemViewModel> ApplyListSettings(int page, out int? totalPages)
         {
             if (page < 1)
                 throw new ArgumentException("'page' argument has to be at least 1.", "page");
@@ -336,7 +351,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             int? totalCount = 0;
             int? take = this.DisplayMode == ListDisplayMode.All ? null : this.ItemsPerPage;
 
-            var result = new List<SitefinityProfileItemViewModel>();
+            var result = new List<ItemViewModel>();
 
             var query = this.UpdateExpression(itemsToSkip, take, ref totalCount);
 
@@ -389,10 +404,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         {
             IQueryable query = null;
 
+            var profileType = TypeResolutionService.ResolveType(this.ProfileTypeFullName);
+
             try
             {
                 query = this.Manager.Provider.GetItems(
-                                                    this.ContentType,
+                                                    profileType,
                                                     filterExpression,
                                                     sortExpr,
                                                     itemsToSkip.Value,
@@ -403,9 +420,9 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             {
                 this.SortExpression = DefaultSortExpression;
                 query = this.Manager.Provider.GetItems(
-                                                    this.ContentType,
+                                                    profileType,
                                                     filterExpression,
-                                                    this.SortExpression,
+                                                    null,
                                                     itemsToSkip.Value,
                                                     itemsToTake.Value,
                                                     ref totalCount).AsQueryable();
@@ -455,7 +472,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             List<Guid> userProfilesGuids = new List<Guid>();
             foreach (var id in selectedItemGuids)
             {
-                var currentProfile = this.Manager.GetUserProfile(id, this.ContentType.FullName);
+                var currentProfile = this.Manager.GetUserProfile(id, this.ProfileTypeFullName);
                 if (currentProfile != null && !userProfilesGuids.Contains(currentProfile.Id))
                     userProfilesGuids.Add(currentProfile.Id);
             }
@@ -479,7 +496,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
             List<Guid> userProfilesGuids = new List<Guid>();
             foreach (var user in allUsers)
             {
-                var currentProfile = this.Manager.GetUserProfile(user, this.ContentType);
+                var currentProfile = this.Manager.GetUserProfile(user, this.ProfileTypeFullName);
                 if (currentProfile != null && !userProfilesGuids.Contains(currentProfile.Id))
                     userProfilesGuids.Add(currentProfile.Id);
             }
