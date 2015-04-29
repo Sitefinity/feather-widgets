@@ -45,25 +45,11 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         {
             var script = this.BuildScriptTag();
 
-            string summary;
-            if (this.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(this.CustomCode))
-            {
-                var lines = this.CustomCode
-                    .Split(new string[1] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-                summary = string.Join(Environment.NewLine, lines.Take(2));
-            }
-            else
-            {
-                summary = script;
-            }
-
             return new JavaScriptViewModel()
             {
                 Description = this.Description,
                 Position = this.Position,
-                JavaScriptCode = script,
-                CodeSummary = summary
+                JavaScriptCode = script
             };
         }
 
