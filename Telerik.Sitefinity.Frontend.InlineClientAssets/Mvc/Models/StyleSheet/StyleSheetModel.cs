@@ -113,7 +113,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
             if (this.ResourceUrl == null)
                 return null;
 
-            var url = this.ResourceUrl.StartsWith("/") ? RouteHelper.ResolveUrl("~" + this.ResourceUrl, UrlResolveOptions.Rooted) : this.ResourceUrl;
+            var url = this.ResourceUrl.StartsWith("~/") ? RouteHelper.ResolveUrl(this.ResourceUrl, UrlResolveOptions.Rooted) : this.ResourceUrl;
 
             var tag = new TagBuilder("link");
             tag.Attributes["href"] = url;
