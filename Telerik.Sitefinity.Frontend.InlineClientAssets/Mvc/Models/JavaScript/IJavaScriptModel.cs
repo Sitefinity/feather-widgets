@@ -10,10 +10,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
     public interface IJavaScriptModel
     {
         /// <summary>
-        /// Gets or sets the javascript code entered by the user.
+        /// Gets or sets the javascript code entered by the user which will be inlined in the page.
         /// </summary>
-        /// <value>The cusotm code.</value>
-        string CustomCode { get; set; }
+        /// <value>The inline code.</value>
+        string InlineCode { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the file where the javascript is stored.

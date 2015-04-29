@@ -8,10 +8,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
     public class JavaScriptModel : IJavaScriptModel
     {
         /// <summary>
-        /// Gets or sets the javascript code entered by the user.
+        /// Gets or sets the javascript code entered by the user which will be inlined in the page.
         /// </summary>
-        /// <value>The cusotm code.</value>
-        public string CustomCode { get; set; }
+        /// <value>The inline code.</value>
+        public string InlineCode { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the file where the javascript is stored.
@@ -72,10 +72,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
 
 				scriptTag = string.Format(@"<script type=""text/javascript"" src=""{0}""></script>", scriptUrl);
             }
-            else if(this.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(this.CustomCode))
+            else if(this.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(this.InlineCode))
             {
                 scriptTag = string.Format(@"<script type=""text/javascript"">{0}</script>",
-                                                    this.CustomCode);
+                                                    this.InlineCode);
             }
 
             return scriptTag;
