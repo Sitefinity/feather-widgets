@@ -13,8 +13,24 @@
 {   
     if (string.IsNullOrEmpty(Model.Description))
     {
-        @Model.CodeSummary
-        <br />
+        if (Model.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(Model.JavaScriptCode))
+        {
+            var lines = Model.JavaScriptCode
+                .Split(new string[1] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+@*The identation in the <pre> tag is important.*@
+<pre>
+@string.Join("\n", lines.Take(2))
+@if (lines.Length > 2)
+{
+@Html.Raw("...")
+}
+</pre>
+        }
+        else
+        {
+            <pre>Model.JavaScriptCode</pre>
+        }
         
         switch (Model.Position)
         {
