@@ -142,10 +142,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
+        /// <summary>
+        /// Gets the page URL.
+        /// </summary>
+        /// <returns></returns>
         protected virtual string GetPageUrl()
         {
             return this.GetCurrentPageUrl();
         }
+
         #endregion
 
         #region Private methods
