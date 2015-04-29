@@ -176,7 +176,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 ActiveBrowser.WaitForElement(expression, 60000, false);
             }
 
-            Assert.IsTrue(anchorSelector.SelectedOption.Text.Equals(anchorName));
+            Assert.AreEqual(anchorName, anchorSelector.SelectedOption.Text);
         }
 
         /// <summary>
