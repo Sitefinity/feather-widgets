@@ -20,15 +20,15 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         public string JavaScriptCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the summary (the first two lines) of the JavaScript code.
-        /// </summary>
-        /// <value>The code summary.</value>
-        public string CodeSummary { get; set; }
-
-        /// <summary>
         /// Gets or sets the position where the javascript will be placed in the document.
         /// </summary>
         /// <value>The position.</value>
         public EmbedPosition Position { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the widget will use entered by the user custom code or the url to a file.
+        /// </summary>
+        /// <value>The mode.</value>
+        public ResourceMode Mode { get; set; }
     }
 }
