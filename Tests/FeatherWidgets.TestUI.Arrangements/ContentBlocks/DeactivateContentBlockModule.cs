@@ -26,6 +26,24 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         /// <summary>
+        /// Deactivating Content Block Module.
+        /// </summary>
+        [ServerArrangement]
+        public void DeactivateModule()
+        {
+            ServerOperations.StaticModules().DeactivateModule(ContentBlockModuleName); 
+        }
+
+        /// <summary>
+        /// Activating Content Block Module.
+        /// </summary>
+        [ServerArrangement]
+        public void ActivateModule()
+        {
+            ServerOperations.StaticModules().ActivateModule(ContentBlockModuleName);
+        }
+
+        /// <summary>
         /// Tears down.
         /// </summary>
         [ServerTearDown]
@@ -33,11 +51,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.ContentBlocks().DeleteAllContentBlocks();
-            ServerOperations.StaticModules().ActivateModule("GenericContent");
+            ServerOperations.StaticModules().ActivateModule(ContentBlockModuleName);
         }
 
         private const string PageName = "ContentBlock";
         private const string ContentBlockContent = "Test content";
         private const string ContentBlockTitle = "ContentBlockTitle";
+        private const string ContentBlockModuleName = "GenericContent";
     }
 }
