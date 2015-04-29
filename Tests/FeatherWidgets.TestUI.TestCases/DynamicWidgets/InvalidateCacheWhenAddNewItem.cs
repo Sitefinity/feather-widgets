@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().ClickAdvancedSettingsButton();
             BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().ClickModelButton();
@@ -75,7 +75,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         }
 
         private const string PageName = "TestPage";
-        private const string WidgetName = "Press Articles MVC";
+        private const string WidgetName = "Press Articles";
         private const string ItemsPerPage = "3";
         private const string Page = "2";
         private const string SortExpression = "Title ASC";
