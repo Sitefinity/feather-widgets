@@ -568,5 +568,35 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
                 return this["NotLoggedInUser"];
             }
         }
+
+        /// <summary>
+        /// phrase: The selected template cannot be used with this profile type. Select another template or edit this template.
+        /// </summary>
+        [ResourceEntry("TheSelectedTemplateCannotBeUsed",
+            Value = "The selected template cannot be used with this profile type. Select another template or edit this template.",
+            Description = "phrase: The selected template cannot be used with this profile type. Select another template or edit this template.",
+            LastModified = "2015/05/04")]
+        public string TheSelectedTemplateCannotBeUsed
+        {
+            get
+            {
+                return this["TheSelectedTemplateCannotBeUsed"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Which profile type to use?
+        /// </summary>
+        [ResourceEntry("SelectProfileType",
+            Value = "Which profile type to use?",
+            Description = "phrase: Which profile type to use?",
+            LastModified = "2015/05/04")]
+        public string SelectProfileType
+        {
+            get
+            {
+                return this["SelectProfileType"];
+            }
+        }
     }
 }
