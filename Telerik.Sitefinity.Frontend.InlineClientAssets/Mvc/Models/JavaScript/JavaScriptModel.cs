@@ -26,6 +26,12 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         public EmbedPosition Position { get; set; }
 
         /// <summary>
+        /// Gets or sets whether the widget will use entered by the user custom code or the url to a file.
+        /// </summary>
+        /// <value>The mode.</value>
+        public ResourceMode Mode { get; set; }
+
+        /// <summary>
         /// Gets or sets the description of the used code.
         /// </summary>
         /// <value>The description.</value>
@@ -39,10 +45,8 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         {
             var script = this.BuildScriptTag();
 
-            var isCustomCode = string.IsNullOrEmpty(this.FileUrl);
-
             string summary;
-            if (isCustomCode)
+            if (this.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(this.CustomCode))
             {
                 var lines = this.CustomCode
                     .Split(new string[1] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -70,7 +74,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         public virtual string BuildScriptTag()
         {
             var scriptTag = string.Empty;
-            if (!string.IsNullOrEmpty(this.FileUrl))
+            if (this.Mode == ResourceMode.Reference && !string.IsNullOrEmpty(this.FileUrl))
             {
                 var scriptUrl = this.FileUrl;
                 if (scriptUrl.StartsWith("~/"))
@@ -82,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
 
 				scriptTag = string.Format(@"<script type=""text/javascript"" src=""{0}""></script>", scriptUrl);
             }
-            else if (!string.IsNullOrEmpty(this.CustomCode))
+            else if(this.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(this.CustomCode))
             {
                 scriptTag = string.Format(@"<script type=""text/javascript"">{0}</script>",
                                                     this.CustomCode);

@@ -28,6 +28,12 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         EmbedPosition Position { get; set; }
 
         /// <summary>
+        /// Gets or sets whether the widget will use entered by the user custom code or the url to a file.
+        /// </summary>
+        /// <value>The mode.</value>
+        ResourceMode Mode { get; set; }
+
+        /// <summary>
         /// Gets or sets the description of the used code.
         /// </summary>
         /// <value>The description.</value>
