@@ -416,14 +416,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 
             var profileType = TypeResolutionService.ResolveType(this.ProfileTypeFullName);
 
+            var skip = itemsToSkip.HasValue ? itemsToSkip.Value : 0;
+            var take = itemsToTake.HasValue ? itemsToTake.Value : 0;
+
             try
             {
                 query = this.Manager.Provider.GetItems(
                                                     profileType,
                                                     filterExpression,
                                                     sortExpr,
-                                                    itemsToSkip.Value,
-                                                    itemsToTake.Value,
+                                                    skip,
+                                                    take,
                                                     ref totalCount).AsQueryable();
             }
             catch (MemberAccessException)
@@ -433,8 +436,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
                                                     profileType,
                                                     filterExpression,
                                                     null,
-                                                    itemsToSkip.Value,
-                                                    itemsToTake.Value,
+                                                    skip,
+                                                    take,
                                                     ref totalCount).AsQueryable();
             }
 
