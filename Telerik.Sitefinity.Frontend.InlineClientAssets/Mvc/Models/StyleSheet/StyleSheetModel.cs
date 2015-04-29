@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Web;
@@ -37,6 +39,8 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
         /// <inheritDocs/>
         public ResourceMode Mode { get; set; }
 
+        #endregion
+
         /// <inheritDocs/>
         public virtual string GetMarkup()
         {
@@ -54,7 +58,31 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
             return markup;
         }
 
-        #endregion
+        /// <inheritDocs/>
+        public virtual string GetShortInlineStylesEncoded()
+        {
+            var inlineStylesByLine = this.InlineStyles.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string firstLinesContent;
+            if (inlineStylesByLine.Length > 1)
+            {
+                var divider = "<br/>";
+                var shortContentBuilder = new StringBuilder();
+                for (var i = 0; i < 2; i++)
+                {
+                    shortContentBuilder.Append(HttpContext.Current.Server.HtmlEncode(inlineStylesByLine[i]));
+                    shortContentBuilder.Append(divider);
+                }
+                shortContentBuilder.Append("...");
+                shortContentBuilder.Append(divider);
+                firstLinesContent = shortContentBuilder.ToString();
+            }
+            else
+            {
+                firstLinesContent = this.InlineStyles;
+            }
+
+            return firstLinesContent;
+        }
 
         /// <summary>
         /// Gets the markup for inline CSS.
