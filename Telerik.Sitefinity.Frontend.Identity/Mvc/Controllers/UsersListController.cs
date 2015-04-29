@@ -17,11 +17,11 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "UsersList", Title = "Users list", SectionName = "Users", CssClass = UsersListController.WidgetIconCssClass)]
     [Localization(typeof(UsersListResources))]
-    public class UsersListController :  Controller
+    public class UsersListController : Controller
     {
         #region Properties
 
-         /// <summary>
+        /// <summary>
         /// Gets or sets the name of the template that will be displayed when widget is in List view.
         /// </summary>
         /// <value></value>
@@ -55,7 +55,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             }
         }
 
-         /// <summary>
+        /// <summary>
         /// Gets or sets a value indicating whether detail view for a user should be opened in the same page.
         /// </summary>
         /// <value>
@@ -87,7 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public IUsersListModel Model 
+        public IUsersListModel Model
         {
             get
             {
@@ -101,7 +101,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         #endregion
 
         #region Actions
-        
+
         /// <summary>
         /// Renders appropriate list view depending on the <see cref="ListTemplateName" />
         /// </summary>
@@ -112,7 +112,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         public ActionResult Index(int? page)
         {
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
-            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.CurrentPageUrl = this.GetPageUrl();
             this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/{0}";
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
@@ -138,10 +138,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var viewModel = this.Model.CreateDetailsViewModel(user);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
-            
+
             return this.View(fullTemplateName, viewModel);
         }
 
+        protected virtual string GetPageUrl()
+        {
+            return this.GetCurrentPageUrl();
+        }
         #endregion
 
         #region Private methods
@@ -169,10 +173,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private string detailTemplateName = "UserDetails";
         private string detailTemplateNamePrefix = "Detail.";
         private bool openInSamePage = true;
-
-        ////private bool? disableCanonicalUrlMetaTag;
-
         #endregion
-
     }
 }
