@@ -83,11 +83,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             var toolboxItem = new ToolboxItem(section.Tools)
             {
                 Name = moduleType.GetFullTypeName() + "_MVC",
-                Title = PluralsResolver.Instance.ToPlural(moduleType.DisplayName) + " MVC",
+                Title = PluralsResolver.Instance.ToPlural(moduleType.DisplayName),
                 Description = string.Empty,
                 ModuleName = dynamicModule.Name,
                 ControlType = typeof(MvcWidgetProxy).AssemblyQualifiedName,
                 ControllerType = typeof(DynamicContentController).FullName,
+                CssClass = "sfNewsViewIcn sfMvcIcn",
                 Parameters = new NameValueCollection() 
                     { 
                         { "WidgetName", moduleType.TypeName },
