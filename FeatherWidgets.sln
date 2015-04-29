@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.InlineClientAssets", "Telerik.Sitefinity.Frontend.InlineClientAssets\Telerik.Sitefinity.Frontend.InlineClientAssets.csproj", "{D3773581-78B7-44AD-96B8-5168DCF2795C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Comments", "Telerik.Sitefinity.Frontend.Comments\Telerik.Sitefinity.Frontend.Comments.csproj", "{D5C186A5-49CE-4728-ABCE-4D1D4C33C28B}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = FeatherWidgets.vsmdi
@@ -123,6 +125,10 @@ Global
 		{D3773581-78B7-44AD-96B8-5168DCF2795C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3773581-78B7-44AD-96B8-5168DCF2795C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3773581-78B7-44AD-96B8-5168DCF2795C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5C186A5-49CE-4728-ABCE-4D1D4C33C28B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C186A5-49CE-4728-ABCE-4D1D4C33C28B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C186A5-49CE-4728-ABCE-4D1D4C33C28B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C186A5-49CE-4728-ABCE-4D1D4C33C28B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

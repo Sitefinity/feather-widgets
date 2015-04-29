@@ -7,6 +7,7 @@
 @using Telerik.Sitefinity.Security.Model;
 @using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList;
 @using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Modules.UserProfiles;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
@@ -44,7 +45,9 @@
             foreach (var item in Model.Items)
             {
                 <h3>
-                    <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">@item.Fields.FirstName</a>
+                    <a href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
+                        @UserProfilesHelper.GetUserDisplayName(item.Fields.Owner)
+                    </a>
                 </h3>
             }
         }

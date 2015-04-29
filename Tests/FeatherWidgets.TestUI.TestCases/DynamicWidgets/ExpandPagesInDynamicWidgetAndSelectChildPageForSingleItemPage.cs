@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectExistingPage();
@@ -70,7 +70,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         }
 
         private const string PageName = "TestPage";
-        private const string WidgetName = "Press Articles MVC";
+        private const string WidgetName = "Press Articles";
         private const string SingleItemPage = "ChildPage9";
         private const string NewSingleItemPage = "ChildPage1";
         private readonly string[] selectedItemsFromPageSelector = new string[] { "TestPage > ChildPage0 > ChildPage1 > ChildPage2 > ChildPage3 > ChildPage4 > ChildPage5 > ChildPage6 > ChildPage7 > ChildPage8 > ChildPage9" };
