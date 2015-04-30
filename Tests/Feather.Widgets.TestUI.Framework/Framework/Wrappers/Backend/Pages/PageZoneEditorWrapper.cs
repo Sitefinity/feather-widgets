@@ -17,31 +17,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     public class PageZoneEditorWrapper : BaseWrapper
     {
         /// <summary>
-        /// Gets the widget by name
-        /// </summary>
-        /// <param name="widgetLabelName">The widget label name</param>
-        /// <returns>Returns the widget div</returns>
-        public HtmlDiv GetWidgetByName(string widgetLabelName)
-        {
-            ActiveBrowser.RefreshDomTree();
-            RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("ctl00_ControlToolboxContainer");
-            foreach (var item in toolbox.AllItems)
-            {
-                var dockZone = item.Find.ByCustom<RadDockZone>(zone => zone.CssClass.Contains("RadDockZone"));
-                var widgetLabel = dockZone.Find.ByContent(widgetLabelName);
-                if (widgetLabel != null)
-                {
-                    if (!item.Expanded)
-                        item.Expand();
-                    return new HtmlDiv(widgetLabel.Parent);
-                }
-            }
-
-            Assert.IsNotNull(null, "The widget with name: " + widgetLabelName);
-            return null;
-        }
-
-        /// <summary>
         /// Gets the feather Mvc widget.
         /// </summary>
         /// <param name="mvcWidgetName">feather mvc widget name</param>
@@ -49,7 +24,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public HtmlDiv GetMvcWidget(string mvcWidgetName)
         {
             ActiveBrowser.RefreshDomTree();
-            RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("ControlToolboxContainer");
+            RadPanelBar toolbox = Manager.Current.ActiveBrowser.Find.ById<RadPanelBar>("~ControlToolboxContainer");
             foreach (var item in toolbox.AllItems)
             {
                 var dockZone = item.Find.ByCustom<RadDockZone>(zone => zone.CssClass.Contains("RadDockZone"));
@@ -73,7 +48,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="placeHolder">The placeholder id.</param>
         public void AddWidgetToPlaceHolderPureMvcMode(string widgetName, string placeHolder = "Contentplaceholder1")
         {            
-            HtmlDiv widget = this.GetWidgetByName(widgetName);
+            HtmlDiv widget = this.GetMvcWidget(widgetName);
 
             HtmlDiv radDockZone = ActiveBrowser.Find.ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
                .AssertIsPresent<HtmlDiv>(placeHolder);

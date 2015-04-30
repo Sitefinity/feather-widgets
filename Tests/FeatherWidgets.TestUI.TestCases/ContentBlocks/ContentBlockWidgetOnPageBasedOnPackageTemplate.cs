@@ -99,7 +99,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         private const string ArrangementClassName = "ContentBlockWidgetOnPageBasedOnPackageTemplate";
         private const string PageName = "FeatherPage";
         private const string ContentBlockContent = "Test content";
-        private const string WidgetName = "Content Block";
+        private const string WidgetName = "Content block";
         private const string BootstrapTemplate = "Bootstrap.default";
         private const string FoundationTemplate = "Foundation.default";
         private const string SemanticUITemplate = "SemanticUI.default";

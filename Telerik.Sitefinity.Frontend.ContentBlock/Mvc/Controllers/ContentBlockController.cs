@@ -22,7 +22,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
     /// <summary>
     ///     The content block controller
     /// </summary>
-    [ControllerToolboxItem(Name = "ContentBlock_MVC", Title = "Content Block", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = ContentBlockController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "ContentBlock_MVC", Title = "Content block", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = ContentBlockController.WidgetIconCssClass)]
     [Localization(typeof(ContentBlockResources))]
     public class ContentBlockController : Controller, 
                                           IHasContainerType,

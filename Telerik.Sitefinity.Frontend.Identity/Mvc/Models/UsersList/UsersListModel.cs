@@ -355,11 +355,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
 
             var query = this.UpdateExpression(itemsToSkip, take, ref totalCount);
 
-            var queryResult = query.Cast<IDataItem>().ToArray<IDataItem>();
-
-            foreach (var item in queryResult)
+            if (query != null)
             {
-                result.Add(this.CreateItemViewModelInstance(item));
+                var queryResult = query.Cast<IDataItem>().ToArray<IDataItem>();
+
+                foreach (var item in queryResult)
+                {
+                    result.Add(this.CreateItemViewModelInstance(item));
+                }
             }
 
             totalPages = (int)Math.Ceiling(totalCount.Value / (double)this.ItemsPerPage.Value);
@@ -380,14 +383,21 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList
         {
             var compiledFilterExpression = this.CompileFilterExpression();
 
-            IQueryable query = this.SetExpression(
-                compiledFilterExpression,
-                this.SortExpression,
-                skip,
-                take,
-                ref totalCount);
+            if (this.SelectionMode != Frontend.Mvc.Models.SelectionMode.AllItems && compiledFilterExpression.IsNullOrEmpty())
+            {
+                return null;
+            }
+            else
+            {
+                IQueryable query = this.SetExpression(
+                    compiledFilterExpression,
+                    this.SortExpression,
+                    skip,
+                    take,
+                    ref totalCount);
 
-            return query;
+                return query;
+            }
         }
 
         /// <summary>
