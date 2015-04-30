@@ -158,6 +158,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             anchorSelector.SelectByText(anchorName);
             anchorSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
             anchorSelector.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+
+            Assert.AreEqual(anchorName, anchorSelector.SelectedOption.Text);
         }
 
         /// <summary>
