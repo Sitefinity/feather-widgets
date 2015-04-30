@@ -198,7 +198,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
         {
             get
             {
-                return this["AllSelectedMediaTypes"];
+                return this["SelectedMediaTypes"];
             }
         }
 

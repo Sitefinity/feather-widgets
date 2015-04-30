@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
@@ -222,6 +223,7 @@ namespace FeatherWidgets.TestUnit.Resources
         /// <summary>
         /// The test ensures that Account activation widget resources are correct.
         /// </summary>
+        [TestMethod]
         [Owner("EGaneva")]
         [Description("The test ensures that account activation widget resources are correct.")]
         public void AccountActivationResources_IterateTheResources_AssureResourcesAreCorrect()
@@ -233,6 +235,7 @@ namespace FeatherWidgets.TestUnit.Resources
         /// <summary>
         /// The test ensures that Change password widget resources are correct.
         /// </summary>
+        [TestMethod]
         [Owner("EGaneva")]
         [Description("The test ensures that change password widget resources are correct.")]
         public void ChangePasswordResources_IterateTheResources_AssureResourcesAreCorrect()
@@ -244,6 +247,7 @@ namespace FeatherWidgets.TestUnit.Resources
         /// <summary>
         /// The test ensures that Profile widget resources are correct.
         /// </summary>
+        [TestMethod]
         [Owner("EGaneva")]
         [Description("The test ensures that profile widget resources are correct.")]
         public void ProfileResources_IterateTheResources_AssureResourcesAreCorrect()
@@ -255,6 +259,7 @@ namespace FeatherWidgets.TestUnit.Resources
         /// <summary>
         /// The test ensures that Registration widget resources are correct.
         /// </summary>
+        [TestMethod]
         [Owner("EGaneva")]
         [Description("The test ensures that registration widget resources are correct.")]
         public void RegistrationResources_IterateTheResources_AssureResourcesAreCorrect()
@@ -273,6 +278,18 @@ namespace FeatherWidgets.TestUnit.Resources
         {
             // Act & Assert: Iterate over each resource property and verify its correctness 
             this.TestResourceType<LoginFormResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that CSS widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("Boyko-Karadzhov")]
+        [Description("The test ensures that CSS widget resources are correct.")]
+        public void StyleSheetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<StyleSheetResources>();
         }
 
         /// <summary>
