@@ -31,7 +31,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             int expectedCount = 6;
 
             Assert.IsTrue(section.Tools.Count.Equals(expectedCount), "Widgets count is unexpected.");
-            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetMVCTitle), "Widget not found: " + DynamicWidgetMVCTitle);
+            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetTitle, isMvcWidget: true), "Mvc Widget not found: " + DynamicWidgetTitle);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             int expectedCount = 4;
 
             Assert.IsTrue(section.Tools.Count.Equals(expectedCount), "Widgets count is unexpected.");
-            Assert.IsFalse(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetMVCTitle), "Widget was found: " + DynamicWidgetMVCTitle);
+            Assert.IsFalse(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetTitle, isMvcWidget: true), "Mvc Widget was found: " + DynamicWidgetTitle);
         }
 
         /// <summary>
@@ -60,6 +60,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ModuleName = "Music Collection";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.MusicCollectionAdvanced.zip";
         private const string TransactionName = "Module Installations";
-        private const string DynamicWidgetMVCTitle = "Songs MVC";
+        private const string DynamicWidgetTitle = "Songs";
     }
 }

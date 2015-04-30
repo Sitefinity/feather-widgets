@@ -35,19 +35,17 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
             string[] widgets = new string[] 
             { 
-                DynamicWidgetMVCTitle, 
                 DynamicWidgetTitle, 
                 DynamicChild1WidgetTitle, 
-                DynamicChild1WidgetMVCTitle,
                 DynamicChild2WidgetTitle,
-                DynamicChild2WidgetMVCTitle
             };
 
             Assert.AreEqual(expectedCount, section.Tools.Count);
 
             foreach (var widget in widgets)
             {
-                Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, widget), "Widget not found: " + widget);
+                Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, widget, isMvcWidget: true), "Mvc widget not found: " + widget);
+                Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, widget, isMvcWidget: false), "Web Forms widget not found: " + widget);
             }
         }
 
@@ -71,9 +69,9 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
             foreach (var widget in widgets)
             {
-                if (ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(contentSection, widget))
+                if (ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(contentSection, widget, isMvcWidget: false))
                 {
-                    Assert.IsFalse(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(dynamicWidgetSection, widget), "Widget " + widget + " is duplicated");
+                    Assert.IsFalse(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(dynamicWidgetSection, widget, isMvcWidget: false), "Widget " + widget + " is duplicated");
                 }
             }
         }
@@ -87,17 +85,16 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         private const string ModuleName = "Hierarchical Module";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.HierarchicalModule.zip";
         private const string DynamicWidgetSection = "Hierarchical Module";
-        private const string DynamicWidgetMVCTitle = "Root Content Types MVC";
         private const string DynamicWidgetTitle = "Root Content Types";
         private const string DynamicChild1WidgetTitle = "Child 1 Types";
-        private const string DynamicChild1WidgetMVCTitle = "Child 1 Types MVC";
         private const string DynamicChild2WidgetTitle = "Child 2 Types";
-        private const string DynamicChild2WidgetMVCTitle = "Child 2 Types MVC";
         private const string TransactionName = "Module Installations";
         private const string RelatedModuleName = "RelatedModule";
         private const string RelatedModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.RelatedModule.zip";
         private const string RelatedModuleWidgetTitle1 = "SingleRelatedDatas";
         private const string RelatedModuleWidgetTitle2 = "MultipleRelatedDatas";
         private const string RelatedModuleWidgetTitle3 = "SelfRelatings";
+        private const string MvcWidgetClass = "sfMvcIcn";
+        private const string WebFormsWidgetClass = "sfMvcIcn";
     }        
 }

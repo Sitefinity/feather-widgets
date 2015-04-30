@@ -17,6 +17,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     public class PageZoneEditorWrapper : BaseWrapper
     {
         /// <summary>
+        /// Verifies if an Mvc widget is present in pages toolbox section.
+        /// </summary>
+        /// <param name="mvcWidgetName">The title of the widget.</param>
+        /// <returns>true or false depending on the widget presence in the toolbox.</returns>
+        public bool IsMvcWidgetPresentInToolbox(string mvcWidgetName)
+        {
+            var mvcWidget = this.GetMvcWidget(mvcWidgetName);
+
+            if (mvcWidget == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Gets the feather Mvc widget.
         /// </summary>
         /// <param name="mvcWidgetName">feather mvc widget name</param>
