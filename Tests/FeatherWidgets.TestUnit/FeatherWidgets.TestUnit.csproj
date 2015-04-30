@@ -171,6 +171,7 @@
     <Compile Include="Identity\ProfileControllerTests.cs" />
     <Compile Include="Identity\RegistrationControllerTests.cs" />
     <Compile Include="Identity\UsersListControllerTests.cs" />
+    <Compile Include="InlineClientAssets\JavaScriptModelTests.cs" />
     <Compile Include="Media\DocumentsList\DocumentControllerTests.cs" />
     <Compile Include="Media\Document\DocumentControllerTests.cs" />
     <Compile Include="Media\ImageGallery\ImageGalleryControllerTests.cs" />
