@@ -35,8 +35,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             int expectedCount = 4;
 
             Assert.IsTrue(section.Tools.Count.Equals(expectedCount), "Widgets count is unexpected.");
-            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetMVCTitle), "Widget not found: " + DynamicWidgetMVCTitle);
-            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetTitle), "Widget not found: " + DynamicWidgetTitle);
+            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetTitle, isMvcWidget: true), "Mvc Widget not found: " + DynamicWidgetTitle);
+            Assert.IsTrue(ServerOperationsFeather.Pages().IsWidgetPresentInToolbox(section, DynamicWidgetTitle, isMvcWidget: false), "Web forms Widget not found: " + DynamicWidgetTitle);
         }
 
         /// <summary>
@@ -50,7 +50,6 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
-        private const string DynamicWidgetMVCTitle = "Test Types MVC";
         private const string DynamicWidgetTitle = "Test Types";
         private const string TransactionName = "Module Installations";
     }

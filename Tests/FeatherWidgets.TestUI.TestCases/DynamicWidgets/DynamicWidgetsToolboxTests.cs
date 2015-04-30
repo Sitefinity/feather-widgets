@@ -68,12 +68,12 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().IsWidgetPresent(WidgetName, false);
+            Assert.IsFalse(BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().IsMvcWidgetPresentInToolbox(WidgetName));
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Arrange(this.TestName).ExecuteArrangement("ActivateModule");
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().ModuleBuilder().ModuleInitializerWrapper().IsWidgetPresent(WidgetName, true);
+            Assert.IsTrue(BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().IsMvcWidgetPresentInToolbox(WidgetName));
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
 
@@ -93,6 +93,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string DevName = "TestType";
         private const string PageName = "TestPage";
         private const string ContentTypeToDelete = "Songs";
-        private const string WidgetName = "Press Articles MVC";
+        private const string WidgetName = "Press Articles";
     }
 }
