@@ -89,6 +89,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities, Version=1.2.180.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5700.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
@@ -135,6 +139,7 @@
     <Compile Include="DummyClasses\DummyConfigProvider.cs" />
     <Compile Include="DummyClasses\Identity\DummyAccountActivationController.cs" />
     <Compile Include="DummyClasses\Identity\DummyAccountActivationModel.cs" />
+    <Compile Include="DummyClasses\InlineClientAssets\DummyJavaScriptController.cs" />
     <Compile Include="DummyClasses\Identity\DummyProfileController.cs" />
     <Compile Include="DummyClasses\Identity\DummyProfileModel.cs" />
     <Compile Include="DummyClasses\Identity\DummyRegistrationController.cs" />
@@ -162,9 +167,11 @@
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AccountActivationControllerTests.cs" />
+    <Compile Include="InlineClientAssets\JavaScriptControllerTests.cs" />
     <Compile Include="Identity\ProfileControllerTests.cs" />
     <Compile Include="Identity\RegistrationControllerTests.cs" />
     <Compile Include="Identity\UsersListControllerTests.cs" />
+    <Compile Include="InlineClientAssets\JavaScriptModelTests.cs" />
     <Compile Include="Media\DocumentsList\DocumentControllerTests.cs" />
     <Compile Include="Media\Document\DocumentControllerTests.cs" />
     <Compile Include="Media\ImageGallery\ImageGalleryControllerTests.cs" />

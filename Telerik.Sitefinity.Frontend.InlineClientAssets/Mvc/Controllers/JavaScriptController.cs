@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript;
@@ -50,7 +51,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            var page = this.HttpContext.CurrentHandler as Page;
+            var page = this.GetHttpContext().CurrentHandler as Page;
 
             if (page != null)
             {
@@ -66,6 +67,17 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             }
 
             return this.View(viewModel);
+        }
+        #endregion
+
+        #region Virtual methods
+        /// <summary>
+        /// Gets the HTTP context.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual HttpContextBase GetHttpContext()
+        {
+            return this.HttpContext;
         }
         #endregion
 
