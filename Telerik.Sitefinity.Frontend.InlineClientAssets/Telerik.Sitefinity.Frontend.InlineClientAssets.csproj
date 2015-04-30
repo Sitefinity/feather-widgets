@@ -145,7 +145,6 @@
     <EmbeddedResource Include="Mvc\Scripts\StyleSheet\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Views\StyleSheet\Index.cshtml" />
     <EmbeddedResource Include="Mvc\Views\StyleSheet\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\StyleSheet\DesignerView.Simple.json" />
     <None Include="app.config" />
