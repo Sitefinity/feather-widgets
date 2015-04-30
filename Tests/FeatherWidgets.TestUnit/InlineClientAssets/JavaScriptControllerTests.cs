@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript;
 
-namespace FeatherWidgets.TestUnit.Identity
+namespace FeatherWidgets.TestUnit.InlineClientAssets
 {
     /// <summary>
     /// Unit tests for the JavaScriptController.

@@ -167,7 +167,7 @@
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AccountActivationControllerTests.cs" />
-    <Compile Include="Identity\JavaScriptControllerTests.cs" />
+    <Compile Include="InlineClientAssets\JavaScriptControllerTests.cs" />
     <Compile Include="Identity\ProfileControllerTests.cs" />
     <Compile Include="Identity\RegistrationControllerTests.cs" />
     <Compile Include="Identity\UsersListControllerTests.cs" />
@@ -240,9 +240,7 @@
       <Name>Telerik.Sitefinity.Frontend.SocialShare</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="InlineClientAssets\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
