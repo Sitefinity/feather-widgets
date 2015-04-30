@@ -58,6 +58,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 
         private const string PageName = "ContentBlock";
         private const string ContentBlockContent = "Test content";
-        private const string WidgetName = "Content Block";
+        private const string WidgetName = "Content block";
     }
 }
