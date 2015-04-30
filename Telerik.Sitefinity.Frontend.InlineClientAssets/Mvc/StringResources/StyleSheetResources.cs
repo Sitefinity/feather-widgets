@@ -312,6 +312,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Phrase: Select a CSS file
+        /// </summary>
+        [ResourceEntry("SelectCssFile",
+            Value = "Select a CSS file",
+            Description = "Phrase: Select a CSS file",
+            LastModified = "2015/04/29")]
+        public string SelectCssFile
+        {
+            get
+            {
+                return this["SelectCssFile"];
+            }
+        }
+
         #endregion
     }
 }
