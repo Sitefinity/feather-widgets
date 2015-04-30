@@ -532,6 +532,12 @@
             <param name="handler">The handler.</param>
             <exception cref="T:System.ArgumentNullException">handler</exception>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.PageInitializer.GetInlineStyle">
+            <summary>
+            Gets the inline style.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcPageEditorRouteHandler">
             <summary>
             Represents an extended route handler for Sitefinity's page editor that injects MVC specific logic.
@@ -1552,21 +1558,33 @@
             </summary>
             <value>Aspect ratio</value>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.VideoHasBeenDeleted" -->
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.VideoHasBeenDeleted">
+            <summary>
+            phrase: The video has been deleted or unpublished
+            </summary>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Auto">
             <summary>
             word: Auto
             </summary>
             <value>Auto</value>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ChangeVideo" -->
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.ChangeVideo">
+            <summary>
+            phrase: Change video
+            </summary>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Ratio4X3">
             <summary>
             word: 4x3
             </summary>
             <value>4x3</value>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectVideo" -->
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SelectVideo">
+            <summary>
+            phrase: Select video
+            </summary>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Ratio16X9">
             <summary>
             word: 16x9
@@ -1686,6 +1704,12 @@
             phrase: Select blog posts
             </summary>
             <value>Select blog posts</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.UserSelectorHeader">
+            <summary>
+            phrase: Select a user
+            </summary>
+            <value>Select a user</value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Notifications.EmailTemplateHelper">
             <summary>
@@ -1961,6 +1985,15 @@
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.QueryBuilderScriptReferences(System.Web.Mvc.HtmlHelper)">
             <summary>
             Adds script references required by the Sitefinity's QueryBuilder component.
+            </summary>
+            <param name="helper">The helper.</param>
+            <returns>
+            MvcHtmlString
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.ResourceHelper.CodeMirrorScriptReferences(System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Adds script references required by the Sitefinity's CodeMirror component.
             </summary>
             <param name="helper">The helper.</param>
             <returns>
@@ -6022,22 +6055,126 @@
             </summary>
             <param name="controller">Type of the controller.</param>
         </member>
-        <member name="T:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest">
+        <member name="T:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesItemViewModel">
+            <summary>
+            A single file item view model used by <see cref="T:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesViewModel"/>
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesItemViewModel.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesItemViewModel.IsFolder">
+            <summary>
+            Gets or sets a value indicating whether this instance is folder.
+            </summary>
+            <value>
+              <c>true</c> if this instance is folder; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesViewModel">
+            <summary>
+            The view model
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesViewModel.Items">
+            <summary>
+            Gets or sets the items.
+            </summary>
+            <value>
+            The items.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesViewModel.Error">
+            <summary>
+            Gets or sets the error.
+            </summary>
+            <value>
+            The error.
+            </value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ListsService.FilesServiceStackPlugin">
+            <summary>
+            Represents a ServiceStack plug-in for the Files web service.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ListsService.FilesServiceStackPlugin.Register(ServiceStack.IAppHost)">
+            <summary>
+            Adding the files service routes
+            </summary>
+            <param name="appHost">The service stack appHost</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ListsService.DTO.SpecificListsGetRequest">
             <summary>
             <c>SpecificListsGetRequest</c>Represents a filter for retrieving a specific items of list objects.
             </summary>
         </member>
-        <member name="P:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest.Ids">
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ListsService.DTO.SpecificListsGetRequest.Ids">
             <summary>
             Gets or sets the list ids.
             </summary>
             <value>The list ids.</value>
         </member>
-        <member name="P:Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest.Provider">
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ListsService.DTO.SpecificListsGetRequest.Provider">
             <summary>
             Gets or sets the name of the provider.
             </summary>
             <value>The name of the provider.</value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesGetRequest">
+            <summary>
+            The DTO used by <see cref="T:Telerik.Sitefinity.Frontend.Services.FilesService.FilesWebService"/>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesGetRequest.Path">
+            <summary>
+            Gets or sets the parent path (or null if root).
+            </summary>
+            <value>
+            The parent path.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesGetRequest.Extension">
+            <summary>
+            Gets or sets the file extension.
+            </summary>
+            <value>
+            The file extension.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesGetRequest.Skip">
+            <summary>
+            Gets or sets the skip.
+            </summary>
+            <value>
+            The skip.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesGetRequest.Take">
+            <summary>
+            Gets or sets the take.
+            </summary>
+            <value>
+            The take.
+            </value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.FilesService.FilesWebService">
+            <summary>
+            This class provides file retrieval by extension.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.FilesService.FilesWebService.Get(Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesGetRequest)">
+            <summary>
+            Gets specific directories and files depending on the requested file extension and parent path.
+            </summary>
+            <param name="filesRequest">The files requests object from which the request parameters to be retrieved.</param>
+            <returns>        
+            An <see cref="T:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesViewModel"/> object.
+            </returns>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Services.ListsService.ListsServiceStackPlugin">
             <summary>
@@ -6055,7 +6192,7 @@
             This class provides methods, which are not currently presented in Sitefinity ListService.
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Services.ListsService.ListsWebService.Put(Telerik.Sitefinity.Frontend.Services.DTO.SpecificListsGetRequest)">
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ListsService.ListsWebService.Put(Telerik.Sitefinity.Frontend.Services.ListsService.DTO.SpecificListsGetRequest)">
             <summary>
             Get specifi lists based on provided ids and provider name.
             </summary>

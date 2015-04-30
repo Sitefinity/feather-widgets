@@ -378,10 +378,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="section">The toolbox section.</param>
         /// <param name="widgetTitle">The widget name.</param>
+        /// <param name="isMvcWidget">Mvc Widget or WebForms Widget</param>
         /// <returns></returns>
-        public bool IsWidgetPresentInToolbox(ToolboxSection section, string widgetTitle)
+        public bool IsWidgetPresentInToolbox(ToolboxSection section, string widgetTitle, bool isMvcWidget)
         {
-            var item = this.GetToolboxItem(section, widgetTitle);
+            var item = this.GetToolboxItem(section, widgetTitle, isMvcWidget);
 
             if (item == null)
             {
@@ -396,17 +397,21 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="section">The toolbox section.</param>
         /// <param name="widgetTitle">The name of the widget.</param>
+        /// <param name="isMvcWidget">Mvc Widget or WebForms Widget</param>
         /// <returns></returns>
-        public ToolboxItem GetToolboxItem(ToolboxSection section, string widgetTitle)
+        public ToolboxItem GetToolboxItem(ToolboxSection section, string widgetTitle, bool isMvcWidget)
         {          
             if (section == null)
             {
                 throw new ArgumentException("Section was not found");
             }
 
-            var item = section.Tools.FirstOrDefault<ToolboxItem>(e => e.Title == widgetTitle);
+            if (isMvcWidget)
+            {
+                return section.Tools.FirstOrDefault<ToolboxItem>(e => e.Title == widgetTitle && e.CssClass.EndsWith("sfMvcIcn", StringComparison.CurrentCulture));
+            }
 
-            return item;
+            return section.Tools.FirstOrDefault<ToolboxItem>(e => e.Title == widgetTitle && !e.CssClass.EndsWith("sfMvcIcn", StringComparison.CurrentCulture));
         }
 
         /// <summary>
