@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
@@ -193,6 +194,30 @@ namespace FeatherWidgets.TestUnit.Resources
         {
             // Act & Assert: Iterate over each resource property and verify its correctness 
             this.TestResourceType<BlogPostResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that CSS widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that CSS widgets resources are correct.")]
+        public void CssWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<StyleSheetResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that JavaScript widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that JavaScript widgets resources are correct.")]
+        public void JavaScriptWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<JavaScriptResources>();
         }
 
         /// <summary>
