@@ -15,9 +15,9 @@
 </div>
 
 <!-- Write CSS -->
-<div ng-show="properties.Mode.PropertyValue=='Inline'">
+<div ng-show="properties.Mode.PropertyValue=='Inline'" class="clearfix sf-code">
     <textarea sf-code-area sf-type="css" sf-tab-mode="classic" sf-line-numbers="true" sf-match-brackets="true" sf-model="properties.InlineStyles.PropertyValue" placeholder="@Html.Resource("StartWritingCss")"></textarea>
-    <a href=""
+    <a href="" class="pull-right m-top-xs"
                     sf-popover-html=""
                     sf-popover-placement="bottom"
                     sf-popover-trigger="focus"
@@ -42,17 +42,16 @@
 </div>
 
 <!-- Link to Css file -->
-<div ng-show="properties.Mode.PropertyValue=='Reference'">
-    <div class="form-group">
-        <label>
-            <p>@Html.Resource("Url")</p>
-            <sf-file-url-field sf-model="properties.ResourceUrl.PropertyValue" sf-extension="css" sf-title='@Html.Resource("SelectCssFile")'></sf-file-url-field>
-        </label>
-    </div>
+<div ng-show="properties.Mode.PropertyValue=='Reference'" class="form-group">
+    <label>
+        @Html.Resource("Url")
+    </label>
+    <sf-file-url-field sf-model="properties.ResourceUrl.PropertyValue" sf-extension="css" sf-title='@Html.Resource("SelectCssFile")'></sf-file-url-field>
 </div>
 
-<label>@Html.Resource("Media")</label>
+
 <div class="form-group">
+    <strong>@Html.Resource("Media")</strong>
     <div class="radio">
         <label class="full-width">
             <input type="radio" ng-model="mediaTypeSelection" ng-value="'all'" ng-change="updateMediaTypeProeprty()" />
@@ -66,20 +65,18 @@
 
             @Html.Resource("SelectedMediaTypes")
         </label>
-
-        <div ng-show="mediaTypeSelection === 'selected'">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-4" ng-repeat="mediaCol in mediaTypeColumns">
-                        <div class="checkbox" ng-repeat="mediaType in mediaCol">
-                            <label>
-                                <input type="checkbox" ng-model="mediaType.checked" ng-change="updateMediaTypeProeprty()">{{::mediaType.value}}
-                            </label>
-                        </div>
+        <div ng-show="mediaTypeSelection === 'selected'" class="label-content">
+            <div class="row">
+                <div class="col-xs-4" ng-repeat="mediaCol in mediaTypeColumns">
+                    <div class="checkbox" ng-repeat="mediaType in mediaCol">
+                        <label>
+                            <input type="checkbox" ng-model="mediaType.checked" ng-change="updateMediaTypeProeprty()">{{::mediaType.value}}
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 
