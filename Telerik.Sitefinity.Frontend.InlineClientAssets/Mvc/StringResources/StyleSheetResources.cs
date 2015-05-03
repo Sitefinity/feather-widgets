@@ -198,7 +198,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
         {
             get
             {
-                return this["AllSelectedMediaTypes"];
+                return this["SelectedMediaTypes"];
             }
         }
 
@@ -214,6 +214,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
             get
             {
                 return this["Description"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : For your convenience only
+        /// </summary>
+        [ResourceEntry("ForYourConvenience",
+            Value = "For your convenience only",
+            Description = "phrase : For your convenience only",
+            LastModified = "2015/05/1")]
+        public string ForYourConvenience
+        {
+            get
+            {
+                return this["ForYourConvenience"];
             }
         }
 
