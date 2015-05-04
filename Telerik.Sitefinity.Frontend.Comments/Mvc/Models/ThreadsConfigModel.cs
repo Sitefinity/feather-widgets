@@ -20,7 +20,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             var threadConfig = this.GetThreadConfigByType(threadType);
 
-            var commentsSettingsElementType = Type.GetType("Telerik.Sitefinity.Modules.Comments.Configuration.CommentsSettingsElement");
+            var assembly = typeof(Telerik.Sitefinity.Configuration.Config).Assembly;
+            var commentsSettingsElementType = assembly.GetType("Telerik.Sitefinity.Modules.Comments.Configuration.CommentsSettingsElement");
             this.AllowComments = this.GetProperty(threadConfig, commentsSettingsElementType, "AllowComments");
             this.RequiresAuthentication = this.GetProperty(threadConfig, commentsSettingsElementType, "RequiresAuthentication");
             this.RequiresApproval = this.GetProperty(threadConfig, commentsSettingsElementType, "RequiresApproval");
@@ -79,8 +80,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             {
                 var commentableTypesPropInfo = commentsModuleConfigType.GetProperty("CommentableTypes", BindingFlags.Public | BindingFlags.Instance);
                 var commentableTypes = commentableTypesPropInfo.GetValue(config, null) as ConfigElementCollection;
+                var commentableType = commentableTypes.Where(p => p.GetKey() == threadType).FirstOrDefault();
 
-                return commentableTypes.Contains(threadType) ? commentableTypes[threadType] as ConfigElement : defaultSettings;
+                return commentableTypes.Contains(threadType) ? commentableType : defaultSettings;
             }
         }
 
