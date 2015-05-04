@@ -6,24 +6,24 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
     /// <summary>
     /// Localizable strings for the Comments widget
     /// </summary>
-    [ObjectInfo(typeof(CommentsResources), ResourceClassId = "CommentsResources", Title = "CommentsResourcesTitle", Description = "CommentsResourcesDescription")]
-    public class CommentsResources : Resource
+    [ObjectInfo(typeof(CommentsWidgetResources), ResourceClassId = "CommentsResources", Title = "CommentsResourcesTitle", Description = "CommentsResourcesDescription")]
+    public class CommentsWidgetResources : Resource
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommentsResources"/> class. 
-        /// Initializes new instance of <see cref="CommentsResources"/> class with the default <see cref="ResourceDataProvider"/>.
+        /// Initializes a new instance of the <see cref="CommentsWidgetResources"/> class. 
+        /// Initializes new instance of <see cref="CommentsWidgetResources"/> class with the default <see cref="ResourceDataProvider"/>.
         /// </summary>
-        public CommentsResources()
+        public CommentsWidgetResources()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommentsResources"/> class.
+        /// Initializes a new instance of the <see cref="CommentsWidgetResources"/> class.
         /// </summary>
         /// <param name="dataProvider">The data provider.</param>
-        public CommentsResources(ResourceDataProvider dataProvider)
+        public CommentsWidgetResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
         }

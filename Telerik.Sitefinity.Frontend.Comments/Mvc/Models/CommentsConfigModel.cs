@@ -12,6 +12,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
     /// </summary>
     public class CommentsConfigModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommentsConfigModel"/> class.
+        /// </summary>
         public CommentsConfigModel()
         {
             var assembly = typeof(Telerik.Sitefinity.Configuration.Config).Assembly;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -73,6 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The threads configuration.
         /// </value>
+        [Browsable(false)]
         ThreadsConfigModel ThreadsConfig { get; }
 
         /// <summary>
@@ -81,6 +83,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments module configuration.
         /// </value>
+        [Browsable(false)]
         CommentsConfigModel CommentsConfig { get; }
     }
 }

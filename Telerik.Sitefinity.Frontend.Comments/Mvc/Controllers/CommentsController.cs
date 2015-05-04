@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Comments widget.
     /// </summary>
-    [Localization(typeof(CommentsResources))]
+    [Localization(typeof(CommentsWidgetResources))]
     [ControllerToolboxItem(Name = "Comments_MVC", Title = "Comments", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Comments", CssClass = CommentsController.WidgetIconCssClass)]
     public class CommentsController:Controller
     {
