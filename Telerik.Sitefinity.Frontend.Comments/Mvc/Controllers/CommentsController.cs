@@ -63,7 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
 
         public ActionResult Index(int? page)
         {
-            return this.View(this.TemplateName);
+            return this.View(this.TemplateName, this.Model);
         }
 
         #endregion

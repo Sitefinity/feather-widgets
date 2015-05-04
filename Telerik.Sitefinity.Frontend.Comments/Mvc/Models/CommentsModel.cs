@@ -6,6 +6,8 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Modules.Comments;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Services.Comments;
+using Telerik.Sitefinity.Services.Comments.Proxies;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
@@ -16,6 +18,11 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
     /// </summary>
     public class CommentsModel : ICommentsModel
     {
+        public CommentsModel()
+        {
+            this.GetThread();
+        }
+
         /// <inheritDoc/>
         public string ThreadKey
         {
@@ -89,12 +96,70 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public bool? AllowComments
-        { get; set; }
+        public string DataSource { get; set; }
+
+        /// <inheritDoc/>
+        public bool? AllowComments { get; set; }
+
+        /// <inheritDoc/>
+        public bool RestrictToAuthenticated { set; get; }
+
+        /// <inheritDoc/>
+        public bool ThreadIsClosed { get; set; }
+
+        /// <summary>
+        /// Gets the Comments Settings element
+        /// </summary>
+        private CommentsConfigModel CommentsConfig
+        {
+            get
+            {
+                if (this.commentsConfig == null)
+                {
+                    this.commentsConfig = new CommentsConfigModel(this.ThreadType);
+                }
+                return this.commentsConfig;
+            }
+        }
+
+        private IThread GetThread()
+        {
+            var cs = SystemManager.GetCommentsService();
+            IThread thread = null;
+            if (!this.ThreadKey.IsNullOrEmpty())
+            {
+                thread = cs.GetThread(this.ThreadKey);
+            }
+
+            if (thread != null)
+            {
+                this.ThreadIsClosed = thread.IsClosed;
+            }
+            else
+            {
+                var currentUser = Telerik.Sitefinity.Security.Claims.ClaimsManager.GetCurrentIdentity();
+                var author = new AuthorProxy(currentUser.UserId.ToString());
+
+                thread = new ThreadProxy(this.ThreadTitle, this.ThreadType, this.GroupKey, author)
+                {
+                    IsClosed = false,
+                    Key = this.ThreadKey,
+                    DataSource = this.DataSource
+                };
+
+                if (this.CommentsConfig.EnableRatings)
+                {
+                    thread.Behavior = CommentsBehaviorUtilities.ReviewBehaviorIdent;
+                }
+            }
+
+            return thread;
+        }
 
         private string threadType;
         private string threadTitle;
         private string groupKey;
         private string threadKey;
+        private CommentsConfigModel commentsConfig;
     }
 }

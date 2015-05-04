@@ -31,12 +31,31 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         string ThreadTitle { set; get; }
 
         /// <summary>
+        /// Gets or sets the data source.
+        /// </summary>
+        string DataSource { get; set; }
+
+        /// <summary>
         /// Gets or sets the allow comments.
         /// </summary>
         /// <value>
         /// The allow comments.
         /// </value>
         bool? AllowComments
+        { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to restrict to authenticated users.
+        /// </summary>
+        bool RestrictToAuthenticated { set; get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether thread is closed.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if thread is closed; otherwise, <c>false</c>.
+        /// </value>
+        bool ThreadIsClosed
         { get; set; }
     }
 }
