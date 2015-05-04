@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('expander', 'sfCodeArea', 'sfBootstrapPopover');
+    angular.module('designer').requires.push('expander', 'sfCodeArea', 'sfBootstrapPopover', 'sfFileUrlField');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         propertyService.get()

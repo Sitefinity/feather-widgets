@@ -304,5 +304,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
                 return this["Example"];
             }
         }
+
+        /// <summary>
+        /// Phrase: Select a JS file
+        /// </summary>
+        /// <value>Select a JS file</value>
+        [ResourceEntry("SelectJsFile",
+            Value = "Select a JS file",
+            Description = "Phrase: Select a JS file",
+            LastModified = "2015/05/04")]
+        public string SelectJsFile
+        {
+            get
+            {
+                return this["SelectJsFile"];
+            }
+        }
     }
 }
