@@ -148,7 +148,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         /// </summary>
         protected virtual bool ShouldDisplayContent()
         {
-            return !this.IsEmpty && SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode;
+            return !this.IsEmpty && SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode;
         }
 
         /// <summary>
