@@ -131,7 +131,7 @@
         getIsUserLoggedIn().then(function (response) {
             if (!(response && response.IsAuthenticated)) {
                 $('[data-sf-role="comments-new-logged-out-view"]').hide();
-            };
+            }
         });
 
         $('[data-sf-role="comments-form"]').click(function () {
