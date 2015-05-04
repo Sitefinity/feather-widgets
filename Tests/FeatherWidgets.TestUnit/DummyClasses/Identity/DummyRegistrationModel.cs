@@ -43,6 +43,8 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Identity
 
         public string ProfileBindings { get; set; }
 
+        public bool EmailAddressShouldBeTheUsername { get; set; }
+
         public MembershipCreateStatus RegisterUser(RegistrationViewModel model)
         {
             if (model.UserName != "Fail")
