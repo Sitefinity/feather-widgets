@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -40,7 +44,9 @@
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -128,16 +134,18 @@
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\CommentsController.cs" />
+    <Compile Include="Mvc\Models\CommentsConfigModel.cs" />
+    <Compile Include="Mvc\Models\ThreadsConfigModel.cs" />
     <Compile Include="Mvc\Models\CommentsModel.cs" />
     <Compile Include="Mvc\Models\ICommentsModel.cs" />
-    <Compile Include="Mvc\StringResources\CommentsResources.cs" />
+    <Compile Include="Mvc\StringResources\CommentsWidgetResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Comments\Index.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Comments\Comments.Default.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
