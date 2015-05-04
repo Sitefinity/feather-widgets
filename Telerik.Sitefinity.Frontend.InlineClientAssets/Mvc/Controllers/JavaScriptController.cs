@@ -77,7 +77,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
             }
 
-            if (this.IsDesignMode && !SystemManager.IsInlineEditingMode)
+            if (this.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
             {
                 string result = null;
 
