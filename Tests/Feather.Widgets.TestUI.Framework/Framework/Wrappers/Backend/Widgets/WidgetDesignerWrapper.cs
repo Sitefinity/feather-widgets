@@ -142,19 +142,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                      .DisplayItemsPublishedIn
                                      .AssertIsPresent("Selects display items published in");
 
-            List<HtmlDiv> itemsDivs = optionsForm.Find.AllByExpression<HtmlDiv>("tagname=div", "class=" + divClass).ToList<HtmlDiv>();
+            List<HtmlDiv> itemsDivs = optionsForm.Find.AllByExpression<HtmlDiv>("tagname=div", "class=~" + divClass).ToList<HtmlDiv>();
 
-            if (option.Contains("Custom"))
+            switch (option)
             {
-                position = 1;
-            }
-            else
-            {
-                position = 0;
+                case "Any time":
+                    position = 0;
+                    break;
+                case "Last":
+                    position = 1;
+                    break;
+                case "Custom range...":
+                    position = 2;
+                    break;
+                default:
+                    position = 0;
+                    break;
             }
 
             HtmlInputRadioButton optionButton = itemsDivs[position].Find.ByExpression<HtmlInputRadioButton>("tagname=input")
-                                                                   .AssertIsPresent("Which items to display option radio button");
+                                                                   .AssertIsPresent("Display itesm published in radio button");
 
             optionButton.Click();
         }
