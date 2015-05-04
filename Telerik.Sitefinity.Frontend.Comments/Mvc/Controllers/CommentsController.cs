@@ -40,13 +40,30 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the template that widget will be displayed.
+        /// </summary>
+        /// <value></value>
+        public string TemplateName
+        {
+            get
+            {
+                return this.templateName;
+            }
+
+            set
+            {
+                this.templateName = value;
+            }
+        }
+
         #endregion
 
         #region Actions
 
         public ActionResult Index(int? page)
         {
-            return this.View();
+            return this.View(this.TemplateName);
         }
 
         #endregion
@@ -55,6 +72,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
 
         internal const string WidgetIconCssClass = "sfCommentsIcn sfMvcIcn";
         private ICommentsModel model;
+        private string templateName = "Comments";
 
         #endregion
     }
