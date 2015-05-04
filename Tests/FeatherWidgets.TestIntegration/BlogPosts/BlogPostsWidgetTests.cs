@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
             try
             {
-                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog1Id);
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog1Id, ParentFilterMode.Selected, SelectionMode.AllItems);
 
                 var controls = new List<System.Web.UI.Control>();
                 controls.Add(blogPostsWidget);
@@ -67,15 +67,61 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             }
         }
 
-        private MvcWidgetProxy CreateBlogPostsMvcWidget(Guid selectedParentId)
+        [Test]
+        [Category(TestCategories.Blogs)]
+        [Author(FeatherTeams.Team2)]
+        [Description("Adds Blog posts widget to a page and display posts from currently opened blog.")]
+        public void BlogPostsWidget_DisplayPostsFromCurrentlyOpenedBlog()
+        {
+            string blog1Title = "Blog1";
+            string blog2Title = "Blog2";
+            string blog1PostTitle = "Blog1Post1";
+            string blog2PostTitle = "Blog2Post1";
+            string pageTitle = "PageWithBlogPostsWidget";
+
+            Guid blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
+            ServerOperations.Blogs().CreatePublishedBlogPost(blog1PostTitle, blog1Id);
+
+            Guid blog2Id = ServerOperations.Blogs().CreateBlog(blog2Title);
+            ServerOperations.Blogs().CreatePublishedBlogPost(blog2PostTitle, blog2Id);
+
+            Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+
+            try
+            {
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog2Id, ParentFilterMode.CurrentlyOpen, SelectionMode.AllItems);
+
+                var controls = new List<System.Web.UI.Control>();
+                controls.Add(blogPostsWidget);
+
+                PageContentGenerator.AddControlsToPage(pageId, controls);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + pageTitle + "/" + blog2Title);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(blog2PostTitle), "The item with this title was NOT found " + blog2PostTitle);
+                Assert.IsFalse(responseContent.Contains(blog1PostTitle), "The item with this title WAS found " + blog1PostTitle);
+            }
+            finally
+            {
+                ServerOperations.Pages().DeleteAllPages();
+                ServerOperations.Blogs().DeleteAllBlogs();
+            }
+        }
+
+        private MvcWidgetProxy CreateBlogPostsMvcWidget(Guid selectedParentId, ParentFilterMode parentMode, SelectionMode selectionMode)
         {
             var mvcProxy = new MvcWidgetProxy();
             mvcProxy.ControllerName = typeof(BlogPostController).FullName;
             var controller = new BlogPostController();
 
-            controller.Model.ParentFilterMode = ParentFilterMode.Selected;
-            controller.Model.SelectionMode = SelectionMode.AllItems;
-            controller.Model.SerializedSelectedParentsIds = "[" + selectedParentId.ToString() + "]";
+            controller.Model.ParentFilterMode = parentMode;
+            controller.Model.SelectionMode = selectionMode;
+
+            if (selectedParentId != null)
+            {
+                controller.Model.SerializedSelectedParentsIds = "[" + selectedParentId.ToString() + "]";
+            }
 
             mvcProxy.Settings = new ControllerSettings(controller);
 
