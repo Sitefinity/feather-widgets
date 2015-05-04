@@ -15,7 +15,7 @@
 </div>
 
 <!-- Write JavaScript -->
-<div ng-show="properties.Mode.PropertyValue=='Inline'">
+<div class="sf-code clearfix" ng-show="properties.Mode.PropertyValue=='Inline'">
     <textarea sf-code-area
         sf-type="javascript"
         sf-tab-mode="classic"
@@ -24,7 +24,7 @@
         sf-model="properties.InlineCode.PropertyValue"
         placeholder="@Html.Resource("StartWritingJavaScript")"></textarea>
 
-    <a href=""
+    <a class="pull-right m-top-xs" href=""
         sf-popover-html=""
         sf-popover-placement="bottom"
         sf-popover-trigger="focus"
@@ -48,14 +48,14 @@
 <div ng-show="properties.Mode.PropertyValue=='Reference'">
     <div class="form-group">
         <label>
-            <p>@Html.Resource("Url")</p>
-            <input type="text" ng-model="properties.FileUrl.PropertyValue" />
+           @Html.Resource("Url")
         </label>
+        <input type="text" ng-model="properties.FileUrl.PropertyValue" class="form-control" />
     </div>
 </div>
 
-<label>@Html.Resource("WhereToInclude")</label>
-<div class="form-group">
+<div class="form-group m-top-lg">
+    <strong>@Html.Resource("WhereToInclude")</strong>
     <div class="radio">
         <label class="full-width">
             <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'Head'" />
