@@ -61,9 +61,18 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
 
         #region Actions
 
-        public ActionResult Index(int? page)
+        /// <summary>
+        /// Gets comments view
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
         {
-            return this.View(this.TemplateName, this.Model);
+            if (this.Model.ShowComments)
+            {
+                return this.View(this.TemplateName, this.Model);
+            }
+
+            return new EmptyResult();
         }
 
         #endregion

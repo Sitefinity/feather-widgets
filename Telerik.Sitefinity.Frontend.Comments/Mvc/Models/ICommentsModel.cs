@@ -57,5 +57,13 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// </value>
         bool ThreadIsClosed
         { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether comments widget can be displayed.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if comments widget can be displayed; otherwise, <c>false</c>.
+        /// </value>
+        bool ShowComments { get; }
     }
 }

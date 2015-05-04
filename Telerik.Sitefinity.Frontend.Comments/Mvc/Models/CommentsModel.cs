@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Telerik.Sitefinity.Configuration;
@@ -106,6 +107,16 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         /// <inheritDoc/>
         public bool ThreadIsClosed { get; set; }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        public bool ShowComments
+        {
+            get
+            {
+                return (this.AllowComments.HasValue ? !this.AllowComments.Value : !this.CommentsConfig.AllowComments);
+            }
+        }
 
         /// <summary>
         /// Gets the Comments Settings element
