@@ -47,7 +47,6 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
 
             return new JavaScriptViewModel()
             {
-                Description = this.Description,
                 Position = this.Position,
                 JavaScriptCode = script
             };
@@ -74,8 +73,8 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
             }
             else if(this.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(this.InlineCode))
             {
-                scriptTag = string.Format(@"<script type=""text/javascript"">{0}</script>",
-                                                    this.InlineCode);
+                scriptTag = string.Format(@"<script type=""text/javascript"">{0}{1}{0}</script>",
+                                                    Environment.NewLine, this.InlineCode);
             }
 
             return scriptTag;
