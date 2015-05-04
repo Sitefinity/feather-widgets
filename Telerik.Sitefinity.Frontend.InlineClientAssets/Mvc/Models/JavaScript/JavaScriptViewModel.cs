@@ -8,12 +8,6 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
     public class JavaScriptViewModel
     {
         /// <summary>
-        /// Gets or sets the description of the used javascript.
-        /// </summary>
-        /// <value>The description.</value>
-        public string Description { get; set; }
-
-        /// <summary>
         /// Gets or sets the JavaScript code that will be embedded in the page.
         /// </summary>
         /// <value>The java script code.</value>
@@ -26,9 +20,9 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript
         public EmbedPosition Position { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the widget will use entered by the user custom code or the url to a file.
+        /// Gets or sets the widget content in design mode.
         /// </summary>
-        /// <value>The mode.</value>
-        public ResourceMode Mode { get; set; }
+        /// <value>The widget content in design mode.</value>
+        public string DesignModeContent { get; set; }
     }
 }

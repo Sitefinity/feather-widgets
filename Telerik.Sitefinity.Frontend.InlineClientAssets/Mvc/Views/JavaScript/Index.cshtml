@@ -9,46 +9,7 @@
     @Html.Raw(Model.JavaScriptCode)
 }
 
-@if (SystemManager.IsDesignMode)
-{   
-    if (string.IsNullOrEmpty(Model.Description))
-    {
-        if (Model.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(Model.JavaScriptCode))
-        {
-            var lines = Model.JavaScriptCode
-                .Split(new string[1] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-@*The identation in the <pre> tag is important.*@
-<pre>
-@string.Join("\n", lines.Take(2))
-@if (lines.Length > 2)
+@if (!string.IsNullOrEmpty(Model.DesignModeContent))
 {
-@Html.Raw("...")
-}
-</pre>
-        }
-        else
-        {
-            <pre>@Model.JavaScriptCode</pre>
-        }
-        
-        switch (Model.Position)
-        {
-            case EmbedPosition.Head:
-                @Html.Resource("IncludedInTheHead")
-                break;
-            case EmbedPosition.InPlace:
-                @Html.Resource("IncludedWhereDropped")
-                break;
-            case EmbedPosition.BeforeBodyEndTag:
-                @Html.Resource("IncludedBeforeTheBodyEnd")
-                break;
-            default:
-                break;
-        }
-    }
-    else
-    {
-        @Model.Description
-    }
+    <pre>@Model.DesignModeContent</pre>
 }

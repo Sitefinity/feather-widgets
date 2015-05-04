@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUnit.InlineClientAssets
     [TestClass]
     public class JavaScriptControllerTests
     {
-        [TestMethod]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"), TestMethod]
         [Owner("Mateev")]
         [Description("Calls the Index view and verifies that the generated script tag contains the provided inline javascript code.")]
         public void Index_ScriptGeneration_InlineCodeIsProvided()
@@ -29,9 +29,30 @@ namespace FeatherWidgets.TestUnit.InlineClientAssets
 
                 var viewModel = (JavaScriptViewModel)result.Model;
 
-                var expectedScript = @"<script type=""text/javascript"">var inline = 5;</script>";
+                var expectedScript = string.Format(@"<script type=""text/javascript"">{0}var inline = 5;{0}</script>", Environment.NewLine);
 
                 Assert.AreEqual(expectedScript, viewModel.JavaScriptCode);
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"), TestMethod]
+        [Owner("NPetrova")]
+        [Description("Calls the Index view and verifies that the generated short inline script code in design mode is correct.")]
+        public void Index_ScriptGeneration_ShortInlineCodeIsProvided()
+        {
+            using (var controller = new DummyJavaScriptController())
+            {
+                controller.Model.Mode = ResourceMode.Inline;
+
+                controller.Model.InlineCode = "var inline = 5;";
+
+                var result = (ViewResult)controller.Index();
+
+                var viewModel = (JavaScriptViewModel)result.Model;
+
+                var expectedScript = string.Format(@"<script type=""text/javascript"">{0}var inline = 5;{0}...{0}", Environment.NewLine);
+
+                Assert.AreEqual(expectedScript, viewModel.DesignModeContent);
             }
         }
 
@@ -69,7 +90,7 @@ namespace FeatherWidgets.TestUnit.InlineClientAssets
 
                 var viewModel = (JavaScriptViewModel)result.Model;
 
-                Assert.AreEqual("test", viewModel.Description);
+                Assert.AreEqual("test", viewModel.DesignModeContent);
             }
         }
     }

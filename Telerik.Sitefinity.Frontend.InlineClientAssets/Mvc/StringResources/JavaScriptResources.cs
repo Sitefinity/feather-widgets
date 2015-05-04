@@ -306,12 +306,12 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: Select a JS file
+        /// Phrase: Select a JavaScript file
         /// </summary>
-        /// <value>Select a JS file</value>
+        /// <value>Select a JavaScript file</value>
         [ResourceEntry("SelectJsFile",
-            Value = "Select a JS file",
-            Description = "Phrase: Select a JS file",
+            Value = "Select a JavaScript file",
+            Description = "Phrase: Select a JavaScript file",
             LastModified = "2015/05/04")]
         public string SelectJsFile
         {
