@@ -19,6 +19,12 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
     /// </summary>
     public class CommentsModel : ICommentsModel
     {
+        /// <inheritDoc/>
+        public string CssClass { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommentsModel"/> class.
+        /// </summary>
         public CommentsModel()
         {
             this.GetThread();
@@ -103,9 +109,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public bool? AllowComments { get; set; }
 
         /// <inheritDoc/>
-        public bool RestrictToAuthenticated { set; get; }
-
-        /// <inheritDoc/>
         public bool ThreadIsClosed { get; set; }
 
         /// <inheritDoc/>
@@ -114,20 +117,37 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             get
             {
-                return (this.AllowComments.HasValue ? !this.AllowComments.Value : !this.CommentsConfig.AllowComments);
+                return (this.AllowComments.HasValue ? !this.AllowComments.Value : !this.ThreadsConfig.AllowComments);
             }
         }
 
         /// <summary>
-        /// Gets the Comments Settings element
+        /// Gets the configuration for the thread
         /// </summary>
-        private CommentsConfigModel CommentsConfig
+        [Browsable(false)]
+        public ThreadsConfigModel ThreadsConfig
+        {
+            get
+            {
+                if (this.threadsConfig == null)
+                {
+                    this.threadsConfig = new ThreadsConfigModel(this.ThreadType);
+                }
+                return this.threadsConfig;
+            }
+        }
+
+        /// <summary>
+        /// Gets the configuration for the comments module
+        /// </summary>
+        [Browsable(false)]
+        public CommentsConfigModel CommentsConfig
         {
             get
             {
                 if (this.commentsConfig == null)
                 {
-                    this.commentsConfig = new CommentsConfigModel(this.ThreadType);
+                    this.commentsConfig = new CommentsConfigModel();
                 }
                 return this.commentsConfig;
             }
@@ -146,23 +166,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             {
                 this.ThreadIsClosed = thread.IsClosed;
             }
-            else
-            {
-                var currentUser = Telerik.Sitefinity.Security.Claims.ClaimsManager.GetCurrentIdentity();
-                var author = new AuthorProxy(currentUser.UserId.ToString());
-
-                thread = new ThreadProxy(this.ThreadTitle, this.ThreadType, this.GroupKey, author)
-                {
-                    IsClosed = false,
-                    Key = this.ThreadKey,
-                    DataSource = this.DataSource
-                };
-
-                if (this.CommentsConfig.EnableRatings)
-                {
-                    thread.Behavior = CommentsBehaviorUtilities.ReviewBehaviorIdent;
-                }
-            }
 
             return thread;
         }
@@ -171,6 +174,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         private string threadTitle;
         private string groupKey;
         private string threadKey;
+        private ThreadsConfigModel threadsConfig;
         private CommentsConfigModel commentsConfig;
     }
 }

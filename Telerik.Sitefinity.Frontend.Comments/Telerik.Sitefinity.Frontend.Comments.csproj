@@ -135,8 +135,8 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\CommentsController.cs" />
     <Compile Include="Mvc\Models\CommentsConfigModel.cs" />
+    <Compile Include="Mvc\Models\ThreadsConfigModel.cs" />
     <Compile Include="Mvc\Models\CommentsModel.cs" />
-    <Compile Include="Mvc\Models\CommentsWrapper.cs" />
     <Compile Include="Mvc\Models\ICommentsModel.cs" />
     <Compile Include="Mvc\StringResources\CommentsResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,1 +1,27 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<form name="commentsProperties">
+    <div class="form-group">
+        <label for="templateName">@Html.Resource("Template")</label>
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames("Image", @"(?<viewName>^Comments.*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+        <div class="form-group">
+            <label for="commentsCssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="commentsCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
+</form>
+
