@@ -197,6 +197,30 @@ namespace FeatherWidgets.TestUnit.Resources
         }
 
         /// <summary>
+        /// The test ensures that CSS widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that CSS widgets resources are correct.")]
+        public void CssWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<StyleSheetResources>();
+        }
+
+        /// <summary>
+        /// The test ensures that JavaScript widget resources are correct.
+        /// </summary>
+        [TestMethod]
+        [Owner("EGaneva")]
+        [Description("The test ensures that JavaScript widgets resources are correct.")]
+        public void JavaScriptWidgetResources_IterateTheResources_AssureResourcesAreCorrect()
+        {
+            // Act & Assert: Iterate over each resource property and verify its correctness 
+            this.TestResourceType<JavaScriptResources>();
+        }
+
+        /// <summary>
         /// The test ensures that lists widget resources are correct.
         /// </summary>
         [TestMethod]

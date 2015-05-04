@@ -38,7 +38,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().InsertLink();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().VerifyContentBlockTextDesignMode("Test1" + "Test2" + TextToDisplay);
 
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectTextInEditableArea(TextToDisplay);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SelectLinkInEditableArea(TextToDisplay);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenLinkSelector();
 
             BATFeather.Wrappers().Backend().ContentBlocks().LinkSelectorWrapper().VerifySelectedValueInAnchorDropdown(AnchorName);

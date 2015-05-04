@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,16 +62,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Selects the text in editable area.
+        /// Selects the link text in editable area.
         /// </summary>
         /// <param name="text">The text.</param>
-        public void SelectTextInEditableArea(string text)
+        public void SelectLinkInEditableArea(string linkText)
         {
             Browser frame = this.GetContentBlockFrame();
 
-            var content = frame.Find.ByExpression<HtmlControl>("InnerText=" + text);
+            HtmlAnchor content = frame.Find.ByExpression<HtmlAnchor>("tagName=a", "InnerText=" + linkText);
 
-            content.MouseClick(MouseClickType.LeftDoubleClick);
+            Rectangle contentRect = content.GetRectangle();
+            Point startPoint = new Point(contentRect.X, contentRect.Y);
+            Point endPoint = new Point(contentRect.X + contentRect.Width, contentRect.Y + contentRect.Height);
+
+            content.Focus();
+            content.MouseClick();
+            ActiveBrowser.Manager.Desktop.Mouse.DragDrop(startPoint, endPoint);
         }
 
         /// <summary>

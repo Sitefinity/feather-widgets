@@ -90,21 +90,37 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         #region ICustomWidgetVisualizationExtended
 
         /// <inheritDocs/>
+        [Browsable(false)]
         public string WidgetCssClass
         {
             get { return StyleSheetController.WidgetIconCssClass; }
         }
 
         /// <inheritDocs/>
+        [Browsable(false)]
         public string EmptyLinkText
         {
             get { return Res.Get<StyleSheetResources>().SetCss; }
         }
 
         /// <inheritDocs/>
+        [Browsable(false)]
         public bool IsEmpty
         {
             get { return string.IsNullOrEmpty(this.Model.InlineStyles) && string.IsNullOrEmpty(this.Model.ResourceUrl); }
+        }
+
+        #endregion
+
+        #region Overridden methods
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
         }
 
         #endregion
