@@ -570,8 +570,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         /// </summary>
         /// <value>Please, visit your email</value>
         [ResourceEntry("VisitYourEmail",
-            Value = "Please, visit your email",
-            Description = "phrase: Please, visit your email",
+            Value = "Please check your email",
+            Description = "phrase: Please check your email",
             LastModified = "2015/03/09")]
         public string VisitYourEmail
         {

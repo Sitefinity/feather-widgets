@@ -7,8 +7,8 @@
 
 @*Add scripts and stylesheets*@
 @Html.Script(ScriptRef.JQuery, "top", false)
-@Html.Script("http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
-@Html.Script("http://ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
+@Html.Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
+@Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
 
 <div class="@Model.CssClass">
     @if (ViewBag.ShowActivationMsg is bool && ViewBag.ShowActivationMsg)
@@ -59,6 +59,8 @@
                 </label>
                 @Html.ValidationMessageFor(m => m.Email)
             </div>
+            if (!Model.EmailAddressShouldBeTheUsername)
+            {
             <div>
                 <label>
                     @Html.Resource("UserName")
@@ -66,6 +68,7 @@
                 </label>
                 @Html.ValidationMessageFor(m => m.UserName)
             </div>
+            }
             <div>
                 <label>
                     @Html.Resource("Password")

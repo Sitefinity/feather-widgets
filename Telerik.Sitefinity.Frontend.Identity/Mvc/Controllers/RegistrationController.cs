@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
@@ -38,6 +39,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets or sets if on registration the email addess should be used as the username
+        /// </summary>
+        public bool EmailAddressShouldBeTheUsername {
+            get {
+                return this.emailAddressShouldBeTheUsername;
+            }
+
+            set {
+                this.emailAddressShouldBeTheUsername = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the name of the template that widget will be displayed.
         /// </summary>
         /// <value></value>
@@ -69,6 +83,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
             var viewModel = new RegistrationViewModel();
+            viewModel.EmailAddressShouldBeTheUsername = this.EmailAddressShouldBeTheUsername;
+
             this.Model.InitializeViewModel(viewModel);
 
             this.ViewBag.ShowSuccessfulRegistrationMsg = false;
@@ -87,6 +103,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(RegistrationViewModel viewModel)
         {
+            viewModel.EmailAddressShouldBeTheUsername = this.EmailAddressShouldBeTheUsername;
+
+            if(this.EmailAddressShouldBeTheUsername){
+                ModelState.Remove("UserName");
+            }
+
             if (ModelState.IsValid)
             {
                 var status = this.Model.RegisterUser(viewModel);
@@ -153,6 +175,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         private string templateName = "RegistrationForm";
         private IRegistrationModel model;
         private string templateNamePrefix = "Registration.";
+        private bool emailAddressShouldBeTheUsername = false;
 
         #endregion
     }
