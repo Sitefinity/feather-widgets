@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
         [Test]
         [Category(TestCategories.Blogs)]
         [Author(FeatherTeams.Team2)]
-        [Description("Adds Blog posts widget to a page and display posts from selected blogs only.")]
+        [Description("Add Blog posts widget to a page and display posts from selected blogs only.")]
         public void BlogPostsWidget_DisplayPostsFromSelectedBlogsOnly()
         {
             string blog1Title = "Blog1";
@@ -37,17 +37,17 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             string blog2PostTitle = "Blog2Post1";
             string pageTitle = "PageWithBlogPostsWidget";
 
-            Guid blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
-            ServerOperations.Blogs().CreatePublishedBlogPost(blog1PostTitle, blog1Id);
-
-            Guid blog2Id = ServerOperations.Blogs().CreateBlog(blog2Title);
-            ServerOperations.Blogs().CreatePublishedBlogPost(blog2PostTitle, blog2Id);
-
-            Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
-
             try
             {
-                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog1Id);
+                Guid blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
+                ServerOperations.Blogs().CreatePublishedBlogPost(blog1PostTitle, blog1Id);
+
+                Guid blog2Id = ServerOperations.Blogs().CreateBlog(blog2Title);
+                ServerOperations.Blogs().CreatePublishedBlogPost(blog2PostTitle, blog2Id);
+
+                Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog1Id, ParentFilterMode.Selected, SelectionMode.AllItems, default(Guid));
 
                 var controls = new List<System.Web.UI.Control>();
                 controls.Add(blogPostsWidget);
@@ -67,15 +67,153 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             }
         }
 
-        private MvcWidgetProxy CreateBlogPostsMvcWidget(Guid selectedParentId)
+        [Test]
+        [Category(TestCategories.Blogs)]
+        [Author(FeatherTeams.Team2)]
+        [Description("Add Blog posts widget to a page and display posts from currently opened blog.")]
+        public void BlogPostsWidget_DisplayPostsFromCurrentlyOpenedBlog()
+        {
+            string blog1Title = "Blog1";
+            string blog2Title = "Blog2";
+            string blog1PostTitle = "Blog1Post1";
+            string blog2PostTitle = "Blog2Post1";
+            string pageTitle = "PageWithBlogPostsWidget";
+
+            try
+            {
+                Guid blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
+                ServerOperations.Blogs().CreatePublishedBlogPost(blog1PostTitle, blog1Id);
+
+                Guid blog2Id = ServerOperations.Blogs().CreateBlog(blog2Title);
+                ServerOperations.Blogs().CreatePublishedBlogPost(blog2PostTitle, blog2Id);
+
+                Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog2Id, ParentFilterMode.CurrentlyOpen, SelectionMode.AllItems, default(Guid));
+
+                var controls = new List<System.Web.UI.Control>();
+                controls.Add(blogPostsWidget);
+
+                PageContentGenerator.AddControlsToPage(pageId, controls);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + pageTitle + "/" + blog2Title);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(blog2PostTitle), "The item with this title was NOT found " + blog2PostTitle);
+                Assert.IsFalse(responseContent.Contains(blog1PostTitle), "The item with this title WAS found " + blog1PostTitle);
+            }
+            finally
+            {
+                ServerOperations.Pages().DeleteAllPages();
+                ServerOperations.Blogs().DeleteAllBlogs();
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.Blogs)]
+        [Author(FeatherTeams.Team2)]
+        [Description("Add Blog posts widget to a page and display selected posts only")]
+        public void BlogPostsWidget_DisplaySelectedBlogPosts()
+        {
+            string blogTitle = "Blog";
+            string blogPost1Title = "BlogPost1";
+            string blogPost2Title = "BlogPost2";
+            string pageTitle = "PageWithBlogPostsWidget";
+
+            try
+            {
+                Guid blogId = ServerOperations.Blogs().CreateBlog(blogTitle);
+                Guid post1Id = ServerOperations.Blogs().CreatePublishedBlogPost(blogPost1Title, blogId);
+
+                Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(default(Guid), ParentFilterMode.All, SelectionMode.SelectedItems, post1Id);
+
+                var controls = new List<System.Web.UI.Control>();
+                controls.Add(blogPostsWidget);
+
+                PageContentGenerator.AddControlsToPage(pageId, controls);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + pageTitle);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(blogPost1Title), "The item with this title was NOT found " + blogPost1Title);
+                Assert.IsFalse(responseContent.Contains(blogPost2Title), "The item with this title WAS found " + blogPost2Title);
+            }
+            finally
+            {
+                ServerOperations.Pages().DeleteAllPages();
+                ServerOperations.Blogs().DeleteAllBlogs();
+            }
+        }
+
+        [Test]
+        [Category(TestCategories.Blogs)]
+        [Author(FeatherTeams.Team2)]
+        [Description("Add Blog posts widget to a page and create 2 blogs with published and draft posts in order to verify that ")]
+        public void BlogPostsWidget_DisplayAllPublishedBlogPostsFromAllBlogs()
+        {
+            string blog1Title = "Blog1";
+            string blog2Title = "Blog2";
+            string blog1PublishedPostTitle = "Blog1_PublishedPost";
+            string blog1DraftPostTitle = "Blog1_DraftPost";
+            string blog2PublishedPostTitle = "Blog2_PublishedPost";
+            string blog2DraftPostTitle = "Blog2_DraftPost";
+            string pageTitle = "PageWithBlogPostsWidget";
+
+            try
+            {
+                Guid blog1Id = ServerOperations.Blogs().CreateBlog(blog1Title);
+                ServerOperations.Blogs().CreatePublishedBlogPost(blog1PublishedPostTitle, blog1Id);
+                ServerOperations.Blogs().CreateDraftBlogPost(blog1DraftPostTitle, blog1Id);
+
+                Guid blog2Id = ServerOperations.Blogs().CreateBlog(blog2Title);
+                ServerOperations.Blogs().CreatePublishedBlogPost(blog2PublishedPostTitle, blog2Id);
+                ServerOperations.Blogs().CreateDraftBlogPost(blog2DraftPostTitle, blog2Id);
+
+                Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(default(Guid), ParentFilterMode.All, SelectionMode.AllItems, default(Guid));
+
+                var controls = new List<System.Web.UI.Control>();
+                controls.Add(blogPostsWidget);
+
+                PageContentGenerator.AddControlsToPage(pageId, controls);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + pageTitle);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(blog1PublishedPostTitle), "The item with this title was NOT found " + blog1PublishedPostTitle);
+                Assert.IsTrue(responseContent.Contains(blog2PublishedPostTitle), "The item with this title was NOT found " + blog2PublishedPostTitle);
+
+                Assert.IsFalse(responseContent.Contains(blog1DraftPostTitle), "The item with this title WAS found " + blog1DraftPostTitle);
+                Assert.IsFalse(responseContent.Contains(blog2DraftPostTitle), "The item with this title WAS found " + blog2DraftPostTitle);
+            }
+            finally
+            {
+                ServerOperations.Pages().DeleteAllPages();
+                ServerOperations.Blogs().DeleteAllBlogs();
+            }
+        }
+
+        private MvcWidgetProxy CreateBlogPostsMvcWidget(Guid selectedParentId, ParentFilterMode parentMode, SelectionMode selectionMode, Guid selectedItemId)
         {
             var mvcProxy = new MvcWidgetProxy();
             mvcProxy.ControllerName = typeof(BlogPostController).FullName;
             var controller = new BlogPostController();
 
-            controller.Model.ParentFilterMode = ParentFilterMode.Selected;
-            controller.Model.SelectionMode = SelectionMode.AllItems;
-            controller.Model.SerializedSelectedParentsIds = "[" + selectedParentId.ToString() + "]";
+            controller.Model.ParentFilterMode = parentMode;
+            controller.Model.SelectionMode = selectionMode;
+
+            if (selectedParentId != null)
+            {
+                controller.Model.SerializedSelectedParentsIds = "[" + selectedParentId.ToString() + "]";
+            }
+
+            if (selectedItemId != null)
+            {
+                controller.Model.SerializedSelectedItemsIds = "[" + selectedItemId.ToString() + "]";
+            }
 
             mvcProxy.Settings = new ControllerSettings(controller);
 
