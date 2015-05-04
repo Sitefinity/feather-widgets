@@ -28,7 +28,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
         [Test]
         [Category(TestCategories.Blogs)]
         [Author(FeatherTeams.Team2)]
-        [Description("Adds Blog posts widget to a page and display posts from selected blogs only.")]
+        [Description("Add Blog posts widget to a page and display posts from selected blogs only.")]
         public void BlogPostsWidget_DisplayPostsFromSelectedBlogsOnly()
         {
             string blog1Title = "Blog1";
@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
             try
             {
-                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog1Id, ParentFilterMode.Selected, SelectionMode.AllItems);
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog1Id, ParentFilterMode.Selected, SelectionMode.AllItems, default(Guid));
 
                 var controls = new List<System.Web.UI.Control>();
                 controls.Add(blogPostsWidget);
@@ -70,7 +70,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
         [Test]
         [Category(TestCategories.Blogs)]
         [Author(FeatherTeams.Team2)]
-        [Description("Adds Blog posts widget to a page and display posts from currently opened blog.")]
+        [Description("Add Blog posts widget to a page and display posts from currently opened blog.")]
         public void BlogPostsWidget_DisplayPostsFromCurrentlyOpenedBlog()
         {
             string blog1Title = "Blog1";
@@ -89,7 +89,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
             try
             {
-                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog2Id, ParentFilterMode.CurrentlyOpen, SelectionMode.AllItems);
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(blog2Id, ParentFilterMode.CurrentlyOpen, SelectionMode.AllItems, default(Guid));
 
                 var controls = new List<System.Web.UI.Control>();
                 controls.Add(blogPostsWidget);
@@ -109,7 +109,45 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             }
         }
 
-        private MvcWidgetProxy CreateBlogPostsMvcWidget(Guid selectedParentId, ParentFilterMode parentMode, SelectionMode selectionMode)
+        [Test]
+        [Category(TestCategories.Blogs)]
+        [Author(FeatherTeams.Team2)]
+        [Description("Add Blog posts widget to a page and display selected posts only")]
+        public void BlogPostsWidget_DisplaySelectedBlogPosts()
+        {
+            string blogTitle = "Blog";
+            string blogPost1Title = "BlogPost1";
+            string blogPost2Title = "BlogPost2";
+            string pageTitle = "PageWithBlogPostsWidget";
+
+            Guid blogId = ServerOperations.Blogs().CreateBlog(blogTitle);
+            Guid post1Id = ServerOperations.Blogs().CreatePublishedBlogPost(blogPost1Title, blogId);
+
+            Guid pageId = ServerOperations.Pages().CreatePage(pageTitle);
+
+            try
+            {
+                var blogPostsWidget = this.CreateBlogPostsMvcWidget(default(Guid), ParentFilterMode.All, SelectionMode.SelectedItems, post1Id);
+
+                var controls = new List<System.Web.UI.Control>();
+                controls.Add(blogPostsWidget);
+
+                PageContentGenerator.AddControlsToPage(pageId, controls);
+
+                string url = UrlPath.ResolveAbsoluteUrl("~/" + pageTitle);
+                string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+                Assert.IsTrue(responseContent.Contains(blogPost1Title), "The item with this title was NOT found " + blogPost1Title);
+                Assert.IsFalse(responseContent.Contains(blogPost2Title), "The item with this title WAS found " + blogPost2Title);
+            }
+            finally
+            {
+                ServerOperations.Pages().DeleteAllPages();
+                ServerOperations.Blogs().DeleteAllBlogs();
+            }
+        }
+
+        private MvcWidgetProxy CreateBlogPostsMvcWidget(Guid selectedParentId, ParentFilterMode parentMode, SelectionMode selectionMode, Guid selectedItemId)
         {
             var mvcProxy = new MvcWidgetProxy();
             mvcProxy.ControllerName = typeof(BlogPostController).FullName;
@@ -121,6 +159,11 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
             if (selectedParentId != null)
             {
                 controller.Model.SerializedSelectedParentsIds = "[" + selectedParentId.ToString() + "]";
+            }
+
+            if (selectedItemId != null)
+            {
+                controller.Model.SerializedSelectedItemsIds = "[" + selectedItemId.ToString() + "]";
             }
 
             mvcProxy.Settings = new ControllerSettings(controller);
