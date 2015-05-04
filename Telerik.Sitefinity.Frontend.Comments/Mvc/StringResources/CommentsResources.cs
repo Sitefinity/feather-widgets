@@ -70,6 +70,51 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
 
         #region Designer resources
 
+        /// <summary>
+        /// Gets phrase : More options
+        /// </summary>
+        [ResourceEntry("MoreOptions",
+            Value = "More options",
+            Description = "phrase : More options",
+            LastModified = "2015/05/04")]
+        public string MoreOptions
+        {
+            get
+            {
+                return this["MoreOptions"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : CSS classes
+        /// </summary>
+        [ResourceEntry("CssClasses",
+            Value = "CSS classes",
+            Description = "phrase : CSS classes",
+            LastModified = "2015/05/04")]
+        public string CssClasses
+        {
+            get
+            {
+                return this["CssClasses"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase: Template
+        /// </summary>
+        [ResourceEntry("Template",
+            Value = "Template",
+            Description = "phrase : Template",
+            LastModified = "2015/05/04")]
+        public string Template
+        {
+            get
+            {
+                return this["Template"];
+            }
+        }
+
         #endregion
     }
 }
