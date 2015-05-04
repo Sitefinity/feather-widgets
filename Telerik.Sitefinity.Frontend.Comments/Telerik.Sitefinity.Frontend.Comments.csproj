@@ -145,7 +145,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\Comments\Comments.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Comments\Comments.Default.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -69,7 +69,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         {
             if (this.Model.ShowComments)
             {
-                return this.View(this.TemplateName, this.Model);
+                return this.View(this.templateNamePrefix + this.TemplateName, this.Model);
             }
 
             return new EmptyResult();
@@ -81,7 +81,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
 
         internal const string WidgetIconCssClass = "sfCommentsIcn sfMvcIcn";
         private ICommentsModel model;
-        private string templateName = "Comments";
+        private string templateName = "Default";
+        private string templateNamePrefix = "Comments.";
 
         #endregion
     }
