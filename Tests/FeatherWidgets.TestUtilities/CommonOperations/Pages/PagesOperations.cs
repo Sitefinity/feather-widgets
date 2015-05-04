@@ -7,6 +7,7 @@ using System.Web.UI;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
@@ -74,6 +75,25 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 });
 
                 this.CreateControl(pageManager, page, mvcWidget, "ContentBlock", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Add blog posts widget to existing page.
+        /// </summary>
+        /// <param name="pageId">The page Id.</param>
+        /// <param name="placeholder">The placeholderId.</param>
+        public void AddBlogPostsWidgetToPage(Guid pageId, string placeholder)
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(BlogPostController).FullName;
+                this.CreateControl(pageManager, page, mvcWidget, "Blog posts", placeholder);
             }
         }
 
