@@ -77,7 +77,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
                 if (!string.IsNullOrEmpty(encodedMarkup))
                 {
-                    var includedIn = Res.Get<StyleSheetResources>().IncludedInHead;
+                    var includedIn = this.Resource<StyleSheetResources>("IncludedInHead");
                     return this.Content(encodedMarkup + includedIn);
                 }
             }
@@ -149,6 +149,17 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         protected virtual bool ShouldDisplayContent()
         {
             return !this.IsEmpty && SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode;
+        }
+
+        /// <summary>
+        /// Gets a resource with the specified key.
+        /// </summary>
+        /// <typeparam name="TResource">The type of the resource.</typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns>Localized string.</returns>
+        protected virtual string Resource<TResource>(string key) where TResource : Resource
+        {
+            return Res.Get(typeof(TResource), key);
         }
 
         #endregion
