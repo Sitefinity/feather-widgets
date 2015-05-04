@@ -566,13 +566,13 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Please, visit your email
+        /// phrase: Please check your email
         /// </summary>
-        /// <value>Please, visit your email</value>
+        /// <value>Please check your email</value>
         [ResourceEntry("VisitYourEmail",
-            Value = "Please, visit your email",
-            Description = "phrase: Please, visit your email",
-            LastModified = "2015/03/09")]
+            Value = "Please check your email",
+            Description = "phrase: Please check your email",
+            LastModified = "2015/05/04")]
         public string VisitYourEmail
         {
             get

@@ -53,6 +53,14 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         public virtual Guid? ConfirmationPageId { get; set; }
 
         /// <summary>
+        /// Gets or sets is the username is required
+        /// </summary>
+        /// <value>
+        /// Should the email be the username be the same
+        /// </value>
+        public bool EmailAddressShouldBeTheUsername { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>
         /// <value>

@@ -16,7 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Comments widget.
     /// </summary>
-    [Localization(typeof(CommentsResources))]
+    [Localization(typeof(CommentsWidgetResources))]
     [ControllerToolboxItem(Name = "Comments_MVC", Title = "Comments", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Comments", CssClass = CommentsController.WidgetIconCssClass)]
     public class CommentsController:Controller
     {
@@ -40,13 +40,39 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the template that widget will be displayed.
+        /// </summary>
+        /// <value></value>
+        public string TemplateName
+        {
+            get
+            {
+                return this.templateName;
+            }
+
+            set
+            {
+                this.templateName = value;
+            }
+        }
+
         #endregion
 
         #region Actions
 
-        public ActionResult Index(int? page)
+        /// <summary>
+        /// Gets comments view
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
         {
-            return this.View();
+            if (this.Model.ShowComments)
+            {
+                return this.View(this.templateNamePrefix + this.TemplateName, this.Model);
+            }
+
+            return new EmptyResult();
         }
 
         #endregion
@@ -55,6 +81,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
 
         internal const string WidgetIconCssClass = "sfCommentsIcn sfMvcIcn";
         private ICommentsModel model;
+        private string templateName = "Default";
+        private string templateNamePrefix = "Comments.";
 
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -24,6 +25,7 @@ using Telerik.Sitefinity.Utilities;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.Mail;
 using Telerik.Sitefinity.Security.Web.UI;
+using System.ComponentModel.DataAnnotations;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -53,6 +55,15 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
                 this.membershipProviderName = value;
             }
         }
+
+        /// <inheritDoc/>
+        public bool EmailAddressShouldBeTheUsername {
+            get {
+                return this.emailAddressShouldBeTheUsername;
+            }
+            set { this.emailAddressShouldBeTheUsername = value; }
+        }
+
 
         /// <inheritDoc/>
         public string SerializedSelectedRoles
@@ -389,7 +400,8 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <param name="status">The status that will be set depending on the creation outcome.</param>
         protected virtual bool TryCreateUser(UserManager manager, RegistrationViewModel userData, out User user, out MembershipCreateStatus status)
         {
-            user = manager.CreateUser(userData.UserName, userData.Password, userData.Email, null, null, this.ActivationMethod == ActivationMethod.Immediately, null, out status);
+            string username = (userData.EmailAddressShouldBeTheUsername) ? userData.Email : userData.UserName;
+            user = manager.CreateUser(username, userData.Password, userData.Email, null, null, this.ActivationMethod == ActivationMethod.Immediately, null, out status);
             return status == MembershipCreateStatus.Success;
         }
 
@@ -554,6 +566,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         private const string ReturnUrlName = "ReturnUrl";
         private const string ProfileBindingsFile = "~/Frontend-Assembly/Telerik.Sitefinity.Frontend.Identity/Mvc/Views/Registration/ProfileBindings.json";
         private const string DefaultSortExpression = "PublicationDate DESC";
+        private bool emailAddressShouldBeTheUsername = false;
 
         private string serializedSelectedRoles;
         private IList<Role> selectedRoles = new List<Role>();
