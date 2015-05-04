@@ -173,6 +173,7 @@
     <Compile Include="Identity\UsersListControllerTests.cs" />
     <Compile Include="InlineClientAssets\JavaScriptModelTests.cs" />
     <Compile Include="InlineClientAssets\StyleSheetControllerTests.cs" />
+    <Compile Include="InlineClientAssets\StyleSheetModelTests.cs" />
     <Compile Include="Media\DocumentsList\DocumentControllerTests.cs" />
     <Compile Include="Media\Document\DocumentControllerTests.cs" />
     <Compile Include="Media\ImageGallery\ImageGalleryControllerTests.cs" />

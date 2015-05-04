@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUnit.InlineClientAssets
     {
         [TestMethod]
         [Owner("Boyko-Karadzhov")]
-        [Description("Calls the Index view without description in the model and verifies that the CSS is displayed and added to head.")]
+        [Description("Calls the Index action without description in the model and verifies that the CSS is displayed and added to head.")]
         public void Index_NoDescription_AddsToHeadAndDisplaysMarkup()
         {
             var controller = new StyleSheetTestController();
@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUnit.InlineClientAssets
 
         [TestMethod]
         [Owner("Boyko-Karadzhov")]
-        [Description("Calls the Index view with description and verifies that the description is displayed and CSS added to head.")]
+        [Description("Calls the Index action with description and verifies that the description is displayed and CSS added to head.")]
         public void Index_Description_AddsToHeadAndDisplaysDescription()
         {
             var description = "Test Description";
