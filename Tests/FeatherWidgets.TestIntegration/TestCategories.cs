@@ -16,5 +16,6 @@
         public const string SearchResults = "SearchResults";
         public const string Identity = "Identity";
         public const string Blogs = "Blogs";
+        public const string InlineClientAssets = "InlineClientAssets";
     }
 }
