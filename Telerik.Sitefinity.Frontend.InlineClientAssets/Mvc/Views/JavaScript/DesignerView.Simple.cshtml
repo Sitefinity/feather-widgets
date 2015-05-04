@@ -48,9 +48,9 @@
 <div ng-show="properties.Mode.PropertyValue=='Reference'">
     <div class="form-group">
         <label>
-           @Html.Resource("Url")
+            <p>@Html.Resource("Url")</p>
+            <sf-file-url-field sf-model="properties.FileUrl.PropertyValue" sf-extension="js" sf-title='@Html.Resource("SelectJsFile")'></sf-file-url-field>
         </label>
-        <input type="text" ng-model="properties.FileUrl.PropertyValue" class="form-control" />
     </div>
 </div>
 

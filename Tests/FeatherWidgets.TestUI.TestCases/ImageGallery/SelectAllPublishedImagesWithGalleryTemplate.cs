@@ -12,13 +12,13 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
     public class SelectAllPublishedImagesWithGalleryTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SelectAllPublishedImagesWithOverlayGalleryTemplate
+        /// UI test SelectAllPublishedImagesWithOverlayGalleryTemplate_Bootstrap
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
-        public void SelectAllPublishedImagesWithOverlayGalleryTemplate()
+        public void SelectAllPublishedImagesWithOverlayGalleryTemplate_Bootstrap()
         {
             this.SelectListTemplateInImageGalleryDesigner(BootstrapTemplate, OverlayGalleryTemplate);
 
@@ -49,13 +49,13 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         }
 
         /// <summary>
-        /// UI test SelectAllPublishedImagesWithThumbnailStripTemplate
+        /// UI test SelectAllPublishedImagesWithThumbnailStripTemplate_Foundation
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
-        public void SelectAllPublishedImagesWithThumbnailStripTemplate()
+        public void SelectAllPublishedImagesWithThumbnailStripTemplate_Foundation()
         {
             this.SelectListTemplateInImageGalleryDesigner(FoundationTemplate, ThumbnailStripTemplate);
 
@@ -93,13 +93,13 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         }
 
         /// <summary>
-        /// UI test SelectAllPublishedImagesWithSimpleListTemplate
+        /// UI test SelectAllPublishedImagesWithSimpleListTemplateSemantics
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
-        public void SelectAllPublishedImagesWithSimpleListTemplate()
+        public void SelectAllPublishedImagesWithSimpleListTemplate_Semantics()
         {
             this.SelectListTemplateInImageGalleryDesigner(SemanticUITemplate, SimpleListTemplate);
 
