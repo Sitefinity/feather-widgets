@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet;
@@ -50,9 +52,12 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         public ActionResult Index()
         {
             var cssMarkup = this.Model.GetMarkup();
-            this.AddCssInHead(cssMarkup);
+            if (!cssMarkup.IsNullOrEmpty())
+            {
+                this.AddCssInHead(cssMarkup);
+            }
 
-            if (!this.IsEmpty && SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode)
+            if (this.ShouldDisplayContent())
             {
                 string encodedMarkup = null;
                 if (!string.IsNullOrEmpty(this.Model.Description))
@@ -67,7 +72,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
                 else if (this.Model.Mode == Models.ResourceMode.Reference)
                 {
-                    encodedMarkup = this.HttpContext.Server.HtmlEncode(cssMarkup);
+                    encodedMarkup = HttpUtility.HtmlEncode(cssMarkup);
                 }
 
                 if (!string.IsNullOrEmpty(encodedMarkup))
@@ -106,7 +111,11 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
         #region Helpers
 
-        private void AddCssInHead(string cssMarkup)
+        /// <summary>
+        /// Adds the CSS in the head of the page.
+        /// </summary>
+        /// <param name="cssMarkup">The CSS markup.</param>
+        protected virtual void AddCssInHead(string cssMarkup)
         {
             var page = this.HttpContext.CurrentHandler as Page;
             if (page != null && page.Header !=null)
@@ -116,6 +125,14 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                     page.Header.Controls.Add(new LiteralControl(cssMarkup));
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns true if the controller should display content.
+        /// </summary>
+        protected virtual bool ShouldDisplayContent()
+        {
+            return !this.IsEmpty && SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode;
         }
 
         #endregion
