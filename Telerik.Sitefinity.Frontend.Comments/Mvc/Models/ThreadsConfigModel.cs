@@ -65,7 +65,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <param name="threadKey">The thread key.</param>
         private ConfigElement GetThreadConfigByType(string threadType)
         {
-            var commentsModuleConfigType = Type.GetType("Telerik.Sitefinity.Modules.Comments.Configuration.CommentsModuleConfig");
+            var assembly = typeof(Telerik.Sitefinity.Configuration.Config).Assembly;
+            var commentsModuleConfigType = assembly.GetType("Telerik.Sitefinity.Modules.Comments.Configuration.CommentsModuleConfig");
             var config = Config.Get(commentsModuleConfigType);
             var defaultSettubgsPropInfo = commentsModuleConfigType.GetProperty("DefaultSettings", BindingFlags.Public | BindingFlags.Instance);
             var defaultSettings = defaultSettubgsPropInfo.GetValue(config, null) as ConfigElement; 
@@ -77,9 +78,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             else
             {
                 var commentableTypesPropInfo = commentsModuleConfigType.GetProperty("CommentableTypes", BindingFlags.Public | BindingFlags.Instance);
-                var commentableTypes = defaultSettubgsPropInfo.GetValue(config, null) as ConfigElementDictionary<string, ConfigElement>;
+                var commentableTypes = commentableTypesPropInfo.GetValue(config, null) as ConfigElementCollection;
 
-                return commentableTypes.Contains(threadType) ? commentableTypes[threadType] : defaultSettings;
+                return commentableTypes.Contains(threadType) ? commentableTypes[threadType] as ConfigElement : defaultSettings;
             }
         }
 

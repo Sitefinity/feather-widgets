@@ -14,7 +14,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
     {
         public CommentsConfigModel()
         {
-            this.commentsModuleConfigType = Type.GetType("Telerik.Sitefinity.Modules.Comments.Configuration.CommentsModuleConfig");
+            var assembly = typeof(Telerik.Sitefinity.Configuration.Config).Assembly;
+            this.commentsModuleConfigType = assembly.GetType("Telerik.Sitefinity.Modules.Comments.Configuration.CommentsModuleConfig");
             this.config = Config.Get(commentsModuleConfigType);
         }
 
