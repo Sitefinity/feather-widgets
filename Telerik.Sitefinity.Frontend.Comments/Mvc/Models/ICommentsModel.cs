@@ -66,7 +66,16 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         ///   <c>true</c> if comments widget can be displayed; otherwise, <c>false</c>.
         /// </value>
+        [Browsable(false)]
         bool ShowComments { get; }
+
+        /// <summary>
+        /// Gets or sets the maximum length of the comment text.
+        /// </summary>
+        /// <value>
+        /// The maximum length of the comment text.
+        /// </value>
+        int CommentTextMaxLength { get; set; }
 
         /// <summary>
         /// Gets the configuration for the thread

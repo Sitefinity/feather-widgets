@@ -112,6 +112,20 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public bool ThreadIsClosed { get; set; }
 
         /// <inheritDoc/>
+        public int CommentTextMaxLength
+        {
+            get 
+            {
+                return this.commentTextMaxLength;
+            }
+
+            set 
+            {
+                this.commentTextMaxLength = value;
+            }
+        }
+
+        /// <inheritDoc/>
         [Browsable(false)]
         public bool ShowComments
         {
@@ -176,5 +190,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         private string threadKey;
         private ThreadsConfigModel threadsConfig;
         private CommentsConfigModel commentsConfig;
+        private int commentTextMaxLength = 100;
     }
 }
