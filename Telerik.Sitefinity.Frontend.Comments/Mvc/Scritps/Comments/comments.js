@@ -14,12 +14,9 @@
             });
         };
 
-        var getRandom = function () {
-            return Math.random().toString().substr(2) + (new Date()).getTime();
-        };
-
         var getIsUserLoggedIn = function () {
-            return makeAjax('/RestApi/session/is-authenticated?_=' + getRandom());
+            var random = Math.random().toString().substr(2) + (new Date()).getTime();
+            return makeAjax('/RestApi/session/is-authenticated?_=' + random);
         };
 
         var getComments = function (threadKey, skip, take, sortDescending) {
@@ -44,7 +41,7 @@
         getIsUserLoggedIn().then(function (response) {
             if (!(response && response.IsAuthenticated)) {
                 $('[data-sf-role="comments-new-logged-out-view"]').hide();
-            };
+            }
         });
 
         var createWidget = function () {
@@ -72,7 +69,7 @@
                 Load comments
             */
 
-            var attachText = function (element, text) {
+            var attachCommentText = function (element, text) {
                 if (element && text) {
                     if (text.length < commentsTextMaxLength) {
                         element.text(text);
@@ -91,7 +88,7 @@
                 newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
                 newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
 
-                attachText(newComment.find('[data-sf-role="comment-text"]'), comment.Text);
+                attachCommentText(newComment.find('[data-sf-role="comment-text"]'), comment.Text);
 
                 commentsContainer.append(newComment);
             };
