@@ -1,4 +1,5 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations.Pages;
+﻿using FeatherWidgets.TestUtilities.CommonOperations.Blogs;
+using FeatherWidgets.TestUtilities.CommonOperations.Pages;
 using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using FeatherWidgets.TestUtilities.CommonOperations.Users;
 
@@ -142,6 +143,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public static ListsOperations ListsOperations()
         {
             return new ListsOperations();
+        }
+
+        /// <summary>
+        /// Entry point for common operations related to Blogs and blog posts.
+        /// </summary>
+        /// <returns></returns>
+        public static BlogsOperations Blogs()
+        {
+            return new BlogsOperations();
         }
     }
 }
