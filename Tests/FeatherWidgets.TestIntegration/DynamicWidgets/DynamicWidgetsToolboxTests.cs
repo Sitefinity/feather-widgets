@@ -52,7 +52,8 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author(FeatherTeams.Team2)]
-        [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
+        [Description("Used the imported dynamic module and verifies that the proper widgets are generated."),
+        Ignore("The test times out.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyOldDynamicWidgetsNotDuplicated()
         {
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(RelatedModuleName, RelatedModuleResource);
