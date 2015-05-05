@@ -3,16 +3,19 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-<input type="hidden" data-sf-role="comments-thread-key" value="@("b0ed401b-f175-6d94-8442-ff00006c9242_en")" />
-<input type="hidden" data-sf-role="comments-page-size" value="@(1)" />
-<input type="hidden" data-sf-role="comments-header-text" value="@("comments")" />
 
-<div class="@("CssClassHere")">
+<div data-sf-role="comments-wrapper" class="@("CssClassHere")">
+    <input type="hidden" data-sf-role="comments-thread-key" value="@("b0ed401b-f175-6d94-8442-ff00006c9242_en")" />
+    <input type="hidden" data-sf-role="comments-page-size" value="@(1)" />
+    <input type="hidden" data-sf-role="comments-header-text" value="@("comments")" />
+    <input type="hidden" data-sf-role="comments-read-full-comment" value="@("Read full comment")" />
+    <input type="hidden" data-sf-role="comments-text-max-length" value="@(100)" />
+
     <div>
         <span data-sf-role="comments-header"></span>
-        <button data-sf-role="comments-form">Leave a comment</button>
-        <button data-sf-role="comments-sort-new">Newest on top</button>
-        <button data-sf-role="comments-sort-old">Oldest on top</button>
+        <button data-sf-role="comments-form-button">Leave a comment</button>
+        <button data-sf-role="comments-sort-new-button">Newest on top</button>
+        <button data-sf-role="comments-sort-old-button">Oldest on top</button>
     </div>
 
     <div data-sf-role="comments-new-holder">
@@ -31,27 +34,27 @@
         </label>
         <br />
 
-        <button data-sf-role="comments-new-submit">Submit</button>
+        <button data-sf-role="comments-new-submit-button">Submit</button>
         <br />
 
         <a href="#">Comments feed</a>
     </div>
     
     <div data-sf-role="comments-holder"></div>
-    <button data-sf-role="comments-load-more">Load more comments</button>
+    <button data-sf-role="comments-load-more-button">Load more comments</button>
+    
+    <script type="text/html-template" data-sf-role="single-comment-template">
+        <div>
+            <p>
+                <a href="#"><span data-sf-role="comment-name"></span></a> | 
+                <span data-sf-role="comment-date"></span>
+            </p>
+            <p>
+                <span data-sf-role="comment-text"></span>
+            </p>
+        </div>
+        <br />
+    </script>
 </div>
-
-<script type="text/html-template" data-sf-role="single-comment-template">
-<div>
-    <p>
-        <a href="#"><span data-sf-role="comment-name"></span></a> | 
-        <span data-sf-role="comment-date"></span>
-    </p>
-    <p>
-        <span data-sf-role="comment-text"></span>
-    </p>
-</div>
-<br />
-</script>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments.js"), "bottom", false)
