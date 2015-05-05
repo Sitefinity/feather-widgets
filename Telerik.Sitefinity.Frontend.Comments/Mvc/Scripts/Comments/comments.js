@@ -29,7 +29,7 @@
             return makeAjax(getCommentsCountUrl);
         };
 
-        var getComments = function (threadKey, skip, take, sortDescending, language, olderThan, newerThan) {
+        var getComments = function (threadKey, skip, take, sortDescending, newerThan, language) {
             var getCommentsUrl = rootUrl + '/?ThreadKey=' + threadKey + '&Take=' + take;
 
             if (skip && skip > 0) {
@@ -41,11 +41,8 @@
             if (language) {
                 getCommentsUrl += '&Language=' + language;
             }
-            if (olderThan) {
-                getCommentsUrl += '&OlderThan=', olderThan;
-            }
             if (newerThan) {
-                getCommentsUrl += '&OlderThan=', newerThan;
+                getCommentsUrl += '&NewerThan=' + newerThan;
             }
 
             return makeAjax(getCommentsUrl);
@@ -114,9 +111,11 @@
 
             var commentsThreadKey = $this.find('[data-sf-role="comments-thread-key"]').val();
             var commentsPerPage = $this.find('[data-sf-role="comments-page-size"]').val();
-            var commentsTakenSoFar = 0;
             var commentsSortedDescending = false;
-            var commentsRefreshRate = 3000;
+            var commentsRefreshRate = 1000;
+            var commentsTakenSoFar = 0;
+            var firstCommentDate = 0;
+            var lastCommentDate = 0;
 
             var commentsTextMaxLength = $this.find('[data-sf-role="comments-text-max-length"]').val();
             var commentsReadMoreText = $this.find('[data-sf-role="comments-read-full-comment"]').val();
@@ -144,7 +143,7 @@
                         newCommentForm.show();
                     }
 
-                    if (currentThreadKeyCount <= commentsTakenSoFar) {
+                    if (currentThreadKeyCount <= Math.max(commentsTakenSoFar, commentsPerPage)) {
                         commentsLoadMoreButton.hide();
                     }
                 }
@@ -163,49 +162,59 @@
                 }
             };
 
-            var createComment = function (comment, prepend) {
-                var newComment = template.clone(true);
+            var createComments = function (comments, prepend) {
+                comments.forEach(function (comment) {
+                    var newComment = template.clone(true);
 
-                newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
-                newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
+                    newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
+                    newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
 
-                attachCommentText(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
+                    attachCommentText(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
-                if (prepend) {
-                    commentsContainer.prepend(newComment);
-                }
-                else {
-                    commentsContainer.append(newComment);
-                }
-            };
-
-            var loadComments = function (skip, take) {
-                take = take || commentsPerPage;
-
-                commentsRestApi.getComments(commentsThreadKey, skip, take, commentsSortedDescending).then(function (response) {
-                    response = response || {};
-                    response.Items = response.Items || [];
-
-                    commentsTakenSoFar = commentsTakenSoFar + response.Items.length;
-                    response.Items.forEach(createComment);
+                    if (prepend) {
+                        commentsContainer.prepend(newComment);
+                    }
+                    else {
+                        commentsContainer.append(newComment);
+                    }
                 });
             };
 
-            // Initial loading of comments
-            loadComments(0);
+            var loadComments = function (skip, take, newerThan) {
+                commentsRestApi.getComments(commentsThreadKey, skip, take, commentsSortedDescending, newerThan).then(function (response) {
+                    if (response && response.Items && response.Items.length) {
+                        commentsTakenSoFar += response.Items.length;
+                        firstCommentDate = (new Date(parseInt(response.Items[0].DateCreated.replace(/\D/g, ''), 10))).toGMTString();
+                        lastCommentDate = (new Date(parseInt(response.Items[response.Items.length - 1].DateCreated.replace(/\D/g, ''), 10))).toGMTString();
 
-            commentsLoadMoreButton.click(function () {
-                loadComments(commentsTakenSoFar);
-            });
+                        createComments(response.Items, newerThan && commentsSortedDescending);
+                    }
+                });
+            };
 
             var refreshComments = function () {
-                loadComments(0, commentsTakenSoFar);
+                var newCommentsToTake = 3;
+                if (commentsSortedDescending) {
+                    loadComments(0, newCommentsToTake, firstCommentDate);
+                }
+                else {
+                    loadComments(0, newCommentsToTake, lastCommentDate);
+                }
             };
+
+            // Initial loading of comments
+            loadComments(0, commentsPerPage);
+
+            commentsLoadMoreButton.click(function () {
+                loadComments(commentsTakenSoFar, commentsPerPage);
+                return false;
+            });
 
             // Read full comment
             commentsContainer.on('click', '[data-sf-role="comments-read-full-comment-button"]', function (e) {
                 if (e && e.target) {
                     $(e.target).hide().siblings().show();
+                    return false;
                 }
             });
 
@@ -217,16 +226,20 @@
                 if (descending !== commentsSortedDescending) {
                     commentsSortedDescending = descending;
                     commentsContainer.html('');
-                    loadComments(0, commentsTakenSoFar);
+                    // Use commentsTakenSoFar to show again same amout of comments?
+                    loadComments(0, commentsPerPage);
+                    commentsTakenSoFar = 0;
                 }
             };
 
             $this.find('[data-sf-role="comments-sort-new-button"]').click(function () {
                 sortComments(true);
+                return false;
             });
 
             $this.find('[data-sf-role="comments-sort-old-button"]').click(function () {
                 sortComments(false);
+                return false;
             });
 
             /*
@@ -235,6 +248,7 @@
 
             commentsFormButton.click(function () {
                 newCommentForm.toggle();
+                return false;
             });
 
             var submitForm = function () {
@@ -257,6 +271,7 @@
                         newCommentForm.hide();
                         commentsFormButton.show();
 
+                        // Comments refresh will handle the new comment.
                         refreshComments();
                     }
                     else {
@@ -265,10 +280,13 @@
                 });
             };
 
-            $this.find('[data-sf-role="comments-new-submit-button"]').click(submitForm);
+            $this.find('[data-sf-role="comments-new-submit-button"]').click(function () {
+                submitForm();
+                return false;
+            });
 
             // Comments updating
-            //setInterval(refreshComments, commentsRefreshRate);
+            // setInterval(refreshComments, commentsRefreshRate);
         };
 
         // Widgets initialization

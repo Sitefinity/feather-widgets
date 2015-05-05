@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Modules.Comments;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Comments;
-using Telerik.Sitefinity.Services.Comments.Proxies;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
@@ -21,14 +16,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
     {
         /// <inheritDoc/>
         public string CssClass { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CommentsModel"/> class.
-        /// </summary>
-        public CommentsModel()
-        {
-            this.GetThread();
-        }
 
         /// <inheritDoc/>
         public string ThreadKey
@@ -109,7 +96,32 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public bool? AllowComments { get; set; }
 
         /// <inheritDoc/>
-        public bool ThreadIsClosed { get; set; }
+        public bool ThreadIsClosed 
+        { 
+            get
+            {
+                var thread = this.GetThread();
+                return this.threadIsClosed || (thread != null && thread.IsClosed);
+            }
+            set
+            {
+                this.threadIsClosed = value;
+            }
+        }
+
+        /// <inheritDoc/>
+        public int CommentTextMaxLength
+        {
+            get 
+            {
+                return this.commentTextMaxLength;
+            }
+
+            set 
+            {
+                this.commentTextMaxLength = value;
+            }
+        }
 
         /// <inheritDoc/>
         [Browsable(false)]
@@ -156,15 +168,14 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         private IThread GetThread()
         {
             var cs = SystemManager.GetCommentsService();
-            IThread thread = null;
+            IThread thread;
             if (!this.ThreadKey.IsNullOrEmpty())
             {
                 thread = cs.GetThread(this.ThreadKey);
             }
-
-            if (thread != null)
+            else
             {
-                this.ThreadIsClosed = thread.IsClosed;
+                thread = null;
             }
 
             return thread;
@@ -176,5 +187,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         private string threadKey;
         private ThreadsConfigModel threadsConfig;
         private CommentsConfigModel commentsConfig;
+        private int commentTextMaxLength = 100;
+        private bool threadIsClosed;
     }
 }
