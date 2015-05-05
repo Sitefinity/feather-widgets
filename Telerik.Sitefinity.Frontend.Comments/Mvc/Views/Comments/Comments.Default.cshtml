@@ -1,10 +1,13 @@
-﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+﻿@model Telerik.Sitefinity.Frontend.Comments.Mvc.Models.CommentsModel
+
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 
-<div data-sf-role="comments-wrapper" class="@("CssClassHere")">
+<div data-sf-role="comments-wrapper" class="@Model.CssClass">
     <input type="hidden" data-sf-role="comments-thread-key" value="@Model.ThreadKey" />
     <input type="hidden" data-sf-role="comments-page-size" value="@Model.CommentsConfig.CommentsPerPage" />
     <input type="hidden" data-sf-role="comments-header-text" value="@Html.Resource("CommentsPlural")" />
@@ -36,8 +39,6 @@
 
         <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         <br />
-
-        <a href="#">Comments feed</a>
     </div>
     
     <div data-sf-role="comments-holder"></div>
