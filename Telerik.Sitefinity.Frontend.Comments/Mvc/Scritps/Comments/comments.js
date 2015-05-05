@@ -37,11 +37,14 @@
             // Service call
         };
 
+        var isUserAuthenticated = false;
+
         // Remove unneeded fields from all forms if user is logged in
         getIsUserLoggedIn().then(function (response) {
-            if (!(response && response.IsAuthenticated)) {
+            if (response && response.IsAuthenticated) {
+                isUserAuthenticated = true;
                 $('[data-sf-role="comments-new-logged-out-view"]').hide();
-            }
+            };
         });
 
         var createWidget = function () {
@@ -123,7 +126,7 @@
 
             $this.find('[data-sf-role="comments-load-more-button"]').click(loadComments);
 
-            // Read more comments
+            // Read full comment
             commentsContainer.on('click', '[data-sf-role="comments-read-full-comment-button"]', function (e) {
                 if (e && e.target) {
                     $(e.target).hide().siblings().show();
@@ -159,7 +162,7 @@
             });
 
             $this.find('[data-sf-role="comments-new-submit-button"]').click(function () {
-                // service call
+
             });
         };
 
