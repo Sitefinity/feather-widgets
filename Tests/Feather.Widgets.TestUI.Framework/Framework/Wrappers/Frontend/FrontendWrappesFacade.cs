@@ -1,4 +1,5 @@
-﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
+﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Css;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
 
@@ -106,6 +107,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public ListsWrapperFacade Lists()
         {
             return new ListsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides access to css frontend wrapper. 
+        /// </summary>
+        /// <returns></returns>
+        public CssWrapperFacade Css()
+        {
+            return new CssWrapperFacade();
         }
     }
 }
