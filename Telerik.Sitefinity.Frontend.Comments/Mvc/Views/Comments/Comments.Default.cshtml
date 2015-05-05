@@ -42,12 +42,12 @@
 
         <div>
             <div>
-                <img />
+                <img data-sf-role="captcha-image" />
             </div>
-            <a> @Html.Resource("NewCode") </a>
+            <a data-sf-role="captcha-refresh-button"> @Html.Resource("NewCode") </a>
             <div>
                 <label>@Html.Resource("TypeCodeAbove")
-                    <input type="text" />
+                    <input type="text" data-sf-role="captcha-input" />
                 </label>
             </div>
         </div>

@@ -55,15 +55,17 @@
             return makeAjax(rootUrl, 'POST', JSON.stringify(comment));
         };
 
-        var getCaptia = function () {
+        var getCaptcha = function () {
+            var getCommentsUrl = '/RestApi/comments-api/captcha';
 
+            return makeAjax(getCommentsUrl);
         };
 
         return {
             getCommentsCount: getCommentsCount,
             getComments: getComments,
             createComment: createComment,
-            getCaptia: getCaptia
+            getCaptcha: getCaptcha
         };
     }());
 
@@ -120,6 +122,10 @@
 
             var commentsTextMaxLength = $this.find('[data-sf-role="comments-text-max-length"]').val();
             var commentsReadMoreText = $this.find('[data-sf-role="comments-read-full-comment"]').val();
+
+            var captchaImage = $this.find('[data-sf-role="captcha-image"]');
+            var captchaInput = $this.find('[data-sf-role="captcha-input"]');
+            var captchaRefreshLink = $this.find('[data-sf-role="captcha-refresh-button"]');
 
             /*
                 Load comments
@@ -227,6 +233,40 @@
 
             $this.find('[data-sf-role="comments-sort-old-button"]').click(function () {
                 sortComments(false);
+            });
+
+            /*
+                Captcha
+            */
+
+            var captchaData = {
+                iv: null,
+                correctAnswer: null,
+                key: null
+            };
+
+            var refresh = function () {
+                var deferred = $.Deferred();
+
+                captchaImage.attr("src", "");
+                captchaInput.hide();
+
+                commentsRestApi.getCaptcha().then(function (data) {
+                    if (data) {
+                        captchaImage.attr("src", "data:image/png;base64," + data.Image);
+                        captchaData.iv = data.InitializationVector;
+                        captchaData.correctAnswer = data.CorrectAnswer;
+                        captchaData.key = data.Key;
+                        captchaInput.val("");
+                        captchaInput.show();
+                    }
+
+                    deferred.resolve(true);
+                })
+            };
+
+            captchaRefreshLink.click(function () {
+                refresh();
             });
 
             /*
