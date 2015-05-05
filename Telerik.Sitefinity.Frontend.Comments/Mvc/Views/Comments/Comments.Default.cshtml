@@ -19,25 +19,31 @@
     </div>
 
     <div data-sf-role="comments-new-holder">
-        <textarea data-sf-role="comments-new-text" placeholder="Leave a comment"></textarea>
-        <br />
+        <div>
+            <textarea rows="4" data-sf-role="comments-new-message" placeholder="Leave a comment"></textarea>
+        </div>
 
-        <p data-sf-role="comments-new-logged-out-view">
+        <div data-sf-role="comments-new-logged-out-view">
             <input placeholder="Your name" data-sf-role="comments-new-name" /> <br />
-            <input placeholder="Email (optional)" data-sf-role="comments-new-email" /> <br />
-            <input placeholder="Web site (optional)" data-sf-role="comments-new-website" /> <br />
-        </p>
+            <input type="email" placeholder="Email (optional)" data-sf-role="comments-new-email" /> <br />
+            <input type="url" placeholder="Web site (optional)" data-sf-role="comments-new-website" /> <br />
+        </div>
 
-        <label>
-            <input type="checkbox" data-sf-role="comments-new-subscribe" />
-            <span>Subscribe me to new comments via email</span>
-        </label>
-        <br />
+        <div>
+            <label>
+                <input type="checkbox" data-sf-role="comments-new-subscribe" />
+                <span>Subscribe me to new comments via email</span>
+            </label>
+        </div>
 
-        <button data-sf-role="comments-new-submit-button">Submit</button>
-        <br />
+        <div>
+            @*Temporary styling*@
+            <button class="realBtn" data-sf-role="comments-new-submit-button">Submit</button>
+        </div>
 
-        <a href="#">Comments feed</a>
+        <div>
+            <a href="#">Comments feed</a>
+        </div>
     </div>
     
     <div data-sf-role="comments-holder"></div>
@@ -50,11 +56,23 @@
                 <span data-sf-role="comment-date"></span>
             </p>
             <p>
-                <span data-sf-role="comment-text"></span>
+                <span data-sf-role="comment-message"></span>
             </p>
         </div>
         <br />
     </script>
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/CommentsMVC/comments.js"), "bottom", false)
+
+@*Temporary styling*@
+<style scoped>
+button:not(.realBtn) {
+    background:none!important;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    color: #105CB6;
+    cursor: pointer;
+}
+</style>

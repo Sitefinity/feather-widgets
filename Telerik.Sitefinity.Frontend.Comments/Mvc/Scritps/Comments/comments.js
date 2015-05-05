@@ -1,50 +1,76 @@
 ﻿; (function ($) {
-    $(function () {
-        var makeAjax = function (url, type) {
-            type = type || 'GET';
-
-            return $.ajax({
-                type: type,
-                url: url,
-                contentType: "application/json",
-                accepts: {
-                    text: "application/json"
-                },
-                cache: false
-            });
+    var makeAjax = function (url, type, data) {
+        var options = {
+            type: type || 'GET',
+            url: url,
+            contentType: "application/json",
+            accepts: {
+                text: "application/json"
+            },
+            cache: false
         };
 
-        var getIsUserLoggedIn = function () {
-            var random = Math.random().toString().substr(2) + (new Date()).getTime();
-            return makeAjax('/RestApi/session/is-authenticated?_=' + random);
+        if (data) {
+            options.data = data;
+        }
+
+        return $.ajax(options);
+    };
+
+    var commentsRestApi = (function () {
+        var rootUrl = '/RestApi/comments-api/comments';
+
+        var getCommentsCount = function (threadKey, status) {
+            var getCommentsCountUrl = rootUrl + '/count?ThreadKey=' + threadKey;
+            if (status) {
+                getCommentsCountUrl += '&Status=' + status;
+            }
+
+            return makeAjax(getCommentsCountUrl);
         };
 
-        var getComments = function (threadKey, skip, take, sortDescending) {
-            var urlParams = 'ThreadKey=' + threadKey + '&Take=' + take;
+        var getComments = function (threadKey, skip, take, sortDescending, language, olderThan, newerThan) {
+            var getCommentsUrl = rootUrl + '/?ThreadKey=' + threadKey + '&Take=' + take;
 
             if (skip && skip > 0) {
-                urlParams = urlParams + '&Skip=' + skip;
+                getCommentsUrl += '&Skip=' + skip;
             }
-
             if (sortDescending === true) {
-                urlParams = urlParams + '&SortDescending=True';
+                getCommentsUrl += '&SortDescending=True';
+            }
+            if (language) {
+                getCommentsUrl += '&Language=' + language;
+            }
+            if (olderThan) {
+                getCommentsUrl += '&OlderThan=', olderThan;
+            }
+            if (newerThan) {
+                getCommentsUrl += '&OlderThan=', newerThan;
             }
 
-            return makeAjax('/RestApi/comments-api/comments/?' + urlParams);
+            return makeAjax(getCommentsUrl);
         };
 
-        var postComment = function () {
-            // Service call
+        var createComment = function (comment) {
+            return makeAjax(rootUrl, 'POST', comment);
         };
 
+        return {
+            getCommentsCount: getCommentsCount,
+            getComments: getComments,
+            createComment: createComment
+        };
+    }());
+
+    $(function () {
         var isUserAuthenticated = false;
 
-        // Remove unneeded fields from all forms if user is logged in
-        getIsUserLoggedIn().then(function (response) {
+        // Check if user is logged in
+        makeAjax('/RestApi/session/is-authenticated?_=' + (Math.random().toString().substr(2) + (new Date()).getTime())).then(function (response) {
             if (response && response.IsAuthenticated) {
                 isUserAuthenticated = true;
                 $('[data-sf-role="comments-new-logged-out-view"]').hide();
-            }
+            };
         });
 
         var createWidget = function () {
@@ -59,6 +85,10 @@
 
             // Initially hide new comment form
             var newCommentForm = $this.find('[data-sf-role="comments-new-holder"]').hide();
+            var newCommentMessage = $this.find('[data-sf-role="comments-new-message"]');
+            var newCommentName = $this.find('[data-sf-role="comments-new-name"]');
+            var newCommentEmail = $this.find('[data-sf-role="comments-new-email"]');
+            var newCommentWebsite = $this.find('[data-sf-role="comments-new-website"]');
 
             var commentsThreadKey = $this.find('[data-sf-role="comments-thread-key"]').val();
             var commentsPerPage = $this.find('[data-sf-role="comments-page-size"]').val();
@@ -91,38 +121,40 @@
                 newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
                 newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
 
-                attachCommentText(newComment.find('[data-sf-role="comment-text"]'), comment.Text);
+                attachCommentText(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
                 commentsContainer.append(newComment);
-            };
-
-            var showComments = function (comments) {
-                if (comments && comments.length) {
-                    commentsHeader.text(comments.length + commentsHeaderText);
-                    comments.forEach(createComment);
-                }
-                else {
-                    commentsFormButton.hide();
-                    commentsHeader.text(commentsFormButton.text());
-                    newCommentForm.show();
-                }
             };
 
             var loadComments = function (skip, take, sortDescending) {
                 take = take || commentsPerPage;
                 skip = skip || commentsTakenSoFar;
 
-                getComments(commentsThreadKey, commentsTakenSoFar, take).then(function (response) {
+                commentsRestApi.getComments(commentsThreadKey, commentsTakenSoFar, take).then(function (response) {
                     response = response || {};
                     response.Items = response.Items || [];
 
                     commentsTakenSoFar = commentsTakenSoFar + response.Items.length;
-                    showComments(response.Items);
+                    response.Items.forEach(createComment);
                 });
             };
 
             // Initial loading of comments
             loadComments();
+
+            // Initial loading of comments count for thread
+            commentsRestApi.getCommentsCount(commentsThreadKey).then(function (response) {
+                if (response) {
+                    if (response.Count > 0) {
+                        commentsHeader.text(response.Count + commentsHeaderText);
+                    }
+                    else {
+                        commentsFormButton.hide();
+                        commentsHeader.text(commentsFormButton.text());
+                        newCommentForm.show();
+                    }
+                }
+            });
 
             $this.find('[data-sf-role="comments-load-more-button"]').click(loadComments);
 
@@ -161,9 +193,27 @@
                 newCommentForm.toggle();
             });
 
-            $this.find('[data-sf-role="comments-new-submit-button"]').click(function () {
+            var submitForm = function () {
+                var comment = {
+                    message: newCommentMessage.val(),
+                    name: newCommentName.val(),
+                    email: newCommentEmail.val(),
+                    website: newCommentWebsite.val()
+                };
 
-            });
+                // Comment validation
+                if (comment.message && (isUserAuthenticated || comment.name)) {
+
+
+                    newCommentMessage.val('');
+                    newCommentForm.toggle();
+                }
+                else {
+                    // React ?
+                }
+            };
+
+            $this.find('[data-sf-role="comments-new-submit-button"]').click(submitForm);
         };
 
         // Widgets initialization
