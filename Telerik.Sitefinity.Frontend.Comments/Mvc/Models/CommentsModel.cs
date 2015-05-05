@@ -117,7 +117,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             get
             {
-                return (this.AllowComments.HasValue ? !this.AllowComments.Value : !this.ThreadsConfig.AllowComments);
+                return (this.AllowComments.HasValue ? this.AllowComments.Value : this.ThreadsConfig.AllowComments);
             }
         }
 
