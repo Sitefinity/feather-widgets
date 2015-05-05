@@ -81,13 +81,13 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
 
         #region Resources
         /// <summary>
-        /// Phrase: Included in the HTML <head> tag
+        /// Phrase: In the head tag
         /// </summary>
-        /// <value>Included in the HTML <head> tag</value>
+        /// <value>In the head tag</value>
         [ResourceEntry("IncludedInTheHead",
-            Value = "Included in the HTML <head> tag",
-            Description = "Phrase: Included in the HTML <head> tag",
-            LastModified = "2015/04/28")]
+            Value = "In the head tag",
+            Description = "Phrase: In the head tag",
+            LastModified = "2015/05/05")]
         public string IncludedInTheHead
         {
             get
@@ -97,13 +97,13 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: Included where the widget is dropped
+        /// Phrase: Where the widget is dropped
         /// </summary>
-        /// <value>Included where the widget is dropped</value>
+        /// <value>Where the widget is dropped</value>
         [ResourceEntry("IncludedWhereDropped",
-            Value = "Included where the widget is dropped",
-            Description = "Phrase: Included where the widget is dropped",
-            LastModified = "2015/04/28")]
+            Value = "Where the widget is dropped",
+            Description = "Phrase: Where the widget is dropped",
+            LastModified = "2015/05/05")]
         public string IncludedWhereDropped
         {
             get
@@ -113,13 +113,13 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: Included before the closing body tag
+        /// Phrase: Before the closing body tag
         /// </summary>
-        /// <value>Included before the closing body tag</value>
+        /// <value>Before the closing body tag</value>
         [ResourceEntry("IncludedBeforeTheBodyEnd",
-            Value = "Included before the closing body tag",
-            Description = "Phrase: Included before the closing body tag",
-            LastModified = "2015/04/28")]
+            Value = "Before the closing body tag",
+            Description = "Phrase: Before the closing body tag",
+            LastModified = "2015/05/05")]
         public string IncludedBeforeTheBodyEnd
         {
             get
