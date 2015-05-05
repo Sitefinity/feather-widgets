@@ -22,23 +22,29 @@
     </div>
 
     <div data-sf-role="comments-new-holder">
-        <textarea data-sf-role="comments-new-text" placeholder="@Html.Resource("LeaveComment")"></textarea>
-        <br />
+
+        <div>
+            <textarea rows="4" data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")"></textarea>
+        </div>
 
         <p data-sf-role="comments-new-logged-out-view">
             <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
-            <input placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
-            <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
+            <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
+            <input type="url" placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
         </p>
 
-        <label>
-            <input type="checkbox" data-sf-role="comments-new-subscribe" />
-            <span>@Html.Resource("SubscribeToNewComments")</span>
-        </label>
-        <br />
+        <div>
+            <label>
+                <input type="checkbox" data-sf-role="comments-new-subscribe" />
+                <span>@Html.Resource("SubscribeToNewComments")</span>
+            </label>
+        </div>
 
-        <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
-        <br />
+        <div>
+            @*Temporary styling*@
+            <button class="realBtn" data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
+        </div>
+
     </div>
     
     <div data-sf-role="comments-holder"></div>
@@ -51,11 +57,23 @@
                 <span data-sf-role="comment-date"></span>
             </p>
             <p>
-                <span data-sf-role="comment-text"></span>
+                <span data-sf-role="comment-message"></span>
             </p>
         </div>
         <br />
     </script>
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/CommentsMVC/comments.js"), "bottom", false)
+
+@*Temporary styling*@
+<style scoped>
+button:not(.realBtn) {
+    background:none!important;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    color: #105CB6;
+    cursor: pointer;
+}
+</style>
