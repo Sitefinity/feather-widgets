@@ -19,7 +19,7 @@ using Telerik.Sitefinity.Web;
 namespace FeatherWidgets.TestIntegration.BlogPosts
 {
     /// <summary>
-    /// This is a class with Blog posts widget tests.
+    /// This is a class with Blog posts widget "Which blog posts to display?" tests.
     /// </summary>
     [TestFixture]
     [Description("This is a class with Blog posts widget tests.")]
