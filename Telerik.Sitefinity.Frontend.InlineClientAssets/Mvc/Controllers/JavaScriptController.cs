@@ -43,6 +43,9 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets whether the page is in design mode.
+        /// </summary>
         protected virtual bool IsDesignMode
         {
             get
@@ -50,6 +53,24 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 return SystemManager.IsDesignMode;
             }
         }
+
+        /// <summary>
+        /// Gets whether the page is in edit mode.
+        /// </summary>
+        /// <value>The is edit.</value>
+        private bool IsEdit
+        {
+			get
+			{
+				var isEdit = false;
+				if (this.IsDesignMode && !SystemManager.IsPreviewMode)
+				{
+					isEdit = true;
+				}
+				return isEdit;
+			}
+		}
+
         #endregion
 
         #region Actions
@@ -65,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
             var page = this.GetHttpContext().CurrentHandler as Page;
 
-            if (page != null)
+            if (page != null && !this.IsEdit)
             {
                 if (this.Model.Position == Models.EmbedPosition.Head)
                 {
@@ -78,7 +99,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
             }
 
-            if (this.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
+            if (this.IsEdit && !SystemManager.IsInlineEditingMode)
             {
                 string result = null;
 
