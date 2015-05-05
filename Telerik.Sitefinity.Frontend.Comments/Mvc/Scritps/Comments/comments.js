@@ -55,10 +55,15 @@
             return makeAjax(rootUrl, 'POST', comment);
         };
 
+        var getCaptia = function () {
+
+        };
+
         return {
             getCommentsCount: getCommentsCount,
             getComments: getComments,
-            createComment: createComment
+            createComment: createComment,
+            getCaptia: getCaptia
         };
     }());
 
@@ -72,6 +77,22 @@
                 $('[data-sf-role="comments-new-logged-out-view"]').hide();
             };
         });
+
+        var validateComment = function (comment) {
+            var deferred = $.Deferred();
+
+            if (isUserAuthenticated) {
+                deferred.resolve(comment.message.length > 0);
+            }
+            else {
+                commentsRestApi.getCaptia().then(function (captia) {
+                    //TODO: Logic
+                    deferred.resolve(true);
+                })
+            }
+
+            return deferred.promise();
+        };
 
         var createWidget = function () {
             var $this = $(this);
@@ -94,6 +115,7 @@
             var commentsPerPage = $this.find('[data-sf-role="comments-page-size"]').val();
             var commentsTakenSoFar = 0;
             var commentsSortedDescending = false;
+            var commentsRefreshRate = 3000;
 
             var commentsTextMaxLength = $this.find('[data-sf-role="comments-text-max-length"]').val();
             var commentsReadMoreText = $this.find('[data-sf-role="comments-read-full-comment"]').val();
@@ -101,46 +123,6 @@
             /*
                 Load comments
             */
-
-            var attachCommentText = function (element, text) {
-                if (element && text) {
-                    if (text.length < commentsTextMaxLength) {
-                        element.text(text);
-                    }
-                    else {
-                        element.text(text.substr(0, commentsTextMaxLength));
-                        element.append($('<span />').hide().text(text.substr(commentsTextMaxLength)));
-                        element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(commentsReadMoreText));
-                    }
-                }
-            };
-
-            var createComment = function (comment) {
-                var newComment = template.clone(true);
-
-                newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
-                newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
-
-                attachCommentText(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
-
-                commentsContainer.append(newComment);
-            };
-
-            var loadComments = function (skip, take, sortDescending) {
-                take = take || commentsPerPage;
-                skip = skip || commentsTakenSoFar;
-
-                commentsRestApi.getComments(commentsThreadKey, commentsTakenSoFar, take).then(function (response) {
-                    response = response || {};
-                    response.Items = response.Items || [];
-
-                    commentsTakenSoFar = commentsTakenSoFar + response.Items.length;
-                    response.Items.forEach(createComment);
-                });
-            };
-
-            // Initial loading of comments
-            loadComments();
 
             // Initial loading of comments count for thread
             commentsRestApi.getCommentsCount(commentsThreadKey).then(function (response) {
@@ -156,7 +138,57 @@
                 }
             });
 
-            $this.find('[data-sf-role="comments-load-more-button"]').click(loadComments);
+            var attachCommentText = function (element, text) {
+                if (element && text) {
+                    if (text.length < commentsTextMaxLength) {
+                        element.text(text);
+                    }
+                    else {
+                        element.text(text.substr(0, commentsTextMaxLength));
+                        element.append($('<span />').hide().text(text.substr(commentsTextMaxLength)));
+                        element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(commentsReadMoreText));
+                    }
+                }
+            };
+
+            var createComment = function (comment, prepend) {
+                var newComment = template.clone(true);
+
+                newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
+                newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
+
+                attachCommentText(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
+
+                if (prepend) {
+                    commentsContainer.prepend(newComment);
+                }
+                else {
+                    commentsContainer.append(newComment);
+                }
+            };
+
+            var loadComments = function (skip, take) {
+                take = take || commentsPerPage;
+
+                commentsRestApi.getComments(commentsThreadKey, skip, take, commentsSortedDescending).then(function (response) {
+                    response = response || {};
+                    response.Items = response.Items || [];
+
+                    commentsTakenSoFar = commentsTakenSoFar + response.Items.length;
+                    response.Items.forEach(createComment);
+                });
+            };
+
+            // Initial loading of comments
+            loadComments(0);
+
+            $this.find('[data-sf-role="comments-load-more-button"]').click(function () {
+                loadComments(commentsTakenSoFar);
+            });
+
+            var refreshComments = function () {
+                loadComments(0, commentsTakenSoFar);
+            };
 
             // Read full comment
             commentsContainer.on('click', '[data-sf-role="comments-read-full-comment-button"]', function (e) {
@@ -171,9 +203,9 @@
 
             var sortComments = function (descending) {
                 if (descending !== commentsSortedDescending) {
-                    commentsSortedDescending = !commentsSortedDescending;
+                    commentsSortedDescending = descending;
                     commentsContainer.html('');
-                    loadComments(0, commentsTakenSoFar, descending);
+                    loadComments(0, commentsTakenSoFar);
                 }
             };
 
@@ -201,19 +233,26 @@
                     website: newCommentWebsite.val()
                 };
 
-                // Comment validation
-                if (comment.message && (isUserAuthenticated || comment.name)) {
+                validateComment(comment).then(function (isValid) {
+                    if (isValid) {
+                        commentsRestApi.createComment(comment);
 
+                        newCommentMessage.val('');
+                        newCommentForm.hide();
+                        commentsFormButton.show();
 
-                    newCommentMessage.val('');
-                    newCommentForm.toggle();
-                }
-                else {
-                    // React ?
-                }
+                        refreshComments();
+                    }
+                    else {
+                        // React ?
+                    }
+                });
             };
 
             $this.find('[data-sf-role="comments-new-submit-button"]').click(submitForm);
+
+            // Comments updating
+            //setInterval(refreshComments, commentsRefreshRate);
         };
 
         // Widgets initialization
