@@ -142,7 +142,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scritps\Comments\comments.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Comments\comments.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.cshtml" />
@@ -151,7 +151,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scritps\Comments\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Comments\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
