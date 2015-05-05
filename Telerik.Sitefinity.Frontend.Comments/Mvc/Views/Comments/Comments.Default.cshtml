@@ -1,47 +1,48 @@
-﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+﻿@model Telerik.Sitefinity.Frontend.Comments.Mvc.Models.CommentsModel
+
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 
-<div data-sf-role="comments-wrapper" class="@("CssClassHere")">
-    <input type="hidden" data-sf-role="comments-thread-key" value="@("b0ed401b-f175-6d94-8442-ff00006c9242_en")" />
-    <input type="hidden" data-sf-role="comments-page-size" value="@(1)" />
-    <input type="hidden" data-sf-role="comments-header-text" value="@("comments")" />
-    <input type="hidden" data-sf-role="comments-read-full-comment" value="@("Read full comment")" />
-    <input type="hidden" data-sf-role="comments-text-max-length" value="@(100)" />
+<div data-sf-role="comments-wrapper" class="@Model.CssClass">
+    <input type="hidden" data-sf-role="comments-thread-key" value="@Model.ThreadKey" />
+    <input type="hidden" data-sf-role="comments-page-size" value="@Model.CommentsConfig.CommentsPerPage" />
+    <input type="hidden" data-sf-role="comments-header-text" value="@Html.Resource("CommentsPlural")" />
+    <input type="hidden" data-sf-role="comments-read-full-comment" value="@Html.Resource("ReadFullComment")" />
+    <input type="hidden" data-sf-role="comments-text-max-length" value="@Model.CommentTextMaxLength" />
 
     <div>
         <span data-sf-role="comments-header"></span>
-        <button data-sf-role="comments-form-button">Leave a comment</button>
-        <button data-sf-role="comments-sort-new-button">Newest on top</button>
-        <button data-sf-role="comments-sort-old-button">Oldest on top</button>
+        <button data-sf-role="comments-form-button">@Html.Resource("LeaveComment")</button>
+        <button data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</button>
+        <button data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</button>
     </div>
 
     <div data-sf-role="comments-new-holder">
-        <textarea data-sf-role="comments-new-text" placeholder="Leave a comment"></textarea>
+        <textarea data-sf-role="comments-new-text" placeholder="@Html.Resource("LeaveComment")"></textarea>
         <br />
 
         <p data-sf-role="comments-new-logged-out-view">
-            <input placeholder="Your name" data-sf-role="comments-new-name" /> <br />
-            <input placeholder="Email (optional)" data-sf-role="comments-new-email" /> <br />
-            <input placeholder="Web site (optional)" data-sf-role="comments-new-website" /> <br />
+            <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
+            <input placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
+            <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
         </p>
 
         <label>
             <input type="checkbox" data-sf-role="comments-new-subscribe" />
-            <span>Subscribe me to new comments via email</span>
+            <span>@Html.Resource("SubscribeToNewComments")</span>
         </label>
         <br />
 
-        <button data-sf-role="comments-new-submit-button">Submit</button>
+        <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         <br />
-
-        <a href="#">Comments feed</a>
     </div>
     
     <div data-sf-role="comments-holder"></div>
-    <button data-sf-role="comments-load-more-button">Load more comments</button>
+    <button data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</button>
     
     <script type="text/html-template" data-sf-role="single-comment-template">
         <div>
