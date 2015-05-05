@@ -44,7 +44,7 @@
             if (response && response.IsAuthenticated) {
                 isUserAuthenticated = true;
                 $('[data-sf-role="comments-new-logged-out-view"]').hide();
-            };
+            }
         });
 
         var createWidget = function () {
