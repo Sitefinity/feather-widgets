@@ -320,5 +320,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
                 return this["SelectJsFile"];
             }
         }
+
+        /// <summary>
+        /// Phrase: Set JavaScript
+        /// </summary>
+        /// <value>Set JavaScript</value>
+        [ResourceEntry("SetJS",
+            Value = "Set JavaScript",
+            Description = "Phrase: Set JavaScript",
+            LastModified = "2015/05/05")]
+        public string SetJS
+        {
+            get
+            {
+                return this["SetJS"];
+            }
+        }
     }
 }

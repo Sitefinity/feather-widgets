@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 {
@@ -20,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
     /// </summary>
     [Localization(typeof(JavaScriptResources))]
     [ControllerToolboxItem(Name = "JavaScript_MVC", Title = "JavaScript", SectionName = "ScriptsAndStylesControlsSection", CssClass = JavaScriptController.WidgetIconCssClass)]
-    public class JavaScriptController : Controller
+    public class JavaScriptController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
 
@@ -105,6 +106,31 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
             return this.View(viewModel);
         }
+        #endregion
+
+         #region ICustomWidgetVisualizationExtended
+
+        /// <inheritDocs/>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get { return JavaScriptController.WidgetIconCssClass; }
+        }
+
+        /// <inheritDocs/>
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get { return Res.Get<JavaScriptResources>().SetJS; }
+        }
+
+        /// <inheritDocs/>
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get { return string.IsNullOrEmpty(this.Model.InlineCode) && string.IsNullOrEmpty(this.Model.FileUrl); }
+        }
+
         #endregion
 
         #region Virtual methods
