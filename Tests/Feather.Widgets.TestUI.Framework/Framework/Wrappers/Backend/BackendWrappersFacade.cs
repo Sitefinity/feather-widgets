@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Css;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media;
@@ -114,6 +115,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public ListsWrapperFacade Lists()
         {
             return new ListsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Css widget.
+        /// </summary>
+        /// <returns></returns>
+        public CssWrapperFacade Css()
+        {
+            return new CssWrapperFacade();
         }
     }
 }
