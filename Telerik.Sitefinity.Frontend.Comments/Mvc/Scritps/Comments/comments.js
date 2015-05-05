@@ -52,7 +52,7 @@
         };
 
         var createComment = function (comment) {
-            return makeAjax(rootUrl, 'POST', comment);
+            return makeAjax(rootUrl, 'POST', JSON.stringify(comment));
         };
 
         var getCaptia = function () {
@@ -82,7 +82,7 @@
             var deferred = $.Deferred();
 
             if (isUserAuthenticated) {
-                deferred.resolve(comment.message.length > 0);
+                deferred.resolve(comment.Message.length > 0);
             }
             else {
                 commentsRestApi.getCaptia().then(function (captia) {
@@ -103,6 +103,7 @@
             var commentsHeader = $this.find('[data-sf-role="comments-header"]');
             var commentsHeaderText = $this.find('[data-sf-role="comments-header-text"]').val();
             var commentsFormButton = $this.find('[data-sf-role="comments-form-button"]');
+            var commentsLoadMoreButton = $this.find('[data-sf-role="comments-load-more-button"]');
 
             // Initially hide new comment form
             var newCommentForm = $this.find('[data-sf-role="comments-new-holder"]').hide();
@@ -127,13 +128,24 @@
             // Initial loading of comments count for thread
             commentsRestApi.getCommentsCount(commentsThreadKey).then(function (response) {
                 if (response) {
-                    if (response.Count > 0) {
-                        commentsHeader.text(response.Count + commentsHeaderText);
+                    var currentThreadKeyCount = 0;
+                    response.Items.forEach(function (item) {
+                        if (item.Key === commentsThreadKey) {
+                            currentThreadKeyCount = item.Count;
+                        }
+                    });
+
+                    if (currentThreadKeyCount > 0) {
+                        commentsHeader.text(currentThreadKeyCount + commentsHeaderText);
                     }
                     else {
                         commentsFormButton.hide();
                         commentsHeader.text(commentsFormButton.text());
                         newCommentForm.show();
+                    }
+
+                    if (currentThreadKeyCount <= commentsTakenSoFar) {
+                        commentsLoadMoreButton.hide();
                     }
                 }
             });
@@ -182,7 +194,7 @@
             // Initial loading of comments
             loadComments(0);
 
-            $this.find('[data-sf-role="comments-load-more-button"]').click(function () {
+            commentsLoadMoreButton.click(function () {
                 loadComments(commentsTakenSoFar);
             });
 
@@ -227,11 +239,15 @@
 
             var submitForm = function () {
                 var comment = {
-                    message: newCommentMessage.val(),
-                    name: newCommentName.val(),
-                    email: newCommentEmail.val(),
-                    website: newCommentWebsite.val()
+                    Message: newCommentMessage.val(),
+                    ThreadKey: commentsThreadKey
                 };
+
+                if (!isUserAuthenticated) {
+                    comment.Name = newCommentName.val();
+                    comment.Email = newCommentEmail.val();
+                    comment.Website = newCommentWebsite.val();
+                }
 
                 validateComment(comment).then(function (isValid) {
                     if (isValid) {
