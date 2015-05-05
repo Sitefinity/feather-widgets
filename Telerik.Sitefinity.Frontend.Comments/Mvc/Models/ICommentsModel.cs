@@ -70,10 +70,12 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         bool ShowComments { get; }
 
         /// <summary>
-        /// Gets or sets the maximum length of the comment text.
+        /// Gets or sets the maximum length of the comment text to be displayed when load.
         /// </summary>
+        /// <remarks> The rest of comment text will be displayed when clicking "Read full comment" link. 
+        /// </remarks>
         /// <value>
-        /// The maximum length of the comment text.
+        /// The maximum length of the comment text to be dispalyed when comment is loaded.
         /// </value>
         int CommentTextMaxLength { get; set; }
 
