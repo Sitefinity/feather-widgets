@@ -336,5 +336,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources
                 return this["SetJS"];
             }
         }
+
+        /// <summary>
+        /// Phrase: For your convenience only
+        /// </summary>
+        /// <value>For your convenience only</value>
+        [ResourceEntry("ForYourConvenience",
+            Value = "For your convenience only",
+            Description = "Phrase: For your convenience only",
+            LastModified = "2015/05/05")]
+        public string ForYourConvenience
+        {
+            get
+            {
+                return this["ForYourConvenience"];
+            }
+        }
     }
 }

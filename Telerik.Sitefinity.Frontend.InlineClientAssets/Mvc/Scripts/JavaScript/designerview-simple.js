@@ -13,6 +13,17 @@
                 if (data)
                     $scope.feedback.errorMessage = data.Detail;
             })
+            .then(function () {
+                $scope.feedback.savingHandlers.push(function () {
+                    if ($scope.properties.Mode.PropertyValue !== 'Inline') {
+                        $scope.properties.InlineCode.PropertyValue = null;
+                    }
+
+                    if ($scope.properties.Mode.PropertyValue !== 'Reference') {
+                        $scope.properties.FileUrl.PropertyValue = null;
+                    }
+                });
+            })
             .finally(function () {
                 $scope.feedback.showLoadingIndicator = false;
             });

@@ -141,7 +141,9 @@
     <Compile Include="Mvc\StringResources\CommentsWidgetResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scritps\Comments\comments.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.json" />
