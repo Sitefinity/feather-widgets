@@ -46,6 +46,9 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValueExpected);
             Assert.IsTrue(isContained, string.Concat("Expected ", CssValueExpected, " but the style is not found"));
+
+            bool isNotContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
+            Assert.IsFalse(isNotContained, string.Concat("Not expected ", CssValue, " but the style is found"));
         }
 
         /// <summary>
@@ -69,7 +72,7 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         private const string ContentBlockContent = "Test content";
         private const string WidgetName = "CSS";
         private const string CssValue = "div { color: #00FF00;} ";
-        private const string CssValueExpected = "div { color: #FF0000; font-size: 20px;} ";
+        private const string CssValueExpected = "/Css/styles.css";
         private const string FolderName = "Css";
         private const string FileName = "styles.css";
     }
