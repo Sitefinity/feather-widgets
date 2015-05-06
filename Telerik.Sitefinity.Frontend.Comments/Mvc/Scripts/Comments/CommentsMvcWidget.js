@@ -155,7 +155,8 @@
             }
             else {
                 this.commentsRestApi.getCaptia().then(function (captia) {
-                    //TODO: Logic
+                    //TODO: captia logic
+
                     deferred.resolve(true);
                 });
             }
@@ -259,13 +260,14 @@
                         self.newCommentMessage().val('');
                         self.newCommentForm().hide();
                         self.newCommentFormButton().show();
-                    });
 
-                    // Comments refresh will handle the new comment.
-                    // refreshComments();
+                        // Comments refresh will handle the showing of the new comment.
+                        
+                        // Success message ?
+                    });
                 }
                 else {
-                    // React ?
+                    // Error message ?
                 }
             });
         },
@@ -354,16 +356,11 @@
                 self.submitForm();
                 return false;
             });
-
-            // TODO: REMOVE
-            self.wrapper.find('#reeeeeeeeeeeeee').click(function () {
-                self.refreshComments(self);
-            });
-
+            
             // Comments updating
-            //setInterval(function () {
-            //    self.refreshComments(self);
-            //}, self.commentsRefreshRate);
+            setInterval(function () {
+                self.refreshComments(self);
+            }, self.commentsRefreshRate);
         }
     };
 
