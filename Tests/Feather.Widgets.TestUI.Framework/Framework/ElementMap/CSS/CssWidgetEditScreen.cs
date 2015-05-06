@@ -77,5 +77,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CSS
                 return this.Get<HtmlUnorderedList>("class=sf-Tree ng-scope");
             }
         }
+
+        /// <summary>
+        /// Gets More options.
+        /// </summary>
+        public HtmlSpan MoreOptions
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("tagname=span", "InnerText=More options");
+            }
+        }
+
+        /// <summary>
+        /// Gets the description.
+        /// </summary>
+        public HtmlInputText Description
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Description.PropertyValue");
+            }
+        }
     }
 }
