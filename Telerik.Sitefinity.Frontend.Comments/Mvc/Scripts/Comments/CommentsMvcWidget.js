@@ -118,7 +118,6 @@
             return this.singleCommentTemplate;
         },
 
-        // Elements
         commentsContainer: function () { return this.getOrInitializeProperty('_commentsContainer', 'comments-container'); },
         commentsTotalCount: function () { return this.getOrInitializeProperty('_commentsTotalCount', 'comments-total-count'); },
         commentsHeader: function () { return this.getOrInitializeProperty('_commentsHeader', 'comments-header'); },
@@ -134,7 +133,6 @@
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
-        // Constants
         commentsThreadKey: function () { return this.getOrInitializeProperty('_commentsThreadKey', 'comments-thread-key', 'val'); },
         commentsPerPage: function () { return parseInt(this.getOrInitializeProperty('_commentsPerPage', 'comments-per-page', 'val')); },
         commentsTextMaxLength: function () { return parseInt(this.getOrInitializeProperty('_commentsTextMaxLength', 'comments-text-max-length', 'val')); },
@@ -185,6 +183,8 @@
                 comments.forEach(function (comment) {
                     var newComment = self.getSingleCommentTemplate().clone(true);
 
+                    newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
+
                     newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
                     newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
 
@@ -213,7 +213,7 @@
                     // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
                     self.createComments(response.Items, newerThan && self.commentsSortedDescending);
 
-                    // Refresh total count if any items are recieved
+                    // Refresh total count if items are recieved
                     if (newerThan) {
                         self.commentsTotalCount().text(parseInt(self.commentsTotalCount().text()) + response.Items.length);
                     }
@@ -259,11 +259,10 @@
                         self.newCommentMessage().val('');
                         self.newCommentForm().hide();
                         self.newCommentFormButton().show();
-
-                        // Comments refresh will handle the new comment.
-
-                        // Success message ?
                     });
+
+                    // Comments refresh will handle the new comment.
+                    // refreshComments();
                 }
                 else {
                     // React ?
@@ -356,14 +355,18 @@
                 return false;
             });
 
-            // Comments updating
-            setInterval(function () {
+            // TODO: REMOVE
+            self.wrapper.find('#reeeeeeeeeeeeee').click(function () {
                 self.refreshComments(self);
-            }, self.commentsRefreshRate);
+            });
+
+            // Comments updating
+            //setInterval(function () {
+            //    self.refreshComments(self);
+            //}, self.commentsRefreshRate);
         }
     };
 
-    // Initialize the widget/s on page ready.
     $(function () {
         var settings = JSON.parse($('[data-sf-role="comments-settings"]').val());
         $('[data-sf-role="comments-wrapper"]').each(function () {

@@ -48,6 +48,7 @@
     
     <script type="text/html-template" data-sf-role="single-comment-template">
         <div>
+            <img data-sf-role="comment-avatar"/>
             <p>
                 <a href="#"><span data-sf-role="comment-name"></span></a> | 
                 <span data-sf-role="comment-date"></span>
@@ -61,3 +62,12 @@
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/CommentsMVC/CommentsMvcWidget.js"), "bottom", false)
+
+@*Temporary styling*@
+<style scoped>
+    img[data-sf-role="comment-avatar"] {
+        float:left;
+        width: 40px;
+        height: 40px;
+    }
+</style>
