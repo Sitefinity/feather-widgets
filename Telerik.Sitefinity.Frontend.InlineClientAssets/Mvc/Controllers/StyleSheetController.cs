@@ -107,7 +107,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         [Browsable(false)]
         public bool IsEmpty
         {
-            get { return string.IsNullOrEmpty(this.Model.InlineStyles) && string.IsNullOrEmpty(this.Model.ResourceUrl); }
+            get { return string.IsNullOrEmpty(this.Model.InlineStyles) && string.IsNullOrEmpty(this.Model.ResourceUrl) && string.IsNullOrEmpty(this.Model.Description); }
         }
 
         #endregion
