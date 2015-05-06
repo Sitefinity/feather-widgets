@@ -46,5 +46,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity
         {
             return new RegistrationWrapper();
         }
+
+        /// <summary>
+        /// Provides unified access to the UsersListWrapper
+        /// </summary>
+        /// <returns>Returns the UsersListWrapper</returns>
+        public UsersListWrapper UsersListWrapper()
+        {
+            return new UsersListWrapper();
+        }
     }
 }
