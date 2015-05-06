@@ -167,6 +167,7 @@
     </Compile>
     <Compile Include="BlogPosts\BlogPostsWidgetNarrowSelectionTests.cs" />
     <Compile Include="BlogPosts\BlogPostsWidgetTests.cs" />
+    <Compile Include="BlogsWidget\BlogsWidgetListSettingsTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetTests.cs" />
     <Compile Include="ContentBlock\ContentBlockEditorTests.cs" />
     <Compile Include="ContentBlock\ContentBlockSearchIndex.cs" />
