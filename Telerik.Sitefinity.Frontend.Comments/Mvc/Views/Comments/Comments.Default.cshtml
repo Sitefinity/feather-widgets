@@ -9,7 +9,7 @@
 
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
     <input type="hidden" data-sf-role="comments-thread-key" value="@Model.ThreadKey" />
-    <input type="hidden" data-sf-role="comments-page-size" value="@Model.CommentsConfig.CommentsPerPage" />
+    <input type="hidden" data-sf-role="comments-per-page" value="@Model.CommentsConfig.CommentsPerPage" />
     <input type="hidden" data-sf-role="comments-header-text" value="@Html.Resource("CommentsPlural")" />
     <input type="hidden" data-sf-role="comments-read-full-comment" value="@Html.Resource("ReadFullComment")" />
     <input type="hidden" data-sf-role="comments-text-max-length" value="@Model.CommentTextMaxLength" />
@@ -21,7 +21,7 @@
         <a href="#" data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</a>
     </div>
 
-    <div data-sf-role="comments-new-holder">
+    <div data-sf-role="comments-new-form">
         <textarea data-sf-role="comments-new-text" placeholder="@Html.Resource("LeaveComment")"></textarea>
         <br />
 
@@ -41,7 +41,7 @@
         <br />
     </div>
     
-    <div data-sf-role="comments-holder"></div>
+    <div data-sf-role="comments-container"></div>
     <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
     
     <script type="text/html-template" data-sf-role="single-comment-template">
