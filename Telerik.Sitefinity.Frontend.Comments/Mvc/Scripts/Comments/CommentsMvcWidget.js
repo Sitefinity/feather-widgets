@@ -133,6 +133,7 @@
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
+        // Remove if we use only settings
         commentsThreadKey: function () { return this.getOrInitializeProperty('_commentsThreadKey', 'comments-thread-key', 'val'); },
         commentsPerPage: function () { return parseInt(this.getOrInitializeProperty('_commentsPerPage', 'comments-per-page', 'val')); },
         commentsTextMaxLength: function () { return parseInt(this.getOrInitializeProperty('_commentsTextMaxLength', 'comments-text-max-length', 'val')); },
@@ -164,20 +165,20 @@
             return deferred.promise();
         },
 
-        attachCommentText: function (element, text) {
-            if (element && text) {
-                if (text.length < this.commentsTextMaxLength()) {
-                    element.text(text);
+        attachCommentMessage: function (element, message) {
+            if (element && message) {
+                if (message.length < this.commentsTextMaxLength()) {
+                    element.text(message);
                 }
                 else {
-                    element.text(text.substr(0, this.commentsTextMaxLength()));
-                    element.append($('<span />').hide().text(text.substr(this.commentsTextMaxLength())));
+                    element.text(message.substr(0, this.commentsTextMaxLength()));
+                    element.append($('<span />').hide().text(message.substr(this.commentsTextMaxLength())));
                     element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.commentsReadFullCommentText()));
                 }
             }
         },
 
-        createComments: function (comments, doPrepend) {
+        renderComments: function (comments, doPrepend) {
             if (comments && comments.length) {
                 var self = this;
 
@@ -189,7 +190,7 @@
                     newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
                     newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
 
-                    self.attachCommentText(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
+                    self.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
                     if (doPrepend) {
                         self.commentsContainer().prepend(newComment);
@@ -212,7 +213,7 @@
                     self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
 
                     // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
-                    self.createComments(response.Items, newerThan && self.commentsSortedDescending);
+                    self.renderComments(response.Items, newerThan && self.commentsSortedDescending);
 
                     // Refresh total count if items are recieved
                     if (newerThan) {
