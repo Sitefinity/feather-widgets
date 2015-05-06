@@ -11,18 +11,18 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Identity
 {
     /// <summary>
-    /// VerifyAllRegisteredUsersInUsersList_ test class.
+    /// VerifySelectedUsersInUsersListWithSelectedSingleUserPage_ test class.
     /// </summary>
     [TestClass]
-    public class VerifyAllRegisteredUsersInUsersList_ : FeatherTestCase
+    public class VerifySelectedUsersInUsersListWithSelectedSingleUserPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test VerifyAllRegisteredUsersInUsersList
+        /// UI test that verifies user list with selected users and set page for single user
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.UsersList)]
-        public void VerifyAllRegisteredUsersInUsersList()
+        public void VerifySelectedUsersInUsersListWithSelectedSingleUserPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -31,7 +31,12 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             //// verify Content tab
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyWhichUsersToDisplayLabel();
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyWhichUsersToDisplayOptions();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.allUsers);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.selectedUsers);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
+            BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyUsersProviderOptions();
+            BATFeather.Wrappers().Backend().Identity().UsersListWrapper().SelectProvider(UserProvider);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(AdminUserName, AuthorUserName);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
 
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().VerifyWhichProfileToDisplayLabel();
             BATFeather.Wrappers().Backend().Identity().UsersListWrapper().SelectUserProfile(UserProfile);
@@ -81,12 +86,15 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string SingleUserPageName = "UserPage";
         private const string SingleUserPageURLEnding = "userpage/admin";
         private const string WidgetName = "Users list";
+        private const string UserProvider = "All Users";
         private const string UserProfile = "Basic profile";
         private const string SortingOption = "FirstName ASC";
         private const string ListTemplateName = "UsersList";
         private const string DetailTemplateName = "UserDetails";
         private const string UserFirstLastName = "admin admin";
         private const string UserEmail = "admin@admin.com";
+        private const string AdminUserName = "admin";
+        private const string AuthorUserName = "author";
 
         private readonly string[] sortingOptions = new string[] { "First name (A-Z)", "First name (Z-A)", "Last name (A-Z)", "Last name (Z-A)", "Last created", "Last modified", "As set in Advanced mode" };
         private readonly string[] users = new string[] { "fname lname", "miroslava nikolova" };

@@ -218,5 +218,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
                 return this.Get<HtmlInputCheckBox>("tagname=input", "id=openInNewTab");
             }
         }
+
+        /// <summary>
+        /// Gets user and role providers drop down.
+        /// </summary>
+        /// <value>Providers drop down</value>
+        public HtmlSelect ProvidersDropdown
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("tagname=select", "ng-model=sfProvider");
+            }
+        }
     }
 }

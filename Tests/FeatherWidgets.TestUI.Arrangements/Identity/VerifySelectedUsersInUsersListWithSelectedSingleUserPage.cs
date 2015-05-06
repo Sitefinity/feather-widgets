@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Arrangement methods for VerifyAllRegisteredUsersInUsersList
+    /// Arrangement methods for VerifySelectedUsersInUsersListWithSelectedSingleUserPage
     /// </summary>
-    public class VerifyAllRegisteredUsersInUsersList : ITestArrangement
+    public class VerifySelectedUsersInUsersListWithSelectedSingleUserPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -26,6 +26,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddUsersListWidgetToPage(detailsPageId);
 
             ServerOperations.Users().CreateUserWithProfileAndRoles(AuthorUserName, AuthorPassword, AuthorFirstName, AuthorLastName, AuthorEmail, new List<string> { "BackendUsers", "Authors" });
+            ServerOperations.Users().CreateUserWithProfileAndRoles(EditorUserName, EditorPassword, EditorFirstName, EditorLastName, EditorEmail, new List<string> { "BackendUsers", "Editors" });
         }
 
         /// <summary>
@@ -36,6 +37,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.Users().DeleteUserAndProfile(AuthorUserName);
+            ServerOperations.Users().DeleteUserAndProfile(EditorUserName);
         }
 
         private const string PageName = "UsersListPage";
@@ -46,5 +48,11 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string AuthorFirstName = "fname";
         private const string AuthorLastName = "lname";
         private const string AuthorEmail = "author@test.com";
+
+        private const string EditorUserName = "editor";
+        private const string EditorPassword = "password";
+        private const string EditorFirstName = "fn";
+        private const string EditorLastName = "ln";
+        private const string EditorEmail = "editor@test.com";
     }
 }

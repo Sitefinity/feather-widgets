@@ -16,7 +16,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
     public class WidgetDesignerScreen : HtmlElementContainer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NewsWidgetContentScreen" /> class.
+        /// Initializes a new instance of the <see cref="WidgetDesignerScreen" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
         public WidgetDesignerScreen(Find find)

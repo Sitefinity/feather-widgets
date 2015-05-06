@@ -195,7 +195,7 @@
     <Compile Include="Identity\RegisterNewUserAndLoginTheUser.cs" />
     <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
-    <Compile Include="Identity\VerifyAllRegisteredUsersInUsersList.cs" />
+    <Compile Include="Identity\VerifySelectedUsersInUsersListWithSelectedSingleUserPage.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithGalleryTemplate.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
     <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
