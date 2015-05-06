@@ -116,9 +116,9 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string Lists = "Lists";
 
         /// <summary>
-        /// New category for Blog posts tests
+        /// New category for Blogs tests
         /// </summary>
-        public const string BlogPosts = "BlogPosts";
+        public const string Blogs = "Blogs";
 
         /// <summary>
         /// New category for Css tests

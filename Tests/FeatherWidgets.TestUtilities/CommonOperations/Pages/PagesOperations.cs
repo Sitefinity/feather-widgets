@@ -8,6 +8,7 @@ using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
@@ -84,7 +85,8 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         /// </summary>
         /// <param name="pageId">The page Id.</param>
         /// <param name="placeholder">The placeholderId.</param>
-        public void AddBlogPostsWidgetToPage(Guid pageId, string placeholder)
+        /// <param name="parentFilterMode">The parent filter mode.</param>
+        public void AddBlogPostsWidgetToPage(Guid pageId, string placeholder, ParentFilterMode parentFilterMode)
         {
             PageManager pageManager = PageManager.GetManager();
             pageManager.Provider.SuppressSecurityChecks = true;
@@ -94,8 +96,23 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
             {
                 mvcWidget.ControllerName = typeof(BlogPostController).FullName;
+                var controller = new BlogPostController();
+
+                controller.Model.ParentFilterMode = parentFilterMode;
+
+                mvcWidget.Settings = new ControllerSettings(controller);
                 this.CreateControl(pageManager, page, mvcWidget, "Blog posts", placeholder);
             }
+        }
+
+        /// <summary>
+        /// Add blog posts widget to existing page.
+        /// </summary>
+        /// <param name="pageId">The page Id.</param>
+        /// <param name="placeholder">The placeholderId.</param>
+        public void AddBlogPostsWidgetToPage(Guid pageId, string placeholder)
+        {
+            this.AddBlogPostsWidgetToPage(pageId, placeholder, ParentFilterMode.All);
         }
 
         /// <summary>
