@@ -153,6 +153,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Comments\designerview-simple.js" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Comments\CommentsMvcWidget.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
