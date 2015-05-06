@@ -1,0 +1,6 @@
+﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector.LanguageSelectorViewModel
+
+@foreach (var language in Model.Languages)
+{
+	<a href="@language.Url">@language.DisplayName</a>
+}
