@@ -75,6 +75,16 @@
             };
         });
 
+        var getDateString = function (sfDateString, secondsOffset) {
+            var date = new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
+
+            // On request dates are converted to local time so offset is added here.
+            date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+            date.setSeconds(date.getSeconds() + secondsOffset);
+
+            return date.toUTCString();
+        };
+
         var validateComment = function (comment) {
             var deferred = $.Deferred();
 
@@ -111,11 +121,12 @@
 
             var commentsThreadKey = $this.find('[data-sf-role="comments-thread-key"]').val();
             var commentsPerPage = $this.find('[data-sf-role="comments-page-size"]').val();
-            var commentsSortedDescending = false;
-            var commentsRefreshRate = 1000;
+            var commentsSortedDescending = true;
+            var commentsRefreshRate = 3000;
             var commentsTakenSoFar = 0;
             var firstCommentDate = 0;
             var lastCommentDate = 0;
+            var maxCommentsToShow = commentsPerPage;
 
             var commentsTextMaxLength = $this.find('[data-sf-role="comments-text-max-length"]').val();
             var commentsReadMoreText = $this.find('[data-sf-role="comments-read-full-comment"]').val();
@@ -184,21 +195,22 @@
                 commentsRestApi.getComments(commentsThreadKey, skip, take, commentsSortedDescending, newerThan).then(function (response) {
                     if (response && response.Items && response.Items.length) {
                         commentsTakenSoFar += response.Items.length;
-                        firstCommentDate = (new Date(parseInt(response.Items[0].DateCreated.replace(/\D/g, ''), 10))).toGMTString();
-                        lastCommentDate = (new Date(parseInt(response.Items[response.Items.length - 1].DateCreated.replace(/\D/g, ''), 10))).toGMTString();
 
+                        firstCommentDate = getDateString(response.Items[0].DateCreated, 1);
+                        lastCommentDate = getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
+
+                        // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
                         createComments(response.Items, newerThan && commentsSortedDescending);
                     }
                 });
             };
 
             var refreshComments = function () {
-                var newCommentsToTake = 3;
                 if (commentsSortedDescending) {
-                    loadComments(0, newCommentsToTake, firstCommentDate);
+                    loadComments(0, commentsPerPage, firstCommentDate);
                 }
-                else {
-                    loadComments(0, newCommentsToTake, lastCommentDate);
+                else if (maxCommentsToShow - commentsTakenSoFar > 0) {
+                    loadComments(0, maxCommentsToShow - commentsTakenSoFar, lastCommentDate);
                 }
             };
 
@@ -206,6 +218,7 @@
             loadComments(0, commentsPerPage);
 
             commentsLoadMoreButton.click(function () {
+                maxCommentsToShow += commentsPerPage;
                 loadComments(commentsTakenSoFar, commentsPerPage);
                 return false;
             });
@@ -265,14 +278,16 @@
 
                 validateComment(comment).then(function (isValid) {
                     if (isValid) {
-                        commentsRestApi.createComment(comment);
+                        commentsRestApi.createComment(comment).then(function (response) {
+                            console.log(response);
 
-                        newCommentMessage.val('');
-                        newCommentForm.hide();
-                        commentsFormButton.show();
+                            newCommentMessage.val('');
+                            newCommentForm.hide();
+                            commentsFormButton.show();
+                        });
 
                         // Comments refresh will handle the new comment.
-                        refreshComments();
+                        // refreshComments();
                     }
                     else {
                         // React ?
@@ -286,7 +301,7 @@
             });
 
             // Comments updating
-            // setInterval(refreshComments, commentsRefreshRate);
+            setInterval(refreshComments, commentsRefreshRate);
         };
 
         // Widgets initialization
