@@ -14,10 +14,12 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
     {
         /// <summary>
         /// UI test EditDynamicWidgetViaInlineEditing
+        /// The test is ignored, because it is unstable.
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.DynamicWidgets)]
+        TestCategory(FeatherTestCategories.DynamicWidgets),
+        Ignore]
         public void EditDynamicWidgetViaInlineEditing()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/SomeUrlName");
