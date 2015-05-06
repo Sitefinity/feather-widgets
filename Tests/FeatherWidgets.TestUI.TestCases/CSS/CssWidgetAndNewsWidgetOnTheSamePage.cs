@@ -10,10 +10,10 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.CSS
 {
     /// <summary>
-    /// SelectCssFileInCssWidget test class.
+    /// CssWidgetAndNewsWidgetOnTheSamePage test class.
     /// </summary>
     [TestClass]
-    public class SelectCssFileInCssWidget_ : FeatherTestCase
+    public class CssWidgetAndNewsWidgetOnTheSamePage_ : FeatherTestCase
     {
         /// <summary>
         /// UI test SelectCssFileInCssWidget
@@ -22,17 +22,12 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Css)]
-        public void SelectCssFileInCssWidget()
+        public void CssWidgetAndNewsWidgetOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValue);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().SwitchToLinkToCssFile();
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().ExpandFolder(FolderName);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().SelectCssFile(FileName);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValueExpected);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyPageOnTheFrontend();
@@ -46,6 +41,10 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValueExpected);
             Assert.IsTrue(isContained, string.Concat("Expected ", CssValueExpected, " but the style is not found"));
+            
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle);
+            bool isContainedOnDetailView = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValueExpected);
+            Assert.IsTrue(isContainedOnDetailView, string.Concat("Expected ", CssValueExpected, " but the style is not found"));
         }
 
         /// <summary>
@@ -68,9 +67,7 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         private const string PageName = "PageWithCssWidget";
         private const string ContentBlockContent = "Test content";
         private const string WidgetName = "CSS";
-        private const string CssValue = "div { color: #00FF00;} ";
         private const string CssValueExpected = "div { color: #FF0000; font-size: 20px;} ";
-        private const string FolderName = "Css";
-        private const string FileName = "styles.css";
+        private const string NewsTitle = "NewsTitle";
     }
 }
