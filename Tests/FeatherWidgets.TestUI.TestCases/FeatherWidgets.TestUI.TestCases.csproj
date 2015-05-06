@@ -137,6 +137,8 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\InsertVideoFromAlreadyUploaded.cs" />
     <Compile Include="CSS\AddCssWidgetToPageAndWriteCss.cs" />
+    <Compile Include="CSS\CssWidgetAndNewsWidgetOnTheSamePage.cs" />
+    <Compile Include="CSS\SelectCssFileInCssWidget.cs" />
     <Compile Include="DocumentsList\FilterDocumentsWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="DocumentsList\SelectAllPublishedDocuments.cs" />
     <Compile Include="DocumentsList\SelectDocumentsFromSelectedLibraryInSelectedPage.cs" />
