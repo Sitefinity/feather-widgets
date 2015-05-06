@@ -72,7 +72,7 @@
             if (response && response.IsAuthenticated) {
                 isUserAuthenticated = true;
                 $('[data-sf-role="comments-new-logged-out-view"]').hide();
-            };
+            }
         });
 
         var getDateString = function (sfDateString, secondsOffset) {
@@ -95,7 +95,7 @@
                 commentsRestApi.getCaptia().then(function (captia) {
                     //TODO: Logic
                     deferred.resolve(true);
-                })
+                });
             }
 
             return deferred.promise();

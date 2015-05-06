@@ -74,7 +74,7 @@
         this.commentsTakenSoFar = 0;
         this.firstCommentDate = 0;
         this.lastCommentDate = 0;
-        this.maxCommentsToShow = this.commentsPerPage();
+        this.maxCommentsToShow = 0;
     };
 
     CommentsMvcWidget.prototype = {
@@ -85,17 +85,21 @@
         },
 
         getOrInitializeProperty: function (property, sfRole, additionalFunction) {
-            if (this.settings[property] !== undefined) {
-                return this.settings[property];
-            }
-
             if (!this[property]) {
-                var element = this.settings[property] || this.getElementByDataSfRole(sfRole);
-                if (additionalFunction) {
-                    element = element[additionalFunction]();
-                }
+                // removing the _ symbol
+                var setting = this.settings[property.substr(1)];
 
-                this[property] = element;
+                if (setting) {
+                    this[property] = setting;
+                }
+                else {
+                    var element = this.getElementByDataSfRole(sfRole);
+                    if (additionalFunction) {
+                        element = element[additionalFunction]();
+                    }
+
+                    this[property] = element;
+                }
             }
 
             return this[property];
@@ -103,7 +107,12 @@
 
         getSingleCommentTemplate: function () {
             if (!this.singleCommentTemplate) {
-                this.singleCommentTemplate = $(this.getElementByDataSfRole('single-comment-template').html()).first();
+                if (this.settings.singleCommentTemplate) {
+                    this.singleCommentTemplate = this.settings.singleCommentTemplate;
+                }
+                else {
+                    this.singleCommentTemplate = $(this.getElementByDataSfRole('single-comment-template').html()).first();
+                }
             }
 
             return this.singleCommentTemplate;
@@ -123,11 +132,11 @@
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
-        commentsHeaderText: function () { return this.getOrInitializeProperty('_commentsHeaderText', 'comments-header-text', 'val'); },
         commentsThreadKey: function () { return this.getOrInitializeProperty('_commentsThreadKey', 'comments-thread-key', 'val'); },
         commentsPerPage: function () { return parseInt(this.getOrInitializeProperty('_commentsPerPage', 'comments-per-page', 'val')); },
         commentsTextMaxLength: function () { return parseInt(this.getOrInitializeProperty('_commentsTextMaxLength', 'comments-text-max-length', 'val')); },
-        commentsReadMoreText: function () { return this.getOrInitializeProperty('_commentsReadMoreText', 'comments-read-full-comment', 'val'); },
+        commentsReadFullCommentText: function () { return this.getOrInitializeProperty('_commentsReadFullCommentText', 'comments-read-full-comment', 'val'); },
+        commentsHeaderText: function () { return this.getOrInitializeProperty('_commentsHeaderText', 'comments-header-text', 'val'); },
 
         getDateString: function (sfDateString, secondsOffset) {
             var date = new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
@@ -147,7 +156,7 @@
                 this.commentsRestApi.getCaptia().then(function (captia) {
                     //TODO: Logic
                     deferred.resolve(true);
-                })
+                });
             }
 
             return deferred.promise();
@@ -161,7 +170,7 @@
                 else {
                     element.text(text.substr(0, this.commentsTextMaxLength()));
                     element.append($('<span />').hide().text(text.substr(this.commentsTextMaxLength())));
-                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.commentsReadMoreText()));
+                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.commentsReadFullCommentText()));
                 }
             }
         },
@@ -256,6 +265,8 @@
         initialize: function () {
             var self = this;
 
+            self.maxCommentsToShow = self.commentsPerPage();
+
             // Initially hide new comment form
             self.newCommentForm().hide();
 
@@ -264,7 +275,7 @@
                 if (response && response.IsAuthenticated) {
                     self.isUserAuthenticated = true;
                     self.commentsNewLoggedOutView().hide();
-                };
+                }
             });
 
             // Initial loading of comments count for thread
@@ -335,17 +346,27 @@
             });
 
             // TODO: REMOVE
-            //self.wrapper.find('#reeeeeeeeeeeeee').click(self.refreshComments);
+            self.wrapper.find('#reeeeeeeeeeeeee').click(function () {
+                self.refreshComments(self);
+            });
 
             // Comments updating
-            setInterval(function () {
-                self.refreshComments(self);
-            }, self.commentsRefreshRate);
+            //setInterval(function () {
+            //    self.refreshComments(self);
+            //}, self.commentsRefreshRate);
         }
     };
 
+    // Leave widget creation to View
+    $.fn.extend({
+        sfCommentsMvcWidget: function (settings, commentsApi) {
+            return new CommentsMvcWidget(this, settings, commentsApi);
+        }
+    });
+
+    // Leave widget creation here
     //$(function () {
-    //    $('[data-sf-role="comments-wrapper"]').each(function () {
+    //    $('[data-sf-role^="comments-wrapper"]').each(function () {
     //        (new CommentsMvcWidget($(this))).initialize();
     //    });
     //});
