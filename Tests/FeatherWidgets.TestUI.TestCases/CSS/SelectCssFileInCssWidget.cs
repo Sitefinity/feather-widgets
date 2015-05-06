@@ -27,6 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValue);
             BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().SwitchToLinkToCssFile();
             BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().ExpandFolder(FolderName);
@@ -43,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         public void VerifyPageOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
+            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValueExpected);
             Assert.IsTrue(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
         }
 
@@ -67,7 +68,8 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         private const string PageName = "PageWithCssWidget";
         private const string ContentBlockContent = "Test content";
         private const string WidgetName = "CSS";
-        private const string CssValue = "div { color: #FF0000; font-size: 20px;} ";
+        private const string CssValue = "div { color: #00FF00;} ";
+        private const string CssValueExpected = "div { color: #FF0000; font-size: 20px;} ";
         private const string FolderName = "Css";
         private const string FileName = "styles.css";
     }
