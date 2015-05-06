@@ -180,6 +180,10 @@
       <Project>{3b1b1ee2-84ee-4744-a8fb-bed1236da342}</Project>
       <Name>Telerik.Sitefinity.Frontend.Identity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.InlineClientAssets\Telerik.Sitefinity.Frontend.InlineClientAssets.csproj">
+      <Project>{d3773581-78b7-44ad-96b8-5168dcf2795c}</Project>
+      <Name>Telerik.Sitefinity.Frontend.InlineClientAssets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Lists\Telerik.Sitefinity.Frontend.Lists.csproj">
       <Project>{18142e99-a5a2-4f28-94b6-06c36c125fca}</Project>
       <Name>Telerik.Sitefinity.Frontend.Lists</Name>
@@ -204,6 +208,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Data\MediaFiles\2.jpg" />
     <EmbeddedResource Include="Data\MediaFiles\3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\CssFiles\styles.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
