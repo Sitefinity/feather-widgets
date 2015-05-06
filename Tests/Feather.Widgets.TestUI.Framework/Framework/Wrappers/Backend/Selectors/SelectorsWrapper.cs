@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -246,10 +247,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 Point dragToPoint = new Point(dragToRectangle.X, dragToRectangle.Y);
 
                 spanList[reorderingPair.Key].DragTo(dragToPoint);
+
+                // We need a pause before the next drag and drop.
+                Thread.Sleep(10);   
             }
 
             activeDialog.Refresh();
-            var reorderedDivList = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=item in items");
+            var reorderedDivList = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=^item in currentItems");
+            Assert.IsNotNull(reorderedDivList, "reorderedDivList was not found.");
 
             for (int i = 0; i < reorderedDivList.Count; i++)
             {
