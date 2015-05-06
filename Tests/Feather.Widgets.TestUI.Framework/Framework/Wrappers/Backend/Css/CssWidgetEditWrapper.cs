@@ -19,8 +19,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="css">The css value</param>
         public void FillCssToCssWidget(string css)
         {
-            HtmlDiv editable = EM.Css
-                                       .CssWidgetEditScreen
+            HtmlDiv editable = EM.Css.CssWidgetEditScreen
                                        .CodeMirrorLines
                                        .AssertIsPresent("Editable area");
 
@@ -89,6 +88,35 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
+        /// Selects more options in the widget designer
+        /// </summary>
+        public void MoreOptions()
+        {
+            HtmlSpan moreOptions = EM.Css.CssWidgetEditScreen.MoreOptions
+                .AssertIsPresent("More options");
+
+            moreOptions.ScrollToVisible();
+            moreOptions.Focus();
+            moreOptions.MouseClick();
+        }
+
+        /// <summary>
+        /// Fill description
+        /// </summary>
+        /// <param name="description">The description</param>
+        public void FillDescription(string description)
+        {
+            HtmlInputText input = EM.Css.CssWidgetEditScreen.Description
+                .AssertIsPresent("Description");
+
+            input.ScrollToVisible();
+            input.Focus();
+            input.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.TypeText(description);
         }
     }
 }
