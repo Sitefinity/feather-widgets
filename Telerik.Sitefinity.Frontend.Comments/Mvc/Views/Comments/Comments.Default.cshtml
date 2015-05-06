@@ -5,16 +5,18 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-@{ var commentsWidgetId = Guid.NewGuid(); }
-
-<div data-sf-role="comments-wrapper-@commentsWidgetId" class="@Model.CssClass">
-@*    <input type="hidden" data-sf-role="comments-thread-key" value="@Model.ThreadKey" />
+<div data-sf-role="comments-wrapper" class="@Model.CssClass">
+@*    
+    <input type="hidden" data-sf-role="comments-thread-key" value="@Model.ThreadKey" />
     <input type="hidden" data-sf-role="comments-per-page" value="@Model.CommentsConfig.CommentsPerPage" />
     <input type="hidden" data-sf-role="comments-header-text" value="@Html.Resource("CommentsPlural")" />
     <input type="hidden" data-sf-role="comments-read-full-comment" value="@Html.Resource("ReadFullComment")" />
-    <input type="hidden" data-sf-role="comments-text-max-length" value="@Model.CommentTextMaxLength" />*@
-
+    <input type="hidden" data-sf-role="comments-text-max-length" value="@Model.CommentTextMaxLength" />
+*@
+    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")" }' />
+ 
     <div>
+        <span data-sf-role="comments-total-count"></span>
         <span data-sf-role="comments-header"></span>
         <a href="#" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
         <a href="#" data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</a>
@@ -58,18 +60,4 @@
     </script>
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/CommentsMvcWidget.js"), "bottom", false)
-
-<script>
-    (function ($) {
-        $(function () {
-            $('[data-sf-role="comments-wrapper-' + "@commentsWidgetId" +'"]').sfCommentsMvcWidget({
-                commentsThreadKey: "@Model.ThreadKey",
-                commentsPerPage: @Model.CommentsConfig.CommentsPerPage,
-                commentsTextMaxLength: @Model.CommentTextMaxLength,
-                commentsReadFullCommentText: "@Html.Resource("ReadFullComment")",
-                commentsHeaderText: "@Html.Resource("CommentsPlural")"
-            }).initialize();
-        });
-    }(jQuery));
-</script>
+@Html.Script(Url.WidgetContent("Mvc/Scripts/CommentsMVC/CommentsMvcWidget.js"), "bottom", false)

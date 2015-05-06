@@ -17,7 +17,7 @@
         return $.ajax(options);
     };
 
-    var commentsRestApi = (function () {
+    var basicCommentsRestApi = (function () {
         var rootUrl = '/RestApi/comments-api/comments';
 
         var getCommentsCount = function (threadKey, status) {
@@ -64,10 +64,10 @@
         };
     }());
 
-    var CommentsMvcWidget = function (wrapper, settings, commentsRestApiToUse) {
+    var CommentsMvcWidget = function (wrapper, settings) {
         this.settings = settings || {};
         this.wrapper = wrapper;
-        this.commentsRestApi = commentsRestApiToUse || commentsRestApi;
+        this.commentsRestApi = basicCommentsRestApi;
 
         this.commentsSortedDescending = true;
         this.commentsRefreshRate = 3000;
@@ -118,7 +118,9 @@
             return this.singleCommentTemplate;
         },
 
+        // Elements
         commentsContainer: function () { return this.getOrInitializeProperty('_commentsContainer', 'comments-container'); },
+        commentsTotalCount: function () { return this.getOrInitializeProperty('_commentsTotalCount', 'comments-total-count'); },
         commentsHeader: function () { return this.getOrInitializeProperty('_commentsHeader', 'comments-header'); },
         commentsLoadMoreButton: function () { return this.getOrInitializeProperty('_commentsLoadMoreButton', 'comments-load-more-button'); },
         newCommentForm: function () { return this.getOrInitializeProperty('_newCommentForm', 'comments-new-form'); },
@@ -132,6 +134,7 @@
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
+        // Constants
         commentsThreadKey: function () { return this.getOrInitializeProperty('_commentsThreadKey', 'comments-thread-key', 'val'); },
         commentsPerPage: function () { return parseInt(this.getOrInitializeProperty('_commentsPerPage', 'comments-per-page', 'val')); },
         commentsTextMaxLength: function () { return parseInt(this.getOrInitializeProperty('_commentsTextMaxLength', 'comments-text-max-length', 'val')); },
@@ -209,6 +212,11 @@
 
                     // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
                     self.createComments(response.Items, newerThan && self.commentsSortedDescending);
+
+                    // Refresh total count if any items are recieved
+                    if (newerThan) {
+                        self.commentsTotalCount().text(parseInt(self.commentsTotalCount().text()) + response.Items.length);
+                    }
                 }
             });
         },
@@ -251,10 +259,11 @@
                         self.newCommentMessage().val('');
                         self.newCommentForm().hide();
                         self.newCommentFormButton().show();
-                    });
 
-                    // Comments refresh will handle the new comment.
-                    // refreshComments();
+                        // Comments refresh will handle the new comment.
+
+                        // Success message ?
+                    });
                 }
                 else {
                     // React ?
@@ -291,9 +300,11 @@
                     }
 
                     if (currentThreadKeyCount > 0) {
-                        self.commentsHeader().text(currentThreadKeyCount + self.commentsHeaderText());
+                        self.commentsTotalCount().text(currentThreadKeyCount);
+                        self.commentsHeader().text(self.commentsHeaderText());
                     }
                     else {
+                        self.commentsTotalCount().hide();
                         self.newCommentFormButton().hide();
                         self.commentsHeader().text(self.newCommentFormButton().text());
                         self.newCommentForm().show();
@@ -345,29 +356,18 @@
                 return false;
             });
 
-            // TODO: REMOVE
-            self.wrapper.find('#reeeeeeeeeeeeee').click(function () {
-                self.refreshComments(self);
-            });
-
             // Comments updating
-            //setInterval(function () {
-            //    self.refreshComments(self);
-            //}, self.commentsRefreshRate);
+            setInterval(function () {
+                self.refreshComments(self);
+            }, self.commentsRefreshRate);
         }
     };
 
-    // Leave widget creation to View
-    $.fn.extend({
-        sfCommentsMvcWidget: function (settings, commentsApi) {
-            return new CommentsMvcWidget(this, settings, commentsApi);
-        }
+    // Initialize the widget/s on page ready.
+    $(function () {
+        var settings = JSON.parse($('[data-sf-role="comments-settings"]').val());
+        $('[data-sf-role="comments-wrapper"]').each(function () {
+            (new CommentsMvcWidget($(this), settings)).initialize();
+        });
     });
-
-    // Leave widget creation here
-    //$(function () {
-    //    $('[data-sf-role^="comments-wrapper"]').each(function () {
-    //        (new CommentsMvcWidget($(this))).initialize();
-    //    });
-    //});
 }(jQuery));
