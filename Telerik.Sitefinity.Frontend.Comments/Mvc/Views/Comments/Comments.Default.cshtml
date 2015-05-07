@@ -6,7 +6,9 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
-    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")", "requiresCaptcha": @Model.CommentsConfig.UseSpamProtectionImage.ToString().ToLower() }' />
+    @{ var commentsAllowSubscription = Model.ThreadsConfig.AllowSubscription && !Model.ThreadIsClosed; }
+    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsThreadType": "@Model.ThreadType", "rootUrl" : "/RestApi/comments-api/" , "isUserAuthenticatedUrl":"/RestApi/session/is-authenticated" , "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsAllowSubscription":@commentsAllowSubscription.ToString().ToLower(), "requiresCaptcha": @Model.CommentsConfig.UseSpamProtectionImage.ToString().ToLower() }' />
+    <input type="hidden" data-sf-role="comments-resources" value='{"readFullComment": "@Html.Resource("ReadFullComment")", "commentsPlural": "@Html.Resource("CommentsPlural")", "subscribeToNewComments":"@Html.Resource("SubscribeToNewComments")", "unsubscribeFromNewComments":"@Html.Resource("UnsubscribeFromNewComments")" }' />
  
     <div>
         <span data-sf-role="comments-total-count"></span>
@@ -19,7 +21,6 @@
 
     <div data-sf-role="comments-new-form">
         <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")"></textarea>
-        <br />
 
         <p data-sf-role="comments-new-logged-out-view">
             <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
@@ -27,13 +28,7 @@
             <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
         </p>
 
-        <label>
-            <input type="checkbox" data-sf-role="comments-new-subscribe" />
-            <span>@Html.Resource("SubscribeToNewComments")</span>
-        </label>
-        <br />
-        
-        <div data-sf-role="captcha-wrapper" style="display:none;">
+        <div data-sf-role="captcha-container" style="display:none;">
             <div>
                 <img data-sf-role="captcha-image" />
             </div>
@@ -45,10 +40,11 @@
             </div>
         </div>
 
+        <a href="#" data-sf-role="comments-new-subscribe-button"></a>
+
         <div data-sf-role="error-message" style="display:none;"></div>
 
         <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
-        <br />
     </div>
     
     <div data-sf-role="comments-container"></div>
@@ -56,7 +52,7 @@
     
     <div data-sf-role="single-comment-template">
         <div>
-            <img src="#" data-sf-role="comment-avatar"/>
+            <img data-sf-role="comment-avatar"/>
             <p>
                 <a href="#"><span data-sf-role="comment-name"></span></a> | 
                 <span data-sf-role="comment-date"></span>
@@ -65,17 +61,25 @@
                 <span data-sf-role="comment-message"></span>
             </p>
         </div>
-        <br />
     </div>
 </div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments-list.js"), "bottom", false)
 
 @*Temporary styling*@
-<style scoped>
+<style>
     div[data-sf-role="single-comment-template"] {
         display:none;
     }
+
+    span[data-sf-role="comment-message"]:after {
+        content: "";
+        clear: both;
+        height: 0;
+        display: block;
+        visibility: hidden;
+    }
+
     img[data-sf-role="comment-avatar"] {
         float:left;
         width: 40px;

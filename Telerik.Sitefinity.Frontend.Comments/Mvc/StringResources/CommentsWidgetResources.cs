@@ -217,6 +217,21 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Unsubscribe me from new comments
+        /// </summary>
+        [ResourceEntry("UnsubscribeFromNewComments",
+            Value = "Unsubscribe me from new comments",
+            Description = "phrase: Unsubscribe me from new comments",
+            LastModified = "2015/05/07")]
+        public string UnsubscribeFromNewComments
+        {
+            get
+            {
+                return this["UnsubscribeFromNewComments"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Subscribe me to new comments via email
         /// </summary>
         [ResourceEntry("SubscribeToNewComments",
