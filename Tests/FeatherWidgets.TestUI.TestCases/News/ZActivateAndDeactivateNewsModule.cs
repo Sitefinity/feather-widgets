@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.News)]
+        TestCategory(FeatherTestCategories.News), Ignore]
         public void ZActivateAndDeactivateNewsModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateNewsModule");
