@@ -165,6 +165,7 @@
     <Compile Include="..\..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BlogPosts\BlogPostsWidgetListSettingsTests.cs" />
     <Compile Include="BlogPosts\BlogPostsWidgetNarrowSelectionTests.cs" />
     <Compile Include="BlogPosts\BlogPostsWidgetTests.cs" />
     <Compile Include="BlogsWidget\BlogsWidgetListSettingsTests.cs" />

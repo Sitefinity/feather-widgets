@@ -27,6 +27,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editable.Focus();
             editable.MouseClick();
 
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
             Manager.Current.Desktop.KeyBoard.TypeText(css);
         }
 
@@ -82,9 +87,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlUnorderedList fileTree = EM.Css.CssWidgetEditScreen.FileTree
                 .AssertIsPresent("File tree");
 
-            HtmlListItem listItem = fileTree.Find.ByExpression<HtmlListItem>("InnerText=" + fileName);
-            listItem.Focus();
-            listItem.MouseClick();
+            HtmlControl cssFile = fileTree.Find.ByExpression<HtmlControl>("InnerText=" + fileName);
+            cssFile.Focus();
+            cssFile.MouseClick();
 
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();

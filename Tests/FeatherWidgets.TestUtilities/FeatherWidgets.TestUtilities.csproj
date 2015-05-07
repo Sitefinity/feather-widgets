@@ -160,6 +160,8 @@
     <EmbeddedResource Include="Data\DynamicModules\RelatedModule.zip" />
     <EmbeddedResource Include="Data\DynamicModules\PressReleaseWithCategoriesField.zip" />
     <None Include="app.config" />
+    <EmbeddedResource Include="Data\MediaFiles\Ogv File.ogv" />
+    <EmbeddedResource Include="Data\MediaFiles\WebM File.webm" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
