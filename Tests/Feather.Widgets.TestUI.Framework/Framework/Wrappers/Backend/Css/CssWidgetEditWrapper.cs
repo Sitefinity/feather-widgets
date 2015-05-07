@@ -87,9 +87,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             HtmlUnorderedList fileTree = EM.Css.CssWidgetEditScreen.FileTree
                 .AssertIsPresent("File tree");
 
-            HtmlListItem listItem = fileTree.Find.ByExpression<HtmlListItem>("InnerText=" + fileName);
-            listItem.Focus();
-            listItem.MouseClick();
+            HtmlControl cssFile = fileTree.Find.ByExpression<HtmlControl>("InnerText=" + fileName);
+            cssFile.Focus();
+            cssFile.MouseClick();
 
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
