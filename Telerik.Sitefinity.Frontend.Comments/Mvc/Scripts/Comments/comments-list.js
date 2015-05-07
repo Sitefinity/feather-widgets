@@ -286,21 +286,23 @@
             });
         },
 
-        initialize: function () {
-            var self = this;
-
-            self.maxCommentsToShow = self.settings.commentsPerPage;
-
-            if (!self.isUserAuthenticated && self.settings.requiresCaptcha) {
-                self.captchaData = {
+        setupCaptcha: function () {
+            if (!this.isUserAuthenticated && this.settings.requiresCaptcha) {
+                this.captchaData = {
                     iv: null,
                     correctAnswer: null,
                     key: null
                 };
 
-                self.captchaRefresh();
-                self.captchaWrapper().show();
+                this.captchaRefresh();
+                this.captchaWrapper().show();
             }
+        },
+
+        initialize: function () {
+            var self = this;
+
+            self.maxCommentsToShow = self.settings.commentsPerPage;
 
             // Initially hide new comment form
             self.newCommentForm().hide();
@@ -311,6 +313,8 @@
                     self.isUserAuthenticated = true;
                     self.commentsNewLoggedOutView().hide();
                 }
+
+                $.proxy(self.setupCaptcha(), self);
             });
 
             // Initial loading of comments count for thread
