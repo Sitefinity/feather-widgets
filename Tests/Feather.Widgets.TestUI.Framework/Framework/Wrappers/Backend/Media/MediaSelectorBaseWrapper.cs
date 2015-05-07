@@ -318,7 +318,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         {
             ActiveBrowser.RefreshDomTree();
             int divsCount = 0;
-            switch(mediaType)
+            switch (mediaType)
             {
                 case "images":
                     divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaImageFileDivs.Count;

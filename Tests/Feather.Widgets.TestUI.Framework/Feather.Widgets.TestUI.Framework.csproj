@@ -203,6 +203,8 @@
     <Compile Include="Framework\Wrappers\Frontend\ImageGallery\ImageGalleryWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Lists\ListsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\Lists\ListsWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\MediaWidgets\MediaWidgetsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\MediaWidgets\MediaWidgetsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\InlineEditingWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ModuleBuilder\ModuleBuilderWrapperFacade.cs" />
