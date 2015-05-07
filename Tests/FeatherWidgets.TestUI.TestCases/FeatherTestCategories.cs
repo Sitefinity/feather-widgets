@@ -124,5 +124,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Css tests
         /// </summary>
         public const string Css = "Css";
+
+        /// <summary>
+        /// New category for Users list tests
+        /// </summary>
+        public const string UsersList = "UsersList";
     }
 }

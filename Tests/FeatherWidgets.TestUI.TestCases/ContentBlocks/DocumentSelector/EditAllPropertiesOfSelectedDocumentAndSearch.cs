@@ -40,9 +40,9 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ChangeMediaFile();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SearchInMediaSelector(DocumentName1);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyNoItemsFoundMessage();
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(0, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SearchInMediaSelector(DocumentNewName);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(DocumentNewName);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().PressCancelButton();
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
@@ -74,8 +74,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = DocumentName1.ToLower() + DocumentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(false, libraryUrl, documentUrl, this.BaseUrl, "docs");
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyDocument(DocumentNewName, href);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, documentUrl, this.BaseUrl, "docs");
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocument(DocumentNewName, href);
         }
 
         private const string PageName = "PageWithDocument";
@@ -85,5 +85,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         private const string DocumentNewName = "NewTitle1";
         private const string DocumentType = ".JPG";
         private const string EditAndChangeSelectedDocumentArrangement = "EditAndChangeSelectedDocument";
+        private const string MediaType = "docs";
     }
 }

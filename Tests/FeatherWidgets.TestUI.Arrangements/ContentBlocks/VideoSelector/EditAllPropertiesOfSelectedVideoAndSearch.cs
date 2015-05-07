@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
@@ -10,12 +8,12 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// AddCssWidgetToPageAndWriteCss arrangement class.
+    /// EditAllPropertiesOfSelectedVideoAndSearch arrangement class.
     /// </summary>
-    public class AddCssWidgetToPageAndWriteCss : ITestArrangement
+    public class EditAllPropertiesOfSelectedVideoAndSearch : ITestArrangement
     {
         /// <summary>
-        /// Server side set up. 
+        /// Server side set up.
         /// </summary>
         [ServerSetUp]
         public void SetUp()
@@ -24,7 +22,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
 
-            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, ContentBlockContent, PlaceHolderId);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, string.Empty, PlaceHolderId);
+
+            ServerSideUpload.CreateVideoLibrary(LibraryTitle);
+            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle1, VideoResource1);
         }
 
         /// <summary>
@@ -33,11 +34,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.Libraries().DeleteAllVideoLibrariesExceptDefaultOne();
         }
 
-        private const string PageName = "PageWithCssWidget";
-        private const string ContentBlockContent = "Test content";
+        private const string PageName = "PageWithVideo";
+        private const string LibraryTitle = "TestVideoLibrary";
+        private const string VideoTitle1 = "big_buck_bunny1";
+        private const string VideoResource1 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny1.mp4";
         private const string PageTemplateName = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
     }

@@ -136,8 +136,13 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldAndNewContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
+    <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
+    <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="MediaWidgets\VideoWidgetInsertVideo.cs" />
+    <Compile Include="MediaWidgets\VideoWidgetEditAndChangeSelectedVideo.cs" />
     <Compile Include="ContentBlocks\VideoSelector\InsertVideoFromAlreadyUploaded.cs" />
-    <Compile Include="CSS\AddCssWidgetToPageAndWriteCss.cs" />
+    <Compile Include="CSS\AddCssWidgetToPageAndWriteAndRemoveCss.cs" />
+    <Compile Include="ContentBlocks\VideoSelector\UploadVideoWithCategoryAndTag.cs" />
     <Compile Include="CSS\CssWidgetAndNewsWidgetOnTheSamePage.cs" />
     <Compile Include="CSS\CssWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="CSS\SelectCssFileInCssWidget.cs" />
@@ -171,6 +176,7 @@
     <Compile Include="Identity\RegisterNewUserAndLoginTheUser.cs" />
     <Compile Include="Identity\ValidateAllFieldsAndChangeUserInfoInProfileWidget.cs" />
     <Compile Include="Identity\ValidateAllFieldsInRegistrationWidget.cs" />
+    <Compile Include="Identity\VerifySelectedUsersInUsersListWithSelectedSingleUserPage.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithGalleryTemplate.cs" />
     <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
@@ -253,6 +259,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="MediaFiles\Ogv File.ogv" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
