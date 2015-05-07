@@ -188,5 +188,21 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["MoreOptions"];
             }
         }
+
+        /// <summary>
+        /// Phrase: - Select language -
+        /// </summary>
+        /// <value>- Select language -</value>
+        [ResourceEntry("SelectLanguageDropDownOption",
+            Value = "- Select language -",
+            Description = "Phrase: - Select language -",
+            LastModified = "2015/05/07")]
+        public string SelectLanguageDropDownOption
+        {
+            get
+            {
+                return this["SelectLanguageDropDownOption"];
+            }
+        }
     }
 }

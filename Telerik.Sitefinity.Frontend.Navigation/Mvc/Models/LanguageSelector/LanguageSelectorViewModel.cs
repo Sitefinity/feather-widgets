@@ -29,5 +29,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         /// </summary>
         /// <value><c>true</c> in order to include the current language in the list of languages; otherwise, <c>false</c>.</value>
         public bool IncludeCurrentLanguage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current selected language.
+        /// </summary>
+        /// <value>The current selected language.</value>
+        public string CurrentLanguage { get; set; }
     }
 }

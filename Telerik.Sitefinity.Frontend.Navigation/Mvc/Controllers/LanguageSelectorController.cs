@@ -73,8 +73,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            ////TODO: show error if not multilingual
-
             var viewModel = this.Model.CreateViewModel();
 
             foreach (var item in viewModel.Languages)
