@@ -247,6 +247,23 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Comments are not allowed anymore
+        /// </summary>
+        [ResourceEntry("ThreadIsClosedMessage",
+            Value = "Comments are not allowed anymore",
+            Description = "phrase: Comments are not allowed anymore",
+            LastModified = "2015/05/07")]
+        public string ThreadIsClosedMessage
+        {
+            get
+            {
+                return this["ThreadIsClosedMessage"];
+            }
+        }
+
+        
+
+        /// <summary>
         /// Gets phrase : New code
         /// </summary>
         [ResourceEntry("NewCode",
