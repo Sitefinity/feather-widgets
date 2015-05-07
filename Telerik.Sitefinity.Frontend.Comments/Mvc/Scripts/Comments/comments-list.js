@@ -162,7 +162,7 @@
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
-        captchaContainer: function () { return this.getOrInitializeProperty('captchaContainer', 'captcha-container'); },
+        captchaContainer: function () { return this.getOrInitializeProperty('_captchaContainer', 'captcha-container'); },
         captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
@@ -306,6 +306,11 @@
             }
 
             self.validateComment(comment).then(function (isValid) {
+                var hideLoading = function () {
+                    self.submitLoadingIndicator().hide();
+                    self.newCommentSubmitButton().show();
+                };
+
                 if (isValid) {
                     self.commentsRestApi.createComment(comment).then(function (response) {
                         self.newCommentMessage().val('');
@@ -321,13 +326,10 @@
                             self.errorMessage().html(errorTxt);
                             self.errorMessage().show();
                         }
-                    }).always(function () {
-                        self.submitLoadingIndicator().hide();
-                        self.newCommentSubmitButton().show();
-                    });
+                    }).always(hideLoading);
                 }
                 else {
-                    // Error message ?
+                    hideLoading();
                 }
             });
         },
