@@ -31,7 +31,7 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
             BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValue);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyPageOnTheFrontend(CssValue);
+            this.VerifyCssExistOnTheFrontend();
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -39,17 +39,27 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
             BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(string.Empty);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyPageOnTheFrontend(string.Empty);
+            this.VerifyCssNotExistOnTheFrontend();
         }
 
         /// <summary>
-        /// Verify css on the frontend
+        /// Verify css exists on the frontend
         /// </summary>
-        public void VerifyPageOnTheFrontend(string css)
+        public void VerifyCssExistOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(css);
-            Assert.IsTrue(isContained, string.Concat("Expected ", css, " but the style is not found"));
+            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
+            Assert.IsTrue(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
+        }
+
+        /// <summary>
+        /// Verify css does not exist on the frontend
+        /// </summary>
+        public void VerifyCssNotExistOnTheFrontend()
+        {
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
+            Assert.IsFalse(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
         }
 
         /// <summary>

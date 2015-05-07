@@ -6076,6 +6076,14 @@
               <c>true</c> if this instance is folder; otherwise, <c>false</c>.
             </value>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesItemViewModel.HasChildren">
+            <summary>
+            Gets or sets a value indicating whether the item has children.
+            </summary>
+            <value>
+              <c>true</c> if the item has children; otherwise, <c>false</c>.
+            </value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesViewModel">
             <summary>
             The view model
