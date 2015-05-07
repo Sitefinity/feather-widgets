@@ -170,6 +170,7 @@
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
         errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
 
+        listLoadingIndicator: function () { return this.getOrInitializeProperty('_listLoadingIndicator', 'list-loading-indicator'); },
         submitLoadingIndicator: function () { return this.getOrInitializeProperty('_submitLoadingIndicator', 'submit-loading-indicator'); },
 
         /*
@@ -252,6 +253,11 @@
 
         loadComments: function (skip, take, newerThan) {
             var self = this;
+            if (self.isLoadinglist)
+                return;
+
+            self.isLoadingList = true;
+            self.listLoadingIndicator().show();
 
             self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
                 if (response && response.Items && response.Items.length) {
@@ -272,6 +278,9 @@
                         self.commentsTotalCount().text(parseInt(self.commentsTotalCount().text()) + response.Items.length);
                     }
                 }
+            }).always(function () {
+                self.listLoadingIndicator().hide();
+                self.isLoadingList = false;
             });
         },
 
@@ -400,6 +409,7 @@
         initializeProperties: function () {
             this.commentsRestApi = new CommentsRestApi(this.settings.rootUrl);
 
+            this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
         },
