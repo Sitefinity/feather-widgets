@@ -133,6 +133,7 @@
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
+        // Remove if we use only settings
         commentsThreadKey: function () { return this.getOrInitializeProperty('_commentsThreadKey', 'comments-thread-key', 'val'); },
         commentsPerPage: function () { return parseInt(this.getOrInitializeProperty('_commentsPerPage', 'comments-per-page', 'val')); },
         commentsTextMaxLength: function () { return parseInt(this.getOrInitializeProperty('_commentsTextMaxLength', 'comments-text-max-length', 'val')); },
