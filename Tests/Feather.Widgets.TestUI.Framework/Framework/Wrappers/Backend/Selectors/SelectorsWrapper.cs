@@ -249,10 +249,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 spanList[reorderingPair.Key].DragTo(dragToPoint);
 
                 // We need a pause before the next drag and drop.
-                Thread.Sleep(10);   
+                Thread.Sleep(5000);   
             }
 
             activeDialog.Refresh();
+
             var reorderedDivList = activeDialog.Find.AllByExpression<HtmlDiv>("ng-repeat=^item in currentItems");
             Assert.IsNotNull(reorderedDivList, "reorderedDivList was not found.");
 

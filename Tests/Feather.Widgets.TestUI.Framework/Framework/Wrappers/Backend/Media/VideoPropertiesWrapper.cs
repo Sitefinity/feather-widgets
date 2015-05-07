@@ -74,8 +74,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="size">The size.</param>
         public void VerifyVideoInfo(string title, string type, string size)
         {
-            DateTime date = DateTime.Now;
-            var dateString = date.Date.ToString("d");
+            DateTime dateTime = DateTime.Now;
+            var date = dateTime.Date;
+            var dateString = date.ToString("M/d/yyyy");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Title.Value", "innertext=" + title).AssertIsPresent("title");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Extension", "innertext=" + type).AssertIsPresent("type");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=mediaSize", "innertext=" + size).AssertIsPresent("size");
