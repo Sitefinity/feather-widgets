@@ -14,41 +14,52 @@
         <span data-sf-role="comments-total-count"></span>
         <span data-sf-role="comments-header"></span>
 
-        <a href="#" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
+        @if (!Model.ThreadIsClosed)
+        {
+            <a href="#" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
+        }
+        
         <a href="#" data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</a>
         <a href="#" data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</a>
     </div>
-
-    <div data-sf-role="comments-new-form">
-        <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")"></textarea>
-
-        <p data-sf-role="comments-new-logged-out-view">
-            <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
-            <input placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
-            <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
-        </p>
-
-        <div data-sf-role="captcha-container" style="display:none;">
-            <div>
-                <img data-sf-role="captcha-image" />
-            </div>
-            <a data-sf-role="captcha-refresh-button"> @Html.Resource("NewCode") </a>
-            <div>
-                <label>@Html.Resource("TypeCodeAbove")
-                    <input type="text" data-sf-role="captcha-input" />
-                </label>
-            </div>
-        </div>
-
-        <a href="#" data-sf-role="comments-new-subscribe-button"></a>
-
-        <div data-sf-role="error-message" style="display:none;"></div>
-
-        <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
-    </div>
-    
+          
     <div data-sf-role="comments-container"></div>
     <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
+
+    @if (Model.ThreadIsClosed)
+    {
+        <span>@Html.Resource("ThreadIsClosedMessage")</span>
+    }
+    else 
+    {
+        <div data-sf-role="comments-new-form">
+            <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")"></textarea>
+
+            <p data-sf-role="comments-new-logged-out-view">
+                <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
+                <input placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
+                <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
+            </p>
+
+            <div data-sf-role="captcha-container" style="display:none;">
+                <div>
+                    <img data-sf-role="captcha-image" />
+                </div>
+                <a data-sf-role="captcha-refresh-button"> @Html.Resource("NewCode") </a>
+                <div>
+                    <label>@Html.Resource("TypeCodeAbove")
+                        <input type="text" data-sf-role="captcha-input" />
+                    </label>
+                </div>
+            </div>
+
+            <a href="#" data-sf-role="comments-new-subscribe-button"></a>
+
+            <div data-sf-role="error-message" style="display:none;"></div>
+
+            <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
+        </div>
+    }
     
     <div data-sf-role="single-comment-template">
         <div>
@@ -68,6 +79,11 @@
 
 @*Temporary styling*@
 <style>
+    a[data-sf-role^="comments-sort-"].is-selected{
+        cursor: text;
+        color:black;
+    }
+
     div[data-sf-role="single-comment-template"] {
         display:none;
     }
