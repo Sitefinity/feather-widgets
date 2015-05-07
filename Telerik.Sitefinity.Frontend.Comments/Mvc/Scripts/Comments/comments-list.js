@@ -239,9 +239,9 @@
                 if (self.settings.requiresCaptcha) {
                     comment.Captcha = {
                         Answer: self.captchaInput().val(),
-                        CorrectAnswer: self.captchaData.correctAnswer(),
-                        InitializationVector: self.captchaData.iv(),
-                        Key: self.captchaData.key()
+                        CorrectAnswer: self.captchaData.correctAnswer,
+                        InitializationVector: self.captchaData.iv,
+                        Key: self.captchaData.key
                     };
                 }
 
