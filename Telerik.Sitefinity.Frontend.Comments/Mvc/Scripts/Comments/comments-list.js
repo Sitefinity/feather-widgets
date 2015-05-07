@@ -53,7 +53,9 @@
         };
 
         var getCaptcha = function () {
+            var getCommentsUrl = '/RestApi/comments-api/captcha';
 
+            return makeAjax(getCommentsUrl);
         };
 
         return {
@@ -119,6 +121,11 @@
         commentsNewLoggedOutView: function () { return this.getOrInitializeProperty('_commentsNewLoggedOutView', 'comments-new-logged-out-view'); },
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
+        captchaWrapper: function () { return this.getOrInitializeProperty('_captchaWrapper', 'captcha-wrapper'); },
+        captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
+        captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
+        captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
+        errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
 
         getDateString: function (sfDateString, secondsOffset) {
             var date = new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
@@ -131,16 +138,12 @@
         validateComment: function (comment) {
             var deferred = $.Deferred();
 
-            if (this.isUserAuthenticated) {
-                deferred.resolve(comment.Message.length > 0);
+            var isValid = comment.Message.length > 0;
+            if (!this.isUserAuthenticated) {
+                isValid = isValid && (comment.Name.length > 0);
             }
-            else {
-                this.commentsRestApi.getCaptia().then(function (captia) {
-                    //TODO: captcha logic
 
-                    deferred.resolve(true);
-                });
-            }
+            deferred.resolve(isValid);
 
             return deferred.promise();
         },
@@ -233,6 +236,16 @@
                 comment.Name = self.newCommentName().val();
                 comment.Email = self.newCommentEmail().val();
                 comment.Website = self.newCommentWebsite().val();
+
+                if (self.settings.requiresCaptcha) {
+                    comment.Captcha = {
+                        Answer: self.captchaInput().val(),
+                        CorrectAnswer: self.captchaData.correctAnswer,
+                        InitializationVector: self.captchaData.iv,
+                        Key: self.captchaData.key
+                    };
+                }
+
             }
 
             self.validateComment(comment).then(function (isValid) {
@@ -243,14 +256,55 @@
                         self.newCommentFormButton().show();
 
                         // Comments refresh will handle the showing of the new comment.
-                        
+
                         // Success message ?
+                    },
+                    function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.responseText) {
+                            var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
+                            self.errorMessage().html(errorTxt);
+                            self.errorMessage().show();
+                        }
                     });
                 }
                 else {
                     // Error message ?
                 }
             });
+        },
+
+        captchaRefresh: function () {
+            var self = this;
+            var deferred = $.Deferred();
+
+            self.captchaImage().attr("src", "");
+            self.captchaInput().hide();
+
+            self.commentsRestApi.getCaptcha().then(function (data) {
+                if (data) {
+                    self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
+                    self.captchaData.iv = data.InitializationVector;
+                    self.captchaData.correctAnswer = data.CorrectAnswer;
+                    self.captchaData.key = data.Key;
+                    self.captchaInput().val("");
+                    self.captchaInput().show();
+                }
+
+                deferred.resolve(true);
+            });
+        },
+
+        setupCaptcha: function () {
+            if (!this.isUserAuthenticated && this.settings.requiresCaptcha) {
+                this.captchaData = {
+                    iv: null,
+                    correctAnswer: null,
+                    key: null
+                };
+
+                this.captchaRefresh();
+                this.captchaWrapper().show();
+            }
         },
 
         initialize: function () {
@@ -267,6 +321,8 @@
                     self.isUserAuthenticated = true;
                     self.commentsNewLoggedOutView().hide();
                 }
+
+                $.proxy(self.setupCaptcha(), self);
             });
 
             // Initial loading of comments count for thread
@@ -337,14 +393,19 @@
                 self.submitForm();
                 return false;
             });
-            
+
+            self.captchaRefreshLink().click(function () {
+                self.captchaRefresh();
+                return false;
+            });
+
             // Comments updating
             setInterval(function () {
                 self.refreshComments(self);
             }, self.commentsRefreshRate);
         }
     };
-    
+
     $(function () {
         $('[data-sf-role="comments-wrapper"]').each(function () {
             var element = $(this);

@@ -6,11 +6,12 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
-    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")" }' />
+    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")", "requiresCaptcha": @Model.CommentsConfig.UseSpamProtectionImage.ToString().ToLower() }' />
  
     <div>
         <span data-sf-role="comments-total-count"></span>
         <span data-sf-role="comments-header"></span>
+
         <a href="#" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
         <a href="#" data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</a>
         <a href="#" data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</a>
@@ -31,6 +32,20 @@
             <span>@Html.Resource("SubscribeToNewComments")</span>
         </label>
         <br />
+        
+        <div data-sf-role="captcha-wrapper" style="display:none;">
+            <div>
+                <img data-sf-role="captcha-image" />
+            </div>
+            <a data-sf-role="captcha-refresh-button"> @Html.Resource("NewCode") </a>
+            <div>
+                <label>@Html.Resource("TypeCodeAbove")
+                    <input type="text" data-sf-role="captcha-input" />
+                </label>
+            </div>
+        </div>
+
+        <div data-sf-role="error-message" style="display:none;"></div>
 
         <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         <br />
