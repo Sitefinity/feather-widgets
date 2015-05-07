@@ -6,7 +6,7 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
-    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")" }' />
+    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsThreadType": "@Model.ThreadType", "rootUrl" : "/RestApi/comments-api/" , "isUserAuthenticatedUrl":"/RestApi/session/is-authenticated" , "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")", "commentsAllowSubscription":true }' />
  
     <div>
         <span data-sf-role="comments-total-count"></span>
@@ -26,8 +26,8 @@
             <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
         </p>
 
-        <label>
-            <input type="checkbox" data-sf-role="comments-new-subscribe" />
+        <label data-sf-role="comments-new-subscribe-view">
+            <input type="checkbox" data-sf-role="comments-new-subscribe-checkbox"/>
             <span>@Html.Resource("SubscribeToNewComments")</span>
         </label>
         <br />
@@ -41,7 +41,7 @@
     
     <div data-sf-role="single-comment-template">
         <div>
-            <img src="#" data-sf-role="comment-avatar"/>
+            <img data-sf-role="comment-avatar"/>
             <p>
                 <a href="#"><span data-sf-role="comment-name"></span></a> | 
                 <span data-sf-role="comment-date"></span>
@@ -57,10 +57,19 @@
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments-list.js"), "bottom", false)
 
 @*Temporary styling*@
-<style scoped>
+<style>
     div[data-sf-role="single-comment-template"] {
         display:none;
     }
+
+    span[data-sf-role="comment-message"]:after {
+        content: "";
+        clear: both;
+        height: 0;
+        display: block;
+        visibility: hidden;
+    }
+
     img[data-sf-role="comment-avatar"] {
         float:left;
         width: 40px;

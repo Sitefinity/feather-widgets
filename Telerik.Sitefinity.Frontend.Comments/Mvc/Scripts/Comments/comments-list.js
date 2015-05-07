@@ -1,4 +1,6 @@
 ﻿; (function ($) {
+    'use strict'
+
     var makeAjax = function (url, type, data) {
         var options = {
             type: type || 'GET',
@@ -17,21 +19,34 @@
         return $.ajax(options);
     };
 
-    var basicCommentsRestApi = (function () {
-        var rootUrl = '/RestApi/comments-api/comments';
+    /*
+        Rest Api
+    */
 
-        var getCommentsCount = function (threadKey, status) {
-            var getCommentsCountUrl = rootUrl + '/count?ThreadKey=' + threadKey;
+    var CommentsRestApi = function (rootUrl) {
+        if (rootUrl && rootUrl[rootUrl.length - 1] !== '/') {
+            rootUrl += '/';
+        }
+
+        this.rootUrl = rootUrl;
+    };
+
+    CommentsRestApi.prototype = {
+        getCommentsCount: function myfunction(threadKey, status) {
+            var getCommentsCountUrl = this.rootUrl + 'comments/count?ThreadKey=' + threadKey;
             if (status) {
                 getCommentsCountUrl += '&Status=' + status;
             }
 
             return makeAjax(getCommentsCountUrl);
-        };
+        },
 
-        var getComments = function (threadKey, skip, take, sortDescending, newerThan, language) {
-            var getCommentsUrl = rootUrl + '/?ThreadKey=' + threadKey + '&Take=' + take;
+        getComments: function (threadKey, skip, take, sortDescending, newerThan, language) {
+            var getCommentsUrl = this.rootUrl + 'comments/?ThreadKey=' + threadKey;
 
+            if (take && take > 0) {
+                getCommentsUrl += '&Take=' + take;
+            }
             if (skip && skip > 0) {
                 getCommentsUrl += '&Skip=' + skip;
             }
@@ -46,28 +61,24 @@
             }
 
             return makeAjax(getCommentsUrl);
-        };
+        },
 
-        var createComment = function (comment) {
-            return makeAjax(rootUrl, 'POST', JSON.stringify(comment));
-        };
+        createComment: function (comment) {
+            return makeAjax(this.rootUrl + 'comments', 'POST', JSON.stringify(comment));
+        },
 
-        var getCaptcha = function () {
+        getCaptcha: function () {
 
-        };
+        }
+    };
 
-        return {
-            getCommentsCount: getCommentsCount,
-            getComments: getComments,
-            createComment: createComment,
-            getCaptcha: getCaptcha
-        };
-    }());
+    /*
+        Widget
+    */
 
     var CommentsListWidget = function (wrapper, settings) {
         this.settings = settings || {};
         this.wrapper = wrapper;
-        this.commentsRestApi = basicCommentsRestApi;
 
         this.commentsSortedDescending = true;
         this.commentsRefreshRate = 3000;
@@ -112,6 +123,8 @@
         newCommentForm: function () { return this.getOrInitializeProperty('_newCommentForm', 'comments-new-form'); },
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
+        newCommentSubscribeView: function () { return this.getOrInitializeProperty('_newCommentSubscribeView', 'comments-new-subscribe-view'); },
+        newCommentSubscribeCheckbox: function () { return this.getOrInitializeProperty('_newCommentSubscribeCheckbox', 'comments-new-subscribe-checkbox'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
@@ -256,13 +269,25 @@
         initialize: function () {
             var self = this;
 
+            self.commentsRestApi = new CommentsRestApi(self.settings.rootUrl);
+
             self.maxCommentsToShow = self.settings.commentsPerPage;
 
             // Initially hide new comment form
             self.newCommentForm().hide();
 
+            // Hide the subscribe option if not enabled
+            if (!self.settings.commentsAllowSubscription) {
+                self.newCommentSubscribeView().hide();
+            }
+
             // Check if user is logged in
-            makeAjax('/RestApi/session/is-authenticated?_=' + (Math.random().toString().substr(2) + (new Date()).getTime())).then(function (response) {
+            var isUserAuthenticatedUrl = self.settings.isUserAuthenticatedUrl;
+            if (isUserAuthenticatedUrl[isUserAuthenticatedUrl.length - 1] !== '/') {
+                isUserAuthenticatedUrl += '/';
+            }
+            isUserAuthenticatedUrl += '?_=' + (Math.random().toString().substr(2) + (new Date()).getTime());
+            makeAjax(isUserAuthenticatedUrl).then(function (response) {
                 if (response && response.IsAuthenticated) {
                     self.isUserAuthenticated = true;
                     self.commentsNewLoggedOutView().hide();
