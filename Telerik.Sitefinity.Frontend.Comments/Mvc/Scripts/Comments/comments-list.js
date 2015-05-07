@@ -63,7 +63,27 @@
         },
 
         createComment: function (comment) {
-            return makeAjax(this.rootUrl + 'comments', 'POST', JSON.stringify(comment));
+            var createCommentUrl = this.rootUrl + 'comments';
+            return makeAjax(createCommentUrl, 'POST', JSON.stringify(comment));
+        },
+
+        getSubscriptionStatus: function (threadKey) {
+            var subscriptionStatusUrl = this.rootUrl + 'notifications/?threadKey=' + threadKey;
+            return makeAjax(subscriptionStatusUrl);
+        },
+
+        toggleSubscription: function (threadKey, unsubscribe) {
+            var toggleSubscriptionUrl = this.rootUrl + 'notifications/';
+            if (unsubscribe) {
+                toggleSubscriptionUrl += 'unsubscribe/';
+            }
+            else {
+                toggleSubscriptionUrl += 'subscribe/';
+            }
+
+            toggleSubscriptionUrl += '?threadKey=' + threadKey;
+
+            return makeAjax(toggleSubscriptionUrl, 'POST');
         },
 
         getCaptcha: function () {
@@ -74,16 +94,19 @@
     /*
         Widget
     */
-    var CommentsListWidget = function (wrapper, settings) {
+    var CommentsListWidget = function (wrapper, settings, resources) {
         this.settings = settings || {};
+        this.resources = resources || {};
         this.wrapper = wrapper;
 
-        this.commentsSortedDescending = true;
-        this.commentsRefreshRate = 3000;
         this.commentsTakenSoFar = 0;
         this.firstCommentDate = 0;
         this.lastCommentDate = 0;
         this.maxCommentsToShow = 0;
+
+        // Pass as settings ?
+        this.commentsSortedDescending = true;
+        this.commentsRefreshRate = 3000;
     };
 
     CommentsListWidget.prototype = {
@@ -127,8 +150,7 @@
         newCommentForm: function () { return this.getOrInitializeProperty('_newCommentForm', 'comments-new-form'); },
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
-        newCommentSubscribeView: function () { return this.getOrInitializeProperty('_newCommentSubscribeView', 'comments-new-subscribe-view'); },
-        newCommentSubscribeCheckbox: function () { return this.getOrInitializeProperty('_newCommentSubscribeCheckbox', 'comments-new-subscribe-checkbox'); },
+        newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeView', 'comments-new-subscribe-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
@@ -138,7 +160,7 @@
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
         /*
-            Helpers
+            Widget methods
         */
         getDateString: function (sfDateString, secondsOffset) {
             var date = new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
@@ -148,9 +170,6 @@
             return date.toUTCString();
         },
 
-        /*
-            Comments operations
-        */
         validateComment: function (comment) {
             var deferred = $.Deferred();
 
@@ -176,7 +195,7 @@
                 else {
                     element.text(message.substr(0, this.settings.commentsTextMaxLength));
                     element.append($('<span />').hide().text(message.substr(this.settings.commentsTextMaxLength)));
-                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.settings.commentsReadFullCommentText));
+                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.resources.readFullComment));
                 }
             }
         },
@@ -197,6 +216,11 @@
 
                     if (doPrepend) {
                         self.commentsContainer().prepend(newComment);
+
+                        if (self.commentsTakenSoFar > self.maxCommentsToShow) {
+                            self.commentsContainer().children().slice((self.commentsTakenSoFar - self.maxCommentsToShow) * (-1)).remove();
+                            self.commentsTakenSoFar = self.maxCommentsToShow;
+                        }
                     }
                     else {
                         self.commentsContainer().append(newComment);
@@ -212,8 +236,12 @@
                 if (response && response.Items && response.Items.length) {
                     self.commentsTakenSoFar += response.Items.length;
 
-                    self.firstCommentDate = self.getDateString(response.Items[0].DateCreated, 1);
-                    self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
+                    if (!skip || !self.commentsSortedDescending) {
+                        self.firstCommentDate = self.getDateString(response.Items[0].DateCreated, 1);
+                    }
+                    else if (!skip || self.commentsSortedDescending) {
+                        self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
+                    }
 
                     // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
                     self.renderComments(response.Items, newerThan && self.commentsSortedDescending);
@@ -276,12 +304,25 @@
             });
         },
 
+        toggleSubscription: function () {
+            var self = this;
+
+            self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
+                self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
+
+                // React to response ?
+
+                self.newCommentSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments);
+            });
+        },
+
         /*
             Widget initialization
         */
         initializeProperties: function () {
             this.commentsRestApi = new CommentsRestApi(this.settings.rootUrl);
 
+            this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
 
             // Initially hide new comment form
@@ -326,7 +367,7 @@
 
                     if (currentThreadKeyCount > 0) {
                         self.commentsTotalCount().text(currentThreadKeyCount);
-                        self.commentsHeader().text(self.settings.commentsHeaderText);
+                        self.commentsHeader().text(self.resources.commentsPlural);
                     }
                     else {
                         self.commentsTotalCount().hide();
@@ -350,69 +391,21 @@
             }, self.commentsRefreshRate);
         },
 
-        initializeSubscribtion: function () {
+        initializeSubscription: function () {
             var self = this;
 
-            // debugger;
-            var copy = {
-                init: function () {
-                    url = this.get_checkSubscriptionStatus();
-                    url = url + '?threadKey=' + escape(this.get_subscriptionItemKey());
+            self.commentsRestApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
+                if (response) {
+                    self.isSubscribedToNewComments = response.IsSubscribed;
 
-                    jQuery.ajax({
-                        type: "GET",
-                        url: url,
-                        cache: false,
-                        success: jQuery.proxy(this.onCheckSubscriptionStatusSuccess, this),
-                        dataType: "json"
-                    });
-                },
-
-                onCheckSubscriptionStatusSuccess: function (data) {
-                    if (data.IsSubscribed === true)
-                        jQuery(this.get_unsubscribeWrp()).show();
-                    else
-                        jQuery(this.get_subscribeWrp()).show();
-                },
-
-                _subscribeLinkHandler: function (sender) {
-                    url = this.get_subscribeUrl();
-                    url = url + '?threadKey=' + escape(this.get_subscriptionItemKey());
-
-                    jQuery.ajax({
-                        type: "POST",
-                        url: url,
-                        cache: false,
-                        success: jQuery.proxy(this.onSubscribeSuccess, this),
-                        dataType: "json"
-                    });
-                },
-
-                onSubscribeSuccess: function () {
-                    jQuery(this.get_subscribeWrp()).hide();
-                    jQuery(this.get_successfullyUnsubscribedWrp()).hide();
-                    jQuery(this.get_successfullySubscribedWrp()).show();
-                },
-
-                _unsubscribeLinkHandler: function (sender) {
-                    url = this.get_unsubscribeUrl();
-                    url = url + '?threadKey=' + escape(this.get_subscriptionItemKey());
-
-                    jQuery.ajax({
-                        type: "POST",
-                        url: url,
-                        cache: false,
-                        success: jQuery.proxy(this.onUnsubscribeSuccess, this),
-                        dataType: "json"
-                    });
-                },
-
-                onUnsubscribeSuccess: function () {
-                    jQuery(this.get_unsubscribeWrp()).hide();
-                    jQuery(this.get_successfullySubscribedWrp()).hide();
-                    jQuery(this.get_successfullyUnsubscribedWrp()).show();
+                    self.newCommentSubscribeButton()
+                        .text(response.IsSubscribed ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments)
+                        .click(function () {
+                            self.toggleSubscription();
+                            return false;
+                        });
                 }
-            };
+            });
         },
 
         initializeHandlers: function () {
@@ -456,7 +449,7 @@
             this.initializeProperties();
             this.initializeUserStatus();
             this.initializeComments();
-            this.initializeSubscribtion();
+            this.initializeSubscription();
             this.initializeHandlers();
         }
     };
@@ -468,7 +461,8 @@
         $('[data-sf-role="comments-wrapper"]').each(function () {
             var element = $(this);
             var settings = JSON.parse(element.find('[data-sf-role="comments-settings"]').val());
-            (new CommentsListWidget(element, settings)).initialize();
+            var resources = JSON.parse(element.find('[data-sf-role="comments-resources"]').val());
+            (new CommentsListWidget(element, settings, resources)).initialize();
         });
     });
 }(jQuery));

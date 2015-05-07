@@ -6,7 +6,8 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
-    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsThreadType": "@Model.ThreadType", "rootUrl" : "/RestApi/comments-api/" , "isUserAuthenticatedUrl":"/RestApi/session/is-authenticated" , "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")", "commentsAllowSubscription":true }' />
+    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsThreadType": "@Model.ThreadType", "rootUrl" : "/RestApi/comments-api/" , "isUserAuthenticatedUrl":"/RestApi/session/is-authenticated" , "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsAllowSubscription":true }' />
+    <input type="hidden" data-sf-role="comments-resources" value='{"readFullComment": "@Html.Resource("ReadFullComment")", "commentsPlural": "@Html.Resource("CommentsPlural")", "subscribeToNewComments":"@Html.Resource("SubscribeToNewComments")", "unsubscribeFromNewComments":"@Html.Resource("UnsubscribeFromNewComments")" }' />
  
     <div>
         <span data-sf-role="comments-total-count"></span>
@@ -18,7 +19,6 @@
 
     <div data-sf-role="comments-new-form">
         <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")"></textarea>
-        <br />
 
         <p data-sf-role="comments-new-logged-out-view">
             <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
@@ -26,14 +26,9 @@
             <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
         </p>
 
-        <label data-sf-role="comments-new-subscribe-view">
-            <input type="checkbox" data-sf-role="comments-new-subscribe-checkbox"/>
-            <span>@Html.Resource("SubscribeToNewComments")</span>
-        </label>
-        <br />
+        <a href="#" data-sf-role="comments-new-subscribe-button"></a>
 
         <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
-        <br />
     </div>
     
     <div data-sf-role="comments-container"></div>
@@ -50,7 +45,6 @@
                 <span data-sf-role="comment-message"></span>
             </p>
         </div>
-        <br />
     </div>
 </div>
 
