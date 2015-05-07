@@ -121,6 +121,7 @@
         commentsNewLoggedOutView: function () { return this.getOrInitializeProperty('_commentsNewLoggedOutView', 'comments-new-logged-out-view'); },
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
+        captchaWrapper: function () { return this.getOrInitializeProperty('_captchaWrapper', 'captcha-wrapper'); },
         captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
@@ -136,16 +137,12 @@
         validateComment: function (comment) {
             var deferred = $.Deferred();
 
-            if (this.isUserAuthenticated) {
-                deferred.resolve(comment.Message.length > 0);
+            var isValid = comment.Message.length > 0;
+            if (!this.isUserAuthenticated) {
+                isValid = isValid && (comment.Name.length > 0);
             }
-            else {
-                this.commentsRestApi.getCaptia().then(function (captia) {
-                    //TODO: captcha logic
 
-                    deferred.resolve(true);
-                });
-            }
+            deferred.resolve(isValid)
 
             return deferred.promise();
         },
@@ -239,7 +236,7 @@
                 comment.Email = self.newCommentEmail().val();
                 comment.Website = self.newCommentWebsite().val();
 
-                if(self.requiesCaptcha()){
+                if (self.settings.requiresCaptcha) {
                     comment.Captcha = {
                         Answer: self.captchaInput().val(),
                         CorrectAnswer: self.captchaData.correctAnswer(),
@@ -258,7 +255,7 @@
                         self.newCommentFormButton().show();
 
                         // Comments refresh will handle the showing of the new comment.
-                        
+
                         // Success message ?
                     });
                 }
@@ -275,7 +272,7 @@
             self.captchaImage().attr("src", "");
             self.captchaInput().hide();
 
-            commentsRestApi.getCaptcha().then(function (data) {
+            self.commentsRestApi.getCaptcha().then(function (data) {
                 if (data) {
                     self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
                     self.captchaData.iv = data.InitializationVector;
@@ -294,12 +291,16 @@
 
             self.maxCommentsToShow = self.settings.commentsPerPage;
 
-            
-            self.captchaData = {
-                iv: null,
-                correctAnswer: null,
-                key: null
-            };
+            if (!self.isUserAuthenticated && self.settings.requiresCaptcha) {
+                self.captchaData = {
+                    iv: null,
+                    correctAnswer: null,
+                    key: null
+                };
+
+                self.captchaRefresh();
+                self.captchaWrapper().show();
+            }
 
             // Initially hide new comment form
             self.newCommentForm().hide();
@@ -382,17 +383,17 @@
             });
 
             self.captchaRefreshLink().click(function () {
-                self.captcha.refresh();
+                self.captchaRefresh();
                 return false;
             });
-            
+
             // Comments updating
             setInterval(function () {
                 self.refreshComments(self);
             }, self.commentsRefreshRate);
         }
     };
-    
+
     $(function () {
         $('[data-sf-role="comments-wrapper"]').each(function () {
             var element = $(this);

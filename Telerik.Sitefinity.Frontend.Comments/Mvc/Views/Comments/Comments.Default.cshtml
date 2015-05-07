@@ -6,7 +6,7 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
-    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")", "requireCaptcha": @Model.CommentsConfig.UseSpamProtectionImage }' />
+    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")", "requiresCaptcha": "@Model.CommentsConfig.UseSpamProtectionImage" }' />
  
     <div>
         <span data-sf-role="comments-total-count"></span>
@@ -33,7 +33,7 @@
         </label>
         <br />
         
-        <div>
+        <div data-sf-role="captcha-wrapper" style="display:none;">
             <div>
                 <img data-sf-role="captcha-image" />
             </div>
