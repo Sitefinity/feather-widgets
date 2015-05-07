@@ -486,7 +486,7 @@
             });
 
             self.newCommentFormButton().click(function () {
-                $('html, body').animate({ scrollTop: self.newCommentForm().offset().top }, 2000);
+                $('html, body').animate({ scrollTop: self.newCommentForm().offset().top }, 1000);
                 return false;
             });
 
