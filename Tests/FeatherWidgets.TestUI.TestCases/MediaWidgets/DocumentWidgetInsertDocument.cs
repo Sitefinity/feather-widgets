@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelectionInWidget();
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentLink(DocumentName, this.GetDocumentHref(true));
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyDocumentIcon(DocumentExtension);
-            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyTemplateDropdownValueInWidget();
+            BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().VerifyTemplateDropdownValueInWidget("DocumentLink");
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ApplyCssClasses(CssClassesToApply);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaPropertiesInWidget();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyDocument(DocumentName, this.GetDocumentHref(false));

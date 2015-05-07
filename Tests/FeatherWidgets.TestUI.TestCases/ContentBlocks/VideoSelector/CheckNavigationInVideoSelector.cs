@@ -31,51 +31,51 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
           
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().OpenVideoSelector();
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifySelectedFilter(SelectedFilterName);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(3);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(3, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(VideoName1, VideoName2, VideoName3);
 
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFilter(MyVideos);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(2);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(2, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(VideoName1, VideoName2);
 
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFilter(AllLibraries);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(0);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(0, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(2);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(DefaultLibrary, LibraryName);
 
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(LibraryName);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(VideoName1);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(ChildLibrary);
 
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(ChildLibrary);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(VideoName2);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(NextChildLibrary);
 
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolder(NextChildLibrary);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(VideoName3);
 
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolderFromBreadCrumb(ChildLibrary);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(1);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(VideoName2);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectFolders(NextChildLibrary);
 
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectFolderFromSideBar(NextChildLibrary);
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfMediaFiles(1, MediaType);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().WaitCorrectCountOfFolders(0);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().VerifyCorrectMediaFiles(VideoName3);
 
-            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(VideoName3, true);
+            BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().SelectMediaFile(VideoName3, false);
             BATFeather.Wrappers().Backend().Media().MediaSelectorWrapper().ConfirmMediaFileSelection();
-            Assert.IsTrue(BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().IsTitlePopulated(VideoName3), "Document title is not populated correctly");
+            BATFeather.Wrappers().Backend().Media().VideoPropertiesWrapper().VerifyVideoInfo(VideoName3, VideoType, Size);
             BATFeather.Wrappers().Backend().Media().DocumentPropertiesWrapper().ConfirmMediaProperties();
         
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
@@ -83,6 +83,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
 
             this.VerifyFrontend();
         }
+
 
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
@@ -101,13 +102,14 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
+
         private void VerifyFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             string libraryUrl = LibraryName.ToLower() + "/" + ChildLibrary.ToLower() + "/" + NextChildLibrary.ToLower();
-            string imageUrl = VideoName3.ToLower() + VideoType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl, "videos");
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyDocument(VideoName3, href);
+            string imageUrl = VideoName3.ToLower() + VideoType;
+            string src = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl, "videos");
+            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyVideo(src);
         }
 
         private const string PageName = "PageWithVideo";
@@ -117,11 +119,13 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         private const string VideoName1 = "Video1";
         private const string VideoName2 = "Video2";
         private const string VideoName3 = "Video3";
-        private const string VideoType = ".JPG";
+        private const string VideoType = ".ogv";
         private const string ChildLibrary = "ChildVideoLibrary";
         private const string NextChildLibrary = "NextChildVideoLibrary";
         private const string DefaultLibrary = "Default Library";
         private const string MyVideos = "My Videos";
         private const string AllLibraries = "All Libraries";
+        private const string MediaType = "videos";
+        private const string Size = "428 KB";
     }
 }

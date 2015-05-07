@@ -80,6 +80,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Verifies the video CSS class.
+        /// </summary>
+        /// <param name="cssClass">The CSS class.</param>
+        /// <param name="src">The SRC.</param>
+        public void VerifyVideoCssClass(string cssClass, string src)
+        {
+            HtmlDiv documentDiv = this.ActiveBrowser.Find.ByExpression<HtmlDiv>("class=" + cssClass);
+            documentDiv.AssertIsNotNull("div is not found");
+
+            documentDiv.Find.ByExpression<HtmlVideo>("src=~" + src).AssertIsPresent("video");
+        }
+
+        /// <summary>
         /// Verifies the document.
         /// </summary>
         /// <param name="title">The title.</param>

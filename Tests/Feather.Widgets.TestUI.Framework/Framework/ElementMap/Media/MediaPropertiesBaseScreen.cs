@@ -66,7 +66,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.MediaPropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=~Change");
+                return this.Get<HtmlButton>("tagName=button", "InnerText=~Change");
             }
         }
 
@@ -78,7 +78,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.MediaPropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Edit all properties");
+                return this.Get<HtmlButton>("tagName=button", "InnerText=Edit all properties");
             }
         }
 
