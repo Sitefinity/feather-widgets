@@ -74,8 +74,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = DocumentName1.ToLower() + DocumentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(false, libraryUrl, documentUrl, this.BaseUrl, "docs");
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyDocument(DocumentNewName, href);
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, documentUrl, this.BaseUrl, "docs");
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocument(DocumentNewName, href);
         }
 
         private const string PageName = "PageWithDocument";

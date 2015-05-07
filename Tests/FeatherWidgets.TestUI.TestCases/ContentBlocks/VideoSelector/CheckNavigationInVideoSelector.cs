@@ -84,7 +84,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             this.VerifyFrontend();
         }
 
-
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
@@ -102,14 +101,13 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-
         private void VerifyFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             string libraryUrl = LibraryName.ToLower() + "/" + ChildLibrary.ToLower() + "/" + NextChildLibrary.ToLower();
             string imageUrl = VideoName3.ToLower() + VideoType;
-            string src = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl, "videos");
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyVideo(src);
+            string src = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl, "videos");
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyVideo(src);
         }
 
         private const string PageName = "PageWithVideo";

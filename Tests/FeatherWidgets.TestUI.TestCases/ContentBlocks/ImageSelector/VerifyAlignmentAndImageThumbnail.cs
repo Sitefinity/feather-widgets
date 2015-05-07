@@ -60,12 +60,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyStyle(ImageStyle1, ImageName1, ImageAltText1);
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyStyle(ImageStyle2, ImageName2, ImageAltText2);
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyStyle(ImageStyle3, ImageName3, ImageAltText3);
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyThumbnail(ImageThumbnailExtension1, ImageName1, ImageAltText1);
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyThumbnail(ImageThumbnailExtension2, ImageName2, ImageAltText2);
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyThumbnail(ImageThumbnailExtension3, ImageName3, ImageAltText3);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageStyle(ImageStyle1, ImageName1, ImageAltText1);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageStyle(ImageStyle2, ImageName2, ImageAltText2);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageStyle(ImageStyle3, ImageName3, ImageAltText3);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageThumbnail(ImageThumbnailExtension1, ImageName1, ImageAltText1);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageThumbnail(ImageThumbnailExtension2, ImageName2, ImageAltText2);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImageThumbnail(ImageThumbnailExtension3, ImageName3, ImageAltText3);
         }
 
         /// <summary>
