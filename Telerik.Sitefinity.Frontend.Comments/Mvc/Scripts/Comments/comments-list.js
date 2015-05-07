@@ -1,5 +1,5 @@
 ﻿; (function ($) {
-    'use strict'
+    'use strict';
 
     var makeAjax = function (url, type, data) {
         var options = {
@@ -22,7 +22,6 @@
     /*
         Rest Api
     */
-
     var CommentsRestApi = function (rootUrl) {
         if (rootUrl && rootUrl[rootUrl.length - 1] !== '/') {
             rootUrl += '/';
@@ -75,7 +74,6 @@
     /*
         Widget
     */
-
     var CommentsListWidget = function (wrapper, settings) {
         this.settings = settings || {};
         this.wrapper = wrapper;
@@ -89,11 +87,10 @@
     };
 
     CommentsListWidget.prototype = {
+        /*
+            Properties
+        */
         isUserAuthenticated: false,
-
-        getElementByDataSfRole: function (sfRole) {
-            return this.wrapper.find('[data-sf-role="' + sfRole + '"]');
-        },
 
         getOrInitializeProperty: function (property, sfRole) {
             if (!this[property]) {
@@ -101,6 +98,13 @@
             }
 
             return this[property];
+        },
+
+        /*
+            Elements
+        */
+        getElementByDataSfRole: function (sfRole) {
+            return this.wrapper.find('[data-sf-role="' + sfRole + '"]');
         },
 
         getSingleCommentTemplate: function () {
@@ -133,6 +137,9 @@
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
+        /*
+            Helpers
+        */
         getDateString: function (sfDateString, secondsOffset) {
             var date = new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
             date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
@@ -141,6 +148,9 @@
             return date.toUTCString();
         },
 
+        /*
+            Comments operations
+        */
         validateComment: function (comment) {
             var deferred = $.Deferred();
 
@@ -234,7 +244,7 @@
             }
         },
 
-        submitForm: function () {
+        submitNewComment: function () {
             var self = this;
 
             var comment = {
@@ -256,7 +266,7 @@
                         self.newCommentFormButton().show();
 
                         // Comments refresh will handle the showing of the new comment.
-                        
+
                         // Success message ?
                     });
                 }
@@ -266,22 +276,26 @@
             });
         },
 
-        initialize: function () {
-            var self = this;
+        /*
+            Widget initialization
+        */
+        initializeProperties: function () {
+            this.commentsRestApi = new CommentsRestApi(this.settings.rootUrl);
 
-            self.commentsRestApi = new CommentsRestApi(self.settings.rootUrl);
-
-            self.maxCommentsToShow = self.settings.commentsPerPage;
+            this.maxCommentsToShow = this.settings.commentsPerPage;
 
             // Initially hide new comment form
-            self.newCommentForm().hide();
+            this.newCommentForm().hide();
 
             // Hide the subscribe option if not enabled
-            if (!self.settings.commentsAllowSubscription) {
-                self.newCommentSubscribeView().hide();
+            if (!this.settings.commentsAllowSubscription) {
+                this.newCommentSubscribeView().hide();
             }
+        },
 
-            // Check if user is logged in
+        initializeUserStatus: function () {
+            var self = this;
+
             var isUserAuthenticatedUrl = self.settings.isUserAuthenticatedUrl;
             if (isUserAuthenticatedUrl[isUserAuthenticatedUrl.length - 1] !== '/') {
                 isUserAuthenticatedUrl += '/';
@@ -293,6 +307,10 @@
                     self.commentsNewLoggedOutView().hide();
                 }
             });
+        },
+
+        initializeComments: function () {
+            var self = this;
 
             // Initial loading of comments count for thread
             self.commentsRestApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
@@ -326,9 +344,79 @@
             // Initial loading of comments
             self.loadComments(0, self.settings.commentsPerPage);
 
-            /* 
-                Event handlers 
-            */
+            // Comments Refresh
+            setInterval(function () {
+                self.refreshComments(self);
+            }, self.commentsRefreshRate);
+        },
+
+        initializeSubscribtion: function () {
+            var self = this;
+
+            // debugger;
+            var copy = {
+                init: function () {
+                    url = this.get_checkSubscriptionStatus();
+                    url = url + '?threadKey=' + escape(this.get_subscriptionItemKey());
+
+                    jQuery.ajax({
+                        type: "GET",
+                        url: url,
+                        cache: false,
+                        success: jQuery.proxy(this.onCheckSubscriptionStatusSuccess, this),
+                        dataType: "json"
+                    });
+                },
+
+                onCheckSubscriptionStatusSuccess: function (data) {
+                    if (data.IsSubscribed === true)
+                        jQuery(this.get_unsubscribeWrp()).show();
+                    else
+                        jQuery(this.get_subscribeWrp()).show();
+                },
+
+                _subscribeLinkHandler: function (sender) {
+                    url = this.get_subscribeUrl();
+                    url = url + '?threadKey=' + escape(this.get_subscriptionItemKey());
+
+                    jQuery.ajax({
+                        type: "POST",
+                        url: url,
+                        cache: false,
+                        success: jQuery.proxy(this.onSubscribeSuccess, this),
+                        dataType: "json"
+                    });
+                },
+
+                onSubscribeSuccess: function () {
+                    jQuery(this.get_subscribeWrp()).hide();
+                    jQuery(this.get_successfullyUnsubscribedWrp()).hide();
+                    jQuery(this.get_successfullySubscribedWrp()).show();
+                },
+
+                _unsubscribeLinkHandler: function (sender) {
+                    url = this.get_unsubscribeUrl();
+                    url = url + '?threadKey=' + escape(this.get_subscriptionItemKey());
+
+                    jQuery.ajax({
+                        type: "POST",
+                        url: url,
+                        cache: false,
+                        success: jQuery.proxy(this.onUnsubscribeSuccess, this),
+                        dataType: "json"
+                    });
+                },
+
+                onUnsubscribeSuccess: function () {
+                    jQuery(this.get_unsubscribeWrp()).hide();
+                    jQuery(this.get_successfullySubscribedWrp()).hide();
+                    jQuery(this.get_successfullyUnsubscribedWrp()).show();
+                }
+            };
+        },
+
+        initializeHandlers: function () {
+            var self = this;
 
             self.commentsLoadMoreButton().click(function () {
                 self.maxCommentsToShow += self.settings.commentsPerPage;
@@ -359,17 +447,23 @@
             });
 
             self.newCommentSubmitButton().click(function () {
-                self.submitForm();
+                self.submitNewComment();
                 return false;
             });
-            
-            // Comments updating
-            setInterval(function () {
-                self.refreshComments(self);
-            }, self.commentsRefreshRate);
+        },
+
+        initialize: function () {
+            this.initializeProperties();
+            this.initializeUserStatus();
+            this.initializeComments();
+            this.initializeSubscribtion();
+            this.initializeHandlers();
         }
     };
-    
+
+    /*
+        Widgets creation
+    */
     $(function () {
         $('[data-sf-role="comments-wrapper"]').each(function () {
             var element = $(this);
