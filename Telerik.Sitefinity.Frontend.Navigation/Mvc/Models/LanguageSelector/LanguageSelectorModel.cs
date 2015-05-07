@@ -7,6 +7,7 @@ using System.Threading;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Localization.UrlLocalizationStrategies;
 using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 
@@ -17,6 +18,19 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
     /// </summary>
     public class LanguageSelectorModel : ILanguageSelectorModel
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LanguageSelectorModel" /> class.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LanguageSelectorModel()
+        {
+            this.urlService = this.InitializeUrlLocalizationService();
+        }
+
+        #endregion
+
         #region Properties
         /// <inheritdoc />
         public bool IncludeCurrentLanguage { get; set; }
@@ -54,16 +68,48 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
 
         #endregion
 
-        #region Private methods
+        #region Virtual methods
+
+        /// <summary>
+        /// Initializes the URL localization service.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual UrlLocalizationService InitializeUrlLocalizationService()
+        {
+            return ObjectFactory.Resolve<UrlLocalizationService>();
+        }
+
+        /// <summary>
+        /// Resolves the page URL.
+        /// </summary>
+        /// <param name="pageNode">The page node.</param>
+        /// <param name="targetCulture">The target culture.</param>
+        /// <param name="useNewImplementation">The use new implementation.</param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
+        protected virtual string ResolvePageUrl(PageNode pageNode, CultureInfo targetCulture, bool useNewImplementation)
+        {
+            return this.urlService.ResolvePageUrl(pageNode, targetCulture, true);
+        }
+
+        /// <summary>
+        /// Resolves the URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="targetCulture">The target culture.</param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
+        protected virtual string ResolveUrl(string url, CultureInfo targetCulture)
+        {
+            return this.urlService.ResolveUrl(url, targetCulture);
+        }
 
         /// <summary>
         /// Gets the languages to display.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-        private IEnumerable<CultureInfo> GetLanguagesToDisplay()
+        protected virtual IEnumerable<CultureInfo> GetLanguagesToDisplay()
         {
-            var settings = Telerik.Sitefinity.Services.SystemManager.CurrentContext.AppSettings;
-
             ////This is the current node - may be a group page node
             ////var sitemapNode = SiteMapBase.GetCurrentNode();
             ////This is the real node - may be the same as sitemapNode, but is never a group page node
@@ -95,30 +141,51 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             {
                 availableLanguages = this.node.AvailableCultures;
             }
+            
+            this.usedLanguages = this.GetLanguagesForPage(actualSitemapNode, availableLanguages);
 
-            CultureInfo currentLanguage = Thread.CurrentThread.CurrentUICulture;
+            IEnumerable<CultureInfo> shownLanguages = this.GetLanguagesList(pm, homePageId);
 
-            ////Get used languages for the page, excluding invariant language
-            this.usedLanguages = new List<CultureInfo>();
+            return shownLanguages;
+        }
 
-            if (actualSitemapNode != null)
+        #endregion
+        
+        #region Private methods
+
+        /// <summary>
+        /// Gets used languages for the page, excluding invariant language
+        /// </summary>
+        /// <param name="sitemapNode">The sitemap node.</param>
+        /// <param name="availableLanguages">The available languages.</param>
+        private List<CultureInfo> GetLanguagesForPage(PageSiteNode sitemapNode, IEnumerable<CultureInfo> availableLanguages)
+        {
+            var usedLanguages = new List<CultureInfo>();
+
+            if (sitemapNode != null)
             {
                 availableLanguages.ToList().ForEach(ci =>
                 {
                     if (!ci.Equals(CultureInfo.InvariantCulture))
                     {
-                        bool isHidden = actualSitemapNode.IsHidden(ci);
+                        bool isHidden = sitemapNode.IsHidden(ci);
 
                         if (!isHidden)
                         {
-                            this.usedLanguages.Add(ci);
+                            usedLanguages.Add(ci);
                         }
                     }
                 });
             }
 
+            return usedLanguages;
+        }
+
+        private IEnumerable<CultureInfo> GetLanguagesList(PageManager pm, Guid homePageId)
+        {
             ////Get languages to list
             List<CultureInfo> languages = new List<CultureInfo>();
+            var settings = Telerik.Sitefinity.Services.SystemManager.CurrentContext.AppSettings;
             if (this.MissingTranslationAction == NoTranslationAction.HideLink)
             {
                 languages.AddRange(this.usedLanguages);
@@ -134,6 +201,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
 
             ////Remove current language, if necessary
             IEnumerable<CultureInfo> shownLanguages;
+            CultureInfo currentLanguage = Thread.CurrentThread.CurrentUICulture;
             if (!this.IncludeCurrentLanguage)
             {
                 shownLanguages = languages.Where(ci => !ci.Equals(currentLanguage));
@@ -184,7 +252,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
                     if (siteNode != null)
                         url = siteNode.Url;
                     else
-                        url = this.urlService.ResolveUrl("~/", culture);
+                        url = this.ResolveUrl("~/", culture);
                 }
                 finally
                 {
@@ -204,7 +272,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         {
             if (this.homePageNode != null)
             {
-                return this.urlService.ResolvePageUrl(this.homePageNode, culture, true);
+                return this.ResolvePageUrl(this.homePageNode, culture, true);
             }
             else
             {
@@ -216,7 +284,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
 
         #region Private fields and constants
 
-        private UrlLocalizationService urlService = ObjectFactory.Resolve<UrlLocalizationService>();
+        private UrlLocalizationService urlService;
         private List<CultureInfo> usedLanguages;
         private Pages.Model.PageNode node;
         private Pages.Model.PageNode homePageNode;
