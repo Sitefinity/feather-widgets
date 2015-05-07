@@ -95,6 +95,7 @@
     <Compile Include="Mvc\Models\NodeViewModel.cs" />
     <Compile Include="Mvc\Models\PageSelectionMode.cs" />
     <Compile Include="Mvc\Models\SelectedPageModel.cs" />
+    <Compile Include="Mvc\StringResources\LanguageSelectorResources.cs" />
     <Compile Include="Mvc\StringResources\NavigationResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -108,7 +109,10 @@
     <EmbeddedResource Include="Mvc\Views\Navigation\Dropdown.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Navigation\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\LanguageSelector\LanguageLinks.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LanguageSelector\LanguageSelector.LanguageLinks.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LanguageSelector\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\LanguageSelector\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\LanguageSelector\LanguageSelector.DropDownMenu.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -119,7 +123,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Navigation\designerview-simple.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\LanguageSelector\designerview-simple.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

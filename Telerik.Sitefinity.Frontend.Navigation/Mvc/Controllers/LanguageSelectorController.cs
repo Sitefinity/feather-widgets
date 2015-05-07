@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lifecycle;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -18,6 +21,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// This class represents the controller of Language selector widget.
     /// </summary>
     [ControllerToolboxItem(Name = "LanguageSelector_MVC", Title = "Language selector", SectionName = ToolboxesConfig.NavigationControlsSectionName)]
+    [Localization(typeof(LanguageSelectorResources))]
     public class LanguageSelectorController : Controller
     {
         #region Properties
@@ -45,7 +49,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <value>
         /// The model.
         /// </value>
-        protected ILanguageSelectorModel Model 
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public virtual ILanguageSelectorModel Model 
         {
             get
             {
@@ -77,7 +82,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 item.Url = this.AppendDetailItemAndParamsToUrl(item.Url, new CultureInfo(item.Culture));
             }
 
-            return this.View(this.TemplateName, viewModel);
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
+            return this.View(fullTemplateName, viewModel);
         }
 
         #endregion
@@ -130,6 +137,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         #region Private fields and constants
 
         private ILanguageSelectorModel model;
+        private string templateNamePrefix = "LanguageSelector.";
         private string templateName = "LanguageLinks";
 
         #endregion
