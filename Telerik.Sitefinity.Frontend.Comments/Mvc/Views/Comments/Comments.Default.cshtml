@@ -6,13 +6,6 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
-@*    
-    <input type="hidden" data-sf-role="comments-thread-key" value="@Model.ThreadKey" />
-    <input type="hidden" data-sf-role="comments-per-page" value="@Model.CommentsConfig.CommentsPerPage" />
-    <input type="hidden" data-sf-role="comments-header-text" value="@Html.Resource("CommentsPlural")" />
-    <input type="hidden" data-sf-role="comments-read-full-comment" value="@Html.Resource("ReadFullComment")" />
-    <input type="hidden" data-sf-role="comments-text-max-length" value="@Model.CommentTextMaxLength" />
-*@
     <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")" }' />
  
     <div>
@@ -46,9 +39,9 @@
     <div data-sf-role="comments-container"></div>
     <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
     
-    <script type="text/html-template" data-sf-role="single-comment-template">
+    <div data-sf-role="single-comment-template">
         <div>
-            <img data-sf-role="comment-avatar"/>
+            <img src="#" data-sf-role="comment-avatar"/>
             <p>
                 <a href="#"><span data-sf-role="comment-name"></span></a> | 
                 <span data-sf-role="comment-date"></span>
@@ -58,13 +51,16 @@
             </p>
         </div>
         <br />
-    </script>
+    </div>
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/CommentsMvcWidget.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments-list.js"), "bottom", false)
 
 @*Temporary styling*@
 <style scoped>
+    div[data-sf-role="single-comment-template"] {
+        display:none;
+    }
     img[data-sf-role="comment-avatar"] {
         float:left;
         width: 40px;
