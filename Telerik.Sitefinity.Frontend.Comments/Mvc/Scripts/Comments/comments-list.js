@@ -155,7 +155,9 @@
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
         newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeButton', 'comments-new-subscribe-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
+        newCommentMessageError: function () { return this.getOrInitializeProperty('_newCommentMessageError', 'comments-new-message-error'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
+        newCommentNameError: function () { return this.getOrInitializeProperty('_newCommentNameError', 'comments-new-name-error'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
         newCommentWebsite: function () { return this.getOrInitializeProperty('_newCommentWebsite', 'comments-new-website'); },
 
@@ -181,12 +183,24 @@
             return date.toUTCString();
         },
 
+        hideErrors: function () {
+            this.newCommentMessageError().hide();
+            this.newCommentNameError().hide();
+            this.errorMessage().hide();
+        },
+
         validateComment: function (comment) {
             var deferred = $.Deferred();
+            var isValid = true;
 
-            var isValid = comment.Message.length > 0;
-            if (!this.isUserAuthenticated) {
-                isValid = isValid && (comment.Name.length > 0);
+            if (comment.Message.length < 1) {
+                isValid = false;
+                this.newCommentMessageError().show();
+            }
+
+            if (!this.isUserAuthenticated && comment.Name.length < 1) {
+                isValid = false;
+                this.newCommentNameError().show();
             }
 
             deferred.resolve(isValid);
@@ -501,6 +515,7 @@
             });
 
             self.newCommentSubmitButton().click(function () {
+                self.hideErrors();
                 self.submitNewComment();
                 return false;
             });
