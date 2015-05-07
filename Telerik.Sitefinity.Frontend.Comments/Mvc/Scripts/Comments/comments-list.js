@@ -142,7 +142,7 @@
                 isValid = isValid && (comment.Name.length > 0);
             }
 
-            deferred.resolve(isValid)
+            deferred.resolve(isValid);
 
             return deferred.promise();
         },
