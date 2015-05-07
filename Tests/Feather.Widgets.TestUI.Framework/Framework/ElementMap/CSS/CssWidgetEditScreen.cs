@@ -33,5 +33,71 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CSS
                 return this.Get<HtmlDiv>("tagname=div", "class=CodeMirror-lines");
             }
         }
+
+        /// <summary>
+        /// Gets Link to Css file button.
+        /// </summary>
+        public HtmlInputRadioButton LinkToCss
+        {
+            get
+            {
+                return this.Get<HtmlInputRadioButton>("tagname=input", "value=Reference");
+            }
+        }
+
+        /// <summary>
+        /// Gets Select buttons.
+        /// </summary>
+        public HtmlButton SelectButton
+        {
+            get
+            {
+                return this.Find.ByExpression<HtmlButton>("class=~btn btn-xs btn-default");
+            }
+        }
+
+        /// <summary>
+        /// Gets the unordered list of folder tree.
+        /// </summary>
+        public HtmlUnorderedList FolderTree
+        {
+            get
+            {
+                return this.Get<HtmlUnorderedList>("class=sf-Tree");
+            }
+        }
+
+        /// <summary>
+        /// Gets the unordered list of file tree.
+        /// </summary>
+        public HtmlUnorderedList FileTree
+        {
+            get
+            {
+                return this.Get<HtmlUnorderedList>("class=sf-Tree ng-scope");
+            }
+        }
+
+        /// <summary>
+        /// Gets More options.
+        /// </summary>
+        public HtmlSpan MoreOptions
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("tagname=span", "InnerText=More options");
+            }
+        }
+
+        /// <summary>
+        /// Gets the description.
+        /// </summary>
+        public HtmlInputText Description
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Description.PropertyValue");
+            }
+        }
     }
 }

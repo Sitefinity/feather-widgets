@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.BlogPosts)]
+        TestCategory(FeatherTestCategories.Blogs)]
         public void AddBlogPostsWidgetToPageOpenSingleItemInExistingPage()
         {
             BAT.Macros().NavigateTo().Pages();

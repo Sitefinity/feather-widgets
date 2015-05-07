@@ -1,45 +1,38 @@
 ﻿@model Telerik.Sitefinity.Frontend.Comments.Mvc.Models.CommentsModel
 
-
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
-    <input type="hidden" data-sf-role="comments-thread-key" value="@Model.ThreadKey" />
-    <input type="hidden" data-sf-role="comments-page-size" value="@Model.CommentsConfig.CommentsPerPage" />
-    <input type="hidden" data-sf-role="comments-header-text" value="@Html.Resource("CommentsPlural")" />
-    <input type="hidden" data-sf-role="comments-read-full-comment" value="@Html.Resource("ReadFullComment")" />
-    <input type="hidden" data-sf-role="comments-text-max-length" value="@Model.CommentTextMaxLength" />
-
+    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsReadFullCommentText": "@Html.Resource("ReadFullComment")", "commentsHeaderText": "@Html.Resource("CommentsPlural")", "requireCaptcha": @Model.CommentsConfig.UseSpamProtectionImage }' />
+ 
     <div>
+        <span data-sf-role="comments-total-count"></span>
         <span data-sf-role="comments-header"></span>
-        <button onclick="return false;" data-sf-role="comments-form-button">@Html.Resource("LeaveComment")</button>
-        <button data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</button>
-        <button data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</button>
+
+        <a href="#" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
+        <a href="#" data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</a>
+        <a href="#" data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</a>
     </div>
 
-    <div data-sf-role="comments-new-holder">
-
-        <div>
-            <textarea rows="4" data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")"></textarea>
-        </div>
+    <div data-sf-role="comments-new-form">
+        <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")"></textarea>
+        <br />
 
         <p data-sf-role="comments-new-logged-out-view">
             <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
-            <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
-            <input type="url" placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
+            <input placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
+            <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
         </p>
 
-        <div>
-            <label>
-                <input type="checkbox" data-sf-role="comments-new-subscribe" />
-                <span>@Html.Resource("SubscribeToNewComments")</span>
-            </label>
-        </div>
-
+        <label>
+            <input type="checkbox" data-sf-role="comments-new-subscribe" />
+            <span>@Html.Resource("SubscribeToNewComments")</span>
+        </label>
+        <br />
+        
         <div>
             <div>
                 <img data-sf-role="captcha-image" />
@@ -52,18 +45,16 @@
             </div>
         </div>
 
-        <div>
-            @*Temporary styling*@
-            <button onclick="return false;" class="realBtn" data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
-        </div>
-
+        <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
+        <br />
     </div>
     
-    <div data-sf-role="comments-holder"></div>
-    <button data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</button>
+    <div data-sf-role="comments-container"></div>
+    <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
     
-    <script type="text/html-template" data-sf-role="single-comment-template">
+    <div data-sf-role="single-comment-template">
         <div>
+            <img src="#" data-sf-role="comment-avatar"/>
             <p>
                 <a href="#"><span data-sf-role="comment-name"></span></a> | 
                 <span data-sf-role="comment-date"></span>
@@ -73,19 +64,19 @@
             </p>
         </div>
         <br />
-    </script>
+    </div>
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments-list.js"), "bottom", false)
 
 @*Temporary styling*@
 <style scoped>
-button:not(.realBtn) {
-    background:none!important;
-    border:none; 
-    padding:0!important;
-    font: inherit;
-    color: #105CB6;
-    cursor: pointer;
-}
+    div[data-sf-role="single-comment-template"] {
+        display:none;
+    }
+    img[data-sf-role="comment-avatar"] {
+        float:left;
+        width: 40px;
+        height: 40px;
+    }
 </style>
