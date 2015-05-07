@@ -217,6 +217,21 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Unsubscribe me from new comments
+        /// </summary>
+        [ResourceEntry("UnsubscribeFromNewComments",
+            Value = "Unsubscribe me from new comments",
+            Description = "phrase: Unsubscribe me from new comments",
+            LastModified = "2015/05/07")]
+        public string UnsubscribeFromNewComments
+        {
+            get
+            {
+                return this["UnsubscribeFromNewComments"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Subscribe me to new comments via email
         /// </summary>
         [ResourceEntry("SubscribeToNewComments",
@@ -228,6 +243,36 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             get
             {
                 return this["SubscribeToNewComments"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : New code
+        /// </summary>
+        [ResourceEntry("NewCode",
+            Value = "New code",
+            Description = "phrase : New code",
+            LastModified = "2015/05/05")]
+        public string NewCode
+        {
+            get
+            {
+                return this["NewCode"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Please type the code above
+        /// </summary>
+        [ResourceEntry("TypeCodeAbove",
+            Value = "Please type the code above",
+            Description = "phrase : Please type the code above",
+            LastModified = "2015/05/05")]
+        public string TypeCodeAbove
+        {
+            get
+            {
+                return this["TypeCodeAbove"];
             }
         }
 

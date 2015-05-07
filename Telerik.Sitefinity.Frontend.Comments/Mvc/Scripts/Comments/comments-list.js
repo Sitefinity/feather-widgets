@@ -1,4 +1,6 @@
 ﻿; (function ($) {
+    'use strict';
+
     var makeAjax = function (url, type, data) {
         var options = {
             type: type || 'GET',
@@ -17,21 +19,33 @@
         return $.ajax(options);
     };
 
-    var basicCommentsRestApi = (function () {
-        var rootUrl = '/RestApi/comments-api/comments';
+    /*
+        Rest Api
+    */
+    var CommentsRestApi = function (rootUrl) {
+        if (rootUrl && rootUrl[rootUrl.length - 1] !== '/') {
+            rootUrl += '/';
+        }
 
-        var getCommentsCount = function (threadKey, status) {
-            var getCommentsCountUrl = rootUrl + '/count?ThreadKey=' + threadKey;
+        this.rootUrl = rootUrl;
+    };
+
+    CommentsRestApi.prototype = {
+        getCommentsCount: function myfunction(threadKey, status) {
+            var getCommentsCountUrl = this.rootUrl + 'comments/count?ThreadKey=' + threadKey;
             if (status) {
                 getCommentsCountUrl += '&Status=' + status;
             }
 
             return makeAjax(getCommentsCountUrl);
-        };
+        },
 
-        var getComments = function (threadKey, skip, take, sortDescending, newerThan, language) {
-            var getCommentsUrl = rootUrl + '/?ThreadKey=' + threadKey + '&Take=' + take;
+        getComments: function (threadKey, skip, take, sortDescending, newerThan, language) {
+            var getCommentsUrl = this.rootUrl + 'comments/?ThreadKey=' + threadKey;
 
+            if (take && take > 0) {
+                getCommentsUrl += '&Take=' + take;
+            }
             if (skip && skip > 0) {
                 getCommentsUrl += '&Skip=' + skip;
             }
@@ -46,43 +60,61 @@
             }
 
             return makeAjax(getCommentsUrl);
-        };
+        },
 
-        var createComment = function (comment) {
-            return makeAjax(rootUrl, 'POST', JSON.stringify(comment));
-        };
+        createComment: function (comment) {
+            var createCommentUrl = this.rootUrl + 'comments';
+            return makeAjax(createCommentUrl, 'POST', JSON.stringify(comment));
+        },
 
-        var getCaptcha = function () {
+        getSubscriptionStatus: function (threadKey) {
+            var subscriptionStatusUrl = this.rootUrl + 'notifications/?threadKey=' + threadKey;
+            return makeAjax(subscriptionStatusUrl);
+        },
 
-        };
+        toggleSubscription: function (threadKey, unsubscribe) {
+            var toggleSubscriptionUrl = this.rootUrl + 'notifications/';
+            if (unsubscribe) {
+                toggleSubscriptionUrl += 'unsubscribe/';
+            }
+            else {
+                toggleSubscriptionUrl += 'subscribe/';
+            }
 
-        return {
-            getCommentsCount: getCommentsCount,
-            getComments: getComments,
-            createComment: createComment,
-            getCaptcha: getCaptcha
-        };
-    }());
+            toggleSubscriptionUrl += '?threadKey=' + threadKey;
 
-    var CommentsListWidget = function (wrapper, settings) {
+            return makeAjax(toggleSubscriptionUrl, 'POST');
+        },
+
+        getCaptcha: function () {
+            var getCaptchaUrl = this.rootUrl + 'captcha';
+            return makeAjax(getCaptchaUrl);
+        }
+    };
+
+    /*
+        Widget
+    */
+    var CommentsListWidget = function (wrapper, settings, resources) {
         this.settings = settings || {};
+        this.resources = resources || {};
         this.wrapper = wrapper;
-        this.commentsRestApi = basicCommentsRestApi;
 
-        this.commentsSortedDescending = true;
-        this.commentsRefreshRate = 3000;
         this.commentsTakenSoFar = 0;
         this.firstCommentDate = 0;
         this.lastCommentDate = 0;
         this.maxCommentsToShow = 0;
+
+        // Pass as settings ?
+        this.commentsSortedDescending = true;
+        this.commentsRefreshRate = 3000;
     };
 
     CommentsListWidget.prototype = {
+        /*
+            Properties
+        */
         isUserAuthenticated: false,
-
-        getElementByDataSfRole: function (sfRole) {
-            return this.wrapper.find('[data-sf-role="' + sfRole + '"]');
-        },
 
         getOrInitializeProperty: function (property, sfRole) {
             if (!this[property]) {
@@ -90,6 +122,13 @@
             }
 
             return this[property];
+        },
+
+        /*
+            Elements
+        */
+        getElementByDataSfRole: function (sfRole) {
+            return this.wrapper.find('[data-sf-role="' + sfRole + '"]');
         },
 
         getSingleCommentTemplate: function () {
@@ -109,17 +148,29 @@
         commentsTotalCount: function () { return this.getOrInitializeProperty('_commentsTotalCount', 'comments-total-count'); },
         commentsHeader: function () { return this.getOrInitializeProperty('_commentsHeader', 'comments-header'); },
         commentsLoadMoreButton: function () { return this.getOrInitializeProperty('_commentsLoadMoreButton', 'comments-load-more-button'); },
+        commentsNewLoggedOutView: function () { return this.getOrInitializeProperty('_commentsNewLoggedOutView', 'comments-new-logged-out-view'); },
+
         newCommentForm: function () { return this.getOrInitializeProperty('_newCommentForm', 'comments-new-form'); },
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
+        newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeView', 'comments-new-subscribe-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
         newCommentWebsite: function () { return this.getOrInitializeProperty('_newCommentWebsite', 'comments-new-website'); },
-        commentsNewLoggedOutView: function () { return this.getOrInitializeProperty('_commentsNewLoggedOutView', 'comments-new-logged-out-view'); },
+
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
+        captchaContainer: function () { return this.getOrInitializeProperty('captchaContainer', 'captcha-container'); },
+        captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
+        captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
+        captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
+        errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
+
+        /*
+            Widget methods
+        */
         getDateString: function (sfDateString, secondsOffset) {
             var date = new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
             date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
@@ -131,16 +182,12 @@
         validateComment: function (comment) {
             var deferred = $.Deferred();
 
-            if (this.isUserAuthenticated) {
-                deferred.resolve(comment.Message.length > 0);
+            var isValid = comment.Message.length > 0;
+            if (!this.isUserAuthenticated) {
+                isValid = isValid && (comment.Name.length > 0);
             }
-            else {
-                this.commentsRestApi.getCaptia().then(function (captia) {
-                    //TODO: captcha logic
 
-                    deferred.resolve(true);
-                });
-            }
+            deferred.resolve(isValid);
 
             return deferred.promise();
         },
@@ -153,7 +200,7 @@
                 else {
                     element.text(message.substr(0, this.settings.commentsTextMaxLength));
                     element.append($('<span />').hide().text(message.substr(this.settings.commentsTextMaxLength)));
-                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.settings.commentsReadFullCommentText));
+                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.resources.readFullComment));
                 }
             }
         },
@@ -174,6 +221,11 @@
 
                     if (doPrepend) {
                         self.commentsContainer().prepend(newComment);
+
+                        if (self.commentsTakenSoFar > self.maxCommentsToShow) {
+                            self.commentsContainer().children().slice((self.commentsTakenSoFar - self.maxCommentsToShow) * (-1)).remove();
+                            self.commentsTakenSoFar = self.maxCommentsToShow;
+                        }
                     }
                     else {
                         self.commentsContainer().append(newComment);
@@ -189,8 +241,12 @@
                 if (response && response.Items && response.Items.length) {
                     self.commentsTakenSoFar += response.Items.length;
 
-                    self.firstCommentDate = self.getDateString(response.Items[0].DateCreated, 1);
-                    self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
+                    if (!skip || !self.commentsSortedDescending) {
+                        self.firstCommentDate = self.getDateString(response.Items[0].DateCreated, 1);
+                    }
+                    else if (!skip || self.commentsSortedDescending) {
+                        self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
+                    }
 
                     // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
                     self.renderComments(response.Items, newerThan && self.commentsSortedDescending);
@@ -221,7 +277,7 @@
             }
         },
 
-        submitForm: function () {
+        submitNewComment: function () {
             var self = this;
 
             var comment = {
@@ -233,6 +289,15 @@
                 comment.Name = self.newCommentName().val();
                 comment.Email = self.newCommentEmail().val();
                 comment.Website = self.newCommentWebsite().val();
+
+                if (self.settings.requiresCaptcha) {
+                    comment.Captcha = {
+                        Answer: self.captchaInput().val(),
+                        CorrectAnswer: self.captchaData.correctAnswer,
+                        InitializationVector: self.captchaData.iv,
+                        Key: self.captchaData.key
+                    };
+                }
             }
 
             self.validateComment(comment).then(function (isValid) {
@@ -243,8 +308,14 @@
                         self.newCommentFormButton().show();
 
                         // Comments refresh will handle the showing of the new comment.
-                        
+
                         // Success message ?
+                    }, function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.responseText) {
+                            var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
+                            self.errorMessage().html(errorTxt);
+                            self.errorMessage().show();
+                        }
                     });
                 }
                 else {
@@ -253,21 +324,90 @@
             });
         },
 
-        initialize: function () {
+        captchaRefresh: function () {
+            var self = this;
+            var deferred = $.Deferred();
+
+            self.captchaImage().attr("src", "");
+            self.captchaInput().hide();
+
+            self.commentsRestApi.getCaptcha().then(function (data) {
+                if (data) {
+                    self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
+                    self.captchaData.iv = data.InitializationVector;
+                    self.captchaData.correctAnswer = data.CorrectAnswer;
+                    self.captchaData.key = data.Key;
+                    self.captchaInput().val("");
+                    self.captchaInput().show();
+                }
+
+                deferred.resolve(true);
+            });
+        },
+
+        setupCaptcha: function () {
+            if (!this.isUserAuthenticated && this.settings.requiresCaptcha) {
+                this.captchaData = {
+                    iv: null,
+                    correctAnswer: null,
+                    key: null
+                };
+
+                this.captchaRefresh();
+                this.captchaContainer().show();
+            }
+        },
+
+        toggleSubscription: function () {
             var self = this;
 
-            self.maxCommentsToShow = self.settings.commentsPerPage;
+            self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
+                self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
+
+                // React to response ?
+
+                self.newCommentSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments);
+            });
+        },
+
+        /*
+            Widget initialization
+        */
+        initializeProperties: function () {
+            this.commentsRestApi = new CommentsRestApi(this.settings.rootUrl);
+
+            this.isSubscribedToNewComments = false;
+            this.maxCommentsToShow = this.settings.commentsPerPage;
 
             // Initially hide new comment form
-            self.newCommentForm().hide();
+            this.newCommentForm().hide();
 
-            // Check if user is logged in
-            makeAjax('/RestApi/session/is-authenticated?_=' + (Math.random().toString().substr(2) + (new Date()).getTime())).then(function (response) {
+            // Hide the subscribe option if not enabled
+            if (!this.settings.commentsAllowSubscription) {
+                this.newCommentSubscribeView().hide();
+            }
+        },
+
+        initializeUserStatus: function () {
+            var self = this;
+
+            var isUserAuthenticatedUrl = self.settings.isUserAuthenticatedUrl;
+            if (isUserAuthenticatedUrl[isUserAuthenticatedUrl.length - 1] !== '/') {
+                isUserAuthenticatedUrl += '/';
+            }
+            isUserAuthenticatedUrl += '?_=' + (Math.random().toString().substr(2) + (new Date()).getTime());
+            makeAjax(isUserAuthenticatedUrl).then(function (response) {
                 if (response && response.IsAuthenticated) {
                     self.isUserAuthenticated = true;
                     self.commentsNewLoggedOutView().hide();
                 }
+
+                $.proxy(self.setupCaptcha(), self);
             });
+        },
+
+        initializeComments: function () {
+            var self = this;
 
             // Initial loading of comments count for thread
             self.commentsRestApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
@@ -283,7 +423,7 @@
 
                     if (currentThreadKeyCount > 0) {
                         self.commentsTotalCount().text(currentThreadKeyCount);
-                        self.commentsHeader().text(self.settings.commentsHeaderText);
+                        self.commentsHeader().text(self.resources.commentsPlural);
                     }
                     else {
                         self.commentsTotalCount().hide();
@@ -301,9 +441,31 @@
             // Initial loading of comments
             self.loadComments(0, self.settings.commentsPerPage);
 
-            /* 
-                Event handlers 
-            */
+            // Comments Refresh
+            setInterval(function () {
+                self.refreshComments(self);
+            }, self.commentsRefreshRate);
+        },
+
+        initializeSubscription: function () {
+            var self = this;
+
+            self.commentsRestApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
+                if (response) {
+                    self.isSubscribedToNewComments = response.IsSubscribed;
+
+                    self.newCommentSubscribeButton()
+                        .text(response.IsSubscribed ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments)
+                        .click(function () {
+                            self.toggleSubscription();
+                            return false;
+                        });
+                }
+            });
+        },
+
+        initializeHandlers: function () {
+            var self = this;
 
             self.commentsLoadMoreButton().click(function () {
                 self.maxCommentsToShow += self.settings.commentsPerPage;
@@ -334,22 +496,34 @@
             });
 
             self.newCommentSubmitButton().click(function () {
-                self.submitForm();
+                self.submitNewComment();
                 return false;
             });
-            
-            // Comments updating
-            setInterval(function () {
-                self.refreshComments(self);
-            }, self.commentsRefreshRate);
+
+            self.captchaRefreshLink().click(function () {
+                self.captchaRefresh();
+                return false;
+            });
+        },
+
+        initialize: function () {
+            this.initializeProperties();
+            this.initializeUserStatus();
+            this.initializeComments();
+            this.initializeSubscription();
+            this.initializeHandlers();
         }
     };
-    
+
+    /*
+        Widgets creation
+    */
     $(function () {
         $('[data-sf-role="comments-wrapper"]').each(function () {
             var element = $(this);
             var settings = JSON.parse(element.find('[data-sf-role="comments-settings"]').val());
-            (new CommentsListWidget(element, settings)).initialize();
+            var resources = JSON.parse(element.find('[data-sf-role="comments-resources"]').val());
+            (new CommentsListWidget(element, settings, resources)).initialize();
         });
     });
 }(jQuery));

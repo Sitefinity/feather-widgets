@@ -161,6 +161,7 @@
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
     <Compile Include="Identity\VerifySelectedRolesInUsersListOnBootstrapPage.cs" />
+    <Compile Include="CSS\DuplicateCssWidgetOnPage.cs" />
     <Compile Include="MediaWidgets\VideoWidgetInsertVideo.cs" />
     <Compile Include="MediaWidgets\VideoWidgetEditAndChangeSelectedVideo.cs" />
     <Compile Include="ContentBlocks\VideoSelector\InsertVideoFromAlreadyUploaded.cs" />
