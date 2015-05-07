@@ -125,6 +125,7 @@
         captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
+        errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
 
         getDateString: function (sfDateString, secondsOffset) {
             var date = new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
@@ -257,6 +258,13 @@
                         // Comments refresh will handle the showing of the new comment.
 
                         // Success message ?
+                    },
+                    function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.responseText) {
+                            var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
+                            self.errorMessage().html(errorTxt);
+                            self.errorMessage().show();
+                        }
                     });
                 }
                 else {
