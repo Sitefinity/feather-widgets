@@ -84,22 +84,9 @@
             return this.wrapper.find('[data-sf-role="' + sfRole + '"]');
         },
 
-        getOrInitializeProperty: function (property, sfRole, additionalFunction) {
+        getOrInitializeProperty: function (property, sfRole) {
             if (!this[property]) {
-                // removing the _ symbol
-                var setting = this.settings[property.substr(1)];
-
-                if (setting) {
-                    this[property] = setting;
-                }
-                else {
-                    var element = this.getElementByDataSfRole(sfRole);
-                    if (additionalFunction) {
-                        element = element[additionalFunction]();
-                    }
-
-                    this[property] = element;
-                }
+                this[property] = this.getElementByDataSfRole(sfRole);
             }
 
             return this[property];
@@ -167,13 +154,13 @@
 
         attachCommentMessage: function (element, message) {
             if (element && message) {
-                if (message.length < this.commentsTextMaxLength()) {
+                if (message.length < this.settings.commentsTextMaxLength) {
                     element.text(message);
                 }
                 else {
-                    element.text(message.substr(0, this.commentsTextMaxLength()));
-                    element.append($('<span />').hide().text(message.substr(this.commentsTextMaxLength())));
-                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.commentsReadFullCommentText()));
+                    element.text(message.substr(0, this.settings.commentsTextMaxLength));
+                    element.append($('<span />').hide().text(message.substr(this.settings.commentsTextMaxLength)));
+                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.settings.commentsReadFullCommentText));
                 }
             }
         },
@@ -205,7 +192,7 @@
         loadComments: function (skip, take, newerThan) {
             var self = this;
 
-            self.commentsRestApi.getComments(self.commentsThreadKey(), skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
+            self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
                 if (response && response.Items && response.Items.length) {
                     self.commentsTakenSoFar += response.Items.length;
 
@@ -225,7 +212,7 @@
 
         refreshComments: function (self) {
             if (self.commentsSortedDescending) {
-                self.loadComments(0, self.commentsPerPage(), self.firstCommentDate);
+                self.loadComments(0, self.settings.commentsPerPage, self.firstCommentDate);
             }
             else if (self.maxCommentsToShow - self.commentsTakenSoFar > 0) {
                 self.loadComments(0, self.maxCommentsToShow - self.commentsTakenSoFar, self.lastCommentDate);
@@ -236,7 +223,7 @@
             if (this.commentsSortedDescending !== useDescending) {
                 this.commentsSortedDescending = useDescending;
                 this.commentsContainer().html('');
-                this.loadComments(0, this.commentsPerPage());
+                this.loadComments(0, this.settings.commentsPerPage);
                 this.commentsTakenSoFar = 0;
             }
         },
@@ -246,7 +233,7 @@
 
             var comment = {
                 Message: self.newCommentMessage().val(),
-                ThreadKey: self.commentsThreadKey()
+                ThreadKey: self.settings.commentsThreadKey
             };
 
             if (!self.isUserAuthenticated) {
@@ -276,7 +263,7 @@
         initialize: function () {
             var self = this;
 
-            self.maxCommentsToShow = self.commentsPerPage();
+            self.maxCommentsToShow = self.settings.commentsPerPage;
 
             // Initially hide new comment form
             self.newCommentForm().hide();
@@ -290,12 +277,12 @@
             });
 
             // Initial loading of comments count for thread
-            self.commentsRestApi.getCommentsCount(self.commentsThreadKey()).then(function (response) {
+            self.commentsRestApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
                 if (response && response.Items) {
                     var currentThreadKeyCount = 0;
 
                     for (var i = 0; i < response.Items.length; i++) {
-                        if (response.Items[i].Key === self.commentsThreadKey()) {
+                        if (response.Items[i].Key === self.settings.commentsThreadKey) {
                             currentThreadKeyCount = response.Items[i].Count;
                             break;
                         }
@@ -303,7 +290,7 @@
 
                     if (currentThreadKeyCount > 0) {
                         self.commentsTotalCount().text(currentThreadKeyCount);
-                        self.commentsHeader().text(self.commentsHeaderText());
+                        self.commentsHeader().text(self.settings.commentsHeaderText);
                     }
                     else {
                         self.commentsTotalCount().hide();
@@ -312,22 +299,22 @@
                         self.newCommentForm().show();
                     }
 
-                    if (currentThreadKeyCount <= Math.max(self.commentsTakenSoFar, self.commentsPerPage())) {
+                    if (currentThreadKeyCount <= Math.max(self.commentsTakenSoFar, self.settings.commentsPerPage)) {
                         self.commentsLoadMoreButton().hide();
                     }
                 }
             });
 
             // Initial loading of comments
-            self.loadComments(0, self.commentsPerPage());
+            self.loadComments(0, self.settings.commentsPerPage);
 
             /* 
                 Event handlers 
             */
 
             self.commentsLoadMoreButton().click(function () {
-                self.maxCommentsToShow += self.commentsPerPage();
-                self.loadComments(self.commentsTakenSoFar, self.commentsPerPage());
+                self.maxCommentsToShow += self.settings.commentsPerPage;
+                self.loadComments(self.commentsTakenSoFar, self.settings.commentsPerPage);
                 return false;
             });
 
@@ -364,11 +351,12 @@
             }, self.commentsRefreshRate);
         }
     };
-
+    
     $(function () {
-        var settings = JSON.parse($('[data-sf-role="comments-settings"]').val());
         $('[data-sf-role="comments-wrapper"]').each(function () {
-            (new CommentsMvcWidget($(this), settings)).initialize();
+            var element = $(this);
+            var settings = JSON.parse(element.find('[data-sf-role="comments-settings"]').val());
+            (new CommentsMvcWidget(element, settings)).initialize();
         });
     });
 }(jQuery));
