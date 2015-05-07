@@ -10,19 +10,19 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.CSS
 {
     /// <summary>
-    /// AddCssWidgetToPageAndWriteCss test class.
+    /// AddCssWidgetToPageAndWriteAndRemoveCss test class.
     /// </summary>
     [TestClass]
-    public class AddCssWidgetToPageAndWriteCss_ : FeatherTestCase
+    public class AddCssWidgetToPageAndWriteAndRemoveCss_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test AddCssWidgetToPageAndWriteCss
+        /// UI test AddCssWidgetToPageAndWriteAndRemoveCss
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Css)]
-        public void AddCssWidgetToPageAndWriteCss()
+        public void AddCssWidgetToPageAndWriteAndRemoveCss()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -31,17 +31,25 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
             BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValue);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyPageOnTheFrontend();
+            this.VerifyPageOnTheFrontend(CssValue);
+
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(string.Empty);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            this.VerifyPageOnTheFrontend(string.Empty);
         }
 
         /// <summary>
         /// Verify css on the frontend
         /// </summary>
-        public void VerifyPageOnTheFrontend()
+        public void VerifyPageOnTheFrontend(string css)
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
-            Assert.IsTrue(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
+            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(css);
+            Assert.IsTrue(isContained, string.Concat("Expected ", css, " but the style is not found"));
         }
 
         /// <summary>

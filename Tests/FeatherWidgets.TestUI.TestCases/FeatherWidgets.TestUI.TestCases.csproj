@@ -137,7 +137,7 @@
     <Compile Include="ContentBlocks\UpdateSharedContentInUsedFromOldContentBlockWidget.cs" />
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\InsertVideoFromAlreadyUploaded.cs" />
-    <Compile Include="CSS\AddCssWidgetToPageAndWriteCss.cs" />
+    <Compile Include="CSS\AddCssWidgetToPageAndWriteAndRemoveCss.cs" />
     <Compile Include="CSS\CssWidgetAndNewsWidgetOnTheSamePage.cs" />
     <Compile Include="CSS\CssWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="CSS\SelectCssFileInCssWidget.cs" />

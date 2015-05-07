@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// AddCssWidgetToPageAndWriteCss arrangement class.
+    /// AddCssWidgetToPageAndWriteAndRemoveCss arrangement class.
     /// </summary>
-    public class AddCssWidgetToPageAndWriteCss : ITestArrangement
+    public class AddCssWidgetToPageAndWriteAndRemoveCss : ITestArrangement
     {
         /// <summary>
         /// Server side set up. 
