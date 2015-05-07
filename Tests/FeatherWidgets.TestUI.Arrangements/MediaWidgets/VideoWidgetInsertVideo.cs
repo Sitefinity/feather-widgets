@@ -18,9 +18,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
-
+            ServerOperations.Pages().CreatePage(PageName);
             ServerSideUpload.CreateVideoLibrary(LibraryTitle);
             ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle1, VideoResource1);
             ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle2, VideoResource2);
@@ -42,6 +40,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string VideoTitle2 = "big_buck_bunny2";
         private const string VideoResource1 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny1.mp4";
         private const string VideoResource2 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny2.mp4";
-        private const string PageTemplateName = "Bootstrap.default";
     }
 }
