@@ -109,6 +109,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
             }
         }
 
+        /// <summary>
+        /// Gets the users list widget backend.
+        /// </summary>
+        public UsersListEditScreen UsersListEditScreen
+        {
+            get
+            {
+                return new UsersListEditScreen(this.find);
+            }
+        }
+
+        /// <summary>
+        /// Gets the users list widget frontend.
+        /// </summary>
+        public UsersListFrontend UsersListFrontend
+        {
+            get
+            {
+                return new UsersListFrontend(this.find);
+            }
+        }
+
         private Find find;
     }
 }
