@@ -14,5 +14,18 @@ namespace FeatherWidgets.TestUnit.DummyClasses.InlineClientAssets
         {
             return new DummyHttpContext();
         }
+
+        protected override bool IsDesignMode
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        protected override string GetIncludeInResource(Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.EmbedPosition position)
+        {
+            return string.Empty;
+        }
     }
 }

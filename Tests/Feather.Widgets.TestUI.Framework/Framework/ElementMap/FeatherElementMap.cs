@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CSS;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ImageGallery;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists;
@@ -316,6 +317,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the css element map.
+        /// </summary>
+        /// <value>The css map.</value>
+        public CssMap Css
+        {
+            get
+            {
+                if (this.cssMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.cssMap = new CssMap(this.find);
+                }
+
+                return this.cssMap;
+            }
+
+            private set
+            {
+                this.cssMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -337,5 +361,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private IdentityMap identityMap;
         private ImageGalleryMap imageGalleryMap;
         private ListsMap listsMap;
+        private CssMap cssMap;
     }
 }

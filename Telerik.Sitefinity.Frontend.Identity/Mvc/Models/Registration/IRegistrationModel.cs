@@ -33,6 +33,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         string MembershipProviderName { get; set; }
 
         /// <summary>
+        /// Gets the option to use the email as the username
+        /// </summary>
+        /// <value>True or False</value>
+        bool EmailAddressShouldBeTheUsername { get; set; }
+
+        /// <summary>
         /// Gets the list of roles that will be assigned to the user when registering.
         /// </summary>
         /// <value>

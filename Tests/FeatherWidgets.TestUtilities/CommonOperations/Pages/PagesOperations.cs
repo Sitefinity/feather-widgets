@@ -7,10 +7,13 @@ using System.Web.UI;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
+using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -75,6 +78,41 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
 
                 this.CreateControl(pageManager, page, mvcWidget, "ContentBlock", placeholder);
             }
+        }
+
+        /// <summary>
+        /// Add blog posts widget to existing page.
+        /// </summary>
+        /// <param name="pageId">The page Id.</param>
+        /// <param name="placeholder">The placeholderId.</param>
+        /// <param name="parentFilterMode">The parent filter mode.</param>
+        public void AddBlogPostsWidgetToPage(Guid pageId, string placeholder, ParentFilterMode parentFilterMode)
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(BlogPostController).FullName;
+                var controller = new BlogPostController();
+
+                controller.Model.ParentFilterMode = parentFilterMode;
+
+                mvcWidget.Settings = new ControllerSettings(controller);
+                this.CreateControl(pageManager, page, mvcWidget, "Blog posts", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Add blog posts widget to existing page.
+        /// </summary>
+        /// <param name="pageId">The page Id.</param>
+        /// <param name="placeholder">The placeholderId.</param>
+        public void AddBlogPostsWidgetToPage(Guid pageId, string placeholder)
+        {
+            this.AddBlogPostsWidgetToPage(pageId, placeholder, ParentFilterMode.All);
         }
 
         /// <summary>
@@ -194,6 +232,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds css widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddCssWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(StyleSheetController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "CSS", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Adds profile widget to existing page
         /// </summary>
         /// <param name="pageId">Page id value</param>
@@ -235,6 +293,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Add users list widget to existing page.
+        /// </summary>
+        /// <param name="pageId">The page id.</param>
+        /// <param name="placeholder">the placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddUsersListWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(UsersListController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Users list", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Adds the image gallery widget to page.
         /// </summary>
         /// <param name="pageId">The page id.</param>
@@ -252,6 +331,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(ImageGalleryController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "Image gallery", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds the video widget to page.
+        /// </summary>
+        /// <param name="pageId">The page id.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddVideoWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(VideoController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Video", placeholder);
             }
         }
 

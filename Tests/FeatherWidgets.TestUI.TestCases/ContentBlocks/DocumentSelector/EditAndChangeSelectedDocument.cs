@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyDocument(NewDocumentName, this.GetDocumentHref(false, DocumentName2, ".docx"));
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyDocument(NewDocumentName, this.GetDocumentHref(false, DocumentName2, ".docx"));
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.DocumentSelector
         {
             string libraryUrl = LibraryName.ToLower();
             string documentUrl = documentName.ToLower() + documentType.ToLower();
-            string href = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs");
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, "docs");
             return href;
         }
 

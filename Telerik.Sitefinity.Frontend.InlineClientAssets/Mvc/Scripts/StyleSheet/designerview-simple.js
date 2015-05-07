@@ -66,7 +66,7 @@
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
                     if ($scope.properties.Mode.PropertyValue !== 'Inline') {
-                        $scope.properties.InlineStyles.PropertyValue = null;
+                        $scope.properties.InlineStyles.PropertyValue = '';
                     }
 
                     if ($scope.properties.Mode.PropertyValue !== 'Reference') {

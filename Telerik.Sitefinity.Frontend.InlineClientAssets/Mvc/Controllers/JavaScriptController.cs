@@ -4,11 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 {
@@ -17,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
     /// </summary>
     [Localization(typeof(JavaScriptResources))]
     [ControllerToolboxItem(Name = "JavaScript_MVC", Title = "JavaScript", SectionName = "ScriptsAndStylesControlsSection", CssClass = JavaScriptController.WidgetIconCssClass)]
-    public class JavaScriptController : Controller
+    public class JavaScriptController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
 
@@ -38,6 +42,35 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 return this.model;
             }
         }
+
+        /// <summary>
+        /// Gets whether the page is in design mode.
+        /// </summary>
+        protected virtual bool IsDesignMode
+        {
+            get
+            {
+                return SystemManager.IsDesignMode;
+            }
+        }
+
+        /// <summary>
+        /// Gets whether the page is in edit mode.
+        /// </summary>
+        /// <value>The is edit.</value>
+        private bool IsEdit
+        {
+			get
+			{
+				var isEdit = false;
+				if (this.IsDesignMode && !SystemManager.IsPreviewMode)
+				{
+					isEdit = true;
+				}
+				return isEdit;
+			}
+		}
+
         #endregion
 
         #region Actions
@@ -53,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
             var page = this.GetHttpContext().CurrentHandler as Page;
 
-            if (page != null)
+            if (page != null && !this.IsEdit)
             {
                 if (this.Model.Position == Models.EmbedPosition.Head)
                 {
@@ -66,8 +99,59 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
             }
 
+            if (this.IsEdit && !SystemManager.IsInlineEditingMode)
+            {
+                string result = null;
+
+                if (!string.IsNullOrEmpty(this.Model.Description))
+                {
+                    result = this.Model.Description;
+                }
+                else if (Model.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(viewModel.JavaScriptCode))
+                {
+                    result = this.GetShortScript(viewModel.JavaScriptCode);
+                }
+                else
+                {
+                    result = viewModel.JavaScriptCode;
+                }
+
+                viewModel.DesignModeContent = result;
+
+                if (!string.IsNullOrEmpty(result) && string.IsNullOrEmpty(this.Model.Description))
+                {
+                    var includedIn = this.GetIncludeInResource(viewModel.Position);
+                    viewModel.DesignModeContent = viewModel.DesignModeContent + Environment.NewLine + includedIn;
+                }
+            }
+
             return this.View(viewModel);
         }
+        #endregion
+
+         #region ICustomWidgetVisualizationExtended
+
+        /// <inheritDocs/>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get { return JavaScriptController.WidgetIconCssClass; }
+        }
+
+        /// <inheritDocs/>
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get { return Res.Get<JavaScriptResources>().SetJS; }
+        }
+
+        /// <inheritDocs/>
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get { return string.IsNullOrEmpty(this.Model.InlineCode) && string.IsNullOrEmpty(this.Model.FileUrl); }
+        }
+
         #endregion
 
         #region Virtual methods
@@ -78,6 +162,26 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         protected virtual HttpContextBase GetHttpContext()
         {
             return this.HttpContext;
+        }
+
+        /// <summary>
+        /// Gets the resource indicates where the script is included.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <returns></returns>
+        protected virtual string GetIncludeInResource(EmbedPosition position)
+        {
+            switch (position)
+            {
+                case EmbedPosition.Head:
+                    return Res.Get<JavaScriptResources>().IncludedInTheHead;
+                case EmbedPosition.InPlace:
+                    return Res.Get<JavaScriptResources>().IncludedWhereDropped;
+                case EmbedPosition.BeforeBodyEndTag:
+                    return Res.Get<JavaScriptResources>().IncludedBeforeTheBodyEnd;
+                default:
+                    return string.Empty;
+            }
         }
         #endregion
 
@@ -99,6 +203,27 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         void PagePreRenderCompleteHandler(object sender, EventArgs e)
         {
             this.model.PlaceScriptBeforeBodyEnd((Page)sender, this.model.BuildScriptTag());
+        }
+
+        /// <summary>
+        /// Gets the short part of the whole JavaScript code.
+        /// </summary>
+        /// <param name="script">The script.</param>
+        /// <returns></returns>
+        private string GetShortScript(string script)
+        {
+            string result = null;
+            var divider = Environment.NewLine;
+
+            var lines = script.Split(new string[2] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
+            result = string.Join(divider, lines.Take(2));
+
+            if (lines.Length > 2)
+            {
+                result = result + divider + "...";
+            }
+
+            return result;
         }
 
         #endregion

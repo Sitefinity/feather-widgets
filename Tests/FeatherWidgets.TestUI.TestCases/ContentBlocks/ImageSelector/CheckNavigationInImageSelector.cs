@@ -107,8 +107,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower() + "/" + NextChildImageLibrary.ToLower();
             string imageUrl = ImageName3.ToLower() + ImageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl);
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(ImageName3, ImageAltText, scr);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(false, libraryUrl, imageUrl, this.BaseUrl);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(ImageName3, ImageAltText, scr);
         }
 
         private const string PageName = "PageWithImage";

@@ -51,6 +51,45 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Pages
         }
 
         /// <summary>
+        /// Uploads the video in folder.
+        /// </summary>
+        /// <param name="folderId">The folder id.</param>
+        /// <param name="videoTitle">The video title.</param>
+        /// <param name="videoResource">The video resource.</param>
+        /// <param name="videoExtension">The video extension.</param>
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public Guid UploadVideoInFolder(Guid folderId, string videoTitle, string videoResource, string videoExtension = null)
+        {
+            var manager = LibrariesManager.GetManager();
+
+            var folder = manager.GetFolder(folderId);
+            Library library = this.GetLibraryByFolder(manager, folder);
+
+            var video = manager.CreateVideo();
+            var title = videoTitle;
+            video.Parent = library;
+            if (folderId != library.Id)
+                video.FolderId = folderId;
+            video.Title = title;
+            video.UrlName = title.ToLower().Replace(' ', '-');
+            video.ApprovalWorkflowState = "Published";
+            manager.RecompileItemUrls<Telerik.Sitefinity.Libraries.Model.Video>(video);
+
+            System.Reflection.Assembly thisExe;
+            thisExe = System.Reflection.Assembly.GetExecutingAssembly();
+            System.IO.Stream videoStream = thisExe.GetManifestResourceStream(videoResource);
+
+            manager.Upload(video, videoStream, videoExtension ?? Path.GetExtension(videoResource));
+
+            manager.Lifecycle.Publish(video);
+
+            manager.SaveChanges();
+
+            return video.Id;
+        }
+
+        /// <summary>
         /// Get the Library of a given Folder
         /// </summary>
         /// <param name="manager">Library Manager</param>

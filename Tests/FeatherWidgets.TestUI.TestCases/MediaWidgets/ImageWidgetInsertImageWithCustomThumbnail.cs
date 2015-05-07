@@ -68,7 +68,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             scr = this.GetImageSource(false, ImageName, ImageType);
-            BATFeather.Wrappers().Frontend().CommonWrapper().VerifyImage(NewImageName, NewImageAltText, scr);
+            BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().VerifyImage(NewImageName, NewImageAltText, scr);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(NewImageAltText);
             ActiveBrowser.WaitForUrl(scr + "?sfvrsn=0", true, 10000);
         }
@@ -94,7 +94,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().CommonWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
             return scr;
         }
 

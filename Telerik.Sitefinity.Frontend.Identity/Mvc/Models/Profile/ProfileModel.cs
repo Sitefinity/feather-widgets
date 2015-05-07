@@ -246,16 +246,19 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile
 
             foreach (var profile in this.SelectedUserProfiles)
             {
-                var profileBindings = profileBindingsList.Single(p=>p.ProfileType == profile.GetType().FullName);
-                var requiredProperties =  profileBindings.Properties.Where(p=> p.Required);
-
-                foreach (var prop in requiredProperties)
+                var profileBindings = profileBindingsList.SingleOrDefault(p=>p.ProfileType == profile.GetType().FullName);
+                if (profileBindings != null)
                 {
-                    string propValue;
+                    var requiredProperties = profileBindings.Properties.Where(p => p.Required);
 
-                    if (!viewModel.Profile.TryGetValue(prop.Name, out propValue) || string.IsNullOrWhiteSpace(propValue))
+                    foreach (var prop in requiredProperties)
                     {
-                        modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format(Res.Get<ProfileResources>().RequiredProfileField, prop.Name));
+                        string propValue;
+
+                        if (!viewModel.Profile.TryGetValue(prop.Name, out propValue) || string.IsNullOrWhiteSpace(propValue))
+                        {
+                            modelState.AddModelError(string.Format("Profile[{0}]", prop.Name), string.Format(Res.Get<ProfileResources>().RequiredProfileField, prop.Name));
+                        }
                     }
                 }
             }
