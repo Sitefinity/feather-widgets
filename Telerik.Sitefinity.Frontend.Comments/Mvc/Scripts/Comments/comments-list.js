@@ -168,6 +168,8 @@
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
         errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
 
+        submitLoadingIndicator: function () { return this.getOrInitializeProperty('_submitLoadingIndicator', 'submit-loading-indicator'); },
+
         /*
             Widget methods
         */
@@ -280,6 +282,9 @@
         submitNewComment: function () {
             var self = this;
 
+            self.submitLoadingIndicator().show();
+            self.newCommentSubmitButton().hide();
+
             var comment = {
                 Message: self.newCommentMessage().val(),
                 ThreadKey: self.settings.commentsThreadKey
@@ -316,6 +321,9 @@
                             self.errorMessage().html(errorTxt);
                             self.errorMessage().show();
                         }
+                    }).always(function () {
+                        self.submitLoadingIndicator().hide();
+                        self.newCommentSubmitButton().show();
                     });
                 }
                 else {
