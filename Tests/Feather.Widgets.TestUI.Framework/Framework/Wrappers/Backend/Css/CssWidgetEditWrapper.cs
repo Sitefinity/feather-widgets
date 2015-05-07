@@ -27,6 +27,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             editable.Focus();
             editable.MouseClick();
 
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
             Manager.Current.Desktop.KeyBoard.TypeText(css);
         }
 

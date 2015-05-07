@@ -40,23 +40,14 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(this.selectedPages);
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().OpenSelectedTab();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(SelectedItemsCount);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().ReorderSelectedItems(this.expectedOrderOfItems, this.selectedPages, this.reorderedIndexMapping);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(this.expectedOrderOfItems);
-
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-
             BAT.Macros().NavigateTo().CustomPage("~/" + NavigationPage.ToLower());
-            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.pagesOrderFrontend);
+            BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, this.selectedPages);
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(NavigationPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(this.expectedOrderOfItems);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().CheckNotificationInSelectedTab(2);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().OpenExternalUrlsTab();
@@ -88,10 +79,9 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string NavWidgetDisplayMode = "Custom selection of pages...";
         private const string FirstExternalPageTitle = "FirstExternalPage";
         private const string SecondExternalPageTitle = "SecondExternalPage";
-        private const string FirstExternalPageUrl = "http://www.google.bg";
+        private const string FirstExternalPageUrl = "http://www.google.com";
         private const string SecondExternalPageUrl = "http://www.weather.com";
-        private readonly string[] selectedPages = new string[] { FirstExternalPageTitle, SecondExternalPageTitle };
-        private readonly string[] expectedOrderOfItems = new string[] { SecondExternalPageTitle, FirstExternalPageTitle };
+        private readonly string[] selectedPages = new string[] { FirstExternalPageTitle, SecondExternalPageTitle };        
         private readonly string[] pagesOrderFrontend = new string[] { SecondExternalPageTitle, FirstExternalPageTitle };
         private const int SelectedItemsCount = 2;
 
