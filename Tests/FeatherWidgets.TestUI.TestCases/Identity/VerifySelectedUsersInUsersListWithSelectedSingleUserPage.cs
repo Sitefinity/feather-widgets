@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
-        TestCategory(FeatherTestCategories.UsersList)]
+        TestCategory(FeatherTestCategories.UsersList),
+        TestCategory(FeatherTestCategories.Selectors)]
         public void VerifySelectedUsersInUsersListWithSelectedSingleUserPage()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -62,7 +63,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifyUsersListOnHybridPage(this.users);
-            BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUser(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
+            BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUserOnHybridPage(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
         }
 
         /// <summary>
@@ -91,12 +92,12 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string SortingOption = "FirstName ASC";
         private const string ListTemplateName = "UsersList";
         private const string DetailTemplateName = "UserDetails";
-        private const string UserFirstLastName = "admin admin";
+        private const string UserFirstLastName = "Admin Admin";
         private const string UserEmail = "admin@admin.com";
         private const string AdminUserName = "admin";
         private const string AuthorUserName = "author";
 
         private readonly string[] sortingOptions = new string[] { "First name (A-Z)", "First name (Z-A)", "Last name (A-Z)", "Last name (Z-A)", "Last created", "Last modified", "As set in Advanced mode" };
-        private readonly string[] users = new string[] { "fname lname", "miroslava nikolova" };
+        private readonly string[] users = new string[] { "Admin Admin", "fname lname" };
     }
 }

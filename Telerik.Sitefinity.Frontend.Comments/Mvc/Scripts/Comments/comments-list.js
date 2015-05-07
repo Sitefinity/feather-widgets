@@ -148,8 +148,8 @@
         commentsTotalCount: function () { return this.getOrInitializeProperty('_commentsTotalCount', 'comments-total-count'); },
         commentsHeader: function () { return this.getOrInitializeProperty('_commentsHeader', 'comments-header'); },
         commentsLoadMoreButton: function () { return this.getOrInitializeProperty('_commentsLoadMoreButton', 'comments-load-more-button'); },
-        commentsNewLoggedOutView: function () { return this.getOrInitializeProperty('_commentsNewLoggedOutView', 'comments-new-logged-out-view'); },
 
+        commentsNewLoggedOutView: function () { return this.getOrInitializeProperty('_commentsNewLoggedOutView', 'comments-new-logged-out-view'); },
         newCommentForm: function () { return this.getOrInitializeProperty('_newCommentForm', 'comments-new-form'); },
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
@@ -402,9 +402,6 @@
 
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
-
-            // Initially hide new comment form
-            this.newCommentForm().hide();
         },
 
         initializeUserStatus: function () {
@@ -448,7 +445,6 @@
                         self.commentsTotalCount().hide();
                         self.newCommentFormButton().hide();
                         self.commentsHeader().text(self.newCommentFormButton().text());
-                        self.newCommentForm().show();
                     }
 
                     if (currentThreadKeyCount <= Math.max(self.commentsTakenSoFar, self.settings.commentsPerPage)) {
@@ -501,16 +497,20 @@
 
             self.commentsSortNewButton().click(function () {
                 self.sortComments(true);
+                self.commentsSortNewButton().add('is-selected');
+                self.commentsSortOldButton().removeClass('is-selected');
                 return false;
             });
 
             self.commentsSortOldButton().click(function () {
                 self.sortComments(false);
+                self.commentsSortOldButton().add('is-selected');
+                self.commentsSortNewButton().removeClass('is-selected');
                 return false;
             });
 
             self.newCommentFormButton().click(function () {
-                self.newCommentForm().toggle();
+                $('html, body').animate({ scrollTop: self.newCommentForm().offset().top }, 1000);
                 return false;
             });
 
