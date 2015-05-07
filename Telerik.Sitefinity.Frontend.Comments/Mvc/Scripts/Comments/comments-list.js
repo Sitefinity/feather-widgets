@@ -153,7 +153,7 @@
         newCommentForm: function () { return this.getOrInitializeProperty('_newCommentForm', 'comments-new-form'); },
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
-        newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeView', 'comments-new-subscribe-button'); },
+        newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeButton', 'comments-new-subscribe-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
@@ -381,11 +381,6 @@
 
             // Initially hide new comment form
             this.newCommentForm().hide();
-
-            // Hide the subscribe option if not enabled
-            if (!this.settings.commentsAllowSubscription) {
-                this.newCommentSubscribeView().hide();
-            }
         },
 
         initializeUserStatus: function () {
