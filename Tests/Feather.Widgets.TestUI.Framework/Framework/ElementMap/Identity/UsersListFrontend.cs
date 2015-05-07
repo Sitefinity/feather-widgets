@@ -60,5 +60,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity
                                                                         && d.ChildNodes[3].TagName.Equals("p")).SingleOrDefault();
             }
         }
+
+        /// <summary>
+        /// Gets list of div elements containing users on bootstrap page.
+        /// </summary>
+        public List<HtmlDiv> UsersDivsBootstrapPage
+        {
+            get
+            {
+                return this.Find.AllByTagName<HtmlDiv>("div").Where(d => d.ChildNodes.Count == 2
+                                                                        && d.ChildNodes[0].TagName.Equals("div")
+                                                                        && d.ChildNodes[1].TagName.Equals("div")
+                                                                        && d.ChildNodes[0].ChildNodes[0].TagName.Equals("img")
+                                                                        && d.ChildNodes[1].ChildNodes[0].TagName.Equals("h3")
+                                                                        && d.ChildNodes[1].ChildNodes[1].TagName.Equals("p")).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Div element containing user on single user page on bootstrap page.
+        /// </summary>
+        public HtmlDiv SingleUserDivBootstrapPage
+        {
+            get
+            {
+                return this.Find.AllByTagName<HtmlDiv>("div").Where(d => d.ChildNodes.Count == 2
+                                                                        && d.ChildNodes[0].TagName.Equals("div")
+                                                                        && d.ChildNodes[1].TagName.Equals("div")
+                                                                        && d.ChildNodes[0].ChildNodes[0].TagName.Equals("img")
+                                                                        && d.ChildNodes[1].ChildNodes[0].TagName.Equals("h3")
+                                                                        && d.ChildNodes[1].ChildNodes[1].TagName.Equals("p")
+                                                                        && d.ChildNodes[1].ChildNodes[2].TagName.Equals("p")).SingleOrDefault();
+            }
+        }
     }
 }

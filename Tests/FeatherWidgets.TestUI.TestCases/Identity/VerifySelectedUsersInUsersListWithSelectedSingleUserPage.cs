@@ -21,7 +21,8 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
-        TestCategory(FeatherTestCategories.UsersList)]
+        TestCategory(FeatherTestCategories.UsersList),
+        TestCategory(FeatherTestCategories.Selectors)]
         public void VerifySelectedUsersInUsersListWithSelectedSingleUserPage()
         {
             BAT.Macros().NavigateTo().Pages();
@@ -62,7 +63,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifyUsersListOnHybridPage(this.users);
-            BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUser(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
+            BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUserOnHybridPage(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
         }
 
         /// <summary>
