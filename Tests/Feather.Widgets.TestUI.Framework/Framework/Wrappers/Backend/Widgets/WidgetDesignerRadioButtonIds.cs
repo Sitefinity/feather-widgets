@@ -16,6 +16,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Widgets
         usePaging,
         useLimit,
         samePage,
-        existingPage
+        existingPage,
+        allUsers,
+        selectedUsers,
+        filterUsers
     }
 }
