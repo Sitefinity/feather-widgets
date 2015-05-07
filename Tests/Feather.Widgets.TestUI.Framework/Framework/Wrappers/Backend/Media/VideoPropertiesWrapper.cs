@@ -67,6 +67,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Verifies the video info.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="size">The size.</param>
+        public void VerifyVideoInfo(string title, string type, string size)
+        {
+            DateTime date = DateTime.Now;
+            var dateString = date.Date.ToString("d");
+            ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Title.Value", "innertext=" + title).AssertIsPresent("title");
+            ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Extension", "innertext=" + type).AssertIsPresent("type");
+            ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=mediaSize", "innertext=" + size).AssertIsPresent("size");
+            ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=uploaded | date : 'M/d/yyyy h:mm'", "innertext=~" + dateString).AssertIsPresent("date");
+        }
+
+        /// <summary>
         /// Verifies the big video properites.
         /// </summary>
         /// <param name="src">The SRC.</param>
