@@ -226,9 +226,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// Verifies the correct count of media files.
         /// </summary>
         /// <param name="expectedCount">The expected count.</param>
-        public void WaitCorrectCountOfMediaFiles(int expectedCount)
+        /// <param name="mediaType">Type of the media.</param>
+        public void WaitCorrectCountOfMediaFiles(int expectedCount, string mediaType = "images")
         {
-            Manager.Current.Wait.For(() => this.IsCountOfMediaFilesCorrect(expectedCount), 20000);
+            Manager.Current.Wait.For(() => this.IsCountOfMediaFilesCorrect(expectedCount, mediaType), 20000);
         }
 
         /// <summary>
@@ -313,15 +314,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             return result;
         }
 
-        private bool IsCountOfMediaFilesCorrect(int expectedCount)
+        private bool IsCountOfMediaFilesCorrect(int expectedCount, string mediaType)
         {
             ActiveBrowser.RefreshDomTree();
-            int divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaImageFileDivs.Count;
-            if (divsCount == 0)
+            int divsCount = 0;
+            switch (mediaType)
             {
-                divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaDocFileDivs.Count;
+                case "images":
+                    divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaImageFileDivs.Count;
+                    break;
+                case "docs":           
+                    divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaDocFileDivs.Count;
+                    break;
+                case "videos":
+                    divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaVideoFileDivs.Count;
+                    break;
             }
-
+            
             return expectedCount == divsCount;
         }
 

@@ -92,6 +92,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Medias the widgets.
+        /// </summary>
+        /// <returns></returns>
+        public MediaWidgetsWrapperFacade MediaWidgets()
+        {
+            return new MediaWidgetsWrapperFacade();
+        }
+
+        /// <summary>
         /// Documents the list.
         /// </summary>
         /// <returns></returns>

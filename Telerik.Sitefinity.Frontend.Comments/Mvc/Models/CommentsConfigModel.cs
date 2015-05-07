@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             get
             {
                 var useSpamProtectionImagePropInfo = this.commentsModuleConfigType.GetProperty("UseSpamProtectionImage", BindingFlags.Public | BindingFlags.Instance);
-                var useSpamProtectionImage = (bool)useSpamProtectionImagePropInfo.GetValue(config, null); 
+                var useSpamProtectionImage = (bool)useSpamProtectionImagePropInfo.GetValue(this.config, null); 
 
                 return useSpamProtectionImage;
             }

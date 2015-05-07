@@ -10,38 +10,44 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.CSS
 {
     /// <summary>
-    /// AddCssWidgetToPageAndWriteCss test class.
+    /// DuplicateCssWidgetOnPage test class.
     /// </summary>
     [TestClass]
-    public class AddCssWidgetToPageAndWriteCss_ : FeatherTestCase
+    public class DuplicateCssWidgetOnPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test AddCssWidgetToPageAndWriteCss
+        /// UI test DuplicateCssWidgetOnPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Css)]
-        public void AddCssWidgetToPageAndWriteCss()
+        public void DuplicateCssWidgetOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValue);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(SecondCssValue);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyPageOnTheFrontend();
+            this.VerifyCssExistOnTheFrontend();
         }
 
         /// <summary>
-        /// Verify css on the frontend
+        /// Verify css exists on the frontend
         /// </summary>
-        public void VerifyPageOnTheFrontend()
+        public void VerifyCssExistOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
-            Assert.IsTrue(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
+            bool isContainedFirst = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
+            Assert.IsTrue(isContainedFirst, string.Concat("Expected ", CssValue, " but the style is not found"));
+
+            bool isContainedSecond = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(SecondCssValue);
+            Assert.IsTrue(isContainedSecond, string.Concat("Expected ", SecondCssValue, " but the style is not found"));
         }
 
         /// <summary>
@@ -62,8 +68,9 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         }
 
         private const string PageName = "PageWithCssWidget";
-        private const string ContentBlockContent = "Test content";
         private const string WidgetName = "CSS";
         private const string CssValue = "div { color: #FF0000; font-size: 20px;} ";
+        private const string SecondCssValue = "div { color: #00FF00;} ";
+        private const string OperationName = "Duplicate";
     }
 }

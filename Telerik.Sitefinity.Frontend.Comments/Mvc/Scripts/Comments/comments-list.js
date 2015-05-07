@@ -161,6 +161,11 @@
 
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
+        captchaWrapper: function () { return this.getOrInitializeProperty('_captchaWrapper', 'captcha-wrapper'); },
+        captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
+        captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
+        captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
+        errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
 
         captchaContainer: function () { return this.getOrInitializeProperty('captchaContainer', 'captcha-container'); },
         captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
