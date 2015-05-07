@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb;
 
 namespace Telerik.Sitefinity.Frontend.Navigation
 {
@@ -14,6 +15,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation
         public override void Load()
         {
             Bind<INavigationModel>().To<NavigationModel>();
+            Bind<IBreadcrumbModel>().To<BreadcrumbModel>();
         }
     }
 }
