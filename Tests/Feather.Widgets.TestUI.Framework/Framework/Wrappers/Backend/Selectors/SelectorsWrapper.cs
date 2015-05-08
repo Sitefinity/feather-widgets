@@ -249,7 +249,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                 spanList[reorderingPair.Key].DragTo(dragToPoint);
 
                 // We need a pause before the next drag and drop.
-                Thread.Sleep(5000);   
+                Thread.Sleep(1000);   
             }
 
             activeDialog.Refresh();
