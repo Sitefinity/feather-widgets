@@ -75,13 +75,12 @@ namespace FeatherWidgets.TestUI.TestCases.News
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Selected news";
         private readonly string[] selectedNewsNames = { "News Item Title1", "News Item Title5", "News Item Title6", "News Item Title9" };
-        private readonly string[] expectedOrderOfNames = { "News Item Title9", "News Item Title5", "News Item Title1", "News Item Title6" };
+        private readonly string[] expectedOrderOfNames = { "News Item Title9", "News Item Title1", "News Item Title5", "News Item Title6" };
         private const string SortingOption = "AsSetManually";
 
         private readonly Dictionary<int, int> reorderedIndexMapping = new Dictionary<int, int>()
         {
-            { 3, 0 },
-            { 1, 3 }
+            { 3, 0 }        
         };
     }
 }

@@ -293,6 +293,36 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Author name is required!
+        /// </summary>
+        [ResourceEntry("NameIsRequired",
+            Value = "Author name is required!",
+            Description = "phrase : Author name is required!",
+            LastModified = "2015/05/07")]
+        public string NameIsRequired
+        {
+            get
+            {
+                return this["NameIsRequired"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Message is required!
+        /// </summary>
+        [ResourceEntry("MessageIsRequired",
+            Value = "Message is required!",
+            Description = "phrase : Message is required!",
+            LastModified = "2015/05/07")]
+        public string MessageIsRequired
+        {
+            get
+            {
+                return this["MessageIsRequired"];
+            }
+        }
+
         #endregion
 
         #region Designer resources
