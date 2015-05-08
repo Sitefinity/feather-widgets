@@ -155,18 +155,23 @@
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
         newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeButton', 'comments-new-subscribe-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
+        newCommentMessageError: function () { return this.getOrInitializeProperty('_newCommentMessageError', 'comments-new-message-error'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
+        newCommentNameError: function () { return this.getOrInitializeProperty('_newCommentNameError', 'comments-new-name-error'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
         newCommentWebsite: function () { return this.getOrInitializeProperty('_newCommentWebsite', 'comments-new-website'); },
 
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
-        captchaContainer: function () { return this.getOrInitializeProperty('captchaContainer', 'captcha-container'); },
+        captchaContainer: function () { return this.getOrInitializeProperty('_captchaContainer', 'captcha-container'); },
         captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
         errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
+
+        listLoadingIndicator: function () { return this.getOrInitializeProperty('_listLoadingIndicator', 'list-loading-indicator'); },
+        submitLoadingIndicator: function () { return this.getOrInitializeProperty('_submitLoadingIndicator', 'submit-loading-indicator'); },
 
         /*
             Widget methods
@@ -179,12 +184,24 @@
             return date.toUTCString();
         },
 
+        hideErrors: function () {
+            this.newCommentMessageError().hide();
+            this.newCommentNameError().hide();
+            this.errorMessage().hide();
+        },
+
         validateComment: function (comment) {
             var deferred = $.Deferred();
+            var isValid = true;
 
-            var isValid = comment.Message.length > 0;
-            if (!this.isUserAuthenticated) {
-                isValid = isValid && (comment.Name.length > 0);
+            if (comment.Message.length < 1) {
+                isValid = false;
+                this.newCommentMessageError().show();
+            }
+
+            if (!this.isUserAuthenticated && comment.Name.length < 1) {
+                isValid = false;
+                this.newCommentNameError().show();
             }
 
             deferred.resolve(isValid);
@@ -236,6 +253,11 @@
 
         loadComments: function (skip, take, newerThan) {
             var self = this;
+            if (self.isLoadinglist)
+                return;
+
+            self.isLoadingList = true;
+            self.listLoadingIndicator().show();
 
             self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
                 if (response && response.Items && response.Items.length) {
@@ -256,6 +278,9 @@
                         self.commentsTotalCount().text(parseInt(self.commentsTotalCount().text()) + response.Items.length);
                     }
                 }
+            }).always(function () {
+                self.listLoadingIndicator().hide();
+                self.isLoadingList = false;
             });
         },
 
@@ -280,6 +305,9 @@
         submitNewComment: function () {
             var self = this;
 
+            self.submitLoadingIndicator().show();
+            self.newCommentSubmitButton().hide();
+
             var comment = {
                 Message: self.newCommentMessage().val(),
                 ThreadKey: self.settings.commentsThreadKey
@@ -301,6 +329,11 @@
             }
 
             self.validateComment(comment).then(function (isValid) {
+                var hideLoading = function () {
+                    self.submitLoadingIndicator().hide();
+                    self.newCommentSubmitButton().show();
+                };
+
                 if (isValid) {
                     self.commentsRestApi.createComment(comment).then(function (response) {
                         self.newCommentMessage().val('');
@@ -316,10 +349,10 @@
                             self.errorMessage().html(errorTxt);
                             self.errorMessage().show();
                         }
-                    });
+                    }).always(hideLoading);
                 }
                 else {
-                    // Error message ?
+                    hideLoading();
                 }
             });
         },
@@ -376,6 +409,7 @@
         initializeProperties: function () {
             this.commentsRestApi = new CommentsRestApi(this.settings.rootUrl);
 
+            this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
         },
@@ -491,6 +525,7 @@
             });
 
             self.newCommentSubmitButton().click(function () {
+                self.hideErrors();
                 self.submitNewComment();
                 return false;
             });
