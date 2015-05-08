@@ -95,7 +95,17 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public string DataSource { get; set; }
 
         /// <inheritDoc/>
-        public bool? AllowComments { get; set; }
+        public bool AllowComments
+        {
+            get
+            {
+                return this.ThreadsConfig.AllowComments && this.allowComments;
+            }
+            set
+            {
+                this.allowComments = value;
+            }
+        }
 
         /// <inheritDoc/>
         public bool ThreadIsClosed 
@@ -122,16 +132,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             set 
             {
                 this.commentTextMaxLength = value;
-            }
-        }
-
-        /// <inheritDoc/>
-        [Browsable(false)]
-        public bool ShowComments
-        {
-            get
-            {
-                return (this.AllowComments.HasValue ? this.AllowComments.Value : this.ThreadsConfig.AllowComments);
             }
         }
 
@@ -264,6 +264,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         private CommentsConfigModel commentsConfig;
         private int commentTextMaxLength = 100;
         private bool threadIsClosed;
+        private bool allowComments;
 
         private Lazy<SitefinityUserDisplayNameBuilder> sitefinityUserDisplayNameBuilder = new Lazy<SitefinityUserDisplayNameBuilder>();
     }
