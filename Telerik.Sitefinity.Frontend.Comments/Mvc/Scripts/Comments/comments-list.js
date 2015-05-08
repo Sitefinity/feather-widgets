@@ -565,12 +565,16 @@
 
             self.newCommentFormButton().click(function () {
                 $('html, body').animate({ scrollTop: self.newCommentForm().offset().top }, 1000);
+                
                 return false;
             });
 
             self.newCommentSubmitButton().click(function () {
-                self.hideErrors();
-                self.submitNewComment();
+                if (!self.settings.isDesignMode) {
+                    self.hideErrors();
+                    self.submitNewComment();
+                }
+
                 return false;
             });
 
