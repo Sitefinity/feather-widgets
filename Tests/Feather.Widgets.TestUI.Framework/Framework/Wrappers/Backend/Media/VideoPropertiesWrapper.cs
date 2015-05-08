@@ -77,6 +77,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             DateTime dateTime = DateTime.Now;
             var date = dateTime.Date;
             var dateString = date.ToString("M/d/yyyy");
+            HtmlFindExpression expression = new HtmlFindExpression("ng-bind=sfMedia.Title.Value");
+            ActiveBrowser.WaitForElement(expression, 60000, false);
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Title.Value", "innertext=" + title).AssertIsPresent("title");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=sfMedia.Extension", "innertext=" + type).AssertIsPresent("type");
             ActiveBrowser.Find.ByExpression<HtmlSpan>("ng-bind=mediaSize", "innertext=" + size).AssertIsPresent("size");
