@@ -1,0 +1,14 @@
+﻿@model Telerik.Sitefinity.Frontend.Comments.Mvc.Models.CommentsCountViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", true)
+
+<div data-sf-role="comments-count-wrapper" sf-thread-key="@Model.ThreadKey">
+    <input type="hidden" data-sf-role="service-url" value="@ViewBag.ServiceUrl" />
+    <input type="hidden" data-sf-role="comments-count-resources" value='{"readFullComment": "@Html.Resource("ReadFullComment")", "commentsPlural": "@Html.Resource("CommentsPlural")", "subscribeToNewComments":"@Html.Resource("SubscribeToNewComments")", "unsubscribeFromNewComments":"@Html.Resource("UnsubscribeFromNewComments")" }' />
+    <a href="@Model.NavigateUrl"></a>
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments-count.js"), "bottom", false)

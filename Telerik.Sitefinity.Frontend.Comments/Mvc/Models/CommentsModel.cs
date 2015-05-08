@@ -165,6 +165,14 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
         }
 
+        /// <inheritDoc/>
+        public CommentsCountViewModel GetCommentsCountViewModel(string navigateUrl, string threadKey)
+        {
+            var commentsCountViewModel = new CommentsCountViewModel(navigateUrl, threadKey);
+
+            return commentsCountViewModel;
+        }
+
         private IThread GetThread()
         {
             var cs = SystemManager.GetCommentsService();

@@ -96,5 +96,13 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// </value>
         [Browsable(false)]
         CommentsConfigModel CommentsConfig { get; }
+
+        /// <summary>
+        /// Gets the comments count view model.
+        /// </summary>
+        /// <param name="navigateUrl">The URL where the comments count link will navigate.</param>
+        /// <param name="threadKey">The thread key.</param>
+        /// <returns></returns>
+        CommentsCountViewModel GetCommentsCountViewModel(string navigateUrl, string threadKey);
     }
 }
