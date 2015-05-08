@@ -80,6 +80,41 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         int CommentTextMaxLength { get; set; }
 
         /// <summary>
+        /// Gets the login page URL.
+        /// </summary>
+        /// <value>
+        /// The login page URL.
+        /// </value>
+        [Browsable(false)]
+        string LoginPageUrl { get; }
+
+        /// <summary>
+        /// Gets the user avatar image URL.
+        /// </summary>
+        /// <value>
+        /// The avatar image URL.
+        /// </value>
+        [Browsable(false)]
+        string UserAvatarImageUrl { get; }
+
+        /// <summary>
+        /// Gets the display name of the user.
+        /// </summary>
+        /// <value>
+        /// The display name of the user.
+        /// </value>
+        [Browsable(false)]
+        string UserDisplayName { get; }
+
+        /// <summary>
+        /// Gets or sets the avatar image URL.
+        /// </summary>
+        /// <value>
+        /// The avatar image URL.
+        /// </value>
+        string DateTimeFormatString { get; set; }
+
+        /// <summary>
         /// Gets the configuration for the thread
         /// </summary>
         /// <value>
