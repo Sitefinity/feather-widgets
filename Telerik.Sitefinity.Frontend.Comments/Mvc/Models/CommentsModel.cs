@@ -167,6 +167,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
         }
 
+        /// <inheritDoc/>
         public string LoginPageUrl
         {
             get
