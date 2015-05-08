@@ -93,7 +93,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="titles">The media files titles.</param>
         public void VerifyCorrectMediaFiles(params string[] titles)
         {
-            HtmlDiv holder = this.EM.Media.MediaSelectorScreen.MediaSelectorThumbnailHolderDiv.AssertIsPresent("holder");
+            HtmlDiv holder = this.EM.Media.MediaSelectorScreen.ThumbnailHolderDiv.AssertIsPresent("holder");
             foreach (var title in titles)
             {
                 var file = holder.Find.ByExpression<HtmlImage>("tagName=img", "alt=" + title);
@@ -140,7 +140,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="folderTitle">The folder title.</param>
         public void SelectFolder(string folderTitle)
         {
-            var allFolders = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaFolderDivs;
+            var allFolders = this.EM.Media.MediaSelectorScreen.MediaFolderDivs;
             var folder = allFolders.Where(i => i.InnerText.Contains(folderTitle)).FirstOrDefault();
             folder.ScrollToVisible();
             folder.Focus();
@@ -157,7 +157,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         {
             foreach (var folder in folderTitles)
             {
-                var allFolders = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaFolderDivs;
+                var allFolders = this.EM.Media.MediaSelectorScreen.MediaFolderDivs;
                 allFolders.Where(i => i.InnerText.Contains(folder)).FirstOrDefault().AssertIsPresent(folder);
             }
         }
@@ -304,8 +304,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             }
             else
             {
-                HtmlSpan tooltip = this.EM.Media.MediaSelectorScreen.Tooltip;
-                if (tooltip != null && tooltip.IsVisible())
+                //// HtmlSpan tooltip = this.EM.Media.MediaSelectorScreen.Tooltip;
+                var allThumbnailHolders = this.EM.Media.MediaSelectorScreen.MediaThumbnailDivs;
+                if (allThumbnailHolders.Count > 0)
                 {
                     result = true;
                 }
@@ -321,13 +322,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             switch (mediaType)
             {
                 case "images":
-                    divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaImageFileDivs.Count;
+                    divsCount = this.EM.Media.MediaSelectorScreen.ImageFileDivs.Count;
                     break;
                 case "docs":           
-                    divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaDocFileDivs.Count;
+                    divsCount = this.EM.Media.MediaSelectorScreen.DocFileDivs.Count;
                     break;
                 case "videos":
-                    divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaVideoFileDivs.Count;
+                    divsCount = this.EM.Media.MediaSelectorScreen.VideoFileDivs.Count;
                     break;
             }
             
@@ -337,7 +338,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         private bool IsCountOfFoldersCorrect(int expectedCount)
         {
             ActiveBrowser.RefreshDomTree();
-            int divsCount = this.EM.Media.MediaSelectorScreen.MediaSelectorMediaFolderDivs.Count;
+            int divsCount = this.EM.Media.MediaSelectorScreen.MediaFolderDivs.Count;
             return expectedCount == divsCount;
         }
     }
