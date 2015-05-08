@@ -167,7 +167,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
         }
 
-        /// <inheritDoc/>
         public string LoginPageUrl
         {
             get
@@ -177,6 +176,32 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 
                 return loginRedirectUrl;
             }
+        }
+
+        /// <inheritDoc/>
+        public string UserAvatarImageUrl 
+        {
+            get
+            {
+                Libraries.Model.Image avatarImage;
+                return this.sitefinityUserDisplayNameBuilder.Value.GetAvatarImageUrl(Sitefinity.Security.SecurityManager.CurrentUserId, out avatarImage);
+            }
+        }
+
+        /// <inheritDoc/>
+        public string UserDisplayName
+        {
+            get
+            {
+                return this.sitefinityUserDisplayNameBuilder.Value.GetUserDisplayName(Sitefinity.Security.SecurityManager.CurrentUserId);
+            }
+        }
+
+        /// <inheritDoc/>
+        public string DateTimeFormatString
+        {
+            get { return this.dateTimeFormatString; }
+            set { this.dateTimeFormatString = value; }
         }
 
         private IThread GetThread()
@@ -221,9 +246,12 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         private string threadTitle;
         private string groupKey;
         private string threadKey;
+        private string dateTimeFormatString = "MMM dd, yyyy";
         private ThreadsConfigModel threadsConfig;
         private CommentsConfigModel commentsConfig;
         private int commentTextMaxLength = 100;
         private bool threadIsClosed;
+
+        private Lazy<SitefinityUserDisplayNameBuilder> sitefinityUserDisplayNameBuilder = new Lazy<SitefinityUserDisplayNameBuilder>();
     }
 }

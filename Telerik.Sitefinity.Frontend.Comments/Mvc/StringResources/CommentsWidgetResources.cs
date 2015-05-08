@@ -350,8 +350,22 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
-        #endregion
+        /// Gets phrase : Pending approval
+        /// </summary>
+        [ResourceEntry("PendingApproval",
+            Value = "Pending approval",
+            Description = "phrase : Pending approval",
+            LastModified = "2015/05/08")]
+        public string PendingApproval
+        {
+            get
+            {
+                return this["PendingApproval"];
+            }
+        }
 
+        #endregion
+        
         #region Designer resources
 
         /// <summary>
