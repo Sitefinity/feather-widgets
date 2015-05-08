@@ -7,7 +7,7 @@
 
 <div data-sf-role="comments-wrapper" class="@Model.CssClass">
     @{ var commentsAllowSubscription = Model.ThreadsConfig.AllowSubscription && !Model.ThreadIsClosed; }
-    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsThreadType": "@Model.ThreadType", "rootUrl" : "/RestApi/comments-api/" , "isUserAuthenticatedUrl":"/RestApi/session/is-authenticated" , "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsAllowSubscription":@commentsAllowSubscription.ToString().ToLower(), "requiresCaptcha": @Model.CommentsConfig.UseSpamProtectionImage.ToString().ToLower() }' />
+    <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsThreadType": "@Model.ThreadType", "rootUrl" : "/RestApi/comments-api/" , "isUserAuthenticatedUrl":"/RestApi/session/is-authenticated" , "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsAllowSubscription":@commentsAllowSubscription.ToString().ToLower(), "requiresCaptcha": @Model.CommentsConfig.UseSpamProtectionImage.ToString().ToLower(), "requiresAuthentication" : @Model.ThreadsConfig.RequiresAuthentication.ToString().ToLower() }' />
     <input type="hidden" data-sf-role="comments-resources" value='{"readFullComment": "@Html.Resource("ReadFullComment")", "commentsPlural": "@Html.Resource("CommentsPlural")", "subscribeToNewComments":"@Html.Resource("SubscribeToNewComments")", "unsubscribeFromNewComments":"@Html.Resource("UnsubscribeFromNewComments")" }' />
  
     <div>
@@ -59,6 +59,8 @@
 
             <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         </div>
+                
+        <span data-sf-role="comments-new-requires-authentication"><a href='@Model.LoginPageUrl'>@Html.Resource("Login")</a>@Html.Resource("ToBeAbleToWriteAReview")</span>
     }
     
     <div data-sf-role="single-comment-template">

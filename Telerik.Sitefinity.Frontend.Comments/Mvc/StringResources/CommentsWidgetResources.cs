@@ -293,6 +293,36 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Login
+        /// </summary>
+        [ResourceEntry("Login",
+            Value = "Login",
+            Description = "phrase : Login",
+            LastModified = "2015/05/08")]
+        public string Login
+        {
+            get
+            {
+                return this["Login"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase :  to be able to write a review
+        /// </summary>
+        [ResourceEntry("ToBeAbleToWriteAReview",
+            Value = " to be able to write a review",
+            Description = "phrase : to be able to write a review",
+            LastModified = "2015/05/08")]
+        public string ToBeAbleToWriteAReview
+        {
+            get
+            {
+                return this["ToBeAbleToWriteAReview"];
+            }
+        }
+             
         #endregion
 
         #region Designer resources

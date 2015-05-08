@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Web;
 using Telerik.Sitefinity.Modules.Comments;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Comments;
 using Telerik.Sitefinity.Web;
@@ -165,6 +167,18 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
         }
 
+        /// <inheritDoc/>
+        public string LoginPageUrl
+        {
+            get
+            {
+                var currentUrl = SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri;
+                var loginRedirectUrl = string.Format("{0}?ReturnUrl={1}", this.GetDefaultLoginUrl(), HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(currentUrl)));
+                
+                return loginRedirectUrl;
+            }
+        }
+
         private IThread GetThread()
         {
             var cs = SystemManager.GetCommentsService();
@@ -179,6 +193,28 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
 
             return thread;
+        }
+
+        private string GetDefaultLoginUrl()
+        {
+            string defaultLoginPageUrl = string.Empty;
+            var currentSite = Telerik.Sitefinity.Services.SystemManager.CurrentContext.CurrentSite;
+            if (currentSite.FrontEndLoginPageId != Guid.Empty)
+            {
+                var manager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
+                var redirectPage = manager.GetPageNode(currentSite.FrontEndLoginPageId);
+
+                if (redirectPage != null)
+                {
+                    defaultLoginPageUrl = Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetUrl(redirectPage, String.Empty, null, true);
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(currentSite.FrontEndLoginPageUrl))
+            {
+                defaultLoginPageUrl = currentSite.FrontEndLoginPageUrl;
+            }
+
+            return Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(defaultLoginPageUrl);
         }
 
         private string threadType;
