@@ -160,6 +160,7 @@
         newCommentNameError: function () { return this.getOrInitializeProperty('_newCommentNameError', 'comments-new-name-error'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
         newCommentWebsite: function () { return this.getOrInitializeProperty('_newCommentWebsite', 'comments-new-website'); },
+        newCommentRequiresAuthentication: function () { return this.getOrInitializeProperty('_newCommentRequiresAuthentication', 'comments-new-requires-authentication'); },
 
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
@@ -412,6 +413,9 @@
             this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
+
+            // Initially hide the "RequiresAuthentication" message.
+            this.newCommentRequiresAuthentication().hide();
         },
 
         initializeUserStatus: function () {
@@ -423,9 +427,15 @@
             }
             isUserAuthenticatedUrl += '?_=' + (Math.random().toString().substr(2) + (new Date()).getTime());
             makeAjax(isUserAuthenticatedUrl).then(function (response) {
-                if (response && response.IsAuthenticated) {
-                    self.isUserAuthenticated = true;
-                    self.commentsNewLoggedOutView().hide();
+                if (response) {
+                    if (response.IsAuthenticated) {
+                        self.isUserAuthenticated = true;
+                        self.commentsNewLoggedOutView().hide();
+                    }
+                    else if (self.settings.requiresAuthentication) {
+                        self.newCommentForm().hide();
+                        self.newCommentRequiresAuthentication().show();
+                    }
                 }
 
                 $.proxy(self.setupCaptcha(), self);
