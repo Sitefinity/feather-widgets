@@ -34,5 +34,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         /// </summary>
         /// <value>The show current page in the end.</value>
         public bool ShowCurrentPageInTheEnd { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the is template rendered.
+        /// </summary>
+        /// <value>The is template rendered.</value>
+        public bool IsTemplateRendered { get; set; }
     }
 }

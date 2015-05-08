@@ -67,9 +67,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var viewModel = this.Model.CreateViewModel(this.VirtualNodes);
+            var viewModel = this.Model.CreateViewModel(this.BreadCrumExtender);
 
-            if (this.Model.IsTemplateRendered)
+            if (viewModel.IsTemplateRendered)
             {
                 return this.Content(this.BreadcrumbOnTemplateMessage);
             }
@@ -81,25 +81,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// Gets the virtual nodes.
         /// </summary>
         /// <returns></returns>
-        protected virtual IEnumerable<SiteMapNode> VirtualNodes
+        protected virtual IBreadcrumExtender BreadCrumExtender
         {
             get
             {
-                if (this.Model.AllowVirtualNodes)
-                {
-                    var page = this.GetHttpContext.CurrentHandler as Page;
+                var page = this.GetHttpContext.CurrentHandler as Page;
 
-                    if (page != null)
-                    {
-                        IBreadcrumExtender extender = page.GetBreadcrumbExtender();
-                        if (extender != null)
-                        {
-                            return extender.GetVirtualNodes(this.Model.SiteMapProvider);
-                        }
-                    }
-                }
-
-                return Enumerable.Empty<SiteMapNode>();
+                return page == null ? null : page.GetBreadcrumbExtender();
             }
         }
 

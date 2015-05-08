@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Web;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
 {
@@ -63,24 +61,10 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         bool AllowVirtualNodes { get; set; }
 
         /// <summary>
-        /// Gets the site map provider.
-        /// </summary>
-        /// <value>The site map provider.</value>
-        [Browsable(false)]
-        SiteMapProvider SiteMapProvider { get; }
-
-        /// <summary>
-        /// Gets the is template rendered.
-        /// </summary>
-        /// <value>The is template rendered.</value>
-        [Browsable(false)]
-        bool IsTemplateRendered { get; }
-
-        /// <summary>
         /// Creates the view model.
         /// </summary>
-        /// <param name="virtualNodes">The virtual nodes.</param>
+        /// <param name="extender">The extender.</param>
         /// <returns></returns>
-        BreadcrumbViewModel CreateViewModel(IEnumerable<SiteMapNode> virtualNodes);
+        BreadcrumbViewModel CreateViewModel(IBreadcrumExtender extender);
     }
 }

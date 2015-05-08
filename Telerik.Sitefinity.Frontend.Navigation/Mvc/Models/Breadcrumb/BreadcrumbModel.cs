@@ -88,32 +88,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         /// </summary>
         /// <value>The allow virtual nodes.</value>
         public bool AllowVirtualNodes { get; set; }
-
-        /// <summary>
-        /// Gets the site map provider.
-        /// </summary>
-        /// <value>The site map provider.</value>
-        public SiteMapProvider SiteMapProvider
-        {
-            get
-            {
-                if (this.provider == null)
-                {
-                    if (string.IsNullOrEmpty(this.SiteMapProviderName))
-                        this.provider = SiteMapBase.GetSiteMapProvider(SiteMapBase.DefaultSiteMapProviderName);
-                    else
-                        this.provider = SiteMapBase.GetSiteMapProvider(this.SiteMapProviderName);
-                }
-
-                return this.provider;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the is template rendered.
-        /// </summary>
-        /// <value>The is template rendered.</value>
-        public bool IsTemplateRendered { get; private set; }
         #endregion
 
         /// <summary>
@@ -121,15 +95,32 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         /// </summary>
         /// <param name="virtualNodes">The virtual nodes.</param>
         /// <returns></returns>
-        public virtual BreadcrumbViewModel CreateViewModel(IEnumerable<SiteMapNode> virtualNodes)
+        public virtual BreadcrumbViewModel CreateViewModel(IBreadcrumExtender extender)
         {
             Tuple<bool, List<SiteMapNode>> result = this.GetBreadcrumbDataSource();
 
-            result.Item2.AddRange(virtualNodes);
+            result.Item2.AddRange(this.GetVirtualNodes(extender));
 
-            this.IsTemplateRendered = !result.Item1;
+            return new BreadcrumbViewModel(result.Item2)
+            {
+                ShowCurrentPageInTheEnd = this.ShowCurrentPageInTheEnd,
+                IsTemplateRendered = !result.Item1
+            };
+        }
 
-            return new BreadcrumbViewModel(result.Item2) { ShowCurrentPageInTheEnd = this.ShowCurrentPageInTheEnd };
+        /// <summary>
+        /// Gets the virtual nodes.
+        /// </summary>
+        /// <param name="extender">The extender.</param>
+        /// <returns></returns>
+        private IEnumerable<SiteMapNode> GetVirtualNodes(IBreadcrumExtender extender)
+        {
+            if (extender == null || !this.AllowVirtualNodes)
+            {
+                return Enumerable.Empty<SiteMapNode>();
+            }
+
+            return extender.GetVirtualNodes(this.SiteMapProvider);
         }
 
         private Tuple<bool, List<SiteMapNode>> GetBreadcrumbDataSource()
@@ -219,6 +210,26 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
                 }
 
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the site map provider.
+        /// </summary>
+        /// <value>The site map provider.</value>
+        private SiteMapProvider SiteMapProvider
+        {
+            get
+            {
+                if (this.provider == null)
+                {
+                    if (string.IsNullOrEmpty(this.SiteMapProviderName))
+                        this.provider = SiteMapBase.GetSiteMapProvider(SiteMapBase.DefaultSiteMapProviderName);
+                    else
+                        this.provider = SiteMapBase.GetSiteMapProvider(this.SiteMapProviderName);
+                }
+
+                return this.provider;
             }
         }
 
