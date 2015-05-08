@@ -23,6 +23,7 @@
         <a href="#" data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</a>
     </div>
           
+    <div data-sf-role="list-loading-indicator" style="display:none;"></div>
     <div data-sf-role="comments-container"></div>
     <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
 
@@ -33,12 +34,14 @@
     else 
     {
         <div data-sf-role="comments-new-form">
-            <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")"></textarea>
+            <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")" ></textarea>
+            <span data-sf-role="comments-new-message-error" style="display:none;" >@Html.Resource("MessageIsRequired")</span>
 
             <p data-sf-role="comments-new-logged-out-view">
                 <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
-                <input placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
-                <input placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
+                <span data-sf-role="comments-new-name-error" style="display:none;" >@Html.Resource("NameIsRequired")</span>
+                <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
+                <input type="url" placeholder="@Html.Resource("WebSiteOptional")" data-sf-role="comments-new-website" /> <br />
             </p>
 
             <div data-sf-role="captcha-container" style="display:none;">
@@ -56,6 +59,7 @@
             <a href="#" data-sf-role="comments-new-subscribe-button"></a>
 
             <div data-sf-role="error-message" style="display:none;"></div>
+            <div data-sf-role="submit-loading-indicator" style="display:none;"></div>
 
             <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         </div>
@@ -88,6 +92,18 @@
 
     div[data-sf-role="single-comment-template"] {
         display:none;
+    }
+
+    div[data-sf-role="submit-loading-indicator"] {
+        background-color:Red; 
+        width:50px; 
+        height:50px;
+    }
+    
+    div[data-sf-role="list-loading-indicator"] {
+        background-color:Red; 
+        width:50px; 
+        height:50px;
     }
 
     span[data-sf-role="comment-message"]:after {
