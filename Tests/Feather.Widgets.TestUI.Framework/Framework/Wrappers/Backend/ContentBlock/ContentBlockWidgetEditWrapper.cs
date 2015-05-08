@@ -141,7 +141,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             createContent.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.RefreshDomTree();
+
+            HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=ContentBlock");
+            ActiveBrowser.WaitForElement(expression, TimeOut, false);
+            Manager.Current.Wait.For(WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
         }
+
+        private bool WaitForSaveButton()
+        {
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var saveButton = EM.Widgets
+                                   .WidgetDesignerContentScreen.SaveChangesButton;
+
+            bool result = saveButton != null && saveButton.IsVisible();
+
+            return result;
+        }
+
+        private const int TimeOut = 60000;
 
         /// <summary>
         /// Provide access to advance button
