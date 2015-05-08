@@ -94,6 +94,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The avatar image URL.
         /// </value>
+        [Browsable(false)]
         string UserAvatarImageUrl { get; }
 
         /// <summary>
@@ -102,6 +103,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The display name of the user.
         /// </value>
+        [Browsable(false)]
         string UserDisplayName { get; }
 
         /// <summary>

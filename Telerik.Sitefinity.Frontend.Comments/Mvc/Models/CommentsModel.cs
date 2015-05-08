@@ -179,6 +179,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         }
 
         /// <inheritDoc/>
+        [Browsable(false)]
         public string UserAvatarImageUrl 
         {
             get
@@ -189,6 +190,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         }
 
         /// <inheritDoc/>
+        [Browsable(false)]
         public string UserDisplayName
         {
             get
