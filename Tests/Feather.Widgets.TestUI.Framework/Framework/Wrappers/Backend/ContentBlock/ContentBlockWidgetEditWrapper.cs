@@ -145,21 +145,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=ContentBlock");
             ActiveBrowser.WaitForElement(expression, TimeOut, false);
-            Manager.Current.Wait.For(WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
+            Manager.Current.Wait.For(this.WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
         }
-
-        private bool WaitForSaveButton()
-        {
-            Manager.Current.ActiveBrowser.RefreshDomTree();
-            var saveButton = EM.Widgets
-                                   .WidgetDesignerContentScreen.SaveChangesButton;
-
-            bool result = saveButton != null && saveButton.IsVisible();
-
-            return result;
-        }
-
-        private const int TimeOut = 60000;
 
         /// <summary>
         /// Provide access to advance button
@@ -457,5 +444,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Assert.IsNotNull(attr, "Unable to find attribute: " + attName);
             Assert.AreEqual(attValue, attr.Value, "Attribute " + attName + " value not as expected.");
         }
+
+        private bool WaitForSaveButton()
+        {
+            Manager.Current.ActiveBrowser.RefreshDomTree();
+            var saveButton = EM.Widgets
+                                   .WidgetDesignerContentScreen.SaveChangesButton;
+
+            bool result = saveButton != null && saveButton.IsVisible();
+
+            return result;
+        }
+
+        private const int TimeOut = 60000;
     }
 }
