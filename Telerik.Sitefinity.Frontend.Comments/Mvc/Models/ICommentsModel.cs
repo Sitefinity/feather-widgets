@@ -107,6 +107,15 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         string UserDisplayName { get; }
 
         /// <summary>
+        /// Gets the is in design mode.
+        /// </summary>
+        /// <value>
+        /// The is in design mode.
+        /// </value>
+        [Browsable(false)]
+        bool IsDesignMode { get; }
+
+        /// <summary>
         /// Gets or sets the avatar image URL.
         /// </summary>
         /// <value>

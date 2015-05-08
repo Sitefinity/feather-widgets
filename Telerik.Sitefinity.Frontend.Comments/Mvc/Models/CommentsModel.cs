@@ -201,6 +201,16 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         }
 
         /// <inheritDoc/>
+        [Browsable(false)]
+        public bool IsDesignMode 
+        {
+            get
+            {
+                return SystemManager.IsDesignMode;
+            }
+        }
+
+        /// <inheritDoc/>
         public string DateTimeFormatString
         {
             get { return this.dateTimeFormatString; }
