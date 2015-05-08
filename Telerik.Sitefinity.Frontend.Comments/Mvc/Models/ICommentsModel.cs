@@ -50,7 +50,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The allow comments.
         /// </value>
-        bool? AllowComments { get; set; }
+        bool AllowComments { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether thread is closed.
@@ -59,15 +59,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         ///   <c>true</c> if thread is closed; otherwise, <c>false</c>.
         /// </value>
         bool ThreadIsClosed { get; set; }
-
-        /// <summary>
-        /// Gets a value indicating whether comments widget can be displayed.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if comments widget can be displayed; otherwise, <c>false</c>.
-        /// </value>
-        [Browsable(false)]
-        bool ShowComments { get; }
 
         /// <summary>
         /// Gets or sets the maximum length of the comment text to be displayed when loaded.

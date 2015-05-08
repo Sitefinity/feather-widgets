@@ -70,7 +70,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
             var model = this.Model;
             model.ThreadKey = threadKey;
 
-            if (model.ShowComments)
+            if (model.AllowComments)
             {
                 return this.View(this.templateNamePrefix + this.TemplateName, model);
             }

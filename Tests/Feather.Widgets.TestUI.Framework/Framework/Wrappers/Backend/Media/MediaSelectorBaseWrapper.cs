@@ -110,7 +110,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="isEmptyScreen">The is empty screen.</param>
         public void WaitForContentToBeLoaded(bool isEmptyScreen)
         {
-            Manager.Current.Wait.For(() => this.IsContentLoadedInMediaSelector(isEmptyScreen), 20000);
+            Manager.Current.Wait.For(() => this.IsContentLoadedInMediaSelector(isEmptyScreen), 100000);
         }
 
         /// <summary>
