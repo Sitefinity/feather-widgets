@@ -82,6 +82,21 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : comment
+        /// </summary>
+        [ResourceEntry("Comment",
+            Value = "comment",
+            Description = "word : comment",
+            LastModified = "2015/05/11")]
+        public string Comment
+        {
+            get
+            {
+                return this["Comment"];
+            }
+        }
+
+        /// <summary>
         /// Gets word : comments
         /// </summary>
         [ResourceEntry("CommentsPlural",
