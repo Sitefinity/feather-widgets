@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
+﻿namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 {
     /// <summary>
     /// Resources for the comments-list widget.
@@ -13,7 +11,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The read full comment.
         /// </value>
-        [JsonProperty("readFullComment")]
         public string ReadFullComment { get; set; }
 
         /// <summary>
@@ -22,7 +19,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments plural.
         /// </value>
-        [JsonProperty("commentsPlural")]
         public string CommentsPlural { get; set; }
 
         /// <summary>
@@ -31,7 +27,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The subscribe to new comments.
         /// </value>
-        [JsonProperty("subscribeToNewComments")]
         public string SubscribeToNewComments { get; set; }
 
         /// <summary>
@@ -40,7 +35,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The unsubscribe from new comments.
         /// </value>
-        [JsonProperty("unsubscribeFromNewComments")]
         public string UnsubscribeFromNewComments { get; set; }
 
         /// <summary>
@@ -49,7 +43,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comment pending approval.
         /// </value>
-        [JsonProperty("commentPendingApproval")]
         public string CommentPendingApproval { get; set; }
     }
 }
