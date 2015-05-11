@@ -40,6 +40,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.9\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
     </Reference>
@@ -48,6 +51,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -136,6 +140,10 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\CommentsController.cs" />
     <Compile Include="Mvc\Models\CommentsConfigModel.cs" />
+    <Compile Include="Mvc\Models\CommentsInputModel.cs" />
+    <Compile Include="Mvc\Models\CommentsListWidgetSettings.cs" />
+    <Compile Include="Mvc\Models\CommentsListViewModel.cs" />
+    <Compile Include="Mvc\Models\CommentsListWidgetResources.cs" />
     <Compile Include="Mvc\Models\ThreadsConfigModel.cs" />
     <Compile Include="Mvc\Models\CommentsModel.cs" />
     <Compile Include="Mvc\Models\ICommentsModel.cs" />
@@ -146,6 +154,7 @@
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Comments\Comments.Default.cshtml" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

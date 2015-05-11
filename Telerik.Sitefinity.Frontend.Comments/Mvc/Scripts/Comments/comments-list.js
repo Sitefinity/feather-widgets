@@ -342,6 +342,20 @@
                     };
                 }
             }
+            
+            comment.Thread = self.settings.commentsThread || {
+                GroupKey: null,
+                Type: null,
+                Behavior: null,
+                Title: null,
+                DataSource: null,
+                Key : null,
+                Language: null
+            };
+
+            comment.Thread.Group = comment.Thread.Group || {
+                Key: null
+            };
 
             return comment;
         },
@@ -461,6 +475,9 @@
                     if (response.IsAuthenticated) {
                         self.isUserAuthenticated = true;
                         self.commentsNewLoggedOutView().hide();
+
+                        // Get Subscribtion status only if user is logged in.
+                        self.initializeSubscription();
                     }
                     else if (self.settings.requiresAuthentication) {
                         self.newCommentForm().hide();
@@ -588,7 +605,6 @@
             this.initializeProperties();
             this.initializeUserStatus();
             this.initializeComments();
-            this.initializeSubscription();
             this.initializeHandlers();
         }
     };

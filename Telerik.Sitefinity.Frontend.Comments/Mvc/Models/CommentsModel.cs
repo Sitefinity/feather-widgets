@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.Web;
+using Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Comments;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Comments;
+using Telerik.Sitefinity.Services.Comments.Proxies;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
@@ -16,9 +20,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
     /// </summary>
     public class CommentsModel : ICommentsModel
     {
-        /// <inheritDoc/>
-        public string CssClass { get; set; }
-
+        #region Properties
+        
         /// <inheritDoc/>
         public string ThreadKey
         {
@@ -34,6 +37,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             set
             {
                 this.threadKey = value;
+
+                // Changing the thread key should reset the thread.
+                this.Thread = null;
             }
         }
 
@@ -52,24 +58,10 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             set 
             {
                 this.threadType = value;
-            }
-        }
 
-        /// <inheritDoc/>
-        public string GroupKey
-        {
-            get
-            {
-                if (this.groupKey.IsNullOrEmpty())
-                {
-                    this.groupKey = SystemManager.CurrentContext.CurrentSite.Id.ToString();
-                }
-
-                return this.groupKey;
-            }
-            set
-            {
-                this.groupKey = value;
+                // Changing the tread type should reset the thread key and config.
+                this.ThreadKey = null;
+                this.ThreadsConfig = null;
             }
         }
 
@@ -92,6 +84,24 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         }
 
         /// <inheritDoc/>
+        public string GroupKey
+        {
+            get
+            {
+                if (this.groupKey.IsNullOrEmpty())
+                {
+                    this.groupKey = SystemManager.CurrentContext.CurrentSite.Id.ToString();
+                }
+
+                return this.groupKey;
+            }
+            set
+            {
+                this.groupKey = value;
+            }
+        }
+
+        /// <inheritDoc/>
         public string DataSource { get; set; }
 
         /// <inheritDoc/>
@@ -104,20 +114,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             set
             {
                 this.allowComments = value;
-            }
-        }
-
-        /// <inheritDoc/>
-        public bool ThreadIsClosed 
-        { 
-            get
-            {
-                var thread = this.GetThread();
-                return this.threadIsClosed || (thread != null && thread.IsClosed);
-            }
-            set
-            {
-                this.threadIsClosed = value;
             }
         }
 
@@ -135,53 +131,82 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
         }
 
-        /// <summary>
-        /// Gets the configuration for the thread
-        /// </summary>
-        [Browsable(false)]
-        public ThreadsConfigModel ThreadsConfig
+        /// <inheritDoc/>
+        public bool ThreadIsClosed
         {
             get
             {
-                if (this.threadsConfig == null)
-                {
-                    this.threadsConfig = new ThreadsConfigModel(this.ThreadType);
-                }
-                return this.threadsConfig;
+                return this.threadIsClosed || (this.Thread != null && this.Thread.IsClosed);
             }
-        }
-
-        /// <summary>
-        /// Gets the configuration for the comments module
-        /// </summary>
-        [Browsable(false)]
-        public CommentsConfigModel CommentsConfig
-        {
-            get
+            set
             {
-                if (this.commentsConfig == null)
-                {
-                    this.commentsConfig = new CommentsConfigModel();
-                }
-                return this.commentsConfig;
+                this.threadIsClosed = value;
             }
         }
 
         /// <inheritDoc/>
+        public string CssClass { get; set; }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        public IThread Thread
+        {
+            get
+            {
+                if (this.thread == null)
+                {
+                    if (!this.ThreadKey.IsNullOrEmpty())
+                    {
+                        var cs = SystemManager.GetCommentsService();
+                        this.thread = cs.GetThread(this.ThreadKey);
+                    }
+                }
+
+                return this.thread;
+            }
+
+            private set
+            {
+                this.thread = value;
+            }
+        }
+
+        /// <inheritDoc/>
+        public string DateTimeFormatString
+        {
+            get { return this.dateTimeFormatString; }
+            set { this.dateTimeFormatString = value; }
+        }
+
+        /// <inheritDoc/>
+        public bool CommentsAutoRefresh
+        {
+            get { return this.commentsAutoRefresh; }
+            set { this.commentsAutoRefresh = value; }
+        }
+
+        /// <inheritDoc/>
+        public int CommentsRefreshInterval
+        {
+            get { return this.commentsRefreshInterval; }
+            set { this.commentsRefreshInterval = value; }
+        }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
         public string LoginPageUrl
         {
             get
             {
-                var currentUrl = SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri;
-                var loginRedirectUrl = string.Format("{0}?ReturnUrl={1}", this.GetDefaultLoginUrl(), HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(currentUrl)));
-                
+                var loginRedirectUrl = string.Format("{0}?ReturnUrl={1}", this.GetDefaultLoginUrl(), HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri)));
+
                 return loginRedirectUrl;
             }
         }
 
         /// <inheritDoc/>
         [Browsable(false)]
-        public string UserAvatarImageUrl 
+        public string UserAvatarImageUrl
         {
             get
             {
@@ -202,35 +227,151 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         /// <inheritDoc/>
         [Browsable(false)]
-        public bool IsDesignMode 
+        public ThreadsConfigModel ThreadsConfig
         {
             get
             {
-                return SystemManager.IsDesignMode;
+                if (this.threadsConfig == null)
+                {
+                    this.threadsConfig = new ThreadsConfigModel(this.ThreadType);
+                }
+
+                return this.threadsConfig;
+            }
+
+            private set
+            {
+                this.threadsConfig = value;
             }
         }
 
         /// <inheritDoc/>
-        public string DateTimeFormatString
+        [Browsable(false)]
+        public CommentsConfigModel CommentsConfig
         {
-            get { return this.dateTimeFormatString; }
-            set { this.dateTimeFormatString = value; }
+            get
+            {
+                if (this.commentsConfig == null)
+                {
+                    this.commentsConfig = new CommentsConfigModel();
+                }
+                return this.commentsConfig;
+            }
         }
 
-        private IThread GetThread()
+        #endregion
+
+        #region Methods
+
+        /// <inheritDoc/>
+        public CommentsListViewModel GetViewModel(CommentsInputModel commentsInputModel)
         {
-            var cs = SystemManager.GetCommentsService();
-            IThread thread;
-            if (!this.ThreadKey.IsNullOrEmpty())
+            this.Initialize(commentsInputModel);
+
+            var widgetResources = this.GetCommentsListWidgetResources();
+            var widgetSettings = this.GetCommentsListWidgetSettings(commentsInputModel.ThreadTitle);
+
+            var viewModel = new CommentsListViewModel()
             {
-                thread = cs.GetThread(this.ThreadKey);
-            }
-            else
+                AllowComments = this.AllowComments && (commentsInputModel.AllowComments.HasValue ? commentsInputModel.AllowComments.Value : true),
+                CssClass = this.CssClass,
+                LoginPageUrl = this.LoginPageUrl,
+                ThreadIsClosed = this.ThreadIsClosed,
+                UserAvatarImageUrl = this.UserAvatarImageUrl,
+                SerializedWidgetResources = JsonConvert.SerializeObject(widgetResources),
+                SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings)
+            };
+
+            return viewModel;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void Initialize(CommentsInputModel commentsInputModel)
+        {
+            if (!string.IsNullOrEmpty(commentsInputModel.ThreadType))
             {
-                thread = null;
+                this.ThreadType = commentsInputModel.ThreadType;
             }
 
-            return thread;
+            if (!string.IsNullOrEmpty(commentsInputModel.ThreadKey))
+            {
+                this.ThreadKey = commentsInputModel.ThreadKey;
+            }
+
+            if (commentsInputModel.AllowComments.HasValue)
+            {
+                this.AllowComments = commentsInputModel.AllowComments.Value;
+            }
+
+            if (!string.IsNullOrEmpty(commentsInputModel.ThreadTitle))
+            {
+                this.ThreadTitle = commentsInputModel.ThreadTitle;
+            }
+
+            if (!string.IsNullOrEmpty(commentsInputModel.GroupKey))
+            {
+                this.GroupKey = commentsInputModel.GroupKey;
+            }
+
+            if (!string.IsNullOrEmpty(commentsInputModel.DataSource))
+            {
+                this.DataSource = commentsInputModel.DataSource;
+            }
+        }
+
+        private CommentsListWidgetResources GetCommentsListWidgetResources()
+        {
+            return new CommentsListWidgetResources()
+            {
+                CommentPendingApproval = Res.Get<CommentsWidgetResources>().PendingApproval,
+                CommentsPlural = Res.Get<CommentsWidgetResources>().CommentsPlural,
+                ReadFullComment = Res.Get<CommentsWidgetResources>().ReadFullComment,
+                SubscribeToNewComments = Res.Get<CommentsWidgetResources>().SubscribeToNewComments,
+                UnsubscribeFromNewComments = Res.Get<CommentsWidgetResources>().UnsubscribeFromNewComments
+            };
+        }
+
+        private CommentsListWidgetSettings GetCommentsListWidgetSettings(string threadTitle)
+        {
+            var isUserAuthenticatedUrl = "/RestApi/session/is-authenticated";
+            var rootUrl = "/RestApi/comments-api/";
+
+            return new CommentsListWidgetSettings()
+            {
+                CommentDateTimeFormatString = this.DateTimeFormatString,
+                CommentsAllowSubscription = this.ThreadsConfig.AllowSubscription && this.ThreadIsClosed,
+                CommentsAutoRefresh = this.CommentsAutoRefresh,
+                CommentsInitiallySortedDescending = this.CommentsConfig.AreNewestOnTop,
+                CommentsPerPage = this.CommentsConfig.CommentsPerPage,
+                CommentsRefreshInterval = this.CommentsRefreshInterval,
+                CommentsTextMaxLength = this.CommentTextMaxLength,
+                CommentsThread = this.Thread ?? this.GetCommentsThreadProxy(threadTitle),
+                CommentsThreadKey = this.ThreadKey,
+                CommentsThreadType = this.ThreadType,
+                IsDesignMode = SystemManager.IsDesignMode,
+                IsUserAuthenticatedUrl = isUserAuthenticatedUrl,
+                RequiresApproval = this.ThreadsConfig.RequiresApproval,
+                RequiresAuthentication = this.ThreadsConfig.RequiresAuthentication,
+                RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
+                RootUrl = rootUrl,
+                UserAvatarImageUrl = this.UserAvatarImageUrl,
+                UserDisplayName = this.UserDisplayName
+            };
+        }
+
+        private IThread GetCommentsThreadProxy(string threadTitle)
+        {
+            var author = new AuthorProxy(SecurityManager.GetCurrentUserId().ToString());
+
+            return new ThreadProxy(threadTitle, this.ThreadType, this.GroupKey, author)
+            {
+                IsClosed = false,
+                Key = this.ThreadKey,
+                DataSource = this.DataSource
+            };
         }
 
         private string GetDefaultLoginUrl()
@@ -255,17 +396,25 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             return Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(defaultLoginPageUrl);
         }
 
+        #endregion
+
+        #region Private fields
+
+        private string threadKey;
         private string threadType;
         private string threadTitle;
         private string groupKey;
-        private string threadKey;
-        private string dateTimeFormatString = "MMM dd, yyyy";
-        private ThreadsConfigModel threadsConfig;
-        private CommentsConfigModel commentsConfig;
+        private bool allowComments = true;
         private int commentTextMaxLength = 100;
         private bool threadIsClosed;
-        private bool allowComments = true;
-
+        private IThread thread;
+        private string dateTimeFormatString = "MMM dd, yyyy";
+        private bool commentsAutoRefresh = false;
+        private int commentsRefreshInterval = 3000;
+        private ThreadsConfigModel threadsConfig;
+        private CommentsConfigModel commentsConfig;
         private Lazy<SitefinityUserDisplayNameBuilder> sitefinityUserDisplayNameBuilder = new Lazy<SitefinityUserDisplayNameBuilder>();
+
+        #endregion
     }
 }
