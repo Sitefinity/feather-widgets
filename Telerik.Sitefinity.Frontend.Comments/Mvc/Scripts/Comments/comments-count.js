@@ -19,7 +19,7 @@
                 },
                 processData: false
             });
-        },
+        };
 
         this.collectThreadIds = function () {
             var commmentsCounterControls = $('[data-sf-role="comments-count-wrapper"]');
@@ -27,15 +27,36 @@
             for (var i = 0; i < commmentsCounterControls.length; i++) {
                 uniqueKeys[$(commmentsCounterControls[i]).attr('sf-thread-key')] = true;
             }
-            var threadKeys = new Array();
+            var threadKeys = [];
             $.each(uniqueKeys, function (key, value) {
                 threadKeys.push(key);
             });
             return threadKeys;
-        },
+        };
 
         this.setCommentsCounts = function (data) {
             var threadCountList = data;
+
+            var populateCommentsCountText = function (index, commentsCounterControl) {
+                var currentCountFormatted = '';
+                if (!currentCount) {
+                    currentCountFormatted = resources.leaveComment;
+                }
+                else {
+                    currentCountFormatted = currentCount;
+
+                    if (currentCount == 1)
+                        currentCountFormatted += ' ' + resources.comment.toLowerCase();
+                    else
+                        currentCountFormatted += ' ' + resources.commentsPlural.toLowerCase();
+                }
+
+                //set the comments count text in the counter control
+                var anchor = $(commentsCounterControl).find('[data-sf-role="comments-count-anchor"]');
+                if (anchor)
+                    $(anchor).html(currentCountFormatted);
+            };
+
             for (var i = 0; i < threadCountList.Items.length; i++) {
                 var currentThreadKey = threadCountList.Items[i].Key;
                 var commmentsCounterControls = $('div[sf-thread-key="' + currentThreadKey + '"]');
@@ -46,27 +67,9 @@
                     continue;
 
                 var self = this;
-                $.each(commmentsCounterControls, function (index, commentsCounterControl) {
-                    var currentCountFormatted = '';
-                    if (!currentCount) {
-                        currentCountFormatted = resources.leaveComment;
-                    }
-                    else {
-                        currentCountFormatted = currentCount;
-
-                        if (currentCount == 1)
-                            currentCountFormatted += ' ' + resources.comment.toLowerCase();
-                        else
-                            currentCountFormatted += ' ' + resources.commentsPlural.toLowerCase();
-                    }
-
-                    //set the comments count text in the counter control
-                    var anchor = $(commentsCounterControl).find('[data-sf-role="comments-count-anchor"]');
-                    if (anchor)
-                        $(anchor).html(currentCountFormatted);
-                });
+                $.each(commmentsCounterControls, populateCommentsCountText);
             }
-        },
+        };
 
         this.initialize = function () {
             var self = this;
@@ -76,7 +79,7 @@
                     self.setCommentsCounts(response);
                 }
             });
-        }
+        };
     };
 
     /*
