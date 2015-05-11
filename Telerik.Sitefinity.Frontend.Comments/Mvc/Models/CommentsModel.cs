@@ -264,7 +264,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         #region Methods
 
         /// <inheritDoc/>
-        public CommentsListViewModel GetViewModel(CommentsInputModel commentsInputModel)
+        public CommentsListViewModel GetCommentsListViewModel(CommentsInputModel commentsInputModel)
         {
             this.Initialize(commentsInputModel);
 
@@ -283,6 +283,18 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             };
 
             return viewModel;
+        }
+
+        /// <inheritDoc/>
+        public CommentsCountViewModel GetCommentsCountViewModel(CommentsCountInputModel commentsCountInputModel)
+        {
+            var commentsCountViewModel = new CommentsCountViewModel()
+            {
+                NavigateUrl = commentsCountInputModel.NavigateUrl,
+                ThreadKey = commentsCountInputModel.ThreadKey
+            };
+
+            return commentsCountViewModel;
         }
 
         #endregion

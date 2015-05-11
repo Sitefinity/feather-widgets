@@ -169,6 +169,12 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// </summary>
         /// <param name="commentsInputModel">The comments input model.</param>
         /// <returns></returns>
-        CommentsListViewModel GetViewModel(CommentsInputModel commentsInputModel);
+        CommentsListViewModel GetCommentsListViewModel(CommentsInputModel commentsInputModel);
+        /// Gets the comments count view model.
+        /// </summary>
+        /// <param name="navigateUrl">The URL where the comments count link will navigate.</param>
+        /// <param name="threadKey">The thread key.</param>
+        /// <returns></returns>
+        CommentsCountViewModel GetCommentsCountViewModel(CommentsCountInputModel commentsCountInputModel);
     }
 }

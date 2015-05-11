@@ -5,7 +5,7 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-<div data-sf-role="comments-wrapper" class="@Model.CssClass">
+<div  id="commentsWidget" data-sf-role="comments-wrapper" class="@Model.CssClass">
     <input type="hidden" data-sf-role="comments-settings" value="@Model.SerializedWidgetSettings" />
     <input type="hidden" data-sf-role="comments-resources" value="@Model.SerializedWidgetResources" />
 

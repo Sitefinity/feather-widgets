@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
 {
@@ -18,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
     /// </summary>
     [Localization(typeof(CommentsWidgetResources))]
     [ControllerToolboxItem(Name = "Comments_MVC", Title = "Comments", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Comments", CssClass = CommentsController.WidgetIconCssClass)]
-    public class CommentsController:Controller
+    public class CommentsController : Controller
     {
         #region Properties
 
@@ -67,11 +68,28 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index(CommentsInputModel commentsInputModel)
         {
-            var model = this.Model.GetViewModel(commentsInputModel);
+            var model = this.Model.GetCommentsListViewModel(commentsInputModel);
 
             if (model.AllowComments)
             {
                 return this.View(this.templateNamePrefix + this.TemplateName, model);
+            }
+
+            return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Gets the view for comments count. 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Count(CommentsCountInputModel commentsCountInputModel)
+        {
+            this.ViewBag.ServiceUrl = RouteHelper.ResolveUrl("/RestApi/comments-api/", UrlResolveOptions.Rooted);
+            if (this.Model.AllowComments)
+            {
+                var commentsCountViewModel = this.Model.GetCommentsCountViewModel(commentsCountInputModel);
+
+                return this.View(this.countTemplateName, commentsCountViewModel);
             }
 
             return new EmptyResult();
@@ -85,6 +103,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         private ICommentsModel model;
         private string templateName = "Default";
         private string templateNamePrefix = "Comments.";
+        private string countTemplateName = "Count.Default";
 
         #endregion
     }

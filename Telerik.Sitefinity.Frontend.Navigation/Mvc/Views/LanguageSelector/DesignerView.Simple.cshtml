@@ -1,0 +1,52 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="properties.IncludeCurrentLanguage.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.IncludeCurrentLanguage.PropertyValue === 'True'"/>
+            @Html.Resource("IncludeCurrentLanguage")
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>@Html.Resource("LanguageWithoutTranslation")</label>
+    <p class="description-note">@Html.Resource("LanguageWithoutTranslationDescription")</p>
+
+    <div class="radio">
+        <label for="hideLink" class="full-width">
+          <input id="hideLink" type="radio" ng-model="properties.MissingTranslationAction.PropertyValue" value="HideLink" />
+          @Html.Resource("HideLink")
+        </label>
+    </div>
+
+    <div class="radio">
+        <label for="redirectToHomePage" class="full-width">
+          <input id="redirectToHomePage" type="radio" ng-model="properties.MissingTranslationAction.PropertyValue" value="RedirectToPage" />
+          @Html.Resource("RedirectToHomePage")
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <label for="templateName">@Html.Resource("Template")</label>
+            <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames("LanguageSelector", @"LanguageSelector\.(?<viewName>\w*)$"))
+                {
+                    <option value="@viewName">@viewName</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="languageSelectorCssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="languageSelectorCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>
