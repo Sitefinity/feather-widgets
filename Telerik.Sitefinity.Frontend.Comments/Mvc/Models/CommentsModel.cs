@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Web;
 using Telerik.Sitefinity.Modules.Comments;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Comments;
 using Telerik.Sitefinity.Web;
@@ -93,7 +95,17 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public string DataSource { get; set; }
 
         /// <inheritDoc/>
-        public bool? AllowComments { get; set; }
+        public bool AllowComments
+        {
+            get
+            {
+                return this.ThreadsConfig.AllowComments && this.allowComments;
+            }
+            set
+            {
+                this.allowComments = value;
+            }
+        }
 
         /// <inheritDoc/>
         public bool ThreadIsClosed 
@@ -120,16 +132,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             set 
             {
                 this.commentTextMaxLength = value;
-            }
-        }
-
-        /// <inheritDoc/>
-        [Browsable(false)]
-        public bool ShowComments
-        {
-            get
-            {
-                return (this.AllowComments.HasValue ? this.AllowComments.Value : this.ThreadsConfig.AllowComments);
             }
         }
 
@@ -165,6 +167,64 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
         }
 
+        /// <inheritDoc/>
+        public string LoginPageUrl
+        {
+            get
+            {
+                var currentUrl = SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri;
+                var loginRedirectUrl = string.Format("{0}?ReturnUrl={1}", this.GetDefaultLoginUrl(), HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(currentUrl)));
+                
+                return loginRedirectUrl;
+            }
+        }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        public string UserAvatarImageUrl 
+        {
+            get
+            {
+                Libraries.Model.Image avatarImage;
+                return this.sitefinityUserDisplayNameBuilder.Value.GetAvatarImageUrl(Sitefinity.Security.SecurityManager.CurrentUserId, out avatarImage);
+            }
+        }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        public string UserDisplayName
+        {
+            get
+            {
+                return this.sitefinityUserDisplayNameBuilder.Value.GetUserDisplayName(Sitefinity.Security.SecurityManager.CurrentUserId);
+            }
+        }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        public bool IsDesignMode 
+        {
+            get
+            {
+                return SystemManager.IsDesignMode;
+            }
+        }
+
+        /// <inheritDoc/>
+        public string DateTimeFormatString
+        {
+            get { return this.dateTimeFormatString; }
+            set { this.dateTimeFormatString = value; }
+        }
+
+        /// <inheritDoc/>
+        public CommentsCountViewModel GetCommentsCountViewModel(string navigateUrl, string threadKey)
+        {
+            var commentsCountViewModel = new CommentsCountViewModel(navigateUrl, threadKey);
+
+            return commentsCountViewModel;
+        }
+
         private IThread GetThread()
         {
             var cs = SystemManager.GetCommentsService();
@@ -181,13 +241,39 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             return thread;
         }
 
+        private string GetDefaultLoginUrl()
+        {
+            string defaultLoginPageUrl = string.Empty;
+            var currentSite = Telerik.Sitefinity.Services.SystemManager.CurrentContext.CurrentSite;
+            if (currentSite.FrontEndLoginPageId != Guid.Empty)
+            {
+                var manager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
+                var redirectPage = manager.GetPageNode(currentSite.FrontEndLoginPageId);
+
+                if (redirectPage != null)
+                {
+                    defaultLoginPageUrl = Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetUrl(redirectPage, String.Empty, null, true);
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(currentSite.FrontEndLoginPageUrl))
+            {
+                defaultLoginPageUrl = currentSite.FrontEndLoginPageUrl;
+            }
+
+            return Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(defaultLoginPageUrl);
+        }
+
         private string threadType;
         private string threadTitle;
         private string groupKey;
         private string threadKey;
+        private string dateTimeFormatString = "MMM dd, yyyy";
         private ThreadsConfigModel threadsConfig;
         private CommentsConfigModel commentsConfig;
         private int commentTextMaxLength = 100;
         private bool threadIsClosed;
+        private bool allowComments;
+
+        private Lazy<SitefinityUserDisplayNameBuilder> sitefinityUserDisplayNameBuilder = new Lazy<SitefinityUserDisplayNameBuilder>();
     }
 }

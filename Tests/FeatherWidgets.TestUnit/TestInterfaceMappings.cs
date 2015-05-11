@@ -1,5 +1,6 @@
 ﻿using FeatherWidgets.TestUnit.DummyClasses.ContentBlock;
 using FeatherWidgets.TestUnit.DummyClasses.Identity;
+using FeatherWidgets.TestUnit.DummyClasses.LanguageSelector;
 using FeatherWidgets.TestUnit.DummyClasses.Media;
 using FeatherWidgets.TestUnit.DummyClasses.Navigation;
 using FeatherWidgets.TestUnit.DummyClasses.SearchResults;
@@ -10,6 +11,7 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
 
 namespace FeatherWidgets.TestUnit
@@ -31,6 +33,7 @@ namespace FeatherWidgets.TestUnit
             Bind<IDocumentsListModel>().To<DummyDocumentsListModel>().When(request => true);
             Bind<IListsModel>().To<DummyListsModel>().When(request => true);
             Bind<IUsersListModel>().To<DummyUsersListModel>().When(request => true);
+            Bind<ILanguageSelectorModel>().To<DummyLanguageSelectorModel>().When(request => true);
         }
     }
 }

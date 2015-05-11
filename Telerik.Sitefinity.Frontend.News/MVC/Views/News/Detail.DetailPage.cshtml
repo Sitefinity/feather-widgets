@@ -2,11 +2,14 @@
 
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Comments;
 @using Telerik.Sitefinity.Web.DataResolving;
+@using Telerik.Sitefinity.Web.UI;
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
+        @Html.CommentsCount("#commentsWidget", (string)ControlUtilities.GetLocalizedKey(Model.Item.Fields.Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(Model.Item.DataItem.GetType().FullName)))
     </h3>
 
     <div>

@@ -50,7 +50,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The allow comments.
         /// </value>
-        bool? AllowComments { get; set; }
+        bool AllowComments { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether thread is closed.
@@ -61,15 +61,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         bool ThreadIsClosed { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether comments widget can be displayed.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if comments widget can be displayed; otherwise, <c>false</c>.
-        /// </value>
-        [Browsable(false)]
-        bool ShowComments { get; }
-
-        /// <summary>
         /// Gets or sets the maximum length of the comment text to be displayed when loaded.
         /// </summary>
         /// <remarks> The rest of comment text will be displayed after clicking "Read full comment" link. 
@@ -78,6 +69,50 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// The maximum length of the comment text to be dispalyed when comment is loaded.
         /// </value>
         int CommentTextMaxLength { get; set; }
+
+        /// <summary>
+        /// Gets the login page URL.
+        /// </summary>
+        /// <value>
+        /// The login page URL.
+        /// </value>
+        [Browsable(false)]
+        string LoginPageUrl { get; }
+
+        /// <summary>
+        /// Gets the user avatar image URL.
+        /// </summary>
+        /// <value>
+        /// The avatar image URL.
+        /// </value>
+        [Browsable(false)]
+        string UserAvatarImageUrl { get; }
+
+        /// <summary>
+        /// Gets the display name of the user.
+        /// </summary>
+        /// <value>
+        /// The display name of the user.
+        /// </value>
+        [Browsable(false)]
+        string UserDisplayName { get; }
+
+        /// <summary>
+        /// Gets the is in design mode.
+        /// </summary>
+        /// <value>
+        /// The is in design mode.
+        /// </value>
+        [Browsable(false)]
+        bool IsDesignMode { get; }
+
+        /// <summary>
+        /// Gets or sets the avatar image URL.
+        /// </summary>
+        /// <value>
+        /// The avatar image URL.
+        /// </value>
+        string DateTimeFormatString { get; set; }
 
         /// <summary>
         /// Gets the configuration for the thread
@@ -96,5 +131,13 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// </value>
         [Browsable(false)]
         CommentsConfigModel CommentsConfig { get; }
+
+        /// <summary>
+        /// Gets the comments count view model.
+        /// </summary>
+        /// <param name="navigateUrl">The URL where the comments count link will navigate.</param>
+        /// <param name="threadKey">The thread key.</param>
+        /// <returns></returns>
+        CommentsCountViewModel GetCommentsCountViewModel(string navigateUrl, string threadKey);
     }
 }
