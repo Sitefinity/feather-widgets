@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Telerik.Sitefinity.Services.Comments;
+﻿using Telerik.Sitefinity.Services.Comments;
 
 namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 {
@@ -14,7 +13,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments thread key.
         /// </value>
-        [JsonProperty("commentsThreadKey")]
         public string CommentsThreadKey { get; set; }
 
         /// <summary>
@@ -23,7 +21,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The type of the comments thread.
         /// </value>
-        [JsonProperty("commentsThreadType")]
         public string CommentsThreadType { get; set; }
 
         /// <summary>
@@ -32,7 +29,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The root URL.
         /// </value>
-        [JsonProperty("rootUrl")]
         public string RootUrl { get; set; }
 
         /// <summary>
@@ -41,7 +37,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The is user authenticated URL.
         /// </value>
-        [JsonProperty("isUserAuthenticatedUrl")]
         public string IsUserAuthenticatedUrl { get; set; }
 
         /// <summary>
@@ -50,7 +45,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments per page.
         /// </value>
-        [JsonProperty("commentsPerPage")]
         public int CommentsPerPage { get; set; }
 
         /// <summary>
@@ -59,7 +53,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The maximum length of the comments text.
         /// </value>
-        [JsonProperty("commentsTextMaxLength")]
         public int CommentsTextMaxLength { get; set; }
 
         /// <summary>
@@ -68,7 +61,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments allow subscription.
         /// </value>
-        [JsonProperty("commentsAllowSubscription")]
         public bool CommentsAllowSubscription { get; set; }
 
         /// <summary>
@@ -77,7 +69,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The requires captcha.
         /// </value>
-        [JsonProperty("requiresCaptcha")]
         public bool RequiresCaptcha { get; set; }
 
         /// <summary>
@@ -86,7 +77,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The requires authentication.
         /// </value>
-        [JsonProperty("requiresAuthentication")]
         public bool RequiresAuthentication { get; set; }
 
         /// <summary>
@@ -95,7 +85,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The requires approval.
         /// </value>
-        [JsonProperty("requiresApproval")]
         public bool RequiresApproval { get; set; }
 
         /// <summary>
@@ -104,7 +93,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments automatic refresh.
         /// </value>
-        [JsonProperty("commentsAutoRefresh")]
         public bool CommentsAutoRefresh { get; set; }
 
         /// <summary>
@@ -113,7 +101,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments refresh interval.
         /// </value>
-        [JsonProperty("commentsRefreshInterval")]
         public int CommentsRefreshInterval { get; set; }
 
         /// <summary>
@@ -122,7 +109,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments initially sorted descending.
         /// </value>
-        [JsonProperty("commentsInitiallySortedDescending")]
         public bool CommentsInitiallySortedDescending { get; set; }
 
         /// <summary>
@@ -131,7 +117,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comment date time format string.
         /// </value>
-        [JsonProperty("commentDateTimeFormatString")]
         public string CommentDateTimeFormatString { get; set; }
 
         /// <summary>
@@ -140,7 +125,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The user avatar image URL.
         /// </value>
-        [JsonProperty("userAvatarImageUrl")]
         public string UserAvatarImageUrl { get; set; }
 
         /// <summary>
@@ -149,7 +133,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The display name of the user.
         /// </value>
-        [JsonProperty("userDisplayName")]
         public string UserDisplayName { get; set; }
 
         /// <summary>
@@ -158,7 +141,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The is design mode.
         /// </value>
-        [JsonProperty("isDesignMode")]
         public bool IsDesignMode { get; set; }
 
         /// <summary>
@@ -167,7 +149,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// <value>
         /// The comments thread.
         /// </value>
-        [JsonProperty("commentsThread")]
         public IThread CommentsThread { get; set; }
     }
 }

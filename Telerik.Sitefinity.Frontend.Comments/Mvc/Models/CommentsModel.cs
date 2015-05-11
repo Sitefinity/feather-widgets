@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.ComponentModel;
 using System.Web;
@@ -271,6 +272,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             var widgetResources = this.GetCommentsListWidgetResources();
             var widgetSettings = this.GetCommentsListWidgetSettings(commentsInputModel.ThreadTitle);
 
+            var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+
             var viewModel = new CommentsListViewModel()
             {
                 AllowComments = this.AllowComments && (commentsInputModel.AllowComments.HasValue ? commentsInputModel.AllowComments.Value : true),
@@ -278,8 +281,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 LoginPageUrl = this.LoginPageUrl,
                 ThreadIsClosed = this.ThreadIsClosed,
                 UserAvatarImageUrl = this.UserAvatarImageUrl,
-                SerializedWidgetResources = JsonConvert.SerializeObject(widgetResources),
-                SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings)
+                SerializedWidgetResources = JsonConvert.SerializeObject(widgetResources, Formatting.None, jsonSerializerSettings),
+                SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings, Formatting.None, jsonSerializerSettings)
             };
 
             return viewModel;
