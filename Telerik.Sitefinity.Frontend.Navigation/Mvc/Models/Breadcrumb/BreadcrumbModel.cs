@@ -104,7 +104,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
             return new BreadcrumbViewModel(result.Item2)
             {
                 ShowCurrentPageInTheEnd = this.ShowCurrentPageInTheEnd,
-                IsTemplateRendered = !result.Item1
+                IsTemplateRendered = !result.Item1,
+                CssClass = this.CssClass
             };
         }
 

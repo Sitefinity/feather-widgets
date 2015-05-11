@@ -18,6 +18,36 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
         /// <summary>
         /// Full path to the current page
         /// </summary>
+        [ResourceEntry("BreadcrumbResourcesTitle",
+            Value = "BreadcrumbResource labels",
+            Description = "The title of this class",
+            LastModified = "2015/05/4")]
+        public string BreadcrumbResourcesTitle
+        {
+            get
+            {
+                return this["BreadcrumbResourcesTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Full path to the current page
+        /// </summary>
+        [ResourceEntry("BreadcrumbResourcesDescription",
+            Value = "Contains localizable resources",
+            Description = "The description of this class",
+            LastModified = "2015/05/4")]
+        public string BreadcrumbResourcesDescription
+        {
+            get
+            {
+                return this["BreadcrumbResourcesDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Full path to the current page
+        /// </summary>
         [ResourceEntry("BreadcrumbShowFullPath",
             Value = "Full path to the current page",
             Description = "Full path to the current page",

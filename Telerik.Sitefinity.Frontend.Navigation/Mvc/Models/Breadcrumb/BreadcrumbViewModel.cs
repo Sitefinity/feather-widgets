@@ -40,5 +40,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb
         /// </summary>
         /// <value>The is template rendered.</value>
         public bool IsTemplateRendered { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Breadcrumb selector widget (if such is presented).
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        public string CssClass { get; set; }
     }
 }
