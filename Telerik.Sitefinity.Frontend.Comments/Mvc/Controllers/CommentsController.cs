@@ -87,7 +87,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
             {
                 var commentsCountViewModel = this.Model.GetCommentsCountViewModel(navigateUrl, threadKey);
 
-                return this.View(this.templateNamePrefix + this.TemplateName, commentsCountViewModel);
+                return this.View(this.countTemplateName, commentsCountViewModel);
             }
 
             return new EmptyResult();

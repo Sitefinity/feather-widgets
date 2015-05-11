@@ -6,7 +6,7 @@
     */
     var CommentsCountWidget = function (rootUrl, resources) {
 
-        getCommentsCounts = function () {
+        this.getCommentsCounts = function () {
             var threadKeys = this.collectThreadIds();
             var getCountUrl = String.format(rootUrl + '/comments/count?ThreadKey={0}', threadKeys);
             return jQuery.ajax({
@@ -21,7 +21,7 @@
             });
         },
 
-        collectThreadIds = function () {
+        this.collectThreadIds = function () {
             var commmentsCounterControls = jQuery('[data-sf-role="comments-count-wrapper"]');
             var uniqueKeys = {};
             for (var i = 0; i < commmentsCounterControls.length; i++) {
@@ -34,7 +34,7 @@
             return threadKeys;
         },
 
-        setCommentsCounts = function (data) {
+        this.setCommentsCounts = function (data) {
             var threadCountList = data;
             for (var i = 0; i < threadCountList.Items.length; i++) {
                 var currentThreadKey = threadCountList.Items[i].Key;
@@ -66,7 +66,7 @@
             }
         },
 
-        initialize = function () {
+        this.initialize = function () {
             var self = this;
 
             self.getCommentsCounts().then(function (response) {
