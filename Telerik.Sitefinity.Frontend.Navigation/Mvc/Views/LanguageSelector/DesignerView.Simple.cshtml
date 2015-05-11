@@ -14,15 +14,15 @@
     <p class="description-note">@Html.Resource("LanguageWithoutTranslationDescription")</p>
 
     <div class="radio">
-        <label for="hideLink">
+        <label for="hideLink" class="full-width">
           <input id="hideLink" type="radio" ng-model="properties.MissingTranslationAction.PropertyValue" value="HideLink" />
           @Html.Resource("HideLink")
         </label>
     </div>
 
     <div class="radio">
-        <label for="hideLink">
-          <input id="hideLink" type="radio" ng-model="properties.MissingTranslationAction.PropertyValue" value="RedirectToPage" />
+        <label for="redirectToHomePage" class="full-width">
+          <input id="redirectToHomePage" type="radio" ng-model="properties.MissingTranslationAction.PropertyValue" value="RedirectToPage" />
           @Html.Resource("RedirectToHomePage")
         </label>
     </div>
