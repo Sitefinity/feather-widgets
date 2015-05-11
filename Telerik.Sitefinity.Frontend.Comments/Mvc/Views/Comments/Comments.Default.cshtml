@@ -5,7 +5,7 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-<div data-sf-role="comments-wrapper" class="@Model.CssClass">
+<div id="commentsWidget" data-sf-role="comments-wrapper" class="@Model.CssClass">
     @{ var commentsAllowSubscription = Model.ThreadsConfig.AllowSubscription && !Model.ThreadIsClosed; }
     <input type="hidden" data-sf-role="comments-settings" value='{ "commentsThreadKey": "@Model.ThreadKey", "commentsThreadType": "@Model.ThreadType", "rootUrl" : "/RestApi/comments-api/" , "isUserAuthenticatedUrl":"/RestApi/session/is-authenticated" , "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, "commentsAllowSubscription":@commentsAllowSubscription.ToString().ToLower(), "requiresCaptcha": @Model.CommentsConfig.UseSpamProtectionImage.ToString().ToLower() }' />
     <input type="hidden" data-sf-role="comments-resources" value='{"readFullComment": "@Html.Resource("ReadFullComment")", "commentsPlural": "@Html.Resource("CommentsPlural")", "subscribeToNewComments":"@Html.Resource("SubscribeToNewComments")", "unsubscribeFromNewComments":"@Html.Resource("UnsubscribeFromNewComments")" }' />
