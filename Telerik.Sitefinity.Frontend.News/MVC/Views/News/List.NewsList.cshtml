@@ -2,8 +2,10 @@
 
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Comments;
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Web.DataResolving;
+@using Telerik.Sitefinity.Web.UI;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
@@ -16,7 +18,7 @@
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 <h3>
                     <a @Html.InlineEditingFieldAttributes("Title", "ShortText") href="@navigateUrl">@item.Fields.Title</a>
-                    @Html.CommentsCount((string)navigateUrl, (string)item.Fields.Id.ToString())
+                    @Html.CommentsCount((string)navigateUrl, (string)ControlUtilities.GetLocalizedKey(item.Fields.Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(item.DataItem.GetType().FullName)))
                 </h3>
 
                 <div>
