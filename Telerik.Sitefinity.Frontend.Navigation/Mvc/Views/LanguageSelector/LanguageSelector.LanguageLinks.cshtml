@@ -1,9 +1,11 @@
 ﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector.LanguageSelectorViewModel
 
-@foreach (var language in Model.Languages)
-{
-	<a href="@language.Url" class="@GetClass(language.Culture)">@language.DisplayName</a>
-}
+<div class="@Model.CssClass">
+    @foreach (var language in Model.Languages)
+    {
+	    <a href="@language.Url" class="@GetClass(language.Culture)">@language.DisplayName</a>
+    }
+</div>
 
 @*Resolves the class that will be added for each language link depending whether it is the current language*@
 @helper GetClass(string culture)

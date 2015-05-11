@@ -23,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         NoTranslationAction MissingTranslationAction { get; set; }
 
         /// <summary>
-        /// Gets or sets the CSS class that will be applied on the wrapper div of the NavigationWidget (if such is presented).
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Language selector widget (if such is presented).
         /// </summary>
         /// <value>
         /// The CSS class.

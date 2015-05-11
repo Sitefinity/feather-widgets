@@ -35,5 +35,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
         /// </summary>
         /// <value>The current selected language.</value>
         public string CurrentLanguage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Language selector widget (if such is presented).
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        public string CssClass { get; set; }
     }
 }

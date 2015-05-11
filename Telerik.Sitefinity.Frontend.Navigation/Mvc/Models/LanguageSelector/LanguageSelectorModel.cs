@@ -51,6 +51,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             var viewModel = new LanguageSelectorViewModel();
             viewModel.IncludeCurrentLanguage = this.IncludeCurrentLanguage;
             viewModel.CurrentLanguage = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+            viewModel.CssClass = this.CssClass;
 
             IEnumerable<CultureInfo> shownLanguages = this.GetLanguagesToDisplay();
 
