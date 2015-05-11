@@ -72,13 +72,12 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string WidgetName = "Press Articles MVC";
         private const string WhichNewsToDisplay = "Selected PressArticles";
         private readonly string[] selectedItemsNames = { "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6", "Dynamic Item Title9" };
-        private readonly string[] expectedOrderOfNames = { "Dynamic Item Title9", "Dynamic Item Title5", "Dynamic Item Title1", "Dynamic Item Title6" };
+        private readonly string[] expectedOrderOfNames = { "Dynamic Item Title9", "Dynamic Item Title1", "Dynamic Item Title5", "Dynamic Item Title6" };
         private const string SortingOption = "AsSetManually";
 
         private readonly Dictionary<int, int> reorderedIndexMapping = new Dictionary<int, int>()
         {
-            { 3, 0 },
-            { 1, 3 }
+            { 3, 0 }
         };
     }
 }

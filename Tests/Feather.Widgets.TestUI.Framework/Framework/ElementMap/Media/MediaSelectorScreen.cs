@@ -97,7 +97,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the image selector media file divs.
         /// </summary>
         /// <value>The image selector media file divs.</value>
-        public ICollection<HtmlDiv> MediaSelectorMediaImageFileDivs
+        public ICollection<HtmlDiv> ImageFileDivs
         {
             get
             {
@@ -109,7 +109,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the document selector media file divs.
         /// </summary>
         /// <value>The document selector media file divs.</value>
-        public ICollection<HtmlDiv> MediaSelectorMediaDocFileDivs
+        public ICollection<HtmlDiv> DocFileDivs
         {
             get
             {
@@ -121,7 +121,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the video selector media file divs.
         /// </summary>
         /// <value>The video selector media file divs.</value>
-        public ICollection<HtmlDiv> MediaSelectorMediaVideoFileDivs
+        public ICollection<HtmlDiv> VideoFileDivs
         {
             get
             {
@@ -133,11 +133,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the image selector media folder divs.
         /// </summary>
         /// <value>The image selector media folder divs.</value>
-        public ICollection<HtmlDiv> MediaSelectorMediaFolderDivs
+        public ICollection<HtmlDiv> MediaFolderDivs
         {
             get
             {
                 return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=Media-folder ng-scope");
+            }
+        }
+
+        /// <summary>
+        /// Gets the media thumbnail divs.
+        /// </summary>
+        /// <value>The media thumbnail divs.</value>
+        public ICollection<HtmlDiv> MediaThumbnailDivs
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=~Media-file-thumb-holder");
             }
         }
 
@@ -156,7 +168,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the media selector thumbnail holder div.
         /// </summary>
         /// <value>The media selector thumbnail holder div.</value>
-        public HtmlDiv MediaSelectorThumbnailHolderDiv
+        public HtmlDiv ThumbnailHolderDiv
         {
             get
             {

@@ -67,7 +67,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            if (this.Model.ShowComments)
+            if (this.Model.AllowComments)
             {
                 return this.View(this.templateNamePrefix + this.TemplateName, this.Model);
             }

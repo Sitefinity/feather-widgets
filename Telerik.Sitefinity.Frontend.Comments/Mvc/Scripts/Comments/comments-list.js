@@ -104,10 +104,9 @@
         this.firstCommentDate = 0;
         this.lastCommentDate = 0;
         this.maxCommentsToShow = 0;
+        this.initialCommentsCount = 0;
 
-        // Pass as settings ?
-        this.commentsSortedDescending = true;
-        this.commentsRefreshRate = 3000;
+        this.commentsSortedDescending = settings.commentsInitiallySortedDescending;
     };
 
     CommentsListWidget.prototype = {
@@ -155,36 +154,62 @@
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
         newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeButton', 'comments-new-subscribe-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
+        newCommentMessageError: function () { return this.getOrInitializeProperty('_newCommentMessageError', 'comments-new-message-error'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
+        newCommentNameError: function () { return this.getOrInitializeProperty('_newCommentNameError', 'comments-new-name-error'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
         newCommentWebsite: function () { return this.getOrInitializeProperty('_newCommentWebsite', 'comments-new-website'); },
+        newCommentRequiresAuthentication: function () { return this.getOrInitializeProperty('_newCommentRequiresAuthentication', 'comments-new-requires-authentication'); },
 
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
         commentsSortOldButton: function () { return this.getOrInitializeProperty('_commentsSortOldButton', 'comments-sort-old-button'); },
 
-        captchaContainer: function () { return this.getOrInitializeProperty('captchaContainer', 'captcha-container'); },
+        captchaContainer: function () { return this.getOrInitializeProperty('_captchaContainer', 'captcha-container'); },
         captchaImage: function () { return this.getOrInitializeProperty('_captchaImage', 'captcha-image'); },
         captchaInput: function () { return this.getOrInitializeProperty('_captchaInput', 'captcha-input'); },
         captchaRefreshLink: function () { return this.getOrInitializeProperty('_captchaRefreshLink', 'captcha-refresh-button'); },
         errorMessage: function () { return this.getOrInitializeProperty('_errorMessage', 'error-message'); },
 
+        listLoadingIndicator: function () { return this.getOrInitializeProperty('_listLoadingIndicator', 'list-loading-indicator'); },
+        submitLoadingIndicator: function () { return this.getOrInitializeProperty('_submitLoadingIndicator', 'submit-loading-indicator'); },
+
         /*
             Widget methods
         */
+        getSfStringFromDate: function (date) {
+            return '/Date(' + date.getTime() + ')/';
+        },
+
+        getDateFromSfString: function (sfDateString) {
+            return new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
+        },
+
         getDateString: function (sfDateString, secondsOffset) {
-            var date = new Date(parseInt(sfDateString.replace(/\D/g, ''), 10));
+            var date = this.getDateFromSfString(sfDateString);
             date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
             date.setSeconds(date.getSeconds() + secondsOffset);
 
             return date.toUTCString();
         },
 
+        hideErrors: function () {
+            this.newCommentMessageError().hide();
+            this.newCommentNameError().hide();
+            this.errorMessage().hide();
+        },
+
         validateComment: function (comment) {
             var deferred = $.Deferred();
+            var isValid = true;
 
-            var isValid = comment.Message.length > 0;
-            if (!this.isUserAuthenticated) {
-                isValid = isValid && (comment.Name.length > 0);
+            if (comment.Message.length < 1) {
+                isValid = false;
+                this.newCommentMessageError().show();
+            }
+
+            if (!this.isUserAuthenticated && comment.Name.length < 1) {
+                isValid = false;
+                this.newCommentNameError().show();
             }
 
             deferred.resolve(isValid);
@@ -205,30 +230,40 @@
             }
         },
 
-        renderComments: function (comments, doPrepend) {
+        createCommentMarkup: function (comment, appendPendingApproval) {
+            var newComment = this.getSingleCommentTemplate().clone(true);
+
+            newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
+
+            newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
+            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).format(this.settings.commentDateTimeFormatString));
+
+            if (appendPendingApproval) {
+                newComment.find('[data-sf-role="comment-date"]').after($('<span />').text(this.resources.commentPendingApproval));
+            }
+
+            this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
+
+            return newComment;
+        },
+
+        renderComments: function (comments, container, doPrepend) {
             if (comments && comments.length) {
                 var self = this;
 
                 comments.forEach(function (comment) {
-                    var newComment = self.getSingleCommentTemplate().clone(true);
-
-                    newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
-
-                    newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
-                    newComment.find('[data-sf-role="comment-date"]').text(comment.Date);
-
-                    self.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
+                    var newComment = self.createCommentMarkup(comment);
 
                     if (doPrepend) {
-                        self.commentsContainer().prepend(newComment);
+                        container.prepend(newComment);
 
                         if (self.commentsTakenSoFar > self.maxCommentsToShow) {
-                            self.commentsContainer().children().slice((self.commentsTakenSoFar - self.maxCommentsToShow) * (-1)).remove();
+                            container.children().slice((self.commentsTakenSoFar - self.maxCommentsToShow) * (-1)).remove();
                             self.commentsTakenSoFar = self.maxCommentsToShow;
                         }
                     }
                     else {
-                        self.commentsContainer().append(newComment);
+                        container.append(newComment);
                     }
                 });
             }
@@ -236,6 +271,11 @@
 
         loadComments: function (skip, take, newerThan) {
             var self = this;
+            if (self.isLoadinglist)
+                return;
+
+            self.isLoadingList = true;
+            self.listLoadingIndicator().show();
 
             self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
                 if (response && response.Items && response.Items.length) {
@@ -248,14 +288,17 @@
                         self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
                     }
 
-                    // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
-                    self.renderComments(response.Items, newerThan && self.commentsSortedDescending);
-
                     // Refresh total count if items are recieved
                     if (newerThan) {
                         self.commentsTotalCount().text(parseInt(self.commentsTotalCount().text()) + response.Items.length);
                     }
+
+                    // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
+                    self.renderComments(response.Items, self.commentsContainer(), newerThan && self.commentsSortedDescending);
                 }
+            }).always(function () {
+                self.listLoadingIndicator().hide();
+                self.isLoadingList = false;
             });
         },
 
@@ -277,7 +320,7 @@
             }
         },
 
-        submitNewComment: function () {
+        buildNewCommentFromForm: function () {
             var self = this;
 
             var comment = {
@@ -300,28 +343,51 @@
                 }
             }
 
+            return comment;
+        },
+
+        submitNewComment: function () {
+            var self = this;
+
+            self.submitLoadingIndicator().show();
+            self.newCommentSubmitButton().hide();
+
+            var comment = self.buildNewCommentFromForm();
+
             self.validateComment(comment).then(function (isValid) {
+                var hideLoading = function () {
+                    self.submitLoadingIndicator().hide();
+                    self.newCommentSubmitButton().show();
+                };
+
                 if (isValid) {
                     self.commentsRestApi.createComment(comment).then(function (response) {
                         self.newCommentMessage().val('');
-                        self.newCommentForm().hide();
-                        self.newCommentFormButton().show();
 
-                        // Comments refresh will handle the showing of the new comment.
-
-                        // Success message ?
+                        if (self.settings.requiresApproval) {
+                            self.showPendingApprovalComment(comment);
+                        }
                     }, function (jqXHR, textStatus, errorThrown) {
                         if (jqXHR.responseText) {
                             var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
                             self.errorMessage().html(errorTxt);
                             self.errorMessage().show();
                         }
-                    });
+                    }).always(hideLoading);
                 }
                 else {
-                    // Error message ?
+                    hideLoading();
                 }
             });
+        },
+
+        showPendingApprovalComment: function (comment) {
+            comment.DateCreated = this.getSfStringFromDate(new Date());
+            comment.ProfilePictureThumbnailUrl = this.settings.userAvatarImageUrl;
+            comment.Name = comment.Name || this.settings.userDisplayName;
+
+            var createdComment = this.createCommentMarkup(comment, true);
+            this.newCommentForm().before(createdComment);
         },
 
         captchaRefresh: function () {
@@ -364,8 +430,6 @@
             self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
                 self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
 
-                // React to response ?
-
                 self.newCommentSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments);
             });
         },
@@ -376,8 +440,12 @@
         initializeProperties: function () {
             this.commentsRestApi = new CommentsRestApi(this.settings.rootUrl);
 
+            this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
+
+            // Initially hide the "RequiresAuthentication" message.
+            this.newCommentRequiresAuthentication().hide();
         },
 
         initializeUserStatus: function () {
@@ -389,9 +457,15 @@
             }
             isUserAuthenticatedUrl += '?_=' + (Math.random().toString().substr(2) + (new Date()).getTime());
             makeAjax(isUserAuthenticatedUrl).then(function (response) {
-                if (response && response.IsAuthenticated) {
-                    self.isUserAuthenticated = true;
-                    self.commentsNewLoggedOutView().hide();
+                if (response) {
+                    if (response.IsAuthenticated) {
+                        self.isUserAuthenticated = true;
+                        self.commentsNewLoggedOutView().hide();
+                    }
+                    else if (self.settings.requiresAuthentication) {
+                        self.newCommentForm().hide();
+                        self.newCommentRequiresAuthentication().show();
+                    }
                 }
 
                 $.proxy(self.setupCaptcha(), self);
@@ -405,6 +479,7 @@
             self.commentsRestApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
                 if (response && response.Items) {
                     var currentThreadKeyCount = 0;
+                    self.initialCommentsCount = response.Items.length;
 
                     for (var i = 0; i < response.Items.length; i++) {
                         if (response.Items[i].Key === self.settings.commentsThreadKey) {
@@ -418,9 +493,10 @@
                         self.commentsHeader().text(self.resources.commentsPlural);
                     }
                     else {
-                        self.commentsTotalCount().hide();
-                        self.newCommentFormButton().hide();
                         self.commentsHeader().text(self.newCommentFormButton().text());
+                        self.newCommentFormButton().hide();
+                        self.commentsSortNewButton().hide();
+                        self.commentsSortOldButton().hide();
                     }
 
                     if (currentThreadKeyCount <= Math.max(self.commentsTakenSoFar, self.settings.commentsPerPage)) {
@@ -433,9 +509,11 @@
             self.loadComments(0, self.settings.commentsPerPage);
 
             // Comments Refresh
-            setInterval(function () {
-                self.refreshComments(self);
-            }, self.commentsRefreshRate);
+            if (self.settings.commentsAutoRefresh) {
+                setInterval(function () {
+                    self.refreshComments(self);
+                }, self.settings.commentsRefreshInterval);
+            }
         },
 
         initializeSubscription: function () {
@@ -487,11 +565,16 @@
 
             self.newCommentFormButton().click(function () {
                 $('html, body').animate({ scrollTop: self.newCommentForm().offset().top }, 1000);
+                
                 return false;
             });
 
             self.newCommentSubmitButton().click(function () {
-                self.submitNewComment();
+                if (!self.settings.isDesignMode) {
+                    self.hideErrors();
+                    self.submitNewComment();
+                }
+
                 return false;
             });
 

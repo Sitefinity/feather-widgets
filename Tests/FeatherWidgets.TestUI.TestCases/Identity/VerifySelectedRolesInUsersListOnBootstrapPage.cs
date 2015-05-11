@@ -71,7 +71,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string UserProvider = "All Roles";
         private const string RoleToFilter = "Administrators";
         private const string UserFirstLastName = "Admin Admin";
-        private const string UserEmail = "admin@admin.com";
+        private const string UserEmail = "admin@test.bg";
         private const string AdminUserName = "admin";
 
         private readonly string[] users = new string[] { "Admin Admin", "admin2 admin2" };
