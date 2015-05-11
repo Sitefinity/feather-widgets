@@ -124,7 +124,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="expectedCount">The expected items count.</param>
         public void WaitForItemsToAppear(int expectedCount)
         {
-            Manager.Current.Wait.For(() => this.ScrollToLatestItemAndCountItems(expectedCount), 50000);
+            Manager.Current.Wait.For(() => this.ScrollToLatestItemAndCountItems(expectedCount), 100000);
         }
 
         /// <summary>
