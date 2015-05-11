@@ -51,8 +51,5 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// </value>
         [JsonProperty("commentPendingApproval")]
         public string CommentPendingApproval { get; set; }
-       
-        //// "readFullComment": "@Html.Resource("ReadFullComment")", "commentsPlural": "@Html.Resource("CommentsPlural")", "subscribeToNewComments":"@Html.Resource("SubscribeToNewComments")", 
-        //// "unsubscribeFromNewComments":"@Html.Resource("UnsubscribeFromNewComments")", "commentPendingApproval" : "@Html.Resource("PendingApproval")"
     }
 }

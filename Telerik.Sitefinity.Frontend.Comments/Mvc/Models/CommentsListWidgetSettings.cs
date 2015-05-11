@@ -169,10 +169,5 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// </value>
         [JsonProperty("commentsThread")]
         public IThread CommentsThread { get; set; }
-
-        //// "commentsThreadKey": "@Model.ThreadKey", "commentsThreadType": "@Model.ThreadType", "rootUrl" : "/RestApi/comments-api/" , "isUserAuthenticatedUrl":"/RestApi/session/is-authenticated" , "commentsPerPage": @Model.CommentsConfig.CommentsPerPage, "commentsTextMaxLength": @Model.CommentTextMaxLength, 
-        ////  "commentsAllowSubscription":@commentsAllowSubscription.ToString().ToLower(), "requiresCaptcha": @Model.CommentsConfig.UseSpamProtectionImage.ToString().ToLower(), "requiresAuthentication" : @Model.ThreadsConfig.RequiresAuthentication.ToString().ToLower(), 
-        //// "requiresApproval" : @Model.ThreadsConfig.RequiresApproval.ToString().ToLower(), "commentsAutoRefresh" : false, "commentsRefreshInterval": 3000, "commentsInitiallySortedDescending": true, 
-        //// "commentDateTimeFormatString" : "@Model.DateTimeFormatString", "userAvatarImageUrl" : "@Model.UserAvatarImageUrl", "userDisplayName" : "@Model.UserDisplayName", "isDesignMode" : @Model.IsDesignMode.ToString().ToLower(), "commentsThread" : @serializedThread
     }
 }
