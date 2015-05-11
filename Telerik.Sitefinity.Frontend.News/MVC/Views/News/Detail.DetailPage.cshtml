@@ -26,4 +26,8 @@
     {
         @Html.SocialShareOptions()
     }
+
+    <div>
+        @Html.CommentsList(@Model.Item.DataItem, "Telerik.Sitefinity.Modules.News.NewsManager", (string)Model.Item.Fields.Title)
+    </div>
 </div>
