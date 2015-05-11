@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
 
 namespace Telerik.Sitefinity.Frontend.Navigation
@@ -15,6 +16,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation
         public override void Load()
         {
             Bind<INavigationModel>().To<NavigationModel>();
+            Bind<IBreadcrumbModel>().To<BreadcrumbModel>();
             Bind<ILanguageSelectorModel>().To<LanguageSelectorModel>();
         }
     }
