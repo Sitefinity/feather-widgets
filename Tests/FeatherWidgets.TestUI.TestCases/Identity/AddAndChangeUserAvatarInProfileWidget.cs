@@ -1,4 +1,5 @@
 ﻿using System;
+using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.Win32.Dialogs;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Profile),
-        TestCategory(FeatherTestCategories.Bootstrap), Ignore]
+        TestCategory(FeatherTestCategories.Bootstrap)]
         public void AddAndChangeUserAvatarInProfileWidget()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());
@@ -30,7 +31,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
 
             this.UploadUserAvatar();           
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().VerifyNotDefaultUserAvatarSrc();
-            string oldUserAvatarSrc = BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().UserAvatarSrc(); 
+            string oldUserAvatarSrc = BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().UserAvatarSrc();           
 
             this.UploadUserAvatar();
 
@@ -42,11 +43,15 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         {
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().ClickUploadPhotoLink();
             string fullImagesPath = DeploymentDirectory + @"\";
-
             var fullFilePath = string.Concat(fullImagesPath, FileToUpload);
-            var uploadDialog = BAT.Macros().DialogOperations().StartFileUploadDialogMonitoring(fullFilePath, DialogButton.OPEN);
-            BAT.Macros().DialogOperations().WaitUntillFileUploadDialogIsHandled(uploadDialog);
+
+            var uploadDialog = new FileUploadDialog(Manager.Current.ActiveBrowser, fullFilePath, DialogButton.OPEN);
+            Manager.Current.DialogMonitor.AddDialog(uploadDialog);
+            Manager.Current.DialogMonitor.Start();
+
+            uploadDialog.WaitUntilHandled();
             ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
 
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
             BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();

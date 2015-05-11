@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            if (this.Model.ShowComments)
+            if (this.Model.AllowComments)
             {
                 return this.View(this.templateNamePrefix + this.TemplateName, this.Model);
             }
@@ -83,7 +83,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         public ActionResult Count(string navigateUrl, string threadKey)
         {
             this.ViewBag.ServiceUrl = RouteHelper.ResolveUrl("/RestApi/comments-api/", UrlResolveOptions.Rooted);
-            if (this.Model.ShowComments)
+            if (this.Model.AllowComments)
             {
                 var commentsCountViewModel = this.Model.GetCommentsCountViewModel(navigateUrl, threadKey);
 

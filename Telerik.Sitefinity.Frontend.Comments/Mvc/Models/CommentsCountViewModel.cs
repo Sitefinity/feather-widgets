@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 {
+    /// <summary>
+    /// Provides view model for the comments count functionality.
+    /// </summary>
     public class CommentsCountViewModel
     {
         /// <summary>

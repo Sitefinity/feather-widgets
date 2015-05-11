@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test LinkSelectorInsertLinkToPageFromThisSiteOverSelectedText
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.LinkSelector)]
