@@ -63,7 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets the breadcrumb on template message.
+        /// Gets the Language selector widget on template message.
         /// </summary>
         /// <returns></returns>
         protected virtual string LanguageSelectorOnTemplateMessage
