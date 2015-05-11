@@ -1,0 +1,74 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<h4>@Html.Resource("BreadcrumbIncludeOptions")</h4>
+<div class="form-group">
+    <div class="radio">
+        <label for="rbFullPathToCurrentPage">
+            <input id="rbFullPathToCurrentPage" type="radio" ng-model="properties.BreadcrumbIncludeOption.PropertyValue" value="CurrentPageFullPath" />
+            @Html.Resource("BreadcrumbShowFullPath")
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" ng-model="properties.BreadcrumbIncludeOption.PropertyValue" value="SpecificPagePath" />
+            @Html.Resource("BreadcrumbSelectSpecificPage")
+        </label>
+        <div class="label-content">
+            <sf-list-selector sf-page-selector
+                              sf-sortable="true"
+                              sf-selected-item-id="properties.StartingPageId.PropertyValue"
+                              ng-show="properties.BreadcrumbIncludeOption.PropertyValue == 'SpecificPagePath'"></sf-list-selector>
+        </div>
+    </div>
+</div>
+
+<h4>@Html.Resource("Show")</h4>
+<div class="form-group">
+    <div class="checkbox">
+        <label for="homePageLink">
+            <input id="homePageLink" type="checkbox" ng-model="properties.ShowHomePageLink.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowHomePageLink.PropertyValue === 'True'" />
+            @Html.Resource("BreadcrumbParentPage")
+        </label>
+
+        <br />
+
+        <label for="currentPage">
+            <input id="currentPage" type="checkbox" ng-model="properties.ShowCurrentPageInTheEnd.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowCurrentPageInTheEnd.PropertyValue === 'True'" />
+            @Html.Resource("BreadcrumbShowCurrentPage")
+        </label>
+
+        <br />
+
+        <label for="groupPage">
+            <input id="groupPage" type="checkbox" ng-model="properties.ShowGroupPages.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowGroupPages.PropertyValue === 'True'" />
+            @Html.Resource("BreadcrumbShowGroupPages")
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <label for="navTemplateName">@Html.Resource("Template")</label>
+
+            <select id="navTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, "(?<viewName>^Breadcrumb.*)$"))
+                {
+                <option value="@viewName"> @viewName</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="imageCssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="imageCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>

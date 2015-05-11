@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.Profile),
-        TestCategory(FeatherTestCategories.Bootstrap)]
+        TestCategory(FeatherTestCategories.Bootstrap), Ignore]
         public void AddAndChangeUserAvatarInProfileWidget()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + LoginPage.ToLower());

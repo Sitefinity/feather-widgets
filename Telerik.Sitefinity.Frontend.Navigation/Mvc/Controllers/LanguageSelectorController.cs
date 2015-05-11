@@ -111,14 +111,14 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         protected string AppendDetailItemAndParamsToUrl(string url, CultureInfo culture)
         {
-            var query = this.HttpContext.Request.QueryString;
+            var query = this.HttpContext.Request.QueryString.ToQueryString();
             var detailItem = SystemManager.CurrentHttpContext.Items["detailItem"];
             var extendedItem = detailItem as ILocatableExtended;
 
             var dataItemAsLifecycleDataItem = detailItem as ILifecycleDataItem;
 
             if (extendedItem == null || dataItemAsLifecycleDataItem != null)
-                return url + query;
+                return string.Concat(url, query);
 
             string currentCultureContentItemUrl = string.Empty;
             var isPublishedLiveItem = dataItemAsLifecycleDataItem.IsPublishedInCulture(culture);
@@ -127,7 +127,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 currentCultureContentItemUrl = extendedItem.ItemDefaultUrl.GetString(culture, false);
             }
 
-            var urlWithParams = url + currentCultureContentItemUrl + query;
+            var urlWithParams = string.Concat(url, currentCultureContentItemUrl, query);
 
             return urlWithParams;
         }
