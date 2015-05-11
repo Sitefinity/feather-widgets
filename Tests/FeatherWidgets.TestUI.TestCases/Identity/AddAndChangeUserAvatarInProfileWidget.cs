@@ -53,8 +53,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
 
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();
-            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().AssertSuccessfullySavedMessage();
+            BATFeather.Wrappers().Frontend().Identity().ProfileWrapper().SaveChangesButton();            
         }
 
         /// <summary>
