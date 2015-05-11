@@ -430,6 +430,18 @@
         <member name="P:Telerik.Sitefinity.Frontend.Modules.ControlTemplates.Web.UI.MvcControlTemplateEditor.ClientComponentType">
             <inheritdoc/>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers">
+            <summary>
+            Holds helpers related to Comments widget
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsList(System.Web.Mvc.HtmlHelper,Telerik.Sitefinity.Model.IDataItem)">
+            <summary>
+            Returns the comments list.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="item">The item.</param>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute">
             <summary>
             This class represents <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/> and should be used when one needs to validate email property.

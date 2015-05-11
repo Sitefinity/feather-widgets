@@ -65,10 +65,11 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// Gets comments view
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string threadKey = null)
+        public ActionResult Index(string threadKey = null, string threadType = null)
         {
             var model = this.Model;
             model.ThreadKey = threadKey;
+            model.ThreadType = threadType;
 
             if (model.AllowComments)
             {
