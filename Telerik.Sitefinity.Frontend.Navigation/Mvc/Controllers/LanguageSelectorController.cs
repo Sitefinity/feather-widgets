@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lifecycle;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
@@ -61,6 +62,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the breadcrumb on template message.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string LanguageSelectorOnTemplateMessage
+        {
+            get
+            {
+                return Res.Get<LanguageSelectorResources>().LanguageSelectorOnTemplateMessage;
+            }
+        }
+
         #endregion
 
         #region Action
@@ -73,6 +86,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            var context = SystemManager.CurrentHttpContext;
+
+            if (context.Items.Contains("IsTemplate") && (bool)context.Items["IsTemplate"])
+            {
+                return this.Content(this.LanguageSelectorOnTemplateMessage);
+            }
+
             var viewModel = this.Model.CreateViewModel();
 
             foreach (var item in viewModel.Languages)
@@ -109,7 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <param name="culture">The culture info.</param>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
-        protected string AppendDetailItemAndParamsToUrl(string url, CultureInfo culture)
+        private string AppendDetailItemAndParamsToUrl(string url, CultureInfo culture)
         {
             var query = this.HttpContext.Request.QueryString.ToQueryString();
             var detailItem = SystemManager.CurrentHttpContext.Items["detailItem"];
