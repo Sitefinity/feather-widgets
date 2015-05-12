@@ -383,7 +383,7 @@
             };
 
             comment.Thread.Group = comment.Thread.Group || {
-                Key: null
+                Key: comment.Thread.GroupKey
             };
 
             return comment;
