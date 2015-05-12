@@ -394,10 +394,6 @@
             return comment;
         },
 
-        showPendingApprovalMessage: function () {
-            
-        },
-
         submitNewComment: function () {
             var self = this;
 
