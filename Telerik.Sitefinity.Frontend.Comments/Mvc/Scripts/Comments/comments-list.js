@@ -414,7 +414,11 @@
 
                 if (isValid) {
                     self.commentsRestApi.createComment(comment).then(function (response) {
+                        // Clean form
                         self.newCommentMessage().val('');
+                        self.newCommentName().val('');
+                        self.newCommentEmail().val('');
+
                         if (self.settings.requiresApproval) {
                             self.showPendingApprovalComment(comment);
                         }
