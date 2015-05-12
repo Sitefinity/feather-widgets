@@ -37,7 +37,20 @@
                 getCommentsCountUrl += '&Status=' + status;
             }
 
-            return makeAjax(getCommentsCountUrl);
+            return makeAjax(getCommentsCountUrl).then(function (response) {
+                var count = 0;
+
+                if (response && response.Items) {
+                    for (var i = 0; i < response.Items.length; i++) {
+                        if (response.Items[i].Key === threadKey) {
+                            count = response.Items[i].Count;
+                            break;
+                        }
+                    }
+                }
+
+                return count;
+            });
         },
 
         getComments: function (threadKey, skip, take, sortDescending, newerThan, language) {
@@ -102,7 +115,7 @@
 
         this.commentsTakenSoFar = 0;
         this.maxCommentsToShow = 0;
-        this.initialCommentsCount = 0;
+        this.allCommentsCount = 0;
 
         this.lastCommentDate = 0;
 
@@ -269,21 +282,21 @@
             }
         },
 
-        renderCommentsCount: function (count) {
+        renderCommentsCount: function () {
             // Comments count header
-            this.commentsHeader().text(count > 0 ? (count > 1 ? this.resources.commentsPlural : this.resources.commentSingular) : this.newCommentFormButton().text());
-            this.commentsTotalCount().toggle(count > 0).text(count);
-            this.newCommentFormButton().toggle(count > 0);
+            this.commentsHeader().text(this.allCommentsCount > 0 ? (this.allCommentsCount > 1 ? this.resources.commentsPlural : this.resources.commentSingular) : this.newCommentFormButton().text());
+            this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
+            this.newCommentFormButton().toggle(this.allCommentsCount > 0);
 
             // Comments sort buttons
-            this.commentsSortNewButton().toggle(count > 1);
-            this.commentsSortOldButton().toggle(count > 1);
+            this.commentsSortNewButton().toggle(this.allCommentsCount > 1);
+            this.commentsSortOldButton().toggle(this.allCommentsCount > 1);
 
             // Comments load more button
-            this.commentsLoadMoreButton().toggle(count > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
+            this.commentsLoadMoreButton().toggle(this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
         },
 
-        loadComments: function (skip, take, updateCount, newerThan) {
+        loadComments: function (skip, take, newerThan) {
             var self = this;
             if (self.isLoadinglist)
                 return;
@@ -291,48 +304,67 @@
             self.isLoadingList = true;
             self.listLoadingIndicator().show();
 
-            self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
+            return self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
                 if (response && response.Items && response.Items.length) {
                     self.commentsTakenSoFar += response.Items.length;
-
-                    if (self.commentsSortedDescending) {
-                        self.lastCommentDate = self.getDateString(response.Items[0].DateCreated, 1);
-                    }
-                    else {
-                        self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
-                    }
-
-                    if (updateCount) {
-                        self.renderCommentsCount(parseInt(self.commentsTotalCount().text() || 0) + response.Items.length);
-                    }
+                    self.renderCommentsCount();
 
                     // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
                     self.renderComments(response.Items, self.commentsContainer(), newerThan && self.commentsSortedDescending);
                 }
+
+                return response;
             }).always(function () {
                 self.listLoadingIndicator().hide();
                 self.isLoadingList = false;
             });
         },
 
+        refreshLastCommentDate: function (response) {
+            if (response && response.Items && response.Items.length) {
+                var itemToTake = this.commentsSortedDescending ? response.Items[0] : response.Items[response.Items.length - 1];
+                this.lastCommentDate = this.getDateString(itemToTake.DateCreated, 1);
+            }
+        },
+
+        refreshAllCommentsCount: function (response) {
+            if (response && response.Items && response.Items.length) {
+                this.allCommentsCount += response.Items.length;
+                this.renderCommentsCount();
+            }
+        },
+
+        setAllCommentsCount: function (count) {
+            this.allCommentsCount = count;
+            this.renderCommentsCount();
+        },
+
         refreshComments: function (self, isNewCommentPosted) {
-            if (self.commentsSortedDescending) {
-                self.loadComments(0, self.settings.commentsPerPage, true, self.lastCommentDate);
+            var commentsToTake = self.commentsSortedDescending ? self.settings.commentsPerPage : self.maxCommentsToShow - self.commentsTakenSoFar;
+
+            // New comment is created, but won't be retrievet via refresh - update comment count.
+            if (!self.commentsSortedDescending && commentsToTake <= 0 && isNewCommentPosted) {
+                self.allCommentsCount++;
+                self.renderCommentsCount();
             }
-            else if (self.maxCommentsToShow - self.commentsTakenSoFar > 0) {
-                self.loadComments(0, self.maxCommentsToShow - self.commentsTakenSoFar, true, self.lastCommentDate);
-            }
-            else if (isNewCommentPosted) {
-                self.renderCommentsCount(parseInt(self.commentsTotalCount().text() || 0) + 1);
+            else {
+                self.loadComments(0, commentsToTake, self.lastCommentDate).then(function (response) {
+                    self.refreshLastCommentDate(response);
+                    self.refreshAllCommentsCount(response);
+                });
             }
         },
 
         sortComments: function (useDescending) {
-            if (this.commentsSortedDescending !== useDescending) {
-                this.commentsSortedDescending = useDescending;
-                this.commentsContainer().html('');
-                this.commentsTakenSoFar = 0;
-                this.loadComments(0, this.settings.commentsPerPage);
+            var self = this;
+
+            if (self.commentsSortedDescending !== useDescending) {
+                self.commentsSortedDescending = useDescending;
+                self.commentsContainer().html('');
+                self.commentsTakenSoFar = 0;
+                self.loadComments(0, self.settings.commentsPerPage).then(function () {
+                    self.renderCommentsCount();
+                });
             }
         },
 
@@ -509,23 +541,13 @@
 
             // Initial loading of comments count for thread
             self.commentsRestApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
-                if (response && response.Items) {
-                    var currentThreadKeyCount = 0;
-                    self.initialCommentsCount = response.Items.length;
-
-                    for (var i = 0; i < response.Items.length; i++) {
-                        if (response.Items[i].Key === self.settings.commentsThreadKey) {
-                            currentThreadKeyCount = response.Items[i].Count;
-                            break;
-                        }
-                    }
-
-                    self.renderCommentsCount(currentThreadKeyCount);
-                }
+                self.setAllCommentsCount(response);
             });
 
             // Initial loading of comments
-            self.loadComments(0, self.settings.commentsPerPage);
+            self.loadComments(0, self.settings.commentsPerPage).then(function (response) {
+                self.refreshLastCommentDate(response);
+            });
 
             // Comments Refresh
             if (self.settings.commentsAutoRefresh) {
