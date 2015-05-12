@@ -55,6 +55,7 @@ function InstallFeatherWidgets($featherWidgetsDirectory)
 	Get-ChildItem Telerik.Sitefinity.Frontend.Lists.dll -force -recurse -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
 	Get-ChildItem Telerik.Sitefinity.Frontend.Blogs.dll -force -recurse -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
 	Get-ChildItem Telerik.Sitefinity.Frontend.InlineClientAssets.dll -force -recurse -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
+	Get-ChildItem Telerik.Sitefinity.Frontend.Comments.dll -force -recurse -path $featherWidgetsDirectory | Copy-Item -destination $websiteBinariesDirectory
 	
     InstallFeather $featherBinDirectory
 }
