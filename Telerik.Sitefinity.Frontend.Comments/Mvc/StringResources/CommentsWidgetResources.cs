@@ -217,21 +217,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Web site (optional)
-        /// </summary>
-        [ResourceEntry("WebSiteOptional",
-            Value = "Web site (optional)",
-            Description = "phrase: Web site (optional)",
-            LastModified = "2015/05/05")]
-        public string WebSiteOptional
-        {
-            get
-            {
-                return this["WebSiteOptional"];
-            }
-        }
-
-        /// <summary>
         /// Gets phrase : Unsubscribe me from new comments
         /// </summary>
         [ResourceEntry("UnsubscribeFromNewComments",
