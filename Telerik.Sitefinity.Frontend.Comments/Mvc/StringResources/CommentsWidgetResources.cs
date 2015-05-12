@@ -322,17 +322,17 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase :  to be able to write a review
+        /// Gets phrase :  to be able to comment
         /// </summary>
-        [ResourceEntry("ToBeAbleToWriteAReview",
-            Value = " to be able to write a review",
-            Description = "phrase : to be able to write a review",
+        [ResourceEntry("ToBeAbleToComment",
+            Value = " to be able to comment",
+            Description = "phrase : to be able to comment",
             LastModified = "2015/05/08")]
-        public string ToBeAbleToWriteAReview
+        public string ToBeAbleToComment
         {
             get
             {
-                return this["ToBeAbleToWriteAReview"];
+                return this["ToBeAbleToComment"];
             }
         }
              
