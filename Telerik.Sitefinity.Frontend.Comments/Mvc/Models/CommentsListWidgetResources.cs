@@ -44,5 +44,13 @@
         /// The comment pending approval.
         /// </value>
         public string CommentPendingApproval { get; set; }
+
+        /// <summary>
+        /// Gets or sets the comment singular.
+        /// </summary>
+        /// <value>
+        /// The comment singular.
+        /// </value>
+        public string CommentSingular { get; set; }
     }
 }
