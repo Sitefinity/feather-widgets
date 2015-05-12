@@ -306,6 +306,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         private void Initialize(CommentsInputModel commentsInputModel)
         {
+            if (commentsInputModel == null)
+                return;
+
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadType))
             {
                 this.ThreadType = commentsInputModel.ThreadType;
