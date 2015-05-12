@@ -68,11 +68,14 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index(CommentsInputModel commentsInputModel)
         {
-            var model = this.Model.GetCommentsListViewModel(commentsInputModel);
-
-            if (model.AllowComments)
+            if (!commentsInputModel.AllowComments.HasValue || commentsInputModel.AllowComments.Value)
             {
-                return this.View(this.templateNamePrefix + this.TemplateName, model);
+                var model = this.Model.GetCommentsListViewModel(commentsInputModel);
+
+                if (model != null)
+                {
+                    return this.View(this.templateNamePrefix + this.TemplateName, model);
+                }
             }
 
             return new EmptyResult();
@@ -84,12 +87,15 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Count(CommentsCountInputModel commentsCountInputModel)
         {
-            this.ViewBag.ServiceUrl = RouteHelper.ResolveUrl("/RestApi/comments-api/", UrlResolveOptions.Rooted);
-            if (this.Model.AllowComments)
+            if (!commentsCountInputModel.AllowComments.HasValue || commentsCountInputModel.AllowComments.Value)
             {
                 var commentsCountViewModel = this.Model.GetCommentsCountViewModel(commentsCountInputModel);
 
-                return this.View(this.countTemplateName, commentsCountViewModel);
+                if (commentsCountViewModel != null)
+                {
+                    this.ViewBag.ServiceUrl = RouteHelper.ResolveUrl("~/RestApi/comments-api/", UrlResolveOptions.Rooted);
+                    return this.View(this.countTemplateName, commentsCountViewModel);
+                }
             }
 
             return new EmptyResult();
