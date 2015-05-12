@@ -11,7 +11,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
             vm.CssClass = this.CssClass;
             vm.IncludeCurrentSite = this.IncludeCurrentSite;
-            vm.LanguageVersionsAsSeparateSites = this.LanguageVersionsAsSeparateSites;
+            vm.ShowLanguagesOnly = this.ShowLanguagesOnly;
+            vm.ShowSiteNamesAndLanguages = this.ShowSiteNamesAndLanguages;
 
             return vm;
         }
@@ -29,9 +30,15 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         public bool IncludeCurrentSite { get; set; }
 
         /// <summary>
-        /// Determines whether to display each language version as a separate site in the list of sites.
+        /// Determines whether to display each language version as a separate site and show only the language.
         /// </summary>
-        /// <value>The each language as separate site.</value>
-        public bool LanguageVersionsAsSeparateSites { get; set; }
+        /// <value>Value that indicates whether to show languages only.</value>
+        public bool ShowLanguagesOnly { get; set; }
+
+        /// <summary>
+        /// Determines whether to display each language version as a separate site and show the site name and its language.
+        /// </summary>
+        /// <value>Value that indicates whether to show site name and its language.</value>
+        public bool ShowSiteNamesAndLanguages { get; set; }
     }
 }

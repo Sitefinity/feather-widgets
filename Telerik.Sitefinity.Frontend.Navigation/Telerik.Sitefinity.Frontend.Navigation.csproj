@@ -105,6 +105,7 @@
     <Compile Include="Mvc\Models\SiteSelector\ISiteSelectorModel.cs" />
     <Compile Include="Mvc\Models\SiteSelector\SiteSelectorModel.cs" />
     <Compile Include="Mvc\Models\SiteSelector\SiteSelectorViewModel.cs" />
+    <Compile Include="Mvc\Models\SiteSelector\SiteViewModel.cs" />
     <Compile Include="Mvc\StringResources\BreadcrumbResources.cs" />
     <Compile Include="Mvc\StringResources\LanguageSelectorResources.cs" />
     <Compile Include="Mvc\StringResources\NavigationResources.cs" />
