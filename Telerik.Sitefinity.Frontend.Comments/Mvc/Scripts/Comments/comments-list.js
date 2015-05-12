@@ -403,7 +403,8 @@
             var comment = self.buildNewCommentFromForm();
 
             self.validateComment(comment).then(function (isValid) {
-                var hideLoading = function () {
+                var endSubmiting = function () {
+                    self.captchaRefresh();
                     self.submitLoadingIndicator().hide();
                     self.newCommentSubmitButton().show();
                 };
@@ -427,10 +428,10 @@
                             self.errorMessage().html(errorTxt);
                             self.errorMessage().show();
                         }
-                    }).always(hideLoading);
+                    }).always(endSubmiting);
                 }
                 else {
-                    hideLoading();
+                    endSubmiting();
                 }
             });
         },
