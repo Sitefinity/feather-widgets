@@ -243,17 +243,13 @@
             }
         },
 
-        createCommentMarkup: function (comment, appendPendingApproval) {
+        createCommentMarkup: function (comment) {
             var newComment = this.getSingleCommentTemplate().clone(true);
 
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
             newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).toDateString());
-
-            if (appendPendingApproval) {
-                newComment.find('[data-sf-role="comment-date"]').after($('<span />').text(this.resources.commentPendingApproval));
-            }
 
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
@@ -407,16 +403,21 @@
             var comment = self.buildNewCommentFromForm();
 
             self.validateComment(comment).then(function (isValid) {
-                var hideLoading = function () {
+                var endSubmiting = function () {
+                    self.captchaRefresh();
                     self.submitLoadingIndicator().hide();
                     self.newCommentSubmitButton().show();
                 };
 
                 if (isValid) {
                     self.commentsRestApi.createComment(comment).then(function (response) {
+                        // Clean form
                         self.newCommentMessage().val('');
+                        self.newCommentName().val('');
+                        self.newCommentEmail().val('');
+
                         if (self.settings.requiresApproval) {
-                            self.showPendingApprovalComment(comment);
+                            self.newCommentForm().before($('<span />').text(self.resources.commentPendingApproval));
                         }
                         else if (!self.settings.commentsAutoRefresh) {
                             self.refreshComments(self, true);
@@ -427,21 +428,12 @@
                             self.errorMessage().html(errorTxt);
                             self.errorMessage().show();
                         }
-                    }).always(hideLoading);
+                    }).always(endSubmiting);
                 }
                 else {
-                    hideLoading();
+                    endSubmiting();
                 }
             });
-        },
-
-        showPendingApprovalComment: function (comment) {
-            comment.DateCreated = this.getSfStringFromDate(new Date());
-            comment.ProfilePictureThumbnailUrl = this.settings.userAvatarImageUrl;
-            comment.Name = comment.Name || this.settings.userDisplayName;
-
-            var createdComment = this.createCommentMarkup(comment, true);
-            this.newCommentForm().before(createdComment);
         },
 
         captchaRefresh: function () {
