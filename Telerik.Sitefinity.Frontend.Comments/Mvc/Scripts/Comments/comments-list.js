@@ -270,26 +270,29 @@
         },
 
         renderCommentsCount: function (count) {
+            // Comments count header
             if (count > 0) {
-                this.commentsTotalCount().text(count);
+                this.commentsTotalCount().show().text(count);
+                this.commentsHeader().text(count > 1 ? this.resources.commentsPlural : this.resources.commentSingular);
                 this.newCommentFormButton().show();
-
-                if (count > 1) {
-                    this.commentsSortNewButton().show();
-                    this.commentsSortOldButton().show();
-                    this.commentsHeader().text(this.resources.commentsPlural);
-                }
-                else {
-                    this.commentsHeader().text(this.resources.commentSingular);
-                }
             }
             else {
+                this.commentsTotalCount().hide();
                 this.commentsHeader().text(this.newCommentFormButton().text());
                 this.newCommentFormButton().hide();
+            }
+
+            // Comments sort buttons
+            if (count > 1) {
+                this.commentsSortNewButton().show();
+                this.commentsSortOldButton().show();
+            }
+            else {
                 this.commentsSortNewButton().hide();
                 this.commentsSortOldButton().hide();
             }
 
+            // Comments load more button
             if (count <= Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage)) {
                 this.commentsLoadMoreButton().hide();
             }
