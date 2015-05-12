@@ -98,7 +98,7 @@ namespace FeatherWidgets.TestIntegration.DocumentsList
             mvcProxy.ControllerName = typeof(DocumentsListController).FullName;
             var documentsListController = new DocumentsListController();
             documentsListController.Model.SelectionMode = SelectionMode.AllItems;
-            documentsListController.Model.SortExpression = "FirstName DESC";
+            documentsListController.Model.SortExpression = "Title DESC";
             mvcProxy.Settings = new ControllerSettings(documentsListController);
 
             var docs = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
