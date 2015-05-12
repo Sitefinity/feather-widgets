@@ -42,19 +42,24 @@
         },
 
         setCommentsCounts: function (threadCountList) {
+			var self = this;
             for (var i = 0; i < threadCountList.Items.length; i++) {
                 if (threadCountList.Items[i].Count == -1) {
                     continue;
                 }
-
-                $('div[sf-thread-key="' + threadCountList.Items[i].Key + '"]').each(populateCommentsCountTextCallBack(threadCountList.Items[i].Count));
+				
+                $('div[sf-thread-key="' + threadCountList.Items[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList.Items[i].Count));
             }
         },
-
-        populateCommentsCountTextCallBack: function (currentCount) {
-            return this.populateCommentsCountText($(this), currentCount);
-        },
         
+        populateCommentsCountTextCallBack: function (currentCount) {
+            var self = this;
+            return function (index, element) {
+
+                self.populateCommentsCountText($(element), currentCount);
+            };
+        },
+
         populateCommentsCountText: function (element, currentCount) {
             var currentCountFormatted = '';
             if (!currentCount) {
@@ -70,7 +75,7 @@
             }
 
             //set the comments count text in the counter control
-            commentsCounterControl.find('[data-sf-role="comments-count-anchor"]').text(currentCountFormatted);
+            element.find('[data-sf-role="comments-count-anchor"]').text(currentCountFormatted);
         },
 
         initialize: function () {
