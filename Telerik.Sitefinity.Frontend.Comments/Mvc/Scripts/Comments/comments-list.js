@@ -270,32 +270,17 @@
         },
 
         renderCommentsCount: function (count) {
-            if (count > 0) {
-                this.commentsTotalCount().text(count);
-                this.newCommentFormButton().show();
+            // Comments count header
+            this.commentsHeader().text(count > 0 ? (count > 1 ? this.resources.commentsPlural : this.resources.commentSingular) : this.newCommentFormButton().text());
+            this.commentsTotalCount().toggle(count > 0).text(count);
+            this.newCommentFormButton().toggle(count > 0);
 
-                if (count > 1) {
-                    this.commentsSortNewButton().show();
-                    this.commentsSortOldButton().show();
-                    this.commentsHeader().text(this.resources.commentsPlural);
-                }
-                else {
-                    this.commentsHeader().text(this.resources.commentSingular);
-                }
-            }
-            else {
-                this.commentsHeader().text(this.newCommentFormButton().text());
-                this.newCommentFormButton().hide();
-                this.commentsSortNewButton().hide();
-                this.commentsSortOldButton().hide();
-            }
+            // Comments sort buttons
+            this.commentsSortNewButton().toggle(count > 1);
+            this.commentsSortOldButton().toggle(count > 1);
 
-            if (count <= Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage)) {
-                this.commentsLoadMoreButton().hide();
-            }
-            else {
-                this.commentsLoadMoreButton().show();
-            }
+            // Comments load more button
+            this.commentsLoadMoreButton().toggle(count > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
         },
 
         loadComments: function (skip, take, updateCount, newerThan) {
