@@ -271,34 +271,16 @@
 
         renderCommentsCount: function (count) {
             // Comments count header
-            if (count > 0) {
-                this.commentsTotalCount().show().text(count);
-                this.commentsHeader().text(count > 1 ? this.resources.commentsPlural : this.resources.commentSingular);
-                this.newCommentFormButton().show();
-            }
-            else {
-                this.commentsTotalCount().hide();
-                this.commentsHeader().text(this.newCommentFormButton().text());
-                this.newCommentFormButton().hide();
-            }
+            this.commentsHeader().text(count > 0 ? (count > 1 ? this.resources.commentsPlural : this.resources.commentSingular) : this.newCommentFormButton().text());
+            this.commentsTotalCount().toggle(count > 0).text(count);
+            this.newCommentFormButton().toggle(count > 0);
 
             // Comments sort buttons
-            if (count > 1) {
-                this.commentsSortNewButton().show();
-                this.commentsSortOldButton().show();
-            }
-            else {
-                this.commentsSortNewButton().hide();
-                this.commentsSortOldButton().hide();
-            }
+            this.commentsSortNewButton().toggle(count > 1);
+            this.commentsSortOldButton().toggle(count > 1);
 
             // Comments load more button
-            if (count <= Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage)) {
-                this.commentsLoadMoreButton().hide();
-            }
-            else {
-                this.commentsLoadMoreButton().show();
-            }
+            this.commentsLoadMoreButton().toggle(count > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
         },
 
         loadComments: function (skip, take, updateCount, newerThan) {
