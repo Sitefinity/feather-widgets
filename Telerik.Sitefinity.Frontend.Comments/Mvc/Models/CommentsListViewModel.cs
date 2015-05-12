@@ -60,5 +60,37 @@
         ///   <c>true</c> if [allow comments]; otherwise, <c>false</c>.
         /// </value>
         public bool AllowComments { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the requires authentication.
+        /// </summary>
+        /// <value>
+        /// The requires authentication.
+        /// </value>
+        public bool RequiresAuthentication { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [allow subscription].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow subscription]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AllowSubscription { get; set; }
+
+        /// <summary>
+        /// Gets or sets the requires approval.
+        /// </summary>
+        /// <value>
+        /// The requires approval.
+        /// </value>
+        public bool RequiresApproval { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the requires captcha.
+        /// </summary>
+        /// <value>
+        /// The requires captcha.
+        /// </value>
+        public bool RequiresCaptcha { get; set; }
     }
 }

@@ -164,9 +164,9 @@
 
         commentsNewLoggedOutView: function () { return this.getOrInitializeProperty('_commentsNewLoggedOutView', 'comments-new-logged-out-view'); },
         newCommentForm: function () { return this.getOrInitializeProperty('_newCommentForm', 'comments-new-form'); },
+        newCommentPendingApprovalMessage: function () { return this.getOrInitializeProperty('_newCommentPendingApprovalMessage', 'comments-new-pending-approval-message'); },
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
-        newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeButton', 'comments-new-subscribe-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
         newCommentMessageError: function () { return this.getOrInitializeProperty('_newCommentMessageError', 'comments-new-message-error'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
@@ -185,6 +185,9 @@
 
         listLoadingIndicator: function () { return this.getOrInitializeProperty('_listLoadingIndicator', 'list-loading-indicator'); },
         submitLoadingIndicator: function () { return this.getOrInitializeProperty('_submitLoadingIndicator', 'submit-loading-indicator'); },
+        
+        commentsSubscribeButton: function () { return this.getOrInitializeProperty('_commentsSubscribeButton', 'comments-subscribe-button'); },
+        commentsSubscribeText: function () { return this.getOrInitializeProperty('_commentsSubscribeText', 'comments-subscribe-text'); },
 
         /*
             Widget methods
@@ -416,7 +419,7 @@
                         self.newCommentEmail().val('');
 
                         if (self.settings.requiresApproval) {
-                            self.newCommentForm().before($('<span />').text(self.resources.commentPendingApproval));
+                            self.newCommentPendingApprovalMessage().show();
                         }
                         else if (!self.settings.commentsAutoRefresh) {
                             self.refreshComments(self, true);
@@ -474,8 +477,9 @@
 
             self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
                 self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
-
-                self.newCommentSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments);
+                
+                self.commentsSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeLink);
+                self.commentsSubscribeText().text(self.isSubscribedToNewComments ? self.resources.successfullySubscribedToNewComments : self.resources.successfullyUnsubscribedFromNewComments);
             });
         },
 
@@ -554,13 +558,14 @@
             self.commentsRestApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
                 if (response) {
                     self.isSubscribedToNewComments = response.IsSubscribed;
+                    
+                    self.commentsSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeToNewComments);
+                    self.commentsSubscribeText().text(self.isSubscribedToNewComments ? self.resources.youAreSubscribedToNewComments : '');
 
-                    self.newCommentSubscribeButton()
-                        .text(response.IsSubscribed ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments)
-                        .click(function () {
-                            self.toggleSubscription();
-                            return false;
-                        });
+                    self.commentsSubscribeButton().click(function () {
+                        self.toggleSubscription();
+                        return false;
+                    });
                 }
             });
         },
