@@ -201,6 +201,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResults\SearchResultsWidgetTests.cs" />
     <Compile Include="TestCategories.cs" />
+    <Compile Include="DocumentsList\DocumentsListWidgetPagingLimitTests.cs" />
+    <Compile Include="DocumentsList\DocumentsListWidgetSortingTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -228,6 +230,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.InlineClientAssets\Telerik.Sitefinity.Frontend.InlineClientAssets.csproj">
       <Project>{d3773581-78b7-44ad-96b8-5168dcf2795c}</Project>
       <Name>Telerik.Sitefinity.Frontend.InlineClientAssets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Media\Telerik.Sitefinity.Frontend.Media.csproj">
+      <Project>{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Media</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>
