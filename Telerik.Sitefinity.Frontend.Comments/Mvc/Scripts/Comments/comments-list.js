@@ -272,7 +272,16 @@
         renderCommentsCount: function (count) {
             if (count > 0) {
                 this.commentsTotalCount().text(count);
-                this.commentsHeader().text(count === 1 ? this.resources.commentSingular : this.resources.commentsPlural);
+                this.newCommentFormButton().show();
+
+                if (count > 1) {
+                    this.commentsSortNewButton().show();
+                    this.commentsSortOldButton().show();
+                    this.commentsHeader().text(this.resources.commentsPlural);
+                }
+                else {
+                    this.commentsHeader().text(this.resources.commentSingular);
+                }
             }
             else {
                 this.commentsHeader().text(this.newCommentFormButton().text());
