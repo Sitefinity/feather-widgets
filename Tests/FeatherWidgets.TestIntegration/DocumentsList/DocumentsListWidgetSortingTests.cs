@@ -25,8 +25,8 @@ namespace FeatherWidgets.TestIntegration.DocumentsList
         {
             ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
             ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 1, DocumentResource1);
-            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 2, DocumentResource2);
             ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 3, DocumentResource3);
+            ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 2, DocumentResource2);
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace FeatherWidgets.TestIntegration.DocumentsList
             var docs = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
             Assert.IsTrue(docs.Length.Equals(3), "Number of docs is not correct");
 
-            //// expected: Document3, Document2, Document1
-            Assert.AreEqual(DocumentTitle + 3, docs[0].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(DocumentTitle + 2, docs[1].Fields.Title.Value, "Wrong title");
+            //// expected: Document2, Document3, Document1
+            Assert.AreEqual(DocumentTitle + 2, docs[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 3, docs[1].Fields.Title.Value, "Wrong title");
             Assert.AreEqual(DocumentTitle + 1, docs[2].Fields.Title.Value, "Wrong title");
         }
 
@@ -125,24 +125,24 @@ namespace FeatherWidgets.TestIntegration.DocumentsList
             documentsListController.Model.SortExpression = "LastModified DESC";
             mvcProxy.Settings = new ControllerSettings(documentsListController);
 
-            this.ChangeModifiedDateOfDocument2();
+            this.ChangeModifiedDateOfDocument3();
 
             var docs = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
             Assert.IsTrue(docs.Length.Equals(3), "Number of docs is not correct");
 
-            //// expected: Document21, Document3, Document1
-            Assert.AreEqual(DocumentTitle + 2 + 1, docs[0].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(DocumentTitle + 3, docs[1].Fields.Title.Value, "Wrong title");
+            //// expected: Document31, Document2, Document1
+            Assert.AreEqual(DocumentTitle + 3 + 1, docs[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 2, docs[1].Fields.Title.Value, "Wrong title");
             Assert.AreEqual(DocumentTitle + 1, docs[2].Fields.Title.Value, "Wrong title");
         }
  
-        private void ChangeModifiedDateOfDocument2()
+        private void ChangeModifiedDateOfDocument3()
         {
             var librariesManager = LibrariesManager.GetManager();
-            Document modified = librariesManager.GetDocuments().Where<Document>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == DocumentTitle + 2).FirstOrDefault();
+            Document modified = librariesManager.GetDocuments().Where<Document>(ni => ni.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Master && ni.Title == DocumentTitle + 3).FirstOrDefault();
             Document temp = librariesManager.Lifecycle.CheckOut(modified) as Document;
 
-            temp.Title = DocumentTitle + 2 + 1;
+            temp.Title = DocumentTitle + 3 + 1;
 
             modified = librariesManager.Lifecycle.CheckIn(temp) as Document;
 
