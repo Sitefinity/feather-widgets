@@ -270,7 +270,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             this.Initialize(commentsInputModel);
 
             var widgetResources = this.GetCommentsListWidgetResources();
-            var widgetSettings = this.GetCommentsListWidgetSettings(commentsInputModel.ThreadTitle);
+            var widgetSettings = this.GetCommentsListWidgetSettings(this.ThreadTitle);
 
             var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
 
