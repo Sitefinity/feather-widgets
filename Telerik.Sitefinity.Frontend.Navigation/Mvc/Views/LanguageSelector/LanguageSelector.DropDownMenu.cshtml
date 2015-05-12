@@ -1,10 +1,19 @@
 ﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector.LanguageSelectorViewModel
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Services;
 
 
 <div class="@Model.CssClass">
-    <select onChange="document.location.href = this.value">
+    @if (SystemManager.IsDesignMode)
+    {
+        @:<select>
+    }
+    else
+    {
+        @:<select onChange="document.location.href = this.value">
+    }
+
         @if (!Model.IncludeCurrentLanguage)
         {
             <option value="" selected="selected">@Html.Resource("SelectLanguageDropDownOption")</option>
