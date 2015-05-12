@@ -342,6 +342,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             return new CommentsListWidgetResources()
             {
                 CommentPendingApproval = Res.Get<CommentsWidgetResources>().PendingApproval,
+                CommentSingular = Res.Get<CommentsWidgetResources>().Comment,
                 CommentsPlural = Res.Get<CommentsWidgetResources>().CommentsPlural,
                 ReadFullComment = Res.Get<CommentsWidgetResources>().ReadFullComment,
                 SubscribeToNewComments = Res.Get<CommentsWidgetResources>().SubscribeToNewComments,
