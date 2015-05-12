@@ -261,7 +261,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public CommentsListViewModel GetCommentsListViewModel(CommentsInputModel inputModel)
         {
             this.Initialize(inputModel);
-            var allowComments = inputModel.AllowComments.HasValue ? inputModel.AllowComments.Value : this.AllowComments;
+            var allowComments = (inputModel != null && inputModel.AllowComments.HasValue) ? inputModel.AllowComments.Value : this.AllowComments;
             if (allowComments)
             {
                 var widgetResources = this.GetCommentsListWidgetResources();
@@ -313,6 +313,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         private void Initialize(CommentsInputModel commentsInputModel)
         {
+            if (commentsInputModel == null)
+                return;
+
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadType))
             {
                 this.ThreadType = commentsInputModel.ThreadType;
