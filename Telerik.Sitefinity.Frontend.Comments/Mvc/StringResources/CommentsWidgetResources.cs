@@ -327,7 +327,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         [ResourceEntry("ToBeAbleToComment",
             Value = " to be able to comment",
             Description = "phrase : to be able to comment",
-            LastModified = "2015/05/08")]
+            LastModified = "2015/05/12")]
         public string ToBeAbleToComment
         {
             get
