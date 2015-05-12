@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -77,6 +78,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the current HTTP context from the SystemManager.
+        /// </summary>
+        /// <value>The current HTTP context.</value>
+        protected virtual HttpContextBase CurrentHttpContext
+        {
+            get
+            {
+                return SystemManager.CurrentHttpContext;
+            }
+        }
+
         #endregion
 
         #region Action
@@ -89,7 +102,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var context = SystemManager.CurrentHttpContext;
+            var context = this.CurrentHttpContext;
 
             if (context.Items.Contains("IsTemplate") && (bool)context.Items["IsTemplate"])
             {
