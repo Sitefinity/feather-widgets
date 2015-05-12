@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index(CommentsInputModel commentsInputModel)
         {
-            if (!commentsInputModel.AllowComments.HasValue || commentsInputModel.AllowComments.Value)
+            if (commentsInputModel == null || !commentsInputModel.AllowComments.HasValue || commentsInputModel.AllowComments.Value)
             {
                 var model = this.Model.GetCommentsListViewModel(commentsInputModel);
 
