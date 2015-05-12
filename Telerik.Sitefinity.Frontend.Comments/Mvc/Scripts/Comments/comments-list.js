@@ -377,9 +377,11 @@
                 if (isValid) {
                     self.commentsRestApi.createComment(comment).then(function (response) {
                         self.newCommentMessage().val('');
-
                         if (self.settings.requiresApproval) {
                             self.showPendingApprovalComment(comment);
+                        }
+                        else if (!self.settings.commentsAutoRefresh) {
+                            self.refreshComments(self);
                         }
                     }, function (jqXHR, textStatus, errorThrown) {
                         if (jqXHR.responseText) {
