@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestIntegration.DocumentsList
     /// This is a class with Documents list tests for paging and limit options.
     /// </summary>
     [TestFixture]
-    [Description("This is a class with Users list paging and limit tests.")]
+    [Description("This is a class with Documents list paging and limit tests.")]
     public class DocumentsListWidgetPagingLimitTests
     {
         /// <summary>

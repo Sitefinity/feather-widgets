@@ -53,13 +53,13 @@ namespace FeatherWidgets.TestIntegration.DocumentsList
             documentsListController.Model.SortExpression = "PublicationDate DESC";
             mvcProxy.Settings = new ControllerSettings(documentsListController);
 
-            var users = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
-            Assert.IsTrue(users.Length.Equals(3), "Number of docs is not correct");
+            var docs = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            Assert.IsTrue(docs.Length.Equals(3), "Number of docs is not correct");
 
             //// expected: Document3, Document2, Document1
-            Assert.AreEqual(DocumentTitle + 3, users[0].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(DocumentTitle + 2, users[1].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(DocumentTitle + 1, users[2].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 3, docs[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 2, docs[1].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 1, docs[2].Fields.Title.Value, "Wrong title");
         }
 
         /// <summary>
@@ -101,13 +101,13 @@ namespace FeatherWidgets.TestIntegration.DocumentsList
             documentsListController.Model.SortExpression = "FirstName DESC";
             mvcProxy.Settings = new ControllerSettings(documentsListController);
 
-            var users = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
-            Assert.IsTrue(users.Length.Equals(3), "Number of docs is not correct");
+            var docs = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            Assert.IsTrue(docs.Length.Equals(3), "Number of docs is not correct");
 
             //// expected: Document3, Document2, Document1
-            Assert.AreEqual(DocumentTitle + 3, users[0].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(DocumentTitle + 2, users[1].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(DocumentTitle + 1, users[2].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 3, docs[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 2, docs[1].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 1, docs[2].Fields.Title.Value, "Wrong title");
         }
 
         /// <summary>
@@ -127,13 +127,13 @@ namespace FeatherWidgets.TestIntegration.DocumentsList
 
             this.ChangeModifiedDateOfDocument2();
 
-            var users = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
-            Assert.IsTrue(users.Length.Equals(3), "Number of docs is not correct");
+            var docs = documentsListController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            Assert.IsTrue(docs.Length.Equals(3), "Number of docs is not correct");
 
             //// expected: Document21, Document3, Document1
-            Assert.AreEqual(DocumentTitle + 2 + 1, users[0].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(DocumentTitle + 3, users[1].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(DocumentTitle + 1, users[2].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 2 + 1, docs[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 3, docs[1].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(DocumentTitle + 1, docs[2].Fields.Title.Value, "Wrong title");
         }
  
         private void ChangeModifiedDateOfDocument2()
