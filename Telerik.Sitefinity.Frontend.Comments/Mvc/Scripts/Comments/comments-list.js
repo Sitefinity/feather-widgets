@@ -101,10 +101,10 @@
         this.wrapper = wrapper;
 
         this.commentsTakenSoFar = 0;
-        this.firstCommentDate = this.getDateString(this.getSfStringFromDate(new Date()), 0);
-        this.lastCommentDate = this.getDateString(this.getSfStringFromDate(new Date()), 0);
         this.maxCommentsToShow = 0;
         this.initialCommentsCount = 0;
+
+        this.lastCommentDate = 0;
 
         this.commentsSortedDescending = settings.commentsInitiallySortedDescending;
     };
@@ -114,6 +114,7 @@
             Properties
         */
         isUserAuthenticated: false,
+        isSelectedSortButtonCssClass: 'is-selected',
 
         getOrInitializeProperty: function (property, sfRole) {
             if (!this[property]) {
@@ -158,7 +159,6 @@
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
         newCommentNameError: function () { return this.getOrInitializeProperty('_newCommentNameError', 'comments-new-name-error'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
-        newCommentWebsite: function () { return this.getOrInitializeProperty('_newCommentWebsite', 'comments-new-website'); },
         newCommentRequiresAuthentication: function () { return this.getOrInitializeProperty('_newCommentRequiresAuthentication', 'comments-new-requires-authentication'); },
 
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
@@ -298,7 +298,7 @@
             }
         },
 
-        loadComments: function (skip, take, newerThan) {
+        loadComments: function (skip, take, updateCount, newerThan) {
             var self = this;
             if (self.isLoadinglist)
                 return;
@@ -310,15 +310,14 @@
                 if (response && response.Items && response.Items.length) {
                     self.commentsTakenSoFar += response.Items.length;
 
-                    if (!skip || !self.commentsSortedDescending) {
-                        self.firstCommentDate = self.getDateString(response.Items[0].DateCreated, 1);
+                    if (self.commentsSortedDescending) {
+                        self.lastCommentDate = self.getDateString(response.Items[0].DateCreated, 1);
                     }
-                    else if (!skip || self.commentsSortedDescending) {
+                    else {
                         self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
                     }
 
-                    // Refresh total count if items are recieved
-                    if (newerThan) {
+                    if (updateCount) {
                         self.renderCommentsCount(parseInt(self.commentsTotalCount().text() || 0) + response.Items.length);
                     }
 
@@ -331,12 +330,15 @@
             });
         },
 
-        refreshComments: function (self) {
+        refreshComments: function (self, isNewCommentPosted) {
             if (self.commentsSortedDescending) {
-                self.loadComments(0, self.settings.commentsPerPage, self.firstCommentDate);
+                self.loadComments(0, self.settings.commentsPerPage, true, self.lastCommentDate);
             }
             else if (self.maxCommentsToShow - self.commentsTakenSoFar > 0) {
-                self.loadComments(0, self.maxCommentsToShow - self.commentsTakenSoFar, self.lastCommentDate);
+                self.loadComments(0, self.maxCommentsToShow - self.commentsTakenSoFar, true, self.lastCommentDate);
+            }
+            else if (isNewCommentPosted) {
+                self.renderCommentsCount(parseInt(self.commentsTotalCount().text() || 0) + 1);
             }
         },
 
@@ -344,8 +346,8 @@
             if (this.commentsSortedDescending !== useDescending) {
                 this.commentsSortedDescending = useDescending;
                 this.commentsContainer().html('');
-                this.loadComments(0, this.settings.commentsPerPage);
                 this.commentsTakenSoFar = 0;
+                this.loadComments(0, this.settings.commentsPerPage);
             }
         },
 
@@ -360,7 +362,6 @@
             if (!self.isUserAuthenticated) {
                 comment.Name = self.newCommentName().val();
                 comment.Email = self.newCommentEmail().val();
-                comment.Website = self.newCommentWebsite().val();
 
                 if (self.settings.requiresCaptcha) {
                     comment.Captcha = {
@@ -371,20 +372,11 @@
                     };
                 }
             }
-            
-            comment.Thread = self.settings.commentsThread || {
-                GroupKey: null,
-                Type: null,
-                Behavior: null,
-                Title: null,
-                DataSource: null,
-                Key : null,
-                Language: null
-            };
 
-            comment.Thread.Group = comment.Thread.Group || {
-                Key: null
-            };
+            comment.Thread = self.settings.commentsThread || {};
+            comment.Thread.Group = comment.Thread.Group || {};
+
+            comment.Thread.Group.Key = comment.Thread.Group.Key || comment.Thread.groupKey;
 
             return comment;
         },
@@ -410,7 +402,7 @@
                             self.showPendingApprovalComment(comment);
                         }
                         else if (!self.settings.commentsAutoRefresh) {
-                            self.refreshComments(self);
+                            self.refreshComments(self, true);
                         }
                     }, function (jqXHR, textStatus, errorThrown) {
                         if (jqXHR.responseText) {
@@ -491,6 +483,13 @@
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
+
+            if (this.commentsSortedDescending) {
+                this.commentsSortNewButton().addClass(this.isSelectedSortButtonCssClass);
+            }
+            else {
+                this.commentsSortOldButton().addClass(this.isSelectedSortButtonCssClass);
+            }
         },
 
         initializeUserStatus: function () {
@@ -586,21 +585,21 @@
 
             self.commentsSortNewButton().click(function () {
                 self.sortComments(true);
-                self.commentsSortNewButton().add('is-selected');
-                self.commentsSortOldButton().removeClass('is-selected');
+                self.commentsSortNewButton().addClass(self.isSelectedSortButtonCssClass);
+                self.commentsSortOldButton().removeClass(self.isSelectedSortButtonCssClass);
                 return false;
             });
 
             self.commentsSortOldButton().click(function () {
                 self.sortComments(false);
-                self.commentsSortOldButton().add('is-selected');
-                self.commentsSortNewButton().removeClass('is-selected');
+                self.commentsSortOldButton().addClass(self.isSelectedSortButtonCssClass);
+                self.commentsSortNewButton().removeClass(self.isSelectedSortButtonCssClass);
                 return false;
             });
 
             self.newCommentFormButton().click(function () {
                 $('html, body').animate({ scrollTop: self.newCommentForm().offset().top }, 1000);
-                
+
                 return false;
             });
 
