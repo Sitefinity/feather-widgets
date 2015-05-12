@@ -42,6 +42,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public void ClickSearchButton(string resultsPageUrl)
         {
             HtmlButton searchButton = this.EM.Search.SearchFrontend.SearchButton.AssertIsPresent("Search button");
+            searchButton.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.focus);
             searchButton.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
 
             ActiveBrowser.WaitUntilReady();

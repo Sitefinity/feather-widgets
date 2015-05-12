@@ -204,5 +204,21 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["SelectLanguageDropDownOption"];
             }
         }
+
+        /// <summary>
+        /// Phrase: Language selector is visible when you are on a particular page.
+        /// </summary>
+        /// <value>Language selector is visible when you are on a particular page.</value>
+        [ResourceEntry("LanguageSelectorOnTemplateMessage",
+            Value = "Language selector is visible when you are on a particular page.",
+            Description = "Phrase: Language selector is visible when you are on a particular page.",
+            LastModified = "2015/05/11")]
+        public string LanguageSelectorOnTemplateMessage
+        {
+            get
+            {
+                return this["LanguageSelectorOnTemplateMessage"];
+            }
+        }
     }
 }

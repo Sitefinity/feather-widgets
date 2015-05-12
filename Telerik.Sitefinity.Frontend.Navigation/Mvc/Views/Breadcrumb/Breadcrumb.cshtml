@@ -1,0 +1,18 @@
+﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb.BreadcrumbViewModel
+
+<div class="@Model.CssClass">
+    @for (int i = 0; i < Model.SiteMapNodes.Count; i++)
+    {
+        var node = Model.SiteMapNodes[i];
+
+        if (i == Model.SiteMapNodes.Count - 1 && Model.ShowCurrentPageInTheEnd)
+        {
+            @node.Title
+        }
+        else
+        {
+            <a href="@node.Url">@node.Title </a>
+            <span> / </span>
+        }
+    }
+</div>

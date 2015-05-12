@@ -66,26 +66,28 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// Gets comments view
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(CommentsInputModel commentsInputModel)
         {
-            if (this.Model.AllowComments)
+            var model = this.Model.GetCommentsListViewModel(commentsInputModel);
+
+            if (model.AllowComments)
             {
-                return this.View(this.templateNamePrefix + this.TemplateName, this.Model);
+                return this.View(this.templateNamePrefix + this.TemplateName, model);
             }
 
             return new EmptyResult();
         }
 
         /// <summary>
-        /// Gets the view for comments count.
+        /// Gets the view for comments count. 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Count(string navigateUrl, string threadKey)
+        public ActionResult Count(CommentsCountInputModel commentsCountInputModel)
         {
             this.ViewBag.ServiceUrl = RouteHelper.ResolveUrl("/RestApi/comments-api/", UrlResolveOptions.Rooted);
             if (this.Model.AllowComments)
             {
-                var commentsCountViewModel = this.Model.GetCommentsCountViewModel(navigateUrl, threadKey);
+                var commentsCountViewModel = this.Model.GetCommentsCountViewModel(commentsCountInputModel);
 
                 return this.View(this.countTemplateName, commentsCountViewModel);
             }

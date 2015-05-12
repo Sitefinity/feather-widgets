@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -11,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lifecycle;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
@@ -20,7 +22,10 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Language selector widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "LanguageSelector_MVC", Title = "Language selector", SectionName = ToolboxesConfig.NavigationControlsSectionName)]
+    [ControllerToolboxItem(Name = "LanguageSelector_MVC", 
+        Title = "Language selector", 
+        SectionName = ToolboxesConfig.NavigationControlsSectionName,
+        CssClass = LanguageSelectorController.WidgetIconCssClass)]
     [Localization(typeof(LanguageSelectorResources))]
     public class LanguageSelectorController : Controller
     {
@@ -61,6 +66,30 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the Language selector widget on template message.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual string LanguageSelectorOnTemplateMessage
+        {
+            get
+            {
+                return Res.Get<LanguageSelectorResources>().LanguageSelectorOnTemplateMessage;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current HTTP context from the SystemManager.
+        /// </summary>
+        /// <value>The current HTTP context.</value>
+        protected virtual HttpContextBase CurrentHttpContext
+        {
+            get
+            {
+                return SystemManager.CurrentHttpContext;
+            }
+        }
+
         #endregion
 
         #region Action
@@ -73,6 +102,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            var context = this.CurrentHttpContext;
+
+            if (context.Items.Contains("IsTemplate") && (bool)context.Items["IsTemplate"])
+            {
+                return this.Content(this.LanguageSelectorOnTemplateMessage);
+            }
+
             var viewModel = this.Model.CreateViewModel();
 
             foreach (var item in viewModel.Languages)
@@ -87,6 +123,19 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 
         #endregion
 
+        #region Overridden methods
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+
+        #endregion
+
         #region Private methods
 
         /// <summary>
@@ -96,7 +145,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// <param name="culture">The culture info.</param>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
-        protected string AppendDetailItemAndParamsToUrl(string url, CultureInfo culture)
+        private string AppendDetailItemAndParamsToUrl(string url, CultureInfo culture)
         {
             var query = this.HttpContext.Request.QueryString.ToQueryString();
             var detailItem = SystemManager.CurrentHttpContext.Items["detailItem"];
@@ -135,6 +184,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         #region Private fields and constants
 
         private ILanguageSelectorModel model;
+        internal const string WidgetIconCssClass = "sfLanguageSelectorIcn sfMvcIcn";
         private string templateNamePrefix = "LanguageSelector.";
         private string templateName = "LanguageLinks";
 

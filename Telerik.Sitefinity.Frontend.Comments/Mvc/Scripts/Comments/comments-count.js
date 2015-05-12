@@ -5,13 +5,18 @@
         Widget
     */
     var CommentsCountWidget = function (rootUrl, resources) {
+        this.rootUrl = rootUrl;
+        this.resources = resources;
+    };
 
-        this.getCommentsCounts = function () {
+    CommentsCountWidget.prototype = {
+        getCommentsCounts: function () {
             var threadKeys = this.collectThreadIds();
-            var getCountUrl = String.format(rootUrl + '/comments/count?ThreadKey={0}', threadKeys);
+            var getCommentsCountsUrl = String.format(this.rootUrl + '/comments/count?ThreadKey={0}', threadKeys);
+
             return $.ajax({
                 type: 'GET',
-                url: getCountUrl,
+                url: getCommentsCountsUrl,
                 contentType: 'application/json',
                 cache: false,
                 accepts: {
@@ -19,59 +24,61 @@
                 },
                 processData: false
             });
-        };
+        },
 
-        this.collectThreadIds = function () {
+        collectThreadIds: function () {
             var commmentsCounterControls = $('[data-sf-role="comments-count-wrapper"]');
             var uniqueKeys = {};
             for (var i = 0; i < commmentsCounterControls.length; i++) {
                 uniqueKeys[$(commmentsCounterControls[i]).attr('sf-thread-key')] = true;
             }
+
             var threadKeys = [];
-            $.each(uniqueKeys, function (key, value) {
+            $.each(uniqueKeys, function (key) {
                 threadKeys.push(key);
             });
+
             return threadKeys;
-        };
+        },
 
-        this.setCommentsCounts = function (data) {
-            var threadCountList = data;
-
-            var populateCommentsCountText = function (index, commentsCounterControl) {
-                var currentCountFormatted = '';
-                if (!currentCount) {
-                    currentCountFormatted = resources.leaveComment;
-                }
-                else {
-                    currentCountFormatted = currentCount;
-
-                    if (currentCount == 1)
-                        currentCountFormatted += ' ' + resources.comment.toLowerCase();
-                    else
-                        currentCountFormatted += ' ' + resources.commentsPlural.toLowerCase();
-                }
-
-                //set the comments count text in the counter control
-                var anchor = $(commentsCounterControl).find('[data-sf-role="comments-count-anchor"]');
-                if (anchor)
-                    $(anchor).html(currentCountFormatted);
-            };
-
+        setCommentsCounts: function (threadCountList) {
+			var self = this;
             for (var i = 0; i < threadCountList.Items.length; i++) {
-                var currentThreadKey = threadCountList.Items[i].Key;
-                var commmentsCounterControls = $('div[sf-thread-key="' + currentThreadKey + '"]');
-                var currentCount = threadCountList.Items[i].Count;
-
-                //format count
-                if (currentCount == -1)
+                if (threadCountList.Items[i].Count == -1) {
                     continue;
-
-                var self = this;
-                $.each(commmentsCounterControls, populateCommentsCountText);
+                }
+				
+                $('div[sf-thread-key="' + threadCountList.Items[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList.Items[i].Count));
             }
-        };
+        },
+        
+        populateCommentsCountTextCallBack: function (currentCount) {
+            var self = this;
+            return function (index, element) {
 
-        this.initialize = function () {
+                self.populateCommentsCountText($(element), currentCount);
+            };
+        },
+
+        populateCommentsCountText: function (element, currentCount) {
+            var currentCountFormatted = '';
+            if (!currentCount) {
+                currentCountFormatted = this.resources.leaveComment;
+            }
+            else {
+                currentCountFormatted = currentCount;
+
+                if (currentCount == 1)
+                    currentCountFormatted += ' ' + this.resources.comment.toLowerCase();
+                else
+                    currentCountFormatted += ' ' + this.resources.commentsPlural.toLowerCase();
+            }
+
+            //set the comments count text in the counter control
+            element.find('[data-sf-role="comments-count-anchor"]').text(currentCountFormatted);
+        },
+
+        initialize: function () {
             var self = this;
 
             self.getCommentsCounts().then(function (response) {
@@ -79,11 +86,11 @@
                     self.setCommentsCounts(response);
                 }
             });
-        };
+        }
     };
 
     /*
-        Counts creation
+        Widgets creation
     */
     $(function () {
         var serviceUrl = $('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="service-url"]').val();

@@ -187,6 +187,8 @@
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\LoginStatus\LoginTests.cs" />
+    <Compile Include="Identity\UsersList\UsersListWidgetPagingLimitTests.cs" />
+    <Compile Include="Identity\UsersList\UsersListWidgetSortingTests.cs" />
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />

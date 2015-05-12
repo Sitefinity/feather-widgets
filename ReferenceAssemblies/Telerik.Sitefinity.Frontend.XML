@@ -430,6 +430,33 @@
         <member name="P:Telerik.Sitefinity.Frontend.Modules.ControlTemplates.Web.UI.MvcControlTemplateEditor.ClientComponentType">
             <inheritdoc/>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers">
+            <summary>
+            Holds helpers related to Comments widget
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsList(System.Web.Mvc.HtmlHelper,Telerik.Sitefinity.Model.IDataItem,System.String,System.String,System.Boolean)">
+            <summary>
+            Commentses the list.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="item">The item.</param>
+            <param name="itemManagerName">Name of the item manager.</param>
+            <param name="itemTitle">The item title.</param>
+            <param name="allowComments">if set to <c>true</c> [allow comments].</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsList(System.Web.Mvc.HtmlHelper,System.Guid,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Commentses the list.
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="itemId">The item identifier.</param>
+            <param name="itemType">Type of the item.</param>
+            <param name="itemProviderName">Name of the item provider.</param>
+            <param name="itemManagerName">Name of the item manager.</param>
+            <param name="itemTitle">The item title.</param>
+            <param name="allowComments">if set to <c>true</c> [allow comments].</param>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute">
             <summary>
             This class represents <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/> and should be used when one needs to validate email property.

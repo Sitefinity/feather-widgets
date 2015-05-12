@@ -101,8 +101,8 @@
         this.wrapper = wrapper;
 
         this.commentsTakenSoFar = 0;
-        this.firstCommentDate = 0;
-        this.lastCommentDate = 0;
+        this.firstCommentDate = this.getDateString(this.getSfStringFromDate(new Date()), 0);
+        this.lastCommentDate = this.getDateString(this.getSfStringFromDate(new Date()), 0);
         this.maxCommentsToShow = 0;
         this.initialCommentsCount = 0;
 
@@ -269,6 +269,35 @@
             }
         },
 
+        renderCommentsCount: function (count) {
+            if (count > 0) {
+                this.commentsTotalCount().text(count);
+                this.newCommentFormButton().show();
+
+                if (count > 1) {
+                    this.commentsSortNewButton().show();
+                    this.commentsSortOldButton().show();
+                    this.commentsHeader().text(this.resources.commentsPlural);
+                }
+                else {
+                    this.commentsHeader().text(this.resources.commentSingular);
+                }
+            }
+            else {
+                this.commentsHeader().text(this.newCommentFormButton().text());
+                this.newCommentFormButton().hide();
+                this.commentsSortNewButton().hide();
+                this.commentsSortOldButton().hide();
+            }
+
+            if (count <= Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage)) {
+                this.commentsLoadMoreButton().hide();
+            }
+            else {
+                this.commentsLoadMoreButton().show();
+            }
+        },
+
         loadComments: function (skip, take, newerThan) {
             var self = this;
             if (self.isLoadinglist)
@@ -290,7 +319,7 @@
 
                     // Refresh total count if items are recieved
                     if (newerThan) {
-                        self.commentsTotalCount().text(parseInt(self.commentsTotalCount().text()) + response.Items.length);
+                        self.renderCommentsCount(parseInt(self.commentsTotalCount().text() || 0) + response.Items.length);
                     }
 
                     // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
@@ -342,6 +371,20 @@
                     };
                 }
             }
+            
+            comment.Thread = self.settings.commentsThread || {
+                GroupKey: null,
+                Type: null,
+                Behavior: null,
+                Title: null,
+                DataSource: null,
+                Key : null,
+                Language: null
+            };
+
+            comment.Thread.Group = comment.Thread.Group || {
+                Key: null
+            };
 
             return comment;
         },
@@ -363,9 +406,11 @@
                 if (isValid) {
                     self.commentsRestApi.createComment(comment).then(function (response) {
                         self.newCommentMessage().val('');
-
                         if (self.settings.requiresApproval) {
                             self.showPendingApprovalComment(comment);
+                        }
+                        else if (!self.settings.commentsAutoRefresh) {
+                            self.refreshComments(self);
                         }
                     }, function (jqXHR, textStatus, errorThrown) {
                         if (jqXHR.responseText) {
@@ -461,6 +506,9 @@
                     if (response.IsAuthenticated) {
                         self.isUserAuthenticated = true;
                         self.commentsNewLoggedOutView().hide();
+
+                        // Get Subscribtion status only if user is logged in.
+                        self.initializeSubscription();
                     }
                     else if (self.settings.requiresAuthentication) {
                         self.newCommentForm().hide();
@@ -488,20 +536,7 @@
                         }
                     }
 
-                    if (currentThreadKeyCount > 0) {
-                        self.commentsTotalCount().text(currentThreadKeyCount);
-                        self.commentsHeader().text(self.resources.commentsPlural);
-                    }
-                    else {
-                        self.commentsHeader().text(self.newCommentFormButton().text());
-                        self.newCommentFormButton().hide();
-                        self.commentsSortNewButton().hide();
-                        self.commentsSortOldButton().hide();
-                    }
-
-                    if (currentThreadKeyCount <= Math.max(self.commentsTakenSoFar, self.settings.commentsPerPage)) {
-                        self.commentsLoadMoreButton().hide();
-                    }
+                    self.renderCommentsCount(currentThreadKeyCount);
                 }
             });
 
@@ -588,7 +623,6 @@
             this.initializeProperties();
             this.initializeUserStatus();
             this.initializeComments();
-            this.initializeSubscription();
             this.initializeHandlers();
         }
     };

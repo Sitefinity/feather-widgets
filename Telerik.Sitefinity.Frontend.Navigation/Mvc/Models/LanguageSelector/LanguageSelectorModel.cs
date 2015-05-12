@@ -145,7 +145,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             
             this.usedLanguages = this.GetLanguagesForPage(actualSitemapNode, availableLanguages);
 
-            IEnumerable<CultureInfo> shownLanguages = this.GetLanguagesList(pm, homePageId);
+            IEnumerable<CultureInfo> shownLanguages = this.GetLanguagesList(pm, homePageId, actualSitemapNode);
 
             return shownLanguages;
         }
@@ -182,7 +182,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             return usedLanguages;
         }
 
-        private IEnumerable<CultureInfo> GetLanguagesList(PageManager pm, Guid homePageId)
+        private IEnumerable<CultureInfo> GetLanguagesList(PageManager pm, Guid homePageId, PageSiteNode siteMapNode)
         {
             ////Get languages to list
             List<CultureInfo> languages = new List<CultureInfo>();
@@ -201,15 +201,23 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
             }
 
             ////Remove current language, if necessary
-            IEnumerable<CultureInfo> shownLanguages;
+            IList<CultureInfo> shownLanguages;
             CultureInfo currentLanguage = Thread.CurrentThread.CurrentUICulture;
-            if (!this.IncludeCurrentLanguage)
+            if (this.IncludeCurrentLanguage)
             {
-                shownLanguages = languages.Where(ci => !ci.Equals(currentLanguage));
+                shownLanguages = languages;
+
+                // In design mode, if the page is not yet published, we want to display the current language if the user has selected the option.
+                if (SystemManager.IsDesignMode &&
+                    siteMapNode != null &&
+                    !siteMapNode.IsPublished(currentLanguage))
+                {
+                    shownLanguages.Add(currentLanguage);
+                }
             }
             else
             {
-                shownLanguages = languages;
+                shownLanguages = languages.Where(ci => !ci.Equals(currentLanguage)).ToList();
             }
 
             return shownLanguages;
