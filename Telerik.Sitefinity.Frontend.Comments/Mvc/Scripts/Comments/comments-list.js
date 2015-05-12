@@ -159,7 +159,6 @@
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
         newCommentNameError: function () { return this.getOrInitializeProperty('_newCommentNameError', 'comments-new-name-error'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
-        newCommentWebsite: function () { return this.getOrInitializeProperty('_newCommentWebsite', 'comments-new-website'); },
         newCommentRequiresAuthentication: function () { return this.getOrInitializeProperty('_newCommentRequiresAuthentication', 'comments-new-requires-authentication'); },
 
         commentsSortNewButton: function () { return this.getOrInitializeProperty('_commentsSortNewButton', 'comments-sort-new-button'); },
@@ -363,7 +362,6 @@
             if (!self.isUserAuthenticated) {
                 comment.Name = self.newCommentName().val();
                 comment.Email = self.newCommentEmail().val();
-                comment.Website = self.newCommentWebsite().val();
 
                 if (self.settings.requiresCaptcha) {
                     comment.Captcha = {
