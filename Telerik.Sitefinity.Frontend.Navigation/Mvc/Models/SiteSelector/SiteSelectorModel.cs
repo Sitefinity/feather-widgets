@@ -41,16 +41,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         public bool IncludeCurrentSite { get; set; }
 
         /// <summary>
-        /// Determines whether to display each language version as a separate site and show only the language.
+        /// Determines whether to display each language version as a separate site.
         /// </summary>
-        /// <value>Value that indicates whether to show languages only.</value>
-        public bool ShowLanguagesOnly { get; set; }
+        /// <value></value>
+        public bool EachLanguageAsSeparateSite { get; set; }
 
         /// <summary>
-        /// Determines whether to display each language version as a separate site and show the site name and its language.
+        /// Determines how to display each language version of the site.
         /// </summary>
-        /// <value>Value that indicates whether to show site name and its language.</value>
-        public bool ShowSiteNamesAndLanguages { get; set; }
+        /// <value>The site languages display mode.</value>
+        public SiteLanguagesDisplayMode SiteLanguagesDisplayMode { get; set; }
 
         /// <summary>
         /// Determines whether to use the live or the staging URLs of the sites.
@@ -86,8 +86,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
             vm.CssClass = this.CssClass;
             vm.IncludeCurrentSite = this.IncludeCurrentSite;
-            vm.ShowLanguagesOnly = this.ShowLanguagesOnly;
-            vm.ShowSiteNamesAndLanguages = this.ShowSiteNamesAndLanguages;
+            vm.EachLanguageAsSeparateSite = this.EachLanguageAsSeparateSite;
+            vm.SiteLanguagesDisplayMode = this.SiteLanguagesDisplayMode;
             vm.Sites = this.GetSitesViewModels();
 
             return vm;
@@ -114,7 +114,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
             foreach (var site in sites)
             {
                 // Site is in multilingual and its url should be rendered according to settings
-                if (site.PublicContentCultures.Count() > 1 && (this.ShowLanguagesOnly || this.ShowSiteNamesAndLanguages))
+                if (site.PublicContentCultures.Count() > 1 && this.EachLanguageAsSeparateSite)
                 {
                     result.AddRange(this.GetMultilingualSiteViewModels(site));
                 }
@@ -227,8 +227,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
                 siteUrl = this.GetSiteUrl(site);
             }
 
-            string siteDisplayName = this.GetSiteDisplayName(site.Name, cultureInfo);
-
             if (!string.IsNullOrEmpty(siteUrl) && !siteUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
             {
                 if (site.RequiresSsl)
@@ -243,35 +241,9 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
             return new SiteViewModel()
             {
-                DisplayName = siteDisplayName,
                 Url = siteUrl,
                 IsCurrent = isCurrentSite
             };
-        }
-
-        /// <summary>
-        /// Gets the display name of the site according to the culture settings.
-        /// </summary>
-        /// <param name="siteName">The name of the site.</param>
-        /// <param name="cultureInfo">The culture info.</param>
-        /// <returns>Site display name according to settings</returns>
-        protected virtual string GetSiteDisplayName(string siteName, CultureInfo cultureInfo)
-        {
-            string siteDisplayName;
-            if (this.ShowLanguagesOnly && cultureInfo != null)
-            {
-                siteDisplayName = this.GetDisplayedLanguageName(cultureInfo);
-            }
-            else if (this.ShowSiteNamesAndLanguages && cultureInfo != null)
-            {
-                siteDisplayName = string.Format(CultureInfo.CurrentCulture, "{0} - {1}", siteName, this.GetDisplayedLanguageName(cultureInfo));
-            }
-            else
-            {
-                siteDisplayName = siteName;
-            }
-
-            return siteDisplayName;
         }
 
         /// <summary>

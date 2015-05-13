@@ -103,6 +103,7 @@
     <Compile Include="Mvc\Models\PageSelectionMode.cs" />
     <Compile Include="Mvc\Models\SelectedPageModel.cs" />
     <Compile Include="Mvc\Models\SiteSelector\ISiteSelectorModel.cs" />
+    <Compile Include="Mvc\Models\SiteSelector\SiteLanguagesDisplayMode.cs" />
     <Compile Include="Mvc\Models\SiteSelector\SiteSelectorModel.cs" />
     <Compile Include="Mvc\Models\SiteSelector\SiteSelectorViewModel.cs" />
     <Compile Include="Mvc\Models\SiteSelector\SiteViewModel.cs" />
