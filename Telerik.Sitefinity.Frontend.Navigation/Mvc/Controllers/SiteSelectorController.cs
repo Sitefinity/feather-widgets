@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
@@ -71,6 +73,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 
             var viewModel = this.Model.CreateViewModel();
 
+            this.AppendQueryParamsToCurrentSiteUrl(viewModel.Sites);
+
             return this.View(fullTemplateName, viewModel);
         }
         #endregion
@@ -86,6 +90,22 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             return ControllerModelFactory.GetModel<ISiteSelectorModel>(this.GetType());
         }
+
+        /// <summary>
+        /// Appends the query params to the current site's url, so they won't be lost when the user click the site's link.
+        /// </summary>
+        /// <param name="sites">The sites.</param>
+        private void AppendQueryParamsToCurrentSiteUrl(IList<SiteViewModel> sites)
+        {
+            var currentSite = sites.FirstOrDefault(s => s.IsCurrent);
+
+            if (currentSite == null) return;
+
+            var queryString = this.HttpContext.Request.QueryString.ToQueryString();
+
+            currentSite.Url = string.Concat(currentSite.Url, queryString);
+        }
+
         #endregion
 
         #region Private fields and constants
