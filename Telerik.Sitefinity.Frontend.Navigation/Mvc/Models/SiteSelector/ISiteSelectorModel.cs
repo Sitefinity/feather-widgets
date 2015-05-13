@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 {
+    /// <summary>
+    /// The model of the site selector widget.
+    /// </summary>
     public interface ISiteSelectorModel
     {
         /// <summary>
@@ -22,6 +25,12 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         /// </summary>
         /// <value>Value that indicates whether to show site name and its language.</value>
         bool ShowSiteNamesAndLanguages { get; set; }
+
+        /// <summary>
+        /// Determines whether to use the live or the staging URLs of the sites.
+        /// </summary>
+        /// <value>The use live URL.</value>
+        bool UseLiveUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the Site selector widget (if such is presented).
