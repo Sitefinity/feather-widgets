@@ -17,16 +17,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         public bool IncludeCurrentSite { get; set; }
 
         /// <summary>
-        /// Determines whether to display each language version as a separate site and show only the language.
+        /// Determines whether to display each language version as a separate site.
         /// </summary>
-        /// <value>Value that indicates whether to show languages only.</value>
-        public bool ShowLanguagesOnly { get; set; }
+        /// <value></value>
+        public bool EachLanguageAsSeparateSite { get; set; }
 
         /// <summary>
-        /// Determines whether to display each language version as a separate site and show the site name and its language.
+        /// Determines how to display each language version of the site.
         /// </summary>
-        /// <value>Value that indicates whether to show site name and its language.</value>
-        public bool ShowSiteNamesAndLanguages { get; set; }
+        /// <value>The site languages display mode.</value>
+        public SiteLanguagesDisplayMode SiteLanguagesDisplayMode { get; set; }
 
         /// <summary>
         /// Gets or sets the sites.

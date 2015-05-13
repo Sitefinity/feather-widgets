@@ -1,5 +1,7 @@
 ﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector.SiteSelectorViewModel
 
+@using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
+
 <div class="@Model.CssClass">
 
     <h1>Sites</h1>
@@ -9,17 +11,19 @@
     <select onchange="document.location = this.value;">
         @foreach (var site in Model.Sites)
         {
-            if (Model.ShowSiteNamesAndLanguages)
+            switch (Model.SiteLanguagesDisplayMode)
             {
-                <option value="@site.Url">@site.Name site - @site.Language</option>
-            }
-            else if (Model.ShowLanguagesOnly)
-            {
+                case SiteLanguagesDisplayMode.SiteNamesAndLanguages:
+                    <option value="@site.Url">@site.Name site - @site.Language</option>
+                    break;
+
+                case SiteLanguagesDisplayMode.LanguagesOnly:
                 <option value="@site.Url">@site.Language</option>
-            }
-            else
-            {
+                    break;
+
+                default:
                 <option value="@site.Url">@site.Name site</option>
+                    break;
             }
         }
     </select>

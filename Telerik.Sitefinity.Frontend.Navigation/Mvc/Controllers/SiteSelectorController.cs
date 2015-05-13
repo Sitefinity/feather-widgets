@@ -126,8 +126,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         private ISiteSelectorModel model;
         internal const string WidgetIconCssClass = "sfSiteSelectorIcn sfMvcIcn";
         private string templateNamePrefix = "SiteSelector.";
-        ////private string templateName = "SiteLinks";
-        private string templateName = "DropDownMenu";
+        private string templateName = "SiteLinks";
         #endregion
     }
 }
