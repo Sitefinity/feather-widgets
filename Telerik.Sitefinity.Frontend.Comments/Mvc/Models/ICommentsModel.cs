@@ -69,14 +69,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// The maximum length of the comment text to be dispalyed when comment is loaded.
         /// </value>
         int CommentTextMaxLength { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the avatar image URL.
-        /// </summary>
-        /// <value>
-        /// The avatar image URL.
-        /// </value>
-        string DateTimeFormatString { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [comments automatic refresh].

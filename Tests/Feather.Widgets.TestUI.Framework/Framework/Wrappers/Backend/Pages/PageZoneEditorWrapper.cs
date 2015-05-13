@@ -107,7 +107,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             {
             HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
             ActiveBrowser.WaitForElement(expression, TimeOut, false);
-            Manager.Current.Wait.For(this.WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
+            Manager.Current.Wait.For(this.WaitForSaveButton, 60000);
         }
         }
 

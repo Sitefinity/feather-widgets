@@ -69,7 +69,7 @@
                 getCommentsUrl += '&Language=' + language;
             }
             if (newerThan) {
-                getCommentsUrl += '&NewerThan=' + newerThan;
+                getCommentsUrl += '&NewerThan=' + encodeURIComponent(newerThan);
             }
 
             return makeAjax(getCommentsUrl);
@@ -205,7 +205,7 @@
             date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
             date.setSeconds(date.getSeconds() + secondsOffset);
 
-            return date.toUTCString();
+            return date.toISOString();
         },
 
         hideErrors: function () {
@@ -252,8 +252,8 @@
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
-            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).format(this.settings.commentDateTimeFormatString));
-            
+            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).toDateString());
+
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
             return newComment;
@@ -326,16 +326,11 @@
             }
         },
 
-        refreshAllCommentsCount: function (response) {
-            if (response && response.Items && response.Items.length) {
-                this.allCommentsCount += response.Items.length;
-                this.renderCommentsCount();
-            }
-        },
-
         setAllCommentsCount: function (count) {
             this.allCommentsCount = count;
             this.renderCommentsCount();
+
+            $(document).trigger('sf-comments-count-received', { key: this.settings.commentsThreadKey, count: this.allCommentsCount });
         },
 
         refreshComments: function (self, isNewCommentPosted) {
@@ -343,13 +338,15 @@
 
             // New comment is created, but won't be retrievet via refresh - update comment count.
             if (!self.commentsSortedDescending && commentsToTake <= 0 && isNewCommentPosted) {
-                self.allCommentsCount++;
-                self.renderCommentsCount();
+                self.setAllCommentsCount(self.allCommentsCount + 1);
             }
             else {
                 self.loadComments(0, commentsToTake, self.lastCommentDate).then(function (response) {
                     self.refreshLastCommentDate(response);
-                    self.refreshAllCommentsCount(response);
+
+                    if (response && response.TotalCount) {
+                        self.setAllCommentsCount(self.allCommentsCount + response.TotalCount);
+                    }
                 });
             }
         },
@@ -407,7 +404,10 @@
 
             self.validateComment(comment).then(function (isValid) {
                 var endSubmiting = function () {
-                    self.captchaRefresh();
+                    if (!self.isUserAuthenticated && self.settings.requiresCaptcha) {
+                        self.captchaRefresh();
+                    }
+
                     self.submitLoadingIndicator().hide();
                     self.newCommentSubmitButton().show();
                 };
@@ -496,6 +496,9 @@
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
+
+            // Initially hide the "Thank you for your comment" message.
+            this.newCommentPendingApprovalMessage().hide();
 
             if (this.commentsSortedDescending) {
                 this.commentsSortNewButton().addClass(this.isSelectedSortButtonCssClass);
