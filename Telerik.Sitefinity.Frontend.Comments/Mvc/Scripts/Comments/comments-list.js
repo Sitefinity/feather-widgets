@@ -69,7 +69,7 @@
                 getCommentsUrl += '&Language=' + language;
             }
             if (newerThan) {
-                getCommentsUrl += '&NewerThan=' + newerThan;
+                getCommentsUrl += '&NewerThan=' + encodeURIComponent(newerThan);
             }
 
             return makeAjax(getCommentsUrl);
@@ -205,7 +205,7 @@
             date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
             date.setSeconds(date.getSeconds() + secondsOffset);
 
-            return date.toUTCString();
+            return date.toISOString();
         },
 
         hideErrors: function () {
