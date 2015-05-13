@@ -22,25 +22,23 @@
     </div>
 </div>
 
-<h4>@Html.Resource("Show")</h4>
 <div class="form-group">
+    <strong>@Html.Resource("Show")</strong>
     <div class="checkbox">
         <label for="homePageLink">
             <input id="homePageLink" type="checkbox" ng-model="properties.ShowHomePageLink.PropertyValue"
                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowHomePageLink.PropertyValue === 'True'" />
             @Html.Resource("BreadcrumbParentPage")
         </label>
-
-        <br />
-
+    </div>
+    <div class="checkbox">
         <label for="currentPage">
             <input id="currentPage" type="checkbox" ng-model="properties.ShowCurrentPageInTheEnd.PropertyValue"
                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowCurrentPageInTheEnd.PropertyValue === 'True'" />
             @Html.Resource("BreadcrumbShowCurrentPage")
         </label>
-
-        <br />
-
+    </div>
+    <div class="checkbox">
         <label for="groupPage">
             <input id="groupPage" type="checkbox" ng-model="properties.ShowGroupPages.PropertyValue"
                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowGroupPages.PropertyValue === 'True'" />
