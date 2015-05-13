@@ -55,8 +55,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         /// <summary>
         /// Determines whether to use the live or the staging URLs of the sites.
         /// </summary>
-        /// <value>The use live URL.</value>
-        public bool UseLiveUrl { get; set; }
+        public bool UseLiveUrl
+        {
+            get
+            {
+                return this.useLiveUrl;
+            }
+
+            set
+            {
+                this.useLiveUrl = value;
+            }
+        }
 
         /// <summary>
         /// Gets the URL service.
@@ -258,6 +268,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         #region Private fields and constants
         private readonly Guid currentSiteId;
         private UrlLocalizationService urlService;
+        private bool useLiveUrl = true;
         #endregion
     }
 }
