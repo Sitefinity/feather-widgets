@@ -18,6 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
     public class SiteSelectorModel : ISiteSelectorModel
     {
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SiteSelectorModel" /> class.
         /// </summary>
@@ -38,7 +39,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         /// Determines whether to include the current site in the list of sites.
         /// </summary>
         /// <value>The include current site.</value>
-        public bool IncludeCurrentSite { get; set; }
+        public bool IncludeCurrentSite
+        {
+            get
+            {
+                return this.includeCurrentSite;
+            }
+
+            set
+            {
+                this.includeCurrentSite = value;
+            }
+        }
 
         /// <summary>
         /// Determines whether to display each language version as a separate site and show only the language.
@@ -56,7 +68,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         /// Determines whether to use the live or the staging URLs of the sites.
         /// </summary>
         /// <value>The use live URL.</value>
-        public bool UseLiveUrl { get; set; }
+        public bool UseLiveUrl
+        {
+            get
+            {
+                return this.useLiveUrl;
+            }
+
+            set
+            {
+                this.useLiveUrl = value;
+            }
+        }
 
         /// <summary>
         /// Gets the URL service.
@@ -243,6 +266,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
             return new SiteViewModel()
             {
+                Name = site.Name,
+                Language = cultureInfo == null ? site.Name : this.GetDisplayedLanguageName(cultureInfo),
                 DisplayName = siteDisplayName,
                 Url = siteUrl,
                 IsCurrent = isCurrentSite
@@ -286,6 +311,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         #region Private fields and constants
         private readonly Guid currentSiteId;
         private UrlLocalizationService urlService;
+        private bool includeCurrentSite = true;
+        private bool useLiveUrl = true;
         #endregion
     }
 }

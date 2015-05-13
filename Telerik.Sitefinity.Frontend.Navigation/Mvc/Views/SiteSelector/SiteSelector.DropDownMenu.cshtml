@@ -1,0 +1,27 @@
+﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector.SiteSelectorViewModel
+
+<div class="@Model.CssClass">
+
+    <h1>Sites</h1>
+
+    <br />
+
+    <select onchange="document.location = this.value;">
+        @foreach (var site in Model.Sites)
+        {
+            if (Model.ShowSiteNamesAndLanguages)
+            {
+                <option value="@site.Url">@site.Name site - @site.Language</option>
+            }
+            else if (Model.ShowLanguagesOnly)
+            {
+                <option value="@site.Url">@site.Language</option>
+            }
+            else
+            {
+                <option value="@site.Url">@site.Name site</option>
+            }
+        }
+    </select>
+
+</div>
