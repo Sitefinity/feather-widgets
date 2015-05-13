@@ -92,5 +92,13 @@
         /// The requires captcha.
         /// </value>
         public bool RequiresCaptcha { get; set; }
+
+        /// <summary>
+        /// Gets whether comments will be displayed on pages.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if paging is enabled; otherwise, <c>false</c>.
+        /// </value>
+        public bool EnablePaging { get; set; }
     }
 }
