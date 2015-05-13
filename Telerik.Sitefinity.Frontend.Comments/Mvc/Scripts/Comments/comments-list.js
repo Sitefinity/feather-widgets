@@ -326,12 +326,6 @@
             }
         },
 
-        refreshAllCommentsCount: function (response) {
-            if (response && response.TotalCount) {
-                this.setAllCommentsCount(response.TotalCount);
-            }
-        },
-
         setAllCommentsCount: function (count) {
             this.allCommentsCount = count;
             this.renderCommentsCount();
@@ -349,7 +343,10 @@
             else {
                 self.loadComments(0, commentsToTake, self.lastCommentDate).then(function (response) {
                     self.refreshLastCommentDate(response);
-                    self.refreshAllCommentsCount(response);
+
+                    if (response && response.TotalCount) {
+                        self.setAllCommentsCount(self.allCommentsCount + response.TotalCount);
+                    }
                 });
             }
         },
