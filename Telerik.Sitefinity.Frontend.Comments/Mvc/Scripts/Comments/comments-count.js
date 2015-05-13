@@ -42,12 +42,12 @@
         },
 
         setCommentsCounts: function (threadCountList) {
-			var self = this;
+            var self = this;
             for (var i = 0; i < threadCountList.Items.length; i++) {
                 if (threadCountList.Items[i].Count == -1) {
                     continue;
                 }
-				
+                
                 $('div[sf-thread-key="' + threadCountList.Items[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList.Items[i].Count));
             }
         },
@@ -55,7 +55,6 @@
         populateCommentsCountTextCallBack: function (currentCount) {
             var self = this;
             return function (index, element) {
-
                 self.populateCommentsCountText($(element), currentCount);
             };
         },
@@ -85,6 +84,10 @@
                 if (response) {
                     self.setCommentsCounts(response);
                 }
+            });
+
+            $(document).on('sf-comments-count-received', function (event, args) {
+                $('div[sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count));
             });
         }
     };
