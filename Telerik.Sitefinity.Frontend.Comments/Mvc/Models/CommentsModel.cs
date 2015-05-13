@@ -270,7 +270,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
                 var viewModel = new CommentsListViewModel()
                 {
-                    AllowSubscription = this.ThreadConfig.AllowSubscription && this.ThreadIsClosed,
+                    AllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                     CssClass = this.CssClass,
                     LoginPageUrl = this.LoginPageUrl,
                     ThreadIsClosed = this.ThreadIsClosed,
@@ -370,7 +370,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             return new CommentsListWidgetSettings()
             {
                 CommentDateTimeFormatString = this.DateTimeFormatString,
-                CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && this.ThreadIsClosed,
+                CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                 CommentsAutoRefresh = this.CommentsAutoRefresh,
                 CommentsInitiallySortedDescending = this.CommentsConfig.AreNewestOnTop,
                 CommentsPerPage = this.CommentsConfig.CommentsPerPage,

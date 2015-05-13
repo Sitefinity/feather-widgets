@@ -407,7 +407,10 @@
 
             self.validateComment(comment).then(function (isValid) {
                 var endSubmiting = function () {
-                    self.captchaRefresh();
+                    if (!self.isUserAuthenticated && self.settings.requiresCaptcha) {
+                        self.captchaRefresh();
+                    }
+
                     self.submitLoadingIndicator().hide();
                     self.newCommentSubmitButton().show();
                 };
