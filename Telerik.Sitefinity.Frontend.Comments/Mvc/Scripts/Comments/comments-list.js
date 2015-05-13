@@ -407,7 +407,10 @@
 
             self.validateComment(comment).then(function (isValid) {
                 var endSubmiting = function () {
-                    self.captchaRefresh();
+                    if (!self.isUserAuthenticated && self.settings.requiresCaptcha) {
+                        self.captchaRefresh();
+                    }
+
                     self.submitLoadingIndicator().hide();
                     self.newCommentSubmitButton().show();
                 };
@@ -496,6 +499,9 @@
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
+
+            // Initially hide the "Thank you for your comment" message.
+            this.newCommentPendingApprovalMessage().hide();
 
             if (this.commentsSortedDescending) {
                 this.commentsSortNewButton().addClass(this.isSelectedSortButtonCssClass);
