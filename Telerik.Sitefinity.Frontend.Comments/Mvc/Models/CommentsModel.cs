@@ -263,10 +263,14 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
                 var viewModel = new CommentsListViewModel()
                 {
+                    AllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                     CssClass = this.CssClass,
                     LoginPageUrl = this.LoginPageUrl,
                     ThreadIsClosed = this.ThreadIsClosed,
                     UserAvatarImageUrl = this.UserAvatarImageUrl,
+                    RequiresAuthentication = this.ThreadConfig.RequiresAuthentication,
+                    RequiresApproval = this.ThreadConfig.RequiresApproval,
+                    RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
                     SerializedWidgetResources = JsonConvert.SerializeObject(widgetResources, Formatting.None, jsonSerializerSettings),
                     SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings, Formatting.None, jsonSerializerSettings)
                 };
@@ -339,12 +343,15 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             return new CommentsListWidgetResources()
             {
-                CommentPendingApproval = Res.Get<CommentsWidgetResources>().PendingApproval,
                 CommentSingular = Res.Get<CommentsWidgetResources>().Comment,
                 CommentsPlural = Res.Get<CommentsWidgetResources>().CommentsPlural,
                 ReadFullComment = Res.Get<CommentsWidgetResources>().ReadFullComment,
+                SubscribeLink = Res.Get<CommentsWidgetResources>().SubscribeLink,
+                UnsubscribeLink = Res.Get<CommentsWidgetResources>().UnsubscribeLink,
                 SubscribeToNewComments = Res.Get<CommentsWidgetResources>().SubscribeToNewComments,
-                UnsubscribeFromNewComments = Res.Get<CommentsWidgetResources>().UnsubscribeFromNewComments
+                YouAreSubscribedToNewComments = Res.Get<CommentsWidgetResources>().YouAreSubscribedToNewComments,
+                SuccessfullySubscribedToNewComments = Res.Get<CommentsWidgetResources>().SuccessfullySubscribedToNewComments,
+                SuccessfullyUnsubscribedFromNewComments = Res.Get<CommentsWidgetResources>().SuccessfullyUnsubscribedFromNewComments
             };
         }
 
@@ -355,7 +362,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
             return new CommentsListWidgetSettings()
             {
-                CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && this.ThreadIsClosed,
+                CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                 CommentsAutoRefresh = this.CommentsAutoRefresh,
                 CommentsInitiallySortedDescending = this.CommentsConfig.AreNewestOnTop,
                 CommentsPerPage = this.CommentsConfig.CommentsPerPage,
