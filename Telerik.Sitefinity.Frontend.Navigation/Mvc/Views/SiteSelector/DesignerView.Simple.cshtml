@@ -1,0 +1,60 @@
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="properties.IncludeCurrentSite.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.IncludeCurrentSite.PropertyValue === 'True'"/>
+            @Html.Resource("IncludeCurrentSite")
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+             <input type="checkbox"
+                 ng-model="languageVersionAsSeparateSite"
+                 ng-checked="properties.ShowLanguagesOnly.PropertyValue === 'True' || properties.ShowSiteNamesAndLanguages.PropertyValue === 'True'"/>
+            @Html.Resource("LanguageVersionAsSeparateSite")
+        </label>
+    </div>
+
+    <div ng-show="languageVersionAsSeparateSite">
+        <div class="radio">
+            <label for="siteNamesAndLanguages" class="full-width">
+              <input id="siteNamesAndLanguages" type="radio" name="languageSiteDisplayType" ng-model="properties.ShowSiteNamesAndLanguages.PropertyValue" />
+              @Html.Resource("SiteNamesAndLanguages")
+            </label>
+        </div>
+
+        <div class="radio">
+            <label for="languagesOnly" class="full-width">
+              <input id="languagesOnly" type="radio" name="languageSiteDisplayType" ng-model="properties.ShowLanguagesOnly.PropertyValue" />
+              @Html.Resource("LanguagesOnly")
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <label for="templateName">@Html.Resource("Template")</label>
+            <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames("SiteSelector", @"SiteSelector\.(?<viewName>\w*)$"))
+                {
+                    <option value="@viewName">@viewName</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="siteSelectorCssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="siteSelectorCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>
