@@ -142,5 +142,23 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// The comments thread.
         /// </value>
         public IThread CommentsThread { get; set; }
+        
+        //// Reviews
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [in review mode].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [in review mode]; otherwise, <c>false</c>.
+        /// </value>
+        public bool InReviewMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance has submited review.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance has submited review; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasSubmitedReview { get; set; }
     }
 }

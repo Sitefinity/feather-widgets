@@ -28,11 +28,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             get
             {
-                if (this.threadKey.IsNullOrEmpty() && SiteMapBase.GetActualCurrentNode() != null)
-                {
-                    this.threadKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
-                }
-
                 return this.threadKey;
             }
             set
@@ -251,9 +246,10 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         #region Methods
 
         /// <inheritDoc/>
-        public CommentsListViewModel GetCommentsListViewModel(CommentsInputModel inputModel)
+        public CommentsListViewModel GetCommentsListViewModel(CommentsInputModel inputModel, bool useReviews)
         {
-            this.Initialize(inputModel);
+            this.Initialize(inputModel, useReviews);
+
             var allowComments = (inputModel != null && inputModel.AllowComments.HasValue) ? inputModel.AllowComments.Value : this.AllowComments;
             if (allowComments)
             {
@@ -289,6 +285,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public CommentsCountViewModel GetCommentsCountViewModel(CommentsCountInputModel inputModel)
         {
             this.ThreadKey = inputModel.ThreadKey;
+
             var allowComments = inputModel.AllowComments.HasValue ? inputModel.AllowComments.Value : this.AllowComments;
             if (allowComments)
             {
@@ -315,8 +312,10 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         #region Private Methods
 
-        private void Initialize(CommentsInputModel commentsInputModel)
+        private void Initialize(CommentsInputModel commentsInputModel, bool useReviews)
         {
+            const string ReviewsSuffix = "_reviews";
+
             if (commentsInputModel == null)
                 return;
 
@@ -328,6 +327,23 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadKey))
             {
                 this.ThreadKey = commentsInputModel.ThreadKey;
+            }
+            else if (string.IsNullOrEmpty(this.ThreadKey) && SiteMapBase.GetActualCurrentNode() != null)
+            {
+                var originalKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
+
+                if (useReviews && !this.ThreadKey.EndsWith(ReviewsSuffix))
+                {
+                    this.ThreadKey = originalKey + ReviewsSuffix;
+                }
+                else if (!useReviews && this.ThreadKey.EndsWith(ReviewsSuffix))
+                {
+                    this.ThreadKey = originalKey.Left(originalKey.Length - ReviewsSuffix.Length);
+                }
+                else
+                {
+                    this.ThreadKey = originalKey;
+                }
             }
 
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadTitle))
@@ -385,7 +401,10 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
                 RootUrl = rootUrl,
                 UserAvatarImageUrl = this.UserAvatarImageUrl,
-                UserDisplayName = this.UserDisplayName
+                UserDisplayName = this.UserDisplayName,
+                //// Reviews
+                InReviewMode = false,
+                HasSubmitedReview = false
             };
         }
 

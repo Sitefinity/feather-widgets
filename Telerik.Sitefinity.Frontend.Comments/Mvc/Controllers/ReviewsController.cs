@@ -11,11 +11,11 @@ using Telerik.Sitefinity.Mvc;
 namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
 {
     /// <summary>
-    /// This class represents the controller of the Comments widget.
+    /// This class represents the controller of the Ratings widget.
     /// </summary>
     [Localization(typeof(CommentsWidgetResources))]
-    [ControllerToolboxItem(Name = "Comments_MVC", Title = "Comments", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Comments", CssClass = CommentsController.WidgetIconCssClass)]
-    public class CommentsController : BaseCommentsRatingsCtrl
+    [ControllerToolboxItem(Name = "Reviews_MVC", Title = "Reviews", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Comments", CssClass = ReviewsController.WidgetIconCssClass)]
+    public class ReviewsController : BaseCommentsRatingsCtrl
     {
         /// <inheritDoc/>
         [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -75,7 +75,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         [Browsable(false)]
         public override bool UseReviews
         {
-            get { return false; }
+            get { return true; }
         }
 
         #region Private fields and constants
@@ -83,8 +83,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         private ICommentsModel model;
 
         private string templateName = "Default";
-        private string templateNamePrefix = "Comments.";
-        private string countTemplateName = "CommentsCount.Default";
+        private string templateNamePrefix = "Reviews.";
+        private string countTemplateName = "ReviewsCount.Default";
 
         internal const string WidgetIconCssClass = "sfCommentsIcn sfMvcIcn";
 
