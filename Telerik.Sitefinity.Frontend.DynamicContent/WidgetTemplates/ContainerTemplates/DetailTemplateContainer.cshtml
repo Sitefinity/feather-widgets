@@ -19,7 +19,7 @@
     </h3>
     <div>
         @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
-        @Html.CommentsCount("#commentsWidget", @Model.Item.DataItem)
+        @Html.CommentsCount("", @Model.Item.DataItem)
     </div>
     
     @*GenerateFieldsSection*@
