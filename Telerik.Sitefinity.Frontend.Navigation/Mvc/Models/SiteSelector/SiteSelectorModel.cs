@@ -67,7 +67,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         /// <summary>
         /// Determines whether to use the live or the staging URLs of the sites.
         /// </summary>
-        /// <value>The use live URL.</value>
         public bool UseLiveUrl
         {
             get
