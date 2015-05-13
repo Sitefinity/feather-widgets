@@ -185,7 +185,7 @@
 
         listLoadingIndicator: function () { return this.getOrInitializeProperty('_listLoadingIndicator', 'list-loading-indicator'); },
         submitLoadingIndicator: function () { return this.getOrInitializeProperty('_submitLoadingIndicator', 'submit-loading-indicator'); },
-        
+
         commentsSubscribeButton: function () { return this.getOrInitializeProperty('_commentsSubscribeButton', 'comments-subscribe-button'); },
         commentsSubscribeText: function () { return this.getOrInitializeProperty('_commentsSubscribeText', 'comments-subscribe-text'); },
 
@@ -252,6 +252,7 @@
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
+
             newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).toDateString());
 
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
@@ -292,7 +293,9 @@
             this.commentsSortOldButton().toggle(this.allCommentsCount > 1);
 
             // Comments load more button
-            this.commentsLoadMoreButton().toggle(this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
+            if (this.settings.enablePaging) {
+                this.commentsLoadMoreButton().toggle(this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
+            }
         },
 
         loadComments: function (skip, take, newerThan) {
@@ -481,7 +484,7 @@
 
             self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
                 self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
-                
+
                 self.commentsSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeLink);
                 self.commentsSubscribeText().text(self.isSubscribedToNewComments ? self.resources.successfullySubscribedToNewComments : self.resources.successfullyUnsubscribedFromNewComments);
             });
@@ -495,6 +498,11 @@
 
             this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
+
+            if (!this.settings.enablePaging) {
+                this.settings.commentsPerPage = 500;
+            }
+
             this.maxCommentsToShow = this.settings.commentsPerPage;
 
             // Initially hide the "RequiresAuthentication" message.
@@ -541,6 +549,10 @@
         initializeComments: function () {
             var self = this;
 
+            if (!self.settings.enablePaging) {
+                self.commentsLoadMoreButton().hide();
+            }
+
             // Initial loading of comments count for thread
             self.commentsRestApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
                 self.setAllCommentsCount(response);
@@ -565,7 +577,7 @@
             self.commentsRestApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
                 if (response) {
                     self.isSubscribedToNewComments = response.IsSubscribed;
-                    
+
                     self.commentsSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeToNewComments);
                     self.commentsSubscribeText().text(self.isSubscribedToNewComments ? self.resources.youAreSubscribedToNewComments : '');
 
@@ -580,11 +592,13 @@
         initializeHandlers: function () {
             var self = this;
 
-            self.commentsLoadMoreButton().click(function () {
-                self.maxCommentsToShow += self.settings.commentsPerPage;
-                self.loadComments(self.commentsTakenSoFar, self.settings.commentsPerPage);
-                return false;
-            });
+            if (self.settings.enablePaging) {
+                self.commentsLoadMoreButton().click(function () {
+                    self.maxCommentsToShow += self.settings.commentsPerPage;
+                    self.loadComments(self.commentsTakenSoFar, self.settings.commentsPerPage);
+                    return false;
+                });
+            }
 
             self.commentsContainer().on('click', '[data-sf-role="comments-read-full-comment-button"]', function (e) {
                 if (e && e.target) {

@@ -371,6 +371,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 CommentsThread = this.Thread ?? this.GetCommentsThreadProxy(threadTitle),
                 CommentsThreadKey = this.ThreadKey,
                 CommentsThreadType = this.ThreadType,
+                EnablePaging = this.CommentsConfig.EnablePaging,
                 IsDesignMode = SystemManager.IsDesignMode,
                 IsUserAuthenticatedUrl = isUserAuthenticatedUrl,
                 RequiresApproval = this.ThreadConfig.RequiresApproval,
