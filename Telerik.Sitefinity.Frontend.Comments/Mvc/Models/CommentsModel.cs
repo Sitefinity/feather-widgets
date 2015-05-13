@@ -265,6 +265,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 {
                     AllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                     CssClass = this.CssClass,
+                    EnablePaging = this.CommentsConfig.EnablePaging,
                     LoginPageUrl = this.LoginPageUrl,
                     ThreadIsClosed = this.ThreadIsClosed,
                     UserAvatarImageUrl = this.UserAvatarImageUrl,
@@ -365,7 +366,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                 CommentsAutoRefresh = this.CommentsAutoRefresh,
                 CommentsInitiallySortedDescending = this.CommentsConfig.AreNewestOnTop,
-                CommentsPerPage = this.CommentsConfig.CommentsPerPage,
+                CommentsPerPage = this.CommentsConfig.EnablePaging? this.CommentsConfig.CommentsPerPage: 500,
                 CommentsRefreshInterval = this.CommentsRefreshInterval,
                 CommentsTextMaxLength = this.CommentTextMaxLength,
                 CommentsThread = this.Thread ?? this.GetCommentsThreadProxy(threadTitle),

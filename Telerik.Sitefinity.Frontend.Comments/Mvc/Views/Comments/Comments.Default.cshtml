@@ -24,7 +24,11 @@
           
     <div data-sf-role="list-loading-indicator" style="display:none;"></div>
     <div data-sf-role="comments-container"></div>
-    <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
+
+    @if(Model.EnablePaging)
+    {
+        <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
+    }
 
     @if (Model.ThreadIsClosed)
     {
