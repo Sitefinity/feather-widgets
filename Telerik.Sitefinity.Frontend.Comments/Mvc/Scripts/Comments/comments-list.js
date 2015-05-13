@@ -327,15 +327,16 @@
         },
 
         refreshAllCommentsCount: function (response) {
-            if (response && response.Items && response.Items.length) {
-                this.allCommentsCount += response.Items.length;
-                this.renderCommentsCount();
+            if (response && response.TotalCount) {
+                this.setAllCommentsCount(response.TotalCount);
             }
         },
 
         setAllCommentsCount: function (count) {
             this.allCommentsCount = count;
             this.renderCommentsCount();
+
+            $(document).trigger('sf-comments-count-received', { key: this.settings.commentsThreadKey, count: this.allCommentsCount });
         },
 
         refreshComments: function (self, isNewCommentPosted) {
@@ -343,8 +344,7 @@
 
             // New comment is created, but won't be retrievet via refresh - update comment count.
             if (!self.commentsSortedDescending && commentsToTake <= 0 && isNewCommentPosted) {
-                self.allCommentsCount++;
-                self.renderCommentsCount();
+                self.setAllCommentsCount(self.allCommentsCount + 1);
             }
             else {
                 self.loadComments(0, commentsToTake, self.lastCommentDate).then(function (response) {
