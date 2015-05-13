@@ -623,6 +623,12 @@
                 self.captchaRefresh();
                 return false;
             });
+
+            self.newCommentMessage().focus(function () {
+                if (!self.isUserAuthenticated) {
+                    self.commentsNewLoggedOutView().show();
+                }
+            });
         },
 
         initialize: function () {

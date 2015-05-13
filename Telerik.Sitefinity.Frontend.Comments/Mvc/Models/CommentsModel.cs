@@ -273,7 +273,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                     RequiresApproval = this.ThreadConfig.RequiresApproval,
                     RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
                     SerializedWidgetResources = JsonConvert.SerializeObject(widgetResources, Formatting.None, jsonSerializerSettings),
-                    SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings, Formatting.None, jsonSerializerSettings)
+                    SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings, Formatting.None, jsonSerializerSettings),
+                    ThreadKey = widgetSettings.CommentsThreadKey
                 };
 
                 return viewModel;
@@ -291,6 +292,11 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             var allowComments = inputModel.AllowComments.HasValue ? inputModel.AllowComments.Value : this.AllowComments;
             if (allowComments)
             {
+                if (inputModel.NavigateUrl != null && !inputModel.NavigateUrl.Contains("#"))
+                {
+                    inputModel.NavigateUrl = inputModel.NavigateUrl + "#comments-" + HttpUtility.UrlEncode(inputModel.ThreadKey);
+                }
+
                 var viewModel = new CommentsCountViewModel()
                 {
                     NavigateUrl = inputModel.NavigateUrl,

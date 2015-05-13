@@ -92,5 +92,13 @@
         ///   <c>true</c> if paging is enabled; otherwise, <c>false</c>.
         /// </value>
         public bool EnablePaging { get; set; }
+
+        /// <summary>
+        /// Gets or sets the thread key.
+        /// </summary>
+        /// <value>
+        /// The thread key.
+        /// </value>
+        public string ThreadKey { get; set; }
     }
 }
