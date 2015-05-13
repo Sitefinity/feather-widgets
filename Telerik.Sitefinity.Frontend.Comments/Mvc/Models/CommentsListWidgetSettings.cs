@@ -150,5 +150,13 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// The comments thread.
         /// </value>
         public IThread CommentsThread { get; set; }
+
+        /// <summary>
+        /// Gets whether comments will be displayed on pages.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if paging is enabled; otherwise, <c>false</c>.
+        /// </value>
+        public bool EnablePaging { get; set; }
     }
 }
