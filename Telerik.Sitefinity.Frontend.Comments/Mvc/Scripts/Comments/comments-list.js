@@ -69,7 +69,7 @@
                 getCommentsUrl += '&Language=' + language;
             }
             if (newerThan) {
-                getCommentsUrl += '&NewerThan=' + newerThan;
+                getCommentsUrl += '&NewerThan=' + encodeURIComponent(newerThan);
             }
 
             return makeAjax(getCommentsUrl);
@@ -205,7 +205,7 @@
             date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
             date.setSeconds(date.getSeconds() + secondsOffset);
 
-            return date.toUTCString();
+            return date.toISOString();
         },
 
         hideErrors: function () {
@@ -326,16 +326,11 @@
             }
         },
 
-        refreshAllCommentsCount: function (response) {
-            if (response && response.Items && response.Items.length) {
-                this.allCommentsCount += response.Items.length;
-                this.renderCommentsCount();
-            }
-        },
-
         setAllCommentsCount: function (count) {
             this.allCommentsCount = count;
             this.renderCommentsCount();
+
+            $(document).trigger('sf-comments-count-received', { key: this.settings.commentsThreadKey, count: this.allCommentsCount });
         },
 
         refreshComments: function (self, isNewCommentPosted) {
@@ -343,13 +338,15 @@
 
             // New comment is created, but won't be retrievet via refresh - update comment count.
             if (!self.commentsSortedDescending && commentsToTake <= 0 && isNewCommentPosted) {
-                self.allCommentsCount++;
-                self.renderCommentsCount();
+                self.setAllCommentsCount(self.allCommentsCount + 1);
             }
             else {
                 self.loadComments(0, commentsToTake, self.lastCommentDate).then(function (response) {
                     self.refreshLastCommentDate(response);
-                    self.refreshAllCommentsCount(response);
+
+                    if (response && response.TotalCount) {
+                        self.setAllCommentsCount(self.allCommentsCount + response.TotalCount);
+                    }
                 });
             }
         },

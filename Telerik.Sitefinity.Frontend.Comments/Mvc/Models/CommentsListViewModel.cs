@@ -52,14 +52,6 @@
         /// The login page URL.
         /// </value>
         public string LoginPageUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [allow comments].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [allow comments]; otherwise, <c>false</c>.
-        /// </value>
-        public bool AllowComments { get; set; }
         
         /// <summary>
         /// Gets or sets the requires authentication.
