@@ -252,8 +252,8 @@
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
-            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).format(this.settings.commentDateTimeFormatString));
-            
+            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).toDateString());
+
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
             return newComment;

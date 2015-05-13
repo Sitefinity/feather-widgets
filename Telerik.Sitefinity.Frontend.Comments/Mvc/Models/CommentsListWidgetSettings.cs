@@ -112,14 +112,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public bool CommentsInitiallySortedDescending { get; set; }
 
         /// <summary>
-        /// Gets or sets the comment date time format string.
-        /// </summary>
-        /// <value>
-        /// The comment date time format string.
-        /// </value>
-        public string CommentDateTimeFormatString { get; set; }
-
-        /// <summary>
         /// Gets or sets the user avatar image URL.
         /// </summary>
         /// <value>
