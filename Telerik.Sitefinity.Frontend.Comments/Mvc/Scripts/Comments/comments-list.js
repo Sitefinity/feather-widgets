@@ -500,6 +500,9 @@
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
 
+            // Initially hide the "Thank you for your comment" message.
+            this.newCommentPendingApprovalMessage().hide();
+
             if (this.commentsSortedDescending) {
                 this.commentsSortNewButton().addClass(this.isSelectedSortButtonCssClass);
             }
