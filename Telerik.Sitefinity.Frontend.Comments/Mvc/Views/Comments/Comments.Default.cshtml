@@ -77,7 +77,7 @@
             <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         </div>
         
-        @if (Model.RequiresAuthentication)
+        if (Model.RequiresAuthentication)
         {
             <span data-sf-role="comments-new-requires-authentication"><a href='@Model.LoginPageUrl'>@Html.Resource("Login")</a>@Html.Resource("ToBeAbleToComment")</span>
         }
