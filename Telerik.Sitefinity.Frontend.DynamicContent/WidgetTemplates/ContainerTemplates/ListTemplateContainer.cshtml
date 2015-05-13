@@ -15,15 +15,17 @@
     <ul>
         @foreach (var item in Model.Items)
         {
+            var navigateUrl = HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage);
             <li @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)item.Fields.Id)>
                 @*MainPictureSection*@
                 <h3>
-                    <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
+                    <a @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText") href="@navigateUrl">
                         @item.Fields.@*MainTextField*@
                     </a>
                 </h3>
                 <div>
                     @item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
+                    @Html.CommentsCount((string)(navigateUrl + "#commentsWidget"), item.DataItem)
                 </div>
             </li>
         }
