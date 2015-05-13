@@ -82,8 +82,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
         /// </summary>
         /// <value>What to do with languages without translations</value>
         [ResourceEntry("LanguageWithoutTranslation",
-            Value = "What to do with languages without translations",
-            Description = "Phrase: What to do with languages without translations",
+            Value = "What to do with languages without translations?",
+            Description = "Phrase: What to do with languages without translations?",
             LastModified = "2015/05/06")]
         public string LanguageWithoutTranslation
         {

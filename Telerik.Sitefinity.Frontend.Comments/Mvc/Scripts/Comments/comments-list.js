@@ -252,7 +252,8 @@
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
-            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).format(this.settings.commentDateTimeFormatString));
+
+            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).toDateString());
 
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
@@ -409,7 +410,10 @@
 
             self.validateComment(comment).then(function (isValid) {
                 var endSubmiting = function () {
-                    self.captchaRefresh();
+                    if (!self.isUserAuthenticated && self.settings.requiresCaptcha) {
+                        self.captchaRefresh();
+                    }
+
                     self.submitLoadingIndicator().hide();
                     self.newCommentSubmitButton().show();
                 };
@@ -503,6 +507,9 @@
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
+
+            // Initially hide the "Thank you for your comment" message.
+            this.newCommentPendingApprovalMessage().hide();
 
             if (this.commentsSortedDescending) {
                 this.commentsSortNewButton().addClass(this.isSelectedSortButtonCssClass);

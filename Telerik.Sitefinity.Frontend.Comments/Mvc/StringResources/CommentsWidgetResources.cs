@@ -412,15 +412,15 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
 
         /// Gets phrase : Thank you for the comment! Your comment must be approved first
         /// </summary>
-        [ResourceEntry("PendingApproval",
+        [ResourceEntry("CommentPendingApproval",
             Value = "Thank you for the comment! Your comment must be approved first",
             Description = "phrase : Thank you for the comment! Your comment must be approved first",
             LastModified = "2015/05/12")]
-        public string PendingApproval
+        public string CommentPendingApproval
         {
             get
             {
-                return this["PendingApproval"];
+                return this["CommentPendingApproval"];
             }
         }
 

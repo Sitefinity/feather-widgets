@@ -136,13 +136,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public string CssClass { get; set; }
 
         /// <inheritDoc/>
-        public string DateTimeFormatString
-        {
-            get { return this.dateTimeFormatString; }
-            set { this.dateTimeFormatString = value; }
-        }
-
-        /// <inheritDoc/>
         public bool CommentsAutoRefresh
         {
             get { return this.commentsAutoRefresh; }
@@ -270,7 +263,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
                 var viewModel = new CommentsListViewModel()
                 {
-                    AllowSubscription = this.ThreadConfig.AllowSubscription && this.ThreadIsClosed,
+                    AllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                     CssClass = this.CssClass,
                     LoginPageUrl = this.LoginPageUrl,
                     ThreadIsClosed = this.ThreadIsClosed,
@@ -369,8 +362,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
             return new CommentsListWidgetSettings()
             {
-                CommentDateTimeFormatString = this.DateTimeFormatString,
-                CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && this.ThreadIsClosed,
+                CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                 CommentsAutoRefresh = this.CommentsAutoRefresh,
                 CommentsInitiallySortedDescending = this.CommentsConfig.AreNewestOnTop,
                 CommentsPerPage = this.CommentsConfig.CommentsPerPage,
@@ -436,7 +428,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         private int commentTextMaxLength = 100;
         private bool threadIsClosed;
         private IThread thread;
-        private string dateTimeFormatString = "MMM dd, yyyy";
         private bool commentsAutoRefresh = false;
         private int commentsRefreshInterval = 3000;
         private ThreadsConfigModel threadConfig;
