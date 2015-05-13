@@ -189,6 +189,8 @@
     <Compile Include="Identity\LoginStatus\LoginTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetPagingLimitTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetSortingTests.cs" />
+    <Compile Include="ImageGallery\ImageGalleryWidgetPagingLimitTests.cs" />
+    <Compile Include="ImageGallery\ImageGalleryWidgetSortingTests.cs" />
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
