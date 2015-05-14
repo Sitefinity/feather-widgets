@@ -26,6 +26,12 @@
               <input id="siteNamesAndLanguages" type="radio" ng-model="properties.SiteLanguagesDisplayMode.PropertyValue" value="SiteNamesAndLanguages"/>
               @Html.Resource("SiteNamesAndLanguages")
             </label>
+
+            <br />
+
+            <span>@Html.Resource("Example"):</span>
+            <span>@Html.Resource("NameAndLanguageExample1")</span><br />
+            <span>@Html.Resource("NameAndLanguageExample2")</span>
         </div>
 
         <div class="radio">
@@ -33,6 +39,13 @@
               <input id="languagesOnly" type="radio" ng-model="properties.SiteLanguagesDisplayMode.PropertyValue" value="LanguagesOnly" />
               @Html.Resource("LanguagesOnly")
             </label>
+
+            <br />
+
+            <span>@Html.Resource("Example"):</span>
+            <span>@Html.Resource("LanguageOnlyExample1")</span><br />
+            <span>@Html.Resource("LanguageOnlyExample2")</span><br />
+            <span>@Html.Resource("LanguageOnlyExample3")</span>
         </div>
     </div>
 </div>
