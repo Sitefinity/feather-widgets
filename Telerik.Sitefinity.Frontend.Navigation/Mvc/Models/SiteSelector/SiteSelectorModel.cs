@@ -18,6 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
     public class SiteSelectorModel : ISiteSelectorModel
     {
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SiteSelectorModel" /> class.
         /// </summary>
@@ -38,7 +39,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         /// Determines whether to include the current site in the list of sites.
         /// </summary>
         /// <value>The include current site.</value>
-        public bool IncludeCurrentSite { get; set; }
+        public bool IncludeCurrentSite
+        {
+            get
+            {
+                return this.includeCurrentSite;
+            }
+
+            set
+            {
+                this.includeCurrentSite = value;
+            }
+        }
 
         /// <summary>
         /// Determines whether to display each language version as a separate site.
@@ -251,6 +263,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
             return new SiteViewModel()
             {
+                Name = site.Name,
+                Language = cultureInfo == null ? site.Name : this.GetDisplayedLanguageName(cultureInfo),
                 Url = siteUrl,
                 IsCurrent = isCurrentSite
             };
@@ -268,6 +282,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         #region Private fields and constants
         private readonly Guid currentSiteId;
         private UrlLocalizationService urlService;
+        private bool includeCurrentSite = true;
         private bool useLiveUrl = true;
         #endregion
     }

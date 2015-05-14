@@ -18,6 +18,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         public string DisplayName { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the site.
+        /// </summary>
+        /// <value>The name of the site.</value>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the site language.
+        /// </summary>
+        /// <value>The site language.</value>
+        public string Language { get; set; }
+
+        /// <summary>
         /// Gets or sets the URL of the site.
         /// </summary>
         /// <value>The URL.</value>

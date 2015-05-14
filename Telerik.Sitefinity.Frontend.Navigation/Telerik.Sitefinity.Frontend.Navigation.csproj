@@ -130,6 +130,8 @@
     <EmbeddedResource Include="Mvc\Views\LanguageSelector\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LanguageSelector\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\LanguageSelector\LanguageSelector.DropDownMenu.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SiteSelector\SiteSelector.SiteLinks.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SiteSelector\SiteSelector.DropDownMenu.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SiteSelector\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\SiteSelector\DesignerView.Simple.cshtml" />
     <None Include="packages.config">
