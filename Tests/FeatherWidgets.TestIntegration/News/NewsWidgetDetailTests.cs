@@ -176,8 +176,9 @@ namespace FeatherWidgets.TestIntegration.News
 
         private void AssertDetailActionInvokation(NewsItem expectedDetailNews)
         {
-            Assert.AreEqual(1, ActionExecutionRegister.ExecutedActionInfos.Count, "The action has been executed.");
-            var actionInfo = ActionExecutionRegister.ExecutedActionInfos[0];
+            var newsActionInfos = ActionExecutionRegister.ExecutedActionInfos.Where(a => (string)a.ActionRouteData.Values["controller"] == "News").ToArray();
+            Assert.AreEqual(1, newsActionInfos.Length, "The action has been executed.");
+            var actionInfo = newsActionInfos[0];
             Assert.AreEqual("Details", actionInfo.Name, "The correct action has not been invoked.");
             var newsItem = (NewsItem)actionInfo.ActionRouteData.Values["newsItem"];
             Assert.IsNotNull(newsItem, "The news item is not provided correctly.");
