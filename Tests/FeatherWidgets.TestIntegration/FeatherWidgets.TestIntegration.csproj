@@ -190,6 +190,8 @@
     <Compile Include="Identity\UsersList\UsersListWidgetPagingLimitTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetSortingTests.cs" />
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
+    <Compile Include="Navigation\BreadcrumbWidgetTests.cs" />
+    <Compile Include="Navigation\DummyBreadcrumbExtender.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
     <Compile Include="News\NewsWidgetAdvancedSettingsTests.cs" />
