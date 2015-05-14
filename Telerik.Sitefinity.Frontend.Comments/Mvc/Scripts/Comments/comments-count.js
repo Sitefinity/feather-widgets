@@ -5,6 +5,11 @@
         Widget
     */
     var CommentsCountWidget = function (rootUrl, resources) {
+        if (rootUrl === null || rootUrl.length === 0)
+            rootUrl = '/';
+        else if (rootUrl.charAt(rootUrl.length - 1) !== '/')
+            rootUrl = rootUrl + '/';
+
         this.rootUrl = rootUrl;
         this.resources = resources;
     };
@@ -12,7 +17,7 @@
     CommentsCountWidget.prototype = {
         getCommentsCounts: function () {
             var threadKeys = this.collectThreadIds();
-            var getCommentsCountsUrl = String.format(this.rootUrl + '/comments/count?ThreadKey={0}', threadKeys);
+            var getCommentsCountsUrl = this.rootUrl + 'comments/count?ThreadKey=' + encodeURIComponent(threadKeys);
 
             return $.ajax({
                 type: 'GET',
