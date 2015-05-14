@@ -4,7 +4,6 @@
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
-<h1>REVIEWS / RATINGS</h1>
 <div id="comments-@HttpUtility.HtmlEncode(Model.ThreadKey)" data-sf-role="comments-wrapper" class="@Model.CssClass">
     <input type="hidden" data-sf-role="comments-settings" value="@Model.SerializedWidgetSettings" />
     <input type="hidden" data-sf-role="comments-resources" value="@Model.SerializedWidgetResources" />

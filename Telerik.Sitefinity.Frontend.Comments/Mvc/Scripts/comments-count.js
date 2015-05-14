@@ -30,7 +30,7 @@
             var commmentsCounterControls = $('[data-sf-role="comments-count-wrapper"]');
             var uniqueKeys = {};
             for (var i = 0; i < commmentsCounterControls.length; i++) {
-                uniqueKeys[$(commmentsCounterControls[i]).attr('sf-thread-key')] = true;
+                uniqueKeys[$(commmentsCounterControls[i]).attr('data-sf-thread-key')] = true;
             }
 
             var threadKeys = [];
@@ -48,7 +48,7 @@
                     continue;
                 }
                 
-                $('div[sf-thread-key="' + threadCountList.Items[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList.Items[i].Count));
+                $('div[data-sf-thread-key="' + threadCountList.Items[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList.Items[i].Count));
             }
         },
         
@@ -74,7 +74,7 @@
             }
 
             //set the comments count text in the counter control
-            element.find('[data-sf-role="comments-count-anchor"]').text(currentCountFormatted);
+            element.find('[data-sf-role="comments-count-anchor-text"]').text(currentCountFormatted);
         },
 
         initialize: function () {
@@ -87,7 +87,7 @@
             });
 
             $(document).on('sf-comments-count-received', function (event, args) {
-                $('div[sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count));
+                $('div[data-sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count));
             });
         }
     };

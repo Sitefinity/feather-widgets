@@ -5,9 +5,11 @@
 
 @Html.Script(ScriptRef.JQuery, "top", true)
 
-<h1>REVIEWS / RATINGS</h1>
-<div data-sf-role="comments-count-wrapper" sf-thread-key="@Model.ThreadKey">
-    <a data-sf-role="comments-count-anchor" href="@Model.NavigateUrl"></a>
+<div data-sf-role="comments-count-wrapper" data-sf-thread-key="@Model.ThreadKey">
+    <a data-sf-role="comments-count-anchor" href="@Model.NavigateUrl">
+        <span data-sf-role="comments-count-anchor-text"></span>
+    </a>
+
     <input type="hidden" data-sf-role="service-url" value="@ViewBag.ServiceUrl" />
     <input type="hidden" data-sf-role="comments-count-resources" value='{"commentsPlural": "@Html.Resource("CommentsPlural")", "leaveComment":"@Html.Resource("LeaveComment")", "comment":"@Html.Resource("Comment")" }' />
 </div>
