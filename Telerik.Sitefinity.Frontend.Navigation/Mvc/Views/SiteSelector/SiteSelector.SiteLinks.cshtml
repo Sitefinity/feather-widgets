@@ -6,61 +6,54 @@
 <div class="@Model.CssClass">
 
     <h1>Sites</h1>
-
     <br />
-
     @foreach (var site in Model.Sites)
     {
         <p>
-            @switch (Model.SiteLanguagesDisplayMode)
+            @if (!Model.EachLanguageAsSeparateSite)
             {
-                case SiteLanguagesDisplayMode.SiteNamesAndLanguages:
-
-                    if (site.IsCurrent)
-                    {
-                        <span>@site.Name site - @site.Language</span>
-                    }
-                    else if (SystemManager.IsDesignMode)
-                    {
-                        <a>@site.Name site - @site.Language</a>
-                    }
-                    else
-                    {
-                        <a href="@site.Url">@site.Name site - @site.Language</a>
-                    }
-                    break;
-
-                case SiteLanguagesDisplayMode.LanguagesOnly:
-                    if (site.IsCurrent)
-                    {
-                        <span>@site.Language</span>
-                    }
-                    else if (SystemManager.IsDesignMode)
-                    {
-                        <a>@site.Language</a>
-                    }
-                    else
-                    {
-                        <a href="@site.Url">@site.Language</a>
-                    }
-                    break;
-
-                default:
-
-                    if (site.IsCurrent)
-                    {
-                        <span>site.Name site</span>
-                    }
-                    else if (SystemManager.IsDesignMode)
-                    {   <a>@site.Name site</a>
-                    }
-                    else
-                    {
-                        <a href="@site.Url">@site.Name site</a>
-                    }
-                    break;
+                if (site.IsCurrent)
+                {
+                    <span>@site.Name site</span>
+                }
+                else if (SystemManager.IsDesignMode)
+                {   <a>@site.Name site</a>
+                }
+                else
+                {
+                    <a href="@site.Url">@site.Name site</a>
+                }
+            }
+            else if (Model.SiteLanguagesDisplayMode == SiteLanguagesDisplayMode.SiteNamesAndLanguages)
+            {
+                if (site.IsCurrent)
+                {
+                    <span>@site.Name site - @site.Language</span>
+                }
+                else if (SystemManager.IsDesignMode)
+                {
+                    <a>@site.Name site - @site.Language</a>
+                }
+                else
+                {
+                    <a href="@site.Url">@site.Name site - @site.Language</a>
+                }
+            }
+            else
+            {
+                if (site.IsCurrent)
+                {
+                    <span>@site.Language</span>
+                }
+                else if (SystemManager.IsDesignMode)
+                {
+                    <a>@site.Language</a>
+                }
+                else
+                {
+                    <a href="@site.Url">@site.Language</a>
+                }
             }
         </p>
     }
-
 </div>
