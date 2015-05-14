@@ -3,7 +3,6 @@
 
     var Rating = function (element, options) {
         this.ratingContainer = element;
-        self = this;
         this.settings = {
             maxValue: 5,   // max number of stars
             value: 0,    // number of selected stars
@@ -23,16 +22,16 @@
 
     Rating.prototype = {
         getValue: function () {
-            return self.settings.value;
+            return this.settings.value;
         },
 
         setValue: function (newValue) {
-            self.settings.value = newValue;
-            self.elementsRenderer.reset();
+            this.settings.value = newValue;
+            $.proxy(this.elementsRenderer.reset, this)();
         },
 
         getBaseElementMarkup: function () {
-            var templateElement = $(self.settings.template);
+            var templateElement = $(this.settings.template);
             if (!(templateElement && templateElement.length)) {
                 templateElement = $('<div><span>&#9734</span></div>');
             }
@@ -43,8 +42,8 @@
         },
 
         getSelectedElementMarkup: function () {
-            var markup = self.getBaseElementMarkup();
-            $(markup).attr('class', self.settings.selectedClass);
+            var markup = this.getBaseElementMarkup();
+            $(markup).attr('class', this.settings.selectedClass);
 
             return markup;
         },
@@ -52,57 +51,57 @@
         //re-renderer which shows which stars are active, hovered and so on.
         elementsRenderer: {
             fill: function (e) { // fill to the current mouse position.
-                var elements = self.ratingContainer.children();
+                var elements = this.ratingContainer.children();
                 var index = elements.index(e.srcElement) + 1;
-                elements.slice(0, index).addClass(self.settings.selectedClass);
+                elements.slice(0, index).addClass(this.settings.selectedClass);
             },
             hover: function (e) { // fill to the current mouse position with hover class.
-                var elements = self.ratingContainer.children();
-                elements.removeClass(self.settings.hoverClass);
+                var elements = this.ratingContainer.children();
+                elements.removeClass(this.settings.hoverClass);
 
                 var index = elements.index(e.srcElement) + 1;
-                elements.slice(0, index).addClass(self.settings.hoverClass);
+                elements.slice(0, index).addClass(this.settings.hoverClass);
             },
             drainHover: function () { // drain hovering of the elements.
-                self.ratingContainer.children().removeClass(self.settings.hoverClass);
+                this.ratingContainer.children().removeClass(this.settings.hoverClass);
             },
             reset: function () { // resets the element to the selected value.
-                var elements = self.ratingContainer.children();
-                elements.removeClass(self.settings.selectedClass).removeClass(self.settings.hoverClass);
-                elements.slice(0, self.settings.value / self.settings.step).addClass(self.settings.selectedClass);
+                var elements = this.ratingContainer.children();
+                elements.removeClass(this.settings.selectedClass).removeClass(this.settings.hoverClass);
+                elements.slice(0, this.settings.value / this.settings.step).addClass(this.settings.selectedClass);
             }
         },
 
         selectElement: function (e) {
-            var elements = self.ratingContainer.children();
-            self.settings.value = (elements.index(e.srcElement) + 1) * self.settings.step;
-            self.elementsRenderer.reset();
+            var elements = this.ratingContainer.children();
+            this.settings.value = (elements.index(e.srcElement) + 1) * this.settings.step;
+            $.proxy(this.elementsRenderer.reset, this)();
         },
 
         attachEvents: function () {
-            var elements = self.ratingContainer.children();
-            elements.bind('click', self.selectElement);
-            elements.bind('mouseover', self.elementsRenderer.hover);
-            elements.bind('mouseout', self.elementsRenderer.drainHover);
-            elements.bind('focus', self.elementsRenderer.hover);
-            elements.bind('blur', self.elementsRenderer.reset);
+            var elements = this.ratingContainer.children();
+            elements.bind('click', $.proxy(this.selectElement, this));
+            elements.bind('mouseover', $.proxy(this.elementsRenderer.hover, this));
+            elements.bind('mouseout', $.proxy(this.elementsRenderer.drainHover, this));
+            elements.bind('focus', $.proxy(this.elementsRenderer.hover, this));
+            elements.bind('blur', $.proxy(this.elementsRenderer.reset, this));
         },
 
         render: function () {
-            self.ratingContainer.empty();
+            this.ratingContainer.empty();
 
-            var baseElementTemplate = self.getBaseElementMarkup();
-            var selectedElementTemplate = self.getSelectedElementMarkup();
+            var baseElementTemplate = this.getBaseElementMarkup();
+            var selectedElementTemplate = this.getSelectedElementMarkup();
 
-            for (var i = 0; i < self.settings.value; i += self.settings.step) {
-                self.ratingContainer.append(selectedElementTemplate);
+            for (var i = 0; i < this.settings.value; i += this.settings.step) {
+                this.ratingContainer.append(selectedElementTemplate);
             }
-            for (var j = self.settings.value; j < self.settings.maxValue; j += self.settings.step) {
-                self.ratingContainer.append(baseElementTemplate);
+            for (var j = this.settings.value; j < this.settings.maxValue; j += this.settings.step) {
+                this.ratingContainer.append(baseElementTemplate);
             }
 
-            if (!self.settings.readOnly) {
-                self.attachEvents();
+            if (!this.settings.readOnly) {
+                this.attachEvents();
             }
         }
 
