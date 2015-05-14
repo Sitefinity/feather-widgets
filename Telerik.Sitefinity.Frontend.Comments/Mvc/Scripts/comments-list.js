@@ -213,15 +213,6 @@
             return date.toISOString();
         },
 
-        hideErrors: function () {
-            this.newCommentMessageError().hide();
-            this.newCommentNameError().hide();
-            this.errorMessage().hide();
-
-            // Hide all generated errors
-            this.getElementByDataSfRole('error-message').hide();
-        },
-
         validateComment: function (comment) {
             var deferred = $.Deferred();
             var isValid = true;
@@ -469,6 +460,7 @@
 
             if (this.settings.useReviews) {
                 this.newCommentForm().hide();
+                this.newCommentFormButton().hide();
                 this.newReviewFormReplacement().text(this.resources.thankYouReviewSubmited).show();
             }
         },
@@ -654,6 +646,7 @@
             makeAjax(hasUserAlreadyReviewedUrl).then(function (response) {
                 if (response && response.AuthorAlreadyReviewed) {
                     self.newCommentForm().hide();
+                    self.newCommentFormButton().hide();
                     self.newReviewFormReplacement().show();
                 }
             });
@@ -697,7 +690,10 @@
 
             self.newCommentSubmitButton().click(function () {
                 if (!self.settings.isDesignMode) {
-                    self.hideErrors();
+                    // Hide all generated errors
+                    self.errorMessage().hide();
+                    self.getElementByDataSfRole('error-message').hide();
+
                     self.submitNewComment();
                 }
 

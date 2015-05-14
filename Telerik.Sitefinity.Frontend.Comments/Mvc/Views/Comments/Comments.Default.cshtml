@@ -65,21 +65,21 @@
                 </div>
             }
 
-            @if (Model.AllowSubscription)
-            {
-                <div>
-                    <span data-sf-role="comments-subscribe-text"></span>
-                    <a href="#" data-sf-role="comments-subscribe-button">
-                        <span data-sf-role="comments-subscribe-button-text"></span>
-                    </a>
-                </div>
-            }
-
-            <div data-sf-role="error-message" style="display:none;"></div>
-            <div data-sf-role="submit-loading-indicator" style="display:none;"></div>
-
             <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         </div>
+        
+        if (Model.AllowSubscription)
+        {
+            <div>
+                <span data-sf-role="comments-subscribe-text"></span>
+                <a href="#" data-sf-role="comments-subscribe-button">
+                    <span data-sf-role="comments-subscribe-button-text"></span>
+                </a>
+            </div>
+        }
+
+        <div data-sf-role="error-message" style="display:none;"></div>
+        <div data-sf-role="submit-loading-indicator" style="display:none;"></div>
         
         if (Model.RequiresAuthentication)
         {
