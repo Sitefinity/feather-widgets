@@ -19,5 +19,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             return new PageZoneEditorWrapper();
         }
+
+        /// <summary>
+        /// Pages the zone editor media wrapper.
+        /// </summary>
+        /// <returns></returns>
+        public PageZoneEditorMediaWrapper PageZoneEditorMediaWrapper()
+        {
+            return new PageZoneEditorMediaWrapper();
+        }
     }
 }

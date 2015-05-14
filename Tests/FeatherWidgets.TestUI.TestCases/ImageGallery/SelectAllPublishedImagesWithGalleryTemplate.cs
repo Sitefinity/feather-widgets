@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             foreach (var image in this.imageTitles)
             {
                 string src = this.GetImageSource(false, image, ImageType);
-                BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(image, src);
+                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(image, src);
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -60,13 +60,13 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             this.SelectListTemplateInImageGalleryDesigner(FoundationTemplate, ThumbnailStripTemplate);
 
             string src = this.GetImageSource(true, this.imageTitles[0], ImageOriginalType);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(this.imageTitles[0], src);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyThumbnailStripTemplateInfo("1of 3", this.imageTitles[0]);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[0], src);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyThumbnailStripTemplateInfo("1of 3", this.imageTitles[0]);
 
             for (int j = 1; j <= 2; j++)
             {
                 src = this.GetImageSource(false, this.imageTitles[j], ImageType);
-                BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(this.imageTitles[j], src);
+                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[j], src);
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
@@ -106,7 +106,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             foreach (var image in this.imageTitles)
             {
                 string src = this.GetImageSource(false, image, ImageType);
-                BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(image, src);
+                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(image, src);
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             foreach (var image in this.imageTitles)
             {
                 string src = this.GetImageSource(false, image, ImageType);
-                BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(image, src);
+                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(image, src);
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();

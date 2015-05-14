@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper()
                 .VerifyContentBlockVideoDesignMode(this.GetVideoSource(true), this.GetSfRef(videoId), "600", "450");
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyVideo(this.GetVideoSource(false), Width, Height);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyVideo(this.GetVideoSource(false), Width, Height);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
