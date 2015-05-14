@@ -146,19 +146,19 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         //// Reviews
 
         /// <summary>
-        /// Gets or sets a value indicating whether [in review mode].
+        /// Gets or sets a value indicating whether [use reviews].
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [in review mode]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [use reviews]; otherwise, <c>false</c>.
         /// </value>
-        public bool InReviewMode { get; set; }
+        public bool UseReviews { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance has submited review.
+        /// Gets or sets the has user already reviewed URL.
         /// </summary>
         /// <value>
-        /// <c>true</c> if this instance has submited review; otherwise, <c>false</c>.
+        /// The has user already reviewed URL.
         /// </value>
-        public bool HasSubmitedReview { get; set; }
+        public string HasUserAlreadyReviewedUrl { get; set; }
     }
 }

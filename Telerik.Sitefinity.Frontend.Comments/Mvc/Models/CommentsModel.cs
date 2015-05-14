@@ -254,7 +254,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             if (allowComments)
             {
                 var widgetResources = this.GetCommentsListWidgetResources();
-                var widgetSettings = this.GetCommentsListWidgetSettings(this.ThreadTitle);
+                var widgetSettings = this.GetCommentsListWidgetSettings(this.ThreadTitle, useReviews);
 
                 var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
                 var viewModel = new CommentsListViewModel()
@@ -314,7 +314,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         private void Initialize(CommentsInputModel commentsInputModel, bool useReviews)
         {
-            const string ReviewsSuffix = "_reviews";
+            const string ReviewsSuffix = "_review";
 
             if (commentsInputModel == null)
                 return;
@@ -330,20 +330,16 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             }
             else if (string.IsNullOrEmpty(this.ThreadKey) && SiteMapBase.GetActualCurrentNode() != null)
             {
-                var originalKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
+                this.ThreadKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
+            }
 
-                if (useReviews && !this.ThreadKey.EndsWith(ReviewsSuffix))
-                {
-                    this.ThreadKey = originalKey + ReviewsSuffix;
-                }
-                else if (!useReviews && this.ThreadKey.EndsWith(ReviewsSuffix))
-                {
-                    this.ThreadKey = originalKey.Left(originalKey.Length - ReviewsSuffix.Length);
-                }
-                else
-                {
-                    this.ThreadKey = originalKey;
-                }
+            if (useReviews && !this.ThreadKey.EndsWith(ReviewsSuffix))
+            {
+                this.ThreadKey = this.ThreadKey + ReviewsSuffix;
+            }
+            else if (!useReviews && this.ThreadKey.EndsWith(ReviewsSuffix))
+            {
+                this.ThreadKey = this.ThreadKey.Left(this.ThreadKey.Length - ReviewsSuffix.Length);
             }
 
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadTitle))
@@ -374,14 +370,26 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 SubscribeToNewComments = Res.Get<CommentsWidgetResources>().SubscribeToNewComments,
                 YouAreSubscribedToNewComments = Res.Get<CommentsWidgetResources>().YouAreSubscribedToNewComments,
                 SuccessfullySubscribedToNewComments = Res.Get<CommentsWidgetResources>().SuccessfullySubscribedToNewComments,
-                SuccessfullyUnsubscribedFromNewComments = Res.Get<CommentsWidgetResources>().SuccessfullyUnsubscribedFromNewComments
+                SuccessfullyUnsubscribedFromNewComments = Res.Get<CommentsWidgetResources>().SuccessfullyUnsubscribedFromNewComments,
+                MessageIsRequired = Res.Get<CommentsWidgetResources>().MessageIsRequired,
+                NameIsRequired = Res.Get<CommentsWidgetResources>().NameIsRequired,
+                //// Reviews
+                RatingIsRequired = Res.Get<CommentsWidgetResources>().RatingIsRequired,
+                ReadFullReview = Res.Get<CommentsWidgetResources>().ReadFullReview,
+                ReviewSingular = Res.Get<CommentsWidgetResources>().Review,
+                ReviewPlural = Res.Get<CommentsWidgetResources>().ReviewsPlural,
+                SubscribeToNewReviews = Res.Get<CommentsWidgetResources>().SubscribeToNewReviews,
+                YouAreSubscribedToNewReviews = Res.Get<CommentsWidgetResources>().YouAreSubscribedToNewReviews,
+                SuccessfullySubscribedToNewReviews = Res.Get<CommentsWidgetResources>().SuccessfullySubscribedToNewReviews,
+                ThankYouReviewSubmited = Res.Get<CommentsWidgetResources>().ThankYouReviewSubmited
             };
         }
 
-        private CommentsListWidgetSettings GetCommentsListWidgetSettings(string threadTitle)
+        private CommentsListWidgetSettings GetCommentsListWidgetSettings(string threadTitle, bool useReviews)
         {
-            var isUserAuthenticatedUrl =  RouteHelper.ResolveUrl("~/RestApi/session/is-authenticated", UrlResolveOptions.Rooted);
+            var isUserAuthenticatedUrl = RouteHelper.ResolveUrl("~/RestApi/session/is-authenticated", UrlResolveOptions.Rooted);
             var rootUrl = RouteHelper.ResolveUrl("~/RestApi/comments-api/", UrlResolveOptions.Rooted);
+            var hasUserAlreadyReviewedUrl = RouteHelper.ResolveUrl("~/RestApi/reviews-api", UrlResolveOptions.Rooted);
 
             return new CommentsListWidgetSettings()
             {
@@ -403,8 +411,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 UserAvatarImageUrl = this.UserAvatarImageUrl,
                 UserDisplayName = this.UserDisplayName,
                 //// Reviews
-                InReviewMode = false,
-                HasSubmitedReview = false
+                UseReviews = useReviews,
+                HasUserAlreadyReviewedUrl = hasUserAlreadyReviewedUrl,
             };
         }
 

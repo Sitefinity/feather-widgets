@@ -168,9 +168,7 @@
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
-        newCommentMessageError: function () { return this.getOrInitializeProperty('_newCommentMessageError', 'comments-new-message-error'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
-        newCommentNameError: function () { return this.getOrInitializeProperty('_newCommentNameError', 'comments-new-name-error'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
         newCommentRequiresAuthentication: function () { return this.getOrInitializeProperty('_newCommentRequiresAuthentication', 'comments-new-requires-authentication'); },
 
@@ -185,13 +183,20 @@
 
         listLoadingIndicator: function () { return this.getOrInitializeProperty('_listLoadingIndicator', 'list-loading-indicator'); },
         submitLoadingIndicator: function () { return this.getOrInitializeProperty('_submitLoadingIndicator', 'submit-loading-indicator'); },
-        
-        commentsSubscribeButton: function () { return this.getOrInitializeProperty('_commentsSubscribeButton', 'comments-subscribe-button'); },
+
         commentsSubscribeText: function () { return this.getOrInitializeProperty('_commentsSubscribeText', 'comments-subscribe-text'); },
+        commentsSubscribeButton: function () { return this.getOrInitializeProperty('_commentsSubscribeButton', 'comments-subscribe-button'); },
+        commentsSubscribeButtonText: function () { return this.getOrInitializeProperty('_commentsSubscribeButtonText', 'comments-subscribe-button-text'); },
+
+        newReviewFormReplacement: function () { return this.getOrInitializeProperty('_newReviewFormReplacement', 'review-new-form-replacement'); },
 
         /*
             Widget methods
         */
+        getRandomNumber: function () {
+            return Math.random().toString().substr(2) + (new Date()).getTime();
+        },
+
         getSfStringFromDate: function (date) {
             return '/Date(' + date.getTime() + ')/';
         },
@@ -212,6 +217,9 @@
             this.newCommentMessageError().hide();
             this.newCommentNameError().hide();
             this.errorMessage().hide();
+
+            // Hide all generated errors
+            this.getElementByDataSfRole('error-message').hide();
         },
 
         validateComment: function (comment) {
@@ -220,12 +228,17 @@
 
             if (comment.Message.length < 1) {
                 isValid = false;
-                this.newCommentMessageError().show();
+                this.newCommentMessage().after(this.errorMessage().clone(true).text(this.resources.messageIsRequired).show());
             }
 
             if (!this.isUserAuthenticated && comment.Name.length < 1) {
                 isValid = false;
-                this.newCommentNameError().show();
+                this.newCommentName().after(this.errorMessage().clone(true).text(this.resources.nameIsRequired).show());
+            }
+
+            if (this.settings.useReviews && !comment.Rating) {
+                isValid = false;
+                this.newCommentMessage().after(this.errorMessage().clone(true).text(this.resources.ratingIsRequired).show());
             }
 
             deferred.resolve(isValid);
@@ -233,6 +246,9 @@
             return deferred.promise();
         },
 
+        /*
+            Comments listing
+        */
         attachCommentMessage: function (element, message) {
             if (element && message) {
                 if (message.length < this.settings.commentsTextMaxLength) {
@@ -241,7 +257,7 @@
                 else {
                     element.text(message.substr(0, this.settings.commentsTextMaxLength));
                     element.append($('<span />').hide().text(message.substr(this.settings.commentsTextMaxLength)));
-                    element.append($('<button data-sf-role="comments-read-full-comment-button" />').text(this.resources.readFullComment));
+                    element.append($('<a href="#" data-sf-role="comments-read-full-comment-button" />').text(this.settings.useReviews ? this.resources.readFullReview : this.resources.readFullComment));
                 }
             }
         },
@@ -255,6 +271,11 @@
             newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).toDateString());
 
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
+
+            if (this.settings.useReviews) {
+                newComment.find('[data-sf-role="comment-rating"]').text(comment.Rating);
+                //TODO: newComment.find('[data-sf-role="comment-rating"]').featherRating({ readOnly: true, value: comment.Rating });
+            }
 
             return newComment;
         },
@@ -283,7 +304,12 @@
 
         renderCommentsCount: function () {
             // Comments count header
-            this.commentsHeader().text(this.allCommentsCount > 0 ? (this.allCommentsCount > 1 ? this.resources.commentsPlural : this.resources.commentSingular) : this.newCommentFormButton().text());
+            var singularText = this.settings.useReviews ? this.resources.reviewSingular : this.resources.commentSingular;
+            var pluralText = this.settings.useReviews ? this.resources.reviewPlural : this.resources.commentsPlural;
+            var multipleText = this.allCommentsCount > 1 ? pluralText : singularText;
+            this.commentsHeader().text(this.allCommentsCount > 0 ? multipleText : this.newCommentFormButton().text());
+
+            // Comments count value
             this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
             this.newCommentFormButton().toggle(this.allCommentsCount > 0);
 
@@ -364,6 +390,22 @@
             }
         },
 
+        toggleSubscription: function () {
+            var self = this;
+
+            self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
+                self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
+
+                self.commentsSubscribeButtonText().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeLink);
+
+                var successfullySubscribedtext = self.settings.useReviews ? self.resources.successfullySubscribedToNewReviews : self.resources.successfullySubscribedToNewComments;
+                self.commentsSubscribeText().text(self.isSubscribedToNewComments ? successfullySubscribedtext : self.resources.successfullyUnsubscribedFromNewComments);
+            });
+        },
+
+        /*
+            Comments creation
+        */
         buildNewCommentFromForm: function () {
             var self = this;
 
@@ -371,6 +413,11 @@
                 Message: self.newCommentMessage().val(),
                 ThreadKey: self.settings.commentsThreadKey
             };
+
+            if (self.settings.useReviews) {
+                // TODO: Apply selected rating
+                comment.Rating = 4;
+            }
 
             if (!self.isUserAuthenticated) {
                 comment.Name = self.newCommentName().val();
@@ -394,6 +441,45 @@
             return comment;
         },
 
+        cleanNewCommentForm: function () {
+            this.newCommentMessage().val('');
+            this.newCommentName().val('');
+            this.newCommentEmail().val('');
+            // TODO: Clean rating
+        },
+
+        endSubmitNewComment: function () {
+            if (!this.isUserAuthenticated && this.settings.requiresCaptcha) {
+                this.captchaRefresh();
+            }
+
+            this.submitLoadingIndicator().hide();
+            this.newCommentSubmitButton().show();
+        },
+
+        createCommentSuccess: function (response) {
+            this.cleanNewCommentForm();
+
+            if (this.settings.requiresApproval) {
+                this.newCommentPendingApprovalMessage().show();
+            }
+            else if (!this.settings.commentsAutoRefresh) {
+                this.refreshComments(this, true);
+            }
+
+            if (this.settings.useReviews) {
+                this.newCommentForm().hide();
+                this.newReviewFormReplacement().text(this.resources.thankYouReviewSubmited).show();
+            }
+        },
+
+        createCommentFail: function (jqXHR) {
+            if (jqXHR && jqXHR.responseText) {
+                var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
+                this.errorMessage().text(errorTxt).show();
+            }
+        },
+
         submitNewComment: function () {
             var self = this;
 
@@ -403,38 +489,19 @@
             var comment = self.buildNewCommentFromForm();
 
             self.validateComment(comment).then(function (isValid) {
-                var endSubmiting = function () {
-                    if (!self.isUserAuthenticated && self.settings.requiresCaptcha) {
-                        self.captchaRefresh();
-                    }
-
-                    self.submitLoadingIndicator().hide();
-                    self.newCommentSubmitButton().show();
-                };
-
                 if (isValid) {
-                    self.commentsRestApi.createComment(comment).then(function (response) {
-                        // Clean form
-                        self.newCommentMessage().val('');
-                        self.newCommentName().val('');
-                        self.newCommentEmail().val('');
-
-                        if (self.settings.requiresApproval) {
-                            self.newCommentPendingApprovalMessage().show();
-                        }
-                        else if (!self.settings.commentsAutoRefresh) {
-                            self.refreshComments(self, true);
-                        }
-                    }, function (jqXHR, textStatus, errorThrown) {
-                        if (jqXHR.responseText) {
-                            var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
-                            self.errorMessage().html(errorTxt);
-                            self.errorMessage().show();
-                        }
-                    }).always(endSubmiting);
+                    self.commentsRestApi.createComment(comment)
+                        .then(function (response) {
+                            self.createCommentSuccess(response);
+                        }, function (jqXHR) {
+                            createCommentFail(jqXHR);
+                        })
+                        .always(function () {
+                            self.endSubmitNewComment();
+                        });
                 }
                 else {
-                    endSubmiting();
+                    self.endSubmitNewComment();
                 }
             });
         },
@@ -473,17 +540,6 @@
             }
         },
 
-        toggleSubscription: function () {
-            var self = this;
-
-            self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
-                self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
-                
-                self.commentsSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeLink);
-                self.commentsSubscribeText().text(self.isSubscribedToNewComments ? self.resources.successfullySubscribedToNewComments : self.resources.successfullyUnsubscribedFromNewComments);
-            });
-        },
-
         /*
             Widget initialization
         */
@@ -494,11 +550,18 @@
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
 
+            // HIDE TEMPLATE !
+
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
 
             // Initially hide the "Thank you for your comment" message.
             this.newCommentPendingApprovalMessage().hide();
+
+            // Initially hide the "You've already submitted a review for this item" message.
+            if (this.settings.useReviews) {
+                this.newReviewFormReplacement().hide();
+            }
 
             if (this.commentsSortedDescending) {
                 this.commentsSortNewButton().addClass(this.isSelectedSortButtonCssClass);
@@ -515,7 +578,7 @@
             if (isUserAuthenticatedUrl[isUserAuthenticatedUrl.length - 1] !== '/') {
                 isUserAuthenticatedUrl += '/';
             }
-            isUserAuthenticatedUrl += '?_=' + (Math.random().toString().substr(2) + (new Date()).getTime());
+            isUserAuthenticatedUrl += '?_=' + self.getRandomNumber();
             makeAjax(isUserAuthenticatedUrl).then(function (response) {
                 if (response) {
                     if (response.IsAuthenticated) {
@@ -524,6 +587,10 @@
 
                         // Get Subscribtion status only if user is logged in.
                         self.initializeSubscription();
+
+                        if (self.settings.useReviews) {
+                            self.initializeHasUserAlreadyReviewed();
+                        }
                     }
                     else if (self.settings.requiresAuthentication) {
                         self.newCommentForm().hide();
@@ -532,6 +599,27 @@
                 }
 
                 $.proxy(self.setupCaptcha(), self);
+            });
+        },
+
+        initializeSubscription: function () {
+            var self = this;
+
+            self.commentsRestApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
+                if (response) {
+                    self.isSubscribedToNewComments = response.IsSubscribed;
+
+                    var subscribeText = self.settings.useReviews ? self.resources.subscribeToNewReviews : self.resources.subscribeToNewComments;
+                    var youAreSubscribedText = self.settings.useReviews ? self.resources.youAreSubscribedToNewReviews : self.resources.youAreSubscribedToNewComments;
+
+                    self.commentsSubscribeButtonText().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : subscribeText);
+                    self.commentsSubscribeText().text(self.isSubscribedToNewComments ? youAreSubscribedText : '');
+
+                    self.commentsSubscribeButton().click(function () {
+                        self.toggleSubscription();
+                        return false;
+                    });
+                }
             });
         },
 
@@ -556,20 +644,17 @@
             }
         },
 
-        initializeSubscription: function () {
+        initializeHasUserAlreadyReviewed: function () {
             var self = this;
 
-            self.commentsRestApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
-                if (response) {
-                    self.isSubscribedToNewComments = response.IsSubscribed;
-                    
-                    self.commentsSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeToNewComments);
-                    self.commentsSubscribeText().text(self.isSubscribedToNewComments ? self.resources.youAreSubscribedToNewComments : '');
+            var hasUserAlreadyReviewedUrl = self.settings.hasUserAlreadyReviewedUrl;
+            hasUserAlreadyReviewedUrl += '?ThreadKey=' + self.settings.commentsThreadKey;
+            hasUserAlreadyReviewedUrl += '&_=' + self.getRandomNumber();
 
-                    self.commentsSubscribeButton().click(function () {
-                        self.toggleSubscription();
-                        return false;
-                    });
+            makeAjax(hasUserAlreadyReviewedUrl).then(function (response) {
+                if (response && response.AuthorAlreadyReviewed) {
+                    self.newCommentForm().hide();
+                    self.newReviewFormReplacement().show();
                 }
             });
         },

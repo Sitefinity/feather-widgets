@@ -15,7 +15,7 @@
 
         @if (!Model.ThreadIsClosed)
         {
-            <a href="#comment-submit-@HttpUtility.HtmlEncode(HttpUtility.UrlEncode(Model.ThreadKey))" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
+            <a href="#comment-submit-@HttpUtility.HtmlEncode(HttpUtility.UrlEncode(Model.ThreadKey))" data-sf-role="comments-new-form-button">@Html.Resource("WriteReview")</a>
         }
         
         <a href="#" data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</a>
@@ -27,28 +27,33 @@
 
     @if(Model.EnablePaging)
     {
-        <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
+        <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreReviews")</a>
     }
 
     @if (Model.ThreadIsClosed)
     {
-        <span>@Html.Resource("ThreadIsClosedMessage")</span>
+        <span>@Html.Resource("ReviewsThreadIsClosedMessage")</span>
     }
     else 
     {        
         <div data-sf-role="comments-new-form" id="comment-submit-@HttpUtility.HtmlEncode(Model.ThreadKey)">
             @if (Model.RequiresApproval)
             {
-                <span data-sf-role="comments-new-pending-approval-message">@Html.Resource("CommentPendingApproval")</span>
+                <span data-sf-role="comments-new-pending-approval-message">@Html.Resource("ReviewPendingApproval")</span>
             }
 
             <img src="@Model.UserAvatarImageUrl"/>
-            <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")" ></textarea>
-            <span data-sf-role="comments-new-message-error" style="display:none;" >@Html.Resource("MessageIsRequired")</span>
+            <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("WriteReview")" ></textarea>
+            
+            <div>
+                <span>@Html.Resource("Rating")</span>
+                <div>
+                    Rating here 4
+                </div>
+            </div>
 
             <p data-sf-role="comments-new-logged-out-view" style="display:none;">
                 <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
-                <span data-sf-role="comments-new-name-error" style="display:none;" >@Html.Resource("NameIsRequired")</span>
                 <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
             </p>
 
@@ -71,7 +76,9 @@
             {
                 <div>
                     <span data-sf-role="comments-subscribe-text"></span>
-                    <a href="#" data-sf-role="comments-subscribe-button"></a>
+                    <a href="#" data-sf-role="comments-subscribe-button">
+                        <span data-sf-role="comments-subscribe-button-text"></span>
+                    </a>
                 </div>
             }
 
@@ -81,9 +88,11 @@
             <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         </div>
         
+        <p data-sf-role="review-new-form-replacement">@Html.Resource("UserAlreadySubmitedReview")</p>
+        
         if (Model.RequiresAuthentication)
         {
-            <span data-sf-role="comments-new-requires-authentication"><a href='@Model.LoginPageUrl'>@Html.Resource("Login")</a>@Html.Resource("ToBeAbleToComment")</span>
+            <span data-sf-role="comments-new-requires-authentication"><a href='@Model.LoginPageUrl'>@Html.Resource("Login")</a>@Html.Resource("ToBeAbleToReview")</span>
         }
     }
     
@@ -93,6 +102,9 @@
             <p>
                 <span data-sf-role="comment-name"></span> | 
                 <span data-sf-role="comment-date"></span>
+            </p>
+            <p>
+                <span data-sf-role="comment-rating"></span>
             </p>
             <p>
                 <span data-sf-role="comment-message"></span>

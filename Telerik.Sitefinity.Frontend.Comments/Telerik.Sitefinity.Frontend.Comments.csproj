@@ -139,7 +139,6 @@
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\CommentsController.cs" />
-    <Compile Include="Mvc\Controllers\BaseCommentsRatingsCtrl.cs" />
     <Compile Include="Mvc\Controllers\ReviewsController.cs" />
     <Compile Include="Mvc\Models\CommentsConfigModel.cs" />
     <Compile Include="Mvc\Models\CommentsCountInputModel.cs" />
