@@ -191,6 +191,102 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
+
+        /// <summary>
+        /// Phrase: Global site - English
+        /// </summary>
+        /// <value>Global site - English</value>
+        [ResourceEntry("NameAndLanguageExample1",
+            Value = "Global site - English",
+            Description = "Phrase: Global site - English",
+            LastModified = "2015/05/14")]
+        public string NameAndLanguageExample1
+        {
+            get
+            {
+                return this["NameAndLanguageExample1"];
+            }
+        }
+
+        /// <summary>
+        /// Word: Example
+        /// </summary>
+        /// <value>Example</value>
+        [ResourceEntry("Example",
+            Value = "Example",
+            Description = "Word: Example",
+            LastModified = "2015/05/14")]
+        public string Example
+        {
+            get
+            {
+                return this["Example"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Global site - Español
+        /// </summary>
+        /// <value>Global site - Español</value>
+        [ResourceEntry("NameAndLanguageExample2",
+            Value = "Global site - Español",
+            Description = "Phrase: Global site - Español",
+            LastModified = "2015/05/14")]
+        public string NameAndLanguageExample2
+        {
+            get
+            {
+                return this["NameAndLanguageExample2"];
+            }
+        }
+
+        /// <summary>
+        /// Word: English
+        /// </summary>
+        /// <value>English</value>
+        [ResourceEntry("LanguageOnlyExample1",
+            Value = "English",
+            Description = "Word: English",
+            LastModified = "2015/05/14")]
+        public string LanguageOnlyExample1
+        {
+            get
+            {
+                return this["LanguageOnlyExample1"];
+            }
+        }
+
+        /// <summary>
+        /// Word: French
+        /// </summary>
+        /// <value>French</value>
+        [ResourceEntry("LanguageOnlyExample2",
+            Value = "French",
+            Description = "Word: French",
+            LastModified = "2015/05/14")]
+        public string LanguageOnlyExample2
+        {
+            get
+            {
+                return this["LanguageOnlyExample2"];
+            }
+        }
+
+        /// <summary>
+        /// Word: German
+        /// </summary>
+        /// <value>German</value>
+        [ResourceEntry("LanguageOnlyExample3",
+            Value = "German",
+            Description = "Word: German",
+            LastModified = "2015/05/14")]
+        public string LanguageOnlyExample3
+        {
+            get
+            {
+                return this["LanguageOnlyExample3"];
+            }
+        }
         #endregion
     }
 }
