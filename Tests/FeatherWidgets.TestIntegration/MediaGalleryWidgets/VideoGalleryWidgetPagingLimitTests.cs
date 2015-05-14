@@ -24,9 +24,9 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         public void Setup()
         {     
             ServerSideUpload.CreateVideoLibrary(LibraryTitle);
-            ServerSideUpload.UploadVideo(LibraryTitle, VideotTitle + 1, VideoResource1);
-            ServerSideUpload.UploadVideo(LibraryTitle, VideotTitle + 2, VideoResource2);
-            ServerSideUpload.UploadVideo(LibraryTitle, VideotTitle + 3, VideoResource3);
+            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle + 1, VideoResource1);
+            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle + 2, VideoResource2);
+            ServerSideUpload.UploadVideo(LibraryTitle, VideoTitle + 3, VideoResource3);
         }
 
         /// <summary>
@@ -57,15 +57,15 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
 
             var videosPage1 = videoGalleryController.Model.CreateListViewModel(null, 1).Items.ToArray();
             Assert.IsTrue(videosPage1.Length.Equals(1), "Number of Videos is not correct");
-            Assert.AreEqual(VideotTitle + 1, videosPage1[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(VideoTitle + 1, videosPage1[0].Fields.Title.Value, "Wrong title");
 
             var videosPage2 = videoGalleryController.Model.CreateListViewModel(null, 2).Items.ToArray();
             Assert.IsTrue(videosPage2.Length.Equals(1), "Number of Videos is not correct");
-            Assert.AreEqual(VideotTitle + 2, videosPage2[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(VideoTitle + 2, videosPage2[0].Fields.Title.Value, "Wrong title");
 
             var videosPage3 = videoGalleryController.Model.CreateListViewModel(null, 3).Items.ToArray();
             Assert.IsTrue(videosPage3.Length.Equals(1), "Number of Videos is not correct");
-            Assert.AreEqual(VideotTitle + 3, videosPage3[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(VideoTitle + 3, videosPage3[0].Fields.Title.Value, "Wrong title");
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
 
             var videos = videoGalleryController.Model.CreateListViewModel(null, 1).Items.ToArray();
             Assert.IsTrue(videos.Length.Equals(1), "Number of Videos is not correct");
-            Assert.AreEqual(VideotTitle + 1, videos[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(VideoTitle + 1, videos[0].Fields.Title.Value, "Wrong title");
         }
 
         /// <summary>
@@ -109,13 +109,13 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
 
             var videos = videoGalleryController.Model.CreateListViewModel(null, 1).Items.ToArray();
             Assert.IsTrue(videos.Length.Equals(3), "Number of Videos is not correct");
-            Assert.AreEqual(VideotTitle + 1, videos[0].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(VideotTitle + 2, videos[1].Fields.Title.Value, "Wrong title");
-            Assert.AreEqual(VideotTitle + 3, videos[2].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(VideoTitle + 1, videos[0].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(VideoTitle + 2, videos[1].Fields.Title.Value, "Wrong title");
+            Assert.AreEqual(VideoTitle + 3, videos[2].Fields.Title.Value, "Wrong title");
         }
 
         private const string LibraryTitle = "TestVideoLibrary";
-        private const string VideotTitle = "Video";
+        private const string VideoTitle = "Video";
         private const string VideoResource1 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny1.mp4";
         private const string VideoResource2 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny2.mp4";
         private const string VideoResource3 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny3.mp4";
