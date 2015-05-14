@@ -54,12 +54,12 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             {
                 if (i <= 2 || i > 3)
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageIsNotPresent(ImageBaseTitle + i);
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageIsNotPresent(ImageBaseTitle + i);
                 }
                 else
                 {
                     string src = this.GetImageSource(false, ImageBaseTitle + i, ImageType);
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(ImageBaseTitle + i, src);
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(ImageBaseTitle + i, src);
                 }
             }
 

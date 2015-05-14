@@ -189,6 +189,12 @@
     <Compile Include="Identity\LoginStatus\LoginTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetPagingLimitTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetSortingTests.cs" />
+    <Compile Include="MediaGalleryWidgets\VideoGalleryWidgetSortingTests.cs" />
+    <Compile Include="MediaGalleryWidgets\VideoGalleryWidgetPagingLimitTests.cs" />
+    <Compile Include="MediaGalleryWidgets\DocumentsListWidgetPagingLimitTests.cs" />
+    <Compile Include="MediaGalleryWidgets\DocumentsListWidgetSortingTests.cs" />
+    <Compile Include="MediaGalleryWidgets\ImageGalleryWidgetPagingLimitTests.cs" />
+    <Compile Include="MediaGalleryWidgets\ImageGalleryWidgetSortingTests.cs" />
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
     <Compile Include="Navigation\BreadcrumbWidgetTests.cs" />
     <Compile Include="Navigation\DummyBreadcrumbExtender.cs" />
@@ -230,6 +236,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.InlineClientAssets\Telerik.Sitefinity.Frontend.InlineClientAssets.csproj">
       <Project>{d3773581-78b7-44ad-96b8-5168dcf2795c}</Project>
       <Name>Telerik.Sitefinity.Frontend.InlineClientAssets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Media\Telerik.Sitefinity.Frontend.Media.csproj">
+      <Project>{8B6BB322-AE6D-42EF-8667-2E0A2EA65C98}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Media</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Navigation\Telerik.Sitefinity.Frontend.Navigation.csproj">
       <Project>{fc694955-3df4-4a35-ad3e-a6954d6243b1}</Project>

@@ -8,7 +8,7 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.CSS
+namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
     /// <summary>
     /// CssWidgetOnPageTemplateAndAddDescription test class.
@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Css)]
+        TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void CssWidgetOnPageTemplateAndAddDescription()
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();
@@ -34,9 +34,9 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
 
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, PlaceHolder);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValue);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().MoreOptions();
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillDescription(TestDescription);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(CssValue);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().MoreOptions();
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillDescription(TestDescription);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TestDescription);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
@@ -50,7 +50,7 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         public void VerifyPageOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
+            bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(CssValue);
             Assert.IsTrue(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
         }
 

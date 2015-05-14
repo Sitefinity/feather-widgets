@@ -7,47 +7,44 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.CSS
+namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
     /// <summary>
-    /// DuplicateCssWidgetOnPage test class.
+    /// CssWidgetAndNewsWidgetOnTheSamePage test class.
     /// </summary>
     [TestClass]
-    public class DuplicateCssWidgetOnPage_ : FeatherTestCase
+    public class CssWidgetAndNewsWidgetOnTheSamePage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DuplicateCssWidgetOnPage
+        /// UI test SelectCssFileInCssWidget
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Css)]
-        public void DuplicateCssWidgetOnPage()
+        TestCategory(FeatherTestCategories.ScriptsAndStyles)]
+        public void CssWidgetAndNewsWidgetOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValue);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(SecondCssValue);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(CssValueExpected);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyCssExistOnTheFrontend();
+            this.VerifyPageOnTheFrontend();
         }
 
         /// <summary>
-        /// Verify css exists on the frontend
+        /// Verify css on the frontend
         /// </summary>
-        public void VerifyCssExistOnTheFrontend()
+        public void VerifyPageOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContainedFirst = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
-            Assert.IsTrue(isContainedFirst, string.Concat("Expected ", CssValue, " but the style is not found"));
-
-            bool isContainedSecond = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(SecondCssValue);
-            Assert.IsTrue(isContainedSecond, string.Concat("Expected ", SecondCssValue, " but the style is not found"));
+            bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(CssValueExpected);
+            Assert.IsTrue(isContained, string.Concat("Expected ", CssValueExpected, " but the style is not found"));
+            
+            BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle);
+            bool isContainedOnDetailView = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(CssValueExpected);
+            Assert.IsTrue(isContainedOnDetailView, string.Concat("Expected ", CssValueExpected, " but the style is not found"));
         }
 
         /// <summary>
@@ -68,9 +65,9 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         }
 
         private const string PageName = "PageWithCssWidget";
+        private const string ContentBlockContent = "Test content";
         private const string WidgetName = "CSS";
-        private const string CssValue = "div { color: #FF0000; font-size: 20px;} ";
-        private const string SecondCssValue = "div { color: #00FF00;} ";
-        private const string OperationName = "Duplicate";
+        private const string CssValueExpected = "div { color: #FF0000; font-size: 20px;} ";
+        private const string NewsTitle = "NewsTitle";
     }
 }

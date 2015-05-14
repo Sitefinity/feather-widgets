@@ -62,7 +62,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
                 // Changing the tread type should reset the thread key and config.
                 this.ThreadKey = null;
-                this.ThreadsConfig = null;
+                this.threadConfig = null;
             }
         }
 
@@ -106,19 +106,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public string DataSource { get; set; }
 
         /// <inheritDoc/>
-        public bool AllowComments
-        {
-            get
-            {
-                return this.ThreadsConfig.AllowComments && this.allowComments;
-            }
-            set
-            {
-                this.allowComments = value;
-            }
-        }
-
-        /// <inheritDoc/>
         public int CommentTextMaxLength
         {
             get 
@@ -149,8 +136,65 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public string CssClass { get; set; }
 
         /// <inheritDoc/>
+        public bool CommentsAutoRefresh
+        {
+            get { return this.commentsAutoRefresh; }
+            set { this.commentsAutoRefresh = value; }
+        }
+
+        /// <inheritDoc/>
+        public int CommentsRefreshInterval
+        {
+            get { return this.commentsRefreshInterval; }
+            set { this.commentsRefreshInterval = value; }
+        }
+
+        /// <inheritDoc/>
         [Browsable(false)]
-        public IThread Thread
+        protected string LoginPageUrl
+        {
+            get
+            {
+                var loginRedirectUrl = string.Format("{0}?ReturnUrl={1}", this.GetDefaultLoginUrl(), HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri)));
+
+                return loginRedirectUrl;
+            }
+        }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        protected string UserAvatarImageUrl
+        {
+            get
+            {
+                Libraries.Model.Image avatarImage;
+                return this.sitefinityUserDisplayNameBuilder.Value.GetAvatarImageUrl(Sitefinity.Security.SecurityManager.CurrentUserId, out avatarImage);
+            }
+        }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        protected string UserDisplayName
+        {
+            get
+            {
+                return this.sitefinityUserDisplayNameBuilder.Value.GetUserDisplayName(Sitefinity.Security.SecurityManager.CurrentUserId);
+            }
+        }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        protected bool AllowComments
+        {
+            get
+            {
+                return this.ThreadConfig.AllowComments;
+            }
+        }
+
+        /// <inheritDoc/>
+        [Browsable(false)]
+        protected IThread Thread
         {
             get
             {
@@ -173,82 +217,23 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public string DateTimeFormatString
-        {
-            get { return this.dateTimeFormatString; }
-            set { this.dateTimeFormatString = value; }
-        }
-
-        /// <inheritDoc/>
-        public bool CommentsAutoRefresh
-        {
-            get { return this.commentsAutoRefresh; }
-            set { this.commentsAutoRefresh = value; }
-        }
-
-        /// <inheritDoc/>
-        public int CommentsRefreshInterval
-        {
-            get { return this.commentsRefreshInterval; }
-            set { this.commentsRefreshInterval = value; }
-        }
-
-        /// <inheritDoc/>
         [Browsable(false)]
-        public string LoginPageUrl
+        protected ThreadsConfigModel ThreadConfig
         {
             get
             {
-                var loginRedirectUrl = string.Format("{0}?ReturnUrl={1}", this.GetDefaultLoginUrl(), HttpUtility.UrlEncode(Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri)));
-
-                return loginRedirectUrl;
-            }
-        }
-
-        /// <inheritDoc/>
-        [Browsable(false)]
-        public string UserAvatarImageUrl
-        {
-            get
-            {
-                Libraries.Model.Image avatarImage;
-                return this.sitefinityUserDisplayNameBuilder.Value.GetAvatarImageUrl(Sitefinity.Security.SecurityManager.CurrentUserId, out avatarImage);
-            }
-        }
-
-        /// <inheritDoc/>
-        [Browsable(false)]
-        public string UserDisplayName
-        {
-            get
-            {
-                return this.sitefinityUserDisplayNameBuilder.Value.GetUserDisplayName(Sitefinity.Security.SecurityManager.CurrentUserId);
-            }
-        }
-
-        /// <inheritDoc/>
-        [Browsable(false)]
-        public ThreadsConfigModel ThreadsConfig
-        {
-            get
-            {
-                if (this.threadsConfig == null)
+                if (this.threadConfig == null)
                 {
-                    this.threadsConfig = new ThreadsConfigModel(this.ThreadType);
+                    this.threadConfig = new ThreadsConfigModel(this.ThreadType);
                 }
 
-                return this.threadsConfig;
-            }
-
-            private set
-            {
-                this.threadsConfig = value;
+                return this.threadConfig;
             }
         }
 
         /// <inheritDoc/>
         [Browsable(false)]
-        public CommentsConfigModel CommentsConfig
+        protected CommentsConfigModel CommentsConfig
         {
             get
             {
@@ -256,6 +241,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 {
                     this.commentsConfig = new CommentsConfigModel();
                 }
+
                 return this.commentsConfig;
             }
         }
@@ -265,39 +251,64 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         #region Methods
 
         /// <inheritDoc/>
-        public CommentsListViewModel GetCommentsListViewModel(CommentsInputModel commentsInputModel)
+        public CommentsListViewModel GetCommentsListViewModel(CommentsInputModel inputModel)
         {
-            this.Initialize(commentsInputModel);
-
-            var widgetResources = this.GetCommentsListWidgetResources();
-            var widgetSettings = this.GetCommentsListWidgetSettings(this.ThreadTitle);
-
-            var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
-
-            var viewModel = new CommentsListViewModel()
+            this.Initialize(inputModel);
+            var allowComments = (inputModel != null && inputModel.AllowComments.HasValue) ? inputModel.AllowComments.Value : this.AllowComments;
+            if (allowComments)
             {
-                AllowComments = this.AllowComments && (commentsInputModel.AllowComments.HasValue ? commentsInputModel.AllowComments.Value : true),
-                CssClass = this.CssClass,
-                LoginPageUrl = this.LoginPageUrl,
-                ThreadIsClosed = this.ThreadIsClosed,
-                UserAvatarImageUrl = this.UserAvatarImageUrl,
-                SerializedWidgetResources = JsonConvert.SerializeObject(widgetResources, Formatting.None, jsonSerializerSettings),
-                SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings, Formatting.None, jsonSerializerSettings)
-            };
+                var widgetResources = this.GetCommentsListWidgetResources();
+                var widgetSettings = this.GetCommentsListWidgetSettings(this.ThreadTitle);
 
-            return viewModel;
+                var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+                var viewModel = new CommentsListViewModel()
+                {
+                    AllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
+                    CssClass = this.CssClass,
+                    EnablePaging = this.CommentsConfig.EnablePaging,
+                    LoginPageUrl = this.LoginPageUrl,
+                    ThreadIsClosed = this.ThreadIsClosed,
+                    UserAvatarImageUrl = this.UserAvatarImageUrl,
+                    RequiresAuthentication = this.ThreadConfig.RequiresAuthentication,
+                    RequiresApproval = this.ThreadConfig.RequiresApproval,
+                    RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
+                    SerializedWidgetResources = JsonConvert.SerializeObject(widgetResources, Formatting.None, jsonSerializerSettings),
+                    SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings, Formatting.None, jsonSerializerSettings),
+                    ThreadKey = widgetSettings.CommentsThreadKey
+                };
+
+                return viewModel;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <inheritDoc/>
-        public CommentsCountViewModel GetCommentsCountViewModel(CommentsCountInputModel commentsCountInputModel)
+        public CommentsCountViewModel GetCommentsCountViewModel(CommentsCountInputModel inputModel)
         {
-            var commentsCountViewModel = new CommentsCountViewModel()
+            this.ThreadKey = inputModel.ThreadKey;
+            var allowComments = inputModel.AllowComments.HasValue ? inputModel.AllowComments.Value : this.AllowComments;
+            if (allowComments)
             {
-                NavigateUrl = commentsCountInputModel.NavigateUrl,
-                ThreadKey = commentsCountInputModel.ThreadKey
-            };
+                if (inputModel.NavigateUrl != null && !inputModel.NavigateUrl.Contains("#"))
+                {
+                    inputModel.NavigateUrl = inputModel.NavigateUrl + "#comments-" + HttpUtility.UrlEncode(inputModel.ThreadKey);
+                }
 
-            return commentsCountViewModel;
+                var viewModel = new CommentsCountViewModel()
+                {
+                    NavigateUrl = inputModel.NavigateUrl,
+                    ThreadKey = inputModel.ThreadKey
+                };
+
+                return viewModel;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         #endregion
@@ -306,6 +317,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         private void Initialize(CommentsInputModel commentsInputModel)
         {
+            if (commentsInputModel == null)
+                return;
+
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadType))
             {
                 this.ThreadType = commentsInputModel.ThreadType;
@@ -314,11 +328,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadKey))
             {
                 this.ThreadKey = commentsInputModel.ThreadKey;
-            }
-
-            if (commentsInputModel.AllowComments.HasValue)
-            {
-                this.AllowComments = commentsInputModel.AllowComments.Value;
             }
 
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadTitle))
@@ -341,27 +350,29 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             return new CommentsListWidgetResources()
             {
-                CommentPendingApproval = Res.Get<CommentsWidgetResources>().PendingApproval,
                 CommentSingular = Res.Get<CommentsWidgetResources>().Comment,
                 CommentsPlural = Res.Get<CommentsWidgetResources>().CommentsPlural,
                 ReadFullComment = Res.Get<CommentsWidgetResources>().ReadFullComment,
+                SubscribeLink = Res.Get<CommentsWidgetResources>().SubscribeLink,
+                UnsubscribeLink = Res.Get<CommentsWidgetResources>().UnsubscribeLink,
                 SubscribeToNewComments = Res.Get<CommentsWidgetResources>().SubscribeToNewComments,
-                UnsubscribeFromNewComments = Res.Get<CommentsWidgetResources>().UnsubscribeFromNewComments
+                YouAreSubscribedToNewComments = Res.Get<CommentsWidgetResources>().YouAreSubscribedToNewComments,
+                SuccessfullySubscribedToNewComments = Res.Get<CommentsWidgetResources>().SuccessfullySubscribedToNewComments,
+                SuccessfullyUnsubscribedFromNewComments = Res.Get<CommentsWidgetResources>().SuccessfullyUnsubscribedFromNewComments
             };
         }
 
         private CommentsListWidgetSettings GetCommentsListWidgetSettings(string threadTitle)
         {
-            var isUserAuthenticatedUrl = "/RestApi/session/is-authenticated";
-            var rootUrl = "/RestApi/comments-api/";
+            var isUserAuthenticatedUrl =  RouteHelper.ResolveUrl("~/RestApi/session/is-authenticated", UrlResolveOptions.Rooted);
+            var rootUrl = RouteHelper.ResolveUrl("~/RestApi/comments-api/", UrlResolveOptions.Rooted);
 
             return new CommentsListWidgetSettings()
             {
-                CommentDateTimeFormatString = this.DateTimeFormatString,
-                CommentsAllowSubscription = this.ThreadsConfig.AllowSubscription && this.ThreadIsClosed,
+                CommentsAllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                 CommentsAutoRefresh = this.CommentsAutoRefresh,
                 CommentsInitiallySortedDescending = this.CommentsConfig.AreNewestOnTop,
-                CommentsPerPage = this.CommentsConfig.CommentsPerPage,
+                CommentsPerPage = this.CommentsConfig.EnablePaging? this.CommentsConfig.CommentsPerPage: 500,
                 CommentsRefreshInterval = this.CommentsRefreshInterval,
                 CommentsTextMaxLength = this.CommentTextMaxLength,
                 CommentsThread = this.Thread ?? this.GetCommentsThreadProxy(threadTitle),
@@ -369,8 +380,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 CommentsThreadType = this.ThreadType,
                 IsDesignMode = SystemManager.IsDesignMode,
                 IsUserAuthenticatedUrl = isUserAuthenticatedUrl,
-                RequiresApproval = this.ThreadsConfig.RequiresApproval,
-                RequiresAuthentication = this.ThreadsConfig.RequiresAuthentication,
+                RequiresApproval = this.ThreadConfig.RequiresApproval,
+                RequiresAuthentication = this.ThreadConfig.RequiresAuthentication,
                 RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
                 RootUrl = rootUrl,
                 UserAvatarImageUrl = this.UserAvatarImageUrl,
@@ -420,14 +431,12 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         private string threadType;
         private string threadTitle;
         private string groupKey;
-        private bool allowComments = true;
         private int commentTextMaxLength = 100;
         private bool threadIsClosed;
         private IThread thread;
-        private string dateTimeFormatString = "MMM dd, yyyy";
         private bool commentsAutoRefresh = false;
         private int commentsRefreshInterval = 3000;
-        private ThreadsConfigModel threadsConfig;
+        private ThreadsConfigModel threadConfig;
         private CommentsConfigModel commentsConfig;
         private Lazy<SitefinityUserDisplayNameBuilder> sitefinityUserDisplayNameBuilder = new Lazy<SitefinityUserDisplayNameBuilder>();
 

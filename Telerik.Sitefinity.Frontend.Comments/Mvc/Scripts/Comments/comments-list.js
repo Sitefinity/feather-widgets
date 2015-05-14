@@ -37,7 +37,20 @@
                 getCommentsCountUrl += '&Status=' + status;
             }
 
-            return makeAjax(getCommentsCountUrl);
+            return makeAjax(getCommentsCountUrl).then(function (response) {
+                var count = 0;
+
+                if (response && response.Items) {
+                    for (var i = 0; i < response.Items.length; i++) {
+                        if (response.Items[i].Key === threadKey) {
+                            count = response.Items[i].Count;
+                            break;
+                        }
+                    }
+                }
+
+                return count;
+            });
         },
 
         getComments: function (threadKey, skip, take, sortDescending, newerThan, language) {
@@ -56,7 +69,7 @@
                 getCommentsUrl += '&Language=' + language;
             }
             if (newerThan) {
-                getCommentsUrl += '&NewerThan=' + newerThan;
+                getCommentsUrl += '&NewerThan=' + encodeURIComponent(newerThan);
             }
 
             return makeAjax(getCommentsUrl);
@@ -102,7 +115,7 @@
 
         this.commentsTakenSoFar = 0;
         this.maxCommentsToShow = 0;
-        this.initialCommentsCount = 0;
+        this.allCommentsCount = 0;
 
         this.lastCommentDate = 0;
 
@@ -151,9 +164,9 @@
 
         commentsNewLoggedOutView: function () { return this.getOrInitializeProperty('_commentsNewLoggedOutView', 'comments-new-logged-out-view'); },
         newCommentForm: function () { return this.getOrInitializeProperty('_newCommentForm', 'comments-new-form'); },
+        newCommentPendingApprovalMessage: function () { return this.getOrInitializeProperty('_newCommentPendingApprovalMessage', 'comments-new-pending-approval-message'); },
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
-        newCommentSubscribeButton: function () { return this.getOrInitializeProperty('_newCommentSubscribeButton', 'comments-new-subscribe-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
         newCommentMessageError: function () { return this.getOrInitializeProperty('_newCommentMessageError', 'comments-new-message-error'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
@@ -172,6 +185,9 @@
 
         listLoadingIndicator: function () { return this.getOrInitializeProperty('_listLoadingIndicator', 'list-loading-indicator'); },
         submitLoadingIndicator: function () { return this.getOrInitializeProperty('_submitLoadingIndicator', 'submit-loading-indicator'); },
+        
+        commentsSubscribeButton: function () { return this.getOrInitializeProperty('_commentsSubscribeButton', 'comments-subscribe-button'); },
+        commentsSubscribeText: function () { return this.getOrInitializeProperty('_commentsSubscribeText', 'comments-subscribe-text'); },
 
         /*
             Widget methods
@@ -189,7 +205,7 @@
             date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
             date.setSeconds(date.getSeconds() + secondsOffset);
 
-            return date.toUTCString();
+            return date.toISOString();
         },
 
         hideErrors: function () {
@@ -230,17 +246,13 @@
             }
         },
 
-        createCommentMarkup: function (comment, appendPendingApproval) {
+        createCommentMarkup: function (comment) {
             var newComment = this.getSingleCommentTemplate().clone(true);
 
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
-            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).format(this.settings.commentDateTimeFormatString));
-
-            if (appendPendingApproval) {
-                newComment.find('[data-sf-role="comment-date"]').after($('<span />').text(this.resources.commentPendingApproval));
-            }
+            newComment.find('[data-sf-role="comment-date"]').text(this.getDateFromSfString(comment.DateCreated).toDateString());
 
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
@@ -269,36 +281,21 @@
             }
         },
 
-        renderCommentsCount: function (count) {
-            if (count > 0) {
-                this.commentsTotalCount().text(count);
-                this.newCommentFormButton().show();
+        renderCommentsCount: function () {
+            // Comments count header
+            this.commentsHeader().text(this.allCommentsCount > 0 ? (this.allCommentsCount > 1 ? this.resources.commentsPlural : this.resources.commentSingular) : this.newCommentFormButton().text());
+            this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
+            this.newCommentFormButton().toggle(this.allCommentsCount > 0);
 
-                if (count > 1) {
-                    this.commentsSortNewButton().show();
-                    this.commentsSortOldButton().show();
-                    this.commentsHeader().text(this.resources.commentsPlural);
-                }
-                else {
-                    this.commentsHeader().text(this.resources.commentSingular);
-                }
-            }
-            else {
-                this.commentsHeader().text(this.newCommentFormButton().text());
-                this.newCommentFormButton().hide();
-                this.commentsSortNewButton().hide();
-                this.commentsSortOldButton().hide();
-            }
+            // Comments sort buttons
+            this.commentsSortNewButton().toggle(this.allCommentsCount > 1);
+            this.commentsSortOldButton().toggle(this.allCommentsCount > 1);
 
-            if (count <= Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage)) {
-                this.commentsLoadMoreButton().hide();
-            }
-            else {
-                this.commentsLoadMoreButton().show();
-            }
+            // Comments load more button
+            this.commentsLoadMoreButton().toggle(this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
         },
 
-        loadComments: function (skip, take, updateCount, newerThan) {
+        loadComments: function (skip, take, newerThan) {
             var self = this;
             if (self.isLoadinglist)
                 return;
@@ -306,48 +303,64 @@
             self.isLoadingList = true;
             self.listLoadingIndicator().show();
 
-            self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
+            return self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
                 if (response && response.Items && response.Items.length) {
                     self.commentsTakenSoFar += response.Items.length;
-
-                    if (self.commentsSortedDescending) {
-                        self.lastCommentDate = self.getDateString(response.Items[0].DateCreated, 1);
-                    }
-                    else {
-                        self.lastCommentDate = self.getDateString(response.Items[response.Items.length - 1].DateCreated, 1);
-                    }
-
-                    if (updateCount) {
-                        self.renderCommentsCount(parseInt(self.commentsTotalCount().text() || 0) + response.Items.length);
-                    }
+                    self.renderCommentsCount();
 
                     // Prepend the recieved comments only if current sorting is descending and the comments are being refreshed
                     self.renderComments(response.Items, self.commentsContainer(), newerThan && self.commentsSortedDescending);
                 }
+
+                return response;
             }).always(function () {
                 self.listLoadingIndicator().hide();
                 self.isLoadingList = false;
             });
         },
 
+        refreshLastCommentDate: function (response) {
+            if (response && response.Items && response.Items.length) {
+                var itemToTake = this.commentsSortedDescending ? response.Items[0] : response.Items[response.Items.length - 1];
+                this.lastCommentDate = this.getDateString(itemToTake.DateCreated, 1);
+            }
+        },
+
+        setAllCommentsCount: function (count) {
+            this.allCommentsCount = count;
+            this.renderCommentsCount();
+
+            $(document).trigger('sf-comments-count-received', { key: this.settings.commentsThreadKey, count: this.allCommentsCount });
+        },
+
         refreshComments: function (self, isNewCommentPosted) {
-            if (self.commentsSortedDescending) {
-                self.loadComments(0, self.settings.commentsPerPage, true, self.lastCommentDate);
+            var commentsToTake = self.commentsSortedDescending ? self.settings.commentsPerPage : self.maxCommentsToShow - self.commentsTakenSoFar;
+
+            // New comment is created, but won't be retrievet via refresh - update comment count.
+            if (!self.commentsSortedDescending && commentsToTake <= 0 && isNewCommentPosted) {
+                self.setAllCommentsCount(self.allCommentsCount + 1);
             }
-            else if (self.maxCommentsToShow - self.commentsTakenSoFar > 0) {
-                self.loadComments(0, self.maxCommentsToShow - self.commentsTakenSoFar, true, self.lastCommentDate);
-            }
-            else if (isNewCommentPosted) {
-                self.renderCommentsCount(parseInt(self.commentsTotalCount().text() || 0) + 1);
+            else {
+                self.loadComments(0, commentsToTake, self.lastCommentDate).then(function (response) {
+                    self.refreshLastCommentDate(response);
+
+                    if (response && response.TotalCount) {
+                        self.setAllCommentsCount(self.allCommentsCount + response.TotalCount);
+                    }
+                });
             }
         },
 
         sortComments: function (useDescending) {
-            if (this.commentsSortedDescending !== useDescending) {
-                this.commentsSortedDescending = useDescending;
-                this.commentsContainer().html('');
-                this.commentsTakenSoFar = 0;
-                this.loadComments(0, this.settings.commentsPerPage);
+            var self = this;
+
+            if (self.commentsSortedDescending !== useDescending) {
+                self.commentsSortedDescending = useDescending;
+                self.commentsContainer().html('');
+                self.commentsTakenSoFar = 0;
+                self.loadComments(0, self.settings.commentsPerPage).then(function () {
+                    self.renderCommentsCount();
+                });
             }
         },
 
@@ -390,16 +403,24 @@
             var comment = self.buildNewCommentFromForm();
 
             self.validateComment(comment).then(function (isValid) {
-                var hideLoading = function () {
+                var endSubmiting = function () {
+                    if (!self.isUserAuthenticated && self.settings.requiresCaptcha) {
+                        self.captchaRefresh();
+                    }
+
                     self.submitLoadingIndicator().hide();
                     self.newCommentSubmitButton().show();
                 };
 
                 if (isValid) {
                     self.commentsRestApi.createComment(comment).then(function (response) {
+                        // Clean form
                         self.newCommentMessage().val('');
+                        self.newCommentName().val('');
+                        self.newCommentEmail().val('');
+
                         if (self.settings.requiresApproval) {
-                            self.showPendingApprovalComment(comment);
+                            self.newCommentPendingApprovalMessage().show();
                         }
                         else if (!self.settings.commentsAutoRefresh) {
                             self.refreshComments(self, true);
@@ -410,21 +431,12 @@
                             self.errorMessage().html(errorTxt);
                             self.errorMessage().show();
                         }
-                    }).always(hideLoading);
+                    }).always(endSubmiting);
                 }
                 else {
-                    hideLoading();
+                    endSubmiting();
                 }
             });
-        },
-
-        showPendingApprovalComment: function (comment) {
-            comment.DateCreated = this.getSfStringFromDate(new Date());
-            comment.ProfilePictureThumbnailUrl = this.settings.userAvatarImageUrl;
-            comment.Name = comment.Name || this.settings.userDisplayName;
-
-            var createdComment = this.createCommentMarkup(comment, true);
-            this.newCommentForm().before(createdComment);
         },
 
         captchaRefresh: function () {
@@ -466,8 +478,9 @@
 
             self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
                 self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
-
-                self.newCommentSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments);
+                
+                self.commentsSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeLink);
+                self.commentsSubscribeText().text(self.isSubscribedToNewComments ? self.resources.successfullySubscribedToNewComments : self.resources.successfullyUnsubscribedFromNewComments);
             });
         },
 
@@ -483,6 +496,9 @@
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
+
+            // Initially hide the "Thank you for your comment" message.
+            this.newCommentPendingApprovalMessage().hide();
 
             if (this.commentsSortedDescending) {
                 this.commentsSortNewButton().addClass(this.isSelectedSortButtonCssClass);
@@ -524,23 +540,13 @@
 
             // Initial loading of comments count for thread
             self.commentsRestApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
-                if (response && response.Items) {
-                    var currentThreadKeyCount = 0;
-                    self.initialCommentsCount = response.Items.length;
-
-                    for (var i = 0; i < response.Items.length; i++) {
-                        if (response.Items[i].Key === self.settings.commentsThreadKey) {
-                            currentThreadKeyCount = response.Items[i].Count;
-                            break;
-                        }
-                    }
-
-                    self.renderCommentsCount(currentThreadKeyCount);
-                }
+                self.setAllCommentsCount(response);
             });
 
             // Initial loading of comments
-            self.loadComments(0, self.settings.commentsPerPage);
+            self.loadComments(0, self.settings.commentsPerPage).then(function (response) {
+                self.refreshLastCommentDate(response);
+            });
 
             // Comments Refresh
             if (self.settings.commentsAutoRefresh) {
@@ -556,13 +562,14 @@
             self.commentsRestApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
                 if (response) {
                     self.isSubscribedToNewComments = response.IsSubscribed;
+                    
+                    self.commentsSubscribeButton().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeToNewComments);
+                    self.commentsSubscribeText().text(self.isSubscribedToNewComments ? self.resources.youAreSubscribedToNewComments : '');
 
-                    self.newCommentSubscribeButton()
-                        .text(response.IsSubscribed ? self.resources.unsubscribeFromNewComments : self.resources.subscribeToNewComments)
-                        .click(function () {
-                            self.toggleSubscription();
-                            return false;
-                        });
+                    self.commentsSubscribeButton().click(function () {
+                        self.toggleSubscription();
+                        return false;
+                    });
                 }
             });
         },
@@ -615,6 +622,12 @@
             self.captchaRefreshLink().click(function () {
                 self.captchaRefresh();
                 return false;
+            });
+
+            self.newCommentMessage().focus(function () {
+                if (!self.isUserAuthenticated) {
+                    self.commentsNewLoggedOutView().show();
+                }
             });
         },
 

@@ -32,18 +32,18 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInThumbnailSelector("Thumbnail: 120x120 px cropped", false);                  
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfImagesOnBackend(ImageAltText + 1, ImageAltText + 2, ImageAltText + 3);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyCorrectOrderOfImagesOnBackend(ImageAltText + 1, ImageAltText + 2, ImageAltText + 3);
             for (int k = 0; k <= 2; k++)
             {
                 if (k == 0)
                 {
                     string src = this.GetImageSource(false, this.imageTitles[k], ImageType, LibraryName, "-small.jpg");
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(this.imageTitles[k], src);
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[k], src);
                 }
                 else
                 {
                     string src = this.GetImageSource(false, this.imageTitles[k], ImageType, AnotherImageLibraryTitle, "-small.jpg");
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(this.imageTitles[k], src);
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(this.imageTitles[k], src);
                 }
             }
 

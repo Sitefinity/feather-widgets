@@ -61,8 +61,8 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
             BATFeather.Wrappers().Backend().Media().ImagePropertiesWrapper().ConfirmMediaPropertiesInWidget();
 
             string src = this.GetImageSource(false, ImageName, ImageType);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageThumbnail(NewImageAltText, src);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyImageResizingProperties(NewImageAltText, "MaxWidth=111", "MaxHeight=111", "Quality=Medium", "Method=ResizeFitToAreaArguments");
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(NewImageAltText, src);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageResizingProperties(NewImageAltText, "MaxWidth=111", "MaxHeight=111", "Quality=Medium", "Method=ResizeFitToAreaArguments");
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 

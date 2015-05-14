@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
-using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CSS;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ImageGallery;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ScriptsAndStyles;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.SocialShare;
@@ -317,26 +317,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
-        /// <summary>
-        /// Gets the css element map.
-        /// </summary>
-        /// <value>The css map.</value>
-        public CssMap Css
+        public ScriptsAndStylesMap ScriptsAndStyles
         {
             get
             {
-                if (this.cssMap == null)
+                if (this.scriptsAndStylesMap == null)
                 {
                     this.EnsureFindIsInitialized();
-                    this.cssMap = new CssMap(this.find);
+                    this.scriptsAndStylesMap = new ScriptsAndStylesMap(this.find);
                 }
 
-                return this.cssMap;
+                return this.scriptsAndStylesMap;
             }
 
             private set
             {
-                this.cssMap = value;
+                this.scriptsAndStylesMap = value;
             }
         }
 
@@ -361,6 +357,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private IdentityMap identityMap;
         private ImageGalleryMap imageGalleryMap;
         private ListsMap listsMap;
-        private CssMap cssMap;
+        private ScriptsAndStylesMap scriptsAndStylesMap;
     }
 }

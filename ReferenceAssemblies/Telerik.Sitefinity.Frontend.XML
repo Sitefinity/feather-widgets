@@ -435,19 +435,18 @@
             Holds helpers related to Comments widget
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsList(System.Web.Mvc.HtmlHelper,Telerik.Sitefinity.Model.IDataItem,System.String,System.String,System.Boolean)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsList(System.Web.Mvc.HtmlHelper,Telerik.Sitefinity.Model.IDataItem,System.String,System.String)">
             <summary>
-            Commentses the list.
+            Returns the Comments list if exist, else render error message
             </summary>
             <param name="helper">The helper.</param>
             <param name="item">The item.</param>
             <param name="itemManagerName">Name of the item manager.</param>
             <param name="itemTitle">The item title.</param>
-            <param name="allowComments">if set to <c>true</c> [allow comments].</param>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsList(System.Web.Mvc.HtmlHelper,System.Guid,System.String,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsList(System.Web.Mvc.HtmlHelper,System.Guid,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})">
             <summary>
-            Commentses the list.
+            Returns the Comments list if exist, else render error message
             </summary>
             <param name="helper">The helper.</param>
             <param name="itemId">The item identifier.</param>
@@ -455,7 +454,24 @@
             <param name="itemProviderName">Name of the item provider.</param>
             <param name="itemManagerName">Name of the item manager.</param>
             <param name="itemTitle">The item title.</param>
-            <param name="allowComments">if set to <c>true</c> [allow comments].</param>
+            <param name="allowComments">if not null this value will override the configuration for allowing comments.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsCount(System.Web.Mvc.HtmlHelper,System.String,Telerik.Sitefinity.Model.IDataItem)">
+            <summary>
+            Returns the CommentsCount widget if exist, else render error message
+            </summary>
+            <param name="helper">The helper.</param>
+            <param name="navigateUrl">The navigate URL.</param>
+            <param name="item">The commented item.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers.CommentsCount(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Returns the CommentsCount widget if exist, else render error message
+            </summary>
+            <param name="helper">The HTML helper.</param>
+            <param name="navigateUrl">The navigate URL.</param>
+            <param name="threadKey">The thread key.</param>
+            <param name="allowComments">if not null this value will override the configuration for allowing comments.</param>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute">
             <summary>

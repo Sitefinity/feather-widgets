@@ -30,20 +30,20 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInSortingSelector("Title ASC");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectOptionInListTemplateSelector("DocumentsTable");                
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfDocumentsInTableView(DocumentBaseTitle + 1, DocumentBaseTitle + 2, DocumentBaseTitle + 3);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyCorrectOrderOfDocumentsInTableView(DocumentBaseTitle + 1, DocumentBaseTitle + 2, DocumentBaseTitle + 3);
             foreach (var doc in this.documentTitles)
             {
                 if (doc.Equals("Document1"))
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyDocumentInTableView(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType, LibraryName.ToLower()));
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentInTableView(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType, LibraryName.ToLower()));
                 }
                 else 
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyDocumentInTableView(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType, AnotherDocumentLibraryTitle.ToLower()));
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentInTableView(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType, AnotherDocumentLibraryTitle.ToLower()));
                 }
             }
 
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyDocumentIconOnTemplate(DocumentType, true);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIconOnTemplate(DocumentType, true);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().DocumentsList().DocumentsListWrapper().VerifyCorrectOrderOfDocumentsInTableView(DocumentBaseTitle + 1, DocumentBaseTitle + 2, DocumentBaseTitle + 3);
