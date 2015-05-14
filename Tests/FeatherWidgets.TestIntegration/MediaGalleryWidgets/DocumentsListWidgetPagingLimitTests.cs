@@ -7,7 +7,7 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
-namespace FeatherWidgets.TestIntegration.DocumentsList
+namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
 {
     /// <summary>
     /// This is a class with Documents list tests for paging and limit options.
