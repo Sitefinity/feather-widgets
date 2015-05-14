@@ -64,12 +64,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="widgetName">The widget name.</param>
         /// <param name="placeHolder">The placeholder id.</param>
         public void AddWidgetToPlaceHolderPureMvcMode(string widgetName, string placeHolder = "Contentplaceholder1")
-        { 
+        {            
             HtmlDiv widget = this.GetMvcWidget(widgetName);
 
             HtmlDiv radDockZone = ActiveBrowser.Find
                                                .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
-                                               .AssertIsPresent<HtmlDiv>(placeHolder);
+               .AssertIsPresent<HtmlDiv>(placeHolder);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(widget, radDockZone);
         }
 
@@ -91,9 +91,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             ActiveBrowser.RefreshDomTree();
             var widgetHeader = ActiveBrowser
-                                            .Find
-                                            .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))[dropZoneIndex]
-                                                                                                                                                                               .AssertIsPresent(widgetName);
+                                      .Find
+                                      .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar") && d.ChildNodes.First().InnerText.Equals(widgetName))[dropZoneIndex]
+                                      .AssertIsPresent(widgetName);
             widgetHeader.ScrollToVisible();
             HtmlAnchor editLink = widgetHeader.Find
                                               .ByCustom<HtmlAnchor>(a => a.TagName == "a" && a.Title.Equals("Edit"))
@@ -106,10 +106,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             if (!isMediaWidgetEdited)
             {
-                HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
-                ActiveBrowser.WaitForElement(expression, TimeOut, false);
-                Manager.Current.Wait.For(this.WaitForSaveButton, Manager.Current.Settings.ClientReadyTimeout);
-            }
+            HtmlFindExpression expression = new HtmlFindExpression("class=modal-title", "InnerText=" + widgetName);
+            ActiveBrowser.WaitForElement(expression, TimeOut, false);
+            Manager.Current.Wait.For(this.WaitForSaveButton, 60000);
+        }
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                       .ActiveBrowser
                                       .Find
                                       .AllByCustom<HtmlDiv>(d => d.CssClass.StartsWith("rdTitleBar"))[dropZoneIndex]
-                                                                                                                    .AssertIsPresent("Widget at position: " + dropZoneIndex);
+                                      .AssertIsPresent("Widget at position: " + dropZoneIndex);
             widgetHeader.ScrollToVisible();
             HtmlAnchor moreLink = widgetHeader.Find
                                               .ByCustom<HtmlAnchor>(a => a.TagName == "a" && a.Title.Equals("More"))
@@ -137,12 +137,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.ActiveBrowser.RefreshDomTree();
             HtmlDiv menuDiv = ActiveBrowser.Find
                                            .ByExpression<HtmlDiv>("tagName=div", "id=RadContextMenu1_detached")
-                                           .AssertIsPresent<HtmlDiv>("More options menu");
+                .AssertIsPresent<HtmlDiv>("More options menu");
 
             menuDiv.Find
                    .ByCustom<HtmlSpan>(x => x.InnerText.Contains(extraOption))
-                   .AssertIsPresent<HtmlSpan>("option " + extraOption)
-                   .Click();
+                .AssertIsPresent<HtmlSpan>("option " + extraOption)
+                .Click();
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
                                   .Pages()
                                   .PageZoneEditorWrapper()
                                   .GetWidgetTitleContainer("ContentBlock")
-                                  .AssertIsPresent("Title bar");
+                .AssertIsPresent("Title bar");
 
             HtmlSpan sharedLabel = titleBar.Find.ByExpression<HtmlSpan>("class=sfShared");
 
@@ -216,10 +216,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void VerifyJavaScriptWidgetText(string text, bool isPresent = true)
         {
             if (isPresent)
-            {
+        {
                 ActiveBrowser.Find.AllByExpression<HtmlDiv>("class=rdContent", "innertext=~" + text).FirstOrDefault().AssertIsPresent("text");
             }
-            else
+            else 
             {
                 ActiveBrowser.Find.AllByExpression<HtmlDiv>("class=rdContent", "innertext=~" + text).FirstOrDefault().AssertIsNull("text");
             }
@@ -229,7 +229,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             Manager.Current.ActiveBrowser.RefreshDomTree();
             var saveButton = EM.Widgets
-            .WidgetDesignerContentScreen.SaveChangesButton;
+                                   .WidgetDesignerContentScreen.SaveChangesButton;
 
             bool result = saveButton != null && saveButton.IsVisible();
 

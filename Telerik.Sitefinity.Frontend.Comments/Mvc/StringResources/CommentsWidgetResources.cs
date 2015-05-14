@@ -217,32 +217,92 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Unsubscribe me from new comments
+        /// Gets phrase : Subscribe
         /// </summary>
-        [ResourceEntry("UnsubscribeFromNewComments",
-            Value = "Unsubscribe me from new comments",
-            Description = "phrase: Unsubscribe me from new comments",
-            LastModified = "2015/05/07")]
-        public string UnsubscribeFromNewComments
+        [ResourceEntry("SubscribeLink",
+            Value = "Subscribe",
+            Description = "phrase: Subscribe",
+            LastModified = "2015/05/12")]
+        public string SubscribeLink
         {
             get
             {
-                return this["UnsubscribeFromNewComments"];
+                return this["SubscribeLink"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Subscribe me to new comments via email
+        /// Gets phrase : Unsubscribe
+        /// </summary>
+        [ResourceEntry("UnsubscribeLink",
+            Value = "Unsubscribe",
+            Description = "phrase: Unsubscribe",
+            LastModified = "2015/05/12")]
+        public string UnsubscribeLink
+        {
+            get
+            {
+                return this["UnsubscribeLink"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Subscribe to new comments
         /// </summary>
         [ResourceEntry("SubscribeToNewComments",
-            Value = "Subscribe me to new comments via email",
-            Description = "phrase: Subscribe me to new comments via email",
-            LastModified = "2015/05/05")]
+            Value = "Subscribe to new comments",
+            Description = "phrase: Subscribe to new comments",
+            LastModified = "2015/05/12")]
         public string SubscribeToNewComments
         {
             get
             {
                 return this["SubscribeToNewComments"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : You are subscribed to new comments
+        /// </summary>
+        [ResourceEntry("YouAreSubscribedToNewComments",
+            Value = "You are subscribed to new comments",
+            Description = "phrase: You are subscribed to new comments",
+            LastModified = "2015/05/12")]
+        public string YouAreSubscribedToNewComments
+        {
+            get
+            {
+                return this["YouAreSubscribedToNewComments"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : You are successfully subscribed to new comments
+        /// </summary>
+        [ResourceEntry("SuccessfullySubscribedToNewComments",
+            Value = "You are successfully subscribed to new comments",
+            Description = "phrase: You are successfully subscribed to new comments",
+            LastModified = "2015/05/12")]
+        public string SuccessfullySubscribedToNewComments
+        {
+            get
+            {
+                return this["SuccessfullySubscribedToNewComments"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : You are successfully unsubscribed
+        /// </summary>
+        [ResourceEntry("SuccessfullyUnsubscribedFromNewComments",
+            Value = "You are successfully unsubscribed",
+            Description = "phrase: You are successfully unsubscribed",
+            LastModified = "2015/05/12")]
+        public string SuccessfullyUnsubscribedFromNewComments
+        {
+            get
+            {
+                return this["SuccessfullyUnsubscribedFromNewComments"];
             }
         }
 
@@ -322,17 +382,17 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase :  to be able to write a review
+        /// Gets phrase :  to be able to comment
         /// </summary>
-        [ResourceEntry("ToBeAbleToWriteAReview",
-            Value = " to be able to write a review",
-            Description = "phrase : to be able to write a review",
-            LastModified = "2015/05/08")]
-        public string ToBeAbleToWriteAReview
+        [ResourceEntry("ToBeAbleToComment",
+            Value = " to be able to comment",
+            Description = "phrase : to be able to comment",
+            LastModified = "2015/05/12")]
+        public string ToBeAbleToComment
         {
             get
             {
-                return this["ToBeAbleToWriteAReview"];
+                return this["ToBeAbleToComment"];
             }
         }
              
@@ -350,17 +410,17 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
-        /// Gets phrase : Pending approval
+        /// Gets phrase : Thank you for the comment! Your comment must be approved first
         /// </summary>
-        [ResourceEntry("PendingApproval",
-            Value = "Pending approval",
-            Description = "phrase : Pending approval",
-            LastModified = "2015/05/08")]
-        public string PendingApproval
+        [ResourceEntry("CommentPendingApproval",
+            Value = "Thank you for the comment! Your comment must be approved first",
+            Description = "phrase : Thank you for the comment! Your comment must be approved first",
+            LastModified = "2015/05/12")]
+        public string CommentPendingApproval
         {
             get
             {
-                return this["PendingApproval"];
+                return this["CommentPendingApproval"];
             }
         }
 

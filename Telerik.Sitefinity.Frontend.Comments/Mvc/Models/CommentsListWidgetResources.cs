@@ -14,12 +14,36 @@
         public string ReadFullComment { get; set; }
 
         /// <summary>
+        /// Gets or sets the comment singular.
+        /// </summary>
+        /// <value>
+        /// The comment singular.
+        /// </value>
+        public string CommentSingular { get; set; }
+
+        /// <summary>
         /// Gets or sets the comments plural.
         /// </summary>
         /// <value>
         /// The comments plural.
         /// </value>
         public string CommentsPlural { get; set; }
+
+        /// <summary>
+        /// Gets or sets the subscribe link.
+        /// </summary>
+        /// <value>
+        /// The subscribe link.
+        /// </value>
+        public string SubscribeLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unsubscribe link.
+        /// </summary>
+        /// <value>
+        /// The unsubscribe link.
+        /// </value>
+        public string UnsubscribeLink { get; set; }
 
         /// <summary>
         /// Gets or sets the subscribe to new comments.
@@ -30,27 +54,27 @@
         public string SubscribeToNewComments { get; set; }
 
         /// <summary>
-        /// Gets or sets the unsubscribe from new comments.
+        /// Gets or sets you are subscribed to new comments.
         /// </summary>
         /// <value>
-        /// The unsubscribe from new comments.
+        /// You are subscribed to new comments.
         /// </value>
-        public string UnsubscribeFromNewComments { get; set; }
+        public string YouAreSubscribedToNewComments { get; set; }
 
         /// <summary>
-        /// Gets or sets the comment pending approval.
+        /// Gets or sets the successfully subscribed to new comments.
         /// </summary>
         /// <value>
-        /// The comment pending approval.
+        /// The successfully subscribed to new comments.
         /// </value>
-        public string CommentPendingApproval { get; set; }
+        public string SuccessfullySubscribedToNewComments { get; set; }
 
         /// <summary>
-        /// Gets or sets the comment singular.
+        /// Gets or sets the successfully unsubscribed from new comments.
         /// </summary>
         /// <value>
-        /// The comment singular.
+        /// The successfully unsubscribed from new comments.
         /// </value>
-        public string CommentSingular { get; set; }
+        public string SuccessfullyUnsubscribedFromNewComments { get; set; }
     }
 }

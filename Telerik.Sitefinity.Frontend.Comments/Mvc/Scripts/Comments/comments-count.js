@@ -5,6 +5,11 @@
         Widget
     */
     var CommentsCountWidget = function (rootUrl, resources) {
+        if (rootUrl === null || rootUrl.length === 0)
+            rootUrl = '/';
+        else if (rootUrl.charAt(rootUrl.length - 1) !== '/')
+            rootUrl = rootUrl + '/';
+
         this.rootUrl = rootUrl;
         this.resources = resources;
     };
@@ -12,7 +17,7 @@
     CommentsCountWidget.prototype = {
         getCommentsCounts: function () {
             var threadKeys = this.collectThreadIds();
-            var getCommentsCountsUrl = String.format(this.rootUrl + '/comments/count?ThreadKey={0}', threadKeys);
+            var getCommentsCountsUrl = this.rootUrl + 'comments/count?ThreadKey=' + encodeURIComponent(threadKeys);
 
             return $.ajax({
                 type: 'GET',
@@ -42,12 +47,12 @@
         },
 
         setCommentsCounts: function (threadCountList) {
-			var self = this;
+            var self = this;
             for (var i = 0; i < threadCountList.Items.length; i++) {
                 if (threadCountList.Items[i].Count == -1) {
                     continue;
                 }
-				
+                
                 $('div[sf-thread-key="' + threadCountList.Items[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList.Items[i].Count));
             }
         },
@@ -55,7 +60,6 @@
         populateCommentsCountTextCallBack: function (currentCount) {
             var self = this;
             return function (index, element) {
-
                 self.populateCommentsCountText($(element), currentCount);
             };
         },
@@ -85,6 +89,10 @@
                 if (response) {
                     self.setCommentsCounts(response);
                 }
+            });
+
+            $(document).on('sf-comments-count-received', function (event, args) {
+                $('div[sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count));
             });
         }
     };
