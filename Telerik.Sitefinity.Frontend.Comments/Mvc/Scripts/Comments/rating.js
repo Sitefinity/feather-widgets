@@ -5,14 +5,11 @@
         this.ratingContainer = element;
         self = this;
         this.settings = {
-            minValue: 0,   // min number of stars
             maxValue: 5,   // max number of stars
             value: 0,    // number of selected stars
-            step: 1,  //setting for selecting stars. Could be floating number.
-            reviewCount: null, // number of reviews
-            reviewCountNavigateUrl: null, // the href if the review count should be a link
+            step: 0.5,  //setting for selecting stars. Could be floating number.
             readOnly: false,
-            templateId: '', //element id. Inner Html wil be rendered as many times as {{maxValue}}
+            template: '', //defines template for the separate elements. Inner Html will be rendered as many times as {{maxValue}}
             selectedClass: 'on', //Class applied to the element when it is selected
             hoverClass: 'hover' //Class applied to the element when it is hovered
         };
@@ -34,13 +31,19 @@
             this.elementsRenderer.reset();
         },
 
-        getSingleElementMarkup: function () {
-            var markup = $("#" + this.settings.templateId).html();
+        getBaseElementMarkup: function () {
+            var templateElement = $(this.settings.template);
+            if (!(templateElement && templateElement.length)) {
+                templateElement = $('<div><span>&#9734</span></div>');
+            }
+
+            var markup = templateElement.html();
 
             return markup;
         },
+
         getSelectedElementMarkup: function () {
-            var markup = $("#" + this.settings.templateId).html();
+            var markup = this.getBaseElementMarkup();
             $(markup).attr('class', this.settings.selectedClass);
 
             return markup;
@@ -66,13 +69,13 @@
             reset: function () { // resets the element to the selected value.
                 var elements = self.ratingContainer.children();
                 elements.removeClass(self.settings.selectedClass).removeClass(self.settings.hoverClass);
-                elements.slice(0, self.settings.value).addClass(self.settings.selectedClass);
+                elements.slice(0, self.settings.value / self.settings.step).addClass(self.settings.selectedClass);
             }
         },
 
         selectElement: function (e) {
             var elements = self.ratingContainer.children();
-            self.settings.value = elements.index(e.srcElement) + 1;
+            self.settings.value = (elements.index(e.srcElement) + 1) * self.settings.step;
             self.elementsRenderer.reset();
         },
 
@@ -88,14 +91,14 @@
         render: function () {
             this.ratingContainer.empty();
 
-            var singleElementTemplate = this.getSingleElementMarkup();
+            var baseElementTemplate = this.getBaseElementMarkup();
             var selectedElementTemplate = this.getSelectedElementMarkup();
 
-            for (var i = 0; i < this.settings.value; i++) {
+            for (var i = 0; i < this.settings.value; i += this.settings.step) {
                 this.ratingContainer.append(selectedElementTemplate);
             }
-            for (var j = this.settings.value; j < this.settings.maxValue; j++) {
-                this.ratingContainer.append(singleElementTemplate);
+            for (var j = this.settings.value; j < this.settings.maxValue; j += this.settings.step) {
+                this.ratingContainer.append(baseElementTemplate);
             }
 
             if (!this.settings.readOnly) {
