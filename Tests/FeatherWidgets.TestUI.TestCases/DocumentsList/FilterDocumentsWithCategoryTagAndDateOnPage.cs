@@ -54,11 +54,11 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             {
                 if (i <= 2 || i > 3)
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyDocumentIsNotPresent(DocumentBaseTitle + i);
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIsNotPresent(DocumentBaseTitle + i);
                 }
                 else
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, PageName.ToLower() + "/" + ContentType));
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(DocumentBaseTitle + i, this.GetDocumentHref(true, DocumentBaseTitle + i, PageName.ToLower() + "/" + ContentType));
                 }
             }
 

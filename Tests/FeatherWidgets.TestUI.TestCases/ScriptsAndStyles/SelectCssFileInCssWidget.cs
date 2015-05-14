@@ -7,13 +7,13 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.CSS
+namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
     /// <summary>
-    /// CssWidgetAndNewsWidgetOnTheSamePage test class.
+    /// SelectCssFileInCssWidget test class.
     /// </summary>
     [TestClass]
-    public class CssWidgetAndNewsWidgetOnTheSamePage_ : FeatherTestCase
+    public class SelectCssFileInCssWidget_ : FeatherTestCase
     {
         /// <summary>
         /// UI test SelectCssFileInCssWidget
@@ -21,13 +21,18 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Css)]
-        public void CssWidgetAndNewsWidgetOnTheSamePage()
+        TestCategory(FeatherTestCategories.ScriptsAndStyles)]
+        public void SelectCssFileInCssWidget()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValueExpected);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(CssValue);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().SwitchToLinkFileOption();
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().ClickSelectButton();
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().ExpandFolder(FolderName);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().SelectFile(FileName);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyPageOnTheFrontend();
@@ -39,12 +44,11 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         public void VerifyPageOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValueExpected);
+            bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(CssValueExpected);
             Assert.IsTrue(isContained, string.Concat("Expected ", CssValueExpected, " but the style is not found"));
-            
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle);
-            bool isContainedOnDetailView = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValueExpected);
-            Assert.IsTrue(isContainedOnDetailView, string.Concat("Expected ", CssValueExpected, " but the style is not found"));
+
+            bool isNotContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(CssValue);
+            Assert.IsFalse(isNotContained, string.Concat("Not expected ", CssValue, " but the style is found"));
         }
 
         /// <summary>
@@ -67,7 +71,9 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         private const string PageName = "PageWithCssWidget";
         private const string ContentBlockContent = "Test content";
         private const string WidgetName = "CSS";
-        private const string CssValueExpected = "div { color: #FF0000; font-size: 20px;} ";
-        private const string NewsTitle = "NewsTitle";
+        private const string CssValue = "div { color: #00FF00;} ";
+        private const string CssValueExpected = "/Css/styles.css";
+        private const string FolderName = "Css";
+        private const string FileName = "styles.css";
     }
 }

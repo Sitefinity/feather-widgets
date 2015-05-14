@@ -118,12 +118,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Css widget.
+        /// ScriptsAndStyles widget.
         /// </summary>
         /// <returns></returns>
-        public CssWrapperFacade Css()
+        public ScriptsAndStylesWrapperFacade ScriptAndStyles()
         {
-            return new CssWrapperFacade();
+            return new ScriptsAndStylesWrapperFacade();
         }
     }
 }

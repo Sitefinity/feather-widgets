@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 {
-    /// <summary>
-    /// This is the entry point class for css widget edit wrapper.
+     /// <summary>
+    /// This is the entry point class for styles and scripts widgets edit wrapper.
     /// </summary>
-    public class CssWidgetEditWrapper : BaseWrapper
+    public abstract class ScriptsAndStylesCommonWrapper : BaseWrapper
     {
+
         /// <summary>
-        /// Fill css to the css widget
+        /// Fills the code in editable area.
         /// </summary>
-        /// <param name="css">The css value</param>
-        public void FillCssToCssWidget(string css)
+        /// <param name="code">The code.</param>
+        public void FillCodeInEditableArea(string code)
         {
-            HtmlDiv editable = EM.Css.CssWidgetEditScreen
+            HtmlDiv editable = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen
                                        .CodeMirrorLines
                                        .AssertIsPresent("Editable area");
 
@@ -32,15 +30,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
 
-            Manager.Current.Desktop.KeyBoard.TypeText(css);
+            Manager.Current.Desktop.KeyBoard.TypeText(code);
         }
 
         /// <summary>
-        /// Switch to Link to Css file
+        /// Switches to link file option.
         /// </summary>
-        public void SwitchToLinkToCssFile()
+        public void SwitchToLinkFileOption()
         {
-            HtmlInputRadioButton linkToCssFile = EM.Css.CssWidgetEditScreen.LinkToCss
+            HtmlInputRadioButton linkToCssFile = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen.LinkToFile
             .AssertIsPresent("Link to css file button");
             linkToCssFile.Click();
             ActiveBrowser.WaitUntilReady();
@@ -52,7 +50,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void ClickSelectButton()
         {
-            HtmlButton selectButton = EM.Css.CssWidgetEditScreen.SelectButton
+            HtmlButton selectButton = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen.SelectButton
                 .AssertIsPresent("Select button");
             selectButton.Click();
 
@@ -66,7 +64,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void ExpandFolder(string folderName)
         {
-            HtmlUnorderedList folderTree = EM.Css.CssWidgetEditScreen.FolderTree
+            HtmlUnorderedList folderTree = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen.FolderTree
                 .AssertIsPresent("Folder tree");
 
             HtmlListItem listItem = folderTree.Find.ByExpression<HtmlListItem>("InnerText=" + folderName);
@@ -79,12 +77,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Select css file
+        /// Selects the file.
         /// </summary>
-        public void SelectCssFile(string fileName)
+        /// <param name="fileName">Name of the file.</param>
+        public void SelectFile(string fileName)
         {
             ActiveBrowser.RefreshDomTree();
-            HtmlUnorderedList fileTree = EM.Css.CssWidgetEditScreen.FileTree
+            HtmlUnorderedList fileTree = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen.FileTree
                 .AssertIsPresent("File tree");
 
             HtmlControl cssFile = fileTree.Find.ByExpression<HtmlControl>("InnerText=" + fileName);
@@ -100,7 +99,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void MoreOptions()
         {
-            HtmlSpan moreOptions = EM.Css.CssWidgetEditScreen.MoreOptions
+            HtmlSpan moreOptions = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen.MoreOptions
                 .AssertIsPresent("More options");
 
             moreOptions.ScrollToVisible();
@@ -114,7 +113,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="description">The description</param>
         public void FillDescription(string description)
         {
-            HtmlInputText input = EM.Css.CssWidgetEditScreen.Description
+            HtmlInputText input = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen.Description
                 .AssertIsPresent("Description");
 
             input.ScrollToVisible();
