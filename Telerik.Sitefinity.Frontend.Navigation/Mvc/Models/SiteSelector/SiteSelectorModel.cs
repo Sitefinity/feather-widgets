@@ -184,7 +184,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
                 }
                 else
                 {
-                    // TODO: Remove the reflection when SiteRegion become public.
+                    // Remove the reflection when SiteRegion become public.
                     var sitefinityAssembly = typeof(ISite).Assembly;
                     var siteRegionType = sitefinityAssembly.GetType("Telerik.Sitefinity.Multisite.SiteRegion");
                     var siteRegionConstructor = siteRegionType.GetConstructor(new Type[] { typeof(ISite) });
@@ -227,7 +227,6 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
             if (this.UseLiveUrl)
                 url = site.LiveUrl;
 
-            // TODO: When DefaultUrlLocalizationStrategy Resolving is fixed remove this
             if (!url.EndsWith("/", StringComparison.OrdinalIgnoreCase))
                 url = string.Concat(url, "/");
 
