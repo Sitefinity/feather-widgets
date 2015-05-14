@@ -159,7 +159,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             for (int i = 0; i < BreadcrumbWidgetTests.TestPagesCount; i++)
             {
-                var isGroupPage = groupPages && i < BreadcrumbWidgetTests.TestPagesCount - 1;
+                var isGroupPage = groupPages && i < BreadcrumbWidgetTests.TestPagesCount - 1 && i != 0;
                 var name = baseName + i;
                 var pageId = TestUtils.CreateAndPublishPage(fluent, PageLocation.Frontend, name, name, name, parentPage, isGroupPage);
                 this.createdPageIDs.Add(pageId);
