@@ -7,39 +7,34 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
-namespace FeatherWidgets.TestUI.TestCases.CSS
+namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
     /// <summary>
-    /// AddCssWidgetToPageAndWriteAndRemoveCss test class.
+    /// DuplicateCssWidgetOnPage test class.
     /// </summary>
     [TestClass]
-    public class AddCssWidgetToPageAndWriteAndRemoveCss_ : FeatherTestCase
+    public class DuplicateCssWidgetOnPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test AddCssWidgetToPageAndWriteAndRemoveCss
+        /// UI test DuplicateCssWidgetOnPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.Css)]
-        public void AddCssWidgetToPageAndWriteAndRemoveCss()
+        TestCategory(FeatherTestCategories.ScriptsAndStyles)]
+        public void DuplicateCssWidgetOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(CssValue);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(CssValue);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationName);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(SecondCssValue);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             this.VerifyCssExistOnTheFrontend();
-
-            BAT.Macros().NavigateTo().Pages();
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Css().CssWidgetEditWrapper().FillCssToCssWidget(string.Empty);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyCssNotExistOnTheFrontend();
         }
 
         /// <summary>
@@ -48,18 +43,11 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         public void VerifyCssExistOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
-            Assert.IsTrue(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
-        }
+            bool isContainedFirst = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(CssValue);
+            Assert.IsTrue(isContainedFirst, string.Concat("Expected ", CssValue, " but the style is not found"));
 
-        /// <summary>
-        /// Verify css does not exist on the frontend
-        /// </summary>
-        public void VerifyCssNotExistOnTheFrontend()
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContained = BATFeather.Wrappers().Frontend().Css().CssWrapper().IsStylePresentOnFrontend(CssValue);
-            Assert.IsFalse(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
+            bool isContainedSecond = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(SecondCssValue);
+            Assert.IsTrue(isContainedSecond, string.Concat("Expected ", SecondCssValue, " but the style is not found"));
         }
 
         /// <summary>
@@ -80,8 +68,9 @@ namespace FeatherWidgets.TestUI.TestCases.CSS
         }
 
         private const string PageName = "PageWithCssWidget";
-        private const string ContentBlockContent = "Test content";
         private const string WidgetName = "CSS";
         private const string CssValue = "div { color: #FF0000; font-size: 20px;} ";
+        private const string SecondCssValue = "div { color: #00FF00;} ";
+        private const string OperationName = "Duplicate";
     }
 }

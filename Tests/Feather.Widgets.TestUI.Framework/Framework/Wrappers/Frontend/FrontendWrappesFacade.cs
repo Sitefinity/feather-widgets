@@ -1,7 +1,7 @@
-﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Css;
-using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
+﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ScriptsAndStyles;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
 {
@@ -119,12 +119,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
-        /// Provides access to css frontend wrapper. 
+        /// Provides access to css and javascript frontend wrapper. 
         /// </summary>
         /// <returns></returns>
-        public CssWrapperFacade Css()
+        public ScriptsAndStylesWrapperFacade ScriptsAndStyles()
         {
-            return new CssWrapperFacade();
+            return new ScriptsAndStylesWrapperFacade();
         }
     }
 }

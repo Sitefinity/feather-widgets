@@ -7,18 +7,18 @@ using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
 
-namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CSS
+namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ScriptsAndStyles
 {
     /// <summary>
     /// Provides access to css widget screen
     /// </summary>
-    public class CssWidgetEditScreen : HtmlElementContainer
+    public class ScriptsAndStylesEditScreen : HtmlElementContainer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CssWidgetEditScreen" /> class.
         /// </summary>
         /// <param name="find">The find.</param>
-        public CssWidgetEditScreen(Find find)
+        public ScriptsAndStylesEditScreen(Find find)
             : base(find)
         {
         }
@@ -35,9 +35,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CSS
         }
 
         /// <summary>
-        /// Gets Link to Css file button.
+        /// Gets Link to file button.
         /// </summary>
-        public HtmlInputRadioButton LinkToCss
+        public HtmlInputRadioButton LinkToFile
         {
             get
             {

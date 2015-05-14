@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Css
 {
     /// <summary>
-    /// This is the entry point class for css widget backend wrappers.
+    /// This is the entry point class for ScriptsAndStyles widgets backend wrappers.
     /// </summary>
-    public class CssWrapperFacade
+    public class ScriptsAndStylesWrapperFacade
     {
         /// <summary>
         /// Provides unified access to the CssWidgetEditWrapper 
@@ -18,6 +18,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Css
         public CssWidgetEditWrapper CssWidgetEditWrapper()
         {
             return new CssWidgetEditWrapper();
+        }
+
+        /// <summary>
+        /// Javas the script widget edit wrapper.
+        /// </summary>
+        /// <returns></returns>
+        public JavaScriptWidgetEditWrapper JavaScriptWidgetEditWrapper()
+        {
+            return new JavaScriptWidgetEditWrapper();
         }
     }
 }

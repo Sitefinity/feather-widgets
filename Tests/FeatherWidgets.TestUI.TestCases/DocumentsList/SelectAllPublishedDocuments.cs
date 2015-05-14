@@ -35,8 +35,8 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             foreach (var doc in this.documentTitles)
             {
-                BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
-                BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyDocumentIconOnTemplate(DocumentType);
+                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocument(doc, this.GetDocumentHref(true, doc, PageName + "/" + ContentType));
+                BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyDocumentIconOnTemplate(DocumentType);
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
