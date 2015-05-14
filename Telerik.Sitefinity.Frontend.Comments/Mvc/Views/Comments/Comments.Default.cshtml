@@ -74,7 +74,9 @@
                     <a href="#" data-sf-role="comments-subscribe-button"></a>
                 </div>
             }
-
+            <div data-sf-role="rating-container">
+            </div>
+			
             <div data-sf-role="error-message" style="display:none;"></div>
             <div data-sf-role="submit-loading-indicator" style="display:none;"></div>
 
@@ -99,12 +101,25 @@
             </p>
         </div>
     </div>
+
+    <div id="ratingTemplate" style="display:none;">
+        <div style="background-color:Gray; width:15px; height:15px; margin:2px;display:inline-block;"></div>
+    </div>
 </div>
 
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/rating.js"), "bottom", false)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments-list.js"), "bottom", false)
 
 @*Temporary styling*@
 <style>
+	.on{
+		background-color:Red !important;
+	}
+	
+	.hover{
+		background-color:Orange !important;
+	}
+
     a[data-sf-role^="comments-sort-"].is-selected{
         cursor: text;
         color:black;
