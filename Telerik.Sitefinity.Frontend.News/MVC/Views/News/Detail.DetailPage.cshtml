@@ -1,15 +1,12 @@
 @model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
 
-@using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Model;
 @using Telerik.Sitefinity.Web.DataResolving;
-@using Telerik.Sitefinity.Web.UI;
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
-        @Html.CommentsCount("#commentsWidget", @Model.Item.DataItem)
+        @Html.CommentsCount("", @Model.Item.DataItem)
     </h3>
 
     <div>
@@ -27,7 +24,5 @@
         @Html.SocialShareOptions()
     }
 
-    <div>
-        @Html.CommentsList(@Model.Item.DataItem)
-    </div>
+    @Html.CommentsList(@Model.Item.DataItem)
 </div>

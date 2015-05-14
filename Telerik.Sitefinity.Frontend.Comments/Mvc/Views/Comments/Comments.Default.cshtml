@@ -5,7 +5,7 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-<div  id="commentsWidget" data-sf-role="comments-wrapper" class="@Model.CssClass">
+<div id="comments-@HttpUtility.HtmlEncode(Model.ThreadKey)" data-sf-role="comments-wrapper" class="@Model.CssClass">
     <input type="hidden" data-sf-role="comments-settings" value="@Model.SerializedWidgetSettings" />
     <input type="hidden" data-sf-role="comments-resources" value="@Model.SerializedWidgetResources" />
 
@@ -15,7 +15,7 @@
 
         @if (!Model.ThreadIsClosed)
         {
-            <a href="#" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
+            <a href="#comment-submit-@HttpUtility.HtmlEncode(HttpUtility.UrlEncode(Model.ThreadKey))" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
         }
         
         <a href="#" data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</a>
@@ -36,7 +36,7 @@
     }
     else 
     {        
-        <div data-sf-role="comments-new-form">
+        <div data-sf-role="comments-new-form" id="comment-submit-@HttpUtility.HtmlEncode(Model.ThreadKey)">
             @if (Model.RequiresApproval)
             {
                 <span data-sf-role="comments-new-pending-approval-message">@Html.Resource("CommentPendingApproval")</span>
