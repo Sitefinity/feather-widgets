@@ -108,7 +108,7 @@
     };
 
     $.fn.extend({
-        featherRating: function (settings) {
+        mvcRating: function (settings) {
             var fRating = new Rating($(this), settings);
             fRating.render();
 
