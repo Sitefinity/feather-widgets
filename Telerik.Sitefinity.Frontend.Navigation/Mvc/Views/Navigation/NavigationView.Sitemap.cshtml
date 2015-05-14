@@ -23,7 +23,7 @@
 @helper RenderRootLevelNode(NodeViewModel node)
 {
     <li>
-        <a href="@node.Url" target="@node.LinkTarget"><b>@node.Title</b></a>
+        <a href="@node.Url" target="@node.LinkTarget"><strong>@node.Title</strong></a>
         @if (node.ChildNodes.Count > 0)
         {
             <ul class="nav nav-stacked">
