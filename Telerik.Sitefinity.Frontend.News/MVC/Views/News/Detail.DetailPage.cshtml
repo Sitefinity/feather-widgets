@@ -1,10 +1,7 @@
 @model Telerik.Sitefinity.Frontend.Mvc.Models.ContentDetailsViewModel
 
-@using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Model;
 @using Telerik.Sitefinity.Web.DataResolving;
-@using Telerik.Sitefinity.Web.UI;
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
