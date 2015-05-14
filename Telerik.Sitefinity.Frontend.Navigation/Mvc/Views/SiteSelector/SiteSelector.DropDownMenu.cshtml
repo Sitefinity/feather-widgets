@@ -19,21 +19,19 @@
     }
             @foreach (var site in Model.Sites)
             {
-                switch (Model.SiteLanguagesDisplayMode)
+                if (!Model.EachLanguageAsSeparateSite)
                 {
-                    case SiteLanguagesDisplayMode.SiteNamesAndLanguages:
-                        <option value="@site.Url">@site.Name site - @site.Language</option>
-                        break;
-
-                    case SiteLanguagesDisplayMode.LanguagesOnly:
+                     <option value="@site.Url">@site.Name site</option>
+                }
+                else if (Model.SiteLanguagesDisplayMode == SiteLanguagesDisplayMode.SiteNamesAndLanguages)
+                {
+                    <option value="@site.Url">@site.Name site - @site.Language</option>
+                }
+                else
+                {
                     <option value="@site.Url">@site.Language</option>
-                        break;
-
-                    default:
-                    <option value="@site.Url">@site.Name site</option>
-                        break;
                 }
             }
-            </select>
+        </select>
 
 </div>
