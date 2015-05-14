@@ -23,16 +23,16 @@
 
     Rating.prototype = {
         getValue: function () {
-            return this.settings.value;
+            return self.settings.value;
         },
 
         setValue: function (newValue) {
-            this.settings.value = newValue;
-            this.elementsRenderer.reset();
+            self.settings.value = newValue;
+            self.elementsRenderer.reset();
         },
 
         getBaseElementMarkup: function () {
-            var templateElement = $(this.settings.template);
+            var templateElement = $(self.settings.template);
             if (!(templateElement && templateElement.length)) {
                 templateElement = $('<div><span>&#9734</span></div>');
             }
@@ -43,8 +43,8 @@
         },
 
         getSelectedElementMarkup: function () {
-            var markup = this.getBaseElementMarkup();
-            $(markup).attr('class', this.settings.selectedClass);
+            var markup = self.getBaseElementMarkup();
+            $(markup).attr('class', self.settings.selectedClass);
 
             return markup;
         },
@@ -89,20 +89,20 @@
         },
 
         render: function () {
-            this.ratingContainer.empty();
+            self.ratingContainer.empty();
 
-            var baseElementTemplate = this.getBaseElementMarkup();
-            var selectedElementTemplate = this.getSelectedElementMarkup();
+            var baseElementTemplate = self.getBaseElementMarkup();
+            var selectedElementTemplate = self.getSelectedElementMarkup();
 
-            for (var i = 0; i < this.settings.value; i += this.settings.step) {
-                this.ratingContainer.append(selectedElementTemplate);
+            for (var i = 0; i < self.settings.value; i += self.settings.step) {
+                self.ratingContainer.append(selectedElementTemplate);
             }
-            for (var j = this.settings.value; j < this.settings.maxValue; j += this.settings.step) {
-                this.ratingContainer.append(baseElementTemplate);
+            for (var j = self.settings.value; j < self.settings.maxValue; j += self.settings.step) {
+                self.ratingContainer.append(baseElementTemplate);
             }
 
-            if (!this.settings.readOnly) {
-                this.attachEvents();
+            if (!self.settings.readOnly) {
+                self.attachEvents();
             }
         }
 
