@@ -183,6 +183,7 @@
     <Compile Include="Media\Image\ImageControllerTests.cs" />
     <Compile Include="Navigation\NavigationControllerTests.cs" />
     <Compile Include="Navigation\NavigationModelTests.cs" />
+    <Compile Include="Navigation\SitesWidget\SitesWidgetControllerTests.cs" />
     <Compile Include="ObjectFactoryContainerRegion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResourcesTests.cs" />
