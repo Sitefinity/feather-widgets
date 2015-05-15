@@ -46,8 +46,7 @@
             
             <div>
                 <span>@Html.Resource("Rating")</span>
-                <div>
-                    Rating here 4
+                <div data-sf-role="submit-rating-container">
                 </div>
             </div>
 
@@ -102,7 +101,7 @@
                 <span data-sf-role="comment-date"></span>
             </p>
             <p>
-                <span data-sf-role="comment-rating"></span>
+                <span data-sf-role="list-rating-container"></span>
             </p>
             <p>
                 <span data-sf-role="comment-message"></span>
@@ -111,10 +110,19 @@
     </div>
 </div>
 
+@Html.Script(Url.WidgetContent("Mvc/Scripts/Reviews/rating.js"), "bottom", false)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/comments-list.js"), "bottom", false)
 
 @*Temporary styling*@
 <style>
+    .on{
+		color:red !important;
+	}
+	
+	.hover{
+		color:yellow !important;
+	} 
+
     a[data-sf-role^="comments-sort-"].is-selected{
         cursor: text;
         color:black;

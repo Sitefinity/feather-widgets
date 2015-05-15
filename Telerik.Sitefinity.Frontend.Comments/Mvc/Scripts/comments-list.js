@@ -184,6 +184,7 @@
         newCommentFormButton: function () { return this.getOrInitializeProperty('_newCommentFormButton', 'comments-new-form-button'); },
         newCommentSubmitButton: function () { return this.getOrInitializeProperty('_newCommentSubmitButton', 'comments-new-submit-button'); },
         newCommentMessage: function () { return this.getOrInitializeProperty('_newCommentMessage', 'comments-new-message'); },
+        newCommentRating: function () { return this.getOrInitializeProperty('_newCommentRating', 'submit-rating-container'); },
         newCommentName: function () { return this.getOrInitializeProperty('_newCommentName', 'comments-new-name'); },
         newCommentEmail: function () { return this.getOrInitializeProperty('_newCommentEmail', 'comments-new-email'); },
         newCommentRequiresAuthentication: function () { return this.getOrInitializeProperty('_newCommentRequiresAuthentication', 'comments-new-requires-authentication'); },
@@ -276,8 +277,7 @@
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
             if (this.settings.useReviews) {
-                newComment.find('[data-sf-role="comment-rating"]').text(comment.Rating);
-                //TODO: newComment.find('[data-sf-role="comment-rating"]').featherRating({ readOnly: true, value: comment.Rating });
+                newComment.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: comment.Rating });
             }
 
             return newComment;
@@ -418,12 +418,7 @@
             };
 
             if (self.settings.useReviews) {
-                // TODO: Apply selected rating
-                comment.Rating = 4;
-            }
-            else {
-                // If rating option is enabled, Service requires a rating, even if comment is submited.
-                comment.Rating = 3;
+                comment.Rating = this.newCommentRatingContainer.getValue();
             }
 
             if (!self.isUserAuthenticated) {
@@ -452,7 +447,7 @@
             this.newCommentMessage().val('');
             this.newCommentName().val('');
             this.newCommentEmail().val('');
-            // TODO: Clean rating
+            this.newCommentRatingContainer.setValue(0);
         },
 
         endSubmitNewComment: function () {
@@ -557,6 +552,7 @@
             this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
+            this.newCommentRatingContainer = this.newCommentRating().mvcRating();
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
