@@ -6092,6 +6092,358 @@
             </summary>
             <param name="controller">Type of the controller.</param>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector">
+            <summary>
+            This class holds all methods internaly exposed by the CommentsUtilities class in sf.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.GetUseCaptiaSetting">
+            <summary>
+            Gets the use captia setting.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.GetAuthor(Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest)">
+            <summary>
+            Gets the author.
+            </summary>
+            <param name="commentData">The comment data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.GetIpAddressFromCurrentRequest">
+            <summary>
+            Gets the ip address from current request.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.GetCommentsByThreadForCurrentAuthorWithRating(System.String)">
+            <summary>
+            Gets the comments by thread for current author with rating.
+            </summary>
+            <param name="threadKey">The thread key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.GetThreadConfigByType(System.String)">
+            <summary>
+            Gets the type of the thread configuration by.
+            </summary>
+            <param name="threadType">Type of the thread.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.GetCommentResponse(Telerik.Sitefinity.Services.Comments.IComment,System.Boolean)">
+            <summary>
+            Gets the comment response.
+            </summary>
+            <param name="comment">The comment.</param>
+            <param name="includeSensitiveInformation">if set to <c>true</c> [include sensitive information].</param>
+            <returns></returns>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.CommentsSettingsElement">
+            <summary>
+            This class holds all needed properties for the <see cref="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.ReviewsWebService"/>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.CommentsSettingsElement.AllowComments">
+            <summary>
+            Gets or sets a value indicating if content item supports comments.
+            </summary>
+            <value>
+            	<c>true</c> if content item supports comments; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.CommentsSettingsElement.EnableRatings">
+            <summary>
+            Gets or sets a value indicating whether to restrict ratings to one from user by thread.
+            </summary>
+            <value>
+            When set to <c>true</c> the comments are restricted to one from user by thread; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.CommentsSettingsElement.RequiresAuthentication">
+            <summary>
+            Gets or sets whether threads on the commentable type require authentication by default.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsUtilitiesReflector.CommentsSettingsElement.RequiresApproval">
+            <summary>
+            Gets or sets whether threads on the commentable type require approval by default.
+            </summary>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsWebServiceReflector">
+            <summary>
+            This class holds all methods privatly exposed by the CommentWebService class in sf.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsWebServiceReflector.Validate(Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest)">
+            <summary>
+            Validates the specified request.
+            </summary>
+            <param name="request">The request.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsWebServiceReflector.Validate(Telerik.Sitefinity.Services.Comments.DTO.ThreadCreateRequest)">
+            <summary>
+            Validates the specified request.
+            </summary>
+            <param name="request">The request.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsWebServiceReflector.Validate(Telerik.Sitefinity.Services.Comments.DTO.GroupCreateRequest)">
+            <summary>
+            Validates the specified request.
+            </summary>
+            <param name="request">The request.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.CommentsWebServiceReflector.ValidatePostRequest(System.String,Telerik.Sitefinity.Services.Comments.DTO.CaptchaInfo,System.Boolean)">
+            <summary>
+            Validates the post request.
+            </summary>
+            <param name="threadType">Type of the thread.</param>
+            <param name="captchaInfo">The captcha information.</param>
+            <param name="skipCaptia">if set to <c>true</c> [skip captia].</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest">
+            <summary>
+            <c>CommentCreateRequest</c> Represents the <see cref="!:IComment"/> object that should be created.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest.Message">
+            <summary>
+            Gets or sets the body of the message of the <see cref="!:IComment"/> object.
+            </summary>
+            <value>
+            The message.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest.Name">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object author name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest.Email">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object author email.
+            </summary>
+            <value>
+            The email.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest.CustomData">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object custom data.
+            </summary>
+            <remarks>
+            This custom data is extensibility point that can be used to store some custom data for the <see cref="!:IComment"/> object.
+            </remarks>
+            <value>
+            The custom data.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest.ThreadKey">
+            <summary>
+            Gets or sets the key of the <see cref="!:IThread"/> object that the <see cref="!:IComment"/> object is associated with.
+            </summary>
+            <value>
+            The thread key.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest.Thread">
+            <summary>
+            Gets or sets the thread information when the parent thread should be created for this <see cref="!:IComment"/>.
+            </summary>
+            <value>
+            The thread.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest.Captcha">
+            <summary>
+            Gets or sets the captcha information.
+            </summary>
+            <value>
+            The captcha data.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest.Rating">
+            <summary>
+            Gets or sets the rating data.
+            </summary>
+            <remarks>
+            This rating data is used in the context of reviews behaviour
+            </remarks>
+            <value>
+            The captcha data.
+            </value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.AuthorAlreadyReviewedGetRequest">
+            <summary>
+            The DTO used by <see cref="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.ReviewsWebService"/>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.AuthorAlreadyReviewedGetRequest.ThreadKey">
+            <summary>
+            Gets or sets the thread key.
+            </summary>
+            <value>
+            The thread key.
+            </value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.AuthorAlreadyReviewedViewModel">
+            <summary>
+            The view model used by <see cref="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.ReviewsWebService"/>.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.AuthorAlreadyReviewedViewModel.AuthorAlreadyReviewed">
+            <summary>
+            Gets or sets a value indicating whether author already reviewed.
+            </summary>
+            <value>
+            <c>true</c> if [author already reviewed]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel">
+            <summary>
+            <c>CommentResponse</c>. Represents the <see cref="!:IComment"/> object that should be returned.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.Key">
+            <summary>
+            Gets or sets the key of the <see cref="!:IComment"/> object.
+            </summary>
+            <value>
+            The key.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.Name">
+            <summary>
+            Gets or sets the name of the author of the <see cref="!:IComment"/> object.
+            </summary>
+            <value>
+            The name of the author.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.Message">
+            <summary>
+            Gets or sets the body of the message of the <see cref="!:IComment"/> object.
+            </summary>
+            <value>
+            The message.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.DateCreated">
+            <summary>
+            Gets or sets the date when the <see cref="!:IComment"/> object was created.
+            </summary>
+            <value>
+            The date created.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.ProfilePictureUrl">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object author profile picture URL.
+            </summary>
+            <value>
+            The profile picture URL.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.ProfilePictureThumbnailUrl">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object author profile picture thumbnail URL.
+            </summary>
+            <value>
+            The profile picture thumbnail URL.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.Status">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object status.
+            </summary>
+            <value>
+            The status.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.Email">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object author email.
+            This is sensitive information that is returned if the request is made from authenticated backend user.
+            </summary>
+            <value>
+            The email.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.ThreadKey">
+            <summary>
+            Gets or sets the key of the <see cref="!:IThread"/> object that the <see cref="!:IComment"/> object is associated with.
+            </summary>
+            <value>
+            The thread key.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.AuthorIpAddress">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object author IP address.
+            This is sensitive information that is returned if the request is made from authenticated backend user.
+            </summary>
+            <value>
+            The author ip address.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.CustomData">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object custom data.
+            </summary>
+            <remarks>
+            This custom data is an extensibility point that can be used to store custom data for the <see cref="!:IComment"/> object.
+            </remarks>
+            <value>
+            The custom data.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel.Rating">
+            <summary>
+            Gets or sets the <see cref="!:IComment"/> object rating.
+            </summary>
+            <remarks>
+            This rating field is used in the context of reviews behaviour.
+            </remarks>
+            <value>
+            The custom data.
+            </value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.ReviewsServiceStackPlugin">
+            <summary>
+            Represents a ServiceStack plug-in for the reviews web service.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.ReviewsServiceStackPlugin.Register(ServiceStack.IAppHost)">
+            <summary>
+            Adding the comments reviews routes
+            </summary>
+            <param name="appHost">The service stack appHost</param>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.ReviewsWebService">
+            <summary>
+            This class provides reviews status.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.ReviewsWebService.Get(Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.AuthorAlreadyReviewedGetRequest)">
+            <summary>
+            Gets if the author already has review for current thread.
+            </summary>
+            <param name="request">The reviews get request.</param>
+            <returns>
+            <see cref="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.AuthorAlreadyReviewedViewModel"/> object.
+            </returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Services.ReviewsService.ReviewsWebService.Post(Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewPostRequest)">
+            <summary>
+            Creates a comment or review.
+            </summary>
+            <param name="request">The create comment review post request.</param>
+            <returns>
+            <see cref="T:Telerik.Sitefinity.Frontend.Services.ReviewsService.DTO.CreateCommentReviewViewModel"/> object.
+            </returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesItemViewModel">
             <summary>
             A single file item view model used by <see cref="T:Telerik.Sitefinity.Frontend.Services.FilesService.DTO.FilesViewModel"/>
@@ -6142,12 +6494,12 @@
             The error.
             </value>
         </member>
-        <member name="T:Telerik.Sitefinity.Frontend.Services.ListsService.FilesServiceStackPlugin">
+        <member name="T:Telerik.Sitefinity.Frontend.Services.FilesService.FilesServiceStackPlugin">
             <summary>
             Represents a ServiceStack plug-in for the Files web service.
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Services.ListsService.FilesServiceStackPlugin.Register(ServiceStack.IAppHost)">
+        <member name="M:Telerik.Sitefinity.Frontend.Services.FilesService.FilesServiceStackPlugin.Register(ServiceStack.IAppHost)">
             <summary>
             Adding the files service routes
             </summary>

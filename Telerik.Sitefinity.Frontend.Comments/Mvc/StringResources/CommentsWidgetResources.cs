@@ -309,15 +309,15 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         /// <summary>
         /// Gets phrase : Comments are not allowed anymore
         /// </summary>
-        [ResourceEntry("ThreadIsClosedMessage",
+        [ResourceEntry("CommentsThreadIsClosedMessage",
             Value = "Comments are not allowed anymore",
             Description = "phrase: Comments are not allowed anymore",
-            LastModified = "2015/05/07")]
-        public string ThreadIsClosedMessage
+            LastModified = "2015/05/14")]
+        public string CommentsThreadIsClosedMessage
         {
             get
             {
-                return this["ThreadIsClosedMessage"];
+                return this["CommentsThreadIsClosedMessage"];
             }
         }
                
@@ -396,6 +396,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
              
+        /// <summary>
         /// Gets phrase : Message is required!
         /// </summary>
         [ResourceEntry("MessageIsRequired",
@@ -409,7 +410,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
                 return this["MessageIsRequired"];
             }
         }
-
+        
+        /// <summary>
         /// Gets phrase : Thank you for the comment! Your comment must be approved first
         /// </summary>
         [ResourceEntry("CommentPendingApproval",
@@ -425,7 +427,236 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         #endregion
+
+        #region Reviews
+
+        /// <summary>
+        /// Gets phrase : Rating
+        /// </summary>
+        [ResourceEntry("Rating",
+            Value = "Rating",
+            Description = "phrase : Rating",
+            LastModified = "2015/05/14")]
+        public string Rating
+        {
+            get
+            {
+                return this["Rating"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Rating is required!
+        /// </summary>
+        [ResourceEntry("RatingIsRequired",
+            Value = "Rating is required!",
+            Description = "phrase : Rating is required!",
+            LastModified = "2015/05/14")]
+        public string RatingIsRequired
+        {
+            get
+            {
+                return this["RatingIsRequired"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Write a review
+        /// </summary>
+        [ResourceEntry("WriteReview",
+            Value = "Write a review",
+            Description = "phrase : Write a review",
+            LastModified = "2015/05/14")]
+        public string WriteReview
+        {
+            get
+            {
+                return this["WriteReview"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Reviews are not allowed anymore
+        /// </summary>
+        [ResourceEntry("ReviewsThreadIsClosedMessage",
+            Value = "Reviews are not allowed anymore",
+            Description = "phrase: Reviews are not allowed anymore",
+            LastModified = "2015/05/14")]
+        public string ReviewsThreadIsClosedMessage
+        {
+            get
+            {
+                return this["ReviewsThreadIsClosedMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Load more reviews
+        /// </summary>
+        [ResourceEntry("LoadMoreReviews",
+            Value = "Load more reviews",
+            Description = "phrase : Load more reviews",
+            LastModified = "2015/05/14")]
+        public string LoadMoreReviews
+        {
+            get
+            {
+                return this["LoadMoreReviews"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Thank you for the review! Your review must be approved first
+        /// </summary>
+        [ResourceEntry("ReviewPendingApproval",
+            Value = "Thank you for the review! Your review must be approved first",
+            Description = "phrase : Thank you for the review! Your review must be approved first",
+            LastModified = "2015/05/14")]
+        public string ReviewPendingApproval
+        {
+            get
+            {
+                return this["ReviewPendingApproval"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : review
+        /// </summary>
+        [ResourceEntry("Review",
+            Value = "review",
+            Description = "word : review",
+            LastModified = "2015/05/14")]
+        public string Review
+        {
+            get
+            {
+                return this["Review"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : review
+        /// </summary>
+        [ResourceEntry("ReviewsPlural",
+            Value = "reviews",
+            Description = "word : reviews",
+            LastModified = "2015/05/14")]
+        public string ReviewsPlural
+        {
+            get
+            {
+                return this["ReviewsPlural"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Read full review
+        /// </summary>
+        [ResourceEntry("ReadFullReview",
+            Value = "Read full review",
+            Description = "phrase : Read full review",
+            LastModified = "2015/05/14")]
+        public string ReadFullReview
+        {
+            get
+            {
+                return this["ReadFullReview"];
+            }
+        }
         
+        /// <summary>
+        /// Gets phrase : Subscribe to new reviews
+        /// </summary>
+        [ResourceEntry("SubscribeToNewReviews",
+            Value = "Subscribe to new reviews",
+            Description = "phrase: Subscribe to new reviews",
+            LastModified = "2015/05/14")]
+        public string SubscribeToNewReviews
+        {
+            get
+            {
+                return this["SubscribeToNewReviews"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : You are subscribed to new reviews
+        /// </summary>
+        [ResourceEntry("YouAreSubscribedToNewReviews",
+            Value = "You are subscribed to new reviews",
+            Description = "phrase: You are subscribed to new reviews",
+            LastModified = "2015/05/14")]
+        public string YouAreSubscribedToNewReviews
+        {
+            get
+            {
+                return this["YouAreSubscribedToNewReviews"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : You are successfully subscribed to new reviews
+        /// </summary>
+        [ResourceEntry("SuccessfullySubscribedToNewReviews",
+            Value = "You are successfully subscribed to new reviews",
+            Description = "phrase: You are successfully subscribed to new reviews",
+            LastModified = "2015/05/14")]
+        public string SuccessfullySubscribedToNewReviews
+        {
+            get
+            {
+                return this["SuccessfullySubscribedToNewReviews"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase :  to be able to write a review
+        /// </summary>
+        [ResourceEntry("ToBeAbleToReview",
+            Value = " to be able to write a review",
+            Description = "phrase : to be able to write a review",
+            LastModified = "2015/05/14")]
+        public string ToBeAbleToReview
+        {
+            get
+            {
+                return this["ToBeAbleToReview"];
+            }
+        }
+
+         /// <summary>
+        /// Gets phrase : Thank you! Your review has been submitted successfully
+        /// </summary>
+        [ResourceEntry("ThankYouReviewSubmited",
+            Value = "Thank you! Your review has been submitted successfully",
+            Description = "phrase : Thank you! Your review has been submitted successfully",
+            LastModified = "2015/05/14")]
+        public string ThankYouReviewSubmited
+        {
+            get
+            {
+                return this["ThankYouReviewSubmited"];
+            }
+        }
+
+         /// <summary>
+        /// Gets phrase : You've already submitted a review for this item
+        /// </summary>
+        [ResourceEntry("UserAlreadySubmitedReview",
+            Value = "You've already submitted a review for this item",
+            Description = "phrase : You've already submitted a review for this item",
+            LastModified = "2015/05/14")]
+        public string UserAlreadySubmitedReview
+        {
+            get
+            {
+                return this["UserAlreadySubmitedReview"];
+            }
+        }
+
+        #endregion
+
         #region Designer resources
 
         /// <summary>

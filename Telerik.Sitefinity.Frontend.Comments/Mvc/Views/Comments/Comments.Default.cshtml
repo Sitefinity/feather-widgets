@@ -34,7 +34,7 @@
 
     @if (Model.ThreadIsClosed)
     {
-        <div>@Html.Resource("ThreadIsClosedMessage")</div>
+        <span>@Html.Resource("CommentsThreadIsClosedMessage")</span>
     }
     else 
     {        
@@ -44,18 +44,13 @@
                 <div data-sf-role="comments-new-pending-approval-message">@Html.Resource("CommentPendingApproval")</div>
             }
 
-            <div>
-                <img src="@Model.UserAvatarImageUrl"/>
-                <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")" ></textarea>
-                <span data-sf-role="comments-new-message-error" style="display:none;" >@Html.Resource("MessageIsRequired")</span>
+            <img src="@Model.UserAvatarImageUrl"/>
+            <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")" ></textarea>
 
-                <p data-sf-role="comments-new-logged-out-view" style="display:none;">
-                    <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
-                    <span data-sf-role="comments-new-name-error" style="display:none;" >@Html.Resource("NameIsRequired")</span>
-                    <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
-                </p>
-            </div>
-
+            <p data-sf-role="comments-new-logged-out-view" style="display:none;">
+                <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
+                <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
+            </p>
 
             @if (Model.RequiresCaptcha)
             {
@@ -72,19 +67,21 @@
                 </div>
             }
 
-            @if (Model.AllowSubscription)
-            {
-                <div>
-                    <span data-sf-role="comments-subscribe-text"></span>
-                    <a href="#" data-sf-role="comments-subscribe-button"></a>
-                </div>
-            }
-
-            <div data-sf-role="error-message" style="display:none;"></div>
-            <div data-sf-role="submit-loading-indicator" style="display:none;"></div>
-
             <button data-sf-role="comments-new-submit-button">@Html.Resource("Submit")</button>
         </div>
+        
+        if (Model.AllowSubscription)
+        {
+            <div>
+                <span data-sf-role="comments-subscribe-text"></span>
+                <a href="#" data-sf-role="comments-subscribe-button">
+                    <span data-sf-role="comments-subscribe-button-text"></span>
+                </a>
+            </div>
+        }
+
+        <div data-sf-role="error-message" style="display:none;"></div>
+        <div data-sf-role="submit-loading-indicator" style="display:none;"></div>
         
         if (Model.RequiresAuthentication)
         {
@@ -106,5 +103,5 @@
     </div>
 </div>
 
-@Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments-list.js"), "bottom", false)
+@Html.Script(Url.WidgetContent("Mvc/Scripts/comments-list.js"), "bottom", false)
 
