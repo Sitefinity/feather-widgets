@@ -10,8 +10,10 @@
     <input type="hidden" data-sf-role="comments-resources" value="@Model.SerializedWidgetResources" />
 
     <div>
-        <span data-sf-role="comments-total-count"></span>
-        <span data-sf-role="comments-header"></span>
+        <h3>
+            <span data-sf-role="comments-total-count"></span>
+            <span data-sf-role="comments-header"></span>
+        </h3>
 
         @if (!Model.ThreadIsClosed)
         {
@@ -32,25 +34,28 @@
 
     @if (Model.ThreadIsClosed)
     {
-        <span>@Html.Resource("ThreadIsClosedMessage")</span>
+        <div>@Html.Resource("ThreadIsClosedMessage")</div>
     }
     else 
     {        
         <div data-sf-role="comments-new-form" id="comment-submit-@HttpUtility.HtmlEncode(Model.ThreadKey)">
             @if (Model.RequiresApproval)
             {
-                <span data-sf-role="comments-new-pending-approval-message">@Html.Resource("CommentPendingApproval")</span>
+                <div data-sf-role="comments-new-pending-approval-message">@Html.Resource("CommentPendingApproval")</div>
             }
 
-            <img src="@Model.UserAvatarImageUrl"/>
-            <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")" ></textarea>
-            <span data-sf-role="comments-new-message-error" style="display:none;" >@Html.Resource("MessageIsRequired")</span>
+            <div>
+                <img src="@Model.UserAvatarImageUrl"/>
+                <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")" ></textarea>
+                <span data-sf-role="comments-new-message-error" style="display:none;" >@Html.Resource("MessageIsRequired")</span>
 
-            <p data-sf-role="comments-new-logged-out-view" style="display:none;">
-                <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
-                <span data-sf-role="comments-new-name-error" style="display:none;" >@Html.Resource("NameIsRequired")</span>
-                <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
-            </p>
+                <p data-sf-role="comments-new-logged-out-view" style="display:none;">
+                    <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
+                    <span data-sf-role="comments-new-name-error" style="display:none;" >@Html.Resource("NameIsRequired")</span>
+                    <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
+                </p>
+            </div>
+
 
             @if (Model.RequiresCaptcha)
             {
@@ -83,15 +88,15 @@
         
         if (Model.RequiresAuthentication)
         {
-            <span data-sf-role="comments-new-requires-authentication"><a href='@Model.LoginPageUrl'>@Html.Resource("Login")</a>@Html.Resource("ToBeAbleToComment")</span>
+            <p data-sf-role="comments-new-requires-authentication"><a href='@Model.LoginPageUrl'>@Html.Resource("Login")</a>@Html.Resource("ToBeAbleToComment")</p>
         }
     }
     
-    <div data-sf-role="single-comment-template">
+    <div data-sf-role="single-comment-template" style="display:none;">
         <div>
             <img data-sf-role="comment-avatar"/>
             <p>
-                <span data-sf-role="comment-name"></span> | 
+                <span data-sf-role="comment-name"></span>
                 <span data-sf-role="comment-date"></span>
             </p>
             <p>
@@ -103,44 +108,3 @@
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Comments/comments-list.js"), "bottom", false)
 
-@*Temporary styling*@
-<style>
-    a[data-sf-role^="comments-sort-"].is-selected{
-        cursor: text;
-        color:black;
-    }
-
-    div[data-sf-role="single-comment-template"] {
-        display:none;
-    }
-
-    div[data-sf-role="submit-loading-indicator"] {
-        background-color:Red; 
-        width:50px; 
-        height:50px;
-    }
-    
-    div[data-sf-role="list-loading-indicator"] {
-        background-color:Red; 
-        width:50px; 
-        height:50px;
-    }
-
-    span[data-sf-role="comment-message"]:after {
-        content: "";
-        clear: both;
-        height: 0;
-        display: block;
-        visibility: hidden;
-    }
-
-    img[data-sf-role="comment-avatar"] {
-        float:left;
-        width: 40px;
-        height: 40px;
-    }
-    .is-selected {
-        text-decoration:underline;
-        font-weight:900;
-    }
-</style>
