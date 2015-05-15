@@ -323,7 +323,7 @@
             this.commentsSortOldButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
 
             // Comments load more button
-            this.commentsLoadMoreButton().toggle(this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
+            this.commentsLoadMoreButton().attr('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
         },
 
         loadComments: function (skip, take, newerThan) {
