@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
     /// <summary>
     /// This class provides access to page operations
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class PagesOperations
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "3#")]
@@ -352,6 +352,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(ImageGalleryController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "Image gallery", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds the video gallery widget to page.
+        /// </summary>
+        /// <param name="pageId">The page id.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddVideoGalleryWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(VideoGalleryController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Video gallery", placeholder);
             }
         }
 

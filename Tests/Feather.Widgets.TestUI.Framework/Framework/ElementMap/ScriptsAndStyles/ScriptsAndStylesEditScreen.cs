@@ -30,7 +30,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ScriptsAndStyles
         {
             get
             {
-                return this.Get<HtmlDiv>("tagname=div", "class=CodeMirror-lines");
+                return EditableAreaMainDiv.Find.ByExpression<HtmlDiv>("tagname=div", "class=CodeMirror-lines");
             }
         }
 
@@ -97,6 +97,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ScriptsAndStyles
             get
             {
                 return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.Description.PropertyValue");
+            }
+        }
+
+        private HtmlDiv EditableAreaMainDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "ng-show=properties.Mode.PropertyValue=='Inline'");
             }
         }
     }

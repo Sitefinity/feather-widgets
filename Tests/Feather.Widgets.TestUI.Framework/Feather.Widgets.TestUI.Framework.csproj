@@ -221,6 +221,8 @@
     <Compile Include="Framework\Wrappers\Frontend\SocialShare\SocialShareWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\SocialShare\SocialShareWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FrontendCommonWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\VideoGallery\VideoGalleryWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\VideoGallery\VideoGalleryWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\WrappersFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
