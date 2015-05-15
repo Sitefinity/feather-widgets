@@ -139,13 +139,14 @@
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\CommentsController.cs" />
+    <Compile Include="Mvc\Controllers\ReviewsController.cs" />
     <Compile Include="Mvc\Models\CommentsConfigModel.cs" />
     <Compile Include="Mvc\Models\CommentsCountInputModel.cs" />
+    <Compile Include="Mvc\Models\CommentsCountViewModel.cs" />
     <Compile Include="Mvc\Models\CommentsInputModel.cs" />
-    <Compile Include="Mvc\Models\CommentsListWidgetSettings.cs" />
     <Compile Include="Mvc\Models\CommentsListViewModel.cs" />
     <Compile Include="Mvc\Models\CommentsListWidgetResources.cs" />
-    <Compile Include="Mvc\Models\CommentsCountViewModel.cs" />
+    <Compile Include="Mvc\Models\CommentsListWidgetSettings.cs" />
     <Compile Include="Mvc\Models\ThreadsConfigModel.cs" />
     <Compile Include="Mvc\Models\CommentsModel.cs" />
     <Compile Include="Mvc\Models\ICommentsModel.cs" />
@@ -157,20 +158,27 @@
     <EmbeddedResource Include="Mvc\Views\Comments\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Comments\Comments.Default.cshtml" />
     <None Include="app.config" />
-    <EmbeddedResource Include="Mvc\Views\Comments\Count.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Comments\CommentsCount.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Reviews\Reviews.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Reviews\ReviewsCount.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Reviews\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Reviews\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Comments\designerview-simple.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\Comments\comments-list.js" />
+    <EmbeddedResource Include="Mvc\Scripts\comments-list.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\Comments\comments-count.js" />
+    <EmbeddedResource Include="Mvc\Scripts\comments-count.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\Comments\rating.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Reviews\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Reviews\rating.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -1,0 +1,17 @@
+﻿@model Telerik.Sitefinity.Frontend.Comments.Mvc.Models.CommentsCountViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", true)
+
+<div data-sf-role="comments-count-wrapper" data-sf-thread-key="@Model.ThreadKey">
+    <a data-sf-role="comments-count-anchor" href="@Model.NavigateUrl">
+        <span data-sf-role="comments-count-anchor-text"></span>
+    </a>
+
+    <input type="hidden" data-sf-role="service-url" value="@ViewBag.ServiceUrl" />
+    <input type="hidden" data-sf-role="comments-count-resources" value='{"commentsPlural": "@Html.Resource("CommentsPlural")", "leaveComment":"@Html.Resource("LeaveComment")", "comment":"@Html.Resource("Comment")" }' />
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/comments-count.js"), "bottom", false)
