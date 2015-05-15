@@ -11,6 +11,7 @@ using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Services.Comments;
 using Telerik.Sitefinity.Services.Comments.Proxies;
+using Telerik.Sitefinity.SitefinityExceptions;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
@@ -262,7 +263,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                     AllowSubscription = this.ThreadConfig.AllowSubscription && !this.ThreadIsClosed,
                     CssClass = this.CssClass,
                     EnablePaging = this.CommentsConfig.EnablePaging,
-                    LoginPageUrl = this.LoginPageUrl,
+                    LoginPageUrl = this.ThreadConfig.RequiresAuthentication ? this.LoginPageUrl : null,
                     ThreadIsClosed = this.ThreadIsClosed,
                     UserAvatarImageUrl = this.UserAvatarImageUrl,
                     RequiresAuthentication = this.ThreadConfig.RequiresAuthentication,
@@ -432,21 +433,28 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         private string GetDefaultLoginUrl()
         {
-            string defaultLoginPageUrl = string.Empty;
+            string defaultLoginPageUrl;
             var currentSite = Telerik.Sitefinity.Services.SystemManager.CurrentContext.CurrentSite;
             if (currentSite.FrontEndLoginPageId != Guid.Empty)
             {
-                var manager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
-                var redirectPage = manager.GetPageNode(currentSite.FrontEndLoginPageId);
-
-                if (redirectPage != null)
+                try
                 {
-                    defaultLoginPageUrl = Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetUrl(redirectPage, String.Empty, null, true);
+                    var manager = Telerik.Sitefinity.Modules.Pages.PageManager.GetManager();
+                    var redirectPage = manager.GetPageNode(currentSite.FrontEndLoginPageId);
+                    defaultLoginPageUrl = !redirectPage.IsDeleted ? Telerik.Sitefinity.Modules.Pages.PageExtesnsions.GetUrl(redirectPage, String.Empty, null, true) : string.Empty;
+                }
+                catch (ItemNotFoundException)
+                {
+                    defaultLoginPageUrl = string.Empty;
                 }
             }
             else if (!string.IsNullOrWhiteSpace(currentSite.FrontEndLoginPageUrl))
             {
                 defaultLoginPageUrl = currentSite.FrontEndLoginPageUrl;
+            }
+            else
+            {
+                defaultLoginPageUrl = string.Empty;
             }
 
             return Telerik.Sitefinity.Web.UrlPath.ResolveAbsoluteUrl(defaultLoginPageUrl);
