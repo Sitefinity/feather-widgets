@@ -132,11 +132,11 @@
 
         attachEvents: function () {
             var elements = this.ratingContainer.children();
-            elements.bind('click', $.proxy(this.selectElement, this));
-            elements.bind('mouseover', this.elementsRenderer(this).hover);
-            elements.bind('mouseout', this.elementsRenderer(this).drainHover);
-            elements.bind('focus', this.elementsRenderer(this).hover);
-            elements.bind('blur', this.elementsRenderer(this).reset);
+            elements.on('click', $.proxy(this.selectElement, this));
+            elements.on('mouseover', this.elementsRenderer(this).hover);
+            elements.on('mouseout', this.elementsRenderer(this).drainHover);
+            elements.on('focus', this.elementsRenderer(this).hover);
+            elements.on('blur', this.elementsRenderer(this).reset);
         },
 
         render: function () {
