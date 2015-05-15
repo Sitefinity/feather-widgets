@@ -587,14 +587,14 @@
 
                         // Get Subscribtion status only if user is logged in.
                         self.initializeSubscription();
-
-                        if (self.settings.useReviews) {
-                            self.initializeHasUserAlreadyReviewed();
-                        }
                     }
                     else if (self.settings.requiresAuthentication) {
                         self.newCommentForm().hide();
                         self.newCommentRequiresAuthentication().show();
+                    }
+                    
+                    if (self.settings.useReviews) {
+                        self.initializeHasUserAlreadyReviewed();
                     }
                 }
 
