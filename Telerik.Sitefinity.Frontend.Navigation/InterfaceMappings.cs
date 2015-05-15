@@ -2,6 +2,7 @@
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector;
 
 namespace Telerik.Sitefinity.Frontend.Navigation
 {
@@ -18,6 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation
             Bind<INavigationModel>().To<NavigationModel>();
             Bind<IBreadcrumbModel>().To<BreadcrumbModel>();
             Bind<ILanguageSelectorModel>().To<LanguageSelectorModel>();
+            Bind<ISiteSelectorModel>().To<SiteSelectorModel>();
         }
     }
 }

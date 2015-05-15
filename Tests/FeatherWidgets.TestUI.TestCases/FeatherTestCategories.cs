@@ -123,7 +123,7 @@ namespace FeatherWidgets.TestUI.TestCases
         /// <summary>
         /// New category for ScriptsAndStyles tests
         /// </summary>
-        public const string ScriptsAndStyles = "Css";
+        public const string ScriptsAndStyles = "ScriptsAndStyles";
 
         /// <summary>
         /// New category for Users list tests

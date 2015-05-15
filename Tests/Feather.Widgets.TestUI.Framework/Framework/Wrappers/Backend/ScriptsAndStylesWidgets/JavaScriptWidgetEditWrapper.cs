@@ -19,7 +19,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void IncludeJavaScriptInTagHeader()
         {
-            HtmlDiv includeJavaScriptInTagHeader = EM.ScriptsAndStyles.JavaScriptEditScreen.IncludeJavaScriptInHeadTag
+            HtmlInputRadioButton includeJavaScriptInTagHeader = EM.ScriptsAndStyles.JavaScriptEditScreen.IncludeJavaScriptInHeadTag
             .AssertIsPresent("Include JavaScript In Head Tag radio  button");
             includeJavaScriptInTagHeader.Click();
         }
@@ -29,7 +29,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void IncludeJavaScriptWhereTheWidgetIsDropped()
         {
-            HtmlDiv includeJavaScriptWhereTheWidgetIsDropped = EM.ScriptsAndStyles.JavaScriptEditScreen.IncludeJavaScriptWhereTheWidgetIsDropped
+            HtmlInputRadioButton includeJavaScriptWhereTheWidgetIsDropped = EM.ScriptsAndStyles.JavaScriptEditScreen.IncludeJavaScriptWhereTheWidgetIsDropped
             .AssertIsPresent("Include JavaScript Where The Widget Is Dropped radio  button");
             includeJavaScriptWhereTheWidgetIsDropped.Click();
         }
@@ -39,7 +39,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void IncludeJavaScriptBeforeTheClosingBodyTag()
         {
-            HtmlDiv includeJavaScriptBeforeTheClosingBodyTag = EM.ScriptsAndStyles.JavaScriptEditScreen.IncludeJavaScriptBeforeTheClosingBodyTag
+            HtmlInputRadioButton includeJavaScriptBeforeTheClosingBodyTag = EM.ScriptsAndStyles.JavaScriptEditScreen.IncludeJavaScriptBeforeTheClosingBodyTag
             .AssertIsPresent("Include JavaScript Before The Closing Body Tag radio  button");
             includeJavaScriptBeforeTheClosingBodyTag.Click();
         }
@@ -55,6 +55,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             var button = radioButton.Find.ByExpression<HtmlInputRadioButton>("tagname=input")
                   .AssertIsPresent("radio button");
             Assert.IsTrue(button.Checked);
+        }
+
+        /// <summary>
+        /// Verifies the tips.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void VerifyTips(string text)
+        {
+            ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a","sf-popover-title=Tips", "sf-popover-content=~" + text).AssertIsPresent("Tips");     
         }
     }
 }

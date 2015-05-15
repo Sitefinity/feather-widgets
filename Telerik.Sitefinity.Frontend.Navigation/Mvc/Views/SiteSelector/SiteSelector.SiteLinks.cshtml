@@ -1,0 +1,59 @@
+﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector.SiteSelectorViewModel
+
+@using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
+@using Telerik.Sitefinity.Services;
+
+<div class="@Model.CssClass">
+
+    <h1>Sites</h1>
+    <br />
+    @foreach (var site in Model.Sites)
+    {
+        <p>
+            @if (!Model.EachLanguageAsSeparateSite)
+            {
+                if (site.IsCurrent)
+                {
+                    <span>@site.Name site</span>
+                }
+                else if (SystemManager.IsDesignMode)
+                {   <a>@site.Name site</a>
+                }
+                else
+                {
+                    <a href="@site.Url">@site.Name site</a>
+                }
+            }
+            else if (Model.SiteLanguagesDisplayMode == SiteLanguagesDisplayMode.SiteNamesAndLanguages)
+            {
+                if (site.IsCurrent)
+                {
+                    <span>@site.Name site - @site.Language</span>
+                }
+                else if (SystemManager.IsDesignMode)
+                {
+                    <a>@site.Name site - @site.Language</a>
+                }
+                else
+                {
+                    <a href="@site.Url">@site.Name site - @site.Language</a>
+                }
+            }
+            else
+            {
+                if (site.IsCurrent)
+                {
+                    <span>@site.Language</span>
+                }
+                else if (SystemManager.IsDesignMode)
+                {
+                    <a>@site.Language</a>
+                }
+                else
+                {
+                    <a href="@site.Url">@site.Language</a>
+                }
+            }
+        </p>
+    }
+</div>

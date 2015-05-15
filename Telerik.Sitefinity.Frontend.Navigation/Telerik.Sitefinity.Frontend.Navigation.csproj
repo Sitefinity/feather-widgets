@@ -83,9 +83,9 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InterfaceMappings.cs" />
-
     <Compile Include="Mvc\Controllers\BreadcrumbController.cs" />
     <Compile Include="Mvc\Controllers\NavigationController.cs" />
+    <Compile Include="Mvc\Controllers\SiteSelectorController.cs" />
     <Compile Include="Mvc\Models\Breadcrumb\BreadcrumbIncludeOption.cs" />
     <Compile Include="Mvc\Models\Breadcrumb\BreadcrumbModel.cs" />
     <Compile Include="Mvc\Models\Breadcrumb\BreadcrumbViewModel.cs" />
@@ -102,9 +102,15 @@
     <Compile Include="Mvc\Models\NodeViewModel.cs" />
     <Compile Include="Mvc\Models\PageSelectionMode.cs" />
     <Compile Include="Mvc\Models\SelectedPageModel.cs" />
+    <Compile Include="Mvc\Models\SiteSelector\ISiteSelectorModel.cs" />
+    <Compile Include="Mvc\Models\SiteSelector\SiteLanguagesDisplayMode.cs" />
+    <Compile Include="Mvc\Models\SiteSelector\SiteSelectorModel.cs" />
+    <Compile Include="Mvc\Models\SiteSelector\SiteSelectorViewModel.cs" />
+    <Compile Include="Mvc\Models\SiteSelector\SiteViewModel.cs" />
     <Compile Include="Mvc\StringResources\BreadcrumbResources.cs" />
     <Compile Include="Mvc\StringResources\LanguageSelectorResources.cs" />
     <Compile Include="Mvc\StringResources\NavigationResources.cs" />
+    <Compile Include="Mvc\StringResources\SiteSelectorResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +130,10 @@
     <EmbeddedResource Include="Mvc\Views\LanguageSelector\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\LanguageSelector\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\LanguageSelector\LanguageSelector.DropDownMenu.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SiteSelector\SiteSelector.SiteLinks.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SiteSelector\SiteSelector.DropDownMenu.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SiteSelector\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\SiteSelector\DesignerView.Simple.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -137,6 +147,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Breadcrumb\designerview-simple.js" />
     <EmbeddedResource Include="Mvc\Scripts\LanguageSelector\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\SiteSelector\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

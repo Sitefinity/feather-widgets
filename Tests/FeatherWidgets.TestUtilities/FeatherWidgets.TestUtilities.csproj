@@ -143,6 +143,7 @@
     <Compile Include="CommonOperations\ServerOperationsFeather.cs" />
     <Compile Include="CommonOperations\Templates\TemplateOperations.cs" />
     <Compile Include="CommonOperations\Users\UsersOperations.cs" />
+    <EmbeddedResource Include="Data\CssFiles\JavaScriptWidgetTest.js" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

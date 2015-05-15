@@ -183,7 +183,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
 
             for (int i = 0; i < itemsCount; i++)
             {
-                Assert.IsTrue(items[i].InnerText.Contains(itemNames[i]));
+                Assert.IsTrue(items[i].InnerText.Contains(itemNames[i]), items[i].InnerText + " not contain" + itemNames[i]);
             }
         }
 
