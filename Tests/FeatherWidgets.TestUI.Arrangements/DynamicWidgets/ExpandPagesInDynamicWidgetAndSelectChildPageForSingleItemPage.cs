@@ -41,7 +41,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
         }
 
         private const string PageName = "TestPage";

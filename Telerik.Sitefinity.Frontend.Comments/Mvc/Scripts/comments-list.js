@@ -143,7 +143,7 @@
             Properties
         */
         isUserAuthenticated: false,
-        isSelectedSortButtonCssClass: 'is-selected',
+        isSelectedSortButtonCssClass: 'selected',
 
         getOrInitializeProperty: function (property, sfRole) {
             if (!this[property]) {
