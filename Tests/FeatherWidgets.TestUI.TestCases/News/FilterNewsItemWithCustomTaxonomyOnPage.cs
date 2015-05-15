@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News),
-        TestCategory(FeatherTestCategories.Selectors)]
+        TestCategory(FeatherTestCategories.Selectors), Ignore]
         public void FilterNewsItemWithCustomTaxonomyOnPage()
         {
             BAT.Macros().NavigateTo().Pages();
