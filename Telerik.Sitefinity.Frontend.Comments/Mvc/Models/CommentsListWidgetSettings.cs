@@ -160,5 +160,13 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// The has user already reviewed URL.
         /// </value>
         public string HasUserAlreadyReviewedUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the create comment URL.
+        /// </summary>
+        /// <value>
+        /// The create comment URL.
+        /// </value>
+        public string CreateCommentUrl { get; set; }
     }
 }

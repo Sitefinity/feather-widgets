@@ -1,43 +1,46 @@
 ﻿; (function ($) {
     'use strict';
 
-    var makeAjax = function (url, type, data) {
-        var options = {
-            type: type || 'GET',
-            url: url,
-            contentType: 'application/json',
-            accepts: {
-                text: 'application/json'
-            },
-            cache: false
-        };
-
-        if (data) {
-            options.data = data;
-        }
-
-        return $.ajax(options);
-    };
-
     /*
         Rest Api
     */
-    var CommentsRestApi = function (rootUrl) {
-        if (rootUrl && rootUrl[rootUrl.length - 1] !== '/') {
-            rootUrl += '/';
-        }
-
-        this.rootUrl = rootUrl;
+    var RestApi = function (rootUrl, createCommentUrl, isUserAuthenticatedUrl, hasUserAlreadyReviewedUrl) {
+        this.rootUrl = (rootUrl && rootUrl[rootUrl.length - 1] !== '/') ? (rootUrl + '/') : rootUrl;
+        this.createCommentUrl = (createCommentUrl && createCommentUrl[createCommentUrl.length - 1] !== '/') ? (createCommentUrl + '/') : createCommentUrl;
+        this.isUserAuthenticatedUrl = (isUserAuthenticatedUrl && isUserAuthenticatedUrl[isUserAuthenticatedUrl.length - 1] !== '/') ? (isUserAuthenticatedUrl + '/') : isUserAuthenticatedUrl;
+        this.hasUserAlreadyReviewedUrl = (hasUserAlreadyReviewedUrl && hasUserAlreadyReviewedUrl[hasUserAlreadyReviewedUrl.length - 1] !== '/') ? (hasUserAlreadyReviewedUrl + '/') : hasUserAlreadyReviewedUrl;
     };
 
-    CommentsRestApi.prototype = {
+    RestApi.prototype = {
+        getRandomNumber: function () {
+            return Math.random().toString().substr(2) + (new Date()).getTime();
+        },
+
+        makeAjax: function (url, type, data) {
+            var options = {
+                type: type || 'GET',
+                url: url,
+                contentType: 'application/json',
+                accepts: {
+                    text: 'application/json'
+                },
+                cache: false
+            };
+
+            if (data) {
+                options.data = data;
+            }
+
+            return $.ajax(options);
+        },
+
         getCommentsCount: function myfunction(threadKey, status) {
             var getCommentsCountUrl = this.rootUrl + 'comments/count?ThreadKey=' + threadKey;
             if (status) {
                 getCommentsCountUrl += '&Status=' + status;
             }
 
-            return makeAjax(getCommentsCountUrl).then(function (response) {
+            return this.makeAjax(getCommentsCountUrl).then(function (response) {
                 var count = 0;
 
                 if (response && response.Items) {
@@ -72,17 +75,17 @@
                 getCommentsUrl += '&NewerThan=' + encodeURIComponent(newerThan);
             }
 
-            return makeAjax(getCommentsUrl);
+            return this.makeAjax(getCommentsUrl);
         },
 
         createComment: function (comment) {
-            var createCommentUrl = this.rootUrl + 'comments';
-            return makeAjax(createCommentUrl, 'POST', JSON.stringify(comment));
+            var createCommentUrl = this.createCommentUrl || this.rootUrl + 'comments';
+            return this.makeAjax(createCommentUrl, 'POST', JSON.stringify(comment));
         },
 
         getSubscriptionStatus: function (threadKey) {
             var subscriptionStatusUrl = this.rootUrl + 'notifications/?threadKey=' + threadKey;
-            return makeAjax(subscriptionStatusUrl);
+            return this.makeAjax(subscriptionStatusUrl);
         },
 
         toggleSubscription: function (threadKey, unsubscribe) {
@@ -96,12 +99,25 @@
 
             toggleSubscriptionUrl += '?threadKey=' + threadKey;
 
-            return makeAjax(toggleSubscriptionUrl, 'POST');
+            return this.makeAjax(toggleSubscriptionUrl, 'POST');
         },
 
         getCaptcha: function () {
             var getCaptchaUrl = this.rootUrl + 'captcha';
-            return makeAjax(getCaptchaUrl);
+            return this.makeAjax(getCaptchaUrl);
+        },
+
+        getIsUserAuthenticated: function () {
+            var userAuthenticatedUrl = this.isUserAuthenticatedUrl;
+            userAuthenticatedUrl += '?_=' + this.getRandomNumber();
+            return this.makeAjax(userAuthenticatedUrl);
+        },
+
+        getHasUserAlreadyReviewed: function (threadKey) {
+            var userAlreadyReviewedUrl = this.hasUserAlreadyReviewedUrl;
+            userAlreadyReviewedUrl += '?ThreadKey=' + threadKey;
+            userAlreadyReviewedUrl += '&_=' + this.getRandomNumber();
+            return this.makeAjax(userAlreadyReviewedUrl);
         }
     };
 
@@ -193,10 +209,6 @@
         /*
             Widget methods
         */
-        getRandomNumber: function () {
-            return Math.random().toString().substr(2) + (new Date()).getTime();
-        },
-
         getSfStringFromDate: function (date) {
             return '/Date(' + date.getTime() + ')/';
         },
@@ -320,7 +332,7 @@
             self.isLoadingList = true;
             self.listLoadingIndicator().show();
 
-            return self.commentsRestApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
+            return self.restApi.getComments(self.settings.commentsThreadKey, skip, take, self.commentsSortedDescending, newerThan).then(function (response) {
                 if (response && response.Items && response.Items.length) {
                     self.commentsTakenSoFar += response.Items.length;
                     self.renderCommentsCount();
@@ -384,7 +396,7 @@
         toggleSubscription: function () {
             var self = this;
 
-            self.commentsRestApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
+            self.restApi.toggleSubscription(self.settings.commentsThreadKey, self.isSubscribedToNewComments).then(function (response) {
                 self.isSubscribedToNewComments = !self.isSubscribedToNewComments;
 
                 self.commentsSubscribeButtonText().text(self.isSubscribedToNewComments ? self.resources.unsubscribeLink : self.resources.subscribeLink);
@@ -402,12 +414,16 @@
 
             var comment = {
                 Message: self.newCommentMessage().val(),
-                ThreadKey: self.settings.commentsThreadKey
+                ThreadKey: self.settings.commentsThreadKey,
             };
 
             if (self.settings.useReviews) {
                 // TODO: Apply selected rating
                 comment.Rating = 4;
+            }
+            else {
+                // If rating option is enabled, Service requires a rating, even if comment is submited.
+                comment.Rating = 3;
             }
 
             if (!self.isUserAuthenticated) {
@@ -482,11 +498,11 @@
 
             self.validateComment(comment).then(function (isValid) {
                 if (isValid) {
-                    self.commentsRestApi.createComment(comment)
+                    self.restApi.createComment(comment)
                         .then(function (response) {
                             self.createCommentSuccess(response);
                         }, function (jqXHR) {
-                            createCommentFail(jqXHR);
+                            self.createCommentFail(jqXHR);
                         })
                         .always(function () {
                             self.endSubmitNewComment();
@@ -505,7 +521,7 @@
             self.captchaImage().attr("src", "");
             self.captchaInput().hide();
 
-            self.commentsRestApi.getCaptcha().then(function (data) {
+            self.restApi.getCaptcha().then(function (data) {
                 if (data) {
                     self.captchaImage().attr("src", "data:image/png;base64," + data.Image);
                     self.captchaData.iv = data.InitializationVector;
@@ -536,13 +552,11 @@
             Widget initialization
         */
         initializeProperties: function () {
-            this.commentsRestApi = new CommentsRestApi(this.settings.rootUrl);
+            this.restApi = new RestApi(this.settings.rootUrl, this.settings.createCommentUrl, this.settings.isUserAuthenticatedUrl, this.settings.hasUserAlreadyReviewedUrl);
 
             this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
-
-            // HIDE TEMPLATE !
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
@@ -566,16 +580,12 @@
         initializeUserStatus: function () {
             var self = this;
 
-            var isUserAuthenticatedUrl = self.settings.isUserAuthenticatedUrl;
-            if (isUserAuthenticatedUrl[isUserAuthenticatedUrl.length - 1] !== '/') {
-                isUserAuthenticatedUrl += '/';
-            }
-            isUserAuthenticatedUrl += '?_=' + self.getRandomNumber();
-            makeAjax(isUserAuthenticatedUrl).then(function (response) {
+            self.restApi.getIsUserAuthenticated().then(function (response) {
                 if (response) {
+                    self.commentsNewLoggedOutView().toggle(!response.IsAuthenticated);
+
                     if (response.IsAuthenticated) {
                         self.isUserAuthenticated = true;
-                        self.commentsNewLoggedOutView().hide();
 
                         // Get Subscribtion status only if user is logged in.
                         self.initializeSubscription();
@@ -597,7 +607,7 @@
         initializeSubscription: function () {
             var self = this;
 
-            self.commentsRestApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
+            self.restApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
                 if (response) {
                     self.isSubscribedToNewComments = response.IsSubscribed;
 
@@ -619,7 +629,7 @@
             var self = this;
 
             // Initial loading of comments count for thread
-            self.commentsRestApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
+            self.restApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
                 self.setAllCommentsCount(response);
             });
 
@@ -639,11 +649,7 @@
         initializeHasUserAlreadyReviewed: function () {
             var self = this;
 
-            var hasUserAlreadyReviewedUrl = self.settings.hasUserAlreadyReviewedUrl;
-            hasUserAlreadyReviewedUrl += '?ThreadKey=' + self.settings.commentsThreadKey;
-            hasUserAlreadyReviewedUrl += '&_=' + self.getRandomNumber();
-
-            makeAjax(hasUserAlreadyReviewedUrl).then(function (response) {
+            self.restApi.getHasUserAlreadyReviewed(self.settings.commentsThreadKey).then(function (response) {
                 if (response && response.AuthorAlreadyReviewed) {
                     self.newCommentForm().hide();
                     self.newCommentFormButton().hide();

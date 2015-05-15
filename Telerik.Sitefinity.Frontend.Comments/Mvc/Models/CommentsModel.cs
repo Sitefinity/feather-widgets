@@ -390,6 +390,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             var isUserAuthenticatedUrl = RouteHelper.ResolveUrl("~/RestApi/session/is-authenticated", UrlResolveOptions.Rooted);
             var rootUrl = RouteHelper.ResolveUrl("~/RestApi/comments-api/", UrlResolveOptions.Rooted);
             var hasUserAlreadyReviewedUrl = RouteHelper.ResolveUrl("~/RestApi/reviews-api", UrlResolveOptions.Rooted);
+            var createCommentUrl = RouteHelper.ResolveUrl("~/RestApi/reviews-api", UrlResolveOptions.Rooted);
 
             return new CommentsListWidgetSettings()
             {
@@ -413,6 +414,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 //// Reviews
                 UseReviews = useReviews,
                 HasUserAlreadyReviewedUrl = hasUserAlreadyReviewedUrl,
+                CreateCommentUrl = createCommentUrl
             };
         }
 
