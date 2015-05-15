@@ -6,7 +6,6 @@
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
-        @Html.CommentsCount("", @Model.Item.DataItem)
     </h3>
 
     <div>
@@ -23,6 +22,4 @@
     {
         @Html.SocialShareOptions()
     }
-
-    @Html.CommentsList(@Model.Item.DataItem)
 </div>
