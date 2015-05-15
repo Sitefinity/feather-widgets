@@ -142,5 +142,31 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         /// The comments thread.
         /// </value>
         public IThread CommentsThread { get; set; }
+        
+        //// Reviews
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use reviews].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [use reviews]; otherwise, <c>false</c>.
+        /// </value>
+        public bool UseReviews { get; set; }
+
+        /// <summary>
+        /// Gets or sets the has user already reviewed URL.
+        /// </summary>
+        /// <value>
+        /// The has user already reviewed URL.
+        /// </value>
+        public string HasUserAlreadyReviewedUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the create comment URL.
+        /// </summary>
+        /// <value>
+        /// The create comment URL.
+        /// </value>
+        public string CreateCommentUrl { get; set; }
     }
 }
