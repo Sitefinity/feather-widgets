@@ -196,6 +196,8 @@
     <Compile Include="MediaGalleryWidgets\ImageGalleryWidgetPagingLimitTests.cs" />
     <Compile Include="MediaGalleryWidgets\ImageGalleryWidgetSortingTests.cs" />
     <Compile Include="InlineClientAssets\StyleSheetWidgetTests.cs" />
+    <Compile Include="Navigation\BreadcrumbWidgetTests.cs" />
+    <Compile Include="Navigation\DummyBreadcrumbExtender.cs" />
     <Compile Include="Navigation\NavigationWidgetPageSelectionModeTests.cs" />
     <Compile Include="Navigation\NavigationWidgetPageTemplateTests.cs" />
     <Compile Include="News\NewsWidgetAdvancedSettingsTests.cs" />
