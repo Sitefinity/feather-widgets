@@ -19,7 +19,6 @@
     </h3>
     <div>
         @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
-        @Html.CommentsCount("", @Model.Item.DataItem)
     </div>
     
     @*GenerateFieldsSection*@
@@ -28,6 +27,4 @@
     {
         @Html.SocialShareOptions()
     }
-
-     @Html.CommentsList(@Model.Item.DataItem)
 </div>
