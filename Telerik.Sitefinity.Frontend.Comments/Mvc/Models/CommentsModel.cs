@@ -28,11 +28,6 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         {
             get
             {
-                if (this.threadKey.IsNullOrEmpty() && SiteMapBase.GetActualCurrentNode() != null)
-                {
-                    this.threadKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
-                }
-
                 return this.threadKey;
             }
             set
@@ -251,14 +246,15 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         #region Methods
 
         /// <inheritDoc/>
-        public CommentsListViewModel GetCommentsListViewModel(CommentsInputModel inputModel)
+        public CommentsListViewModel GetCommentsListViewModel(CommentsInputModel inputModel, bool useReviews)
         {
-            this.Initialize(inputModel);
+            this.Initialize(inputModel, useReviews);
+
             var allowComments = (inputModel != null && inputModel.AllowComments.HasValue) ? inputModel.AllowComments.Value : this.AllowComments;
             if (allowComments)
             {
                 var widgetResources = this.GetCommentsListWidgetResources();
-                var widgetSettings = this.GetCommentsListWidgetSettings(this.ThreadTitle);
+                var widgetSettings = this.GetCommentsListWidgetSettings(this.ThreadTitle, useReviews);
 
                 var jsonSerializerSettings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
                 var viewModel = new CommentsListViewModel()
@@ -289,6 +285,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public CommentsCountViewModel GetCommentsCountViewModel(CommentsCountInputModel inputModel)
         {
             this.ThreadKey = inputModel.ThreadKey;
+
             var allowComments = inputModel.AllowComments.HasValue ? inputModel.AllowComments.Value : this.AllowComments;
             if (allowComments)
             {
@@ -315,8 +312,10 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
 
         #region Private Methods
 
-        private void Initialize(CommentsInputModel commentsInputModel)
+        private void Initialize(CommentsInputModel commentsInputModel, bool useReviews)
         {
+            const string ReviewsSuffix = "_review";
+
             if (commentsInputModel == null)
                 return;
 
@@ -328,6 +327,19 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadKey))
             {
                 this.ThreadKey = commentsInputModel.ThreadKey;
+            }
+            else if (string.IsNullOrEmpty(this.ThreadKey) && SiteMapBase.GetActualCurrentNode() != null)
+            {
+                this.ThreadKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
+            }
+
+            if (useReviews && !this.ThreadKey.EndsWith(ReviewsSuffix))
+            {
+                this.ThreadKey = this.ThreadKey + ReviewsSuffix;
+            }
+            else if (!useReviews && this.ThreadKey.EndsWith(ReviewsSuffix))
+            {
+                this.ThreadKey = this.ThreadKey.Left(this.ThreadKey.Length - ReviewsSuffix.Length);
             }
 
             if (!string.IsNullOrEmpty(commentsInputModel.ThreadTitle))
@@ -358,14 +370,27 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 SubscribeToNewComments = Res.Get<CommentsWidgetResources>().SubscribeToNewComments,
                 YouAreSubscribedToNewComments = Res.Get<CommentsWidgetResources>().YouAreSubscribedToNewComments,
                 SuccessfullySubscribedToNewComments = Res.Get<CommentsWidgetResources>().SuccessfullySubscribedToNewComments,
-                SuccessfullyUnsubscribedFromNewComments = Res.Get<CommentsWidgetResources>().SuccessfullyUnsubscribedFromNewComments
+                SuccessfullyUnsubscribedFromNewComments = Res.Get<CommentsWidgetResources>().SuccessfullyUnsubscribedFromNewComments,
+                MessageIsRequired = Res.Get<CommentsWidgetResources>().MessageIsRequired,
+                NameIsRequired = Res.Get<CommentsWidgetResources>().NameIsRequired,
+                //// Reviews
+                RatingIsRequired = Res.Get<CommentsWidgetResources>().RatingIsRequired,
+                ReadFullReview = Res.Get<CommentsWidgetResources>().ReadFullReview,
+                ReviewSingular = Res.Get<CommentsWidgetResources>().Review,
+                ReviewPlural = Res.Get<CommentsWidgetResources>().ReviewsPlural,
+                SubscribeToNewReviews = Res.Get<CommentsWidgetResources>().SubscribeToNewReviews,
+                YouAreSubscribedToNewReviews = Res.Get<CommentsWidgetResources>().YouAreSubscribedToNewReviews,
+                SuccessfullySubscribedToNewReviews = Res.Get<CommentsWidgetResources>().SuccessfullySubscribedToNewReviews,
+                ThankYouReviewSubmited = Res.Get<CommentsWidgetResources>().ThankYouReviewSubmited
             };
         }
 
-        private CommentsListWidgetSettings GetCommentsListWidgetSettings(string threadTitle)
+        private CommentsListWidgetSettings GetCommentsListWidgetSettings(string threadTitle, bool useReviews)
         {
-            var isUserAuthenticatedUrl =  RouteHelper.ResolveUrl("~/RestApi/session/is-authenticated", UrlResolveOptions.Rooted);
+            var isUserAuthenticatedUrl = RouteHelper.ResolveUrl("~/RestApi/session/is-authenticated", UrlResolveOptions.Rooted);
             var rootUrl = RouteHelper.ResolveUrl("~/RestApi/comments-api/", UrlResolveOptions.Rooted);
+            var hasUserAlreadyReviewedUrl = RouteHelper.ResolveUrl("~/RestApi/reviews-api", UrlResolveOptions.Rooted);
+            var createCommentUrl = RouteHelper.ResolveUrl("~/RestApi/reviews-api", UrlResolveOptions.Rooted);
 
             return new CommentsListWidgetSettings()
             {
@@ -385,7 +410,11 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
                 RootUrl = rootUrl,
                 UserAvatarImageUrl = this.UserAvatarImageUrl,
-                UserDisplayName = this.UserDisplayName
+                UserDisplayName = this.UserDisplayName,
+                //// Reviews
+                UseReviews = useReviews,
+                HasUserAlreadyReviewedUrl = hasUserAlreadyReviewedUrl,
+                CreateCommentUrl = createCommentUrl
             };
         }
 

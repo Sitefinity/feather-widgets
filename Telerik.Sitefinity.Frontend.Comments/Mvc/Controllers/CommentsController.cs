@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources;
@@ -44,7 +42,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         /// <summary>
         /// Gets or sets the name of the template that widget will be displayed.
         /// </summary>
-        /// <value></value>
+        /// <value>
+        /// The name of the template
+        /// </value>
         public string TemplateName
         {
             get
@@ -70,7 +70,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         {
             if (commentsInputModel == null || !commentsInputModel.AllowComments.HasValue || commentsInputModel.AllowComments.Value)
             {
-                var model = this.Model.GetCommentsListViewModel(commentsInputModel);
+                var model = this.Model.GetCommentsListViewModel(commentsInputModel, false);
 
                 if (model != null)
                 {
@@ -106,10 +106,12 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
         #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfCommentsIcn sfMvcIcn";
+
         private ICommentsModel model;
-        private string templateName = "Default";
+
         private string templateNamePrefix = "Comments.";
-        private string countTemplateName = "Count.Default";
+        private string templateName = "Default";
+        private string countTemplateName = "CommentsCount.Default";
 
         #endregion
     }
