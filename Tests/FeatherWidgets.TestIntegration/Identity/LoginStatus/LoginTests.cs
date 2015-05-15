@@ -155,7 +155,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
                 this.pageOperations.CreatePageWithControl(mvcProxy, this.pageNamePrefix, this.pageTitlePrefix, this.urlNamePrefix, this.pageIndex);
 
                 var responseContent = PageInvoker.ExecuteWebRequest(logoutStatusPageUrl);
-                Assert.IsTrue(responseContent.Contains(absoluteUrl), "Logout redirect url is not as expected");
+                Assert.IsTrue(responseContent.Contains(HttpUtility.UrlEncode(absoluteUrl)), "Logout redirect url is not as expected");
             }
             finally
             {
