@@ -314,11 +314,13 @@
 
             // Comments count value
             this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
-            this.newCommentFormButton().toggle(this.allCommentsCount > 0);
+
+            // Comments write comment button
+            this.newCommentFormButton().attr('display', this.allCommentsCount > 0 ? 'inline-block' : 'none');
 
             // Comments sort buttons
-            this.commentsSortNewButton().toggle(this.allCommentsCount > 1);
-            this.commentsSortOldButton().toggle(this.allCommentsCount > 1);
+            this.commentsSortNewButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
+            this.commentsSortOldButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
 
             // Comments load more button
             this.commentsLoadMoreButton().toggle(this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
