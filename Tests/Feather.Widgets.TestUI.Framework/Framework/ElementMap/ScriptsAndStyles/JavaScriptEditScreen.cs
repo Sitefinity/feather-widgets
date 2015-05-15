@@ -26,11 +26,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ScriptsAndStyles
         /// Gets the include JavaScript in head.
         /// </summary>
         /// <value>The include JavaScript in head.</value>
-        public HtmlDiv IncludeJavaScriptInHeadTag
+        public HtmlInputRadioButton IncludeJavaScriptInHeadTag
         {
             get
             {
-                return this.Get<HtmlDiv>("class=radio", "innertext~=In the head tag");
+                return this.Get<HtmlInputRadioButton>("tagname=input", "value=Head");
             }
         }
 
@@ -38,11 +38,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ScriptsAndStyles
         /// Gets the include JavaScript where the widget is dropped.
         /// </summary>
         /// <value>The include JavaScript where the widget is dropped.</value>
-        public HtmlDiv IncludeJavaScriptWhereTheWidgetIsDropped
+        public HtmlInputRadioButton IncludeJavaScriptWhereTheWidgetIsDropped
         {
             get
             {
-                return this.Get<HtmlDiv>("class=radio", "innertext~=Where the widget is dropped");
+                return this.Get<HtmlInputRadioButton>("tagname=input", "value=InPlace");
             }
         }
 
@@ -50,11 +50,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.ScriptsAndStyles
         /// Gets the include JavaScript before the closing body tag.
         /// </summary>
         /// <value>The include JavaScript before the closing body tag.</value>
-        public HtmlDiv IncludeJavaScriptBeforeTheClosingBodyTag
+        public HtmlInputRadioButton IncludeJavaScriptBeforeTheClosingBodyTag
         {
             get
             {
-                return this.Get<HtmlDiv>("class=radio", "innertext~=Before the closing body tag");
+                return this.Get<HtmlInputRadioButton>("tagname=input", "value=BeforeBodyEndTag");
             }
         }
     }

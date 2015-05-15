@@ -140,6 +140,10 @@
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
     <Compile Include="Identity\VerifySelectedRolesInUsersListOnBootstrapPage.cs" />
     <Compile Include="ScriptsAndStyles\AddCssWidgetToPageAndWriteAndRemoveCss.cs" />
+    <Compile Include="ScriptsAndStyles\AddJavaScriptBeforeTheClosingBodyTag.cs" />
+    <Compile Include="ScriptsAndStyles\AddJavaScriptWhereTheWidgetIsDropped.cs" />
+    <Compile Include="ScriptsAndStyles\JavaScriptWidgetOnPageTemplateAndAddDescription.cs" />
+    <Compile Include="ScriptsAndStyles\SelectJavaScriptFileInJavaScriptWidget.cs" />
     <Compile Include="ScriptsAndStyles\DuplicateCssWidgetOnPage.cs" />
     <Compile Include="MediaWidgets\VideoWidgetInsertVideo.cs" />
     <Compile Include="MediaWidgets\VideoWidgetEditAndChangeSelectedVideo.cs" />

@@ -10,27 +10,24 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
     /// <summary>
-    /// AddJavaScriptWidgetToPageAndWriteAndRemoveCode test class.
+    /// AddJavaScriptWhereTheWidgetIsDropped test class.
     /// </summary>
     [TestClass]
-    public class AddJavaScriptWidgetToPageAndWriteAndRemoveCode_ : FeatherTestCase
+    public class AddJavaScriptWhereTheWidgetIsDropped_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test AddJavaScriptWidgetToPageAndWriteAndRemoveCode
+        /// UI test AddJavaScriptWhereTheWidgetIsDropped
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
-        public void AddJavaScriptWidgetToPageAndWriteAndRemoveCode()
-
+        public void AddJavaScriptWhereTheWidgetIsDropped()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().VerifyTips("Start writing your JavaScript");
-            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().VerifyCheckedRadioButtonOption(JavaScriptLocation);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().IncludeJavaScriptWhereTheWidgetIsDropped();
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(JavaScriptValue);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyJavaScriptWidgetText(Script);
@@ -42,34 +39,32 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(string.Empty);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().VerifyCheckedRadioButtonOption(JavaScriptLocation);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().IncludeJavaScriptBeforeTheClosingBodyTag();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyJavaScriptWidgetText(Script, false);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyJavaScriptWidgetText(JavaScriptValue, false);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyJavaScriptWidgetText(JavaScriptLocation, false);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyJavaScriptWidgetText(Script);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyJavaScriptWidgetText(JavaScriptValue);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyJavaScriptWidgetText(JavaScriptNewLocation);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            this.VerifyCssNotExistOnTheFrontend();
+            this.VerifyCodeExistOnTheFrontend(true);
         }
 
         /// <summary>
         /// Verify javascript exists on the frontend
         /// </summary>
-        public void VerifyCodeExistOnTheFrontend()
+        public void VerifyCodeExistOnTheFrontend(bool isLocationOptionChanged = false)
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(JavaScriptValue);
             Assert.IsTrue(isContained, string.Concat("Expected ", JavaScriptValue, " but the script is not found"));
-            BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyJavaScriptInHeadTag(JavaScriptValue);
-        }
-
-        /// <summary>
-        /// Verify javascript does not exist on the frontend
-        /// </summary>
-        public void VerifyCssNotExistOnTheFrontend()
-        {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(JavaScriptValue);
-            Assert.IsFalse(isContained, string.Concat("Expected ", JavaScriptValue, " but the script is not found"));
+            if (isLocationOptionChanged)
+            {
+                BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyJavaScriptBeforeTheClosingBodyTag(JavaScriptValue);
+            }
+            else 
+            {
+                BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyJavaScriptWhereTheWidgetIsDropped(JavaScriptValue);
+            }
         }
 
         /// <summary>
@@ -78,7 +73,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(TestArrangement).ExecuteSetUp();
         }
 
         /// <summary>
@@ -86,13 +81,15 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// </summary>
         protected override void ServerCleanup()
         {
-            BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(TestArrangement).ExecuteTearDown();
         }
 
+        private const string TestArrangement = "AddJavaScriptBeforeTheClosingBodyTag";
         private const string PageName = "PageWithJavaScriptWidget";
         private const string WidgetName = "JavaScript";
         private const string JavaScriptValue = "var a = 5;";
         private const string Script = "<script type=\"text/javascript\">";
-        private const string JavaScriptLocation = "In the head tag";
+        private const string JavaScriptLocation = "Where the widget is dropped";
+        private const string JavaScriptNewLocation = "Before the closing body tag";
     }
 }

@@ -252,6 +252,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds the java script widget to page.
+        /// </summary>
+        /// <param name="pageId">The page id.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddJavaScriptWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(JavaScriptController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "JavaScript", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Adds profile widget to existing page
         /// </summary>
         /// <param name="pageId">Page id value</param>
