@@ -316,14 +316,14 @@
             this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
 
             // Comments write comment button
-            this.newCommentFormButton().attr('display', this.allCommentsCount > 0 ? 'inline-block' : 'none');
+            this.newCommentFormButton().css('display', this.allCommentsCount > 0 ? 'inline-block' : 'none');
 
             // Comments sort buttons
-            this.commentsSortNewButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
-            this.commentsSortOldButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
+            this.commentsSortNewButton().css('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
+            this.commentsSortOldButton().css('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
 
             // Comments load more button
-            this.commentsLoadMoreButton().attr('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
+            this.commentsLoadMoreButton().css('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
         },
 
         loadComments: function (skip, take, newerThan) {
