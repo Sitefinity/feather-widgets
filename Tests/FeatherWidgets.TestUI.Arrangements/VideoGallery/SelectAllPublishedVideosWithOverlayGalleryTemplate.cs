@@ -22,14 +22,14 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
 
-            ServerOperationsFeather.Pages().AddImageGalleryWidgetToPage(pageId, PlaceHolderId);
+            ServerOperationsFeather.Pages().AddVideoGalleryWidgetToPage(pageId, PlaceHolderId);
 
-            ServerSideUpload.CreateAlbum(ImageLibraryTitle);
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 1, ImageResource1);
+            ServerSideUpload.CreateVideoLibrary(VideoLibraryTitle);
+            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 1, VideoResource1);
 
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 2, ImageResource2);
+            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 2, VideoResource2);
 
-            ServerSideUpload.UploadImage(ImageLibraryTitle, ImageTitle + 3, ImageResource3);
+            ServerSideUpload.UploadVideo(VideoLibraryTitle, VideoTitle + 3, VideoResource3);
         }
 
         /// <summary>
@@ -43,12 +43,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         private const string PageTemplateName = "Bootstrap.default";
-        private const string PageName = "PageWithImage";
-        private const string ImageLibraryTitle = "TestImageLibrary";
-        private const string ImageTitle = "Image";
-        private const string ImageResource1 = "Telerik.Sitefinity.TestUtilities.Data.Images.1.jpg";
-        private const string ImageResource2 = "Telerik.Sitefinity.TestUtilities.Data.Images.2.jpg";
-        private const string ImageResource3 = "Telerik.Sitefinity.TestUtilities.Data.Images.3.jpg";
+        private const string PageName = "PageWithVideo";
+        private const string VideoLibraryTitle = "TestVideoLibrary";
+        private const string VideoTitle = "Video";
+        private const string VideoResource1 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny1.mp4";
+        private const string VideoResource2 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny2.mp4";
+        private const string VideoResource3 = "Telerik.Sitefinity.TestUtilities.Data.Videos.big_buck_bunny3.mp4";
         private const string PlaceHolderId = "Contentplaceholder1";
     }
 }

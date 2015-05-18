@@ -27,9 +27,9 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.selectedLibrariesOnly);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(ChildImageLibrary);        
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(ChildVideoLibrary);        
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(new string[] { LibraryName + " > " + ChildImageLibrary });
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(new string[] { LibraryName + " > " + ChildVideoLibrary });
 
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToSingleItemSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectRadioButtonOption(WidgetDesignerRadioButtonIds.existingPage);
@@ -42,12 +42,12 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             {
                 if (i <= 2)
                 {
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageIsNotPresent(ImageBaseTitle + i);
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageIsNotPresent(VideoBaseTitle + i);
                 }
                 else
                 {
-                    string src = this.GetImageSource(false, ImageBaseTitle + i, ImageType);
-                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(ImageBaseTitle + i, src);
+                    string src = this.GetVideoSource(false, VideoBaseTitle + i, ImageType);
+                    BATFeather.Wrappers().Backend().Pages().PageZoneEditorMediaWrapper().VerifyImageThumbnail(VideoBaseTitle + i, src);
                 }
             }
      
@@ -56,25 +56,26 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
 
             for (int i = 1; i <= 4; i++)
             {
+
                 if (i <= 2)
                 {
-                    BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImageIsNotPresent(ImageAltText + i);
+                    BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImageIsNotPresent(VideoAltText + i);
                 }
                 else
                 {
-                    var src = this.GetImageSource(false, ImageBaseTitle + i, ImageType);
-                    BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + i, src);
+                    var src = this.GetVideoSource(false, VideoBaseTitle + i, ImageType);
+                    BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(VideoAltText + i, src);
                 }
             }
 
-            BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(ImageAltText + 3);
-            var scr = this.GetImageSource(false, ImageBaseTitle + 3, string.Empty);
+            BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().ClickImage(VideoAltText + 3);
+            var scr = this.GetVideoSource(false, VideoBaseTitle + 3, string.Empty);
             string url = SingleItemPage.ToLower() + scr;
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().IsImageTitlePresentOnDetailMasterPage(ImageBaseTitle + 3));
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().IsVideoTitlePresentOnDetailMasterPage(VideoBaseTitle + 3));
 
-            scr = this.GetImageSource(false, ImageBaseTitle + 3, ImageTypeFrontend);
-            BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 3, scr);          
+            scr = this.GetVideoSource(true, VideoBaseTitle + 3, VideoType);
+            BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyVideo(scr);          
         }
 
         /// <summary>
@@ -94,30 +95,23 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType)
+        private string GetVideoSource(bool isBaseUrlIncluded, string videoName, string videoType)
         {
-            string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
-            string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string libraryUrl = LibraryName.ToLower() + "/" + ChildVideoLibrary.ToLower();
+            string imageUrl = videoName.ToLower() + videoType.ToLower();
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos");
             return scr;
         }
 
-        private string GetImageHref(bool isBaseUrlIncluded, string imageName)
-        {
-            string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
-            string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, PageName.ToLower() + "/images");
-            return href;
-        }
 
-        private const string PageName = "PageWithImage";
-        private const string ImageBaseTitle = "Image";
-        private const string WidgetName = "Image gallery";
-        private const string LibraryName = "TestImageLibrary";
-        private const string ImageAltText = "AltTextImage";
+        private const string PageName = "PageWithVideo";
+        private const string VideoBaseTitle = "Video";
+        private const string WidgetName = "Video gallery";
+        private const string LibraryName = "TestVideoLibrary";
+        private const string VideoAltText = "Video";
         private const string ImageType = ".TMB";
-        private const string ImageTypeFrontend = ".JPG";
-        private const string ChildImageLibrary = "ChildImageLibrary";
+        private const string VideoType = ".webm";
+        private const string ChildVideoLibrary = "ChildVideoLibrary";
         private const string SingleItemPage = "TestPage";
     }
 }

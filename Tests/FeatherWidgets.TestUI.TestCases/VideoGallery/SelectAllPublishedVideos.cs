@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             BATFeather.Wrappers().Frontend().VideoGallery().VideoGalleryWrapper().VerifyBackToAllVideos(hrefBack);
         }
 
-     /*   /// <summary>
+        /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
         protected override void ServerSetup()
@@ -81,7 +81,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
-        }*/
+        }
 
         private string GetVideoSource(bool isBaseUrlIncluded, string videoName, string videoType)
         {

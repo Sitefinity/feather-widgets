@@ -85,11 +85,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// Verifies the selected Video overlay template.
         /// </summary>
         /// <param name="altText">The alt text.</param>
-        public void VerifySelectedVideoOverlayTemplate(string altText)
+        public void VerifySelectedVideoOverlayTemplate(string src)
         {
-            ActiveBrowser.WaitForElementWithCssClass("mfp-img");
-            ActiveBrowser.Find.ByExpression<HtmlVideo>("class=mfp-img", "alt=" + altText)
-                .AssertIsPresent("Overlay Video");
+            FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, src + "?sfvrsn=0", 0);
+            Assert.IsNotNull(frameInfo, "frame info not found");
         }
 
         /// <summary>
