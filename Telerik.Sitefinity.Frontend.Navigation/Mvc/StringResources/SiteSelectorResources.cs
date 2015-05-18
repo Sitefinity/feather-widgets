@@ -287,6 +287,39 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
                 return this["LanguageOnlyExample3"];
             }
         }
+
+        /// <summary>
+        /// Word: Sites
+        /// </summary>
+        /// <value>Sites</value>
+        [ResourceEntry("Sites",
+            Value = "Sites",
+            Description = "Word: Sites",
+            LastModified = "2015/05/14")]
+        public string Sites
+        {
+            get
+            {
+                return this["Sites"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Other sites
+        /// </summary>
+        /// <value>Other sites</value>
+        [ResourceEntry("OtherSites",
+            Value = "Other sites",
+            Description = "phrase: Other sites",
+            LastModified = "2015/05/14")]
+        public string OtherSites
+        {
+            get
+            {
+                return this["OtherSites"];
+            }
+        }
+
         #endregion
     }
 }
