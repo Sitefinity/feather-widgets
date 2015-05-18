@@ -4,7 +4,7 @@
     /*
         Widget
     */
-    var CommentsCountWidget = function (rootUrl, resources) {
+    var CommentsCountWidget = function (rootUrl, resources, useReviews) {
         if (rootUrl === null || rootUrl.length === 0)
             rootUrl = '/';
         else if (rootUrl.charAt(rootUrl.length - 1) !== '/')
@@ -12,12 +12,14 @@
 
         this.rootUrl = rootUrl;
         this.resources = resources;
+        this.useReviews = useReviews;
     };
 
     CommentsCountWidget.prototype = {
         getCommentsCounts: function () {
             var threadKeys = this.collectThreadIds();
-            var getCommentsCountsUrl = this.rootUrl + 'comments/count?ThreadKey=' + encodeURIComponent(threadKeys);
+            var commentsCountSubpath = this.useReviews ? 'reviews_statistics' : 'count';
+            var getCommentsCountsUrl = this.rootUrl + 'comments/' + commentsCountSubpath + '?ThreadKey=' + encodeURIComponent(threadKeys);
 
             return $.ajax({
                 type: 'GET',
@@ -48,23 +50,21 @@
 
         setCommentsCounts: function (threadCountList) {
             var self = this;
-            for (var i = 0; i < threadCountList.Items.length; i++) {
-                if (threadCountList.Items[i].Count == -1) {
-                    continue;
+            for (var i = 0; i < threadCountList.length; i++) {
+                if (threadCountList[i].Count >= 0) {
+                    $('div[data-sf-thread-key="' + threadCountList[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList[i].Count, threadCountList[i].AverageRating));
                 }
-                
-                $('div[data-sf-thread-key="' + threadCountList.Items[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList.Items[i].Count));
             }
         },
-        
-        populateCommentsCountTextCallBack: function (currentCount) {
+
+        populateCommentsCountTextCallBack: function (currentCount, currentRating) {
             var self = this;
             return function (index, element) {
-                self.populateCommentsCountText($(element), currentCount);
+                self.populateCommentsCountText($(element), currentCount, currentRating);
             };
         },
 
-        populateCommentsCountText: function (element, currentCount) {
+        populateCommentsCountText: function (element, currentCount, currentRating) {
             var currentCountFormatted = '';
             if (!currentCount) {
                 currentCountFormatted = this.resources.leaveComment;
@@ -78,8 +78,18 @@
                     currentCountFormatted += ' ' + this.resources.commentsPlural.toLowerCase();
             }
 
-            //set the comments count text in the counter control
+            // set the comments count text in the counter control
             element.find('[data-sf-role="comments-count-anchor-text"]').text(currentCountFormatted);
+
+            // render average rating
+            if (currentCount && this.useReviews) {
+                var averageRatingEl = $('<span />');
+                averageRatingEl.mvcRating({ readOnly: true, value: currentRating });
+                averageRatingEl.prepend($('<span />').text(this.resources.averageRating));
+                averageRatingEl.append($('<span />').text('(' + currentRating + ')'));
+
+                element.prepend(averageRatingEl);
+            }
         },
 
         initialize: function () {
@@ -87,7 +97,7 @@
 
             self.getCommentsCounts().then(function (response) {
                 if (response) {
-                    self.setCommentsCounts(response);
+                    self.setCommentsCounts(response.Items || response);
                 }
             });
 
@@ -102,7 +112,8 @@
     */
     $(function () {
         var serviceUrl = $('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="service-url"]').val();
+        var useReviews = Boolean($('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="comments-use-reviews"]').val());
         var resources = JSON.parse($('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="comments-count-resources"]').val());
-        (new CommentsCountWidget(serviceUrl, resources)).initialize();
+        (new CommentsCountWidget(serviceUrl, resources, useReviews)).initialize();
     });
 }(jQuery));

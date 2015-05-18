@@ -640,7 +640,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
-         /// <summary>
+        /// <summary>
         /// Gets phrase : You've already submitted a review for this item
         /// </summary>
         [ResourceEntry("UserAlreadySubmitedReview",
@@ -654,6 +654,23 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
                 return this["UserAlreadySubmitedReview"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Average rating:
+        /// </summary>
+        [ResourceEntry("AverageRating",
+            Value = "Average rating:",
+            Description = "phrase : Average rating:",
+            LastModified = "2015/05/18")]
+        public string AverageRating
+        {
+            get
+            {
+                return this["AverageRating"];
+            }
+        }
+
+        
 
         #endregion
 

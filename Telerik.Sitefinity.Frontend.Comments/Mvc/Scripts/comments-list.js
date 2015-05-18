@@ -361,7 +361,9 @@
             this.allCommentsCount = count;
             this.renderCommentsCount();
 
-            $(document).trigger('sf-comments-count-received', { key: this.settings.commentsThreadKey, count: this.allCommentsCount });
+            if (!this.settings.useReviews) {
+                $(document).trigger('sf-comments-count-received', { key: this.settings.commentsThreadKey, count: this.allCommentsCount });
+            }
         },
 
         refreshComments: function (self, isNewCommentPosted) {
