@@ -587,8 +587,6 @@
 
             self.restApi.getIsUserAuthenticated().then(function (response) {
                 if (response) {
-                    self.commentsNewLoggedOutView().toggle(!response.IsAuthenticated);
-
                     if (response.IsAuthenticated) {
                         self.isUserAuthenticated = true;
 
