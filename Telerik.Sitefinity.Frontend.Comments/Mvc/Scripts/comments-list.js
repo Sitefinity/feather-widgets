@@ -316,14 +316,14 @@
             this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
 
             // Comments write comment button
-            this.newCommentFormButton().attr('display', this.allCommentsCount > 0 ? 'inline-block' : 'none');
+            this.newCommentFormButton().css('display', this.allCommentsCount > 0 ? 'inline-block' : 'none');
 
             // Comments sort buttons
-            this.commentsSortNewButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
-            this.commentsSortOldButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
+            this.commentsSortNewButton().css('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
+            this.commentsSortOldButton().css('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
 
             // Comments load more button
-            this.commentsLoadMoreButton().attr('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
+            this.commentsLoadMoreButton().css('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
         },
 
         loadComments: function (skip, take, newerThan) {
@@ -449,7 +449,10 @@
             this.newCommentMessage().val('');
             this.newCommentName().val('');
             this.newCommentEmail().val('');
-            this.newCommentRatingContainer.setValue(0);
+
+            if (this.newCommentRatingContainer) {
+                this.newCommentRatingContainer.setValue(0);
+            }
         },
 
         endSubmitNewComment: function () {
@@ -554,7 +557,11 @@
             this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
-            this.newCommentRatingContainer = this.newCommentRating().mvcRating();
+
+            var rContainer = this.newCommentRating();
+            if (rContainer && rContainer.length) {
+                this.newCommentRatingContainer = rContainer.mvcRating();
+            }
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
@@ -580,8 +587,6 @@
 
             self.restApi.getIsUserAuthenticated().then(function (response) {
                 if (response) {
-                    self.commentsNewLoggedOutView().toggle(!response.IsAuthenticated);
-
                     if (response.IsAuthenticated) {
                         self.isUserAuthenticated = true;
 

@@ -151,8 +151,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         {
             var items = ActiveBrowser.Find.AllByExpression<HtmlImage>("tagname=img", "alt=~AltText_Image");
 
+            if (items.Count == 0)
+            {
+                items = ActiveBrowser.Find.AllByExpression<HtmlImage>("tagname=img", "alt=~Video");
+            }
+
             int itemsCount = items.Count;
-            Assert.IsNotNull(itemsCount);
             Assert.AreNotEqual(0, itemsCount);
 
             for (int i = 0; i < itemsCount; i++)
