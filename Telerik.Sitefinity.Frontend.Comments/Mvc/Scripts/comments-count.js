@@ -48,13 +48,20 @@
             return threadKeys;
         },
 
-        setCommentsCounts: function (threadCountList) {
+        setCommentsCounts: function () {
             var self = this;
-            for (var i = 0; i < threadCountList.length; i++) {
-                if (threadCountList[i].Count >= 0) {
-                    $('div[data-sf-thread-key="' + threadCountList[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList[i].Count, threadCountList[i].AverageRating));
+
+            self.getCommentsCounts().then(function (response) {
+                if (response) {
+                    var threadCountList = response.Items || response;
+
+                    for (var i = 0; i < threadCountList.length; i++) {
+                        if (threadCountList[i].Count >= 0) {
+                            $('div[data-sf-thread-key="' + threadCountList[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList[i].Count, threadCountList[i].AverageRating));
+                        }
+                    }
                 }
-            }
+            });
         },
 
         populateCommentsCountTextCallBack: function (currentCount, currentRating) {
@@ -83,7 +90,10 @@
 
             // render average rating
             if (currentCount && this.useReviews) {
-                var averageRatingEl = $('<span />');
+                // remove if any old ratings
+                element.find('[data-sf-role="rating-average"]').remove();
+
+                var averageRatingEl = $('<span data-sf-role="rating-average" />');
                 averageRatingEl.mvcRating({ readOnly: true, value: currentRating });
                 averageRatingEl.prepend($('<span />').text(this.resources.averageRating));
                 averageRatingEl.append($('<span />').text('(' + currentRating + ')'));
@@ -91,20 +101,21 @@
                 element.prepend(averageRatingEl);
             }
         },
-
+        
         initialize: function () {
             var self = this;
 
-            self.getCommentsCounts().then(function (response) {
-                if (response) {
-                    self.setCommentsCounts(response.Items || response);
-                }
-            });
+            self.setCommentsCounts();
 
             $(document).on('sf-comments-count-received', function (event, args) {
-                $('div[data-sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count));
+                if (self.useReviews) {
+                    self.setCommentsCounts();
+                }
+                else {
+                    $('div[data-sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count));
+                }
             });
-        }
+        },
     };
 
     /*
