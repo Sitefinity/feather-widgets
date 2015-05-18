@@ -226,6 +226,11 @@
             return date.toISOString();
         },
 
+        isValidEmail: function (email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        },
+
         validateComment: function (comment) {
             var deferred = $.Deferred();
             var isValid = true;
@@ -238,6 +243,11 @@
             if (!this.isUserAuthenticated && comment.Name.length < 1) {
                 isValid = false;
                 this.newCommentName().after(this.errorMessage().clone(true).text(this.resources.nameIsRequired).show());
+            }
+
+            if (!this.isUserAuthenticated && comment.Email && !this.isValidEmail(comment.Email)) {
+                isValid = false;
+                this.newCommentEmail().after(this.errorMessage().clone(true).text(this.resources.invalidEmailFormat).show());
             }
 
             if (this.settings.useReviews && !comment.Rating) {

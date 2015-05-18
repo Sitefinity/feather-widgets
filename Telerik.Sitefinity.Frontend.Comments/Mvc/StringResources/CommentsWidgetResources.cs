@@ -382,6 +382,21 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Invalid email format!
+        /// </summary>
+        [ResourceEntry("InvalidEmailFormat",
+            Value = "Invalid email format!",
+            Description = "phrase : Invalid email format!",
+            LastModified = "2015/05/18")]
+        public string InvalidEmailFormat
+        {
+            get
+            {
+                return this["InvalidEmailFormat"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase :  to be able to comment
         /// </summary>
         [ResourceEntry("ToBeAbleToComment",
