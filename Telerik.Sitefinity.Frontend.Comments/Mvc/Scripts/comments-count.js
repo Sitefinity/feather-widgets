@@ -78,17 +78,17 @@
                     currentCountFormatted += ' ' + this.resources.commentsPlural.toLowerCase();
             }
 
-            //set the comments count text in the counter control
-            var countAnchorText = element.find('[data-sf-role="comments-count-anchor-text"]');
-            countAnchorText.text(currentCountFormatted);
+            // set the comments count text in the counter control
+            element.find('[data-sf-role="comments-count-anchor-text"]').text(currentCountFormatted);
 
+            // render average rating
             if (currentCount && this.useReviews) {
-                var ratingEl = $('<span />');
-                ratingEl.mvcRating({ readOnly: true, value: currentRating });
-                ratingEl.prepend($('<span />').text(this.resources.averageRating));
-                ratingEl.append($('<span />').text('(' + currentRating + ')'));
+                var averageRatingEl = $('<span />');
+                averageRatingEl.mvcRating({ readOnly: true, value: currentRating });
+                averageRatingEl.prepend($('<span />').text(this.resources.averageRating));
+                averageRatingEl.append($('<span />').text('(' + currentRating + ')'));
 
-                element.prepend(ratingEl);
+                element.prepend(averageRatingEl);
             }
         },
 
