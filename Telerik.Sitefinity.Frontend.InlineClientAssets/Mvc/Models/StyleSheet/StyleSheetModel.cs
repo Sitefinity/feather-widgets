@@ -93,8 +93,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet
             string markup;
             if (!string.IsNullOrEmpty(this.InlineStyles))
             {
-                markup = string.Format(@"<style type=""text/css"" media=""{1}"">{0}</style>",
-                                      HttpUtility.HtmlEncode(this.InlineStyles), HttpUtility.HtmlEncode(this.MediaType));
+                markup = string.Format(@"<style type=""text/css"" media=""{1}"">{0}</style>", this.InlineStyles, this.MediaType);
             }
             else
             {
