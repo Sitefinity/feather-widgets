@@ -52,33 +52,36 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
-        /// Verifies the previous Video.
+        /// Verifies the previous video.
         /// </summary>
         /// <param name="href">The href.</param>
         public void VerifyPreviousVideo(string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=Previous Video", "href=~" + href)
-                .AssertIsPresent("Previous Video");
+            var prev= EM.MediaGallery.MediaGalleryFrontend.PreviousLink
+               .AssertIsPresent("previous video");
+            Assert.IsTrue(prev.HRef.StartsWith(href));
         }
 
         /// <summary>
-        /// Verifies the next Video.
+        /// Verifies the next video.
         /// </summary>
         /// <param name="href">The href.</param>
         public void VerifyNextVideo(string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=Next Video", "href=~" + href)
-                .AssertIsPresent("Next Video");
+            var next = EM.MediaGallery.MediaGalleryFrontend.NextLink
+               .AssertIsPresent("next video");
+            Assert.IsTrue(next.HRef.StartsWith(href));
         }
 
         /// <summary>
-        /// Verifies the back to all Videos.
+        /// Verifies the back to all videos.
         /// </summary>
         /// <param name="href">The href.</param>
         public void VerifyBackToAllVideos(string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=Back to all Videos", "href=" + href)
-                .AssertIsPresent("Back to all Videos");
+            var backLink = EM.MediaGallery.MediaGalleryFrontend.BeckToAllMediaFilesLink
+               .AssertIsPresent("back to all videos");
+            Assert.IsTrue(backLink.HRef.StartsWith(href));
         }
 
         /// <summary>
@@ -116,10 +119,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void VerifyPreviousAndNextVideoArrowsOverlayTemplate()
         {
-            EM.ImageGallery.ImageGalleryFrontend.PreviousButtonOverlayTemplate
+            EM.MediaGallery.MediaGalleryFrontend.PreviousButtonOverlayTemplate
                .AssertIsPresent("previous button");
 
-            EM.ImageGallery.ImageGalleryFrontend.NextButtonOverlayTemplate
+            EM.MediaGallery.MediaGalleryFrontend.NextButtonOverlayTemplate
                .AssertIsPresent("next button");
         }
 
@@ -128,7 +131,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void CloseSelectedVideoOverlayTemplate()
         {
-            var close = EM.ImageGallery.ImageGalleryFrontend.CloseButtonOverlayTemplate
+            var close = EM.MediaGallery.MediaGalleryFrontend.CloseButtonOverlayTemplate
                .AssertIsPresent("close button");
             close.Click();
         }
