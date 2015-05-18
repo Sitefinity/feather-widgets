@@ -51,11 +51,9 @@
         setCommentsCounts: function (threadCountList) {
             var self = this;
             for (var i = 0; i < threadCountList.length; i++) {
-                if (threadCountList[i].Count == -1) {
-                    continue;
+                if (threadCountList[i].Count >= 0) {
+                    $('div[data-sf-thread-key="' + threadCountList[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList[i].Count, threadCountList[i].AverageRating));
                 }
-
-                $('div[data-sf-thread-key="' + threadCountList[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList[i].Count, threadCountList[i].AverageRating));
             }
         },
 
