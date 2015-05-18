@@ -14,29 +14,29 @@
             {
                 if (site.IsCurrent)
                 {
-                    <span>@site.Name site</span>
+                    <span>@site.Name</span>
                 }
                 else if (SystemManager.IsDesignMode)
-                {   <a>@site.Name site</a>
+                {   <a>@site.Name</a>
                 }
                 else
                 {
-                    <a href="@site.Url">@site.Name site</a>
+                    <a href="@site.Url">@site.Name</a>
                 }
             }
             else if (Model.SiteLanguagesDisplayMode == SiteLanguagesDisplayMode.SiteNamesAndLanguages)
             {
                 if (site.IsCurrent)
                 {
-                    <span>@site.Name site - @site.Language</span>
+                    <span>@site.Name - @site.Language</span>
                 }
                 else if (SystemManager.IsDesignMode)
                 {
-                    <a>@site.Name site - @site.Language</a>
+                    <a>@site.Name - @site.Language</a>
                 }
                 else
                 {
-                    <a href="@site.Url">@site.Name site - @site.Language</a>
+                    <a href="@site.Url">@site.Name - @site.Language</a>
                 }
             }
             else
