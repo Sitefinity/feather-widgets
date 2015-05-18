@@ -128,9 +128,12 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxaToDisplay.cs" />
+    <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxonomyModel.cs" />
+    <Compile Include="Mvc\Models\FlatTaxonomy\IFlatTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\HierarchicalTaxonomy\HierarchicalTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\HierarchicalTaxonomy\IHierarchicalTaxonomyModel.cs" />
-    <Compile Include="Mvc\Models\HierarchicalTaxonomy\TaxaToDisplay.cs" />
+    <Compile Include="Mvc\Models\HierarchicalTaxonomy\HierarchicalTaxaToDisplay.cs" />
     <Compile Include="Mvc\Models\ITaxonomyModel.cs" />
     <Compile Include="Mvc\Models\TaxonomyModel.cs" />
     <Compile Include="Mvc\Models\TaxonomyViewModel.cs" />

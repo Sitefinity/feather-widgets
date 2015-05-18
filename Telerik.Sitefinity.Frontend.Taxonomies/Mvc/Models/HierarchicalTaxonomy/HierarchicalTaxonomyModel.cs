@@ -11,10 +11,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
     public class HierarchicalTaxonomyModel : TaxonomyModel, IHierarchicalTaxonomyModel
     {
         /// <summary>
-        /// Determines what taxa will be displayed by the widget/
+        /// Determines what taxa will be displayed by the widget.
         /// </summary>
         /// <value>The taxa to display.</value>
-        public TaxaToDisplay TaxaToDisplay { get; set; }
+        public HierarchicalTaxaToDisplay TaxaToDisplay { get; set; }
 
         /// <summary>
         /// Determines how many levels from the hierarchy to include.
