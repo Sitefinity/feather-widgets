@@ -375,6 +375,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 SuccessfullyUnsubscribedFromNewComments = Res.Get<CommentsWidgetResources>().SuccessfullyUnsubscribedFromNewComments,
                 MessageIsRequired = Res.Get<CommentsWidgetResources>().MessageIsRequired,
                 NameIsRequired = Res.Get<CommentsWidgetResources>().NameIsRequired,
+                InvalidEmailFormat = Res.Get<CommentsWidgetResources>().InvalidEmailFormat,
                 //// Reviews
                 RatingIsRequired = Res.Get<CommentsWidgetResources>().RatingIsRequired,
                 ReadFullReview = Res.Get<CommentsWidgetResources>().ReadFullReview,
