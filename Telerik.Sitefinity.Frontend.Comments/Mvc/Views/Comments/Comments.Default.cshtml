@@ -20,8 +20,8 @@
             <a href="#comment-submit-@HttpUtility.HtmlEncode(HttpUtility.UrlEncode(Model.ThreadKey))" data-sf-role="comments-new-form-button">@Html.Resource("LeaveComment")</a>
         }
         
-        <a href="#" data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</a>
-        <a href="#" data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</a>
+        <a href="#" data-sf-role="comments-sort-new-button" style="display:none;">@Html.Resource("NewestOnTop")</a>
+        <a href="#" data-sf-role="comments-sort-old-button" style="display:none;">@Html.Resource("OldestOnTop")</a>
     </div>
           
     <div data-sf-role="list-loading-indicator" style="display:none;"></div>
@@ -29,7 +29,7 @@
 
     @if(Model.EnablePaging)
     {
-        <a href="#" data-sf-role="comments-load-more-button">@Html.Resource("LoadMoreComments")</a>
+        <a href="#" data-sf-role="comments-load-more-button" style="display:none;">@Html.Resource("LoadMoreComments")</a>
     }
 
     @if (Model.ThreadIsClosed)
@@ -41,7 +41,7 @@
         <div data-sf-role="comments-new-form" id="comment-submit-@HttpUtility.HtmlEncode(Model.ThreadKey)">
             @if (Model.RequiresApproval)
             {
-                <div data-sf-role="comments-new-pending-approval-message">@Html.Resource("CommentPendingApproval")</div>
+                <div data-sf-role="comments-new-pending-approval-message" style="display:none;">@Html.Resource("CommentPendingApproval")</div>
             }
 
             <img src="@Model.UserAvatarImageUrl"/>
