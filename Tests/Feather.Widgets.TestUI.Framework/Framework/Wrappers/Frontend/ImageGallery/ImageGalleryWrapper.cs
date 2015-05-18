@@ -88,8 +88,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="href">The href.</param>
         public void VerifyPreviousImage(string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=Previous image", "href=~" + href)
-                .AssertIsPresent("Previous image");
+            var prevImage = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
+               .AssertIsPresent("previous image");
+            Assert.IsTrue(prevImage.HRef.StartsWith(href));
         }
 
         /// <summary>
@@ -98,8 +99,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="href">The href.</param>
         public void VerifyNextImage(string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=Next image", "href=~" + href)
-                .AssertIsPresent("Next image");
+            var nextImage = EM.MediaGallery.MediaGalleryFrontend.NextLink
+               .AssertIsPresent("next image");
+            Assert.IsTrue(nextImage.HRef.StartsWith(href));
         }
 
         /// <summary>
@@ -108,8 +110,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="href">The href.</param>
         public void VerifyBackToAllImages(string href)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("innertext=Back to all images", "href=" + href)
-                .AssertIsPresent("Back to all images");
+            var backLink = EM.MediaGallery.MediaGalleryFrontend.BeckToAllMediaFilesLink
+               .AssertIsPresent("back to all images");
+            Assert.IsTrue(backLink.HRef.StartsWith(href));
         }
 
         /// <summary>
@@ -148,10 +151,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void VerifyPreviousAndNextImageArrowsOverlayTemplate()
         {
-            EM.ImageGallery.ImageGalleryFrontend.PreviousButtonOverlayTemplate
+            EM.MediaGallery.MediaGalleryFrontend.PreviousButtonOverlayTemplate
                .AssertIsPresent("previous button");
 
-            EM.ImageGallery.ImageGalleryFrontend.NextButtonOverlayTemplate
+            EM.MediaGallery.MediaGalleryFrontend.NextButtonOverlayTemplate
                .AssertIsPresent("next button");
         }
 
@@ -160,7 +163,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// </summary>
         public void CloseSelectedImageOverlayTemplate()
         {
-            var close = EM.ImageGallery.ImageGalleryFrontend.CloseButtonOverlayTemplate
+            var close = EM.MediaGallery.MediaGalleryFrontend.CloseButtonOverlayTemplate
                .AssertIsPresent("close button");
             close.Click();
         }
@@ -172,8 +175,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="imageName">Name of the image.</param>
         public void VerifyThumbnailStripTemplateInfo(string countLabel, string imageName)
         {
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=~js-Gallery-prev").AssertIsPresent("Prev");
-            ActiveBrowser.Find.ByExpression<HtmlAnchor>("class=~js-Gallery-next").AssertIsPresent("Next");
+            EM.MediaGallery.MediaGalleryFrontend.ThubnailStripePrev.AssertIsPresent("Prev");
+            EM.MediaGallery.MediaGalleryFrontend.ThubnailStripeNext.AssertIsPresent("Next");
             ActiveBrowser.Find.ByExpression<HtmlDiv>("innertext=" + countLabel).AssertIsPresent(countLabel);
             ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=h2", "class=js-Gallery-title", "innertext=" + imageName).AssertIsPresent("Next");
         }
