@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -11,6 +12,16 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
     /// </summary>
     public class TaxonomyModel : ITaxonomyModel
     {
+        #region Construction
+        public TaxonomyModel()
+        {
+            if (!string.IsNullOrEmpty(this.FieldName))
+            {
+                this.InitializeTaxonomyManagerFromFieldName();
+            }
+        }
+        #endregion
+
         #region ITaxonomyModel implementation
         /// <summary>
         /// Gets or sets the full name of the static type that taxons associated to will be displayed.
@@ -86,7 +97,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 if (this.taxonomyManager == null)
                 {
-                    this.taxonomyManager = TaxonomyManager.GetManager(); 
+                    this.taxonomyManager = TaxonomyManager.GetManager();
                 }
                 return this.taxonomyManager;
             }
@@ -117,6 +128,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 return this.taxonomyContentType;
             }
         }
+
         /// <summary>
         /// Gets the instance of <see cref="ITaxonomy"/> representing the taxonomy to which the taxon field is bound to.
         /// </summary>
@@ -132,12 +144,41 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
         }
 
+        /// <summary>
+        /// Returns the property descriptor of the specified FieldName.
+        /// </summary>
+        protected virtual PropertyDescriptor FieldPropertyDescriptor
+        {
+            get
+            {
+                if (this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName))
+                {
+                    this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.TaxonomyContentType)[this.FieldName];
+                }
+                return this.fieldPropertyDescriptor;
+            }
+        }
+        #endregion
+
+        #region Public and virtual methods
+        /// <summary>
+        /// Initializes the taxonomy manager from field name.
+        /// </summary>
+        protected virtual void InitializeTaxonomyManagerFromFieldName()
+        {
+            var taxonomyDescriptor = this.FieldPropertyDescriptor as TaxonomyPropertyDescriptor;
+            if (taxonomyDescriptor != null)
+            {
+                this.CurrentTaxonomyManager = TaxonomyManager.GetManager(taxonomyDescriptor.MetaField.TaxonomyProvider);
+            }
+        }
         #endregion
 
         #region Private fields and constants
         private TaxonomyManager taxonomyManager;
         private Type taxonomyContentType;
         private ITaxonomy taxonomy;
+        private PropertyDescriptor fieldPropertyDescriptor;
         #endregion
     }
 }
