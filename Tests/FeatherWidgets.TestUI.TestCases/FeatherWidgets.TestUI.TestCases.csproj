@@ -138,6 +138,11 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="VideoGallery\FilterVideosWithCategoryTagAndDateOnPage.cs" />
+    <Compile Include="VideoGallery\SelectAllPublishedVideosWithOverlayGalleryTemplate.cs" />
+    <Compile Include="VideoGallery\SelectAllPublishedVideos.cs" />
+    <Compile Include="VideoGallery\SelectVideosFromSelectedLibraryInSelectedPage.cs" />
+    <Compile Include="VideoGallery\SelectSortedVideosWithChangedThumbnails.cs" />
     <Compile Include="Identity\VerifySelectedRolesInUsersListOnBootstrapPage.cs" />
     <Compile Include="ScriptsAndStyles\AddCssWidgetToPageAndWriteAndRemoveCss.cs" />
     <Compile Include="ScriptsAndStyles\AddJavaScriptBeforeTheClosingBodyTag.cs" />

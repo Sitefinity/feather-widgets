@@ -92,6 +92,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Video gallery.
+        /// </summary>
+        /// <returns></returns>
+        public VideoGalleryWrapperFacade VideoGallery()
+        {
+            return new VideoGalleryWrapperFacade();
+        }
+
+        /// <summary>
         /// Medias the widgets.
         /// </summary>
         /// <returns></returns>

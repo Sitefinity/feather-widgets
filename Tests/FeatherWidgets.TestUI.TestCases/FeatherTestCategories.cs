@@ -81,6 +81,11 @@ namespace FeatherWidgets.TestUI.TestCases
         public const string ImageGallery = "ImageGallery";
 
         /// <summary>
+        /// VideoGallery category for VideoGallery tests
+        /// </summary>
+        public const string VideoGallery = "VideoGallery";
+
+        /// <summary>
         /// DocumentsList category for DocumentsList tests
         /// </summary>
         public const string DocumentsList = "DocumentsList";
