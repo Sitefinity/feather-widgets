@@ -100,5 +100,13 @@
         /// The thread key.
         /// </value>
         public string ThreadKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the thread.
+        /// </summary>
+        /// <value>
+        /// The type of the thread.
+        /// </value>
+        public string ThreadType { get; set; }
     }
 }
