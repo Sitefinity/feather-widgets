@@ -49,6 +49,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             newsAnchor.Wait.ForVisible();
             newsAnchor.ScrollToVisible();
             newsAnchor.MouseClick();
+            ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForUrl(newsTitle.ToLower().Replace(" ", "%20"));
         }
 
