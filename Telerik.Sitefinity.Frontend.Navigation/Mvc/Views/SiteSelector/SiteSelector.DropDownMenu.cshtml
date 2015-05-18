@@ -21,11 +21,11 @@
             {
                 if (!Model.EachLanguageAsSeparateSite)
                 {
-                     <option value="@site.Url">@site.Name site</option>
+                     <option value="@site.Url">@site.Name</option>
                 }
                 else if (Model.SiteLanguagesDisplayMode == SiteLanguagesDisplayMode.SiteNamesAndLanguages)
                 {
-                    <option value="@site.Url">@site.Name site - @site.Language</option>
+                    <option value="@site.Url">@site.Name - @site.Language</option>
                 }
                 else
                 {

@@ -101,8 +101,8 @@
     <Compile Include="Framework\ElementMap\Identity\RegistrationFrontend.cs" />
     <Compile Include="Framework\ElementMap\Identity\UsersListEditScreen.cs" />
     <Compile Include="Framework\ElementMap\Identity\UsersListFrontend.cs" />
-    <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryFrontend.cs" />
-    <Compile Include="Framework\ElementMap\ImageGallery\ImageGalleryMap.cs" />
+    <Compile Include="Framework\ElementMap\MediaGallery\MediaGalleryFrontend.cs" />
+    <Compile Include="Framework\ElementMap\MediaGallery\MediaGalleryMap.cs" />
     <Compile Include="Framework\ElementMap\Lists\AnchorListFrontend.cs" />
     <Compile Include="Framework\ElementMap\Lists\ExpandableListFrontend.cs" />
     <Compile Include="Framework\ElementMap\Lists\ExpandedListFrontend.cs" />
@@ -221,6 +221,8 @@
     <Compile Include="Framework\Wrappers\Frontend\SocialShare\SocialShareWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\SocialShare\SocialShareWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\FrontendCommonWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\VideoGallery\VideoGalleryWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\VideoGallery\VideoGalleryWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\WrappersFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
