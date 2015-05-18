@@ -316,14 +316,14 @@
             this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
 
             // Comments write comment button
-            this.newCommentFormButton().attr('display', this.allCommentsCount > 0 ? 'inline-block' : 'none');
+            this.newCommentFormButton().toggle(this.allCommentsCount > 0);
 
             // Comments sort buttons
-            this.commentsSortNewButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
-            this.commentsSortOldButton().attr('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
+            this.commentsSortNewButton().toggle(this.allCommentsCount > 1);
+            this.commentsSortOldButton().toggle(this.allCommentsCount > 1);
 
             // Comments load more button
-            this.commentsLoadMoreButton().attr('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
+            this.commentsLoadMoreButton().toggle(this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage));
         },
 
         loadComments: function (skip, take, newerThan) {
