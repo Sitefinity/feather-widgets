@@ -128,8 +128,13 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\EmbedCodeController.cs" />
     <Compile Include="Mvc\Controllers\JavaScriptController.cs" />
     <Compile Include="Mvc\Controllers\StyleSheetController.cs" />
+    <Compile Include="Mvc\Helpers\ScriptHelper.cs" />
+    <Compile Include="Mvc\Models\EmbedCode\EmbedCodeModel.cs" />
+    <Compile Include="Mvc\Models\EmbedCode\EmbedCodeViewModel.cs" />
+    <Compile Include="Mvc\Models\EmbedCode\IEmbedCodeModel.cs" />
     <Compile Include="Mvc\Models\JavaScript\IJavaScriptModel.cs" />
     <Compile Include="Mvc\Models\JavaScript\JavaScriptModel.cs" />
     <Compile Include="Mvc\Models\JavaScript\JavaScriptViewModel.cs" />
@@ -137,6 +142,7 @@
     <Compile Include="Mvc\Models\StyleSheet\IStyleSheetModel.cs" />
     <Compile Include="Mvc\Models\ResourceMode.cs" />
     <Compile Include="Mvc\Models\StyleSheet\StyleSheetModel.cs" />
+    <Compile Include="Mvc\StringResources\EmbedCodeResources.cs" />
     <Compile Include="Mvc\StringResources\JavaScriptResources.cs" />
     <Compile Include="Mvc\StringResources\StyleSheetResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -151,10 +157,16 @@
     <EmbeddedResource Include="Mvc\Views\JavaScript\Index.cshtml" />
     <EmbeddedResource Include="Mvc\Views\JavaScript\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\JavaScript\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\EmbedCode\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\EmbedCode\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\EmbedCode\Index.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\JavaScript\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\EmbedCode\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
