@@ -286,6 +286,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
         public CommentsCountViewModel GetCommentsCountViewModel(CommentsCountInputModel inputModel)
         {
             this.ThreadKey = inputModel.ThreadKey;
+            this.ThreadType = inputModel.ThreadType;
 
             var allowComments = inputModel.AllowComments.HasValue ? inputModel.AllowComments.Value : this.AllowComments;
             if (allowComments)

@@ -2,10 +2,11 @@
 
 @using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 @using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <div class="@Model.CssClass">
 
-    <h1>Sites</h1>
+    <h1>@Html.Resource("Sites")</h1>
     <br />
     @foreach (var site in Model.Sites)
     {

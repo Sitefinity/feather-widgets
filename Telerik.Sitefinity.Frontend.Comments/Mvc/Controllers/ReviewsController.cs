@@ -111,7 +111,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers
 
         private string templateNamePrefix = "Reviews.";
         private string templateName = "Default";
-        private string countTemplateName = "ReviewsCount.Default.Default";
+        private string countTemplateName = "ReviewsCount.Default";
 
         #endregion
     }

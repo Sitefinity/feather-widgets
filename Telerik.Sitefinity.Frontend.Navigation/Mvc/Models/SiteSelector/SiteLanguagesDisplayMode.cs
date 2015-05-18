@@ -12,6 +12,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
         /// Show site names and languages 
         /// </summary>
         SiteNamesAndLanguages,
+
         /// <summary>
         /// Show languages only
         /// </summary>
