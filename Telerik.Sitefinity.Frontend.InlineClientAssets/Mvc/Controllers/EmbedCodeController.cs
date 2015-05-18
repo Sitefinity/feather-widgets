@@ -27,13 +27,13 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
             if (this.IsEdit)
             {
-                this.SetDesignTimeContent(viewModel);
+                this.SetDesignModeContent(viewModel);
             }
 
             return this.View(viewModel);
         }
 
-        private void SetDesignTimeContent(EmbedCodeViewModel viewModel)
+        private void SetDesignModeContent(EmbedCodeViewModel viewModel)
         {
             if (!string.IsNullOrWhiteSpace(viewModel.Description))
             {
