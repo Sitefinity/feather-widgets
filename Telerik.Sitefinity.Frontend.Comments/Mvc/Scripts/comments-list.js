@@ -449,7 +449,10 @@
             this.newCommentMessage().val('');
             this.newCommentName().val('');
             this.newCommentEmail().val('');
-            this.newCommentRatingContainer.setValue(0);
+
+            if (this.newCommentRatingContainer) {
+                this.newCommentRatingContainer.setValue(0);
+            }
         },
 
         endSubmitNewComment: function () {
@@ -554,7 +557,11 @@
             this.isLoadingList = false;
             this.isSubscribedToNewComments = false;
             this.maxCommentsToShow = this.settings.commentsPerPage;
-            this.newCommentRatingContainer = this.newCommentRating().mvcRating();
+
+            var rContainer = this.newCommentRating();
+            if (rContainer && rContainer.length) {
+                this.newCommentRatingContainer = rContainer.mvcRating();
+            }
 
             // Initially hide the "RequiresAuthentication" message.
             this.newCommentRequiresAuthentication().hide();
