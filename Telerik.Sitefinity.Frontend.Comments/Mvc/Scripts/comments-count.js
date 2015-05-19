@@ -84,6 +84,8 @@
         },
 
         getAllCounts: function () {
+            var self = this;
+
             var threadKeys = this.collectThreadIds();
 
             var commentsThreadKeys = threadKeys.filter(function (key) {
