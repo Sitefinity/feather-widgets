@@ -102,7 +102,7 @@
                 return this.getCommentsCounts(commentsThreadKeys);
             }
             else if (reviewsThreadKeys.length > 0) {
-                return this.getCommentsCounts(reviewsThreadKeys);
+                return this.getReviewsCounts(reviewsThreadKeys);
             }
             else {
                 return {
@@ -110,7 +110,7 @@
                     then: function (cb) {
                         cb([]);
                     }
-                }
+                };
             }
         },
 
@@ -123,7 +123,7 @@
                         $('div[data-sf-thread-key="' + threadCountList[i].Key + '"]').each(self.populateCommentsCountTextCallBack(threadCountList[i].Count, threadCountList[i].AverageRating));
                     }
                 }
-            })
+            });
         },
 
         populateCommentsCountTextCallBack: function (currentCount, currentRating) {
@@ -134,7 +134,6 @@
         },
 
         populateCommentsCountText: function (element, currentCount, currentRating) {
-            var useReviews = JSON.parse(element.find('[data-sf-role="comments-use-reviews"]').val());
             var resources = JSON.parse(element.find('[data-sf-role="comments-count-resources"]').val());
 
             var currentCountFormatted = '';
@@ -154,17 +153,34 @@
             element.find('[data-sf-role="comments-count-anchor-text"]').text(currentCountFormatted);
 
             // render average rating
-            if (currentCount && useReviews) {
-                // remove if any old ratings
-                element.find('[data-sf-role="rating-average"]').remove();
-
-                var averageRatingEl = $('<span data-sf-role="rating-average" />');
-                averageRatingEl.mvcRating({ readOnly: true, value: currentRating });
-                averageRatingEl.prepend($('<span />').text(resources.averageRating));
-                averageRatingEl.append($('<span />').text('(' + currentRating + ')'));
-
-                element.prepend(averageRatingEl);
+            if (currentCount && currentRating) {
+                this.renderAverageRating(element, currentRating, currentCount, resources.averageRating);
             }
+        },
+
+        renderAverageRating: function (element, currentRating, currentCount, averageRatingResource) {
+            var averageRatingDataSfRoleAttr = 'data-sf-role="rating-average"';
+
+            var oldRating = element.find('[' + averageRatingDataSfRoleAttr + ']');
+
+            // There is already rating - update it
+            if (oldRating.length) {
+                var oldRatingValue = oldRating.children().last().text().trim();
+                var oldRatingIntValue = oldRatingValue.substring(1, oldRatingValue.length - 1);
+                var newRating = (((currentCount - 1) * oldRatingIntValue) + currentRating) / currentCount;
+                // round to the first decimal
+                currentRating = Math.round(newRating * 10) / 10;
+
+                oldRating.remove();
+            }
+
+            var averageRatingEl = $('<span ' + averageRatingDataSfRoleAttr + ' />');
+
+            averageRatingEl.mvcRating({ readOnly: true, value: currentRating });
+            averageRatingEl.prepend($('<span />').text(averageRatingResource));
+            averageRatingEl.append($('<span />').text('(' + currentRating + ')'));
+
+            element.prepend(averageRatingEl);
         },
 
         initialize: function () {
@@ -173,12 +189,7 @@
             self.setCommentsCounts();
 
             $(document).on('sf-comments-count-received', function (event, args) {
-                if (self.useReviews) {
-                    self.setCommentsCounts();
-                }
-                else {
-                    $('div[data-sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count));
-                }
+                $('div[data-sf-thread-key="' + args.key + '"]').each(self.populateCommentsCountTextCallBack(args.count, args.rating));
             });
         },
     };
