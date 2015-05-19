@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 {
@@ -28,5 +29,46 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// </summary>
         /// <value>The parent category.</value>
         public Guid RootCategory { get; set; }
+
+        #region Overriden methods
+        /// <summary>
+        /// Gets the taxa with the usage metrics for each taxon filtered by one of the several display modes.
+        /// </summary>
+        /// <returns></returns>
+        protected override IDictionary<ITaxon, uint> GetFilteredTaxaWithCount()
+        {
+            switch (this.TaxaToDisplay)
+            {
+                case HierarchicalTaxaToDisplay.TopLevel:
+                    return this.GetAllTaxa();
+                case HierarchicalTaxaToDisplay.UnderParticularTaxon:
+                    return this.GetTaxaByParent();
+                case HierarchicalTaxaToDisplay.Selected:
+                    return this.GetSpecificTaxa();
+                case HierarchicalTaxaToDisplay.UsedByContentType:
+                    return GetTaxaByContentType();
+                default:
+                    return this.GetAllTaxa();
+            }
+        }
+
+        #endregion
+
+        #region Protected methods
+        protected virtual IDictionary<ITaxon, uint> GetAllTaxa()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual IDictionary<ITaxon, uint> GetTaxaByContentType()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual IDictionary<ITaxon, uint> GetTaxaByParent()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

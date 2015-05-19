@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -10,7 +14,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
     /// <summary>
     /// The model of the taxonomies widgets.
     /// </summary>
-    public class TaxonomyModel : ITaxonomyModel
+    public abstract class TaxonomyModel : ITaxonomyModel
     {
         #region Construction
         public TaxonomyModel()
@@ -160,7 +164,70 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         }
         #endregion
 
-        #region Public and virtual methods
+        #region Abstract methods
+        /// <summary>
+        /// Gets the taxa with the usage metrics for each taxon filtered by one of the several display modes.
+        /// </summary>
+        /// <returns></returns>
+        protected abstract IDictionary<ITaxon, uint> GetFilteredTaxaWithCount();
+
+        #endregion
+
+        #region Protected and virtual methods
+        /// <summary>
+        /// Gets the taxa with the usage metrics for each taxon that will be displayed by the widget.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IDictionary<ITaxon, uint> GetTaxaWithCount()
+        {
+            if (this.ContentId != Guid.Empty)
+            {
+                return this.GetTaxaByContentItem();
+            }
+            else
+            {
+                return this.GetFilteredTaxaWithCount();
+            }
+        }
+
+        protected virtual IDictionary<ITaxon, uint> GetSpecificTaxa()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual IQueryable<TaxonomyStatistic> GetTaxonomyStatistics()
+        {
+            var taxonomyIdGuid = SystemManager.CurrentContext.IsMultisiteMode ?
+                this.CurrentTaxonomyManager.GetSiteTaxonomy<ITaxonomy>(this.TaxonomyId).Id :
+                this.TaxonomyId;
+
+            return this.CurrentTaxonomyManager
+                .GetStatistics()
+                .Where(
+                    t =>
+                    t.TaxonomyId == taxonomyIdGuid &&
+                    t.MarkedItemsCount > 0 &&
+                    t.StatisticType == GenericContent.Model.ContentLifecycleStatus.Live);
+        }
+
+        protected virtual IDictionary<ITaxon, uint> AddCountToTaxa(IEnumerable<ITaxon> taxa)
+        {
+            var statistics = this.GetTaxonomyStatistics();
+
+            var result = new Dictionary<ITaxon, uint>();
+
+            foreach (var taxon in taxa)
+            {
+                uint count = statistics
+                    .Where(s => s.TaxonId == taxon.Id)
+                    .Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
+
+                result.Add(taxon, count);
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Initializes the taxonomy manager from field name.
         /// </summary>
@@ -171,6 +238,61 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 this.CurrentTaxonomyManager = TaxonomyManager.GetManager(taxonomyDescriptor.MetaField.TaxonomyProvider);
             }
+        }
+
+        protected virtual IDictionary<ITaxon, uint> GetTaxaByContentItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual string GetContentProviderName()
+        {
+            string providerName = String.Empty;
+
+            if (String.IsNullOrWhiteSpace(this.ContentProviderName))
+            {                
+                //if (!this.DynamicContentTypeName.IsNullOrWhitespace())
+                //{
+                //    var manager = ManagerBase.GetMappedManager(this.TaxonomyContentType);
+
+                //    if (!SystemManager.CurrentContext.IsMultisiteMode)
+                //    {
+                //        providerName = manager.Provider.Name;
+                //    }
+                //    else
+                //    {
+                //        var dataSourceName = SystemManager.DataSourceRegistry.GetDataSource(manager.GetType().FullName).Name;
+                //        var provider = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(dataSourceName);
+                //        providerName = provider.ProviderName;
+                //    }
+                //}
+                //else if (!String.IsNullOrWhiteSpace(this.DynamicContentType))
+                //{
+                //    var moduleBuilderManager = ModuleBuilderManager.GetManager();
+                //    DynamicModuleType dynamicContentType = moduleBuilderManager.GetDynamicModuleType(moduleBuilderManager.ResolveDynamicClrType(this.DynamicContentType));
+
+                //    if (dynamicContentType != null)
+                //    {
+                //        if (!SystemManager.CurrentContext.IsMultisiteMode)
+                //        {
+                //            DynamicModuleManager manager = DynamicModuleManager.GetManager();
+                //            providerName = manager.Provider.Name;
+                //        }
+                //        else
+                //        {                                                        
+                //            var dataSourceName = SystemManager.DataSourceRegistry.GetDataSource(dynamicContentType.ModuleName).Name;
+                //            var provider = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(dataSourceName);
+                //            providerName = provider.ProviderName;
+                //        }
+                //    }
+                //}                
+            }
+            else
+            {
+                providerName = this.ContentProviderName;
+            }
+
+            return providerName;
         }
         #endregion
 

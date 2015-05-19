@@ -15,7 +15,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies
         /// </summary>
         public override void Load()
         {
-            Bind<ITaxonomyModel>().To<TaxonomyModel>();
             Bind<IHierarchicalTaxonomyModel>().To<HierarchicalTaxonomyModel>();
             Bind<IFlatTaxonomyModel>().To<FlatTaxonomyModel>();
         }
