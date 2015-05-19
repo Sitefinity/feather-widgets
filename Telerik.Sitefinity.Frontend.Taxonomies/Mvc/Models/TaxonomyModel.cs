@@ -13,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
     /// <summary>
     /// The model of the taxonomies widgets.
     /// </summary>
-    public abstract class TaxonomyModel : ITaxonomyModel
+    public abstract class TaxonomyModel
     {
         #region Construction
         public TaxonomyModel()
