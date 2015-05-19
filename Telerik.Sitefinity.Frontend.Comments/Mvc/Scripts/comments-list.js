@@ -231,28 +231,32 @@
             return regex.test(email);
         },
 
+        getErrorMessage: function(error) {
+            return this.errorMessage().clone(true).find('span').text(error).show();
+        },
+
         validateComment: function (comment) {
             var deferred = $.Deferred();
             var isValid = true;
 
             if (comment.Message.length < 1) {
                 isValid = false;
-                this.newCommentMessage().after(this.errorMessage().clone(true).text(this.resources.messageIsRequired).show());
+                this.newCommentMessage().after(this.getErrorMessage(this.resources.messageIsRequired));
             }
 
             if (!this.isUserAuthenticated && comment.Name.length < 1) {
                 isValid = false;
-                this.newCommentName().after(this.errorMessage().clone(true).text(this.resources.nameIsRequired).show());
+                this.newCommentMessage().after(this.getErrorMessage(this.resources.nameIsRequired));
             }
 
             if (!this.isUserAuthenticated && comment.Email && !this.isValidEmail(comment.Email)) {
                 isValid = false;
-                this.newCommentEmail().after(this.errorMessage().clone(true).text(this.resources.invalidEmailFormat).show());
+                this.newCommentMessage().after(this.getErrorMessage(this.resources.invalidEmailFormat));
             }
 
             if (this.settings.useReviews && !comment.Rating) {
                 isValid = false;
-                this.newCommentMessage().after(this.errorMessage().clone(true).text(this.resources.ratingIsRequired).show());
+                this.newCommentMessage().after(this.getErrorMessage(this.resources.ratingIsRequired));
             }
 
             deferred.resolve(isValid);
