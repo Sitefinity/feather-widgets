@@ -34,7 +34,7 @@
 
     @if (Model.ThreadIsClosed)
     {
-        <span>@Html.Resource("CommentsThreadIsClosedMessage")</span>
+        <div>@Html.Resource("CommentsThreadIsClosedMessage")</div>
     }
     else 
     {        
@@ -44,13 +44,21 @@
                 <div data-sf-role="comments-new-pending-approval-message" style="display:none;">@Html.Resource("CommentPendingApproval")</div>
             }
 
-            <img src="@Model.UserAvatarImageUrl"/>
+            <img src="@Model.UserAvatarImageUrl" />
             <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("LeaveComment")" ></textarea>
 
-            <p data-sf-role="comments-new-logged-out-view" style="display:none;">
-                <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" /> <br />
-                <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" /> <br />
-            </p>
+            <div data-sf-role="comments-new-logged-out-view" style="display:none;">
+                <div>
+                    <label style="display: none;">@Html.Resource("YourName")</label>
+                    <input placeholder="@Html.Resource("YourName")" data-sf-role="comments-new-name" />
+                </div>
+
+                <div>
+                    <label style="display: none;">@Html.Resource("EmailOptional")</label>
+                    <input type="email" placeholder="@Html.Resource("EmailOptional")" data-sf-role="comments-new-email" />
+                </div>
+
+            </div>
 
             @if (Model.RequiresCaptcha)
             {
@@ -88,7 +96,7 @@
         
         if (Model.RequiresAuthentication)
         {
-            <p data-sf-role="comments-new-requires-authentication"><a href='@Model.LoginPageUrl'>@Html.Resource("Login")</a>@Html.Resource("ToBeAbleToComment")</p>
+            <div data-sf-role="comments-new-requires-authentication"><a href='@Model.LoginPageUrl'>@Html.Resource("Login")</a>@Html.Resource("ToBeAbleToComment")</div>
         }
     }
     
