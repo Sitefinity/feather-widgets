@@ -129,7 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
             if (!this.IncludeCurrentSite)
             {
-                sites = sites.Where(s => s.Id != currentSiteId);
+                sites = sites.Where(s => s.Id != this.currentSiteId);
             }
 
             var result = new List<SiteViewModel>();
