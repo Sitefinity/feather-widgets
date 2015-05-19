@@ -27,7 +27,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         #region Properties
 
         /// <summary>
-        /// Gets the Account Activation widget model.
+        /// Gets the Javascript widget model.
         /// </summary>
         /// <value>
         /// The model.

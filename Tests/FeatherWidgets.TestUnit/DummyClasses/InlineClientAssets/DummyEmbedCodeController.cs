@@ -22,12 +22,9 @@ namespace FeatherWidgets.TestUnit.DummyClasses.InlineClientAssets
             this.resource = resource;
         }
 
-        protected override string GetIncludedWhereDroppedResourceString
+        protected override string GetResource<TResource>(string key)
         {
-            get
-            {
-                return this.resource;
-            }
+            return this.resource;
         }
 
         protected override bool IsEdit

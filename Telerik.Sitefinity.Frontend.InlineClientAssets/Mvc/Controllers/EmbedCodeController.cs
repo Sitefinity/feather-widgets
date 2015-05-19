@@ -38,7 +38,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets the Account Activation widget model.
+        /// Gets the Embed code widget model.
         /// </summary>
         /// <value>
         /// The model.
@@ -83,12 +83,15 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             this.Index().ExecuteResult(this.ControllerContext);
         }
 
-        protected virtual string GetIncludedWhereDroppedResourceString
+        /// <summary>
+        /// Gets the resource.
+        /// </summary>
+        /// <typeparam name="TResource">The type of the T resource.</typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        protected virtual string GetResource<TResource>(string key) where TResource : Resource
         {
-            get
-            {
-                return Res.Get<EmbedCodeResources>().IncludedWhereDropped;
-            }
+            return Res.Get(typeof(TResource), key);
         }
 
         private void SetDesignModeContent(EmbedCodeViewModel viewModel)
@@ -101,7 +104,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             {
                 var result = ScriptHelper.GetShortScript(viewModel.EmbedCode);
 
-                this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetIncludedWhereDroppedResourceString;
+                this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetResource<EmbedCodeResources>("IncludedWhereDropped");
             }
         }
         #endregion

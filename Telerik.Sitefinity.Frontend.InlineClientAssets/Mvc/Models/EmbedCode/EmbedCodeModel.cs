@@ -2,6 +2,9 @@ using System;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.EmbedCode
 {
+    /// <summary>
+    /// This class represents the model of the EmbedCode widget.
+    /// </summary>
     public class EmbedCodeModel : IEmbedCodeModel
     {
         /// <inheritDocs/>

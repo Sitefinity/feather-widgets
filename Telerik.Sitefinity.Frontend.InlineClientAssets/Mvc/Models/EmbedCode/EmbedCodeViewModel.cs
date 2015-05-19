@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.EmbedCode
 {
+    /// <summary>
+    /// This class represents the view model of the EmbedCode widget
+    /// </summary>
     public class EmbedCodeViewModel
     {
         /// <summary>

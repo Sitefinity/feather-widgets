@@ -4,7 +4,7 @@ using System.Linq;
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.EmbedCode
 {
     /// <summary>
-    /// Interface that defines the model of the EmbedCodetModel widget.
+    /// Interface that defines the model of the EmbedCodeModel widget.
     /// </summary>
     public interface IEmbedCodeModel
     {
