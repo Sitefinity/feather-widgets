@@ -72,9 +72,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             var rootTaxon = this.CurrentTaxonomyManager.GetTaxon(this.RootTaxonId) as HierarchicalTaxon;
 
             if (rootTaxon != null)
-	        {
-		        return this.AddCountToTaxa(rootTaxon.Subtaxa);
-	        }
+            {
+                return this.AddCountToTaxa(rootTaxon.Subtaxa);
+            }
 
             return new Dictionary<ITaxon, uint>();
         }
