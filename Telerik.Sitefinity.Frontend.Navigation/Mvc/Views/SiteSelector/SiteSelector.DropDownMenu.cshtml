@@ -9,7 +9,7 @@
     <h3>@Html.Resource("Sites")</h3>
 
     <label class="sr-only">@Html.Resource("Sites")</label>
-    @if (SystemManager.IsDesignMode)
+    @if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
     {
         @:<select>
     }
