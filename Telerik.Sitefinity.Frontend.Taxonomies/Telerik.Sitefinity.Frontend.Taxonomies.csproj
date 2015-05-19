@@ -138,7 +138,6 @@
     <Compile Include="Mvc\Models\HierarchicalTaxonomy\HierarchicalTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\HierarchicalTaxonomy\IHierarchicalTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\HierarchicalTaxonomy\HierarchicalTaxaToDisplay.cs" />
-    <Compile Include="Mvc\Models\ITaxonomyModel.cs" />
     <Compile Include="Mvc\Models\TaxonomyModel.cs" />
     <Compile Include="Mvc\Models\TaxonomyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
