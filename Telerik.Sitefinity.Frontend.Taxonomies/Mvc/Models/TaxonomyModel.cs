@@ -1,10 +1,8 @@
-﻿using ServiceStack.Text;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Telerik.Sitefinity.Data;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -230,6 +228,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             return this.AddCountToTaxa(taxa);
         }
 
+        /// <summary>
+        /// Gets all taxa statistics for the currently used taxonomy.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IQueryable<TaxonomyStatistic> GetTaxonomyStatistics()
         {
             var taxonomyIdGuid = SystemManager.CurrentContext.IsMultisiteMode ?
@@ -275,11 +277,20 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
         }
 
+        /// <summary>
+        /// Gets the taxa contained in a field which name is stored in the FieldName property.
+        /// The field belongs to a content item with id stored in the ContentId property.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IDictionary<ITaxon, uint> GetTaxaByContentItem()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Resolves the name of the provider used by the manager which is responsible for the content type that is filtering the shown taxa.
+        /// </summary>
+        /// <returns></returns>
         protected virtual string GetContentProviderName()
         {
             string providerName = String.Empty;
@@ -329,6 +340,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             return providerName;
         }
+
         #endregion
 
         #region Private fields and constants
