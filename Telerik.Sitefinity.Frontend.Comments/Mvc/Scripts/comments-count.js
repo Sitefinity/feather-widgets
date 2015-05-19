@@ -180,7 +180,7 @@
 
             var averageRatingEl = $('<span ' + averageRatingDataSfRoleAttr + ' />');
 
-            averageRatingEl.mvcRating({ readOnly: true, value: currentRating });
+            averageRatingEl.mvcRating({ readOnly: true, value: currentRating, template: $('[data-sf-role="rating-template"]') });
             averageRatingEl.prepend($('<span />').text(averageRatingResource));
             averageRatingEl.append($('<span />').text('(' + currentRating + ')'));
 
