@@ -248,17 +248,17 @@
 
             if (!this.isUserAuthenticated && comment.Name.length < 1) {
                 isValid = false;
-                this.newCommentMessage().after(this.getErrorMessage(this.resources.nameIsRequired));
+                this.newCommentName().after(this.getErrorMessage(this.resources.nameIsRequired));
             }
 
             if (!this.isUserAuthenticated && comment.Email && !this.isValidEmail(comment.Email)) {
                 isValid = false;
-                this.newCommentMessage().after(this.getErrorMessage(this.resources.invalidEmailFormat));
+                this.newCommentEmail().after(this.getErrorMessage(this.resources.invalidEmailFormat));
             }
 
             if (this.settings.useReviews && !comment.Rating) {
                 isValid = false;
-                this.newCommentMessage().after(this.getErrorMessage(this.resources.ratingIsRequired));
+                this.newCommentRating().after(this.getErrorMessage(this.resources.ratingIsRequired));
             }
 
             deferred.resolve(isValid);
