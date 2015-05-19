@@ -63,6 +63,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="text">The text.</param>
         public void VerifyTips(string text)
         {
+            HtmlFindExpression expression = new HtmlFindExpression("tagname=a", "sf-popover-title=Tips");
+            ActiveBrowser.WaitForElement(expression, 60000, false);
             ActiveBrowser.Find.ByExpression<HtmlAnchor>("tagname=a","sf-popover-title=Tips", "sf-popover-content=~" + text).AssertIsPresent("Tips");     
         }
     }
