@@ -25,6 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
         TestCategory(FeatherTestCategories.Blogs)]
         public void AddBlogPostsWidgetToPageOpenSingleItemInExistingPage()
         {
+            ActiveBrowser.WaitUntilReady();
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageTitle);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);

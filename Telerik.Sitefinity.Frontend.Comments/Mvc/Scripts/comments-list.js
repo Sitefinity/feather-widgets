@@ -226,9 +226,9 @@
             return date.toISOString();
         },
 
-        isValidEmail: function (email) {
-            var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            return regex.test(email);
+        isValidEmail: function (email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
         },
 
         validateComment: function (comment) {
@@ -367,14 +367,16 @@
             }
         },
 
-        setAllCommentsCount: function (count) {
+        setAllCommentsCount: function (count, rating, supressEvent) {
             this.allCommentsCount = count;
             this.renderCommentsCount();
 
-            $(document).trigger('sf-comments-count-received', { key: this.settings.commentsThreadKey, count: this.allCommentsCount });
+            if (!supressEvent) {
+                $(document).trigger('sf-comments-count-received', { key: this.settings.commentsThreadKey, count: this.allCommentsCount, rating: rating });
+            }
         },
 
-        refreshComments: function (self, isNewCommentPosted) {
+        refreshComments: function (self, isNewCommentPosted, rating) {
             var commentsToTake = self.commentsSortedDescending ? self.settings.commentsPerPage : self.maxCommentsToShow - self.commentsTakenSoFar;
 
             // New comment is created, but won't be retrievet via refresh - update comment count.
@@ -386,7 +388,7 @@
                     self.refreshLastCommentDate(response);
 
                     if (response && response.TotalCount) {
-                        self.setAllCommentsCount(self.allCommentsCount + response.TotalCount);
+                        self.setAllCommentsCount(self.allCommentsCount + response.TotalCount, rating);
                     }
                 });
             }
@@ -481,13 +483,17 @@
                 this.newCommentPendingApprovalMessage().show();
             }
             else if (!this.settings.commentsAutoRefresh) {
-                this.refreshComments(this, true);
+                var rating = this.settings.useReviews && response ? response.Rating : null;
+                this.refreshComments(this, true, rating);
             }
 
             if (this.settings.useReviews) {
                 this.newCommentForm().hide();
                 this.newCommentFormButton().hide();
-                this.newReviewFormReplacement().text(this.resources.thankYouReviewSubmited).show();
+
+                var textToShow = this.settings.requiresApproval ? this.newCommentPendingApprovalMessage().text() : this.resources.thankYouReviewSubmited;
+
+                this.newReviewFormReplacement().text(textToShow).show();
             }
         },
 
@@ -607,7 +613,7 @@
                         self.newCommentForm().hide();
                         self.newCommentRequiresAuthentication().show();
                     }
-                    
+
                     if (self.settings.useReviews) {
                         self.initializeHasUserAlreadyReviewed();
                     }
@@ -643,7 +649,8 @@
 
             // Initial loading of comments count for thread
             self.restApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {
-                self.setAllCommentsCount(response);
+                // Initial count initialization should not raise count change event
+                self.setAllCommentsCount(response, null, true);
             });
 
             // Initial loading of comments

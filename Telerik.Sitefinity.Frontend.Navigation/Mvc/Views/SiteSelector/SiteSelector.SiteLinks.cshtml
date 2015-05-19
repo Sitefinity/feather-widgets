@@ -7,17 +7,18 @@
 <div class="@Model.CssClass">
 
     <h1>@Html.Resource("Sites")</h1>
-    <br />
+   
+    <ul>
     @foreach (var site in Model.Sites)
     {
-        <p>
+        <li>
             @if (!Model.EachLanguageAsSeparateSite)
             {
                 if (site.IsCurrent)
                 {
-                    <span>@site.Name</span>
+                    <span class="selected">@site.Name</span>
                 }
-                else if (SystemManager.IsDesignMode)
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
                 {   <a>@site.Name</a>
                 }
                 else
@@ -29,9 +30,9 @@
             {
                 if (site.IsCurrent)
                 {
-                    <span>@site.Name - @site.Language</span>
+                    <span class="selected">@site.Name - @site.Language</span>
                 }
-                else if (SystemManager.IsDesignMode)
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
                 {
                     <a>@site.Name - @site.Language</a>
                 }
@@ -44,9 +45,9 @@
             {
                 if (site.IsCurrent)
                 {
-                    <span>@site.Language</span>
+                    <span class="selected">@site.Language</span>
                 }
-                else if (SystemManager.IsDesignMode)
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
                 {
                     <a>@site.Language</a>
                 }
@@ -55,6 +56,7 @@
                     <a href="@site.Url">@site.Language</a>
                 }
             }
-        </p>
+        </li>
     }
+    </ul>
 </div>
