@@ -94,14 +94,14 @@
             };
 
             var fill = function (e) { // fill to the current mouse position.
-                var index = ratingControl.ratingContainer.children().index(e.srcElement) + 1;
+                var index = ratingControl.ratingContainer.children().index(e.target) + 1;
                 addClasses(index * ratingControl.settings.step, ratingControl.settings.selectedClass);
             };
 
             var hover = function (e) { // fill to the current mouse position with hover class.
                 removeClasses(ratingControl.settings.hoverClass);
 
-                var index = ratingControl.ratingContainer.children().index(e.srcElement) + 1;
+                var index = ratingControl.ratingContainer.children().index(e.target) + 1;
                 addClasses(index * ratingControl.settings.step, ratingControl.settings.hoverClass);
             };
 
@@ -126,7 +126,7 @@
 
         selectElement: function (e) {
             var elements = this.ratingContainer.children();
-            this.settings.value = (elements.index(e.srcElement) + 1) * this.settings.step;
+            this.settings.value = (elements.index(e.target) + 1) * this.settings.step;
             this.elementsRenderer(this).reset();
         },
 
