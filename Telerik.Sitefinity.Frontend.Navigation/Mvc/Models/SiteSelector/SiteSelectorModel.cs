@@ -178,7 +178,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
                         if (addToDataSource)
                         {
-                            if (actualSitemapNode.UiCulture == culture.Name)
+                            if (CultureInfo.CurrentUICulture.Name == culture.Name)
                                 isCurrentSite = true;
 
                             siteUrl = this.ResolveDefaultSiteUrl(actualPageNode, culture);
