@@ -110,6 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <returns></returns>
         public virtual TaxonomyViewModel CreateViewModel()
         {
+            var test = this.GetTaxaWithCount();
             return new TaxonomyViewModel();
         }
         #endregion
