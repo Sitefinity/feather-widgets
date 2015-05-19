@@ -14,6 +14,9 @@ using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 {
+    /// <summary>
+    /// This class represents the controller for the EmbedCode widget.
+    /// </summary>
     [Localization(typeof(EmbedCodeResources))]
     [ControllerToolboxItem(Name = "EmbedCode_MVC",
                            Title = "Embed code",
@@ -21,32 +24,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                            CssClass = EmbedCodeController.WidgetIconCssClass)]
     public class EmbedCodeController : Controller, ICustomWidgetVisualizationExtended
     {
-        public ActionResult Index()
-        {
-            var viewModel = this.Model.GetViewModel();
-
-            if (this.IsEdit)
-            {
-                this.SetDesignModeContent(viewModel);
-            }
-
-            return this.View(viewModel);
-        }
-
-        private void SetDesignModeContent(EmbedCodeViewModel viewModel)
-        {
-            if (!string.IsNullOrWhiteSpace(viewModel.Description))
-            {
-                this.ViewBag.DesignModeContent = viewModel.Description;
-            }
-            else
-            {
-                var result = ScriptHelper.GetShortScript(viewModel.EmbedCode);
-
-                this.ViewBag.DesignModeContent = result + Environment.NewLine + Res.Get<EmbedCodeResources>().IncludedWhereDropped;
-            }
-        }
-
+        #region Properties
         /// <summary>
         /// Gets whether the page is in edit mode.
         /// </summary>
@@ -71,16 +49,62 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             get
             {
                 if (this.model == null)
-                    this.model = this.InitializeModel();
+                {
+                    this.model = ControllerModelFactory.GetModel<IEmbedCodeModel>(this.GetType());
+                }
 
                 return this.model;
             }
         }
 
-        protected IEmbedCodeModel InitializeModel()
+        #region Actions
+        /// <summary>
+        /// Handles Embed code referencing on the page.
+        /// </summary>
+        public ActionResult Index()
         {
-            return ControllerModelFactory.GetModel<IEmbedCodeModel>(this.GetType());
+            EmbedCodeViewModel viewModel = this.Model.GetViewModel();
+
+            if (this.IsEdit)
+            {
+                this.SetDesignModeContent(viewModel);
+            }
+
+            return this.View(viewModel);
         }
+        #endregion
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+
+        protected virtual string GetIncludedWhereDroppedResourceString
+        {
+            get
+            {
+                return Res.Get<EmbedCodeResources>().IncludedWhereDropped;
+            }
+        }
+
+        private void SetDesignModeContent(EmbedCodeViewModel viewModel)
+        {
+            if (!string.IsNullOrWhiteSpace(viewModel.Description))
+            {
+                this.ViewBag.DesignModeContent = viewModel.Description;
+            }
+            else
+            {
+                var result = ScriptHelper.GetShortScript(viewModel.EmbedCode);
+
+                this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetIncludedWhereDroppedResourceString;
+            }
+        }
+        #endregion
 
         #region ICustomWidgetVisualizationExtended
         /// <inheritDocs/>
