@@ -85,7 +85,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>
-        public TaxonomyViewModel CreateViewModel()
+        public virtual TaxonomyViewModel CreateViewModel()
         {
             return new TaxonomyViewModel();
         }
