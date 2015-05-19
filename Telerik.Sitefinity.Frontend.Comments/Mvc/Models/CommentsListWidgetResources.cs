@@ -93,6 +93,14 @@
         /// </value>
         public string NameIsRequired { get; set; }
 
+        /// <summary>
+        /// Gets or sets the invalid email format resource.
+        /// </summary>
+        /// <value>
+        /// The invalid email format resource.
+        /// </value>
+        public string InvalidEmailFormat { get; set; }
+
         //// Reviews
 
         /// <summary>

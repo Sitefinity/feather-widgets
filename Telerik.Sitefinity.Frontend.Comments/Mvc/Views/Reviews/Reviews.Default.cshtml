@@ -17,7 +17,7 @@
             <a href="#comment-submit-@HttpUtility.HtmlEncode(HttpUtility.UrlEncode(Model.ThreadKey))" data-sf-role="comments-new-form-button">@Html.Resource("WriteReview")</a>
         }
 
-        @Html.CommentsCount(null, Model.ThreadKey)
+        @Html.CommentsCount(string.Empty, Model.ThreadKey, Model.ThreadType)
         
         <a href="#" data-sf-role="comments-sort-new-button">@Html.Resource("NewestOnTop")</a>
         <a href="#" data-sf-role="comments-sort-old-button">@Html.Resource("OldestOnTop")</a>

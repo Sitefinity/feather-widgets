@@ -123,7 +123,7 @@
     */
     $(function () {
         var serviceUrl = $('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="service-url"]').val();
-        var useReviews = Boolean($('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="comments-use-reviews"]').val());
+        var useReviews = JSON.parse($('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="comments-use-reviews"]').val());
         var resources = JSON.parse($('[data-sf-role="comments-count-wrapper"]').find('[data-sf-role="comments-count-resources"]').val());
         (new CommentsCountWidget(serviceUrl, resources, useReviews)).initialize();
     });

@@ -271,7 +271,8 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                     RequiresCaptcha = this.CommentsConfig.UseSpamProtectionImage,
                     SerializedWidgetResources = JsonConvert.SerializeObject(widgetResources, Formatting.None, jsonSerializerSettings),
                     SerializedWidgetSettings = JsonConvert.SerializeObject(widgetSettings, Formatting.None, jsonSerializerSettings),
-                    ThreadKey = widgetSettings.CommentsThreadKey
+                    ThreadKey = widgetSettings.CommentsThreadKey,
+                    ThreadType = widgetSettings.CommentsThreadType
                 };
 
                 return viewModel;
@@ -375,6 +376,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
                 SuccessfullyUnsubscribedFromNewComments = Res.Get<CommentsWidgetResources>().SuccessfullyUnsubscribedFromNewComments,
                 MessageIsRequired = Res.Get<CommentsWidgetResources>().MessageIsRequired,
                 NameIsRequired = Res.Get<CommentsWidgetResources>().NameIsRequired,
+                InvalidEmailFormat = Res.Get<CommentsWidgetResources>().InvalidEmailFormat,
                 //// Reviews
                 RatingIsRequired = Res.Get<CommentsWidgetResources>().RatingIsRequired,
                 ReadFullReview = Res.Get<CommentsWidgetResources>().ReadFullReview,
