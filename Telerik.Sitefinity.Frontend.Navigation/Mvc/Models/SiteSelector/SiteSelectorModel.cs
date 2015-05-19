@@ -129,7 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 
             if (!this.IncludeCurrentSite)
             {
-                sites = sites.Where(s => !s.IsDefault);
+                sites = sites.Where(s => s.Id != currentSiteId);
             }
 
             var result = new List<SiteViewModel>();
@@ -170,16 +170,19 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
                 if (site.Id == this.currentSiteId)
                 {
                     var actualSitemapNode = SiteMapBase.GetActualCurrentNode();
-                    var actualPageNode = PageManager.GetManager().GetPageNode(actualSitemapNode.Id);
-                    addToDataSource =
-                        actualPageNode.AvailableCultures.Contains(culture);
-
-                    if (addToDataSource)
+                    if (actualSitemapNode != null)
                     {
-                        if (actualSitemapNode.UiCulture == culture.Name)
-                            isCurrentSite = true;
+                        var actualPageNode = PageManager.GetManager().GetPageNode(actualSitemapNode.Id);
+                        addToDataSource =
+                            actualPageNode.AvailableCultures.Contains(culture);
 
-                        siteUrl = this.ResolveDefaultSiteUrl(actualPageNode, culture);
+                        if (addToDataSource)
+                        {
+                            if (actualSitemapNode.UiCulture == culture.Name)
+                                isCurrentSite = true;
+
+                            siteUrl = this.ResolveDefaultSiteUrl(actualPageNode, culture);
+                        }
                     }
                 }
                 else
