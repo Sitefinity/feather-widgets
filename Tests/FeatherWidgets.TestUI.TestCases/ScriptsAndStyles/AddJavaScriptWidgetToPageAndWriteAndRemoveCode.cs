@@ -23,8 +23,8 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void AddJavaScriptWidgetToPageAndWriteAndRemoveCode()
-
         {
+            ActiveBrowser.WaitUntilReady();
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
