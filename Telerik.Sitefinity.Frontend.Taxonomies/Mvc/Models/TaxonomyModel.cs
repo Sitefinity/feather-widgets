@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Telerik.Sitefinity.Data;
+using ServiceStack.Text;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -82,10 +81,34 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         public string FieldName { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized collection with the ids of the specific taxa that the widget will show.
+        /// Used only if the display mode setting of the widget is set to show only specific items.
+        /// </summary>
+        /// <value>The serialized collection with the selected taxa ids.</value>
+        public string SerializedSelectedTaxaIds
+        {
+            get
+            {
+                return this.serializedSelectedTaxaIds;
+            }
+            set
+            {
+                if (this.serializedSelectedTaxaIds != value)
+                {
+                    this.serializedSelectedTaxaIds = value;
+                    if (!this.serializedSelectedTaxaIds.IsNullOrEmpty())
+                    {
+                        this.selectedTaxaIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedTaxaIds);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>
-        public TaxonomyViewModel CreateViewModel()
+        public virtual TaxonomyViewModel CreateViewModel()
         {
             return new TaxonomyViewModel();
         }
@@ -190,11 +213,25 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
         }
 
+        /// <summary>
+        /// Gets the taxa with count for each taxon by using the provided ids of taxons that we want explicitly to be shown by the widget.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IDictionary<ITaxon, uint> GetSpecificTaxa()
         {
-            throw new NotImplementedException();
+            var selectedTaxaGuids = this.selectedTaxaIds.Select(id => new Guid(id));
+
+            var taxa = this.CurrentTaxonomyManager
+                .GetTaxa<ITaxon>()
+                .Where(t => selectedTaxaGuids.Contains(t.Id));
+
+            return this.AddCountToTaxa(taxa);
         }
 
+        /// <summary>
+        /// Gets all taxa statistics for the currently used taxonomy.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IQueryable<TaxonomyStatistic> GetTaxonomyStatistics()
         {
             var taxonomyIdGuid = SystemManager.CurrentContext.IsMultisiteMode ?
@@ -240,11 +277,20 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
         }
 
+        /// <summary>
+        /// Gets the taxa contained in a field which name is stored in the FieldName property.
+        /// The field belongs to a content item with id stored in the ContentId property.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IDictionary<ITaxon, uint> GetTaxaByContentItem()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Resolves the name of the provider used by the manager which is responsible for the content type that is filtering the shown taxa.
+        /// </summary>
+        /// <returns></returns>
         protected virtual string GetContentProviderName()
         {
             string providerName = String.Empty;
@@ -294,6 +340,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             return providerName;
         }
+
         #endregion
 
         #region Private fields and constants
@@ -301,6 +348,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private Type taxonomyContentType;
         private ITaxonomy taxonomy;
         private PropertyDescriptor fieldPropertyDescriptor;
+        private string serializedSelectedTaxaIds;
+        private IList<string> selectedTaxaIds = new List<string>();
         #endregion
     }
 }

@@ -25,6 +25,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// Used only if this display mode is selected.
         /// </summary>
         /// <value>The parent category.</value>
-        Guid RootCategory { get; set; }
+        Guid RootTaxonId { get; set; }
     }
 }
