@@ -231,8 +231,10 @@
             return regex.test(email);
         },
 
-        getErrorMessage: function(error) {
-            return this.errorMessage().clone(true).find('span').text(error).show();
+        getErrorMessage: function (error) {
+            var errorMessageEl = this.errorMessage().clone(true).show();
+            errorMessageEl.find('span').text(error);
+            return errorMessageEl;
         },
 
         validateComment: function (comment) {
