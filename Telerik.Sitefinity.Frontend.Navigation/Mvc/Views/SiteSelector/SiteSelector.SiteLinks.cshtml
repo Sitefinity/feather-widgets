@@ -18,7 +18,7 @@
                 {
                     <span class="selected">@site.Name</span>
                 }
-                else if (SystemManager.IsDesignMode)
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
                 {   <a>@site.Name</a>
                 }
                 else
@@ -32,7 +32,7 @@
                 {
                     <span class="selected">@site.Name - @site.Language</span>
                 }
-                else if (SystemManager.IsDesignMode)
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
                 {
                     <a>@site.Name - @site.Language</a>
                 }
@@ -47,7 +47,7 @@
                 {
                     <span class="selected">@site.Language</span>
                 }
-                else if (SystemManager.IsDesignMode)
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
                 {
                     <a>@site.Language</a>
                 }
