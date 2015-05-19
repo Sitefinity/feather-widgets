@@ -39,10 +39,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         string BaseUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the taxonomy provider.
+        /// Gets or sets the name taxonomy provider.
         /// </summary>
         /// <value>The taxonomy provider.</value>
-        string TaxonomyProvider { get; set; }
+        string TaxonomyProviderName { get; set; }
 
         /// <summary>
         /// Gets or sets the taxonomy id.

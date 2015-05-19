@@ -61,7 +61,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets or sets the taxonomy provider.
         /// </summary>
         /// <value>The taxonomy provider.</value>
-        public string TaxonomyProvider { get; set; }
+        public string TaxonomyProviderName { get; set; }
 
         /// <summary>
         /// Gets or sets the taxonomy id.
@@ -101,7 +101,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 if (this.taxonomyManager == null)
                 {
-                    this.taxonomyManager = TaxonomyManager.GetManager();
+                    this.taxonomyManager = TaxonomyManager.GetManager(this.TaxonomyProviderName);
                 }
                 return this.taxonomyManager;
             }
