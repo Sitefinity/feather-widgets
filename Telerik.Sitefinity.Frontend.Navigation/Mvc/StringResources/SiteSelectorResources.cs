@@ -305,18 +305,18 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Other sites
+        /// phrase: - Select a site -
         /// </summary>
-        /// <value>Other sites</value>
-        [ResourceEntry("OtherSites",
-            Value = "Other sites",
-            Description = "phrase: Other sites",
+        /// <value>-Select a site-</value>
+        [ResourceEntry("SelectSite",
+            Value = "- Select a site -",
+            Description = "phrase: - Select a site -",
             LastModified = "2015/05/14")]
-        public string OtherSites
+        public string SelectSite
         {
             get
             {
-                return this["OtherSites"];
+                return this["SelectSite"];
             }
         }
 
