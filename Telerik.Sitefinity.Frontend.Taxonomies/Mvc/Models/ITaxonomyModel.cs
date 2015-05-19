@@ -63,6 +63,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         string FieldName { get; set; }
 
         /// <summary>
+        /// Gets or sets the serialized collection with the ids of the specific taxa that the widget will show.
+        /// Used only if the display mode setting of the widget is set to show only specific items.
+        /// </summary>
+        /// <value>The serialized collection with the selected taxa ids.</value>
+        string SerializedSelectedTaxaIds { get; set; }
+
+        /// <summary>
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>

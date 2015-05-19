@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceStack.Text;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,6 +81,30 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <value>The name of the field.</value>
         public string FieldName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the serialized collection with the ids of the specific taxa that the widget will show.
+        /// Used only if the display mode setting of the widget is set to show only specific items.
+        /// </summary>
+        /// <value>The serialized collection with the selected taxa ids.</value>
+        public string SerializedSelectedTaxaIds
+        {
+            get
+            {
+                return this.serializedSelectedTaxaIds;
+            }
+            set
+            {
+                if (this.serializedSelectedTaxaIds != value)
+                {
+                    this.serializedSelectedTaxaIds = value;
+                    if (!this.serializedSelectedTaxaIds.IsNullOrEmpty())
+                    {
+                        this.selectedTaxaIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedTaxaIds);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Creates the view model.
@@ -190,9 +215,19 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
         }
 
+        /// <summary>
+        /// Gets the taxa with count for each taxon by using the provided ids of taxons that we want explicitly to be shown by the widget.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IDictionary<ITaxon, uint> GetSpecificTaxa()
         {
-            throw new NotImplementedException();
+            var selectedTaxaGuids = this.selectedTaxaIds.Select(id => new Guid(id));
+
+            var taxa = this.CurrentTaxonomyManager
+                .GetTaxa<ITaxon>()
+                .Where(t => selectedTaxaGuids.Contains(t.Id));
+
+            return this.AddCountToTaxa(taxa);
         }
 
         protected virtual IQueryable<TaxonomyStatistic> GetTaxonomyStatistics()
@@ -301,6 +336,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private Type taxonomyContentType;
         private ITaxonomy taxonomy;
         private PropertyDescriptor fieldPropertyDescriptor;
+        private string serializedSelectedTaxaIds;
+        private IList<string> selectedTaxaIds = new List<string>();
         #endregion
     }
 }
