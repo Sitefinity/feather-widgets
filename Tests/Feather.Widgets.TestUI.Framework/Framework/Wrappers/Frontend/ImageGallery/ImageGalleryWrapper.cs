@@ -21,10 +21,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="src">The image src.</param>
         public void VerifyImage(string altText, string src)
         {
-            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("tagname=img", "alt=" + altText)
-                .AssertIsPresent(altText);
-
-            Assert.IsTrue(image.Src.StartsWith(src), "src is not correct");
+            ICollection<HtmlImage> images = EM.MediaGallery.MediaGalleryFrontend.AllImages;
+            images.Where<HtmlImage>(k => k.Alt.Equals(altText) && k.Src.StartsWith(src)).FirstOrDefault().AssertIsPresent("image");
         }
 
         /// <summary>
@@ -33,7 +31,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="itemAlts">The item names.</param>
         public void VerifyCorrectOrderOfImages(params string[] itemAlts)
         {
-            var items = ActiveBrowser.Find.AllByExpression<HtmlImage>("tagname=img");
+            var items = EM.MediaGallery.MediaGalleryFrontend.AllImages.ToList();
 
             int itemsCount = items.Count;
             Assert.IsNotNull(itemsCount);
@@ -51,7 +49,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="altText">The alt text.</param>
         public void VerifyImageIsNotPresent(string altText)
         {
-            ActiveBrowser.Find.ByExpression<HtmlImage>("tagname=img", "alt=" + altText).AssertIsNull(altText);
+            ICollection<HtmlImage> images = EM.MediaGallery.MediaGalleryFrontend.AllImages;
+            images.Where<HtmlImage>(k => k.Alt.Equals(altText)).FirstOrDefault().AssertIsNull("image");
         }
 
         /// <summary>
@@ -60,8 +59,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="altText">The alt text.</param>
         public void ClickImage(string altText)
         {
-            HtmlImage image = ActiveBrowser.Find.ByExpression<HtmlImage>("tagname=img", "alt=" + altText)
-                  .AssertIsPresent(altText);
+            ICollection<HtmlImage> images = EM.MediaGallery.MediaGalleryFrontend.AllImages;
+            var image = images.Where<HtmlImage>(k => k.Alt.Equals(altText)).FirstOrDefault().AssertIsPresent("image");
 
             image.Wait.ForVisible();
             image.ScrollToVisible();

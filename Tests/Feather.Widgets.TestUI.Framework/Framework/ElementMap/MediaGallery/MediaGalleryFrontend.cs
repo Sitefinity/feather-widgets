@@ -118,5 +118,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.MediaGallery
                 return this.Get<HtmlAnchor>("tagname=a", "class=~js-Gallery-next");
             }
         }
+
+        /// <summary>
+        /// Gets the videos.
+        /// </summary>
+        /// <value>The videos.</value>
+        public ICollection<HtmlVideo> Videos
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlVideo>("tagname=video");
+            }
+        }
+
+        /// <summary>
+        /// Gets all images.
+        /// </summary>
+        /// <value>All images.</value>
+        public ICollection<HtmlImage> AllImages
+        {
+            get
+            {
+                return this.Find.AllByExpression<HtmlImage>("tagname=img");
+            }
+        }
     }
 }
