@@ -24,11 +24,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         public int Levels { get; set; }
 
         /// <summary>
-        /// Gets or sets the root category which children will be displayed as a top level in the widget.
+        /// Gets or sets the root taxon which children will be displayed as a top level in the widget.
         /// Used only if this display mode is selected.
         /// </summary>
         /// <value>The parent category.</value>
-        public Guid RootCategory { get; set; }
+        public Guid RootTaxonId { get; set; }
 
         #region Overriden methods
         /// <summary>
@@ -57,7 +57,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         #region Protected methods
         protected virtual IDictionary<ITaxon, uint> GetAllTaxa()
         {
-            throw new NotImplementedException();
+            var taxa = this.Taxonomy.Taxa;
+
+            return this.AddCountToTaxa(taxa);
         }
 
         protected virtual IDictionary<ITaxon, uint> GetTaxaByContentType()
@@ -67,7 +69,14 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
         protected virtual IDictionary<ITaxon, uint> GetTaxaByParent()
         {
-            throw new NotImplementedException();
+            var rootTaxon = this.CurrentTaxonomyManager.GetTaxon(this.RootTaxonId) as HierarchicalTaxon;
+
+            if (rootTaxon != null)
+            {
+                return this.AddCountToTaxa(rootTaxon.Subtaxa);
+            }
+
+            return new Dictionary<ITaxon, uint>();
         }
         #endregion
     }

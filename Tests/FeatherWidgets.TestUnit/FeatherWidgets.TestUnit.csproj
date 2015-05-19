@@ -139,6 +139,7 @@
     <Compile Include="DummyClasses\DummyConfigProvider.cs" />
     <Compile Include="DummyClasses\Identity\DummyAccountActivationController.cs" />
     <Compile Include="DummyClasses\Identity\DummyAccountActivationModel.cs" />
+    <Compile Include="DummyClasses\InlineClientAssets\DummyEmbedCodeController.cs" />
     <Compile Include="DummyClasses\InlineClientAssets\DummyJavaScriptController.cs" />
     <Compile Include="DummyClasses\Identity\DummyProfileController.cs" />
     <Compile Include="DummyClasses\Identity\DummyProfileModel.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AccountActivationControllerTests.cs" />
+    <Compile Include="InlineClientAssets\EmbedCode\EmbedCodeControllerTests.cs" />
     <Compile Include="InlineClientAssets\JavaScriptControllerTests.cs" />
     <Compile Include="Identity\ProfileControllerTests.cs" />
     <Compile Include="Identity\RegistrationControllerTests.cs" />

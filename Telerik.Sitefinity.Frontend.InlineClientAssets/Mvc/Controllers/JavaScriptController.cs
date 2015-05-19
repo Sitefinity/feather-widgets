@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.JavaScript;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
@@ -26,7 +27,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         #region Properties
 
         /// <summary>
-        /// Gets the Account Activation widget model.
+        /// Gets the Javascript widget model.
         /// </summary>
         /// <value>
         /// The model.
@@ -109,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
                 else if (Model.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(viewModel.JavaScriptCode))
                 {
-                    result = this.GetShortScript(viewModel.JavaScriptCode);
+                    result = ScriptHelper.GetShortScript(viewModel.JavaScriptCode);
                 }
                 else
                 {
@@ -203,27 +204,6 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         void PagePreRenderCompleteHandler(object sender, EventArgs e)
         {
             this.model.PlaceScriptBeforeBodyEnd((Page)sender, this.model.BuildScriptTag());
-        }
-
-        /// <summary>
-        /// Gets the short part of the whole JavaScript code.
-        /// </summary>
-        /// <param name="script">The script.</param>
-        /// <returns></returns>
-        private string GetShortScript(string script)
-        {
-            string result = null;
-            var divider = Environment.NewLine;
-
-            var lines = script.Split(new string[2] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
-            result = string.Join(divider, lines.Take(2));
-
-            if (lines.Length > 2)
-            {
-                result = result + divider + "...";
-            }
-
-            return result;
         }
 
         #endregion
