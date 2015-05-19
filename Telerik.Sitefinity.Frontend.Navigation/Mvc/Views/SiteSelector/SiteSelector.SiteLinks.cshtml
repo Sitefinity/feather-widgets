@@ -2,50 +2,52 @@
 
 @using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector
 @using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <div class="@Model.CssClass">
 
-    <h1>Sites</h1>
-    <br />
+    <h1>@Html.Resource("Sites")</h1>
+   
+    <ul>
     @foreach (var site in Model.Sites)
     {
-        <p>
+        <li>
             @if (!Model.EachLanguageAsSeparateSite)
             {
                 if (site.IsCurrent)
                 {
-                    <span>@site.Name site</span>
+                    <span class="selected">@site.Name</span>
                 }
-                else if (SystemManager.IsDesignMode)
-                {   <a>@site.Name site</a>
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
+                {   <a>@site.Name</a>
                 }
                 else
                 {
-                    <a href="@site.Url">@site.Name site</a>
+                    <a href="@site.Url">@site.Name</a>
                 }
             }
             else if (Model.SiteLanguagesDisplayMode == SiteLanguagesDisplayMode.SiteNamesAndLanguages)
             {
                 if (site.IsCurrent)
                 {
-                    <span>@site.Name site - @site.Language</span>
+                    <span class="selected">@site.Name - @site.Language</span>
                 }
-                else if (SystemManager.IsDesignMode)
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
                 {
-                    <a>@site.Name site - @site.Language</a>
+                    <a>@site.Name - @site.Language</a>
                 }
                 else
                 {
-                    <a href="@site.Url">@site.Name site - @site.Language</a>
+                    <a href="@site.Url">@site.Name - @site.Language</a>
                 }
             }
             else
             {
                 if (site.IsCurrent)
                 {
-                    <span>@site.Language</span>
+                    <span class="selected">@site.Language</span>
                 }
-                else if (SystemManager.IsDesignMode)
+                else if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
                 {
                     <a>@site.Language</a>
                 }
@@ -54,6 +56,7 @@
                     <a href="@site.Url">@site.Language</a>
                 }
             }
-        </p>
+        </li>
     }
+    </ul>
 </div>

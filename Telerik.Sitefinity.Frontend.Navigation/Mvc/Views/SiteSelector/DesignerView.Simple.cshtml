@@ -7,9 +7,6 @@
             @Html.Resource("IncludeCurrentSite")
         </label>
     </div>
-</div>
-
-<div class="form-group">
     <div class="checkbox">
         <label>
              <input type="checkbox"
@@ -20,35 +17,51 @@
         </label>
     </div>
 
-    <div ng-show="properties.EachLanguageAsSeparateSite.PropertyValue === 'True'">
+    <div ng-show="properties.EachLanguageAsSeparateSite.PropertyValue === 'True'" class="label-content">
         <div class="radio">
+
             <label for="siteNamesAndLanguages" class="full-width">
               <input id="siteNamesAndLanguages" type="radio" ng-model="properties.SiteLanguagesDisplayMode.PropertyValue" value="SiteNamesAndLanguages"/>
               @Html.Resource("SiteNamesAndLanguages")
             </label>
 
-            <br />
+            <div class="label-content">
+                <div class="row row-xs text-muted">
+                    <div class="col-xs-2">@Html.Resource("Example"):</div>
+                    <div class="col-xs-5">
+                        <em>@Html.Resource("NameAndLanguageExample1")</em>
+                        <br/>
+                        <em>@Html.Resource("NameAndLanguageExample2")</em>
+                    </div>
+                </div>
+            </div>
 
-            <span>@Html.Resource("Example"):</span>
-            <span>@Html.Resource("NameAndLanguageExample1")</span><br />
-            <span>@Html.Resource("NameAndLanguageExample2")</span>
         </div>
 
         <div class="radio">
+
             <label for="languagesOnly" class="full-width">
               <input id="languagesOnly" type="radio" ng-model="properties.SiteLanguagesDisplayMode.PropertyValue" value="LanguagesOnly" />
               @Html.Resource("LanguagesOnly")
             </label>
 
-            <br />
+            <div class="label-content">
+                <div class="row row-xs text-muted">
+                    <div class="col-xs-2">@Html.Resource("Example"):</div>
+                    <div class="col-xs-5">
+                        <em>@Html.Resource("LanguageOnlyExample1")</em>
+                        <br/>
+                        <em>@Html.Resource("LanguageOnlyExample2")</em>
+                        <br/>
+                        <em>@Html.Resource("LanguageOnlyExample3")</em>
+                    </div>
+                </div>
+            </div>
 
-            <span>@Html.Resource("Example"):</span>
-            <span>@Html.Resource("LanguageOnlyExample1")</span><br />
-            <span>@Html.Resource("LanguageOnlyExample2")</span><br />
-            <span>@Html.Resource("LanguageOnlyExample3")</span>
         </div>
     </div>
 </div>
+
 
 <div class="form-group">
     <div class="row">

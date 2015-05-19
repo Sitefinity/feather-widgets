@@ -382,6 +382,21 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Invalid email format!
+        /// </summary>
+        [ResourceEntry("InvalidEmailFormat",
+            Value = "Invalid email format!",
+            Description = "phrase : Invalid email format!",
+            LastModified = "2015/05/18")]
+        public string InvalidEmailFormat
+        {
+            get
+            {
+                return this["InvalidEmailFormat"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase :  to be able to comment
         /// </summary>
         [ResourceEntry("ToBeAbleToComment",
@@ -640,7 +655,7 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
             }
         }
 
-         /// <summary>
+        /// <summary>
         /// Gets phrase : You've already submitted a review for this item
         /// </summary>
         [ResourceEntry("UserAlreadySubmitedReview",
@@ -654,6 +669,23 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.StringResources
                 return this["UserAlreadySubmitedReview"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Average rating:
+        /// </summary>
+        [ResourceEntry("AverageRating",
+            Value = "Average rating:",
+            Description = "phrase : Average rating:",
+            LastModified = "2015/05/18")]
+        public string AverageRating
+        {
+            get
+            {
+                return this["AverageRating"];
+            }
+        }
+
+        
 
         #endregion
 

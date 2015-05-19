@@ -2,14 +2,14 @@
 
 @using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector;
 @using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <div class="@Model.CssClass">
 
-    <h1>Sites</h1>
+    <h3>@Html.Resource("Sites")</h3>
 
-    <br />
-
-    @if (SystemManager.IsDesignMode)
+    <label class="sr-only">@Html.Resource("Sites")</label>
+    @if (SystemManager.IsDesignMode && !SystemManager.IsInlineEditingMode && !SystemManager.IsPreviewMode)
     {
         @:<select>
     }
@@ -17,15 +17,20 @@
     {
         @:<select onchange="document.location.href = this.value">
     }
+            @if (!Model.IncludeCurrentSite)
+            { 
+                <option>@Html.Resource("SelectSite")</option>
+            }
+
             @foreach (var site in Model.Sites)
-            {
+            {                
                 if (!Model.EachLanguageAsSeparateSite)
                 {
-                     <option value="@site.Url">@site.Name site</option>
+                     <option value="@site.Url">@site.Name</option>
                 }
                 else if (Model.SiteLanguagesDisplayMode == SiteLanguagesDisplayMode.SiteNamesAndLanguages)
                 {
-                    <option value="@site.Url">@site.Name site - @site.Language</option>
+                    <option value="@site.Url">@site.Name - @site.Language</option>
                 }
                 else
                 {

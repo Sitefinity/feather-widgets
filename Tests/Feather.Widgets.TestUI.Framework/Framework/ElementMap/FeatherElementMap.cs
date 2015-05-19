@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
-using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ImageGallery;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.MediaGallery;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.ScriptsAndStyles;
@@ -275,22 +275,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         /// Gets or sets the image gallery.
         /// </summary>
         /// <value>The image gallery.</value>
-        public ImageGalleryMap ImageGallery
+        public MediaGalleryMap MediaGallery
         {
             get
             {
-                if (this.imageGalleryMap == null)
+                if (this.mediaGalleryMap == null)
                 {
                     this.EnsureFindIsInitialized();
-                    this.imageGalleryMap = new ImageGalleryMap(this.find);
+                    this.mediaGalleryMap = new MediaGalleryMap(this.find);
                 }
 
-                return this.imageGalleryMap;
+                return this.mediaGalleryMap;
             }
 
             private set
             {
-                this.imageGalleryMap = value;
+                this.mediaGalleryMap = value;
             }
         }
 
@@ -355,7 +355,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private SearchMap searchMap;
         private MediaMap mediaMap;
         private IdentityMap identityMap;
-        private ImageGalleryMap imageGalleryMap;
+        private MediaGalleryMap mediaGalleryMap;
         private ListsMap listsMap;
         private ScriptsAndStylesMap scriptsAndStylesMap;
     }
