@@ -138,6 +138,7 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="ScriptsAndStyles\DuplicateAndDeleteJavaScriptWidgetOnPage.cs" />
     <Compile Include="VideoGallery\FilterVideosWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideosWithOverlayGalleryTemplate.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideos.cs" />

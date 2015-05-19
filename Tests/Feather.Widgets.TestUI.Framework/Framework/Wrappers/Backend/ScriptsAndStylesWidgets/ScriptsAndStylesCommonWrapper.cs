@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 
@@ -31,6 +32,19 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
 
             Manager.Current.Desktop.KeyBoard.TypeText(code);
+        }
+
+        /// <summary>
+        /// Verifies the code in editable area.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        public void VerifyCodeInEditableArea(string code)
+        {
+            HtmlDiv editable = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen
+                                       .CodeMirrorLines
+                                       .AssertIsPresent("Editable area");
+
+            Assert.IsTrue(editable.InnerText.Contains(code));
         }
 
         /// <summary>
