@@ -674,6 +674,7 @@
                     self.newCommentForm().hide();
                     self.newCommentFormButton().hide();
                     self.newReviewFormReplacement().show();
+                    self.newCommentRequiresAuthentication().hide();
                 }
             });
         },
