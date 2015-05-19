@@ -490,7 +490,10 @@
             if (this.settings.useReviews) {
                 this.newCommentForm().hide();
                 this.newCommentFormButton().hide();
-                this.newReviewFormReplacement().text(this.resources.thankYouReviewSubmited).show();
+
+                var textToShow = this.settings.requiresApproval ? this.newCommentPendingApprovalMessage().text() : this.resources.thankYouReviewSubmited;
+
+                this.newReviewFormReplacement().text(textToShow).show();
             }
         },
 
@@ -671,6 +674,7 @@
                     self.newCommentForm().hide();
                     self.newCommentFormButton().hide();
                     self.newReviewFormReplacement().show();
+                    self.newCommentRequiresAuthentication().hide();
                 }
             });
         },

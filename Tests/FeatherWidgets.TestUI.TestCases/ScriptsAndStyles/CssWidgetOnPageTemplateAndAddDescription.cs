@@ -25,6 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void CssWidgetOnPageTemplateAndAddDescription()
         {
+            ActiveBrowser.WaitUntilReady();
             BAT.Macros().NavigateTo().Design().PageTemplates();
             this.OpenTemplateEditor();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetNameContentBlock, PlaceHolder);

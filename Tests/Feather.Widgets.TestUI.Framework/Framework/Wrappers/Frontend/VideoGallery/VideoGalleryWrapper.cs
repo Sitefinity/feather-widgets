@@ -16,10 +16,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
     {
         public void VerifyVideo(string src, int width = 0, int height = 0)
         {           
-            HtmlVideo video = ActiveBrowser.Find.ByExpression<HtmlVideo>("tagname=video")
+            HtmlVideo video = EM.MediaGallery.MediaGalleryFrontend.Videos.Where<HtmlVideo>(k => k.Src.StartsWith(src)).FirstOrDefault()
                 .AssertIsPresent("video");
 
-            Assert.IsTrue(video.Src.StartsWith(src), "src is not correct");
             if (width != 0 && height != 0)
             {
                 Assert.IsTrue(video.Width.Equals(width), "width is not correct");
