@@ -506,7 +506,7 @@
         createCommentFail: function (jqXHR) {
             if (jqXHR && jqXHR.responseText) {
                 var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
-                this.errorMessage().text(errorTxt).show();
+                this.errorMessage().after(this.getErrorMessage(errorTxt));
             }
         },
 
