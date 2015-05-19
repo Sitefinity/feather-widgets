@@ -54,7 +54,11 @@
         getCommentsCounts: function (commentsThreadKeys) {
             var getCommentsCountsUrl = this.rootUrl + 'comments/count?ThreadKey=' + encodeURIComponent(commentsThreadKeys);
 
-            return this.makeAjax(getCommentsCountsUrl);
+            return this.makeAjax(getCommentsCountsUrl).then(function (response) {
+                if (response && response.Items) {
+                    return response.Items;
+                }
+            });
         },
 
         getReviewsCounts: function (reviewsThreadKeys) {
@@ -69,8 +73,8 @@
             var allCounts = [];
 
             return self.getCommentsCounts(commentsThreadKeys).then(function (commentsCountsResponse) {
-                if (commentsCountsResponse && commentsCountsResponse.Items && commentsCountsResponse.Items.length) {
-                    allCounts = allCounts.concat(commentsCountsResponse.Items);
+                if (commentsCountsResponse && commentsCountsResponse.length) {
+                    allCounts = allCounts.concat(commentsCountsResponse);
                 }
 
                 return self.getReviewsCounts(reviewsThreadKeys).then(function (reviewsCountsResponse) {
