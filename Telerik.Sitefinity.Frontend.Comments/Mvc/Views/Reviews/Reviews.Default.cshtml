@@ -37,12 +37,12 @@
     }
     else 
     {        
+        if (Model.RequiresApproval)
+        {
+            <span data-sf-role="comments-new-pending-approval-message">@Html.Resource("ReviewPendingApproval")</span>
+        }
+        
         <div data-sf-role="comments-new-form" id="comment-submit-@HttpUtility.HtmlEncode(Model.ThreadKey)">
-            @if (Model.RequiresApproval)
-            {
-                <span data-sf-role="comments-new-pending-approval-message">@Html.Resource("ReviewPendingApproval")</span>
-            }
-
             <img src="@Model.UserAvatarImageUrl"/>
             <textarea data-sf-role="comments-new-message" placeholder="@Html.Resource("WriteReview")" ></textarea>
             
