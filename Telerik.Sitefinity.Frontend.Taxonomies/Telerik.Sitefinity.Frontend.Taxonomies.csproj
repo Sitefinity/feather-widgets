@@ -147,7 +147,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Mvc\Views\HierarchicalTaxonomy\HierarchicalTaxonomy.CategoriesList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\HierarchicalTaxonomy\HierarchicalTaxonomy.CategoriesList.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

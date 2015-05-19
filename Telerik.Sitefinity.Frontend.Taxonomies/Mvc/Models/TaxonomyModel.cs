@@ -236,7 +236,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         protected virtual IQueryable<TaxonomyStatistic> GetTaxonomyStatistics()
         {
             var taxonomyIdGuid = SystemManager.CurrentContext.IsMultisiteMode ?
-                this.CurrentTaxonomyManager.GetSiteTaxonomy<ITaxonomy>(this.TaxonomyId).Id :
+                this.CurrentTaxonomyManager.GetSiteTaxonomy<Taxonomy>(this.TaxonomyId).Id :
                 this.TaxonomyId;
 
             return this.CurrentTaxonomyManager
