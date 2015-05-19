@@ -23,18 +23,18 @@
             }
 
             @foreach (var site in Model.Sites)
-            {                
+            {                                                                               
                 if (!Model.EachLanguageAsSeparateSite)
                 {
-                     <option value="@site.Url">@site.Name</option>
+                     <option value="@site.Url" @(site.IsCurrent ? "selected=selected" : "")>@site.Name</option>
                 }
                 else if (Model.SiteLanguagesDisplayMode == SiteLanguagesDisplayMode.SiteNamesAndLanguages)
                 {
-                    <option value="@site.Url">@site.Name - @site.Language</option>
+                    <option value="@site.Url" @(site.IsCurrent ? "selected=selected" : "")>@site.Name - @site.Language</option>
                 }
                 else
                 {
-                    <option value="@site.Url">@site.Language</option>
+                    <option value="@site.Url" @(site.IsCurrent ? "selected=selected" : "")>@site.Language</option>
                 }
             }
         </select>
