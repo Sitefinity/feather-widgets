@@ -134,5 +134,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Users list tests
         /// </summary>
         public const string UsersList = "UsersList";
+
+        /// <summary>
+        /// New category for Comments and Reviews tests
+        /// </summary>
+        public const string CommentsAndReviews = "CommentsAndReviews";
     }
 }
