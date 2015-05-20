@@ -63,9 +63,5 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private const string WidgetName = "Navigation";
         private const string Key = "cssClass";
         private const string NavClass = "nav navbar-nav";
-
-        private string cssClass;
-        private string cssClassSmall;
-        private string cssClassMedium;    
     }
 }

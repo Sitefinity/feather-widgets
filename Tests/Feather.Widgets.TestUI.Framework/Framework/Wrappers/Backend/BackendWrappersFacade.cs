@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Css;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Lists;
@@ -124,6 +125,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public ScriptsAndStylesWrapperFacade ScriptAndStyles()
         {
             return new ScriptsAndStylesWrapperFacade();
+        }
+
+        /// <summary>
+        /// CommentsAndReviews widget.
+        /// </summary>
+        /// <returns></returns>
+        public CommentsAndReviewsWrapperFacade CommentsAndReviews()
+        {
+            return new CommentsAndReviewsWrapperFacade();
         }
     }
 }
