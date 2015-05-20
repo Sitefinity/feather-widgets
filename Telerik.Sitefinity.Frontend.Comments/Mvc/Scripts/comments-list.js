@@ -285,6 +285,7 @@
         createCommentMarkup: function (comment) {
             var newComment = this.getSingleCommentTemplate().clone(true);
 
+            newComment.find('[data-sf-role="list-rating-wrapper"]').show();
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
@@ -294,6 +295,7 @@
 
             if (this.settings.useReviews) {
                 newComment.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: comment.Rating, template: $('[data-sf-role="rating-template"]') });
+                newComment.find('[data-sf-role="list-rating-value"]').text(comment.Rating);
             }
 
             return newComment;

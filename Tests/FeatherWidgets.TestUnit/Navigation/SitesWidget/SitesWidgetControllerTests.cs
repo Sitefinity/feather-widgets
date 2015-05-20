@@ -149,6 +149,14 @@ namespace FeatherWidgets.TestUnit.Navigation.SitesWidget
                     return this.model;
                 }
             }
+
+            protected override bool IsMultisiteMode
+            {
+                get
+                {
+                    return true;
+                }
+            }
         }
 
         private class EmptySiteSelectorMode : ISiteSelectorModel

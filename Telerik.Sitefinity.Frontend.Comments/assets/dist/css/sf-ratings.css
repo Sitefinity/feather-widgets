@@ -1,0 +1,22 @@
+.sf-Ratings .sf-Ratings-stars {
+  display: inline-block;
+  vertical-align: middle; }
+  .sf-Ratings .sf-Ratings-stars span {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer; }
+    .sf-Ratings .sf-Ratings-stars span.hover:before, .sf-Ratings .sf-Ratings-stars span.on:before {
+      content: "\2605";
+      position: absolute;
+      color: #006cd8; }
+  .sf-Ratings .sf-Ratings-stars.sf-Ratings-stars--ronly span {
+    cursor: default; }
+    .sf-Ratings .sf-Ratings-stars.sf-Ratings-stars--ronly span.on:before {
+      content: "\2605";
+      position: absolute;
+      color: #fc0; }
+.sf-Ratings .sf-Ratings-average, .sf-Ratings .sf-Ratings-count {
+  font-size: 16px;
+  vertical-align: middle; }
+.sf-Ratings .sf-Ratings-count span {
+  vertical-align: middle; }

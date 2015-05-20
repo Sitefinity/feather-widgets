@@ -163,6 +163,7 @@
     <EmbeddedResource Include="Mvc\Views\Reviews\ReviewsCount.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Reviews\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Reviews\DesignerView.Simple.json" />
+    <None Include="assets\src\sass\sf-ratings.sass" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +180,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Reviews\rating.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\dist\css\sf-ratings.css" />
+    <EmbeddedResource Include="assets\dist\css\sf-ratings.min.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
