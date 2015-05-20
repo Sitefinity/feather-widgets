@@ -88,7 +88,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImage(ImageAltText + 2, src);
             BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyThumbnailStripTemplateInfo("2of 3", this.imageTitles[1]);
             var scr = this.GetImageSource(false, this.imageTitles[1], string.Empty);
-            string url = PageName.ToLower() + scr + "?itemIndex=1";
+            string url = PageName.ToLower() + scr;
             ActiveBrowser.WaitForUrl("/" + url, true, 60000);
         }
 
