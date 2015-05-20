@@ -18,8 +18,6 @@
         {
             <a href="#comment-submit-@HttpUtility.HtmlEncode(HttpUtility.UrlEncode(Model.ThreadKey))" data-sf-role="comments-new-form-button">@Html.Resource("WriteReview")</a>
         }
-
-        @Html.CommentsCount(string.Empty, Model.ThreadKey, Model.ThreadType)
         
         <a href="#" data-sf-role="comments-sort-new-button" style="display:none;">@Html.Resource("NewestOnTop")</a>
         <a href="#" data-sf-role="comments-sort-old-button" style="display:none;">@Html.Resource("OldestOnTop")</a>
@@ -115,7 +113,10 @@
                 <span data-sf-role="comment-date"></span>
             </p>
             <div>
-                <span data-sf-role="list-rating-container"></span>
+                <span data-sf-role="list-rating-wrapper">
+                    <span data-sf-role="list-rating-container"></span>
+                    <span data-sf-role="list-rating-value"></span>
+                </span>
             </div>
             <p>
                 <span data-sf-role="comment-message"></span>
@@ -124,7 +125,7 @@
     </div>
 </div>
 
-<div data-sf-role="rating-template"  style="display:none;"><span>&#9734</span></div>
+<div data-sf-role="rating-template" style="display:none;"><span>&#9734</span></div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Reviews/rating.js"), "bottom", false)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/comments-list.js"), "bottom", false)
