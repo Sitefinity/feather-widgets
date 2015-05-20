@@ -42,11 +42,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             switch (this.TaxaToDisplay)
             {
                 case HierarchicalTaxaToDisplay.TopLevel:
+                    viewModel.Taxa = this.GetTopLevelTaxa();
                     break;
-                    //return this.GetAllTaxa();
                 case HierarchicalTaxaToDisplay.UnderParticularTaxon:
+                    viewModel.Taxa = this.GetTaxaByParent();
                     break;
-                    //return this.GetTaxaByParent();
                 case HierarchicalTaxaToDisplay.Selected:
                     break;
                     //return this.GetSpecificTaxa();
@@ -66,29 +66,44 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// <returns></returns>
         protected override IDictionary<ITaxon, uint> GetFilteredTaxaWithCount()
         {
-            switch (this.TaxaToDisplay)
-            {
-                case HierarchicalTaxaToDisplay.TopLevel:
-                    return this.GetAllTaxa();
-                case HierarchicalTaxaToDisplay.UnderParticularTaxon:
-                    return this.GetTaxaByParent();
-                case HierarchicalTaxaToDisplay.Selected:
-                    return this.GetSpecificTaxa();
-                case HierarchicalTaxaToDisplay.UsedByContentType:
-                    //return GetTaxaByContentType();
-                default:
-                    return this.GetAllTaxa();
-            }
+            return null;
         }
 
         #endregion
 
         #region Protected methods
-        protected virtual IDictionary<ITaxon, uint> GetAllTaxa()
+        /// <summary>
+        /// Gets the taxa view model trees starting from the root level.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetTopLevelTaxa()
         {
-            var taxa = this.Taxonomy.Taxa;
+            var statistics = this.GetTaxonomyStatistics();
 
-            return this.AddCountToTaxa(taxa);
+            var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
+                 .Where(t => t.Taxonomy.Id == this.TaxonomyId && t.Parent == null);
+
+            var taxaViewModels = BuildFullTaxaTrees(statistics, taxa);
+
+            return taxaViewModels;
+        }
+
+        /// <summary>
+        /// Gets the taxa view model trees starting from the children of the provided parent id.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetTaxaByParent()
+        {
+            var statistics = this.GetTaxonomyStatistics();
+
+            var rootTaxon = this.CurrentTaxonomyManager.GetTaxon(this.RootTaxonId) as HierarchicalTaxon;
+
+            if (rootTaxon != null)
+            {
+                return this.BuildFullTaxaTrees(statistics, rootTaxon.Subtaxa);
+            }
+
+            return new List<TaxonViewModel>();
         }
 
         /// <summary>
@@ -106,7 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
             var taxaViewModels = TaxaViewModelTreeBuilder.BuildTaxaTree(
                 taxa,
-                t => 
+                t =>
                 {
                     var stats = statistics.Where(s => s.TaxonId == t.Id);
 
@@ -119,6 +134,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 		                stats = stats.Where(s => s.ItemProviderName == contentProviderName);
 	                }
 
+                    //TODO: check the setting Include empty taxa is set to true
                     if (stats.Count() > 0)
                     {
                         var count = stats.Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
@@ -131,16 +147,25 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             return taxaViewModels;
         }
 
-        protected virtual IDictionary<ITaxon, uint> GetTaxaByParent()
+        private IList<TaxonViewModel> BuildFullTaxaTrees(IQueryable<TaxonomyStatistic> statistics, IEnumerable<HierarchicalTaxon> taxa)
         {
-            var rootTaxon = this.CurrentTaxonomyManager.GetTaxon(this.RootTaxonId) as HierarchicalTaxon;
+            var taxaViewModels = TaxaViewModelTreeBuilder.BuildTaxaTree(
+                taxa,
+                t =>
+                {
+                    var stats = statistics.Where(s => s.TaxonId == t.Id);
 
-            if (rootTaxon != null)
-            {
-                return this.AddCountToTaxa(rootTaxon.Subtaxa);
-            }
+                    //TODO: check the setting Include empty taxa is set to true
+                    if (stats.Count() > 0)
+                    {
+                        var count = stats.Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
+                        return new TaxonViewModel(t, count);
+                    }
 
-            return new Dictionary<ITaxon, uint>();
+                    return null;
+                });
+
+            return taxaViewModels;
         }
         #endregion
     }
