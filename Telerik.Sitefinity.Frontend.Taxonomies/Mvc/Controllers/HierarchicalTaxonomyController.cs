@@ -52,6 +52,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         #endregion
 
         #region Actions
+        /// <summary>
+        /// Default Action
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public ActionResult Index()
         {
             var viewModel = this.Model.CreateViewModel();
@@ -60,6 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
 
             return this.View(fullTemplateName, viewModel);
         }
+
         #endregion
 
         #region Private methods
