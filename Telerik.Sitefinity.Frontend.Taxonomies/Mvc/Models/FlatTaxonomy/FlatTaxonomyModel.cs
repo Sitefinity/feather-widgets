@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
 {
@@ -17,38 +15,32 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
 
         #region Overriden methods
         /// <summary>
-        /// Gets the taxa with the usage metrics for each taxon filtered by one of the several display modes.
+        /// Creates the view model.
         /// </summary>
         /// <returns></returns>
-        protected override IDictionary<ITaxon, uint> GetFilteredTaxaWithCount()
+        public override TaxonomyViewModel CreateViewModel()
         {
+            var viewModel = new TaxonomyViewModel();
+
+            if (this.ContentId != Guid.Empty)
+            {
+                viewModel.Taxa = this.GetTaxaByContentItem();
+                return viewModel;
+            }
+
             switch (this.TaxaToDisplay)
             {
-                case FlatTaxaToDisplay.All:
-                    return this.GetAllTaxa();
+                //case FlatTaxaToDisplay.All:
+                //    return this.GetAllTaxa();
                 case FlatTaxaToDisplay.Selected:
-                    return this.GetSpecificTaxa();
-                case FlatTaxaToDisplay.UsedByContentType:
-                    return this.GetTaxaByContentType();
-                default:
-                    return this.GetAllTaxa();
+                    viewModel.Taxa = this.GetSpecificTaxa();
+                    break;
+                //case FlatTaxaToDisplay.UsedByContentType:
+                //    return this.GetTaxaByContentType();
+                //default:
+                //    return this.GetAllTaxa();
             }
-        }
-
-        #endregion
-
-        #region Protected methods
-        protected virtual IDictionary<ITaxon, uint> GetAllTaxa()
-        {
-            var taxa = this.CurrentTaxonomyManager.GetTaxa<ITaxon>()
-                .Where(t => t.Taxonomy.RootTaxonomyId == this.TaxonomyId);
-
-            return this.AddCountToTaxa(taxa);
-        }
-
-        protected virtual IDictionary<ITaxon, uint> GetTaxaByContentType()
-        {
-            throw new NotImplementedException();
+            return null;
         }
         #endregion
     }

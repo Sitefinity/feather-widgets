@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Telerik.Sitefinity.Taxonomies.Model;
-using SfModel = Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 {
@@ -12,6 +10,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
     /// </summary>
     public class HierarchicalTaxonomyModel : TaxonomyModel, IHierarchicalTaxonomyModel
     {
+        #region Properties
         /// <summary>
         /// Determines what taxa will be displayed by the widget.
         /// </summary>
@@ -30,6 +29,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// </summary>
         /// <value>The parent category.</value>
         public Guid RootTaxonId { get; set; }
+        #endregion
 
         #region Overriden methods
         /// <summary>
@@ -39,6 +39,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         public override TaxonomyViewModel CreateViewModel()
         {
             var viewModel = new TaxonomyViewModel();
+
+            if (this.ContentId != Guid.Empty)
+            {
+                viewModel.Taxa = this.GetTaxaByContentItem();
+                return viewModel;
+            }
+
             switch (this.TaxaToDisplay)
             {
                 case HierarchicalTaxaToDisplay.TopLevel:
@@ -48,27 +55,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     viewModel.Taxa = this.GetTaxaByParent();
                     break;
                 case HierarchicalTaxaToDisplay.Selected:
+                    viewModel.Taxa = this.GetSpecificTaxa();
                     break;
-                    //return this.GetSpecificTaxa();
                 case HierarchicalTaxaToDisplay.UsedByContentType:
                     viewModel.Taxa = this.GetTaxaByContentType();
                     break;
                 default:
+                    viewModel.Taxa = this.GetTopLevelTaxa();
                     break;
-                    //return this.GetAllTaxa();
             }
             return viewModel;
         }
-
-        /// <summary>
-        /// Gets the taxa with the usage metrics for each taxon filtered by one of the several display modes.
-        /// </summary>
-        /// <returns></returns>
-        protected override IDictionary<ITaxon, uint> GetFilteredTaxaWithCount()
-        {
-            return null;
-        }
-
         #endregion
 
         #region Protected methods
@@ -146,7 +143,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
             return taxaViewModels;
         }
+        #endregion
 
+        #region Private methods
         private IList<TaxonViewModel> BuildFullTaxaTrees(IQueryable<TaxonomyStatistic> statistics, IEnumerable<HierarchicalTaxon> taxa)
         {
             var taxaViewModels = TaxaViewModelTreeBuilder.BuildTaxaTree(

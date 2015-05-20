@@ -14,8 +14,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         public TaxonViewModel(ITaxon taxon, uint count)
         {
             this.Count = count;
-            this.SubTaxa = new List<TaxonViewModel>();
             this.Title = taxon.Title;
+
+            this.SubTaxa = new List<TaxonViewModel>();
         }
         #endregion
 
