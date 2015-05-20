@@ -15,5 +15,8 @@
     <input type="hidden" data-sf-role="comments-count-resources" value='{"commentsPlural": "@Html.Resource("ReviewsPlural")", "leaveComment":"@Html.Resource("WriteReview")", "comment":"@Html.Resource("Review")", "averageRating":"@Html.Resource("AverageRating")" }' />
 </div>
 
+@*Single review item template*@
+<div data-sf-role="rating-template" style="display:none;" ><span>&#9734</span></div>
+
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Reviews/rating.js"), "bottom", false)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/comments-count.js"), "bottom", false)
