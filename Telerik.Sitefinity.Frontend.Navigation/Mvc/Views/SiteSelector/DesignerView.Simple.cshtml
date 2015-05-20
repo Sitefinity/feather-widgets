@@ -1,87 +1,97 @@
-﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Services;
 
-<div class="form-group">
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" ng-model="properties.IncludeCurrentSite.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.IncludeCurrentSite.PropertyValue === 'True'"/>
-            @Html.Resource("IncludeCurrentSite")
-        </label>
-    </div>
-    <div class="checkbox">
-        <label>
-             <input type="checkbox"
-                 ng-model="properties.EachLanguageAsSeparateSite.PropertyValue"
-                 ng-checked="properties.EachLanguageAsSeparateSite.PropertyValue === 'True'"
-                 ng-true-value="'True'" ng-false-value="'False'"/>
-            @Html.Resource("LanguageVersionAsSeparateSite")
-        </label>
-    </div>
-
-    <div ng-show="properties.EachLanguageAsSeparateSite.PropertyValue === 'True'" class="label-content">
-        <div class="radio">
-
-            <label for="siteNamesAndLanguages" class="full-width">
-              <input id="siteNamesAndLanguages" type="radio" ng-model="properties.SiteLanguagesDisplayMode.PropertyValue" value="SiteNamesAndLanguages"/>
-              @Html.Resource("SiteNamesAndLanguages")
+@if(SystemManager.CurrentContext.IsMultisiteMode)
+{
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="properties.IncludeCurrentSite.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.IncludeCurrentSite.PropertyValue === 'True'"/>
+                @Html.Resource("IncludeCurrentSite")
             </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                 <input type="checkbox"
+                     ng-model="properties.EachLanguageAsSeparateSite.PropertyValue"
+                     ng-checked="properties.EachLanguageAsSeparateSite.PropertyValue === 'True'"
+                     ng-true-value="'True'" ng-false-value="'False'"/>
+                @Html.Resource("LanguageVersionAsSeparateSite")
+            </label>
+        </div>
 
-            <div class="label-content">
-                <div class="row row-xs text-muted">
-                    <div class="col-xs-2">@Html.Resource("Example"):</div>
-                    <div class="col-xs-5">
-                        <em>@Html.Resource("NameAndLanguageExample1")</em>
-                        <br/>
-                        <em>@Html.Resource("NameAndLanguageExample2")</em>
+        <div ng-show="properties.EachLanguageAsSeparateSite.PropertyValue === 'True'" class="label-content">
+            <div class="radio">
+
+                <label for="siteNamesAndLanguages" class="full-width">
+                  <input id="siteNamesAndLanguages" type="radio" ng-model="properties.SiteLanguagesDisplayMode.PropertyValue" value="SiteNamesAndLanguages"/>
+                  @Html.Resource("SiteNamesAndLanguages")
+                </label>
+
+                <div class="label-content">
+                    <div class="row row-xs text-muted">
+                        <div class="col-xs-2">@Html.Resource("Example"):</div>
+                        <div class="col-xs-5">
+                            <em>@Html.Resource("NameAndLanguageExample1")</em>
+                            <br/>
+                            <em>@Html.Resource("NameAndLanguageExample2")</em>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
-        </div>
+            <div class="radio">
 
-        <div class="radio">
+                <label for="languagesOnly" class="full-width">
+                  <input id="languagesOnly" type="radio" ng-model="properties.SiteLanguagesDisplayMode.PropertyValue" value="LanguagesOnly" />
+                  @Html.Resource("LanguagesOnly")
+                </label>
 
-            <label for="languagesOnly" class="full-width">
-              <input id="languagesOnly" type="radio" ng-model="properties.SiteLanguagesDisplayMode.PropertyValue" value="LanguagesOnly" />
-              @Html.Resource("LanguagesOnly")
-            </label>
-
-            <div class="label-content">
-                <div class="row row-xs text-muted">
-                    <div class="col-xs-2">@Html.Resource("Example"):</div>
-                    <div class="col-xs-5">
-                        <em>@Html.Resource("LanguageOnlyExample1")</em>
-                        <br/>
-                        <em>@Html.Resource("LanguageOnlyExample2")</em>
-                        <br/>
-                        <em>@Html.Resource("LanguageOnlyExample3")</em>
+                <div class="label-content">
+                    <div class="row row-xs text-muted">
+                        <div class="col-xs-2">@Html.Resource("Example"):</div>
+                        <div class="col-xs-5">
+                            <em>@Html.Resource("LanguageOnlyExample1")</em>
+                            <br/>
+                            <em>@Html.Resource("LanguageOnlyExample2")</em>
+                            <br/>
+                            <em>@Html.Resource("LanguageOnlyExample3")</em>
+                        </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
     </div>
-</div>
 
-
-<div class="form-group">
-    <div class="row">
-        <div class="col-xs-6">
-            <label for="templateName">@Html.Resource("Template")</label>
-            <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                @foreach (var viewName in Html.GetViewNames("SiteSelector", @"SiteSelector\.(?<viewName>\w*)$"))
-                {
-                    <option value="@viewName">@viewName</option>
-                }
-            </select>
-        </div>
-    </div>
-</div>
-
-<expander expander-title='@Html.Resource("MoreOptions")'>
-    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
     <div class="form-group">
-        <label for="siteSelectorCssClass">@Html.Resource("CssClasses")</label>
-        <input type="text" id="siteSelectorCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="templateName">@Html.Resource("Template")</label>
+                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames("SiteSelector", @"SiteSelector\.(?<viewName>\w*)$"))
+                    {
+                        <option value="@viewName">@viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
     </div>
-</expander>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+        <div class="form-group">
+            <label for="siteSelectorCssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="siteSelectorCssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
+}
+else
+{   
+    <div class="alert alert-info">                                          
+        @Html.Resource("MultisiteIsDisabledMessage")
+    </div> 
+}

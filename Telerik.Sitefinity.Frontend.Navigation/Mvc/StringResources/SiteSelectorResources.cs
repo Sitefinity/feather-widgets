@@ -320,6 +320,22 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// phrase: This widget is available only if you have multiple sites
+        /// </summary>
+        /// <value>This widget is available only if you have multiple sites</value>
+        [ResourceEntry("MultisiteIsDisabledMessage",
+            Value = "This widget is available only if you have multiple sites",
+            Description = "phrase: This widget is available only if you have multiple sites",
+            LastModified = "2015/05/14")]
+        public string MultisiteIsDisabledMessage
+        {
+            get
+            {
+                return this["MultisiteIsDisabledMessage"];
+            }
+        }
+
         #endregion
     }
 }
