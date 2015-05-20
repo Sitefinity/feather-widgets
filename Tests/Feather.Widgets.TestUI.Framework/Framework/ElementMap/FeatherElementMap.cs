@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists;
@@ -336,6 +337,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the CommentsAndReviewsMap element map.
+        /// </summary>
+        /// <value>The CommentsAndReviewsMap map.</value>
+        public CommentsAndReviewsMap CommentsAndReviews
+        {
+            get
+            {
+                if (this.commentsAndReviewsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.commentsAndReviewsMap = new CommentsAndReviewsMap(this.find);
+                }
+
+                return this.commentsAndReviewsMap;
+            }
+
+            private set
+            {
+                this.commentsAndReviewsMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -358,5 +382,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private MediaGalleryMap mediaGalleryMap;
         private ListsMap listsMap;
         private ScriptsAndStylesMap scriptsAndStylesMap;
+        private CommentsAndReviewsMap commentsAndReviewsMap;
     }
 }

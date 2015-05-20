@@ -285,6 +285,7 @@
         createCommentMarkup: function (comment) {
             var newComment = this.getSingleCommentTemplate().clone(true);
 
+            newComment.find('[data-sf-role="list-rating-wrapper"]').show();
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);

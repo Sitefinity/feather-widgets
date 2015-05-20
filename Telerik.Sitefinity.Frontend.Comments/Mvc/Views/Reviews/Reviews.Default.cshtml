@@ -4,6 +4,8 @@
 @using Telerik.Sitefinity.Modules.Pages;
 
 @Html.Script(ScriptRef.JQuery, "top", false)
+@Html.StyleSheet(Url.WidgetContent("assets/dist/css/sf-ratings.css"), "head", false)
+
 <div id="comments-@HttpUtility.HtmlEncode(Model.ThreadKey)" data-sf-role="comments-wrapper" class="@Model.CssClass">
     <input type="hidden" data-sf-role="comments-settings" value="@Model.SerializedWidgetSettings" />
     <input type="hidden" data-sf-role="comments-resources" value="@Model.SerializedWidgetResources" />
@@ -48,7 +50,9 @@
             
             <div>
                 <span>@Html.Resource("Rating")</span>
-                <div data-sf-role="submit-rating-container">
+                <div class="sf-Ratings">
+                    <div data-sf-role="submit-rating-container" class="sf-Ratings-stars">
+                    </div>
                 </div>
             </div>
 
@@ -108,24 +112,31 @@
     <div data-sf-role="single-comment-template" style="display:none;">
         <div>
             <img data-sf-role="comment-avatar" src="@Url.WidgetContent("assets/dist/img/dummy.jpg")"/>
-            <p>
+
+            <div>
                 <span data-sf-role="comment-name"></span> | 
                 <span data-sf-role="comment-date"></span>
-            </p>
-            <div>
-                <span data-sf-role="list-rating-wrapper">
-                    <span data-sf-role="list-rating-container"></span>
-                    <span data-sf-role="list-rating-value"></span>
-                </span>
             </div>
-            <p>
-                <span data-sf-role="comment-message"></span>
-            </p>
+
+            <span data-sf-role="list-rating-wrapper" class="sf-Ratings" style="display: none;">
+
+                <span data-sf-role="list-rating-container" class="sf-Ratings-stars sf-Ratings-stars--ronly"></span>
+                <span class="text-muted sf-Ratings-average">
+                    (<span data-sf-role="list-rating-value"></span>)
+                </span>
+
+            </span>
+
+            <div data-sf-role="comment-message"></div>
+
         </div>
     </div>
 </div>
 
-<div data-sf-role="rating-template" style="display:none;"><span>&#9734</span></div>
+@*Single rating template*@
+
+<div data-sf-role="rating-template"  style="display:none;"><span>&#9733;</span></div>
+
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Reviews/rating.js"), "bottom", false)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/comments-list.js"), "bottom", false)

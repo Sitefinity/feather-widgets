@@ -119,6 +119,7 @@
     </Compile>
     <Compile Include="BlogPosts\AddBlogPostsWidgetToPageOpenSingleItemInExistingPage.cs" />
     <Compile Include="Blogs\DragAndDropBlogsWidgetToPage.cs" />
+    <Compile Include="CommentsAndReviews\AddCommentsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
