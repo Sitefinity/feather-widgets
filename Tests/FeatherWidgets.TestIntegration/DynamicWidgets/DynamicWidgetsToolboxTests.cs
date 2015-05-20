@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
     /// This is a test class with tests related to dynamic widgets in toolbox section.
     /// </summary>
     [TestFixture]
-    [Description("This is a test class with tests related to dynamic widgets in toolbox section.")]
+    [Description("This is a test class with tests related to dynamic widgets in toolbox section."), Ignore]
     public class DynamicWidgetsToolboxTests
     {
         [Test]
