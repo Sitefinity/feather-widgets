@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
     /// This is a test class with tests related to old dynamic widgets when module is created with Feather.
     /// </summary>
     [TestFixture]
-    [Description("This is a test class with tests related to old dynamic widgets when module is created with Feather.")]
+    [Description("This is a test class with tests related to old dynamic widgets when module is created with Feather."), Ignore]
     public class OldDynamicWidgetsWithFeatherTests
     {
         [FixtureSetUp]
@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author(FeatherTeams.Team2)]
-        [Description("Adds all hierarchical MVC dynamic widgets on page and verifies the proper cities are displayed when selecting a country on the frontend.")]
+        [Description("Adds all hierarchical MVC dynamic widgets on page and verifies the proper cities are displayed when selecting a country on the frontend."), Ignore]
         public void OldDynamicWidgetsWithFeatherTests_OldDynamicWidget()
         {
             try
