@@ -440,6 +440,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="optionId">The option id.</param>
         public void SelectRadioButtonOption(WidgetDesignerRadioButtonIds optionId)
         {
+            HtmlFindExpression expression = new HtmlFindExpression("tagname=input", "id=" + optionId);
+            ActiveBrowser.WaitForElement(expression, 60000, false);
             HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
                   .AssertIsPresent("radio button");
 

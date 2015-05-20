@@ -293,7 +293,8 @@
             this.attachCommentMessage(newComment.find('[data-sf-role="comment-message"]'), comment.Message);
 
             if (this.settings.useReviews) {
-                newComment.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: comment.Rating });
+                newComment.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: comment.Rating, template: $('[data-sf-role="rating-template"]') });
+                newComment.find('[data-sf-role="list-rating-value"]').text(comment.Rating);
             }
 
             return newComment;
@@ -506,7 +507,7 @@
         createCommentFail: function (jqXHR) {
             if (jqXHR && jqXHR.responseText) {
                 var errorTxt = JSON.parse(jqXHR.responseText).ResponseStatus.Message;
-                this.errorMessage().after(this.getErrorMessage(errorTxt));
+                this.newCommentSubmitButton().before(this.getErrorMessage(errorTxt));
             }
         },
 
@@ -582,7 +583,7 @@
 
             var rContainer = this.newCommentRating();
             if (rContainer && rContainer.length) {
-                this.newCommentRatingContainer = rContainer.mvcRating();
+                this.newCommentRatingContainer = rContainer.mvcRating({ template: $('[data-sf-role="rating-template"]') });
             }
 
             // Initially hide the "RequiresAuthentication" message.

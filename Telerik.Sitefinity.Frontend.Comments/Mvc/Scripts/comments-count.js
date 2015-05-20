@@ -158,33 +158,25 @@
 
             // render average rating
             if (currentCount && currentRating) {
-                this.renderAverageRating(element, currentRating, currentCount, resources.averageRating);
+                this.renderAverageRating(element, currentRating, currentCount);
             }
         },
 
         renderAverageRating: function (element, currentRating, currentCount, averageRatingResource) {
-            var averageRatingDataSfRoleAttr = 'data-sf-role="rating-average"';
-
-            var oldRating = element.find('[' + averageRatingDataSfRoleAttr + ']');
+            var wrapper = element.find('[data-sf-role="list-rating-wrapper"]').show();
+            var oldRatingEl = wrapper.find('[data-sf-role="list-rating-value"]');
+            var oldRating = oldRatingEl.text().trim();
 
             // There is already rating - update it
-            if (oldRating.length) {
-                var oldRatingValue = oldRating.children().last().text().trim();
-                var oldRatingIntValue = oldRatingValue.substring(1, oldRatingValue.length - 1);
-                var newRating = (((currentCount - 1) * oldRatingIntValue) + currentRating) / currentCount;
-                // round to the first decimal
-                currentRating = Math.round(newRating * 10) / 10;
-
-                oldRating.remove();
+            if (oldRating) {
+                var oldRatingValue = parseFloat(oldRating);
+                var newRating = (((currentCount - 1) * oldRatingValue) + currentRating) / currentCount;
+                // round to the second decimal
+                currentRating = Math.round(newRating * 100) / 100;
             }
 
-            var averageRatingEl = $('<span ' + averageRatingDataSfRoleAttr + ' />');
-
-            averageRatingEl.mvcRating({ readOnly: true, value: currentRating });
-            averageRatingEl.prepend($('<span />').text(averageRatingResource));
-            averageRatingEl.append($('<span />').text('(' + currentRating + ')'));
-
-            element.prepend(averageRatingEl);
+            wrapper.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: currentRating, template: $('[data-sf-role="rating-template"]') });
+            oldRatingEl.text(currentRating);
         },
 
         initialize: function () {
