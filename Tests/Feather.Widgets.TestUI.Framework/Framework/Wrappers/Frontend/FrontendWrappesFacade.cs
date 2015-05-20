@@ -1,4 +1,5 @@
-﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
+﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ScriptsAndStyles;
@@ -134,6 +135,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public ScriptsAndStylesWrapperFacade ScriptsAndStyles()
         {
             return new ScriptsAndStylesWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides access to comments and reviews frontend wrapper. 
+        /// </summary>
+        /// <returns></returns>
+        public CommentsAndReviewsWrapperFacade CommentsAndReviews()
+        {
+            return new CommentsAndReviewsWrapperFacade();
         }
     }
 }
