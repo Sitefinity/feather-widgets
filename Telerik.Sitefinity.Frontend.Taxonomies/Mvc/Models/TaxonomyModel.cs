@@ -110,7 +110,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <returns></returns>
         public virtual TaxonomyViewModel CreateViewModel()
         {
-            var test = this.GetTaxaWithCount();
             return new TaxonomyViewModel();
         }
         #endregion
@@ -137,23 +136,23 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// If ContentTypeName is set returns it otherwise try to resolve DynamicContentTypeName.
         /// </summary>
         /// <value>The type of the content.</value>
-        protected virtual Type TaxonomyContentType
+        protected virtual Type ContentType
         {
             get
             {
-                if (this.taxonomyContentType == null)
+                if (this.contentType == null)
                 {
                     if (!this.ContentTypeName.IsNullOrWhitespace())
                     {
-                        this.taxonomyContentType = Type.GetType(this.ContentTypeName);
+                        this.contentType = TypeResolutionService.ResolveType(this.ContentTypeName, false);
                     }
                     else if (!this.DynamicContentTypeName.IsNullOrWhitespace())
                     {
-                        this.taxonomyContentType = TypeResolutionService.ResolveType(this.DynamicContentTypeName, false);
+                        this.contentType = TypeResolutionService.ResolveType(this.DynamicContentTypeName, false);
                     }
                 }
 
-                return this.taxonomyContentType;
+                return this.contentType;
             }
         }
 
@@ -181,7 +180,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 if (this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName))
                 {
-                    this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.TaxonomyContentType)[this.FieldName];
+                    this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.ContentType)[this.FieldName];
                 }
                 return this.fieldPropertyDescriptor;
             }
@@ -346,7 +345,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
         #region Private fields and constants
         private TaxonomyManager taxonomyManager;
-        private Type taxonomyContentType;
+        private Type contentType;
         private ITaxonomy taxonomy;
         private PropertyDescriptor fieldPropertyDescriptor;
         private string serializedSelectedTaxaIds;
