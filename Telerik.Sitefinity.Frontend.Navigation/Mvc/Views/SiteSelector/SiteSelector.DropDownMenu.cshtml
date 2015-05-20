@@ -22,6 +22,10 @@
                 <option>@Html.Resource("SelectSite")</option>
             }
 
+            @{
+                string currentSite = string.Empty;
+             }
+
             @foreach (var site in Model.Sites)
             {                                                                               
                 if (!Model.EachLanguageAsSeparateSite)
@@ -34,6 +38,11 @@
                 }
                 else
                 {
+                    if(currentSite != site.Name)
+                    {
+                        <option value="">- @site.Name -</option>
+                        currentSite = site.Name;
+                    }
                     <option value="@site.Url" @(site.IsCurrent ? "selected=selected" : "")>@site.Language</option>
                 }
             }
