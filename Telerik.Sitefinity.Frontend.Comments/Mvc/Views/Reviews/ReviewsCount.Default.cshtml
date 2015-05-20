@@ -6,17 +6,23 @@
 @Html.Script(ScriptRef.JQuery, "top", true)
 
 <div data-sf-role="comments-count-wrapper" data-sf-thread-key="@Model.ThreadKey">
+    <span data-sf-role="list-rating-wrapper" style="display:none;">
+        <span>@Html.Resource("AverageRating")</span>
+        <span data-sf-role="list-rating-container"></span>
+        <span data-sf-role="list-rating-value"></span>
+    </span>
 
     <a data-sf-role="comments-count-anchor" href="@Model.NavigateUrl">
         <span data-sf-role="comments-count-anchor-text"></span>
     </a>
 
     <input type="hidden" data-sf-role="service-url" value="@ViewBag.ServiceUrl" />
-    <input type="hidden" data-sf-role="comments-count-resources" value='{"commentsPlural": "@Html.Resource("ReviewsPlural")", "leaveComment":"@Html.Resource("WriteReview")", "comment":"@Html.Resource("Review")", "averageRating":"@Html.Resource("AverageRating")" }' />
+    <input type="hidden" data-sf-role="comments-count-resources" value='{"commentsPlural": "@Html.Resource("ReviewsPlural")", "leaveComment":"@Html.Resource("WriteReview")", "comment":"@Html.Resource("Review")" }' />
 </div>
 
 @*Single review item template*@
 <div data-sf-role="rating-template" style="display:none;" ><span>&#9734</span></div>
+
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Reviews/rating.js"), "bottom", false)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/comments-count.js"), "bottom", false)

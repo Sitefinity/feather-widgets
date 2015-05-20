@@ -115,7 +115,10 @@
                 <span data-sf-role="comment-date"></span>
             </p>
             <div>
-                <span data-sf-role="list-rating-container"></span>
+                <span data-sf-role="list-rating-wrapper">
+                    <span data-sf-role="list-rating-container"></span>
+                    <span data-sf-role="list-rating-value"></span>
+                </span>
             </div>
             <p>
                 <span data-sf-role="comment-message"></span>
@@ -124,7 +127,7 @@
     </div>
 </div>
 
-<div data-sf-role="rating-template"  style="display:none;"><span>&#9734</span></div>
+<div data-sf-role="rating-template" style="display:none;"><span>&#9734</span></div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/Reviews/rating.js"), "bottom", false)
 @Html.Script(Url.WidgetContent("Mvc/Scripts/comments-list.js"), "bottom", false)

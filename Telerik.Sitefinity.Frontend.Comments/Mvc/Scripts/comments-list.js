@@ -294,6 +294,7 @@
 
             if (this.settings.useReviews) {
                 newComment.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: comment.Rating, template: $('[data-sf-role="rating-template"]') });
+                newComment.find('[data-sf-role="list-rating-value"]').text(comment.Rating);
             }
 
             return newComment;
