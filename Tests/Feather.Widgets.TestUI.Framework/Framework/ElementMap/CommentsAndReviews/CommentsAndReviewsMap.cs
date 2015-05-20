@@ -44,7 +44,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         }
 
         /// <summary>
-        /// Gets the comments widget frontend
+        /// Gets the reviews widget frontend
         /// </summary>
         public ReviewsFrontend ReviewsFrontend
         {
@@ -55,7 +55,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         }
 
         /// <summary>
-        /// Gets the comments widget backend
+        /// Gets the reviews widget backend
         /// </summary>
         public ReviewsEditScreen ReviewsEditScreen
         {
