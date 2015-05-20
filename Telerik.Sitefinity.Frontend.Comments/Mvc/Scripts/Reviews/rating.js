@@ -33,7 +33,7 @@
         getBaseElementMarkup: function () {
             var templateElement = $(this.settings.template);
             if (!(templateElement && templateElement.length)) {
-                templateElement = $('<div><span>&#9734</span></div>');
+                templateElement = $('<div><span>&#9733;</span></div>');
             }
 
             var markup = templateElement.html();
