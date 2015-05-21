@@ -170,10 +170,11 @@
             // There is already rating - update it
             if (oldRating) {
                 var oldRatingValue = parseFloat(oldRating);
-                var newRating = (((currentCount - 1) * oldRatingValue) + currentRating) / currentCount;
-                // round to the second decimal
-                currentRating = Math.round(newRating * 100) / 100;
+                currentRating = (((currentCount - 1) * oldRatingValue) + currentRating) / currentCount;
             }
+            
+            // round to the second decimal
+            currentRating = Math.round(currentRating * 100) / 100;
 
             wrapper.find('[data-sf-role="list-rating-container"]').mvcRating({ readOnly: true, value: currentRating, template: $('[data-sf-role="rating-template"]') });
             oldRatingEl.text(currentRating);
