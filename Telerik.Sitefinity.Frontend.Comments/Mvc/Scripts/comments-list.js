@@ -617,9 +617,15 @@
                         // Get Subscribtion status only if user is logged in.
                         self.initializeSubscription();
                     }
-                    else if (self.settings.requiresAuthentication) {
-                        self.newCommentForm().hide();
-                        self.newCommentRequiresAuthentication().show();
+                    else {
+                        // Unlogged users can not subscribe/unsubscribe
+                        self.commentsSubscribeText().hide();
+                        self.commentsSubscribeButton().hide();
+                        
+                        if (self.settings.requiresAuthentication) {
+                            self.newCommentForm().hide();
+                            self.newCommentRequiresAuthentication().show();
+                        }
                     }
 
                     if (self.settings.useReviews) {
