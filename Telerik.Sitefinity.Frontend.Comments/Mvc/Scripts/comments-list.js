@@ -345,7 +345,7 @@
             
             // Hide comments count from the count action.
             this.getElementByDataSfRole("comments-count-list-wrapper").toggle(this.allCommentsCount != 0);
-			this.getElementByDataSfRole("comments-count-anchor-text").hide();
+			this.getElementByDataSfRole("comments-count-anchor").hide();
         },
 
         loadComments: function (skip, take, newerThan) {
