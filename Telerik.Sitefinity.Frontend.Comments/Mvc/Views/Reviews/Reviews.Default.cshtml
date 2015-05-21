@@ -21,8 +21,11 @@
             <a href="#comment-submit-@HttpUtility.HtmlEncode(HttpUtility.UrlEncode(Model.ThreadKey))" data-sf-role="comments-new-form-button">@Html.Resource("WriteReview")</a>
         }
         
-        <span class="text-muted">@Html.Resource("AverageRating")</span>
-        @Html.CommentsCount(string.Empty, Model.ThreadKey, Model.ThreadType)
+        <span data-sf-role="comments-count-list-wrapper">
+            <span class="text-muted">@Html.Resource("AverageRating")</span>
+            @Html.CommentsCount(string.Empty, Model.ThreadKey, Model.ThreadType)
+        </span>
+        
         <a href="#" data-sf-role="comments-sort-new-button" style="display:none;">@Html.Resource("NewestOnTop")</a>
         <a href="#" data-sf-role="comments-sort-old-button" style="display:none;">@Html.Resource("OldestOnTop")</a>
     </div>
