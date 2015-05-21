@@ -18,10 +18,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
     /// This class represents the controller for the EmbedCode widget.
     /// </summary>
     [Localization(typeof(EmbedCodeResources))]
-    [ControllerToolboxItem(Name = "EmbedCode_MVC",
-                           Title = "Embed code",
-                           SectionName = "ScriptsAndStylesControlsSection",
-                           CssClass = EmbedCodeController.WidgetIconCssClass)]
+    ////[ControllerToolboxItem(Name = "EmbedCode_MVC",
+    ////                       Title = "Embed code",
+    ////                       SectionName = "ScriptsAndStylesControlsSection",
+    ////                       CssClass = EmbedCodeController.WidgetIconCssClass)]
     public class EmbedCodeController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         {
             get
             {
-                return SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+                return SystemManager.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode;
             }
         }
 
@@ -103,8 +103,9 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             else
             {
                 var result = ScriptHelper.GetShortScript(viewModel.EmbedCode);
-
-                this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetResource<EmbedCodeResources>("IncludedWhereDropped");
+                
+                if (!string.IsNullOrWhiteSpace(result))
+                    this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetResource<EmbedCodeResources>("IncludedWhereDropped");
             }
         }
         #endregion

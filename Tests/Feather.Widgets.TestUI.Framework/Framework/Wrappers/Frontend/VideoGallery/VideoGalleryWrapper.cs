@@ -89,8 +89,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="altText">The alt text.</param>
         public void VerifySelectedVideoOverlayTemplate(string src)
         {
-            FrameInfo frameInfo = new FrameInfo(string.Empty, string.Empty, src + "?sfvrsn=0", 0);
-            Assert.IsNotNull(frameInfo, "frame info not found");
+            var iframeDiv = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=mfp-iframe-scaler");
+            iframeDiv.ChildNodes[1].GetAttribute("src").Value.Contains(src);
         }
 
         /// <summary>

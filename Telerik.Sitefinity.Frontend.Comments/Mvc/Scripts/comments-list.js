@@ -342,6 +342,10 @@
 
             // Comments load more button
             this.commentsLoadMoreButton().css('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
+            
+            // Hide comments count from the count action.
+            this.getElementByDataSfRole("comments-count-list-wrapper").toggle(this.allCommentsCount != 0);
+			this.getElementByDataSfRole("comments-count-anchor-text").hide();
         },
 
         loadComments: function (skip, take, newerThan) {
@@ -617,9 +621,15 @@
                         // Get Subscribtion status only if user is logged in.
                         self.initializeSubscription();
                     }
-                    else if (self.settings.requiresAuthentication) {
-                        self.newCommentForm().hide();
-                        self.newCommentRequiresAuthentication().show();
+                    else {
+                        // Unlogged users can not subscribe/unsubscribe
+                        self.commentsSubscribeText().hide();
+                        self.commentsSubscribeButton().hide();
+                        
+                        if (self.settings.requiresAuthentication) {
+                            self.newCommentForm().hide();
+                            self.newCommentRequiresAuthentication().show();
+                        }
                     }
 
                     if (self.settings.useReviews) {

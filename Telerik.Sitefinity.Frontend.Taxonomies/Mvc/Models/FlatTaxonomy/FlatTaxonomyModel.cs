@@ -20,6 +20,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// <returns></returns>
         public override TaxonomyViewModel CreateViewModel()
         {
+            
+
             var viewModel = new TaxonomyViewModel();
 
             if (this.ContentId != Guid.Empty)
