@@ -80,6 +80,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <value>The name of the field.</value>
         public string FieldName { get; set; }
 
+        public bool ShowEmptyTaxa { get; set; }
+
         /// <summary>
         /// Gets or sets the serialized collection with the ids of the specific taxa that the widget will show.
         /// Used only if the display mode setting of the widget is set to show only specific items.
@@ -236,8 +238,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                     .Where(s => s.TaxonId == taxon.Id)
                     .Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
 
-                var viewModel = new TaxonViewModel(taxon, count);
-                result.Add(viewModel);
+                if (count > 0 || this.ShowEmptyTaxa)
+                {
+                    var viewModel = new TaxonViewModel(taxon, count);
+                    result.Add(viewModel);
+                }
             }
 
             return result;
