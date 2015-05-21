@@ -132,22 +132,24 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\HierarchicalTaxonomyController.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxaToDisplay.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\IFlatTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\HierarchicalTaxonomy\HierarchicalTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\HierarchicalTaxonomy\IHierarchicalTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\HierarchicalTaxonomy\HierarchicalTaxaToDisplay.cs" />
+    <Compile Include="Mvc\Models\HierarchicalTaxonomy\TaxaViewModelTreeBuilder.cs" />
     <Compile Include="Mvc\Models\TaxonomyModel.cs" />
     <Compile Include="Mvc\Models\TaxonomyViewModel.cs" />
+    <Compile Include="Mvc\Models\TaxonViewModel.cs" />
+    <Compile Include="Mvc\StringResources\HierarchicalTaxonomyResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mvc\Controllers\" />
-    <Folder Include="Mvc\Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Mvc\Views\HierarchicalTaxonomy\HierarchicalTaxonomy.CategoriesList.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

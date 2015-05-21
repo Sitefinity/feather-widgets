@@ -108,10 +108,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>
-        public virtual TaxonomyViewModel CreateViewModel()
-        {
-            return new TaxonomyViewModel();
-        }
+        public abstract TaxonomyViewModel CreateViewModel();
         #endregion
 
         #region Properties
@@ -136,23 +133,23 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// If ContentTypeName is set returns it otherwise try to resolve DynamicContentTypeName.
         /// </summary>
         /// <value>The type of the content.</value>
-        protected virtual Type TaxonomyContentType
+        protected virtual Type ContentType
         {
             get
             {
-                if (this.taxonomyContentType == null)
+                if (this.contentType == null)
                 {
                     if (!this.ContentTypeName.IsNullOrWhitespace())
                     {
-                        this.taxonomyContentType = Type.GetType(this.ContentTypeName);
+                        this.contentType = TypeResolutionService.ResolveType(this.ContentTypeName, false);
                     }
                     else if (!this.DynamicContentTypeName.IsNullOrWhitespace())
                     {
-                        this.taxonomyContentType = TypeResolutionService.ResolveType(this.DynamicContentTypeName, false);
+                        this.contentType = TypeResolutionService.ResolveType(this.DynamicContentTypeName, false);
                     }
                 }
 
-                return this.taxonomyContentType;
+                return this.contentType;
             }
         }
 
@@ -180,44 +177,19 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 if (this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName))
                 {
-                    this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.TaxonomyContentType)[this.FieldName];
+                    this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.ContentType)[this.FieldName];
                 }
                 return this.fieldPropertyDescriptor;
             }
         }
         #endregion
 
-        #region Abstract methods
-        /// <summary>
-        /// Gets the taxa with the usage metrics for each taxon filtered by one of the several display modes.
-        /// </summary>
-        /// <returns></returns>
-        protected abstract IDictionary<ITaxon, uint> GetFilteredTaxaWithCount();
-
-        #endregion
-
         #region Protected and virtual methods
         /// <summary>
-        /// Gets the taxa with the usage metrics for each taxon that will be displayed by the widget.
+        /// Gets the taxa view models for each taxon by using the provided ids of taxons that we want explicitly to be shown by the widget.
         /// </summary>
         /// <returns></returns>
-        protected virtual IDictionary<ITaxon, uint> GetTaxaWithCount()
-        {
-            if (this.ContentId != Guid.Empty)
-            {
-                return this.GetTaxaByContentItem();
-            }
-            else
-            {
-                return this.GetFilteredTaxaWithCount();
-            }
-        }
-
-        /// <summary>
-        /// Gets the taxa with count for each taxon by using the provided ids of taxons that we want explicitly to be shown by the widget.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual IDictionary<ITaxon, uint> GetSpecificTaxa()
+        protected virtual IList<TaxonViewModel> GetSpecificTaxa()
         {
             var selectedTaxaGuids = this.selectedTaxaIds.Select(id => new Guid(id));
 
@@ -225,7 +197,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 .GetTaxa<ITaxon>()
                 .Where(t => selectedTaxaGuids.Contains(t.Id));
 
-            return this.AddCountToTaxa(taxa);
+            return this.GetTaxaViewModelsWithStatistics(taxa);
         }
 
         /// <summary>
@@ -235,7 +207,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         protected virtual IQueryable<TaxonomyStatistic> GetTaxonomyStatistics()
         {
             var taxonomyIdGuid = SystemManager.CurrentContext.IsMultisiteMode ?
-                this.CurrentTaxonomyManager.GetSiteTaxonomy<ITaxonomy>(this.TaxonomyId).Id :
+                this.CurrentTaxonomyManager.GetSiteTaxonomy<Taxonomy>(this.TaxonomyId).Id :
                 this.TaxonomyId;
 
             return this.CurrentTaxonomyManager
@@ -247,11 +219,16 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                     t.StatisticType == GenericContent.Model.ContentLifecycleStatus.Live);
         }
 
-        protected virtual IDictionary<ITaxon, uint> AddCountToTaxa(IEnumerable<ITaxon> taxa)
+        /// <summary>
+        /// Gets the taxa view models with statistics for the usage of each taxon in the collection.
+        /// </summary>
+        /// <param name="taxa">The taxa.</param>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa)
         {
             var statistics = this.GetTaxonomyStatistics();
 
-            var result = new Dictionary<ITaxon, uint>();
+            var result = new List<TaxonViewModel>();
 
             foreach (var taxon in taxa)
             {
@@ -259,7 +236,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                     .Where(s => s.TaxonId == taxon.Id)
                     .Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
 
-                result.Add(taxon, count);
+                var viewModel = new TaxonViewModel(taxon, count);
+                result.Add(viewModel);
             }
 
             return result;
@@ -282,7 +260,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// The field belongs to a content item with id stored in the ContentId property.
         /// </summary>
         /// <returns></returns>
-        protected virtual IDictionary<ITaxon, uint> GetTaxaByContentItem()
+        protected virtual IList<TaxonViewModel> GetTaxaByContentItem()
         {
             throw new NotImplementedException();
         }
@@ -345,7 +323,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
         #region Private fields and constants
         private TaxonomyManager taxonomyManager;
-        private Type taxonomyContentType;
+        private Type contentType;
         private ITaxonomy taxonomy;
         private PropertyDescriptor fieldPropertyDescriptor;
         private string serializedSelectedTaxaIds;

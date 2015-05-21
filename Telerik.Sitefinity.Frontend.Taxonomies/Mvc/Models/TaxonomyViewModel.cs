@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 {
+    /// <summary>
+    /// This class represents the view model of the taxonomy item.
+    /// </summary>
     public class TaxonomyViewModel
     {
+        /// <summary>
+        /// Gets or sets the taxa that belongs to this taxonomy.
+        /// </summary>
+        /// <value>The taxa.</value>
+        public IList<TaxonViewModel> Taxa { get; set; }
     }
 }
