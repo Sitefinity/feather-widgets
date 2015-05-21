@@ -199,7 +199,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 .GetTaxa<ITaxon>()
                 .Where(t => selectedTaxaGuids.Contains(t.Id));
 
-            return this.GetTaxaViewModelsWithStatistics(taxa);
+            var statistics = this.GetTaxonomyStatistics();
+
+            return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
         }
 
         /// <summary>
@@ -225,11 +227,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets the taxa view models with statistics for the usage of each taxon in the collection.
         /// </summary>
         /// <param name="taxa">The taxa.</param>
+        /// <param name="statistics">The statistics.</param>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa)
+        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa, IQueryable<TaxonomyStatistic> statistics)
         {
-            var statistics = this.GetTaxonomyStatistics();
-
             var result = new List<TaxonViewModel>();
 
             foreach (var taxon in taxa)
