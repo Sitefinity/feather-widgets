@@ -342,6 +342,9 @@
 
             // Comments load more button
             this.commentsLoadMoreButton().css('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
+            
+            // Hide comments count from the count action.
+            this.getElementByDataSfRole("comments-count-list-wrapper").toggle(this.allCommentsCount <= 0);
         },
 
         loadComments: function (skip, take, newerThan) {
