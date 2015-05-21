@@ -4,11 +4,11 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Services;
 
-@if (!SystemManager.IsDesignMode)
+@if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode)
 {
-    @Html.Raw(Model.EmbedCode)
+   <pre>@ViewBag.DesignModeContent</pre>
 }
 else
-{
-    <pre>@ViewBag.DesignModeContent</pre>
+{   
+     @Html.Raw(Model.EmbedCode)
 }

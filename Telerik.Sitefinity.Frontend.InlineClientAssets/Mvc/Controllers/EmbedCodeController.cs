@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         {
             get
             {
-                return SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+                return SystemManager.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode;
             }
         }
 
