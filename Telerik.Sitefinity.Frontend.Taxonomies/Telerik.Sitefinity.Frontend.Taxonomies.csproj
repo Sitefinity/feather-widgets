@@ -51,7 +51,7 @@
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -132,6 +132,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\FlatTaxonomyController.cs" />
     <Compile Include="Mvc\Controllers\HierarchicalTaxonomyController.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxaToDisplay.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxonomyModel.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Mvc\Models\TaxonomyModel.cs" />
     <Compile Include="Mvc\Models\TaxonomyViewModel.cs" />
     <Compile Include="Mvc\Models\TaxonViewModel.cs" />
+    <Compile Include="Mvc\StringResources\FlatTaxonomyResources.cs" />
     <Compile Include="Mvc\StringResources\HierarchicalTaxonomyResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
