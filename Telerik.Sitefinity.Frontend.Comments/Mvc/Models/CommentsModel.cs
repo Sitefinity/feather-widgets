@@ -335,6 +335,9 @@ namespace Telerik.Sitefinity.Frontend.Comments.Mvc.Models
             {
                 this.ThreadKey = ControlUtilities.GetLocalizedKey(SiteMapBase.GetActualCurrentNode().Id, null, CommentsBehaviorUtilities.GetLocalizedKeySuffix(this.ThreadType));
             }
+            else {
+                this.ThreadKey = string.Empty;
+            }
 
             if (useReviews && !this.ThreadKey.EndsWith(ReviewsSuffix))
             {
