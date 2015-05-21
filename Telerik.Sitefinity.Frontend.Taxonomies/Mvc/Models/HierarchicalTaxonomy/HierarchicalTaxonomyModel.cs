@@ -140,24 +140,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
             return taxaViewModels;
         }
-
-        /// <summary>
-        /// According to the usage count and the widget settings, returns a view model of the given taxon if it should be shown in the widget.
-        /// Returns null if shouldn't be visible.
-        /// </summary>
-        /// <param name="taxon">The taxon.</param>
-        /// <param name="statistics">The statistics.</param>
-        /// <returns></returns>
-        protected virtual TaxonViewModel FilterTaxonByCount(ITaxon taxon, IQueryable<TaxonomyStatistic> statistics)
-        {
-            var stats = statistics.Where(s => s.TaxonId == taxon.Id);
-
-            var count = stats.Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
-
-            if (count == 0 && !this.ShowEmptyTaxa) return null;
-
-            return new TaxonViewModel(taxon, count);
-        }
         #endregion
     }
 }

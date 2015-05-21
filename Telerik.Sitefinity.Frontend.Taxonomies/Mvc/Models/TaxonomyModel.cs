@@ -234,18 +234,31 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             foreach (var taxon in taxa)
             {
-                uint count = statistics
-                    .Where(s => s.TaxonId == taxon.Id)
-                    .Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
-
-                if (count > 0 || this.ShowEmptyTaxa)
+                var viewModel = this.FilterTaxonByCount(taxon, statistics);
+                if (viewModel != null)
                 {
-                    var viewModel = new TaxonViewModel(taxon, count);
                     result.Add(viewModel);
                 }
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// According to the usage count and the widget settings, returns a view model of the given taxon if it should be shown in the widget.
+        /// Returns null if shouldn't be visible.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <param name="statistics">The statistics.</param>
+        /// <returns></returns>
+        protected virtual TaxonViewModel FilterTaxonByCount(ITaxon taxon, IQueryable<TaxonomyStatistic> statistics)
+        {
+            var count = statistics.Where(s => s.TaxonId == taxon.Id)
+                .Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
+
+            if (count == 0 && !this.ShowEmptyTaxa) return null;
+
+            return new TaxonViewModel(taxon, count);
         }
 
         /// <summary>
