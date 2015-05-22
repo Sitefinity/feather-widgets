@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
@@ -10,6 +11,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
     /// </summary>
     public class HierarchicalTaxonomyModel : TaxonomyModel, IHierarchicalTaxonomyModel
     {
+        public HierarchicalTaxonomyModel()
+        {
+            this.TaxonomyId = TaxonomyManager.CategoriesTaxonomyId;
+            this.FlattenHierarchy = true;
+        }
+
         #region Properties
         /// <summary>
         /// Determines what taxa will be displayed by the widget.
@@ -34,17 +41,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// If set to true, all hierarchical taxa will be shown as a flat list.
         /// </summary>
         /// <value>The flatten hierarchy.</value>
-        public bool FlattenHierarchy
-        {
-            get
-            {
-                return this.flattenHierarchy;
-            }
-            set
-            {
-                this.flattenHierarchy = value;
-            }
-        }
+        public bool FlattenHierarchy { get; set; }
         #endregion
 
         #region Overriden methods
@@ -194,10 +191,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     return this.FilterTaxonByCount(taxon, statistics);
                 });
         }
-        #endregion
-
-        #region Private fields and constants
-        private bool flattenHierarchy = true;
         #endregion
     }
 }

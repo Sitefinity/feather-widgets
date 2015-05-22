@@ -53,7 +53,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         public bool ShowItemCount { get; set; }
 
         /// <summary>
-        /// Gets or sets whether to show empty taxonomies.
+        /// Gets or sets whether to show empty taxa.
         /// </summary>
         /// <value>Show empty taxonomies.</value>
         public bool ShowEmptyTaxa { get; set; }
