@@ -11,11 +11,16 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
     /// </summary>
     public class HierarchicalTaxonomyModel : TaxonomyModel, IHierarchicalTaxonomyModel
     {
+        #region Construction
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HierarchicalTaxonomyModel" /> class.
+        /// </summary>
         public HierarchicalTaxonomyModel()
         {
             this.TaxonomyId = TaxonomyManager.CategoriesTaxonomyId;
             this.FlattenHierarchy = true;
         }
+        #endregion
 
         #region Properties
         /// <summary>
