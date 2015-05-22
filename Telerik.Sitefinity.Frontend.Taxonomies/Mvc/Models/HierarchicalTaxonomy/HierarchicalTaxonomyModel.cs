@@ -55,6 +55,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         public override TaxonomyViewModel CreateViewModel()
         {
             var viewModel = new TaxonomyViewModel();
+            viewModel.ShowItemCount = this.ShowItemCount;
 
             if (this.ContentId != Guid.Empty)
             {
