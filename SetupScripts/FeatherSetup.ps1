@@ -62,7 +62,7 @@ function InstallFeatherWidgets($featherWidgetsDirectory)
 
 function InstallFeatherPackages($featherPackagesDirectory)
 {
-	Write-Output "----- Create Resource Packages directory in SitefinityWebAppMVC ------"
+	Write-Output "----- Create Resource Packages directory in SitefinityWebApp ------"
 	
 	$resourcePackagesFolder = $defaultWebsiteRootDirectory + "\ResourcePackages"
 	if(!(Test-Path -Path $resourcePackagesFolder )){
