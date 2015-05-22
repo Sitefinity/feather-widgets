@@ -11,6 +11,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// </summary>
         /// <value>The taxa to display.</value>
         public FlatTaxaToDisplay TaxaToDisplay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>The sort expression.</value>
+        public string SortExpression { get; set; }
+
         #endregion
 
         #region Overriden methods
@@ -20,8 +27,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// <returns></returns>
         public override TaxonomyViewModel CreateViewModel()
         {
-            
-
             var viewModel = new TaxonomyViewModel();
 
             if (this.ContentId != Guid.Empty)
@@ -32,15 +37,18 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
 
             switch (this.TaxaToDisplay)
             {
-                //case FlatTaxaToDisplay.All:
-                //    return this.GetAllTaxa();
                 case FlatTaxaToDisplay.Selected:
                     viewModel.Taxa = this.GetSpecificTaxa();
                     break;
-                //case FlatTaxaToDisplay.UsedByContentType:
-                //    return this.GetTaxaByContentType();
-                //default:
-                //    return this.GetAllTaxa();
+
+                case FlatTaxaToDisplay.UsedByContentType:
+                    //viewModel.Taxa = this.GetTaxaByContentType();
+                    viewModel.Taxa = this.GetTaxaByContentItem();
+                    break;
+
+                default:
+                    break;
+                    //return this.GetAllTaxa();
             }
             return null;
         }

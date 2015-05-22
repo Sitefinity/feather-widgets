@@ -48,7 +48,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Determiens whether to display the count of the items associated with every taxon.
         /// </summary>
         /// <value>Show item count.</value>
-        public string ShowItemCount { get; set; }
+        public bool ShowItemCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to show empty taxonomies.
+        /// </summary>
+        /// <value>Show empty taxonomies.</value>
+        public bool ShowEmptyTaxa { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the page where content will be filtered by selected taxon.

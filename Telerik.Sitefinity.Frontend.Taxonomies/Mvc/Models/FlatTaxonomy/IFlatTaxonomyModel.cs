@@ -30,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// Determiens whether to display the count of the items associated with every taxon.
         /// </summary>
         /// <value>Show item count.</value>
-        string ShowItemCount { get; set; }
+        bool ShowItemCount { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the page where content will be filtered by selected taxon.
@@ -74,6 +74,18 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// </summary>
         /// <value>The taxa to display.</value>
         FlatTaxaToDisplay TaxaToDisplay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the show empty taxa.
+        /// </summary>
+        /// <value>The show empty taxa.</value>
+        bool ShowEmptyTaxa { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>The sort expression.</value>
+        string SortExpression { get; set; }
 
         /// <summary>
         /// Creates the view model.

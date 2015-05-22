@@ -131,6 +131,7 @@
     <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Helpers\ContentTypeExtensions.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FlatTaxonomyController.cs" />
     <Compile Include="Mvc\Controllers\HierarchicalTaxonomyController.cs" />
@@ -148,10 +149,15 @@
     <Compile Include="Mvc\StringResources\HierarchicalTaxonomyResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\FlatTaxonomy\designerview-simple.js" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\HierarchicalTaxonomy\HierarchicalTaxonomy.CategoriesList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\FlatTaxonomy.SimpleList.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
