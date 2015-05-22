@@ -110,6 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 if (this.serializedSelectedTaxaIds != value)
                 {
                     this.serializedSelectedTaxaIds = value;
+
                     if (!this.serializedSelectedTaxaIds.IsNullOrEmpty())
                     {
                         this.selectedTaxaIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedTaxaIds);
@@ -203,13 +204,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets the taxa view models for each taxon by using the provided ids of taxons that we want explicitly to be shown by the widget.
         /// </summary>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetSpecificTaxa()
+        protected virtual IList<TaxonViewModel> GetSpecificTaxa<T>() where T : Taxon
         {
             var selectedTaxaGuids = this.selectedTaxaIds.Select(id => new Guid(id));
 
-            var taxa = this.CurrentTaxonomyManager
-                .GetTaxa<ITaxon>()
-                .Where(t => selectedTaxaGuids.Contains(t.Id));
+            var taxa = this.CurrentTaxonomyManager.GetTaxa<T>()
+                                    .Where(t => selectedTaxaGuids.Contains(t.Id));
 
             var statistics = this.GetTaxonomyStatistics();
 
@@ -241,7 +241,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <param name="taxa">The taxa.</param>
         /// <param name="statistics">The statistics.</param>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa, IQueryable<TaxonomyStatistic> statistics)
+        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics<T>(IEnumerable<T> taxa, IQueryable<TaxonomyStatistic> statistics) where T : ITaxon
         {
             var result = new List<TaxonViewModel>();
 
@@ -319,7 +319,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             string providerName = String.Empty;
 
             if (String.IsNullOrWhiteSpace(this.ContentProviderName))
-            {                
+            {
                 //if (!this.DynamicContentTypeName.IsNullOrWhitespace())
                 //{
                 //    var manager = ManagerBase.GetMappedManager(this.TaxonomyContentType);

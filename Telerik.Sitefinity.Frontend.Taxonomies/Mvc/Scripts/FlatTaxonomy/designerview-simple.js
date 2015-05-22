@@ -50,7 +50,8 @@
                         else {
                             $scope.properties.ContentTypeName.PropertyValue = $scope.proxyContentTypeName;
                         }
-
+                    }
+                    else if ($scope.properties.TaxaToDisplay.PropertyValue === 'Selected') {
                         if ($scope.taxonSelector.selectedItemsIds) {
                             $scope.properties.SerializedSelectedTaxaIds.PropertyValue = JSON.stringify($scope.taxonSelector.selectedItemsIds);
                         }

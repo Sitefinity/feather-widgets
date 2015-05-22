@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Linq;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
 {
     public class FlatTaxonomyModel : TaxonomyModel, IFlatTaxonomyModel
     {
+        public FlatTaxonomyModel()
+        {
+            this.TaxonomyId = TaxonomyManager.TagsTaxonomyId;
+        }
+
         #region Properties
         /// <summary>
         /// Determines what taxa will be displayed by the widget.
         /// </summary>
         /// <value>The taxa to display.</value>
         public FlatTaxaToDisplay TaxaToDisplay { get; set; }
-
-    
 
         #endregion
 
@@ -34,7 +39,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
             switch (this.TaxaToDisplay)
             {
                 case FlatTaxaToDisplay.Selected:
-                    viewModel.Taxa = this.GetSpecificTaxa();
+                    viewModel.Taxa = this.GetSpecificTaxa<FlatTaxon>();
                     break;
 
                 case FlatTaxaToDisplay.UsedByContentType:
@@ -46,7 +51,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
                     break;
                     //return this.GetAllTaxa();
             }
-            return null;
+            return viewModel;
         }
         #endregion
     }

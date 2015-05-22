@@ -21,7 +21,7 @@
         <div ng-show="properties.TaxaToDisplay.PropertyValue === 'Selected'">
             <sf-list-selector sf-taxon-selector
                               sf-multiselect="true"
-                              sf-selected-ids="properties.selectedItemsIds"
+                              sf-selected-ids="taxonSelector.selectedItemsIds"
                               sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
                               class="sf-filter-selector">
             </sf-list-selector>
