@@ -35,9 +35,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();
-            ServerOperations.Comments().DeleteAllComments(siteID);
             ServerOperations.News().DeleteAllNews();
+            ServerOperations.Comments().DeleteAllComments(Key);
         }
 
         private const string PageName = "NewsPage";
@@ -45,5 +44,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
         private const string NewsProvider = "Default News";
+        private const string Key = "Telerik.Sitefinity.Modules.News.NewsManager_OpenAccessDataProvider";
     }
 }

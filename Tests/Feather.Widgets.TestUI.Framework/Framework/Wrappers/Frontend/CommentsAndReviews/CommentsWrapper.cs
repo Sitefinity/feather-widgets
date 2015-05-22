@@ -23,9 +23,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Asserts comments count present in list template.
+        /// Asserts comments count
         /// </summary>
-        public void AssertCommentsCountInListView(string commentCount)
+        public void AssertCommentsCount(string commentCount)
         {
             HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment.AssertIsPresent("Comments count link");
             bool isPresent = commentLink.InnerText.Contains(commentCount);
@@ -38,7 +38,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         public void ClickCommentLink()
         {
             HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment
-                      .AssertIsPresent("Comments count link");
+                .AssertIsPresent("Comments count link");
 
             commentLink.Wait.ForVisible();
             commentLink.ScrollToVisible();
@@ -77,31 +77,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             .AssertIsPresent("Submit button");
             submitButton.Click();
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
         }
 
         /// <summary>
-        /// Verify comments author
+        /// Verify comments author and content
         /// </summary>
-        /// <param name="commentsAuthor">expected comments author</param>
-        public void VerifyCommentsAuthor(string commentsAuthor)
+        /// <param name="commentsAuthor">Comments author</param>
+        /// <param name="commentsContent">Comments content</param>
+        public void VerifyCommentsAuthorAndContent(string[] commentsAuthor, string[] commentsContent)
         {
-            HtmlDiv commentsList = this.EM.CommentsAndReviews.CommentsFrontend.ResultsCommentsDivList;
+            IList<HtmlDiv> allCommentsDivs = this.EM.CommentsAndReviews.CommentsFrontend.ResultsCommentsList;
 
-            List<HtmlSpan> commentsContainer = commentsList.Find.AllByTagName<HtmlSpan>("span").ToList<HtmlSpan>();
-            commentsContainer[0].InnerText.Contains(commentsAuthor);
-        }
+            Assert.IsNotNull(allCommentsDivs, "Comments list is null");
+            Assert.AreNotEqual(0, allCommentsDivs.Count, "Comments list has no elements");
 
-        /// <summary>
-        /// Verify submitted comment
-        /// </summary>
-        /// <param name="submittedComment">expected comments </param>
-        public void VerifySubmittedComment(string submittedComment)
-        {
-            HtmlDiv commentsList = this.EM.CommentsAndReviews.CommentsFrontend.ResultsCommentsDivList;
+            Assert.AreEqual(commentsAuthor.Count(), allCommentsDivs.Count, "Expected and actual count of comments are not equal");
 
-            var commentsContainer = commentsList.Find.ByTagIndex("p", 0);
-            commentsContainer.InnerText.Contains(submittedComment);
+            for (int i = 0; i < allCommentsDivs.Count(); i++)
+            {
+                Assert.AreEqual(commentsAuthor[i], allCommentsDivs[i].ChildNodes[0].InnerText);
+                Assert.AreEqual(commentsContent[i], allCommentsDivs[i].ChildNodes[2].InnerText);
+            }
         }
     }
 }

@@ -26,22 +26,21 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         public void SubmitCommentForNewsLoggedUserOnBootstrapPage()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle);
-            ////BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCountInListView(LeaveAComment);
-            ////BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCommentLink();
-            ////BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
-            ////BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(CommentToNews);
-            ////BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthor(CommentAuthor);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubmittedComment(CommentToNews);
-            BAT.Macros().NavigateTo().Modules().Comments();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(LeaveAComment);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCommentLink();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(CommentToNews[0]);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(CommentAuthor, CommentToNews);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(CommentsCount);
             this.VerifyCommentBackend();
         }
 
         public void VerifyCommentBackend()
         {
+            BAT.Macros().NavigateTo().Modules().Comments();
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
-            manageComments.VerifyCommentBackend(CommentStatus, CommentToNews, CommentAuthor, NewsTitle);
+            manageComments.VerifyCommentBackend(CommentStatus, CommentToNews[0], CommentAuthor[0], NewsTitle);
         }
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-           // BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -58,14 +57,15 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         protected override void ServerCleanup()
         {
-            ////BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string PageName = "NewsPage";
         private const string NewsTitle = "NewsTitle";
         private const string LeaveAComment = "Leave a comment";
-        private const string CommentToNews = "Comment to news";
-        private const string CommentAuthor = "admin";
+        private string [] CommentToNews = {"Comment to news"};
+        private string [] CommentAuthor = {"admin"};
         private const string CommentStatus = "Published";
+        private const string CommentsCount = "1 comment";
     }
 }
