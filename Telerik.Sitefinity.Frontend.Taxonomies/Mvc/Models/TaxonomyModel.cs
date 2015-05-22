@@ -235,6 +235,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             foreach (var taxon in taxa)
             {
+                if (!this.HasTranslationInCurrentLanguage((Taxon)taxon))
+                    continue;
+
                 var viewModel = this.FilterTaxonByCount(taxon, statistics);
                 if (viewModel != null)
                 {
@@ -260,6 +263,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             if (count == 0 && !this.ShowEmptyTaxa) return null;
 
             return new TaxonViewModel(taxon, count);
+        }
+
+        /// <summary>
+        /// Determines whether the provided taxon has translation to the current language.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <returns></returns>
+        protected virtual bool HasTranslationInCurrentLanguage(Taxon taxon)
+        {
+            return taxon.AvailableLanguages.Contains(taxon.Title.CurrentLanguage.Name) ||
+                taxon.AvailableLanguages.Count() == 1 && taxon.AvailableLanguages[0] == string.Empty;
         }
 
         /// <summary>

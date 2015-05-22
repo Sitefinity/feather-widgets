@@ -186,7 +186,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
             return TaxaViewModelTreeBuilder.BuildTaxaTree(
                 taxa,
-                taxon => this.FilterTaxonByCount(taxon, statistics));
+                taxon =>
+                {
+                    if (!this.HasTranslationInCurrentLanguage((Taxon)taxon))
+                        return null;
+
+                    return this.FilterTaxonByCount(taxon, statistics);
+                });
         }
         #endregion
 
