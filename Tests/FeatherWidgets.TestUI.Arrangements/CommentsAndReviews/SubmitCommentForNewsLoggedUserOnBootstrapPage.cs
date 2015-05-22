@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddCommentsWidgetOnPageBasedOnBootstrapTemplate arrangement class.
     /// </summary>
-    public class AddCommentsWidgetOnPageBasedOnBootstrapTemplate : ITestArrangement
+    public class SubmitCommentForNewsLoggedUserOnBootstrapPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -20,9 +20,12 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.Comments().AllowComments(ThreadType, true);
-            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
-            ServerOperations.Pages().CreatePage(PageName, templateId);
+            ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, NewsProvider);
+
+            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
+            Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
+            pageId = ServerOperations.Pages().GetPageNodeId(pageId);
+            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId, "Contentplaceholder1");
         }
 
         /// <summary>
@@ -34,11 +37,13 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().DeleteAllPages();
             var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();
             ServerOperations.Comments().DeleteAllComments(siteID);
-            ServerOperations.Comments().AllowComments(ThreadType, false);
+            ServerOperations.News().DeleteAllNews();
         }
 
-        private const string PageName = "CommentsPage";
+        private const string PageName = "NewsPage";
         private const string PageTemplateName = "Bootstrap.default";
-        private const string ThreadType = "Telerik.Sitefinity.Pages.Model.PageNode";
+        private const string NewsContent = "News content";
+        private const string NewsTitle = "NewsTitle";
+        private const string NewsProvider = "Default News";
     }
 }

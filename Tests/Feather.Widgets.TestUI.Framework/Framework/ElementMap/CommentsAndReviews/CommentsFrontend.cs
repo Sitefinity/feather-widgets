@@ -31,7 +31,51 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         {
             get
             {
-                return this.Get<HtmlSpan>("InnerText=Leave a comment");
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Leave a comment");
+            }
+        }
+
+        /// <summary>
+        /// Gets leave a comment link.
+        /// </summary>
+        public HtmlAnchor LeaveAComment
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Leave a comment");
+            }
+        }
+
+        /// <summary>
+        /// Gets leave a comment area.
+        /// </summary>
+        public HtmlDiv LeaveACommentArea
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=media-body sf-media-body");
+            }
+        }
+
+        /// <summary>
+        /// Gets submit button.
+        /// </summary>
+        public HtmlButton SubmitButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagname=button", "InnerText=Submit");
+            }
+        }
+
+        /// <summary>
+        /// Gets comments results list.
+        /// </summary>
+        public HtmlDiv ResultsCommentsDivList 
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=media-list sf-Comments-list");
             }
         }
     }
