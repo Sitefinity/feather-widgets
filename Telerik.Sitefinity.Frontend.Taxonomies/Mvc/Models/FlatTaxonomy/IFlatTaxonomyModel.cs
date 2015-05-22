@@ -30,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// Determiens whether to display the count of the items associated with every taxon.
         /// </summary>
         /// <value>Show item count.</value>
-        string ShowItemCount { get; set; }
+        bool ShowItemCount { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the page where content will be filtered by selected taxon.

@@ -55,6 +55,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         public override TaxonomyViewModel CreateViewModel()
         {
             var viewModel = new TaxonomyViewModel();
+            viewModel.ShowItemCount = this.ShowItemCount;
 
             if (this.ContentId != Guid.Empty)
             {
@@ -64,6 +65,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
             switch (this.TaxaToDisplay)
             {
+                case HierarchicalTaxaToDisplay.All:
+                    viewModel.Taxa = this.GetAllTaxa();
+                    break;
                 case HierarchicalTaxaToDisplay.TopLevel:
                     viewModel.Taxa = this.GetTopLevelTaxa();
                     break;
@@ -86,6 +90,20 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
         #region Protected methods
         /// <summary>
+        /// Gets view models of all available taxa in a flat list.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetAllTaxa()
+        {
+            var statistics = this.GetTaxonomyStatistics();
+
+            var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
+                .Where(t => t.Taxonomy.Id == this.TaxonomyId);
+
+            return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+        }
+
+        /// <summary>
         /// Gets the taxa view model trees starting from the root level.
         /// </summary>
         /// <returns></returns>
@@ -96,14 +114,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
                 .Where(t => t.Taxonomy.Id == this.TaxonomyId && t.Parent == null);
 
-            if (this.FlattenHierarchy)
-            {
-                return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
-            }
-
-            return TaxaViewModelTreeBuilder.BuildTaxaTree(
-                taxa,
-                taxon => this.FilterTaxonByCount(taxon, statistics));
+            return GetTaxaViewModels(statistics, taxa);
         }
 
         /// <summary>
@@ -118,14 +129,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
             if (rootTaxon != null)
             {
-                if (this.FlattenHierarchy)
-                {
-                    return this.GetFlatTaxaViewModelsWithStatistics(rootTaxon.Subtaxa, statistics);
-                }
-
-                return TaxaViewModelTreeBuilder.BuildTaxaTree(
-                    rootTaxon.Subtaxa,
-                    taxon => this.FilterTaxonByCount(taxon, statistics));
+                return this.GetTaxaViewModels(statistics, rootTaxon.Subtaxa);
             }
 
             return new List<TaxonViewModel>();
@@ -151,22 +155,38 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                 statistics = statistics.Where(s => s.ItemProviderName == contentProviderName);
             }
 
+            IEnumerable<HierarchicalTaxon> taxa;
             if (this.FlattenHierarchy)
             {
-                var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
+                taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
                     .Where(t => t.Taxonomy.Id == this.TaxonomyId);
 
-                return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
             }
             else
             {
-                var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
+                taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
                     .Where(t => t.Taxonomy.Id == this.TaxonomyId && t.Parent == null);
-
-                return TaxaViewModelTreeBuilder.BuildTaxaTree(
-                    taxa,
-                    t => this.FilterTaxonByCount(t, statistics));
             }
+
+            return this.GetTaxaViewModels(statistics, taxa);
+        }
+
+        /// <summary>
+        /// Gets the view models of the given taxa.
+        /// </summary>
+        /// <param name="statistics">The statistics.</param>
+        /// <param name="taxa">The taxa.</param>
+        /// <returns>Returns flat or hierarchical structure based on the widget settings.</returns>
+        protected virtual IList<TaxonViewModel> GetTaxaViewModels(IQueryable<TaxonomyStatistic> statistics, IEnumerable<HierarchicalTaxon> taxa)
+        {
+            if (this.FlattenHierarchy)
+            {
+                return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+            }
+
+            return TaxaViewModelTreeBuilder.BuildTaxaTree(
+                taxa,
+                taxon => this.FilterTaxonByCount(taxon, statistics));
         }
         #endregion
 
