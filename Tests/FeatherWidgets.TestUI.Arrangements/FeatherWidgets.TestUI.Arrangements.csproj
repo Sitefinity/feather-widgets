@@ -162,6 +162,7 @@
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="VideoGallery\FilterVideosWithCategoryTagAndDateOnPage.cs" />
@@ -224,11 +225,11 @@
     <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
-    <Compile Include="Lists\AnchorListTemplate.cs" />
-    <Compile Include="Lists\ExpandableListTemplate.cs" />
-    <Compile Include="Lists\ExpandedListTemplate.cs" />
-    <Compile Include="Lists\PagesListTemplate.cs" />
-    <Compile Include="Lists\SimpleListTemplate.cs" />
+    <Compile Include="Lists\VerifyAnchorListTemplate.cs" />
+    <Compile Include="Lists\VerifyExpandableListTemplate.cs" />
+    <Compile Include="Lists\VerifyExpandedListTemplate.cs" />
+    <Compile Include="Lists\VerifyPagesListTemplate.cs" />
+    <Compile Include="Lists\VerifySimpleListTemplate.cs" />
     <Compile Include="MediaWidgets\ImageWidgetInsertImageWithCustomThumbnail.cs" />
     <Compile Include="MediaWidgets\DocumentWidgetInsertDocument.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />

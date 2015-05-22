@@ -10,20 +10,20 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Lists
 {
     /// <summary>
-    /// AnchorListTemplate_ test class.
+    /// VerifyExpandableListTemplate_ test class.
     /// </summary>
     [TestClass]
-    public class AnchorListTemplate_ : FeatherTestCase
+    public class VerifyExpandableListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test verifying Anchor list template, sort Last published, no filter applied
+        /// UI test verifying Expandable list template, sort Last modified, no filter applied
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]
-        public void AnchorListTemplate()
+        public void VerifyExpandableListTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyAnchorListTemplate(ListTitle, this.listItems);
+            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyExpandableListTemplate(ListTitle, this.listItems);
         }
 
         /// <summary>
@@ -64,13 +64,13 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string PageName = "TestPage";
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
-        private const string SortingOption = "Last published";
-        private const string ListTemplate = "AnchorList";
+        private const string SortingOption = "Last modified";
+        private const string ListTemplate = "ExpandableList";
 
         private readonly Dictionary<string, string> listItems = new Dictionary<string, string>()
                                                                 {
-                                                                    { "list item 3", "list content 3" },
-                                                                    { "list item 2", "list content 2" },
+                                                                    { "edited title", "edited content" },
+                                                                    { "list item 3", "list content 3" }, 
                                                                     { "list item 1", "list content 1" }
                                                                 };
     }
