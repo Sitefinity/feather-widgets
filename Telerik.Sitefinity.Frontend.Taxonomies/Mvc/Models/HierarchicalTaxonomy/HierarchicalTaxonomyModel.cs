@@ -75,7 +75,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     viewModel.Taxa = this.GetTaxaByParent();
                     break;
                 case HierarchicalTaxaToDisplay.Selected:
-                    viewModel.Taxa = this.GetSpecificTaxa();
+                    viewModel.Taxa = this.GetSpecificTaxa<HierarchicalTaxon>();
                     break;
                 case HierarchicalTaxaToDisplay.UsedByContentType:
                     viewModel.Taxa = this.GetTaxaByContentType();
