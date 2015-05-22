@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
+using ArtOfTest.WebAii.Core;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ScriptsAndStyles
 {
@@ -48,7 +49,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ScriptsAn
             var lastBodyChild = body.ChildNodes[childrenCount - 1];
             string valueType = lastBodyChild.GetAttribute("type").Value;
             Assert.AreEqual(valueType, "text/javascript");
-            Assert.AreEqual(lastBodyChild.TextContent, text);            
+            Assert.AreEqual(lastBodyChild.TextContent, text);
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ScriptsAn
         public void VerifyJavaScriptFileBeforeTheClosingBodyTag(string src)
         {
             var body = ActiveBrowser.Find.ByExpression<HtmlContainerControl>("tagname=body");
-            body.Find.ByExpression<HtmlContainerControl>("type=text/javascript", "src=~" + src).AssertIsNotNull("src");           
+            body.Find.ByExpression<HtmlContainerControl>("type=text/javascript", "src=~" + src).AssertIsNotNull("src");
         }
 
         /// <summary>
@@ -75,10 +76,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ScriptsAn
         /// Verifies the java script in head tag.
         /// </summary>
         /// <param name="text">The text.</param>
-        public void VerifyJavaScriptWhereTheWidgetIsDropped(string text)
+        public void VerifyWhereTheWidgetIsDroppedOption(string text, bool isJavaScriptCode = true)
         {
             var widgetDiv = ActiveBrowser.Find.ByExpression<HtmlDiv>("class=sfPublicWrapper", "id=PublicWrapper").AssertIsNotNull("div");
-            widgetDiv.Find.ByExpression<HtmlContainerControl>("type=text/javascript", "TextContent=~" + text).AssertIsNotNull("text");
+            HtmlContainerControl option = null;
+            if (isJavaScriptCode)
+            {
+                option = widgetDiv.Find.ByExpression<HtmlContainerControl>("type=text/javascript", "TextContent=~" + text).AssertIsNotNull("text");
+            }
+            else
+            {
+                option = widgetDiv.Find.ByExpression<HtmlContainerControl>("type=text/css", "TextContent=~" + text);
+                if (option == null)
+                {
+                    Assert.IsTrue(widgetDiv.InnerText.Contains(text));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Verifies you tube video.
+        /// </summary>
+        /// <param name="src">The SRC.</param>
+        public void VerifyYouTubeVideo(string src, bool isSupposeVideoToBeVisible = true)
+        {
+            var frame = Manager.Current.ActiveBrowser.Frames.BySrc(src);
+            if (isSupposeVideoToBeVisible)
+            {
+                Assert.IsNotNull(frame);
+            }
+            else
+            {                
+                Assert.IsNull(frame);
+            }
         }
     }
 }
