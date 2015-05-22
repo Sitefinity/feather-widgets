@@ -1,6 +1,8 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Taxonomies.Helpers;
 
+@Html.QueryBuilderScriptReferences()
+
 <div class="form-group">
     <strong>@Html.Resource("WhichTagsLabel")</strong>
     <div class="radio">
@@ -15,8 +17,16 @@
             <input id="selectedTags" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="Selected" />
             @Html.Resource("SelectedTagsLabel")
         </label>
-        <div class="label-content">
+        
+        <div ng-show="properties.TaxaToDisplay.PropertyValue === 'Selected'">
+            <sf-list-selector sf-taxon-selector
+                              sf-multiselect="true"
+                              sf-selected-ids="properties.selectedItemsIds"
+                              sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
+                              class="sf-filter-selector">
+            </sf-list-selector>
         </div>
+
     </div>
 
     <div class="radio">
@@ -36,14 +46,16 @@
 
     <div class="checkbox">
         <label for="showItemCount">
-            <input id="showItemCount" type="checkbox" ng-model="properties.ShowItemCount.PropertyValue" value="All" />
+            <input id="showItemCount" type="checkbox" ng-model="properties.ShowItemCount.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowItemCount.PropertyValue === 'True'" />
             @Html.Resource("ShowItemCountLabel")
         </label>
     </div>
 
     <div class="checkbox">
         <label for="showEmptyTags">
-            <input id="showEmptyTags" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue" value="All" />
+            <input id="showEmptyTags" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowEmptyTaxa.PropertyValue === 'True'" />
             @Html.Resource("ShowEmptyTags")
         </label>
     </div>

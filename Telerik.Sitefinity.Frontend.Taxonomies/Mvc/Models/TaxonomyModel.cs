@@ -22,6 +22,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 this.InitializeTaxonomyManagerFromFieldName();
             }
+            this.ShowItemCount = true;
+            this.SortExpression = DefaultSortExpression;
         }
         #endregion
 
@@ -85,6 +87,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <value>The name of the field.</value>
         public string FieldName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>The sort expression.</value>
+        public string SortExpression { get; set; }
 
         /// <summary>
         /// Gets or sets the serialized collection with the ids of the specific taxa that the widget will show.
@@ -334,6 +342,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private PropertyDescriptor fieldPropertyDescriptor;
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
+        private const string DefaultSortExpression = "PublicationDate DESC";
         #endregion
     }
 }
