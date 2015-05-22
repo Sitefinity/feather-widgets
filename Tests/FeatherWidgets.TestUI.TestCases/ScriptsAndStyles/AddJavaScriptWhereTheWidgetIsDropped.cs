@@ -63,7 +63,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             }
             else 
             {
-                BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyJavaScriptWhereTheWidgetIsDropped(JavaScriptValue);
+                BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyWhereTheWidgetIsDroppedOption(JavaScriptValue);
             }
         }
 
