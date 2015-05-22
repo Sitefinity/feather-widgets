@@ -241,13 +241,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <param name="taxa">The taxa.</param>
         /// <param name="statistics">The statistics.</param>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics<T>(IEnumerable<T> taxa, IQueryable<TaxonomyStatistic> statistics) where T : ITaxon
+        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics<T>(IEnumerable<T> taxa, IQueryable<TaxonomyStatistic> statistics) where T : Taxon
         {
             var result = new List<TaxonViewModel>();
 
             foreach (var taxon in taxa)
             {
-                if (!this.HasTranslationInCurrentLanguage((Taxon)taxon))
+                if (!this.HasTranslationInCurrentLanguage(taxon))
                     continue;
 
                 var viewModel = this.FilterTaxonByCount(taxon, statistics);
