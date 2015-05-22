@@ -1,0 +1,4 @@
+﻿{
+	"priority": 1,
+	"components": ["sf-taxon-selector", "sf-expander", "sf-style-dropdown"]
+}

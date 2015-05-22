@@ -1,0 +1,78 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Taxonomies.Helpers;
+
+<div class="form-group">
+    <strong>@Html.Resource("WhichTagsLabel")</strong>
+    <div class="radio">
+        <label for="allTags">
+            <input id="allTags" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="All" />
+            @Html.Resource("AllTags")
+        </label>
+    </div>
+
+    <div class="radio">
+        <label for="selectedTags">
+            <input id="selectedTags" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="Selected" />
+            @Html.Resource("SelectedTagsLabel")
+        </label>
+        <div class="label-content">
+        </div>
+    </div>
+
+    <div class="radio">
+        <label for="contentTags">
+            <input id="contentTags" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="UsedByContentType" />
+            @Html.Resource("ShowContentTypeTagsLabel")
+        </label>
+        <select class="form-control"
+                ng-model="proxyContentTypeName"
+                ng-show="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
+            @foreach (var type in ContentTypeExtensions.GetContentTypes())
+            {
+            <option value="@type.FullTypeName">@type.DisplayName</option>
+            }
+        </select>
+    </div>
+
+    <div class="checkbox">
+        <label for="showItemCount">
+            <input id="showItemCount" type="checkbox" ng-model="properties.ShowItemCount.PropertyValue" value="All" />
+            @Html.Resource("ShowItemCountLabel")
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label for="showEmptyTags">
+            <input id="showEmptyTags" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue" value="All" />
+            @Html.Resource("ShowEmptyTags")
+        </label>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="sortOptions">@Html.Resource("SortTagsLabel")</label>
+
+                <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
+                    <option value="PublicationDate DESC"> @Html.Resource("LastPublished")</option>
+                    <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
+                    <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
+                    <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
+                    <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
+                    <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>
