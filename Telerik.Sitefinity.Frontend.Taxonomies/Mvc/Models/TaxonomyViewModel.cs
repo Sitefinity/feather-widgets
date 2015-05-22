@@ -14,5 +14,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <value>The taxa.</value>
         public IList<TaxonViewModel> Taxa { get; set; }
+
+        /// <summary>
+        /// Determines whether to display number of items classified by the taxon.
+        /// </summary>
+        public bool ShowItemCount { get; set; }
     }
 }

@@ -75,6 +75,14 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// <value>The taxa to display.</value>
         HierarchicalTaxaToDisplay TaxaToDisplay { get; set; }
 
+        bool ShowEmptyTaxa { get; set; }
+
+        /// <summary>
+        /// If set to true, all hierarchical taxa will be shown as a flat list.
+        /// </summary>
+        /// <value>The flatten hierarchy.</value>
+        bool FlattenHierarchy { get; set; }
+
         /// <summary>
         /// Determines how many levels from the hierarchy to include.
         /// </summary>

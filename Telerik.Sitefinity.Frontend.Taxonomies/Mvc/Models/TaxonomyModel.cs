@@ -211,7 +211,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 .GetTaxa<ITaxon>()
                 .Where(t => selectedTaxaGuids.Contains(t.Id));
 
-            return this.GetTaxaViewModelsWithStatistics(taxa);
+            var statistics = this.GetTaxonomyStatistics();
+
+            return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
         }
 
         /// <summary>
@@ -237,24 +239,39 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets the taxa view models with statistics for the usage of each taxon in the collection.
         /// </summary>
         /// <param name="taxa">The taxa.</param>
+        /// <param name="statistics">The statistics.</param>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa)
+        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa, IQueryable<TaxonomyStatistic> statistics)
         {
-            var statistics = this.GetTaxonomyStatistics();
-
             var result = new List<TaxonViewModel>();
 
             foreach (var taxon in taxa)
             {
-                uint count = statistics
-                    .Where(s => s.TaxonId == taxon.Id)
-                    .Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
-
-                var viewModel = new TaxonViewModel(taxon, count);
-                result.Add(viewModel);
+                var viewModel = this.FilterTaxonByCount(taxon, statistics);
+                if (viewModel != null)
+                {
+                    result.Add(viewModel);
+                }
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// According to the usage count and the widget settings, returns a view model of the given taxon if it should be shown in the widget.
+        /// Returns null if shouldn't be visible.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <param name="statistics">The statistics.</param>
+        /// <returns></returns>
+        protected virtual TaxonViewModel FilterTaxonByCount(ITaxon taxon, IQueryable<TaxonomyStatistic> statistics)
+        {
+            var count = statistics.Where(s => s.TaxonId == taxon.Id)
+                .Aggregate(0u, (acc, stat) => acc + stat.MarkedItemsCount);
+
+            if (count == 0 && !this.ShowEmptyTaxa) return null;
+
+            return new TaxonViewModel(taxon, count);
         }
 
         /// <summary>
