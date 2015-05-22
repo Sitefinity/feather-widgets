@@ -30,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// Determiens whether to display the count of the items associated with every taxon.
         /// </summary>
         /// <value>Show item count.</value>
-        string ShowItemCount { get; set; }
+        bool ShowItemCount { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the page where content will be filtered by selected taxon.
@@ -74,6 +74,14 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// </summary>
         /// <value>The taxa to display.</value>
         HierarchicalTaxaToDisplay TaxaToDisplay { get; set; }
+
+        bool ShowEmptyTaxa { get; set; }
+
+        /// <summary>
+        /// If set to true, all hierarchical taxa will be shown as a flat list.
+        /// </summary>
+        /// <value>The flatten hierarchy.</value>
+        bool FlattenHierarchy { get; set; }
 
         /// <summary>
         /// Determines how many levels from the hierarchy to include.

@@ -11,34 +11,33 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
     /// <summary>
-    /// JavaScriptWidgetOnPageTemplateAndAddDescription test class.
+    /// EmbedCodeWidgetOnPageTemplateAndAddDescription test class.
     /// </summary>
     [TestClass]
-    public class JavaScriptWidgetOnPageTemplateAndAddDescription_ : FeatherTestCase
+    public class EmbedCodeWidgetOnPageTemplateAndAddDescription_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test JavaScriptWidgetOnPageTemplateAndAddDescription
+        /// UI test EmbedCodeWidgetOnPageTemplateAndAddDescription
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
-        public void JavaScriptWidgetOnPageTemplateAndAddDescription()
+        public void EmbedCodeWidgetOnPageTemplateAndAddDescription()
         {
             ActiveBrowser.WaitUntilReady();
             BAT.Macros().NavigateTo().Design().PageTemplates();
             this.OpenTemplateEditor();
-          
+
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, PlaceHolder);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(JavaScriptValue);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(Script);
             BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().MoreOptions();
             BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillDescription(TestDescription);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TestDescription);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, JavaScriptValue);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, Script);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, JavaScriptLocation);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, CssLocation);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
 
             this.VerifyPageOnTheFrontend();
@@ -50,9 +49,8 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         public void VerifyPageOnTheFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(JavaScriptValue);
-            Assert.IsTrue(isContained, string.Concat("Expected ", JavaScriptValue, " but the style is not found"));
-            BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyJavaScriptInHeadTag(JavaScriptValue);
+            bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(Script);
+            Assert.IsTrue(isContained, string.Concat("Expected ", Script, " but the style is not found"));
         }
 
         /// <summary>
@@ -82,11 +80,10 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 
         private const string TestArrangement = "CssWidgetOnPageTemplateAndAddDescription";
         private const string PageName = "FeatherPage";
-        private const string WidgetName = "JavaScript";
-        private const string JavaScriptValue = "var a = 5;";
+        private const string WidgetName = "Embed code";
+        private const string Script = "<style type=\"text/css\">div { color: #FF0000; font-size: 20px;}</style>";
         private const string PlaceHolder = "TestPlaceHolder";
         private const string TestDescription = "Test description";
-        private const string Script = "<script type=\"text/javascript\">";
-        private const string JavaScriptLocation = "In the head tag";
+        private const string CssLocation = "In the head tag";
     }
 }

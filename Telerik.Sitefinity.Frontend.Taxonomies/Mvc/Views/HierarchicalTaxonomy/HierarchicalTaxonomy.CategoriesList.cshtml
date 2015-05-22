@@ -1,1 +1,13 @@
-﻿
+﻿@model Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.TaxonomyViewModel
+
+@foreach (var taxon in Model.Taxa)
+{
+    <a href=""><span>@taxon.Title</span></a>
+
+    if (Model.ShowItemCount)
+    {
+    <span>@Html.Raw(string.Format("({0})", taxon.Count))</span>
+    }
+
+    <br />
+}

@@ -140,6 +140,10 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
+    <Compile Include="ScriptsAndStyles\EmbedCodeWidgetOnPageTemplateAndAddDescription.cs" />
+    <Compile Include="ScriptsAndStyles\DuplicateAndDeleteEmbedCodeWidgetOnPage.cs" />
+    <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="ScriptsAndStyles\DuplicateAndDeleteJavaScriptWidgetOnPage.cs" />
     <Compile Include="VideoGallery\FilterVideosWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideosWithOverlayGalleryTemplate.cs" />
