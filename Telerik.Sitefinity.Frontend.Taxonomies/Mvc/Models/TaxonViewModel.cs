@@ -38,6 +38,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <value>The title.</value>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the taxon size used for Cloud template.
+        /// </summary>
+        /// <value>The size of the cloud.</value>
+        public int CloudSize { get; set; }
+        
         #endregion
     }
 }

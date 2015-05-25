@@ -52,6 +52,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
                     break;
 
             }
+
             return viewModel;
         }
         #endregion
