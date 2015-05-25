@@ -125,6 +125,7 @@
     <Compile Include="CommentsAndReviews\SubmitCommentForNewsLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForPageLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalCommentForPageNotLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />

@@ -162,5 +162,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
             Assert.IsTrue(isPresent);
         }
+
+        /// <summary>
+        /// Verify error message
+        /// </summary>
+        /// <param name="errorMessage">Expected error message</param>
+        public void VerifyErrorMessageOnTheFrontend(string errorMessage)
+        {
+            HtmlDiv alertMessageOnPage = this.EM.CommentsAndReviews.CommentsFrontend.ErrorDiv
+                .AssertIsPresent("Error message");
+            bool isPresent = alertMessageOnPage.InnerText.Contains(errorMessage);
+            Assert.IsTrue(isPresent);
+        }
     }
 }
