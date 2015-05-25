@@ -138,5 +138,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlDiv>("tagname=div", "class=alert alert-warning");
             }
         }
+
+        /// <summary>
+        /// Gets error div.
+        /// </summary>
+        public HtmlDiv ErrorDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=has-error");
+            }
+        }
     }
 }
