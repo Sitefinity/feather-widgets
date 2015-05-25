@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.Lists.Model;
-using Telerik.Sitefinity.Modules.Lists;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.Workflow;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Arrangement methods for SimpleListTemplate
+    /// Arrangement methods for VerifyExpandableListTemplate
     /// </summary>
-    public class SimpleListTemplate : ITestArrangement
+    public class VerifyAnchorListTemplate : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -25,13 +21,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             ServerOperationsFeather.ListsOperations().CreateList(this.listId, ListTitle, ListDescription);
-            Guid listItel1Id = Guid.NewGuid();
-            ServerOperationsFeather.ListsOperations().CreateListItem(listItel1Id, this.listId, ListItem1Title, ListItem1Content);
+            ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem1Title, ListItem1Content);
             ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem2Title, ListItem2Content);
             ServerOperationsFeather.ListsOperations().CreateListItem(Guid.NewGuid(), this.listId, ListItem3Title, ListItem3Content);
-
-            DateTime publicationDate = DateTime.UtcNow.AddDays(-10);
-            ServerOperationsFeather.ListsOperations().PublishListItemWithSpecificDate(listItel1Id, publicationDate);
 
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddListsWidgetToPage(pageId);
