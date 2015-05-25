@@ -10,7 +10,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// AddCommentsWidgetOnPageBasedOnBootstrapTemplate arrangement class.
+    /// SubmitCommentForNewsLoggedUserOnBootstrapPage arrangement class.
     /// </summary>
     public class SubmitCommentForNewsLoggedUserOnBootstrapPage : ITestArrangement
     {

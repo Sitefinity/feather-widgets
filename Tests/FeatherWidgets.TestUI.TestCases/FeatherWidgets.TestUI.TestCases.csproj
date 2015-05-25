@@ -95,6 +95,7 @@
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
     <Compile Include="CommentsAndReviews\AddCommentsWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="CommentsAndReviews\ChangeCommentsStatusesForPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForDynamicItemLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForNewsLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForPageLoggedUserOnBootstrapPage.cs" />
