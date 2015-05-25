@@ -546,5 +546,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             this.EM.Widgets.WidgetDesignerContentScreen.UseLimit.AssertIsPresent("Use limit radio button");
             this.EM.Widgets.WidgetDesignerContentScreen.NoLimitAndPaging.AssertIsPresent("No limit and paging");
         }
+
+        /// <summary>
+        /// Verifies filter by category, tag, date options
+        /// </summary>
+        public void VerifyFilterByCategoryTagDateOptions()
+        {
+            this.EM.Widgets.WidgetDesignerContentScreen.FilterByCategory.AssertIsPresent("Filter by category checkbox");
+            this.EM.Widgets.WidgetDesignerContentScreen.FilterByTag.AssertIsPresent("Filter by tag checkbox");
+            this.EM.Widgets.WidgetDesignerContentScreen.FilterByDate.AssertIsPresent("Filter by date checkbox");
+        }
     }
 }

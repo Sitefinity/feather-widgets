@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
@@ -10,6 +11,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
     /// </summary>
     public class HierarchicalTaxonomyModel : TaxonomyModel, IHierarchicalTaxonomyModel
     {
+        #region Construction
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HierarchicalTaxonomyModel" /> class.
+        /// </summary>
+        public HierarchicalTaxonomyModel()
+        {
+            this.TaxonomyId = TaxonomyManager.CategoriesTaxonomyId;
+            this.FlattenHierarchy = true;
+        }
+        #endregion
+
         #region Properties
         /// <summary>
         /// Determines what taxa will be displayed by the widget.
@@ -34,17 +46,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// If set to true, all hierarchical taxa will be shown as a flat list.
         /// </summary>
         /// <value>The flatten hierarchy.</value>
-        public bool FlattenHierarchy
-        {
-            get
-            {
-                return this.flattenHierarchy;
-            }
-            set
-            {
-                this.flattenHierarchy = value;
-            }
-        }
+        public bool FlattenHierarchy { get; set; }
         #endregion
 
         #region Overriden methods
@@ -75,7 +77,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     viewModel.Taxa = this.GetTaxaByParent();
                     break;
                 case HierarchicalTaxaToDisplay.Selected:
-                    viewModel.Taxa = this.GetSpecificTaxa();
+                    viewModel.Taxa = this.GetSpecificTaxa<HierarchicalTaxon>();
                     break;
                 case HierarchicalTaxaToDisplay.UsedByContentType:
                     viewModel.Taxa = this.GetTaxaByContentType();
@@ -186,12 +188,14 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 
             return TaxaViewModelTreeBuilder.BuildTaxaTree(
                 taxa,
-                taxon => this.FilterTaxonByCount(taxon, statistics));
-        }
-        #endregion
+                taxon =>
+                {
+                    if (!this.HasTranslationInCurrentLanguage((Taxon)taxon))
+                        return null;
 
-        #region Private fields and constants
-        private bool flattenHierarchy = true;
+                    return this.FilterTaxonByCount(taxon, statistics);
+                });
+        }
         #endregion
     }
 }

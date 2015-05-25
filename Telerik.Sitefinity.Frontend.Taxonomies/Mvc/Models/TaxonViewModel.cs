@@ -38,6 +38,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <value>The title.</value>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the url of the taxon.
+        /// </summary>
+        /// <value>The url.</value>
+        public string Url { get; set; }
         #endregion
     }
 }

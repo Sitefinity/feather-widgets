@@ -7,6 +7,11 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Web;
+using System.Reflection;
+using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Web.UrlEvaluation;
+using Telerik.Sitefinity.Pages.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 {
@@ -22,6 +27,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 this.InitializeTaxonomyManagerFromFieldName();
             }
+            this.ShowItemCount = true;
+            this.SortExpression = DefaultSortExpression;
         }
         #endregion
 
@@ -49,6 +56,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <value>Show item count.</value>
         public bool ShowItemCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to show empty taxa.
+        /// </summary>
+        /// <value>Show empty taxonomies.</value>
+        public bool ShowEmptyTaxa { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the page where content will be filtered by selected taxon.
@@ -80,7 +93,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <value>The name of the field.</value>
         public string FieldName { get; set; }
 
-        public bool ShowEmptyTaxa { get; set; }
+        /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>The sort expression.</value>
+        public string SortExpression { get; set; }
 
         /// <summary>
         /// Gets or sets the serialized collection with the ids of the specific taxa that the widget will show.
@@ -98,6 +115,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 if (this.serializedSelectedTaxaIds != value)
                 {
                     this.serializedSelectedTaxaIds = value;
+
                     if (!this.serializedSelectedTaxaIds.IsNullOrEmpty())
                     {
                         this.selectedTaxaIds = JsonSerializer.DeserializeFromString<IList<string>>(this.serializedSelectedTaxaIds);
@@ -191,13 +209,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets the taxa view models for each taxon by using the provided ids of taxons that we want explicitly to be shown by the widget.
         /// </summary>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetSpecificTaxa()
+        protected virtual IList<TaxonViewModel> GetSpecificTaxa<T>() where T : Taxon
         {
             var selectedTaxaGuids = this.selectedTaxaIds.Select(id => new Guid(id));
 
-            var taxa = this.CurrentTaxonomyManager
-                .GetTaxa<ITaxon>()
-                .Where(t => selectedTaxaGuids.Contains(t.Id));
+            var taxa = this.CurrentTaxonomyManager.GetTaxa<T>()
+                                    .Where(t => selectedTaxaGuids.Contains(t.Id));
 
             var statistics = this.GetTaxonomyStatistics();
 
@@ -229,12 +246,15 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <param name="taxa">The taxa.</param>
         /// <param name="statistics">The statistics.</param>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa, IQueryable<TaxonomyStatistic> statistics)
+        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics<T>(IEnumerable<T> taxa, IQueryable<TaxonomyStatistic> statistics) where T : Taxon
         {
             var result = new List<TaxonViewModel>();
 
             foreach (var taxon in taxa)
             {
+                if (!this.HasTranslationInCurrentLanguage(taxon))
+                    continue;
+
                 var viewModel = this.FilterTaxonByCount(taxon, statistics);
                 if (viewModel != null)
                 {
@@ -259,7 +279,23 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             if (count == 0 && !this.ShowEmptyTaxa) return null;
 
-            return new TaxonViewModel(taxon, count);
+            // refactor
+            var url = taxon is HierarchicalTaxon ? ((HierarchicalTaxon)taxon).FullUrl : taxon.UrlName.Value;
+            return new TaxonViewModel(taxon, count)
+            {
+                Url = this.BuildUrl(url)
+            };
+        }
+
+        /// <summary>
+        /// Determines whether the provided taxon has translation to the current language.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <returns></returns>
+        protected virtual bool HasTranslationInCurrentLanguage(Taxon taxon)
+        {
+            return taxon.AvailableLanguages.Contains(taxon.Title.CurrentLanguage.Name) ||
+                taxon.AvailableLanguages.Count() == 1 && taxon.AvailableLanguages[0] == string.Empty;
         }
 
         /// <summary>
@@ -293,7 +329,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             string providerName = String.Empty;
 
             if (String.IsNullOrWhiteSpace(this.ContentProviderName))
-            {                
+            {
                 //if (!this.DynamicContentTypeName.IsNullOrWhitespace())
                 //{
                 //    var manager = ManagerBase.GetMappedManager(this.TaxonomyContentType);
@@ -338,6 +374,97 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             return providerName;
         }
 
+        /// <summary>
+        /// Builds the full url for a particular taxon filter
+        /// Override this method  to change the pattern of the url 
+        /// </summary>
+        /// <param name="taxonRelativeUrl">The taxon relative URL.</param>
+        /// <returns></returns>
+        protected virtual string BuildUrl(string taxonRelativeUrl)
+        {
+            var url = this.BaseUrl;
+
+            if (string.IsNullOrEmpty(url))
+            {
+                var siteMap = SiteMapBase.GetCurrentProvider();
+                if (siteMap == null || (siteMap != null && siteMap.CurrentNode == null))
+                {
+                    return string.Empty;
+                }
+
+                var psn = siteMap.CurrentNode as PageSiteNode;
+                if (psn != null)
+                {
+                    // Check if the page is a Group page and if yes take its first child page and emit an URL that has embedded the URL of the first child
+                    var temp = RouteHelper.GetFirstPageDataNode(psn, true);
+                    if (psn.NodeType == NodeType.Group && temp.Url != siteMap.CurrentNode.Url)
+                    {
+                        url = temp.Url;
+                    }
+                    else
+                    {
+                        var getUrlMethod = psn.GetType().GetMethod("GetUrl", BindingFlags.NonPublic | BindingFlags.Instance);
+                        url = getUrlMethod.Invoke(psn, new object[] { true, true }) as string;
+                    }
+                }
+                else
+                {
+                    url = siteMap.CurrentNode.Url;
+                }
+            }
+            if (string.IsNullOrEmpty(url))
+                throw new ArgumentNullException("BaseUrl property could not be resolved.");
+
+            if (string.IsNullOrEmpty(this.FieldName))
+                throw new ArgumentNullException("FieldName property could not be resolved.");
+
+            url = RouteHelper.ResolveUrl(url, UrlResolveOptions.Absolute);
+
+            var urlEvaluationMode = TaxonomyModel.GetUrlEvaluationMode();
+            if (urlEvaluationMode == Pages.Model.UrlEvaluationMode.UrlPath)
+            {
+                // Pages that are migrated from 3.7 have extensions (.aspx), which are unnecessary when we have segments after the page url.
+                var getCurrentNodeExtensionMethod = typeof(PageHelper).GetMethod("GetCurrentNodeExtension", BindingFlags.NonPublic | BindingFlags.Static);
+                string extension = getCurrentNodeExtensionMethod.Invoke(null, null) as string;
+
+                if (!extension.IsNullOrEmpty() && url.EndsWith(extension))
+                {
+                    url = url.Substring(0, url.LastIndexOf(extension));
+                }
+            }
+
+            var evaluator = new TaxonomyEvaluator();
+            var taxonBuildOptions = TaxonBuildOptions.None;
+            if (this.Taxonomy is Telerik.Sitefinity.Taxonomies.Model.HierarchicalTaxonomy)
+                taxonBuildOptions = TaxonBuildOptions.Hierarchical;
+            else if (this.Taxonomy is Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy)
+                taxonBuildOptions = TaxonBuildOptions.Flat;
+
+            // UrlKeyPrefix ???
+            var evaluatedResult = evaluator.BuildUrl(this.Taxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, "");
+
+            return string.Concat(url, evaluatedResult);
+        }
+
+        #endregion
+
+        #region Private methhods
+
+        /// <summary>
+        /// Gets the URL evaluation mode.
+        /// </summary>
+        /// <returns></returns>
+        private static UrlEvaluationMode GetUrlEvaluationMode()
+        {
+            var urlEvalMode = SystemManager.CurrentHttpContext.Items[RouteHandler.UrlEvaluationModeKey];
+            if (urlEvalMode != null)
+            {
+                return (UrlEvaluationMode)urlEvalMode;
+            }
+
+            return default(UrlEvaluationMode);
+        }
+
         #endregion
 
         #region Private fields and constants
@@ -347,6 +474,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private PropertyDescriptor fieldPropertyDescriptor;
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
+        private const string DefaultSortExpression = "PublicationDate DESC";
         #endregion
     }
 }

@@ -76,6 +76,18 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         FlatTaxaToDisplay TaxaToDisplay { get; set; }
 
         /// <summary>
+        /// Gets or sets the show empty taxa.
+        /// </summary>
+        /// <value>The show empty taxa.</value>
+        bool ShowEmptyTaxa { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>The sort expression.</value>
+        string SortExpression { get; set; }
+
+        /// <summary>
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>
