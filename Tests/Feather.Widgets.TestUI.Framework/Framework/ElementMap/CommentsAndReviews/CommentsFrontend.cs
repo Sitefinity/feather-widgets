@@ -94,5 +94,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                                                                         && d.ChildNodes[2].TagName.Equals("p")).ToList();
             }
         }
+
+        /// <summary>
+        /// Gets comments count on page.
+        /// </summary>
+        public HtmlDiv CommentsCountOnPage
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=row sf-Comments-header");
+            }
+        }
     }
 }

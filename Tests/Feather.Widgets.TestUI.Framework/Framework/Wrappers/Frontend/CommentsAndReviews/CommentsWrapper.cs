@@ -33,6 +33,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
+        /// Asserts comments count on page
+        /// </summary>
+        public void AssertCommentsCountOnPage(string commentCount)
+        {
+            HtmlDiv commentLinkOnPage = this.EM.CommentsAndReviews.CommentsFrontend.CommentsCountOnPage.AssertIsPresent("Comments count on page");
+            bool isPresent = commentLinkOnPage.InnerText.Contains(commentCount);
+            Assert.IsTrue(isPresent);
+        }
+
+        /// <summary>
         /// Click comment link
         /// </summary>
         public void ClickCommentLink()
