@@ -80,7 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
             var viewModel = this.Model.CreateViewModel();
             
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
-
+            
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -126,7 +126,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfFlatTaxonIcn sfMvcIcn";
         private IFlatTaxonomyModel model;
         private string templateName = "SimpleList";
-        private string templateNamePrefix = "FlatTaxonomy.";
+        private readonly string templateNamePrefix = "FlatTaxonomy.";
         #endregion
     }
 }

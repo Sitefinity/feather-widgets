@@ -132,6 +132,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Helpers\ContentTypeExtensions.cs" />
+    <Compile Include="Helpers\ContentTypeModel.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FlatTaxonomyController.cs" />
     <Compile Include="Mvc\Controllers\HierarchicalTaxonomyController.cs" />

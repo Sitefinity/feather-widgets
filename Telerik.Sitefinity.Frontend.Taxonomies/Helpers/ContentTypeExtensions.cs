@@ -37,22 +37,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Helpers
         {
             var provider = ModuleBuilderManager.GetManager(providerName).Provider;
 
-            return provider.GetDynamicModuleTypes().Select(t =>
-                    new ContentTypeModel(t.DisplayName, String.Format("{0}.{1}", t.TypeNamespace, t.TypeName))
-                );
+            return provider.GetDynamicModuleTypes()
+                           .Select(t => new ContentTypeModel(t.DisplayName, String.Format("{0}.{1}", t.TypeNamespace, t.TypeName)));
         }
-    }
-
-    public class ContentTypeModel
-    {
-        public ContentTypeModel(string displayName, string fullTypeName)
-        {
-            this.DisplayName = displayName;
-            this.FullTypeName = fullTypeName;
-        }
-
-        public string FullTypeName { get; set; }
-
-        public string DisplayName { get; set; }
     }
 }
