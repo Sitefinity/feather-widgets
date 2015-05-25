@@ -446,6 +446,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             return providerName;
         }
 
+        /// <summary>
+        /// Gets the content item from whose field the taxa will be retrieved.
+        /// </summary>
+        /// <returns></returns>
         protected virtual object GetContentItem()
         {
             var provider = this.GetContentProviderName();
