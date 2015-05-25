@@ -9,10 +9,14 @@
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
     </h3>
 
+    @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
+
     <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Item.Fields.Content)</div>
 
     @if (Model.EnableSocialSharing)
     {
         @Html.SocialShareOptions()
     }
+    
+    @Html.CommentsList(@Model.Item.DataItem)
 </div>

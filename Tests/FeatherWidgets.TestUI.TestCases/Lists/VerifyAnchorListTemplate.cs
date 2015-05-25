@@ -10,10 +10,10 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Lists
 {
     /// <summary>
-    /// AnchorListTemplate_ test class.
+    /// VerifyAnchorListTemplate_ test class.
     /// </summary>
     [TestClass]
-    public class AnchorListTemplate_ : FeatherTestCase
+    public class VerifyAnchorListTemplate_ : FeatherTestCase
     {
         /// <summary>
         /// UI test verifying Anchor list template, sort Last published, no filter applied
@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]
-        public void AnchorListTemplate()
+        public void VerifyAnchorListTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -33,6 +33,8 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { ListTitle });
+
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyFilterByCategoryTagDateOptions();
 
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectSortingOption(SortingOption);
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListTemplate(ListTemplate);

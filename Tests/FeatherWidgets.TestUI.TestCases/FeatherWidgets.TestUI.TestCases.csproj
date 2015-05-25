@@ -95,7 +95,12 @@
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
     <Compile Include="CommentsAndReviews\AddCommentsWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="CommentsAndReviews\ChangeCommentsStatusesForPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitCommentForDynamicItemLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForNewsLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitCommentForPageLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockToTemplateBasedOnLayoutFile.cs" />
     <Compile Include="ContentBlocks\AddContentToContentBlockWidgetViaCreateContentOptionOnThePage.cs" />
@@ -140,6 +145,7 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\EmbedCodeWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="ScriptsAndStyles\DuplicateAndDeleteEmbedCodeWidgetOnPage.cs" />
@@ -201,11 +207,11 @@
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
     <Compile Include="ImageGallery\SelectAllPublishedImagesWithLimitOption.cs" />
-    <Compile Include="Lists\AnchorListTemplate.cs" />
-    <Compile Include="Lists\ExpandableListTemplate.cs" />
-    <Compile Include="Lists\ExpandedListTemplate.cs" />
-    <Compile Include="Lists\PagesListTemplate.cs" />
-    <Compile Include="Lists\SimpleListTemplate.cs" />
+    <Compile Include="Lists\VerifyAnchorListTemplate.cs" />
+    <Compile Include="Lists\VerifyExpandableListTemplate.cs" />
+    <Compile Include="Lists\VerifyExpandedListTemplate.cs" />
+    <Compile Include="Lists\VerifyPagesListTemplate.cs" />
+    <Compile Include="Lists\VerifySimpleListTemplate.cs" />
     <Compile Include="MediaWidgets\DocumentWidgetInsertDocument.cs" />
     <Compile Include="MediaWidgets\ImageWidgetInsertImageWithCustomThumbnail.cs" />
     <Compile Include="Navigation\NavigationWidgetCustomSelectionOfPagesWithExternalUrls.cs" />

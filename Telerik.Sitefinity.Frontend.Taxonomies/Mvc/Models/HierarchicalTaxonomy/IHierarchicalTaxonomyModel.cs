@@ -75,6 +75,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// <value>The taxa to display.</value>
         HierarchicalTaxaToDisplay TaxaToDisplay { get; set; }
 
+        /// <summary>
+        /// Determines whether to show taxa that doesn't have classificated content.
+        /// </summary>
+        /// <value>The show empty taxa.</value>
         bool ShowEmptyTaxa { get; set; }
 
         /// <summary>
@@ -95,6 +99,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// </summary>
         /// <value>The parent category.</value>
         Guid RootTaxonId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>The sort expression.</value>
+        string SortExpression { get; set; }
 
         /// <summary>
         /// Creates the view model.

@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// Arrangement methods for PagesListTemplate
+    /// Arrangement methods for VerifyPagesListTemplate
     /// </summary>
-    public class PagesListTemplate : ITestArrangement
+    public class VerifyPagesListTemplate : ITestArrangement
     {
         /// <summary>
         /// Server side set up.

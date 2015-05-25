@@ -2,7 +2,7 @@
 
 @foreach (var taxon in Model.Taxa)
 {
-    <a href=""><span>@taxon.Title</span></a>
+    <a href="@taxon.Url"><span>@taxon.Title</span></a>
 
     if (Model.ShowItemCount)
     {

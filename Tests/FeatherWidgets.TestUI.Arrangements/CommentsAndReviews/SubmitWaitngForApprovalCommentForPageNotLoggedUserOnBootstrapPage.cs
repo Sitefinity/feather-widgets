@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// SubmitCommentForNewsLoggedUserOnBootstrapPage arrangement class.
+    /// SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage arrangement class.
     /// </summary>
-    public class SubmitCommentForNewsLoggedUserOnBootstrapPage : ITestArrangement
+    public class SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -20,12 +20,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, NewsProvider);
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+
+            ServerOperations.Comments().AllowComments(ThreadType, true);
+            ServerOperations.Comments().RequireApproval(ThreadType, true);
 
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
-            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId, "Contentplaceholder1");
+            ServerOperationsFeather.Pages().AddCommentsWidgetToPage(pageId, "Contentplaceholder1");
         }
 
         /// <summary>
@@ -34,16 +37,19 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperations.News().DeleteAllNews();
-            ServerOperations.Comments().DeleteAllComments(Key);
+            var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();
+            ServerOperations.Comments().DeleteAllComments(siteID);
+            ServerOperations.Comments().RequireApproval(ThreadType, false);
+            ServerOperations.Comments().AllowComments(ThreadType, false);
         }
 
-        private const string PageName = "NewsPage";
+        private const string PageName = "CommentsPage";
         private const string PageTemplateName = "Bootstrap.default";
-        private const string NewsContent = "News content";
-        private const string NewsTitle = "NewsTitle";
-        private const string NewsProvider = "Default News";
-        private const string Key = "Telerik.Sitefinity.Modules.News.NewsManager_OpenAccessDataProvider";
+        private const string ThreadType = "Telerik.Sitefinity.Pages.Model.PageNode";
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
     }
 }
