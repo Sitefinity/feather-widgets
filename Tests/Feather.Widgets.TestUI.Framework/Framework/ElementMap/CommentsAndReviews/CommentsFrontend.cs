@@ -149,5 +149,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlDiv>("tagname=div", "class=has-error");
             }
         }
+
+        /// <summary>
+        /// Gets load more link.
+        /// </summary>
+        public HtmlAnchor LoadMoreLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Load more comments");
+            }
+        }
     }
 }
