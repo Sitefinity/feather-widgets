@@ -1,2 +1,8 @@
 ﻿@model Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.TaxonomyViewModel
 
+@foreach (var taxa in Model.Taxa)
+{
+    <p>
+        <a>@taxa.Title</a> (@taxa.Count)
+    </p>
+}

@@ -24,6 +24,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
             this.ShowItemCount = true;
             this.SortExpression = DefaultSortExpression;
+            this.ContentTypeName = DefaultContentType;
         }
         #endregion
 
@@ -358,6 +359,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
             else
             {
+                
                 providerName = this.ContentProviderName;
             }
 
@@ -374,6 +376,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
         private const string DefaultSortExpression = "PublicationDate DESC";
+        private const string DefaultContentType = "Telerik.Sitefinity.News.Model.NewsItem";
         #endregion
     }
 }
