@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             Guid pageId1 = ServerOperations.Pages().CreatePage(AnchorListPage, templateId);
             Guid pageNodeId1 = ServerOperations.Pages().GetPageNodeId(pageId1);
-            ServerOperationsFeather.Pages().AddListsWidgetToPage(pageNodeId1, this.listId, AnchorList, PlaceHolderId);
+            ServerOperationsFeather.Pages().AddListsWidgetToPage(pageNodeId1, PlaceHolderId);
 
             Guid pageId2 = ServerOperations.Pages().CreatePage(SimpleListPage, templateId);
             Guid pageNodeId2 = ServerOperations.Pages().GetPageNodeId(pageId2);
