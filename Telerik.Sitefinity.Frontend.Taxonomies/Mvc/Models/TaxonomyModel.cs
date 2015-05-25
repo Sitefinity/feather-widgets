@@ -7,6 +7,11 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Modules.GenericContent;
+using System.Collections;
+using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.DynamicModules;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 {
@@ -242,7 +247,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <param name="taxa">The taxa.</param>
         /// <param name="statistics">The statistics.</param>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics<T>(IEnumerable<T> taxa, IQueryable<TaxonomyStatistic> statistics) where T : Taxon
+        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa, IQueryable<TaxonomyStatistic> statistics)
         {
             var result = new List<TaxonViewModel>();
 
@@ -283,10 +288,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <param name="taxon">The taxon.</param>
         /// <returns></returns>
-        protected virtual bool HasTranslationInCurrentLanguage(Taxon taxon)
+        protected virtual bool HasTranslationInCurrentLanguage(ITaxon taxon)
         {
-            return taxon.AvailableLanguages.Contains(taxon.Title.CurrentLanguage.Name) ||
-                taxon.AvailableLanguages.Count() == 1 && taxon.AvailableLanguages[0] == string.Empty;
+            var t = (Taxon)taxon;
+            return t.AvailableLanguages.Contains(taxon.Title.CurrentLanguage.Name) ||
+                t.AvailableLanguages.Count() == 1 && t.AvailableLanguages[0] == string.Empty;
         }
 
         /// <summary>
@@ -308,11 +314,75 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <returns></returns>
         protected virtual IList<TaxonViewModel> GetTaxaByContentItem()
         {
-            throw new NotImplementedException();
+            var fieldTaxonomyDescriptor = this.FieldPropertyDescriptor as TaxonomyPropertyDescriptor;
+
+            if (fieldTaxonomyDescriptor != null)
+            {
+                var content = this.GetContentItem();
+
+                var value = this.FieldPropertyDescriptor.GetValue(content);
+                if (value != null)
+                {
+                    var isSingleTaxon = fieldTaxonomyDescriptor.MetaField.IsSingleTaxon;
+                    var taxa = this.GetTaxaFromFieldValue(value, isSingleTaxon);
+
+                    var statistics = this.GetTaxonomyStatistics();
+                    return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+                }
+            }
+            else
+            {
+                throw new ArgumentException(String.Format("The specified field name \"{0}\" is not a taxonomy.",
+                                                          this.FieldName));
+            }
+            return null;
+        }
+        
+        /// <summary>
+        /// Gets the taxa from the taxonomy's field of the item.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="isSingleTaxon">The is single taxon.</param>
+        /// <returns></returns>
+        protected virtual IEnumerable<ITaxon> GetTaxaFromFieldValue(object value, bool isSingleTaxon)
+        {
+            if (isSingleTaxon)
+            {
+                yield return this.GetSingleTaxon(value);
+            }
+            else
+            {
+                var taxa = value as IEnumerable;
+                foreach (object item in taxa)
+                {
+                    yield return this.GetSingleTaxon(item);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the taxon from given id or taxon object.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        protected virtual ITaxon GetSingleTaxon(object value)
+        {
+            var result = value as Taxon;
+            if (result != null)
+            {
+                return result;
+            }
+
+            if (value is Guid)
+            {
+                return this.CurrentTaxonomyManager.GetTaxon((Guid)value);
+            }
+            return null;
         }
 
         /// <summary>
         /// Resolves the name of the provider used by the manager which is responsible for the content type that is filtering the shown taxa.
+        /// Returns the default provider name for the manager if ContentProviderName is not set.
         /// </summary>
         /// <returns></returns>
         protected virtual string GetContentProviderName()
@@ -366,6 +436,23 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             return providerName;
         }
 
+        protected virtual object GetContentItem()
+        {
+            var provider = this.GetContentProviderName();
+
+            if (!string.IsNullOrEmpty(this.ContentTypeName))
+            {
+                var manager = ManagerBase.GetMappedManager(this.ContentType, this.ContentProviderName);
+                return manager.GetItem(this.ContentType, this.ContentId);
+            }
+            else if(!string.IsNullOrEmpty(this.DynamicContentTypeName))
+            {
+                var manager = DynamicModuleManager.GetManager(provider);
+                return manager.GetDataItem(this.ContentType, this.ContentId);
+            }
+
+            return null;
+        }
         #endregion
 
         #region Private fields and constants
