@@ -62,6 +62,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// <param name="commentBody">Comment body.</param>
         public void TypeAComment(string commentBody)
         {
+            ActiveBrowser.RefreshDomTree();
+
             HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea
                 .AssertIsPresent("Leave acomment area");
 
@@ -142,7 +144,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             Assert.IsNotNull(allCommentsDivs, "Comments list is null");
             Assert.AreNotEqual(0, allCommentsDivs.Count, "Comments list has no elements");
 
-            Assert.AreEqual(commentsAuthor.Count(), allCommentsDivs.Count, "Expected and actual count of comments are not equal");
+            Assert.AreEqual(commentsContent.Count(), allCommentsDivs.Count, "Expected and actual count of comments are not equal");
 
             for (int i = 0; i < allCommentsDivs.Count(); i++)
             {
@@ -173,6 +175,26 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
                 .AssertIsPresent("Error message");
             bool isPresent = alertMessageOnPage.InnerText.Contains(errorMessage);
             Assert.IsTrue(isPresent);
+        }
+
+        /// <summary>
+        /// Click load more link
+        /// </summary>
+        public void ClickLoadMoreLink()
+        {
+            HtmlAnchor loadMoreLink = this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink
+                .AssertIsPresent("Load more link");
+            loadMoreLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Click load more link
+        /// </summary>
+        public void VerifyLoadMoreLinkIsNotVisible()
+        {
+            HtmlAnchor loadMoreLink = this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink;
+            loadMoreLink.AssertIsNotVisible("Load more link");
         }
     }
 }
