@@ -12,27 +12,27 @@ using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
     /// <summary>
-    /// SubmitCommentForNewsLoggedUserOnBootstrapPage test class.
+    /// SubmitCommentForDynamicItemLoggedUserOnBootstrapPage test class.
     /// </summary>
     [TestClass]
-    public class SubmitCommentForNewsLoggedUserOnBootstrapPage_ : FeatherTestCase
+    public class SubmitCommentForDynamicItemLoggedUserOnBootstrapPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SubmitCommentForNewsLoggedUserOnBootstrapPage
+        /// UI test SubmitCommentForDynamicItemLoggedUserOnBootstrapPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void SubmitCommentForNewsLoggedUserOnBootstrapPage()
+        public void SubmitCommentForDynamicItemLoggedUserOnBootstrapPage()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(LeaveAComment);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCommentLink();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(this.commentToNews[0]);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(this.commentToDynamicItem[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToNews);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToDynamicItem);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(CommentsCount);
             this.VerifyCommentBackend();
         }
@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Macros().NavigateTo().Modules().Comments();
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
-            manageComments.VerifyCommentBackend(CommentStatus, this.commentToNews[0], this.commentAuthor[0], NewsTitle);
+            manageComments.VerifyCommentBackend(CommentStatus, this.commentToDynamicItem[0], this.commentAuthor[0], DynamicTitle);
         }
 
         /// <summary>
@@ -62,10 +62,10 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "NewsPage";
-        private const string NewsTitle = "NewsTitle";
+        private const string PageName = "DynamicPage";
+        private const string DynamicTitle = "Angel";
         private const string LeaveAComment = "Leave a comment";
-        private string[] commentToNews = { "Comment to news" };
+        private string[] commentToDynamicItem = { "Comment to dynamic item" };
         private string[] commentAuthor = { "admin" };
         private const string CommentStatus = "Published";
         private const string CommentsCount = "1 comment";

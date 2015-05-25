@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
-using ArtOfTest.Common.UnitTesting;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews
 {
@@ -52,9 +52,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// <param name="commentBody">Comment body.</param>
         public void TypeAComment(string commentBody)
         {
-            HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.
-                                       LeaveACommentArea
-                                       .AssertIsPresent("Leave acomment area");
+            HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea
+                .AssertIsPresent("Leave acomment area");
 
             editable.ScrollToVisible();
             editable.Focus();

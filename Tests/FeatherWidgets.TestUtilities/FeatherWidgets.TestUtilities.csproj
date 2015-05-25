@@ -172,6 +172,10 @@
       <Project>{7fdac868-95ef-4b9d-bcdb-4dd7c93b3a4e}</Project>
       <Name>Telerik.Sitefinity.Frontend.Blogs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Comments\Telerik.Sitefinity.Frontend.Comments.csproj">
+      <Project>{d5c186a5-49ce-4728-abce-4d1d4c33c28b}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Comments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj">
       <Project>{827b5c1e-619a-4080-a7f1-10d103c38cfd}</Project>
       <Name>Telerik.Sitefinity.Frontend.ContentBlock</Name>
