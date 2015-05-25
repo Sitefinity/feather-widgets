@@ -13,6 +13,7 @@
         @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
         @Html.Resource("By")
         @DataResolver.Resolve(@Model.Item.DataItem, "Author", null)
+        @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
     </div>
     
     <div @Html.InlineEditingFieldAttributes("Summary", "LongText")>@Html.Raw(Model.Item.Fields.Summary)</div>
@@ -23,4 +24,6 @@
     {
         @Html.SocialShareOptions()
     }
+
+    @Html.CommentsList(@Model.Item.DataItem)
 </div>
