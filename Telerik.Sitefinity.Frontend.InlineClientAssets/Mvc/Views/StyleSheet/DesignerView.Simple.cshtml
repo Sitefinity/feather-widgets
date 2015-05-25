@@ -4,22 +4,19 @@
 
 <div class="form-group nav-wrapper">
     <label class="radio-inline">
-        <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Inline'" />
-        @Html.Resource("WriteCss")
+        <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Inline'" /> @Html.Resource("WriteCss")
     </label>
-
     <label class="radio-inline">
-        <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Reference'" />
-        @Html.Resource("LinkToCssFile")
+        <input type="radio" ng-model="properties.Mode.PropertyValue" ng-value="'Reference'" /> @Html.Resource("LinkToCssFile")
     </label>
 </div>
 
 <!-- Write CSS -->
 <div ng-show="properties.Mode.PropertyValue=='Inline'" class="clearfix sf-code">
     <textarea sf-code-area sf-type="css" sf-tab-mode="classic" sf-line-numbers="true" sf-match-brackets="true" sf-model="properties.InlineStyles.PropertyValue" placeholder="@Html.Resource("StartWritingCss")"></textarea>
-    <a href="" class="pull-right m-top-xs"
+    <a href="" class="pull-right sf-code-tips"
                     sf-popover-html=""
-                    sf-popover-placement="bottom"
+                    sf-popover-placement="top"
                     sf-popover-trigger="focus"
                     sf-popover-content="
       <div>
@@ -50,40 +47,40 @@
 </div>
 
 
-<div class="form-group">
-    <strong>@Html.Resource("Media")</strong>
-    <div class="radio">
-        <label class="full-width">
-            <input type="radio" ng-model="mediaTypeSelection" ng-value="'all'" ng-change="updateMediaTypeProeprty()" />
 
-            @Html.Resource("All")
-        </label>
-    </div>
-    <div class="radio">
-        <label class="full-width">
-            <input type="radio" ng-model="mediaTypeSelection" ng-value="'selected'" ng-change="updateMediaTypeProeprty()" />
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group">
+        <strong>@Html.Resource("Media")</strong>
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-model="mediaTypeSelection" ng-value="'all'" ng-change="updateMediaTypeProeprty()" />
 
-            @Html.Resource("SelectedMediaTypes")
-        </label>
-        <div ng-show="mediaTypeSelection === 'selected'" class="label-content">
-            <div class="row">
-                <div class="col-xs-4" ng-repeat="mediaCol in mediaTypeColumns">
-                    <div class="checkbox" ng-repeat="mediaType in mediaCol">
-                        <label>
-                            <input type="checkbox" ng-model="mediaType.checked" ng-change="updateMediaTypeProeprty()">{{::mediaType.value}}
-                        </label>
+                @Html.Resource("All")
+            </label>
+        </div>
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-model="mediaTypeSelection" ng-value="'selected'" ng-change="updateMediaTypeProeprty()" />
+
+                @Html.Resource("SelectedMediaTypes")
+            </label>
+            <div ng-show="mediaTypeSelection === 'selected'" class="label-content">
+                <div class="row">
+                    <div class="col-xs-4" ng-repeat="mediaCol in mediaTypeColumns">
+                        <div class="checkbox" ng-repeat="mediaType in mediaCol">
+                            <label>
+                                <input type="checkbox" ng-model="mediaType.checked" ng-change="updateMediaTypeProeprty()">{{::mediaType.value}}
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
-</div>
 
-<expander expander-title='@Html.Resource("MoreOptions")'>
     <div class="form-group">
         <label>@Html.Resource("Description")</label>
         <input type="text" ng-model="properties.Description.PropertyValue" class="form-control" />
-        <p>@Html.Resource("ForYourConvenience")</p>
+        <div class="text-muted">@Html.Resource("ForYourConvenience")</div>
     </div>
 </expander>
