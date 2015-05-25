@@ -68,7 +68,7 @@
                 <label for="listTemplateName">@Html.Resource("ListItems")</label>
 
                 <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>[\w\s]*)$"))
+                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"List\.(?<viewName>[\w\s]*)$"))
                         {
                             <option value="@viewName"> @viewName</option>
                         }
@@ -83,7 +83,7 @@
                 <label for="listDetailTemplateName">@Html.Resource("ListItemDetails")</label>
 
                 <select id="listDetailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>[\w\s]*)$"))
+                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"Detail\.(?<viewName>[\w\s]*)$"))
                         {
                             <option value="@viewName"> @viewName</option>
                         }
