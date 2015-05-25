@@ -6,7 +6,9 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
 {
@@ -18,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         SectionName = "Classifications",
         CssClass = FlatTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(FlatTaxonomyResources))]
-    public class FlatTaxonomyController : Controller
+    public class FlatTaxonomyController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
         /// <summary>
@@ -51,7 +53,19 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
 
                 return this.model;
             }
-        }       
+        }
+
+        /// <summary>
+        /// Gets or sets the Cascading Style Sheet (CSS) class to visualize the widget.
+        /// </summary>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get
+            {
+                return FlatTaxonomyController.WidgetIconCssClass;
+            }
+        }
         #endregion
 
         #region Actions
@@ -70,10 +84,42 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
             return this.View(fullTemplateName, viewModel);
         }
 
-        #endregion
+        /// <summary>
+        /// Indicates if the control is empty.
+        /// </summary>
+        /// <value></value>
+        public bool IsEmpty
+        {
+            get;
+            set;
+        }
 
-        #region Private methods
-       
+        /// <summary>
+        /// Gets the text to be shown when the box in the designer is empty
+        /// </summary>
+        /// <value></value>
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get
+            {
+                string value = this.GetResource("Tags");
+
+                return string.Concat("Set ", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the resource.
+        /// </summary>
+        /// <typeparam name="T">The type of the T.</typeparam>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns></returns>
+        protected virtual string GetResource(string resourceName)
+        {
+            return Res.Get(typeof(FlatTaxonomyResources), resourceName);
+        }
+
         #endregion
 
         #region Private fields and constants

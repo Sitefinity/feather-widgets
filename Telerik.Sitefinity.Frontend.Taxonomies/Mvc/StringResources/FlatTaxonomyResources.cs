@@ -331,11 +331,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
                        Value = "Template",
                        Description = "The phrase: Template",
                        LastModified = "2015.05.19")]
-        public string Template
+        public string TemplateLabel
         {
             get
             {
-                return this["Template"];
+                return this["TemplateLabel"];
             }
         }
 
@@ -428,6 +428,21 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
             get
             {
                 return this["AsSetInAdvancedMode"];
+            }
+        }
+
+        /// <summary>
+        /// word: Tags
+        /// </summary>
+        [ResourceEntry("Tags",
+            Value = "Tags",
+            Description = "word",
+            LastModified = "2010/04/22")]
+        public string Tags
+        {
+            get
+            {
+                return this["Tags"];
             }
         }
         #endregion

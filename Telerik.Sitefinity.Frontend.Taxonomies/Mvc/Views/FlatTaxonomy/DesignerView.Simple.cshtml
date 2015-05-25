@@ -17,7 +17,7 @@
             <input id="selectedTags" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="Selected" />
             @Html.Resource("SelectedTagsLabel")
         </label>
-        
+
         <div ng-show="properties.TaxaToDisplay.PropertyValue === 'Selected'">
             <sf-list-selector sf-taxon-selector
                               sf-multiselect="true"
@@ -77,7 +77,16 @@
         </div>
     </div>
 
+    <div>
+        <label for="navTemplateName">@Html.Resource("TemplateLabel")</label>
 
+        <select id="navTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+            @foreach (var viewName in Html.GetViewNames("Navigation", @"^FlatTaxonomy\.(?<viewName>\w*)$"))
+            {
+                <option value="@viewName"> @viewName</option>
+            }
+        </select>
+    </div>
 </div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
