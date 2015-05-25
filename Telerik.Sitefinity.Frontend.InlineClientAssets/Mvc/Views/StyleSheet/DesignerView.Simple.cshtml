@@ -12,7 +12,7 @@
 </div>
 
 <!-- Write CSS -->
-<div ng-show="properties.Mode.PropertyValue=='Inline'" class="clearfix sf-code">
+<div ng-show="properties.Mode.PropertyValue=='Inline'" ng-cloak class="clearfix sf-code">
     <textarea sf-code-area sf-type="css" sf-tab-mode="classic" sf-line-numbers="true" sf-match-brackets="true" sf-model="properties.InlineStyles.PropertyValue" placeholder="@Html.Resource("StartWritingCss")"></textarea>
     <a href="" class="pull-right sf-code-tips"
                     sf-popover-html=""
@@ -39,7 +39,7 @@
 </div>
 
 <!-- Link to Css file -->
-<div ng-show="properties.Mode.PropertyValue=='Reference'" class="form-group">
+<div ng-show="properties.Mode.PropertyValue=='Reference'" ng-cloak class="form-group">
     <label>
         @Html.Resource("Url")
     </label>

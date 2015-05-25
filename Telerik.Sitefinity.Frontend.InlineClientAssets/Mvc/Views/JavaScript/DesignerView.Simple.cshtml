@@ -15,7 +15,7 @@
 </div>
 
 <!-- Write JavaScript -->
-<div class="sf-code clearfix" ng-show="properties.Mode.PropertyValue=='Inline'">
+<div class="sf-code clearfix" ng-cloak ng-show="properties.Mode.PropertyValue=='Inline'">
     <textarea sf-code-area
         sf-type="javascript"
         sf-tab-mode="classic"
@@ -45,7 +45,7 @@
 </div>
 
 <!-- Link to JavaScript file -->
-<div ng-show="properties.Mode.PropertyValue=='Reference'" class="form-group">
+<div ng-show="properties.Mode.PropertyValue=='Reference'" ng-cloak class="form-group">
     <label>
         @Html.Resource("Url")
     </label>
