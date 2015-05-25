@@ -52,6 +52,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ListItem2ContentNew = "edited content";
         private const string ListItem3Title = "list item 3";
         private const string ListItem3Content = "list content 3";
+
         private const string PageName = "TestPage";
 
         private readonly Guid listId = new Guid("0D3937D3-A690-4F19-9DA4-53F0880F5B62");

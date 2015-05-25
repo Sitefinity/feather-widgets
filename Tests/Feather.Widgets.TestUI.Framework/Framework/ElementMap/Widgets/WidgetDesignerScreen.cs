@@ -284,5 +284,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlInputRadioButton>("id=allItems");
             }
         }
+
+        /// <summary>
+        /// Category filter
+        /// </summary>
+        public HtmlInputCheckBox FilterByCategory
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("id=Category");
+            }
+        }
+
+        /// <summary>
+        /// Tag filter
+        /// </summary>
+        public HtmlInputCheckBox FilterByTag
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("id=Tags");
+            }
+        }
+
+        /// <summary>
+        /// Date filter
+        /// </summary>
+        public HtmlInputCheckBox FilterByDate
+        {
+            get
+            {
+                return this.Get<HtmlInputCheckBox>("id=dateInput");
+            }
+        }
     }
 }
