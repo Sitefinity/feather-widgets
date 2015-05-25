@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.Common.UnitTesting;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
-using ArtOfTest.Common.UnitTesting;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews
 {
@@ -33,6 +33,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
+        /// Asserts comments count on page
+        /// </summary>
+        public void AssertCommentsCountOnPage(string commentCount)
+        {
+            HtmlDiv commentLinkOnPage = this.EM.CommentsAndReviews.CommentsFrontend.CommentsCountOnPage.AssertIsPresent("Comments count on page");
+            bool isPresent = commentLinkOnPage.InnerText.Contains(commentCount);
+            Assert.IsTrue(isPresent);
+        }
+
+        /// <summary>
         /// Click comment link
         /// </summary>
         public void ClickCommentLink()
@@ -52,9 +62,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// <param name="commentBody">Comment body.</param>
         public void TypeAComment(string commentBody)
         {
-            HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.
-                                       LeaveACommentArea
-                                       .AssertIsPresent("Leave acomment area");
+            HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea
+                .AssertIsPresent("Leave acomment area");
 
             editable.ScrollToVisible();
             editable.Focus();
@@ -66,6 +75,48 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
 
             Manager.Current.Desktop.KeyBoard.TypeText(commentBody);
+        }
+
+        /// <summary>
+        /// Type your name.
+        /// </summary>
+        /// <param name="yourName">Your name.</param>
+        public void TypeYourName(string yourName)
+        {
+            HtmlDiv yourNameField = this.EM.CommentsAndReviews.CommentsFrontend.YourNameField
+                .AssertIsPresent("Your name");
+
+            yourNameField.ScrollToVisible();
+            yourNameField.Focus();
+            yourNameField.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            Manager.Current.Desktop.KeyBoard.TypeText(yourName);
+        }
+
+        /// <summary>
+        /// Type email.
+        /// </summary>
+        /// <param name="email">email.</param>
+        public void TypeEmailAddress(string email)
+        {
+            HtmlDiv emailAddress = this.EM.CommentsAndReviews.CommentsFrontend.EmailField
+                .AssertIsPresent("Email");
+
+            emailAddress.ScrollToVisible();
+            emailAddress.Focus();
+            emailAddress.MouseClick();
+
+            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
+            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
+            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
+
+            Manager.Current.Desktop.KeyBoard.TypeText(email);
         }
 
         /// <summary>
@@ -98,6 +149,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
                 Assert.AreEqual(commentsAuthor[i], allCommentsDivs[i].ChildNodes[0].InnerText);
                 Assert.AreEqual(commentsContent[i], allCommentsDivs[i].ChildNodes[2].InnerText);
             }
+        }
+
+        /// <summary>
+        /// Verify allert message
+        /// </summary>
+        /// <param name="alertMessage">Expected allert message</param>
+        public void VerifyAlertMessageOnTheFrontend(string alertMessage)
+        {
+            HtmlDiv alertMessageOnPage = this.EM.CommentsAndReviews.CommentsFrontend.AlertWarningDiv
+                .AssertIsPresent("Alert message");
+            bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
+            Assert.IsTrue(isPresent);
         }
     }
 }

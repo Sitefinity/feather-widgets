@@ -10,20 +10,20 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Lists
 {
     /// <summary>
-    /// PagesListTemplate_ test class.
+    /// VerifyExpandedListTemplate_ test class.
     /// </summary>
     [TestClass]
-    public class PagesListTemplate_ : FeatherTestCase
+    public class VerifyExpandedListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test verifying Pages list template, sort A-Z, filter by category
+        /// UI test verifying Expanded list template, sort A-Z, filter by tag
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]
-        public void PagesListTemplate()
+        public void VerifyExpandedListTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -34,20 +34,19 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { ListTitle });
 
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox("Category");
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectCheckBox("Tags");
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(1);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInHierarchicalSelector(CategoryName);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(TagName);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
 
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectSortingOption(SortingOption);
             BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListTemplate(ListTemplate);
-            BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListDetailsTemplate(ListDetailsTemplate);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyPagesListTemplate(ListTitle, this.listItems);
+            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyExpandedListTemplate(ListTitle, this.listItems);
         }
 
         /// <summary>
@@ -71,13 +70,12 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         private const string WidgetName = "Lists";
         private const string ListTitle = "Test list";
         private const string SortingOption = "By Title (A-Z)";
-        private const string ListTemplate = "PagesList";
-        private const string ListDetailsTemplate = "DetailPage";
-        private const string CategoryName = "TestCategory";
+        private const string ListTemplate = "ExpandedList";
+        private const string TagName = "TestTag";
 
         private readonly Dictionary<string, string> listItems = new Dictionary<string, string>()
                                                                 {
-                                                                    { "list item 1", "list content 1" }
+                                                                    { "list item 2", "list content 2" }
                                                                 };
     }
 }

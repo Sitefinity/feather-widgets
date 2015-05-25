@@ -15,7 +15,7 @@
 </div>
 
 <!-- Write JavaScript -->
-<div class="sf-code clearfix" ng-show="properties.Mode.PropertyValue=='Inline'">
+<div class="sf-code clearfix" ng-cloak ng-show="properties.Mode.PropertyValue=='Inline'">
     <textarea sf-code-area
         sf-type="javascript"
         sf-tab-mode="classic"
@@ -24,9 +24,9 @@
         sf-model="properties.InlineCode.PropertyValue"
         placeholder="@Html.Resource("StartWritingJavaScript")"></textarea>
 
-    <a class="pull-right m-top-xs" href=""
+    <a class="pull-right sf-code-tips" href=""
         sf-popover-html=""
-        sf-popover-placement="bottom"
+        sf-popover-placement="top"
         sf-popover-trigger="focus"
         sf-popover-content="<div>
                                 <div class='small m-bottom-sm'>
@@ -45,42 +45,42 @@
 </div>
 
 <!-- Link to JavaScript file -->
-<div ng-show="properties.Mode.PropertyValue=='Reference'" class="form-group">
+<div ng-show="properties.Mode.PropertyValue=='Reference'" ng-cloak class="form-group">
     <label>
         @Html.Resource("Url")
     </label>
     <sf-file-url-field sf-model="properties.FileUrl.PropertyValue" sf-extension="js" sf-title='@Html.Resource("SelectJsFile")'></sf-file-url-field>
 </div>
 
-<div class="form-group m-top-lg">
-    <strong>@Html.Resource("WhereToInclude")</strong>
-    <div class="radio">
-        <label class="full-width">
-            <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'Head'" />
-
-            @Html.Resource("IncludedInTheHead")
-        </label>
-    </div>
-    <div class="radio">
-        <label class="full-width">
-            <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'InPlace'" />
-
-            @Html.Resource("IncludedWhereDropped")
-        </label>
-    </div>
-    <div class="radio">
-        <label class="full-width">
-            <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'BeforeBodyEndTag'" />
-
-            @Html.Resource("IncludedBeforeTheBodyEnd")
-        </label>
-    </div>
-</div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
+    <div class="form-group m-top-lg">
+        <strong>@Html.Resource("WhereToInclude")</strong>
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'Head'" />
+
+                @Html.Resource("IncludedInTheHead")
+            </label>
+        </div>
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'InPlace'" />
+
+                @Html.Resource("IncludedWhereDropped")
+            </label>
+        </div>
+        <div class="radio">
+            <label class="full-width">
+                <input type="radio" ng-model="properties.Position.PropertyValue" ng-value="'BeforeBodyEndTag'" />
+
+                @Html.Resource("IncludedBeforeTheBodyEnd")
+            </label>
+        </div>
+    </div>
     <div class="form-group">
         <label>@Html.Resource("Description")</label>
         <input type="text" ng-model="properties.Description.PropertyValue" class="form-control" />
-        <p>@Html.Resource("ForYourConvenience")</p>
+        <div class="text-muted">@Html.Resource("ForYourConvenience")</div>
     </div>
 </expander>
