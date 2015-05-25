@@ -25,6 +25,25 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyListTemplatesOnBootstrap()
         {
+            //// verify List widget designer on Bootstrap
+            BAT.Macros().NavigateTo().Pages();
+            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(AnchorListPage);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { ListTitle });
+
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifyFilterByCategoryTagDateOptions();
+
+            BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectSortingOption(SortingOption);
+            BATFeather.Wrappers().Backend().Lists().ListsWidgetWrapper().SelectListTemplate(ListTemplate);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+
+            //// verify List templates on frontend
             BAT.Macros().NavigateTo().CustomPage("~/" + AnchorListPage.ToLower());
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyAnchorListTemplate(ListTitle, this.listItems);
 
@@ -57,6 +76,10 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
+
+        private const string WidgetName = "Lists";
+        private const string SortingOption = "By Title (A-Z)";
+        private const string ListTemplate = "AnchorList";
 
         private const string AnchorListPage = "AnchorListPage";
         private const string SimpleListPage = "SimpleListPage";
