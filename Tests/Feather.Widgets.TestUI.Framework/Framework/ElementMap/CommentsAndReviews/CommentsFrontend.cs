@@ -105,5 +105,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlDiv>("tagname=div", "class=row sf-Comments-header");
             }
         }
+
+        /// <summary>
+        /// Gets your name field.
+        /// </summary>
+        public HtmlDiv YourNameField
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=Your name");
+            }
+        }
+
+        /// <summary>
+        /// Gets email field.
+        /// </summary>
+        public HtmlDiv EmailField
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "InnerText=Email (optional)");
+            }
+        }
+
+        /// <summary>
+        /// Gets alert warning div.
+        /// </summary>
+        public HtmlDiv AlertWarningDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=alert alert-warning");
+            }
+        }
     }
 }
