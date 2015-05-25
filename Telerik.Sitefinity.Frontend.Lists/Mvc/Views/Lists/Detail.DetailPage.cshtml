@@ -7,9 +7,9 @@
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, ((ListViewModel)Model.Item).ListItemViewModel.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3>
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
-        
-        @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
     </h3>
+
+    @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
 
     <div @Html.InlineEditingFieldAttributes("Content", "LongText")>@Html.Raw(Model.Item.Fields.Content)</div>
 
