@@ -189,12 +189,46 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Click load more link
+        /// Verify load more link is not visible
         /// </summary>
         public void VerifyLoadMoreLinkIsNotVisible()
         {
             HtmlAnchor loadMoreLink = this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink;
             loadMoreLink.AssertIsNotVisible("Load more link");
+        }
+
+        /// <summary>
+        /// Verify show oldest and newest on top are not visible
+        /// </summary>
+        public void VerifyShowOldestAndNewstOnTopLinksAreNotVisible()
+        {
+            HtmlAnchor newestOnTop = this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop;
+            newestOnTop.AssertIsNotVisible("Show newest on top link");
+
+            HtmlAnchor oldestOnTop = this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop;
+            oldestOnTop.AssertIsNotVisible("Show oldest on top link");
+        }
+
+        /// <summary>
+        /// Click oldest on top link
+        /// </summary>
+        public void ClickOldestOnTopLink()
+        {
+            HtmlAnchor oldestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop
+                .AssertIsPresent("Oldest on top link");
+            oldestOnTopLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Click newest on top link
+        /// </summary>
+        public void ClickNewestOnTopLink()
+        {
+            HtmlAnchor newestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop
+                .AssertIsPresent("Newest on top link");
+            newestOnTopLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
         }
     }
 }
