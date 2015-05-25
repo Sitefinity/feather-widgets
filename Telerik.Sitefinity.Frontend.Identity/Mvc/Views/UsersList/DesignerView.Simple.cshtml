@@ -41,16 +41,19 @@
             </div>
         </div>
 
-        <h4>@Html.Resource("SelectProfileType")</h4>
+        
 
-        <div class="row">
-            <div class="col-xs-6">
-                <select class="form-control" ng-model="properties.ProfileTypeFullName.PropertyValue">
-                    @foreach (var profileType in UserProfilesHelper.GetUserProfileTypes(null))
-                    {
-                        <option value="@profileType.DynamicTypeName"> @profileType.Title</option>
-                    }
-                </select>
+        <div class="form-group">
+            <label>@Html.Resource("SelectProfileType")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select class="form-control" ng-model="properties.ProfileTypeFullName.PropertyValue">
+                        @foreach (var profileType in UserProfilesHelper.GetUserProfileTypes(null))
+                        {
+                            <option value="@profileType.DynamicTypeName"> @profileType.Title</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
     </tab>
