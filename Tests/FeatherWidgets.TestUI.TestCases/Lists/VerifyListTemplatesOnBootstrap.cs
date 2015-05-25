@@ -47,7 +47,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         protected override void ServerSetup()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
-            //// BAT.Arrange(this.TestName).ExecuteSetUp();
+            BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         /// </summary>
         protected override void ServerCleanup()
         {
-            //// BAT.Arrange(this.TestName).ExecuteTearDown();
+            BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
         private const string AnchorListPage = "AnchorListPage";

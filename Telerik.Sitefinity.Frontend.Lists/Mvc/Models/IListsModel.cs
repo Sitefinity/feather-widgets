@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Models
     public interface IListsModel
     {
         /// <summary>
-        /// Gets the lists to be displayed inside the widget.
+        /// Gets or sets the lists to be displayed inside the widget.
         /// </summary>
         /// <value>
         /// The selected lists.

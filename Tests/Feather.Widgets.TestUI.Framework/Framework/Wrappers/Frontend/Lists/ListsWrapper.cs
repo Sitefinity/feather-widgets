@@ -127,7 +127,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
         }
 
         /// <summary>
-        /// Verifies expandable list template
+        /// Verifies expandable list template on Bootstrap
         /// </summary>
         /// <param name="listTitle">list title</param>
         /// <param name="listItemsToVerify">list items to be verified</param>
