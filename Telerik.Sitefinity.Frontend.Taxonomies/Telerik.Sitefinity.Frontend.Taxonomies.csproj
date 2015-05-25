@@ -160,6 +160,8 @@
     <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\HierarchicalTaxonomy\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\HierarchicalTaxonomy\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\FlatTaxonomy.TagCloud.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\FlatTaxonomy.CloudList.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
