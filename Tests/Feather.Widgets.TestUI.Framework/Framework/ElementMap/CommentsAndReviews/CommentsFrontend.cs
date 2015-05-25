@@ -160,5 +160,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlAnchor>("tagname=a", "InnerText=Load more comments");
             }
         }
+
+        /// <summary>
+        /// Gets show oldest on top.
+        /// </summary>
+        public HtmlAnchor ShowOldestOnTop
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "data-sf-role=comments-sort-old-button");
+            }
+        }
+
+        /// <summary>
+        /// Gets show newest on top.
+        /// </summary>
+        public HtmlAnchor ShowNewestOnTop
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "data-sf-role=comments-sort-new-button");
+            }
+        }
     }
 }
