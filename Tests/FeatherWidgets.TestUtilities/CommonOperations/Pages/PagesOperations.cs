@@ -456,6 +456,32 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds lists widget to existing page, sets list to display and template
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        /// <param name="listId">List id to be displayed</param>
+        /// <param name="templateName">List template name</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddListsWidgetToPage(Guid pageId, Guid listId, string templateName, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcProxy = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcProxy.ControllerName = typeof(ListsController).FullName;
+
+                var listsController = new ListsController();
+                listsController.ListTemplateName = templateName;
+                listsController.Model.SerializedSelectedItemsIds = "[" + listId.ToString() + "]";
+                mvcProxy.Settings = new ControllerSettings(listsController);
+
+                this.CreateControl(pageManager, page, mvcProxy, "Lists", placeholder);
+            }
+        }
+
         /// Adds comments widget to existing page
         /// </summary>
         /// <param name="pageId">Page id value</param>

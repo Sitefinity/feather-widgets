@@ -55,6 +55,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
         }
 
         /// <summary>
+        /// Verifies expanded list template on Bootstrap
+        /// </summary>
+        /// <param name="listTitle">list title</param>
+        /// <param name="listItemsToVerify">list items to be verified</param>
+        public void VerifyExpandedListTemplateOnBootstrap(string listTitleToVerify, Dictionary<string, string> listItemsToVerify)
+        {
+            HtmlContainerControl listTitle = this.EM.Lists.ExpandedListFrontend.ListTitleLabel.AssertIsPresent("list title");
+            Assert.AreEqual(listTitleToVerify, listTitle.InnerText, "list title");
+
+            List<HtmlDiv> listItemDivs = this.EM.Lists.ExpandedListFrontend.ListItemsDivsOnBootstrap;
+            Assert.IsNotNull(listItemDivs, "List of div elements is null");
+            Assert.AreEqual(listItemsToVerify.Count, listItemDivs.Count, "Expected and actual count of list items are not equal");
+
+            for (int i = 0; i < listItemsToVerify.Count; i++)
+            {
+                Assert.AreEqual(listItemsToVerify.Keys.ElementAt(i), listItemDivs[i].ChildNodes[0].InnerText, "list item title");
+                Assert.AreEqual(listItemsToVerify.Values.ElementAt(i), listItemDivs[i].ChildNodes[1].InnerText, "list item content");
+            }
+        }
+
+        /// <summary>
         /// Verifies expandable list template
         /// </summary>
         /// <param name="listTitle">list title</param>
@@ -101,6 +122,57 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists
             for (int i = 0; i < listItemsToVerify.Count; i++)
             {
                 listItemDivs[i].ChildNodes[0].As<HtmlSpan>().AssertIsPresent("list item title");
+                listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsNotVisible("list item content");
+            }
+        }
+
+        /// <summary>
+        /// Verifies expandable list template on Bootstrap
+        /// </summary>
+        /// <param name="listTitle">list title</param>
+        /// <param name="listItemsToVerify">list items to be verified</param>
+        public void VerifyExpandableListTemplateOnBootstrap(string listTitleToVerify, Dictionary<string, string> listItemsToVerify)
+        {
+            HtmlContainerControl listTitle = this.EM.Lists.ExpandableListFrontend.ListTitleLabel.AssertIsPresent("list title");
+            Assert.AreEqual(listTitleToVerify, listTitle.InnerText, "list title");
+
+            List<HtmlDiv> listItemDivs = this.EM.Lists.ExpandableListFrontend.ListItemsDivsOnBootstrap;
+            Assert.IsNotNull(listItemDivs, "List of div elements is null");
+            Assert.AreEqual(listItemsToVerify.Count, listItemDivs.Count, "Expected and actual count of list items are not equal");
+
+            HtmlContainerControl expandAll = this.EM.Lists.ExpandableListFrontend.ExpandAll;
+            HtmlContainerControl collapseAll = this.EM.Lists.ExpandableListFrontend.CollapseAll;
+
+            //// verify list items before expanding all items
+            expandAll.AssertIsPresent("expand all");
+            collapseAll.AssertIsNotVisible("collapse all");
+
+            for (int i = 0; i < listItemsToVerify.Count; i++)
+            {
+                Assert.AreEqual(listItemsToVerify.Keys.ElementAt(i), listItemDivs[i].ChildNodes[0].InnerText, "list item title");
+                listItemDivs[i].ChildNodes[0].As<HtmlAnchor>().AssertIsPresent("list item title");
+                listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsNotVisible("list item content");
+            }
+
+            expandAll.Click();
+
+            //// verify list items after expanding all items
+            expandAll.AssertIsNotVisible("expand all");
+            collapseAll.AssertIsPresent("collapse all");
+
+            for (int i = 0; i < listItemsToVerify.Count; i++)
+            {
+                Assert.AreEqual(listItemsToVerify.Keys.ElementAt(i), listItemDivs[i].ChildNodes[0].InnerText, "list item title");
+                Assert.AreEqual(listItemsToVerify.Values.ElementAt(i), listItemDivs[i].ChildNodes[1].InnerText, "list item content");
+                listItemDivs[i].ChildNodes[0].As<HtmlAnchor>().AssertIsPresent("list item title");
+                listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsPresent("list item content");
+            }
+
+            collapseAll.Click();
+
+            for (int i = 0; i < listItemsToVerify.Count; i++)
+            {
+                listItemDivs[i].ChildNodes[0].As<HtmlAnchor>().AssertIsPresent("list item title");
                 listItemDivs[i].ChildNodes[1].As<HtmlDiv>().AssertIsNotVisible("list item content");
             }
         }

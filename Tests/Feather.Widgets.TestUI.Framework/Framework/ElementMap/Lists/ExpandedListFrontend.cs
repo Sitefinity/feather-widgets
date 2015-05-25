@@ -46,5 +46,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists
                                                                         && d.ChildNodes[1].TagName.Equals("div")).ToList();
             }
         }
+
+        /// <summary>
+        /// Gets list of div elements containing list items on Bootstrap.
+        /// </summary>
+        public List<HtmlDiv> ListItemsDivsOnBootstrap
+        {
+            get
+            {
+                return this.Find.AllByTagName<HtmlDiv>("div").Where(d => d.ChildNodes.Count == 2
+                                                                        && d.ChildNodes[0].TagName.Equals("h3")
+                                                                        && d.ChildNodes[1].TagName.Equals("p")).ToList();
+            }
+        }
     }
 }
