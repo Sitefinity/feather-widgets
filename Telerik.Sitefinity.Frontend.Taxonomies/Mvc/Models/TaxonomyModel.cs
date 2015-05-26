@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using ServiceStack.Text;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.DynamicModules;
+using Telerik.Sitefinity.DynamicModules.Builder;
+using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Web;
-using System.Reflection;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Web.UrlEvaluation;
-using Telerik.Sitefinity.Pages.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 {
@@ -48,6 +52,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     this.dynamicContentTypeName = string.Empty;
+                    this.contentType = null;
                 }
             }
         }
@@ -69,6 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     this.contentTypeName = string.Empty;
+                    this.contentType = null;
                 }
             }
         }
@@ -202,14 +208,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 if (this.contentType == null)
                 {
+                    string typeName = string.Empty;
                     if (!this.ContentTypeName.IsNullOrWhitespace())
                     {
-                        this.contentType = TypeResolutionService.ResolveType(this.ContentTypeName, false);
+                        typeName = this.ContentTypeName;
                     }
                     else if (!this.DynamicContentTypeName.IsNullOrWhitespace())
                     {
-                        this.contentType = TypeResolutionService.ResolveType(this.DynamicContentTypeName, false);
+                        typeName = this.DynamicContentTypeName;
                     }
+
+                    this.contentType = TypeResolutionService.ResolveType(typeName, false);
                 }
 
                 return this.contentType;
@@ -306,7 +315,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <param name="taxa">The taxa.</param>
         /// <param name="statistics">The statistics.</param>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics<T>(IEnumerable<T> taxa, IQueryable<TaxonomyStatistic> statistics) where T : Taxon
+        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa, IQueryable<TaxonomyStatistic> statistics)
         {
             var result = new List<TaxonViewModel>();
 
@@ -354,10 +363,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <param name="taxon">The taxon.</param>
         /// <returns></returns>
-        protected virtual bool HasTranslationInCurrentLanguage(Taxon taxon)
+        protected virtual bool HasTranslationInCurrentLanguage(ITaxon taxon)
         {
-            return taxon.AvailableLanguages.Contains(taxon.Title.CurrentLanguage.Name) ||
-                taxon.AvailableLanguages.Count() == 1 && taxon.AvailableLanguages[0] == string.Empty;
+            var t = (Taxon)taxon;
+            return t.AvailableLanguages.Contains(taxon.Title.CurrentLanguage.Name) ||
+                t.AvailableLanguages.Count() == 1 && t.AvailableLanguages[0] == string.Empty;
         }
 
         /// <summary>
@@ -379,11 +389,75 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <returns></returns>
         protected virtual IList<TaxonViewModel> GetTaxaByContentItem()
         {
-            throw new NotImplementedException();
+            var fieldTaxonomyDescriptor = this.FieldPropertyDescriptor as TaxonomyPropertyDescriptor;
+
+            if (fieldTaxonomyDescriptor != null)
+            {
+                var content = this.GetContentItem();
+
+                var value = this.FieldPropertyDescriptor.GetValue(content);
+                if (value != null)
+                {
+                    var isSingleTaxon = fieldTaxonomyDescriptor.MetaField.IsSingleTaxon;
+                    var taxa = this.GetTaxaFromFieldValue(value, isSingleTaxon);
+
+                    var statistics = this.GetTaxonomyStatistics();
+                    return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+                }
+            }
+            else
+            {
+                throw new ArgumentException(String.Format("The specified field name \"{0}\" is not a taxonomy.",
+                                                          this.FieldName));
+            }
+            return null;
+        }
+        
+        /// <summary>
+        /// Gets the taxa from the taxonomy's field of the item.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="isSingleTaxon">The is single taxon.</param>
+        /// <returns></returns>
+        protected virtual IEnumerable<ITaxon> GetTaxaFromFieldValue(object value, bool isSingleTaxon)
+        {
+            if (isSingleTaxon)
+            {
+                yield return this.GetSingleTaxon(value);
+            }
+            else
+            {
+                var taxa = value as IEnumerable;
+                foreach (object item in taxa)
+                {
+                    yield return this.GetSingleTaxon(item);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the taxon from given id or taxon object.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        protected virtual ITaxon GetSingleTaxon(object value)
+        {
+            var result = value as Taxon;
+            if (result != null)
+            {
+                return result;
+            }
+
+            if (value is Guid)
+            {
+                return this.CurrentTaxonomyManager.GetTaxon((Guid)value);
+            }
+            return null;
         }
 
         /// <summary>
         /// Resolves the name of the provider used by the manager which is responsible for the content type that is filtering the shown taxa.
+        /// Returns the default provider name for the manager if ContentProviderName is not set.
         /// </summary>
         /// <returns></returns>
         protected virtual string GetContentProviderName()
@@ -392,49 +466,129 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             if (String.IsNullOrWhiteSpace(this.ContentProviderName))
             {
-                //if (!this.DynamicContentTypeName.IsNullOrWhitespace())
-                //{
-                //    var manager = ManagerBase.GetMappedManager(this.TaxonomyContentType);
+                if (!string.IsNullOrEmpty(this.ContentTypeName))
+                {
+                    var manager = (IProviderResolver)ManagerBase.GetMappedManager(this.ContentType);
 
-                //    if (!SystemManager.CurrentContext.IsMultisiteMode)
-                //    {
-                //        providerName = manager.Provider.Name;
-                //    }
-                //    else
-                //    {
-                //        var dataSourceName = SystemManager.DataSourceRegistry.GetDataSource(manager.GetType().FullName).Name;
-                //        var provider = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(dataSourceName);
-                //        providerName = provider.ProviderName;
-                //    }
-                //}
-                //else if (!String.IsNullOrWhiteSpace(this.DynamicContentType))
-                //{
-                //    var moduleBuilderManager = ModuleBuilderManager.GetManager();
-                //    DynamicModuleType dynamicContentType = moduleBuilderManager.GetDynamicModuleType(moduleBuilderManager.ResolveDynamicClrType(this.DynamicContentType));
+                    return manager.GetDefaultContextProvider().Name;
+                }
+                else if (!String.IsNullOrEmpty(this.DynamicContentTypeName))
+                {
+                    var moduleBuilderProvider = ModuleBuilderManager.GetManager().Provider;
 
-                //    if (dynamicContentType != null)
-                //    {
-                //        if (!SystemManager.CurrentContext.IsMultisiteMode)
-                //        {
-                //            DynamicModuleManager manager = DynamicModuleManager.GetManager();
-                //            providerName = manager.Provider.Name;
-                //        }
-                //        else
-                //        {                                                        
-                //            var dataSourceName = SystemManager.DataSourceRegistry.GetDataSource(dynamicContentType.ModuleName).Name;
-                //            var provider = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(dataSourceName);
-                //            providerName = provider.ProviderName;
-                //        }
-                //    }
-                //}                
+                    DynamicModuleType dynamicContentType = moduleBuilderProvider.GetDynamicModuleTypes()
+                        .FirstOrDefault(t => t.TypeName == this.ContentType.Name && t.TypeNamespace == this.ContentType.Namespace);
+
+                    if (dynamicContentType != null)
+                    {
+                        DynamicModuleManager.GetDefaultProviderName(dynamicContentType.ModuleName);
+                    }
+                }
             }
             else
             {
-
                 providerName = this.ContentProviderName;
             }
 
             return providerName;
+        }
+
+        /// <summary>
+        /// Gets the content item from whose field the taxa will be retrieved.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual object GetContentItem()
+        {
+            var provider = this.GetContentProviderName();
+
+            if (!string.IsNullOrEmpty(this.ContentTypeName))
+            {
+                var manager = ManagerBase.GetMappedManager(this.ContentType, this.ContentProviderName);
+                return manager.GetItem(this.ContentType, this.ContentId);
+            }
+            else if(!string.IsNullOrEmpty(this.DynamicContentTypeName))
+            {
+                var manager = DynamicModuleManager.GetManager(provider);
+                return manager.GetDataItem(this.ContentType, this.ContentId);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Populates the taxon size used for Cloud template.
+        /// </summary>
+        /// <param name="taxa">The taxa.</param>
+        protected virtual void PopulateCloudSize(IList<TaxonViewModel> taxa)
+        {
+            List<double> counts = taxa.Select(x => x.Count).Select(t => (double)t).ToList();
+
+            double average;
+            var stdDev = this.StandardDeviation(counts, out average);
+
+            foreach (var item in taxa)
+            {
+                item.CloudSize = this.GetSize(item.Count, average, stdDev);
+            }
+        }
+
+        /// <summary>
+        /// Calculates standard deviation
+        /// </summary>       
+        protected virtual double StandardDeviation(ICollection<double> data, out double average)
+        {
+            if (data.Count == 0)
+            {
+                average = 0;
+                return 0;
+            }
+
+            double squaresSum = 0;
+            average = data.Average();
+
+            foreach (double number in data)
+            {
+                squaresSum += Math.Pow((number - average), 2);
+            }
+
+            var n = (double)data.Count;
+            return Math.Sqrt(squaresSum / (n - 1));
+        }
+
+        /// <summary>
+        /// The size is calculated by the occurrence (count) of the taxa
+        /// in relation to the mean value and the standard deviation.
+        /// </summary>
+        protected virtual int GetSize(double count, double average, double stdDev)
+        {
+            double sizeFactor = (count - average);
+
+            if (sizeFactor != 0 && stdDev != 0)
+            {
+                sizeFactor = sizeFactor / stdDev;
+            }
+
+            if (sizeFactor > 2)
+            {
+                return 6;
+            }
+            if (sizeFactor > 1.33 && sizeFactor <= 2)
+            {
+                return 5;
+            }
+            if (sizeFactor > 0.67 && sizeFactor <= 1.33)
+            {
+                return 4;
+            }
+            if (sizeFactor > -0.67 && sizeFactor <= 0.67)
+            {
+                return 3;
+            }
+            if (sizeFactor > -1.33 && sizeFactor <= -0.67)
+            {
+                return 2;
+            }
+            return 1;
         }
 
         /// <summary>
@@ -509,25 +663,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             return string.Concat(url, evaluatedResult);
         }
 
-        #endregion
-
-        #region Private methhods
-
-        /// <summary>
-        /// Gets the URL evaluation mode.
-        /// </summary>
-        /// <returns></returns>
-        private static UrlEvaluationMode GetUrlEvaluationMode()
-        {
-            var urlEvalMode = SystemManager.CurrentHttpContext.Items[RouteHandler.UrlEvaluationModeKey];
-            if (urlEvalMode != null)
-            {
-                return (UrlEvaluationMode)urlEvalMode;
-            }
-
-            return default(UrlEvaluationMode);
-        }
-
         /// <summary>
         /// Sorts the specified list.
         /// </summary>
@@ -563,79 +698,24 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
             return list;
         }
+        #endregion
 
-        /// Populates the taxon size used for Cloud template.
-        /// </summary>
-        /// <param name="taxa">The taxa.</param>
-        protected virtual void PopulateCloudSize(IList<TaxonViewModel> taxa)
-        {
-            List<double> counts = taxa.Select(x => x.Count).Select(t => (double)t).ToList();
-
-            if (counts.Count > 0)
-            {
-                double average;
-                var stdDev = this.StandardDeviation(counts, out average);
-
-                foreach (var item in taxa)
-                {
-                    item.CloudSize = this.GetSize(item.Count, average, stdDev);
-                }
-            }
-        }
+        #region Private methhods
 
         /// <summary>
-        /// Calculates standard deviation
-        /// </summary>       
-        protected virtual double StandardDeviation(ICollection<double> data, out double average)
-        {
-            double squaresSum = 0;
-            average = data.Average();
-
-            foreach (double number in data)
-            {
-                squaresSum += Math.Pow((number - average), 2);
-            }
-
-            var n = (double)data.Count;
-            return Math.Sqrt(squaresSum / (n - 1));
-        }
-
-        /// <summary>
-        /// The size is calculated by the occurrence (count) of the taxa
-        /// in relation to the mean value and the standard deviation.
+        /// Gets the URL evaluation mode.
         /// </summary>
-        protected virtual int GetSize(double count, double average, double stdDev)
+        /// <returns></returns>
+        private static UrlEvaluationMode GetUrlEvaluationMode()
         {
-            double sizeFactor = (count - average);
-
-            if (sizeFactor != 0 && stdDev != 0)
+            var urlEvalMode = SystemManager.CurrentHttpContext.Items[RouteHandler.UrlEvaluationModeKey];
+            if (urlEvalMode != null)
             {
-                sizeFactor = sizeFactor / stdDev;
+                return (UrlEvaluationMode)urlEvalMode;
             }
 
-            if (sizeFactor > 2)
-            {
-                return 6;
-            }
-            if (sizeFactor > 1.33 && sizeFactor <= 2)
-            {
-                return 5;
-            }
-            if (sizeFactor > 0.67 && sizeFactor <= 1.33)
-            {
-                return 4;
-            }
-            if (sizeFactor > -0.67 && sizeFactor <= 0.67)
-            {
-                return 3;
-            }
-            if (sizeFactor > -1.33 && sizeFactor <= -0.67)
-            {
-                return 2;
-            }
-            return 1;
-        }
-
+            return default(UrlEvaluationMode);
+        }       
         #endregion
 
         #region Private fields and constants
