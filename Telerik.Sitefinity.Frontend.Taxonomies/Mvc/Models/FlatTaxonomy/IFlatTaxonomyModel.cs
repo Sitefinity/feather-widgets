@@ -88,6 +88,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         string SortExpression { get; set; }
 
         /// <summary>
+        /// Gets or sets the URL key prefix. Used when building and evaluating URLs together with ContentView controls
+        /// </summary>
+        /// <value>The URL key prefix.</value>
+        string UrlKeyPrefix { get; set; }
+
+        /// <summary>
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>
