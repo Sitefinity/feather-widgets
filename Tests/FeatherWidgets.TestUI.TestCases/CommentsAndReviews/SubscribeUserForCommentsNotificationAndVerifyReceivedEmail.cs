@@ -10,31 +10,35 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
     /// <summary>
-    /// DisableCommentsForPage test class.
+    /// SubscribeUserForCommentsNotificationAndVerifyReceivedEmail test class.
     /// </summary>
     [TestClass]
-    public class DisableCommentsForPage_ : FeatherTestCase
+    public class SubscribeUserForCommentsNotificationAndVerifyReceivedEmail_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DisableCommentsForPage
+        /// UI test SubscribeUserForCommentsNotificationAndVerifyReceivedEmail
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void DisableCommentsForPage()
+        public void SubscribeUserForCommentsNotificationAndVerifyReceivedEmail()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCountOnPage(CommentsCount);
-            BAT.Arrange(this.TestName).ExecuteArrangement("DisableComments");
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeToNewCommentLinksIsPresent();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubscribeToNewCommentLinks();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySuccessfullySubscribedMessageIsPresent();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyUnsubscribeLinksIsPresent();
+
+            BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(this.commentToPage[0]), "Comments is presented");
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyLeaveACommentAreaIsNotVisible();
-            BAT.Macros().NavigateTo().Pages();
-            BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, string.Empty);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(NewCommentToPage);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(NewUser);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
+            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyMessageReceived");
+            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyMessageContent");
         }
 
         /// <summary>
@@ -55,9 +59,9 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         }
 
         private const string PageName = "CommentsPage";
-        private const string WidgetName = "Comments";
-        private const string CloseComments = "True";
         private string[] commentToPage = { "Comment to page published comment" };
+        private const string NewCommentToPage = "This is test comment";
+        private const string NewUser = "New user";
         private string[] commentAuthor = { "admin" };
         private const string CommentsCount = "1comment";
     }
