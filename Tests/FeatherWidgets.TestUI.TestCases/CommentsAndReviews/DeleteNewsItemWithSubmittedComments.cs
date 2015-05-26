@@ -32,20 +32,11 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCommentLink();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToNewsOldest);
             this.VerifyCommentBackend();
-            BAT.Arrange(this.TestName).ExecuteArrangement("DeleteAllNews");
+            BAT.Arrange(this.TestName).ExecuteArrangement("DeleteNewsByTitle");
             BAT.Macros().NavigateTo().Modules().Comments();
             BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).VerifyNoCommentsExist();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(NewsTitle), "News is presented");
-        }
-
-        public void VerifyCommentBackend()
-        {
-            BAT.Macros().NavigateTo().Modules().Comments();
-            ActiveBrowser.WaitForAsyncJQueryRequests();
-            ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
-            manageComments.VerifyCommentBackend(CommentStatus, this.commentToNewsOldest[0], this.commentAuthor[0], NewsTitle);
-            manageComments.VerifyCommentBackend(CommentStatus, this.commentToNewsOldest[1], this.commentAuthor[1], NewsTitle);
         }
 
         /// <summary>
@@ -63,6 +54,15 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         protected override void ServerCleanup()
         {
             BAT.Arrange(this.TestName).ExecuteTearDown();
+        }
+
+        private void VerifyCommentBackend()
+        {
+            BAT.Macros().NavigateTo().Modules().Comments();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+            ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
+            manageComments.VerifyCommentBackend(CommentStatus, this.commentToNewsOldest[0], this.commentAuthor[0], NewsTitle);
+            manageComments.VerifyCommentBackend(CommentStatus, this.commentToNewsOldest[1], this.commentAuthor[1], NewsTitle);
         }
 
         private const string PageName = "NewsPage";

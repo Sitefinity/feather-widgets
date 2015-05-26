@@ -30,8 +30,11 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Comments().CreatePublishedComments(2, Key, ThreadType, newsId, NewsTitle, CommentMessage);
         }
 
+        /// <summary>
+        /// Delete news by title
+        /// </summary>
         [ServerArrangement]
-        public void DeleteAllNews()
+        public void DeleteNewsByTitle()
         {
             ServerOperations.News().DeleteNewsItem(NewsTitle);
         }
