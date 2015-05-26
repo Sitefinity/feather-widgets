@@ -234,5 +234,23 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNull("Leave a comment"); 
         }
+
+        /// <summary>
+        /// Verify subscribe for new comment is not visible
+        /// </summary>
+        public void VerifySubscribeToNewCommentLinksIsNotVisible()
+        {
+            ActiveBrowser.RefreshDomTree();
+            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe to new comments"),
+                "Subscribe to new comments is presented");
+        }
+
+        /// <summary>
+        /// Verify subscribe for new comment is present
+        /// </summary>
+        public void VerifySubscribeToNewCommentLinksIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.SubscribeToNewComments.AssertIsPresent("Subscribe to new comment");
+        }
     }
 }
