@@ -166,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     .Where(t => t.Taxonomy.Id == this.TaxonomyId && t.Parent == null);
             }
 
-            return this.GetTaxaViewModels(statistics, sortedTaxa);
+            return this.GetTaxaViewModels(statistics, taxa);
         }
 
         /// <summary>
