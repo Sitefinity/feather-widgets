@@ -98,6 +98,7 @@
     <Compile Include="CommentsAndReviews\ChangeCommentsStatusesForPage.cs" />
     <Compile Include="CommentsAndReviews\CommentsFrontendLoadMoreLink.cs" />
     <Compile Include="CommentsAndReviews\CommentsFrontendShowOldestAndNewestOptions.cs" />
+    <Compile Include="CommentsAndReviews\DisableCommentsForPage.cs" />
     <Compile Include="CommentsAndReviews\EditCommentWidgetAndCloseCommentsForPage.cs" />
     <Compile Include="CommentsAndReviews\DeleteNewsItemWithSubmittedComments.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForDynamicItemLoggedUserOnBootstrapPage.cs" />
