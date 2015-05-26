@@ -166,8 +166,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     .Where(t => t.Taxonomy.Id == this.TaxonomyId && t.Parent == null);
             }
 
-            var sortedTaxa = this.Sort(taxa);
-
             return this.GetTaxaViewModels(statistics, sortedTaxa);
         }
 
