@@ -2,12 +2,9 @@
 
 @foreach (var taxa in Model.Taxa)
 {
+    var cloudSizeClass = "sfCloudSize" + @taxa.CloudSize;
+    
     <p>
-        <a>@taxa.Title</a>
-
-        @if (Model.ShowItemCount)
-        {
-          @:(@taxa.Count)
-        }
+        <a CssClass="@cloudSizeClass">@taxa.Title (@taxa.Count)</a>
     </p>
 }

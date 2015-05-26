@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -28,8 +29,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// <returns></returns>
         public override TaxonomyViewModel CreateViewModel()
         {
-            var viewModel = new TaxonomyViewModel();
-            
+            var viewModel = new TaxonomyViewModel { ShowItemCount = this.ShowItemCount };
+
             if (this.ContentId != Guid.Empty)
             {
                 viewModel.Taxa = this.GetTaxaByContentItem();
@@ -43,16 +44,46 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
                     break;
 
                 case FlatTaxaToDisplay.UsedByContentType:
-                    //viewModel.Taxa = this.GetTaxaByContentType();
-                    viewModel.Taxa = this.GetTaxaByContentItem();
+                    viewModel.Taxa = this.GetTaxaByContentType();
                     break;
 
                 default:
+                    viewModel.Taxa = this.GetAllTaxa<FlatTaxon>();
                     break;
-                    //return this.GetAllTaxa();
+
             }
+
             return viewModel;
         }
+        #endregion
+
+        #region Private
+        /// <summary>
+        /// Creates list of view models each representing a taxon that is used by the content type that the widget is set to work with.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetTaxaByContentType()
+        {
+            var statistics = this.GetTaxonomyStatistics();
+
+            var contentProviderName = this.GetContentProviderName();
+
+            if (this.ContentType != null)
+            {
+                statistics = statistics.Where(s => s.DataItemType == this.ContentType.FullName);
+            }
+
+            if (!string.IsNullOrWhiteSpace(contentProviderName))
+            {
+                statistics = statistics.Where(s => s.ItemProviderName == contentProviderName);
+            }
+
+            var taxa = this.Sort(CurrentTaxonomyManager.GetTaxa<FlatTaxon>()
+                                                                    .Where(t => t.Taxonomy.Id == this.TaxonomyId));
+
+            return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+        }
+
         #endregion
     }
 }
