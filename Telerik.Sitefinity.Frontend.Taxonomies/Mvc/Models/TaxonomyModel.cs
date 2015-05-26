@@ -7,17 +7,16 @@ using System.Reflection;
 using ServiceStack.Text;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
+using Telerik.Sitefinity.DynamicModules.Builder;
+using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UrlEvaluation;
-using Telerik.Sitefinity.DynamicModules.Builder;
-using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 {
