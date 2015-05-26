@@ -53,6 +53,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     this.dynamicContentTypeName = string.Empty;
+                    this.contentType = null;
                 }
             }
         }
@@ -74,6 +75,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     this.contentTypeName = string.Empty;
+                    this.contentType = null;
                 }
             }
         }
@@ -207,14 +209,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 if (this.contentType == null)
                 {
+                    string typeName = string.Empty;
                     if (!this.ContentTypeName.IsNullOrWhitespace())
                     {
-                        this.contentType = TypeResolutionService.ResolveType(this.ContentTypeName, false);
+                        typeName = this.ContentTypeName;
                     }
                     else if (!this.DynamicContentTypeName.IsNullOrWhitespace())
                     {
-                        this.contentType = TypeResolutionService.ResolveType(this.DynamicContentTypeName, false);
+                        typeName = this.DynamicContentTypeName;
                     }
+
+                    this.contentType = TypeResolutionService.ResolveType(typeName, false);
                 }
 
                 return this.contentType;
@@ -533,6 +538,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>       
         protected virtual double StandardDeviation(ICollection<double> data, out double average)
         {
+            if (data.Count == 0)
+            {
+                average = 0;
+                return 0;
+            }
+
             double squaresSum = 0;
             average = data.Average();
 
