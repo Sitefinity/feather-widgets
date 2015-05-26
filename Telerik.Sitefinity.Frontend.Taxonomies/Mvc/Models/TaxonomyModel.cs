@@ -15,6 +15,8 @@ using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UrlEvaluation;
+using Telerik.Sitefinity.DynamicModules.Builder;
+using Telerik.Sitefinity.DynamicModules.Builder.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 {
@@ -401,45 +403,27 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             if (String.IsNullOrWhiteSpace(this.ContentProviderName))
             {
-                //if (!this.DynamicContentTypeName.IsNullOrWhitespace())
-                //{
-                //    var manager = ManagerBase.GetMappedManager(this.TaxonomyContentType);
+                if (!string.IsNullOrEmpty(this.ContentTypeName))
+                {
+                    var manager = (IProviderResolver)ManagerBase.GetMappedManager(this.ContentType);
 
-                //    if (!SystemManager.CurrentContext.IsMultisiteMode)
-                //    {
-                //        providerName = manager.Provider.Name;
-                //    }
-                //    else
-                //    {
-                //        var dataSourceName = SystemManager.DataSourceRegistry.GetDataSource(manager.GetType().FullName).Name;
-                //        var provider = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(dataSourceName);
-                //        providerName = provider.ProviderName;
-                //    }
-                //}
-                //else if (!String.IsNullOrWhiteSpace(this.DynamicContentType))
-                //{
-                //    var moduleBuilderManager = ModuleBuilderManager.GetManager();
-                //    DynamicModuleType dynamicContentType = moduleBuilderManager.GetDynamicModuleType(moduleBuilderManager.ResolveDynamicClrType(this.DynamicContentType));
+                    return manager.GetDefaultContextProvider().Name;
+                }
+                else if (!String.IsNullOrEmpty(this.DynamicContentTypeName))
+                {
+                    var moduleBuilderProvider = ModuleBuilderManager.GetManager().Provider;
 
-                //    if (dynamicContentType != null)
-                //    {
-                //        if (!SystemManager.CurrentContext.IsMultisiteMode)
-                //        {
-                //            DynamicModuleManager manager = DynamicModuleManager.GetManager();
-                //            providerName = manager.Provider.Name;
-                //        }
-                //        else
-                //        {                                                        
-                //            var dataSourceName = SystemManager.DataSourceRegistry.GetDataSource(dynamicContentType.ModuleName).Name;
-                //            var provider = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(dataSourceName);
-                //            providerName = provider.ProviderName;
-                //        }
-                //    }
-                //}                
+                    DynamicModuleType dynamicContentType = moduleBuilderProvider.GetDynamicModuleTypes()
+                        .FirstOrDefault(t => t.TypeName == this.ContentType.Name && t.TypeNamespace == this.ContentType.Namespace);
+
+                    if (dynamicContentType != null)
+                    {
+                        DynamicModuleManager.GetDefaultProviderName(dynamicContentType.ModuleName);
+                    }
+                }
             }
             else
             {
-                
                 providerName = this.ContentProviderName;
             }
 
