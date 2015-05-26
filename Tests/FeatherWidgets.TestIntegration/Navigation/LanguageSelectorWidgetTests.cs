@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [SetUp]
         public void Setup()
-        { 
+        {           
         }
 
         /// <summary>
@@ -44,26 +44,25 @@ namespace FeatherWidgets.TestIntegration.Navigation
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)"), Test]
+        [Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.Team7)]
-        [Description("Verifies language selector current language not included")]
+        [Description("Verifies language selector current language included")]
         public void LanguageSelectorWidget_CurrentLanguageIncluded()
-        {           
+        {
             var languageSelectorControl = new MvcControllerProxy();
             languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
             var languageSelectorController = new LanguageSelectorController();
             languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
-
             languageSelectorController.Model.IncludeCurrentLanguage = true;
 
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
-
             Guid currentID;
             var pageId = CreateLocalizedPage("TestPage", out currentID, Guid.Empty);
             PageContentGenerator.AddControlsToPage(pageId, controls);
+           
             string url = UrlPath.ResolveAbsoluteUrl("~/" + "TestPage" + "en-US");
             var pageContent = PageInvoker.ExecuteWebRequest(url);
             Assert.IsNotNull(pageContent);
@@ -74,9 +73,39 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { "Türkçe (Türkiye)", "/tr-tr/TestPagetr-TR" }              
             };
 
-            this.AssertContainsLanguageLinks(pageContent, expectedLinkes);       
+            this.AssertContainsLanguageLinks(pageContent, expectedLinkes);           
         }
-  
+
+        [Test]
+        [Multilingual]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.Team7)]
+        [Description("Verifies language selector current language not included")]
+        public void LanguageSelectorWidget_CurrentLanguageNotIncluded()
+        {
+            var languageSelectorControl = new MvcControllerProxy();
+            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
+            var languageSelectorController = new LanguageSelectorController();
+            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
+            var controls = new List<System.Web.UI.Control>();
+            controls.Add(languageSelectorControl);
+            Guid currentID;
+            var pageId = CreateLocalizedPage("TestPage", out currentID, Guid.Empty);
+            PageContentGenerator.AddControlsToPage(pageId, controls);
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + "TestPage" + "en-US");
+            var pageContent = PageInvoker.ExecuteWebRequest(url);
+            Assert.IsNotNull(pageContent);
+
+            var expectedLinkes = new Dictionary<string, string>()
+            {
+                { "Türkçe (Türkiye)", "/tr-tr/TestPagetr-TR" }              
+            };
+
+            this.AssertContainsLanguageLinks(pageContent, expectedLinkes);
+            Assert.IsFalse(pageContent.Contains("English (United States)"), "Current language included!");
+        }
+
         #region Helper methods
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
@@ -196,6 +225,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
                 while ((chunk = parser.ParseNext()) != null)
                 {
+                    int actualNumberOfLinks = 0;
                     if (chunk.TagName.Equals("a") && !chunk.IsClosure)
                     {
                         var foundLanguage = string.Empty;
@@ -208,8 +238,11 @@ namespace FeatherWidgets.TestIntegration.Navigation
                                 var encodedString = HttpUtility.HtmlEncode(link.Key);
                                 Assert.AreEqual(encodedString, contentChunk.Html);                               
                                 foundLanguage = link.Key;
+                                actualNumberOfLinks++;
                                 break;
                             }
+
+                            Assert.AreEqual(links.Count, actualNumberOfLinks);
                         }
 
                         Assert.IsFalse(string.IsNullOrEmpty(foundLanguage));
