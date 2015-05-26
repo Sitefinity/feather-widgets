@@ -88,6 +88,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             }
             return viewModel;
         }
+
+        public override string GetFieldName()
+        {
+            return "Category";
+        }
         #endregion
 
         #region Protected methods

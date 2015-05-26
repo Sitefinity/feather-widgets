@@ -55,6 +55,16 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
 
             return viewModel;
         }
+
+        /// <summary>
+        /// Gets the name of the property that contains the taxonomy.
+        /// </summary>
+        /// <returns></returns>
+        public override string GetFieldName()
+        {
+            return "Tags";
+        }
+
         #endregion
 
         #region Private

@@ -24,6 +24,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         #region Construction
         public TaxonomyModel()
         {
+            this.FieldName = this.GetFieldName();
+
             if (!string.IsNullOrEmpty(this.FieldName))
             {
                 this.InitializeTaxonomyManagerFromFieldName();
@@ -161,6 +163,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <returns></returns>
         public abstract TaxonomyViewModel CreateViewModel();
+
+        /// <summary>
+        /// Gets the name of the property that contains the taxonomy.
+        /// </summary>
+        /// <returns></returns>
+        public abstract string GetFieldName();
+
         #endregion
 
         #region Properties
