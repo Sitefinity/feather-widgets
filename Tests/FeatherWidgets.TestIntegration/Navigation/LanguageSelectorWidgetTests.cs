@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [SetUp]
         public void Setup()
-        {           
+        { 
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var expectedLinkes = new Dictionary<string, string>()
             {
                 { "English (United States)", "/TestPageen-US" },
-                { "Türkçe (Türkiye)", "/tr-tr/TestPagetr-TR" }              
+                { "Türkçe (Türkiye)", "/tr-tr/TestPagetr-TR" }
             };
 
             this.AssertContainsLanguageLinks(pageContent, expectedLinkes);           
@@ -99,10 +99,15 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var expectedLinkes = new Dictionary<string, string>()
             {
-                { "Türkçe (Türkiye)", "/tr-tr/TestPagetr-TR" }              
+                { "Türkçe (Türkiye)", "/tr-tr/TestPagetr-TR" }
             };
 
-            this.AssertContainsLanguageLinks(pageContent, expectedLinkes);
+            var notExpectedLinkes = new Dictionary<string, string>()
+            {
+                { "English (United States)", "/TestPageen-US" }
+            };
+
+            this.AssertContainsLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);
             Assert.IsFalse(pageContent.Contains("English (United States)"), "Current language included!");
         }
 
@@ -213,7 +218,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)")]
-        private void AssertContainsLanguageLinks(string pageContent, Dictionary<string, string> links)
+        private void AssertContainsLanguageLinks(string pageContent, Dictionary<string, string> links, Dictionary<string, string> notVisiblelinks = null)
         {
             using (HtmlParser parser = new HtmlParser(pageContent))
             {
@@ -222,12 +227,24 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 parser.AutoExtractBetweenTagsOnly = true;
                 parser.CompressWhiteSpaceBeforeTag = true;
                 parser.KeepRawHTML = true;
+                int actualNumberOfLinks = 0;
+                int initialLinksCount = links.Count;
 
                 while ((chunk = parser.ParseNext()) != null)
-                {
-                    int actualNumberOfLinks = 0;
+                { 
                     if (chunk.TagName.Equals("a") && !chunk.IsClosure)
                     {
+                        if (notVisiblelinks != null)
+                        {
+                            foreach (var link in notVisiblelinks)
+                            {
+                                if (chunk.GetParamValue("href") != null)
+                                {
+                                    Assert.IsFalse(chunk.GetParamValue("href").EndsWith(link.Value));
+                                }
+                            }
+                        }
+
                         var foundLanguage = string.Empty;
 
                         foreach (var link in links)
@@ -236,22 +253,22 @@ namespace FeatherWidgets.TestIntegration.Navigation
                             {
                                 var contentChunk = parser.ParseNext();
                                 var encodedString = HttpUtility.HtmlEncode(link.Key);
-                                Assert.AreEqual(encodedString, contentChunk.Html);                               
+                                Assert.AreEqual(encodedString, contentChunk.Html);
                                 foundLanguage = link.Key;
                                 actualNumberOfLinks++;
                                 break;
                             }
-
-                            Assert.AreEqual(links.Count, actualNumberOfLinks);
                         }
 
                         Assert.IsFalse(string.IsNullOrEmpty(foundLanguage));
-                        links.Remove(foundLanguage);
+                        links.Remove(foundLanguage);                        
                     }
                 }
+
+                Assert.AreEqual(initialLinksCount, actualNumberOfLinks);                
             }
         }
-
-        #endregion
     }
+    
+    #endregion
 }
