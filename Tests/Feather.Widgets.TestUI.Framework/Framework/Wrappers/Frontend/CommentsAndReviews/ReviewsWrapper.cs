@@ -9,7 +9,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
     /// <summary>
     /// This is the entry point class for reviews on the frontend.
     /// </summary>
-    public class ReviewsWrapper : BaseWrapper
+    public class ReviewsWrapper : CommentsAndReviewsCommonWrapper
     {
     }
 }

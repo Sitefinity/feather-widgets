@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCountOnPage(CommentsCount);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
             BAT.Arrange(this.TestName).ExecuteArrangement("DisableComments");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(this.commentToPage[0]), "Comments is presented");

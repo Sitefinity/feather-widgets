@@ -198,6 +198,7 @@
     <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\BaseWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockLinkSelectorWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\CommentsAndReviewsCommonWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\CommentsAndReviewsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\CommentsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\ReviewsWrapper.cs" />

@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCountOnPage(CommentsCount);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeToNewCommentLinksIsPresent();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubscribeToNewCommentLinks();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySuccessfullySubscribedMessageIsPresent();
