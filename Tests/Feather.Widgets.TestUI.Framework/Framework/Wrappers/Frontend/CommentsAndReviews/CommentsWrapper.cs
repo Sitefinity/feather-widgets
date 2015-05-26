@@ -230,5 +230,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             newestOnTopLink.MouseClick();
             ActiveBrowser.WaitUntilReady();
         }
+
+        /// <summary>
+        /// Verify Leave a comment area is not visible.
+        /// </summary>
+        public void VerifyLeaveACommentAreaIsNotVisible()
+        {
+            HtmlDiv leaveAComment = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea;
+            leaveAComment.AssertIsNull("Leave a comment");
+        }
     }
 }
