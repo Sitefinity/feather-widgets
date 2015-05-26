@@ -129,14 +129,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         {
             var statistics = this.GetTaxonomyStatistics();
 
-            var rootTaxon = this.CurrentTaxonomyManager.GetTaxon(this.RootTaxonId) as HierarchicalTaxon;
+            var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>().Where(t => t.Parent.Id == this.RootTaxonId);
 
-            if (rootTaxon != null)
-            {
-                return this.GetTaxaViewModels(statistics, rootTaxon.Subtaxa);
-            }
-
-            return new List<TaxonViewModel>();
+            return this.GetTaxaViewModels(statistics, taxa);
         }
 
         /// <summary>
@@ -159,12 +154,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                 statistics = statistics.Where(s => s.ItemProviderName == contentProviderName);
             }
 
-            IEnumerable<HierarchicalTaxon> taxa;
+            IQueryable<HierarchicalTaxon> taxa;
             if (this.FlattenHierarchy)
             {
                 taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
                     .Where(t => t.Taxonomy.Id == this.TaxonomyId);
-
             }
             else
             {
@@ -172,7 +166,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     .Where(t => t.Taxonomy.Id == this.TaxonomyId && t.Parent == null);
             }
 
-            return this.GetTaxaViewModels(statistics, taxa);
+            var sortedTaxa = this.Sort(taxa);
+
+            return this.GetTaxaViewModels(statistics, sortedTaxa);
         }
 
         /// <summary>
@@ -181,15 +177,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// <param name="statistics">The statistics.</param>
         /// <param name="taxa">The taxa.</param>
         /// <returns>Returns flat or hierarchical structure based on the widget settings.</returns>
-        protected virtual IList<TaxonViewModel> GetTaxaViewModels(IQueryable<TaxonomyStatistic> statistics, IEnumerable<HierarchicalTaxon> taxa)
+        protected virtual IList<TaxonViewModel> GetTaxaViewModels(IQueryable<TaxonomyStatistic> statistics, IQueryable<Taxon> taxa)
         {
+            var sortedTaxa = this.Sort(taxa);
+
             if (this.FlattenHierarchy)
             {
-                return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+                return this.GetFlatTaxaViewModelsWithStatistics(sortedTaxa, statistics);
             }
 
             return TaxaViewModelTreeBuilder.BuildTaxaTree(
-                taxa,
+                sortedTaxa.Cast<HierarchicalTaxon>(),
                 taxon =>
                 {
                     if (!this.HasTranslationInCurrentLanguage((Taxon)taxon))
