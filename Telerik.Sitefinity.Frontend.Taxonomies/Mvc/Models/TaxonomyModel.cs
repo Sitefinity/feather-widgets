@@ -172,6 +172,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <returns></returns>
         public abstract TaxonomyViewModel CreateViewModel();
 
+        /// <summary>
+        /// Gets the taxon URL.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <returns></returns>
+        public abstract string GetTaxonUrl(ITaxon taxon);
+
         #endregion
 
         #region Properties
@@ -341,8 +348,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             if (count == 0 && !this.ShowEmptyTaxa) return null;
 
-            // refactor
-            var url = taxon is HierarchicalTaxon ? ((HierarchicalTaxon)taxon).FullUrl : taxon.UrlName.Value;
+            var url = this.GetTaxonUrl(taxon);
             return new TaxonViewModel(taxon, count)
             {
                 Url = this.BuildUrl(url)
