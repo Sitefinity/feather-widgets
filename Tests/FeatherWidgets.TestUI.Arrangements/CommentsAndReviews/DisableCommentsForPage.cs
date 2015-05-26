@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// ChangeCommentsStatusesForPage arrangement class.
+    /// DisableCommentsForPage arrangement class.
     /// </summary>
-    public class ChangeCommentsStatusesForPage : ITestArrangement
+    public class DisableCommentsForPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -25,9 +25,17 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddCommentsWidgetToPage(pageId, "Contentplaceholder1");
-
             var groupKey = ServerOperations.Comments().GetCurrentSiteId.ToString();
-            ServerOperations.Comments().CreateComment(groupKey, ThreadType, pageId, PageName, CommentToPage, "waiting", true);        
+            ServerOperations.Comments().CreateComment(groupKey, ThreadType, pageId, PageName, CommentToPage, "published", false);
+        }
+
+        /// <summary>
+        /// Disable comments for pages
+        /// </summary>
+        [ServerArrangement]
+        public void DisableComments()
+        {
+            ServerOperations.Comments().AllowComments(ThreadType, false);
         }
 
         /// <summary>

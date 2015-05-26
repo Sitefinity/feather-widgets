@@ -12,32 +12,47 @@ using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
     /// <summary>
-    /// SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage test class.
+    /// ValidateAllFieldsInCommentsWidgetOnFrontend test class.
     /// </summary>
     [TestClass]
-    public class SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage_ : FeatherTestCase
+    public class ValidateAllFieldsInCommentsWidgetOnFrontend_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage
+        /// UI test ValidateAllFieldsInCommentsWidgetOnFrontend_
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage()
+        public void ValidateAllFieldsInCommentsWidgetOnFrontend()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyErrorMessageOnTheFrontend(MessageIsRequired);
+            
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(this.commentToPage[0]);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyErrorMessageOnTheFrontend(AuthorIsRequired);
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(this.commentToPage[0]);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(this.commentAuthor[0]);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeEmailAddress(this.commentAuthorInvalidEmail[0]);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyErrorMessageOnTheFrontend(InvalidEmail);
+
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(this.commentToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(this.commentAuthor[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeEmailAddress(this.commentAuthorEmail[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
-            this.VerifyCommentBackend();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCountOnPage(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
+
+            this.VerifyCommentBackend();
         }
 
         public void VerifyCommentBackend()
@@ -47,10 +62,6 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Macros().NavigateTo().Modules().Comments();
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
-            manageComments.VerifyCommentBackend(CommentStatusWaiting, this.commentToPage[0], this.commentAuthor[0], PageName);
-
-            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).ClickPublishCommentLink(this.commentToPage[0]);
-
             manageComments.VerifyCommentBackend(CommentStatus, this.commentToPage[0], this.commentAuthor[0], PageName);
         }
 
@@ -74,10 +85,12 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string LeaveAComment = "Leave a comment";
         private string[] commentToPage = { "Comment to page" };
         private string[] commentAuthor = { "New user" };
+        private string[] commentAuthorInvalidEmail = { "user" };
         private string[] commentAuthorEmail = { "user@test.com" };
         private const string CommentStatus = "Published";
-        private const string CommentStatusWaiting = "Waiting for approval";
         private const string CommentsCount = "1comment";
-        private const string AllertMessage = "Thank you for the comment! Your comment must be approved first";
+        private const string MessageIsRequired = "Message is required!";
+        private const string AuthorIsRequired = "Author name is required!";
+        private const string InvalidEmail = "Invalid email format!";
     }
 }

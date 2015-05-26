@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UrlEvaluation;
 using Telerik.Sitefinity.DynamicModules.Builder;
@@ -28,14 +29,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         #region Construction
         public TaxonomyModel()
         {
-            if (!string.IsNullOrEmpty(this.FieldName))
-            {
-                this.InitializeTaxonomyManagerFromFieldName();
-            }
             this.ShowItemCount = true;
             this.SortExpression = DefaultSortExpression;
-            this.ContentTypeName = DefaultContentType;
         }
+
         #endregion
 
         #region ITaxonomyModel implementation
@@ -43,13 +40,43 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets or sets the full name of the static type that taxons associated to will be displayed.
         /// </summary>
         /// <value>The full name of the content type.</value>
-        public string ContentTypeName { get; set; }
+        public string ContentTypeName
+        {
+            get
+            {
+                return this.contentTypeName;
+            }
+            set
+            {
+                this.contentTypeName = value;
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    this.dynamicContentTypeName = string.Empty;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the full name of the dynamic type that taxons associated to will be displayed.
         /// </summary>
         /// <value>The full name of the dynamic content type.</value>
-        public string DynamicContentTypeName { get; set; }
+        public string DynamicContentTypeName
+        {
+            get
+            {
+                return this.dynamicContentTypeName;
+            }
+            set
+            {
+                this.dynamicContentTypeName = value;
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    this.contentTypeName = string.Empty;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the provider of the content type that filters the displayed taxa.
@@ -97,8 +124,22 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets or sets the name of the property that contains the taxonomy.
         /// </summary>
         /// <value>The name of the field.</value>
-        public string FieldName { get; set; }
+        public string FieldName
+        {
+            get
+            {
+                return this.fieldName;
+            }
+            set
+            {
+                this.fieldName = value;
 
+                if (!string.IsNullOrEmpty(this.fieldName))
+                {
+                    this.InitializeTaxonomyManagerFromFieldName();
+                }
+            }
+        }
         /// <summary>
         /// Gets or sets the sort expression.
         /// </summary>
@@ -135,6 +176,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <returns></returns>
         public abstract TaxonomyViewModel CreateViewModel();
+
         #endregion
 
         #region Properties
@@ -201,7 +243,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             get
             {
-                if (this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName))
+                if ((this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName)) || 
+                    (this.fieldPropertyDescriptor != null && this.fieldPropertyDescriptor.Name != this.FieldName))
                 {
                     this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.ContentType)[this.FieldName];
                 }
@@ -212,6 +255,20 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
         #region Protected and virtual methods
         /// <summary>
+        /// Gets view models of all available taxa in a flat list.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetAllTaxa<T>() where T : Taxon
+        {
+            var statistics = this.GetTaxonomyStatistics();
+
+            var taxa = this.Sort(CurrentTaxonomyManager.GetTaxa<T>()
+                                                       .Where(t => t.Taxonomy.Id == this.TaxonomyId));
+
+            return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+        }
+
+        /// <summary>
         /// Gets the taxa view models for each taxon by using the provided ids of taxons that we want explicitly to be shown by the widget.
         /// </summary>
         /// <returns></returns>
@@ -219,8 +276,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             var selectedTaxaGuids = this.selectedTaxaIds.Select(id => new Guid(id));
 
-            var taxa = this.CurrentTaxonomyManager.GetTaxa<T>()
-                                    .Where(t => selectedTaxaGuids.Contains(t.Id));
+            var taxa = this.Sort(CurrentTaxonomyManager.GetTaxa<T>()
+                                                       .Where(t => selectedTaxaGuids.Contains(t.Id)))
+                           .ToList()
+                           .OrderBy(i => this.selectedTaxaIds.IndexOf(i.Id.ToString()));
 
             var statistics = this.GetTaxonomyStatistics();
 
@@ -594,6 +653,41 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             return string.Concat(url, evaluatedResult);
         }
 
+        /// <summary>
+        /// Sorts the specified list.
+        /// </summary>
+        /// <param name="list">The list.</param>
+        /// <returns></returns>
+        protected IQueryable<Taxon> Sort(IQueryable<Taxon> list)
+        {
+            int? totalCount = 1;
+
+            string sortExp = this.SortExpression;
+            try
+            {
+                if (this.SortExpression == "AsSetManually")
+                {
+                    sortExp = string.Empty;
+
+                }
+                list = DataProviderBase.SetExpressions(query: list,
+                                             filterExpression: null,
+                                             orderExpression: sortExp,
+                                             skip: null,
+                                             take: null,
+                                             totalCount: ref totalCount);
+            }
+            catch (Exception)
+            {
+                list = DataProviderBase.SetExpressions(query: list,
+                                                 filterExpression: null,
+                                                 orderExpression: DefaultSortExpression,
+                                                 skip: null,
+                                                 take: null,
+                                                 totalCount: ref totalCount);
+            }
+            return list;
+        }
         #endregion
 
         #region Private methhods
@@ -611,7 +705,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
 
             return default(UrlEvaluationMode);
-        }
+        }       
         #endregion
 
         #region Private fields and constants
@@ -621,8 +715,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private PropertyDescriptor fieldPropertyDescriptor;
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
-        private const string DefaultSortExpression = "PublicationDate DESC";
+        private const string DefaultSortExpression = "LastModified DESC";
         private const string DefaultContentType = "Telerik.Sitefinity.News.Model.NewsItem";
+        private string contentTypeName = DefaultContentType;
+        private string dynamicContentTypeName;
+        private string fieldName;
         #endregion
     }
 }

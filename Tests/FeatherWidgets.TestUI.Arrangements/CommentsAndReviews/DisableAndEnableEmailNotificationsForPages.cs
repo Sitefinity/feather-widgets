@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// ChangeCommentsStatusesForPage arrangement class.
+    /// DisableAndEnableEmailNotificationsForPages arrangement class.
     /// </summary>
-    public class ChangeCommentsStatusesForPage : ITestArrangement
+    public class DisableAndEnableEmailNotificationsForPages : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -25,9 +25,26 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddCommentsWidgetToPage(pageId, "Contentplaceholder1");
-
             var groupKey = ServerOperations.Comments().GetCurrentSiteId.ToString();
-            ServerOperations.Comments().CreateComment(groupKey, ThreadType, pageId, PageName, CommentToPage, "waiting", true);        
+            ServerOperations.Comments().CreateComment(groupKey, ThreadType, pageId, PageName, CommentToPage, "published", false);
+        }
+
+        /// <summary>
+        /// Disable email notifications for pages
+        /// </summary>
+        [ServerArrangement]
+        public void DisableEmailNotifications()
+        {
+            ServerOperations.Comments().EnableEmailSubscription(ThreadType, false);
+        }
+
+        /// <summary>
+        /// Enable email notifications for pages
+        /// </summary>
+        [ServerArrangement]
+        public void EnableEmailNotifications()
+        {
+            ServerOperations.Comments().EnableEmailSubscription(ThreadType, true);
         }
 
         /// <summary>
@@ -40,6 +57,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();
             ServerOperations.Comments().DeleteAllComments(siteID);
             ServerOperations.Comments().AllowComments(ThreadType, false);
+            ServerOperations.Comments().EnableEmailSubscription(ThreadType, false);
         }
 
         private const string PageName = "CommentsPage";

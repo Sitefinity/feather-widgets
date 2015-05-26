@@ -62,6 +62,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// <param name="commentBody">Comment body.</param>
         public void TypeAComment(string commentBody)
         {
+            ActiveBrowser.RefreshDomTree();
+
             HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea
                 .AssertIsPresent("Leave acomment area");
 
@@ -142,7 +144,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             Assert.IsNotNull(allCommentsDivs, "Comments list is null");
             Assert.AreNotEqual(0, allCommentsDivs.Count, "Comments list has no elements");
 
-            Assert.AreEqual(commentsAuthor.Count(), allCommentsDivs.Count, "Expected and actual count of comments are not equal");
+            Assert.AreEqual(commentsContent.Count(), allCommentsDivs.Count, "Expected and actual count of comments are not equal");
 
             for (int i = 0; i < allCommentsDivs.Count(); i++)
             {
@@ -161,6 +163,94 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
                 .AssertIsPresent("Alert message");
             bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
             Assert.IsTrue(isPresent);
+        }
+
+        /// <summary>
+        /// Verify error message
+        /// </summary>
+        /// <param name="errorMessage">Expected error message</param>
+        public void VerifyErrorMessageOnTheFrontend(string errorMessage)
+        {
+            HtmlDiv alertMessageOnPage = this.EM.CommentsAndReviews.CommentsFrontend.ErrorDiv
+                .AssertIsPresent("Error message");
+            bool isPresent = alertMessageOnPage.InnerText.Contains(errorMessage);
+            Assert.IsTrue(isPresent);
+        }
+
+        /// <summary>
+        /// Click load more link
+        /// </summary>
+        public void ClickLoadMoreLink()
+        {
+            HtmlAnchor loadMoreLink = this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink
+                .AssertIsPresent("Load more link");
+            loadMoreLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify load more link is not visible
+        /// </summary>
+        public void VerifyLoadMoreLinkIsNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink.AssertIsNotVisible("Load more link");
+        }
+
+        /// <summary>
+        /// Verify show oldest and newest on top are not visible
+        /// </summary>
+        public void VerifyShowOldestAndNewstOnTopLinksAreNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop.AssertIsNotVisible("Show newest on top link");
+            this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop.AssertIsNotVisible("Show oldest on top link");
+        }
+
+        /// <summary>
+        /// Click oldest on top link
+        /// </summary>
+        public void ClickOldestOnTopLink()
+        {
+            HtmlAnchor oldestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop
+                .AssertIsPresent("Oldest on top link");
+            oldestOnTopLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Click newest on top link
+        /// </summary>
+        public void ClickNewestOnTopLink()
+        {
+            HtmlAnchor newestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop
+                .AssertIsPresent("Newest on top link");
+            newestOnTopLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify Leave a comment area is not visible.
+        /// </summary>
+        public void VerifyLeaveACommentAreaIsNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNull("Leave a comment"); 
+        }
+
+        /// <summary>
+        /// Verify subscribe for new comment is not visible
+        /// </summary>
+        public void VerifySubscribeToNewCommentLinksIsNotVisible()
+        {
+            ActiveBrowser.RefreshDomTree();
+            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe to new comments"),
+                "Subscribe to new comments is presented");
+        }
+
+        /// <summary>
+        /// Verify subscribe for new comment is present
+        /// </summary>
+        public void VerifySubscribeToNewCommentLinksIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.SubscribeToNewComments.AssertIsPresent("Subscribe to new comment");
         }
     }
 }

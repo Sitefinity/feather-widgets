@@ -3,6 +3,11 @@
 @foreach (var taxa in Model.Taxa)
 {
     <p>
-        <a>@taxa.Title</a> (@taxa.Count)
+        <a>@taxa.Title</a>
+
+        @if (Model.ShowItemCount)
+        {
+          @:(@taxa.Count)
+        }
     </p>
 }
