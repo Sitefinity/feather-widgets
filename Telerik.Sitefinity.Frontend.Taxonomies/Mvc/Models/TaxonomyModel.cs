@@ -113,7 +113,21 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets or sets the taxonomy id.
         /// </summary>
         /// <value>The taxonomy id.</value>
-        public Guid TaxonomyId { get; set; }
+        public Guid TaxonomyId
+        {
+            get
+            {
+                return this.taxonomyId;
+            }
+            set
+            {
+                if (this.taxonomyId != value)
+                {
+                    this.taxonomyId = value;
+                    this.taxonomy = null;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the Id of the content item for which the control should display the taxa.
@@ -722,6 +736,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private TaxonomyManager taxonomyManager;
         private Type contentType;
         private ITaxonomy taxonomy;
+        private Guid taxonomyId;
         private PropertyDescriptor fieldPropertyDescriptor;
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
