@@ -15,14 +15,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
     public class CommentsWrapper : BaseWrapper
     {
         /// <summary>
-        /// Asserts that Leave a comment message is present.
-        /// </summary>
-        public void AssertLeaveACommentMessage()
-        {
-            this.EM.CommentsAndReviews.CommentsFrontend.CommentsHeader.AssertIsPresent("Leave a comment message");
-        }
-
-        /// <summary>
         /// Asserts comments count
         /// </summary>
         public void AssertCommentsCount(string commentCount)
@@ -33,11 +25,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Asserts comments count on page
+        /// Asserts message and count on page
         /// </summary>
-        public void AssertCommentsCountOnPage(string commentCount)
+        public void AssertMessageAndCountOnPage(string commentCount)
         {
-            HtmlDiv commentLinkOnPage = this.EM.CommentsAndReviews.CommentsFrontend.CommentsCountOnPage.AssertIsPresent("Comments count on page");
+            HtmlDiv commentLinkOnPage = this.EM.CommentsAndReviews.CommentsFrontend.MessageAndCountOnPage.AssertIsPresent("Comments count on page");
             bool isPresent = commentLinkOnPage.InnerText.Contains(commentCount);
             Assert.IsTrue(isPresent);
         }

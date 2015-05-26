@@ -10,19 +10,19 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
     /// <summary>
-    /// AddCommentsWidgetOnPageBasedOnBootstrapTemplate test class.
+    /// AddReviewsWidgetOnPageBasedOnBootstrapTemplate test class.
     /// </summary>
     [TestClass]
-    public class AddCommentsWidgetOnPageBasedOnBootstrapTemplate_ : FeatherTestCase
+    public class AddReviewsWidgetOnPageBasedOnBootstrapTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test AddCommentsWidgetOnPageBasedOnBootstrapTemplate
+        /// UI test AddReviewsWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void AddCommentsWidgetOnPageBasedOnBootstrapTemplate()
+        public void AddReviewsWidgetOnPageBasedOnBootstrapTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageName = "CommentsPage";
-        private const string WidgetName = "Comments";
-        private const string CommentsMessage = "Leave a comment";
+        private const string PageName = "ReviewsPage";
+        private const string WidgetName = "Reviews";
+        private const string ReviewMessage = "Write a review";
     }
 }
