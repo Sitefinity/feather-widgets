@@ -11,6 +11,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         public FlatTaxonomyModel()
         {
             this.TaxonomyId = TaxonomyManager.TagsTaxonomyId;
+
+            if (string.IsNullOrEmpty(this.FieldName))
+            {
+                this.FieldName = DefaultFieldName;
+            }
         }
 
         #region Properties
@@ -55,6 +60,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
 
             return viewModel;
         }
+
         #endregion
 
         #region Private
@@ -83,7 +89,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
 
             return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
         }
+        #endregion
 
+        #region Private fields
+        private const string DefaultFieldName = "Tags";
         #endregion
     }
 }

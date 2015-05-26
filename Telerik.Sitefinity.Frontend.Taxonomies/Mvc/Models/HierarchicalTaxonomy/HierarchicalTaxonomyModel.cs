@@ -19,6 +19,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         {
             this.TaxonomyId = TaxonomyManager.CategoriesTaxonomyId;
             this.FlattenHierarchy = true;
+
+            if (string.IsNullOrEmpty(this.FieldName))
+            {
+                this.FieldName = DefaultFieldName;
+            }
         }
         #endregion
 
@@ -88,6 +93,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             }
             return viewModel;
         }
+
         #endregion
 
         #region Protected methods
@@ -182,6 +188,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     return this.FilterTaxonByCount(taxon, statistics);
                 });
         }
+        #endregion
+
+        #region Private fields
+        private const string DefaultFieldName = "Category";
         #endregion
     }
 }
