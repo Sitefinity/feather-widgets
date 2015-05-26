@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// ChangeCommentsStatusesForPage arrangement class.
+    /// EditCommentWidgetAndCloseCommentsForPage arrangement class.
     /// </summary>
-    public class ChangeCommentsStatusesForPage : ITestArrangement
+    public class EditCommentWidgetAndCloseCommentsForPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -27,7 +27,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddCommentsWidgetToPage(pageId, "Contentplaceholder1");
 
             var groupKey = ServerOperations.Comments().GetCurrentSiteId.ToString();
-            ServerOperations.Comments().CreateComment(groupKey, ThreadType, pageId, PageName, CommentToPage, "waiting", true);        
+
+            ServerOperations.Comments().CreateComment(groupKey, ThreadType, pageId, PageName, CommentToPage, "published", false);        
         }
 
         /// <summary>
@@ -46,5 +47,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageTemplateName = "Bootstrap.default";
         private const string ThreadType = "Telerik.Sitefinity.Pages.Model.PageNode";
         private const string CommentToPage = "Comment to page ";
-    }
+     }
 }
