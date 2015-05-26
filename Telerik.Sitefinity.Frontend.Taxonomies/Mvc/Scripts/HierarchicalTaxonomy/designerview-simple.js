@@ -15,6 +15,32 @@
             }
         };
 
+        $scope.$watch(
+             'taxonSelector.selectedItemsIds',
+             function (newAdditionalFilters, oldAdditionalFilters) {
+                 if (newAdditionalFilters !== oldAdditionalFilters) {
+                     $scope.properties.SerializedSelectedTaxaIds.PropertyValue = JSON.stringify(newAdditionalFilters);
+                 }
+             },
+             true
+         );
+
+        $scope.$watch(
+            'proxyContentTypeName',
+            function (newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    if (newValue.startsWith(defaultDynamicNamespace)) {
+                        $scope.properties.DynamicContentTypeName.PropertyValue = newValue;
+                        $scope.properties.ContentTypeName.PropertyValue = null;
+                    }
+                    else {
+                        $scope.properties.ContentTypeName.PropertyValue = newValue;
+                        $scope.properties.DynamicContentTypeName.PropertyValue = null;
+                    }
+                }
+            }
+        );
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
@@ -42,18 +68,19 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
-                    if ($scope.properties.TaxaToDisplay.PropertyValue === 'UsedByContentType') {
-
-                        if ($scope.proxyContentTypeName.startsWith(defaultDynamicNamespace)) {
-                            $scope.properties.DynamicContentTypeName.PropertyValue = $scope.proxyContentTypeName;
-                        }
-                        else {
-                            $scope.properties.ContentTypeName.PropertyValue = $scope.proxyContentTypeName;
-                        }
-
-                        if ($scope.taxonSelector.selectedItemsIds) {
-                            $scope.properties.SerializedSelectedTaxaIds.PropertyValue = JSON.stringify($scope.taxonSelector.selectedItemsIds);
-                        }
+                    if ($scope.properties.TaxaToDisplay.PropertyValue === 'All' ||
+                        $scope.properties.TaxaToDisplay.PropertyValue === 'TopLevel' ||
+                        $scope.properties.TaxaToDisplay.PropertyValue === 'UnderParticularTaxon') {
+                        $scope.properties.DynamicContentTypeName.PropertyValue =
+                            $scope.properties.ContentTypeName.PropertyValue =
+                               $scope.properties.SerializedSelectedTaxaIds.PropertyValue = null;
+                    }
+                    else if ($scope.properties.TaxaToDisplay.PropertyValue === 'UsedByContentType') {
+                        $scope.properties.SerializedSelectedTaxaIds.PropertyValue = null;
+                    }
+                    else if ($scope.properties.TaxaToDisplay.PropertyValue === 'Selected') {
+                        $scope.properties.DynamicContentTypeName.PropertyValue =
+                            $scope.properties.ContentTypeName.PropertyValue = null;
                     }
                 });
             })
