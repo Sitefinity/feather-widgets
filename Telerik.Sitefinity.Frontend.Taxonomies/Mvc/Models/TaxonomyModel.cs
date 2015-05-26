@@ -24,10 +24,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         #region Construction
         public TaxonomyModel()
         {
-            if (!string.IsNullOrEmpty(this.FieldName))
-            {
-                this.InitializeTaxonomyManagerFromFieldName();
-            }
             this.ShowItemCount = true;
             this.SortExpression = DefaultSortExpression;
         }
@@ -123,8 +119,22 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets or sets the name of the property that contains the taxonomy.
         /// </summary>
         /// <value>The name of the field.</value>
-        public string FieldName { get; set; }
+        public string FieldName
+        {
+            get
+            {
+                return this.fieldName;
+            }
+            set
+            {
+                this.fieldName = value;
 
+                if (!string.IsNullOrEmpty(this.fieldName))
+                {
+                    this.InitializeTaxonomyManagerFromFieldName();
+                }
+            }
+        }
         /// <summary>
         /// Gets or sets the sort expression.
         /// </summary>
@@ -161,6 +171,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <returns></returns>
         public abstract TaxonomyViewModel CreateViewModel();
+
         #endregion
 
         #region Properties
@@ -227,7 +238,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             get
             {
-                if (this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName))
+                if ((this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName)) || 
+                    (this.fieldPropertyDescriptor != null && this.fieldPropertyDescriptor.Name != this.FieldName))
                 {
                     this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.ContentType)[this.FieldName];
                 }
@@ -637,6 +649,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private const string DefaultContentType = "Telerik.Sitefinity.News.Model.NewsItem";
         private string contentTypeName = DefaultContentType;
         private string dynamicContentTypeName;
+        private string fieldName;
         #endregion
     }
 }
