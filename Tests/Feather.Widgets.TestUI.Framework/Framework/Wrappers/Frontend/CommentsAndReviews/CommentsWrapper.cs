@@ -193,8 +193,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// </summary>
         public void VerifyLoadMoreLinkIsNotVisible()
         {
-            HtmlAnchor loadMoreLink = this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink;
-            loadMoreLink.AssertIsNotVisible("Load more link");
+            this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink.AssertIsNotVisible("Load more link");
         }
 
         /// <summary>
@@ -202,11 +201,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// </summary>
         public void VerifyShowOldestAndNewstOnTopLinksAreNotVisible()
         {
-            HtmlAnchor newestOnTop = this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop;
-            newestOnTop.AssertIsNotVisible("Show newest on top link");
-
-            HtmlAnchor oldestOnTop = this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop;
-            oldestOnTop.AssertIsNotVisible("Show oldest on top link");
+            this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop.AssertIsNotVisible("Show newest on top link");
+            this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop.AssertIsNotVisible("Show oldest on top link");
         }
 
         /// <summary>
@@ -236,8 +232,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// </summary>
         public void VerifyLeaveACommentAreaIsNotVisible()
         {
-            HtmlDiv leaveAComment = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea;
-            leaveAComment.AssertIsNull("Leave a comment");
+            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNull("Leave a comment"); 
         }
     }
 }
