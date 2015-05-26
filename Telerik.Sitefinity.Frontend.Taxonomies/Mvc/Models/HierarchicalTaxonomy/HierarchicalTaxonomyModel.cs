@@ -94,6 +94,16 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             return viewModel;
         }
 
+        /// <summary>
+        /// Gets the taxon URL.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <returns></returns>
+        public override string GetTaxonUrl(ITaxon taxon)
+        {
+            return ((HierarchicalTaxon)taxon).FullUrl;
+        }
+
         #endregion
 
         #region Protected methods
