@@ -31,8 +31,8 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCommentLink();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToNewsOldest);
-            this.VerifyCommentBackend();            
-            this.DeleteNewsItemBackend();
+            this.VerifyCommentBackend();
+            BAT.Arrange(this.TestName).ExecuteArrangement("DeleteAllNews");
             BAT.Macros().NavigateTo().Modules().Comments();
             BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).VerifyNoCommentsExist();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
@@ -46,20 +46,6 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
             manageComments.VerifyCommentBackend(CommentStatus, this.commentToNewsOldest[0], this.commentAuthor[0], NewsTitle);
             manageComments.VerifyCommentBackend(CommentStatus, this.commentToNewsOldest[1], this.commentAuthor[1], NewsTitle);
-        }
-
-        public void DeleteNewsItemBackend()
-        {
-            BAT.Macros().NavigateTo().Modules().News();
-            BAT.Macros().GridAutomation().Row().ByTitle(NewsTitle).Select();
-            var deleteButton = ActiveBrowser.WaitForElementEndsWithID("_delete").As<HtmlAnchor>();
-            deleteButton.Click();
-            var confirmDeleteButtons = ActiveBrowser.Find.AllByAttributes("class=sfLinkBtn sfDelete");
-            var deleteSingleItemButton = confirmDeleteButtons.Where(c => c.InnerText.StartsWith(BAT.Labels.MoveToRecycleBinLabel)).FirstOrDefault().As<HtmlAnchor>();
-            if (deleteSingleItemButton != null)
-            {
-                deleteSingleItemButton.Click();
-            }
         }
 
         /// <summary>
