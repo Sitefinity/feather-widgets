@@ -106,6 +106,7 @@
     <Compile Include="CommentsAndReviews\SubmitCommentForNewsLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForPageLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockToTemplateBasedOnLayoutFile.cs" />

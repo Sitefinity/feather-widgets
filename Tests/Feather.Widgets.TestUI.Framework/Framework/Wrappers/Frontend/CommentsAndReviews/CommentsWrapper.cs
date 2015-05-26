@@ -241,8 +241,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         public void VerifySubscribeToNewCommentLinksIsNotVisible()
         {
             ActiveBrowser.RefreshDomTree();
-            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe to new comments"),
-                "Subscribe to new comments is presented");
+            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe to new comments"), "Subscribe to new comments is presented");
         }
 
         /// <summary>
@@ -251,6 +250,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         public void VerifySubscribeToNewCommentLinksIsPresent()
         {
             this.EM.CommentsAndReviews.CommentsFrontend.SubscribeToNewComments.AssertIsPresent("Subscribe to new comment");
+        }
+
+        /// <summary>
+        /// Click subscribe for new comment link
+        /// </summary>
+        public void ClickSubscribeToNewCommentLinks()
+        {
+            HtmlSpan subscribeForEmail = this.EM.CommentsAndReviews.CommentsFrontend.SubscribeToNewComments.AssertIsPresent("Subscribe to new comment");
+
+            subscribeForEmail.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify successfully subscribe to new comment is present
+        /// </summary>
+        public void VerifySuccessfullySubscribedMessageIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.SuccessfulySubscribedMessage.AssertIsPresent("Successfully subscribe to new comment");
+        }
+
+        /// <summary>
+        /// Verify unsubscribe link is present
+        /// </summary>
+        public void VerifyUnsubscribeLinksIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.UnsubscribeLink.AssertIsPresent("Unsubscribe link");
         }
     }
 }
