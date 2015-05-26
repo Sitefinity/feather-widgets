@@ -1,10 +1,10 @@
-﻿using Feather.Widgets.TestUI.Framework;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Feather.Widgets.TestUI.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
     /// CommentsFrontendShowOldestAndNewestOptions test class.
     /// </summary>
     [TestClass]
-    public class CommentsFrontendShowOldestAndNewestOptions_: FeatherTestCase
+    public class CommentsFrontendShowOldestAndNewestOptions_ : FeatherTestCase
     {
         /// <summary>
         /// UI test CommentsFrontendShowOldestAndNewestOptions

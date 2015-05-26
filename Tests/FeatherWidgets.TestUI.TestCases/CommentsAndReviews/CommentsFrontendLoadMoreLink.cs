@@ -47,8 +47,8 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
             for (int i = 0; i <= 50; i++)
             {
-                commentToNews[i] = "Comment" + i;
-                commentAuthor[i] = "admin";
+                this.commentToNews[i] = "Comment" + i;
+                this.commentAuthor[i] = "admin";
             }
         }
 
@@ -63,8 +63,8 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string PageName = "NewsPage";
         private const string NewsTitle = "NewsTitle";
         private const string LeaveAComment = "Leave a comment";
-        private string[] commentToNews = new string [51];
-        private string[] commentAuthor = new string [51];
+        private string[] commentToNews = new string[51];
+        private string[] commentAuthor = new string[51];
         private const string CommentStatus = "Published";
         private const string CommentsCount = "50 comments";
         private const string CommentsCountNew = "51 comments";
