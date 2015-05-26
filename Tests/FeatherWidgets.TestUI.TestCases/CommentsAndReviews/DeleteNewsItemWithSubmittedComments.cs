@@ -3,38 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
     /// <summary>
-    /// CommentsFrontendShowOldestAndNewestOptions test class.
+    /// DeleteNewsItemWithSubmittedComments test class.
     /// </summary>
     [TestClass]
-    public class CommentsFrontendShowOldestAndNewestOptions_ : FeatherTestCase
+    public class DeleteNewsItemWithSubmittedComments_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test CommentsFrontendShowOldestAndNewestOptions
+        /// UI test DeleteNewsItemWithSubmittedComments
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void CommentsFrontendShowOldestAndNewestOptions()
+        public void DeleteNewsItemWithSubmittedComments()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCommentLink();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyShowOldestAndNewstOnTopLinksAreNotVisible();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(this.commentToNewsOldest[1]);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(CommentsCountNew);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickOldestOnTopLink();            
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToNewsOldest);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickNewestOnTopLink();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToNewsNewest);
+            this.VerifyCommentBackend();
+            BAT.Arrange(this.TestName).ExecuteArrangement("DeleteNewsByTitle");
+            BAT.Macros().NavigateTo().Modules().Comments();
+            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).VerifyNoCommentsExist();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(NewsTitle), "News is presented");
         }
 
         /// <summary>
@@ -54,14 +56,21 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
+        private void VerifyCommentBackend()
+        {
+            BAT.Macros().NavigateTo().Modules().Comments();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+            ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
+            manageComments.VerifyCommentBackend(CommentStatus, this.commentToNewsOldest[0], this.commentAuthor[0], NewsTitle);
+            manageComments.VerifyCommentBackend(CommentStatus, this.commentToNewsOldest[1], this.commentAuthor[1], NewsTitle);
+        }
+
         private const string PageName = "NewsPage";
         private const string NewsTitle = "NewsTitle";
         private const string LeaveAComment = "Leave a comment";
         private string[] commentToNewsOldest = { "Comment1", "Comment2" };
-        private string[] commentToNewsNewest = { "Comment2", "Comment1" };
         private string[] commentAuthor = { "admin", "admin" };
         private const string CommentStatus = "Published";
-        private const string CommentsCount = "1 comment";
-        private const string CommentsCountNew = "2 comments";
+        private const string CommentsCount = "2 comments";
     }
 }
