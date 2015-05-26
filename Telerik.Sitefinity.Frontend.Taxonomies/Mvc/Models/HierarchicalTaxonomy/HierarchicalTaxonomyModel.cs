@@ -89,10 +89,15 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             return viewModel;
         }
 
+        /// <summary>
+        /// Gets the name of the property that contains the taxonomy.
+        /// </summary>
+        /// <returns></returns>
         public override string GetFieldName()
         {
             return "Category";
         }
+
         #endregion
 
         #region Protected methods
