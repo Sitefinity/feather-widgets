@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             switch (this.TaxaToDisplay)
             {
                 case HierarchicalTaxaToDisplay.All:
-                    viewModel.Taxa = this.GetAllTaxa();
+                    viewModel.Taxa = this.GetAllTaxa<HierarchicalTaxon>();
                     break;
                 case HierarchicalTaxaToDisplay.TopLevel:
                     viewModel.Taxa = this.GetTopLevelTaxa();
@@ -91,20 +91,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         #endregion
 
         #region Protected methods
-        /// <summary>
-        /// Gets view models of all available taxa in a flat list.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetAllTaxa()
-        {
-            var statistics = this.GetTaxonomyStatistics();
-
-            var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
-                .Where(t => t.Taxonomy.Id == this.TaxonomyId);
-
-            return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
-        }
-
         /// <summary>
         /// Gets the taxa view model trees starting from the root level.
         /// </summary>
