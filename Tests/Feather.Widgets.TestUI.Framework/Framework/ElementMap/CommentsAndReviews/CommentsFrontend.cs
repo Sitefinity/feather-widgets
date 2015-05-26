@@ -24,18 +24,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         }
 
         /// <summary>
-        /// Gets comments header
-        /// </summary>
-        /// <value>Gets comments header</value>
-        public HtmlSpan CommentsHeader
-        {
-            get
-            {
-                return this.Get<HtmlSpan>("TagName=span", "InnerText=Leave a comment");
-            }
-        }
-
-        /// <summary>
         /// Gets leave a comment link.
         /// </summary>
         public HtmlAnchor LeaveAComment
@@ -98,7 +86,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         /// <summary>
         /// Gets comments count on page.
         /// </summary>
-        public HtmlDiv CommentsCountOnPage
+        public HtmlDiv MessageAndCountOnPage
         {
             get
             {

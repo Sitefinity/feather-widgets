@@ -12,16 +12,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
     /// <summary>
     /// This is the entry point class for comments on the frontend.
     /// </summary>
-    public class CommentsWrapper : BaseWrapper
+    public class CommentsWrapper : CommentsAndReviewsCommonWrapper
     {
-        /// <summary>
-        /// Asserts that Leave a comment message is present.
-        /// </summary>
-        public void AssertLeaveACommentMessage()
-        {
-            this.EM.CommentsAndReviews.CommentsFrontend.CommentsHeader.AssertIsPresent("Leave a comment message");
-        }
-
         /// <summary>
         /// Asserts comments count
         /// </summary>
@@ -29,16 +21,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment.AssertIsPresent("Comments count link");
             bool isPresent = commentLink.InnerText.Contains(commentCount);
-            Assert.IsTrue(isPresent);
-        }
-
-        /// <summary>
-        /// Asserts comments count on page
-        /// </summary>
-        public void AssertCommentsCountOnPage(string commentCount)
-        {
-            HtmlDiv commentLinkOnPage = this.EM.CommentsAndReviews.CommentsFrontend.CommentsCountOnPage.AssertIsPresent("Comments count on page");
-            bool isPresent = commentLinkOnPage.InnerText.Contains(commentCount);
             Assert.IsTrue(isPresent);
         }
 
