@@ -182,5 +182,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlAnchor>("tagname=a", "data-sf-role=comments-sort-new-button");
             }
         }
+
+        /// <summary>
+        /// Gets subscribe to new comments
+        /// </summary>
+        public HtmlSpan SubscribeToNewComments
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Subscribe to new comments");
+            }
+        }
     }
 }
