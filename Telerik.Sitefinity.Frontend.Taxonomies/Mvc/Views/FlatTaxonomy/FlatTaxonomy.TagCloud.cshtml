@@ -5,6 +5,10 @@
     var cloudSizeClass = "sfCloudSize" + @taxa.CloudSize;
     
     <p>
-        <a CssClass="@cloudSizeClass">@taxa.Title (@taxa.Count)</a>
+        <a href="@taxa.Url" cssclass="@cloudSizeClass">@taxa.Title</a>
+        @if (Model.ShowItemCount)
+        {
+            @:(@taxa.Count)
+        }
     </p>
 }
