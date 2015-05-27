@@ -695,9 +695,15 @@
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertImage">
             <summary>
-            Insert image
+            Insert a image
             </summary>
-            <value>Insert image</value>
+            <value>Insert a image</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertThisImage">
+            <summary>
+            Insert this image
+            </summary>
+            <value>Insert this image</value>
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertFile">
             <summary>
@@ -711,6 +717,12 @@
             </summary>
             <value>Insert video</value>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertThisVideo">
+            <summary>
+            Insert this video
+            </summary>
+            <value>Insert this video</value>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.SfActionAttrRequired">
             <summary>
             phrase: sfAction attribute is required!
@@ -721,6 +733,12 @@
             phrase: Insert a document link
             </summary>
             <value>Insert a document link</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertThisDocumentLink">
+            <summary>
+            phrase: Insert this document link
+            </summary>
+            <value>Insert this document link</value>
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.Title">
             <summary>
@@ -1814,11 +1832,20 @@
             <param name="contentType">Type of the content.</param>
             <returns></returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CustomFieldsHelpers.GetClassificationPluralTitle(System.Guid)">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CustomFieldsHelpers.GetClassificationPluralTitle(System.Guid,System.String)">
             <summary>
             Gets the classification plural title.
             </summary>
             <param name="taxaId">The taxa identifier.</param>
+            <param name="providerName">Name of the provider.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.CustomFieldsHelpers.GetClassificationTaxonName(System.Guid,System.String)">
+            <summary>
+            Gets the classification taxon name.
+            </summary>
+            <param name="taxaId">The taxa identifier.</param>
+            <param name="providerName">Name of the provider.</param>
             <returns></returns>
         </member>
         <member name="T:ASP.PartialExtensions">

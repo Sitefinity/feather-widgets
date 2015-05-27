@@ -66,23 +66,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
                 return FlatTaxonomyController.WidgetIconCssClass;
             }
         }
-        #endregion
-
-        #region Actions
-        /// <summary>
-        /// Default Action
-        /// </summary>
-        /// <returns>
-        /// The <see cref="ActionResult"/>.
-        /// </returns>
-        public ActionResult Index()
-        {
-            var viewModel = this.Model.CreateViewModel();
-            
-            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
-            
-            return this.View(fullTemplateName, viewModel);
-        }
 
         /// <summary>
         /// Indicates if the control is empty.
@@ -109,6 +92,33 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
             }
         }
 
+        #endregion
+
+        #region Actions
+        /// <summary>
+        /// Default Action
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        public ActionResult Index()
+        {
+            var viewModel = this.Model.CreateViewModel();
+            
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+            
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+       
         /// <summary>
         /// Gets the resource.
         /// </summary>
