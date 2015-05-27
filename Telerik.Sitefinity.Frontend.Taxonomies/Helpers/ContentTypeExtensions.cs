@@ -14,7 +14,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Helpers
         {
             { "NewsItem", new StaticType() {TypeName = "Telerik.Sitefinity.News.Model.NewsItem", ModuleName = "News" }},
             { "BlogPost", new StaticType() {TypeName = "Telerik.Sitefinity.Blogs.Model.BlogPost", ModuleName = "Blogs" } },
-            { "Blog", new StaticType() {TypeName = "Telerik.Sitefinity.Blogs.Model.Blog", ModuleName = "Blogs" } },
             { "Image", new StaticType() {TypeName = "Telerik.Sitefinity.Libraries.Model.Image", ModuleName = "Libraries" } },
             { "Document", new StaticType() {TypeName = "Telerik.Sitefinity.Libraries.Model.Document", ModuleName = "Libraries" } },
             { "Video", new StaticType() {TypeName = "Telerik.Sitefinity.Libraries.Model.Video", ModuleName = "Libraries" } },

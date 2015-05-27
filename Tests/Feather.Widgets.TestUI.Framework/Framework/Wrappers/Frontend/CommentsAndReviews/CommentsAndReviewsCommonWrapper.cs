@@ -145,5 +145,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             bool isPresent = alertMessageOnPage.InnerText.Contains(errorMessage);
             Assert.IsTrue(isPresent);
         }
+
+        /// <summary>
+        /// Verify text area is not visible.
+        /// </summary>
+        public void VerifyTextAreaIsNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNull("Leave a comment");
+        }
     }
 }
