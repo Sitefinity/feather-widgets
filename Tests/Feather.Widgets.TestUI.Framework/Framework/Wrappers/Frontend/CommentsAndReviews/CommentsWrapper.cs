@@ -39,29 +39,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Type a comment.
-        /// </summary>
-        /// <param name="commentBody">Comment body.</param>
-        public void TypeAComment(string commentBody)
-        {
-            ActiveBrowser.RefreshDomTree();
-
-            HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea
-                .AssertIsPresent("Leave acomment area");
-
-            editable.ScrollToVisible();
-            editable.Focus();
-            editable.MouseClick();
-
-            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
-            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
-            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
-            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
-
-            Manager.Current.Desktop.KeyBoard.TypeText(commentBody);
-        }
-
-        /// <summary>
         /// Type your name.
         /// </summary>
         /// <param name="yourName">Your name.</param>
@@ -104,17 +81,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Click submit button
-        /// </summary>
-        public void ClickSubmitButton()
-        {
-            HtmlButton submitButton = this.EM.CommentsAndReviews.CommentsFrontend.SubmitButton
-            .AssertIsPresent("Submit button");
-            submitButton.Click();
-            ActiveBrowser.WaitUntilReady();
-        }
-
-        /// <summary>
         /// Verify comments author and content
         /// </summary>
         /// <param name="commentsAuthor">Comments author</param>
@@ -133,18 +99,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
                 Assert.AreEqual(commentsAuthor[i], allCommentsDivs[i].ChildNodes[0].InnerText);
                 Assert.AreEqual(commentsContent[i], allCommentsDivs[i].ChildNodes[2].InnerText);
             }
-        }
-
-        /// <summary>
-        /// Verify allert message
-        /// </summary>
-        /// <param name="alertMessage">Expected allert message</param>
-        public void VerifyAlertMessageOnTheFrontend(string alertMessage)
-        {
-            HtmlDiv alertMessageOnPage = this.EM.CommentsAndReviews.CommentsFrontend.AlertWarningDiv
-                .AssertIsPresent("Alert message");
-            bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
-            Assert.IsTrue(isPresent);
         }
 
         /// <summary>

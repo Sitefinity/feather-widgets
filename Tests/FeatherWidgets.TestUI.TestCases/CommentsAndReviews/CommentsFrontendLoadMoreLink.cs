@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCommentLink();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyLoadMoreLinkIsNotVisible();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(this.commentToNews[0]);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAMessage(this.commentToNews[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickLoadMoreLink();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(CommentsCountNew);

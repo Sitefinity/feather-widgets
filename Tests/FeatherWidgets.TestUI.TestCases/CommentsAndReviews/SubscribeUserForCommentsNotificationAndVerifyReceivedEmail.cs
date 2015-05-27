@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAComment(NewCommentToPage);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAMessage(NewCommentToPage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(NewUser);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyMessageReceived");
