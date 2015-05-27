@@ -37,7 +37,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.ChangePassword
         /// The repeat password.
         /// </value>
         [Required(ErrorMessage = "ChangePasswordRequiredErrorMessage")]
-        [Compare("NewPassword", ErrorMessage = "ChangePasswordNonMatchingPasswordsMessage")]
+        [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "ChangePasswordNonMatchingPasswordsMessage")]
         public string RepeatPassword { get; set; }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.StringResources;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes;
 
 namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
 {
@@ -86,7 +85,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration
         /// <value>
         /// The retyped password.
         /// </value>
-        [Compare("Password")]
+        [System.Web.Mvc.Compare("Password")]
         [Display(Name = "ReTypePassword", ResourceType = typeof(RegistrationStaticResources))]
         public string ReTypePassword { get; set; }
 
