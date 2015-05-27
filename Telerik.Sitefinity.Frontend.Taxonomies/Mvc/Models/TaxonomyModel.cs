@@ -756,7 +756,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private PropertyDescriptor fieldPropertyDescriptor;
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
-        private const string DefaultSortExpression = "LastModified DESC";
+        private const string DefaultSortExpression = "Title ASC";
         private const string DefaultContentType = "Telerik.Sitefinity.News.Model.NewsItem";
         private string contentTypeName = DefaultContentType;
         private string dynamicContentTypeName;

@@ -3,7 +3,7 @@
     designer.requires.push('expander', 'sfSelectors');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
-        var sortOptions = ['PublicationDate DESC', 'LastModified DESC', 'Title ASC', 'Title DESC', 'AsSetManually'];
+        var sortOptions = ['Title ASC', 'Title DESC', 'AsSetManually'];
         var emptyGuid = '00000000-0000-0000-0000-000000000000';
         var defaultDynamicNamespace = "Telerik.Sitefinity.DynamicTypes.Model";
         $scope.taxonSelector = { selectedItemsIds: [] };
@@ -81,6 +81,12 @@
                     else if ($scope.properties.TaxaToDisplay.PropertyValue === 'Selected') {
                         $scope.properties.DynamicContentTypeName.PropertyValue =
                             $scope.properties.ContentTypeName.PropertyValue = null;
+                    }
+
+                    // If the sorting expression is AsSetManually but the selection mode is All or UsedByContentType, this is not a valid combination.
+                    // So set the sort expression to the default value: PublicationDate DESC
+                    if ($scope.properties.TaxaToDisplay.PropertyValue !== 'Selected' && $scope.properties.SortExpression.PropertyValue === "AsSetManually") {
+                        $scope.properties.SortExpression.PropertyValue = "Title ASC";
                     }
                 });
             })
