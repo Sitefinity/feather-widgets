@@ -44,5 +44,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Find.AllByExpression<HtmlDiv>("tagName=div", "class=media-body sf-media-body");
             }
         }
+
+        /// <summary>
+        /// Gets alert warning div.
+        /// </summary>
+        public HtmlDiv AlertWarningDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=^alert alert-warning sf-");
+            }
+        }
     }
 }

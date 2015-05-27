@@ -61,5 +61,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             HtmlSpan actualRaiting = averageDiv.Find.ByExpression<HtmlSpan>("tagname=span", "class=text-muted sf-Ratings-average");
             Assert.AreEqual(expectedRaiting, actualRaiting.InnerText, "Expected raitng and actual raiting");
         }
+
+        /// <summary>
+        /// Verify allert message
+        /// </summary>
+        /// <param name="alertMessage">Expected allert message</param>
+        public void VerifyAlertMessageOnTheFrontendNotLoggedUser(string alertMessage)
+        {
+            HtmlDiv alertMessageOnPage = this.EM.CommentsAndReviews.ReviewsFrontend.AlertWarningDiv
+                .AssertIsPresent("Alert message");
+            bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
+            Assert.IsTrue(isPresent);
+        }
     }
 }
