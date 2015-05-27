@@ -19,5 +19,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Determines whether to display number of items classified by the taxon.
         /// </summary>
         public bool ShowItemCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Taxonomy widget (if such is presented).
+        /// </summary>
+        /// <value>The CSS class.</value>
+        public string CssClass { get; set; }
     }
 }

@@ -63,6 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         {
             var viewModel = new TaxonomyViewModel();
             viewModel.ShowItemCount = this.ShowItemCount;
+            viewModel.CssClass = this.CssClass;
 
             if (this.ContentId != Guid.Empty)
             {
