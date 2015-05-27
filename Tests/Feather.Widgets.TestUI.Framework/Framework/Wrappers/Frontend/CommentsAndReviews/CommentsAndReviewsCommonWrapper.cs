@@ -69,5 +69,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
             Assert.IsTrue(isPresent);
         }
+
+        /// <summary>
+        /// Asserts comments and reviews count
+        /// </summary>
+        public void AssertExpectedCount(string expectedCount)
+        {
+            HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment.AssertIsPresent("Comments count link");
+            bool isPresent = commentLink.InnerText.Contains(expectedCount);
+            Assert.IsTrue(isPresent);
+        }
+
+        /// <summary>
+        /// Click count link
+        /// </summary>
+        public void ClickCountLink()
+        {
+            HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment
+                .AssertIsPresent("Comments count link");
+
+            commentLink.Wait.ForVisible();
+            commentLink.ScrollToVisible();
+            commentLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
     }
 }
