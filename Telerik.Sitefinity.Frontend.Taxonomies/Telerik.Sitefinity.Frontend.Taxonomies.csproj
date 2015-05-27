@@ -138,6 +138,7 @@
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FlatTaxonomyController.cs" />
     <Compile Include="Mvc\Controllers\HierarchicalTaxonomyController.cs" />
+    <Compile Include="Mvc\Models\DesignerModelHelper.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxaToDisplay.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\IFlatTaxonomyModel.cs" />
