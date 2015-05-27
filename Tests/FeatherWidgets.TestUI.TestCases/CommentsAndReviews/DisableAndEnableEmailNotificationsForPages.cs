@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeToNewCommentLinksIsNotVisible();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeLinksIsNotVisible(SubscribeToNewComments);
 
             BAT.Arrange(this.TestName).ExecuteArrangement("EnableEmailNotifications");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
@@ -37,14 +37,14 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeToNewCommentLinksIsNotVisible();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeLinksIsNotVisible(SubscribeToNewComments);
 
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteArrangement("DisableEmailNotifications");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeToNewCommentLinksIsNotVisible();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeLinksIsNotVisible(SubscribeToNewComments);
         }
 
         /// <summary>
@@ -68,5 +68,6 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private string[] commentToPage = { "Comment to page published comment" };
         private string[] commentAuthor = { "admin" };
         private const string CommentsCount = "1comment";
+        private const string SubscribeToNewComments = "Subscribe to new comments";
     }
 }

@@ -153,5 +153,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNull("Leave a comment");
         }
+
+        /// <summary>
+        /// Verify subscribe link is not visible
+        /// </summary>
+        public void VerifySubscribeLinksIsNotVisible(string subscribeMessage)
+        {
+            ActiveBrowser.RefreshDomTree();
+            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(subscribeMessage), "Subscribe link is presented");
+        }
+
+        /// <summary>
+        /// Verify unsubscribe link is present
+        /// </summary>
+        public void VerifyUnsubscribeLinksIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.UnsubscribeLink.AssertIsPresent("Unsubscribe link");
+        }
     }
 }
