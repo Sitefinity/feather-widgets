@@ -86,14 +86,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Verify Leave a comment area is not visible.
-        /// </summary>
-        public void VerifyLeaveACommentAreaIsNotVisible()
-        {
-            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNull("Leave a comment"); 
-        }
-
-        /// <summary>
         /// Verify subscribe for new comment is not visible
         /// </summary>
         public void VerifySubscribeToNewCommentLinksIsNotVisible()
