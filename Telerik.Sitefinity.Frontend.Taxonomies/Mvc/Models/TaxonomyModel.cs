@@ -307,10 +307,14 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             var selectedTaxaGuids = this.selectedTaxaIds.Select(id => new Guid(id));
 
-            var taxa = this.Sort(CurrentTaxonomyManager.GetTaxa<T>()
-                                                       .Where(t => selectedTaxaGuids.Contains(t.Id)))
-                           .ToList()
-                           .OrderBy(i => this.selectedTaxaIds.IndexOf(i.Id.ToString()));
+            var taxa = (IEnumerable<Taxon>)this.Sort(
+                CurrentTaxonomyManager.GetTaxa<T>()
+                    .Where(t => selectedTaxaGuids.Contains(t.Id)));
+
+            if (this.SortExpression == "AsSetManually")
+            {
+                taxa = taxa.OrderBy(t => this.selectedTaxaIds.IndexOf(t.Id.ToString()));
+            }
 
             var statistics = this.GetTaxonomyStatistics();
 
