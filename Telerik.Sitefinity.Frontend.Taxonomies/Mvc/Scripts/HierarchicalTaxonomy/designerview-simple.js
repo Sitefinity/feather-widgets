@@ -82,6 +82,12 @@
                         $scope.properties.DynamicContentTypeName.PropertyValue =
                             $scope.properties.ContentTypeName.PropertyValue = null;
                     }
+
+                    // If the sorting expression is AsSetManually but the selection mode is All or UsedByContentType, this is not a valid combination.
+                    // So set the sort expression to the default value: PublicationDate DESC
+                    if ($scope.properties.TaxaToDisplay.PropertyValue !== 'Selected' && $scope.properties.SortExpression.PropertyValue === "AsSetManually") {
+                        $scope.properties.SortExpression.PropertyValue = "LastModified DESC";
+                    }
                 });
             })
             .finally(function () {
