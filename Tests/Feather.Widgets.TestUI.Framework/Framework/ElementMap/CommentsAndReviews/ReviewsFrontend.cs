@@ -55,5 +55,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlDiv>("tagname=div", "class=^alert alert-warning sf-");
             }
         }
+
+        /// <summary>
+        /// Gets subscribe to new review
+        /// </summary>
+        public HtmlSpan SubscribeToNewReview
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Subscribe to new reviews");
+            }
+        }
+
+        /// <summary>
+        /// Gets successfully subscribed message to new review
+        /// </summary>
+        public HtmlSpan SuccessfulySubscribedMessage
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=You are successfully subscribed to new reviews");
+            }
+        }
     }
 }
