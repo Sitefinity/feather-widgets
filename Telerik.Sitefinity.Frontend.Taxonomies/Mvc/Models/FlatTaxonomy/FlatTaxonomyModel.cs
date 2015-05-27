@@ -34,7 +34,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// <returns></returns>
         public override TaxonomyViewModel CreateViewModel()
         {
-            var viewModel = new TaxonomyViewModel { ShowItemCount = this.ShowItemCount };
+            var viewModel = new TaxonomyViewModel 
+            { 
+                ShowItemCount = this.ShowItemCount, 
+                CssClass = this.CssClass 
+            };
 
             if (this.ContentId != Guid.Empty)
             {
