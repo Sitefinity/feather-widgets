@@ -15,30 +15,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
     public class CommentsWrapper : CommentsAndReviewsCommonWrapper
     {
         /// <summary>
-        /// Asserts comments count
-        /// </summary>
-        public void AssertCommentsCount(string commentCount)
-        {
-            HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment.AssertIsPresent("Comments count link");
-            bool isPresent = commentLink.InnerText.Contains(commentCount);
-            Assert.IsTrue(isPresent);
-        }
-
-        /// <summary>
-        /// Click comment link
-        /// </summary>
-        public void ClickCommentLink()
-        {
-            HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment
-                .AssertIsPresent("Comments count link");
-
-            commentLink.Wait.ForVisible();
-            commentLink.ScrollToVisible();
-            commentLink.MouseClick();
-            ActiveBrowser.WaitUntilReady();
-        }
-
-        /// <summary>
         /// Type your name.
         /// </summary>
         /// <param name="yourName">Your name.</param>

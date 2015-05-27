@@ -28,8 +28,8 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         public void DeleteNewsItemWithSubmittedComments()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCount(CommentsCount);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCommentLink();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertExpectedCount(CommentsCount);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickCountLink();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToNewsOldest);
             this.VerifyCommentBackend();
             BAT.Arrange(this.TestName).ExecuteArrangement("DeleteNewsByTitle");

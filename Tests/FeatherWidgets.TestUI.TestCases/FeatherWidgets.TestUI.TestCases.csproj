@@ -107,6 +107,8 @@
     <Compile Include="CommentsAndReviews\SubmitCommentForNewsLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForPageLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitReviewForPageLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitReviewsForDynamicItemLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitReviewsForNewsLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
