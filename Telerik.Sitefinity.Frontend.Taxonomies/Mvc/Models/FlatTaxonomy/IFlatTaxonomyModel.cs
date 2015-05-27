@@ -88,6 +88,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         string SortExpression { get; set; }
 
         /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Taxonomy widget (if such is presented).
+        /// </summary>
+        /// <value>The CSS class.</value>
+        string CssClass { get; set; }
+
+        /// <summary>
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>

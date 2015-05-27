@@ -13,7 +13,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Hierarchical taxonomy widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "Categories_MVC", Title = "Categories", SectionName = "Classifications", CssClass = HierarchicalTaxonomyController.WidgetIconCssClass)]
+    [ControllerToolboxItem(Name = "Categories_MVC",
+        Title = "Categories",
+        SectionName = "Classifications",
+        CssClass = HierarchicalTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(HierarchicalTaxonomyResources))]
     public class HierarchicalTaxonomyController : Controller
     {

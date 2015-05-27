@@ -1,10 +1,10 @@
-﻿using ArtOfTest.Common.UnitTesting;
-using ArtOfTest.WebAii.Controls.HtmlControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.Common.UnitTesting;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews
 {
@@ -60,6 +60,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             HtmlDiv averageDiv = this.EM.CommentsAndReviews.CommentsFrontend.MessageAndCountOnPage.AssertIsPresent("Comments count on page");
             HtmlSpan actualRaiting = averageDiv.Find.ByExpression<HtmlSpan>("tagname=span", "class=text-muted sf-Ratings-average");
             Assert.AreEqual(expectedRaiting, actualRaiting.InnerText, "Expected raitng and actual raiting");
+        }
+
+        /// <summary>
+        /// Verify allert message
+        /// </summary>
+        /// <param name="alertMessage">Expected allert message</param>
+        public void VerifyAlertMessageOnTheFrontendNotLoggedUser(string alertMessage)
+        {
+            HtmlDiv alertMessageOnPage = this.EM.CommentsAndReviews.ReviewsFrontend.AlertWarningDiv
+                .AssertIsPresent("Alert message");
+            bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
+            Assert.IsTrue(isPresent);
         }
     }
 }
