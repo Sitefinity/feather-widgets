@@ -81,98 +81,98 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
 
         #region Resources
         /// <summary>
-        /// Phrase: Which categories to display?
+        /// Phrase: Which [taxonomies] to display?
         /// </summary>
-        /// <value>Which categories to display?</value>
-        [ResourceEntry("WhichCategoriesLabel",
-            Value = "Which categories to display?",
-            Description = "Phrase: Which categories to display?",
-            LastModified = "2015/05/22")]
-        public string WhichCategoriesLabel
+        /// <value>Which {0} to display?</value>
+        [ResourceEntry("WhichHierarchicalTaxonomiesLabel",
+            Value = "Which {0} to display?",
+            Description = "Phrase: Which [taxonomies] to display?",
+            LastModified = "2015/05/27")]
+        public string WhichHierarchicalTaxonomiesLabel
         {
             get
             {
-                return this["WhichCategoriesLabel"];
+                return this["WhichHierarchicalTaxonomiesLabel"];
             }
         }
 
         /// <summary>
-        /// Phrase: All categories
+        /// Phrase: All [taxonomies]
         /// </summary>
-        /// <value>All categories</value>
-        [ResourceEntry("AllCategories",
-            Value = "All categories",
-            Description = "Phrase: All categories",
-            LastModified = "2015/05/22")]
-        public string AllCategories
+        /// <value>All {0}</value>
+        [ResourceEntry("AllHierarchicalTaxonomies",
+            Value = "All {0}",
+            Description = "Phrase: All [taxonomies]",
+            LastModified = "2015/05/27")]
+        public string AllHierarchicalTaxonomies
         {
             get
             {
-                return this["AllCategories"];
+                return this["AllHierarchicalTaxonomies"];
             }
         }
 
         /// <summary>
-        /// Phrase: Top level categories only
+        /// Phrase: Top level [taxonomies] only
         /// </summary>
-        /// <value>Top level categories only</value>
-        [ResourceEntry("TopLevelCategories",
-            Value = "Top level categories only",
-            Description = "Phrase: Top level categories only",
-            LastModified = "2015/05/22")]
-        public string TopLevelCategories
+        /// <value>Top level {0} only</value>
+        [ResourceEntry("TopLevelHierarchicalTaxonomies",
+            Value = "Top level {0} only",
+            Description = "Phrase: Top level [taxonomies] only",
+            LastModified = "2015/05/27")]
+        public string TopLevelHierarchicalTaxonomies
         {
             get
             {
-                return this["TopLevelCategories"];
+                return this["TopLevelHierarchicalTaxonomies"];
             }
         }
 
         /// <summary>
-        /// Phrase: All categories under particular category...
+        /// Phrase: All [taxonomies] under particular [taxonomy]...
         /// </summary>
-        /// <value>All categories under particular category...</value>
-        [ResourceEntry("UnderParticularCategory",
-            Value = "All categories under particular category...",
-            Description = "Phrase: All categories under particular category...",
-            LastModified = "2015/05/22")]
-        public string UnderParticularCategory
+        /// <value>All {0} under particular {1}...</value>
+        [ResourceEntry("UnderParticularHierarchicalTaxonomies",
+            Value = "All {0} under particular {1}...",
+            Description = "Phrase: All [taxonomies] under particular [taxonomy]...",
+            LastModified = "2015/05/27")]
+        public string UnderParticularHierarchicalTaxonomies
         {
             get
             {
-                return this["UnderParticularCategory"];
+                return this["UnderParticularHierarchicalTaxonomies"];
             }
         }
 
         /// <summary>
-        /// Phrase: Selected categories...
+        /// Phrase: Selected [taxonomies]...
         /// </summary>
-        /// <value>Selected categories...</value>
-        [ResourceEntry("SelectedCategories",
-            Value = "Selected categories...",
-            Description = "Phrase: Selected categories...",
-            LastModified = "2015/05/22")]
-        public string SelectedCategories
+        /// <value>Selected {0}...</value>
+        [ResourceEntry("SelectedHierachicalTaxonomies",
+            Value = "Selected {0}...",
+            Description = "Phrase: Selected [taxonomies]...",
+            LastModified = "2015/05/27")]
+        public string SelectedHierachicalTaxonomies
         {
             get
             {
-                return this["SelectedCategories"];
+                return this["SelectedHierachicalTaxonomies"];
             }
         }
 
         /// <summary>
-        /// Phrase: Only categories used by content type...
+        /// Phrase: Only [taxonomies] used by content type...
         /// </summary>
-        /// <value>Only categories used by content type...</value>
-        [ResourceEntry("ContentTypeCategories",
-            Value = "Only categories used by content type...",
-            Description = "Phrase: Only categories used by content type...",
-            LastModified = "2015/05/22")]
-        public string ContentTypeCategories
+        /// <value>Only {0} used by content type...</value>
+        [ResourceEntry("ContentTypeHierarchicalTaxonomies",
+            Value = "Only {0} used by content type...",
+            Description = "Phrase: Only [taxonomies] used by content type...",
+            LastModified = "2015/05/27")]
+        public string ContentTypeHierarchicalTaxonomies
         {
             get
             {
-                return this["ContentTypeCategories"];
+                return this["ContentTypeHierarchicalTaxonomies"];
             }
         }
 
@@ -193,18 +193,18 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: Show empty categories
+        /// Phrase: Show empty [taxonomies]
         /// </summary>
-        /// <value>Show empty categories</value>
-        [ResourceEntry("ShowEmptyCategories",
-            Value = "Show empty categories",
-            Description = "Phrase: Show empty categories",
-            LastModified = "2015/05/22")]
-        public string ShowEmptyCategories
+        /// <value>Show empty {0}</value>
+        [ResourceEntry("ShowEmptyHierarchicalTaxonomies",
+            Value = "Show empty {0}",
+            Description = "Phrase: Show empty [taxonomies]",
+            LastModified = "2015/05/27")]
+        public string ShowEmptyHierarchicalTaxonomies
         {
             get
             {
-                return this["ShowEmptyCategories"];
+                return this["ShowEmptyHierarchicalTaxonomies"];
             }
         }
 
@@ -376,6 +376,22 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
             get
             {
                 return this["Settings"];
+            }
+        }
+
+        /// <summary>
+        /// Phrase: Select [taxonomies]
+        /// </summary>
+        /// <value>Select {0}</value>
+        [ResourceEntry("SelectTaxonomiesHeader",
+            Value = "Select {0}",
+            Description = "Phrase: Select [taxonomies]",
+            LastModified = "2015/05/27")]
+        public string SelectTaxonomiesHeader
+        {
+            get
+            {
+                return this["SelectTaxonomiesHeader"];
             }
         }
     }
