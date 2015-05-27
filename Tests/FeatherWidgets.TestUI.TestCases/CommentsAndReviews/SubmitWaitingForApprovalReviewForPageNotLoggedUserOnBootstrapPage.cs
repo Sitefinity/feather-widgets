@@ -12,37 +12,45 @@ using Telerik.Sitefinity.TestUI.Framework.Wrappers.Backend;
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
     /// <summary>
-    /// SubmitReviewForPageLoggedUserOnBootstrapPage test class.
+    /// SubmitWaitingForApprovalReviewForPageNotLoggedUserOnBootstrapPage test class.
     /// </summary>
     [TestClass]
-    public class SubmitReviewForPageLoggedUserOnBootstrapPage_ : FeatherTestCase
+    public class SubmitWaitingForApprovalReviewForPageNotLoggedUserOnBootstrapPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SubmitReviewForPageLoggedUserOnBootstrapPage
+        /// UI test SubmitWaitingForApprovalReviewForPageNotLoggedUserOnBootstrapPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void SubmitReviewForPageLoggedUserOnBootstrapPage()
+        public void SubmitWaitingForApprovalReviewForPageNotLoggedUserOnBootstrapPage()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeAMessage(this.reviewsToPage[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickRaitingStar(Raiting);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeYourName(this.reviewAuthor[0]);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeEmailAddress(this.reviewAuthorEmail[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickSubmitButton();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontendNotLoggedUser(AllertMessageWaiting);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
+            this.VerifyCommentBackend();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyReviewsAuthorRaitingAndContent(this.reviewAuthor, this.reviewsToPage, this.reviewRaiting);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAverageRaiting(this.reviewRaiting[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewsCount);
-            this.VerifyCommentBackend();
         }
 
         public void VerifyCommentBackend()
         {
+            BAT.Macros().User().EnsureAdminLoggedIn();
+
             BAT.Macros().NavigateTo().Modules().Comments();
             ActiveBrowser.WaitForAsyncJQueryRequests();
             ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
+            manageComments.VerifyCommentBackend(ReviewsStatusWaiting, this.reviewsToPage[0], this.reviewAuthor[0], PageName);
+            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).ClickPublishCommentLink(this.reviewsToPage[0]);
             manageComments.VerifyCommentBackend(ReviewsStatus, this.reviewsToPage[0], this.reviewAuthor[0], PageName);
         }
 
@@ -51,7 +59,6 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
@@ -65,12 +72,15 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         private const string PageName = "ReviewsPage";
         private string[] reviewsToPage = { "Reviews to page" };
-        private string[] reviewAuthor = { "admin" };
+        private string[] reviewAuthor = { "New user" };
+        private string[] reviewAuthorEmail = { "newuser@test.com" };
         private string[] reviewRaiting = { "(3)" };
         private const int Raiting = 3;
         private const string ReviewsStatus = "Published";
         private const string ReviewsCount = "1 review";
         private const string ReviewMessage = "Write a review";
         private const string AllertMessage = "Thank you! Your review has been submitted successfully";
+        private const string ReviewsStatusWaiting = "Waiting for approval";
+        private const string AllertMessageWaiting = "Thank you for the review! Your review must be approved first";
     }
 }
