@@ -146,7 +146,7 @@
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5777.0\lib\net40\Telerik.Sitefinity.Services.Statistics.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities">
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.8.0.5777.0\lib\net45\Telerik.Sitefinity.TestUtilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.8.0.5777.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Utilities">
       <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5777.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
