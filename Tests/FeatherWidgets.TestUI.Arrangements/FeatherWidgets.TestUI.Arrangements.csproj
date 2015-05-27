@@ -126,8 +126,10 @@
     <Compile Include="CommentsAndReviews\CommentsFrontendShowOldestAndNewestOptions.cs" />
     <Compile Include="CommentsAndReviews\DisableAndEnableEmailNotificationsForPages.cs" />
     <Compile Include="CommentsAndReviews\DisableCommentsForPage.cs" />
+    <Compile Include="CommentsAndReviews\DisableReviewsForPage.cs" />
     <Compile Include="CommentsAndReviews\EditCommentWidgetAndCloseCommentsForPage.cs" />
     <Compile Include="CommentsAndReviews\DeleteNewsItemWithSubmittedComments.cs" />
+    <Compile Include="CommentsAndReviews\EditReviewsWidgetAndCloseReviewsForPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForDynamicItemLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForNewsLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForPageLoggedUserOnBootstrapPage.cs" />
