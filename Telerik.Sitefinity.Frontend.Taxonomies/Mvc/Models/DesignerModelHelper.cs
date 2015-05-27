@@ -41,5 +41,33 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 return hierarchicalTaxonomyController.Model.TaxonomyId;
             }
         }
+
+        /// <summary>
+        /// Gets the name of the taxonomy provider from the model of the control.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns></returns>
+        public static string GetTaxonomyProviderName(this Control control)
+        {
+            var mvcProxy = control as MvcControllerProxy;
+            if (mvcProxy == null)
+                throw new ArgumentException("This method should be used for control designers of Tags and Categories MVC widgets.");
+
+            var flatTaxonomyController = mvcProxy.Controller as FlatTaxonomyController;
+            var hierarchicalTaxonomyController = mvcProxy.Controller as HierarchicalTaxonomyController;
+            if (flatTaxonomyController == null && hierarchicalTaxonomyController == null)
+            {
+                throw new ArgumentException("This method should be used for MVC Tags and Categories designers only.");
+            }
+
+            if (flatTaxonomyController != null)
+            {
+                return flatTaxonomyController.Model.TaxonomyProviderName;
+            }
+            else
+            {
+                return hierarchicalTaxonomyController.Model.TaxonomyProviderName;
+            }
+        }
     }
 }

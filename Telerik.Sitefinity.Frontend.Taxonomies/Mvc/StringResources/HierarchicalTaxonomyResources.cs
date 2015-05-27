@@ -209,18 +209,18 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         }
 
         /// <summary>
-        /// Phrase: Sort categories
+        /// Phrase: Sort [taxonomies]
         /// </summary>
-        /// <value>Sort categories</value>
-        [ResourceEntry("SortCategoriesLabel",
-            Value = "Sort categories",
-            Description = "Phrase: Sort categories",
-            LastModified = "2015/05/22")]
-        public string SortCategoriesLabel
+        /// <value>Sort {0}</value>
+        [ResourceEntry("SortHierarchicalTaxonomiesLabel",
+            Value = "Sort {0}",
+            Description = "Phrase: Sort [taxonomies]",
+            LastModified = "2015/05/27")]
+        public string SortHierarchicalTaxonomiesLabel
         {
             get
             {
-                return this["SortCategoriesLabel"];
+                return this["SortHierarchicalTaxonomiesLabel"];
             }
         }
 

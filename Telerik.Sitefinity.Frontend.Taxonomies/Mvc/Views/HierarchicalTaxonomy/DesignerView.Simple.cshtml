@@ -6,6 +6,10 @@
 
 @Html.QueryBuilderScriptReferences()
 
+@{
+    string classificationPluralTitle = CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId(), Model.GetTaxonomyProviderName()).ToLower();
+}
+
 <div class="form-group nav-wrapper" ng-init="selectedTab='content'">
 	<ul class="nav nav-tabs">
       <li role="presentation" ng-class="{active: selectedTab==='content' }" ng-click="selectedTab = 'content'"><a>@Html.Resource("Content")</a></li>
@@ -14,31 +18,31 @@
 </div>
 
 <div class="form-group" ng-show="selectedTab === 'content'">
-    <strong>@Html.Resource("WhichHierarchicalTaxonomiesLabel").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower())</strong>
+    <strong>@Html.Resource("WhichHierarchicalTaxonomiesLabel").Arrange(classificationPluralTitle)</strong>
     <div class="radio">
         <label for="allCategories">
             <input id="allCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="All" />
-            @Html.Resource("AllHierarchicalTaxonomies").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower())
+            @Html.Resource("AllHierarchicalTaxonomies").Arrange(classificationPluralTitle)
         </label>
     </div>
 
     <div class="radio">
         <label for="topCategories">
             <input id="topCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="TopLevel" />
-            @Html.Resource("TopLevelHierarchicalTaxonomies").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower())
+            @Html.Resource("TopLevelHierarchicalTaxonomies").Arrange(classificationPluralTitle)
         </label>
     </div>
 
     <div class="radio">
         <label for="underParticular">
             <input id="underParticular" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="UnderParticularTaxon" />
-            @Html.Resource("UnderParticularHierarchicalTaxonomies").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower(),
-                                @CustomFieldsHelpers.GetClassificationTaxonName(Model.GetTaxonomyId()).ToLower())
+            @Html.Resource("UnderParticularHierarchicalTaxonomies").Arrange(classificationPluralTitle,
+                                CustomFieldsHelpers.GetClassificationTaxonName(Model.GetTaxonomyId(), Model.GetTaxonomyProviderName()).ToLower())
         </label>
 
         <div ng-show="properties.TaxaToDisplay.PropertyValue === 'UnderParticularTaxon'">
             <sf-list-selector sf-hierarchical-taxon-selector
-                              sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower())"
+                              sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(classificationPluralTitle)"
                               sf-selected-item-id="properties.RootTaxonId.PropertyValue"
                               sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
                               class="sf-filter-selector">
@@ -49,14 +53,14 @@
     <div class="radio">
         <label for="selectedCategories">
             <input id="selectedCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="Selected" />
-            @Html.Resource("SelectedHierachicalTaxonomies").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower())
+            @Html.Resource("SelectedHierachicalTaxonomies").Arrange(classificationPluralTitle)
         </label>
         
         <div ng-show="properties.TaxaToDisplay.PropertyValue === 'Selected'">
             <sf-list-selector sf-hierarchical-taxon-selector
                               sf-sortable="true"
                               sf-multiselect="true"
-                              sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower())"
+                              sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(classificationPluralTitle)"
                               sf-selected-ids="taxonSelector.selectedItemsIds"
                               sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
                               class="sf-filter-selector">
@@ -68,7 +72,7 @@
     <div class="radio">
         <label for="contentCategories">
             <input id="contentCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="UsedByContentType" />
-            @Html.Resource("ContentTypeHierarchicalTaxonomies").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower())
+            @Html.Resource("ContentTypeHierarchicalTaxonomies").Arrange(classificationPluralTitle)
         </label>
         <select class="form-control"
                 ng-model="proxyContentTypeName"
@@ -93,14 +97,14 @@
         <label for="showEmpty">
             <input id="showEmpty" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue"
                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowEmptyTaxa.PropertyValue === 'True'" />
-            @Html.Resource("ShowEmptyHierarchicalTaxonomies").Arrange(@CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId()).ToLower())
+            @Html.Resource("ShowEmptyHierarchicalTaxonomies").Arrange(classificationPluralTitle)
         </label>
     </div>
 
     <div class="form-group">
         <div class="row">
             <div class="col-xs-6">
-                <label for="sortOptions">@Html.Resource("SortCategoriesLabel")</label>
+                <label for="sortOptions">@Html.Resource("SortHierarchicalTaxonomiesLabel").Arrange(classificationPluralTitle)</label>
 
                 <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
                     <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
