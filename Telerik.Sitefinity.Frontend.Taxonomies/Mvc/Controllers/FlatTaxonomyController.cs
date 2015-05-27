@@ -15,8 +15,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Flat taxonomy widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "FlatTaxonomy_MVC",
-        Title = "FlatTaxonomy", 
+    [ControllerToolboxItem(Name = "Tags_MVC",
+        Title = "Tags",
         SectionName = "Classifications",
         CssClass = FlatTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(FlatTaxonomyResources))]

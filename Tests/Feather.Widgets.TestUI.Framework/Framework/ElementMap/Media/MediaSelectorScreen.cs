@@ -77,7 +77,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.MediaSelectorModalDialog.Find.ByExpression<HtmlButton>("tagname=button", "InnerText=Done");
+                return this.MediaSelectorModalDialog.Find.ByExpression<HtmlButton>("tagname=button", "InnerText=Done selecting");
             }
         }
 
