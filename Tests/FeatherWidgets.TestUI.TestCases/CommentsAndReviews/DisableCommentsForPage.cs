@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Arrange(this.TestName).ExecuteArrangement("DisableComments");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(this.commentToPage[0]), "Comments is presented");
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyLeaveACommentAreaIsNotVisible();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyTextAreaIsNotVisible();
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, string.Empty);
