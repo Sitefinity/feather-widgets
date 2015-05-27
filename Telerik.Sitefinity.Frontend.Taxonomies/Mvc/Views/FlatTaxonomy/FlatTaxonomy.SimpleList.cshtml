@@ -1,15 +1,15 @@
 ﻿@model Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.TaxonomyViewModel
 
-<ul>
+<div class="@Model.CssClass">
     @foreach (var taxa in Model.Taxa)
     {
-        <li>
+        <p>
             <a href="@taxa.Url">@taxa.Title</a>
 
             @if (Model.ShowItemCount)
             {
               @:(@taxa.Count)
             }
-        </li>
+        </p>
     }
-</ul>
+</div>
