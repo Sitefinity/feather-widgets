@@ -125,6 +125,7 @@
     <Compile Include="CommentsAndReviews\CommentsFrontendLoadMoreLink.cs" />
     <Compile Include="CommentsAndReviews\CommentsFrontendShowOldestAndNewestOptions.cs" />
     <Compile Include="CommentsAndReviews\DisableAndEnableEmailNotificationsForPages.cs" />
+    <Compile Include="CommentsAndReviews\DisableAndEnableEmailNotificationsForReviewsForPages.cs" />
     <Compile Include="CommentsAndReviews\DisableCommentsForPage.cs" />
     <Compile Include="CommentsAndReviews\DisableReviewsForPage.cs" />
     <Compile Include="CommentsAndReviews\EditCommentWidgetAndCloseCommentsForPage.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalCommentForPageNotLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalReviewForPageNotLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.cs" />
+    <Compile Include="CommentsAndReviews\SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInReviewsWidgetOnFrontend.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />

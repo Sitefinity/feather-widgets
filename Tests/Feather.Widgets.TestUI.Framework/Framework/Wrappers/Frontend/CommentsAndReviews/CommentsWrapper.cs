@@ -86,15 +86,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Verify subscribe for new comment is not visible
-        /// </summary>
-        public void VerifySubscribeToNewCommentLinksIsNotVisible()
-        {
-            ActiveBrowser.RefreshDomTree();
-            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe to new comments"), "Subscribe to new comments is presented");
-        }
-
-        /// <summary>
         /// Verify subscribe for new comment is present
         /// </summary>
         public void VerifySubscribeToNewCommentLinksIsPresent()
@@ -119,14 +110,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         public void VerifySuccessfullySubscribedMessageIsPresent()
         {
             this.EM.CommentsAndReviews.CommentsFrontend.SuccessfulySubscribedMessage.AssertIsPresent("Successfully subscribe to new comment");
-        }
-
-        /// <summary>
-        /// Verify unsubscribe link is present
-        /// </summary>
-        public void VerifyUnsubscribeLinksIsPresent()
-        {
-            this.EM.CommentsAndReviews.CommentsFrontend.UnsubscribeLink.AssertIsPresent("Unsubscribe link");
         }
     }
 }
