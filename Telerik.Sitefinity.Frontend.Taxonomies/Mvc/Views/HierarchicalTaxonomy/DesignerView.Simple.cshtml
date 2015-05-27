@@ -107,7 +107,6 @@
                 <label for="sortOptions">@Html.Resource("SortHierarchicalTaxonomiesLabel").Arrange(classificationPluralTitle)</label>
 
                 <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
-                    <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
                     <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
                     <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
                     <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
