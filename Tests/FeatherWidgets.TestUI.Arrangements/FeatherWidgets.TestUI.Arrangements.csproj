@@ -135,6 +135,7 @@
     <Compile Include="CommentsAndReviews\SubmitReviewsForDynamicItemLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitReviewsForNewsLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalCommentForPageNotLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalReviewForPageNotLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
