@@ -123,7 +123,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         {
             get
             {
-                return this.Get<HtmlDiv>("tagname=div", "class=alert alert-warning");
+                return this.Get<HtmlDiv>("tagname=div", "class=^alert alert-warning");
             }
         }
 
