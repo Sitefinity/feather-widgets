@@ -170,5 +170,36 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             this.EM.CommentsAndReviews.CommentsFrontend.UnsubscribeLink.AssertIsPresent("Unsubscribe link");
         }
+
+        /// <summary>
+        /// Click oldest on top link
+        /// </summary>
+        public void ClickOldestOnTopLink()
+        {
+            HtmlAnchor oldestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop
+                .AssertIsPresent("Oldest on top link");
+            oldestOnTopLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Click newest on top link
+        /// </summary>
+        public void ClickNewestOnTopLink()
+        {
+            HtmlAnchor newestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop
+                .AssertIsPresent("Newest on top link");
+            newestOnTopLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify show oldest and newest on top are not visible
+        /// </summary>
+        public void VerifyShowOldestAndNewstOnTopLinksAreNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop.AssertIsNotVisible("Show newest on top link");
+            this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop.AssertIsNotVisible("Show oldest on top link");
+        }
     }
 }
