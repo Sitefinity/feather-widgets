@@ -152,12 +152,12 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         {
             if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen || this.Model.ShowListViewOnEmpyParentFilter)
             {
-                this.InitializeListViewBag("/{0}");
-
                 ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
 
                 if (taxonFilter != null)
                     this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+                else
+                    this.InitializeListViewBag("/{0}");
 
                 var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
                 if (SystemManager.CurrentHttpContext != null)
