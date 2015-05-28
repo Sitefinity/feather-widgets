@@ -100,5 +100,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             this.EM.CommentsAndReviews.ReviewsFrontend.SuccessfulySubscribedMessage.AssertIsPresent("Successfully subscribe to new review");
         }
+
+        /// <summary>
+        /// Verify text area is not visible.
+        /// </summary>
+        public void VerifyReviewsTextAreaIsNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNotVisible("Write a review");
+        }
     }
 }
