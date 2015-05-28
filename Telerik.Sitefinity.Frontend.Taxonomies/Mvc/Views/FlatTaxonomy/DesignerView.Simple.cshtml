@@ -31,6 +31,7 @@
             <sf-list-selector sf-taxon-selector
                               sf-sortable="true"
                               sf-multiselect="true"
+                              sf-from-current-language-only="true"
                               sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(classificationPluralTitle)"
                               sf-selected-ids="taxonSelector.selectedItemsIds"
                               sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
