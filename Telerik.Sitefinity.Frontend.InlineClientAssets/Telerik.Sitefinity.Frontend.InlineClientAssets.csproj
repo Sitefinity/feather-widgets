@@ -160,6 +160,7 @@
     <EmbeddedResource Include="Mvc\Views\EmbedCode\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\EmbedCode\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\EmbedCode\Index.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\StyleSheet\Index.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

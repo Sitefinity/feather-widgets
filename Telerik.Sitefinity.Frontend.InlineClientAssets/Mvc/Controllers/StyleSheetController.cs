@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -59,26 +60,25 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 
             if (this.ShouldDisplayContent())
             {
-                string encodedMarkup = null;
+                string markup = null;
                 if (!string.IsNullOrEmpty(this.Model.Description))
                 {
-                    return this.Content(this.Model.Description);
+                    markup = this.Model.Description;                  
                 }
                 else if(this.Model.Mode == Models.ResourceMode.Inline)
                 {
-                    var firstLinesContent = this.Model.GetShortInlineStylesEncoded();
-
-                    encodedMarkup = firstLinesContent;
+                    markup = ScriptHelper.GetShortScript(this.Model.InlineStyles);
                 }
                 else if (this.Model.Mode == Models.ResourceMode.Reference)
                 {
-                    encodedMarkup = HttpUtility.HtmlEncode(cssMarkup);
+                    markup = cssMarkup;
                 }
 
-                if (!string.IsNullOrEmpty(encodedMarkup))
+                if (!string.IsNullOrEmpty(markup))
                 {
-                    var includedIn = this.Resource<StyleSheetResources>("IncludedInHead");
-                    return this.Content(encodedMarkup + includedIn);
+                    this.ViewBag.DesignModeContent = markup;
+                    
+                    return this.View();
                 }
             }
 
