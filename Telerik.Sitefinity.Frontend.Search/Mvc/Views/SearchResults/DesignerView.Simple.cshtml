@@ -41,15 +41,18 @@
         <div class="col-xs-6">
             <label for="sortOptions">@Html.Resource("SortResults")</label>
 
-
             <select id="sortOptions" ng-model="properties.OrderBy.PropertyValue" class="form-control">
                 <option value="Relevance"> @Html.Resource("MostRelevant")</option>
                 <option value="Newest"> @Html.Resource("NewestFirst")</option>
                 <option value="Oldest"> @Html.Resource("OldestFirst")</option>
             </select>
 
-            <input id="allowSorting" type="checkbox" ng-true-value="'True'" ng-false-value="'False'" ng-model="properties.AllowSorting.PropertyValue" />
-            <label for="allowSorting">@Html.Resource("AllowUserToSort")</label>
+            <div class="checkbox">
+               <label>
+                   <input type="checkbox" ng-true-value="'True'" ng-false-value="'False'" ng-model="properties.AllowSorting.PropertyValue" />
+                   @Html.Resource("AllowUserToSort")
+               </label>
+            </div>
         </div>
     </div>
 </div>
