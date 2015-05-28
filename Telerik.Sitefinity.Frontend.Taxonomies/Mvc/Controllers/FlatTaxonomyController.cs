@@ -6,19 +6,21 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
 {
     /// <summary>
     /// This class represents the controller of the Flat taxonomy widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "FlatTaxonomy_MVC",
-        Title = "FlatTaxonomy", 
+    [ControllerToolboxItem(Name = "Tags_MVC",
+        Title = "Tags",
         SectionName = "Classifications",
         CssClass = FlatTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(FlatTaxonomyResources))]
-    public class FlatTaxonomyController : Controller
+    public class FlatTaxonomyController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
         /// <summary>
@@ -51,7 +53,45 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
 
                 return this.model;
             }
-        }       
+        }
+
+        /// <summary>
+        /// Gets or sets the Cascading Style Sheet (CSS) class to visualize the widget.
+        /// </summary>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get
+            {
+                return FlatTaxonomyController.WidgetIconCssClass;
+            }
+        }
+
+        /// <summary>
+        /// Indicates if the control is empty.
+        /// </summary>
+        /// <value></value>
+        public bool IsEmpty
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets the text to be shown when the box in the designer is empty
+        /// </summary>
+        /// <value></value>
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get
+            {
+                string value = this.GetResource("Tags");
+
+                return string.Concat("Set ", value);
+            }
+        }
+
         #endregion
 
         #region Actions
@@ -66,21 +106,37 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
             var viewModel = this.Model.CreateViewModel();
             
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
-
+            
             return this.View(fullTemplateName, viewModel);
         }
 
-        #endregion
-
-        #region Private methods
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
        
+        /// <summary>
+        /// Gets the resource.
+        /// </summary>
+        /// <typeparam name="T">The type of the T.</typeparam>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns></returns>
+        protected virtual string GetResource(string resourceName)
+        {
+            return Res.Get(typeof(FlatTaxonomyResources), resourceName);
+        }
+
         #endregion
 
         #region Private fields and constants
         internal const string WidgetIconCssClass = "sfFlatTaxonIcn sfMvcIcn";
         private IFlatTaxonomyModel model;
         private string templateName = "SimpleList";
-        private string templateNamePrefix = "FlatTaxonomy.";
+        private readonly string templateNamePrefix = "FlatTaxonomy.";
         #endregion
     }
 }

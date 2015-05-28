@@ -1,17 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using ServiceStack.Text;
+using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.DynamicModules;
+using Telerik.Sitefinity.DynamicModules.Builder;
+using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Modules.Pages;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
-using System.Reflection;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Web.UrlEvaluation;
-using Telerik.Sitefinity.Pages.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 {
@@ -23,13 +28,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         #region Construction
         public TaxonomyModel()
         {
-            if (!string.IsNullOrEmpty(this.FieldName))
-            {
-                this.InitializeTaxonomyManagerFromFieldName();
-            }
             this.ShowItemCount = true;
             this.SortExpression = DefaultSortExpression;
         }
+
         #endregion
 
         #region ITaxonomyModel implementation
@@ -37,13 +39,45 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets or sets the full name of the static type that taxons associated to will be displayed.
         /// </summary>
         /// <value>The full name of the content type.</value>
-        public string ContentTypeName { get; set; }
+        public string ContentTypeName
+        {
+            get
+            {
+                return this.contentTypeName;
+            }
+            set
+            {
+                this.contentTypeName = value;
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    this.dynamicContentTypeName = string.Empty;
+                    this.contentType = null;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the full name of the dynamic type that taxons associated to will be displayed.
         /// </summary>
         /// <value>The full name of the dynamic content type.</value>
-        public string DynamicContentTypeName { get; set; }
+        public string DynamicContentTypeName
+        {
+            get
+            {
+                return this.dynamicContentTypeName;
+            }
+            set
+            {
+                this.dynamicContentTypeName = value;
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    this.contentTypeName = string.Empty;
+                    this.contentType = null;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the provider of the content type that filters the displayed taxa.
@@ -79,7 +113,21 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets or sets the taxonomy id.
         /// </summary>
         /// <value>The taxonomy id.</value>
-        public Guid TaxonomyId { get; set; }
+        public Guid TaxonomyId
+        {
+            get
+            {
+                return this.taxonomyId;
+            }
+            set
+            {
+                if (this.taxonomyId != value)
+                {
+                    this.taxonomyId = value;
+                    this.taxonomy = null;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the Id of the content item for which the control should display the taxa.
@@ -91,8 +139,22 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// Gets or sets the name of the property that contains the taxonomy.
         /// </summary>
         /// <value>The name of the field.</value>
-        public string FieldName { get; set; }
+        public string FieldName
+        {
+            get
+            {
+                return this.fieldName;
+            }
+            set
+            {
+                this.fieldName = value;
 
+                if (!string.IsNullOrEmpty(this.fieldName))
+                {
+                    this.InitializeTaxonomyManagerFromFieldName();
+                }
+            }
+        }
         /// <summary>
         /// Gets or sets the sort expression.
         /// </summary>
@@ -125,10 +187,24 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         }
 
         /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Taxonomy widget (if such is presented).
+        /// </summary>
+        /// <value>The CSS class.</value>
+        public string CssClass { get; set; }
+
+        /// <summary>
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>
         public abstract TaxonomyViewModel CreateViewModel();
+
+        /// <summary>
+        /// Gets the taxon URL.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <returns></returns>
+        public abstract string GetTaxonUrl(ITaxon taxon);
+
         #endregion
 
         #region Properties
@@ -159,14 +235,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             {
                 if (this.contentType == null)
                 {
+                    string typeName = string.Empty;
                     if (!this.ContentTypeName.IsNullOrWhitespace())
                     {
-                        this.contentType = TypeResolutionService.ResolveType(this.ContentTypeName, false);
+                        typeName = this.ContentTypeName;
                     }
                     else if (!this.DynamicContentTypeName.IsNullOrWhitespace())
                     {
-                        this.contentType = TypeResolutionService.ResolveType(this.DynamicContentTypeName, false);
+                        typeName = this.DynamicContentTypeName;
                     }
+
+                    this.contentType = TypeResolutionService.ResolveType(typeName, false);
                 }
 
                 return this.contentType;
@@ -195,7 +274,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             get
             {
-                if (this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName))
+                if ((this.fieldPropertyDescriptor == null && !string.IsNullOrEmpty(this.FieldName)) || 
+                    (this.fieldPropertyDescriptor != null && this.fieldPropertyDescriptor.Name != this.FieldName))
                 {
                     this.fieldPropertyDescriptor = TypeDescriptor.GetProperties(this.ContentType)[this.FieldName];
                 }
@@ -206,6 +286,20 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
         #region Protected and virtual methods
         /// <summary>
+        /// Gets view models of all available taxa in a flat list.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetAllTaxa<T>() where T : Taxon
+        {
+            var statistics = this.GetTaxonomyStatistics();
+
+            var taxa = this.Sort(CurrentTaxonomyManager.GetTaxa<T>()
+                                                       .Where(t => t.Taxonomy.Id == this.TaxonomyId));
+
+            return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+        }
+
+        /// <summary>
         /// Gets the taxa view models for each taxon by using the provided ids of taxons that we want explicitly to be shown by the widget.
         /// </summary>
         /// <returns></returns>
@@ -213,8 +307,14 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             var selectedTaxaGuids = this.selectedTaxaIds.Select(id => new Guid(id));
 
-            var taxa = this.CurrentTaxonomyManager.GetTaxa<T>()
-                                    .Where(t => selectedTaxaGuids.Contains(t.Id));
+            var taxa = (IEnumerable<Taxon>)this.Sort(
+                CurrentTaxonomyManager.GetTaxa<T>()
+                    .Where(t => selectedTaxaGuids.Contains(t.Id)));
+
+            if (this.SortExpression == "AsSetManually")
+            {
+                taxa = taxa.OrderBy(t => this.selectedTaxaIds.IndexOf(t.Id.ToString()));
+            }
 
             var statistics = this.GetTaxonomyStatistics();
 
@@ -246,7 +346,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <param name="taxa">The taxa.</param>
         /// <param name="statistics">The statistics.</param>
         /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics<T>(IEnumerable<T> taxa, IQueryable<TaxonomyStatistic> statistics) where T : Taxon
+        protected virtual IList<TaxonViewModel> GetFlatTaxaViewModelsWithStatistics(IEnumerable<ITaxon> taxa, IQueryable<TaxonomyStatistic> statistics)
         {
             var result = new List<TaxonViewModel>();
 
@@ -261,6 +361,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                     result.Add(viewModel);
                 }
             }
+
+            this.PopulateCloudSize(result);
 
             return result;
         }
@@ -279,8 +381,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             if (count == 0 && !this.ShowEmptyTaxa) return null;
 
-            // refactor
-            var url = taxon is HierarchicalTaxon ? ((HierarchicalTaxon)taxon).FullUrl : taxon.UrlName.Value;
+            var url = this.GetTaxonUrl(taxon);
             return new TaxonViewModel(taxon, count)
             {
                 Url = this.BuildUrl(url)
@@ -292,10 +393,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <param name="taxon">The taxon.</param>
         /// <returns></returns>
-        protected virtual bool HasTranslationInCurrentLanguage(Taxon taxon)
+        protected virtual bool HasTranslationInCurrentLanguage(ITaxon taxon)
         {
-            return taxon.AvailableLanguages.Contains(taxon.Title.CurrentLanguage.Name) ||
-                taxon.AvailableLanguages.Count() == 1 && taxon.AvailableLanguages[0] == string.Empty;
+            var t = (Taxon)taxon;
+            return t.AvailableLanguages.Contains(taxon.Title.CurrentLanguage.Name) ||
+                t.AvailableLanguages.Count() == 1 && t.AvailableLanguages[0] == string.Empty;
         }
 
         /// <summary>
@@ -317,11 +419,75 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <returns></returns>
         protected virtual IList<TaxonViewModel> GetTaxaByContentItem()
         {
-            throw new NotImplementedException();
+            var fieldTaxonomyDescriptor = this.FieldPropertyDescriptor as TaxonomyPropertyDescriptor;
+
+            if (fieldTaxonomyDescriptor != null)
+            {
+                var content = this.GetContentItem();
+
+                var value = this.FieldPropertyDescriptor.GetValue(content);
+                if (value != null)
+                {
+                    var isSingleTaxon = fieldTaxonomyDescriptor.MetaField.IsSingleTaxon;
+                    var taxa = this.GetTaxaFromFieldValue(value, isSingleTaxon);
+
+                    var statistics = this.GetTaxonomyStatistics();
+                    return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+                }
+            }
+            else
+            {
+                throw new ArgumentException(String.Format("The specified field name \"{0}\" is not a taxonomy.",
+                                                          this.FieldName));
+            }
+            return null;
+        }
+        
+        /// <summary>
+        /// Gets the taxa from the taxonomy's field of the item.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="isSingleTaxon">The is single taxon.</param>
+        /// <returns></returns>
+        protected virtual IEnumerable<ITaxon> GetTaxaFromFieldValue(object value, bool isSingleTaxon)
+        {
+            if (isSingleTaxon)
+            {
+                yield return this.GetSingleTaxon(value);
+            }
+            else
+            {
+                var taxa = value as IEnumerable;
+                foreach (object item in taxa)
+                {
+                    yield return this.GetSingleTaxon(item);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the taxon from given id or taxon object.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        protected virtual ITaxon GetSingleTaxon(object value)
+        {
+            var result = value as Taxon;
+            if (result != null)
+            {
+                return result;
+            }
+
+            if (value is Guid)
+            {
+                return this.CurrentTaxonomyManager.GetTaxon((Guid)value);
+            }
+            return null;
         }
 
         /// <summary>
         /// Resolves the name of the provider used by the manager which is responsible for the content type that is filtering the shown taxa.
+        /// Returns the default provider name for the manager if ContentProviderName is not set.
         /// </summary>
         /// <returns></returns>
         protected virtual string GetContentProviderName()
@@ -330,41 +496,24 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             if (String.IsNullOrWhiteSpace(this.ContentProviderName))
             {
-                //if (!this.DynamicContentTypeName.IsNullOrWhitespace())
-                //{
-                //    var manager = ManagerBase.GetMappedManager(this.TaxonomyContentType);
+                if (!string.IsNullOrEmpty(this.ContentTypeName))
+                {
+                    var manager = (IProviderResolver)ManagerBase.GetMappedManager(this.ContentType);
 
-                //    if (!SystemManager.CurrentContext.IsMultisiteMode)
-                //    {
-                //        providerName = manager.Provider.Name;
-                //    }
-                //    else
-                //    {
-                //        var dataSourceName = SystemManager.DataSourceRegistry.GetDataSource(manager.GetType().FullName).Name;
-                //        var provider = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(dataSourceName);
-                //        providerName = provider.ProviderName;
-                //    }
-                //}
-                //else if (!String.IsNullOrWhiteSpace(this.DynamicContentType))
-                //{
-                //    var moduleBuilderManager = ModuleBuilderManager.GetManager();
-                //    DynamicModuleType dynamicContentType = moduleBuilderManager.GetDynamicModuleType(moduleBuilderManager.ResolveDynamicClrType(this.DynamicContentType));
+                    return manager.GetDefaultContextProvider().Name;
+                }
+                else if (!String.IsNullOrEmpty(this.DynamicContentTypeName))
+                {
+                    var moduleBuilderProvider = ModuleBuilderManager.GetManager().Provider;
 
-                //    if (dynamicContentType != null)
-                //    {
-                //        if (!SystemManager.CurrentContext.IsMultisiteMode)
-                //        {
-                //            DynamicModuleManager manager = DynamicModuleManager.GetManager();
-                //            providerName = manager.Provider.Name;
-                //        }
-                //        else
-                //        {                                                        
-                //            var dataSourceName = SystemManager.DataSourceRegistry.GetDataSource(dynamicContentType.ModuleName).Name;
-                //            var provider = SystemManager.CurrentContext.CurrentSite.GetDefaultProvider(dataSourceName);
-                //            providerName = provider.ProviderName;
-                //        }
-                //    }
-                //}                
+                    DynamicModuleType dynamicContentType = moduleBuilderProvider.GetDynamicModuleTypes()
+                        .FirstOrDefault(t => t.TypeName == this.ContentType.Name && t.TypeNamespace == this.ContentType.Namespace);
+
+                    if (dynamicContentType != null)
+                    {
+                        DynamicModuleManager.GetDefaultProviderName(dynamicContentType.ModuleName);
+                    }
+                }
             }
             else
             {
@@ -372,6 +521,104 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
 
             return providerName;
+        }
+
+        /// <summary>
+        /// Gets the content item from whose field the taxa will be retrieved.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual object GetContentItem()
+        {
+            var provider = this.GetContentProviderName();
+
+            if (!string.IsNullOrEmpty(this.ContentTypeName))
+            {
+                var manager = ManagerBase.GetMappedManager(this.ContentType, this.ContentProviderName);
+                return manager.GetItem(this.ContentType, this.ContentId);
+            }
+            else if(!string.IsNullOrEmpty(this.DynamicContentTypeName))
+            {
+                var manager = DynamicModuleManager.GetManager(provider);
+                return manager.GetDataItem(this.ContentType, this.ContentId);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Populates the taxon size used for Cloud template.
+        /// </summary>
+        /// <param name="taxa">The taxa.</param>
+        protected virtual void PopulateCloudSize(IList<TaxonViewModel> taxa)
+        {
+            List<double> counts = taxa.Select(x => x.Count).Select(t => (double)t).ToList();
+
+            double average;
+            var stdDev = this.StandardDeviation(counts, out average);
+
+            foreach (var item in taxa)
+            {
+                item.CloudSize = this.GetSize(item.Count, average, stdDev);
+            }
+        }
+
+        /// <summary>
+        /// Calculates standard deviation
+        /// </summary>       
+        protected virtual double StandardDeviation(ICollection<double> data, out double average)
+        {
+            if (data.Count == 0)
+            {
+                average = 0;
+                return 0;
+            }
+
+            double squaresSum = 0;
+            average = data.Average();
+
+            foreach (double number in data)
+            {
+                squaresSum += Math.Pow((number - average), 2);
+            }
+
+            var n = (double)data.Count;
+            return Math.Sqrt(squaresSum / (n - 1));
+        }
+
+        /// <summary>
+        /// The size is calculated by the occurrence (count) of the taxa
+        /// in relation to the mean value and the standard deviation.
+        /// </summary>
+        protected virtual int GetSize(double count, double average, double stdDev)
+        {
+            double sizeFactor = (count - average);
+
+            if (sizeFactor != 0 && stdDev != 0)
+            {
+                sizeFactor = sizeFactor / stdDev;
+            }
+
+            if (sizeFactor > 2)
+            {
+                return 6;
+            }
+            if (sizeFactor > 1.33 && sizeFactor <= 2)
+            {
+                return 5;
+            }
+            if (sizeFactor > 0.67 && sizeFactor <= 1.33)
+            {
+                return 4;
+            }
+            if (sizeFactor > -0.67 && sizeFactor <= 0.67)
+            {
+                return 3;
+            }
+            if (sizeFactor > -1.33 && sizeFactor <= -0.67)
+            {
+                return 2;
+            }
+            return 1;
         }
 
         /// <summary>
@@ -446,6 +693,41 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             return string.Concat(url, evaluatedResult);
         }
 
+        /// <summary>
+        /// Sorts the specified list.
+        /// </summary>
+        /// <param name="list">The list.</param>
+        /// <returns></returns>
+        protected IQueryable<Taxon> Sort(IQueryable<Taxon> list)
+        {
+            int? totalCount = 1;
+
+            string sortExp = this.SortExpression;
+            try
+            {
+                if (this.SortExpression == "AsSetManually")
+                {
+                    sortExp = string.Empty;
+
+                }
+                list = DataProviderBase.SetExpressions(query: list,
+                                             filterExpression: null,
+                                             orderExpression: sortExp,
+                                             skip: null,
+                                             take: null,
+                                             totalCount: ref totalCount);
+            }
+            catch (Exception)
+            {
+                list = DataProviderBase.SetExpressions(query: list,
+                                                 filterExpression: null,
+                                                 orderExpression: DefaultSortExpression,
+                                                 skip: null,
+                                                 take: null,
+                                                 totalCount: ref totalCount);
+            }
+            return list;
+        }
         #endregion
 
         #region Private methhods
@@ -463,18 +745,22 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
 
             return default(UrlEvaluationMode);
-        }
-
+        }       
         #endregion
 
         #region Private fields and constants
         private TaxonomyManager taxonomyManager;
         private Type contentType;
         private ITaxonomy taxonomy;
+        private Guid taxonomyId;
         private PropertyDescriptor fieldPropertyDescriptor;
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
-        private const string DefaultSortExpression = "PublicationDate DESC";
+        private const string DefaultSortExpression = "Title ASC";
+        private const string DefaultContentType = "Telerik.Sitefinity.News.Model.NewsItem";
+        private string contentTypeName = DefaultContentType;
+        private string dynamicContentTypeName;
+        private string fieldName;
         #endregion
     }
 }

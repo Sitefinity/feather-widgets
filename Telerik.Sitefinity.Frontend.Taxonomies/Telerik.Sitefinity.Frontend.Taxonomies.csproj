@@ -134,9 +134,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Helpers\ContentTypeExtensions.cs" />
+    <Compile Include="Helpers\ContentTypeModel.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FlatTaxonomyController.cs" />
     <Compile Include="Mvc\Controllers\HierarchicalTaxonomyController.cs" />
+    <Compile Include="Mvc\Models\DesignerModelHelper.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxaToDisplay.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\FlatTaxonomyModel.cs" />
     <Compile Include="Mvc\Models\FlatTaxonomy\IFlatTaxonomyModel.cs" />
@@ -160,6 +162,8 @@
     <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\FlatTaxonomy.SimpleList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\FlatTaxonomy.TagCloud.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\FlatTaxonomy\FlatTaxonomy.CloudList.cshtml" />
     <EmbeddedResource Include="Mvc\Views\HierarchicalTaxonomy\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\HierarchicalTaxonomy\DesignerView.Simple.json" />
     <None Include="packages.config" />

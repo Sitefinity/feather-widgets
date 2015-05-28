@@ -24,18 +24,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         }
 
         /// <summary>
-        /// Gets comments header
-        /// </summary>
-        /// <value>Gets comments header</value>
-        public HtmlSpan CommentsHeader
-        {
-            get
-            {
-                return this.Get<HtmlSpan>("TagName=span", "InnerText=Leave a comment");
-            }
-        }
-
-        /// <summary>
         /// Gets leave a comment link.
         /// </summary>
         public HtmlAnchor LeaveAComment
@@ -98,7 +86,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         /// <summary>
         /// Gets comments count on page.
         /// </summary>
-        public HtmlDiv CommentsCountOnPage
+        public HtmlDiv MessageAndCountOnPage
         {
             get
             {
@@ -135,7 +123,84 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         {
             get
             {
-                return this.Get<HtmlDiv>("tagname=div", "class=alert alert-warning");
+                return this.Get<HtmlDiv>("tagname=div", "class=^alert alert-warning");
+            }
+        }
+
+        /// <summary>
+        /// Gets error div.
+        /// </summary>
+        public HtmlDiv ErrorDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=has-error");
+            }
+        }
+
+        /// <summary>
+        /// Gets load more link.
+        /// </summary>
+        public HtmlAnchor LoadMoreLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Load more comments");
+            }
+        }
+
+        /// <summary>
+        /// Gets show oldest on top.
+        /// </summary>
+        public HtmlAnchor ShowOldestOnTop
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "data-sf-role=comments-sort-old-button");
+            }
+        }
+
+        /// <summary>
+        /// Gets show newest on top.
+        /// </summary>
+        public HtmlAnchor ShowNewestOnTop
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "data-sf-role=comments-sort-new-button");
+            }
+        }
+
+        /// <summary>
+        /// Gets subscribe to new comments
+        /// </summary>
+        public HtmlSpan SubscribeToNewComments
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Subscribe to new comments");
+            }
+        }
+
+        /// <summary>
+        /// Gets successfully subscribed message to new comments
+        /// </summary>
+        public HtmlSpan SuccessfulySubscribedMessage
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=You are successfully subscribed to new comments");
+            }
+        }
+
+        /// <summary>
+        /// Gets unsubscribe link to new comments
+        /// </summary>
+        public HtmlSpan UnsubscribeLink
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Unsubscribe");
             }
         }
     }

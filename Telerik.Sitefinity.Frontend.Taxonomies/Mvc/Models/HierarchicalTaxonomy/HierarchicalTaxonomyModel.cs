@@ -19,6 +19,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         {
             this.TaxonomyId = TaxonomyManager.CategoriesTaxonomyId;
             this.FlattenHierarchy = true;
+
+            if (string.IsNullOrEmpty(this.FieldName))
+            {
+                this.FieldName = DefaultFieldName;
+            }
         }
         #endregion
 
@@ -58,6 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         {
             var viewModel = new TaxonomyViewModel();
             viewModel.ShowItemCount = this.ShowItemCount;
+            viewModel.CssClass = this.CssClass;
 
             if (this.ContentId != Guid.Empty)
             {
@@ -68,7 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             switch (this.TaxaToDisplay)
             {
                 case HierarchicalTaxaToDisplay.All:
-                    viewModel.Taxa = this.GetAllTaxa();
+                    viewModel.Taxa = this.GetAllTaxa<HierarchicalTaxon>();
                     break;
                 case HierarchicalTaxaToDisplay.TopLevel:
                     viewModel.Taxa = this.GetTopLevelTaxa();
@@ -88,23 +94,20 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             }
             return viewModel;
         }
+
+        /// <summary>
+        /// Gets the taxon URL.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <returns></returns>
+        public override string GetTaxonUrl(ITaxon taxon)
+        {
+            return ((HierarchicalTaxon)taxon).FullUrl;
+        }
+
         #endregion
 
         #region Protected methods
-        /// <summary>
-        /// Gets view models of all available taxa in a flat list.
-        /// </summary>
-        /// <returns></returns>
-        protected virtual IList<TaxonViewModel> GetAllTaxa()
-        {
-            var statistics = this.GetTaxonomyStatistics();
-
-            var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
-                .Where(t => t.Taxonomy.Id == this.TaxonomyId);
-
-            return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
-        }
-
         /// <summary>
         /// Gets the taxa view model trees starting from the root level.
         /// </summary>
@@ -127,14 +130,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         {
             var statistics = this.GetTaxonomyStatistics();
 
-            var rootTaxon = this.CurrentTaxonomyManager.GetTaxon(this.RootTaxonId) as HierarchicalTaxon;
+            var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>().Where(t => t.Parent.Id == this.RootTaxonId);
 
-            if (rootTaxon != null)
-            {
-                return this.GetTaxaViewModels(statistics, rootTaxon.Subtaxa);
-            }
-
-            return new List<TaxonViewModel>();
+            return this.GetTaxaViewModels(statistics, taxa);
         }
 
         /// <summary>
@@ -157,12 +155,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                 statistics = statistics.Where(s => s.ItemProviderName == contentProviderName);
             }
 
-            IEnumerable<HierarchicalTaxon> taxa;
+            IQueryable<HierarchicalTaxon> taxa;
             if (this.FlattenHierarchy)
             {
                 taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
                     .Where(t => t.Taxonomy.Id == this.TaxonomyId);
-
             }
             else
             {
@@ -179,15 +176,17 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// <param name="statistics">The statistics.</param>
         /// <param name="taxa">The taxa.</param>
         /// <returns>Returns flat or hierarchical structure based on the widget settings.</returns>
-        protected virtual IList<TaxonViewModel> GetTaxaViewModels(IQueryable<TaxonomyStatistic> statistics, IEnumerable<HierarchicalTaxon> taxa)
+        protected virtual IList<TaxonViewModel> GetTaxaViewModels(IQueryable<TaxonomyStatistic> statistics, IQueryable<Taxon> taxa)
         {
+            var sortedTaxa = this.Sort(taxa);
+
             if (this.FlattenHierarchy)
             {
-                return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
+                return this.GetFlatTaxaViewModelsWithStatistics(sortedTaxa, statistics);
             }
 
             return TaxaViewModelTreeBuilder.BuildTaxaTree(
-                taxa,
+                sortedTaxa.Cast<HierarchicalTaxon>(),
                 taxon =>
                 {
                     if (!this.HasTranslationInCurrentLanguage((Taxon)taxon))
@@ -196,6 +195,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     return this.FilterTaxonByCount(taxon, statistics);
                 });
         }
+        #endregion
+
+        #region Private fields
+        private const string DefaultFieldName = "Category";
         #endregion
     }
 }

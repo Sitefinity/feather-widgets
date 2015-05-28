@@ -12,124 +12,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
     /// <summary>
     /// This is the entry point class for comments on the frontend.
     /// </summary>
-    public class CommentsWrapper : BaseWrapper
-    {
-        /// <summary>
-        /// Asserts that Leave a comment message is present.
-        /// </summary>
-        public void AssertLeaveACommentMessage()
-        {
-            this.EM.CommentsAndReviews.CommentsFrontend.CommentsHeader.AssertIsPresent("Leave a comment message");
-        }
-
-        /// <summary>
-        /// Asserts comments count
-        /// </summary>
-        public void AssertCommentsCount(string commentCount)
-        {
-            HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment.AssertIsPresent("Comments count link");
-            bool isPresent = commentLink.InnerText.Contains(commentCount);
-            Assert.IsTrue(isPresent);
-        }
-
-        /// <summary>
-        /// Asserts comments count on page
-        /// </summary>
-        public void AssertCommentsCountOnPage(string commentCount)
-        {
-            HtmlDiv commentLinkOnPage = this.EM.CommentsAndReviews.CommentsFrontend.CommentsCountOnPage.AssertIsPresent("Comments count on page");
-            bool isPresent = commentLinkOnPage.InnerText.Contains(commentCount);
-            Assert.IsTrue(isPresent);
-        }
-
-        /// <summary>
-        /// Click comment link
-        /// </summary>
-        public void ClickCommentLink()
-        {
-            HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment
-                .AssertIsPresent("Comments count link");
-
-            commentLink.Wait.ForVisible();
-            commentLink.ScrollToVisible();
-            commentLink.MouseClick();
-            ActiveBrowser.WaitUntilReady();
-        }
-
-        /// <summary>
-        /// Type a comment.
-        /// </summary>
-        /// <param name="commentBody">Comment body.</param>
-        public void TypeAComment(string commentBody)
-        {
-            HtmlDiv editable = this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea
-                .AssertIsPresent("Leave acomment area");
-
-            editable.ScrollToVisible();
-            editable.Focus();
-            editable.MouseClick();
-
-            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
-            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
-            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
-            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
-
-            Manager.Current.Desktop.KeyBoard.TypeText(commentBody);
-        }
-
-        /// <summary>
-        /// Type your name.
-        /// </summary>
-        /// <param name="yourName">Your name.</param>
-        public void TypeYourName(string yourName)
-        {
-            HtmlDiv yourNameField = this.EM.CommentsAndReviews.CommentsFrontend.YourNameField
-                .AssertIsPresent("Your name");
-
-            yourNameField.ScrollToVisible();
-            yourNameField.Focus();
-            yourNameField.MouseClick();
-
-            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
-            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
-            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
-            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
-
-            Manager.Current.Desktop.KeyBoard.TypeText(yourName);
-        }
-
-        /// <summary>
-        /// Type email.
-        /// </summary>
-        /// <param name="email">email.</param>
-        public void TypeEmailAddress(string email)
-        {
-            HtmlDiv emailAddress = this.EM.CommentsAndReviews.CommentsFrontend.EmailField
-                .AssertIsPresent("Email");
-
-            emailAddress.ScrollToVisible();
-            emailAddress.Focus();
-            emailAddress.MouseClick();
-
-            Manager.Current.Desktop.KeyBoard.KeyDown(System.Windows.Forms.Keys.Control);
-            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.A);
-            Manager.Current.Desktop.KeyBoard.KeyUp(System.Windows.Forms.Keys.Control);
-            Manager.Current.Desktop.KeyBoard.KeyPress(System.Windows.Forms.Keys.Delete);
-
-            Manager.Current.Desktop.KeyBoard.TypeText(email);
-        }
-
-        /// <summary>
-        /// Click submit button
-        /// </summary>
-        public void ClickSubmitButton()
-        {
-            HtmlButton submitButton = this.EM.CommentsAndReviews.CommentsFrontend.SubmitButton
-            .AssertIsPresent("Submit button");
-            submitButton.Click();
-            ActiveBrowser.WaitUntilReady();
-        }
-
+    public class CommentsWrapper : CommentsAndReviewsCommonWrapper
+    {        
         /// <summary>
         /// Verify comments author and content
         /// </summary>
@@ -142,7 +26,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             Assert.IsNotNull(allCommentsDivs, "Comments list is null");
             Assert.AreNotEqual(0, allCommentsDivs.Count, "Comments list has no elements");
 
-            Assert.AreEqual(commentsAuthor.Count(), allCommentsDivs.Count, "Expected and actual count of comments are not equal");
+            Assert.AreEqual(commentsContent.Count(), allCommentsDivs.Count, "Expected and actual count of comments are not equal");
 
             for (int i = 0; i < allCommentsDivs.Count(); i++)
             {
@@ -152,15 +36,49 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Verify allert message
+        /// Click load more link
         /// </summary>
-        /// <param name="alertMessage">Expected allert message</param>
-        public void VerifyAlertMessageOnTheFrontend(string alertMessage)
+        public void ClickLoadMoreLink()
         {
-            HtmlDiv alertMessageOnPage = this.EM.CommentsAndReviews.CommentsFrontend.AlertWarningDiv
-                .AssertIsPresent("Alert message");
-            bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
-            Assert.IsTrue(isPresent);
+            HtmlAnchor loadMoreLink = this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink
+                .AssertIsPresent("Load more link");
+            loadMoreLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify load more link is not visible
+        /// </summary>
+        public void VerifyLoadMoreLinkIsNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.LoadMoreLink.AssertIsNotVisible("Load more link");
+        }
+
+        /// <summary>
+        /// Verify subscribe for new comment is present
+        /// </summary>
+        public void VerifySubscribeToNewCommentLinksIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.SubscribeToNewComments.AssertIsPresent("Subscribe to new comment");
+        }
+
+        /// <summary>
+        /// Click subscribe for new comment link
+        /// </summary>
+        public void ClickSubscribeToNewCommentLinks()
+        {
+            HtmlSpan subscribeForEmail = this.EM.CommentsAndReviews.CommentsFrontend.SubscribeToNewComments.AssertIsPresent("Subscribe to new comment");
+
+            subscribeForEmail.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify successfully subscribe to new comment is present
+        /// </summary>
+        public void VerifySuccessfullySubscribedMessageIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.SuccessfulySubscribedMessage.AssertIsPresent("Successfully subscribe to new comment");
         }
     }
 }

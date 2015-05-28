@@ -41,7 +41,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         [ResourceEntry("FlatTaxonomyResourcesTitle",
             Value = "HierarchicalTaxonomyResources labels",
             Description = "The title of this class.",
-            LastModified = "2015.05.19")]
+            LastModified = "2015/05/19")]
         public string FlatTaxonomyResourcesTitle
         {
             get
@@ -57,7 +57,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         [ResourceEntry("FlatTaxonomyResourcesTitlePlural",
             Value = "FlatTaxonomyResources labels",
             Description = "The plural title of this class.",
-            LastModified = "2015.05.19")]
+            LastModified = "2015/05/19")]
         public string FlatTaxonomyResourcesTitlePlural
         {
             get
@@ -73,7 +73,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         [ResourceEntry("FlatTaxonomyResourcesDescription",
             Value = "Contains localizable resources.",
             Description = "The description of this class.",
-            LastModified = "2015.05.19")]
+            LastModified = "2015/05/19")]
         public string FlatTaxonomyResourcesDescription
         {
             get
@@ -120,7 +120,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         [ResourceEntry("NewsItem",
             Value = "News",
             Description = "The phrase: News.",
-            LastModified = "2015.05.19")]
+            LastModified = "2015/05/19")]
         public string NewsItem
         {
             get
@@ -133,9 +133,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         /// Gets phrase : Blog posts
         /// </summary>
         [ResourceEntry("BlogPost",
-                     Value = "Blog posts",
-                     Description = "The phrase: Blog posts.",
-                     LastModified = "2015.05.19")]
+            Value = "Blog posts",
+            Description = "The phrase: Blog posts.",
+            LastModified = "2015/05/19")]
         public string BlogPost
         {
             get
@@ -148,9 +148,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         /// Gets phrase : Blogs
         /// </summary>
         [ResourceEntry("Blog",
-                     Value = "Blogs",
-                     Description = "The phrase: Blogs.",
-                     LastModified = "2015.05.19")]
+            Value = "Blogs",
+            Description = "The phrase: Blogs.",
+            LastModified = "2015/05/19")]
         public string Blog
         {
             get
@@ -163,9 +163,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         /// Gets phrase : Images
         /// </summary>
         [ResourceEntry("Image",
-                     Value = "Images",
-                     Description = "The phrase: Images.",
-                     LastModified = "2015.05.19")]
+            Value = "Images",
+            Description = "The phrase: Images.",
+            LastModified = "2015/05/19")]
         public string Image
         {
             get
@@ -178,9 +178,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         /// Gets phrase : Documents & files
         /// </summary>
         [ResourceEntry("Document",
-                     Value = "Documents & files",
-                     Description = "The phrase: Documents & files.",
-                     LastModified = "2015.05.19")]
+            Value = "Documents & files",
+            Description = "The phrase: Documents & files.",
+            LastModified = "2015/05/19")]
         public string Document
         {
             get
@@ -193,9 +193,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         /// Gets phrase : Videos
         /// </summary>
         [ResourceEntry("Video",
-                       Value = "Videos",
-                       Description = "The phrase: Videos.",
-                       LastModified = "2015.05.19")]
+            Value = "Videos",
+            Description = "The phrase: Videos.",
+            LastModified = "2015/05/19")]
         public string Video
         {
             get
@@ -208,9 +208,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         /// Gets phrase : List items
         /// </summary>
         [ResourceEntry("ListItem",
-                       Value = "List items",
-                       Description = "The phrase: List items.",
-                       LastModified = "2015.05.19")]
+            Value = "List items",
+            Description = "The phrase: List items.",
+            LastModified = "2015/05/19")]
         public string ListItem
         {
             get
@@ -220,62 +220,66 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Only tags used by content type...
+        /// The phrase: Only [taxonomies] used by content type...
         /// </summary>
-        [ResourceEntry("ShowContentTypeTagsLabel",
-                       Value = "Only tags used by content type...",
-                       Description = "The phrase: Only tags used by content type...",
-                       LastModified = "2015.05.19")]
-        public string ShowContentTypeTagsLabel
+        /// <value>Only {0} used by content type...</value>
+        [ResourceEntry("ShowContentTypeFlatTaxonomiesLabel",
+            Value = "Only {0} used by content type...",
+            Description = "The phrase: Only [taxonomies] used by content type...",
+            LastModified = "2015/05/27")]
+        public string ShowContentTypeFlatTaxonomiesLabel
         {
             get
             {
-                return this["ShowContentTypeTagsLabel"];
+                return this["ShowContentTypeFlatTaxonomiesLabel"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Selected tags...
+        /// The phrase: Selected [taxonomy]...
         /// </summary>
-        [ResourceEntry("SelectedTagsLabel",
-                       Value = "Selected tags...",
-                       Description = "The phrase: Selected tags...",
-                       LastModified = "2015.05.19")]
-        public string SelectedTagsLabel
+        /// <value>Selected {0}...</value>
+        [ResourceEntry("SelectedFlatTaxonomyLabel",
+            Value = "Selected {0}...",
+            Description = "The phrase: Selected [taxonomy]...",
+            LastModified = "2015/05/27")]
+        public string SelectedFlatTaxonomyLabel
         {
             get
             {
-                return this["SelectedTagsLabel"];
+                return this["SelectedFlatTaxonomyLabel"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : All tags
+        /// The phrase: All [taxonomies]
         /// </summary>
-        [ResourceEntry("AllTags",
-                       Value = "All tags",
-                       Description = "The phrase: All tags",
-                       LastModified = "2015.05.19")]
-        public string AllTags
+        /// <value>All {0}</value>
+        [ResourceEntry("AllFlatTaxonomies",
+            Value = "All {0}",
+            Description = "The phrase: All [taxonomies]",
+            LastModified = "2015/05/27")]
+        public string AllFlatTaxonomies
         {
             get
             {
-                return this["AllTags"];
+                return this["AllFlatTaxonomies"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Which tags to display?
+        /// The phrase: Which [taxonomies] to display?
         /// </summary>
-        [ResourceEntry("WhichTagsLabel",
-                       Value = "Which tags to display?",
-                       Description = "The phrase: Which tags to display?",
-                       LastModified = "2015.05.19")]
-        public string WhichTagsLabel
+        /// <value>Which {0} to display?</value>
+        [ResourceEntry("WhichFlatTaxonomiesLabel",
+            Value = "Which {0} to display?",
+            Description = "The phrase: Which [taxonomies] to display?",
+            LastModified = "2015/05/27")]
+        public string WhichFlatTaxonomiesLabel
         {
             get
             {
-                return this["WhichTagsLabel"];
+                return this["WhichFlatTaxonomiesLabel"];
             }
         }
 
@@ -283,9 +287,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         /// Gets phrase : Show item count
         /// </summary>
         [ResourceEntry("ShowItemCountLabel",
-                       Value = "Show item count",
-                       Description = "The phrase: Show item count",
-                       LastModified = "2015.05.19")]
+            Value = "Show item count",
+            Description = "The phrase: Show item count",
+            LastModified = "2015/05/19")]
         public string ShowItemCountLabel
         {
             get
@@ -295,32 +299,34 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Show empty tags
+        /// The phrase: Show empty [taxonomies]
         /// </summary>
-        [ResourceEntry("ShowEmptyTags",
-                       Value = "Show empty tags",
-                       Description = "The phrase: Show empty tags",
-                       LastModified = "2015.05.19")]
-        public string ShowEmptyTags
+        /// <value>Show empty {0}</value>
+        [ResourceEntry("ShowEmptyFlatTaxonomies",
+            Value = "Show empty {0}",
+            Description = "The phrase: Show empty [taxonomies]",
+            LastModified = "2015/05/27")]
+        public string ShowEmptyFlatTaxonomies
         {
             get
             {
-                return this["ShowEmptyTags"];
+                return this["ShowEmptyFlatTaxonomies"];
             }
         }
 
         /// <summary>
-        /// Gets phrase : Sort tags
+        /// The phrase: Sort [taxonomies]
         /// </summary>
-        [ResourceEntry("SortTagsLabel",
-                       Value = "Sort tags",
-                       Description = "The phrase: Sort tags",
-                       LastModified = "2015.05.19")]
-        public string SortTagsLabel
+        /// <value>Sort {0}</value>
+        [ResourceEntry("SortFlatTaxonomiesLabel",
+            Value = "Sort {0}",
+            Description = "The phrase: Sort [taxonomies]",
+            LastModified = "2015/05/27")]
+        public string SortFlatTaxonomiesLabel
         {
             get
             {
-                return this["SortTagsLabel"];
+                return this["SortFlatTaxonomiesLabel"];
             }
         }
 
@@ -328,14 +334,14 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
         /// Gets phrase : Template
         /// </summary>
         [ResourceEntry("TemplateLabel",
-                       Value = "Template",
-                       Description = "The phrase: Template",
-                       LastModified = "2015.05.19")]
-        public string Template
+            Value = "Template",
+            Description = "The phrase: Template",
+            LastModified = "2015/05/19")]
+        public string TemplateLabel
         {
             get
             {
-                return this["Template"];
+                return this["TemplateLabel"];
             }
         }
 
@@ -430,6 +436,37 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
                 return this["AsSetInAdvancedMode"];
             }
         }
+
+        /// <summary>
+        /// word: Tags
+        /// </summary>
+        [ResourceEntry("Tags",
+            Value = "Tags",
+            Description = "word: Tags",
+            LastModified = "2015/05/27")]
+        public string Tags
+        {
+            get
+            {
+                return this["Tags"];
+            }
+        }
         #endregion
+
+        /// <summary>
+        /// phrase: Select [taxonimies]
+        /// </summary>
+        /// <value>Select {0}</value>
+        [ResourceEntry("SelectTaxonomiesHeader",
+            Value = "Select {0}",
+            Description = "phrase: Select [taxonimies]",
+            LastModified = "2015/05/27")]
+        public string SelectTaxonomiesHeader
+        {
+            get
+            {
+                return this["SelectTaxonomiesHeader"];
+            }
+        }
     }
 }

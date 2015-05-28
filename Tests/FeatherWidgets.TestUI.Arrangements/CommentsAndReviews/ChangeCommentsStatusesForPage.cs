@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
@@ -11,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ChangeCommentsStatusesForPage arrangement class.
     /// </summary>
-    public class ChangeCommentsStatusesForPage
+    public class ChangeCommentsStatusesForPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.

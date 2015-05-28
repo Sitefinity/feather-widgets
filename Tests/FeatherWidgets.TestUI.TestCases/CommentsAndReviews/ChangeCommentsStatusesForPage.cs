@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         public void ChangeCommentsStatusesForPage()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
 
             this.PublishCommentAndVerifyFrontEndAndBackend();
             
@@ -35,7 +35,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).MarkAsSpamComment(this.commentToPage[0]);
             this.VerifyCommentBackend(CommentStatusSpam);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
 
             this.PublishCommentAndVerifyFrontEndAndBackend();
 
@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).ClickHideCommentLink(this.commentToPage[0]);
             this.VerifyCommentBackend(CommentStatusHidden);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
 
             this.PublishCommentAndVerifyFrontEndAndBackend();
         }
@@ -60,7 +60,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).ClickPublishCommentLink(this.commentToPage[0]);
             this.VerifyCommentBackend(CommentStatusPublished);
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertCommentsCountOnPage(CommentsCount);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
         }
 
@@ -89,5 +89,6 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string CommentStatusSpam = "Spam";
         private const string CommentStatusHidden = "Hidden";
         private const string CommentsCount = "1comment";
+        private const string CommentsMessage = "Leave a comment";
     }
 }
