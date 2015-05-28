@@ -73,5 +73,32 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
             Assert.IsTrue(isPresent);
         }
+
+        /// <summary>
+        /// Verify subscribe for new review is present
+        /// </summary>
+        public void VerifySubscribeToNewReviewLinksIsPresent()
+        {
+            this.EM.CommentsAndReviews.ReviewsFrontend.SubscribeToNewReview.AssertIsPresent("Subscribe to new review");
+        }
+
+        /// <summary>
+        /// Click subscribe for new review link
+        /// </summary>
+        public void ClickSubscribeToNewReviewLinks()
+        {
+            HtmlSpan subscribeForEmail = this.EM.CommentsAndReviews.ReviewsFrontend.SubscribeToNewReview.AssertIsPresent("Subscribe to new review");
+
+            subscribeForEmail.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify successfully subscribe to new review is present
+        /// </summary>
+        public void VerifySuccessfullySubscribedMessageIsPresent()
+        {
+            this.EM.CommentsAndReviews.ReviewsFrontend.SuccessfulySubscribedMessage.AssertIsPresent("Successfully subscribe to new review");
+        }
     }
 }

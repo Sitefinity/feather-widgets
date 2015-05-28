@@ -55,54 +55,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Verify show oldest and newest on top are not visible
-        /// </summary>
-        public void VerifyShowOldestAndNewstOnTopLinksAreNotVisible()
-        {
-            this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop.AssertIsNotVisible("Show newest on top link");
-            this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop.AssertIsNotVisible("Show oldest on top link");
-        }
-
-        /// <summary>
-        /// Click oldest on top link
-        /// </summary>
-        public void ClickOldestOnTopLink()
-        {
-            HtmlAnchor oldestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop
-                .AssertIsPresent("Oldest on top link");
-            oldestOnTopLink.MouseClick();
-            ActiveBrowser.WaitUntilReady();
-        }
-
-        /// <summary>
-        /// Click newest on top link
-        /// </summary>
-        public void ClickNewestOnTopLink()
-        {
-            HtmlAnchor newestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop
-                .AssertIsPresent("Newest on top link");
-            newestOnTopLink.MouseClick();
-            ActiveBrowser.WaitUntilReady();
-        }
-
-        /// <summary>
-        /// Verify Leave a comment area is not visible.
-        /// </summary>
-        public void VerifyLeaveACommentAreaIsNotVisible()
-        {
-            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNull("Leave a comment"); 
-        }
-
-        /// <summary>
-        /// Verify subscribe for new comment is not visible
-        /// </summary>
-        public void VerifySubscribeToNewCommentLinksIsNotVisible()
-        {
-            ActiveBrowser.RefreshDomTree();
-            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains("Subscribe to new comments"), "Subscribe to new comments is presented");
-        }
-
-        /// <summary>
         /// Verify subscribe for new comment is present
         /// </summary>
         public void VerifySubscribeToNewCommentLinksIsPresent()
@@ -127,14 +79,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         public void VerifySuccessfullySubscribedMessageIsPresent()
         {
             this.EM.CommentsAndReviews.CommentsFrontend.SuccessfulySubscribedMessage.AssertIsPresent("Successfully subscribe to new comment");
-        }
-
-        /// <summary>
-        /// Verify unsubscribe link is present
-        /// </summary>
-        public void VerifyUnsubscribeLinksIsPresent()
-        {
-            this.EM.CommentsAndReviews.CommentsFrontend.UnsubscribeLink.AssertIsPresent("Unsubscribe link");
         }
     }
 }

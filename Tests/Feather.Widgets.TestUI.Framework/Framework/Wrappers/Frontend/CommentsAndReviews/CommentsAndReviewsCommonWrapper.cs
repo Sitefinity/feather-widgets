@@ -145,5 +145,61 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             bool isPresent = alertMessageOnPage.InnerText.Contains(errorMessage);
             Assert.IsTrue(isPresent);
         }
+
+        /// <summary>
+        /// Verify text area is not visible.
+        /// </summary>
+        public void VerifyTextAreaIsNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNull("Leave a comment");
+        }
+
+        /// <summary>
+        /// Verify subscribe link is not visible
+        /// </summary>
+        public void VerifySubscribeLinksIsNotVisible(string subscribeMessage)
+        {
+            ActiveBrowser.RefreshDomTree();
+            Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(subscribeMessage), "Subscribe link is presented");
+        }
+
+        /// <summary>
+        /// Verify unsubscribe link is present
+        /// </summary>
+        public void VerifyUnsubscribeLinksIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.UnsubscribeLink.AssertIsPresent("Unsubscribe link");
+        }
+
+        /// <summary>
+        /// Click oldest on top link
+        /// </summary>
+        public void ClickOldestOnTopLink()
+        {
+            HtmlAnchor oldestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop
+                .AssertIsPresent("Oldest on top link");
+            oldestOnTopLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Click newest on top link
+        /// </summary>
+        public void ClickNewestOnTopLink()
+        {
+            HtmlAnchor newestOnTopLink = this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop
+                .AssertIsPresent("Newest on top link");
+            newestOnTopLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify show oldest and newest on top are not visible
+        /// </summary>
+        public void VerifyShowOldestAndNewstOnTopLinksAreNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop.AssertIsNotVisible("Show newest on top link");
+            this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop.AssertIsNotVisible("Show oldest on top link");
+        }
     }
 }

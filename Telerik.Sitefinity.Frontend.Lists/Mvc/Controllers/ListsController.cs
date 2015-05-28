@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
@@ -143,6 +144,25 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
                 return this.View(fullTemplateName, viewModel);
             }
             return new EmptyResult();
+        }
+
+        /// <summary>
+        /// Lists the by taxon.
+        /// </summary>
+        /// <param name="taxonFilter">The taxon filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns></returns>
+        public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
+        {
+            var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/" + taxonFilter.UrlName + "/{0}";
+
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+            
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
