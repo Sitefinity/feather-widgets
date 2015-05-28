@@ -131,7 +131,7 @@
     <Compile Include="Mvc\Controllers\EmbedCodeController.cs" />
     <Compile Include="Mvc\Controllers\JavaScriptController.cs" />
     <Compile Include="Mvc\Controllers\StyleSheetController.cs" />
-    <Compile Include="Mvc\Helpers\ScriptHelper.cs" />
+    <Compile Include="Mvc\Helpers\EmbedCodeHelper.cs" />
     <Compile Include="Mvc\Models\EmbedCode\EmbedCodeModel.cs" />
     <Compile Include="Mvc\Models\EmbedCode\EmbedCodeViewModel.cs" />
     <Compile Include="Mvc\Models\EmbedCode\IEmbedCodeModel.cs" />
