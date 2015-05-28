@@ -19,12 +19,13 @@ namespace FeatherWidgets.TestUnit.InlineClientAssets
         public void Index_NoDescription_AddsToHeadAndDisplaysMarkup()
         {
             var controller = new StyleSheetTestController();
-            var result = controller.Index();
+            controller.Model.InlineStyles = StyleSheetTestModel.Markup;
+            var result = (ViewResult)controller.Index();
 
             Assert.AreEqual(StyleSheetTestModel.Markup, controller.HeadContent, "CSS markup was not added to the Head of the page.");
-            var content = result as ContentResult;
+            var content = result.ViewBag.DesignModeContent;
             Assert.IsNotNull(content, "The result was not of the expected type.");
-            Assert.IsTrue(content.Content.Contains(StyleSheetTestModel.Markup), "The Content did not contain the CSS markup.");
+            Assert.IsTrue(content.Contains(StyleSheetTestModel.Markup), "The Content did not contain the CSS markup.");
         }
 
         [TestMethod]
@@ -35,12 +36,12 @@ namespace FeatherWidgets.TestUnit.InlineClientAssets
             var description = "Test Description";
             var controller = new StyleSheetTestController();
             controller.Model.Description = description;
-            var result = controller.Index();
+            var result = (ViewResult)controller.Index();
 
             Assert.AreEqual(StyleSheetTestModel.Markup, controller.HeadContent, "CSS markup was not added to the Head of the page.");
-            var content = result as ContentResult;
+            var content = result.ViewBag.DesignModeContent;
             Assert.IsNotNull(content, "The result was not of the expected type.");
-            Assert.AreEqual(description, content.Content, "The result is not the expected description.");
+            Assert.AreEqual(description, content, "The result is not the expected description.");
         }
 
         private class StyleSheetTestController : StyleSheetController

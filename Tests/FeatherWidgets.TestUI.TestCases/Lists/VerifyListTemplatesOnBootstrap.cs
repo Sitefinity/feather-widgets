@@ -51,7 +51,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, this.listItemTitles);
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PagesListPage.ToLower());
-            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyPagesListTemplate(ListTitle, this.listItems);
+            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyPagesListTemplateOnBootstrap(ListTitle, this.listItems);
             
             BAT.Macros().NavigateTo().CustomPage("~/" + ExpandedListPage.ToLower());
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyExpandedListTemplateOnBootstrap(ListTitle, this.listItems);

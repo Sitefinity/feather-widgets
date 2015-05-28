@@ -102,7 +102,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             }
             else
             {
-                var result = ScriptHelper.GetShortScript(viewModel.EmbedCode);
+                var result = EmbedCodeHelper.GetShortEmbededCode(viewModel.EmbedCode);
                 
                 if (!string.IsNullOrWhiteSpace(result))
                     this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetResource<EmbedCodeResources>("IncludedWhereDropped");
