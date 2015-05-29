@@ -30,6 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             this.ShowItemCount = true;
             this.SortExpression = DefaultSortExpression;
+            this.UrlEvaluationMode = UrlEvaluationMode.UrlPath;
         }
 
         #endregion
@@ -195,6 +196,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         public string CssClass { get; set; }
 
         /// <summary>
+        /// Gets or sets the URL evaluation mode - URL segments or query string.
+        /// The value of this property indicates which one is used.
+        /// </summary>
+        public UrlEvaluationMode UrlEvaluationMode { get; set; }
+
+        /// <summary>
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>
@@ -278,7 +285,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                     this.CurrentTaxonomyManager.GetTaxonomy<Taxonomy>(this.TaxonomyId);
             }
         }
-
+        
         /// <summary>
         /// Returns the property descriptor of the specified FieldName.
         /// </summary>
@@ -675,7 +682,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
             url = RouteHelper.ResolveUrl(url, UrlResolveOptions.Absolute);
 
-            var urlEvaluationMode = TaxonomyModel.GetUrlEvaluationMode();
+            var urlEvaluationMode = this.UrlEvaluationMode;
             if (urlEvaluationMode == Pages.Model.UrlEvaluationMode.UrlPath)
             {
                 // Pages that are migrated from 3.7 have extensions (.aspx), which are unnecessary when we have segments after the page url.
@@ -737,24 +744,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
             return list;
         }
-        #endregion
-
-        #region Private methhods
-
-        /// <summary>
-        /// Gets the URL evaluation mode.
-        /// </summary>
-        /// <returns></returns>
-        private static UrlEvaluationMode GetUrlEvaluationMode()
-        {
-            var urlEvalMode = SystemManager.CurrentHttpContext.Items[RouteHandler.UrlEvaluationModeKey];
-            if (urlEvalMode != null)
-            {
-                return (UrlEvaluationMode)urlEvalMode;
-            }
-
-            return default(UrlEvaluationMode);
-        }       
         #endregion
 
         #region Private fields and constants
