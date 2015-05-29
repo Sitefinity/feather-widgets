@@ -168,6 +168,10 @@
     <Compile Include="DummyClasses\SearchResults\DummySearchResultsModel.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareController.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
+    <Compile Include="DummyClasses\Taxonomies\DummyHierarchicalTaxonomyModel.cs" />
+    <Compile Include="DummyClasses\Taxonomies\DummyFlatTaxonomyController.cs" />
+    <Compile Include="DummyClasses\Taxonomies\DummyFlatTaxonomyModel.cs" />
+    <Compile Include="DummyClasses\Taxonomies\DummyHierarchicalTaxonomyController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\AccountActivationControllerTests.cs" />
     <Compile Include="InlineClientAssets\EmbedCode\EmbedCodeControllerTests.cs" />
@@ -194,6 +198,8 @@
     <Compile Include="DummyClasses\DummyRelatedDataResolver.cs" />
     <Compile Include="SearchResults\SearchResultsControllerTests.cs" />
     <Compile Include="SocialShare\SocialShareControllerTests.cs" />
+    <Compile Include="Taxonomies\FlatTaxonomyControllerTests.cs" />
+    <Compile Include="Taxonomies\HierarchicalTaxonomyControllerTests.cs" />
     <Compile Include="TestInterfaceMappings.cs" />
     <Compile Include="Lists\ListsControllerTests.cs" />
   </ItemGroup>
@@ -247,6 +253,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj">
       <Project>{33171bb5-9918-41be-b06d-0d8347846b0c}</Project>
       <Name>Telerik.Sitefinity.Frontend.SocialShare</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Taxonomies\Telerik.Sitefinity.Frontend.Taxonomies.csproj">
+      <Project>{fee535a5-81fc-435d-a83f-611d91ae1363}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Taxonomies</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -112,6 +112,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
 
         /// <summary>
         /// Gets or sets the taxonomy id.
+        /// This is the default Id used by all sites and is not resolved for the current site.
+        /// Plese use the ResolvedTaxonomyId when fetching taxa because it returns the id of the split taxonomy or the default one used by the other sites.
         /// </summary>
         /// <value>The taxonomy id.</value>
         public Guid TaxonomyId
@@ -212,6 +214,18 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <returns></returns>
         public abstract string GetTaxonUrl(ITaxon taxon);
 
+        /// <summary>
+        /// Gets the id of the split taxonomy used by the current site or the id of the default taxonomy used by all sites.
+        /// Use it to fetch taxa that will be relevant for the current site with regards to the taxonomy's site sharing settings.
+        /// </summary>
+        /// <value>The resolved taxonomy id.</value>
+        protected virtual Guid ResolvedTaxonomyId
+        {
+            get
+            {
+                return this.Taxonomy.Id;
+            }
+        }
         #endregion
 
         #region Properties
@@ -266,11 +280,9 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         {
             get
             {
-                if (this.taxonomy == null)
-                {
-                    this.taxonomy = this.CurrentTaxonomyManager.GetTaxonomy(this.TaxonomyId);
-                }
-                return this.taxonomy;
+                return SystemManager.CurrentContext.IsMultisiteMode ?
+                    this.CurrentTaxonomyManager.GetSiteTaxonomy<Taxonomy>(this.TaxonomyId) :
+                    this.CurrentTaxonomyManager.GetTaxonomy<Taxonomy>(this.TaxonomyId);
             }
         }
         
@@ -301,7 +313,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             var statistics = this.GetTaxonomyStatistics();
 
             var taxa = this.Sort(CurrentTaxonomyManager.GetTaxa<T>()
-                                                       .Where(t => t.Taxonomy.Id == this.TaxonomyId));
+                                                       .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId));
 
             return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
         }
@@ -334,15 +346,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// <returns></returns>
         protected virtual IQueryable<TaxonomyStatistic> GetTaxonomyStatistics()
         {
-            var taxonomyIdGuid = SystemManager.CurrentContext.IsMultisiteMode ?
-                this.CurrentTaxonomyManager.GetSiteTaxonomy<Taxonomy>(this.TaxonomyId).Id :
-                this.TaxonomyId;
-
             return this.CurrentTaxonomyManager
                 .GetStatistics()
                 .Where(
                     t =>
-                    t.TaxonomyId == taxonomyIdGuid &&
+                    t.TaxonomyId == this.ResolvedTaxonomyId &&
                     t.MarkedItemsCount > 0 &&
                     t.StatisticType == GenericContent.Model.ContentLifecycleStatus.Live);
         }
@@ -695,7 +703,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 taxonBuildOptions = TaxonBuildOptions.Flat;
 
             // UrlKeyPrefix ???
-            var evaluatedResult = evaluator.BuildUrl(this.Taxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, "");
+            var rootTaxonomy = this.Taxonomy.RootTaxonomy ?? this.Taxonomy;
+            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, "");
 
             return string.Concat(url, evaluatedResult);
         }

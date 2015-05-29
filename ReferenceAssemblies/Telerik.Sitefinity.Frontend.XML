@@ -769,6 +769,7 @@
             <param name="pageIndex">Index of the page.</param>
             <returns></returns>
         </member>
+<<<<<<< HEAD
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlEvaluator.GetTaxonFromQuery(System.Web.HttpContextBase)">
             <summary>
             Gets the taxon from httpcontext query string.
@@ -776,6 +777,8 @@
             <param name="context">The context.</param>
             <returns></returns>
         </member>
+=======
+>>>>>>> 933fc29718da720787d9d07ead32be3940c3568e
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel">
             <summary>
             This class represents a JSON configuration for component cefinitions.
@@ -4483,6 +4486,14 @@
             <param name="itemsToTake">The items to take.</param>
             <param name="totalCount">The total count.</param>
             <returns>Resulting filtered query.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.TryGetTaxonomyFieldName(System.Guid,System.String@)">
+            <summary>
+            Tries to get the name of the taxonomy field.
+            </summary>
+            <param name="taxonomyId">The taxonomy id.</param>
+            <param name="taxonomyField">The taxonomy field.</param>
+            <returns></returns>
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.ContentType">
             <summary>

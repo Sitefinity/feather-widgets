@@ -69,18 +69,25 @@
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
                     if ($scope.properties.TaxaToDisplay.PropertyValue === 'All' ||
-                        $scope.properties.TaxaToDisplay.PropertyValue === 'TopLevel' ||
-                        $scope.properties.TaxaToDisplay.PropertyValue === 'UnderParticularTaxon') {
+                        $scope.properties.TaxaToDisplay.PropertyValue === 'TopLevel') {
+                        $scope.properties.DynamicContentTypeName.PropertyValue =
+                            $scope.properties.ContentTypeName.PropertyValue =
+                                $scope.properties.RootTaxonId.PropertyValue =
+                                    $scope.properties.SerializedSelectedTaxaIds.PropertyValue = null;
+                    }
+                    else if ($scope.properties.TaxaToDisplay.PropertyValue === 'UnderParticularTaxon') {
                         $scope.properties.DynamicContentTypeName.PropertyValue =
                             $scope.properties.ContentTypeName.PropertyValue =
                                $scope.properties.SerializedSelectedTaxaIds.PropertyValue = null;
                     }
                     else if ($scope.properties.TaxaToDisplay.PropertyValue === 'UsedByContentType') {
-                        $scope.properties.SerializedSelectedTaxaIds.PropertyValue = null;
+                        $scope.properties.SerializedSelectedTaxaIds.PropertyValue =
+                            $scope.properties.RootTaxonId.PropertyValue = null;
                     }
                     else if ($scope.properties.TaxaToDisplay.PropertyValue === 'Selected') {
                         $scope.properties.DynamicContentTypeName.PropertyValue =
-                            $scope.properties.ContentTypeName.PropertyValue = null;
+                            $scope.properties.ContentTypeName.PropertyValue =
+                                $scope.properties.RootTaxonId.PropertyValue = null;
                     }
 
                     // If the sorting expression is AsSetManually but the selection mode is All or UsedByContentType, this is not a valid combination.
