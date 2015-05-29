@@ -696,7 +696,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
                 taxonBuildOptions = TaxonBuildOptions.Flat;
 
             // UrlKeyPrefix ???
-            var evaluatedResult = evaluator.BuildUrl(this.Taxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, "");
+            var rootTaxonomy = this.Taxonomy.RootTaxonomy ?? this.Taxonomy;
+            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, "");
 
             return string.Concat(url, evaluatedResult);
         }
