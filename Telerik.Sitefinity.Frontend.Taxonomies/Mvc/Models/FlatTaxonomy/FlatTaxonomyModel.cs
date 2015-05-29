@@ -99,7 +99,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
             }
 
             var taxa = this.Sort(CurrentTaxonomyManager.GetTaxa<FlatTaxon>()
-                                                                    .Where(t => t.Taxonomy.Id == this.TaxonomyId));
+                                                                    .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId));
 
             return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
         }

@@ -626,6 +626,149 @@
             <param name="pageData">The page data.</param>
             <returns></returns>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonomyUrlParamsMapper">
+            <summary>
+            Instances of this class map URL parameters to Route Data following a provided route template and action name.
+            </summary>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase">
+            <summary>
+            A base URL params mapper that provides responsibility chain logic.
+            </summary>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper">
+            <summary>
+            Classes that implement this interface should provide responsibility chain logic for mapping URL parameters to route data.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper.SetNext(Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper)">
+            <summary>
+            Sets the next URL parameter mapper.
+            </summary>
+            <param name="nextMapper">The next mapper.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper.ResolveUrlParams(System.String[],System.Web.Routing.RequestContext)">
+            <summary>
+            Resolves the URL parameters. Should call RouteHelper.SetUrlParametersResolved if the mapping was successful.
+            </summary>
+            <param name="urlParams">The URL parameters.</param>
+            <param name="requestContext">The request context.</param>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper.Next">
+            <summary>
+            Gets the next URL parameter mapper.
+            </summary>
+            <value>
+            The next URL parameter mapper.
+            </value>
+        </member>
+        <member name="F:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.ActionNameKey">
+            <summary>
+            The action name key for the RouteData values.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.#ctor(System.Web.Mvc.ControllerBase)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase"/> class.
+            </summary>
+            <param name="controller">The controller.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.SetNext(Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper)">
+            <inheritdoc />
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.ResolveUrlParams(System.String[],System.Web.Routing.RequestContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.MapParams(System.Reflection.MethodInfo,System.String[],System.String[])">
+            <summary>
+            Creates parameter map in order to map the URL parameters to the provided URL template
+            </summary>
+            <param name="actionMethod">The action method.</param>
+            <param name="metaParams">The meta parameters.</param>
+            <param name="urlParams">The URL parameters.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.TryResolveRouteParam(System.Reflection.MethodInfo,System.String,System.String,System.Collections.Generic.IList{Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlSegmentInfo})">
+            <summary>
+            Tries to resolve route parameters and map them to specific part of the url.
+            </summary>
+            <remarks>
+            If needed tries to interpret the route value through <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IRouteParamResolver"/>
+            </remarks>
+            <param name="actionMethod">The action method.</param>
+            <param name="routeParam">The route parameter.</param>
+            <param name="urlParam">The URL parameter.</param>
+            <param name="parameterMap">The parameter map.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.TryMatchUrl(System.String[],System.Web.Routing.RequestContext)">
+            <summary>
+            Matches the URL parameters.
+            </summary>
+            <param name="urlParams">The URL parameters.</param>
+            <param name="requestContext">The request context.</param>
+            <returns>true if resolving was successful. In this case does not fallback to next mappers. Else returns false</returns>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.Next">
+            <inheritdoc />
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.Controller">
+            <summary>
+            Gets the controller.
+            </summary>
+            <value>
+            The controller.
+            </value>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonomyUrlParamsMapper.#ctor(System.Web.Mvc.ControllerBase,Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlMapper,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonomyUrlParamsMapper"/> class.
+            </summary>
+            <param name="controller">The controller.</param>
+            <param name="taxonUrlEvaluator">The taxon URL evaluator.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonomyUrlParamsMapper.TryMatchUrl(System.String[],System.Web.Routing.RequestContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlMapper">
+            <summary>
+            Instances of this class tries to map Route Data parameters to a valid taxon instace.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlMapper.TryMatch(System.String[],Telerik.Sitefinity.Taxonomies.Model.ITaxon@,System.Int32@)">
+            <summary>
+            Tries to parce a valid taxon from the route data.
+            </summary>
+            <param name="urlParams">The URL params.</param>
+            <param name="taxon">The taxon.</param>
+            <param name="pageIndex">Index of the page.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlMapper.IsFlatTaxon(Telerik.Sitefinity.Taxonomies.Model.ITaxon)">
+            <summary>
+            Determines whether [is flat taxon] [the specified taxon].
+            </summary>
+            <param name="taxon">The taxon.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlMapper.CheckForValidFlatTaxonUrl(System.String[],System.Boolean)">
+            <summary>
+            Checks for valid flat taxon URL.
+            </summary>
+            <param name="urlParams">The URL params.</param>
+            <param name="isPreviousPageIndex">Index of the is previous page.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlMapper.TryGetLastPageIndex(System.String[],System.Int32@)">
+            <summary>
+            Tries the index of the get last page.
+            </summary>
+            <param name="urlParams">The URL params.</param>
+            <param name="pageIndex">Index of the page.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel">
             <summary>
             This class represents a JSON configuration for component cefinitions.
@@ -3860,96 +4003,6 @@
             Instances of this class map URL parameters to Route Data following a provided route template and action name.
             </summary>
         </member>
-        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase">
-            <summary>
-            A base URL params mapper that provides responsibility chain logic.
-            </summary>
-        </member>
-        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper">
-            <summary>
-            Classes that implement this interface should provide responsibility chain logic for mapping URL parameters to route data.
-            </summary>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper.SetNext(Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper)">
-            <summary>
-            Sets the next URL parameter mapper.
-            </summary>
-            <param name="nextMapper">The next mapper.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper.ResolveUrlParams(System.String[],System.Web.Routing.RequestContext)">
-            <summary>
-            Resolves the URL parameters. Should call RouteHelper.SetUrlParametersResolved if the mapping was successful.
-            </summary>
-            <param name="urlParams">The URL parameters.</param>
-            <param name="requestContext">The request context.</param>
-        </member>
-        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper.Next">
-            <summary>
-            Gets the next URL parameter mapper.
-            </summary>
-            <value>
-            The next URL parameter mapper.
-            </value>
-        </member>
-        <member name="F:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.ActionNameKey">
-            <summary>
-            The action name key for the RouteData values.
-            </summary>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.#ctor(System.Web.Mvc.ControllerBase)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase"/> class.
-            </summary>
-            <param name="controller">The controller.</param>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.SetNext(Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IUrlParamsMapper)">
-            <inheritdoc />
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.ResolveUrlParams(System.String[],System.Web.Routing.RequestContext)">
-            <inheritdoc />
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.MapParams(System.Reflection.MethodInfo,System.String[],System.String[])">
-            <summary>
-            Creates parameter map in order to map the URL parameters to the provided URL template
-            </summary>
-            <param name="actionMethod">The action method.</param>
-            <param name="metaParams">The meta parameters.</param>
-            <param name="urlParams">The URL parameters.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.TryResolveRouteParam(System.Reflection.MethodInfo,System.String,System.String,System.Collections.Generic.IList{Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlSegmentInfo})">
-            <summary>
-            Tries to resolve route parameters and map them to specific part of the url.
-            </summary>
-            <remarks>
-            If needed tries to interpret the route value through <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.IRouteParamResolver"/>
-            </remarks>
-            <param name="actionMethod">The action method.</param>
-            <param name="routeParam">The route parameter.</param>
-            <param name="urlParam">The URL parameter.</param>
-            <param name="parameterMap">The parameter map.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.TryMatchUrl(System.String[],System.Web.Routing.RequestContext)">
-            <summary>
-            Matches the URL parameters.
-            </summary>
-            <param name="urlParams">The URL parameters.</param>
-            <param name="requestContext">The request context.</param>
-            <returns>true if resolving was successful. In this case does not fallback to next mappers. Else returns false</returns>
-        </member>
-        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.Next">
-            <inheritdoc />
-        </member>
-        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.UrlParamsMapperBase.Controller">
-            <summary>
-            Gets the controller.
-            </summary>
-            <value>
-            The controller.
-            </value>
-        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.CustomActionParamsMapper.#ctor(System.Web.Mvc.ControllerBase,System.Func{System.String},System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.CustomActionParamsMapper"/> class.
@@ -4423,6 +4476,14 @@
             <param name="itemsToTake">The items to take.</param>
             <param name="totalCount">The total count.</param>
             <returns>Resulting filtered query.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.TryGetTaxonomyFieldName(System.Guid,System.String@)">
+            <summary>
+            Tries to get the name of the taxonomy field.
+            </summary>
+            <param name="taxonomyId">The taxonomy id.</param>
+            <param name="taxonomyField">The taxonomy field.</param>
+            <returns></returns>
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.ContentType">
             <summary>
