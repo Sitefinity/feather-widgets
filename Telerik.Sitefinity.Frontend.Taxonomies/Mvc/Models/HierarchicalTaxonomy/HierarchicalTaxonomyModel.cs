@@ -117,7 +117,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             var statistics = this.GetTaxonomyStatistics();
 
             var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
-                .Where(t => t.Taxonomy.Id == this.TaxonomyId && t.Parent == null);
+                .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId && t.Parent == null);
 
             return GetTaxaViewModels(statistics, taxa);
         }
@@ -159,12 +159,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             if (this.FlattenHierarchy)
             {
                 taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
-                    .Where(t => t.Taxonomy.Id == this.TaxonomyId);
+                    .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId);
             }
             else
             {
                 taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
-                    .Where(t => t.Taxonomy.Id == this.TaxonomyId && t.Parent == null);
+                    .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId && t.Parent == null);
             }
 
             return this.GetTaxaViewModels(statistics, taxa);
