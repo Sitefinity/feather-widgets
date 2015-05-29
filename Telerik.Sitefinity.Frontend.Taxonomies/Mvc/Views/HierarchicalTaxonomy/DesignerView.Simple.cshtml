@@ -10,96 +10,110 @@
     string classificationPluralTitle = CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId(), Model.GetTaxonomyProviderName()).ToLower();
 }
 
-<div class="form-group nav-wrapper" ng-init="selectedTab='content'">
+<div class="nav-tabs-wrapper" ng-init="selectedTab='content'">
 	<ul class="nav nav-tabs">
       <li role="presentation" ng-class="{active: selectedTab==='content' }" ng-click="selectedTab = 'content'"><a>@Html.Resource("Content")</a></li>
       <li role="presentation" ng-class="{active: selectedTab==='settings' }" ng-click="selectedTab = 'settings'"><a>@Html.Resource("Settings")</a></li>
     </ul>
 </div>
 
-<div class="form-group" ng-show="selectedTab === 'content'">
-    <strong>@Html.Resource("WhichHierarchicalTaxonomiesLabel").Arrange(classificationPluralTitle)</strong>
-    <div class="radio">
-        <label for="allCategories">
-            <input id="allCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="All" />
-            @Html.Resource("AllHierarchicalTaxonomies").Arrange(classificationPluralTitle)
-        </label>
-    </div>
+<div class="tab-content" ng-show="selectedTab === 'content'">
+    <div class="form-group">
 
-    <div class="radio">
-        <label for="topCategories">
-            <input id="topCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="TopLevel" />
-            @Html.Resource("TopLevelHierarchicalTaxonomies").Arrange(classificationPluralTitle)
-        </label>
-    </div>
-
-    <div class="radio">
-        <label for="underParticular">
-            <input id="underParticular" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="UnderParticularTaxon" />
-            @Html.Resource("UnderParticularHierarchicalTaxonomies").Arrange(classificationPluralTitle,
-                                CustomFieldsHelpers.GetClassificationTaxonName(Model.GetTaxonomyId(), Model.GetTaxonomyProviderName()).ToLower())
-        </label>
-
-        <div ng-show="properties.TaxaToDisplay.PropertyValue === 'UnderParticularTaxon'">
-            <sf-list-selector sf-hierarchical-taxon-selector
-                              sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(classificationPluralTitle)"
-                              sf-selected-item-id="properties.RootTaxonId.PropertyValue"
-                              sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
-                              class="sf-filter-selector">
-            </sf-list-selector>
+        <strong>@Html.Resource("WhichHierarchicalTaxonomiesLabel").Arrange(classificationPluralTitle)</strong>
+        <div class="radio">
+            <label for="allCategories">
+                <input id="allCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="All" />
+                @Html.Resource("AllHierarchicalTaxonomies").Arrange(classificationPluralTitle)
+            </label>
         </div>
-    </div>
+        <div class="radio">
+            <label for="topCategories">
+                <input id="topCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="TopLevel" />
+                @Html.Resource("TopLevelHierarchicalTaxonomies").Arrange(classificationPluralTitle)
+            </label>
+        </div>
+        <div class="radio">
+            <label for="underParticular">
+                <input id="underParticular" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="UnderParticularTaxon" />
+                @Html.Resource("UnderParticularHierarchicalTaxonomies").Arrange(classificationPluralTitle,
+                                    CustomFieldsHelpers.GetClassificationTaxonName(Model.GetTaxonomyId(), Model.GetTaxonomyProviderName()).ToLower())
+            </label>
 
-    <div class="radio">
-        <label for="selectedCategories">
-            <input id="selectedCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="Selected" />
-            @Html.Resource("SelectedHierachicalTaxonomies").Arrange(classificationPluralTitle)
-        </label>
+            <div ng-show="properties.TaxaToDisplay.PropertyValue === 'UnderParticularTaxon'" class="label-content">
+                <sf-list-selector sf-hierarchical-taxon-selector
+                                  sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(classificationPluralTitle)"
+                                  sf-selected-item-id="properties.RootTaxonId.PropertyValue"
+                                  sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
+                                  class="sf-filter-selector">
+                </sf-list-selector>
+            </div>
+        </div>
+        <div class="radio">
+            <label for="selectedCategories">
+                <input id="selectedCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="Selected" />
+                @Html.Resource("SelectedHierachicalTaxonomies").Arrange(classificationPluralTitle)
+            </label>
         
-        <div ng-show="properties.TaxaToDisplay.PropertyValue === 'Selected'">
-            <sf-list-selector sf-hierarchical-taxon-selector
-                              sf-sortable="true"
-                              sf-multiselect="true"
-                              sf-from-current-language-only="true"
-                              sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(classificationPluralTitle)"
-                              sf-selected-ids="taxonSelector.selectedItemsIds"
-                              sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
-                              class="sf-filter-selector">
-            </sf-list-selector>
+            <div ng-show="properties.TaxaToDisplay.PropertyValue === 'Selected'" class="label-content">
+                <sf-list-selector sf-hierarchical-taxon-selector
+                                  sf-sortable="true"
+                                  sf-multiselect="true"
+                                  sf-from-current-language-only="true"
+                                  sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(classificationPluralTitle)"
+                                  sf-selected-ids="taxonSelector.selectedItemsIds"
+                                  sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
+                                  class="sf-filter-selector">
+                </sf-list-selector>
+            </div>
+
+        </div>
+        <div class="radio">
+            <label for="contentCategories">
+                <input id="contentCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="UsedByContentType" />
+                @Html.Resource("ContentTypeHierarchicalTaxonomies").Arrange(classificationPluralTitle)
+            </label>
+            <div class="label-content">
+                <div class="row">
+                    <div class="col-xs-6">
+
+                        <select class="form-control"
+                                ng-model="proxyContentTypeName"
+                                ng-show="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
+                            @foreach (var type in ContentTypeExtensions.GetContentTypes())
+                            {
+                            <option value="@type.FullTypeName">@type.DisplayName</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <div class="radio">
-        <label for="contentCategories">
-            <input id="contentCategories" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="UsedByContentType" />
-            @Html.Resource("ContentTypeHierarchicalTaxonomies").Arrange(classificationPluralTitle)
-        </label>
-        <select class="form-control"
-                ng-model="proxyContentTypeName"
-                ng-show="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
-            @foreach (var type in ContentTypeExtensions.GetContentTypes())
-            {
-            <option value="@type.FullTypeName">@type.DisplayName</option>
-            }
-        </select>
-    </div>
 </div>
-<div class="form-group" ng-show="selectedTab === 'settings'">
-    <div class="checkbox">
-        <label for="showItemCount">
-            <input id="showItemCount" type="checkbox" ng-model="properties.ShowItemCount.PropertyValue"
-                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowItemCount.PropertyValue === 'True'" />
-            @Html.Resource("ShowItemCountLabel")
-        </label>
-    </div>
+<div class="tab-content" ng-show="selectedTab === 'settings'">
 
-    <div class="checkbox">
-        <label for="showEmpty">
-            <input id="showEmpty" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue"
-                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowEmptyTaxa.PropertyValue === 'True'" />
-            @Html.Resource("ShowEmptyHierarchicalTaxonomies").Arrange(classificationPluralTitle)
-        </label>
+    <div class="form-group">
+
+        <div class="checkbox">
+            <label for="showItemCount">
+                <input id="showItemCount" type="checkbox" ng-model="properties.ShowItemCount.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowItemCount.PropertyValue === 'True'" />
+                @Html.Resource("ShowItemCountLabel")
+            </label>
+        </div>
+
+        <div class="checkbox">
+            <label for="showEmpty">
+                <input id="showEmpty" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowEmptyTaxa.PropertyValue === 'True'" />
+                @Html.Resource("ShowEmptyHierarchicalTaxonomies").Arrange(classificationPluralTitle)
+            </label>
+        </div>
+
     </div>
 
     <div class="form-group">
@@ -116,7 +130,6 @@
             </div>
         </div>
     </div>
-
 
 </div>
 
