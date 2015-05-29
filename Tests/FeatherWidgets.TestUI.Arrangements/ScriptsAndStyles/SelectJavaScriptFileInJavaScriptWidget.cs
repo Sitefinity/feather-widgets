@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperationsFeather.Pages().AddProfileWidgetToPage(pageId, PlaceHolderId);
             ServerOperationsFeather.Pages().AddJavaScriptWidgetToPage(pageId, PlaceHolderId);
 
-            string folderPath = Path.Combine(ServerOperationsFeather.TemplateOperations().SfPath, "JavaScript");
+            string folderPath = Path.Combine(ServerOperationsFeather.TemplateOperations().SfPath, "JavaScriptTest");
 
             if (!Directory.Exists(folderPath))
             {
@@ -37,7 +37,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             }
 
             string filePath = Path.Combine(folderPath, FileName);
-            ServerOperationsFeather.DynamicModules().AddNewResource(FileFileResource, filePath);
+            ServerOperationsFeather.DynamicModules().AddNewResource(JavaScriptFileResource, filePath);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
 
-            string folderPath = Path.Combine(ServerOperationsFeather.TemplateOperations().SfPath, "JavaScript");
+            string folderPath = Path.Combine(ServerOperationsFeather.TemplateOperations().SfPath, "JavaScriptTest");
             string filePath = Path.Combine(folderPath, FileName);
             File.Delete(filePath);
             Directory.Delete(folderPath);
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "PageWithJavaScriptWidget";
         private const string PageTemplateName = "Bootstrap.default";
         private const string PlaceHolderId = "Contentplaceholder1";
-        private const string FileFileResource = "FeatherWidgets.TestUtilities.Data.CssFiles.JavaScriptWidgetTest.js";
+        private const string JavaScriptFileResource = "FeatherWidgets.TestUtilities.Data.CssFiles.JavaScriptWidgetTest.js";
         private const string FileName = "JavaScriptWidgetTest.js";
     }
 }
