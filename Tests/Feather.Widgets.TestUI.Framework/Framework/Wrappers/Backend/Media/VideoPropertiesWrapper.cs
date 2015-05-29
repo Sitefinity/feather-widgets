@@ -101,7 +101,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="number">The number.</param>
         public void EnterWidth(string number)
         {
-            HtmlInputNumber numberField = this.EM.Media.VideoPropertiesScreen.WidthNumber
+            HtmlInputText numberField = this.EM.Media.VideoPropertiesScreen.WidthNumber
                                               .AssertIsPresent("width");
 
             numberField.Text = number;
@@ -114,7 +114,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="number">The number.</param>
         public void EnterHeight(string number)
         {
-            HtmlInputNumber numberField = this.EM.Media.VideoPropertiesScreen.HeightNumber
+            HtmlInputText numberField = this.EM.Media.VideoPropertiesScreen.HeightNumber
                                               .AssertIsPresent("height");
 
             numberField.Text = number;
@@ -128,10 +128,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="height">The height.</param>
         public void VerifyWidthAndHeightValues(string width, string height)
         {
-            HtmlInputNumber widthField = this.EM.Media.VideoPropertiesScreen.WidthNumber
+            HtmlInputText widthField = this.EM.Media.VideoPropertiesScreen.WidthNumber
                                               .AssertIsPresent("width");
 
-            HtmlInputNumber heightField = this.EM.Media.VideoPropertiesScreen.HeightNumber
+            HtmlInputText heightField = this.EM.Media.VideoPropertiesScreen.HeightNumber
                                               .AssertIsPresent("height");
             Assert.AreEqual(width, widthField.Text);
             Assert.AreEqual(height, heightField.Text); 
