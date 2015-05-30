@@ -20,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         SectionName = "Classifications",
         CssClass = FlatTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(FlatTaxonomyResources))]
-    public class FlatTaxonomyController : Controller, ICustomWidgetVisualizationExtended
+    public class FlatTaxonomyController : Controller
     {
         #region Properties
         /// <summary>
@@ -54,44 +54,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
                 return this.model;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the Cascading Style Sheet (CSS) class to visualize the widget.
-        /// </summary>
-        [Browsable(false)]
-        public string WidgetCssClass
-        {
-            get
-            {
-                return FlatTaxonomyController.WidgetIconCssClass;
-            }
-        }
-
-        /// <summary>
-        /// Indicates if the control is empty.
-        /// </summary>
-        /// <value></value>
-        public bool IsEmpty
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets the text to be shown when the box in the designer is empty
-        /// </summary>
-        /// <value></value>
-        [Browsable(false)]
-        public string EmptyLinkText
-        {
-            get
-            {
-                string value = this.GetResource("Tags");
-
-                return string.Concat("Set ", value);
-            }
-        }
-
         #endregion
 
         #region Actions

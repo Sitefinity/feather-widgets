@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Telerik.Sitefinity.Pages.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
 {
@@ -74,6 +75,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// </summary>
         /// <value>The taxa to display.</value>
         FlatTaxaToDisplay TaxaToDisplay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL evaluation mode - URL segments or query string.
+        /// The value of this property indicates which one is used.
+        /// </summary>
+        UrlEvaluationMode UrlEvaluationMode { get; set; }
 
         /// <summary>
         /// Gets or sets the show empty taxa.

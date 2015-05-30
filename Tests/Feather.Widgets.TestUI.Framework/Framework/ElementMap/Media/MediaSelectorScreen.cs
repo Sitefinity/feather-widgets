@@ -81,15 +81,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
+
         /// <summary>
-        /// Gets the done button in image widget.
+        /// Gets Done button in media widget.
         /// </summary>
-        /// <value>The done button in image widget.</value>
         public HtmlButton DoneButtonInMediaWidget
         {
             get
             {
-                return this.Get<HtmlButton>("tagname=button", "InnerText=Done");
+                return this.Get<HtmlButton>("tagname=button", "InnerText=Done selecting");
             }
         }
 
