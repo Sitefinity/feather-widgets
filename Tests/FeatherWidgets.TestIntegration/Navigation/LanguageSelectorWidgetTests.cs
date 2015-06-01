@@ -264,35 +264,44 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { 
                     if (chunk.TagName.Equals("a") && !chunk.IsClosure)
                     {
+                        var linkHref = chunk.GetParamValue("href");
+                        chunk = parser.ParseNext();
+                        var linkText = chunk.Html;
+
                         foreach (var link in notVisiblelinks)
                         {
-                            if (chunk.GetParamValue("href") != null)
-                            {
-                                Assert.IsFalse(
-                                    chunk.GetParamValue("href").EndsWith(link.Value, StringComparison.Ordinal), 
-                                    string.Format(CultureInfo.InvariantCulture, "The link {0} is found but is not expected.", chunk.GetParamValue("href")));
-                            }
+                            Assert.IsFalse(
+                                linkHref.EndsWith(link.Value, StringComparison.Ordinal), 
+                                string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
+
+                            Assert.AreNotEqual(
+                                link.Key,
+                                linkText,
+                                string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
                         }
 
                         var foundLanguage = string.Empty;
 
                         foreach (var link in links)
                         {
-                            if (chunk.GetParamValue("href").EndsWith(link.Value, StringComparison.Ordinal))
-                            {
-                                var contentChunk = parser.ParseNext();
-                                Assert.AreEqual(
-                                    HttpUtility.HtmlEncode(link.Key), 
-                                    contentChunk.Html,
-                                    string.Format(CultureInfo.InvariantCulture, "The link display name {0} is not correct.", contentChunk.Html));
-                                foundLanguage = link.Key;
-                                break;
-                            }
+                            Assert.IsTrue(
+                                linkHref.EndsWith(link.Value, StringComparison.Ordinal),
+                                string.Format(CultureInfo.InvariantCulture, "The expected link's url {0} is not found.", link.Value));
+
+                            Assert.AreEqual(
+                                HttpUtility.HtmlEncode(link.Key), 
+                                linkText,
+                                string.Format(CultureInfo.InvariantCulture, "The link display name {0} is not correct.", linkText));
+
+                            foundLanguage = link.Key;
+                            break;
                         }
 
                         Assert.IsFalse(
                             string.IsNullOrEmpty(foundLanguage), 
-                            string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", chunk.GetParamValue("href")));                
+                            string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", linkHref));
+
+                        links.Remove(foundLanguage);
                     }
                 }
             }
