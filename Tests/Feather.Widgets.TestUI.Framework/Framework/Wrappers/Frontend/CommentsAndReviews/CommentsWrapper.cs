@@ -73,12 +73,13 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             ActiveBrowser.WaitUntilReady();
         }
 
+
         /// <summary>
-        /// Verify successfully subscribe to new comment is present
+        /// Verify successfully subscribe to ne comments is present
         /// </summary>
         public void VerifySuccessfullySubscribedMessageIsPresent()
         {
-            this.EM.CommentsAndReviews.CommentsFrontend.SuccessfulySubscribedMessage.AssertIsPresent("Successfully subscribe to new comment");
+            this.EM.CommentsAndReviews.CommentsFrontend.SuccessfulySubscribedMessage.AssertIsPresent("Successfully subscribe ");
         }
     }
 }

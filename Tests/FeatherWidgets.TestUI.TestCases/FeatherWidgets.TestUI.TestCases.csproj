@@ -118,6 +118,8 @@
     <Compile Include="CommentsAndReviews\SubmitWaitingForApprovalReviewForPageNotLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.cs" />
     <Compile Include="CommentsAndReviews\SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.cs" />
+    <Compile Include="CommentsAndReviews\UnsubscribeUserForCommentsNotification.cs" />
+    <Compile Include="CommentsAndReviews\UnsubscribeUserForReviewsNotification.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInReviewsWidgetOnFrontend.cs" />
     <Compile Include="CommentsAndReviews\VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview.cs" />
