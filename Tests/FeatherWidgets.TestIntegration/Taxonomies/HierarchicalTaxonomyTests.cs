@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.TestUtilities;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -39,6 +40,25 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
             var taxonomyOperations = new TaxonomiesOperations();
             taxonomyOperations.DeleteCategories(this.taxaNames.ToArray());
+        }
+
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that if the option to show all taxa is set, all taxa will be retrieved.")]
+        public void Categories_VerifyAllTaxaIsRetrieved()
+        {
+            var model = new HierarchicalTaxonomyModel();
+            model.TaxaToDisplay = HierarchicalTaxaToDisplay.All;
+
+            var viewModel = model.CreateViewModel();
+
+            for (int i = 0; i < viewModel.Taxa.Count; i++)
+            {
+                var expected = this.taxaNames[i];
+                var actual = viewModel.Taxa[i];
+
+                Assert.AreEqual(expected, actual.Title);
+            }
         }
 
         private List<string> taxaNames = new List<string>() { "c1", "c2", "c3" };
