@@ -194,7 +194,30 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.GetTaxonNameAndParentName(this.taxaNames.Last(), out lastTaxonParentName, out lastTaxonName);
 
             var lastActual = viewModel.Taxa[1];
-            Assert.AreEqual(lastTaxonName, lastActual.Title);            
+            Assert.AreEqual(lastTaxonName, lastActual.Title);
+        }
+
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that only taxa that is assigned to a content item is shown when ShowEmptyTaxa is disabled.")]
+        public void Categories_VerifyEmptyTaxaIsNotShownRetrieved()
+        {
+            var model = new HierarchicalTaxonomyModel();
+            model.TaxaToDisplay = HierarchicalTaxaToDisplay.All;
+
+            var viewModel = model.CreateViewModel();
+
+            Assert.AreEqual(2, viewModel.Taxa.Count);
+
+            var actual = viewModel.Taxa[0];
+            Assert.AreEqual(this.taxaNames[0], actual.Title);
+
+            string lastTaxonParentName;
+            string lastTaxonName;
+            this.GetTaxonNameAndParentName(this.taxaNames.Last(), out lastTaxonParentName, out lastTaxonName);
+
+            var lastActual = viewModel.Taxa[1];
+            Assert.AreEqual(lastTaxonName, lastActual.Title);
         }
 
         private void DeleteAllCategories()
