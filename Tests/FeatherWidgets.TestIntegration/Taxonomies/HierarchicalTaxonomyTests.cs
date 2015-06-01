@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 using MbUnit.Framework;
+using Telerik.Sitefinity;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy;
+using Telerik.Sitefinity.Modules.News;
+using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.TestUtilities;
@@ -36,8 +39,19 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
                 }
 
                 var newsOperations = new NewsOperations();
-                var newsItemsId = Guid.NewGuid();
-                newsOperations.CreateNewsItem("n1", newsItemsId);
+                var newsItemId = Guid.NewGuid();
+                newsOperations.CreateNewsItem("n1", newsItemId);
+
+                taxonomyOperations.AddTaxonsToNews(newsItemId, new string[] { "c3c2c1" }, new string[0]);
+
+                var newsManager = NewsManager.GetManager();
+
+                // The item have to be published again after a taxon is asigned in order to update the taxonomy statistics.
+                var newsItem = newsManager.GetNewsItem(newsItemId);
+                newsItem.SetWorkflowStatus(newsManager.Provider.ApplicationName, "Published");
+                newsManager.SaveChanges();
+                newsManager.Lifecycle.Publish(newsItem);
+                newsManager.SaveChanges();
             }
         }
 
@@ -157,6 +171,30 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
                 Assert.AreEqual(expected, actual.Title);
             }
+        }
+
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that only taxa filtered by content type is retrieved if that option is selected.")]
+        public void Categories_VerifyTaxaFilteredByContentTypeIsRetrieved()
+        {
+            var model = new HierarchicalTaxonomyModel();
+            model.TaxaToDisplay = HierarchicalTaxaToDisplay.UsedByContentType;
+            model.ContentTypeName = typeof(NewsItem).FullName;
+
+            var viewModel = model.CreateViewModel();
+
+            Assert.AreEqual(2, viewModel.Taxa.Count);
+            
+            var actual = viewModel.Taxa[0];
+            Assert.AreEqual(this.taxaNames[0], actual.Title);
+
+            string lastTaxonParentName;
+            string lastTaxonName;
+            this.GetTaxonNameAndParentName(this.taxaNames.Last(), out lastTaxonParentName, out lastTaxonName);
+
+            var lastActual = viewModel.Taxa[1];
+            Assert.AreEqual(lastTaxonName, lastActual.Title);            
         }
 
         private void DeleteAllCategories()
