@@ -73,7 +73,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             ActiveBrowser.WaitUntilReady();
         }
 
-
         /// <summary>
         /// Verify successfully subscribe to ne comments is present
         /// </summary>

@@ -12,7 +12,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CommentsAn
     /// This is the entry point class for comments widget wrapper.
     /// </summary>
     public class CommentsWrapper : CommentsAndReviewsCommonWrapper
-    {
-       
+    {       
     }
 }

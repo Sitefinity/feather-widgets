@@ -225,5 +225,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlSpan>("TagName=span", "InnerText=Subscribe");
             }
         }
+
+        /// <summary>
+        /// Gets login link.
+        /// </summary>
+        public HtmlAnchor LoginLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Login");
+            }
+        }
     }
 }
