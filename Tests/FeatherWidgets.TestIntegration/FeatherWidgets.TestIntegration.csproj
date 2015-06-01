@@ -209,6 +209,8 @@
     <Compile Include="News\NewsWidgetPageTemplateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResults\SearchResultsWidgetTests.cs" />
+    <Compile Include="Taxonomies\FlatTaxonomyTests.cs" />
+    <Compile Include="Taxonomies\HierarchicalTaxonomyTests.cs" />
     <Compile Include="TestCategories.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +255,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj">
       <Project>{b1e056f8-d6ad-4c0c-a619-053e23f44a60}</Project>
       <Name>Telerik.Sitefinity.Frontend.Search</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Taxonomies\Telerik.Sitefinity.Frontend.Taxonomies.csproj">
+      <Project>{fee535a5-81fc-435d-a83f-611d91ae1363}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Taxonomies</Name>
     </ProjectReference>
     <ProjectReference Include="..\FeatherWidgets.TestUtilities\FeatherWidgets.TestUtilities.csproj">
       <Project>{3a2db408-48e4-4c20-bbbc-3f730009322a}</Project>

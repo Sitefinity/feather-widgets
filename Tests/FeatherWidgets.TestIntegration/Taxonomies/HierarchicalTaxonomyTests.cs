@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using MbUnit.Framework;
+using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.TestUtilities;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.Taxonomies;
 
 namespace FeatherWidgets.TestIntegration.Taxonomies
 {
