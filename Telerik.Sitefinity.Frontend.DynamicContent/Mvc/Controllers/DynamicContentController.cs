@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Localization;
@@ -151,9 +152,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         {
             if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen || this.Model.ShowListViewOnEmpyParentFilter)
             {
-                this.InitializeListViewBag("/{0}");
+                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
 
-                var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
+                if (taxonFilter != null)
+                    this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
+                else
+                    this.InitializeListViewBag("/{0}");
+
+                var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
                 if (SystemManager.CurrentHttpContext != null)
                     this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 

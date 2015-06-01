@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
@@ -137,7 +138,9 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
 
             if (!this.IsEmpty)
             {
-                var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
+                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
+
+                var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
                 if (SystemManager.CurrentHttpContext != null)
                     this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
