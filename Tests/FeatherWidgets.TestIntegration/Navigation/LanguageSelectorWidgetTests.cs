@@ -32,7 +32,8 @@ namespace FeatherWidgets.TestIntegration.Navigation
         /// </summary>
         [SetUp]
         public void Setup()
-        { 
+        {
+            this.InitializeSitefinityLanguages();
         }
 
         /// <summary>
@@ -60,12 +61,10 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
 
-            var sitefinityLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
-
             var pageLanguages = new[] 
             {
-                sitefinityLanguages[1], ////en-US
-                sitefinityLanguages[2]   ////tr-TR
+                this.sitefinityLanguages["English"],
+                this.sitefinityLanguages["Turkish"]
             };
 
             var pageName = "TestPage";
@@ -82,14 +81,14 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var expectedLinkes = new Dictionary<string, string>()
             {
-                { sitefinityLanguages[1].NativeName, this.GetPageUrl(pageName, sitefinityLanguages[1], true) }, // en-US
-                { sitefinityLanguages[2].NativeName, this.GetPageUrl(pageName, sitefinityLanguages[2]) } // tr-TR
+                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["English"], true) },
+                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Turkish"]) }
             };
 
             var notExpectedLinkes = new Dictionary<string, string>()
             {
-                { sitefinityLanguages[3].NativeName, this.GetPageUrl(pageName, sitefinityLanguages[3]) }, // ar-MA
-                { sitefinityLanguages[4].NativeName, this.GetPageUrl(pageName, sitefinityLanguages[4]) } // sr-cyrl-ba
+                { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Arabic"]) },
+                { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Serbian"]) }
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);           
@@ -109,12 +108,10 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
 
-            var sitefinityLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
-
             var pageLanguages = new[]
             {
-                sitefinityLanguages[1], ////en-US
-                sitefinityLanguages[2]   ////tr-TR
+                this.sitefinityLanguages["English"], 
+                this.sitefinityLanguages["Turkish"]
             };
 
             var pageName = "TestPage";
@@ -131,14 +128,14 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var expectedLinkes = new Dictionary<string, string>()
             {
-                { sitefinityLanguages[2].NativeName, this.GetPageUrl(pageName, sitefinityLanguages[2]) } // tr-TR
+                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Turkish"]) }
             };
 
             var notExpectedLinkes = new Dictionary<string, string>()
             {
-                { sitefinityLanguages[1].NativeName, this.GetPageUrl(pageName, sitefinityLanguages[1], true) }, // en-US
-                { sitefinityLanguages[3].NativeName, this.GetPageUrl(pageName, sitefinityLanguages[3]) }, // ar-MA
-                { sitefinityLanguages[4].NativeName, this.GetPageUrl(pageName, sitefinityLanguages[4]) } // sr-cyrl-ba
+                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["English"], true) },
+                { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Arabic"]) },
+                { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Serbian"]) }
             };
 
             this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);
@@ -250,6 +247,19 @@ namespace FeatherWidgets.TestIntegration.Navigation
             return result;
         }
 
+        private void InitializeSitefinityLanguages()
+        {
+            var english = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "en-US").FirstOrDefault();
+            var turkish = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "tr-TR").FirstOrDefault();
+            var arabic = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "ar-MA").FirstOrDefault();
+            var serbian = AppSettings.CurrentSettings.DefinedFrontendLanguages.Where(x => x.Name == "sr-Cyrl-BA").FirstOrDefault();
+
+            this.sitefinityLanguages.Add("English", english);
+            this.sitefinityLanguages.Add("Turkish", turkish);
+            this.sitefinityLanguages.Add("Arabic", arabic);
+            this.sitefinityLanguages.Add("Serbian", serbian);
+        }
+
         private void AssertLanguageLinks(string pageContent, Dictionary<string, string> links, Dictionary<string, string> notVisiblelinks)
         {
             using (HtmlParser parser = new HtmlParser(pageContent))
@@ -300,13 +310,17 @@ namespace FeatherWidgets.TestIntegration.Navigation
                         Assert.IsFalse(
                             string.IsNullOrEmpty(foundLanguage), 
                             string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", linkHref));
-
+      
                         links.Remove(foundLanguage);
                     }
                 }
             }
         }
+
+        #endregion
+
+        #region Private fields and constants
+        private readonly Dictionary<string, CultureInfo> sitefinityLanguages = new Dictionary<string, CultureInfo>();
+        #endregion
     }
-    
-    #endregion
 }
