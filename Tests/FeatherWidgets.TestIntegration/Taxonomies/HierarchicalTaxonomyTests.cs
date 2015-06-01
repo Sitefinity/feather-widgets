@@ -129,6 +129,36 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             }
         }
 
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that only taxa under particular parent is retrieved if that option is selected.")]
+        public void Categories_VerifyTaxaUnderParticularParentIsRetrieved()
+        {
+            var model = new HierarchicalTaxonomyModel();
+            model.TaxaToDisplay = HierarchicalTaxaToDisplay.UnderParticularTaxon;
+            model.ShowEmptyTaxa = true;
+
+            var rootTaxon = TaxonomyManager.GetManager().GetTaxa<HierarchicalTaxon>().FirstOrDefault(t => t.Title == "c3");
+            model.RootTaxonId = rootTaxon.Id;
+
+            var viewModel = model.CreateViewModel();
+
+            var innerLevelNames = this.taxaNames
+                .Where(tn => tn.Contains("c3|"))
+                .Select(tn => tn.Split('|')[1])
+                .ToList();
+
+            Assert.AreEqual(innerLevelNames.Count, viewModel.Taxa.Count);
+
+            for (int i = 0; i < viewModel.Taxa.Count; i++)
+            {
+                var expected = innerLevelNames[i];
+                var actual = viewModel.Taxa[i];
+
+                Assert.AreEqual(expected, actual.Title);
+            }
+        }
+
         private void DeleteAllCategories()
         {
             var manager = TaxonomyManager.GetManager();
