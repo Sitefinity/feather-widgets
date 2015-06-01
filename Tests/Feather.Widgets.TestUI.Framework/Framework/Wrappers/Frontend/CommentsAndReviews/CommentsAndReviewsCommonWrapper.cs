@@ -228,5 +228,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         {
             this.EM.CommentsAndReviews.CommentsFrontend.SubscribeLink.AssertIsPresent("Subscribe link");
         }
+
+        /// <summary>
+        /// Click login on top link
+        /// </summary>
+        public void ClickLoginLink()
+        {
+            HtmlAnchor loginLink = this.EM.CommentsAndReviews.CommentsFrontend.LoginLink
+                .AssertIsPresent("Login link");
+            loginLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
+
+        /// <summary>
+        /// Verify text area is not visible.
+        /// </summary>
+        public void VerifyReviewsTextAreaIsNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNotVisible("Write a review");
+        }
     }
 }
