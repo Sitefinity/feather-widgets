@@ -93,6 +93,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         public bool ShowItemCount { get; set; }
 
         /// <summary>
+        /// Gets or sets the maximum number of taxa to display.
+        /// </summary>
+        /// <value>The taxa count limit.</value>
+        public int TaxaCountLimit { get; set; }
+
+        /// <summary>
         /// Gets or sets whether to show empty taxa.
         /// </summary>
         /// <value>Show empty taxonomies.</value>
@@ -378,6 +384,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
 
             this.PopulateCloudSize(result);
+
+            if (this.TaxaCountLimit > 0)
+            {
+                result = result.Take(TaxaCountLimit).ToList();
+            }
 
             return result;
         }
