@@ -77,5 +77,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlSpan>("TagName=span", "InnerText=You are successfully subscribed to new reviews");
             }
         }
+
+        /// <summary>
+        /// Gets login alert warning div.
+        /// </summary>
+        public HtmlDiv LoginAlertWarningDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=alert alert-warning");
+            }
+        }
     }
 }
