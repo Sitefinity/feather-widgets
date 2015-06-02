@@ -5,8 +5,7 @@
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-csslint": "^0.3.1",
-    "grunt-contrib-cssmin": "^0.10.0",
-    "grunt-contrib-imagemin": "0.8.1",
+    "grunt-contrib-cssmin": "^0.10.0"
     "grunt-contrib-watch": "^0.6.1",
     "grunt-newer": "^0.7.0",
     "grunt-sass": "^0.15.0",

@@ -1,0 +1,16 @@
+﻿@model Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.TaxonomyViewModel
+
+<ul class="@Model.CssClass sf-Tags">
+    @foreach (var taxa in Model.Taxa)
+    {
+        var cloudSizeClass = "sf-Tags-size" + @taxa.CloudSize;
+    
+        <li>
+            <a href="@taxa.Url" class="@cloudSizeClass">@taxa.Title</a>
+            @if (Model.ShowItemCount)
+            {
+                @:(@taxa.Count)
+            }
+        </li>
+    }
+</ul>

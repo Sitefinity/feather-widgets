@@ -28,6 +28,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(JavaScriptValue);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().MoreOptions();
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().IncludeJavaScriptBeforeTheClosingBodyTag();
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().SwitchToLinkFileOption();
             BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().VerifyCheckedRadioButtonOption(JavaScriptLocation);
@@ -76,11 +77,11 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 
         private const string PageName = "PageWithJavaScriptWidget";
         private const string WidgetName = "JavaScript";
-        private const string ExpectedValue = "/JavaScript/JavaScriptWidgetTest.js";
-        private const string FolderName = "JavaScript";
+        private const string ExpectedValue = "/JavaScriptTest/JavaScriptWidgetTest.js";
+        private const string FolderName = "JavaScriptTest";
         private const string FileName = "JavaScriptWidgetTest.js";
         private const string JavaScriptValue = "var a = 5;";
         private const string JavaScriptLocation = "Before the closing body tag";
-        private const string Script = "<script type=\"text/javascript\" src=\"/JavaScript/JavaScriptWidgetTest.js\"></script>";
+        private const string Script = "<script type=\"text/javascript\" src=\"/JavaScriptTest/JavaScriptWidgetTest.js\"></script>";
     }
 }

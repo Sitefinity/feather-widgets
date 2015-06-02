@@ -11,9 +11,9 @@
               sf-model="properties.InlineCode.PropertyValue"
               placeholder="@Html.Resource("StartWritingEmbedCode")"></textarea>
 
-    <a class="pull-right m-top-xs" href=""
+    <a class="pull-right sf-code-tips" href=""
        sf-popover-html=""
-       sf-popover-placement="bottom"
+       sf-popover-placement="top"
        sf-popover-trigger="focus"
        sf-popover-content="<div>
                                 <div class='small m-bottom-sm'>
@@ -43,6 +43,6 @@
     <div class="form-group">
         <label>@Html.Resource("Description")</label>
         <input type="text" ng-model="properties.Description.PropertyValue" class="form-control" />
-        <p>@Html.Resource("ForYourConvenience")</p>
+        <div class="text-muted">@Html.Resource("ForYourConvenience")</div>
     </div>
 </expander>

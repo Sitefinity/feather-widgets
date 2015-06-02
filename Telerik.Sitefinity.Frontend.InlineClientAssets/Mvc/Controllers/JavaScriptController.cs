@@ -110,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
                 else if (Model.Mode == ResourceMode.Inline && !string.IsNullOrEmpty(viewModel.JavaScriptCode))
                 {
-                    result = ScriptHelper.GetShortScript(viewModel.JavaScriptCode);
+                    result = EmbedCodeHelper.GetShortEmbededCode(viewModel.JavaScriptCode);
                 }
                 else
                 {

@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.DynamicModules.Web.UI.Frontend;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
+using Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
@@ -273,6 +274,27 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds the embed code widget to page.
+        /// </summary>
+        /// <param name="pageId">The page id.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddEmbedCodeWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(EmbedCodeController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Embed code", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Adds profile widget to existing page
         /// </summary>
         /// <param name="pageId">Page id value</param>
@@ -430,6 +452,72 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(ListsController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "Lists", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds lists widget to existing page, sets list to display and template
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        /// <param name="listId">List id to be displayed</param>
+        /// <param name="templateName">List template name</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddListsWidgetToPage(Guid pageId, Guid listId, string templateName, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcProxy = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcProxy.ControllerName = typeof(ListsController).FullName;
+
+                var listsController = new ListsController();
+                listsController.ListTemplateName = templateName;
+                listsController.Model.SerializedSelectedItemsIds = "[" + listId.ToString() + "]";
+                mvcProxy.Settings = new ControllerSettings(listsController);
+
+                this.CreateControl(pageManager, page, mvcProxy, "Lists", placeholder);
+            }
+        }
+
+        /// Adds comments widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddCommentsWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(CommentsController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Comments", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds reviews widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddReviewsWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(ReviewsController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Reviews", placeholder);
             }
         }
 

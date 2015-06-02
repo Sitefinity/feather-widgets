@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.SiteSelector;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
@@ -59,9 +61,23 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 return this.model;
             }
         }
+
+        /// <summary>
+        /// Determines whether the system context is in multisite mode.
+        /// </summary>
+        /// <value></value>
+        protected virtual bool IsMultisiteMode
+        {
+            get
+            {
+                return SystemManager.CurrentContext.IsMultisiteMode;
+            }
+        }
+
         #endregion
 
         #region Actions
+
         /// <summary>
         /// Renders appropriate view depending on the <see cref="TemplateName"/>
         /// </summary>
@@ -70,14 +86,20 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
-
-            var viewModel = this.Model.CreateViewModel();
-
-            this.AppendQueryParamsToCurrentSiteUrl(viewModel.Sites);
-
-            return this.View(fullTemplateName, viewModel);
+            if (this.IsMultisiteMode)
+            {
+                var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+                var viewModel = this.Model.CreateViewModel();
+                this.AppendQueryParamsToCurrentSiteUrl(viewModel.Sites);
+                
+                return this.View(fullTemplateName, viewModel);
+            }
+            else
+            {
+                return this.Content(Res.Get<SiteSelectorResources>().MultisiteIsDisabledMessage);
+            }
         }
+
         #endregion
 
         #region Overridden methods
@@ -94,6 +116,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         #endregion
 
         #region Private methods
+
         /// <summary>
         /// Initializes the model.
         /// </summary>
@@ -128,6 +151,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfSiteSelectorIcn sfMvcIcn";
         private string templateNamePrefix = "SiteSelector.";
         private string templateName = "SiteLinks";
+
         #endregion
     }
 }

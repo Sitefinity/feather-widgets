@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
@@ -11,6 +11,23 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
     /// </summary>
     public class HierarchicalTaxonomyModel : TaxonomyModel, IHierarchicalTaxonomyModel
     {
+        #region Construction
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HierarchicalTaxonomyModel" /> class.
+        /// </summary>
+        public HierarchicalTaxonomyModel()
+        {
+            this.TaxonomyId = TaxonomyManager.CategoriesTaxonomyId;
+            this.FlattenHierarchy = true;
+
+            if (string.IsNullOrEmpty(this.FieldName))
+            {
+                this.FieldName = DefaultFieldName;
+            }
+        }
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Determines what taxa will be displayed by the widget.
         /// </summary>
@@ -30,54 +47,158 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// <value>The parent category.</value>
         public Guid RootTaxonId { get; set; }
 
+        /// <summary>
+        /// If set to true, all hierarchical taxa will be shown as a flat list.
+        /// </summary>
+        /// <value>The flatten hierarchy.</value>
+        public bool FlattenHierarchy { get; set; }
+        #endregion
+
         #region Overriden methods
         /// <summary>
-        /// Gets the taxa with the usage metrics for each taxon filtered by one of the several display modes.
+        /// Creates the view model.
         /// </summary>
         /// <returns></returns>
-        protected override IDictionary<ITaxon, uint> GetFilteredTaxaWithCount()
+        public override TaxonomyViewModel CreateViewModel()
         {
+            var viewModel = new TaxonomyViewModel();
+            viewModel.ShowItemCount = this.ShowItemCount;
+            viewModel.CssClass = this.CssClass;
+
+            if (this.ContentId != Guid.Empty)
+            {
+                viewModel.Taxa = this.GetTaxaByContentItem();
+                return viewModel;
+            }
+
             switch (this.TaxaToDisplay)
             {
+                case HierarchicalTaxaToDisplay.All:
+                    viewModel.Taxa = this.GetAllTaxa<HierarchicalTaxon>();
+                    break;
                 case HierarchicalTaxaToDisplay.TopLevel:
-                    return this.GetAllTaxa();
+                    viewModel.Taxa = this.GetTopLevelTaxa();
+                    break;
                 case HierarchicalTaxaToDisplay.UnderParticularTaxon:
-                    return this.GetTaxaByParent();
+                    viewModel.Taxa = this.GetTaxaByParent();
+                    break;
                 case HierarchicalTaxaToDisplay.Selected:
-                    return this.GetSpecificTaxa();
+                    viewModel.Taxa = this.GetSpecificTaxa<HierarchicalTaxon>();
+                    break;
                 case HierarchicalTaxaToDisplay.UsedByContentType:
-                    return GetTaxaByContentType();
+                    viewModel.Taxa = this.GetTaxaByContentType();
+                    break;
                 default:
-                    return this.GetAllTaxa();
+                    viewModel.Taxa = this.GetTopLevelTaxa();
+                    break;
             }
+            return viewModel;
+        }
+
+        /// <summary>
+        /// Gets the taxon URL.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <returns></returns>
+        public override string GetTaxonUrl(ITaxon taxon)
+        {
+            return ((HierarchicalTaxon)taxon).FullUrl;
         }
 
         #endregion
 
         #region Protected methods
-        protected virtual IDictionary<ITaxon, uint> GetAllTaxa()
+        /// <summary>
+        /// Gets the taxa view model trees starting from the root level.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetTopLevelTaxa()
         {
-            var taxa = this.Taxonomy.Taxa;
+            var statistics = this.GetTaxonomyStatistics();
 
-            return this.AddCountToTaxa(taxa);
+            var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
+                .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId && t.Parent == null);
+
+            return GetTaxaViewModels(statistics, taxa);
         }
 
-        protected virtual IDictionary<ITaxon, uint> GetTaxaByContentType()
+        /// <summary>
+        /// Gets the taxa view model trees starting from the children of the provided parent id.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetTaxaByParent()
         {
-            throw new NotImplementedException();
+            var statistics = this.GetTaxonomyStatistics();
+
+            var taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>().Where(t => t.Parent.Id == this.RootTaxonId);
+
+            return this.GetTaxaViewModels(statistics, taxa);
         }
 
-        protected virtual IDictionary<ITaxon, uint> GetTaxaByParent()
+        /// <summary>
+        /// Creates trees of view models each representing a taxon that is used by the content type that the widget is set to work with.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IList<TaxonViewModel> GetTaxaByContentType()
         {
-            var rootTaxon = this.CurrentTaxonomyManager.GetTaxon(this.RootTaxonId) as HierarchicalTaxon;
+            var statistics = this.GetTaxonomyStatistics();
 
-            if (rootTaxon != null)
+            var contentProviderName = this.GetContentProviderName();
+
+            if (this.ContentType != null)
             {
-                return this.AddCountToTaxa(rootTaxon.Subtaxa);
+                statistics = statistics.Where(s => s.DataItemType == this.ContentType.FullName);
             }
 
-            return new Dictionary<ITaxon, uint>();
+            if (!string.IsNullOrWhiteSpace(contentProviderName))
+            {
+                statistics = statistics.Where(s => s.ItemProviderName == contentProviderName);
+            }
+
+            IQueryable<HierarchicalTaxon> taxa;
+            if (this.FlattenHierarchy)
+            {
+                taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
+                    .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId);
+            }
+            else
+            {
+                taxa = this.CurrentTaxonomyManager.GetTaxa<HierarchicalTaxon>()
+                    .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId && t.Parent == null);
+            }
+
+            return this.GetTaxaViewModels(statistics, taxa);
         }
+
+        /// <summary>
+        /// Gets the view models of the given taxa.
+        /// </summary>
+        /// <param name="statistics">The statistics.</param>
+        /// <param name="taxa">The taxa.</param>
+        /// <returns>Returns flat or hierarchical structure based on the widget settings.</returns>
+        protected virtual IList<TaxonViewModel> GetTaxaViewModels(IQueryable<TaxonomyStatistic> statistics, IQueryable<Taxon> taxa)
+        {
+            var sortedTaxa = this.Sort(taxa);
+
+            if (this.FlattenHierarchy)
+            {
+                return this.GetFlatTaxaViewModelsWithStatistics(sortedTaxa, statistics);
+            }
+
+            return TaxaViewModelTreeBuilder.BuildTaxaTree(
+                sortedTaxa.Cast<HierarchicalTaxon>(),
+                taxon =>
+                {
+                    if (!this.HasTranslationInCurrentLanguage((Taxon)taxon))
+                        return null;
+
+                    return this.FilterTaxonByCount(taxon, statistics);
+                });
+        }
+        #endregion
+
+        #region Private fields
+        private const string DefaultFieldName = "Category";
         #endregion
     }
 }

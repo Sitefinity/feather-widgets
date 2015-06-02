@@ -42,7 +42,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.MediaPropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Done");
+                return this.MediaPropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=~Insert");
             }
         }
 

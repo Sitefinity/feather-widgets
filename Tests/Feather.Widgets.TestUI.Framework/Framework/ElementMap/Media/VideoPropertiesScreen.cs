@@ -54,7 +54,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlDiv>("tagName=div", "class=col-md-5 text-center");
+                return this.Get<HtmlDiv>("tagName=div", "class=sf-Media--info-video");
             }
         }
 
@@ -66,7 +66,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.Get<HtmlDiv>("tagName=div", "class=text-center col-md-12 sf-Media--info-video");
+                return this.Get<HtmlDiv>("tagName=div", "class=sf-Media--info-video-big");
             }
         }
 
@@ -74,11 +74,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the width number.
         /// </summary>
         /// <value>The width number.</value>
-        public HtmlInputNumber WidthNumber
+        public HtmlInputText WidthNumber
         {
             get
             {
-                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=model.width");
+                return this.Get<HtmlInputText>("tagName=input", "ng-model=model.width");
             }
         }
 
@@ -86,11 +86,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets max height number.
         /// </summary>
         /// <value>The height number.</value>
-        public HtmlInputNumber HeightNumber
+        public HtmlInputText HeightNumber
         {
             get
             {
-                return this.Get<HtmlInputNumber>("tagName=input", "ng-model=model.height");
+                return this.Get<HtmlInputText>("tagName=input", "ng-model=model.height");
             }
         }
     }

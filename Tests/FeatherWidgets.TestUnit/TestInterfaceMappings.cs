@@ -4,6 +4,7 @@ using FeatherWidgets.TestUnit.DummyClasses.LanguageSelector;
 using FeatherWidgets.TestUnit.DummyClasses.Media;
 using FeatherWidgets.TestUnit.DummyClasses.Navigation;
 using FeatherWidgets.TestUnit.DummyClasses.SearchResults;
+using FeatherWidgets.TestUnit.DummyClasses.Taxonomies;
 using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.AccountActivation;
@@ -13,6 +14,8 @@ using Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
 using Telerik.Sitefinity.Frontend.Search.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy;
+using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy;
 
 namespace FeatherWidgets.TestUnit
 {
@@ -34,6 +37,8 @@ namespace FeatherWidgets.TestUnit
             Bind<IListsModel>().To<DummyListsModel>().When(request => true);
             Bind<IUsersListModel>().To<DummyUsersListModel>().When(request => true);
             Bind<ILanguageSelectorModel>().To<DummyLanguageSelectorModel>().When(request => true);
+            Bind<IFlatTaxonomyModel>().To<DummyFlatTaxonomyModel>().When(request => true);
+            Bind<IHierarchicalTaxonomyModel>().To<DummyHierarchicalTaxonomyModel>().When(request => true);
         }
     }
 }

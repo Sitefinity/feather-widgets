@@ -33,7 +33,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         {
             get
             {
-                return SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+                return SystemManager.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode;
             }
         }
 
@@ -102,9 +102,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             }
             else
             {
-                var result = ScriptHelper.GetShortScript(viewModel.EmbedCode);
-
-                this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetResource<EmbedCodeResources>("IncludedWhereDropped");
+                var result = EmbedCodeHelper.GetShortEmbededCode(viewModel.EmbedCode);
+                
+                if (!string.IsNullOrWhiteSpace(result))
+                    this.ViewBag.DesignModeContent = result + Environment.NewLine + this.GetResource<EmbedCodeResources>("IncludedWhereDropped");
             }
         }
         #endregion

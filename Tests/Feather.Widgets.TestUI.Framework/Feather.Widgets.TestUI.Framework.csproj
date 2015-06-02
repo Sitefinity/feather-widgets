@@ -88,6 +88,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BATFeather.cs" />
+    <Compile Include="Framework\ElementMap\CommentsAndReviews\CommentsAndReviewsMap.cs" />
+    <Compile Include="Framework\ElementMap\CommentsAndReviews\CommentsEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\CommentsAndReviews\CommentsFrontend.cs" />
+    <Compile Include="Framework\ElementMap\CommentsAndReviews\ReviewsEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\CommentsAndReviews\ReviewsFrontend.cs" />
     <Compile Include="Framework\ElementMap\ScriptsAndStyles\JavaScriptEditScreen.cs" />
     <Compile Include="Framework\ElementMap\ScriptsAndStyles\ScriptsAndStylesMap.cs" />
     <Compile Include="Framework\ElementMap\Identity\IdentityMap.cs" />
@@ -143,6 +148,10 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesGrid.cs" />
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\CommentsAndReviews\CommentsAndReviewsCommonWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\CommentsAndReviews\CommentsAndReviewsWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\CommentsAndReviews\CommentsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\CommentsAndReviews\ReviewsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Pages\PageZoneEditorMediaWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ScriptsAndStylesWidgets\JavaScriptWidgetEditWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ScriptsAndStylesWidgets\CssWidgetEditWrapper.cs" />
@@ -190,6 +199,10 @@
     <Compile Include="Framework\Wrappers\Backend\WidgetTemplates\WidgetTemplatesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\BaseWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ContentBlock\ContentBlockLinkSelectorWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\CommentsAndReviewsCommonWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\CommentsAndReviewsWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\CommentsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\ReviewsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ScriptsAndStyles\ScriptsAndStylesWrapper.cs" />

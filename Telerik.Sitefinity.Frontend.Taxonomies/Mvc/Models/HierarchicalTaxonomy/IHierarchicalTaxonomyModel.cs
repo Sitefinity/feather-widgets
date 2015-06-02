@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Telerik.Sitefinity.Pages.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 {
@@ -30,7 +31,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// Determiens whether to display the count of the items associated with every taxon.
         /// </summary>
         /// <value>Show item count.</value>
-        string ShowItemCount { get; set; }
+        bool ShowItemCount { get; set; }
 
         /// <summary>
         /// Gets or sets the URL of the page where content will be filtered by selected taxon.
@@ -76,6 +77,18 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         HierarchicalTaxaToDisplay TaxaToDisplay { get; set; }
 
         /// <summary>
+        /// Determines whether to show taxa that doesn't have classificated content.
+        /// </summary>
+        /// <value>The show empty taxa.</value>
+        bool ShowEmptyTaxa { get; set; }
+
+        /// <summary>
+        /// If set to true, all hierarchical taxa will be shown as a flat list.
+        /// </summary>
+        /// <value>The flatten hierarchy.</value>
+        bool FlattenHierarchy { get; set; }
+
+        /// <summary>
         /// Determines how many levels from the hierarchy to include.
         /// </summary>
         /// <value>The levels.</value>
@@ -87,6 +100,24 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// </summary>
         /// <value>The parent category.</value>
         Guid RootTaxonId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort expression.
+        /// </summary>
+        /// <value>The sort expression.</value>
+        string SortExpression { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Taxonomy widget (if such is presented).
+        /// </summary>
+        /// <value>The CSS class.</value>
+        string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL evaluation mode - URL segments or query string.
+        /// The value of this property indicates which one is used.
+        /// </summary>
+        UrlEvaluationMode UrlEvaluationMode { get; set; }
 
         /// <summary>
         /// Creates the view model.

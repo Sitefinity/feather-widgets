@@ -1,6 +1,6 @@
-﻿; (function ($) {
+; (function ($) {
     'use strict';
-
+	
     /*
         Rest Api
     */
@@ -143,6 +143,7 @@
             Properties
         */
         isUserAuthenticated: false,
+		hasUserReviewed: false,
         isSelectedSortButtonCssClass: 'selected',
 
         getOrInitializeProperty: function (property, sfRole) {
@@ -285,6 +286,7 @@
         createCommentMarkup: function (comment) {
             var newComment = this.getSingleCommentTemplate().clone(true);
 
+            newComment.find('[data-sf-role="list-rating-wrapper"]').show();
             newComment.find('[data-sf-role="comment-avatar"]').attr('src', comment.ProfilePictureThumbnailUrl).attr('alt', comment.Name);
 
             newComment.find('[data-sf-role="comment-name"]').text(comment.Name);
@@ -333,7 +335,8 @@
             this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
 
             // Comments write comment button
-            this.newCommentFormButton().css('display', this.allCommentsCount > 0 ? 'inline-block' : 'none');
+			// Hide when user submits review
+            this.newCommentFormButton().css('display', this.allCommentsCount > 0 && !(this.settings.useReviews && this.hasUserReviewed) ? 'inline-block' : 'none');
 
             // Comments sort buttons
             this.commentsSortNewButton().css('display', this.allCommentsCount > 1 ? 'inline-block' : 'none');
@@ -341,6 +344,10 @@
 
             // Comments load more button
             this.commentsLoadMoreButton().css('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
+            
+            // Hide comments count from the count action.
+            this.getElementByDataSfRole("comments-count-list-wrapper").toggle(this.allCommentsCount !== 0);
+			this.getElementByDataSfRole("comments-count-anchor").hide();
         },
 
         loadComments: function (skip, take, newerThan) {
@@ -497,6 +504,7 @@
             if (this.settings.useReviews) {
                 this.newCommentForm().hide();
                 this.newCommentFormButton().hide();
+				this.hasUserReviewed = true;
 
                 var textToShow = this.settings.requiresApproval ? this.newCommentPendingApprovalMessage().text() : this.resources.thankYouReviewSubmited;
 
@@ -616,9 +624,15 @@
                         // Get Subscribtion status only if user is logged in.
                         self.initializeSubscription();
                     }
-                    else if (self.settings.requiresAuthentication) {
-                        self.newCommentForm().hide();
-                        self.newCommentRequiresAuthentication().show();
+                    else {
+                        // Unlogged users can not subscribe/unsubscribe
+                        self.commentsSubscribeText().hide();
+                        self.commentsSubscribeButton().hide();
+                        
+                        if (self.settings.requiresAuthentication) {
+                            self.newCommentForm().hide();
+                            self.newCommentRequiresAuthentication().show();
+                        }
                     }
 
                     if (self.settings.useReviews) {
@@ -682,6 +696,7 @@
                     self.newCommentFormButton().hide();
                     self.newReviewFormReplacement().show();
                     self.newCommentRequiresAuthentication().hide();
+					self.hasUserReviewed = true;
                 }
             });
         },

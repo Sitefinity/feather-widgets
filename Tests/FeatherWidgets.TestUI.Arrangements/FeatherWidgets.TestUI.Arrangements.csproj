@@ -92,29 +92,30 @@
       <HintPath>..\..\packages\Telerik.DataAccess.Core.2015.1.225.1\lib\net40\Telerik.OpenAccess.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5777.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.ContentModules">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Content.8.0.5777.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Content.8.1.5800.0\lib\net40\Telerik.Sitefinity.ContentModules.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
       <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Model">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5777.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.Model.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.8.0.5777.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.8.1.5800.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.TestArrangementService.Core">
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.2\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
+    <Reference Include="Telerik.Sitefinity.TestArrangementService.Core, Version=1.0.0.3, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.3\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities">
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.8.0.5777.0\lib\net40\Telerik.Sitefinity.TestUtilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestUtilities.8.1.5800.0\lib\net45\Telerik.Sitefinity.TestUtilities.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Utilities, Version=8.0.5777.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Utilities">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.0.5777.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Core.8.1.5800.0\lib\net40\Telerik.Sitefinity.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +124,35 @@
     </Compile>
     <Compile Include="BlogPosts\AddBlogPostsWidgetToPageOpenSingleItemInExistingPage.cs" />
     <Compile Include="Blogs\DragAndDropBlogsWidgetToPage.cs" />
+    <Compile Include="CommentsAndReviews\AddCommentsWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="CommentsAndReviews\AddReviewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
+    <Compile Include="CommentsAndReviews\ChangeCommentsStatusesForPage.cs" />
+    <Compile Include="CommentsAndReviews\ChangeReviewsStatusesForPage.cs" />
+    <Compile Include="CommentsAndReviews\CommentsFrontendLoadMoreLink.cs" />
+    <Compile Include="CommentsAndReviews\CommentsFrontendShowOldestAndNewestOptions.cs" />
+    <Compile Include="CommentsAndReviews\DisableAndEnableEmailNotificationsForPages.cs" />
+    <Compile Include="CommentsAndReviews\DisableAndEnableEmailNotificationsForReviewsForPages.cs" />
+    <Compile Include="CommentsAndReviews\DisableCommentsForPage.cs" />
+    <Compile Include="CommentsAndReviews\DisableReviewsForPage.cs" />
+    <Compile Include="CommentsAndReviews\EditCommentWidgetAndCloseCommentsForPage.cs" />
+    <Compile Include="CommentsAndReviews\DeleteNewsItemWithSubmittedComments.cs" />
+    <Compile Include="CommentsAndReviews\EditReviewsWidgetAndCloseReviewsForPage.cs" />
+    <Compile Include="CommentsAndReviews\ReviewsFrontendShowOldestAndNewestOptions.cs" />
+    <Compile Include="CommentsAndReviews\SubmitCommentForDynamicItemLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitCommentForNewsLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitCommentForPageLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitReviewForPageLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitReviewsForDynamicItemLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitReviewsForNewsLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalCommentForPageNotLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalReviewForPageNotLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.cs" />
+    <Compile Include="CommentsAndReviews\SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.cs" />
+    <Compile Include="CommentsAndReviews\UnsubscribeUserForCommentsNotification.cs" />
+    <Compile Include="CommentsAndReviews\UnsubscribeUserForReviewsNotification.cs" />
+    <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
+    <Compile Include="CommentsAndReviews\ValidateAllFieldsInReviewsWidgetOnFrontend.cs" />
+    <Compile Include="CommentsAndReviews\VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageTemplate.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToPageVerfiryViewPermissions.cs" />
     <Compile Include="ContentBlocks\AddContentBlockWidgetToTemplateBasedOnLayoutFile.cs" />
@@ -164,6 +194,9 @@
     <Compile Include="ContentBlocks\UseSharedContentFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
+    <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
+    <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
     <Compile Include="VideoGallery\FilterVideosWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideosWithOverlayGalleryTemplate.cs" />
     <Compile Include="VideoGallery\SelectAllPublishedVideos.cs" />
@@ -224,11 +257,11 @@
     <Compile Include="ImageGallery\SelectSortedImagesWithChangedThumbnails.cs" />
     <Compile Include="ImageGallery\FilterImagesWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="ImageGallery\SelectImagesFromSelectedLibraryInSelectedPage.cs" />
-    <Compile Include="Lists\AnchorListTemplate.cs" />
-    <Compile Include="Lists\ExpandableListTemplate.cs" />
-    <Compile Include="Lists\ExpandedListTemplate.cs" />
-    <Compile Include="Lists\PagesListTemplate.cs" />
-    <Compile Include="Lists\SimpleListTemplate.cs" />
+    <Compile Include="Lists\VerifyAnchorListTemplate.cs" />
+    <Compile Include="Lists\VerifyExpandableListTemplate.cs" />
+    <Compile Include="Lists\VerifyExpandedListTemplate.cs" />
+    <Compile Include="Lists\VerifyPagesListTemplate.cs" />
+    <Compile Include="Lists\VerifySimpleListTemplate.cs" />
     <Compile Include="MediaWidgets\ImageWidgetInsertImageWithCustomThumbnail.cs" />
     <Compile Include="MediaWidgets\DocumentWidgetInsertDocument.cs" />
     <Compile Include="Navigation\AddLightNavigationAndMvcNavigationOnTheSamePage.cs" />
