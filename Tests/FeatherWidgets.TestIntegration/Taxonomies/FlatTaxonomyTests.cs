@@ -31,13 +31,13 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.newsOperations.DeleteAllNews();
             this.taxonomyOperations.DeleteTags(this.taxaNames.ToArray());
             this.blogOperations.DeleteAllBlogs();
+            ServerOperations.ModuleBuilder().DeleteAllModules(string.Empty, "Module Installations");
             this.serverPagesOperations.DeleteAllPages();
         }
 
-        /// <summary>
-        /// Verifies that the default settings are applied.
-        /// </summary>
         [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that the default settings are applied..")]
         public void FlatTaxonomy_DefaultSettings()
         {
             this.CreateTestData();
@@ -71,10 +71,9 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.AssertTagsLinks(responseContent, expectedTags, notExpectedTags, flatTaxonomyController.Model.ShowItemCount);
         }
 
-        /// <summary>
-        /// Verifies that tags count is not shown
-        /// </summary>
         [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that tags count is not shown.")]
         public void FlatTaxonomy_DoNotShowCount()
         {
             this.CreateTestData();
@@ -109,10 +108,9 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.AssertTagsLinks(responseContent, expectedTags, notExpectedTags, flatTaxonomyController.Model.ShowItemCount);
         }
 
-        /// <summary>
-        /// Verifies that empty tags are shown and the tags are sorted by Title DESC
-        /// </summary>
         [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that empty tags are shown and the tags are sorted by Title DESC.")]
         public void FlatTaxonomy_ShowEmptyTags_SortByTitleDescending()
         {
             this.CreateTestData();
@@ -146,10 +144,9 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.AssertTagsLinks(responseContent, expectedTags, notExpectedTags, flatTaxonomyController.Model.ShowItemCount);
         }
 
-        /// <summary>
-        /// Verifies that the selected tags are shown and sorted as manually.
-        /// </summary>
         [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that the selected tags are shown and sorted as manually.")]
         public void FlatTaxonomy_SelectTags_ShowEmptyTags_SortManually()
         {
             this.CreateTestData();
@@ -191,10 +188,9 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.AssertTagsLinks(responseContent, expectedTags, notExpectedTags, flatTaxonomyController.Model.ShowItemCount);
         }
 
-        /// <summary>
-        /// Verifies that the tag assigned to a blog post is shown when 'Only tags used by content type...' option is selected with 'Blog posts' value
-        /// </summary>
         [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that the tag assigned to a blog post is shown when 'Only tags used by content type...' option is selected with 'Blog posts' value.")]
         public void FlatTaxonomy_SelectTagsByContentType()
         {
             this.CreateTestData();
@@ -232,10 +228,9 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.AssertTagsLinks(responseContent, expectedTags, notExpectedTags, flatTaxonomyController.Model.ShowItemCount);
         }
 
-        /// <summary>
-        /// Verifies that only tags assigned to selected ContentId will be shown and that the filter url will open the page specified in BaseUrl.
-        /// </summary>
         [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that only tags assigned to selected ContentId will be shown and that the filter url will open the page specified in BaseUrl.")]
         public void FlatTaxonomy_ContentId_BaseUrl()
         {
             this.CreateTestData();
@@ -276,6 +271,46 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.AssertTagsLinks(responseContent, expectedTags, notExpectedTags, flatTaxonomyController.Model.ShowItemCount);
         }
 
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that the tag assigned to a dynamic content type is shown when 'Only tags used by content type...' option is selected with this dynamic content type.")]
+        public void FlatTaxonomy_SelectTagsByContentType_DynamicContentTypeName()
+        {
+            this.CreateTestData();
+            this.CreateDynamicContentTypeTestData();
+
+            var mvcProxy = new MvcWidgetProxy();
+            mvcProxy.ControllerName = typeof(FlatTaxonomyController).FullName;
+            var flatTaxonomyController = new FlatTaxonomyController();
+            flatTaxonomyController.Model.TaxaToDisplay = FlatTaxaToDisplay.UsedByContentType;
+            flatTaxonomyController.Model.DynamicContentTypeName = "Telerik.Sitefinity.DynamicTypes.Model.PressRelease.PressArticle";
+            mvcProxy.Settings = new ControllerSettings(flatTaxonomyController);
+
+            var index = 1;
+
+            this.pagesOperations.CreatePageWithControl(mvcProxy, PageName, PageName, PageUrl, index);
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + PageUrl + index);
+            string responseContent = PageInvoker.ExecuteWebRequest(url);
+
+            Assert.IsNotNull(responseContent);
+
+            var urlPrefix = PageUrl + index + "/-in-tags/tags/";
+            var expectedTags = new List<Tag>()
+            {
+                // the count will show how many dynamic content items has assigned tag2 (not news) -> only one
+                new Tag(this.taxaNames[1], urlPrefix + this.taxaNames[1], 1),   
+            };
+
+            var notExpectedTags = new List<Tag>()
+            {
+                new Tag(this.taxaNames[0], urlPrefix + this.taxaNames[0], 2),
+                new Tag(this.taxaNames[2], urlPrefix + this.taxaNames[2], 1),
+            };
+
+            this.AssertTagsLinks(responseContent, expectedTags, notExpectedTags, flatTaxonomyController.Model.ShowItemCount);
+        }
+
         #region Private methods
         /// <summary>
         /// Creates tags and news with assigned tags.
@@ -294,6 +329,19 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             this.newsIds.Add(news1Id);
             this.newsIds.Add(news2Id);
             this.newsIds.Add(news3Id);
+        }
+
+        /// <summary>
+        /// Imports dynamic module and creates a dynamic content item with assigned tag.
+        /// </summary>
+        private void CreateDynamicContentTypeTestData()
+        {
+            ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
+            ServerOperations.SystemManager().RestartApplication(false);
+
+            var dynamicModulePressArticle = ServerOperationsFeather.DynamicModulePressArticle();
+
+            dynamicModulePressArticle.CreatePressArticle("TestPressArticle", "test-press-article", this.taxaIds[1], Guid.Empty);
         }
 
         /// <summary>
@@ -428,6 +476,8 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
         private readonly BlogOperations blogOperations = new BlogOperations();
         private const string PageName = "TestPage";
         private const string PageUrl = "tests-page";
+        private const string ModuleName = "Press Release";
+        private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressRelease.zip";
         #endregion
 
         private class Tag
