@@ -19,6 +19,13 @@ Copy-Item $emptyWebsite $projectDeploymentDirectory -Recurse -ErrorAction stop
 
 write-output "Sitefinity successfully deployed."
 
+write-output "Start building $projectPath"    
+
+$msbuild = "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"    
+& $msbuild "C:\Tests\SitefinityWebApp\SitefinityWebApp.sln" /p:Configuration=Release /target:Rebuild /p:VisualStudioVersion=11.0 /verbosity:minimal /noconlog /nologo
+	
+write-output "Building completed"
+
 
 function CopyTestAssemblies($workingDirectory, $destinationDirectory)
 {
