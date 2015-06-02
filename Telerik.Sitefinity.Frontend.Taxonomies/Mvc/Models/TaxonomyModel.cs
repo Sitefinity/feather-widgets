@@ -707,8 +707,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             else if (this.Taxonomy is Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy)
                 taxonBuildOptions = TaxonBuildOptions.Flat;
 
+
+            string urlPrefix = this.UrlEvaluationMode == UrlEvaluationMode.QueryString ? this.UrlKeyPrefix : string.Empty;
+
             var rootTaxonomy = this.Taxonomy.RootTaxonomy ?? this.Taxonomy;
-            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, this.UrlKeyPrefix);
+            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, urlPrefix);
 
 
             return string.Concat(url, evaluatedResult);

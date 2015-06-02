@@ -138,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
+            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
             this.InitializeListViewBag("/{0}");
             this.SetRedirectUrlQueryString(taxonFilter);

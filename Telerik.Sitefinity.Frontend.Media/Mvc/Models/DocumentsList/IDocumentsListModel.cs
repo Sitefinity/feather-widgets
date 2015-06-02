@@ -123,6 +123,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList
         string SerializedSelectedParentsIds { get; set; }
 
         /// <summary>
+        /// Gets or sets the URL key prefix.
+        /// </summary>
+        /// <value>The URL key prefix.</value>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+        string UrlKeyPrefix { get; set; }
+
+        /// <summary>
         /// Creates a view model for use in list views.
         /// </summary>
         /// <param name="taxonFilter">The taxon filter.</param>
