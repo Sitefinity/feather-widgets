@@ -5,6 +5,7 @@ using System.Web.Script.Serialization;
 using MbUnit.Framework;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.News;
@@ -29,7 +30,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             {
                 var taxonomyOperations = new TaxonomiesOperations();
 
-                foreach (var taxon in this.taxaNames)
+                foreach (var taxon in this.taxaNamesWithParents)
                 {
                     string parentName;
                     string taxonName;
@@ -43,7 +44,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
                 var newsItemId = Guid.NewGuid();
                 newsOperations.CreateNewsItem("n1", newsItemId);
 
-                taxonomyOperations.AddTaxonsToNews(newsItemId, new string[] { "c3c2c1" }, new string[0]);
+                taxonomyOperations.AddTaxonsToNews(newsItemId, new string[] { "c3", "c3c2c1" }, new string[0]);
 
                 var newsManager = NewsManager.GetManager();
 
@@ -76,13 +77,13 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
             var viewModel = model.CreateViewModel();
 
-            Assert.AreEqual(this.taxaNames.Count, viewModel.Taxa.Count);
+            Assert.AreEqual(this.taxaNamesWithParents.Count, viewModel.Taxa.Count);
 
             for (int i = 0; i < viewModel.Taxa.Count; i++)
             {
                 string parentName;
                 string taxonName;
-                this.GetTaxonNameAndParentName(this.taxaNames[i], out parentName, out taxonName);
+                this.GetTaxonNameAndParentName(this.taxaNamesWithParents[i], out parentName, out taxonName);
 
                 var actual = viewModel.Taxa[i];
 
@@ -101,7 +102,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
             var selectedTaxaIds = TaxonomyManager.GetManager()
                 .GetTaxa<HierarchicalTaxon>()
-                .Where(t => this.taxaNames[1] == t.Title.ToString() || this.taxaNames[2] == t.Title.ToString())
+                .Where(t => this.taxaNamesWithParents[1] == t.Title.ToString() || this.taxaNamesWithParents[2] == t.Title.ToString())
                 .Select(t => t.Id);
 
             var serializer = new JavaScriptSerializer();
@@ -113,7 +114,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
             for (int i = 0; i < viewModel.Taxa.Count; i++)
             {
-                var expected = this.taxaNames[i + 1];
+                var expected = this.taxaNamesWithParents[i + 1];
                 var actual = viewModel.Taxa[i];
 
                 Assert.AreEqual(expected, actual.Title);
@@ -131,7 +132,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
             var viewModel = model.CreateViewModel();
 
-            var topLevelNames = this.taxaNames.Where(tn => !tn.Contains('|')).ToList();
+            var topLevelNames = this.taxaNamesWithParents.Where(tn => !tn.Contains('|')).ToList();
 
             Assert.AreEqual(topLevelNames.Count, viewModel.Taxa.Count);
 
@@ -158,7 +159,7 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
             var viewModel = model.CreateViewModel();
 
-            var innerLevelNames = this.taxaNames
+            var innerLevelNames = this.taxaNamesWithParents
                 .Where(tn => tn.Contains("c3|"))
                 .Select(tn => tn.Split('|')[1])
                 .ToList();
@@ -185,17 +186,22 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
             var viewModel = model.CreateViewModel();
 
-            Assert.AreEqual(2, viewModel.Taxa.Count);
-            
-            var actual = viewModel.Taxa[0];
-            Assert.AreEqual(this.taxaNames[0], actual.Title);
+            var expectedFilteredTaxa = new List<string>() { "c1", "c3", "c3|c3c2c1" };
 
-            string lastTaxonParentName;
-            string lastTaxonName;
-            this.GetTaxonNameAndParentName(this.taxaNames.Last(), out lastTaxonParentName, out lastTaxonName);
+            Assert.AreEqual(expectedFilteredTaxa.Count, viewModel.Taxa.Count);
 
-            var lastActual = viewModel.Taxa[1];
-            Assert.AreEqual(lastTaxonName, lastActual.Title);
+            for (var i = 0; i < expectedFilteredTaxa.Count; i++)
+            {
+                var actual = viewModel.Taxa[i];
+
+                var expectedTaxon = expectedFilteredTaxa[i];
+
+                string taxonParentName;
+                string taxonName;
+                this.GetTaxonNameAndParentName(expectedTaxon, out taxonParentName, out taxonName);
+
+                Assert.AreEqual(taxonName, actual.Title);
+            }
         }
 
         [Test]
@@ -208,17 +214,22 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
 
             var viewModel = model.CreateViewModel();
 
-            Assert.AreEqual(2, viewModel.Taxa.Count);
+            var expectedFilteredTaxa = new List<string>() { "c1", "c3", "c3|c3c2c1" };
 
-            var actual = viewModel.Taxa[0];
-            Assert.AreEqual(this.taxaNames[0], actual.Title);
+            Assert.AreEqual(expectedFilteredTaxa.Count, viewModel.Taxa.Count);
 
-            string lastTaxonParentName;
-            string lastTaxonName;
-            this.GetTaxonNameAndParentName(this.taxaNames.Last(), out lastTaxonParentName, out lastTaxonName);
+            for (var i = 0; i < expectedFilteredTaxa.Count; i++)
+            {
+                var actual = viewModel.Taxa[i];
 
-            var lastActual = viewModel.Taxa[1];
-            Assert.AreEqual(lastTaxonName, lastActual.Title);
+                var expectedTaxon = expectedFilteredTaxa[i];
+
+                string taxonParentName;
+                string taxonName;
+                this.GetTaxonNameAndParentName(expectedTaxon, out taxonParentName, out taxonName);
+
+                Assert.AreEqual(taxonName, actual.Title);
+            }
         }
 
         [Test]
@@ -245,6 +256,89 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             }
         }
 
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that hierarchical taxon view model is constructed if FlattenHierarchy is turned off.")]
+        public void Categories_VerifyHierarchicalTaxaIsRetrieved()
+        {
+            var model = new HierarchicalTaxonomyModel();
+            model.TaxaToDisplay = HierarchicalTaxaToDisplay.TopLevel;
+            model.ShowEmptyTaxa = true;
+            model.FlattenHierarchy = false;
+
+            var viewModel = model.CreateViewModel();
+
+            var expectedTaxaTree = this.GetExpectedTaxaTree(this.taxaNamesWithParents);
+
+            foreach (var taxon in expectedTaxaTree)
+            {
+                this.AssertTaxonIsInPlace(viewModel.Taxa, taxon);
+            }
+        }
+
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies that hierarchical taxon view model filtered by content type is constructed if FlattenHierarchy is turned off.")]
+        public void Categories_VerifyHierarchicalTaxaFilteredByContentTypeIsRetrieved()
+        {
+            var model = new HierarchicalTaxonomyModel();
+            model.TaxaToDisplay = HierarchicalTaxaToDisplay.UsedByContentType;
+            model.ContentTypeName = typeof(NewsItem).FullName;
+            model.FlattenHierarchy = false;
+
+            var viewModel = model.CreateViewModel();
+
+            var expectedTaxaTree = this.GetExpectedTaxaTree(new List<string>() { "c1", "c3", "c3|c3c2c1" });
+
+            foreach (var taxon in expectedTaxaTree)
+            {
+                this.AssertTaxonIsInPlace(viewModel.Taxa, taxon);
+            }
+        }
+
+        /// <summary>
+        /// Asserts the expected taxon is in the right place in the tree.
+        /// </summary>
+        /// <param name="taxa">The taxa.</param>
+        /// <param name="expectedTaxon">The expectedTaxon. Tuple<[expectedTaxon title], [expectedTaxon parent title]></param>
+        private void AssertTaxonIsInPlace(IList<TaxonViewModel> taxa, Tuple<string, string> expectedTaxon)
+        {
+            // Tupple<[Taxon], [ParentTite]>
+            var queue = new Queue<Tuple<TaxonViewModel, string>>(
+                taxa.Select(t => new Tuple<TaxonViewModel, string>(t, string.Empty)));
+
+            while (queue.Count > 0)
+            {
+                var currentTaxon = queue.Dequeue();
+                if (currentTaxon.Item1.Title == expectedTaxon.Item1)
+                {
+                    Assert.AreEqual(expectedTaxon.Item2, currentTaxon.Item2);
+                    return;
+                }
+
+                foreach (var childTaxon in currentTaxon.Item1.SubTaxa)
+                {
+                    queue.Enqueue(new Tuple<TaxonViewModel, string>(childTaxon, currentTaxon.Item1.Title));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the expected taxa tree as list of parents.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<Tuple<string, string>> GetExpectedTaxaTree(List<string> taxaNames)
+        {
+            return taxaNames.Select((tn) =>
+            {
+                string parentName;
+                string taxonName;
+                this.GetTaxonNameAndParentName(tn, out parentName, out taxonName);
+
+                return new Tuple<string, string>(taxonName, parentName);
+            });
+        }
+
         private void DeleteAllCategories()
         {
             var manager = TaxonomyManager.GetManager();
@@ -267,6 +361,9 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             taxonName = parts.Length == 2 ? parts[1] : parts[0];
         }
 
-        private List<string> taxaNames = new List<string>() { "c1", "c2", "c3", "c3|c3c1", "c3|c3c2", "c3c2|c3c2c1" };
+        /// <summary>
+        /// Parent name format - "[parent title]|[taxon title]"
+        /// </summary>
+        private List<string> taxaNamesWithParents = new List<string>() { "c1", "c2", "c3", "c3|c3c1", "c3|c3c2", "c3c2|c3c2c1" };
     }
 }
