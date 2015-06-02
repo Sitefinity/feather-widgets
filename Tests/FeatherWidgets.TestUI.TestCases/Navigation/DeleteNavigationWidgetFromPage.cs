@@ -22,6 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void DeleteNavigationWidgetFromPage()
