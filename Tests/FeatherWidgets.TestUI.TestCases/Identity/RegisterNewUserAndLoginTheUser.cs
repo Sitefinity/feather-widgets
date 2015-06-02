@@ -16,6 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Registration),
         TestCategory(FeatherTestCategories.LoginForm),
         TestCategory(FeatherTestCategories.Bootstrap)]
