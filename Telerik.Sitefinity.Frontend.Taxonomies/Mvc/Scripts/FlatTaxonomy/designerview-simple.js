@@ -75,6 +75,8 @@
                     }
                     else if ($scope.properties.TaxaToDisplay.PropertyValue === 'UsedByContentType') {
                         $scope.properties.SerializedSelectedTaxaIds.PropertyValue = null;
+                        // Not taking into account Show empty taxa if filtering by content type is selected
+                        $scope.properties.ShowEmptyTaxa.PropertyValue = false;
                     }
                     else if ($scope.properties.TaxaToDisplay.PropertyValue === 'Selected') {
                         $scope.properties.DynamicContentTypeName.PropertyValue =

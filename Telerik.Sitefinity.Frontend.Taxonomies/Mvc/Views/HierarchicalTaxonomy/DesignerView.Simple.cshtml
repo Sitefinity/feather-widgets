@@ -108,7 +108,7 @@
                 </label>
             </div>
 
-            <div class="checkbox">
+            <div class="checkbox" ng-hide="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
                 <label for="showEmpty">
                     <input id="showEmpty" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue"
                            ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowEmptyTaxa.PropertyValue === 'True'" />
