@@ -203,5 +203,38 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
                 return this.Get<HtmlSpan>("TagName=span", "InnerText=Unsubscribe");
             }
         }
+
+        /// <summary>
+        /// Gets successfully unsubscribed message to new comments
+        /// </summary>
+        public HtmlSpan SuccessfulyUnsubscribedMessage
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=You are successfully unsubscribed");
+            }
+        }
+
+        /// <summary>
+        /// Gets subscribe link
+        /// </summary>
+        public HtmlSpan SubscribeLink
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Subscribe");
+            }
+        }
+
+        /// <summary>
+        /// Gets login link.
+        /// </summary>
+        public HtmlAnchor LoginLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Login");
+            }
+        }
     }
 }

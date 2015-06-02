@@ -22,6 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview()
@@ -84,7 +85,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private string[] reviewAuthor = { "Anonymous user" };
         private string[] reviewRaiting = { "(3)" };
         private string[] reviewsToPageAll = { "Reviews to page from new user", "Reviews to page from Anonymous user" };
-        private string[] reviewAuthorAll = { "newUser" , "Anonymous user" };
+        private string[] reviewAuthorAll = { "newUser", "Anonymous user" };
         private string[] reviewRaitingAll = { "(3)", "(3)" };
         private string[] averageRaiting = { "(3)" };
         private const string AllReviewsCount = "2 reviews";

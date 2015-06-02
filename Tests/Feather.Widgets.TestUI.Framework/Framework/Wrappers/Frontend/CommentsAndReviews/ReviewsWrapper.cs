@@ -102,11 +102,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         }
 
         /// <summary>
-        /// Verify text area is not visible.
+        /// Verify allert message
         /// </summary>
-        public void VerifyReviewsTextAreaIsNotVisible()
+        /// <param name="alertMessage">Expected allert message</param>
+        public void VerifyLoginAlertMessageOnTheFrontendNotLoggedUser(string alertMessage)
         {
-            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNotVisible("Write a review");
+            HtmlDiv alertMessageOnPage = this.EM.CommentsAndReviews.ReviewsFrontend.LoginAlertWarningDiv
+                .AssertIsPresent("Login slert message");
+            bool isPresent = alertMessageOnPage.InnerText.Contains(alertMessage);
+            Assert.IsTrue(isPresent);
         }
     }
 }

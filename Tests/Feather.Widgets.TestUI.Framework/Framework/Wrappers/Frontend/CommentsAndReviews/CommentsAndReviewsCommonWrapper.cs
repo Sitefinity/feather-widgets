@@ -201,5 +201,52 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             this.EM.CommentsAndReviews.CommentsFrontend.ShowNewestOnTop.AssertIsNotVisible("Show newest on top link");
             this.EM.CommentsAndReviews.CommentsFrontend.ShowOldestOnTop.AssertIsNotVisible("Show oldest on top link");
         }
+
+        /// <summary>
+        /// Click unsubscribe link
+        /// </summary>
+        public void ClickUnsubscribeLink()
+        {
+            HtmlSpan unsubscribeForEmail = this.EM.CommentsAndReviews.CommentsFrontend.UnsubscribeLink.AssertIsPresent("unsubscribe link");
+
+            unsubscribeForEmail.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+        }
+
+        /// <summary>
+        /// Verify successfully unsubscribe is present
+        /// </summary>
+        public void VerifySuccessfullyUnsubscribedMessageIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.SuccessfulyUnsubscribedMessage.AssertIsPresent("Successfully unsubscribe ");
+        }
+
+        /// <summary>
+        /// Verify subscribe link is present
+        /// </summary>
+        public void VerifySubscribeLinkIsPresent()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.SubscribeLink.AssertIsPresent("Subscribe link");
+        }
+
+        /// <summary>
+        /// Click login on top link
+        /// </summary>
+        public void ClickLoginLink()
+        {
+            HtmlAnchor loginLink = this.EM.CommentsAndReviews.CommentsFrontend.LoginLink
+                .AssertIsPresent("Login link");
+            loginLink.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
+
+        /// <summary>
+        /// Verify text area is not visible.
+        /// </summary>
+        public void VerifyReviewsTextAreaIsNotVisible()
+        {
+            this.EM.CommentsAndReviews.CommentsFrontend.LeaveACommentArea.AssertIsNotVisible("Write a review");
+        }
     }
 }

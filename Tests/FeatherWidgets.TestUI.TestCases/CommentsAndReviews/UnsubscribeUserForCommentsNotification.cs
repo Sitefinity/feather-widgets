@@ -10,20 +10,20 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 {
     /// <summary>
-    /// SubscribeUserForCommentsNotificationAndVerifyReceivedEmail test class.
+    /// UnsubscribeUserForCommentsNotification test class.
     /// </summary>
     [TestClass]
-    public class SubscribeUserForCommentsNotificationAndVerifyReceivedEmail_ : FeatherTestCase
+    public class UnsubscribeUserForCommentsNotification_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SubscribeUserForCommentsNotificationAndVerifyReceivedEmail
+        /// UI test UnsubscribeUserForCommentsNotification
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void SubscribeUserForCommentsNotificationAndVerifyReceivedEmail()
+        public void UnsubscribeUserForCommentsNotification()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
@@ -32,6 +32,12 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubscribeToNewCommentLinks();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySuccessfullySubscribedMessageIsPresent();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyUnsubscribeLinksIsPresent();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeAMessage(NewCommentToPage);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
+            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyMessageReceived");
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickUnsubscribeLink();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySuccessfullyUnsubscribedMessageIsPresent();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifySubscribeLinkIsPresent();
 
             BAT.Macros().User().LogOut();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
@@ -39,7 +45,6 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().TypeYourName(NewUser);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().ClickSubmitButton();
             BAT.Arrange(this.TestName).ExecuteArrangement("VerifyMessageReceived");
-            BAT.Arrange(this.TestName).ExecuteArrangement("VerifyMessageContent");
         }
 
         /// <summary>

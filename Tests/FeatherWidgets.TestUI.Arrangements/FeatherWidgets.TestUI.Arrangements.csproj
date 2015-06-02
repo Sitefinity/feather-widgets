@@ -136,13 +136,17 @@
     <Compile Include="CommentsAndReviews\SubmitCommentForDynamicItemLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForNewsLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitCommentForPageLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitCommentToNewsItemThatRequireAuthentication.cs" />
     <Compile Include="CommentsAndReviews\SubmitReviewForPageLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitReviewsForDynamicItemLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitReviewsForNewsLoggedUserOnBootstrapPage.cs" />
+    <Compile Include="CommentsAndReviews\SubmitReviewsToNewsItemThatRequireAuthentication.cs" />
     <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalCommentForPageNotLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubmitWaitngForApprovalReviewForPageNotLoggedUserOnBootstrapPage.cs" />
     <Compile Include="CommentsAndReviews\SubscribeUserForCommentsNotificationAndVerifyReceivedEmail.cs" />
     <Compile Include="CommentsAndReviews\SubscribeUserForReviewsNotificationAndVerifyReceivedEmail.cs" />
+    <Compile Include="CommentsAndReviews\UnsubscribeUserForCommentsNotification.cs" />
+    <Compile Include="CommentsAndReviews\UnsubscribeUserForReviewsNotification.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInCommentsWidgetOnFrontend.cs" />
     <Compile Include="CommentsAndReviews\ValidateAllFieldsInReviewsWidgetOnFrontend.cs" />
     <Compile Include="CommentsAndReviews\VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview.cs" />

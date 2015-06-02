@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.LoginForm),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void LoginFormAddChangeRemoveRedirectToPageAfterLogin()
