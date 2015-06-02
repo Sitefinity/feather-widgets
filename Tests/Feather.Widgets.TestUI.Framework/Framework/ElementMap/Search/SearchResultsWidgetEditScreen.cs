@@ -41,7 +41,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         {
             get
             {
-                return this.Get<HtmlInputCheckBox>("id=allowSorting");
+                return this.Get<HtmlInputCheckBox>("ng-model=properties.AllowSorting.PropertyValue");
             }
         }
 
