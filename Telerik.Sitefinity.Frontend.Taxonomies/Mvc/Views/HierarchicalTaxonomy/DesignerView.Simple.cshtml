@@ -71,7 +71,7 @@
                         <div class="col-xs-6">
 
                             <select class="form-control"
-                                    ng-model="proxyContentTypeName"
+                                    ng-model="model.proxyContentTypeName"
                                     ng-show="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
                                 @foreach (var type in ContentTypeExtensions.GetContentTypes())
                                 {
@@ -108,7 +108,7 @@
                 </label>
             </div>
 
-            <div class="checkbox">
+            <div class="checkbox" ng-hide="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
                 <label for="showEmpty">
                     <input id="showEmpty" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue"
                            ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowEmptyTaxa.PropertyValue === 'True'" />

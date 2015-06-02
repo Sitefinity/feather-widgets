@@ -95,6 +95,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         int Levels { get; set; }
 
         /// <summary>
+        /// Gets or sets the maximum number of taxa to display.
+        /// </summary>
+        /// <value>The taxa count limit.</value>
+        int TaxaCountLimit { get; set; }
+
+        /// <summary>
         /// Gets or sets the root category which children will be displayed as a top level in the widget.
         /// Used only if this display mode is selected.
         /// </summary>

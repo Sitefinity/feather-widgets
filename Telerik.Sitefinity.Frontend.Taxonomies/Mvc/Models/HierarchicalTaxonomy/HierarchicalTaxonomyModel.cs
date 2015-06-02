@@ -193,7 +193,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                         return null;
 
                     return this.FilterTaxonByCount(taxon, statistics);
-                });
+                },
+                this.TaxaCountLimit);
         }
         #endregion
 

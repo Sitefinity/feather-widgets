@@ -15,29 +15,35 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// Creates trees of view models that represents the hierarchy of the given taxa.
         /// A method delegate for creating a taxon view model should be provided.
         /// If the method returns null, the taxon won't be included in the tree.
-        /// The taxa hierarchy is traversed in a breadth-first manner so the ordering of the taxa in each level is preserved. 
+        /// The taxa hierarchy is traversed in a breadth-first manner so the ordering of the taxa in each level is preserved.
         /// </summary>
         /// <param name="taxa">The taxa.</param>
         /// <param name="viewModelBuilder">A method that creates a taxon view model by given taxon.
-        /// If null is returned, the taxon won't be included in the tree.
-        /// </param>
+        /// If null is returned, the taxon won't be included in the tree.</param>
+        /// <param name="taxaCountLimit">The maximum number of taxa that will be included in the tree.</param>
         /// <returns></returns>
-        public static IList<TaxonViewModel> BuildTaxaTree(IEnumerable<HierarchicalTaxon> taxa, Func<ITaxon, TaxonViewModel> viewModelBuilder)
+        public static IList<TaxonViewModel> BuildTaxaTree(IEnumerable<HierarchicalTaxon> taxa, Func<ITaxon, TaxonViewModel> viewModelBuilder, int taxaCountLimit)
         {
             var trees = new List<TaxonViewModel>();
+            var currentTaxaCount = 0;
             foreach (var taxon in taxa)
             {
-                var subTree = TaxaViewModelTreeBuilder.BuildTaxaTreeBfs(taxon, viewModelBuilder);
+                var subTree = TaxaViewModelTreeBuilder.BuildTaxaTreeBfs(taxon, viewModelBuilder, taxaCountLimit, ref currentTaxaCount);
                 if (subTree != null)
                 {
                     trees.Add(subTree);
+                }
+
+                if (taxaCountLimit > 0 && currentTaxaCount >= taxaCountLimit)
+                {
+                    break;
                 }
             }
 
             return trees;
         }
 
-        private static TaxonViewModel BuildTaxaTreeBfs(HierarchicalTaxon taxon, Func<ITaxon, TaxonViewModel> viewModelBuilder)
+        private static TaxonViewModel BuildTaxaTreeBfs(HierarchicalTaxon taxon, Func<ITaxon, TaxonViewModel> viewModelBuilder, int taxaCountLimit, ref int currentTaxaCount)
         {
             var queue = new Queue<TaxonData>();
             TaxonViewModel rootViewModel = null;
@@ -58,6 +64,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                     if (currentNode.LastKnownParent != null)
                     {
                         currentNode.LastKnownParent.SubTaxa.Add(currentViewModel);
+                    }
+
+                    currentTaxaCount++;
+                    if (taxaCountLimit > 0 && currentTaxaCount == taxaCountLimit)
+                    {
+                        return rootViewModel;
                     }
                 }
 

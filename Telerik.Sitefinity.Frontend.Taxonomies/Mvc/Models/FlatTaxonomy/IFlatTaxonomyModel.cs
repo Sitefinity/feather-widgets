@@ -34,6 +34,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         bool ShowItemCount { get; set; }
 
         /// <summary>
+        /// Gets or sets the maximum number of taxa to display.
+        /// </summary>
+        /// <value>The taxa count limit.</value>
+        int TaxaCountLimit { get; set; }
+
+        /// <summary>
         /// Gets or sets the URL of the page where content will be filtered by selected taxon.
         /// </summary>
         /// <value>The base URL.</value>
