@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void AddCommentsWidgetOnPageBasedOnBootstrapTemplate()
@@ -30,7 +31,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertLeaveACommentMessage();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(CommentsMessage);
         }
 
         /// <summary>
@@ -52,5 +53,6 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         private const string PageName = "CommentsPage";
         private const string WidgetName = "Comments";
+        private const string CommentsMessage = "Leave a comment";
     }
 }

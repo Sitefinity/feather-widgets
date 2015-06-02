@@ -10,11 +10,13 @@ using Telerik.Sitefinity.Frontend.Media.Mvc.Models.DocumentsList;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
@@ -136,13 +138,37 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            this.InitializeListViewBag("/{0}");
+            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
 
-            var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
+            this.InitializeListViewBag("/{0}");
+            this.SetRedirectUrlQueryString(taxonFilter);
+
+            var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
 
             var fullTemplateName = this.GetFullListTemplateName();
 
             return View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Lists the by taxon.
+        /// </summary>
+        /// <param name="taxonFilter">The taxon filter.</param>
+        /// <param name="page">The page.</param>
+        /// <returns></returns>
+        public ActionResult ListByTaxon(ITaxon taxonFilter, int? page)
+        {
+            var fullTemplateName = this.GetFullListTemplateName();
+            this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.CurrentPageUrl + "/" + taxonFilter.UrlName + "/{0}";
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+
+            var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -306,6 +332,19 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
         }
 
+        /// <summary>
+        /// Sets the redirect URL query string.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        private void SetRedirectUrlQueryString(ITaxon taxon)
+        {
+            if (taxon == null || this.HttpContext == null)
+            {
+                return;
+            }
+
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + this.HttpContext.Request.QueryString.ToQueryString();
+        }
         #endregion
 
         #region Private fields and constants

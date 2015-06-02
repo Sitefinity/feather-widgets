@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void EditCommentWidgetAndCloseCommentsForPage()
@@ -29,13 +30,13 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().ClickAdvancedSettingsButton();
             BATFeather.Wrappers().Backend().ModuleBuilder().DynamicWidgetAdvancedSettingsWrapper().ClickModelButton();
-            BATFeather.Wrappers().Backend().CommentsAndReviews().CommentsWrapper().CloseCommentsForThread(CloseComments);
+            BATFeather.Wrappers().Backend().CommentsAndReviews().CommentsWrapper().CloseCommentsAndReviewForThread(CloseComments);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyCommentsAuthorAndContent(this.commentAuthor, this.commentToPage);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyLeaveACommentAreaIsNotVisible();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().VerifyTextAreaIsNotVisible();
         }
 
         /// <summary>

@@ -1,27 +1,38 @@
+@model System.Web.UI.Control
+
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.Taxonomies.Helpers;
+@using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models;
 
 @Html.QueryBuilderScriptReferences()
 
+@{
+    string classificationPluralTitle = CustomFieldsHelpers.GetClassificationPluralTitle(Model.GetTaxonomyId(), Model.GetTaxonomyProviderName()).ToLower(); 
+}
+
+<h4>@Html.Resource("WhichFlatTaxonomiesLabel").Arrange(classificationPluralTitle)</h4>
+
 <div class="form-group">
-    <strong>@Html.Resource("WhichTagsLabel")</strong>
+
     <div class="radio">
         <label for="allTags">
             <input id="allTags" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="All" />
-            @Html.Resource("AllTags")
+            @Html.Resource("AllFlatTaxonomies").Arrange(classificationPluralTitle)
         </label>
     </div>
 
     <div class="radio">
         <label for="selectedTags">
             <input id="selectedTags" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="Selected" />
-            @Html.Resource("SelectedTagsLabel")
+            @Html.Resource("SelectedFlatTaxonomyLabel").Arrange(classificationPluralTitle)
         </label>
 
-        <div ng-show="properties.TaxaToDisplay.PropertyValue === 'Selected'">
+            <div ng-show="properties.TaxaToDisplay.PropertyValue === 'Selected'" class="label-content">
             <sf-list-selector sf-taxon-selector
                               sf-sortable="true"
                               sf-multiselect="true"
+                              sf-from-current-language-only="true"
+                              sf-dialog-header="@Html.Resource("SelectTaxonomiesHeader").Arrange(classificationPluralTitle)"
                               sf-selected-ids="taxonSelector.selectedItemsIds"
                               sf-taxonomy-id="{{properties.TaxonomyId.PropertyValue}}"
                               class="sf-filter-selector">
@@ -33,17 +44,29 @@
     <div class="radio">
         <label for="contentTags">
             <input id="contentTags" type="radio" ng-model="properties.TaxaToDisplay.PropertyValue" value="UsedByContentType" />
-            @Html.Resource("ShowContentTypeTagsLabel")
+            @Html.Resource("ShowContentTypeFlatTaxonomiesLabel").Arrange(classificationPluralTitle)
         </label>
-        <select class="form-control"
-                ng-model="proxyContentTypeName"
-                ng-show="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
-            @foreach (var type in ContentTypeExtensions.GetContentTypes())
-            {
-            <option value="@type.FullTypeName">@type.DisplayName</option>
-            }
-        </select>
+            <div class="label-content">
+                <div class="row">
+
+                    <div class="col-xs-6">
+                        <select class="form-control"
+                                ng-model="proxyContentTypeName"
+                                ng-show="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
+                            @foreach (var type in ContentTypeExtensions.GetContentTypes())
+                            {
+                            <option value="@type.FullTypeName">@type.DisplayName</option>
+                            }
+                        </select>
+                   </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <div class="form-group">
 
     <div class="checkbox">
         <label for="showItemCount">
@@ -57,17 +80,18 @@
         <label for="showEmptyTags">
             <input id="showEmptyTags" type="checkbox" ng-model="properties.ShowEmptyTaxa.PropertyValue"
                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShowEmptyTaxa.PropertyValue === 'True'" />
-            @Html.Resource("ShowEmptyTags")
+            @Html.Resource("ShowEmptyFlatTaxonomies").Arrange(classificationPluralTitle)
         </label>
+    </div>
+
     </div>
 
     <div class="form-group">
         <div class="row">
             <div class="col-xs-6">
-                <label for="sortOptions">@Html.Resource("SortTagsLabel")</label>
+                <label for="sortOptions">@Html.Resource("SortFlatTaxonomiesLabel").Arrange(classificationPluralTitle)</label>
 
                 <select id="sortOptions" ng-model="selectedSortOption" class="form-control" ng-change="updateSortOption(selectedSortOption)">
-                    <option value="LastModified DESC"> @Html.Resource("LastModified")</option>
                     <option value="Title ASC"> @Html.Resource("ByTitleAZ")</option>
                     <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
                     <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
@@ -77,9 +101,11 @@
         </div>
     </div>
 
-    <div>
-        <label for="navTemplateName">@Html.Resource("TemplateLabel")</label>
+    <div class="form-group">
 
+        <label for="navTemplateName">@Html.Resource("TemplateLabel")</label>
+        <div class="row">
+            <div class="col-xs-6">
         <select id="navTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
             @foreach (var viewName in Html.GetViewNames("Navigation", @"^FlatTaxonomy\.(?<viewName>\w*)$"))
             {
@@ -87,7 +113,10 @@
             }
         </select>
     </div>
+        </div>
+
 </div>
+
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
     <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>

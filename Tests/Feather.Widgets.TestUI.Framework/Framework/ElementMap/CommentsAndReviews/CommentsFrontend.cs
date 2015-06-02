@@ -24,18 +24,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         }
 
         /// <summary>
-        /// Gets comments header
-        /// </summary>
-        /// <value>Gets comments header</value>
-        public HtmlSpan CommentsHeader
-        {
-            get
-            {
-                return this.Get<HtmlSpan>("TagName=span", "InnerText=Leave a comment");
-            }
-        }
-
-        /// <summary>
         /// Gets leave a comment link.
         /// </summary>
         public HtmlAnchor LeaveAComment
@@ -98,7 +86,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         /// <summary>
         /// Gets comments count on page.
         /// </summary>
-        public HtmlDiv CommentsCountOnPage
+        public HtmlDiv MessageAndCountOnPage
         {
             get
             {
@@ -135,7 +123,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
         {
             get
             {
-                return this.Get<HtmlDiv>("tagname=div", "class=alert alert-warning");
+                return this.Get<HtmlDiv>("tagname=div", "class=^alert alert-warning");
             }
         }
 
@@ -191,6 +179,61 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndRevie
             get
             {
                 return this.Get<HtmlSpan>("TagName=span", "InnerText=Subscribe to new comments");
+            }
+        }
+
+        /// <summary>
+        /// Gets successfully subscribed message to new comments
+        /// </summary>
+        public HtmlSpan SuccessfulySubscribedMessage
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=You are successfully subscribed to new comments");
+            }
+        }
+
+        /// <summary>
+        /// Gets unsubscribe link to new comments
+        /// </summary>
+        public HtmlSpan UnsubscribeLink
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Unsubscribe");
+            }
+        }
+
+        /// <summary>
+        /// Gets successfully unsubscribed message to new comments
+        /// </summary>
+        public HtmlSpan SuccessfulyUnsubscribedMessage
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=You are successfully unsubscribed");
+            }
+        }
+
+        /// <summary>
+        /// Gets subscribe link
+        /// </summary>
+        public HtmlSpan SubscribeLink
+        {
+            get
+            {
+                return this.Get<HtmlSpan>("TagName=span", "InnerText=Subscribe");
+            }
+        }
+
+        /// <summary>
+        /// Gets login link.
+        /// </summary>
+        public HtmlAnchor LoginLink
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=Login");
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Telerik.Sitefinity.Pages.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
 {
@@ -111,6 +112,18 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// </summary>
         /// <value>The sort expression.</value>
         string SortExpression { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the Taxonomy widget (if such is presented).
+        /// </summary>
+        /// <value>The CSS class.</value>
+        string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL evaluation mode - URL segments or query string.
+        /// The value of this property indicates which one is used.
+        /// </summary>
+        UrlEvaluationMode UrlEvaluationMode { get; set; }
 
         /// <summary>
         /// Creates the view model.

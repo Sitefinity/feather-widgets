@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
 using Telerik.Sitefinity.Frontend.Blogs.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Modules.Blogs;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -124,8 +125,12 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
+            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
+
             this.InitializeListViewBag("/{0}");
-            var viewModel = this.Model.CreateListViewModel(taxonFilter: null, page: page ?? 1);
+            this.SetRedirectUrlQueryString(taxonFilter);
+
+            var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
 
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
@@ -328,6 +333,19 @@ namespace Telerik.Sitefinity.Frontend.Blogs.Mvc.Controllers
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
         }
 
+        /// <summary>
+        /// Sets the redirect URL query string.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        private void SetRedirectUrlQueryString(ITaxon taxon)
+        {
+            if (taxon == null || this.HttpContext == null)
+            {
+                return;
+            }
+
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + this.HttpContext.Request.QueryString.ToQueryString();
+        }
         #endregion
 
         #region Private fields and constants

@@ -9,7 +9,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CommentsAn
     /// <summary>
     /// This is the entry point class for reviews widget wrapper.
     /// </summary>
-    public class ReviewsWrapper : BaseWrapper
+    public class ReviewsWrapper : CommentsAndReviewsCommonWrapper
     {
     }
 }

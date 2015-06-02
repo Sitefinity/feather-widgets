@@ -209,11 +209,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         /// Gets the narro selection by arrow.
         /// </summary>
         /// <value>The narrow selection by arrow.</value>
-        public HtmlSpan NarrowSelectionByArrow
+        public HtmlAnchor NarrowSelectionByArrow
         {
             get
             {
-                return this.Get<HtmlSpan>("tagName=span", "ng-click=toggle()", "innertext=~Narrow selection by...");
+                return this.Get<HtmlAnchor>("tagName=a", "ng-click=toggle()", "innertext=~Narrow selection by...");
             }
         }
 

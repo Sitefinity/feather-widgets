@@ -40,17 +40,15 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the url of the taxon.
-        /// </summary>
-        /// <value>The url.</value>
-        public string Url { get; set; }
-
-        /// <summary>
         /// Gets or sets the taxon size used for Cloud template.
         /// </summary>
         /// <value>The size of the cloud.</value>
         public int CloudSize { get; set; }
-        
+
+        /// Gets or sets the url of the taxon.
+        /// </summary>
+        /// <value>The url.</value>
+        public string Url { get; set; }
         #endregion
     }
 }

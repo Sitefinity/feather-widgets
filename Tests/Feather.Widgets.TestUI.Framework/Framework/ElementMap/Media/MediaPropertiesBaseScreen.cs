@@ -42,7 +42,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         {
             get
             {
-                return this.MediaPropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=Done");
+                return this.MediaPropertiesModalDialog.Find.ByExpression<HtmlButton>("tagName=button", "InnerText=~Insert");
             }
         }
 
@@ -85,11 +85,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// <summary>
         /// Gets More options div.
         /// </summary>
-        public HtmlSpan MoreOptionsSpan
+        public HtmlAnchor MoreOptionsSpan
         {
             get
             {
-                return this.Get<HtmlSpan>("class=Options-toggler text-muted ng-binding", "innerText=More options");
+                return this.Get<HtmlAnchor>("class=Options-toggler ng-binding", "innerText=More options");
             }
         }
 

@@ -15,12 +15,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the Flat taxonomy widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "FlatTaxonomy_MVC",
-        Title = "FlatTaxonomy", 
+    [ControllerToolboxItem(Name = "Tags_MVC",
+        Title = "Tags",
         SectionName = "Classifications",
         CssClass = FlatTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(FlatTaxonomyResources))]
-    public class FlatTaxonomyController : Controller, ICustomWidgetVisualizationExtended
+    public class FlatTaxonomyController : Controller
     {
         #region Properties
         /// <summary>
@@ -54,18 +54,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
                 return this.model;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the Cascading Style Sheet (CSS) class to visualize the widget.
-        /// </summary>
-        [Browsable(false)]
-        public string WidgetCssClass
-        {
-            get
-            {
-                return FlatTaxonomyController.WidgetIconCssClass;
-            }
-        }
         #endregion
 
         #region Actions
@@ -85,30 +73,14 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         }
 
         /// <summary>
-        /// Indicates if the control is empty.
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
         /// </summary>
-        /// <value></value>
-        public bool IsEmpty
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
         {
-            get;
-            set;
+            this.Index().ExecuteResult(this.ControllerContext);
         }
-
-        /// <summary>
-        /// Gets the text to be shown when the box in the designer is empty
-        /// </summary>
-        /// <value></value>
-        [Browsable(false)]
-        public string EmptyLinkText
-        {
-            get
-            {
-                string value = this.GetResource("Tags");
-
-                return string.Concat("Set ", value);
-            }
-        }
-
+       
         /// <summary>
         /// Gets the resource.
         /// </summary>

@@ -467,7 +467,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void ExpandNarrowSelectionByArrow()
         {
-            HtmlSpan arrow = this.EM.Widgets.WidgetDesignerContentScreen.NarrowSelectionByArrow
+            HtmlAnchor arrow = this.EM.Widgets.WidgetDesignerContentScreen.NarrowSelectionByArrow
                   .AssertIsPresent("radio button");
 
             arrow.Click();

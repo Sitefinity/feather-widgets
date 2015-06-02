@@ -117,7 +117,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="cssClassName">css class name</param>
         public void ApplyCssClasses(string cssClassName)
         {
-            HtmlSpan moreOptions = this.EM.Media.MediaPropertiesBaseScreen.MoreOptionsSpan.AssertIsPresent("More options span");
+            HtmlAnchor moreOptions = this.EM.Media.MediaPropertiesBaseScreen.MoreOptionsSpan.AssertIsPresent("More options span");
             moreOptions.Click();
             HtmlInputText cssClassesTextbox = this.EM.Media.MediaPropertiesBaseScreen.CssClassesTextbox.AssertIsPresent("Css classes textbox");
             cssClassesTextbox.Text = cssClassName;

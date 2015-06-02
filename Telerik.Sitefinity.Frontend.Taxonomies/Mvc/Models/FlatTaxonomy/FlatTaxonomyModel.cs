@@ -34,7 +34,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         /// <returns></returns>
         public override TaxonomyViewModel CreateViewModel()
         {
-            var viewModel = new TaxonomyViewModel { ShowItemCount = this.ShowItemCount };
+            var viewModel = new TaxonomyViewModel 
+            { 
+                ShowItemCount = this.ShowItemCount, 
+                CssClass = this.CssClass 
+            };
 
             if (this.ContentId != Guid.Empty)
             {
@@ -61,6 +65,16 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
             return viewModel;
         }
 
+        /// <summary>
+        /// Gets the taxon URL.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        /// <returns></returns>
+        public override string GetTaxonUrl(ITaxon taxon)
+        {
+            return taxon.UrlName.Value;
+        }
+
         #endregion
 
         #region Private
@@ -85,7 +99,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
             }
 
             var taxa = this.Sort(CurrentTaxonomyManager.GetTaxa<FlatTaxon>()
-                                                                    .Where(t => t.Taxonomy.Id == this.TaxonomyId));
+                                                                    .Where(t => t.Taxonomy.Id == this.ResolvedTaxonomyId));
 
             return this.GetFlatTaxaViewModelsWithStatistics(taxa, statistics);
         }
