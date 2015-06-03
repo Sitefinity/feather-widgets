@@ -394,5 +394,21 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.StringResources
                 return this["SelectTaxonomiesHeader"];
             }
         }
+
+        /// <summary>
+        /// word: Template
+        /// </summary>
+        /// <value>Template</value>
+        [ResourceEntry("TemplateLabel",
+            Value = "Template",
+            Description = "word: Template",
+            LastModified = "2015/06/02")]
+        public string TemplateLabel
+        {
+            get
+            {
+                return this["TemplateLabel"];
+            }
+        }
     }
 }
