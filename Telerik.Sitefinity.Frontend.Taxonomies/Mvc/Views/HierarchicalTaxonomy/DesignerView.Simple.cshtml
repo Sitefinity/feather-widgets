@@ -71,7 +71,7 @@
                         <div class="col-xs-6">
 
                             <select class="form-control"
-                                    ng-model="proxyContentTypeName"
+                                    ng-model="model.proxyContentTypeName"
                                     ng-show="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
                                 @foreach (var type in ContentTypeExtensions.GetContentTypes())
                                 {
@@ -128,6 +128,20 @@
                         <option value="Title DESC"> @Html.Resource("ByTitleZA")</option>
                         <option value="AsSetManually"> @Html.Resource("AsSetManually")</option>
                         <option value="Custom"> @Html.Resource("AsSetInAdvancedMode")</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="navTemplateName">@Html.Resource("TemplateLabel")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="navTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames("HierarchicalTaxonomy", @"^HierarchicalTaxonomy\.(?<viewName>\w*)$"))
+                        {
+                            <option value="@viewName"> @viewName</option>
+                        }
                     </select>
                 </div>
             </div>

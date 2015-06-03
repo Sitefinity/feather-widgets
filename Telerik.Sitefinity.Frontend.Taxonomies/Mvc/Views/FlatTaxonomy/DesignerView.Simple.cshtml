@@ -51,7 +51,7 @@
 
                     <div class="col-xs-6">
                         <select class="form-control"
-                                ng-model="proxyContentTypeName"
+                                ng-model="model.proxyContentTypeName"
                                 ng-show="properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'">
                             @foreach (var type in ContentTypeExtensions.GetContentTypes())
                             {
@@ -107,7 +107,7 @@
         <div class="row">
             <div class="col-xs-6">
         <select id="navTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-            @foreach (var viewName in Html.GetViewNames("Navigation", @"^FlatTaxonomy\.(?<viewName>\w*)$"))
+            @foreach (var viewName in Html.GetViewNames("FlatTaxonomy", @"^FlatTaxonomy\.(?<viewName>\w*)$"))
             {
                 <option value="@viewName"> @viewName</option>
             }
