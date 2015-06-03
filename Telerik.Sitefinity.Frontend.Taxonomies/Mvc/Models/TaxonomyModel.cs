@@ -198,6 +198,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         }
 
         /// <summary>
+        /// Gets or sets the URL key prefix. Used when building and evaluating URLs together with ContentView controls
+        /// </summary>
+        /// <value>The URL key prefix.</value>
+        public string UrlKeyPrefix { get; set; }
+
         /// Gets or sets the CSS class that will be applied on the wrapper div of the Taxonomy widget (if such is presented).
         /// </summary>
         /// <value>The CSS class.</value>
@@ -715,12 +720,19 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             else if (this.Taxonomy is Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy)
                 taxonBuildOptions = TaxonBuildOptions.Flat;
 
-            // UrlKeyPrefix ???
+
+            string urlPrefix = this.UrlEvaluationMode == UrlEvaluationMode.QueryString ? this.UrlKeyPrefix : string.Empty;
+
             var rootTaxonomy = this.Taxonomy.RootTaxonomy ?? this.Taxonomy;
-            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, "");
+            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, urlPrefix);
+
 
             return string.Concat(url, evaluatedResult);
         }
+
+        #endregion
+
+        #region Private methods
 
         /// <summary>
         /// Sorts the specified list.

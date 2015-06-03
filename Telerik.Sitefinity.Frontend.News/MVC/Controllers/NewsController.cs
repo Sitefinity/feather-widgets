@@ -135,7 +135,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
+            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
@@ -148,7 +148,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
-
+            
             return this.View(fullTemplateName, viewModel);
         }
 

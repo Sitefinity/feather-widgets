@@ -71,6 +71,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         string SerializedSelectedTaxaIds { get; set; }
 
         /// <summary>
+        /// Gets or sets the URL key prefix. Used when building and evaluating URLs together with ContentView controls
+        /// </summary>
+        /// <value>The URL key prefix.</value>
+        string UrlKeyPrefix { get; set; }
+
+        /// <summary>
         /// Determines what taxa will be displayed by the widget/
         /// </summary>
         /// <value>The taxa to display.</value>
