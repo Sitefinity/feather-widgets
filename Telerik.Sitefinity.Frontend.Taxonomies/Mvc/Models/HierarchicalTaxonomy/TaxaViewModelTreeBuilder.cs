@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
@@ -20,15 +21,24 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// <param name="taxa">The taxa.</param>
         /// <param name="viewModelBuilder">A method that creates a taxon view model by given taxon.
         /// If null is returned, the taxon won't be included in the tree.</param>
+        /// <param name="sort">The sort.</param>
+        /// <param name="manager">The taxonomy manager that will be used to retrieve the children.</param>
         /// <param name="taxaCountLimit">The maximum number of taxa that will be included in the tree.</param>
         /// <returns></returns>
-        public static IList<TaxonViewModel> BuildTaxaTree(IEnumerable<HierarchicalTaxon> taxa, Func<ITaxon, TaxonViewModel> viewModelBuilder, int taxaCountLimit)
+        public static IList<TaxonViewModel> BuildTaxaTree(
+            IQueryable<Taxon> taxa,
+            Func<ITaxon, TaxonViewModel> viewModelBuilder,
+            Func<IQueryable<Taxon>, IQueryable<Taxon>> sort,
+            TaxonomyManager manager,
+            int taxaCountLimit)
         {
+
+            var sortedTaxa = sort.Invoke(taxa);
             var trees = new List<TaxonViewModel>();
             var currentTaxaCount = 0;
-            foreach (var taxon in taxa)
+            foreach (var taxon in sortedTaxa)
             {
-                var subTree = TaxaViewModelTreeBuilder.BuildTaxaTreeBfs(taxon, viewModelBuilder, taxaCountLimit, ref currentTaxaCount);
+                var subTree = TaxaViewModelTreeBuilder.BuildTaxaTreeBfs(taxon, viewModelBuilder, sort, manager, taxaCountLimit, ref currentTaxaCount);
                 if (subTree != null)
                 {
                     trees.Add(subTree);
@@ -43,7 +53,13 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             return trees;
         }
 
-        private static TaxonViewModel BuildTaxaTreeBfs(HierarchicalTaxon taxon, Func<ITaxon, TaxonViewModel> viewModelBuilder, int taxaCountLimit, ref int currentTaxaCount)
+        private static TaxonViewModel BuildTaxaTreeBfs(
+            Taxon taxon,
+            Func<ITaxon, TaxonViewModel> viewModelBuilder,
+            Func<IQueryable<Taxon>, IQueryable<Taxon>> sort,
+            TaxonomyManager manager,
+            int taxaCountLimit,
+            ref int currentTaxaCount)
         {
             var queue = new Queue<TaxonData>();
             TaxonViewModel rootViewModel = null;
@@ -76,7 +92,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
                 // If the current taxon is included in the tree, it should be the parent of the inner taxa.
                 var lastKnownParent = currentViewModel ?? currentNode.LastKnownParent;
 
-                foreach (var childTaxon in currentNode.Taxon.Subtaxa)
+                var subTaxa = manager.GetTaxa<Taxon>().Where(t => t.Parent.Id == currentNode.Taxon.Id);
+                var sortedSubtaxa = sort.Invoke(subTaxa);
+
+                foreach (var childTaxon in sortedSubtaxa)
                 {
                     queue.Enqueue(new TaxonData() 
                     {
@@ -95,7 +114,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
             /// Gets or sets the taxon that is currently examined.
             /// </summary>
             /// <value>The taxon.</value>
-            public HierarchicalTaxon Taxon { get; set; }
+            public Taxon Taxon { get; set; }
 
             /// <summary>
             /// Gets or sets the last known parent in the newly constructed tree.
