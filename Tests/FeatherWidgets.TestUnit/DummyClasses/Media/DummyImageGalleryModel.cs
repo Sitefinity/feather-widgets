@@ -245,5 +245,11 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
                 throw new NotImplementedException();
             }
         }
+
+        public string UrlKeyPrefix
+        {
+            get;
+            set;
+        }
     }
 }

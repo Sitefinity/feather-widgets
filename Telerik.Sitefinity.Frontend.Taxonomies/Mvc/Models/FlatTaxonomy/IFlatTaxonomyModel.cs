@@ -101,6 +101,10 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.FlatTaxonomy
         string SortExpression { get; set; }
 
         /// <summary>
+        /// Gets or sets the URL key prefix. Used when building and evaluating URLs together with ContentView controls
+        /// </summary>
+        /// <value>The URL key prefix.</value>
+        string UrlKeyPrefix { get; set; }
         /// Gets or sets the CSS class that will be applied on the wrapper div of the Taxonomy widget (if such is presented).
         /// </summary>
         /// <value>The CSS class.</value>

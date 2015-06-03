@@ -152,7 +152,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         {
             if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen || this.Model.ShowListViewOnEmpyParentFilter)
             {
-                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
+                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
                 this.InitializeListViewBag("/{0}");
                 this.SetRedirectUrlQueryString(taxonFilter);
