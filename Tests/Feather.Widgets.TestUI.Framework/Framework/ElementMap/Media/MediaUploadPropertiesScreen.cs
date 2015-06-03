@@ -145,11 +145,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         /// Gets the categories and tags arrow.
         /// </summary>
         /// <value>The categories and tags arrow.</value>
-        public HtmlSpan CategoriesAndTagsArrow
+        public HtmlAnchor CategoriesAndTagsArrow
         {
             get
             {
-                return this.Get<HtmlSpan>("InnerText=Categories and tags");
+                return this.Get<HtmlAnchor>("InnerText=Categories and tags");
             }
         }
 
@@ -162,6 +162,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             get
             {
                 return this.Get<HtmlInputText>("tagName=input", "placeholder=Add a tag");
+            }
+        }
+
+        /// <summary>
+        /// Gets the done selecting in select library dialog.
+        /// </summary>
+        /// <value>The done selecting in select library dialog.</value>
+        public HtmlButton DoneSelecting
+        {
+            get
+            {
+                return this.Get<HtmlButton>("tagName=button", "ng-click=doneSelecting()");
             }
         }
     }
