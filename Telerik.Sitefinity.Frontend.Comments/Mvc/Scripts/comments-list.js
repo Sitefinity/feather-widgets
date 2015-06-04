@@ -647,6 +647,9 @@
         initializeSubscription: function () {
             var self = this;
 
+            if (!self.settings.commentsThreadKey)
+                return;
+
             self.restApi.getSubscriptionStatus(self.settings.commentsThreadKey).then(function (response) {
                 if (response) {
                     self.isSubscribedToNewComments = response.IsSubscribed;
@@ -667,6 +670,9 @@
 
         initializeComments: function () {
             var self = this;
+
+            if (!self.settings.commentsThreadKey)
+                return;
 
             // Initial loading of comments count for thread
             self.restApi.getCommentsCount(self.settings.commentsThreadKey).then(function (response) {

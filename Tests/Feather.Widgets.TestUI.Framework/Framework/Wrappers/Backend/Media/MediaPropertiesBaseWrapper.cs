@@ -100,6 +100,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Clicks Done button on media properties dialog for docs. This is temporary fix!
+        /// </summary>
+        public void ConfirmMediaPropertiesDocsTemporary()
+        {
+            HtmlButton doneBtn = ActiveBrowser.Find
+                                              .ByExpression<HtmlButton>("tagName=button", "InnerText=Done")
+                                              .AssertIsPresent("done button");
+
+            doneBtn.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
         /// Confirms the image properties in image widget.
         /// </summary>
         public void ConfirmMediaPropertiesInWidget()

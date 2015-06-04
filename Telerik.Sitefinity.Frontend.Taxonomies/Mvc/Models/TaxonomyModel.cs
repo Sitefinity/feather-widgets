@@ -9,7 +9,6 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
-using Telerik.Sitefinity.Frontend.Taxonomies.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
@@ -32,7 +31,6 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             this.ShowItemCount = true;
             this.SortExpression = DefaultSortExpression;
             this.UrlEvaluationMode = UrlEvaluationMode.UrlPath;
-            this.ContentTypeName = ContentTypeExtensions.GetContentTypes().Select(x => x.FullTypeName).FirstOrDefault();
         }
 
         #endregion
@@ -780,7 +778,8 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
         private const string DefaultSortExpression = "Title ASC";
-        private string contentTypeName;
+        private const string DefaultContentType = "Telerik.Sitefinity.News.Model.NewsItem";
+        private string contentTypeName = DefaultContentType;
         private string dynamicContentTypeName;
         private string fieldName;
         #endregion

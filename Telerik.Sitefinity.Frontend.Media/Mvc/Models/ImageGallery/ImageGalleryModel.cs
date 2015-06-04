@@ -91,7 +91,6 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             return manager.GetImages();
         }
 
-
         /// <inheritdoc />
         protected override Frontend.Mvc.Models.ContentDetailsViewModel CreateDetailsViewModelInstance()
         {
@@ -167,6 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
             foreach (var item in viewModel.Items)
             {
                 ((ThumbnailViewModel)item).ThumbnailUrl = this.GetSelectedSizeUrl((SfImage)item.DataItem, this.ThumbnailSizeModel);
+                ((ThumbnailViewModel)item).MediaUrl = this.GetSelectedSizeUrl((SfImage)item.DataItem, this.ImageSizeModel);
             }
         }
 
