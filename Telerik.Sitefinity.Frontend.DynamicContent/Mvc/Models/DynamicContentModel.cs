@@ -83,6 +83,16 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         }
 
         /// <inheritdoc />
+        public override ContentDetailsViewModel CreateDetailsViewModel(IDataItem item)
+        {
+            var viewModel = base.CreateDetailsViewModel(item);
+
+            viewModel.ProviderName = this.GetManagerInstance().Provider.Name;
+
+            return viewModel;
+        }
+
+        /// <inheritdoc />
         protected override IQueryable<IDataItem> GetItemsQuery()
         {
             if (this.ContentType == null)
