@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 
@@ -29,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Helpers
                 Title = image.Title.Value,
                 AlternativeText = image.AlternativeText.Value,
                 Description = image.Description.Value,
-                MediaUrl = image.MediaUrl,
+                MediaUrl = ((ThumbnailViewModel)item).MediaUrl,
                 DateCreated = image.DateCreated,
                 Author = image.Author.Value
             };

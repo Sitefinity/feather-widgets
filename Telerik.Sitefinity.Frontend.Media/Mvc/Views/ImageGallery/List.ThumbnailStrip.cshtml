@@ -37,8 +37,7 @@
     <p class="js-Gallery-image">
         <a class='js-Gallery-prev'>Prev</a>
         <a class='js-Gallery-next'>Next</a>
-        <img src="@firstItem.DataItem.MediaUrl" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" />
-
+        <img src="@(((ThumbnailViewModel)firstItem).MediaUrl)" title="@firstItem.DataItem.Title" alt="@firstItem.DataItem.AlternativeText" />
     </p>
         }
         else

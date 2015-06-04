@@ -503,5 +503,5 @@ namespace FeatherWidgets.TestIntegration.Navigation
         private readonly NewsOperationsContext serverOperationsNews = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News();
     
         #endregion
-    } 
+    }
 }
