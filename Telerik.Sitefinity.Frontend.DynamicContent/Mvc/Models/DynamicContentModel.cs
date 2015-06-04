@@ -125,19 +125,14 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Models
         /// <returns></returns>
         protected virtual DynamicModuleManager GetManagerInstance()
         {
-            string providerName;
             if (this.ProviderName == null)
             {
                 var moduleBuilderManager = ModuleBuilderManager.GetManager().Provider;
                 var dynamicType = moduleBuilderManager.GetDynamicModuleTypes().FirstOrDefault(t => t.TypeName == this.ContentType.Name && t.TypeNamespace == this.ContentType.Namespace);
-                providerName = DynamicModuleManager.GetDefaultProviderName(dynamicType.ModuleName);
-            }
-            else
-            {
-                providerName = this.ProviderName;
+                this.ProviderName = DynamicModuleManager.GetDefaultProviderName(dynamicType.ModuleName);
             }
 
-            var manager = DynamicModuleManager.GetManager(providerName);
+            var manager = DynamicModuleManager.GetManager(this.ProviderName);
 
             return manager;
         }

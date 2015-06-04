@@ -148,7 +148,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// </summary>
         public void ExpandCategoriesAndTagsSection()
         {
-            HtmlSpan expandArrow = this.EM.Media.MediaUploadPropertiesScreen.CategoriesAndTagsArrow.AssertIsPresent("expand button");
+            HtmlAnchor expandArrow = this.EM.Media.MediaUploadPropertiesScreen.CategoriesAndTagsArrow.AssertIsPresent("expand button");
             expandArrow.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -186,7 +186,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
             var fullFilePath = string.Concat(projectDir, fileTitle);
 
             var uploadDialog = BAT.Macros().DialogOperations().StartFileUploadDialogMonitoring(fullFilePath, DialogButton.OPEN);      
-            BAT.Macros().DialogOperations().WaitUntillFileUploadDialogIsHandled(uploadDialog);
+            //// BAT.Macros().DialogOperations().WaitUntillFileUploadDialogIsHandled(uploadDialog);
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -198,6 +198,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void WaitForContentToBeLoaded()
         {
             Manager.Current.Wait.For(() => this.IsContentLoadedInUploadPropertiesDialog(), 20000);
+        }
+
+        /// <summary>
+        /// Dones the selecting in select library dialog.
+        /// </summary>
+        public void DoneSelecting()
+        {
+            HtmlButton shareButton = this.EM.Media.MediaUploadPropertiesScreen.DoneSelecting.AssertIsPresent("Done selecting button");
+
+            shareButton.Click();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncRequests();
         }
 
         private bool IsContentLoadedInUploadPropertiesDialog()

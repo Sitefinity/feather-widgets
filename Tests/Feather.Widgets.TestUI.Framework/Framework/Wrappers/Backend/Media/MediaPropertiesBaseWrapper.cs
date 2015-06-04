@@ -100,6 +100,20 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         }
 
         /// <summary>
+        /// Clicks Done button on media properties dialog for docs. This is temporary fix!
+        /// </summary>
+        public void ConfirmMediaPropertiesDocsTemporary()
+        {
+            HtmlButton doneBtn = ActiveBrowser.Find
+                                              .ByExpression<HtmlButton>("tagName=button", "InnerText=Done")
+                                              .AssertIsPresent("done button");
+
+            doneBtn.Click();
+            ActiveBrowser.WaitForAsyncOperations();
+            ActiveBrowser.RefreshDomTree();
+        }
+
+        /// <summary>
         /// Confirms the image properties in image widget.
         /// </summary>
         public void ConfirmMediaPropertiesInWidget()
@@ -117,7 +131,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         /// <param name="cssClassName">css class name</param>
         public void ApplyCssClasses(string cssClassName)
         {
-            HtmlSpan moreOptions = this.EM.Media.MediaPropertiesBaseScreen.MoreOptionsSpan.AssertIsPresent("More options span");
+            HtmlAnchor moreOptions = this.EM.Media.MediaPropertiesBaseScreen.MoreOptionsSpan.AssertIsPresent("More options span");
             moreOptions.Click();
             HtmlInputText cssClassesTextbox = this.EM.Media.MediaPropertiesBaseScreen.CssClassesTextbox.AssertIsPresent("Css classes textbox");
             cssClassesTextbox.Text = cssClassName;

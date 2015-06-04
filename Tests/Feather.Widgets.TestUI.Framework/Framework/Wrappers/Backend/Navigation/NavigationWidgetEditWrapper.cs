@@ -83,7 +83,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void MoreOptions()
         {
-            HtmlSpan moreOptions = EM.Navigation.NavigationWidgetEditScreen.MoreOptions
+            HtmlAnchor moreOptions = EM.Navigation.NavigationWidgetEditScreen.MoreOptions
                 .AssertIsPresent("Css class");
 
             moreOptions.ScrollToVisible();

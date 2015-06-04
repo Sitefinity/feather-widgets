@@ -152,12 +152,10 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
         {
             if (this.Model.ParentFilterMode != ParentFilterMode.CurrentlyOpen || this.Model.ShowListViewOnEmpyParentFilter)
             {
-                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
+                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
-                if (taxonFilter != null)
-                    this.InitializeListViewBag("/" + taxonFilter.UrlName + "/{0}");
-                else
-                    this.InitializeListViewBag("/{0}");
+                this.InitializeListViewBag("/{0}");
+                this.SetRedirectUrlQueryString(taxonFilter);
 
                 var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
                 if (SystemManager.CurrentHttpContext != null)
@@ -509,6 +507,19 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers
             return this.listTemplateNamePrefix + this.ListTemplateName;
         }
 
+        /// <summary>
+        /// Sets the redirect URL query string.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        private void SetRedirectUrlQueryString(ITaxon taxon)
+        {
+            if (taxon == null || this.HttpContext == null)
+            {
+                return;
+            }
+
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + this.HttpContext.Request.QueryString.ToQueryString();
+        }
         #endregion
 
         #region Private fields and constants

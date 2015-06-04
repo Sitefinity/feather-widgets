@@ -81,11 +81,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Navigation
         /// <summary>
         /// Gets More options.
         /// </summary>
-        public HtmlSpan MoreOptions
+        public HtmlAnchor MoreOptions
         {
             get
             {
-                return this.Get<HtmlSpan>("tagname=span", "InnerText=More options");
+                return this.Get<HtmlAnchor>("tagname=a", "InnerText=More options");
             }
         }
     }

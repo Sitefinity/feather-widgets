@@ -22,6 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
+        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview()

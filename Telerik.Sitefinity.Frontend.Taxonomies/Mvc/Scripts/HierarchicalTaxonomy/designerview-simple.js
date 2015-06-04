@@ -7,6 +7,7 @@
         var emptyGuid = '00000000-0000-0000-0000-000000000000';
         var defaultDynamicNamespace = "Telerik.Sitefinity.DynamicTypes.Model";
         $scope.taxonSelector = { selectedItemsIds: [] };
+        $scope.model = {};
         $scope.feedback.showLoadingIndicator = true;
 
         $scope.updateSortOption = function (newSortOption) {
@@ -26,7 +27,7 @@
          );
 
         $scope.$watch(
-            'proxyContentTypeName',
+            'model.proxyContentTypeName',
             function (newValue, oldValue) {
                 if (newValue !== oldValue) {
                     if (newValue.startsWith(defaultDynamicNamespace)) {
@@ -45,7 +46,7 @@
             .then(function (data) {
                 if (data) {
                     $scope.properties = propertyService.toAssociativeArray(data.Items);
-                    $scope.proxyContentTypeName = $scope.properties.ContentTypeName.PropertyValue || $scope.properties.DynamicContentTypeName.PropertyValue;
+                    $scope.model.proxyContentTypeName = $scope.properties.ContentTypeName.PropertyValue || $scope.properties.DynamicContentTypeName.PropertyValue;
 
                     if (sortOptions.indexOf($scope.properties.SortExpression.PropertyValue) >= 0) {
                         $scope.selectedSortOption = $scope.properties.SortExpression.PropertyValue;
@@ -83,6 +84,8 @@
                     else if ($scope.properties.TaxaToDisplay.PropertyValue === 'UsedByContentType') {
                         $scope.properties.SerializedSelectedTaxaIds.PropertyValue =
                             $scope.properties.RootTaxonId.PropertyValue = null;
+                        // Not taking into account Show empty taxa if filtering by content type is selected
+                        $scope.properties.ShowEmptyTaxa.PropertyValue = false;
                     }
                     else if ($scope.properties.TaxaToDisplay.PropertyValue === 'Selected') {
                         $scope.properties.DynamicContentTypeName.PropertyValue =

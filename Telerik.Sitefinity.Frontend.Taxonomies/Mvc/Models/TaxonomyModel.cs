@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
+using Telerik.Sitefinity.Frontend.Taxonomies.Helpers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
@@ -31,6 +32,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             this.ShowItemCount = true;
             this.SortExpression = DefaultSortExpression;
             this.UrlEvaluationMode = UrlEvaluationMode.UrlPath;
+            this.ContentTypeName = ContentTypeExtensions.GetContentTypes().Select(x => x.FullTypeName).FirstOrDefault();
         }
 
         #endregion
@@ -91,6 +93,12 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         /// </summary>
         /// <value>Show item count.</value>
         public bool ShowItemCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum number of taxa to display.
+        /// </summary>
+        /// <value>The taxa count limit.</value>
+        public int TaxaCountLimit { get; set; }
 
         /// <summary>
         /// Gets or sets whether to show empty taxa.
@@ -190,6 +198,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         }
 
         /// <summary>
+        /// Gets or sets the URL key prefix. Used when building and evaluating URLs together with ContentView controls
+        /// </summary>
+        /// <value>The URL key prefix.</value>
+        public string UrlKeyPrefix { get; set; }
+
         /// Gets or sets the CSS class that will be applied on the wrapper div of the Taxonomy widget (if such is presented).
         /// </summary>
         /// <value>The CSS class.</value>
@@ -378,6 +391,11 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             }
 
             this.PopulateCloudSize(result);
+
+            if (this.TaxaCountLimit > 0)
+            {
+                result = result.Take(TaxaCountLimit).ToList();
+            }
 
             return result;
         }
@@ -702,12 +720,19 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
             else if (this.Taxonomy is Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy)
                 taxonBuildOptions = TaxonBuildOptions.Flat;
 
-            // UrlKeyPrefix ???
+
+            string urlPrefix = this.UrlEvaluationMode == UrlEvaluationMode.QueryString ? this.UrlKeyPrefix : string.Empty;
+
             var rootTaxonomy = this.Taxonomy.RootTaxonomy ?? this.Taxonomy;
-            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, "");
+            var evaluatedResult = evaluator.BuildUrl(rootTaxonomy.Name, taxonRelativeUrl, this.FieldName, taxonBuildOptions, urlEvaluationMode, urlPrefix);
+
 
             return string.Concat(url, evaluatedResult);
         }
+
+        #endregion
+
+        #region Private methods
 
         /// <summary>
         /// Sorts the specified list.
@@ -755,8 +780,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models
         private string serializedSelectedTaxaIds;
         private IList<string> selectedTaxaIds = new List<string>();
         private const string DefaultSortExpression = "Title ASC";
-        private const string DefaultContentType = "Telerik.Sitefinity.News.Model.NewsItem";
-        private string contentTypeName = DefaultContentType;
+        private string contentTypeName;
         private string dynamicContentTypeName;
         private string fieldName;
         #endregion

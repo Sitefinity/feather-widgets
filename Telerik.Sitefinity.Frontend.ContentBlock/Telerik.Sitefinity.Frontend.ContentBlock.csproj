@@ -171,7 +171,9 @@
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Share.cshtml" />
     <None Include="app.config" />
     <None Include="OpenAccessNuGet.targets" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-share.js" />

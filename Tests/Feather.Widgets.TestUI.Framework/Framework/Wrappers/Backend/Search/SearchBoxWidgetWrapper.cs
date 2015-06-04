@@ -54,7 +54,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Search
         /// </summary>
         public void ExpandMoreOptions()
         {
-            HtmlSpan moreOptions = this.EM.Search.SearchBoxWidgetEditScreen.MoreOptionsSpan.AssertIsPresent("More options span");
+            HtmlAnchor moreOptions = this.EM.Search.SearchBoxWidgetEditScreen.MoreOptions.AssertIsPresent("More options span");
             moreOptions.Click();
         }
 

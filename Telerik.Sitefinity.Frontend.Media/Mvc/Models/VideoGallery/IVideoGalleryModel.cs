@@ -139,6 +139,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.VideoGallery
         string SerializedVideoSizeViewModel { get; set; }
 
         /// <summary>
+        /// Gets or sets the URL key prefix.
+        /// </summary>
+        /// <value>The URL key prefix.</value>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+        string UrlKeyPrefix { get; set; }
+
+        /// <summary>
         /// Gets the information for all of the content types that a control is able to show.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]

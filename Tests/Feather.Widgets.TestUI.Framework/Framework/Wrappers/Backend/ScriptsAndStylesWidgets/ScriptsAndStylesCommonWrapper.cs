@@ -113,7 +113,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void MoreOptions()
         {
-            HtmlSpan moreOptions = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen.MoreOptions
+            HtmlAnchor moreOptions = EM.ScriptsAndStyles.ScriptsAndStylesEditScreen.MoreOptions
                 .AssertIsPresent("More options");
 
             moreOptions.ScrollToVisible();

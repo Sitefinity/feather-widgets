@@ -114,11 +114,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Search
         /// <summary>
         /// Gets More options div.
         /// </summary>
-        public HtmlSpan MoreOptionsSpan
+        public HtmlAnchor MoreOptions
         {
             get
             {
-                return this.Get<HtmlSpan>("class=Options-toggler text-muted ng-binding", "innerText=More options");
+                return this.Get<HtmlAnchor>("class=Options-toggler ng-binding", "innerText=More options");
             }
         }
 

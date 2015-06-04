@@ -135,7 +135,7 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
         /// </returns>
         public ActionResult Index(int? page)
         {
-            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
+            ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
             var fullTemplateName = this.listTemplateNamePrefix + this.ListTemplateName;
             this.ViewBag.CurrentPageUrl = this.GetCurrentPageUrl();
@@ -143,10 +143,12 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
 
+            this.SetRedirectUrlQueryString(taxonFilter);
+
             var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
-
+            
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -218,6 +220,19 @@ namespace Telerik.Sitefinity.Frontend.News.Mvc.Controllers
             return ControllerModelFactory.GetModel<INewsModel>(this.GetType());
         }
 
+        /// <summary>
+        /// Sets the redirect URL query string.
+        /// </summary>
+        /// <param name="taxon">The taxon.</param>
+        private void SetRedirectUrlQueryString(ITaxon taxon)
+        {
+            if (taxon == null || this.HttpContext == null)
+            {
+                return;
+            }
+
+            this.ViewBag.RedirectPageUrlTemplate = this.ViewBag.RedirectPageUrlTemplate + this.HttpContext.Request.QueryString.ToQueryString();
+        }
         #endregion
 
         #region Private fields and constants

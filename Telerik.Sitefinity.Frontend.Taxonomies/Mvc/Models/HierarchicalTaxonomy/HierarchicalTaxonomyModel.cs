@@ -178,22 +178,24 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Models.HierarchicalTaxonomy
         /// <returns>Returns flat or hierarchical structure based on the widget settings.</returns>
         protected virtual IList<TaxonViewModel> GetTaxaViewModels(IQueryable<TaxonomyStatistic> statistics, IQueryable<Taxon> taxa)
         {
-            var sortedTaxa = this.Sort(taxa);
-
             if (this.FlattenHierarchy)
             {
+                var sortedTaxa = this.Sort(taxa);
                 return this.GetFlatTaxaViewModelsWithStatistics(sortedTaxa, statistics);
             }
 
             return TaxaViewModelTreeBuilder.BuildTaxaTree(
-                sortedTaxa.Cast<HierarchicalTaxon>(),
+                taxa,
                 taxon =>
                 {
-                    if (!this.HasTranslationInCurrentLanguage((Taxon)taxon))
+                    if (!this.HasTranslationInCurrentLanguage(taxon))
                         return null;
 
                     return this.FilterTaxonByCount(taxon, statistics);
-                });
+                },
+                t => this.Sort(t),
+                this.CurrentTaxonomyManager,
+                this.TaxaCountLimit);
         }
         #endregion
 
