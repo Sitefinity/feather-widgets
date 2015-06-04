@@ -20,5 +20,11 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// </summary>
         /// <value>The thumbnail URL.</value>
         public string ThumbnailUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL of the image.
+        /// </summary>
+        /// <value>The image URL.</value>
+        public string MediaUrl { get; set; }
     }
 }
