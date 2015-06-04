@@ -6,6 +6,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
@@ -138,6 +139,38 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         string SerializedImageSizeModel { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the parent item.
+        /// </summary>
+        /// <value>
+        /// The type of the parent item.
+        /// </value>
+        string RelatedItemType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the parent item provider.
+        /// </summary>
+        /// <value>
+        /// The name of the parent item provider.
+        /// </value>
+        string RelatedItemProviderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the field.
+        /// </summary>
+        /// <value>
+        /// The name of the field.
+        /// </value>
+        string RelatedFieldName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the relation type of the items that will be display - children or parent.
+        /// </summary>
+        /// <value>
+        /// The relation type of the items that will be display - children or parent.
+        /// </value>
+        RelationDirection RelationTypeToDisplay { get; set; }
+
+        /// <summary>
         /// Gets or sets the URL key prefix.
         /// </summary>
         /// <value>The URL key prefix.</value>
@@ -174,6 +207,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// <param name="p">The page.</param>
         /// <returns>A list view model containing all descendant items from the given parent.</returns>
         ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int page);
+
+        /// <summary>
+        /// Creates a view model for use in list views filtered by related item.
+        /// </summary>
+        /// <param name="relatedItem">Item that is related to the resulting items</param>
+        /// <param name="page">The page.</param>
+        /// <returns>A view model for use in list views.</returns>
+        /// <exception cref="System.ArgumentException">'page' argument has to be at least 1.;page</exception>
+        ContentListViewModel CreateListViewModelByRelatedItem(IDataItem relatedItem, int page);
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.

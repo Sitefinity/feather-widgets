@@ -5,13 +5,16 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Sitefinity.ContentLocations;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Libraries.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
@@ -149,6 +152,36 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
             var fullTemplateName = this.FullListTemplateName();
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Displays related items of the specified item.
+        /// </summary>
+        /// <param name="parentItem">The related item.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult RelatedData(IDataItem relatedItem, RelatedDataViewModel relatedDataViewModel, int? page)
+        {
+            this.InitializeListViewBag("/{0}");
+
+            this.Model.RelatedItemType = relatedDataViewModel.RelatedItemType;
+            this.Model.RelatedItemProviderName = relatedDataViewModel.RelatedItemProviderName;
+            this.Model.RelationTypeToDisplay = relatedDataViewModel.RelationTypeToDisplay;
+            this.Model.RelatedFieldName = relatedDataViewModel.RelatedFieldName;
+
+            var manager = ManagerBase.GetMappedManager(this.Model.RelatedItemType, this.Model.RelatedItemProviderName);
+
+            if (this.Model.RelatedItemProviderName.IsNullOrEmpty())
+                this.Model.RelatedItemProviderName = manager.Provider.Name;
+
+            var viewModel = this.Model.CreateListViewModelByRelatedItem(relatedItem, page ?? 1);
+            if (SystemManager.CurrentHttpContext != null)
+                this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
+
+            var fullTemplateName = this.listTemplateNamePrefix + "OverlayGallery";
             return this.View(fullTemplateName, viewModel);
         }
 

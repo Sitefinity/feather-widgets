@@ -159,10 +159,25 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         {
             base.PopulateListViewModel(page, query, viewModel);
 
+            this.SetThumbnailUrls(viewModel);
+        }
+
+        private void SetThumbnailUrls(ContentListViewModel viewModel)
+        {
             foreach (var item in viewModel.Items)
             {
                 ((ThumbnailViewModel)item).ThumbnailUrl = this.GetSelectedSizeUrl((SfImage)item.DataItem, this.ThumbnailSizeModel);
             }
+        }
+
+        /// <inheritdoc />
+        public override ContentListViewModel CreateListViewModelByRelatedItem(IDataItem relatedItem, int page)
+        {
+            var viewModel = base.CreateListViewModelByRelatedItem(relatedItem, page);
+
+            this.SetThumbnailUrls(viewModel);
+
+            return viewModel;
         }
         #endregion
 

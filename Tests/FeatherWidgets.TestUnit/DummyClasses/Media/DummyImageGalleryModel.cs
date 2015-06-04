@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
+using Telerik.Sitefinity.Frontend.Mvc.Models;
+using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.RelatedData;
 
 namespace FeatherWidgets.TestUnit.DummyClasses.Media
 {
@@ -26,6 +27,12 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
         public Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel CreateListViewModelByParent(IFolder parentItem, int p)
         {
             return new Telerik.Sitefinity.Frontend.Mvc.Models.ContentListViewModel();
+        }
+
+        public ContentListViewModel CreateListViewModelByRelatedItem(IDataItem relatedItem, int page)
+        {
+            // TODO: Implement this method
+            throw new NotImplementedException();
         }
 
         public string DetailCssClass
@@ -108,11 +115,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             return this.DummyLocations;
         }
 
-        public int? ItemsPerPage
-        {
-            get;
-            set;
-        }
+        public int? ItemsPerPage { get; set; }
 
         public string ListCssClass
         {
@@ -246,10 +249,66 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             }
         }
 
-        public string UrlKeyPrefix
+        public string RelatedItemType
         {
-            get;
-            set;
+            get
+            {
+                // TODO: Implement this property getter
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                // TODO: Implement this property setter
+                throw new NotImplementedException();
+            }
         }
+
+        public string RelatedItemProviderName
+        {
+            get
+            {
+                // TODO: Implement this property getter
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                // TODO: Implement this property setter
+                throw new NotImplementedException();
+            }
+        }
+
+        public string RelatedFieldName
+        {
+            get
+            {
+                // TODO: Implement this property getter
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                // TODO: Implement this property setter
+                throw new NotImplementedException();
+            }
+        }
+
+        public RelationDirection RelationTypeToDisplay
+        {
+            get
+            {
+                // TODO: Implement this property getter
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                // TODO: Implement this property setter
+                throw new NotImplementedException();
+            }
+        }
+
+        public string UrlKeyPrefix { get; set; }
     }
 }
