@@ -115,7 +115,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var pageLanguages = new[]
             {
-                this.sitefinityLanguages["English"], 
+                this.sitefinityLanguages["English"],
                 this.sitefinityLanguages["Turkish"]
             };
 
@@ -171,7 +171,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var pageLanguages = new[]
             {
-                this.sitefinityLanguages["English"], 
+                this.sitefinityLanguages["English"],
                 this.sitefinityLanguages["Turkish"]
             };
 
@@ -231,7 +231,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var pageLanguages = new[]
             {
-                this.sitefinityLanguages["English"], 
+                this.sitefinityLanguages["English"],
                 this.sitefinityLanguages["Turkish"]
             };
 
@@ -284,7 +284,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var pageLanguages = new[]
             {
-                this.sitefinityLanguages["English"], 
+                this.sitefinityLanguages["English"],
                 this.sitefinityLanguages["Turkish"]
             };
 
@@ -308,7 +308,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["English"], true) }
             };
 
-            this.AssertLanguageLinks(pageContent, expectedLinkes, null);
+            var notExpectedLinkes = new Dictionary<string, string>();
+
+            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);
         }
 
         #region Helper methods
@@ -329,7 +331,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         private string GetPageUrlOfNotTranslatedPages(string homePageName, CultureInfo culture, CultureInfo homePageCulture)
         {
-                // returns /tr-tr/TestPagetr-TR
+            // returns /tr-tr/TestPagetr-TR
             return string.Format(CultureInfo.InvariantCulture, "/{0}/{1}{2}", culture.Name.ToLower(), homePageName, homePageCulture.Name);
         }
 
@@ -453,22 +455,19 @@ namespace FeatherWidgets.TestIntegration.Navigation
                         var linkHref = chunk.GetParamValue("href");
                         chunk = parser.ParseNext();
                         var linkText = chunk.Html;
-
-                        if (notVisiblelinks != null)
+                       
+                        foreach (var link in notVisiblelinks)
                         {
-                            foreach (var link in notVisiblelinks)
-                            {
-                                Assert.IsFalse(
-                                    linkHref.EndsWith(link.Value, StringComparison.Ordinal),
-                                    string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
+                            Assert.IsFalse(
+                                linkHref.EndsWith(link.Value, StringComparison.Ordinal),
+                                string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
 
-                                Assert.AreNotEqual(
-                                    link.Key,
-                                    linkText,
-                                    string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
-                            }
+                            Assert.AreNotEqual(
+                                link.Key,
+                                linkText,
+                                string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
                         }
-
+                        
                         var foundLanguage = string.Empty;
 
                         foreach (var link in links)
@@ -478,7 +477,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
                                 string.Format(CultureInfo.InvariantCulture, "The expected link's url {0} is not found.", link.Value));
 
                             Assert.AreEqual(
-                                HttpUtility.HtmlEncode(link.Key), 
+                                HttpUtility.HtmlEncode(link.Key),
                                 linkText,
                                 string.Format(CultureInfo.InvariantCulture, "The link display name {0} is not correct.", linkText));
 
@@ -487,7 +486,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
                         }
 
                         Assert.IsFalse(
-                            string.IsNullOrEmpty(foundLanguage), 
+                            string.IsNullOrEmpty(foundLanguage),
                             string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", linkHref));
       
                         links.Remove(foundLanguage);
@@ -499,8 +498,10 @@ namespace FeatherWidgets.TestIntegration.Navigation
         #endregion
 
         #region Private fields and constants
+        
         private readonly Dictionary<string, CultureInfo> sitefinityLanguages = new Dictionary<string, CultureInfo>();
         private readonly NewsOperationsContext serverOperationsNews = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News();
+    
         #endregion
     }
 }
