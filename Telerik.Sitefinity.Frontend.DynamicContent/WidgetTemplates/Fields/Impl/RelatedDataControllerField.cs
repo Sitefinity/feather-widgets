@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Controllers;
@@ -13,10 +12,18 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
 {
+    /// <summary>
+    /// Field that generates markup for MVC controller that displays related data.
+    /// </summary>
     public class RelatedDataControllerField : Field
     {
+        /// <summary>
+        /// Gets value determining whether current strategy should handle the markup for the specified field.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <returns></returns>
         public override bool GetCondition(DynamicModules.Builder.Model.DynamicModuleField field)
-        {            
+        {
             var condition = base.GetCondition(field)
                 && (field.FieldType == FieldType.RelatedData || field.FieldType == FieldType.RelatedMedia);
 
@@ -28,6 +35,11 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
                 this.frontEndWidgetType.ImplementsInterface(typeof(IRelatedDataController));
         }
 
+        /// <summary>
+        /// Gets the field markup.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <returns></returns>
         public override string GetMarkup(DynamicModuleField field)
         {
             var factory = ControllerBuilder.Current.GetControllerFactory() as ISitefinityControllerFactory;
@@ -39,7 +51,7 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
                 .Where(t => t.Id == field.ParentTypeId)
                 .Select(t => String.Format("{0}.{1}", t.TypeNamespace, t.TypeName))
                 .First();
-            
+
             var viewModel = new RelatedDataViewModel()
             {
                 RelatedItemType = dynamicType,
@@ -54,6 +66,11 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl
             return processor.Run(templatePath, viewModel);
         }
 
+        /// <summary>
+        /// Gets the path of the field's template.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <returns></returns>
         protected override string GetTemplatePath(DynamicModules.Builder.Model.DynamicModuleField field)
         {
             return RelatedDataControllerField.TemplatePath;
