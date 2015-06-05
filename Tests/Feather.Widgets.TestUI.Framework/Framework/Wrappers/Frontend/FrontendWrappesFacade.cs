@@ -129,6 +129,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         }
 
         /// <summary>
+        /// Classificationses this instance.
+        /// </summary>
+        /// <returns></returns>
+        public ClassificationsWrapperFacade Classifications()
+        {
+            return new ClassificationsWrapperFacade();
+        }
+
+        /// <summary>
         /// Provides access to css and javascript frontend wrapper. 
         /// </summary>
         /// <returns></returns>

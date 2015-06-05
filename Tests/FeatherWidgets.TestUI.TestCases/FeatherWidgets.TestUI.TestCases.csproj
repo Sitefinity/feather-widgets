@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
+    <Compile Include="Classifications\SelectAllTagsOptionAndCssClasses.cs" />
     <Compile Include="CommentsAndReviews\AddCommentsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CommentsAndReviews\AddReviewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CommentsAndReviews\ChangeCommentsStatusesForPage.cs" />
