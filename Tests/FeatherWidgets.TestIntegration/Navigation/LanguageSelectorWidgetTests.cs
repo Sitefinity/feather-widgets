@@ -146,7 +146,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Multilingual]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.Team7)]
-        [Description("Verifies language selector is included in detail view of content items")]
+        [Description("Verifies language selector, with current language included, is included in detail view of content items")]
         public void LanguageSelectorWidget_CurrentLanguageIncludedInDetailsViewOfContentItems()
         {
             var languageSelectorControl = new MvcControllerProxy();
@@ -205,7 +205,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Multilingual]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.Team7)]
-        [Description("Verifies language selector is included in detail view of content items")]
+        [Description("Verifies language selector, with current language not included, is included in detail view of content items")]
         public void LanguageSelectorWidget_CurrentLanguageNotIncludedInDetailsViewOfContentItems()
         {
             var languageSelectorControl = new MvcControllerProxy();
