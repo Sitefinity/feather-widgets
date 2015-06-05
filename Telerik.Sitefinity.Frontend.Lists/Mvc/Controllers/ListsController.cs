@@ -138,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
 
             if (!this.IsEmpty)
             {
-                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext);
+                ITaxon taxonFilter = TaxonUrlEvaluator.GetTaxonFromQuery(this.HttpContext, this.Model.UrlKeyPrefix);
 
                 var viewModel = this.Model.CreateListViewModel(taxonFilter: taxonFilter, page: page ?? 1);
                 if (SystemManager.CurrentHttpContext != null)
@@ -164,7 +164,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
             var viewModel = this.Model.CreateListViewModel(taxonFilter, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
-            
+
             return this.View(fullTemplateName, viewModel);
         }
 
@@ -190,7 +190,7 @@ namespace Telerik.Sitefinity.Frontend.Lists.Mvc.Controllers
         }
 
         #endregion
-         
+
         #region IContentLocatableView
 
         /// <summary>
