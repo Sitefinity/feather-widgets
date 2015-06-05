@@ -88,13 +88,13 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) }
             };
 
-            var notExpectedLinkes = new Dictionary<string, string>()
+            var notExpectedLinks = new Dictionary<string, string>()
             {
                 { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) }
             };
 
-            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);
+            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinks);
         }
 
         [Test]
@@ -132,14 +132,14 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) }
             };
 
-            var notExpectedLinkes = new Dictionary<string, string>()
+            var notExpectedLinks = new Dictionary<string, string>()
             {
                 { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) },
                 { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) }
             };
 
-            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);
+            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinks);
         }
 
         [Test]
@@ -192,13 +192,13 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) }
             };
 
-            var notExpectedLinkes = new Dictionary<string, string>()
+            var notExpectedLinks = new Dictionary<string, string>()
             {
                 { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) }
             };
 
-            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);
+            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinks);
         }
 
         [Test]
@@ -249,14 +249,14 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) }
             };
 
-            var notExpectedLinkes = new Dictionary<string, string>()
+            var notExpectedLinks = new Dictionary<string, string>()
             {
                 { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) },
                 { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
                 { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) }
             };
 
-            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);
+            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinks);
         }
 
         [Test]
@@ -294,15 +294,17 @@ namespace FeatherWidgets.TestIntegration.Navigation
             {
                 { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) },
                 {
-                    this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrlOfNotTranslatedPages(PageName + currentPage.Value.Name, this.sitefinityLanguages["Arabic"])
+                        this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrlOfNotTranslatedPages(PageName + currentPage.Value.Name, this.sitefinityLanguages["Arabic"])
                 },
                 {
-                    this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrlOfNotTranslatedPages(PageName + currentPage.Value.Name, this.sitefinityLanguages["Serbian"])
+                        this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrlOfNotTranslatedPages(PageName + currentPage.Value.Name, this.sitefinityLanguages["Serbian"])
                 },
                 { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) }
             };
 
-            this.AssertLanguageLinks(pageContent, expectedLinkes, null);
+            var notExpectedLinks = new Dictionary<string, string>();
+
+            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinks);
         }
 
         #region Helper methods
@@ -448,21 +450,18 @@ namespace FeatherWidgets.TestIntegration.Navigation
                         chunk = parser.ParseNext();
                         var linkText = chunk.Html;
 
-                        if (notVisiblelinks != null)
+                        foreach (var link in notVisiblelinks)
                         {
-                            foreach (var link in notVisiblelinks)
-                            {
-                                Assert.IsFalse(
-                                    linkHref.EndsWith(link.Value, StringComparison.Ordinal),
-                                    string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
+                            Assert.IsFalse(
+                                linkHref.EndsWith(link.Value, StringComparison.Ordinal),
+                                string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
 
-                                Assert.AreNotEqual(
-                                    link.Key,
-                                    linkText,
-                                    string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
-                            }
+                            Assert.AreNotEqual(
+                                link.Key,
+                                linkText,
+                                string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
                         }
-
+                        
                         var foundLanguage = string.Empty;
 
                         foreach (var link in links)
