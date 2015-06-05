@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery;
 using Telerik.Sitefinity.Frontend.Media.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
@@ -18,6 +19,7 @@ using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Web;
@@ -29,7 +31,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
     /// </summary>
     [Localization(typeof(ImageGalleryResources))]
     [ControllerToolboxItem(Name = "ImageGallery_MVC", Title = "Image gallery", SectionName = ToolboxesConfig.ContentToolboxSectionName, ModuleName = "Libraries", CssClass = ImageGalleryController.WidgetIconCssClass)]
-    public class ImageGalleryController : Controller, IContentLocatableView, IRouteMapper
+    public class ImageGalleryController : Controller, IContentLocatableView, IRouteMapper, IRelatedDataController
     {
         #region Properties
 
@@ -167,15 +169,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             this.InitializeListViewBag("/{0}");
 
-            this.Model.RelatedItemType = relatedDataViewModel.RelatedItemType;
-            this.Model.RelatedItemProviderName = relatedDataViewModel.RelatedItemProviderName;
-            this.Model.RelationTypeToDisplay = relatedDataViewModel.RelationTypeToDisplay;
-            this.Model.RelatedFieldName = relatedDataViewModel.RelatedFieldName;
-
-            var manager = ManagerBase.GetMappedManager(this.Model.RelatedItemType, this.Model.RelatedItemProviderName);
-
-            if (this.Model.RelatedItemProviderName.IsNullOrEmpty())
-                this.Model.RelatedItemProviderName = manager.Provider.Name;
+            this.Model.SetRelatedDataProperties(relatedItem, relatedDataViewModel);
 
             var viewModel = this.Model.CreateListViewModelByRelatedItem(relatedItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)

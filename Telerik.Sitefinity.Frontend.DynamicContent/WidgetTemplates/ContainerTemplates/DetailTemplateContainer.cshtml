@@ -3,6 +3,7 @@
 @using System.Collections;
 @using System.Linq;
 @using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Models;
 @using Telerik.Sitefinity;
 @using Telerik.Sitefinity.Data.ContentLinks;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
@@ -12,10 +13,6 @@
 @using Telerik.Sitefinity.Model.ContentLinks;
 @using Telerik.Sitefinity.Modules.Pages;
 @using Telerik.Sitefinity.Pages.Model;
-
-@*related data*@
-@using Telerik.Sitefinity.Frontend.Mvc.Models;
-@using Telerik.Sitefinity.RelatedData;
 
 <div class="@Model.CssClass" @Html.InlineEditingAttributes(Model.ProviderName, Model.ContentType.FullName, (Guid)Model.Item.Fields.Id)>
     <h3 @Html.InlineEditingFieldAttributes("@*MainTextField*@", "ShortText")>
@@ -34,15 +31,4 @@
     }
 
     @Html.CommentsList(@Model.Item.DataItem)
-
-    @* image gallery *@
-    @Html.Action("RelatedData",
-    "ImageGallery",
-    new {relatedItem = Model.Item.DataItem,
-    relatedDataViewModel = new RelatedDataViewModel()
-    {
-	    RelatedItemType = "Telerik.Sitefinity.DynamicTypes.Model.TestModule.Testtype",
-	    RelatedFieldName="RelatedImages",
-	    RelationTypeToDisplay=(RelationDirection)Enum.Parse(typeof(RelationDirection),"Child")
-    }})
 </div>

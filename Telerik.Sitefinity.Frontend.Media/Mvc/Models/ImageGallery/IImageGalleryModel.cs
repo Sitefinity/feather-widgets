@@ -218,6 +218,13 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         ContentListViewModel CreateListViewModelByRelatedItem(IDataItem relatedItem, int page);
 
         /// <summary>
+        /// Sets the properties of the model needed to retrieve the related data.
+        /// </summary>
+        /// <param name="relatedItem">The related item.</param>
+        /// <param name="relatedDataViewModel">The related data view model.</param>
+        void SetRelatedDataProperties(IDataItem relatedItem, RelatedDataViewModel relatedDataViewModel);
+
+        /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
         ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
         ///     notification.

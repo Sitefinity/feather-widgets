@@ -35,6 +35,12 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             throw new NotImplementedException();
         }
 
+        public void SetRelatedDataProperties(IDataItem relatedItem, RelatedDataViewModel relatedDataViewModel)
+        {
+            // TODO: Implement this method
+            throw new NotImplementedException();
+        }
+
         public string DetailCssClass
         {
             get

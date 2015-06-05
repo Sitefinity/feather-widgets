@@ -168,6 +168,7 @@
     <Compile Include="WidgetTemplates\Fields\Impl\ClassificationField.cs" />
     <Compile Include="WidgetTemplates\Fields\Impl\MainImagesField.cs" />
     <Compile Include="WidgetTemplates\Fields\Impl\DocumentsField.cs" />
+    <Compile Include="WidgetTemplates\Fields\Impl\RelatedDataControllerField.cs" />
     <Compile Include="WidgetTemplates\Fields\Impl\VideosField.cs" />
     <Compile Include="WidgetTemplates\Fields\Impl\ImagesField.cs" />
     <Compile Include="WidgetTemplates\Fields\Impl\MultipleChoiceField.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Mvc\Models\ParentFilterMode.cs" />
     <Compile Include="Mvc\StringResources\DynamicContentResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="WidgetTemplates\Fields\Templates\RelatedDataControllerField.cshtml" />
     <Compile Include="WidgetTemplates\TemplateGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
