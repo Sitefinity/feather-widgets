@@ -1,7 +1,7 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
 
-namespace Telerik.Sitefinity.Frontend.Media
+namespace Telerik.Sitefinity.Frontend.Lists
 {
     /// <summary>
     /// This class is used to describe the bindings which will be used by the Ninject container when resolving classes
