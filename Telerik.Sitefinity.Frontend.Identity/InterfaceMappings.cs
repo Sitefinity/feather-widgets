@@ -7,7 +7,7 @@ using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Registration;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.UsersList;
 
-namespace Telerik.Sitefinity.Frontend.Media
+namespace Telerik.Sitefinity.Frontend.Identity
 {
     /// <summary>
     /// This class is used to describe the bindings which will be used by the Ninject container when resolving classes
