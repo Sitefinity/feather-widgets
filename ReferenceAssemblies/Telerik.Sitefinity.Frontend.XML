@@ -623,6 +623,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcVersioningRouteHandler">
+            <summary>
+            Extended route handler for Sitefinity versioning that injects MVC specific logic.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcVersioningRouteHandler.GetHttpHandler(System.Web.Routing.RequestContext)">
+            <summary>
+            Provides the object that processes the request.
+            </summary>
+            <param name="requestContext">An object that encapsulates information about the request.</param>
+            <returns>An object that processes the request.</returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcPageEditorRouteHandler">
             <summary>
             Represents an extended route handler for Sitefinity's page editor that injects MVC specific logic.
