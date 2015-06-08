@@ -181,7 +181,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         }
 
         /// <inheritdoc />
-        public override void SetModelProperties(ListWidgetSettingsViewModel viewModel)
+        public override void SetModelProperties(ContentListSettingsViewModel viewModel)
         {
             base.SetModelProperties(viewModel);
 

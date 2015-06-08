@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
             throw new NotImplementedException();
         }
 
-        public void SetModelProperties(ListWidgetSettingsViewModel viewModel)
+        public void SetModelProperties(ContentListSettingsViewModel viewModel)
         {
             // TODO: Implement this method
             throw new NotImplementedException();

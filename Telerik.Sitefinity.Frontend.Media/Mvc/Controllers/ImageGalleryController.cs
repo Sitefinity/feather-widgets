@@ -170,7 +170,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             IDataItem relatedItem,
             string templateName,
             RelatedDataViewModel relatedDataViewModel,
-            ListWidgetSettingsViewModel settingsViewModel,
+            ContentListSettingsViewModel settingsViewModel,
             int? page)
         {
             this.InitializeListViewBag("/{0}");

@@ -7,7 +7,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
     /// <summary>
     /// View model for the settings of the image gallery model.
     /// </summary>
-    public class ImageGallerySettingsViewModel : ListWidgetSettingsViewModel
+    public class ImageGallerySettingsViewModel : ContentListSettingsViewModel
     {
         /// <summary>
         /// Gets or sets the serialized thumbnail size model. It determines the size of the gallery's thumbnails.

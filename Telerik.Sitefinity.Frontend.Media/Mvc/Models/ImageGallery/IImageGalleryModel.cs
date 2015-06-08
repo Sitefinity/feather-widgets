@@ -228,7 +228,7 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         /// Sets the model properties by given view model.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
-        void SetModelProperties(ListWidgetSettingsViewModel viewModel);
+        void SetModelProperties(ContentListSettingsViewModel viewModel);
 
         /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
