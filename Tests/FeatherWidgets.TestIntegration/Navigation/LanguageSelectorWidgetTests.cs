@@ -482,7 +482,6 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         private MvcControllerProxy CreateNewsControl()
         {
-            this.serverOperationsNews.CreateNewsItem("TestNewsItem");
             var newsSelectorControl = new MvcControllerProxy();
             newsSelectorControl.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
