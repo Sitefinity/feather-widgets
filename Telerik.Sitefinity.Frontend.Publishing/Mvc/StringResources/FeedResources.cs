@@ -58,5 +58,21 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.StringResources
                 return this["FeedResourcesDescription"];
             }
         }
+
+        /// <summary>
+        /// Phrase: Select a feed
+        /// </summary>
+        /// <value>Select a feed</value>
+        [ResourceEntry("SelectFeed",
+            Value = "Select a feed",
+            Description = "Phrase: Select a feed",
+            LastModified = "2015/06/08")]
+        public string SelectFeed
+        {
+            get
+            {
+                return this["SelectFeed"];
+            }
+        }
     }
 }
