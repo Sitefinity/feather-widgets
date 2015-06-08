@@ -1,7 +1,7 @@
 ﻿using Ninject.Modules;
-using Telerik.Sitefinity.Frontend.Lists.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Publishing.Mvc.Models;
 
-namespace Telerik.Sitefinity.Frontend.Lists
+namespace Telerik.Sitefinity.Frontend.Publishing
 {
     /// <summary>
     /// This class is used to describe the bindings which will be used by the Ninject container when resolving classes
@@ -13,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Lists
         /// </summary>
         public override void Load()
         {
-            Bind<IListsModel>().To<ListsModel>();
+            Bind<IFeedModel>().To<FeedModel>();
         }
     }
 }
