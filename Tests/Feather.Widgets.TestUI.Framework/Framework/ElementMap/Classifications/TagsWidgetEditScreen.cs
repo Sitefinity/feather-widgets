@@ -46,5 +46,17 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications
                 return this.Get<HtmlSelect>("id=navTemplateName");
             }
         }
+
+        /// <summary>
+        /// Gets the used by content type option.
+        /// </summary>
+        /// <value>The used by content type option.</value>
+        public HtmlSelect UsedByContentTypeOption
+        {
+            get
+            {
+                return this.Get<HtmlSelect>("ng-show=properties.TaxaToDisplay.PropertyValue === 'UsedByContentType'");
+            }
+        }
     }
 }

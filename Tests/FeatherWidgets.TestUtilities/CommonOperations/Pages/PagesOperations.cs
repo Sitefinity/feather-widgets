@@ -20,6 +20,7 @@ using Telerik.Sitefinity.Frontend.Media.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.SocialShare.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc.Proxy;
@@ -148,9 +149,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
-        /// Adds news widget to existing page
+        /// Adds the tags widget to page.
         /// </summary>
-        /// <param name="pageId">Page id value</param>
+        /// <param name="pageId">The page id.</param>
+        /// <param name="placeholder">The placeholder.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddTagsWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(FlatTaxonomyController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Tags", placeholder);
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public void AddNewsWidgetToPage(Guid pageId, string placeholder = "Body")
         {

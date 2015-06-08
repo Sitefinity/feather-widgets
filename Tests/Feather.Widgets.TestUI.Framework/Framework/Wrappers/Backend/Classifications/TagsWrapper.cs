@@ -63,5 +63,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
 
             Assert.IsTrue(radioButton.Checked);
         }
+
+
+        /// <summary>
+        /// Selects the radio button option.
+        /// </summary>
+        /// <param name="optionId">The option id.</param>
+        public void SelectRadioButtonOption(TagsRadioButtonIds optionId)
+        {
+            HtmlFindExpression expression = new HtmlFindExpression("tagname=input", "id=" + optionId);
+            ActiveBrowser.WaitForElement(expression, 60000, false);
+            HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
+                  .AssertIsPresent("radio button");
+
+            radioButton.Click();
+        }
+
+        /// <summary>
+        /// Selects the content type option.
+        /// </summary>
+        /// <param name="contentType">Type of the content.</param>
+        public void SelectContentTypeOption(string contentType)
+        {
+            HtmlSelect contentTypeDropdown = this.EM.Classifications.TagsWidgetEditScreen.UsedByContentTypeOption.AssertIsPresent("contentType dropdown");
+
+            contentTypeDropdown.SelectByText(contentType);
+            contentTypeDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
+            contentTypeDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
     }
 }

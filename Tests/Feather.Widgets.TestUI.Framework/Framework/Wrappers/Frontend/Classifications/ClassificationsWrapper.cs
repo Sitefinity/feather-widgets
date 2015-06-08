@@ -81,5 +81,25 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             HtmlUnorderedList cssClassWrapper = this.ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=~" + cssClass);
             cssClassWrapper.AssertIsNotNull("cssClassWrapper is not found");
         }
+
+        /// <summary>
+        /// Verifs the cloud list style.
+        /// </summary>
+        /// <param name="sizeIndex">Index of the size.</param>
+        /// <param name="isCloudListTemplateSelected">The is cloud list template selected.</param>
+        public void VerifCloudListStyle(int sizeIndex, bool isCloudListTemplateSelected = true)
+        {
+            HtmlUnorderedList list = null;
+            if (isCloudListTemplateSelected)
+            {
+                list = this.ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=sf-Tags list-unstyled").AssertIsPresent("unordered list for Cloud list tempalte");
+
+            }
+            else 
+            {
+                list = this.ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=sf-Tags list-unstyled list-inline").AssertIsPresent("unordered list for Tags Cloud tempalte");
+            }
+            list.Find.ByExpression<HtmlAnchor>("class=sf-Tags-size" + sizeIndex).AssertIsPresent("anchor with correct size");
+        }
     }
 }
