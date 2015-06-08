@@ -57,11 +57,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Description("Verifies language selector current language included")]
         public void LanguageSelectorWidget_CurrentLanguageIncluded()
         {
-            var languageSelectorControl = new MvcControllerProxy();
-            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
-            var languageSelectorController = new LanguageSelectorController();
-            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
-            languageSelectorController.Model.IncludeCurrentLanguage = true;
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+            var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
+            languageSelectorModel.IncludeCurrentLanguage = true;
 
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
@@ -104,10 +102,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Description("Verifies language selector current language not included")]
         public void LanguageSelectorWidget_CurrentLanguageNotIncluded()
         {
-            var languageSelectorControl = new MvcControllerProxy();
-            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
-            var languageSelectorController = new LanguageSelectorController();
-            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
 
@@ -147,23 +142,23 @@ namespace FeatherWidgets.TestIntegration.Navigation
          * Then load the detail view for news 2 and verify that the tr link will load the list view. 
          * This is the expected behavior because when the detail view does not have translation the list view in tr will be loaded. 
          * (just in case check the behavior in Release_8_0_Fixes ) The same applies for LanguageSelectorWidget_CurrentLanguageNotIncludedInDetailsViewOfContentItems test.*/
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.Team7)]
         [Description("Verifies language selector, with current language included, is included in detail view of content items"), Ignore]
         public void LanguageSelectorWidget_CurrentLanguageIncludedInDetailsViewOfContentItems()
         {
-            var languageSelectorControl = new MvcControllerProxy();
-            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
-            var languageSelectorController = new LanguageSelectorController();
-            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
-            languageSelectorController.Model.IncludeCurrentLanguage = true;
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+            var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
+            languageSelectorModel.IncludeCurrentLanguage = true;
 
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
 
-            var newsController = this.AddMvcNewsWidgetWithNewsItemToPage(controls);
+            this.serverOperationsNews.CreateNewsItem("TestNewsItem");
+            var newsControl = this.CreateNewsControl();
+            controls.Add(newsControl);
 
             var pageLanguages = new[]
             {
@@ -177,7 +172,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var currentPage = createdPages.First();
             PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
 
-            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            var items = newsControl.Settings.Controller.Model.CreateListViewModel(null, 1).Items.ToArray();
             var expectedDetailNews = (NewsItem)items[0].DataItem;
 
             string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + currentPage.Value.Name);
@@ -201,22 +196,22 @@ namespace FeatherWidgets.TestIntegration.Navigation
             this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
         }
 
-        [Test]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
         [Author(FeatherTeams.Team7)]
         [Description("Verifies language selector, with current language not included, is included in detail view of content items"), Ignore]
         public void LanguageSelectorWidget_CurrentLanguageNotIncludedInDetailsViewOfContentItems()
         {
-            var languageSelectorControl = new MvcControllerProxy();
-            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
-            var languageSelectorController = new LanguageSelectorController();
-            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
 
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
 
-            var newsController = this.AddMvcNewsWidgetWithNewsItemToPage(controls);
+            this.serverOperationsNews.CreateNewsItem("TestNewsItem");
+            var newsControl = this.CreateNewsControl();
+            controls.Add(newsControl);
+            var newsController = newsControl.Settings.Controller;
 
             var pageLanguages = new[]
             {
@@ -261,11 +256,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Description("Verifies language selector with redirect option")]
         public void LanguageSelectorWidget_RedirectToHomePageOfTheMissingTranslations()
         {
-            var languageSelectorControl = new MvcControllerProxy();
-            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
-            var languageSelectorController = new LanguageSelectorController();
-            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
-            languageSelectorController.Model.MissingTranslationAction = NoTranslationAction.RedirectToPage;
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+            var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
+            languageSelectorModel.MissingTranslationAction = NoTranslationAction.RedirectToPage;
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
 
@@ -487,15 +480,24 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
         }
 
-        private NewsController AddMvcNewsWidgetWithNewsItemToPage(List<System.Web.UI.Control> controls)
+        private MvcControllerProxy CreateNewsControl()
         {
             this.serverOperationsNews.CreateNewsItem("TestNewsItem");
             var newsSelectorControl = new MvcControllerProxy();
             newsSelectorControl.ControllerName = typeof(NewsController).FullName;
             var newsController = new NewsController();
             newsSelectorControl.Settings = new ControllerSettings(newsController);
-            controls.Add(newsSelectorControl);
-            return newsController;
+            return newsSelectorControl;
+        }
+
+        private MvcControllerProxy CreateLanguageSelectorControl()
+        {
+            var languageSelectorControl = new MvcControllerProxy();
+            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
+            var languageSelectorController = new LanguageSelectorController();
+            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
+
+            return languageSelectorControl;
         }
 
         #endregion
@@ -504,7 +506,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         private const string PageName = "TestPage";
         private readonly Dictionary<string, CultureInfo> sitefinityLanguages = new Dictionary<string, CultureInfo>();
-        private readonly NewsOperations serverOperationsNews = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News();
+        private readonly NewsOperations serverOperationsNews = ServerOperations.News();
         
         #endregion
     }
