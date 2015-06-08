@@ -37,6 +37,7 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Models
 
         #endregion
 
+        /// <inheritdoc />
         public virtual FeedViewModel GetViewModel()
         {
             var viewModel = new FeedViewModel();
