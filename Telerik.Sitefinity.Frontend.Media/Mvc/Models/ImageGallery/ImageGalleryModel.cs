@@ -179,6 +179,18 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
 
             return viewModel;
         }
+
+        /// <inheritdoc />
+        public override void SetModelProperties(ListWidgetSettingsViewModel viewModel)
+        {
+            base.SetModelProperties(viewModel);
+
+            var galleryViewModel = viewModel as ImageGallerySettingsViewModel;
+            if (galleryViewModel == null) return;
+
+            this.SerializedThumbnailSizeModel = galleryViewModel.SerializedThumbnailSizeModel;
+            this.SerializedImageSizeModel = galleryViewModel.SerializedImageSizeModel;
+        }
         #endregion
 
         #region Protected virtual methods

@@ -165,6 +165,7 @@
     <Compile Include="Mvc\Models\Document\IDocumentModel.cs" />
     <Compile Include="Mvc\Models\ImageGallery\ImageDetailsViewModel.cs" />
     <Compile Include="Mvc\Helpers\ImageHelpers.cs" />
+    <Compile Include="Mvc\Models\ImageGallery\ImageGallerySettingsViewModel.cs" />
     <Compile Include="Mvc\Models\Image\CustomSizeModel.cs" />
     <Compile Include="Mvc\Models\ImageGallery\ImageGalleryModel.cs" />
     <Compile Include="Mvc\Models\ImageGallery\IImageGalleryModel.cs" />

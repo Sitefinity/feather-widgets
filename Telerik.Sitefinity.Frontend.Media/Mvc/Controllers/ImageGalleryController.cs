@@ -158,24 +158,32 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         }
 
         /// <summary>
-        /// Displays related items of the specified item.
+        /// Action that returns view with the related items of the given item.
         /// </summary>
-        /// <param name="parentItem">The related item.</param>
-        /// <param name="page">The page.</param>
-        /// <returns>
-        /// The <see cref="ActionResult" />.
-        /// </returns>
-        public ActionResult RelatedData(IDataItem relatedItem, RelatedDataViewModel relatedDataViewModel, int? page)
+        /// <param name="relatedItem">The related item.</param>
+        /// <param name="templateName">Name of the template.</param>
+        /// <param name="relatedDataViewModel">The related data view model. Contains settings needed to retrieve related data.</param>
+        /// <param name="settingsViewModel">The settings view model. The widget's model will be initialized with them.</param>
+        /// <param name="page">The current page.</param>
+        /// <returns></returns>
+        public ActionResult RelatedData(
+            IDataItem relatedItem,
+            string templateName,
+            RelatedDataViewModel relatedDataViewModel,
+            ListWidgetSettingsViewModel settingsViewModel,
+            int? page)
         {
             this.InitializeListViewBag("/{0}");
 
             this.Model.SetRelatedDataProperties(relatedItem, relatedDataViewModel);
+            this.Model.SetModelProperties(settingsViewModel);
 
             var viewModel = this.Model.CreateListViewModelByRelatedItem(relatedItem, page ?? 1);
             if (SystemManager.CurrentHttpContext != null)
                 this.AddCacheDependencies(this.Model.GetKeysOfDependentObjects(viewModel));
 
-            var fullTemplateName = this.listTemplateNamePrefix + "OverlayGallery";
+            templateName = string.IsNullOrEmpty(templateName) ? "OverlayGallery" : templateName;
+            var fullTemplateName = this.listTemplateNamePrefix + templateName;
             return this.View(fullTemplateName, viewModel);
         }
 

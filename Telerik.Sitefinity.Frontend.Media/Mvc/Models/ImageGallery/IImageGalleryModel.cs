@@ -225,6 +225,12 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Models.ImageGallery
         void SetRelatedDataProperties(IDataItem relatedItem, RelatedDataViewModel relatedDataViewModel);
 
         /// <summary>
+        /// Sets the model properties by given view model.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        void SetModelProperties(ListWidgetSettingsViewModel viewModel);
+
+        /// <summary>
         /// Gets a collection of <see cref="CacheDependencyNotifiedObject"/>.
         ///     The <see cref="CacheDependencyNotifiedObject"/> represents a key for which cached items could be subscribed for
         ///     notification.
