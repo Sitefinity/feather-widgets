@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div class="form-group">
+<div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
 	<label for="textToDisplay">@Html.Resource("TextToDisplay")</label>
 	<div class="row">
 		<div class="col-xs-9">
@@ -38,7 +38,7 @@
 		
 </div>
 
-<div class="form-group checkbox">
+<div class="form-group checkbox" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
 	<label for="openInNewWin">
 		<input type="checkbox" id="openInNewWin" ng-model="properties.OpenInNewWindow.PropertyValue" 
             ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.OpenInNewWindow.PropertyValue === 'True'"/>
@@ -46,7 +46,7 @@
    </label>
 </div>
 
-<div class="form-group">
+<div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
 	<label for="tooltip">@Html.Resource("Tooltip")</label>
     <p class="description-note">@Html.Resource("TooltipDescription")</p>
 	<div class="row">

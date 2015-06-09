@@ -16,6 +16,10 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+                    if ($scope.properties.InsertionOption.PropertyValue == 'AddressBarOnly') {
+                        $scope.properties.TextToDisplay.PropertyValue = $scope.properties.Tooltip.PropertyValue = null;
+                        $scope.properties.OpenInNewWindow.PropertyValue = false;
+                    }
                 });
             })
             .finally(function () {
