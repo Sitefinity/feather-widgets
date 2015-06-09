@@ -1,6 +1,6 @@
 ﻿(function ($) {
     var designerModule = angular.module('designer');
-    angular.module('designer').requires.push('sfSelectors');
+    angular.module('designer').requires.push('sfSelectors', 'expander');
 
     designerModule.controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         propertyService.get()
@@ -16,6 +16,10 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+                    if ($scope.properties.InsertionOption.PropertyValue == 'AddressBarOnly') {
+                        $scope.properties.TextToDisplay.PropertyValue = $scope.properties.Tooltip.PropertyValue = null;
+                        $scope.properties.OpenInNewWindow.PropertyValue = false;
+                    }
                 });
             })
             .finally(function () {

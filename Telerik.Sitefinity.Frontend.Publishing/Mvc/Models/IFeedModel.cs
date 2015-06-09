@@ -39,7 +39,7 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Models
         /// Gets or sets the tooltip.
         /// </summary>
         /// <value>The tooltip.</value>
-        string ToolTip { get; set; }
+        string Tooltip { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.

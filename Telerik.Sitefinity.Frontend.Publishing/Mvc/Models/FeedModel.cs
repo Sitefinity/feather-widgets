@@ -30,7 +30,7 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Models
         public bool OpenInNewWindow { get; set; }
         
         /// <inheritdoc />
-        public string ToolTip { get; set; }
+        public string Tooltip { get; set; }
 
         /// <inheritdoc />
         public string CssClass { get; set; }
@@ -68,7 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Models
                             CultureInfo.CurrentCulture, 
                             @"<a href=""{0}"" title=""{1}"" {2}>{3}</a>", 
                             url, 
-                            this.ToolTip, 
+                            this.Tooltip, 
                             openInNewWindowCode, 
                             title);
                     }
