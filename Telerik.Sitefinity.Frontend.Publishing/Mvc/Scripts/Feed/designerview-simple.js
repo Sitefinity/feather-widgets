@@ -1,6 +1,6 @@
 ﻿(function ($) {
     var designerModule = angular.module('designer');
-    angular.module('designer').requires.push('sfSelectors');
+    angular.module('designer').requires.push('sfSelectors', 'expander');
 
     designerModule.controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         propertyService.get()
