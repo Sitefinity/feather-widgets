@@ -62,15 +62,10 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Models
                     }
                     if (this.InsertionOption == FeedInsertionOption.PageOnly || this.InsertionOption == FeedInsertionOption.PageAndAddressBar)
                     {
-                        // TODO: what to do with iconClass?
-                        string openInNewWindowCode = this.OpenInNewWindow ? "target=\"_blank\"" : "";
-                        viewModel.Link = string.Format(
-                            CultureInfo.CurrentCulture, 
-                            @"<a href=""{0}"" title=""{1}"" {2}>{3}</a>", 
-                            url, 
-                            this.Tooltip, 
-                            openInNewWindowCode, 
-                            title);
+                        viewModel.Title = title;
+                        viewModel.Url = url;
+                        viewModel.Tooltip = this.Tooltip;
+                        viewModel.OpenInNewWindow = this.OpenInNewWindow;
                     }
                 }
             }

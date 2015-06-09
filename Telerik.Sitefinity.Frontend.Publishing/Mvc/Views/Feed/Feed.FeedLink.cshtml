@@ -3,8 +3,8 @@
 @using Telerik.Sitefinity.Frontend.Publishing.Mvc.Models;
 
 <div class="@Model.CssClass">
-@if ((Model.InsertionOption == FeedInsertionOption.PageOnly || Model.InsertionOption == FeedInsertionOption.PageAndAddressBar) && Model.Link != null)
+@if (Model.InsertionOption == FeedInsertionOption.PageOnly || Model.InsertionOption == FeedInsertionOption.PageAndAddressBar)
 {
-    @Html.Raw(Model.Link)
+    <a href="@Model.Url" title="@Model.Tooltip" @(Model.OpenInNewWindow ? "target=_blank" : "")>@Model.Title</a>
 }
 </div>
