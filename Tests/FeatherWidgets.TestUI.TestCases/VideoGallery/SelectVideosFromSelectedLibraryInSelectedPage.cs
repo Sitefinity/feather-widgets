@@ -56,7 +56,6 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
 
             for (int i = 1; i <= 4; i++)
             {
-
                 if (i <= 2)
                 {
                     BATFeather.Wrappers().Frontend().ImageGallery().ImageGalleryWrapper().VerifyImageIsNotPresent(VideoAltText + i);
@@ -102,7 +101,6 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos");
             return scr;
         }
-
 
         private const string PageName = "PageWithVideo";
         private const string VideoBaseTitle = "Video";

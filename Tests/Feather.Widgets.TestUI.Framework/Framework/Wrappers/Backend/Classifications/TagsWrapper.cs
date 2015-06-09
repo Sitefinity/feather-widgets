@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.jQuery;
 using ArtOfTest.Common.UnitTesting;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
+using ArtOfTest.WebAii.jQuery;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifications
 {
@@ -63,7 +60,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
 
             Assert.IsTrue(radioButton.Checked);
         }
-
 
         /// <summary>
         /// Selects the radio button option.

@@ -569,6 +569,5 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             cssClassesTextbox.Text = cssClassName;
             cssClassesTextbox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
         }
-
     }
 }

@@ -53,7 +53,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             ActiveBrowser.WaitForUrl(newsTitle.ToLower().Replace(" ", "%20"));
         }
 
-
         /// <summary>
         /// Checks if a tags title is present on the frontend.
         /// </summary>
@@ -93,12 +92,12 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             if (isCloudListTemplateSelected)
             {
                 list = this.ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=sf-Tags list-unstyled").AssertIsPresent("unordered list for Cloud list tempalte");
-
             }
             else 
             {
                 list = this.ActiveBrowser.Find.ByExpression<HtmlUnorderedList>("class=sf-Tags list-unstyled list-inline").AssertIsPresent("unordered list for Tags Cloud tempalte");
             }
+
             list.Find.ByExpression<HtmlAnchor>("class=sf-Tags-size" + sizeIndex).AssertIsPresent("anchor with correct size");
         }
     }

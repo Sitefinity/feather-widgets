@@ -63,19 +63,6 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             }
         }
 
-        private void VerifyCodeDoesNotExistOnTheFrontend(string code, bool isVideo = false)
-        {
-            if (isVideo)
-            {
-                BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyYouTubeVideo(Src, false);
-            }
-            else
-            {
-                bool isContainedSecond = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(code);
-                Assert.IsFalse(isContainedSecond, string.Concat("Expected not", code, " but the code is found"));
-            }
-        }
-
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
@@ -92,6 +79,19 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         protected override void ServerCleanup()
         {
             BAT.Arrange(TestArrangement).ExecuteTearDown();
+        }
+
+        private void VerifyCodeDoesNotExistOnTheFrontend(string code, bool isVideo = false)
+        {
+            if (isVideo)
+            {
+                BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyYouTubeVideo(Src, false);
+            }
+            else
+            {
+                bool isContainedSecond = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(code);
+                Assert.IsFalse(isContainedSecond, string.Concat("Expected not", code, " but the code is found"));
+            }
         }
 
         private const string TestArrangement = "WriteAndEditCssInEmbedCodeWidget";
