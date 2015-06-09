@@ -2,7 +2,7 @@
 
 <div class="form-group">   
     <strong>@Html.Resource("WhichFeedToUse")</strong> 
-    <sf-list-selector sf-feed-selector></sf-list-selector>  
+    <sf-list-selector sf-feed-selector sf-selected-item-id="properties.FeedId.PropertyValue" sf-selected-item="feed"></sf-list-selector>  
 </div>
 
 <div class="form-group">
@@ -62,7 +62,7 @@
     <div class="row">
         <div class="col-xs-6">
             <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Feed\.(?<viewName>[\w\s]*)$"))
+                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^Feed\.(?<viewName>[\w\s]*)$"))
                 {
                     <option value="@viewName"> @viewName</option>
                 }
