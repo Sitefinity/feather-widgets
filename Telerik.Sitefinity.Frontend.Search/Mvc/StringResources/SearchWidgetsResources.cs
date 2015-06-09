@@ -657,7 +657,22 @@ namespace Telerik.Sitefinity.Frontend.Search.Mvc.StringResources
                 return this["BackgroundHint"];
             }
         }
-
         #endregion
+
+        /// <summary>
+        /// phrase: Sort dropdown
+        /// </summary>
+        /// <value>Sort dropdown</value>
+        [ResourceEntry("SortDropdown",
+            Value = "Sort dropdown",
+            Description = "phrase: Sort dropdown",
+            LastModified = "2015/06/05")]
+        public string SortDropdown
+        {
+            get
+            {
+                return this["SortDropdown"];
+            }
+        }
     }
 }

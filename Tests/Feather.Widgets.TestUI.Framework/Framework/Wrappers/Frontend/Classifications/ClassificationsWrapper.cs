@@ -26,7 +26,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             for (int i = 0; i < tagsTitles.Length; i++)
             {              
                 HtmlAnchor tagsAnchor = frontendPageMainDiv.Find.ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + tagsTitles[i]);
-                if ((tagsAnchor == null) || (tagsAnchor != null && !tagsAnchor.IsVisible()))
+                if (tagsAnchor == null || !tagsAnchor.IsVisible())
                 {
                     return false;
                 }
@@ -63,12 +63,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             ActiveBrowser.RefreshDomTree();
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
-            if (frontendPageMainDiv.InnerText.Contains(tagsTitle))
-            {
-               return true;
-            }
+            bool isTitleVisible = frontendPageMainDiv.InnerText.Contains(tagsTitle);
 
-            return false;
+            return isTitleVisible;
         }
 
         /// <summary>

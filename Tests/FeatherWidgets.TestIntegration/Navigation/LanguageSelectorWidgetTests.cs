@@ -8,12 +8,16 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
+using Telerik.Sitefinity.Frontend.News.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.News.Model;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.HtmlParsing;
 using Telerik.Sitefinity.Web;
 using Telerik.WebTestRunner.Server.Attributes;
@@ -42,7 +46,8 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [TearDown]
         public void TearDown()
         {
-            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().DeleteAllPages();
+            ServerOperations.Pages().DeleteAllPages();
+            this.serverOperationsNews.DeleteAllNews();
         }
 
         [Test]
@@ -52,11 +57,9 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Description("Verifies language selector current language included")]
         public void LanguageSelectorWidget_CurrentLanguageIncluded()
         {
-            var languageSelectorControl = new MvcControllerProxy();
-            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
-            var languageSelectorController = new LanguageSelectorController();
-            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
-            languageSelectorController.Model.IncludeCurrentLanguage = true;
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+            var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
+            languageSelectorModel.IncludeCurrentLanguage = true;
 
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
@@ -67,31 +70,29 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 this.sitefinityLanguages["Turkish"]
             };
 
-            var pageName = "TestPage";
+            var createdPages = this.CreateLocalizedPage(PageName, pageLanguages);
             
-            var createdPages = this.CreateLocalizedPage(pageName, pageLanguages);
-
             // Add language selector widget to the en-US page
             var currentPage = createdPages.First();
             PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
 
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + pageName + currentPage.Value.Name);
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + currentPage.Value.Name);
             var pageContent = PageInvoker.ExecuteWebRequest(url);
             Assert.IsNotNull(pageContent);
 
-            var expectedLinkes = new Dictionary<string, string>()
+            var expectedLinks = new Dictionary<string, string>()
             {
-                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["English"], true) },
-                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Turkish"]) }
+                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) },
+                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) }
             };
 
-            var notExpectedLinkes = new Dictionary<string, string>()
+            var notExpectedLinks = new Dictionary<string, string>()
             {
-                { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Arabic"]) },
-                { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Serbian"]) }
+                { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
+                { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) }
             };
 
-            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);           
+            this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
         }
 
         [Test]
@@ -101,10 +102,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Description("Verifies language selector current language not included")]
         public void LanguageSelectorWidget_CurrentLanguageNotIncluded()
         {
-            var languageSelectorControl = new MvcControllerProxy();
-            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
-            var languageSelectorController = new LanguageSelectorController();
-            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
             var controls = new List<System.Web.UI.Control>();
             controls.Add(languageSelectorControl);
 
@@ -114,31 +112,187 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 this.sitefinityLanguages["Turkish"]
             };
 
-            var pageName = "TestPage";
-
-            var createdPages = this.CreateLocalizedPage(pageName, pageLanguages);
+            var createdPages = this.CreateLocalizedPage(PageName, pageLanguages);
 
             // Add language selector widget to the en-US page
             var currentPage = createdPages.First();
             PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
 
-            string url = UrlPath.ResolveAbsoluteUrl("~/" + pageName + currentPage.Value.Name);
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + currentPage.Value.Name);
             var pageContent = PageInvoker.ExecuteWebRequest(url);
             Assert.IsNotNull(pageContent);
 
-            var expectedLinkes = new Dictionary<string, string>()
+            var expectedLinks = new Dictionary<string, string>()
             {
-                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Turkish"]) }
+                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) }
             };
 
-            var notExpectedLinkes = new Dictionary<string, string>()
+            var notExpectedLinks = new Dictionary<string, string>()
             {
-                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["English"], true) },
-                { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Arabic"]) },
-                { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(pageName, this.sitefinityLanguages["Serbian"]) }
+                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) },
+                { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
+                { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) }
             };
 
-            this.AssertLanguageLinks(pageContent, expectedLinkes, notExpectedLinkes);
+            this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
+        }
+
+        /*To test all possible cases for detail view you can create a news 1 with en and tr translation and news 2 with en translation only. 
+         * Then load the detail view for news 1 and verify that the tr link will load the detail translation of news 1. 
+         * Then load the detail view for news 2 and verify that the tr link will load the list view. 
+         * This is the expected behavior because when the detail view does not have translation the list view in tr will be loaded. 
+         * (just in case check the behavior in Release_8_0_Fixes ) The same applies for LanguageSelectorWidget_CurrentLanguageNotIncludedInDetailsViewOfContentItems test.*/
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
+        [Multilingual]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.Team7)]
+        [Description("Verifies language selector, with current language included, is included in detail view of content items"), Ignore]
+        public void LanguageSelectorWidget_CurrentLanguageIncludedInDetailsViewOfContentItems()
+        {
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+            var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
+            languageSelectorModel.IncludeCurrentLanguage = true;
+
+            var controls = new List<System.Web.UI.Control>();
+            controls.Add(languageSelectorControl);
+
+            this.serverOperationsNews.CreateNewsItem("TestNewsItem");
+            var newsControl = this.CreateNewsControl();
+            controls.Add(newsControl);
+
+            var pageLanguages = new[]
+            {
+                this.sitefinityLanguages["English"],
+                this.sitefinityLanguages["Turkish"]
+            };
+
+            var createdPages = this.CreateLocalizedPage(PageName, pageLanguages);
+
+            // Add language selector widget to the en-US page
+            var currentPage = createdPages.First();
+            PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
+
+            var items = newsControl.Settings.Controller.Model.CreateListViewModel(null, 1).Items.ToArray();
+            var expectedDetailNews = (NewsItem)items[0].DataItem;
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + currentPage.Value.Name);
+            string detailNewsUrl = url + expectedDetailNews.ItemDefaultUrl;
+
+            var pageContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
+            Assert.IsNotNull(pageContent);
+
+            var expectedLinks = new Dictionary<string, string>()
+            {
+                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) },
+                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) }
+            };
+
+            var notExpectedLinks = new Dictionary<string, string>()
+            {
+                { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
+                { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) }
+            };
+
+            this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
+        [Multilingual]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.Team7)]
+        [Description("Verifies language selector, with current language not included, is included in detail view of content items"), Ignore]
+        public void LanguageSelectorWidget_CurrentLanguageNotIncludedInDetailsViewOfContentItems()
+        {
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+
+            var controls = new List<System.Web.UI.Control>();
+            controls.Add(languageSelectorControl);
+
+            this.serverOperationsNews.CreateNewsItem("TestNewsItem");
+            var newsControl = this.CreateNewsControl();
+            controls.Add(newsControl);
+            var newsController = newsControl.Settings.Controller;
+
+            var pageLanguages = new[]
+            {
+                this.sitefinityLanguages["English"],
+                this.sitefinityLanguages["Turkish"]
+            };
+
+            var createdPages = this.CreateLocalizedPage(PageName, pageLanguages);
+
+            // Add language selector widget to the en-US page
+            var currentPage = createdPages.First();
+            PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
+
+            var items = newsController.Model.CreateListViewModel(null, 1).Items.ToArray();
+            var expectedDetailNews = (NewsItem)items[0].DataItem;
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + currentPage.Value.Name);
+            string detailNewsUrl = url + expectedDetailNews.ItemDefaultUrl;
+
+            var pageContent = PageInvoker.ExecuteWebRequest(detailNewsUrl);
+            Assert.IsNotNull(pageContent);
+
+            var expectedLinks = new Dictionary<string, string>()
+            {
+                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) }
+            };
+
+            var notExpectedLinks = new Dictionary<string, string>()
+            {
+                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) },
+                { this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Arabic"]) },
+                { this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Serbian"]) }
+            };
+
+            this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
+        }
+
+        [Test]
+        [Multilingual]
+        [Category(TestCategories.Navigation)]
+        [Author(FeatherTeams.Team7)]
+        [Description("Verifies language selector with redirect option")]
+        public void LanguageSelectorWidget_RedirectToHomePageOfTheMissingTranslations()
+        {
+            var languageSelectorControl = this.CreateLanguageSelectorControl();
+            var languageSelectorModel = languageSelectorControl.Settings.Controller.Model;
+            languageSelectorModel.MissingTranslationAction = NoTranslationAction.RedirectToPage;
+            var controls = new List<System.Web.UI.Control>();
+            controls.Add(languageSelectorControl);
+
+            var pageLanguages = new[]
+            {
+                this.sitefinityLanguages["English"],
+                this.sitefinityLanguages["Turkish"]
+            };
+
+            var createdPages = this.CreateLocalizedPage(PageName, pageLanguages);
+
+            // Add language selector widget to the en-US page
+            var currentPage = createdPages.First();
+            PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
+
+            string url = UrlPath.ResolveAbsoluteUrl("~/" + PageName + currentPage.Value.Name);
+            var pageContent = PageInvoker.ExecuteWebRequest(url);
+            Assert.IsNotNull(pageContent);
+
+            var expectedLinks = new Dictionary<string, string>()
+            {
+                { this.sitefinityLanguages["Turkish"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["Turkish"]) },
+                {
+                        this.sitefinityLanguages["Arabic"].NativeName, this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Arabic"])
+                },
+                {
+                        this.sitefinityLanguages["Serbian"].NativeName, this.GetPageUrlOfNotTranslatedPage(PageName + currentPage.Value.Name, this.sitefinityLanguages["Serbian"])
+                },
+                { this.sitefinityLanguages["English"].NativeName, this.GetPageUrl(PageName, this.sitefinityLanguages["English"], true) }
+            };
+
+            var notExpectedLinks = new Dictionary<string, string>();
+
+            this.AssertLanguageLinks(pageContent, expectedLinks, notExpectedLinks);
         }
 
         #region Helper methods
@@ -155,6 +309,12 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 // returns /tr-tr/TestPagetr-TR
                 return string.Format(CultureInfo.InvariantCulture, "/{0}/{1}{2}", culture.Name.ToLower(), pageName, culture.Name);
             }
+        }
+
+        private string GetPageUrlOfNotTranslatedPage(string defaultCultureHomePageName, CultureInfo culture)
+        {
+            // returns the url of the home page for the given culture
+            return string.Format(CultureInfo.InvariantCulture, "/{0}/{1}", culture.Name.ToLower(), defaultCultureHomePageName);
         }
 
         private IList<KeyValuePair<Guid, CultureInfo>> CreateLocalizedPage(string pageTitle, CultureInfo[] cultures)
@@ -278,17 +438,17 @@ namespace FeatherWidgets.TestIntegration.Navigation
                         chunk = parser.ParseNext();
                         var linkText = chunk.Html;
 
-                        foreach (var link in notVisiblelinks)
-                        {
-                            Assert.IsFalse(
-                                linkHref.EndsWith(link.Value, StringComparison.Ordinal), 
-                                string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
+                            foreach (var link in notVisiblelinks)
+                            {
+                                Assert.IsFalse(
+                                    linkHref.EndsWith(link.Value, StringComparison.Ordinal),
+                                    string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
 
-                            Assert.AreNotEqual(
-                                link.Key,
-                                linkText,
-                                string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
-                        }
+                                Assert.AreNotEqual(
+                                    link.Key,
+                                    linkText,
+                                    string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
+                            }
 
                         var foundLanguage = string.Empty;
 
@@ -307,9 +467,12 @@ namespace FeatherWidgets.TestIntegration.Navigation
                             break;
                         }
 
+                        if (linkHref.Contains(PageName))
+                        {
                         Assert.IsFalse(
                             string.IsNullOrEmpty(foundLanguage), 
                             string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", linkHref));
+                        }
       
                         links.Remove(foundLanguage);
                     }
@@ -317,10 +480,33 @@ namespace FeatherWidgets.TestIntegration.Navigation
             }
         }
 
+        private MvcControllerProxy CreateNewsControl()
+        {
+            var newsSelectorControl = new MvcControllerProxy();
+            newsSelectorControl.ControllerName = typeof(NewsController).FullName;
+            var newsController = new NewsController();
+            newsSelectorControl.Settings = new ControllerSettings(newsController);
+            return newsSelectorControl;
+            }
+
+        private MvcControllerProxy CreateLanguageSelectorControl()
+        {
+            var languageSelectorControl = new MvcControllerProxy();
+            languageSelectorControl.ControllerName = typeof(LanguageSelectorController).FullName;
+            var languageSelectorController = new LanguageSelectorController();
+            languageSelectorControl.Settings = new ControllerSettings(languageSelectorController);
+
+            return languageSelectorControl;
+        }
+
         #endregion
 
         #region Private fields and constants
+
+        private const string PageName = "TestPage";
         private readonly Dictionary<string, CultureInfo> sitefinityLanguages = new Dictionary<string, CultureInfo>();
+        private readonly NewsOperations serverOperationsNews = ServerOperations.News();
+        
         #endregion
     }
 }

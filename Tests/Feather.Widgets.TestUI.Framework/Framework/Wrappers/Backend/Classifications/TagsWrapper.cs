@@ -53,8 +53,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         /// <param name="optionId">The option id.</param>
         public void VerifyCheckedRadioButtonOption(TagsRadioButtonIds optionId)
         {
-            HtmlFindExpression expression = new HtmlFindExpression("tagname=input", "id=" + optionId);
-            ActiveBrowser.WaitForElement(expression, 60000, false);
             HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
                   .AssertIsPresent("radio button");
 
@@ -67,8 +65,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         /// <param name="optionId">The option id.</param>
         public void SelectRadioButtonOption(TagsRadioButtonIds optionId)
         {
-            HtmlFindExpression expression = new HtmlFindExpression("tagname=input", "id=" + optionId);
-            ActiveBrowser.WaitForElement(expression, 60000, false);
             HtmlInputRadioButton radioButton = ActiveBrowser.Find.ByExpression<HtmlInputRadioButton>("tagname=input", "id=" + optionId)
                   .AssertIsPresent("radio button");
 
@@ -76,10 +72,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         }
 
         /// <summary>
-        /// Selects the content type option.
+        /// Selects the used by content type option.
         /// </summary>
         /// <param name="contentType">Type of the content.</param>
-        public void SelectContentTypeOption(string contentType)
+        public void SelectUsedByContentTypeOption(string contentType)
         {
             HtmlSelect contentTypeDropdown = this.EM.Classifications.TagsWidgetEditScreen.UsedByContentTypeOption.AssertIsPresent("contentType dropdown");
 
