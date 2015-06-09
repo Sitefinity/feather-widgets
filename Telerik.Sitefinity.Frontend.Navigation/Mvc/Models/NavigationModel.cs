@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Web;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Pages.Model;
@@ -282,6 +282,31 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         }
 
         /// <summary>
+        /// Instantiates a node view model.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns>An instance of a node view model.</returns>
+        protected virtual NodeViewModel InstantiateNodeViewModel(SiteMapNode node)
+        {
+            bool isSelectedPage = this.CurrentSiteMapNode != null && this.CurrentSiteMapNode.Key == node.Key;
+            string url = this.ResolveUrl(node);
+            string target = this.GetLinkTarget(node);
+            return new NodeViewModel(node, url, target, isSelectedPage, this.HasSelectedChild(node));
+        }
+
+        /// <summary>
+        /// Instantiates a node view model.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>An instance of a node view model.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#")]
+        protected virtual NodeViewModel InstantiateNodeViewModel(string url, string target)
+        {
+            return new NodeViewModel(null, url, target, false, false);
+        }
+
+        /// <summary>
         /// Creates the <see cref="NodeViewModel"/> from the SiteMapNode and populates recursive their child nodes.
         /// </summary>
         /// <param name="node">
@@ -297,10 +322,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
         {
             if (levelsToInclude != 0 && this.CheckSiteMapNode(node))
             {
-                bool isSelectedPage = this.CurrentSiteMapNode != null && this.CurrentSiteMapNode.Key == node.Key;
-                string url = this.ResolveUrl(node);
-                string target = this.GetLinkTarget(node);
-                var nodeViewModel = new NodeViewModel(node, url, target, isSelectedPage, this.HasSelectedChild(node));
+                var nodeViewModel = this.InstantiateNodeViewModel(node);
                 levelsToInclude--;
 
                 SiteMapNodeCollection directChildren = node.ChildNodes;
@@ -386,7 +408,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models
                             }
                             else
                             {
-                                var node = new NodeViewModel(null, page.Url, target, false, false);
+                                var node = this.InstantiateNodeViewModel(page.Url, target);
                                 node.Title = page.TitlesPath;
                                 this.Nodes.Add(node);
                             }
