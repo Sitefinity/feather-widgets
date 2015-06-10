@@ -1,81 +1,91 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Publishing.Helpers;
 
-<div class="form-group">   
-    <h4>@Html.Resource("WhichFeedToUse")</h4> 
-    <sf-list-selector sf-feed-selector sf-selected-item-id="properties.FeedId.PropertyValue" sf-selected-item="feed"></sf-list-selector>  
-</div>
-
-<div class="form-group">
-    <strong>@Html.Resource("Insert")</strong>
-
-    <div class="radio">
-        <label>
-            <input type="radio" ng-model="properties.InsertionOption.PropertyValue" value="PageAndAddressBar" />
-            @Html.Resource("InsertLinkBothInPageAndBrowser")
-        </label>
+@if (PublishingWidgetExtensions.IsModuleActivated())
+{
+    <div class="form-group">   
+        <h4>@Html.Resource("WhichFeedToUse")</h4> 
+        <sf-list-selector sf-feed-selector sf-selected-item-id="properties.FeedId.PropertyValue" sf-selected-item="feed"></sf-list-selector>  
     </div>
-    <div class="radio">
-        <label>
-            <input type="radio" ng-model="properties.InsertionOption.PropertyValue" value="PageOnly" />
-            @Html.Resource("InsertLinkInPageOnly")
-        </label>
-    </div>
-    <div class="radio">
-        <label>
-            <input type="radio" ng-model="properties.InsertionOption.PropertyValue" value="AddressBarOnly" />
-            @Html.Resource("InsertLinkInBrowserOnly")
-        </label>
-    </div>
-</div>
-
-<div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
-	<label for="textToDisplay">@Html.Resource("TextToDisplay")</label>
-	<div class="row">
-		<div class="col-xs-9">
-			<input class="form-control" type="text" id="textToDisplay" ng-model="properties.TextToDisplay.PropertyValue" />
-		</div>
-	</div>
-    <div class="checkbox" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
-	    <label for="openInNewWin">
-		    <input type="checkbox" id="openInNewWin" ng-model="properties.OpenInNewWindow.PropertyValue" 
-                ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.OpenInNewWindow.PropertyValue === 'True'"/>
-            @Html.Resource("OpenInNewWin")
-       </label>
-    </div>
-</div>
-
-
-
-<div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
-	<label for="tooltip">@Html.Resource("Tooltip")</label>
-    <p class="description-note">@Html.Resource("TooltipDescription")</p>
-	<div class="row">
-		<div class="col-xs-9">
-			<input class="form-control" type="text" id="tooltip" ng-model="properties.Tooltip.PropertyValue" />
-		</div>
-	</div>		
-</div>
-
-<div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
-    <label for="templateName">@Html.Resource("Template")</label>
-
-    <div class="row">
-        <div class="col-xs-6">
-            <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^Feed\.(?<viewName>[\w\s]*)$"))
-                {
-                    <option value="@viewName"> @viewName</option>
-                }
-            </select>
-        </div>
-    </div>
-</div>
-
-<expander expander-title='@Html.Resource("MoreOptions")'>
-    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
     <div class="form-group">
-        <label for="cssClass">@Html.Resource("CssClasses")</label>
-        <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        <label>@Html.Resource("Insert")</label>
+
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="properties.InsertionOption.PropertyValue" value="PageAndAddressBar" />
+                @Html.Resource("InsertLinkBothInPageAndBrowser")
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="properties.InsertionOption.PropertyValue" value="PageOnly" />
+                @Html.Resource("InsertLinkInPageOnly")
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="properties.InsertionOption.PropertyValue" value="AddressBarOnly" />
+                @Html.Resource("InsertLinkInBrowserOnly")
+            </label>
+        </div>
     </div>
-</expander>        
+
+    <div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
+	    <label for="textToDisplay">@Html.Resource("TextToDisplay")</label>
+	    <div class="row">
+		    <div class="col-xs-9">
+			    <input class="form-control" type="text" id="textToDisplay" ng-model="properties.TextToDisplay.PropertyValue" />
+		    </div>
+	    </div>
+        <div class="checkbox" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
+	        <label for="openInNewWin">
+		        <input type="checkbox" id="openInNewWin" ng-model="properties.OpenInNewWindow.PropertyValue" 
+                    ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.OpenInNewWindow.PropertyValue === 'True'"/>
+                @Html.Resource("OpenInNewWin")
+           </label>
+        </div>
+    </div>
+
+    <div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
+	    <label for="tooltip">@Html.Resource("Tooltip")</label>
+        <p class="description-note">@Html.Resource("TooltipDescription")</p>
+	    <div class="row">
+		    <div class="col-xs-9">
+			    <input class="form-control" type="text" id="tooltip" ng-model="properties.Tooltip.PropertyValue" />
+		    </div>
+	    </div>		
+    </div>
+
+    <div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
+        <label for="templateName">@Html.Resource("Template")</label>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^Feed\.(?<viewName>[\w\s]*)$"))
+                    {
+                        <option value="@viewName"> @viewName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <expander expander-title='@Html.Resource("MoreOptions")'>
+        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+        <div class="form-group">
+            <label for="cssClass">@Html.Resource("CssClasses")</label>
+            <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+        </div>
+    </expander>
+}
+else
+{
+    <div class="alert alert-warning">@Html.Resource("NotActiveModule")</div>
+
+    <script type="text/ng-template" section="modal-footer">
+        <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>
+    </script>
+}
