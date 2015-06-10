@@ -15,7 +15,7 @@
                         doNotLoadTextToDisplay = false;
                     }
 
-                    if (!$scope.properties.TextToDisplay.PropertyValue && !doNotLoadTextToDisplay) {
+                    if (newFeed && !$scope.properties.TextToDisplay.PropertyValue && !doNotLoadTextToDisplay) {
                         $scope.properties.TextToDisplay.PropertyValue = newFeed.Title;
                     }
                 }
