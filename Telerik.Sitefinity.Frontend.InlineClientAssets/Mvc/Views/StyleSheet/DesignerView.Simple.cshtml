@@ -53,14 +53,14 @@
         <strong>@Html.Resource("Media")</strong>
         <div class="radio">
             <label class="full-width">
-                <input type="radio" ng-model="mediaTypeSelection" ng-value="'all'" ng-change="updateMediaTypeProeprty()" />
+                <input type="radio" ng-model="mediaTypeSelection" ng-value="'all'" ng-change="updateMediaTypeProeprty(mediaTypeSelection)" />
 
                 @Html.Resource("All")
             </label>
         </div>
         <div class="radio">
             <label class="full-width">
-                <input type="radio" ng-model="mediaTypeSelection" ng-value="'selected'" ng-change="updateMediaTypeProeprty()" />
+                <input type="radio" ng-model="mediaTypeSelection" ng-value="'selected'" ng-change="updateMediaTypeProeprty(mediaTypeSelection)" />
 
                 @Html.Resource("SelectedMediaTypes")
             </label>
@@ -69,7 +69,7 @@
                     <div class="col-xs-4" ng-repeat="mediaCol in mediaTypeColumns">
                         <div class="checkbox" ng-repeat="mediaType in mediaCol">
                             <label>
-                                <input type="checkbox" ng-model="mediaType.checked" ng-change="updateMediaTypeProeprty()">{{::mediaType.value}}
+                                <input type="checkbox" ng-model="mediaType.checked" ng-change="updateMediaTypeProeprty(mediaTypeSelection)">{{::mediaType.value}}
                             </label>
                         </div>
                     </div>
