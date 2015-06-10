@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Sitefinity.ContentLocations;
@@ -179,7 +180,15 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
         {
             this.DetailsPageId = detailPageId;
             this.OpenInSamePage = openInSamePage;
-            this.InitializeListViewBag("/{0}");
+
+            this.SetPagingRedirectTemplateInViewBag();
+
+            this.ViewBag.CurrentPageUrl = SystemManager.CurrentHttpContext != null ?
+                SystemManager.CurrentHttpContext.Request.Path : string.Empty;
+
+            this.ViewBag.DetailsPageId = this.DetailsPageId;
+            this.ViewBag.OpenInSamePage = this.OpenInSamePage;
+            this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
 
             this.Model.SetRelatedDataProperties(relatedItem, relatedDataViewModel);
             this.Model.SetModelProperties(settingsViewModel);
@@ -381,6 +390,33 @@ namespace Telerik.Sitefinity.Frontend.Media.Mvc.Controllers
             this.ViewBag.DetailsPageId = this.DetailsPageId;
             this.ViewBag.OpenInSamePage = this.OpenInSamePage;
             this.ViewBag.ItemsPerPage = this.Model.ItemsPerPage;
+        }
+
+        /// <summary>
+        /// Creates an url template for redirecting after another page is selected.
+        /// </summary>
+        private void SetPagingRedirectTemplateInViewBag()
+        {
+            if (SystemManager.CurrentHttpContext != null)
+            {
+                var currentPath = SystemManager.CurrentHttpContext.Request.Path;
+
+                var parsedQuery = HttpUtility.ParseQueryString(
+                    SystemManager.CurrentHttpContext.Request.QueryString.ToQueryString());
+
+                parsedQuery.Remove("page");
+
+                var appendSign = parsedQuery.HasKeys() ? "&" : "?";
+
+                // The query string name-value collection encodes the values, but we don't want to encode the curly brackets.
+                var queryStringTemplate = string.Concat(parsedQuery.ToQueryString(), appendSign, "page={0}");
+
+                this.ViewBag.RedirectPageUrlTemplate = currentPath + queryStringTemplate;
+            }
+            else
+            {
+                this.ViewBag.RedirectPageUrlTemplate = "?page={0}";
+            }
         }
 
         /// <summary>
