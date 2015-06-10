@@ -296,6 +296,50 @@ namespace FeatherWidgets.TestIntegration.Taxonomies
             }
         }
 
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies all taxons are sorted by Title (A-Z).")]
+        public void Categories_VerifyAllTaxaSortedByTitleAZ()
+        {
+            var model = new HierarchicalTaxonomyModel();
+            model.TaxaToDisplay = HierarchicalTaxaToDisplay.All;
+            model.ShowEmptyTaxa = true;
+            model.SortExpression = "Title ASC";
+
+            var viewModel = model.CreateViewModel();
+
+            Assert.AreEqual(this.taxaNamesWithParents.Count, viewModel.Taxa.Count);
+
+            var expectedTaxonOrder = new List<string>() { "c1", "c2", "c3", "c3c1", "c3c2", "c3c2c1" };
+
+            for (int i = 0; i < viewModel.Taxa.Count; i++)
+            {
+                Assert.AreEqual(expectedTaxonOrder[i], viewModel.Taxa[i].Title);
+            }
+        }
+
+        [Test]
+        [Author(TestAuthor.Team7)]
+        [Description("Verifies all taxons are sorted by Title (Z-A).")]
+        public void Categories_VerifyAllTaxaSortedByTitleZA()
+        {
+            var model = new HierarchicalTaxonomyModel();
+            model.TaxaToDisplay = HierarchicalTaxaToDisplay.All;
+            model.ShowEmptyTaxa = true;
+            model.SortExpression = "Title DESC";
+
+            var viewModel = model.CreateViewModel();
+
+            Assert.AreEqual(this.taxaNamesWithParents.Count, viewModel.Taxa.Count);
+
+            var expectedTaxonOrder = new List<string>() { "c3c2c1", "c3c2", "c3c1", "c3", "c2", "c1" };
+
+            for (int i = 0; i < viewModel.Taxa.Count; i++)
+            {
+                Assert.AreEqual(expectedTaxonOrder[i], viewModel.Taxa[i].Title);
+            }
+        }
+
         /// <summary>
         /// Asserts the expected taxon is in the right place in the tree.
         /// </summary>
