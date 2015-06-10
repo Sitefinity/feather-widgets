@@ -1,0 +1,26 @@
+{
+  "name": "Bootstrap",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "bootstrap-sass": "3.3.4",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-csslint": "^0.3.1",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-imagemin": "^0.9.2",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-newer": "^1.0.0",
+    "grunt-sass": "^0.17.0",
+    "grunt-spritesmith": "^3.5.0",
+    "grunt-uncss": "^0.3.6",
+    "load-grunt-tasks": "^2.0.0",
+    "time-grunt": "^1.0.0",
+    "magnific-popup": "^1.0.0",
+    "grunt-webfont": "git://github.com/georgieff/grunt-webfont.git"
+  },
+  "author": {
+    "name": "SitefinityUX Team",
+    "email": "SitefinityUX@telerik.com"
+  }
+}
