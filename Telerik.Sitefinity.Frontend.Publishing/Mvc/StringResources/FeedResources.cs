@@ -266,5 +266,37 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.StringResources
                 return this["MoreOptions"];
             }
         }
+
+        /// <summary>
+        /// Phrase: More options
+        /// </summary>
+        /// <value>More options</value>
+        [ResourceEntry("NotActiveModule",
+            Value = "This widget is available only if you have activated Feeds & Notifications module",
+            Description = "Phrase: This widget is available only if you have activated Feeds & Notifications module",
+            LastModified = "2015/06/08")]
+        public string NotActiveModule
+        {
+            get
+            {
+                return this["NotActiveModule"];
+            }
+        }
+
+        /// <summary>
+        /// word: Close
+        /// </summary>
+        /// <value>Close</value>
+        [ResourceEntry("Close",
+            Value = "Close",
+            Description = "word: Close",
+            LastModified = "2015/03/22")]
+        public string Close
+        {
+            get
+            {
+                return this["Close"];
+            }
+        }
     }
 }
