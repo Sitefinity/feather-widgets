@@ -64,7 +64,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 			get
 			{
 				var isEdit = false;
-				if (this.IsDesignMode && !SystemManager.IsPreviewMode)
+				if (this.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode)
 				{
 					isEdit = true;
 				}
@@ -100,7 +100,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
             }
 
-            if (this.IsEdit && !SystemManager.IsInlineEditingMode)
+            if (this.IsEdit)
             {
                 string result = null;
 
