@@ -298,5 +298,21 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.StringResources
                 return this["Close"];
             }
         }
+
+        /// <summary>
+        /// phrase: The selected feed has been deleted or deactivated.
+        /// </summary>
+        /// <value>The selected feed has been deleted or deactivated.</value>
+        [ResourceEntry("MissingFeed",
+            Value = "The selected feed has been deleted or deactivated.",
+            Description = "phrase: The selected feed has been deleted or deactivated.",
+            LastModified = "2015/02/26")]
+        public string MissingFeed
+        {
+            get
+            {
+                return this["MissingFeed"];
+            }
+        }
     }
 }
