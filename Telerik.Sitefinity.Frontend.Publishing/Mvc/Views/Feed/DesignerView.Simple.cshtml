@@ -3,9 +3,12 @@
 
 @if (PublishingWidgetExtensions.IsModuleActivated())
 {
+    <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingFeed")</div>
+
     <div class="form-group">
-        <strong>@Html.Resource("WhichFeedToUse")</strong>
-        <sf-list-selector sf-feed-selector sf-selected-item-id="properties.FeedId.PropertyValue" sf-selected-item="feed"></sf-list-selector>
+        <h4>@Html.Resource("WhichFeedToUse")</h4>
+        <sf-list-selector sf-feed-selector sf-selected-item-id="properties.FeedId.PropertyValue" sf-selected-item="feed"
+                          sf-missing-selected-items="errors.missingSelectedItems"></sf-list-selector>
     </div>
 
     <div class="form-group">
@@ -38,15 +41,13 @@
                 <input class="form-control" type="text" id="textToDisplay" ng-model="properties.TextToDisplay.PropertyValue" />
             </div>
         </div>
-
-    </div>
-
-    <div class="form-group checkbox" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
-        <label for="openInNewWin">
-            <input type="checkbox" id="openInNewWin" ng-model="properties.OpenInNewWindow.PropertyValue"
-                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.OpenInNewWindow.PropertyValue === 'True'" />
-            @Html.Resource("OpenInNewWin")
-        </label>
+        <div class="checkbox" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
+            <label for="openInNewWin">
+                <input type="checkbox" id="openInNewWin" ng-model="properties.OpenInNewWindow.PropertyValue"
+                       ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.OpenInNewWindow.PropertyValue === 'True'" />
+                @Html.Resource("OpenInNewWin")
+            </label>
+        </div>
     </div>
 
     <div class="form-group" ng-hide="properties.InsertionOption.PropertyValue == 'AddressBarOnly'">
@@ -85,7 +86,7 @@
 }
 else
 {
-    <label>@Html.Resource("NotActiveModule")</label>
+    <div class="alert alert-warning">@Html.Resource("NotActiveModule")</div>
 
     <script type="text/ng-template" section="modal-footer">
         <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>

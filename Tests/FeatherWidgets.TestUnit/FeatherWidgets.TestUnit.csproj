@@ -163,6 +163,7 @@
     <Compile Include="DummyClasses\Navigation\DummyNavigationController.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationModel.cs" />
     <Compile Include="DummyClasses\Navigation\DummySiteMapProvider.cs" />
+    <Compile Include="DummyClasses\Publishing\DummyFeedController.cs" />
     <Compile Include="DummyClasses\SearchBox\DummySearchBoxController.cs" />
     <Compile Include="DummyClasses\SearchResults\DummySearchResultsController.cs" />
     <Compile Include="DummyClasses\SearchResults\DummySearchResultsModel.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Navigation\SitesWidget\SitesWidgetControllerTests.cs" />
     <Compile Include="ObjectFactoryContainerRegion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Publishing\FeedControllerTests.cs" />
     <Compile Include="Resources\ResourcesTests.cs" />
     <Compile Include="SearchBox\SearchBoxControllerTests.cs" />
     <Compile Include="DummyClasses\DummyModuleBuilderProxy.cs" />
@@ -245,6 +247,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
       <Name>Telerik.Sitefinity.Frontend.News</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Publishing\Telerik.Sitefinity.Frontend.Publishing.csproj">
+      <Project>{ddfed943-c998-42aa-8ebf-38f1b6108ee7}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Publishing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj">
       <Project>{b1e056f8-d6ad-4c0c-a619-053e23f44a60}</Project>
