@@ -163,6 +163,7 @@
     <None Include="app.config" />
     <EmbeddedResource Include="Data\MediaFiles\Ogv File.ogv" />
     <EmbeddedResource Include="Data\MediaFiles\WebM File.webm" />
+    <EmbeddedResource Include="Data\DynamicModules\RelatedImagesModule.zip" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
