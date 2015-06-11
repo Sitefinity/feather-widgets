@@ -112,6 +112,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.1.2.270.0\lib\net45\Telerik.Sitefinity.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities">
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.2.270.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Sitefinity.TestArrangementService.Core, Version=1.0.0.3, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.3\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
       <Private>True</Private>
