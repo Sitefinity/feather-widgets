@@ -80,6 +80,10 @@
     <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <None Include="assets\src\sass\feed\_sf-feed.sass" />
+    <None Include="assets\src\sass\sf-sprite.mustache" />
+    <None Include="assets\src\sass\styles.sass" />
+    <Compile Include="Helpers\PublishingWidgetExtensions.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FeedController.cs" />
     <Compile Include="Mvc\Models\FeedModel.cs" />
@@ -90,11 +94,58 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\src\images\sprite.png" />
+    <Content Include="assets\src\images\sprite\blogger.png" />
+    <Content Include="assets\src\images\sprite\comment.png" />
+    <Content Include="assets\src\images\sprite\delicious.png" />
+    <Content Include="assets\src\images\sprite\digg.png" />
+    <Content Include="assets\src\images\sprite\email.png" />
+    <Content Include="assets\src\images\sprite\facebook.png" />
+    <Content Include="assets\src\images\sprite\feed.png" />
+    <Content Include="assets\src\images\sprite\google.png" />
+    <Content Include="assets\src\images\sprite\linkedin.png" />
+    <Content Include="assets\src\images\sprite\mailto.png" />
+    <Content Include="assets\src\images\sprite\myspace.png" />
+    <Content Include="assets\src\images\sprite\reddit.png" />
+    <Content Include="assets\src\images\sprite\stumble-upon.png" />
+    <Content Include="assets\src\images\sprite\tumblr.png" />
+    <Content Include="assets\src\images\sprite\twitter.png" />
+    <EmbeddedResource Include="assets\dist\images\sprite.png" />
+    <Content Include="assets\dist\images\sprite\blogger.png" />
+    <Content Include="assets\dist\images\sprite\comment.png" />
+    <Content Include="assets\dist\images\sprite\delicious.png" />
+    <Content Include="assets\dist\images\sprite\digg.png" />
+    <Content Include="assets\dist\images\sprite\email.png" />
+    <Content Include="assets\dist\images\sprite\facebook.png" />
+    <Content Include="assets\dist\images\sprite\feed.png" />
+    <Content Include="assets\dist\images\sprite\google.png" />
+    <Content Include="assets\dist\images\sprite\linkedin.png" />
+    <Content Include="assets\dist\images\sprite\mailto.png" />
+    <Content Include="assets\dist\images\sprite\myspace.png" />
+    <Content Include="assets\dist\images\sprite\reddit.png" />
+    <Content Include="assets\dist\images\sprite\stumble-upon.png" />
+    <Content Include="assets\dist\images\sprite\tumblr.png" />
+    <Content Include="assets\dist\images\sprite\twitter.png" />
+    <EmbeddedResource Include="assets\dist\css\styles.css" />
+    <EmbeddedResource Include="assets\dist\css\styles.min.css" />
+    <Content Include="assets\src\images\social-share\blogger.png" />
+    <Content Include="assets\src\images\social-share\delicious.png" />
+    <Content Include="assets\src\images\social-share\digg.png" />
+    <Content Include="assets\src\images\social-share\facebook.png" />
+    <Content Include="assets\src\images\social-share\google.png" />
+    <Content Include="assets\src\images\social-share\linkedin.png" />
+    <Content Include="assets\src\images\social-share\mailto.png" />
+    <Content Include="assets\src\images\social-share\myspace.png" />
+    <Content Include="assets\src\images\social-share\reddit.png" />
+    <Content Include="assets\src\images\social-share\stumble-upon.png" />
+    <Content Include="assets\src\images\social-share\tumblr.png" />
+    <Content Include="assets\src\images\social-share\twitter.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Views\Feed\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Feed\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Feed\Feed.FeedLink.cshtml" />
+    <None Include="assets\src\sass\_sf-sprite.sass" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

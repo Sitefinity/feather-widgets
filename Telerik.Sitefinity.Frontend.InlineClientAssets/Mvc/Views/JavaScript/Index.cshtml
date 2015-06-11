@@ -4,7 +4,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Services;
 
-@if (Model.Position == EmbedPosition.InPlace && !(SystemManager.IsDesignMode && !SystemManager.IsPreviewMode))
+@if (Model.Position == EmbedPosition.InPlace && !(SystemManager.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode))
 {
     @Html.Raw(Model.JavaScriptCode)
 }
