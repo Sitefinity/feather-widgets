@@ -1,6 +1,7 @@
 ﻿@model Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector.LanguageSelectorViewModel
 
 @using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <div class="@Model.CssClass">
     @foreach (var language in Model.Languages)
@@ -11,7 +12,7 @@
         }
         else
         {
-	        <a href="@language.Url" class="@GetClass(language.Culture)">@language.DisplayName</a>
+	        <a href="" onclick="openLink('@language.Culture'); return false;" class="@GetClass(language.Culture)">@language.DisplayName</a>
         }
     }
 </div>
@@ -23,5 +24,6 @@
     {
         @Html.Raw("selected");
     }
-
 }
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/LanguageSelector/language-selector.js"), "bottom", false)
