@@ -98,7 +98,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
         #region Public Methods
 
-         /// <inheritDoc/>
+        /// <inheritDoc/>
         public virtual LoginFormViewModel GetLoginFormViewModel()
         {
             var viewModel = new LoginFormViewModel();
@@ -262,7 +262,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             var identity = ClaimsManager.GetCurrentIdentity();
             if (user != null && identity != null && identity.OriginalIdentity is SitefinityIdentity)
             {
-                IClaimsPrincipal cp = new ClaimsPrincipal(new [] { new ClaimsIdentity(identity) });
+                IClaimsPrincipal cp = new ClaimsPrincipal(new[] { new ClaimsIdentity(identity) });
                 var wifCredentials = new FederatedServiceCredentials(FederatedAuthentication.ServiceConfiguration);
                 cp = wifCredentials.ClaimsAuthenticationManager.Authenticate(context.Request.RequestType, cp);
                 SitefinityClaimsAuthenticationModule.Current.AuthenticatePrincipalWithCurrentToken(cp, input.RememberMe);
@@ -274,11 +274,56 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             else
             {
-                input.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
+                string redirectUrl;
+                if (!this.TryResolveUrlFromUrlReferrer(context, out redirectUrl))
+                {
+                    redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
+                }
+
+                input.RedirectUrlAfterLogin = redirectUrl;
+
                 SFClaimsAuthenticationManager.ProcessRejectedUser(context, input.RedirectUrlAfterLogin);
             }
 
             return input;
+        }
+
+        private bool TryResolveUrlFromUrlReferrer(HttpContextBase context, out string redirectUrl)
+        {
+            redirectUrl = string.Empty;
+            try
+            {
+                Uri urlReferrer = context.Request.UrlReferrer;
+                if (urlReferrer != null)
+                {
+                    var querySegment = HttpUtility.UrlDecode(urlReferrer.Query);
+                    if (querySegment.StartsWith("?"))
+                    {
+                        querySegment = querySegment.Substring(1);
+                    }
+                    var queryStrings = querySegment.Split('&');
+                    foreach (var queryString in queryStrings)
+                    {
+                        var queryStringPair = queryString.Split('=');
+                        if (queryStringPair[0] == "realm")
+                        {
+                            redirectUrl = queryStringPair[1];
+                        }
+                        else if (queryStringPair[0] == "redirect_uri")
+                        {
+                            redirectUrl = string.Format("{0}{1}", redirectUrl, queryString.Replace("redirect_uri=", string.Empty));
+                        }
+                    }
+                    return true;
+                }
+            }
+            catch (UriFormatException)
+            {
+                // According to the documentation (http://msdn.microsoft.com/en-us/library/system.web.httprequest.urlreferrer.aspx),
+                // UrlReferrer could throw UriFormatException in case The HTTP Referer request header is malformed and cannot be converted to a Uri object. 
+                return false;
+            }
+            return false;
         }
 
         #endregion
