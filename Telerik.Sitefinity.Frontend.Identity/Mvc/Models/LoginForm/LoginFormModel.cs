@@ -294,7 +294,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             try
             {
                 Uri urlReferrer = context.Request.UrlReferrer;
-                if (urlReferrer != null)
+                if (!this.LoginRedirectPageId.HasValue && urlReferrer != null)
                 {
                     var querySegment = HttpUtility.UrlDecode(urlReferrer.Query);
                     if (querySegment.StartsWith("?"))
