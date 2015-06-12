@@ -51,7 +51,7 @@ module.exports = function (grunt) {
         sass: {
             dist: {
                 files: {
-                    '<%= dist.path %>/css/styles.css': '<%= src.path %>/sass/styles.sass'
+                    '<%= dist.path %>/css/feed.css': '<%= src.path %>/sass/styles.sass'
                 }
             }
         },
@@ -76,24 +76,6 @@ module.exports = function (grunt) {
                 src: ['*.css', '!*.min.css'],
                 dest: '<%= dist.path %>/css/',
                 ext: '.min.css'
-            }
-        },
-
-        // Concat & minify
-        // this processes only the files described in 'jsfiles.json'
-        uglify: {
-            options: {
-                report: 'gzip',
-                warnings: true
-            },
-            dist: {
-                options: {
-                    mangle: true,
-                    compress: true
-                },
-                files: {
-                    '<%= dist.path %>/js/bootstrap.min.js': 'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'
-                }
             }
         },
 
@@ -159,7 +141,6 @@ module.exports = function (grunt) {
 		'newer:sprite',
 		'sass:dist',
 		'cssmin',
-		'uglify:dist',
 		'newer:imagemin',
 		'concurrent:dev'
     ]);

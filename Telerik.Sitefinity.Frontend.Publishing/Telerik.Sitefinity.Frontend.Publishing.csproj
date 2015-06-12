@@ -94,6 +94,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="assets\dist\css\feed.css" />
+    <EmbeddedResource Include="assets\dist\css\feed.min.css" />
     <Content Include="assets\src\images\sprite.png" />
     <Content Include="assets\src\images\sprite\blogger.png" />
     <Content Include="assets\src\images\sprite\comment.png" />
@@ -126,8 +128,6 @@
     <Content Include="assets\dist\images\sprite\stumble-upon.png" />
     <Content Include="assets\dist\images\sprite\tumblr.png" />
     <Content Include="assets\dist\images\sprite\twitter.png" />
-    <EmbeddedResource Include="assets\dist\css\styles.css" />
-    <EmbeddedResource Include="assets\dist\css\styles.min.css" />
     <Content Include="assets\src\images\social-share\blogger.png" />
     <Content Include="assets\src\images\social-share\delicious.png" />
     <Content Include="assets\src\images\social-share\digg.png" />
