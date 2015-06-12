@@ -204,6 +204,12 @@
             </summary>
             <param name="settings">The settings.</param>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FrontendModule.Unload">
+            <summary>
+            This method is invoked during the unload process of an active module from Sitefinity, e.g. when a module is deactivated. For instance this method is also invoked for every active module during a restart of the application. 
+            Typically you will use this method to unsubscribe the module from all events to which it has subscription.
+            </summary>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.FrontendModule.Upgrade(Telerik.Sitefinity.Abstractions.SiteInitializer,System.Version)">
             <summary>
             Upgrades this module from the specified version.
@@ -223,6 +229,14 @@
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:Telerik.Sitefinity.Data.ExecutedEventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.FrontendModule.Current">
+            <summary>
+            Gets the current instance of the module.
+            </summary>
+            <value>
+            The current.
+            </value>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.FrontendModule.LandingPageId">
             <summary>
             Gets the landing page id for each module inherit from <see cref="T:Telerik.Sitefinity.Services.SecuredModuleBase"/> class.
@@ -234,6 +248,14 @@
             Gets the CLR types of all data managers provided by this module.
             </summary>
             <value>An array of <see cref="T:System.Type"/> objects.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.FrontendModule.DependencyResolver">
+            <summary>
+            Gets the dependency resolver. Can be used for overriding the default implementations of some interfaces.
+            </summary>
+            <value>
+            The dependency resolver.
+            </value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator">
             <summary>
@@ -588,6 +610,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcVersioningRouteHandler">
+            <summary>
+            Extended route handler for Sitefinity versioning that injects MVC specific logic.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcVersioningRouteHandler.GetHttpHandler(System.Web.Routing.RequestContext)">
+            <summary>
+            Provides the object that processes the request.
+            </summary>
+            <param name="requestContext">An object that encapsulates information about the request.</param>
+            <returns>An object that processes the request.</returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcPageEditorRouteHandler">
             <summary>
             Represents an extended route handler for Sitefinity's page editor that injects MVC specific logic.
@@ -732,6 +766,21 @@
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonomyUrlParamsMapper.TryMatchUrl(System.String[],System.Web.Routing.RequestContext)">
             <inheritdoc />
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlEvaluator.GetTaxonFromQuery(System.Web.HttpContextBase)">
+            <summary>
+            Gets the taxon from query.
+            </summary>
+            <param name="context">The context.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlEvaluator.GetTaxonFromQuery(System.Web.HttpContextBase,System.String)">
+            <summary>
+            Gets the taxon from query.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="urlKeyPrefix">The URL key prefix.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlMapper">
             <summary>
             Instances of this class tries to map Route Data parameters to a valid taxon instace.
@@ -769,16 +818,6 @@
             <param name="pageIndex">Index of the page.</param>
             <returns></returns>
         </member>
-<<<<<<< HEAD
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlEvaluator.GetTaxonFromQuery(System.Web.HttpContextBase)">
-            <summary>
-            Gets the taxon from httpcontext query string.
-            </summary>
-            <param name="context">The context.</param>
-            <returns></returns>
-        </member>
-=======
->>>>>>> 933fc29718da720787d9d07ead32be3940c3568e
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel">
             <summary>
             This class represents a JSON configuration for component cefinitions.
@@ -1931,6 +1970,18 @@
             phrase: Select a user
             </summary>
             <value>Select a user</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.FeedSelectorHeader">
+            <summary>
+            phrase: Select feed
+            </summary>
+            <value>Select feed</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AllTools">
+            <summary>
+            phrase: All tools
+            </summary>
+            <value>All tools</value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Notifications.EmailTemplateHelper">
             <summary>
@@ -4623,6 +4674,12 @@
             The relation type of the items that will be display - children or parent.
             </value>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.UrlKeyPrefix">
+            <summary>
+            Gets or sets the URL key prefix.
+            </summary>
+            <value>The URL key prefix.</value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.DesignerModel">
             <summary>
             This class is used as a model for the designer controller.
@@ -6122,7 +6179,7 @@
             This class contains logic for locating and initializing controllers.
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.ControllerContainerInitializer.Initialize">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.ControllerContainerInitializer.Initialize(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})">
             <summary>
             Initializes the controllers that are available to the web application.
             </summary>
