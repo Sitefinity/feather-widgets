@@ -319,9 +319,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         }
 
         /// <summary>
-        /// Gets More options div.
+        /// Gets More options anchor.
         /// </summary>
-        public HtmlAnchor MoreOptionsSpan
+        public HtmlAnchor MoreOptionsAnchor
         {
             get
             {
@@ -330,7 +330,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         }
 
         /// <summary>
-        /// Gets CSS classes label.
+        /// Gets CSS classes textbox.
         /// </summary>
         public HtmlInputText CssClassesTextbox
         {

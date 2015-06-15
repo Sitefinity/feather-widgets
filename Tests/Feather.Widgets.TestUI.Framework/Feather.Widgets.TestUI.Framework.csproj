@@ -151,6 +151,7 @@
     <Compile Include="Framework\ElementMap\WidgetTemplates\WidgetTemplatesMap.cs" />
     <Compile Include="Framework\Wrappers\Backend\BackendWrappersFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\Classifications\ClassificationsWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\Classifications\TagsTemplates.cs" />
     <Compile Include="Framework\Wrappers\Backend\Classifications\TagsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Classifications\TagsRadioButtonIds.cs" />
     <Compile Include="Framework\Wrappers\Backend\CommentsAndReviews\CommentsAndReviewsCommonWrapper.cs" />

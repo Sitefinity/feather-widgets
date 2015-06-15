@@ -315,6 +315,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets or sets the classifications.
+        /// </summary>
+        /// <value>The classifications.</value>
         public ClassificationsMap Classifications
         {
             get

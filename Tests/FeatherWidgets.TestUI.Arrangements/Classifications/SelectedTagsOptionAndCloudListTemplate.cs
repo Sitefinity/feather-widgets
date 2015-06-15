@@ -10,9 +10,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// SelectAllTagsOptionAndCssClasses arrangement class.
+    /// SelectedTagsOptionAndCloudListTemplate arrangement class.
     /// </summary>
-    public class SelectAllTagsOptionAndCssClasses : ITestArrangement
+    public class SelectedTagsOptionAndCloudListTemplate : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -20,7 +20,11 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            Guid pageId = ServerOperations.Pages().CreatePage(PageName);
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
+            Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
+            Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
+            ServerOperationsFeather.Pages().AddTagsWidgetToPage(pageNodeId, PlaceHolderId);
+            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageNodeId, PlaceHolderId);
 
             for (int i = 1; i < 4; i++)
             {
@@ -29,7 +33,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
             ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 1, NewsContent, AuthorName, SourceName, null, new List<string> { TaxonTitle + 1 }, null);
             ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 2, NewsContent, AuthorName, SourceName, null, new List<string> { TaxonTitle + 2 }, null);
-            ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
+            ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 3, NewsContent, AuthorName, SourceName, null, new List<string> { TaxonTitle + 2 }, null);
         }
 
         /// <summary>
@@ -47,6 +51,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
         private const string TaxonTitle = "Tag";
+        private const string PageTemplateName = "Bootstrap.default";
+        private const string PlaceHolderId = "Contentplaceholder1";
         private const string AuthorName = "AuthorName";
         private const string SourceName = "SourceName";
         private readonly TaxonomiesOperations taxonomies = ServerOperations.Taxonomies();

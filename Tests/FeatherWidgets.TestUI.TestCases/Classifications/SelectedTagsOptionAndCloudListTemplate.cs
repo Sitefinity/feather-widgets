@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,51 +8,42 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Classifications
 {
     /// <summary>
-    /// SelectedTagsOptionAndCloudList test class.
+    /// SelectedTagsOptionAndCloudListTemplate test class.
     /// </summary>
     [TestClass]
-    public class SelectedTagsOptionAndCloudList_ : FeatherTestCase
+    public class SelectedTagsOptionAndCloudListTemplate_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SelectedTagsOptionAndCloudList
+        /// UI test verifying selected tags option with CloudList template in bootstrap
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
-        public void SelectedTagsOptionAndCloudList()
+        public void SelectedTagsOptionAndCloudListTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectRadioButtonOption(TagsRadioButtonIds.selectedTags);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(TagTitle + 1, TagTitle + 2);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(TagTitle + 2);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectListTemplate("CloudList");
+            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectTagsTemplate(TagsTemplates.CloudList);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
- 
-            for (int i = 1; i < 4; i++)
-            {
-                if (i > 0 && i <= 2)
-                {
-                    BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + i);
-                }
-                else
-                {
-                    BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + i);
-                }
-            }
+
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 2);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + 1);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + 3);
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
 
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnThePageFrontend(new string[] { TagTitle + 2, TagTitle + 1 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnThePageFrontend(new string[] { TagTitle + 3 }));
-            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().VerifCloudListStyle(2);
-            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().VerifCloudListStyle(4);
-            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().ClickTagsTitle(TagTitle + 2);
+            Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 2 }));
+            Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 1, TagTitle + 3 }));
+            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().VerifyCloudStyleTemplate(this.stylesTags, TagsTemplates.CloudList);
+            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().ClickTagTitle(TagTitle + 2);
             Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 2 }));
             Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 3 }));
             Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 1 }));
@@ -78,5 +70,9 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         private const string WidgetName = "Tags";
         private const string TagTitle = "Tag";
         private const string NewsTitle = "NewsTitle";
+        private readonly Dictionary<string, int> stylesTags = new Dictionary<string, int>()
+        {
+            { TagTitle + 2, 3 }
+        };
     }
 }

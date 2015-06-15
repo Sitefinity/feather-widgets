@@ -30,6 +30,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications
             }
         }
 
-        private Find find;
+        private readonly Find find;
     }
 }

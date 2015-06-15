@@ -33,10 +33,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications
         }
 
         /// <summary>
-        /// Gets List items template drop down.
+        /// Gets tags template drop down.
         /// </summary>
-        /// <value>List items template drop down</value>
-        public HtmlSelect TemplateDropdown
+        /// <value>Tags template drop down</value>
+        public HtmlSelect TagsTemplateDropdown
         {
             get
             {
@@ -45,10 +45,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications
         }
 
         /// <summary>
-        /// Gets the used by content type option.
+        /// Gets the used by content type dropdown.
         /// </summary>
-        /// <value>The used by content type option.</value>
-        public HtmlSelect UsedByContentTypeOption
+        /// <value>The used by content type dropdown.</value>
+        public HtmlSelect UsedByContentTypeDropdown
         {
             get
             {

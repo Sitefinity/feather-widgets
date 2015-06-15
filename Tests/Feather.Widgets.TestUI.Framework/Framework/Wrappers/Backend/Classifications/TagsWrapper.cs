@@ -13,7 +13,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
     public class TagsWrapper : BaseWrapper
     {
         /// <summary>
-        /// Verifies the default sorting option.
+        /// Verifies the selected sorting option.
         /// </summary>
         /// <param name="sortingOption">The sorting option.</param>
         public void VerifySelectedSortingOption(string sortingOption)
@@ -24,27 +24,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         }
 
         /// <summary>
-        /// Selects option in list template
+        /// Selects the tags template.
         /// </summary>
-        /// <param name="templateName">template name</param>
-        public void SelectListTemplate(string templateName)
+        /// <param name="templateName">Name of the template.</param>
+        public void SelectTagsTemplate(TagsTemplates templateName)
         {
-            HtmlSelect listTemplateDropdown = this.EM.Classifications.TagsWidgetEditScreen.TemplateDropdown.AssertIsPresent("List template dropdown");
-
-            listTemplateDropdown.SelectByText(templateName);
-            listTemplateDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
-            listTemplateDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            HtmlSelect listTemplateDropdown = this.EM.Classifications.TagsWidgetEditScreen.TagsTemplateDropdown.AssertIsPresent("Tags template dropdown");
+            listTemplateDropdown.SelectByText(templateName.ToString(), true);
         }
 
         /// <summary>
-        /// Verifies the selected list template option.
+        /// Verifies the selected tags template option.
         /// </summary>
-        /// <param name="option">The option.</param>
-        public void VerifySelectedListTemplateOption(string option)
+        /// <param name="templateName">Name of the template.</param>
+        public void VerifySelectedTagsTemplateOption(TagsTemplates templateName)
         {
-            HtmlSelect optionsDropdown = this.EM.Classifications.TagsWidgetEditScreen.TemplateDropdown.AssertIsPresent("List template dropdown");
+            HtmlSelect optionsDropdown = this.EM.Classifications.TagsWidgetEditScreen.TagsTemplateDropdown.AssertIsPresent("Tags template dropdown");
 
-            Assert.AreEqual(option, optionsDropdown.SelectedOption.Text);
+            Assert.AreEqual(templateName.ToString(), optionsDropdown.SelectedOption.Text);
         }
 
         /// <summary>
@@ -81,11 +78,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         /// <param name="contentType">Type of the content.</param>
         public void SelectUsedByContentTypeOption(string contentType)
         {
-            HtmlSelect contentTypeDropdown = this.EM.Classifications.TagsWidgetEditScreen.UsedByContentTypeOption.AssertIsPresent("contentType dropdown");
+            HtmlSelect contentTypeDropdown = this.EM.Classifications.TagsWidgetEditScreen.UsedByContentTypeDropdown.AssertIsPresent("contentType dropdown");
 
-            contentTypeDropdown.SelectByText(contentType);
-            contentTypeDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.click);
-            contentTypeDropdown.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+            contentTypeDropdown.SelectByText(contentType, true);
         }
     }
 }

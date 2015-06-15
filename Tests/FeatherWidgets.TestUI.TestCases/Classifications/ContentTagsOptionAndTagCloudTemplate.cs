@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Feather.Widgets.TestUI.Framework;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,49 +8,47 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.Classifications
 {
     /// <summary>
-    /// SelectAllTagsOptionAndCssClasses test class.
+    /// ContentTagsOptionAndTagCloudTemplate test class.
     /// </summary>
     [TestClass]
-    public class SelectAllTagsOptionAndCssClasses_ : FeatherTestCase
-    {      
+    public class ContentTagsOptionAndTagCloudTemplate_ : FeatherTestCase
+    {
         /// <summary>
-        /// UI test verifying all tags option with css class applied in hybrid page
+        /// UI test verifying used by content type option with TagCloud template in bootstrap
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
-        public void SelectAllTagsOptionAndCssClasses()
-
+        public void ContentTagsOptionAndTagCloudTemplate()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifyCheckedRadioButtonOption(TagsRadioButtonIds.allTags);
-            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifySelectedSortingOption(SortingOption);
-            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifySelectedTagsTemplateOption(TagsTemplates.SimpleList);
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ApplyCssClasses(CssClass);
+            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectRadioButtonOption(TagsRadioButtonIds.contentTags);
+            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectUsedByContentTypeOption(SelectedContentType);
+            BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectTagsTemplate(TagsTemplates.TagCloud);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 2);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + 3);
+
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetNameList);
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
+            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
+            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
+
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            
+
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
 
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 2, TagTitle + 1 }));
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 3 }));
-            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().VerifyCssClass(CssClass);
-            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().ClickTagTitle(TagTitle + 1);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 1 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().News().NewsWrapper().IsNewsTitlesPresentOnThePageFrontend(new string[] { NewsTitle + 2 }));
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 2, TagTitle + 1 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 3 }));
-            BATFeather.Wrappers().Frontend().News().NewsWrapper().ClickNewsTitle(NewsTitle + 1);
-            Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 2, TagTitle + 1 }));
-            Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 3 }));
+            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().VerifyCloudStyleTemplate(this.stylesTags, TagsTemplates.TagCloud);
+            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, new string[] { ListItemTitle + 1, ListItemTitle + 2, ListItemTitle + 3 });
+            BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().ClickTagTitle(TagTitle + 2);
+            BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, new string[] { ListItemTitle + 2, ListItemTitle + 3 });
         }
 
         /// <summary>
@@ -72,8 +71,14 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         private const string PageName = "TagsPage";
         private const string WidgetName = "Tags";
         private const string TagTitle = "Tag";
-        private const string NewsTitle = "NewsTitle";
-        private const string CssClass = "Test";
-        private const string SortingOption = "By Title (A-Z)";
+        private const string ListItemTitle = "list item";
+        private const string WidgetNameList = "Lists";
+        private const string ListTitle = "Test list";
+        private const string SelectedContentType = "List items";
+        private readonly Dictionary<string, int> stylesTags = new Dictionary<string, int>()
+        {
+            { TagTitle + 1, 2 },
+            { TagTitle + 2, 4 },
+        };
     }
 }

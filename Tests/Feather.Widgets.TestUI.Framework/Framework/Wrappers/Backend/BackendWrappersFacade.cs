@@ -119,6 +119,10 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             return new ListsWrapperFacade();
         }
 
+        /// <summary>
+        /// Classification widgets.
+        /// </summary>
+        /// <returns></returns>
         public ClassificationsWrapperFacade Classifications()
         {
             return new ClassificationsWrapperFacade();
