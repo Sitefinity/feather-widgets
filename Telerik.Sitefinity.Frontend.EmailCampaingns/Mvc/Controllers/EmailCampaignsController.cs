@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 {
@@ -20,7 +21,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
         CssClass = EmailCampaignsController.WidgetIconCssClass)]
     [Localization(typeof(EmailCampaignsResources))]
-    public class EmailCampaignsController : Controller
+    public class EmailCampaignsController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
         /// <summary>
@@ -54,6 +55,42 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 return this.model;
             }
         }
+
+        /// <summary>
+        /// Gets the widget CSS class.
+        /// </summary>
+        /// <value>
+        /// The widget CSS class.
+        /// </value>
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get { return EmailCampaignsController.WidgetIconCssClass; }
+        }
+
+        /// <summary>
+        /// Gets the empty link text.
+        /// </summary>
+        /// <value>
+        /// The empty link text.
+        /// </value>
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get { return this.GetResource("EmptyLinkText"); }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether widget is empty.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if widget has no image selected; otherwise, <c>false</c>.
+        /// </value>
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get { return this.Model.SelectedMailingListId == Guid.Empty; }
+        }
         #endregion
 
         #region Actions
@@ -66,8 +103,26 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         public ActionResult Index()
         {
             var viewModel = this.Model.CreateViewModel();
-            
+
             return this.View(this.TemplateName, viewModel);
+        }
+
+        /// <summary>
+        /// Indexes the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Index(EmailCampaignsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string error;
+                this.ViewBag.IsSucceeded = this.Model.AddSubscriber(model, out error);
+                this.ViewBag.Error = error;
+            }
+
+            return this.View(this.TemplateName, model);
         }
 
         /// <summary>
@@ -78,7 +133,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             this.Index().ExecuteResult(this.ControllerContext);
         }
-       
+
         /// <summary>
         /// Gets the resource.
         /// </summary>
