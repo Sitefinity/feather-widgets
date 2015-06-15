@@ -130,94 +130,304 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Last published
+        /// phrase: Mailing lists
         /// </summary>
-        [ResourceEntry("LastPublished",
-            Value = "Last published",
-            Description = "phrase : Last published",
-            LastModified = "2014/08/22")]
-        public string LastPublished
-        {
-            get
-            {
-                return this["LastPublished"];
-            }
-        }
-
-        /// <summary>
-        /// Gets phrase : Last modified
-        /// </summary>
-        [ResourceEntry("LastModified",
-            Value = "Last modified",
-            Description = "phrase : Last modified",
-            LastModified = "2014/08/22")]
-        public string LastModified
-        {
-            get
-            {
-                return this["LastModified"];
-            }
-        }
-
-        /// <summary>
-        /// Gets phrase : By Title (A-Z)
-        /// </summary>
-        [ResourceEntry("ByTitleAZ",
-            Value = "By Title (A-Z)",
-            Description = "phrase : By Title (A-Z)",
-            LastModified = "2014/08/22")]
-        public string ByTitleAZ
-        {
-            get
-            {
-                return this["ByTitleAZ"];
-            }
-        }
-
-        /// <summary>
-        /// Gets phrase : By Title (Z-A)
-        /// </summary>
-        [ResourceEntry("ByTitleZA",
-            Value = "By Title (Z-A)",
-            Description = "phrase : By Title (Z-A)",
-            LastModified = "2014/08/22")]
-        public string ByTitleZA
-        {
-            get
-            {
-                return this["ByTitleZA"];
-            }
-        }
-
-        /// <summary>
-        /// phrase: As set manually
-        /// </summary>
-        /// <value>As set manually</value>
-        [ResourceEntry("AsSetManually",
-            Value = "As set manually",
-            Description = "phrase: As set manually",
+        /// <value>Mailing lists</value>
+        [ResourceEntry("MailingList",
+            Value = "Mailing lists",
+            Description = "phrase: Mailing lists",
             LastModified = "2015/01/12")]
-        public string AsSetManually
+        public string MailingList
         {
             get
             {
-                return this["AsSetManually"];
+                return this["MailingList"];
             }
         }
 
         /// <summary>
-        /// phrase: As set in Advanced mode
+        /// phrase: Subscribe users to selected mailing lists
         /// </summary>
-        /// <value>As set in Advanced mode</value>
-        [ResourceEntry("AsSetInAdvancedMode",
-            Value = "As set in Advanced mode",
-            Description = "phrase: As set in Advanced mode",
+        /// <value>Subscribe users to selected mailing lists</value>
+        [ResourceEntry("UsersSubscribeLists",
+            Value = "Subscribe users to selected mailing lists",
+            Description = "phrase: Subscribe users to selected mailing lists",
             LastModified = "2015/01/12")]
-        public string AsSetInAdvancedMode
+        public string UsersSubscribeLists
         {
             get
             {
-                return this["AsSetInAdvancedMode"];
+                return this["UsersSubscribeLists"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: When the form is successfully submitted...
+        /// </summary>
+        /// <value>When the form is successfully submitted...</value>
+        [ResourceEntry("SuccessfullySubmittedLabel",
+            Value = "When the form is successfully submitted...",
+            Description = "phrase: When the form is successfully submitted...",
+            LastModified = "2015/01/12")]
+        public string SuccessfullySubmittedLabel
+        {
+            get
+            {
+                return this["SuccessfullySubmittedLabel"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Show message
+        /// </summary>
+        /// <value>Show message</value>
+        [ResourceEntry("ShowMessageLabel",
+            Value = "Show message",
+            Description = "phrase: Show message",
+            LastModified = "2015/01/12")]
+        public string ShowMessageLabel
+        {
+            get
+            {
+                return this["ShowMessageLabel"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Open a specially prepared page...
+        /// </summary>
+        /// <value>Open a specially prepared page...</value>
+        [ResourceEntry("OpenSpecificPageLabel",
+            Value = "Open a specially prepared page...",
+            Description = "phrase: Open a specially prepared page...",
+            LastModified = "2015/01/12")]
+        public string OpenSpecificPageLabel
+        {
+            get
+            {
+                return this["OpenSpecificPageLabel"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: The selected mail list has been deleted.
+        /// </summary>
+        /// <value>The selected mail list has been deleted.</value>
+        [ResourceEntry("MissingMailingList",
+            Value = "The selected mail list has been deleted.",
+            Description = "phrase: The selected mail list has been deleted.",
+            LastModified = "2015/01/12")]
+        public string MissingMailingList
+        {
+            get
+            {
+                return this["MissingMailingList"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Click edit and select mailing list.
+        /// </summary>
+        /// <value>Click edit and select mailing list.</value>
+        [ResourceEntry("EmptyLinkText",
+            Value = "Click edit and select mailing list.",
+            Description = "phrase: The selected mail list has been deleted.",
+            LastModified = "2015/01/12")]
+        public string EmptyLinkText
+        {
+            get
+            {
+                return this["EmptyLinkText"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Subscribe.
+        /// </summary>
+        /// <value>Subscribe.</value>
+        [ResourceEntry("Subscribe",
+            Value = "Subscribe.",
+            Description = "phrase: Subscribe.",
+            LastModified = "2015/01/12")]
+        public string Subscribe
+        {
+            get
+            {
+                return this["Subscribe"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Subscribe to our email newsletter to receive updates.
+        /// </summary>
+        /// <value>Subscribe to our email newsletter to receive updates.</value>
+        [ResourceEntry("SubscribeMail",
+            Value = "Subscribe to our email newsletter to receive updates.",
+            Description = "phrase: Subscribe to our email newsletter to receive updates.",
+            LastModified = "2015/01/12")]
+        public string SubscribeMail
+        {
+            get
+            {
+                return this["SubscribeMail"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: First name.
+        /// </summary>
+        /// <value>First name.</value>
+        [ResourceEntry("FirstName",
+            Value = "First name",
+            Description = "phrase: First name",
+            LastModified = "2015/01/12")]
+        public string FirstName
+        {
+            get
+            {
+                return this["FirstName"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Last name.
+        /// </summary>
+        /// <value>Last name.</value>
+        [ResourceEntry("LastName",
+            Value = "Last name",
+            Description = "phrase: Last name",
+            LastModified = "2015/01/12")]
+        public string LastName
+        {
+            get
+            {
+                return this["LastName"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: (Optional)
+        /// </summary>
+        /// <value>(Optional)</value>
+        [ResourceEntry("Optional",
+            Value = "(Optional)",
+            Description = "phrase: (Optional)",
+            LastModified = "2015/01/12")]
+        public string Optional
+        {
+            get
+            {
+                return this["Optional"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Email
+        /// </summary>
+        /// <value>Email</value>
+        [ResourceEntry("Email",
+            Value = "Email",
+            Description = "phrase: Email",
+            LastModified = "2015/01/12")]
+        public string Email
+        {
+            get
+            {
+                return this["Email"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Subscribe
+        /// </summary>
+        /// <value>Subscribe</value>
+        [ResourceEntry("ButtonSubscribe",
+            Value = "Subscribe",
+            Description = "phrase: Subscribe",
+            LastModified = "2015/01/12")]
+        public string ButtonSubscribe
+        {
+            get
+            {
+                return this["ButtonSubscribe"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Thank you
+        /// </summary>
+        /// <value>Thank you</value>
+        [ResourceEntry("ThankYou",
+            Value = "Thank you",
+            Description = "phrase: Thank you",
+            LastModified = "2015/01/12")]
+        public string ThankYou
+        {
+            get
+            {
+                return this["ThankYou"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: You have successfully subscribed to our newsletter
+        /// </summary>
+        /// <value>You have successfully subscribed to our newsletter</value>
+        [ResourceEntry("ThankYouMessage",
+            Value = "You have successfully subscribed to our newsletter",
+            Description = "phrase: You have successfully subscribed to our newsletter",
+            LastModified = "2015/01/12")]
+        public string ThankYouMessage
+        {
+            get
+            {
+                return this["ThankYouMessage"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Email address is invalid
+        /// </summary>
+        /// <value>Email address is invalid</value>
+        [ResourceEntry("EmailAddressErrorMessageResourceName",
+            Value = "Email address is invalid",
+            Description = "phrase: Email address is invalid",
+            LastModified = "2015/01/12")]
+        public string EmailAddressErrorMessageResourceName
+        {
+            get
+            {
+                return this["EmailAddressErrorMessageResourceName"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: A subscriber with given the email is already subscribed to this mailing list.
+        /// </summary>
+        [ResourceEntry("EmailExistsInTheMailingList",
+            Value = "A subscriber with the given email is already subscribed to this mailing list.",
+            Description = "phrase: A subscriber with given email is already subscribed to this mailing list.",
+            LastModified = "2010-10-28")]
+        public string EmailExistsInTheMailingList
+        {
+            get
+            {
+                return this["EmailExistsInTheMailingList"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: You have successfully subscribed to this mailing list. Thank you.
+        /// </summary>
+        [ResourceEntry("SuccessfulSubscription",
+            Value = "You have successfully subscribed to this mailing list. Thank you.",
+            Description = "phrase: You have successfully subscribed to this mailing list. Thank you.",
+            LastModified = "2010-10-28")]
+        public string SuccessfulSubscription
+        {
+            get
+            {
+                return this["SuccessfulSubscription"];
             }
         }
         #endregion
