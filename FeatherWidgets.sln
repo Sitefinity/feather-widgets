@@ -58,7 +58,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.Publishing", "Telerik.Sitefinity.Frontend.Publishing\Telerik.Sitefinity.Frontend.Publishing.csproj", "{DDFED943-C998-42AA-8EBF-38F1B6108EE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.EmailCampaingns", "Telerik.Sitefinity.Frontend.EmailCampaingns\Telerik.Sitefinity.Frontend.EmailCampaingns.csproj", "{C70BD0BD-D081-48A0-AF6D-3FA7E584CB04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.EmailCampaigns", "Telerik.Sitefinity.Frontend.EmailCampaingns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj", "{C70BD0BD-D081-48A0-AF6D-3FA7E584CB04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
