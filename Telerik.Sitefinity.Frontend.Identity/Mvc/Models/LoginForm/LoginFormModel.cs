@@ -287,7 +287,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
 
             return input;
         }
+        #endregion
 
+        #region Private Fields and methods
+
+        /// <summary>
+        /// Tries the resolve URL from URL referrer.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="redirectUrl">The redirect URL.</param>
+        /// <returns></returns>
         private bool TryResolveUrlFromUrlReferrer(HttpContextBase context, out string redirectUrl)
         {
             redirectUrl = string.Empty;
@@ -325,10 +334,6 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             }
             return false;
         }
-
-        #endregion
-
-        #region Private Fields and methods
 
         /// <summary>
         /// Gets the claims issuer.
