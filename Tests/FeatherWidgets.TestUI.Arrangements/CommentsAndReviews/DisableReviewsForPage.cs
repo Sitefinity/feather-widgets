@@ -17,16 +17,16 @@ namespace FeatherWidgets.TestUI.Arrangements
         /// <summary>
         /// Server side set up.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.CommentOperations.CreateComment(System.String,System.String,System.Guid,System.String,System.String,System.String,System.Boolean)"), ServerSetUp]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.CommentsAndReviews.CreateReview(System.String,System.String,System.Guid,System.String,System.String,System.Nullable<System.Decimal>,System.String)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.Sitefinity.TestUtilities.CommonOperations.CommentOperations.CreateComment(System.String,System.String,System.Guid,System.String,System.String,System.String,System.Boolean)"), ServerSetUp]
         public void SetUp()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
             ServerOperations.Comments().AllowComments(ThreadType, true);
+            var domainKey = ServerOperations.Comments().GetCurrentSiteId.ToString();
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddReviewsWidgetToPage(pageId, "Contentplaceholder1");
+            ServerOperationsFeather.CommentsAndReviews().CreateReview(domainKey, ThreadType, pageId, PageName, ReviewsMessage, ReviewsRating, ReviewsStatusPublish);
         }
 
         /// <summary>
@@ -44,8 +44,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
             ServerOperations.Pages().DeleteAllPages();
             var siteID = ServerOperations.Comments().GetCurrentSiteId.ToString();
             ServerOperations.Comments().DeleteAllComments(siteID);
@@ -55,7 +53,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "ReviewsPage";
         private const string PageTemplateName = "Bootstrap.default";
         private const string ThreadType = "Telerik.Sitefinity.Pages.Model.PageNode";
-        private const string AdminUserName = "admin";
-        private const string AdminPass = "admin@2";
+        private const string ReviewsStatusPublish = "Published";
+        private const string ReviewsMessage = "Reviews to page";
+        private const decimal ReviewsRating = 2;
     }
 }
