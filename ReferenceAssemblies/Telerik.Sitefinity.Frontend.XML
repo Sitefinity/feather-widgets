@@ -1983,6 +1983,12 @@
             </summary>
             <value>All tools</value>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MailingListSelectorHeader">
+            <summary>
+            phrase: Select mailing list
+            </summary>
+            <value>Select mailing list</value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Notifications.EmailTemplateHelper">
             <summary>
             This class contains helpers for working with email templates.

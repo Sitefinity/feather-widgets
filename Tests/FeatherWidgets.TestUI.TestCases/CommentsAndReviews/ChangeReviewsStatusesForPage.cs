@@ -29,46 +29,32 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeAMessage(this.reviewsToPage[0]);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickRaitingStar(Raiting);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeYourName(this.reviewAuthor[0]);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickSubmitButton();
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontendNotLoggedUser(AllertMessageWaiting);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
-            BAT.Macros().User().EnsureAdminLoggedIn();
-            this.PublishCommentAndVerifyFrontEndAndBackend();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
 
-            BAT.Macros().NavigateTo().Modules().Comments();
-            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).MarkAsSpamComment(this.reviewsToPage[0]);
-            this.VerifyCommentBackend(ReviewsStatusSpam);
+            this.PublishReviewAndVerifyFrontEnd();
+
+            BAT.Arrange(this.TestName).ExecuteArrangement("MarkAsSpamReview");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
 
-            this.PublishCommentAndVerifyFrontEndAndBackend();
+            this.PublishReviewAndVerifyFrontEnd();
 
-            BAT.Macros().NavigateTo().Modules().Comments();
-            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).ClickHideCommentLink(this.reviewsToPage[0]);
-            this.VerifyCommentBackend(ReviewsStatusHidden);
+            BAT.Arrange(this.TestName).ExecuteArrangement("HideReview");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
 
-            this.PublishCommentAndVerifyFrontEndAndBackend();
+            this.PublishReviewAndVerifyFrontEnd();
         }
 
-        public void VerifyCommentBackend(string commentsStatus)
+        public void PublishReviewAndVerifyFrontEnd()
         {
-            ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
-            manageComments.VerifyCommentBackend(commentsStatus, this.reviewsToPage[0], this.reviewAuthor[0], PageName);
-        }
-
-        public void PublishCommentAndVerifyFrontEndAndBackend()
-        {
-            BAT.Macros().NavigateTo().Modules().Comments();
-            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).ClickPublishCommentLink(this.reviewsToPage[0]);
-            this.VerifyCommentBackend(ReviewsStatusPublished);
+            BAT.Arrange(this.TestName).ExecuteArrangement("PublishReview");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().CommentsWrapper().AssertMessageAndCountOnPage(ReviewsCount);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyReviewsAuthorRaitingAndContent(this.reviewAuthor, this.reviewsToPage, this.reviewRaiting);
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
         }
 
         /// <summary>
@@ -76,6 +62,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
@@ -89,16 +76,12 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
 
         private const string PageName = "ReviewsPage";
         private string[] reviewsToPage = { "Reviews to page" };
-        private string[] reviewAuthor = { "New user" };
-        private string[] reviewRaiting = { "(3)" };
-        private const int Raiting = 3;
-        private const string ReviewsStatusPublished = "Published";
-        private const string ReviewsStatusSpam = "Spam";
-        private const string ReviewsStatusHidden = "Hidden";
+        private string[] reviewAuthor = { "admin" };
+        private string[] reviewRaiting = { "(2)" };
+        private const int Raiting = 2;
         private const string ReviewsCount = "1 review";
         private const string ReviewMessage = "Write a review";
-        private const string AllertMessage = "Thank you! Your review has been submitted successfully";
         private const string ReviewsStatusWaiting = "Waiting for approval";
-        private const string AllertMessageWaiting = "Thank you for the review! Your review must be approved first";
+        private const string AllertMessage = "You've already submitted a review for this item";
     }
 }

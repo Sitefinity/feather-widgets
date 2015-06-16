@@ -25,16 +25,10 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void DisableReviewsForPage()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeAMessage(this.reviewsToPage[0]);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickRaitingStar(Raiting);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeYourName(this.reviewAuthor[0]);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickSubmitButton();
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);         
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyReviewsAuthorRaitingAndContent(this.reviewAuthor, this.reviewsToPage, this.reviewRaiting);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessage);
-
-            BAT.Macros().User().EnsureAdminLoggedIn();
-
+          
             BAT.Arrange(this.TestName).ExecuteArrangement("DisableReviews");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             Assert.IsFalse(BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent().InnerText.Contains(this.reviewsToPage[0]), "Reviews is presented");
@@ -50,6 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
@@ -65,10 +60,9 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string WidgetName = "Reviews";
         private const string CloseReviews = "True";
         private string[] reviewsToPage = { "Reviews to page" };
-        private string[] reviewAuthor = { "New user" };
-        private string[] reviewRaiting = { "(3)" };
-        private const int Raiting = 3;
+        private string[] reviewAuthor = { "admin" };
+        private string[] reviewRaiting = { "(2)" };
         private const string ReviewsCount = "1 review";
-        private const string AllertMessage = "Thank you! Your review has been submitted successfully";
+        private const string AllertMessage = "You've already submitted a review for this item";
     }
 }
