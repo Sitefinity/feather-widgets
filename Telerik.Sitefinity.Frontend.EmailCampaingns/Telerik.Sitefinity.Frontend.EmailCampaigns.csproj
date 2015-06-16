@@ -39,7 +39,10 @@
       <HintPath>..\packages\ServiceStack.Text.Signed.4.0.36\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -111,24 +114,24 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
-    <Compile Include="Mvc\Controllers\EmailCampaignsController.cs" />
-    <Compile Include="Mvc\Models\EmailCampaignsModel.cs" />
-    <Compile Include="Mvc\Models\EmailCampaignsViewModel.cs" />
-    <Compile Include="Mvc\Models\IEmailCampaignsModel.cs" />
-    <Compile Include="Mvc\StringResources\EmailCampaignsResources.cs" />
+    <Compile Include="Mvc\Controllers\SubscribeFormController.cs" />
+    <Compile Include="Mvc\Models\SubscribeForm\SubscribeFormModel.cs" />
+    <Compile Include="Mvc\Models\SubscribeForm\SubscribeFormViewModel.cs" />
+    <Compile Include="Mvc\Models\SubscribeForm\ISubscribeFormModel.cs" />
+    <Compile Include="Mvc\Models\SubscribeForm\SuccessfullySubmittedForm.cs" />
+    <Compile Include="Mvc\StringResources\SubscribeForm\SubscribeFormResources.cs" />
+    <Compile Include="Mvc\StringResources\SubscribeForm\StaticSubscribeFormControllerResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Mvc\Views\EmailCampaigns\DesignerView.Simple.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\EmailCampaigns\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\SubscribeForm\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SubscribeForm\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\SubscribeForm\SubscribeForm.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mvc\Scripts\EmailCampaigns\designerview-simple.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <EmbeddedResource Include="Mvc\Scripts\SubscribeForm\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
