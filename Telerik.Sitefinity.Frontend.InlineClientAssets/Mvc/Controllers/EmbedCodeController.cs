@@ -70,7 +70,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 this.SetDesignModeContent(viewModel);
             }
 
-            return this.View(viewModel);
+            return this.View("Index", viewModel);
         }
         #endregion
 

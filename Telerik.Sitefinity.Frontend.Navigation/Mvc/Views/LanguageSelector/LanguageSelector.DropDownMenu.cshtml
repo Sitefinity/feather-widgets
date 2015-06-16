@@ -13,7 +13,7 @@
         }
         else
         {
-            @:<select onChange="document.location.href = this.value">
+            @:<select onChange="openLink(value)">
         }
 
             @if (!Model.IncludeCurrentLanguage)
@@ -23,8 +23,10 @@
 
             @foreach (var language in Model.Languages)
             {
-                <option value="@language.Url" @(language.Culture == Model.CurrentLanguage ? "selected=selected" : "")>@language.DisplayName</option>
+                <option value="@language.Culture" @(language.Culture == Model.CurrentLanguage ? "selected=selected" : "")>@language.DisplayName</option>
             }
         </select>
     </label>
 </div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/LanguageSelector/language-selector.js"), "bottom", false)
