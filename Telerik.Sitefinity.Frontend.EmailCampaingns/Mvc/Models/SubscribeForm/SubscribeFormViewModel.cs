@@ -7,7 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes;
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 {
     /// <summary>
-    /// This class represents the view model of the Email campaigns item.
+    /// This class represents the view model of the subscribe form item.
     /// </summary>
     public class SubscribeFormViewModel
     {
