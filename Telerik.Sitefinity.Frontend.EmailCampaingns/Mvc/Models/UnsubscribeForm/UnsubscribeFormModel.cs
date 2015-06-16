@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Web.UI;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
@@ -144,7 +143,6 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         private void Unsubscribe(NewslettersManager newslettersManager, Subscriber subscriber, Guid mailingListId, Campaign issue)
         {
             //resolves the merge tags
-            ////TODO: do I need this MergeContextItems?
             var mergeContextItemsObject = new MergeContextItems();
 
             var pageUri = SystemManager.CurrentHttpContext.Request.Url.PathAndQuery;
@@ -174,38 +172,10 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// <remarks></remarks>
         class MergeContextItems
         {
-            #region Construction
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MergeContextItems"/> class.
-            /// </summary>
-            public MergeContextItems()
-            {
-            }
-
-            #endregion
-
-            #region Properties
-
-            /// <summary>
-            /// Gets or sets the unsubscribe link.
-            /// </summary>
-            public string UnsubscribeLink
-            {
-                get;
-                set;
-            }
-
             /// <summary>
             /// Gets or sets the subscribe link.
             /// </summary>
-            public string SubscribeLink
-            {
-                get;
-                set;
-            }
-
-            #endregion
+            public string SubscribeLink { get; set; }
         }
     }
 }
