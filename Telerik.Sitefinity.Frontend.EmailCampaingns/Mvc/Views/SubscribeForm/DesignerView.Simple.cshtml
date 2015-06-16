@@ -24,6 +24,7 @@
                 @Html.Resource("ShowMessageLabel")
             </label>
         </div>
+
         <div class="radio">
             <label for="specificPage">
                 <input id="specificPage" type="radio" ng-model="properties.SuccessfullySubmittedForm.PropertyValue" value="OpenSpecificPage" />
@@ -35,8 +36,11 @@
                                   sf-selected-item-id="properties.PageId.PropertyValue"
                                   ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"></sf-list-selector>
             </div>
+
         </div>
     </div>
+
+
 
     <div class="form-group">
         <strong>@Html.Resource("TemplateLabel")</strong>
@@ -49,15 +53,16 @@
                     }
                 </select>
             </div>
+
         </div>
 
     </div>
 
-    <expander expander-title='@Html.Resource("MoreOptions")'>
-        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
-        <div class="form-group">
-            <label for="cssClass">@Html.Resource("CssClasses")</label>
-            <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
-        </div>
-    </expander>
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>
