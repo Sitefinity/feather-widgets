@@ -26,13 +26,9 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         public void EditReviewsWidgetAndCloseReviewsForPage()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeAMessage(this.reviewsToPage[0]);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickRaitingStar(Raiting);
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().TypeYourName(this.reviewAuthor[0]);            
-            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickSubmitButton();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyReviewsAuthorRaitingAndContent(this.reviewAuthor, this.reviewsToPage, this.reviewRaiting);
-
-            BAT.Macros().User().EnsureAdminLoggedIn();
+            BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontend(AllertMessageSubmitted);
+                      
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -53,6 +49,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// </summary>
         protected override void ServerSetup()
         {
+            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 
@@ -68,10 +65,10 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         private const string WidgetName = "Reviews";
         private const string CloseReviews = "True";
         private string[] reviewsToPage = { "Reviews to page" };
-        private string[] reviewAuthor = { "New user" };
-        private string[] reviewRaiting = { "(3)" };
-        private const int Raiting = 3;
+        private string[] reviewAuthor = { "admin" };
+        private string[] reviewRaiting = { "(2)" };
         private const string ReviewsCount = "1 review";
         private const string AllertMessage = "Reviews are not allowed anymore";
+        private const string AllertMessageSubmitted = "You've already submitted a review for this item";
     }
 }

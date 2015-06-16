@@ -20,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
     [ControllerToolboxItem(Name = "UnsubscribeForm_MVC",
         Title = "Unsubscribe",
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
-        CssClass = EmailCampaignsController.WidgetIconCssClass)]
+        CssClass = UnsubscribeFormController.WidgetIconCssClass)]
     [Localization(typeof(UnsubscribeFormResources))]
     public class UnsubscribeFormController : Controller
     {

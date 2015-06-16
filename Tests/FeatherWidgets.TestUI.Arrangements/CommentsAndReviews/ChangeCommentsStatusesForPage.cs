@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
@@ -31,6 +28,39 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         /// <summary>
+        /// Publish comment
+        /// </summary>
+        [ServerArrangement]
+        public void PublishComment()
+        {
+            Guid pageId = ServerOperations.Pages().GetPageId(PageName);
+            string threadKey = pageId.ToString() + "_en";
+            ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(CommentStatusPublish, threadKey);
+        }
+
+        /// <summary>
+        /// Mark as spam comment
+        /// </summary>
+        [ServerArrangement]
+        public void MarkAsSpamComment()
+        {
+            Guid pageId = ServerOperations.Pages().GetPageId(PageName);
+            string threadKey = pageId.ToString() + "_en";
+            ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(CommentStatusSpam, threadKey);
+        }
+
+        /// <summary>
+        /// Hide comment
+        /// </summary>
+        [ServerArrangement]
+        public void HideComment()
+        {
+            Guid pageId = ServerOperations.Pages().GetPageId(PageName);
+            string threadKey = pageId.ToString() + "_en";
+            ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(CommentStatusHidden, threadKey);
+        }
+
+        /// <summary>
         /// Tears down.
         /// </summary>
         [ServerTearDown]
@@ -46,5 +76,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageTemplateName = "Bootstrap.default";
         private const string ThreadType = "Telerik.Sitefinity.Pages.Model.PageNode";
         private const string CommentToPage = "Comment to page ";
+        private const string CommentStatusPublish = "Published";
+        private const string CommentStatusSpam = "Spam";
+        private const string CommentStatusHidden = "Hidden";
     }
 }
