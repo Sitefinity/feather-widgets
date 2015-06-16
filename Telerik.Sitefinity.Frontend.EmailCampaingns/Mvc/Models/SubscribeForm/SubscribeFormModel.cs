@@ -11,7 +11,7 @@ using Telerik.Sitefinity.Web;
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 {
     /// <summary>
-    /// The model of the Email campaigns widget.
+    /// The model of the subscribe form widget.
     /// </summary>
     public class SubscribeFormModel : ISubscribeFormModel
     {
