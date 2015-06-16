@@ -120,6 +120,7 @@
     <Compile Include="Mvc\Models\IEmailCampaignsModel.cs" />
     <Compile Include="Mvc\Models\SuccessfullySubmittedForm.cs" />
     <Compile Include="Mvc\Models\UnsubscribeForm\IUnsubscribeFormModel.cs" />
+    <Compile Include="Mvc\Models\UnsubscribeForm\StaticUnsubscribeFormControllerResources.cs" />
     <Compile Include="Mvc\Models\UnsubscribeForm\UnsubscribeFormModel.cs" />
     <Compile Include="Mvc\Models\UnsubscribeForm\UnsubscribeFormViewModel.cs" />
     <Compile Include="Mvc\Models\UnsubscribeForm\UnsubscribeMode.cs" />
@@ -134,6 +135,7 @@
     <EmbeddedResource Include="Mvc\Views\EmailCampaigns\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\UnsubscribeFormByLink.UnsubscribeMessage.cshtml" />
     <EmbeddedResource Include="Mvc\Views\EmailCampaigns\SubscribeForm.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\UnsubscribeFormByEmailAddress.UnsubscribeForm.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -98,19 +98,16 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             ////TODO: if module is deactivated or the module is not licensed show error
 
-            ////TODO: delete this. it is for testing purposes
-            this.Model.UnsubscribeMode = UnsubscribeMode.Link;
-
             var context = this.CurrentHttpContext;
             var page = context.CurrentHandler as Page;
 
-            if (!SystemManager.IsDesignMode)
+            if (!SystemManager.IsDesignMode && this.Model.UnsubscribeMode == UnsubscribeMode.Link)
             {
                 var subscriberId = page.Request.QueryString["subscriberId"];
                 var issueId = page.Request.QueryString["issueId"];
                 var subscribe = page.Request.QueryString["subscribe"];
-
-                this.Model.RemoveSubscriber(subscriberId, issueId, subscribe);
+                
+                this.Model.ExecuteAction(subscriberId, issueId, subscribe != null);
             }
 
             var viewModel = this.Model.CreateViewModel();
@@ -118,6 +115,25 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             var fullTemplateName = this.model.UnsubscribeMode == UnsubscribeMode.Link ?
                                             this.linkTemplateNamePrefix + this.LinkTemplateName : 
                                             this.emailAddressTemplateNamePrefix + this.EmailAddressTemplateName;
+
+            return this.View(fullTemplateName, viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Index(UnsubscribeFormViewModel model)
+        {
+            if (this.ModelState.IsValid && this.Model.ListId != Guid.Empty)
+            {
+                string error;
+                bool isSucceded = this.Model.Unsubscribe(model.Email, out error);
+
+                this.ViewBag.Error = error;
+                this.ViewBag.IsSucceded = isSucceded;
+            }
+
+            var viewModel = this.Model.CreateViewModel();
+
+            var fullTemplateName = this.emailAddressTemplateNamePrefix + this.EmailAddressTemplateName;
 
             return this.View(fullTemplateName, viewModel);
         }

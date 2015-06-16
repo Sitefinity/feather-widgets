@@ -138,5 +138,117 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
                 return this["SubscribeLink"];
             }
         }
+
+        /// <summary>
+        /// word: Emal
+        /// </summary>
+        /// <value>Email</value>
+        [ResourceEntry("Email",
+            Value = "Email",
+            Description = "word: Emal",
+            LastModified = "2015/06/16")]
+        public string Email
+        {
+            get
+            {
+                return this["Email"];
+            }
+        }
+
+        /// <summary>
+        /// word: Unsubscribe
+        /// </summary>
+        /// <value>Unsubscribe</value>
+        [ResourceEntry("ButtonUnsubscribe",
+            Value = "Unsubscribe",
+            Description = "word: Unsubscribe",
+            LastModified = "2015/06/16")]
+        public string ButtonUnsubscribe
+        {
+            get
+            {
+                return this["ButtonUnsubscribe"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Email address is invalid
+        /// </summary>
+        /// <value>Email address is invalid</value>
+        [ResourceEntry("EmailAddressErrorMessageResourceName",
+            Value = "Email address is invalid",
+            Description = "phrase: Email address is invalid",
+            LastModified = "2015/06/16")]
+        public string EmailAddressErrorMessageResourceName
+        {
+            get
+            {
+                return this["EmailAddressErrorMessageResourceName"];
+            }
+        }
+
+        /// <summary>
+        /// Message displayed to user who tries to unsubscribe from the campaign he or she does not belong to.
+        /// </summary>
+        /// <value>You don't belong to the mailing list and cannot unsubscribe.</value>
+        [ResourceEntry("YouDontBelongToTheMailingList",
+            Value = "You don't belong to the mailing list and cannot unsubscribe.",
+            Description = "Message displayed to user who tries to unsubscribe from the campaign he or she does not belong to.",
+            LastModified = "2015/06/16")]
+        public string YouDontBelongToTheMailingList
+        {
+            get
+            {
+                return this["YouDontBelongToTheMailingList"];
+            }
+        }
+
+        /// <summary>
+        /// Unsubscribe message shown when the user is successfully unsubscribed by email address.
+        /// </summary>
+        /// <value><strong>Unsubscribe successful</strong> <br/> You have successfully unsubscribed from the mailing list. You will no longer receive the newsletters sent to this mailing list.</value>
+        [ResourceEntry("UnsubscribedFromMailingListSuccessMessage",
+            Value = "<strong>Unsubscribe successful</strong> <br/> You have successfully unsubscribed from the mailing list. You will no longer receive the newsletters sent to this mailing list.",
+            Description = "Unsubscribe message shown when the user is successfully unsubscribed by email address.",
+            LastModified = "2015/06/16")]
+        public string UnsubscribedFromMailingListSuccessMessage
+        {
+            get
+            {
+                return this["UnsubscribedFromMailingListSuccessMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Unsubscribe widget title shown when EmailAddress unsubscribe mode is selected.
+        /// </summary>
+        /// <value>Unsubscribe</value>
+        [ResourceEntry("UnsubscribeWidgetTitle",
+            Value = "Unsubscribe",
+            Description = "Unsubscribe widget title shown when EmailAddress unsubscribe mode is selected.",
+            LastModified = "2015/06/16")]
+        public string UnsubscribeWidgetTitle
+        {
+            get
+            {
+                return this["UnsubscribeWidgetTitle"];
+            }
+        }
+
+        /// <summary>
+        /// Unsubscribe widget description shown when EmailAddress unsubscribe mode is selected.
+        /// </summary>
+        /// <value>Unsubscribe from our mailing list</value>
+        [ResourceEntry("UnsubscribeWidgetDescription",
+            Value = "Unsubscribe from our mailing list",
+            Description = "Unsubscribe widget description shown when EmailAddress unsubscribe mode is selected.",
+            LastModified = "2015/06/16")]
+        public string UnsubscribeWidgetDescription
+        {
+            get
+            {
+                return this["UnsubscribeWidgetDescription"];
+            }
+        }
     }
 }
