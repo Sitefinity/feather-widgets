@@ -9,9 +9,9 @@
     <div class="radio">
         @Html.Resource("UsersSubscribeLists")
         <sf-list-selector sf-mailing-list-selector
-                          sf-selected-item-id="properties.SelectedMailingListId.PropertyValue"
-                          sf-missing-selected-items="errors.missingSelectedItems"
-                          class="sf-filter-selector">
+                            sf-selected-item-id="properties.SelectedMailingListId.PropertyValue"
+                            sf-missing-selected-items="errors.missingSelectedItems"
+                            class="sf-filter-selector">
         </sf-list-selector>
     </div>
 
@@ -30,31 +30,32 @@
         </label>
         <div class="label-content">
             <sf-list-selector sf-page-selector
-                              sf-sortable="true"
-                              sf-selected-item-id="properties.PageId.PropertyValue"
-                              ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"></sf-list-selector>
+                                sf-sortable="true"
+                                sf-selected-item-id="properties.PageId.PropertyValue"
+                                ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"></sf-list-selector>
         </div>
     </div>
+</div>
 
-    <div class="form-group-list">
-        <h5>@Html.Resource("TemplateLabel")</h5>
-        <div class="form-group">
-            <div class="row">
-                <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^(?<viewName>SubscribeForm.*)$"))
-                    {
-                        <option value="@viewName"> @viewName</option>
-                    }
-                </select>
-            </div>
+<div class="form-group">
+    <label for="templateName">@Html.Resource("TemplateLabel")</label>
+    <div class="row">
+        <div class="col-xs-6">
+            <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^(?<viewName>SubscribeForm.*)$"))
+                {
+                    <option value="@viewName"> @viewName</option>
+                }
+            </select>
         </div>
     </div>
+</div>
 
-    <expander expander-title='@Html.Resource("MoreOptions")'>
-        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
-        <div class="form-group">
-            <label for="cssClass">@Html.Resource("CssClasses")</label>
-            <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
-        </div>
-    </expander>
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>

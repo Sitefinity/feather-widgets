@@ -242,12 +242,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Subscribe.
+        /// phrase: Subscribe
         /// </summary>
-        /// <value>Subscribe.</value>
+        /// <value>Subscribe</value>
         [ResourceEntry("Subscribe",
-            Value = "Subscribe.",
-            Description = "phrase: Subscribe.",
+            Value = "Subscribe",
+            Description = "phrase: Subscribe",
             LastModified = "2015/01/12")]
         public string Subscribe
         {
@@ -258,12 +258,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Subscribe to our email newsletter to receive updates.
+        /// phrase: Subscribe to our email newsletter to receive updates
         /// </summary>
-        /// <value>Subscribe to our email newsletter to receive updates.</value>
+        /// <value>Subscribe to our email newsletter to receive updates</value>
         [ResourceEntry("SubscribeMail",
-            Value = "Subscribe to our email newsletter to receive updates.",
-            Description = "phrase: Subscribe to our email newsletter to receive updates.",
+            Value = "Subscribe to our email newsletter to receive updates",
+            Description = "phrase: Subscribe to our email newsletter to receive updates",
             LastModified = "2015/01/12")]
         public string SubscribeMail
         {
