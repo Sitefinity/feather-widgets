@@ -7,8 +7,10 @@ using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
@@ -118,8 +120,15 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 string error;
-                this.ViewBag.IsSucceeded = this.Model.AddSubscriber(model, out error);
+                bool isSucceeded = this.Model.AddSubscriber(model, out error);
+
                 this.ViewBag.Error = error;
+                this.ViewBag.IsSucceeded = isSucceeded;
+
+                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                {
+                    return this.Redirect(model.RedirectPageUrl);
+                }
             }
 
             return this.View(this.TemplateName, model);

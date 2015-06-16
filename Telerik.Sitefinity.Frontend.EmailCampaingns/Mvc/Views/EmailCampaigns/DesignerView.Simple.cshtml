@@ -28,6 +28,12 @@
             <input id="specificPage" type="radio" ng-model="properties.SuccessfullySubmittedForm.PropertyValue" value="OpenSpecificPage" />
             @Html.Resource("OpenSpecificPageLabel")
         </label>
+        <div class="label-content">
+            <sf-list-selector sf-page-selector
+                              sf-sortable="true"
+                              sf-selected-item-id="properties.PageId.PropertyValue"
+                              ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"></sf-list-selector>
+        </div>
     </div>
 
     <div class="form-group-list">

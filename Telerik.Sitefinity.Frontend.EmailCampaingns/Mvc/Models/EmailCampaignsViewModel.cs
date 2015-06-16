@@ -7,7 +7,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes;
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 {
     /// <summary>
-    /// This class represents the view model of the Email Campaigns item.
+    /// This class represents the view model of the Email campaigns item.
     /// </summary>
     public class EmailCampaignsViewModel
     {
@@ -28,6 +28,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
         /// </summary>
         /// <value>The CSS class.</value>
         public string CssClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the redirect page URL.
+        /// </summary>
+        /// <value>The redirect page URL.</value>
+        public string RedirectPageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the email.

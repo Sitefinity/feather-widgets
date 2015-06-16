@@ -3,22 +3,17 @@ using System.Linq;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Newsletters.Model;
+using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 {
     /// <summary>
-    /// The model of the EmailCampaigns widgets.
+    /// The model of the Email campaigns widget.
     /// </summary>
     public class EmailCampaignsModel : IEmailCampaignsModel
     {
-        #region Construction
-        public EmailCampaignsModel()
-        {
-        }
-
-        #endregion
-
         #region Properties
         /// <inheritdoc />
         public string Provider { get; set; }
@@ -31,6 +26,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 
         /// <inheritdoc />
         public string CssClass { get; set; }
+
+        /// <inheritdoc />
+        public Guid PageId { get; set; }
         #endregion
 
         #region Public and virtual methods
@@ -45,16 +43,16 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
         }
 
         /// <inheritdoc />
-        public virtual bool AddSubscriber(EmailCampaignsViewModel model, out string error)
+        public virtual bool AddSubscriber(EmailCampaignsViewModel viewModel, out string error)
         {
             error = string.Empty;
 
-            if (NewsletterValidator.IsValidEmail(model.Email))
+            if (NewsletterValidator.IsValidEmail(viewModel.Email))
             {
                 var newslettersManager = NewslettersManager.GetManager(this.Provider);
 
                 // check if subscriber exists
-                var email = model.Email.ToLower();
+                var email = viewModel.Email.ToLower();
                 IQueryable<Subscriber> matchingSubscribers = newslettersManager.GetSubscribers().Where(s => s.Email == email);
                 bool subscriberAlreadyInList = false;
                 foreach (Subscriber s in matchingSubscribers)
@@ -77,14 +75,19 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
                     if (subscriber == null)
                     {
                         subscriber = newslettersManager.CreateSubscriber(true);
-                        subscriber.Email = model.Email;
-                        subscriber.FirstName = model.FirstName;
-                        subscriber.LastName = model.LastName;
+                        subscriber.Email = viewModel.Email;
+                        subscriber.FirstName = viewModel.FirstName;
+                        subscriber.LastName = viewModel.LastName;
                     }
 
                     // check if the mailing list exists
                     if (newslettersManager.Subscribe(subscriber, this.SelectedMailingListId))
                     {
+                        if (this.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                        {
+                            this.GenerateRedirectPageUrl(viewModel);
+                        }
+
                         newslettersManager.SaveChanges();
 
                         return true;
@@ -95,5 +98,16 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
             return false;
         }
         #endregion
+
+        private void GenerateRedirectPageUrl(EmailCampaignsViewModel model)
+        {
+            var pageManager = PageManager.GetManager();
+            var node = pageManager.GetPageNode(this.PageId);
+            if (node != null)
+            {
+                var relativeUrl = node.GetFullUrl();
+                model.RedirectPageUrl = UrlPath.ResolveUrl(relativeUrl, true);
+            }
+        }
     }
 }

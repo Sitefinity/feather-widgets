@@ -3,8 +3,6 @@
     designer.requires.push('sfSelectors', 'expander');
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
-        
-        $scope.model = {};
         $scope.feedback.showLoadingIndicator = true;
 
         propertyService.get()
@@ -20,6 +18,9 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+                    if ($scope.properties.SuccessfullySubmittedForm.PropertyValue === 'ShowMessage') {
+                        $scope.properties.PageId.PropertyValue = null;
+                    }
                 });
             })
             .finally(function () {

@@ -1,4 +1,4 @@
 ﻿{
     "priority": 1,
-    "components": [ "sf-mailing-list-selector", "sf-expander", "sf-style-dropdown" ]
+    "components": [ "sf-page-selector", "sf-mailing-list-selector", "sf-expander", "sf-style-dropdown" ]
 }

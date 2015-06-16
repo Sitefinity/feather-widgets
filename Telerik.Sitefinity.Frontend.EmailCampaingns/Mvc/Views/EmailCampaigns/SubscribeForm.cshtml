@@ -19,48 +19,52 @@
             @Html.Resource("ThankYouMessage") (@Model.Email)
         </span>
     }
-    else if (ViewBag.IsSucceeded == false)
-    {
-        @ViewBag.Error
-    }
+
     else
     {
         using (Html.BeginFormSitefinity())
         {
-            @Html.ValidationSummary(true);
-        @ViewBag.Error
+            @Html.ValidationSummary(true)
+            if (ViewBag.Error != null)
+            {
+                <span>
+                    @Model.Email @ViewBag.Error
+                </span>
 
-        <strong>@Html.Resource("Subscribe")</strong>
-        <br />
-        <span>
-            @Html.Resource("SubscribeMail")
-        </span>
+                <br />
+            }
 
-        <br />
+            <strong>@Html.Resource("Subscribe")</strong>
+            <br />
+            <span>
+                @Html.Resource("SubscribeMail")
+            </span>
 
-        <div>
-            @Html.Resource("FirstName") @Html.Resource("Optional")
-            @Html.TextBoxFor(u => u.FirstName)
-        </div>
+            @*<br />
 
-        <br />
+                <div>
+                    @Html.Resource("FirstName") @Html.Resource("Optional")
+                    @Html.TextBoxFor(u => u.FirstName)
+                </div>
 
-        <div>
-            <label>
-                @Html.Resource("LastName") @Html.Resource("Optional")
-                @Html.TextBoxFor(u => u.LastName)
-            </label>
-        </div>
+                <br />
 
-        <br />
+                <div>
+                    <label>
+                        @Html.Resource("LastName") @Html.Resource("Optional")
+                        @Html.TextBoxFor(u => u.LastName)
+                    </label>
+                </div>*@
 
-        <div>
-            @Html.Resource("Email")
-            @Html.TextBoxFor(u => u.Email)
-            @Html.ValidationMessageFor(u => u.Email)
+            <br />
 
-            <strong><input type="submit" value="@Html.Resource("ButtonSubscribe")" /></strong>
-        </div>
+            <div>
+                @Html.Resource("Email")
+                @Html.TextBoxFor(u => u.Email)
+                @Html.ValidationMessageFor(u => u.Email)
+
+                <strong><input type="submit" value="@Html.Resource("ButtonSubscribe")" /></strong>
+            </div>
         }
     }
 </div>

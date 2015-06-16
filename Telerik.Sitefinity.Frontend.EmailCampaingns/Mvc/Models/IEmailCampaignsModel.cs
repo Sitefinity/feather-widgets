@@ -8,6 +8,10 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
     /// </summary>
     public interface IEmailCampaignsModel
     {
+        /// <summary>
+        /// Gets or sets the selected mailing list id.
+        /// </summary>
+        /// <value>The selected mailing list id.</value>
         Guid SelectedMailingListId { get; set; }
 
         /// <summary>
@@ -29,6 +33,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
         /// </summary>
         /// <value>The provider.</value>
         string Provider { get; set; }
+
+        /// <summary>
+        /// Gets or sets the page id.
+        /// </summary>
+        /// <value>The page id.</value>
+        Guid PageId { get; set; }
 
         /// <summary>
         /// Creates the view model.
