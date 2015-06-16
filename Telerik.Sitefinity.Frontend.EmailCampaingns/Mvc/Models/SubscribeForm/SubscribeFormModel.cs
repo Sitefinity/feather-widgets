@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Pages;
@@ -12,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
     /// <summary>
     /// The model of the Email campaigns widget.
     /// </summary>
-    public class EmailCampaignsModel : IEmailCampaignsModel
+    public class SubscribeFormModel : ISubscribeFormModel
     {
         #region Properties
         /// <inheritdoc />
@@ -34,16 +35,16 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
         #region Public and virtual methods
 
         /// <inheritdoc />
-        public EmailCampaignsViewModel CreateViewModel()
+        public SubscribeFormViewModel CreateViewModel()
         {
-            return new EmailCampaignsViewModel
+            return new SubscribeFormViewModel
             {
                 CssClass = this.CssClass
             };
         }
 
         /// <inheritdoc />
-        public virtual bool AddSubscriber(EmailCampaignsViewModel viewModel, out string error)
+        public virtual bool AddSubscriber(SubscribeFormViewModel viewModel, out string error)
         {
             error = string.Empty;
 
@@ -66,7 +67,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 
                 if (subscriberAlreadyInList)
                 {
-                    error = Res.Get<EmailCampaignsResources>().EmailExistsInTheMailingList;
+                    error = Res.Get<SubscribeFormResources>().EmailExistsInTheMailingList;
                     return false;
                 }
                 else
@@ -85,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
                     {
                         if (this.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
                         {
-                            this.GenerateRedirectPageUrl(viewModel);
+                            viewModel.RedirectPageUrl = HyperLinkHelpers.GetFullPageUrl(this.PageId);
                         }
 
                         newslettersManager.SaveChanges();
@@ -94,20 +95,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
                     }
                 }
             }
-            error = Res.Get<EmailCampaignsResources>().EmailAddressErrorMessageResourceName;
+            error = Res.Get<SubscribeFormResources>().EmailAddressErrorMessageResourceName;
             return false;
         }
         #endregion
-
-        private void GenerateRedirectPageUrl(EmailCampaignsViewModel model)
-        {
-            var pageManager = PageManager.GetManager();
-            var node = pageManager.GetPageNode(this.PageId);
-            if (node != null)
-            {
-                var relativeUrl = node.GetFullUrl();
-                model.RedirectPageUrl = UrlPath.ResolveUrl(relativeUrl, true);
-            }
-        }
     }
 }

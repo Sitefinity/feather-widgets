@@ -4,9 +4,9 @@ using System.Linq;
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 {
     /// <summary>
-    /// This interface is used as a model for the EmailCampaignsController.
+    /// This interface is used as a model for the SubscribeFormController.
     /// </summary>
-    public interface IEmailCampaignsModel
+    public interface ISubscribeFormModel
     {
         /// <summary>
         /// Gets or sets the selected mailing list id.
@@ -44,7 +44,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
         /// Creates the view model.
         /// </summary>
         /// <returns></returns>
-        EmailCampaignsViewModel CreateViewModel();
+        SubscribeFormViewModel CreateViewModel();
 
         /// <summary>
         /// Adds the subscriber.
@@ -52,6 +52,6 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
         /// <param name="model">The model.</param>
         /// <param name="error">The error.</param>
         /// <returns></returns>
-        bool AddSubscriber(EmailCampaignsViewModel model, out string error);
+        bool AddSubscriber(SubscribeFormViewModel model, out string error);
     }
 }

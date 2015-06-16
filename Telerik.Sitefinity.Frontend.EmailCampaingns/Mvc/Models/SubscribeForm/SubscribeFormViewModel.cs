@@ -9,7 +9,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
     /// <summary>
     /// This class represents the view model of the Email campaigns item.
     /// </summary>
-    public class EmailCampaignsViewModel
+    public class SubscribeFormViewModel
     {
         /// <summary>
         /// Gets or sets the first name.
@@ -42,7 +42,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessageResourceName = "EmailAddressErrorMessageResourceName",
-                      ErrorMessageResourceType = typeof(StaticEmailCampaignResources))]
+                      ErrorMessageResourceType = typeof(StaticSubscribeFormResources))]
         public string Email { get; set; }
     }
 }

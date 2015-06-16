@@ -13,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns
         /// </summary>
         public override void Load()
         {
-            Bind<IEmailCampaignsModel>().To<EmailCampaignsModel>();
+            Bind<ISubscribeFormModel>().To<SubscribeFormModel>();
         }
     }
 }

@@ -7,23 +7,21 @@ using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 {
     /// <summary>
-    /// This class represents the controller of the Email Campaigns widget.
+    /// This class represents the controller of the subscribe form widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "EmailCampaigns_MVC",
+    [ControllerToolboxItem(Name = "SubscribeForm_MVC",
         Title = "Subscribe form",
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
-        CssClass = EmailCampaignsController.WidgetIconCssClass)]
-    [Localization(typeof(EmailCampaignsResources))]
-    public class EmailCampaignsController : Controller, ICustomWidgetVisualizationExtended
+        CssClass = SubscribeFormController.WidgetIconCssClass)]
+    [Localization(typeof(SubscribeFormResources))]
+    public class SubscribeFormController : Controller, ICustomWidgetVisualizationExtended
     {
         #region Properties
         /// <summary>
@@ -44,15 +42,15 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets the Email Campaigns widget model.
+        /// Gets the subscribe form widget model.
         /// </summary>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public virtual IEmailCampaignsModel Model
+        public virtual ISubscribeFormModel Model
         {
             get
             {
                 if (this.model == null)
-                    this.model = ControllerModelFactory.GetModel<IEmailCampaignsModel>(this.GetType());
+                    this.model = ControllerModelFactory.GetModel<ISubscribeFormModel>(this.GetType());
 
                 return this.model;
             }
@@ -67,7 +65,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         [Browsable(false)]
         public string WidgetCssClass
         {
-            get { return EmailCampaignsController.WidgetIconCssClass; }
+            get { return SubscribeFormController.WidgetIconCssClass; }
         }
 
         /// <summary>
@@ -115,7 +113,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <param name="model">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(EmailCampaignsViewModel model)
+        public ActionResult Index(SubscribeFormViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -151,14 +149,14 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <returns></returns>
         protected virtual string GetResource(string resourceName)
         {
-            return Res.Get(typeof(EmailCampaignsResources), resourceName);
+            return Res.Get(typeof(SubscribeFormResources), resourceName);
         }
 
         #endregion
 
         #region Private fields and constants
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
-        private IEmailCampaignsModel model;
+        private ISubscribeFormModel model;
         private string templateName = "SubscribeForm";
         #endregion
     }

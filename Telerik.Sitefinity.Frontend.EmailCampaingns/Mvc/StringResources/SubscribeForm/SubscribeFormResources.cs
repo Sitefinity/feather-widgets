@@ -8,26 +8,26 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
     /// <summary>
     /// Sitefinity localizable strings
     /// </summary>
-    [ObjectInfo("EmailCampaignsResources",
-        ResourceClassId = "EmailCampaignsResources",
-        Title = "EmailCampaignsResourcesTitle",
-        TitlePlural = "EmailCampaignsResourcesTitlePlural",
-        Description = "EmailCampaignsResourcesDescription")]
-    public class EmailCampaignsResources : Resource
+    [ObjectInfo("SubscribeFormResources",
+        ResourceClassId = "SubscribeFormResources",
+        Title = "SubscribeFormResourcesTitle",
+        TitlePlural = "SubscribeFormResourcesTitlePlural",
+        Description = "SubscribeFormResourcesDescription")]
+    public class SubscribeFormResources : Resource
     {
         #region Construction
         /// <summary>
-        /// Initializes new instance of <see cref="FlatTaxonomyResources"/> class with the default <see cref="ResourceDataProvider"/>.
+        /// Initializes new instance of <see cref="SubscribeFormResources"/> class with the default <see cref="ResourceDataProvider"/>.
         /// </summary>
-        public EmailCampaignsResources()
+        public SubscribeFormResources()
         {
         }
 
         /// <summary>
-        /// Initializes new instance of <see cref="FlatTaxonomyResources"/> class with the provided <see cref="ResourceDataProvider"/>.
+        /// Initializes new instance of <see cref="SubscribeFormResources"/> class with the provided <see cref="ResourceDataProvider"/>.
         /// </summary>
         /// <param name="dataProvider"><see cref="ResourceDataProvider"/></param>
-        public EmailCampaignsResources(ResourceDataProvider dataProvider)
+        public SubscribeFormResources(ResourceDataProvider dataProvider)
             : base(dataProvider)
         {
         }
@@ -37,32 +37,32 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         /// <summary>
         /// The title of the class.
         /// </summary>
-        /// <value>EmailCampaignsResources labels</value>
-        [ResourceEntry("EmailCampaignsResourcesTitle",
-            Value = "EmailCampaignsResourcesTitle labels",
+        /// <value>SubscribeFormResources labels</value>
+        [ResourceEntry("SubscribeFormResourcesTitle",
+            Value = "SubscribeFormResourcesTitle labels",
             Description = "The title of this class.",
             LastModified = "2015/05/19")]
-        public string EmailCampaignsResourcesTitle
+        public string SubscribeFormResourcesTitle
         {
             get
             {
-                return this["EmailCampaignsResourcesTitle"];
+                return this["SubscribeFormResourcesTitle"];
             }
         }
 
         /// <summary>
         /// The plural title of this class.
         /// </summary>
-        /// <value>EmailCampaignsResources labels</value>
-        [ResourceEntry("EmailCampaignsResourcesTitlePlural",
-            Value = "EmailCampaignsResources labels",
+        /// <value>SubscribeFormResources labels</value>
+        [ResourceEntry("SubscribeFormResourcesTitlePlural",
+            Value = "SubscribeFormResources labels",
             Description = "The plural title of this class.",
             LastModified = "2015/05/19")]
-        public string EmailCampaignsResourcesTitlePlural
+        public string SubscribeFormResourcesTitlePlural
         {
             get
             {
-                return this["EmailCampaignsResourcesTitlePlural"];
+                return this["SubscribeFormResourcesTitlePlural"];
             }
         }
 
@@ -70,15 +70,15 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         /// The description of this class.
         /// </summary>
         /// <value>Contains localizable resources.</value>
-        [ResourceEntry("EmailCampaignsResourcesDescription",
+        [ResourceEntry("SubscribeFormResourcesDescription",
             Value = "Contains localizable resources.",
             Description = "The description of this class.",
             LastModified = "2015/05/19")]
-        public string EmailCampaignsResourcesDescription
+        public string SubscribeFormResourcesDescription
         {
             get
             {
-                return this["EmailCampaignsResourcesDescription"];
+                return this["SubscribeFormResourcesDescription"];
             }
         }
         #endregion
