@@ -92,18 +92,50 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Unsubscribe successful
+        /// phrase: Subscribe Successful
         /// </summary>
-        /// <value>Unsubscribe successful</value>
-        [ResourceEntry("SuccessfulUnsubscribe",
-            Value = "Unsubscribe successful",
-            Description = "phrase: Unsubscribe successful",
+        /// <value>Subscribe Successful</value>
+        [ResourceEntry("SubscribeSuccessful",
+            Value = "Subscribe Successful",
+            Description = "phrase: Subscribe Successful",
             LastModified = "2015/06/15")]
-        public string SuccessfulUnsubscribe
+        public string SubscribeSuccessful
         {
             get
             {
-                return this["SuccessfulUnsubscribe"];
+                return this["SubscribeSuccessful"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: A subscriber with given email is already subscribed to this mailing list.
+        /// </summary>
+        /// <value>A subscriber with the given email is already subscribed to this mailing list.</value>
+        [ResourceEntry("EmailExistsInTheMailingList",
+            Value = "A subscriber with the given email is already subscribed to this mailing list.",
+            Description = "phrase: A subscriber with given email is already subscribed to this mailing list.",
+            LastModified = "2015/06/15")]
+        public string EmailExistsInTheMailingList
+        {
+            get
+            {
+                return this["EmailExistsInTheMailingList"];
+            }
+        }
+
+        /// <summary>
+        /// word: subscribe
+        /// </summary>
+        /// <value>subscribe</value>
+        [ResourceEntry("SubscribeLink",
+            Value = "subscribe",
+            Description = "word: subscribe",
+            LastModified = "2015/06/15")]
+        public string SubscribeLink
+        {
+            get
+            {
+                return this["SubscribeLink"];
             }
         }
     }

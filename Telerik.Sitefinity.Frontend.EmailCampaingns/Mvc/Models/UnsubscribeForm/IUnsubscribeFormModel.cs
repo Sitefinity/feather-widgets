@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
 {
@@ -54,7 +55,14 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// </value>
         string EmailAddressCssClass { get; set; }
 
+        /// <summary>
+        /// Creates the view model.
+        /// </summary>
+        /// <returns></returns>
         UnsubscribeFormViewModel CreateViewModel();
+
+        ////TODO: rename the method. maybe call it in CreateViewModel and remove it from the model?
+        void RemoveSubscriber(string subscriberId, string issueId, string subscribe);
 
         ////TODO: add options for 'When the form is successfully submitted...'
     }

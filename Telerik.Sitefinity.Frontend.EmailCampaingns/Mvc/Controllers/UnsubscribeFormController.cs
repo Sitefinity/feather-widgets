@@ -1,13 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 {
@@ -70,6 +73,18 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 return this.model;
             }
         }
+
+        /// <summary>
+        /// Gets the current HTTP context from the SystemManager.
+        /// </summary>
+        /// <value>The current HTTP context.</value>
+        protected virtual HttpContextBase CurrentHttpContext
+        {
+            get
+            {
+                return SystemManager.CurrentHttpContext;
+            }
+        }
         #endregion
 
         #region Actions
@@ -83,12 +98,27 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             ////TODO: if module is deactivated or the module is not licensed show error
 
-            var viewModel = this.Model.CreateViewModel();
+            ////TODO: delete this. it is for testing purposes
+            this.Model.UnsubscribeMode = UnsubscribeMode.Link;
 
+            var context = this.CurrentHttpContext;
+            var page = context.CurrentHandler as Page;
+
+            if (!SystemManager.IsDesignMode)
+            {
+                var subscriberId = page.Request.QueryString["subscriberId"];
+                var issueId = page.Request.QueryString["issueId"];
+                var subscribe = page.Request.QueryString["subscribe"];
+
+                this.Model.RemoveSubscriber(subscriberId, issueId, subscribe);
+            }
+
+            var viewModel = this.Model.CreateViewModel();
+            
             var fullTemplateName = this.model.UnsubscribeMode == UnsubscribeMode.Link ?
                                             this.linkTemplateNamePrefix + this.LinkTemplateName : 
                                             this.emailAddressTemplateNamePrefix + this.EmailAddressTemplateName;
-            
+
             return this.View(fullTemplateName, viewModel);
         }
 
