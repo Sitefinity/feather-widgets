@@ -153,5 +153,14 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         {
             return new BlogsOperations();
         }
+
+        /// <summary>
+        /// Entry point for common operations related to comments and reviews.
+        /// </summary>
+        /// <returns></returns>
+        public static CommentsAndReviews CommentsAndReviews()
+        {
+            return new CommentsAndReviews();
+        }
     }
 }
