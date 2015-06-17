@@ -10,14 +10,14 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
      /// <summary>
-    /// ChangeCommentsStatusesForPage arrangement class.
+    /// ChangeReviewsStatusesForPage arrangement class.
     /// </summary>
-    public class ChangeReviewsStatusesForPage
+    public class ChangeReviewsStatusesForPage : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.CommentsAndReviews.CreateReview(System.String,System.String,System.Guid,System.String,System.String,System.Nullable<System.Decimal>,System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.CommentsAndReviews.CreateReview(System.String,System.String,System.Guid,System.String,System.String,System.Nullable<System.Decimal>,System.String)"), ServerSetUp]
         public void SetUp()
         {
             ServerOperations.Comments().AllowComments(ThreadType, true);

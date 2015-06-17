@@ -2,44 +2,50 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-<div class="form-group">
     <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingMailingList")</div>
 
-    <strong>@Html.Resource("MailingList")</strong>
-    <div class="radio">
-        @Html.Resource("UsersSubscribeLists")
+    <div class="form-group">
+        <strong>@Html.Resource("MailingList")</strong>
+
+        <p class="text-muted">@Html.Resource("UsersSubscribeLists")</p>
+        
         <sf-list-selector sf-mailing-list-selector
-                          sf-selected-item-id="properties.SelectedMailingListId.PropertyValue"
-                          sf-missing-selected-items="errors.missingSelectedItems"
-                          class="sf-filter-selector">
+                            sf-selected-item-id="properties.SelectedMailingListId.PropertyValue"
+                            sf-missing-selected-items="errors.missingSelectedItems"
+                            class="sf-filter-selector">
         </sf-list-selector>
     </div>
 
-    <strong>@Html.Resource("SuccessfullySubmittedLabel")</strong>
-    <div class="radio">
-        <label for="showAll">
-            <input id="showAll" type="radio" ng-model="properties.SuccessfullySubmittedForm.PropertyValue" value="ShowMessage" />
-            @Html.Resource("ShowMessageLabel")
-        </label>
+    <div class="form-group">
+        <strong>@Html.Resource("SuccessfullySubmittedLabel")</strong>
+        <div class="radio">
+            <label for="showAll">
+                <input id="showAll" type="radio" ng-model="properties.SuccessfullySubmittedForm.PropertyValue" value="ShowMessage" />
+                @Html.Resource("ShowMessageLabel")
+            </label>
+        </div>
 
-        <br />
+        <div class="radio">
+            <label for="specificPage">
+                <input id="specificPage" type="radio" ng-model="properties.SuccessfullySubmittedForm.PropertyValue" value="OpenSpecificPage" />
+                @Html.Resource("OpenSpecificPageLabel")
+            </label>
+            <div class="label-content">
+                <sf-list-selector sf-page-selector
+                                  sf-sortable="true"
+                                  sf-selected-item-id="properties.PageId.PropertyValue"
+                                  ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"></sf-list-selector>
+            </div>
 
-        <label for="specificPage">
-            <input id="specificPage" type="radio" ng-model="properties.SuccessfullySubmittedForm.PropertyValue" value="OpenSpecificPage" />
-            @Html.Resource("OpenSpecificPageLabel")
-        </label>
-        <div class="label-content">
-            <sf-list-selector sf-page-selector
-                              sf-sortable="true"
-                              sf-selected-item-id="properties.PageId.PropertyValue"
-                              ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"></sf-list-selector>
         </div>
     </div>
 
-    <div class="form-group-list">
-        <h5>@Html.Resource("TemplateLabel")</h5>
-        <div class="form-group">
-            <div class="row">
+
+
+    <div class="form-group">
+        <strong>@Html.Resource("TemplateLabel")</strong>
+        <div class="row">
+            <div class="col-md-6">
                 <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^(?<viewName>SubscribeForm.*)$"))
                     {
@@ -47,14 +53,16 @@
                     }
                 </select>
             </div>
+
         </div>
+
     </div>
 
-    <expander expander-title='@Html.Resource("MoreOptions")'>
-        <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+<expander expander-title='@Html.Resource("MoreOptions")'>
+    <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
-        <div class="form-group">
-            <label for="cssClass">@Html.Resource("CssClasses")</label>
-            <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
-        </div>
-    </expander>
+    <div class="form-group">
+        <label for="cssClass">@Html.Resource("CssClasses")</label>
+        <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+    </div>
+</expander>
