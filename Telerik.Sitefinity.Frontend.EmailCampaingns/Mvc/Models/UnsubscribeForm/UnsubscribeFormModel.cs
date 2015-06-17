@@ -157,7 +157,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
 
             if (subscribers.Count() == 0)
             {
-                error = Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList;
+                error = string.Format(Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList, email);
                 return false;
             }
 
@@ -181,13 +181,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
                     viewModel.RedirectPageUrl = HyperLinkHelpers.GetFullPageUrl(this.PageId);
                 }
 
-                ////TODO: momchi asked for different message (see wireframes). is it possible?
-                this.Message = Res.Get<UnsubscribeFormResources>().UnsubscribedFromMailingListSuccessMessage;
+                this.Message = string.Format(Res.Get<UnsubscribeFormResources>().UnsubscribedFromMailingListSuccessMessage, email);
                 return true;
             }
             else
             {
-                error = Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList;
+                error = string.Format(Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList, email);
                 return false;
             }
         }
@@ -210,7 +209,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
                 if (isSubscribed)
                 {
                     newslettersManager.SaveChanges();
-                    this.Message = Res.Get<UnsubscribeFormResources>().SubscribeSuccessful;
+                    this.Message = string.Format(Res.Get<UnsubscribeFormResources>().SubscribeSuccessful, subscriber.Email);
                 }
             }
             else

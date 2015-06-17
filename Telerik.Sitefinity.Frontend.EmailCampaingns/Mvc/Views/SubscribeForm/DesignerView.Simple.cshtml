@@ -1,7 +1,10 @@
 @model System.Web.UI.Control
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers
 
+@if (EmailCampaignsExtensions.IsModuleActivated())
+{
     <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingMailingList")</div>
 
     <div class="form-group">
@@ -47,7 +50,7 @@
         <div class="row">
             <div class="col-md-6">
                 <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^(?<viewName>SubscribeForm.*)$"))
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^SubscribeForm\.(?<viewName>[\w\s]*)$"))
                     {
                         <option value="@viewName"> @viewName</option>
                     }
@@ -66,3 +69,12 @@
         <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
     </div>
 </expander>
+}
+else
+{
+    <div class="alert alert-warning">@Html.Resource("NewslettersModuleDeactivatedMessage")</div>
+
+    <script type="text/ng-template" section="modal-footer">
+        <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>
+    </script>
+}

@@ -9,13 +9,13 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
     public enum UnsubscribeMode
     {
         /// <summary>
-        /// Unsubscribe by entering an e-mail.
-        /// </summary>
-        EmailAddress,
-
-        /// <summary>
         /// Unsubscribe by link included in a newsletter.
         /// </summary>
-        Link
+        Link,
+
+        /// <summary>
+        /// Unsubscribe by entering an e-mail.
+        /// </summary>
+        EmailAddress
     }
 }

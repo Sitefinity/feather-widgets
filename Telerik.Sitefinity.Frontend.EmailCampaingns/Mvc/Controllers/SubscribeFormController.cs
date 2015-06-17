@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -115,6 +116,16 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             get { return this.GetResource("ModuleNotLicensed"); }
         }
+
+        /// <summary>
+        /// Gets the message shown when the newsletters module is deactivated.
+        /// </summary>
+        /// <value>The newsletters module deactivated message.</value>
+        [Browsable(false)]
+        public virtual string NewslettersModuleDeactivatedMessage
+        {
+            get { return this.GetResource("NewslettersModuleDeactivatedMessage"); }
+        }
         #endregion
 
         #region Actions
@@ -131,11 +142,17 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 return this.Content(this.LicensingMessage);
             }
 
+            if (!this.IsNewslettersModuleActivated())
+            {
+                return this.Content(this.NewslettersModuleDeactivatedMessage);
+            }
+
             if (!this.IsEmpty)
             {
                 var viewModel = this.Model.CreateViewModel();
+                var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
-                return this.View(this.TemplateName, viewModel);
+                return this.View(fullTemplateName, viewModel);
             }
 
             return null;
@@ -168,7 +185,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 }
             }
 
-            return this.View(this.TemplateName, viewModel);
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -193,10 +212,20 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             return Res.Get(typeof(SubscribeFormResources), resourceName);
         }
 
+        /// <summary>
+        /// Determines whether the newsletters module is activated.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool IsNewslettersModuleActivated()
+        {
+            return EmailCampaignsExtensions.IsModuleActivated();
+        }
+
         #region Private fields and constants
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
         private ISubscribeFormModel model;
         private string templateName = "SubscribeForm";
+        private string templateNamePrefix = "SubscribeForm.";
         #endregion
     }
 }

@@ -407,7 +407,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("EmailExistsInTheMailingList",
             Value = "is already added to this mailing list",
             Description = "phrase: is already added to this mailing list",
-            LastModified = "2010-10-28")]
+            LastModified = "2010/10/28")]
         public string EmailExistsInTheMailingList
         {
             get
@@ -422,7 +422,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("SuccessfulSubscription",
             Value = "You have successfully subscribed to this mailing list. Thank you.",
             Description = "phrase: You have successfully subscribed to this mailing list. Thank you.",
-            LastModified = "2010-10-28")]
+            LastModified = "2010/10/28")]
         public string SuccessfulSubscription
         {
             get
@@ -437,7 +437,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("ModuleNotLicensed",
             Value = "Email Campaigns functionality is disabled since the Email Campaigns module is not licensed.",
             Description = "Module Not Licensed message",
-            LastModified = "2012-01-05")]
+            LastModified = "2012/01/05")]
         public string ModuleNotLicensed
         {
             get
@@ -446,5 +446,37 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
             }
         }
         #endregion
+
+        /// <summary>
+        /// Message shown when the newsletters module is deactivated
+        /// </summary>
+        /// <value>This widget doesn't work, because Newsletters module has been deactivated.</value>
+        [ResourceEntry("NewslettersModuleDeactivatedMessage",
+            Value = "This widget doesn't work, because Newsletters module has been deactivated.",
+            Description = "Message shown when the newsletters module is deactivated",
+            LastModified = "2015/06/17")]
+        public string NewslettersModuleDeactivatedMessage
+        {
+            get
+            {
+                return this["NewslettersModuleDeactivatedMessage"];
+            }
+        }
+
+        /// <summary>
+        /// word: Close
+        /// </summary>
+        /// <value>Close</value>
+        [ResourceEntry("Close",
+            Value = "Close",
+            Description = "word: Close",
+            LastModified = "2015/06/17")]
+        public string Close
+        {
+            get
+            {
+                return this["Close"];
+            }
+        }
     }
 }
