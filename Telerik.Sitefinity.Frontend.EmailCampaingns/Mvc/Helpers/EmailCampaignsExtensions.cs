@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Newsletters.Composition;
+using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers
 {
@@ -24,6 +25,17 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers
                 yield return mergeTag;
             }
             yield return new MergeTag("Subscribe link", "SubscribeLink", "MergeContextItems");
+        }
+
+        /// <summary>
+        /// Determines whether the newsletters module is activated.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsModuleActivated()
+        {
+            var module = SystemManager.GetModule(NewslettersModule.ModuleName);
+
+            return module != null;
         }
     }
 }

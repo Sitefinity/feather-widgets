@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -115,6 +116,16 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             get { return this.GetResource("ModuleNotLicensed"); }
         }
+
+        /// <summary>
+        /// Gets the message shown when the newsletters module is deactivated.
+        /// </summary>
+        /// <value>The newsletters module deactivated message.</value>
+        [Browsable(false)]
+        public virtual string NewslettersModuleDeactivatedMessage
+        {
+            get { return this.GetResource("NewslettersModuleDeactivatedMessage"); }
+        }
         #endregion
 
         #region Actions
@@ -129,6 +140,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             if (!this.IsLicensed)
             {
                 return this.Content(this.LicensingMessage);
+            }
+
+            if (!this.IsNewslettersModuleActivated())
+            {
+                return this.Content(this.NewslettersModuleDeactivatedMessage);
             }
 
             if (!this.IsEmpty)
@@ -191,6 +207,15 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         protected virtual string GetResource(string resourceName)
         {
             return Res.Get(typeof(SubscribeFormResources), resourceName);
+        }
+
+        /// <summary>
+        /// Determines whether the newsletters module is activated.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool IsNewslettersModuleActivated()
+        {
+            return EmailCampaignsExtensions.IsModuleActivated();
         }
 
         #region Private fields and constants
