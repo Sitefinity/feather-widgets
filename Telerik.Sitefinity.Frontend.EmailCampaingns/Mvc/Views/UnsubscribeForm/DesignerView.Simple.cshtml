@@ -4,6 +4,8 @@
 @using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Newsletters.Composition;
 
+@if (EmailCampaignsExtensions.IsModuleActivated())
+{
 <div>
     <div>
         @Html.Resource("UnsubscribeBy")
@@ -127,3 +129,12 @@
         </expander>
     </div>
 </div>
+}
+else
+{
+    <div class="alert alert-warning">@Html.Resource("NewslettersModuleDeactivatedMessage")</div>
+
+    <script type="text/ng-template" section="modal-footer">
+        <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>
+    </script>
+}
