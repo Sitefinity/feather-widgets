@@ -151,26 +151,26 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <summary>
         /// Indexes the specified model.
         /// </summary>
-        /// <param name="model">The model.</param>
+        /// <param name="viewModel">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(UnsubscribeFormViewModel model)
+        public ActionResult Index(UnsubscribeFormViewModel viewModel)
         {
             if (this.ModelState.IsValid && this.Model.ListId != Guid.Empty)
             {
                 string error;
-                bool isSucceeded = this.Model.Unsubscribe(model, out error);
+                bool isSucceeded = this.Model.Unsubscribe(viewModel, out error);
 
                 this.ViewBag.Error = error;
                 this.ViewBag.IsSucceded = isSucceeded;
 
                 if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
                 {
-                    return this.Redirect(model.RedirectPageUrl);
+                    return this.Redirect(viewModel.RedirectPageUrl);
                 }
             }
 
-            var viewModel = this.Model.CreateViewModel();
+            viewModel = this.Model.CreateViewModel();
 
             var fullTemplateName = this.emailAddressTemplateNamePrefix + this.EmailAddressTemplateName;
 
