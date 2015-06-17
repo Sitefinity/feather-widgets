@@ -92,13 +92,13 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Subscribe Successful
+        /// Message shown when the user is successfully subscribed.
         /// </summary>
-        /// <value>Subscribe Successful</value>
+        /// <value><strong>Thank you</strong> <br/> You have successfully subscribed to our newsletter ({0})</value>
         [ResourceEntry("SubscribeSuccessful",
-            Value = "Subscribe Successful",
-            Description = "phrase: Subscribe Successful",
-            LastModified = "2015/06/15")]
+            Value = "<strong>Thank you</strong> <br/> You have successfully subscribed to our newsletter ({0})",
+            Description = "Message shown when the user is successfully subscribed.",
+            LastModified = "2015/06/17")]
         public string SubscribeSuccessful
         {
             get
@@ -155,9 +155,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
             }
         }
 
+        /// <summary>
         /// word: Emal
         /// </summary>
-        /// <value>Email</value>
         [ResourceEntry("Email",
             Value = "Email",
             Description = "word: Emal",
@@ -186,9 +186,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
             }
         }
 
+        /// <summary>
         /// word: Unsubscribe
         /// </summary>
-        /// <value>Unsubscribe</value>
         [ResourceEntry("ButtonUnsubscribe",
             Value = "Unsubscribe",
             Description = "word: Unsubscribe",
@@ -202,7 +202,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// word: Link 
+        /// word: Link
         /// </summary>
         /// <value>Link</value>
         [ResourceEntry("Link",
@@ -217,9 +217,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
             }
         }
 
+        /// <summary>
         /// phrase: Email address is invalid
         /// </summary>
-        /// <value>Email address is invalid</value>
         [ResourceEntry("EmailAddressErrorMessageResourceName",
             Value = "Email address is invalid",
             Description = "phrase: Email address is invalid",
@@ -233,7 +233,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// word: included in newsletter 
+        /// word: included in newsletter
         /// </summary>
         /// <value>included in newsletter</value>
         [ResourceEntry("IncludedInNewsletter",
@@ -264,13 +264,14 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
             }
         }
 
+        /// <summary>
         /// Message displayed to user who tries to unsubscribe from the campaign he or she does not belong to.
         /// </summary>
-        /// <value>You don't belong to the mailing list and cannot unsubscribe.</value>
+        /// <value>{0} does not exist in our mailing list</value>
         [ResourceEntry("YouDontBelongToTheMailingList",
-            Value = "You don't belong to the mailing list and cannot unsubscribe.",
+            Value = "{0} does not exist in our mailing list",
             Description = "Message displayed to user who tries to unsubscribe from the campaign he or she does not belong to.",
-            LastModified = "2015/06/16")]
+            LastModified = "2015/06/17")]
         public string YouDontBelongToTheMailingList
         {
             get
@@ -282,11 +283,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         /// <summary>
         /// Unsubscribe message shown when the user is successfully unsubscribed by email address.
         /// </summary>
-        /// <value><strong>Unsubscribe successful</strong> <br/> You have successfully unsubscribed from the mailing list. You will no longer receive the newsletters sent to this mailing list.</value>
+        /// <value><strong>Unsubscribe successful</strong> <br/>You have been successfully unsubscribed from our newsletter ({0}) <br/> Thank you.</value>
         [ResourceEntry("UnsubscribedFromMailingListSuccessMessage",
-            Value = "<strong>Unsubscribe successful</strong> <br/> You have successfully unsubscribed from the mailing list. You will no longer receive the newsletters sent to this mailing list.",
+            Value = "<strong>Unsubscribe successful</strong> <br/>You have been successfully unsubscribed from our newsletter ({0}) <br/> Thank you.",
             Description = "Unsubscribe message shown when the user is successfully unsubscribed by email address.",
-            LastModified = "2015/06/16")]
+            LastModified = "2015/06/17")]
         public string UnsubscribedFromMailingListSuccessMessage
         {
             get
@@ -309,10 +310,10 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
                 return this["CssClasses"];
             }
         }
-        
+
+        /// <summary>
         /// Unsubscribe widget title shown when EmailAddress unsubscribe mode is selected.
         /// </summary>
-        /// <value>Unsubscribe</value>
         [ResourceEntry("UnsubscribeWidgetTitle",
             Value = "Unsubscribe",
             Description = "Unsubscribe widget title shown when EmailAddress unsubscribe mode is selected.",
@@ -423,9 +424,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
 
         #region Link tab resources
         /// <summary>
-        /// word: Insert dynamic data  
+        /// word: Insert dynamic data
         /// </summary>
-        /// <value>Insert dynamic data </value>
+        /// <value>Insert dynamic data</value>
         [ResourceEntry("InsertDynamicData",
             Value = "Insert dynamic data",
             Description = "word: Insert dynamic data",
@@ -474,16 +475,48 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         /// <summary>
         /// Unsubscribe widget description shown when EmailAddress unsubscribe mode is selected.
         /// </summary>
-        /// <value>Unsubscribe from our mailing list</value>
+        /// <value>Unsubscribe from our email newsletter</value>
         [ResourceEntry("UnsubscribeWidgetDescription",
             Value = "Unsubscribe from our email newsletter",
             Description = "Unsubscribe widget description shown when EmailAddress unsubscribe mode is selected.",
-            LastModified = "2015/06/16")]
+            LastModified = "2015/06/17")]
         public string UnsubscribeWidgetDescription
         {
             get
             {
                 return this["UnsubscribeWidgetDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Message shown when the newsletters module is deactivated
+        /// </summary>
+        /// <value>This widget doesn't work, because Newsletters module has been deactivated.</value>
+        [ResourceEntry("NewslettersModuleDeactivatedMessage",
+            Value = "This widget doesn't work, because Newsletters module has been deactivated.",
+            Description = "Message shown when the newsletters module is deactivated",
+            LastModified = "2015/06/17")]
+        public string NewslettersModuleDeactivatedMessage
+        {
+            get
+            {
+                return this["NewslettersModuleDeactivatedMessage"];
+            }
+        }
+
+        /// <summary>
+        /// word: Close
+        /// </summary>
+        /// <value>Close</value>
+        [ResourceEntry("Close",
+            Value = "Close",
+            Description = "word: Close",
+            LastModified = "2015/06/17")]
+        public string Close
+        {
+            get
+            {
+                return this["Close"];
             }
         }
     }

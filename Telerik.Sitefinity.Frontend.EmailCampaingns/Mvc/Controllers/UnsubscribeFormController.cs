@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
@@ -101,6 +102,16 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets the message shown when the newsletters module is deactivated.
+        /// </summary>
+        /// <value>The newsletters module deactivated message.</value>
+        [Browsable(false)]
+        public virtual string NewslettersModuleDeactivatedMessage
+        {
+            get { return Res.Get<UnsubscribeFormResources>().NewslettersModuleDeactivatedMessage; }
+        }
+
+        /// <summary>
         /// Gets the current HTTP context from the SystemManager.
         /// </summary>
         /// <value>The current HTTP context.</value>
@@ -125,6 +136,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             if (!this.IsLicensed)
             {
                 return this.Content(this.LicensingMessage);
+            }
+
+            if (!this.IsNewslettersModuleActivated())
+            {
+                return this.Content(this.NewslettersModuleDeactivatedMessage);
             }
 
             var context = this.CurrentHttpContext;
@@ -186,6 +202,17 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             this.Index().ExecuteResult(this.ControllerContext);
         }
 
+        #endregion
+
+        #region Virtual methods
+        /// <summary>
+        /// Determines whether the newsletters module is activated.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool IsNewslettersModuleActivated()
+        {
+            return EmailCampaignsExtensions.IsModuleActivated();
+        }
         #endregion
 
         #region Private fields and constants
