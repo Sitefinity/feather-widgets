@@ -563,7 +563,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="cssClassName">css class name</param>
         public void ApplyCssClasses(string cssClassName)
         {
-            HtmlAnchor moreOptions = this.EM.Widgets.WidgetDesignerContentScreen.MoreOptionsAnchor.AssertIsPresent("More options span");
+            HtmlAnchor moreOptions = this.EM.Widgets.WidgetDesignerContentScreen.MoreOptionsDiv.AssertIsPresent("More options span");
             moreOptions.Click();
             HtmlInputText cssClassesTextbox = this.EM.Widgets.WidgetDesignerContentScreen.CssClassesTextbox.AssertIsPresent("Css classes textbox");
             cssClassesTextbox.Text = cssClassName;

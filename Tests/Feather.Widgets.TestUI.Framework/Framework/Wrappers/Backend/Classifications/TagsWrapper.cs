@@ -26,22 +26,22 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifica
         /// <summary>
         /// Selects the tags template.
         /// </summary>
-        /// <param name="templateName">Name of the template.</param>
-        public void SelectTagsTemplate(TagsTemplates templateName)
+        /// <param name="template">The template.</param>
+        public void SelectTagsTemplate(TagsTemplates template)
         {
-            HtmlSelect listTemplateDropdown = this.EM.Classifications.TagsWidgetEditScreen.TagsTemplateDropdown.AssertIsPresent("Tags template dropdown");
-            listTemplateDropdown.SelectByText(templateName.ToString(), true);
+            HtmlSelect templateDropdown = this.EM.Classifications.TagsWidgetEditScreen.TagsTemplateDropdown.AssertIsPresent("Tags template dropdown");
+            templateDropdown.SelectByText(template.ToString(), true);
         }
 
         /// <summary>
         /// Verifies the selected tags template option.
         /// </summary>
-        /// <param name="templateName">Name of the template.</param>
-        public void VerifySelectedTagsTemplateOption(TagsTemplates templateName)
+        /// <param name="template">The template.</param>
+        public void VerifySelectedTagsTemplateOption(TagsTemplates template)
         {
             HtmlSelect optionsDropdown = this.EM.Classifications.TagsWidgetEditScreen.TagsTemplateDropdown.AssertIsPresent("Tags template dropdown");
 
-            Assert.AreEqual(templateName.ToString(), optionsDropdown.SelectedOption.Text);
+            Assert.AreEqual(template.ToString(), optionsDropdown.SelectedOption.Text);
         }
 
         /// <summary>

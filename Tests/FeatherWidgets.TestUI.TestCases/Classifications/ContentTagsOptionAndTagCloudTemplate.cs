@@ -33,7 +33,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 2);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + 3);
 
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetNameList);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(ListWidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton(0);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(ListTitle);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
@@ -72,7 +72,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         private const string WidgetName = "Tags";
         private const string TagTitle = "Tag";
         private const string ListItemTitle = "list item";
-        private const string WidgetNameList = "Lists";
+        private const string ListWidgetName = "Lists";
         private const string ListTitle = "Test list";
         private const string SelectedContentType = "List items";
         private readonly Dictionary<string, int> stylesTags = new Dictionary<string, int>()

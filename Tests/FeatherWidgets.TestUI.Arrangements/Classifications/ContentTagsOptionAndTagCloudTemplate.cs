@@ -31,9 +31,9 @@ namespace FeatherWidgets.TestUI.Arrangements
                 this.taxonomies.CreateTag(TaxonTitle + i);          
             }
 
-            this.CreateListItemsWithTags(ListItemTitle + 1, ListItemContent + 1, new List<string> { TaxonTitle + 1 });
-            this.CreateListItemsWithTags(ListItemTitle + 2, ListItemContent + 2, new List<string> { TaxonTitle + 2 });
-            this.CreateListItemsWithTags(ListItemTitle + 3, ListItemContent + 3, new List<string> { TaxonTitle + 2 });
+            this.CreateListItemWithTags(ListItemTitle + 1, ListItemContent + 1, new List<string> { TaxonTitle + 1 });
+            this.CreateListItemWithTags(ListItemTitle + 2, ListItemContent + 2, new List<string> { TaxonTitle + 2 });
+            this.CreateListItemWithTags(ListItemTitle + 3, ListItemContent + 3, new List<string> { TaxonTitle + 2 });
 
             ServerOperationsFeather.NewsOperations().CreatePublishedNewsItem(NewsTitle + 1, NewsContent, AuthorName, SourceName, null, new List<string> { TaxonTitle + 3 }, null);
         }
@@ -47,9 +47,10 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Pages().DeleteAllPages();
             this.listOperations.DeleteList(this.listId);
             this.taxonomies.ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
+            ServerOperations.News().DeleteAllNews();
         }
 
-        private void CreateListItemsWithTags(string title, string content, IEnumerable<string> tags)
+        private void CreateListItemWithTags(string title, string content, IEnumerable<string> tags)
         {
             Guid listItemId = Guid.NewGuid();
             this.listOperations.CreateListItem(listItemId, this.listId, title, content);

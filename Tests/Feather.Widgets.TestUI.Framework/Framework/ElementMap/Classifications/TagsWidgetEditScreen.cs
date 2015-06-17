@@ -21,7 +21,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications
         }
 
         /// <summary>
-        /// Gets Sort list item drop down.
+        /// Gets tags sort drop down.
         /// </summary>
         /// <value>Sorting drop down</value>
         public HtmlSelect SortDropdown

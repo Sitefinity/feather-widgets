@@ -36,18 +36,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classific
         /// <summary>
         /// Click tag title on the frontend
         /// </summary>
-        /// <param name="tagsTitle">Tag title</param>
-        public void ClickTagTitle(string tagsTitle)
+        /// <param name="tagTitle">The tag title</param>
+        public void ClickTagTitle(string tagTitle)
         {
             HtmlDiv frontendPageMainDiv = BAT.Wrappers().Frontend().Pages().PagesWrapperFrontend().GetPageContent();
 
             HtmlAnchor tagsAnchor = frontendPageMainDiv.Find
-                                                       .ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + tagsTitle)
+                                                       .ByExpression<HtmlAnchor>("tagname=a", "InnerText=" + tagTitle)
                                                        .AssertIsPresent("Tag with this title was not found");
 
             tagsAnchor.MouseClick();
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForUrl(tagsTitle.ToLower().Replace(" ", "%20"));
+            ActiveBrowser.WaitForUrl(tagTitle.ToLower().Replace(" ", "%20"));
         }
 
         /// <summary>

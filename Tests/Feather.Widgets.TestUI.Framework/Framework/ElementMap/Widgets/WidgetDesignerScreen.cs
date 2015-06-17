@@ -319,9 +319,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
         }
 
         /// <summary>
-        /// Gets More options anchor.
+        /// Gets More options div.
         /// </summary>
-        public HtmlAnchor MoreOptionsAnchor
+        public HtmlAnchor MoreOptionsDiv
         {
             get
             {
