@@ -157,7 +157,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
 
             if (subscribers.Count() == 0)
             {
-                error = Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList;
+                error = string.Format(Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList, email);
                 return false;
             }
 
@@ -186,7 +186,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
             }
             else
             {
-                error = Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList;
+                error = string.Format(Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList, email);
                 return false;
             }
         }

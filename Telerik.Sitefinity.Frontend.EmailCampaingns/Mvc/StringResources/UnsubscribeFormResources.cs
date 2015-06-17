@@ -267,10 +267,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         /// <summary>
         /// Message displayed to user who tries to unsubscribe from the campaign he or she does not belong to.
         /// </summary>
+        /// <value>{0} does not exist in our mailing list</value>
         [ResourceEntry("YouDontBelongToTheMailingList",
-            Value = "You don't belong to the mailing list and cannot unsubscribe.",
+            Value = "{0} does not exist in our mailing list",
             Description = "Message displayed to user who tries to unsubscribe from the campaign he or she does not belong to.",
-            LastModified = "2015/06/16")]
+            LastModified = "2015/06/17")]
         public string YouDontBelongToTheMailingList
         {
             get
