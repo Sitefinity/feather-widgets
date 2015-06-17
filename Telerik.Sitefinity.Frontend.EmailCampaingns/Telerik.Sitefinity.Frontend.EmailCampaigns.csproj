@@ -127,8 +127,8 @@
     <Compile Include="Mvc\Models\SubscribeForm\SubscribeFormViewModel.cs" />
     <Compile Include="Mvc\Models\SubscribeForm\ISubscribeFormModel.cs" />
     <Compile Include="Mvc\Models\SubscribeForm\SuccessfullySubmittedForm.cs" />
-    <Compile Include="Mvc\StringResources\SubscribeForm\SubscribeFormResources.cs" />
-    <Compile Include="Mvc\StringResources\SubscribeForm\StaticSubscribeFormControllerResources.cs" />
+    <Compile Include="Mvc\StringResources\SubscribeFormResources.cs" />
+    <Compile Include="Mvc\StringResources\StaticSubscribeFormControllerResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

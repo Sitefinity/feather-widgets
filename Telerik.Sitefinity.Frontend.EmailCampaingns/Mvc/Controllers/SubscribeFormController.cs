@@ -107,7 +107,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets custom the licensing message.If null the system will use a default message
+        /// Gets the custom licensing message. If null the system will use a default message
         /// </summary>
         /// <value>The licensing message.</value>
         [Browsable(false)]
@@ -144,10 +144,10 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <summary>
         /// Indexes the specified model.
         /// </summary>
-        /// <param name="model">The model.</param>
+        /// <param name="viewModel">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(SubscribeFormViewModel model)
+        public ActionResult Index(SubscribeFormViewModel viewModel)
         {
             if (!this.IsLicensed)
             {
@@ -157,18 +157,18 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 string error;
-                bool isSucceeded = this.Model.AddSubscriber(model, out error);
+                bool isSucceeded = this.Model.AddSubscriber(viewModel, out error);
 
                 this.ViewBag.Error = error;
                 this.ViewBag.IsSucceeded = isSucceeded;
 
                 if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
                 {
-                    return this.Redirect(model.RedirectPageUrl);
+                    return this.Redirect(viewModel.RedirectPageUrl);
                 }
             }
 
-            return this.View(this.TemplateName, model);
+            return this.View(this.TemplateName, viewModel);
         }
 
         /// <summary>

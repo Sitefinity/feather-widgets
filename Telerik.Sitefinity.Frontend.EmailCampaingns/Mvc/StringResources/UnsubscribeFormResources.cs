@@ -342,12 +342,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Unsubscribe  users to selected mailing lists
+        /// phrase: Unsubscribe users from selected mailing list
         /// </summary>
-        /// <value>Unsubscribe  users to selected mailing lists</value>
+        /// <value>Unsubscribe users from selected mailing list</value>
         [ResourceEntry("UsersUnSubscribeLists",
-            Value = "Unsubscribe  users to selected mailing lists",
-            Description = "phrase: Unsubscribe  users to selected mailing lists",
+            Value = "Unsubscribe users from selected mailing list",
+            Description = "phrase: Unsubscribe users from selected mailing list",
             LastModified = "2015/01/12")]
         public string UsersUnSubscribeLists
         {
