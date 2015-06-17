@@ -150,8 +150,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             if (!this.IsEmpty)
             {
                 var viewModel = this.Model.CreateViewModel();
+                var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
-                return this.View(this.TemplateName, viewModel);
+                return this.View(fullTemplateName, viewModel);
             }
 
             return null;
@@ -184,7 +185,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 }
             }
 
-            return this.View(this.TemplateName, viewModel);
+            var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
+            return this.View(fullTemplateName, viewModel);
         }
 
         /// <summary>
@@ -222,6 +225,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
         private ISubscribeFormModel model;
         private string templateName = "SubscribeForm";
+        private string templateNamePrefix = "SubscribeForm.";
         #endregion
     }
 }

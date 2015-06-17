@@ -137,7 +137,7 @@
     <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\UnsubscribeFormByEmailAddress.UnsubscribeForm.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubscribeForm\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubscribeForm\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\SubscribeForm\SubscribeForm.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SubscribeForm\SubscribeForm.SubscribeForm.cshtml" />
     <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\DesignerView.Simple.cshtml" />
     <None Include="packages.config" />
