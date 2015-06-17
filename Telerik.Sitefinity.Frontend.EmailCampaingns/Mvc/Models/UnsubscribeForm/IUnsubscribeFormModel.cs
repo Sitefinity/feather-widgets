@@ -90,7 +90,5 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// <param name="error">The error.</param>
         /// <returns>True if the user is successfully unsubscribed.</returns>
         bool Unsubscribe(string email, out string error);
-
-        ////TODO: add options for 'When the form is successfully submitted...'
     }
 }

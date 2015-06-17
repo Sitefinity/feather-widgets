@@ -174,8 +174,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
             if (hasUnsubscribedUser)
             {
                 newslettersManager.SaveChanges();
-                ////TODO: momchi asked for different message (see wireframes). is it possible?
-                this.Message = Res.Get<UnsubscribeFormResources>().UnsubscribedFromMailingListSuccessMessage;
+                this.Message = string.Format(Res.Get<UnsubscribeFormResources>().UnsubscribedFromMailingListSuccessMessage, email);
                 return true;
             }
             else
@@ -203,7 +202,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
                 if (isSubscribed)
                 {
                     newslettersManager.SaveChanges();
-                    this.Message = Res.Get<UnsubscribeFormResources>().SubscribeSuccessful;
+                    this.Message = string.Format(Res.Get<UnsubscribeFormResources>().SubscribeSuccessful, subscriber.Email);
                 }
             }
             else
