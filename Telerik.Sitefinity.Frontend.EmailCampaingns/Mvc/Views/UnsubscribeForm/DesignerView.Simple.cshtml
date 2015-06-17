@@ -1,0 +1,129 @@
+@model System.Web.UI.Control
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Newsletters.Composition;
+
+<div>
+    <div>
+        @Html.Resource("UnsubscribeBy")
+
+        <label for="emailAddress">
+            <input id="emailAddress" type="radio" ng-model="properties.UnsubscribeMode.PropertyValue" value="EmailAddress" />
+            @Html.Resource("EmailAddress")
+        </label>
+
+        <label for="link">
+            <input id="link" type="radio" ng-model="properties.UnsubscribeMode.PropertyValue" value="Link" />
+            @Html.Resource("Link") (@Html.Resource("IncludedInNewsletter"))
+        </label>
+    </div>
+
+    <div class="form-group" ng-show="properties.UnsubscribeMode.PropertyValue === 'EmailAddress'">
+        <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingMailingList")</div>
+
+        <strong>@Html.Resource("MailingList")</strong>
+        <div class="radio">
+            @Html.Resource("UsersUnSubscribeLists")
+            <sf-list-selector sf-mailing-list-selector
+                              sf-selected-item-id="properties.ListId.PropertyValue"
+                              sf-missing-selected-items="errors.missingSelectedItems"
+                              class="sf-filter-selector">
+            </sf-list-selector>
+        </div>
+
+        <strong>@Html.Resource("SuccessfullySubmittedLabel")</strong>
+        <div class="radio">
+            <label for="showAll">
+                <input id="showAll" type="radio" ng-model="properties.SuccessfullySubmittedForm.PropertyValue" value="ShowMessage" />
+                @Html.Resource("ShowMessageLabel")
+            </label>
+
+            <br />
+
+            <label for="specificPage">
+                <input id="specificPage" type="radio" ng-model="properties.SuccessfullySubmittedForm.PropertyValue" value="OpenSpecificPage" />
+                @Html.Resource("OpenSpecificPageLabel")
+            </label>
+            <div class="label-content">
+                <sf-list-selector sf-page-selector
+                                  sf-sortable="true"
+                                  sf-selected-item-id="properties.PageId.PropertyValue"
+                                  ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"></sf-list-selector>
+            </div>
+        </div>
+
+        <div class="form-group-list">
+            <h5>@Html.Resource("TemplateLabel")</h5>
+            <div class="form-group">
+                <div class="row">
+                    <select id="templateName" ng-model="properties.EmailAddressTemplateName.PropertyValue" class="form-control">
+                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByEmailAddress\.(?<viewName>[\w\s]*)$"))
+                        {
+                            <option value="@viewName"> @viewName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.EmailAddressCssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label for="cssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="cssClass" ng-model="properties.EmailAddressCssClass.PropertyValue" class="form-control" />
+            </div>
+        </expander>
+    </div>
+
+    <div class="form-group" ng-show="properties.UnsubscribeMode.PropertyValue === 'Link'">
+        <textarea ng-model="properties.Message.PropertyValue"></textarea>
+
+        <a href=""
+           sf-popover-html
+           sf-popover-placement="bottom"
+           sf-popover-content="
+                            <div style='width:500px'>
+                                <div style='float:left'><strong>@Html.Resource("CopyPaste")</strong></div>
+                                <div style='float:right'><strong>@Html.Resource("ToDsiplay")</strong></div>
+                                <br />
+                                <div>
+                                    @foreach (var tag in EmailCampaignsExtensions.GetMergedTags())
+                                    {
+                                        <div style="float:left">@tag.ComposedTag</div>
+                                        <div style="float:right">@tag.Title</div>
+                                        <br />
+                                    }
+                                </div>
+                            </div>
+                    "
+                    sf-popover-title="<strong>@Html.Resource("InsertDynamicData")</strong>"
+                >
+                   @Html.Resource("InsertDynamicData")
+                </a>
+
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <div class="form-group-list">
+                <h5>@Html.Resource("TemplateLabel")</h5>
+                <div class="form-group">
+                    <div class="row">
+                        <select id="templateName" ng-model="properties.LinkTemplateName.PropertyValue" class="form-control">
+                            @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByLink\.(?<viewName>[\w\s]*)$"))
+                                {
+                                <option value="@viewName"> @viewName</option>
+                                }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <style-dropdown selected-class="properties.LinkCssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+
+            <div class="form-group">
+                <label for="cssClass">@Html.Resource("CssClasses")</label>
+                <input type="text" id="cssClass" ng-model="properties.LinkCssClass.PropertyValue" class="form-control" />
+            </div>
+        </expander>
+    </div>
+</div>
