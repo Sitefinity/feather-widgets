@@ -1,7 +1,10 @@
 @model System.Web.UI.Control
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers
 
+@if (EmailCampaignsExtensions.IsModuleActivated())
+{
     <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingMailingList")</div>
 
     <div class="form-group">
@@ -66,3 +69,12 @@
         <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
     </div>
 </expander>
+}
+else
+{
+    <div class="alert alert-warning">@Html.Resource("NewslettersModuleDeactivatedMessage")</div>
+
+    <script type="text/ng-template" section="modal-footer">
+        <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>
+    </script>
+}

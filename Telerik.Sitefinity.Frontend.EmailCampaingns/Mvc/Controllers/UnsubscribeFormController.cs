@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -90,13 +92,23 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets custom the licensing message.If null the system will use a default message
+        /// Gets the custom licensing message. If null the system will use a default message
         /// </summary>
         /// <value>The licensing message.</value>
         [Browsable(false)]
         public virtual string LicensingMessage
         {
             get { return Res.Get<UnsubscribeFormResources>().ModuleNotLicensed; }
+        }
+
+        /// <summary>
+        /// Gets the message shown when the newsletters module is deactivated.
+        /// </summary>
+        /// <value>The newsletters module deactivated message.</value>
+        [Browsable(false)]
+        public virtual string NewslettersModuleDeactivatedMessage
+        {
+            get { return Res.Get<UnsubscribeFormResources>().NewslettersModuleDeactivatedMessage; }
         }
 
         /// <summary>
@@ -126,6 +138,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 return this.Content(this.LicensingMessage);
             }
 
+            if (!this.IsNewslettersModuleActivated())
+            {
+                return this.Content(this.NewslettersModuleDeactivatedMessage);
+            }
+
             var context = this.CurrentHttpContext;
             var page = context.CurrentHandler as Page;
 
@@ -150,21 +167,26 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <summary>
         /// Indexes the specified model.
         /// </summary>
-        /// <param name="model">The model.</param>
+        /// <param name="viewModel">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(UnsubscribeFormViewModel model)
+        public ActionResult Index(UnsubscribeFormViewModel viewModel)
         {
             if (this.ModelState.IsValid && this.Model.ListId != Guid.Empty)
             {
                 string error;
-                bool isSucceded = this.Model.Unsubscribe(model.Email, out error);
+                bool isSucceeded = this.Model.Unsubscribe(viewModel, out error);
 
                 this.ViewBag.Error = error;
-                this.ViewBag.IsSucceded = isSucceded;
+                this.ViewBag.IsSucceded = isSucceeded;
+
+                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                {
+                    return this.Redirect(viewModel.RedirectPageUrl);
+                }
             }
 
-            var viewModel = this.Model.CreateViewModel();
+            viewModel = this.Model.CreateViewModel();
 
             var fullTemplateName = this.emailAddressTemplateNamePrefix + this.EmailAddressTemplateName;
 
@@ -180,6 +202,17 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             this.Index().ExecuteResult(this.ControllerContext);
         }
 
+        #endregion
+
+        #region Virtual methods
+        /// <summary>
+        /// Determines whether the newsletters module is activated.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool IsNewslettersModuleActivated()
+        {
+            return EmailCampaignsExtensions.IsModuleActivated();
+        }
         #endregion
 
         #region Private fields and constants

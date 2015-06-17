@@ -4,6 +4,7 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
+        var emptyGuid = '00000000-0000-0000-0000-000000000000';
 
         propertyService.get()
             .then(function (data) {
@@ -18,6 +19,9 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+                    if (!$scope.properties.ListId.PropertyValue || $scope.properties.ListId.PropertyValue === emptyGuid)
+                        throw "Please select a mailing list";
+
                     if ($scope.properties.SuccessfullySubmittedForm.PropertyValue === 'ShowMessage') {
                         $scope.properties.PageId.PropertyValue = null;
                     }
