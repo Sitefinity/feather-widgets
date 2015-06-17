@@ -80,7 +80,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         /// </summary>
         /// <value><strong>Unsubscribe successful</strong> <br/> You have been successfully unsubscribed from our newsletter ({|Subscriber.Email|}) <br /> If you change your mind you can {|MergeContextItems.SubscribeLink|} to our newsletter again. <br /> Thank you.</value>
         [ResourceEntry("UnsubscribeMessageOnSuccess",
-            Value = "<strong>Unsubscribe successful</strong> <br/> You have been successfully unsubscribed from our newsletter ({|Subscriber.Email|}) <br /> If you change your mind you can {|MergeContextItems.SubscribeLink|} to our newsletter again. <br /> Thank you.",
+            Value = "You have been successfully unsubscribed from our newsletter ({|Subscriber.Email|}). \r\nIf you change your mind you can {|MergeContextItems.SubscribeLink|} to our newsletter again. \r\nThank you.",
             Description = "Unsubscribe message shown on success.",
             LastModified = "2015/06/15")]
         public string UnsubscribeMessageOnSuccess
@@ -268,7 +268,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         /// </summary>
         /// <value>You don't belong to the mailing list and cannot unsubscribe.</value>
         [ResourceEntry("YouDontBelongToTheMailingList",
-            Value = "You don't belong to the mailing list and cannot unsubscribe.",
+            Value = "User with this email is not part of the mailing list and cannot unsubscribe.",
             Description = "Message displayed to user who tries to unsubscribe from the campaign he or she does not belong to.",
             LastModified = "2015/06/16")]
         public string YouDontBelongToTheMailingList
