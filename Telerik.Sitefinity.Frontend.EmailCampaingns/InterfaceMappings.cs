@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns
 {
@@ -13,6 +14,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns
         /// </summary>
         public override void Load()
         {
+            Bind<IUnsubscribeFormModel>().To<UnsubscribeFormModel>();
             Bind<ISubscribeFormModel>().To<SubscribeFormModel>();
         }
     }

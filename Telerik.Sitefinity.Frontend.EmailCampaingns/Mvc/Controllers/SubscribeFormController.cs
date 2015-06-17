@@ -2,11 +2,14 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Licensing;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI;
@@ -21,7 +24,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
         CssClass = SubscribeFormController.WidgetIconCssClass)]
     [Localization(typeof(SubscribeFormResources))]
-    public class SubscribeFormController : Controller, ICustomWidgetVisualizationExtended
+    public class SubscribeFormController : Controller, ICustomWidgetVisualizationExtended, ILicensedControl
     {
         #region Properties
         /// <summary>
@@ -91,6 +94,38 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             get { return this.Model.SelectedMailingListId == Guid.Empty; }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance of the control is licensed.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance is licensed; otherwise, <c>false</c>.
+        /// </value>
+        [Browsable(false)]
+        public virtual bool IsLicensed
+        {
+            get { return LicenseState.CheckIsModuleLicensedInCurrentDomain(NewslettersModule.ModuleId); }
+        }
+
+        /// <summary>
+        /// Gets the custom licensing message. If null the system will use a default message
+        /// </summary>
+        /// <value>The licensing message.</value>
+        [Browsable(false)]
+        public virtual string LicensingMessage
+        {
+            get { return this.GetResource("ModuleNotLicensed"); }
+        }
+
+        /// <summary>
+        /// Gets the message shown when the newsletters module is deactivated.
+        /// </summary>
+        /// <value>The newsletters module deactivated message.</value>
+        [Browsable(false)]
+        public virtual string NewslettersModuleDeactivatedMessage
+        {
+            get { return this.GetResource("NewslettersModuleDeactivatedMessage"); }
+        }
         #endregion
 
         #region Actions
@@ -102,6 +137,16 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            if (!this.IsLicensed)
+            {
+                return this.Content(this.LicensingMessage);
+            }
+
+            if (!this.IsNewslettersModuleActivated())
+            {
+                return this.Content(this.NewslettersModuleDeactivatedMessage);
+            }
+
             if (!this.IsEmpty)
             {
                 var viewModel = this.Model.CreateViewModel();
@@ -115,26 +160,31 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// <summary>
         /// Indexes the specified model.
         /// </summary>
-        /// <param name="model">The model.</param>
+        /// <param name="viewModel">The model.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(SubscribeFormViewModel model)
+        public ActionResult Index(SubscribeFormViewModel viewModel)
         {
+            if (!this.IsLicensed)
+            {
+                return this.Content(this.LicensingMessage);
+            }
+
             if (ModelState.IsValid)
             {
                 string error;
-                bool isSucceeded = this.Model.AddSubscriber(model, out error);
+                bool isSucceeded = this.Model.AddSubscriber(viewModel, out error);
 
                 this.ViewBag.Error = error;
                 this.ViewBag.IsSucceeded = isSucceeded;
 
                 if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
                 {
-                    return this.Redirect(model.RedirectPageUrl);
+                    return this.Redirect(viewModel.RedirectPageUrl);
                 }
             }
 
-            return this.View(this.TemplateName, model);
+            return this.View(this.TemplateName, viewModel);
         }
 
         /// <summary>
@@ -145,6 +195,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             this.Index().ExecuteResult(this.ControllerContext);
         }
+
+        #endregion
 
         /// <summary>
         /// Gets the resource.
@@ -157,7 +209,14 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             return Res.Get(typeof(SubscribeFormResources), resourceName);
         }
 
-        #endregion
+        /// <summary>
+        /// Determines whether the newsletters module is activated.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool IsNewslettersModuleActivated()
+        {
+            return EmailCampaignsExtensions.IsModuleActivated();
+        }
 
         #region Private fields and constants
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
