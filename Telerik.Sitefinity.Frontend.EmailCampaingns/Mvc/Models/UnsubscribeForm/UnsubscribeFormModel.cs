@@ -20,6 +20,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         public UnsubscribeFormModel()
         {
             this.message = Res.Get<UnsubscribeFormResources>().UnsubscribeMessageOnSuccess;
+            this.widgetTitle = Res.Get<UnsubscribeFormResources>().UnsubscribeWidgetTitle;
+            this.widgetDescription = Res.Get<UnsubscribeFormResources>().UnsubscribeWidgetDescription;
         }
 
         #region Properties
@@ -31,12 +33,32 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         public string ProviderName { get; set; }
 
         /// <inheritDoc/>
-        public string WidgetTitle { get; set; }
-
+        public string WidgetTitle
+        {
+            get
+            {
+                return this.widgetTitle;
+            }
+            set
+            {
+                this.widgetTitle = value;
+            }
+        }
+        
         /// <inheritDoc/>
-        public string WidgetDescription { get; set; }
+        public string WidgetDescription
+        {
+            get
+            {
+                return this.widgetDescription;
+            }
 
-
+            set
+            {
+                this.widgetDescription = value;
+            }
+        }
+        
         /// <inheritDoc/>
         public string Message
         {
@@ -44,12 +66,10 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
             {
                 return this.message;
             }
+
             set
             {
-                if (this.message != value)
-                {
-                    this.message = value;
-                }
+                this.message = value;
             }
         }
 
@@ -70,62 +90,110 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
 
         #endregion
 
+        #region Public methods
+
         /// <inheritDoc/>
         public UnsubscribeFormViewModel CreateViewModel()
         {
             var viewModel = new UnsubscribeFormViewModel();
 
+            viewModel.Message = this.message;
+
             if (this.UnsubscribeMode == UnsubscribeMode.Link)
             {
-                viewModel.Message = this.message;
                 viewModel.CssClass = this.LinkCssClass;
+            }
+            else
+            {
+                viewModel.WidgetTitle = this.WidgetTitle;
+                viewModel.WidgetDescription = this.WidgetDescription;
+                viewModel.CssClass = this.EmailAddressCssClass;
             }
 
             return viewModel;
         }
 
-        public virtual void RemoveSubscriber(string subscriberId, string issueId, string subscribe)
+        /// <inheritDoc/>
+        public virtual void ExecuteAction(string subscriberId, string issueId, bool shouldSubscribe)
         {
-            if (this.UnsubscribeMode == UnsubscribeMode.Link)
+            var newslettersManager = NewslettersManager.GetManager(this.ProviderName);
+
+            var issueGuid = Guid.Empty;
+            var subscriberGuid = Guid.Empty;
+
+            if (!string.IsNullOrEmpty(subscriberId) && Guid.TryParse(subscriberId, out subscriberGuid)
+                && (!string.IsNullOrEmpty(issueId) && Guid.TryParse(issueId, out issueGuid)))
             {
-                var newslettersManager = NewslettersManager.GetManager(this.ProviderName);
-
-                var issueGuid = Guid.Empty;
-                var subscriberGuid = Guid.Empty;
-
-                if (!string.IsNullOrEmpty(subscriberId) && Guid.TryParse(subscriberId, out subscriberGuid)
-                    && (!string.IsNullOrEmpty(issueId) && Guid.TryParse(issueId, out issueGuid)))
+                Guid mailingListId = Guid.Empty;
+                var issue = newslettersManager.GetIssue(issueGuid);
+                if (issue != null)
                 {
-                    Guid mailingListId = Guid.Empty;
-                    var issue = newslettersManager.GetIssue(issueGuid);
-                    if (issue != null)
-                    {
-                        mailingListId = issue.List.Id;
-                    }
+                    mailingListId = issue.List.Id;
+                }
 
-                    var subscriber = newslettersManager.GetSubscriber(subscriberGuid);
-                    if (subscriber == null || mailingListId == Guid.Empty)
-                    {
-                        ////TODO: add error to the viewModel
-                        ////this.MessageControl.ShowNegativeMessage(Res.Get<NewslettersResources>().YouCannotUnsubscribe);
-                        return;
-                    }
-                    else
-                    {
-                        if (subscribe != null)
-                        {
-                            this.Subscribe(newslettersManager, subscriber, mailingListId);
-                        }
-                        else
-                        {
-                            this.Unsubscribe(newslettersManager, subscriber, mailingListId, issue);
-                        }
-                    }
+                var subscriber = newslettersManager.GetSubscriber(subscriberGuid);
+
+                if (shouldSubscribe)
+                {
+                    this.Subscribe(newslettersManager, subscriber, mailingListId);
+                }
+                else
+                {
+                    this.Unsubscribe(newslettersManager, subscriber, mailingListId, issue);
                 }
             }
         }
 
+        /// <inheritDoc/>
+        public virtual bool Unsubscribe(string email, out string error)
+        {
+            error = string.Empty;
+
+            var newslettersManager = NewslettersManager.GetManager(this.ProviderName);
+
+            email = email.ToLower();
+            IQueryable<Subscriber> subscribers = newslettersManager.GetSubscribers().Where(s => s.Email == email);
+
+            if (subscribers.Count() == 0)
+            {
+                error = Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList;
+                return false;
+            }
+
+            var hasUnsubscribedUser = false;
+
+            foreach (Subscriber subscriber in subscribers)
+            {
+                if (subscriber != null)
+                {
+                    var isUnsubscribed = newslettersManager.Unsubscribe(subscriber, this.ListId);
+                    hasUnsubscribedUser = hasUnsubscribedUser || isUnsubscribed;
+                }
+            }
+
+            if (hasUnsubscribedUser)
+            {
+                newslettersManager.SaveChanges();
+                ////TODO: momchi asked for different message (see wireframes). is it possible?
+                this.Message = Res.Get<UnsubscribeFormResources>().UnsubscribedFromMailingListSuccessMessage;
+                return true;
+            }
+            else
+            {
+                error = Res.Get<UnsubscribeFormResources>().YouDontBelongToTheMailingList;
+                return false;
+            }
+        }
+
+        #endregion
+
         #region Private methods
+        /// <summary>
+        /// Subscribes by the provided in the query string subscriber id and issue id.
+        /// </summary>
+        /// <param name="newslettersManager">The newsletters manager.</param>
+        /// <param name="subscriber">The subscriber.</param>
+        /// <param name="mailingListId">The issue's mailing list id.</param>
         private void Subscribe(NewslettersManager newslettersManager, Subscriber subscriber, Guid mailingListId)
         {
             // check if the user is already subscribed for the mailing list.
@@ -153,14 +221,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// <param name="issue">The issue.</param>
         private void Unsubscribe(NewslettersManager newslettersManager, Subscriber subscriber, Guid mailingListId, Campaign issue)
         {
-            //resolves the merge tags
-            var mergeContextItemsObject = new MergeContextItems();
-
-            var pageUri = SystemManager.CurrentHttpContext.Request.Url.PathAndQuery;
-            var subscribeAnchor = @"<a href=""{0}&subscribe={1}"">{2}</a>";
-            mergeContextItemsObject.SubscribeLink = subscribeAnchor.Arrange(pageUri, true, Res.Get<UnsubscribeFormResources>().SubscribeLink);
-            string resolvedMessageBody = Merger.MergeTags(this.Message, issue.List, issue, subscriber, mergeContextItemsObject);
-            this.Message = resolvedMessageBody;
+            this.Message = this.GetUnsubscribeSuccessfulMessage(subscriber, issue);
 
             var isUnsubscribed = newslettersManager.Unsubscribe(subscriber, mailingListId, issue);
             if (isUnsubscribed)
@@ -169,10 +230,31 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
             }
         }
 
+        /// <summary>
+        /// Resolves the unsubscribe successful message.
+        /// </summary>
+        /// <param name="subscriber">The subscriber.</param>
+        /// <param name="issue">The issue.</param>
+        /// <returns></returns>
+        private string GetUnsubscribeSuccessfulMessage(Subscriber subscriber, Campaign issue)
+        {
+            //resolves the merge tags
+            var mergeContextItemsObject = new MergeContextItems();
+
+            var pageUri = SystemManager.CurrentHttpContext.Request.Url.PathAndQuery;
+            var subscribeAnchor = @"<a href=""{0}&subscribe={1}"">{2}</a>";
+            mergeContextItemsObject.SubscribeLink = subscribeAnchor.Arrange(pageUri, true, Res.Get<UnsubscribeFormResources>().SubscribeLink);
+            string resolvedMessageBody = Merger.MergeTags(this.Message, issue.List, issue, subscriber, mergeContextItemsObject);
+
+            return resolvedMessageBody;
+        }
+        
         #endregion
 
         #region Private fields and constants
         private string message;
+        private string widgetTitle;
+        private string widgetDescription;
         #endregion
 
         /// <summary>

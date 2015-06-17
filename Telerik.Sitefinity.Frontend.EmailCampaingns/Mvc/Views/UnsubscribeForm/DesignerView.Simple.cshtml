@@ -58,7 +58,7 @@
             <div class="form-group">
                 <div class="row">
                     <select id="templateName" ng-model="properties.EmailAddressTemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^(?<viewName>UnsubscribeFormByAddress.*)$"))
+                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByEmailAddress\.(?<viewName>[\w\s]*)$"))
                         {
                             <option value="@viewName"> @viewName</option>
                         }
@@ -109,7 +109,7 @@
                 <div class="form-group">
                     <div class="row">
                         <select id="templateName" ng-model="properties.LinkTemplateName.PropertyValue" class="form-control">
-                            @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^(?<viewName>UnsubscribeFormByLink.*)$"))
+                            @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByLink\.(?<viewName>[\w\s]*)$"))
                                 {
                                 <option value="@viewName"> @viewName</option>
                                 }

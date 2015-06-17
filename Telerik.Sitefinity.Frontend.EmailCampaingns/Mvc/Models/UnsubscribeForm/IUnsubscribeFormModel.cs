@@ -75,8 +75,21 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// <returns></returns>
         UnsubscribeFormViewModel CreateViewModel();
 
-        ////TODO: rename the method. maybe call it in CreateViewModel and remove it from the model?
-        void RemoveSubscriber(string subscriberId, string issueId, string subscribe);
+        /// <summary>
+        /// Subscribes or unsubscribes a user from an issue's mailing list.
+        /// </summary>
+        /// <param name="subscriberId">The subscriber id.</param>
+        /// <param name="issueId">The issue id.</param>
+        /// <param name="shouldSubscribe">The should subscribe.</param>
+        void ExecuteAction(string subscriberId, string issueId, bool shouldSubscribe);
+
+        /// <summary>
+        /// Unsubscribes a user by specified email.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="error">The error.</param>
+        /// <returns>True if the user is successfully unsubscribed.</returns>
+        bool Unsubscribe(string email, out string error);
 
         ////TODO: add options for 'When the form is successfully submitted...'
     }
