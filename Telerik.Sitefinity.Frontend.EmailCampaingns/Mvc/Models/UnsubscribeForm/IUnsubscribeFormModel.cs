@@ -82,14 +82,14 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// <param name="issueId">The issue id.</param>
         /// <param name="shouldSubscribe">This value indicates whether to subscribe when executing the action.</param>
         void ExecuteAction(string subscriberId, string issueId, bool shouldSubscribe);
-
+        
         /// <summary>
-        /// Unsubscribes a user by specified email.
+        /// Unsubscribes the specified view model.
         /// </summary>
-        /// <param name="email">The email.</param>
+        /// <param name="viewModel">The view model.</param>
         /// <param name="error">The error.</param>
-        /// <returns>True if the user is successfully unsubscribed.</returns>
-        bool Unsubscribe(string email, out string error);
+        /// <returns></returns>
+        bool Unsubscribe(UnsubscribeFormViewModel viewModel, out string error);
 
         ////TODO: add options for 'When the form is successfully submitted...'
     }
