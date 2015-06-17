@@ -26,11 +26,13 @@
             <div>@Model.WidgetDescription</div>
             
             <div>
-                @Html.Resource("Email")
-                @Html.TextBoxFor(u => u.Email)
-                @Html.ValidationMessageFor(u => u.Email)
-
-                <strong><input type="submit" value="@Html.Resource("ButtonUnsubscribe")" /></strong>
+                <label>
+                    @Html.Resource("Email")
+                    @Html.TextBoxFor(u => u.Email)
+                    @Html.ValidationMessageFor(u => u.Email)
+                </label>
+        
+                <input type="submit" value="@Html.Resource("ButtonUnsubscribe")" />
             </div>
             
             if (ViewBag.Error != null)
@@ -38,8 +40,6 @@
                 <span>
                     @ViewBag.Error
                 </span>
-
-                <br />
             }
         }
     }
