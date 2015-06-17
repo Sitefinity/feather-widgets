@@ -53,15 +53,15 @@
             </div>
         </div>
 
-        <div class="form-group-list">
-            <h5>@Html.Resource("TemplateLabel")</h5>
-            <div class="form-group">
-                <div class="row">
-                    <select id="templateName" ng-model="properties.EmailAddressTemplateName.PropertyValue" class="form-control">
-                        @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByEmailAddress\.(?<viewName>[\w\s]*)$"))
-                        {
+        <div class="form-group">
+            <strong>@Html.Resource("TemplateLabel")</strong>
+            <div class="row">
+                <div class="col-md-6">
+                    <select id="emailAddressTemplateName" ng-model="properties.EmailAddressTemplateName.PropertyValue" class="form-control">
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByEmailAddress\.(?<viewName>[\w\s]*)$"))
+                         {
                             <option value="@viewName"> @viewName</option>
-                        }
+                         }
                     </select>
                 </div>
             </div>
@@ -101,15 +101,16 @@
                     sf-popover-title="<strong>@Html.Resource("InsertDynamicData")</strong>"
                 >
                    @Html.Resource("InsertDynamicData")
-                </a>
+            </a>
 
-        <expander expander-title='@Html.Resource("MoreOptions")'>
-            <div class="form-group-list">
-                <h5>@Html.Resource("TemplateLabel")</h5>
-                <div class="form-group">
-                    <div class="row">
-                        <select id="templateName" ng-model="properties.LinkTemplateName.PropertyValue" class="form-control">
-                            @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByLink\.(?<viewName>[\w\s]*)$"))
+            <expander expander-title='@Html.Resource("MoreOptions")'>
+
+            <div class="form-group">
+                <strong>@Html.Resource("TemplateLabel")</strong>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="linkTemplateName" ng-model="properties.LinkTemplateName.PropertyValue" class="form-control">
+                                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByLink\.(?<viewName>[\w\s]*)$"))
                                 {
                                 <option value="@viewName"> @viewName</option>
                                 }
@@ -117,7 +118,6 @@
                     </div>
                 </div>
             </div>
-
             <style-dropdown selected-class="properties.LinkCssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
