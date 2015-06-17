@@ -22,6 +22,10 @@
                     if (!$scope.properties.ListId.PropertyValue || $scope.properties.ListId.PropertyValue === emptyGuid)
                         throw "Please select a mailing list";
 
+                    if (!$scope.properties.PageId.PropertyValue || $scope.properties.PageId.PropertyValue === emptyGuid) {
+                        $scope.properties.SuccessfullySubmittedForm.PropertyValue = 'ShowMessage';
+                    }
+
                     if ($scope.properties.SuccessfullySubmittedForm.PropertyValue === 'ShowMessage') {
                         $scope.properties.PageId.PropertyValue = null;
                     }

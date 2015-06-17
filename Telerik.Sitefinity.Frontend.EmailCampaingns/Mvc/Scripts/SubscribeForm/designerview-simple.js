@@ -4,6 +4,7 @@
 
     angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         $scope.feedback.showLoadingIndicator = true;
+        var emptyGuid = '00000000-0000-0000-0000-000000000000';
 
         propertyService.get()
             .then(function (data) {
@@ -18,6 +19,11 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
+                    if (!$scope.properties.PageId.PropertyValue || $scope.properties.PageId.PropertyValue === emptyGuid)
+                    {
+                        $scope.properties.SuccessfullySubmittedForm.PropertyValue = 'ShowMessage';
+                    }
+
                     if ($scope.properties.SuccessfullySubmittedForm.PropertyValue === 'ShowMessage') {
                         $scope.properties.PageId.PropertyValue = null;
                     }
