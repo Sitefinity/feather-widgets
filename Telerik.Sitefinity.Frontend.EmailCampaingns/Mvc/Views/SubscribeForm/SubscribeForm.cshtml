@@ -24,6 +24,12 @@
     {
         using (Html.BeginFormSitefinity())
         {
+            <h1>@Html.Resource("Subscribe")</h1>
+        
+            <p>
+                @Html.Resource("SubscribeMail")
+            </p>
+            
             @Html.ValidationSummary(true)
             if (ViewBag.Error != null)
             {
@@ -31,19 +37,14 @@
                     @Model.Email @ViewBag.Error
                 </p>
             }
-
-            <h1>@Html.Resource("Subscribe")</h1>
-        
-            <p>
-                @Html.Resource("SubscribeMail")
-            </p>
-
           //Uncomment this if you want to show FirstName and LastName inputs
             @*
 
                 <div>
-                    @Html.Resource("FirstName") @Html.Resource("Optional")
-                    @Html.TextBoxFor(u => u.FirstName)
+                    <label>
+                        @Html.Resource("FirstName") @Html.Resource("Optional")
+                        @Html.TextBoxFor(u => u.FirstName)
+                    </label>
                 </div>
 
 
@@ -56,9 +57,11 @@
 
 
             <div>
-                @Html.Resource("Email")
-                @Html.TextBoxFor(u => u.Email)
-                @Html.ValidationMessageFor(u => u.Email)
+                <label>
+                    @Html.Resource("Email")
+                    @Html.TextBoxFor(u => u.Email)
+                    @Html.ValidationMessageFor(u => u.Email)
+                </label>
 
                 <div><input type="submit" value="@Html.Resource("ButtonSubscribe")" /></div>
             </div>
