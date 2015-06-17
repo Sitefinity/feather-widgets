@@ -6,7 +6,9 @@ using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Licensing;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI;
@@ -21,7 +23,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
         CssClass = SubscribeFormController.WidgetIconCssClass)]
     [Localization(typeof(SubscribeFormResources))]
-    public class SubscribeFormController : Controller, ICustomWidgetVisualizationExtended
+    public class SubscribeFormController : Controller, ICustomWidgetVisualizationExtended, ILicensedControl
     {
         #region Properties
         /// <summary>
@@ -91,6 +93,28 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             get { return this.Model.SelectedMailingListId == Guid.Empty; }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance of the control is licensed.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance is licensed; otherwise, <c>false</c>.
+        /// </value>
+        [Browsable(false)]
+        public virtual bool IsLicensed
+        {
+            get { return LicenseState.CheckIsModuleLicensedInCurrentDomain(NewslettersModule.ModuleId); }
+        }
+
+        /// <summary>
+        /// Gets custom the licensing message.If null the system will use a default message
+        /// </summary>
+        /// <value>The licensing message.</value>
+        [Browsable(false)]
+        public virtual string LicensingMessage
+        {
+            get { return this.GetResource("ModuleNotLicensed"); }
+        }
         #endregion
 
         #region Actions
@@ -102,6 +126,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            if (!this.IsLicensed)
+            {
+                return this.Content(this.LicensingMessage);
+            }
+
             var viewModel = this.Model.CreateViewModel();
 
             return this.View(this.TemplateName, viewModel);
@@ -115,6 +144,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(SubscribeFormViewModel model)
         {
+            if (!this.IsLicensed)
+            {
+                return this.Content(this.LicensingMessage);
+            }
+
             if (ModelState.IsValid)
             {
                 string error;
@@ -141,6 +175,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             this.Index().ExecuteResult(this.ControllerContext);
         }
 
+        #endregion
+
         /// <summary>
         /// Gets the resource.
         /// </summary>
@@ -151,8 +187,6 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         {
             return Res.Get(typeof(SubscribeFormResources), resourceName);
         }
-
-        #endregion
 
         #region Private fields and constants
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";

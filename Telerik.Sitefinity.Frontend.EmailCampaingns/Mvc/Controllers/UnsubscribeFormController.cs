@@ -8,6 +8,9 @@ using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Licensing;
+using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
@@ -22,7 +25,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         SectionName = ToolboxesConfig.NewslettersToolboxSectionName,
         CssClass = UnsubscribeFormController.WidgetIconCssClass)]
     [Localization(typeof(UnsubscribeFormResources))]
-    public class UnsubscribeFormController : Controller
+    public class UnsubscribeFormController : Controller, ILicensedControl
     {
         #region Properties
         /// <summary>
@@ -75,6 +78,28 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         }
 
         /// <summary>
+        /// Gets a value indicating whether this instance of the control is licensed.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance is licensed; otherwise, <c>false</c>.
+        /// </value>
+        [Browsable(false)]
+        public virtual bool IsLicensed
+        {
+            get { return LicenseState.CheckIsModuleLicensedInCurrentDomain(NewslettersModule.ModuleId); }
+        }
+
+        /// <summary>
+        /// Gets custom the licensing message.If null the system will use a default message
+        /// </summary>
+        /// <value>The licensing message.</value>
+        [Browsable(false)]
+        public virtual string LicensingMessage
+        {
+            get { return Res.Get<UnsubscribeFormResources>().ModuleNotLicensed; }
+        }
+
+        /// <summary>
         /// Gets the current HTTP context from the SystemManager.
         /// </summary>
         /// <value>The current HTTP context.</value>
@@ -96,10 +121,10 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            ////TODO: if module is deactivated or the module is not licensed show error
-
-            ////TODO: delete this. it is for testing purposes
-            this.Model.UnsubscribeMode = UnsubscribeMode.Link;
+            if (!this.IsLicensed)
+            {
+                return this.Content(this.LicensingMessage);
+            }
 
             var context = this.CurrentHttpContext;
             var page = context.CurrentHandler as Page;
@@ -114,9 +139,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             }
 
             var viewModel = this.Model.CreateViewModel();
-            
+
             var fullTemplateName = this.model.UnsubscribeMode == UnsubscribeMode.Link ?
-                                            this.linkTemplateNamePrefix + this.LinkTemplateName : 
+                                            this.linkTemplateNamePrefix + this.LinkTemplateName :
                                             this.emailAddressTemplateNamePrefix + this.EmailAddressTemplateName;
 
             return this.View(fullTemplateName, viewModel);

@@ -14,20 +14,29 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
     /// </summary>
     public class UnsubscribeFormModel : IUnsubscribeFormModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnsubscribeFormModel" /> class.
+        /// </summary>
+        public UnsubscribeFormModel()
+        {
+            this.message = Res.Get<UnsubscribeFormResources>().UnsubscribeMessageOnSuccess;
+        }
+
         #region Properties
-        
+
         /// <inheritDoc/>
         public Guid ListId { get; set; }
-        
+
         /// <inheritDoc/>
         public string ProviderName { get; set; }
-        
+
         /// <inheritDoc/>
         public string WidgetTitle { get; set; }
-        
+
         /// <inheritDoc/>
         public string WidgetDescription { get; set; }
-        
+
+
         /// <inheritDoc/>
         public string Message
         {
@@ -43,36 +52,39 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
                 }
             }
         }
-        
+
         /// <inheritDoc/>
         public UnsubscribeMode UnsubscribeMode { get; set; }
-        
+
+        /// <inheritDoc/>
+        public SuccessfullySubmittedForm SuccessfullySubmittedForm { get; set; }
+
+        /// <inheritDoc/>
+        public Guid PageId { get; set; }
+
         /// <inheritDoc/>
         public string LinkCssClass { get; set; }
-        
+
         /// <inheritDoc/>
         public string EmailAddressCssClass { get; set; }
-        
+
         #endregion
-        
+
         /// <inheritDoc/>
         public UnsubscribeFormViewModel CreateViewModel()
         {
             var viewModel = new UnsubscribeFormViewModel();
-            
+
             if (this.UnsubscribeMode == UnsubscribeMode.Link)
             {
                 viewModel.Message = this.message;
                 viewModel.CssClass = this.LinkCssClass;
-
-
             }
-            
+
             return viewModel;
         }
 
-
-        public void RemoveSubscriber(string subscriberId, string issueId, string subscribe)
+        public virtual void RemoveSubscriber(string subscriberId, string issueId, string subscribe)
         {
             if (this.UnsubscribeMode == UnsubscribeMode.Link)
             {
@@ -114,7 +126,6 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         }
 
         #region Private methods
-
         private void Subscribe(NewslettersManager newslettersManager, Subscriber subscriber, Guid mailingListId)
         {
             // check if the user is already subscribed for the mailing list.
@@ -161,16 +172,14 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         #endregion
 
         #region Private fields and constants
-
-        private string message = Res.Get<UnsubscribeFormResources>().UnsubscribeMessageOnSuccess;
-
+        private string message;
         #endregion
 
         /// <summary>
         /// Helper class for merge context
         /// </summary>
         /// <remarks></remarks>
-        class MergeContextItems
+        private class MergeContextItems
         {
             /// <summary>
             /// Gets or sets the subscribe link.

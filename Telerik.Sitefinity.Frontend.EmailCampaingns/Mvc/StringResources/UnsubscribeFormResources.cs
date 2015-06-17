@@ -138,5 +138,246 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
                 return this["SubscribeLink"];
             }
         }
+
+        /// <summary>
+        /// word: Unsubscribe by
+        /// </summary>
+        /// <value>subscribe</value>
+        [ResourceEntry("UnsubscribeBy",
+            Value = "Unsubscribe by",
+            Description = "word: Unsubscribe by",
+            LastModified = "2015/06/15")]
+        public string UnsubscribeBy
+        {
+            get
+            {
+                return this["UnsubscribeBy"];
+            }
+        }
+
+        /// <summary>
+        /// word: Email address
+        /// </summary>
+        /// <value>Email address</value>
+        [ResourceEntry("EmailAddress",
+            Value = "Email address",
+            Description = "word: Email address",
+            LastModified = "2015/06/15")]
+        public string EmailAddress
+        {
+            get
+            {
+                return this["EmailAddress"];
+            }
+        }
+
+        /// <summary>
+        /// word: Link 
+        /// </summary>
+        /// <value>Link</value>
+        [ResourceEntry("Link",
+            Value = "Link",
+            Description = "word: Link",
+            LastModified = "2015/06/15")]
+        public string Link
+        {
+            get
+            {
+                return this["Link"];
+            }
+        }
+
+        /// <summary>
+        /// word: included in newsletter 
+        /// </summary>
+        /// <value>included in newsletter</value>
+        [ResourceEntry("IncludedInNewsletter",
+            Value = "included in newsletter",
+            Description = "word: Link",
+            LastModified = "2015/06/15")]
+        public string IncludedInNewsletter
+        {
+            get
+            {
+                return this["IncludedInNewsletter"];
+            }
+        }
+
+        #region Email address tab resources
+        /// <summary>
+        /// Gets phrase : Template
+        /// </summary>
+        [ResourceEntry("TemplateLabel",
+            Value = "Template",
+            Description = "The phrase: Template",
+            LastModified = "2015/05/19")]
+        public string TemplateLabel
+        {
+            get
+            {
+                return this["TemplateLabel"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : CSS classes
+        /// </summary>
+        [ResourceEntry("CssClasses",
+            Value = "CSS classes",
+            Description = "phrase : CSS classes",
+            LastModified = "2015/04/21")]
+        public string CssClasses
+        {
+            get
+            {
+                return this["CssClasses"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Mailing lists
+        /// </summary>
+        /// <value>Mailing lists</value>
+        [ResourceEntry("MailingList",
+            Value = "Mailing lists",
+            Description = "phrase: Mailing lists",
+            LastModified = "2015/01/12")]
+        public string MailingList
+        {
+            get
+            {
+                return this["MailingList"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Unsubscribe  users to selected mailing lists
+        /// </summary>
+        /// <value>Unsubscribe  users to selected mailing lists</value>
+        [ResourceEntry("UsersUnSubscribeLists",
+            Value = "Unsubscribe  users to selected mailing lists",
+            Description = "phrase: Unsubscribe  users to selected mailing lists",
+            LastModified = "2015/01/12")]
+        public string UsersUnSubscribeLists
+        {
+            get
+            {
+                return this["UsersUnSubscribeLists"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: When the form is successfully submitted...
+        /// </summary>
+        /// <value>When the form is successfully submitted...</value>
+        [ResourceEntry("SuccessfullySubmittedLabel",
+            Value = "When the form is successfully submitted...",
+            Description = "phrase: When the form is successfully submitted...",
+            LastModified = "2015/01/12")]
+        public string SuccessfullySubmittedLabel
+        {
+            get
+            {
+                return this["SuccessfullySubmittedLabel"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Show message
+        /// </summary>
+        /// <value>Show message</value>
+        [ResourceEntry("ShowMessageLabel",
+            Value = "Show message",
+            Description = "phrase: Show message",
+            LastModified = "2015/01/12")]
+        public string ShowMessageLabel
+        {
+            get
+            {
+                return this["ShowMessageLabel"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: Open a specially prepared page...
+        /// </summary>
+        /// <value>Open a specially prepared page...</value>
+        [ResourceEntry("OpenSpecificPageLabel",
+            Value = "Open a specially prepared page...",
+            Description = "phrase: Open a specially prepared page...",
+            LastModified = "2015/01/12")]
+        public string OpenSpecificPageLabel
+        {
+            get
+            {
+                return this["OpenSpecificPageLabel"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : More options
+        /// </summary>
+        [ResourceEntry("MoreOptions",
+            Value = "More options",
+            Description = "phrase : More options",
+            LastModified = "2015/04/21")]
+        public string MoreOptions
+        {
+            get
+            {
+                return this["MoreOptions"];
+            }
+        }
+        #endregion
+
+        #region Link tab resources
+        /// <summary>
+        /// word: Insert dynamic data  
+        /// </summary>
+        /// <value>Insert dynamic data </value>
+        [ResourceEntry("InsertDynamicData",
+            Value = "Insert dynamic data",
+            Description = "word: Insert dynamic data",
+            LastModified = "2015/06/15")]
+        public string InsertDynamicData
+        {
+            get
+            {
+                return this["InsertDynamicData"];
+            }
+        }
+
+        /// <summary>
+        /// word: Copy / paste in the text...
+        /// </summary>
+        /// <value>Copy / paste in the text...</value>
+        [ResourceEntry("CopyPaste",
+            Value = "Copy / paste in the text...",
+            Description = "word: Copy / paste in the text...",
+            LastModified = "2015/06/15")]
+        public string CopyPaste
+        {
+            get
+            {
+                return this["CopyPaste"];
+            }
+        }
+
+        /// <summary>
+        /// word: to display...
+        /// </summary>
+        /// <value>to display...</value>
+        [ResourceEntry("ToDsiplay",
+            Value = "to display...",
+            Description = "word: to display...",
+            LastModified = "2015/06/15")]
+        public string ToDsiplay
+        {
+            get
+            {
+                return this["ToDsiplay"];
+            }
+        }
+        #endregion
     }
 }

@@ -430,6 +430,21 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
                 return this["SuccessfulSubscription"];
             }
         }
+
+        /// <summary>
+        /// phrase: Email Campaigns functionality is disabled since the Email Campaigns module is not licensed.
+        /// </summary>
+        [ResourceEntry("ModuleNotLicensed",
+            Value = "Email Campaigns functionality is disabled since the Email Campaigns module is not licensed.",
+            Description = "Module Not Licensed message",
+            LastModified = "2012-01-05")]
+        public string ModuleNotLicensed
+        {
+            get
+            {
+                return this["ModuleNotLicensed"];
+            }
+        }
         #endregion
     }
 }

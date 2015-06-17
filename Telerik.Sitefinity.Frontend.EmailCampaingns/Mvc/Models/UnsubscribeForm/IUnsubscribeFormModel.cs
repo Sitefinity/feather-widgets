@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using Telerik.Sitefinity.Modules.Newsletters.Composition;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
 {
@@ -38,6 +40,18 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// Determines how to unsubscribe the user, by entering an e-mail address or by link included in a newsletter.
         /// </summary>
         UnsubscribeMode UnsubscribeMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the page id.
+        /// </summary>
+        /// <value>The page id.</value>
+        Guid PageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the successfully submitted form.
+        /// </summary>
+        /// <value>The successfully submitted form.</value>
+        SuccessfullySubmittedForm SuccessfullySubmittedForm { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget when Link unsubscribe mode is selected.
