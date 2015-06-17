@@ -1,6 +1,6 @@
 ; (function ($) {
     'use strict';
-	
+
     /*
         Rest Api
     */
@@ -143,7 +143,7 @@
             Properties
         */
         isUserAuthenticated: false,
-		hasUserReviewed: false,
+        hasUserReviewed: false,
         isSelectedSortButtonCssClass: 'selected',
 
         getOrInitializeProperty: function (property, sfRole) {
@@ -272,13 +272,14 @@
         */
         attachCommentMessage: function (element, message) {
             if (element && message) {
-                if (message.length < this.settings.commentsTextMaxLength) {
-                    element.text(message);
+                var rawText = message.replace(/<[^>]*>/ig, ' ');
+                if (rawText.length < this.settings.commentsTextMaxLength) {
+                    element.html(message);
                 }
                 else {
-                    element.text(message.substr(0, this.settings.commentsTextMaxLength));
-                    element.append($('<span />').hide().text(message.substr(this.settings.commentsTextMaxLength)));
-                    element.append($('<a href="#" data-sf-role="comments-read-full-comment-button" />').text(this.settings.useReviews ? this.resources.readFullReview : this.resources.readFullComment));
+                    element.append($('<p data-sf-role="comments-read-substr-comment-header" />').html(rawText.substr(0, this.settings.commentsTextMaxLength)));
+                    element.append($('<span />').hide().html(message));
+                    element.append($('<a href="#" data-sf-role="comments-read-full-comment-button" />').html(this.settings.useReviews ? this.resources.readFullReview : this.resources.readFullComment));
                 }
             }
         },
@@ -335,7 +336,7 @@
             this.commentsTotalCount().toggle(this.allCommentsCount > 0).text(this.allCommentsCount);
 
             // Comments write comment button
-			// Hide when user submits review
+            // Hide when user submits review
             this.newCommentFormButton().css('display', this.allCommentsCount > 0 && !(this.settings.useReviews && this.hasUserReviewed) ? 'inline-block' : 'none');
 
             // Comments sort buttons
@@ -344,10 +345,10 @@
 
             // Comments load more button
             this.commentsLoadMoreButton().css('display', this.allCommentsCount > Math.max(this.commentsTakenSoFar, this.settings.commentsPerPage) ? 'inline-block' : 'none');
-            
+
             // Hide comments count from the count action.
             this.getElementByDataSfRole("comments-count-list-wrapper").toggle(this.allCommentsCount !== 0);
-			this.getElementByDataSfRole("comments-count-anchor").hide();
+            this.getElementByDataSfRole("comments-count-anchor").hide();
         },
 
         loadComments: function (skip, take, newerThan) {
@@ -504,7 +505,7 @@
             if (this.settings.useReviews) {
                 this.newCommentForm().hide();
                 this.newCommentFormButton().hide();
-				this.hasUserReviewed = true;
+                this.hasUserReviewed = true;
 
                 var textToShow = this.settings.requiresApproval ? this.newCommentPendingApprovalMessage().text() : this.resources.thankYouReviewSubmited;
 
@@ -628,7 +629,7 @@
                         // Unlogged users can not subscribe/unsubscribe
                         self.commentsSubscribeText().hide();
                         self.commentsSubscribeButton().hide();
-                        
+
                         if (self.settings.requiresAuthentication) {
                             self.newCommentForm().hide();
                             self.newCommentRequiresAuthentication().show();
@@ -702,7 +703,7 @@
                     self.newCommentFormButton().hide();
                     self.newReviewFormReplacement().show();
                     self.newCommentRequiresAuthentication().hide();
-					self.hasUserReviewed = true;
+                    self.hasUserReviewed = true;
                 }
             });
         },
@@ -719,6 +720,7 @@
             self.commentsContainer().on('click', '[data-sf-role="comments-read-full-comment-button"]', function (e) {
                 if (e && e.target) {
                     $(e.target).hide().siblings().show();
+                    $(e.target).siblings('[data-sf-role="comments-read-substr-comment-header"]').hide();
                     return false;
                 }
             });
