@@ -107,7 +107,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets custom the licensing message.If null the system will use a default message
+        /// Gets the custom licensing message. If null the system will use a default message
         /// </summary>
         /// <value>The licensing message.</value>
         [Browsable(false)]

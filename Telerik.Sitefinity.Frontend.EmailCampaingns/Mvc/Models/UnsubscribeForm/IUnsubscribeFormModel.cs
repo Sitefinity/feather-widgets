@@ -80,7 +80,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         /// </summary>
         /// <param name="subscriberId">The subscriber id.</param>
         /// <param name="issueId">The issue id.</param>
-        /// <param name="shouldSubscribe">The should subscribe.</param>
+        /// <param name="shouldSubscribe">This value indicates whether to subscribe when executing the action.</param>
         void ExecuteAction(string subscriberId, string issueId, bool shouldSubscribe);
 
         /// <summary>
