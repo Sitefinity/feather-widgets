@@ -26,6 +26,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         public string WidgetDescription { get; set; }
 
         /// <summary>
+        /// Gets or sets the redirect page URL.
+        /// </summary>
+        /// <value>The redirect page URL.</value>
+        public string RedirectPageUrl { get; set; }
+
+        /// <summary>
         /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.
         /// </summary>
         /// <value>

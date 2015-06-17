@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Newsletters.Composition;
@@ -145,13 +146,13 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
         }
 
         /// <inheritDoc/>
-        public virtual bool Unsubscribe(string email, out string error)
+        public virtual bool Unsubscribe(UnsubscribeFormViewModel viewModel, out string error)
         {
             error = string.Empty;
 
             var newslettersManager = NewslettersManager.GetManager(this.ProviderName);
 
-            email = email.ToLower();
+            string email = viewModel.Email.ToLower();
             IQueryable<Subscriber> subscribers = newslettersManager.GetSubscribers().Where(s => s.Email == email);
 
             if (subscribers.Count() == 0)
@@ -174,6 +175,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
             if (hasUnsubscribedUser)
             {
                 newslettersManager.SaveChanges();
+
+                if (this.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                {
+                    viewModel.RedirectPageUrl = HyperLinkHelpers.GetFullPageUrl(this.PageId);
+                }
+
                 ////TODO: momchi asked for different message (see wireframes). is it possible?
                 this.Message = Res.Get<UnsubscribeFormResources>().UnsubscribedFromMailingListSuccessMessage;
                 return true;

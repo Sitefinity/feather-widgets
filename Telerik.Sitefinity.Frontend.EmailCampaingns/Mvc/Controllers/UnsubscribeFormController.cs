@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -158,10 +159,15 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             if (this.ModelState.IsValid && this.Model.ListId != Guid.Empty)
             {
                 string error;
-                bool isSucceded = this.Model.Unsubscribe(model.Email, out error);
+                bool isSucceeded = this.Model.Unsubscribe(model, out error);
 
                 this.ViewBag.Error = error;
-                this.ViewBag.IsSucceded = isSucceded;
+                this.ViewBag.IsSucceded = isSucceeded;
+
+                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                {
+                    return this.Redirect(model.RedirectPageUrl);
+                }
             }
 
             var viewModel = this.Model.CreateViewModel();
