@@ -102,9 +102,14 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var viewModel = this.Model.CreateViewModel();
+            if (!this.IsEmpty)
+            {
+                var viewModel = this.Model.CreateViewModel();
 
-            return this.View(this.TemplateName, viewModel);
+                return this.View(this.TemplateName, viewModel);
+            }
+
+            return null;
         }
 
         /// <summary>

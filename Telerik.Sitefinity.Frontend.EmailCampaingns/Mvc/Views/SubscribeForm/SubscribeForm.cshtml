@@ -13,41 +13,40 @@
 <div class="@Model.CssClass">
     @if (ViewBag.IsSucceeded == true)
     {
-        <strong>@Html.Resource("ThankYou")</strong>
-        <br />
-        <span>
+        <h1>@Html.Resource("ThankYou")</h1>
+
+        <p>
             @Html.Resource("ThankYouMessage") (@Model.Email)
-        </span>
+        </p>
     }
 
     else
     {
         using (Html.BeginFormSitefinity())
         {
+            <h1>@Html.Resource("Subscribe")</h1>
+        
+            <p>
+                @Html.Resource("SubscribeMail")
+            </p>
+            
             @Html.ValidationSummary(true)
             if (ViewBag.Error != null)
             {
-                <span>
+                <p>
                     @Model.Email @ViewBag.Error
-                </span>
-
-                <br />
+                </p>
             }
-
-            <strong>@Html.Resource("Subscribe")</strong>
-            <br />
-            <span>
-                @Html.Resource("SubscribeMail")
-            </span>
-
-            @*<br />
+          //Uncomment this if you want to show FirstName and LastName inputs
+            @*
 
                 <div>
-                    @Html.Resource("FirstName") @Html.Resource("Optional")
-                    @Html.TextBoxFor(u => u.FirstName)
+                    <label>
+                        @Html.Resource("FirstName") @Html.Resource("Optional")
+                        @Html.TextBoxFor(u => u.FirstName)
+                    </label>
                 </div>
 
-                <br />
 
                 <div>
                     <label>
@@ -56,14 +55,15 @@
                     </label>
                 </div>*@
 
-            <br />
 
             <div>
-                @Html.Resource("Email")
-                @Html.TextBoxFor(u => u.Email)
-                @Html.ValidationMessageFor(u => u.Email)
+                <label>
+                    @Html.Resource("Email")
+                    @Html.TextBoxFor(u => u.Email)
+                    @Html.ValidationMessageFor(u => u.Email)
+                </label>
 
-                <strong><input type="submit" value="@Html.Resource("ButtonSubscribe")" /></strong>
+                <div><input type="submit" value="@Html.Resource("ButtonSubscribe")" /></div>
             </div>
         }
     }
