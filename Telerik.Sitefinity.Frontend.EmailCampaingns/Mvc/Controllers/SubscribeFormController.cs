@@ -178,14 +178,22 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
                 this.ViewBag.Error = error;
                 this.ViewBag.IsSucceeded = isSucceeded;
+                this.ViewBag.Email = viewModel.Email;
 
-                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
+                if (isSucceeded)
                 {
-                    return this.Redirect(viewModel.RedirectPageUrl);
+                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
+                    {
+                        return this.Redirect(viewModel.RedirectPageUrl);
+                    }
+
+                    this.ModelState.Clear();
                 }
             }
 
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
+            viewModel = this.Model.CreateViewModel();
 
             return this.View(fullTemplateName, viewModel);
         }
