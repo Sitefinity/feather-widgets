@@ -17,9 +17,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
-        TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ContentBlock),
-        TestCategory(FeatherTestCategories.LinkSelector), Ignore]
+        TestCategory(FeatherTestCategories.LinkSelector)]
         public void LinkSelectorInsertLinkToWebPageOverSelectedImage()
         { 
             BAT.Macros().NavigateTo().Pages();
