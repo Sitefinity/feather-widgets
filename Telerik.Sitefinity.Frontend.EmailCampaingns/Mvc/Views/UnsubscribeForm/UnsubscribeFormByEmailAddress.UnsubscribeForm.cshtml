@@ -12,8 +12,9 @@
 
 <div class="@Model.CssClass">
     @if (ViewBag.IsSucceded == true)
-    {
-        <span>@Html.Raw(Model.Message)</span>
+        
+    {   <h3>@Html.Resource("UnsubscribeSuccessful")</h3> 
+        <div>@Html.Raw(Model.Message)</div>
     }
     else
     {
@@ -23,23 +24,24 @@
         
             <h3>@Model.WidgetTitle</h3>
             
-            <div>@Model.WidgetDescription</div>
+            <p>@Model.WidgetDescription</p>
             
             <div>
                 <label>
                     @Html.Resource("Email")
                     @Html.TextBoxFor(u => u.Email)
-                    @Html.ValidationMessageFor(u => u.Email)
                 </label>
-        
                 <input type="submit" value="@Html.Resource("ButtonUnsubscribe")" />
+
+                @Html.ValidationMessageFor(u => u.Email)
+
             </div>
             
-            if (ViewBag.Error != null)
+            if (!string.IsNullOrEmpty(ViewBag.Error))
             {
-                <span>
+                <div>
                     @ViewBag.Error
-                </span>
+                </div>
             }
         }
     }

@@ -214,7 +214,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm
             }
             else
             {
-                this.Message = Res.Get<UnsubscribeFormResources>().EmailExistsInTheMailingList;
+                // if the subscriber has already been subscribed, show success message
+                this.Message = string.Format(Res.Get<UnsubscribeFormResources>().SubscribeSuccessful, subscriber.Email);
             }
         }
 

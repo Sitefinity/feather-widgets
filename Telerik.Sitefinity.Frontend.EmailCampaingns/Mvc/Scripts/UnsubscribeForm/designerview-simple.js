@@ -19,17 +19,19 @@
             })
             .then(function () {
                 $scope.feedback.savingHandlers.push(function () {
-                    if (!$scope.properties.ListId.PropertyValue || $scope.properties.ListId.PropertyValue === emptyGuid)
-                        throw "Please select a mailing list";
+                    if ($scope.properties.UnsubscribeMode.PropertyValue === 'EmailAddress') {
+                        if (!$scope.properties.ListId.PropertyValue || $scope.properties.ListId.PropertyValue === emptyGuid)
+                            throw "Please select a mailing list";
 
-                    if (!$scope.properties.PageId.PropertyValue || $scope.properties.PageId.PropertyValue === emptyGuid) {
-                        $scope.properties.SuccessfullySubmittedForm.PropertyValue = 'ShowMessage';
-                    }
+                        if (!$scope.properties.PageId.PropertyValue || $scope.properties.PageId.PropertyValue === emptyGuid) {
+                            $scope.properties.SuccessfullySubmittedForm.PropertyValue = 'ShowMessage';
+                        }
 
-                    if ($scope.properties.SuccessfullySubmittedForm.PropertyValue === 'ShowMessage') {
-                        $scope.properties.PageId.PropertyValue = null;
+                        if ($scope.properties.SuccessfullySubmittedForm.PropertyValue === 'ShowMessage') {
+                            $scope.properties.PageId.PropertyValue = null;
+                        }
                     }
-                    if ($scope.properties.UnsubscribeMode.PropertyValue === 'Link') {
+                    else if ($scope.properties.UnsubscribeMode.PropertyValue === 'Link') {
                         $scope.properties.PageId.PropertyValue = null;
                         $scope.properties.ListId.PropertyValue = null;
                         $scope.properties.SuccessfullySubmittedForm.PropertyValue = 'ShowMessage';
