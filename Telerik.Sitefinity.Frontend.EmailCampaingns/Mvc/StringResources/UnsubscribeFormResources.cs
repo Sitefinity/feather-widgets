@@ -108,22 +108,6 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: A subscriber with given email is already subscribed to this mailing list.
-        /// </summary>
-        /// <value>A subscriber with the given email is already subscribed to this mailing list.</value>
-        [ResourceEntry("EmailExistsInTheMailingList",
-            Value = "A subscriber with the given email is already subscribed to this mailing list.",
-            Description = "phrase: A subscriber with given email is already subscribed to this mailing list.",
-            LastModified = "2015/06/15")]
-        public string EmailExistsInTheMailingList
-        {
-            get
-            {
-                return this["EmailExistsInTheMailingList"];
-            }
-        }
-
-        /// <summary>
         /// word: subscribe
         /// </summary>
         /// <value>subscribe</value>

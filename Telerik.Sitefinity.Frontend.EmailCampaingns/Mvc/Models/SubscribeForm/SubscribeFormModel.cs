@@ -67,8 +67,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 
                 if (subscriberAlreadyInList)
                 {
-                    error = Res.Get<SubscribeFormResources>().EmailExistsInTheMailingList;
-                    return false;
+                    // If the email has already been subscribed, consider it as success.
+                    return true;
                 }
                 else
                 {
