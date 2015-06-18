@@ -535,5 +535,21 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
                 return this["MissingMailingList"];
             }
         }
+
+        /// <summary>
+        /// phrase: The selected page has been deleted.
+        /// </summary>
+        /// <value>The selected page has been deleted.</value>
+        [ResourceEntry("MissingPage",
+            Value = "The selected page has been deleted.",
+            Description = "phrase: The selected page has been deleted.",
+            LastModified = "2015/06/18")]
+        public string MissingPage
+        {
+            get
+            {
+                return this["MissingPage"];
+            }
+        }
     }
 }

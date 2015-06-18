@@ -6,7 +6,8 @@
 @if (EmailCampaignsExtensions.IsModuleActivated())
 {
     <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingMailingList")</div>
-
+    <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedPage">@Html.Resource("MissingPage")</div>
+    
     <div class="form-group">
         <strong>@Html.Resource("MailingList")</strong>
 
@@ -37,7 +38,9 @@
                 <sf-list-selector sf-page-selector
                                   sf-sortable="true"
                                   sf-selected-item-id="properties.PageId.PropertyValue"
-                                  ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"></sf-list-selector>
+                                  ng-show="properties.SuccessfullySubmittedForm.PropertyValue == 'OpenSpecificPage'"
+                                  sf-missing-selected-items="errors.missingSelectedPage">
+                </sf-list-selector>
             </div>
 
         </div>
