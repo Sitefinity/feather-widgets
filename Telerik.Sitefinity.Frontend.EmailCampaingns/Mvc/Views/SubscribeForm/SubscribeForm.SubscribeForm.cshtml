@@ -58,10 +58,10 @@
 
             <div>
                 <label>
-                    @Html.Resource("Email")
+                    @Html.Resource("Email")                   
                     @Html.TextBoxFor(u => u.Email)
-                    @Html.ValidationMessageFor(u => u.Email)
                 </label>
+                @Html.ValidationMessageFor(u => u.Email)
 
                 <div><input type="submit" value="@Html.Resource("ButtonSubscribe")" /></div>
             </div>
