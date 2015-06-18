@@ -153,6 +153,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 var subscribe = page.Request.QueryString["subscribe"];
                 
                 this.Model.ExecuteAction(subscriberId, issueId, subscribe != null);
+
+                this.ViewBag.IsSubscribe = !subscribe.IsNullOrWhitespace() && subscribe.ToLower() == "true";
             }
 
             var viewModel = this.Model.CreateViewModel();
