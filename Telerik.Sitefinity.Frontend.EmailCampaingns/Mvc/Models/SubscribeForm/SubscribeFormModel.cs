@@ -77,8 +77,8 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
                     {
                         subscriber = newslettersManager.CreateSubscriber(true);
                         subscriber.Email = viewModel.Email;
-                        subscriber.FirstName = viewModel.FirstName;
-                        subscriber.LastName = viewModel.LastName;
+                        subscriber.FirstName = viewModel.FirstName != null ? viewModel.FirstName : string.Empty;
+                        subscriber.LastName = viewModel.LastName != null ? viewModel.LastName : string.Empty;
                     }
 
                     // check if the mailing list exists
