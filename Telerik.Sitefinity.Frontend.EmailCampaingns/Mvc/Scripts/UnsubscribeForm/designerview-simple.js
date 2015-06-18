@@ -6,6 +6,11 @@
         $scope.feedback.showLoadingIndicator = true;
         var emptyGuid = '00000000-0000-0000-0000-000000000000';
 
+        $scope.$watchGroup(['properties.ListId.PropertyValue', 'properties.UnsubscribeMode.PropertyValue'],
+            function (newValues, oldValues, scope) {
+                $scope.feedback.showError = false;
+            });
+
         propertyService.get()
             .then(function (data) {
                 if (data) {
