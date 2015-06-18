@@ -183,7 +183,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 this.ViewBag.Error = error;
                 this.ViewBag.IsSucceded = isSucceeded;
 
-                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
                 {
                     return this.Redirect(viewModel.RedirectPageUrl);
                 }

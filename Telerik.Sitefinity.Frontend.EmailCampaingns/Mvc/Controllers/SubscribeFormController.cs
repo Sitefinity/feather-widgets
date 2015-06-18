@@ -92,7 +92,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         [Browsable(false)]
         public bool IsEmpty
         {
-            get { return this.Model.SelectedMailingListId == Guid.Empty; }
+            get { return this.IsLicensed && this.Model.SelectedMailingListId == Guid.Empty; }
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
                 if (isSucceeded)
                 {
-                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
                     {
                         return this.Redirect(viewModel.RedirectPageUrl);
                     }
