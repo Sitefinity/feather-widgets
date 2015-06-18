@@ -150,11 +150,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             {
                 var subscriberId = page.Request.QueryString["subscriberId"];
                 var issueId = page.Request.QueryString["issueId"];
-                var subscribe = page.Request.QueryString["subscribe"];
-                
-                this.Model.ExecuteAction(subscriberId, issueId, subscribe != null);
+                bool isSubscribe = false;
+                bool.TryParse(page.Request.QueryString["subscribe"], out isSubscribe);
 
-                this.ViewBag.IsSubscribe = !subscribe.IsNullOrWhitespace() && subscribe.ToLower() == "true";
+                this.Model.ExecuteAction(subscriberId, issueId, isSubscribe);
+
+                this.ViewBag.IsSubscribe = isSubscribe;
             }
 
             var viewModel = this.Model.CreateViewModel();
