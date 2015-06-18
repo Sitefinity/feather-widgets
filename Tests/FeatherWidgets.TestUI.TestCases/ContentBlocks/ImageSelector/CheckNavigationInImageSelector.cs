@@ -21,8 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         [TestMethod,
         Owner(FeatherTeams.Team7),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void CheckNavigationInImageSelector()
         {
             BAT.Macros().NavigateTo().Pages();
