@@ -402,21 +402,6 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: is already added to this mailing list
-        /// </summary>
-        [ResourceEntry("EmailExistsInTheMailingList",
-            Value = "is already added to this mailing list",
-            Description = "phrase: is already added to this mailing list",
-            LastModified = "2010/10/28")]
-        public string EmailExistsInTheMailingList
-        {
-            get
-            {
-                return this["EmailExistsInTheMailingList"];
-            }
-        }
-
-        /// <summary>
         /// phrase: You have successfully subscribed to this mailing list. Thank you.
         /// </summary>
         [ResourceEntry("SuccessfulSubscription",
