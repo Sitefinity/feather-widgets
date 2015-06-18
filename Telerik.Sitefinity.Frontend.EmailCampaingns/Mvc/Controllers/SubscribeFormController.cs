@@ -92,7 +92,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         [Browsable(false)]
         public bool IsEmpty
         {
-            get { return this.IsLicensed && this.Model.SelectedMailingListId == Guid.Empty; }
+            get { return this.IsLicensed && this.IsNewslettersModuleActivated() && this.Model.SelectedMailingListId == Guid.Empty; }
         }
 
         /// <summary>
