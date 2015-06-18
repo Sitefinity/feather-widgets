@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.PagesAndContent), 
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        TestCategory(FeatherTestCategories.ContentBlock),Ignore]
         public void AddContentBlockWidgetToTemplateBasedOnLayoutFile()
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();
