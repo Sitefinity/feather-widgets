@@ -279,7 +279,7 @@
                 else {
                     element.append($('<p data-sf-role="comments-read-substr-comment-header" />').html(rawText.substr(0, this.settings.commentsTextMaxLength)));
                     element.append($('<span />').hide().html(message));
-                    element.append($('<a href="#" data-sf-role="comments-read-full-comment-button" />').html(this.settings.useReviews ? this.resources.readFullReview : this.resources.readFullComment));
+                    element.append($('<a href="#" data-sf-role="comments-read-full-comment-button" />').text(this.settings.useReviews ? this.resources.readFullReview : this.resources.readFullComment));
                 }
             }
         },
