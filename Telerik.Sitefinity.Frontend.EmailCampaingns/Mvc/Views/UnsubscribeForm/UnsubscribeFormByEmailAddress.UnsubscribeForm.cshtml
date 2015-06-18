@@ -37,7 +37,7 @@
 
             </div>
             
-            if (ViewBag.Error != null)
+            if (!string.IsNullOrEmpty(ViewBag.Error))
             {
                 <div>
                     @ViewBag.Error
