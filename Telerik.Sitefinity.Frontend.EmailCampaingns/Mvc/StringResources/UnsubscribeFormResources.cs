@@ -239,7 +239,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("TemplateLabel",
             Value = "Template",
             Description = "The phrase: Template",
-            LastModified = "2015/05/19")]
+            LastModified = "2015/06/16")]
         public string TemplateLabel
         {
             get
@@ -286,7 +286,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("CssClasses",
             Value = "CSS classes",
             Description = "phrase : CSS classes",
-            LastModified = "2015/04/21")]
+            LastModified = "2015/06/17")]
         public string CssClasses
         {
             get
@@ -317,7 +317,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("MailingList",
             Value = "Mailing lists",
             Description = "phrase: Mailing lists",
-            LastModified = "2015/01/12")]
+            LastModified = "2015/06/17")]
         public string MailingList
         {
             get
@@ -333,7 +333,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("UsersUnSubscribeLists",
             Value = "Unsubscribe users from selected mailing list",
             Description = "phrase: Unsubscribe users from selected mailing list",
-            LastModified = "2015/01/12")]
+            LastModified = "2015/06/17")]
         public string UsersUnSubscribeLists
         {
             get
@@ -349,7 +349,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("SuccessfullySubmittedLabel",
             Value = "When the form is successfully submitted...",
             Description = "phrase: When the form is successfully submitted...",
-            LastModified = "2015/01/12")]
+            LastModified = "2015/06/17")]
         public string SuccessfullySubmittedLabel
         {
             get
@@ -365,7 +365,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("ShowMessageLabel",
             Value = "Show message",
             Description = "phrase: Show message",
-            LastModified = "2015/01/12")]
+            LastModified = "2015/06/17")]
         public string ShowMessageLabel
         {
             get
@@ -381,7 +381,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("OpenSpecificPageLabel",
             Value = "Open a specially prepared page...",
             Description = "phrase: Open a specially prepared page...",
-            LastModified = "2015/01/12")]
+            LastModified = "2015/06/17")]
         public string OpenSpecificPageLabel
         {
             get
@@ -396,7 +396,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         [ResourceEntry("MoreOptions",
             Value = "More options",
             Description = "phrase : More options",
-            LastModified = "2015/04/21")]
+            LastModified = "2015/06/17")]
         public string MoreOptions
         {
             get
@@ -501,6 +501,22 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
             get
             {
                 return this["Close"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: The selected mailing list has been deleted.
+        /// </summary>
+        /// <value>The selected mailing list has been deleted.</value>
+        [ResourceEntry("MissingMailingList",
+            Value = "The selected mailing list has been deleted.",
+            Description = "phrase: The selected mailing list has been deleted.",
+            LastModified = "2015/06/18")]
+        public string MissingMailingList
+        {
+            get
+            {
+                return this["MissingMailingList"];
             }
         }
     }
