@@ -93,12 +93,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         [Browsable(false)]
         public bool IsEmpty
         {
-            get 
-            { 
-                return this.Model.SelectedMailingListId == Guid.Empty 
-                    && this.IsLicensed
-                    && this.IsNewslettersModuleActivated(); 
-            }
+            get { return this.IsLicensed && this.IsNewslettersModuleActivated() && this.Model.SelectedMailingListId == Guid.Empty; }
         }
 
         /// <summary>
@@ -190,14 +185,22 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
                 this.ViewBag.Error = error;
                 this.ViewBag.IsSucceeded = isSucceeded;
+                this.ViewBag.Email = viewModel.Email;
 
-                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                if (isSucceeded)
+                {
+                    if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
                 {
                     return this.Redirect(viewModel.RedirectPageUrl);
+                }
+
+                    this.ModelState.Clear();
                 }
             }
 
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
+
+            viewModel = this.Model.CreateViewModel();
 
             return this.View(fullTemplateName, viewModel);
         }

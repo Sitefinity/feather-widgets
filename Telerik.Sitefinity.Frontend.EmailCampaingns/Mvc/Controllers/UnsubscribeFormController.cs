@@ -157,9 +157,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             {
                 var subscriberId = page.Request.QueryString["subscriberId"];
                 var issueId = page.Request.QueryString["issueId"];
-                var subscribe = page.Request.QueryString["subscribe"];
-                
-                this.Model.ExecuteAction(subscriberId, issueId, subscribe != null);
+                bool isSubscribe = false;
+                bool.TryParse(page.Request.QueryString["subscribe"], out isSubscribe);
+
+                this.Model.ExecuteAction(subscriberId, issueId, isSubscribe);
+
+                this.ViewBag.IsSubscribe = isSubscribe;
             }
 
             var viewModel = this.Model.CreateViewModel();
@@ -187,7 +190,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 this.ViewBag.Error = error;
                 this.ViewBag.IsSucceded = isSucceeded;
 
-                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage)
+                if (isSucceeded && this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
                 {
                     return this.Redirect(viewModel.RedirectPageUrl);
                 }
