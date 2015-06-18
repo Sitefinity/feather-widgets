@@ -284,6 +284,10 @@
             }
         },
 
+        htmlEncode: function (str) {
+           return $('<div/>').text(str).html();
+        },
+
         createCommentMarkup: function (comment) {
             var newComment = this.getSingleCommentTemplate().clone(true);
 
@@ -442,7 +446,7 @@
             var self = this;
 
             var comment = {
-                Message: self.newCommentMessage().val(),
+                Message: self.htmlEncode(self.newCommentMessage().val()),
                 ThreadKey: self.settings.commentsThreadKey,
             };
 
