@@ -1,9 +1,27 @@
 @model System.Web.UI.Control
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers
+@using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
+@using Telerik.Sitefinity.Licensing;
+@using Telerik.Sitefinity.Modules.Newsletters;
 
-@if (EmailCampaignsExtensions.IsModuleActivated())
+@if (!EmailCampaignsExtensions.IsModuleActivated())
+{
+    <div class="alert alert-warning">@Html.Resource("NewslettersModuleDeactivatedMessage")</div>
+
+    <script type="text/ng-template" section="modal-footer">
+        <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>
+    </script>
+}
+else if (!LicenseState.CheckIsModuleLicensedInCurrentDomain(NewslettersModule.ModuleId))
+{
+    <div class="alert alert-warning">@Html.Resource("ModuleNotLicensed")</div>
+
+    <script type="text/ng-template" section="modal-footer">
+        <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>
+    </script>
+}
+else
 {
     <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedItems">@Html.Resource("MissingMailingList")</div>
     <div class="alert alert-danger ng-hide" ng-show="errors.missingSelectedPage">@Html.Resource("MissingPage")</div>
@@ -72,12 +90,4 @@
         <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
     </div>
 </expander>
-}
-else
-{
-    <div class="alert alert-warning">@Html.Resource("NewslettersModuleDeactivatedMessage")</div>
-
-    <script type="text/ng-template" section="modal-footer">
-        <button class="btn btn-primary pull-left" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Close")</button>
-    </script>
 }
