@@ -3,15 +3,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
-using FeatherWidgets.TestUnit.DummyClasses.Media;
-using FeatherWidgets.TestUnit.DummyClasses.Media.DocumentsList;
+using FeatherWidgets.TestUnit.DummyClasses.Media.UnsubscribeForm;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 using Telerik.Sitefinity.Frontend.TestUtilities.DummyClasses.HttpContext;
 using Telerik.Sitefinity.Services;
 
-namespace FeatherWidgets.TestUnit.Media.DocumentsList
+namespace FeatherWidgets.TestUnit.Media.Unsubscribe
 {
     /// <summary>
     /// Tests for UnsubscribeControllerTests

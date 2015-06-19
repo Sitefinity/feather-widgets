@@ -3,7 +3,7 @@ using System.Linq;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 
-namespace FeatherWidgets.TestUnit.DummyClasses.Media
+namespace FeatherWidgets.TestUnit.DummyClasses.Media.UnsubscribeForm
 {
     public class DummyUnsubscribeFormModel : IUnsubscribeFormModel
     {
