@@ -36,13 +36,18 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         public void Setup()
         {
             this.pageOperations = new PagesOperations();
+            this.frontEndLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
+            
+            var firstLanguage = this.frontEndLanguages[0].Name;
+            var secondLanguage = this.frontEndLanguages[2].Name;
 
-            for (int i = 1; i <= SearchResultsWidgetTests.NewsCount; i++)
-            {
-                Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.News().CreateNewsItem(SearchResultsWidgetTests.NewsTitle + i);
-            }
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "1", "Content1");
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "2", "Content2");
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "3", "Content3");
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "4", "Content4");
+            this.CreateNewsInLanguage(firstLanguage, SearchResultsWidgetTests.NewsTitle + "5", "Content5");
 
-            this.CreateNewsInSecondLanguage();
+            this.CreateNewsInLanguage(secondLanguage, SearchResultsWidgetTests.NewsTitle + "20", "Content20");
         }
 
         /// <summary>
@@ -65,7 +70,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -84,7 +89,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
                 for (int i = 1; i <= SearchResultsWidgetTests.NewsCount; i++)
@@ -108,7 +113,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -129,7 +134,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, searchString, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, searchString, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 Assert.AreEqual(expectedCount, searchResultsController.Model.Results.TotalCount);
             }
@@ -149,7 +154,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -158,8 +163,6 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 string pageTitlePrefix = testName + "NewsPage" + index;
                 string urlNamePrefix = testName + "news-page" + index;
 
-                var frontEndLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
-                var language = frontEndLanguages[2].Name;
                 string orderBy = "Oldest";
                 var searchResultsController = new SearchResultsController();
 
@@ -170,7 +173,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, language, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[2].Name, orderBy);
 
                 Assert.AreEqual(1, searchResultsController.Model.Results.TotalCount);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "20", searchResultsController.Model.Results.Data[0].GetValue("Title"));
@@ -192,7 +195,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -214,7 +217,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 Assert.AreEqual(expectedPagesCount, searchResultsController.Model.TotalPagesCount);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
@@ -247,7 +250,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -269,7 +272,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 //// ignored because total count of returned results is 5 instead of 2
                 Assert.AreEqual(expectedResultsCount, searchResultsController.Model.Results.TotalCount);
@@ -292,7 +295,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
             Guid searchIndex1Id = Guid.Empty;
             try
             {
-                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.Pages, SitefinityOperations.SearchContentType.News });
+                searchIndex1Id = SitefinityOperations.ServerOperations.Search().CreateSearchIndex(SearchResultsWidgetTests.SearchIndexName, new[] { SitefinityOperations.SearchContentType.News });
                 SitefinityOperations.ServerOperations.Search().Reindex(searchIndex1Id);
 
                 int index = 1;
@@ -313,7 +316,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 this.pageOperations.CreatePageWithControl(mvcProxy, pageNamePrefix, pageTitlePrefix, urlNamePrefix, index);
 
-                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
                 Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
                 for (int i = 0; i < SearchResultsWidgetTests.NewsCount; i++)
@@ -329,17 +332,15 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
         #region Helper methods
 
-        private void CreateNewsInSecondLanguage()
+        private void CreateNewsInLanguage(string language, string title, string content)
         {
             this.AssertIsMultilingual();
 
-            var frontEndLanguages = AppSettings.CurrentSettings.DefinedFrontendLanguages;
-            var secondLanguage = frontEndLanguages[2].Name;
-
             var currentCulture = Thread.CurrentThread.CurrentUICulture;
+
             try
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(secondLanguage);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
 
                 App.Prepare()
                    .SetRunPublishingSystemAsynchronous(false)
@@ -348,8 +349,8 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                    .CreateNew()
                    .Do(item =>
                    {
-                       item.Title[secondLanguage] = SearchResultsWidgetTests.NewsTitle + "20";
-                       ((NewsItem)item).GetString("Content")[secondLanguage] = "TestContent20";
+                       item.Title = title;
+                       ((NewsItem)item).Content = content;
                    })
                    .Publish()
                    .Done()
@@ -371,6 +372,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
         #region Fields and constants
 
         private PagesOperations pageOperations;
+        private CultureInfo[] frontEndLanguages;
         private const string NewsTitle = "TestNews";
         private const string SearchIndexName = "catalogue1";
         private const int NewsCount = 5;
