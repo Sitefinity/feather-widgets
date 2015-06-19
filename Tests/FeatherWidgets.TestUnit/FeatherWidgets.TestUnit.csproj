@@ -149,7 +149,7 @@
     <Compile Include="DummyClasses\Identity\DummyUsersListModel.cs" />
     <Compile Include="DummyClasses\LanguageSelector\DummyLanguageSelectorController.cs" />
     <Compile Include="DummyClasses\LanguageSelector\DummyLanguageSelectorModel.cs" />
-    <Compile Include="DummyClasses\Lists\DummyDocumentsListController.cs" />
+    <Compile Include="DummyClasses\SubscribeForm\DummySubscribeFormController.cs" />
     <Compile Include="DummyClasses\Lists\DummyListsModel.cs" />
     <Compile Include="DummyClasses\Media\DocumentsList\DummyDocument.cs" />
     <Compile Include="DummyClasses\Media\DocumentsList\DummyDocumentsListController.cs" />
@@ -163,11 +163,14 @@
     <Compile Include="DummyClasses\Navigation\DummyNavigationController.cs" />
     <Compile Include="DummyClasses\Navigation\DummyNavigationModel.cs" />
     <Compile Include="DummyClasses\Navigation\DummySiteMapProvider.cs" />
+    <Compile Include="DummyClasses\Publishing\DummyFeedController.cs" />
     <Compile Include="DummyClasses\SearchBox\DummySearchBoxController.cs" />
     <Compile Include="DummyClasses\SearchResults\DummySearchResultsController.cs" />
     <Compile Include="DummyClasses\SearchResults\DummySearchResultsModel.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareController.cs" />
     <Compile Include="DummyClasses\SocialShare\DummySocialShareModel.cs" />
+    <Compile Include="DummyClasses\Lists\DummyDocumentsListController.cs" />
+    <Compile Include="DummyClasses\SubscribeForm\DummySubscribeFormModel.cs" />
     <Compile Include="DummyClasses\Taxonomies\DummyHierarchicalTaxonomyModel.cs" />
     <Compile Include="DummyClasses\Taxonomies\DummyFlatTaxonomyController.cs" />
     <Compile Include="DummyClasses\Taxonomies\DummyFlatTaxonomyModel.cs" />
@@ -192,12 +195,14 @@
     <Compile Include="Navigation\SitesWidget\SitesWidgetControllerTests.cs" />
     <Compile Include="ObjectFactoryContainerRegion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Publishing\FeedControllerTests.cs" />
     <Compile Include="Resources\ResourcesTests.cs" />
     <Compile Include="SearchBox\SearchBoxControllerTests.cs" />
     <Compile Include="DummyClasses\DummyModuleBuilderProxy.cs" />
     <Compile Include="DummyClasses\DummyRelatedDataResolver.cs" />
     <Compile Include="SearchResults\SearchResultsControllerTests.cs" />
     <Compile Include="SocialShare\SocialShareControllerTests.cs" />
+    <Compile Include="Subscribe\SubscribeControllerTests.cs" />
     <Compile Include="Taxonomies\FlatTaxonomyControllerTests.cs" />
     <Compile Include="Taxonomies\HierarchicalTaxonomyControllerTests.cs" />
     <Compile Include="TestInterfaceMappings.cs" />
@@ -222,6 +227,10 @@
       <Project>{f4d16a33-feaa-4008-b941-afc1ae95db31}</Project>
       <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.EmailCampaingns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj">
+      <Project>{c70bd0bd-d081-48a0-af6d-3fa7e584cb04}</Project>
+      <Name>Telerik.Sitefinity.Frontend.EmailCampaigns</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Identity\Telerik.Sitefinity.Frontend.Identity.csproj">
       <Project>{3b1b1ee2-84ee-4744-a8fb-bed1236da342}</Project>
       <Name>Telerik.Sitefinity.Frontend.Identity</Name>
@@ -245,6 +254,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.News\Telerik.Sitefinity.Frontend.News.csproj">
       <Project>{574042a9-61aa-4eac-83d2-79cd19aa8bd4}</Project>
       <Name>Telerik.Sitefinity.Frontend.News</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Publishing\Telerik.Sitefinity.Frontend.Publishing.csproj">
+      <Project>{ddfed943-c998-42aa-8ebf-38f1b6108ee7}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Publishing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Search\Telerik.Sitefinity.Frontend.Search.csproj">
       <Project>{b1e056f8-d6ad-4c0c-a619-053e23f44a60}</Project>

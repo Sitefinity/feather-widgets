@@ -36,23 +36,12 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().ClickSubmitButton();
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAlertMessageOnTheFrontendNotLoggedUser(AllertMessageWaiting);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewMessage);
-            this.VerifyCommentBackend();
+            BAT.Macros().User().EnsureAdminLoggedIn();
+            BAT.Arrange(this.TestName).ExecuteArrangement("PublishReview");
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyReviewsAuthorRaitingAndContent(this.reviewAuthor, this.reviewsToPage, this.reviewRaiting);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().VerifyAverageRaiting(this.reviewRaiting[0]);
             BATFeather.Wrappers().Frontend().CommentsAndReviews().ReviewsWrapper().AssertMessageAndCountOnPage(ReviewsCount);
-        }
-
-        public void VerifyCommentBackend()
-        {
-            BAT.Macros().User().EnsureAdminLoggedIn();
-
-            BAT.Macros().NavigateTo().Modules().Comments();
-            ActiveBrowser.WaitForAsyncJQueryRequests();
-            ManageCommentsWrapper manageComments = new ManageCommentsWrapper(ActiveBrowser);
-            manageComments.VerifyCommentBackend(ReviewsStatusWaiting, this.reviewsToPage[0], this.reviewAuthor[0], PageName);
-            BAT.Wrappers().Backend().Comments().ManageCommentsWrapper(ActiveBrowser).ClickPublishCommentLink(this.reviewsToPage[0]);
-            manageComments.VerifyCommentBackend(ReviewsStatus, this.reviewsToPage[0], this.reviewAuthor[0], PageName);
         }
 
         /// <summary>

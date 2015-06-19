@@ -18,8 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.DynamicWidgets),
-        Ignore]
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void EditDynamicWidgetViaInlineEditing()
         {
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/SomeUrlName");
@@ -29,8 +28,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditControlOfDynamicContentViaInlineEditing(NewTitle, Title);
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditControlOfDynamicContentViaInlineEditing(NewShortText, ShortText);
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditDropDownControlOfDynamicContentViaInlineEditing(choices[2], Choices);  
-            BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditRadioButtonControlOfDynamicContentViaInlineEditing(choices[0], ChoicesRadioButtons);
-            BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditDropDownControlOfDynamicContentViaInlineEditing(choices[0], Choices);
+            BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditRadioButtonControlOfDynamicContentViaInlineEditing(choices[0], ChoicesRadioButtons);          
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditRadioButtonControlOfDynamicContentViaInlineEditing(choices[1], ChoicesDropDown);            
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditYesNoControlOfDynamicContentViaInlineEditing(YesNo);
             BATFeather.Wrappers().Frontend().ModuleBuilder().InlineEditingWrapper().EditDateTimeControlOfDynamicContentViaInlineEditing(DateTime, Date);            
@@ -82,6 +80,6 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string NewCategoryName = "New category";
         private const string Tags = "Tags";
         private const string NewTags = "New tag";
-        private string[] dynamicContent = { NewTitle, NewShortText, choices[2], choices[0], YesNoValue, DateValue, NewLongText, NewCategoryName, NewTags };
+        private string[] dynamicContent = { NewTitle, NewShortText, choices[0], choices[2], choices[0], choices[2], YesNoValue, DateValue, NewLongText, NewCategoryName, NewTags };
     }
 }

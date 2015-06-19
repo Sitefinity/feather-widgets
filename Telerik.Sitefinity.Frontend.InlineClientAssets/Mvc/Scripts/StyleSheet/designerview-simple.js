@@ -32,8 +32,8 @@
             }
         };
 
-        $scope.updateMediaTypeProeprty = function () {
-            if ($scope.mediaTypeSelection === 'all') {
+        $scope.updateMediaTypeProeprty = function (selectedType) {
+            if (selectedType === 'all') {
                 $scope.properties.MediaType.PropertyValue = 'all';
             }
             else {
