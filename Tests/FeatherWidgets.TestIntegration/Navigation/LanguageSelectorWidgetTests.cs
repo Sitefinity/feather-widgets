@@ -392,12 +392,12 @@ namespace FeatherWidgets.TestIntegration.Navigation
                         {
                             Assert.IsFalse(
                                 linkOnClickAttribute.Contains(link.Key.Name),
-                                string.Format(CultureInfo.InvariantCulture, "The link's culture {0} is found but is not expected.", linkOnClickAttribute));
+                                string.Format(CultureInfo.InvariantCulture, "The anchor tag for culture {0} is found, but is not expected.", linkOnClickAttribute));
 
                             Assert.AreNotEqual(
                                 link.Key.NativeName,
                                 linkText,
-                                string.Format(CultureInfo.InvariantCulture, "The link display name {0} is found but is not expected.", linkText));
+                                string.Format(CultureInfo.InvariantCulture, "The link display name {0} is found, but is not expected.", linkText));
                         }
                         
                         var foundlanguageCulture = new CultureInfo(string.Empty);
@@ -419,7 +419,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
                         Assert.IsFalse(
                             string.IsNullOrEmpty(foundlanguageCulture.Name),
-                            string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", linkOnClickAttribute));
+                            string.Format(CultureInfo.InvariantCulture, "The anchor tag for culture {0} is not expected.", linkOnClickAttribute));
                         
                         links.Remove(foundlanguageCulture);
                     }
@@ -430,7 +430,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
                         {
                             var currentCulture = new CultureInfo(dataSfRole);
                             Assert.IsTrue(initialLinks.ContainsKey(currentCulture), string.Format(CultureInfo.InvariantCulture, "The found hidden input field {0} is not expected", currentCulture));
-                            var expectedLink = initialLinks[new CultureInfo(dataSfRole)];
+                            var expectedLink = initialLinks[currentCulture];
 
                             var hiddenInputValue = chunk.GetParamValue("value");
 
