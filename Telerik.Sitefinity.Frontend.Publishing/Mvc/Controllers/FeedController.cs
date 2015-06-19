@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Frontend.Publishing.Helpers;
 using Telerik.Sitefinity.Frontend.Publishing.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Publishing.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
@@ -81,9 +82,9 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Controllers
         [Browsable(false)]
         public bool IsEmpty
         {
-            get 
-            { 
-                return this.Model.FeedId == null || this.Model.FeedId == Guid.Empty; 
+            get
+            {
+                return this.Model.FeedId == null || this.Model.FeedId == Guid.Empty;
             }
         }
 
@@ -98,6 +99,11 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            if (!this.IsPublishingModuleActivated())
+            {
+                return new EmptyResult();
+            }
+
             var viewModel = this.Model.GetViewModel();
 
             var page = this.GetHttpContext().CurrentHandler as Page;
@@ -116,6 +122,15 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Controllers
 
             return this.View(fullTemplateName, viewModel);
         }
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
         #endregion
 
         #region Virtual methods
@@ -127,6 +142,15 @@ namespace Telerik.Sitefinity.Frontend.Publishing.Mvc.Controllers
         protected virtual HttpContextBase GetHttpContext()
         {
             return this.HttpContext;
+        }
+
+        /// <summary>
+        /// Determines whether the publishing module is activated.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool IsPublishingModuleActivated()
+        {
+            return PublishingWidgetExtensions.IsModuleActivated();
         }
         #endregion
 

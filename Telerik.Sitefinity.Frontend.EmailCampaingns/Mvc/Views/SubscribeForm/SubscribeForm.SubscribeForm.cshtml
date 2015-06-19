@@ -1,0 +1,66 @@
+@model Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.SubscribeFormViewModel
+
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Services;
+
+@*Add scripts and stylesheets*@
+@Html.Script(ScriptRef.JQuery, "top", false)
+@Html.Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
+@Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
+
+<div class="@Model.CssClass">
+    @using (Html.BeginFormSitefinity())
+    {
+        <h3>@Html.Resource("Subscribe")</h3>
+
+        <p>
+            @Html.Resource("SubscribeMail")
+        </p>
+
+        if (ViewBag.IsSucceeded == true)
+        {
+        
+            <p>
+               @Html.Resource("ThankYou"). @Html.Resource("ThankYouMessage") (@ViewBag.Email)
+            </p>
+        }
+            
+            @Html.ValidationSummary(true)
+
+            if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div>
+                    @ViewBag.Error
+                </div>
+            }
+          //Uncomment this if you want to show FirstName and LastName inputs
+            @*
+
+                <div>
+                    <label>
+                        @Html.Resource("FirstName") @Html.Resource("Optional")
+                        @Html.TextBoxFor(u => u.FirstName)
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        @Html.Resource("LastName") @Html.Resource("Optional")
+                        @Html.TextBoxFor(u => u.LastName)
+                    </label>
+                </div>*@
+
+
+            <div>
+                <label>
+                    @Html.Resource("Email")
+                    @Html.TextBoxFor(u => u.Email)
+                </label>
+                <input type="submit" value="@Html.Resource("ButtonSubscribe")" />
+                @Html.ValidationMessageFor(u => u.Email)
+            </div>
+        }
+</div>

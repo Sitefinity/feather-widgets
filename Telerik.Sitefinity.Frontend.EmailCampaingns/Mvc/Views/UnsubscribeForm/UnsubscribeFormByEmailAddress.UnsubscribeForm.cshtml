@@ -1,0 +1,45 @@
+﻿@model Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm.UnsubscribeFormViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Services;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@*Add scripts and stylesheets*@
+@Html.Script(ScriptRef.JQuery, "top", false)
+@Html.Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
+@Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
+
+<div class="@Model.CssClass">   
+    @using (Html.BeginFormSitefinity())
+    {        
+        <h3>@Model.WidgetTitle</h3>
+            
+        <p>@Model.WidgetDescription</p>
+        
+        if (ViewBag.IsSucceded == true)
+        {
+            <div>@Html.Raw(Model.Message)</div>
+        }
+        
+        @Html.ValidationSummary(true)
+            
+        if (!string.IsNullOrEmpty(ViewBag.Error))
+        {
+            <div>
+                @ViewBag.Error
+            </div>
+        }
+        
+        <div>
+            <label>
+                @Html.Resource("Email")
+                @Html.TextBoxFor(u => u.Email)
+            </label>
+            <input type="submit" value="@Html.Resource("ButtonUnsubscribe")" />
+
+            @Html.ValidationMessageFor(u => u.Email)
+
+        </div>
+    }
+</div>

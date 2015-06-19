@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
@@ -22,15 +21,15 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of Language selector widget.
     /// </summary>
-    [ControllerToolboxItem(Name = "LanguageSelector_MVC", 
-        Title = "Language selector", 
+    [ControllerToolboxItem(Name = "LanguageSelector_MVC",
+        Title = "Language selector",
         SectionName = ToolboxesConfig.NavigationControlsSectionName,
         CssClass = LanguageSelectorController.WidgetIconCssClass)]
     [Localization(typeof(LanguageSelectorResources))]
     public class LanguageSelectorController : Controller
     {
         #region Properties
-
+        
         /// <summary>
         /// Gets or sets the name of the template that will be displayed.
         /// </summary>
@@ -41,13 +40,13 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             {
                 return this.templateName;
             }
-
+            
             set
             {
                 this.templateName = value;
             }
         }
-
+        
         /// <summary>
         /// Gets the Language selector widget model.
         /// </summary>
@@ -61,11 +60,11 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             {
                 if (this.model == null)
                     this.model = this.InitializeModel();
-
+                
                 return this.model;
             }
         }
-
+        
         /// <summary>
         /// Gets the Language selector widget on template message.
         /// </summary>
@@ -77,7 +76,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 return Res.Get<LanguageSelectorResources>().LanguageSelectorOnTemplateMessage;
             }
         }
-
+        
         /// <summary>
         /// Gets the current HTTP context from the SystemManager.
         /// </summary>
@@ -89,11 +88,29 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
                 return SystemManager.CurrentHttpContext;
             }
         }
+        
+        /// <summary>
+        /// Gets whether the page is in edit mode.
+        /// </summary>
+        /// <value>The is edit.</value>
+        private bool IsEdit
+        {
+            get
+            {
+                var isEdit = false;
+                if (SystemManager.IsDesignMode && !SystemManager.IsPreviewMode)
+                {
+                    isEdit = true;
+                }
 
+                return isEdit;
+            }
+        }
+        
         #endregion
-
+        
         #region Action
-
+        
         /// <summary>
         /// Renders appropriate view depending on the <see cref="TemplateName"/>
         /// </summary>
@@ -103,28 +120,30 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         public ActionResult Index()
         {
             var context = this.CurrentHttpContext;
-
+            
             if (context.Items.Contains("IsTemplate") && (bool)context.Items["IsTemplate"])
             {
                 return this.Content(this.LanguageSelectorOnTemplateMessage);
             }
-
-            var viewModel = this.Model.CreateViewModel();
-
-            foreach (var item in viewModel.Languages)
+            
+            this.viewModel = this.Model.CreateViewModel();
+            
+            var page = context.CurrentHandler as Page;
+            
+            if (page != null && !this.IsEdit)
             {
-                item.Url = this.AppendDetailItemAndParamsToUrl(item.Url, new CultureInfo(item.Culture));
+                page.PreRenderComplete += this.PagePreRenderCompleteHandler;
             }
-
+            
             var fullTemplateName = this.templateNamePrefix + this.TemplateName;
 
-            return this.View(fullTemplateName, viewModel);
+            return this.View(fullTemplateName, this.viewModel);
         }
-
+        
         #endregion
-
+        
         #region Overridden methods
-
+        
         /// <summary>
         /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
         /// </summary>
@@ -133,41 +152,60 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             this.Index().ExecuteResult(this.ControllerContext);
         }
-
+        
         #endregion
-
+        
         #region Private methods
-
+        
         /// <summary>
         /// Appends the detail item and parameters to URL.
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <param name="culture">The culture info.</param>
         /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         private string AppendDetailItemAndParamsToUrl(string url, CultureInfo culture)
         {
             var query = this.HttpContext.Request.QueryString.ToQueryString();
             var detailItem = SystemManager.CurrentHttpContext.Items["detailItem"];
             var extendedItem = detailItem as ILocatableExtended;
-
+            
             var dataItemAsLifecycleDataItem = detailItem as ILifecycleDataItem;
-
-            if (extendedItem == null || dataItemAsLifecycleDataItem != null)
+            
+            if (extendedItem == null || dataItemAsLifecycleDataItem == null)
                 return string.Concat(url, query);
-
+            
             string currentCultureContentItemUrl = string.Empty;
             var isPublishedLiveItem = dataItemAsLifecycleDataItem.IsPublishedInCulture(culture);
             if (isPublishedLiveItem)
             {
                 currentCultureContentItemUrl = extendedItem.ItemDefaultUrl.GetString(culture, false);
             }
-
+            
             var urlWithParams = string.Concat(url, currentCultureContentItemUrl, query);
-
+            
             return urlWithParams;
         }
+        
+        /// <summary>
+        /// Handler called when the Page's PreRenderComplete event is fired.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        private void PagePreRenderCompleteHandler(object sender, EventArgs e)
+        {
+            var page = (Page)sender;
 
+            foreach (var item in this.viewModel.Languages)
+            {
+                var link = this.AppendDetailItemAndParamsToUrl(item.Url, new CultureInfo(item.Culture));
+
+                page.Controls.Add(new LiteralControl()
+                    {
+                        Text = string.Format(CultureInfo.InvariantCulture, "<input data-sf-role='{0}' type='hidden' value='{1}'>", item.Culture, link)
+                    });
+            }
+        }
+        
         /// <summary>
         /// Initializes the model.
         /// </summary>
@@ -178,15 +216,16 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             return ControllerModelFactory.GetModel<ILanguageSelectorModel>(this.GetType());
         }
-
+        
         #endregion
-
+        
         #region Private fields and constants
-
+        
         private ILanguageSelectorModel model;
         internal const string WidgetIconCssClass = "sfLanguageSelectorIcn sfMvcIcn";
         private string templateNamePrefix = "LanguageSelector.";
         private string templateName = "LanguageLinks";
+        private LanguageSelectorViewModel viewModel;
 
         #endregion
     }

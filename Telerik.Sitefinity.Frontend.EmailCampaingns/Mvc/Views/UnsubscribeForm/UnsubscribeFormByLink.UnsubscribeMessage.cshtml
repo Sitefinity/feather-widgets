@@ -1,0 +1,11 @@
+﻿@model Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm.UnsubscribeFormViewModel
+
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<div class="@Model.CssClass">
+    @if (ViewBag.IsSubscribe == false)
+    {
+        <h3>@Html.Resource("UnsubscribeSuccessful")</h3>
+    }
+    <pre>@Html.Raw(Model.Message)</pre>
+</div>

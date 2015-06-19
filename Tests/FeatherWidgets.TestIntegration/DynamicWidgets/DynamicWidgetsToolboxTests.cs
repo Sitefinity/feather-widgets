@@ -20,13 +20,13 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
     /// This is a test class with tests related to dynamic widgets in toolbox section.
     /// </summary>
     [TestFixture]
-    [Description("This is a test class with tests related to dynamic widgets in toolbox section."), Ignore]
+    [Description("This is a test class with tests related to dynamic widgets in toolbox section.")]
     public class DynamicWidgetsToolboxTests
     {
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author(FeatherTeams.Team2)]
-        [Description("Used the imported dynamic module and verifies that the proper widgets are generated."), Ignore]
+        [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyGeneratedWidgetInPageToolbox()
         {
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
@@ -52,8 +52,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
         [Test]
         [Category(TestCategories.DynamicWidgets)]
         [Author(FeatherTeams.Team2)]
-        [Description("Used the imported dynamic module and verifies that the proper widgets are generated."),
-        Ignore("The test times out.")]
+        [Description("Used the imported dynamic module and verifies that the proper widgets are generated.")]
         public void DynamicWidgets_ImportDynamicModule_VerifyOldDynamicWidgetsNotDuplicated()
         {
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(RelatedModuleName, RelatedModuleResource);

@@ -4,10 +4,10 @@
   <Deployment>
 	<DeploymentItem filename="app.config" />
     <DeploymentItem filename="MediaFiles\" />
-    <DeploymentItem filename="..\..\SetupScripts\" />
+    <DeploymentItem filename="..\..\..\Tooling\Feather\SetupScripts\" />
   </Deployment>
   <NamingScheme baseName="TestExecution@Sitefinity_UITestCases" useDefault="false" />
-  <Scripts setupScript=".\FeatherWidgets\SetupScripts\Setup.bat" cleanupScript=".\FeatherWidgets\SetupScripts\Cleanup.bat" />
+  <Scripts setupScript=".\Tooling\Feather\SetupScripts\Setup.bat" cleanupScript=".\Tooling\Feather\SetupScripts\Cleanup.bat" />
   <RemoteController name="FEATHER-CI" />
   <Execution location="Remote">
     <Buckets size="1" />

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArtOfTest.WebAii.Core;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
@@ -318,6 +315,33 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets or sets the classifications.
+        /// </summary>
+        /// <value>The classifications.</value>
+        public ClassificationsMap Classifications
+        {
+            get
+            {
+                if (this.classificationsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.classificationsMap = new ClassificationsMap(this.find);
+                }
+
+                return this.classificationsMap;
+            }
+
+            private set
+            {
+                this.classificationsMap = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the scripts and styles.
+        /// </summary>
+        /// <value>The scripts and styles.</value>
         public ScriptsAndStylesMap ScriptsAndStyles
         {
             get
@@ -383,5 +407,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private ListsMap listsMap;
         private ScriptsAndStylesMap scriptsAndStylesMap;
         private CommentsAndReviewsMap commentsAndReviewsMap;
+        private ClassificationsMap classificationsMap;
     }
 }

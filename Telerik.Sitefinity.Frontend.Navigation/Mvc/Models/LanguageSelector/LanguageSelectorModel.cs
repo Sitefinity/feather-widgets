@@ -61,7 +61,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector
                 var url = this.GetUrlForLanguage(lang);
                 url = RouteHelper.ResolveUrl(url, UrlResolveOptions.Absolute);
 
-                viewModel.Languages.Add(new LanguageSelectorItem(langName, url, lang.TwoLetterISOLanguageName));
+                viewModel.Languages.Add(new LanguageSelectorItem(langName, url, lang.Name));
             }
 
             return viewModel;

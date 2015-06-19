@@ -19,7 +19,6 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.VideoGallery)]
         public void SelectAllPublishedVideosWithOverlayGalleryTemplate()
-
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);

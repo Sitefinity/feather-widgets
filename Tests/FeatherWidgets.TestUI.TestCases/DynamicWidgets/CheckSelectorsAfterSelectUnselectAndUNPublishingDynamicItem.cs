@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.Team7),
-        TestCategory(FeatherTestCategories.DynamicWidgets), Ignore]
+        TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem()
         {
             BAT.Macros().NavigateTo().Pages();
