@@ -3,7 +3,7 @@ using System.Linq;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 
-namespace FeatherWidgets.TestUnit.DummyClasses.Media.DocumentsList
+namespace FeatherWidgets.TestUnit.DummyClasses.Media.SubscribeForm
 {
     public class DummySubscribeFormController : SubscribeFormController
     {
