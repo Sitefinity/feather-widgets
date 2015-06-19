@@ -71,7 +71,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
             };
 
             var createdPages = this.CreateLocalizedPage(PageName, pageLanguages);
-
+            
             // Add language selector widget to the en-US page
             var currentPage = createdPages.First();
             PageContentGenerator.AddControlsToPage(currentPage.Key, controls);
@@ -108,7 +108,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
             var pageLanguages = new[]
             {
-                this.sitefinityLanguages["English"],
+                this.sitefinityLanguages["English"], 
                 this.sitefinityLanguages["Turkish"]
             };
 
@@ -431,25 +431,25 @@ namespace FeatherWidgets.TestIntegration.Navigation
                 parser.KeepRawHTML = true;
 
                 while ((chunk = parser.ParseNext()) != null)
-                {
+                { 
                     if (chunk.TagName.Equals("a") && !chunk.IsClosure)
                     {
                         var linkHref = chunk.GetParamValue("href");
                         chunk = parser.ParseNext();
                         var linkText = chunk.Html;
 
-                        foreach (var link in notVisiblelinks)
-                        {
-                            Assert.IsFalse(
-                                linkHref.EndsWith(link.Value, StringComparison.Ordinal),
-                                string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
+                            foreach (var link in notVisiblelinks)
+                            {
+                                Assert.IsFalse(
+                                    linkHref.EndsWith(link.Value, StringComparison.Ordinal),
+                                    string.Format(CultureInfo.InvariantCulture, "The link's url {0} is found but is not expected.", linkHref));
 
-                            Assert.AreNotEqual(
-                                link.Key,
-                                linkText,
-                                string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
-                        }
-                        
+                                Assert.AreNotEqual(
+                                    link.Key,
+                                    linkText,
+                                    string.Format(CultureInfo.InvariantCulture, "The link display anme {0} is found but is not expected.", linkText));
+                            }
+
                         var foundLanguage = string.Empty;
 
                         foreach (var link in links)
@@ -459,7 +459,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
                                 string.Format(CultureInfo.InvariantCulture, "The expected link's url {0} is not found.", link.Value));
 
                             Assert.AreEqual(
-                                HttpUtility.HtmlEncode(link.Key),
+                                HttpUtility.HtmlEncode(link.Key), 
                                 linkText,
                                 string.Format(CultureInfo.InvariantCulture, "The link display name {0} is not correct.", linkText));
 
@@ -469,11 +469,11 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
                         if (linkHref.Contains(PageName))
                         {
-                            Assert.IsFalse(
-                                string.IsNullOrEmpty(foundLanguage),
-                                string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", linkHref));
+                        Assert.IsFalse(
+                            string.IsNullOrEmpty(foundLanguage), 
+                            string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", linkHref));
                         }
-
+      
                         links.Remove(foundLanguage);
                     }
                 }
@@ -487,7 +487,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
             var newsController = new NewsController();
             newsSelectorControl.Settings = new ControllerSettings(newsController);
             return newsSelectorControl;
-        }
+            }
 
         private MvcControllerProxy CreateLanguageSelectorControl()
         {

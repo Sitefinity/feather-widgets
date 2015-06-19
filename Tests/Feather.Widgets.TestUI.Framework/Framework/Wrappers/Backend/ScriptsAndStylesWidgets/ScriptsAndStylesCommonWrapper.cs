@@ -11,7 +11,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
     /// </summary>
     public abstract class ScriptsAndStylesCommonWrapper : BaseWrapper
     {
-
         /// <summary>
         /// Fills the code in editable area.
         /// </summary>

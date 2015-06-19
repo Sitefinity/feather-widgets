@@ -24,8 +24,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
                 Assert.IsTrue(video.Width.Equals(width), "width is not correct");
                 Assert.IsTrue(video.Height.Equals(height), "height is not correct");
             }
-        
-
         }
 
         /// <summary>
@@ -56,7 +54,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="href">The href.</param>
         public void VerifyPreviousVideo(string href)
         {
-            var prev= EM.MediaGallery.MediaGalleryFrontend.PreviousLink
+            var prev = EM.MediaGallery.MediaGalleryFrontend.PreviousLink
                .AssertIsPresent("previous video");
             Assert.IsTrue(prev.HRef.StartsWith(href));
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Css;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Identity;
@@ -116,6 +117,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public ListsWrapperFacade Lists()
         {
             return new ListsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Classification widgets.
+        /// </summary>
+        /// <returns></returns>
+        public ClassificationsWrapperFacade Classifications()
+        {
+            return new ClassificationsWrapperFacade();
         }
 
         /// <summary>
