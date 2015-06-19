@@ -267,11 +267,11 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         /// <summary>
         /// Unsubscribe message shown when the user is successfully unsubscribed by email address.
         /// </summary>
-        /// <value><br/>You have been successfully unsubscribed from our newsletter ({0}) <br/> Thank you.</value>
+        /// <value>You have been successfully unsubscribed from our newsletter ({0}). Thank you.</value>
         [ResourceEntry("UnsubscribedFromMailingListSuccessMessage",
-            Value = "You have been successfully unsubscribed from our newsletter ({0}) <br/> Thank you.",
+            Value = "You have been successfully unsubscribed from our newsletter ({0}). Thank you.",
             Description = "Unsubscribe message shown when the user is successfully unsubscribed by email address.",
-            LastModified = "2015/06/18")]
+            LastModified = "2015/06/19")]
         public string UnsubscribedFromMailingListSuccessMessage
         {
             get
