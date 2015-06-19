@@ -9,8 +9,6 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media.DocumentsList
     {
         private readonly bool isLicensed;
         private readonly bool isModuleActivated;
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        private readonly bool isEmpty;
 
         public override string LicensingMessage
         {
@@ -21,14 +19,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media.DocumentsList
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public DummySubscribeFormController(
-               bool isLicensed = true,
-               bool isModuleActivated = true,
-               bool isEmpty = false)
+        public DummySubscribeFormController(bool isLicensed = true, bool isModuleActivated = true)
         {
             this.isLicensed = isLicensed;
             this.isModuleActivated = isModuleActivated;
-            this.isEmpty = isEmpty;
         }
 
         protected override string GetResource(string resourceName)
