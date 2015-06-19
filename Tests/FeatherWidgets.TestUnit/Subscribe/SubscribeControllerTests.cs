@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using FeatherWidgets.TestUnit.DummyClasses.Media;
-using FeatherWidgets.TestUnit.DummyClasses.Media.DocumentsList;
+using FeatherWidgets.TestUnit.DummyClasses.Media.SubscribeForm;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.TestUtilities.DummyClasses.HttpContext;
 using Telerik.Sitefinity.Services;
 
-namespace FeatherWidgets.TestUnit.Media.DocumentsList
+namespace FeatherWidgets.TestUnit.Media.Subscribe
 {
     /// <summary>
     /// Tests for SubscribeControllerTests
