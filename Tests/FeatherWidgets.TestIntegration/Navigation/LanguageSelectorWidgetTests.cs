@@ -414,12 +414,12 @@ namespace FeatherWidgets.TestIntegration.Navigation
                             break;
                         }
 
-                        Assert.IsFalse(
+                            Assert.IsFalse(
                             string.IsNullOrEmpty(foundlanguageCulture.Name),
                             string.Format(CultureInfo.InvariantCulture, "Current link {0} is not expected.", linkOnClickAttribute));
                         
                         links.Remove(foundlanguageCulture);
-                    }
+                        }
                     else if (chunk.TagName.Equals("input") && chunk.GetParamValue("type") == "hidden" && chunk.GetParamValue("value") != null && chunk.GetParamValue("value").StartsWith("http://", StringComparison.Ordinal))
                     {
                         var dataSfRole = chunk.GetParamValue("data-sf-role");

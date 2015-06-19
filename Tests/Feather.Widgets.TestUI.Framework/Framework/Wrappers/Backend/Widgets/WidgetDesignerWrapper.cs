@@ -556,5 +556,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             this.EM.Widgets.WidgetDesignerContentScreen.FilterByTag.AssertIsPresent("Filter by tag checkbox");
             this.EM.Widgets.WidgetDesignerContentScreen.FilterByDate.AssertIsPresent("Filter by date checkbox");
         }
+
+        /// <summary>
+        /// Apply css class
+        /// </summary>
+        /// <param name="cssClassName">css class name</param>
+        public void ApplyCssClasses(string cssClassName)
+        {
+            HtmlAnchor moreOptions = this.EM.Widgets.WidgetDesignerContentScreen.MoreOptionsDiv.AssertIsPresent("More options span");
+            moreOptions.Click();
+            HtmlInputText cssClassesTextbox = this.EM.Widgets.WidgetDesignerContentScreen.CssClassesTextbox.AssertIsPresent("Css classes textbox");
+            cssClassesTextbox.Text = cssClassName;
+            cssClassesTextbox.AsjQueryControl().InvokejQueryEvent(jQueryControl.jQueryControlEvents.change);
+        }
     }
 }

@@ -114,24 +114,39 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\UnsubscribeFormController.cs" />
+    <Compile Include="Mvc\Helpers\EmailCampaignsExtensions.cs" />
+    <Compile Include="Mvc\Models\UnsubscribeForm\IUnsubscribeFormModel.cs" />
+    <Compile Include="Mvc\Models\UnsubscribeForm\StaticUnsubscribeFormControllerResources.cs" />
+    <Compile Include="Mvc\Models\UnsubscribeForm\UnsubscribeFormModel.cs" />
+    <Compile Include="Mvc\Models\UnsubscribeForm\UnsubscribeFormViewModel.cs" />
+    <Compile Include="Mvc\Models\UnsubscribeForm\UnsubscribeMode.cs" />
+    <Compile Include="Mvc\StringResources\UnsubscribeFormResources.cs" />
     <Compile Include="Mvc\Controllers\SubscribeFormController.cs" />
     <Compile Include="Mvc\Models\SubscribeForm\SubscribeFormModel.cs" />
     <Compile Include="Mvc\Models\SubscribeForm\SubscribeFormViewModel.cs" />
     <Compile Include="Mvc\Models\SubscribeForm\ISubscribeFormModel.cs" />
     <Compile Include="Mvc\Models\SubscribeForm\SuccessfullySubmittedForm.cs" />
-    <Compile Include="Mvc\StringResources\SubscribeForm\SubscribeFormResources.cs" />
-    <Compile Include="Mvc\StringResources\SubscribeForm\StaticSubscribeFormControllerResources.cs" />
+    <Compile Include="Mvc\StringResources\SubscribeFormResources.cs" />
+    <Compile Include="Mvc\StringResources\StaticSubscribeFormControllerResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\UnsubscribeFormByLink.UnsubscribeMessage.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\UnsubscribeFormByEmailAddress.UnsubscribeForm.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubscribeForm\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubscribeForm\DesignerView.Simple.json" />
-    <EmbeddedResource Include="Mvc\Views\SubscribeForm\SubscribeForm.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SubscribeForm\SubscribeForm.SubscribeForm.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\UnsubscribeForm\DesignerView.Simple.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\SubscribeForm\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\UnsubscribeForm\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

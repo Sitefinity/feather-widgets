@@ -21,8 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         [TestMethod,
         Owner(FeatherTeams.Team2),
         TestCategory(FeatherTestCategories.MediaSelector),
-        TestCategory(FeatherTestCategories.ContentBlock),
-        TestCategory(FeatherTestCategories.PagesAndContent)]
+        TestCategory(FeatherTestCategories.ContentBlock)]
         public void InsertImageFromAlreadyUploaded()
         {
             BAT.Macros().NavigateTo().Pages();

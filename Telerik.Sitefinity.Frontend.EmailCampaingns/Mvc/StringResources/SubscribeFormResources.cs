@@ -210,12 +210,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: The selected mail list has been deleted.
+        /// phrase: The selected mailing list has been deleted.
         /// </summary>
-        /// <value>The selected mail list has been deleted.</value>
+        /// <value>The selected mailing list has been deleted.</value>
         [ResourceEntry("MissingMailingList",
-            Value = "The selected mail list has been deleted.",
-            Description = "phrase: The selected mail list has been deleted.",
+            Value = "The selected mailing list has been deleted.",
+            Description = "phrase: The selected mailing list has been deleted.",
             LastModified = "2015/01/12")]
         public string MissingMailingList
         {
@@ -226,12 +226,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Click edit and select mailing list.
+        /// phrase: Select a mailing list
         /// </summary>
-        /// <value>Click edit and select mailing list.</value>
+        /// <value>Select a mailing list</value>
         [ResourceEntry("EmptyLinkText",
-            Value = "Click edit and select mailing list.",
-            Description = "phrase: The selected mail list has been deleted.",
+            Value = "Select a mailing list",
+            Description = "phrase: Select a mailing list",
             LastModified = "2015/01/12")]
         public string EmptyLinkText
         {
@@ -242,12 +242,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Subscribe.
+        /// phrase: Subscribe
         /// </summary>
-        /// <value>Subscribe.</value>
+        /// <value>Subscribe</value>
         [ResourceEntry("Subscribe",
-            Value = "Subscribe.",
-            Description = "phrase: Subscribe.",
+            Value = "Subscribe",
+            Description = "phrase: Subscribe",
             LastModified = "2015/01/12")]
         public string Subscribe
         {
@@ -258,12 +258,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: Subscribe to our email newsletter to receive updates.
+        /// phrase: Subscribe to our email newsletter to receive updates
         /// </summary>
-        /// <value>Subscribe to our email newsletter to receive updates.</value>
+        /// <value>Subscribe to our email newsletter to receive updates</value>
         [ResourceEntry("SubscribeMail",
-            Value = "Subscribe to our email newsletter to receive updates.",
-            Description = "phrase: Subscribe to our email newsletter to receive updates.",
+            Value = "Subscribe to our email newsletter to receive updates",
+            Description = "phrase: Subscribe to our email newsletter to receive updates",
             LastModified = "2015/01/12")]
         public string SubscribeMail
         {
@@ -402,27 +402,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
         }
 
         /// <summary>
-        /// phrase: is already added to this mailing list
-        /// </summary>
-        [ResourceEntry("EmailExistsInTheMailingList",
-            Value = "is already added to this mailing list",
-            Description = "phrase: is already added to this mailing list",
-            LastModified = "2010-10-28")]
-        public string EmailExistsInTheMailingList
-        {
-            get
-            {
-                return this["EmailExistsInTheMailingList"];
-            }
-        }
-
-        /// <summary>
         /// phrase: You have successfully subscribed to this mailing list. Thank you.
         /// </summary>
         [ResourceEntry("SuccessfulSubscription",
             Value = "You have successfully subscribed to this mailing list. Thank you.",
             Description = "phrase: You have successfully subscribed to this mailing list. Thank you.",
-            LastModified = "2010-10-28")]
+            LastModified = "2010/10/28")]
         public string SuccessfulSubscription
         {
             get
@@ -430,6 +415,69 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources
                 return this["SuccessfulSubscription"];
             }
         }
+
+        /// <summary>
+        /// phrase: Email Campaigns functionality is disabled since the Email Campaigns module is not licensed.
+        /// </summary>
+        [ResourceEntry("ModuleNotLicensed",
+            Value = "Email Campaigns functionality is disabled since the Email Campaigns module is not licensed.",
+            Description = "Module Not Licensed message",
+            LastModified = "2012/01/05")]
+        public string ModuleNotLicensed
+        {
+            get
+            {
+                return this["ModuleNotLicensed"];
+            }
+        }
         #endregion
+
+        /// <summary>
+        /// Message shown when the newsletters module is deactivated
+        /// </summary>
+        /// <value>This widget doesn't work, because Newsletters module has been deactivated.</value>
+        [ResourceEntry("NewslettersModuleDeactivatedMessage",
+            Value = "This widget doesn't work, because Newsletters module has been deactivated.",
+            Description = "Message shown when the newsletters module is deactivated",
+            LastModified = "2015/06/17")]
+        public string NewslettersModuleDeactivatedMessage
+        {
+            get
+            {
+                return this["NewslettersModuleDeactivatedMessage"];
+            }
+        }
+
+        /// <summary>
+        /// word: Close
+        /// </summary>
+        /// <value>Close</value>
+        [ResourceEntry("Close",
+            Value = "Close",
+            Description = "word: Close",
+            LastModified = "2015/06/17")]
+        public string Close
+        {
+            get
+            {
+                return this["Close"];
+            }
+        }
+
+        /// <summary>
+        /// phrase: The selected page has been deleted.
+        /// </summary>
+        /// <value>The selected page has been deleted.</value>
+        [ResourceEntry("MissingPage",
+            Value = "The selected page has been deleted.",
+            Description = "phrase: The selected page has been deleted.",
+            LastModified = "2015/06/18")]
+        public string MissingPage
+        {
+            get
+            {
+                return this["MissingPage"];
+            }
+        }
     }
 }

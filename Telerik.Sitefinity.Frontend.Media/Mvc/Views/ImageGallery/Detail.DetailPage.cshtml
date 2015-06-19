@@ -9,12 +9,12 @@
         <span @Html.InlineEditingFieldAttributes("Title", "ShortText")>@Model.Item.Fields.Title</span>
     </h2>
 
-    <div class="text-muted">
+    <span class="text-muted">
         @Model.Item.GetDateTime("PublicationDate", "MMM d, yyyy, HH:mm tt")
         @Html.Resource("By")
         @DataResolver.Resolve(@Model.Item.DataItem, "Author", null)
-        @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
-    </div>
+    </span>
+    @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
 
     <div @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</div>
 
@@ -57,4 +57,5 @@
     }
 
     @Html.CommentsList(@Model.Item.DataItem)
+
 </div>
