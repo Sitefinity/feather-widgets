@@ -10,39 +10,36 @@
 @Html.Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", false)
 @Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", false)
 
-<div class="@Model.CssClass">
-    @if (ViewBag.IsSucceded == true)
+<div class="@Model.CssClass">   
+    @using (Html.BeginFormSitefinity())
+    {        
+        <h3>@Model.WidgetTitle</h3>
+            
+        <p>@Model.WidgetDescription</p>
         
-    {   <h3>@Html.Resource("UnsubscribeSuccessful")</h3> 
-        <div>@Html.Raw(Model.Message)</div>
-    }
-    else
-    {
-        using (Html.BeginFormSitefinity())
+        if (ViewBag.IsSucceded == true)
         {
-            @Html.ValidationSummary(true)
-        
-            <h3>@Model.WidgetTitle</h3>
-            
-            <p>@Model.WidgetDescription</p>
-            
-            <div>
-                <label>
-                    @Html.Resource("Email")
-                    @Html.TextBoxFor(u => u.Email)
-                </label>
-                <input type="submit" value="@Html.Resource("ButtonUnsubscribe")" />
-
-                @Html.ValidationMessageFor(u => u.Email)
-
-            </div>
-            
-            if (!string.IsNullOrEmpty(ViewBag.Error))
-            {
-                <div>
-                    @ViewBag.Error
-                </div>
-            }
+            <div>@Html.Raw(Model.Message)</div>
         }
+        
+        @Html.ValidationSummary(true)
+            
+        if (!string.IsNullOrEmpty(ViewBag.Error))
+        {
+            <div>
+                @ViewBag.Error
+            </div>
+        }
+        
+        <div>
+            <label>
+                @Html.Resource("Email")
+                @Html.TextBoxFor(u => u.Email)
+            </label>
+            <input type="submit" value="@Html.Resource("ButtonUnsubscribe")" />
+
+            @Html.ValidationMessageFor(u => u.Email)
+
+        </div>
     }
 </div>
