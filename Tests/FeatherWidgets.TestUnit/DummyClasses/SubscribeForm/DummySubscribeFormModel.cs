@@ -2,7 +2,7 @@
 using System.Linq;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 
-namespace FeatherWidgets.TestUnit.DummyClasses.Media
+namespace FeatherWidgets.TestUnit.DummyClasses
 {
     public class DummySubscribeFormModel : SubscribeFormModel
     {

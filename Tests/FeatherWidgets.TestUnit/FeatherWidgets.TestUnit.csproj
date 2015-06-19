@@ -149,6 +149,8 @@
     <Compile Include="DummyClasses\Identity\DummyUsersListModel.cs" />
     <Compile Include="DummyClasses\LanguageSelector\DummyLanguageSelectorController.cs" />
     <Compile Include="DummyClasses\LanguageSelector\DummyLanguageSelectorModel.cs" />
+    <Compile Include="DummyClasses\UnsubscribeForm\DummyUnsubscribeFormController.cs" />
+    <Compile Include="DummyClasses\UnsubscribeForm\DummyUnsubscribeFormModel.cs" />
     <Compile Include="DummyClasses\SubscribeForm\DummySubscribeFormController.cs" />
     <Compile Include="DummyClasses\Lists\DummyListsModel.cs" />
     <Compile Include="DummyClasses\Media\DocumentsList\DummyDocument.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="DummyClasses\DummyRelatedDataResolver.cs" />
     <Compile Include="SearchResults\SearchResultsControllerTests.cs" />
     <Compile Include="SocialShare\SocialShareControllerTests.cs" />
+    <Compile Include="Unsubscribe\UnsubscribeControllerTests.cs" />
     <Compile Include="Subscribe\SubscribeControllerTests.cs" />
     <Compile Include="Taxonomies\FlatTaxonomyControllerTests.cs" />
     <Compile Include="Taxonomies\HierarchicalTaxonomyControllerTests.cs" />

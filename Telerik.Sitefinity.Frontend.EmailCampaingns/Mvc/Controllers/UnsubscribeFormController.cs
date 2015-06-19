@@ -167,7 +167,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
 
             var viewModel = this.Model.CreateViewModel();
 
-            var fullTemplateName = this.model.UnsubscribeMode == UnsubscribeMode.Link ?
+            var fullTemplateName = this.Model.UnsubscribeMode == UnsubscribeMode.Link ?
                                             this.linkTemplateNamePrefix + this.LinkTemplateName :
                                             this.emailAddressTemplateNamePrefix + this.EmailAddressTemplateName;
 
