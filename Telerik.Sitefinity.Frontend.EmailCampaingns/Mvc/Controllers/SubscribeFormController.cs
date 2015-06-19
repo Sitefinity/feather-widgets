@@ -138,7 +138,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
-            var isEdit = SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+            var isEdit = SystemManager.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode;
             if ((!this.IsLicensed || !this.IsNewslettersModuleActivated()) && !isEdit)
             {
                 return new EmptyResult();
