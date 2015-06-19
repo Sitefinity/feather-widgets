@@ -59,7 +59,7 @@ namespace FeatherWidgets.TestUnit.Media.DocumentsList
         [Owner("Manev")]
         public void CreateSubscribeController_CallTheIndexAction_EnsuresMessageWhenNoLicense()
         {
-            var httpContext = new MyDummyHttpContext { ApplicationInstance = new System.Web.HttpApplication() };
+            var httpContext = new DummyHttpContext();
 
             httpContext.Items[SystemManager.PageDesignModeKey] = true;
 
@@ -84,7 +84,7 @@ namespace FeatherWidgets.TestUnit.Media.DocumentsList
         [Owner("Manev")]
         public void CreateSubscribeController_CallTheIndexAction_EnsuresMessageWhenModuleIsDeactivated()
         {
-            var httpContext = new MyDummyHttpContext { ApplicationInstance = new System.Web.HttpApplication() };
+            var httpContext = new DummyHttpContext();
 
             httpContext.Items[SystemManager.PageDesignModeKey] = true;
 
@@ -218,11 +218,6 @@ namespace FeatherWidgets.TestUnit.Media.DocumentsList
                 Assert.IsTrue(view.ViewBag.IsSucceeded == null);
                 Assert.IsTrue(view.ViewBag.Email == null);
             }
-        }
-
-        private class MyDummyHttpContext : DummyHttpContext
-        {
-            public override HttpApplication ApplicationInstance { get; set; }
         }
     }
 }
