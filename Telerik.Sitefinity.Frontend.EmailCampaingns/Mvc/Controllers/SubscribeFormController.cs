@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Newsletters;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
@@ -137,6 +138,12 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            var isEdit = SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+            if ((!this.IsLicensed || !this.IsNewslettersModuleActivated()) && !isEdit)
+            {
+                return new EmptyResult();
+            }
+
             if (!this.IsLicensed)
             {
                 return this.Content(this.LicensingMessage);
@@ -183,9 +190,9 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
                 if (isSucceeded)
                 {
                     if (this.Model.SuccessfullySubmittedForm == SuccessfullySubmittedForm.OpenSpecificPage && !string.IsNullOrEmpty(viewModel.RedirectPageUrl))
-                    {
-                        return this.Redirect(viewModel.RedirectPageUrl);
-                    }
+                {
+                    return this.Redirect(viewModel.RedirectPageUrl);
+                }
 
                     this.ModelState.Clear();
                 }

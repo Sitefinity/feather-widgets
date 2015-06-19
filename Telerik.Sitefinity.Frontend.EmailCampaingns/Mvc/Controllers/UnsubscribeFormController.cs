@@ -133,6 +133,13 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
         /// </returns>
         public ActionResult Index()
         {
+            var isEdit = SystemManager.IsDesignMode && !SystemManager.IsPreviewMode;
+            if ((!this.IsLicensed || !this.IsNewslettersModuleActivated()) && !isEdit)
+            {
+                return new EmptyResult();
+            }
+
+
             if (!this.IsLicensed)
             {
                 return this.Content(this.LicensingMessage);
