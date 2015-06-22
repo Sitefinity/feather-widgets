@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes;
+using System.Web.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models
 {
