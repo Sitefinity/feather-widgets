@@ -204,6 +204,12 @@
             </summary>
             <param name="settings">The settings.</param>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FrontendModule.Unload">
+            <summary>
+            This method is invoked during the unload process of an active module from Sitefinity, e.g. when a module is deactivated. For instance this method is also invoked for every active module during a restart of the application. 
+            Typically you will use this method to unsubscribe the module from all events to which it has subscription.
+            </summary>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.FrontendModule.Upgrade(Telerik.Sitefinity.Abstractions.SiteInitializer,System.Version)">
             <summary>
             Upgrades this module from the specified version.
@@ -223,6 +229,14 @@
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:Telerik.Sitefinity.Data.ExecutedEventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.FrontendModule.Current">
+            <summary>
+            Gets the current instance of the module.
+            </summary>
+            <value>
+            The current.
+            </value>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.FrontendModule.LandingPageId">
             <summary>
             Gets the landing page id for each module inherit from <see cref="T:Telerik.Sitefinity.Services.SecuredModuleBase"/> class.
@@ -234,6 +248,14 @@
             Gets the CLR types of all data managers provided by this module.
             </summary>
             <value>An array of <see cref="T:System.Type"/> objects.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.FrontendModule.DependencyResolver">
+            <summary>
+            Gets the dependency resolver. Can be used for overriding the default implementations of some interfaces.
+            </summary>
+            <value>
+            The dependency resolver.
+            </value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.GridSystem.GridWidgetRegistrator">
             <summary>
@@ -441,6 +463,24 @@
         <member name="P:Telerik.Sitefinity.Frontend.Modules.ControlTemplates.Web.UI.MvcControlTemplateEditor.ClientComponentType">
             <inheritdoc/>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Controllers.IRelatedDataController">
+            <summary>
+            Controllers that implement this interface should be able to display related data of given item.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Controllers.IRelatedDataController.RelatedData(Telerik.Sitefinity.Model.IDataItem,System.String,Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel,Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel,System.Nullable{System.Int32},System.Nullable{System.Guid},System.Nullable{System.Boolean})">
+            <summary>
+            Action that returns a list view with the related items of the given item.
+            </summary>
+            <param name="relatedItem">The related item.</param>
+            <param name="templateName">Name of the template that will show the list view.</param>
+            <param name="relatedDataViewModel">The related data view model. Contains settings needed to retrieve related data.</param>
+            <param name="settingsViewModel">The settings view model. The widget's model will be initialized with them.</param>
+            <param name="page">The current page.</param>
+            <param name="detailPageId">The id of the page where the detail of the item will be shown.</param>
+            <param name="openInSamePage">Determines whether the detail of the item will be on the same page or in an other one.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Helpers.CommentsHelpers">
             <summary>
             Holds helpers related to Comments widget
@@ -588,6 +628,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcVersioningRouteHandler">
+            <summary>
+            Extended route handler for Sitefinity versioning that injects MVC specific logic.
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcVersioningRouteHandler.GetHttpHandler(System.Web.Routing.RequestContext)">
+            <summary>
+            Provides the object that processes the request.
+            </summary>
+            <param name="requestContext">An object that encapsulates information about the request.</param>
+            <returns>An object that processes the request.</returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.MvcPageEditorRouteHandler">
             <summary>
             Represents an extended route handler for Sitefinity's page editor that injects MVC specific logic.
@@ -732,6 +784,21 @@
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonomyUrlParamsMapper.TryMatchUrl(System.String[],System.Web.Routing.RequestContext)">
             <inheritdoc />
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlEvaluator.GetTaxonFromQuery(System.Web.HttpContextBase)">
+            <summary>
+            Gets the taxon from query.
+            </summary>
+            <param name="context">The context.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlEvaluator.GetTaxonFromQuery(System.Web.HttpContextBase,System.String)">
+            <summary>
+            Gets the taxon from query.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="urlKeyPrefix">The URL key prefix.</param>
+            <returns></returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlMapper">
             <summary>
             Instances of this class tries to map Route Data parameters to a valid taxon instace.
@@ -769,16 +836,124 @@
             <param name="pageIndex">Index of the page.</param>
             <returns></returns>
         </member>
-<<<<<<< HEAD
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.TaxonUrlEvaluator.GetTaxonFromQuery(System.Web.HttpContextBase)">
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel">
             <summary>
-            Gets the taxon from httpcontext query string.
+            This is the view model of the list widget's settings.
+            It can be used when we want to call a widget's action with specific settings for its model.
             </summary>
-            <param name="context">The context.</param>
-            <returns></returns>
         </member>
-=======
->>>>>>> 933fc29718da720787d9d07ead32be3940c3568e
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.ListCssClass">
+            <summary>
+            Gets or sets the CSS class that will be applied on the wrapping element of the widget when it is in List view.
+            </summary>
+            <value>
+            The CSS class.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.EnableSocialSharing">
+            <summary>
+            Gets or sets a value indicating whether to enable social sharing.
+            </summary>
+            <value>
+              <c>true</c> if should enable social sharing; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.SelectionMode">
+            <summary>
+            Gets or sets which items to be displayed in the list view.
+            </summary>
+            <value>The page display mode.</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.DisplayMode">
+            <summary>
+            Gets or sets a value indicating whether to divide items in the list.
+            </summary>
+            <value>
+            The display mode.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.ItemsPerPage">
+            <summary>
+            Gets or sets the items count per page.
+            </summary>
+            <value>
+            The items per page.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.SortExpression">
+            <summary>
+            Gets or sets the sort expression.
+            </summary>
+            <value>
+            The sort expression.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.FilterExpression">
+            <summary>
+            Gets or sets the additional filter expression.
+            </summary>
+            <value>
+            The filter expression.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.SerializedAdditionalFilters">
+            <summary>
+            Gets or sets the serialized additional filters.
+            </summary>
+            <value>
+            The serialized additional filters.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel.DisableCanonicalUrlMetaTag">
+            <summary>
+            Gets or sets a value indicating whether the canonical URL tag should be added to the page when the canonical meta tag should be added to the page.
+            If the value is not set, the settings from SystemConfig -> ContentLocationsSettings -> DisableCanonicalURLs will be used. 
+            </summary>
+            <value>The disable canonical URLs.</value>
+        </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel">
+            <summary>
+            A view model class that represents the data needed to retrieve related data.
+            </summary>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel.RelatedItemType">
+            <summary>
+            Gets or sets the type of the parent item.
+            </summary>
+            <value>
+            The type of the parent item.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel.RelatedItemProviderName">
+            <summary>
+            Gets or sets the name of the parent item provider.
+            </summary>
+            <value>
+            The name of the parent item provider.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel.RelatedFieldName">
+            <summary>
+            Gets or sets the name of the related data field.
+            </summary>
+            <value>
+            The name of the field.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel.RelationTypeToDisplay">
+            <summary>
+            Gets or sets the relation type of the items that will be display - children or parent.
+            </summary>
+            <value>
+            The relation type of the items that will be display - Child or Parent.
+            </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel.ControllerName">
+            <summary>
+            Gets or sets the name of the controller that will display this related data.
+            </summary>
+            <value>The name of the controller.</value>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.ScriptDependencyConfigModel">
             <summary>
             This class represents a JSON configuration for component cefinitions.
@@ -1931,6 +2106,24 @@
             phrase: Select a user
             </summary>
             <value>Select a user</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.FeedSelectorHeader">
+            <summary>
+            phrase: Select feed
+            </summary>
+            <value>Select feed</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.AllTools">
+            <summary>
+            phrase: All tools
+            </summary>
+            <value>All tools</value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.MailingListSelectorHeader">
+            <summary>
+            phrase: Select a mailing list
+            </summary>
+            <value>Select a mailing list</value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Notifications.EmailTemplateHelper">
             <summary>
@@ -4391,6 +4584,19 @@
             The <see cref="T:System.Collections.IList"/>.
             </returns>
         </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.SetRelatedDataProperties(Telerik.Sitefinity.Model.IDataItem,Telerik.Sitefinity.Frontend.Mvc.Models.RelatedDataViewModel)">
+            <summary>
+            Sets the properties of the model needed to retrieve the related data.
+            </summary>
+            <param name="relatedItem">The related item.</param>
+            <param name="relatedDataViewModel">The related data view model.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.SetModelProperties(Telerik.Sitefinity.Frontend.Mvc.Models.ContentListSettingsViewModel)">
+            <summary>
+            Sets the model properties by given view model.
+            </summary>
+            <param name="viewModel">The view model.</param>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.GetItemsQuery">
             <summary>
             Gets an active query for all items.
@@ -4622,6 +4828,12 @@
             <value>
             The relation type of the items that will be display - children or parent.
             </value>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.Models.ContentModelBase.UrlKeyPrefix">
+            <summary>
+            Gets or sets the URL key prefix.
+            </summary>
+            <value>The URL key prefix.</value>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Models.DesignerModel">
             <summary>
@@ -6122,7 +6334,7 @@
             This class contains logic for locating and initializing controllers.
             </summary>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.ControllerContainerInitializer.Initialize">
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.ControllerContainerInitializer.Initialize(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})">
             <summary>
             Initializes the controllers that are available to the web application.
             </summary>
