@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestIntegration.News
             var newsController = new NewsController();
             mvcProxy.Settings = new ControllerSettings(newsController);
 
-            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().CreatePageTemplateReturnId(templateName);
+            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().CreatePageTemplate(templateName);
 
             try
             {
