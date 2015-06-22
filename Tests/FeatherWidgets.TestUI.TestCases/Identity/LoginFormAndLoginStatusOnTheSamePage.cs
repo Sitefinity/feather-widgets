@@ -74,7 +74,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string LoginStatusWidget = "Login / Logout button";
         private const string AdminUserFirstName = "admin";
         private const string AdminUserLastName = "admin";
-        private const string AdminUserEmail = "admin@test.bg";
+        private const string AdminUserEmail = "dadasda@dasd.fdf";
         private const string AdminUserName = "admin";
         private const string WrongPassword = "password123";
         private const string AdminPassword = "admin@2"; 
