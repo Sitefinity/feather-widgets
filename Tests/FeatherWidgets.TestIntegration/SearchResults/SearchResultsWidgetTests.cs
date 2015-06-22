@@ -241,7 +241,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
         [Test]
         [Multilingual]
-        [Category(TestCategories.SearchResults), Ignore]
+        [Category(TestCategories.SearchResults)]
         [Author(FeatherTeams.Team7)]
         [Description("Verifies limit of all search results are returned correctly for all languages.")]
         public void SearchResultsWidget_DefaultLanguage_Limit_OldestOrder()
@@ -274,8 +274,7 @@ namespace FeatherWidgets.TestIntegration.SearchResults
 
                 searchResultsController.Index(null, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
 
-                //// ignored because total count of returned results is 5 instead of 2
-                Assert.AreEqual(expectedResultsCount, searchResultsController.Model.Results.TotalCount);
+                Assert.AreEqual(expectedResultsCount, searchResultsController.Model.Results.Data.Count);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "1", searchResultsController.Model.Results.Data[0].GetValue("Title"));
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "2", searchResultsController.Model.Results.Data[1].GetValue("Title"));
             }
