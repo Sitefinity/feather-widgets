@@ -317,5 +317,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Widgets
                 return this.Get<HtmlInputCheckBox>("id=dateInput");
             }
         }
+
+        /// <summary>
+        /// Gets More options div.
+        /// </summary>
+        public HtmlAnchor MoreOptionsDiv
+        {
+            get
+            {
+                return this.Get<HtmlAnchor>("class=Options-toggler ng-binding", "innerText=More options");
+            }
+        }
+
+        /// <summary>
+        /// Gets CSS classes textbox.
+        /// </summary>
+        public HtmlInputText CssClassesTextbox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "ng-model=properties.CssClass.PropertyValue");
+            }
+        }
     }
 }

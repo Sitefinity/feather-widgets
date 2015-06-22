@@ -164,6 +164,7 @@
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleModule2Operations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulePressArticleOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
+    <Compile Include="CommonOperations\Pages\CommentsAndReviews.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />
     <Compile Include="CommonOperations\Pages\ListsOperations.cs" />
@@ -243,6 +244,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj">
       <Project>{33171BB5-9918-41BE-B06D-0D8347846B0C}</Project>
       <Name>Telerik.Sitefinity.Frontend.SocialShare</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Taxonomies\Telerik.Sitefinity.Frontend.Taxonomies.csproj">
+      <Project>{FEE535A5-81FC-435D-A83F-611D91AE1363}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Taxonomies</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

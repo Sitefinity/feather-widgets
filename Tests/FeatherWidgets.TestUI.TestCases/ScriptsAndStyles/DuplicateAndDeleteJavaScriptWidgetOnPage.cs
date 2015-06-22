@@ -56,13 +56,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             bool isContainedFirst = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(code);
             Assert.IsTrue(isContainedFirst, string.Concat("Expected ", code, " but the style is not found"));
         }
- 
-        private void VerifyCodeDoesNotExistOnTheFrontend(string code)
-        {
-            bool isContainedSecond = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(code);
-            Assert.IsFalse(isContainedSecond, string.Concat("Expected not", code, " but the style is found"));
-        }
-
+     
         /// <summary>
         /// Performs Server Setup and prepare the system with needed data.
         /// </summary>
@@ -78,6 +72,12 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         protected override void ServerCleanup()
         {
             BAT.Arrange(TestArrangement).ExecuteTearDown();
+        }
+
+        private void VerifyCodeDoesNotExistOnTheFrontend(string code)
+        {
+            bool isContainedSecond = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(code);
+            Assert.IsFalse(isContainedSecond, string.Concat("Expected not", code, " but the style is found"));
         }
 
         private const string TestArrangement = "AddJavaScriptBeforeTheClosingBodyTag";

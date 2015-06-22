@@ -134,6 +134,9 @@
     <Compile Include="ApplicationPreStart.cs" />
     <Compile Include="BlogPosts\AddBlogPostsWidgetToPageOpenSingleItemInExistingPage.cs" />
     <Compile Include="Blogs\DragAndDropBlogsWidgetToPage.cs" />
+    <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
+    <Compile Include="Classifications\SelectedTagsOptionAndCloudListTemplate.cs" />
+    <Compile Include="Classifications\SelectAllTagsOptionAndCssClasses.cs" />
     <Compile Include="CommentsAndReviews\AddCommentsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CommentsAndReviews\AddReviewsWidgetOnPageBasedOnBootstrapTemplate.cs" />
     <Compile Include="CommentsAndReviews\ChangeCommentsStatusesForPage.cs" />

@@ -1,4 +1,5 @@
-﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews;
+﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classifications;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
@@ -126,6 +127,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public ListsWrapperFacade Lists()
         {
             return new ListsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides access to classifications wrapper. 
+        /// </summary>
+        /// <returns></returns>
+        public ClassificationsWrapperFacade Classifications()
+        {
+            return new ClassificationsWrapperFacade();
         }
 
         /// <summary>

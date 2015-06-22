@@ -64,7 +64,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
 			get
 			{
 				var isEdit = false;
-				if (this.IsDesignMode && !SystemManager.IsPreviewMode)
+				if (this.IsDesignMode && !SystemManager.IsPreviewMode && !SystemManager.IsInlineEditingMode)
 				{
 					isEdit = true;
 				}
@@ -100,7 +100,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
             }
 
-            if (this.IsEdit && !SystemManager.IsInlineEditingMode)
+            if (this.IsEdit)
             {
                 string result = null;
 
@@ -126,8 +126,21 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                 }
             }
 
-            return this.View(viewModel);
+            return this.View("Index", viewModel);
         }
+        #endregion
+
+        #region Overridden methods
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+
         #endregion
 
          #region ICustomWidgetVisualizationExtended

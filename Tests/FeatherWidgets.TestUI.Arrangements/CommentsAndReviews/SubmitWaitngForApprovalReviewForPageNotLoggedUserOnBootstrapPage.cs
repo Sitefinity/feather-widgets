@@ -32,6 +32,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         }
 
         /// <summary>
+        ///  Publish review
+        /// </summary>
+        [ServerArrangement]
+        public void PublishReview()
+        {
+            Guid pageId = ServerOperations.Pages().GetPageId(PageName);
+            string threadKey = pageId.ToString() + "_en_review";
+            ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(ReviewsStatusPublish, threadKey);
+        }
+
+        /// <summary>
         /// Tears down.
         /// </summary>
         [ServerTearDown]
@@ -51,5 +62,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ThreadType = "Telerik.Sitefinity.Pages.Model.PageNode";
         private const string AdminUserName = "admin";
         private const string AdminPass = "admin@2";
+        private const string ReviewsStatusPublish = "Published";
     }
 }
