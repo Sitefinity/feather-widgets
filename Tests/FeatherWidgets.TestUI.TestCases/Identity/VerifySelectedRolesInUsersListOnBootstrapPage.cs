@@ -75,6 +75,6 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         private const string UserEmail = "admin@test.bg";
         private const string AdminUserName = "admin";
 
-        private readonly string[] users = new string[] { "Admin Admin", "admin2 admin2" };
+        private readonly string[] users = new string[] { "admin admin", "admin2 admin2" };
     }
 }

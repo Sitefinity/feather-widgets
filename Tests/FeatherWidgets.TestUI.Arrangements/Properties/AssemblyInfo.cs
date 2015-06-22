@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Web;
+using FeatherWidgets.TestUI.Arrangements;
 using Telerik.Sitefinity.TestUI.Arrangements.Core.Framework.Attributes;
 
 // General Information about an assembly is controlled through the following 
@@ -11,4 +13,5 @@ using Telerik.Sitefinity.TestUI.Arrangements.Core.Framework.Attributes;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("0332bfda-35f8-4dc7-8040-c82a40a4d021")]
 
+[assembly: PreApplicationStartMethod(typeof(ApplicationPreStart), "Init")]
 [assembly: UIArrangement]

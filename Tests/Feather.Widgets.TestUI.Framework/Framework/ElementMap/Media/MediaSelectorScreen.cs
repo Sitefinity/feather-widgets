@@ -81,7 +81,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
             }
         }
 
-
         /// <summary>
         /// Gets Done button in media widget.
         /// </summary>
