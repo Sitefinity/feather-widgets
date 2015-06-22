@@ -24,10 +24,9 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         public void Setup()
         {
             ServerOperationsFeather.DynamicModules().EnsureModuleIsImported(ModuleName, ModuleResource);
-
+            ServerOperations.DynamicTypes().CreateDynamicItem(this.GetDynamicType().FullName, "myUrl", null, "MyItemTitle");
             var manager = DynamicModuleManager.GetManager();
-            var dynamicItem = manager.CreateDataItem(this.GetDynamicType());
-            manager.SaveChanges();
+            var dynamicItem = this.GetDynamicItem();
 
             ServerSideUpload.CreateAlbum(LibraryTitle);
             var imageId1 = ServerSideUpload.UploadImage(LibraryTitle, ImagetTitle + 1, ImageResource1);
@@ -37,6 +36,8 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
             dynamicItem.CreateRelation(imageId1, string.Empty, typeof(Image).FullName, RelatedImagesField);
             dynamicItem.CreateRelation(imageId2, string.Empty, typeof(Image).FullName, RelatedImagesField);
             dynamicItem.CreateRelation(imageId3, string.Empty, typeof(Image).FullName, RelatedImagesField);
+
+            manager.SaveChanges();
         }
 
         [FixtureTearDown]
@@ -111,6 +112,50 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
             Assert.AreEqual(settings.SortExpression, galleryController.Model.SortExpression);
             Assert.AreEqual(settings.SelectionMode, galleryController.Model.SelectionMode);
             Assert.AreEqual(settings.SerializedThumbnailSizeModel, galleryController.Model.SerializedThumbnailSizeModel);
+        }
+
+        // Ignored because no relation is created between the items in the Set Up.
+        [Test]
+        [Description("Verifies that the related data is retrieved in the view model.")]
+        [Author(FeatherTeams.Team7)]
+        [Category(TestCategories.Media)]
+        [Ignore]
+        public void RelatedData_Action_EnsureRelatedDataIsRetrieved()
+        {
+            var galleryController = new ImageGalleryController();
+
+            var relatedData = new RelatedDataViewModel()
+            {
+                RelatedFieldName = "RelatedImages",
+                RelatedItemProviderName = string.Empty,
+                RelatedItemType = "Telerik.Sitefinity.DynamicTypes.Model.RelatedImagesModule.RelatedImagesType",
+                RelationTypeToDisplay = "Child"
+            };
+
+            var dynamicItem = this.GetDynamicItem();
+
+            var view = galleryController.RelatedData(
+                dynamicItem,
+                null,
+                relatedData,
+                null,
+                null,
+                null,
+                null);
+
+            var viewResult = view as ViewResult;
+
+            var viewModel = (ContentListViewModel)viewResult.Model;
+            var viewModelItems = viewModel.Items.ToList();
+
+            var relatedImages = dynamicItem.GetRelatedItems<Image>(RelatedImagesField).OrderByDescending(i => i.PublicationDate).ToList();
+
+            Assert.AreEqual(relatedImages.Count(), viewModel.Items.Count());
+
+            for (var i = 0; i < relatedImages.Count(); i++)
+            {
+                Assert.AreEqual(relatedImages[i].Id, viewModelItems[i].DataItem.Id);
+            }
         }
 
         private DynamicContent GetDynamicItem()
