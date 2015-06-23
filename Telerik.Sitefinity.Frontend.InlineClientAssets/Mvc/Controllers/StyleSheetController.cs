@@ -6,6 +6,7 @@ using System.Web.UI;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Models.StyleSheet;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Localization;
@@ -133,7 +134,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         /// <param name="cssMarkup">The CSS markup.</param>
         protected virtual void AddCssInHead(string cssMarkup)
         {
-            var page = this.HttpContext.CurrentHandler as Page;
+            var page = PageInitializer.GetPageHandler(this.HttpContext.CurrentHandler);
             if (page != null && page.Header !=null)
             {
                 if (!string.IsNullOrEmpty(cssMarkup))

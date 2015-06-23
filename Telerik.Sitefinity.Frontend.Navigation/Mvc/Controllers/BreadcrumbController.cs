@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.Breadcrumb;
@@ -94,7 +95,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             get
             {
-                var page = this.GetHttpContext.CurrentHandler as Page;
+                var page = PageInitializer.GetPageHandler(this.GetHttpContext.CurrentHandler);
 
                 return page == null ? null : page.GetBreadcrumbExtender();
             }
