@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models.LanguageSelector;
@@ -127,8 +128,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             }
             
             this.viewModel = this.Model.CreateViewModel();
-            
-            var page = context.CurrentHandler as Page;
+
+            var page = context.CurrentHandler.GetPageHandler();
             
             if (page != null && !this.IsEdit)
             {

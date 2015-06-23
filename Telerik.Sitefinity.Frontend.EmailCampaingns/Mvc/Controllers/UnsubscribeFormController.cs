@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Models.UnsubscribeForm;
 using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Licensing;
@@ -151,7 +152,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             }
 
             var context = this.CurrentHttpContext;
-            var page = context.CurrentHandler as Page;
+            var page = context.CurrentHandler.GetPageHandler();
 
             if (!SystemManager.IsDesignMode && this.Model.UnsubscribeMode == UnsubscribeMode.Link)
             {
