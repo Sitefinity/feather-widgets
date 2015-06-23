@@ -20,7 +20,6 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
         public void SelectAllTagsOptionAndCssClasses()
-
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);

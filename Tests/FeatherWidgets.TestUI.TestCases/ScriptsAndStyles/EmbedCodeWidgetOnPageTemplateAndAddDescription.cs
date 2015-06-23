@@ -25,7 +25,6 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void EmbedCodeWidgetOnPageTemplateAndAddDescription()
         {
-            ActiveBrowser.WaitUntilReady();
             BAT.Macros().NavigateTo().Design().PageTemplates();
             this.OpenTemplateEditor();
 

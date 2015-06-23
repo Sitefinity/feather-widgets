@@ -19,6 +19,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// </summary>
         public void AssertMessageAndCountOnPage(string commentCount)
         {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
             HtmlDiv commentLinkOnPage = this.EM.CommentsAndReviews.CommentsFrontend.MessageAndCountOnPage.AssertIsPresent("Comments count on page");
             bool isPresent = commentLinkOnPage.InnerText.Contains(commentCount);
             Assert.IsTrue(isPresent);
@@ -75,6 +78,9 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
         /// </summary>
         public void AssertExpectedCount(string expectedCount)
         {
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.RefreshDomTree();
+
             HtmlAnchor commentLink = this.EM.CommentsAndReviews.CommentsFrontend.LeaveAComment.AssertIsPresent("Comments count link");
             bool isPresent = commentLink.InnerText.Contains(expectedCount);
             Assert.IsTrue(isPresent);
