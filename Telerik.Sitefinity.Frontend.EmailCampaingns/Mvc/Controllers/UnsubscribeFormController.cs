@@ -152,7 +152,7 @@ namespace Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers
             }
 
             var context = this.CurrentHttpContext;
-            var page = PageInitializer.GetPageHandler(context.CurrentHandler);
+            var page = context.CurrentHandler.GetPageHandler();
 
             if (!SystemManager.IsDesignMode && this.Model.UnsubscribeMode == UnsubscribeMode.Link)
             {

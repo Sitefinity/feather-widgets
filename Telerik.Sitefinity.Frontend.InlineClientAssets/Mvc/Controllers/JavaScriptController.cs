@@ -86,7 +86,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         {
             var viewModel = this.Model.GetViewModel();
 
-            var page = PageInitializer.GetPageHandler(this.GetHttpContext().CurrentHandler);
+            var page = this.GetHttpContext().CurrentHandler.GetPageHandler();
 
             if (page != null && !this.IsEdit)
             {

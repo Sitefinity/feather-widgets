@@ -95,7 +95,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         {
             get
             {
-                var page = PageInitializer.GetPageHandler(this.GetHttpContext.CurrentHandler);
+                var page = this.GetHttpContext.CurrentHandler.GetPageHandler();
 
                 return page == null ? null : page.GetBreadcrumbExtender();
             }

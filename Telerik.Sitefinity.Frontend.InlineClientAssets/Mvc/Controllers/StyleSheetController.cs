@@ -134,7 +134,7 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
         /// <param name="cssMarkup">The CSS markup.</param>
         protected virtual void AddCssInHead(string cssMarkup)
         {
-            var page = PageInitializer.GetPageHandler(this.HttpContext.CurrentHandler);
+            var page = this.HttpContext.CurrentHandler.GetPageHandler();
             if (page != null && page.Header !=null)
             {
                 if (!string.IsNullOrEmpty(cssMarkup))

@@ -128,8 +128,8 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
             }
             
             this.viewModel = this.Model.CreateViewModel();
-            
-            var page = PageInitializer.GetPageHandler(context.CurrentHandler);
+
+            var page = context.CurrentHandler.GetPageHandler();
             
             if (page != null && !this.IsEdit)
             {

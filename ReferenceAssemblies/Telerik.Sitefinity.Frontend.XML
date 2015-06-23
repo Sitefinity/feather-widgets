@@ -516,6 +516,20 @@
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Attributes.EmailAddressAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
             <inheritDoc/>
         </member>
+        <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.HttpHandlerExtensions">
+            <summary>
+            Holds all extension methods for transforming an <see cref="T:System.Web.IHttpHandler"/> to <see cref="T:System.Web.UI.Page"/>
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.HttpHandlerExtensions.GetPageHandler(System.Web.IHttpHandler)">
+            <summary>
+            Casts the IHttpHandler to Page. If the handler is a wrapper of this page - extracts it.
+            </summary>
+            <param name="handler">The handler.</param>
+            <returns>
+            The Page or null if the cast failed.
+            </returns>
+        </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Layouts.DuplicateSectionException">
             <summary>
             This type of exception is thrown when sections with duplicating names are found on the current page.
@@ -596,15 +610,6 @@
             <summary>
             Instances of this are used to manipulated a page right after it is created.
             </summary>
-        </member>
-        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.PageInitializer.GetPageHandler(System.Web.IHttpHandler)">
-            <summary>
-            Casts the IHttpHandler to Page. If the handler is a wrapper of this page - extracts it.
-            </summary>
-            <param name="handler">The handler.</param>
-            <returns>
-            The Page or null if the cast failed.
-            </returns>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.PageInitializer.Initialize(System.Web.IHttpHandler)">
             <summary>
