@@ -203,7 +203,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=pull-right", "ng-click=removeItem($index, item)");
+                return this.Get<HtmlAnchor>("class=text-danger", "ng-click=removeItem($index, item)");
             }
         }
 

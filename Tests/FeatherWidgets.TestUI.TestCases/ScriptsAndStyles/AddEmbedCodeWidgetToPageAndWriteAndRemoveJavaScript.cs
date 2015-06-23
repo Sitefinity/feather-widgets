@@ -24,7 +24,6 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript()
         {
-            ActiveBrowser.WaitUntilReady();
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);

@@ -34,11 +34,13 @@
                     <input id="filterUsers" type="radio" ng-model="properties.SelectionMode.PropertyValue" value="FilteredItems" />
 
                     @Html.Resource("NarrowSelection")
-                    <sf-list-selector sf-role-selector ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
-                                      sf-multiselect="true" sf-sortable="true"
-                                      sf-selected-items="additionalFilters.value"
-                                      sf-hide-roles="Owner, Anonymous, Authenticated, Everyone"></sf-list-selector>
                 </label>
+                <div class="label-content">
+                    <sf-list-selector sf-role-selector ng-show="properties.SelectionMode.PropertyValue=='FilteredItems'"
+                                        sf-multiselect="true" sf-sortable="true"
+                                        sf-selected-items="additionalFilters.value"
+                                        sf-hide-roles="Owner, Anonymous, Authenticated, Everyone"></sf-list-selector>
+                </div>
             </div>
         </div>
 
