@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using FeatherWidgets.TestUnit.DummyClasses;
 using FeatherWidgets.TestUnit.DummyClasses.ContentBlock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.Microsoft.Practices.EnterpriseLibrary.Caching;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
@@ -13,6 +14,7 @@ using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Configuration;
 using Telerik.Sitefinity.Project.Configuration;
+using Telerik.Sitefinity.Services;
 
 namespace FeatherWidgets.TestUnit.ContentBlock
 {
@@ -173,8 +175,10 @@ namespace FeatherWidgets.TestUnit.ContentBlock
 
             ObjectFactory.Container.RegisterType<ConfigManager, ConfigManager>(typeof(XmlConfigProvider).Name.ToUpperInvariant(), new InjectionConstructor(typeof(XmlConfigProvider).Name));
             ObjectFactory.Container.RegisterType<XmlConfigProvider, DummyConfigProvider>();
+            ObjectFactory.Container.RegisterType<ICacheManager, NoCacheManager>(CacheManagerInstance.LocalizationResources.ToString());
             Config.RegisterSection<ResourcesConfig>();
             Config.RegisterSection<ProjectConfig>();
+            Config.RegisterSection<SystemConfig>();
             Res.RegisterResource(resourceClassType);
             Res.RegisterResource(labelsClassType);
         }
