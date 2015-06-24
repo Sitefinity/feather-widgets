@@ -112,7 +112,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc.TestUtilities">
-      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.2.270.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.Mvc.TestUtilities.1.3.260.0\lib\net45\Telerik.Sitefinity.Mvc.TestUtilities.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Personalization">
       <SpecificVersion>False</SpecificVersion>
