@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.Common.UnitTesting;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampaigns
 {
@@ -11,5 +13,30 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampa
     /// </summary>
     public class SubscribeFormWrapper : BaseWrapper
     {
+        /// <summary>
+        /// Select existing page for single item
+        /// </summary>
+        public void SelectExistingPage()
+        {
+            HtmlInputRadioButton selectExistingPage = this.EM.EmailCampaigns.SubscribeFormEditScreen.SelectedExistingPage.AssertIsPresent("Selected existing page");
+            selectExistingPage.Click();
+        }
+
+        /// <summary>
+        /// Verifies selected mail list and page in designer.
+        /// </summary>
+        /// <param name="itemNames">Array of selected item names.</param>
+        public void VerifySelectedMailListAndPage(string[] itemNames)
+        {
+            var divList = this.EM.Widgets.WidgetDesignerContentScreen.SelectedItemsDivList;
+            int divListCount = divList.Count;
+            Assert.AreNotEqual(0, divListCount, "Count equals 0");
+
+            for (int i = 0; i < divListCount; i++)
+            {
+                bool isPresentSubscribe = divList[i].InnerText.Contains(itemNames[i]);
+                Assert.IsTrue(isPresentSubscribe);
+            }
+        }
     }
 }

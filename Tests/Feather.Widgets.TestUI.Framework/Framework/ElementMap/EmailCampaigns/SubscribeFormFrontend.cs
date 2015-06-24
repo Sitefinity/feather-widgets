@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
 {
@@ -31,6 +31,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
             get
             {
                 return this.Get<HtmlForm>("tagname=form", "name=defaultForm");
+            }
+        }
+
+        /// <summary>
+        /// Subscribe form.
+        /// </summary>
+        public HtmlInputEmail EmailAddressField
+        {
+            get
+            {
+                return this.Get<HtmlInputEmail>("tagname=input", "id=Email");
+            }
+        }
+
+        /// <summary>
+        /// Gets subscribe button.
+        /// </summary>
+        public HtmlButton SubscribeButton
+        {
+            get
+            {
+                return this.Get<HtmlButton>("type=submit", "Innertext=Subscribe");
             }
         }
     }
