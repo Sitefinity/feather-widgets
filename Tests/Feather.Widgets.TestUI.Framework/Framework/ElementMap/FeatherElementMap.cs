@@ -3,6 +3,7 @@ using ArtOfTest.WebAii.Core;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.CommentsAndReviews;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content;
+using Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media;
@@ -384,6 +385,29 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
             }
         }
 
+        /// <summary>
+        /// Gets the EmailCampaignsMap element map.
+        /// </summary>
+        /// <value>The EmailCampaignsMap map.</value>
+        public EmailCampaignsMap EmailCampaigns
+        {
+            get
+            {
+                if (this.emailCampaignsMap == null)
+                {
+                    this.EnsureFindIsInitialized();
+                    this.emailCampaignsMap = new EmailCampaignsMap(this.find);
+                }
+
+                return this.emailCampaignsMap;
+            }
+
+            private set
+            {
+                this.emailCampaignsMap = value;
+            }
+        }
+
         private void EnsureFindIsInitialized()
         {
             if (this.find == null)
@@ -408,5 +432,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap
         private ScriptsAndStylesMap scriptsAndStylesMap;
         private CommentsAndReviewsMap commentsAndReviewsMap;
         private ClassificationsMap classificationsMap;
+        private EmailCampaignsMap emailCampaignsMap;
     }
 }
