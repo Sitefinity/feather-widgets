@@ -92,6 +92,9 @@
     <Compile Include="..\..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BlogPosts\A_Test1.cs" />
+    <Compile Include="BlogPosts\A_Test2.cs" />
+    <Compile Include="BlogPosts\A_Test3.cs" />
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
