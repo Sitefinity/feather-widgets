@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Frontend.Blogs.Mvc.Models.BlogPost;
 using Telerik.Sitefinity.Frontend.Comments.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.Profile;
 using Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers;
@@ -536,6 +537,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
                 mvcWidget.ControllerName = typeof(ReviewsController).FullName;
 
                 this.CreateControl(pageManager, page, mvcWidget, "Reviews", placeholder);
+            }
+        }
+
+        /// <summary>
+        /// Adds subscribe form widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddSubscribeFormWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(SubscribeFormController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Subscribe form", placeholder);
             }
         }
 
