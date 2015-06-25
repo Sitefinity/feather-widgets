@@ -222,15 +222,15 @@ namespace FeatherWidgets.TestIntegration.SearchResults
                 Assert.AreEqual(expectedPagesCount, searchResultsController.Model.TotalPagesCount);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsCount, searchResultsController.Model.Results.TotalCount);
 
-                searchResultsController.Index(1, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(1, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "1", searchResultsController.Model.Results.Data[0].GetValue("Title"));
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "2", searchResultsController.Model.Results.Data[1].GetValue("Title"));
 
-                searchResultsController.Index(2, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(2, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "3", searchResultsController.Model.Results.Data[0].GetValue("Title"));
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "4", searchResultsController.Model.Results.Data[1].GetValue("Title"));
 
-                searchResultsController.Index(3, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, null, orderBy);
+                searchResultsController.Index(3, SearchResultsWidgetTests.NewsTitle, SearchResultsWidgetTests.SearchIndexName, null, this.frontEndLanguages[0].Name, orderBy);
                 Assert.AreEqual(SearchResultsWidgetTests.NewsTitle + "5", searchResultsController.Model.Results.Data[0].GetValue("Title"));
             }
             finally
