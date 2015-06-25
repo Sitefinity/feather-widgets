@@ -38,5 +38,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampa
                 Assert.IsTrue(isPresentSubscribe);
             }
         }
+
+        /// <summary>
+        ///  Verify error message for deleted mail list
+        /// </summary>
+        public void VerifyErrorMessageForDeletedMailList()
+        {
+            HtmlDiv errorMessage = this.EM.EmailCampaigns.SubscribeFormEditScreen.ErrorMessage.AssertIsPresent("Error message");
+            bool isPresentSubscribe = errorMessage.InnerText.Contains("The selected mailing list has been deleted.");
+            Assert.IsTrue(isPresentSubscribe);
+        }
     }
 }
