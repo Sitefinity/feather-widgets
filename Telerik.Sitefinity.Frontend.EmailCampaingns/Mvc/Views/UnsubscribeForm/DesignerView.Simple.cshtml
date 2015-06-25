@@ -1,5 +1,6 @@
 @model System.Web.UI.Control
 
+@using Telerik.Sitefinity.Mvc;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 @using Telerik.Sitefinity.Modules.Newsletters.Composition;
@@ -89,7 +90,7 @@ else
             <div class="row">
                 <div class="col-md-6">
                     <select id="emailAddressTemplateName" ng-model="properties.EmailAddressTemplateName.PropertyValue" class="form-control">
-                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByEmailAddress\.(?<viewName>[\w\s]*)$"))
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^UnsubscribeFormByEmailAddress\.(?<viewName>[\w\s]*)$"))
                          {
                             <option value="@viewName"> @viewName</option>
                          }
@@ -150,7 +151,7 @@ else
                 <div class="row">
                     <div class="col-md-6">
                         <select id="linkTemplateName" ng-model="properties.LinkTemplateName.PropertyValue" class="form-control">
-                                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^UnsubscribeFormByLink\.(?<viewName>[\w\s]*)$"))
+                                @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^UnsubscribeFormByLink\.(?<viewName>[\w\s]*)$"))
                                 {
                                 <option value="@viewName"> @viewName</option>
                                 }
