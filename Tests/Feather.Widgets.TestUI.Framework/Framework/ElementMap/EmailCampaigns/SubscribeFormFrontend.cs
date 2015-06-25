@@ -35,7 +35,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
         }
 
         /// <summary>
-        /// Subscribe form.
+        /// Email field.
         /// </summary>
         public HtmlInputEmail EmailAddressField
         {
@@ -53,6 +53,39 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
             get
             {
                 return this.Get<HtmlButton>("type=submit", "Innertext=Subscribe");
+            }
+        }
+
+        /// <summary>
+        /// Subscribe div.
+        /// </summary>
+        public HtmlDiv SubscribeDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "id=defaultForm");
+            }
+        }
+
+        /// <summary>
+        /// Email field.
+        /// </summary>
+        public HtmlInputText EmailAddressTextField
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=Email");
+            }
+        }
+
+        /// <summary>
+        /// Gets subscribe button.
+        /// </summary>
+        public HtmlInputSubmit SubscribeInputButton
+        {
+            get
+            {
+                return this.Get<HtmlInputSubmit>("type=submit", "value=Subscribe");
             }
         }
     }

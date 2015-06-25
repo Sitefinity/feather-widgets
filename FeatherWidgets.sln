@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.ContentBlock", "Telerik.Sitefinity.Frontend.ContentBlock\Telerik.Sitefinity.Frontend.ContentBlock.csproj", "{827B5C1E-619A-4080-A7F1-10D103C38CFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.SocialShare", "Telerik.Sitefinity.Frontend.SocialShare\Telerik.Sitefinity.Frontend.SocialShare.csproj", "{33171BB5-9918-41BE-B06D-0D8347846B0C}"
@@ -61,6 +59,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telerik.Sitefinity.Frontend.EmailCampaigns", "Telerik.Sitefinity.Frontend.EmailCampaingns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj", "{C70BD0BD-D081-48A0-AF6D-3FA7E584CB04}"
 EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = FeatherWidgets.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -151,13 +152,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
+		{B02EF644-7756-41FA-BBA8-63F4F44C652B} = {EB73BDA8-73B7-4EC8-8707-853B53C40992}
 		{04E71A1D-8C5E-4B03-BA1E-5C0CE0E99663} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
 		{3A2DB408-48E4-4C20-BBBC-3F730009322A} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
-		{B02EF644-7756-41FA-BBA8-63F4F44C652B} = {EB73BDA8-73B7-4EC8-8707-853B53C40992}
+		{6F9EE665-8F08-41F2-8AF1-8A8654AA6CA7} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
 		{7A619682-93B4-48CC-B6C0-3365657B51A3} = {865316AB-A05C-4A86-87AD-BB3E4AC4A384}
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = FeatherWidgets.vsmdi
 	EndGlobalSection
 EndGlobal

@@ -33,5 +33,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
                 return this.Get<HtmlInputRadioButton>("id=specificPage");
             }
         }
+
+        /// <summary>
+        /// Selected existing page
+        /// </summary>
+        public HtmlDiv ErrorMessage
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=alert alert-danger ng-scope");
+            }
+        }
     }
 }

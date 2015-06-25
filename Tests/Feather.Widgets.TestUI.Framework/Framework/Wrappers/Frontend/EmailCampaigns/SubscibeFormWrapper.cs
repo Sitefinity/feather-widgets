@@ -63,5 +63,54 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
+
+        /// <summary>
+        /// Verify subscribe message not styled page
+        /// </summary>
+        public void VerifySubscribeMessageOnTheFrontendNotStyledPage()
+        {
+            HtmlDiv subscribeDiv = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeDiv.AssertIsPresent("Subscribe form");
+            bool isPresentSubscribe = subscribeDiv.InnerText.Contains("Subscribe");
+            Assert.IsTrue(isPresentSubscribe);
+
+            bool isPresentMessage = subscribeDiv.InnerText.Contains("Subscribe to our email newsletter to receive updates");
+            Assert.IsTrue(isPresentMessage);
+        }
+
+        /// <summary>
+        ///  Verify successfully subscribed message not styled page
+        /// </summary>
+        /// <param name="email">Email</param>
+        public void VerifySuccessfullySubscribeMessageOnTheFrontendNotStyledPage(string email)
+        {
+            HtmlDiv subscribeDiv = this.EM.EmailCampaigns.SubscribeFormFrontend.SubscribeDiv.AssertIsPresent("Subscribe form");
+            bool isPresentSubscribe = subscribeDiv.InnerText.Contains("Thank you. You have successfully subscribed to our newsletter (" + email + ")");
+            Assert.IsTrue(isPresentSubscribe);
+        }
+
+        /// <summary>
+        /// Fill user email not styled page
+        /// </summary>
+        /// <param name="firstName">Email address</param>
+        public void FillEmailNotStyledPage(string email)
+        {
+            HtmlInputText emailInput = EM.EmailCampaigns.SubscribeFormFrontend.EmailAddressTextField
+                .AssertIsPresent("Email field");
+
+            emailInput.Text = string.Empty;
+            emailInput.Text = email;
+        }
+
+        /// <summary>
+        /// Press subscribe button not styled page
+        /// </summary>
+        public void ClickSubscribeButtonNotStyledPage()
+        {
+            HtmlInputSubmit subscribeButton = EM.EmailCampaigns.SubscribeFormFrontend.SubscribeInputButton
+            .AssertIsPresent("Subscribe button");
+            subscribeButton.MouseClick();
+            ActiveBrowser.WaitUntilReady();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
+        }
     }
 }
