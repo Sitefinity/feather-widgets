@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifyUsersListOnBootstrapPage(this.users);
             BATFeather.Wrappers().Frontend().Identity().UsersListWrapper().VerifySingleUserOnBootstrapPage(UserFirstLastName, UserEmail, SingleUserPageURLEnding);
         }

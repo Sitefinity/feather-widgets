@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             string[] parentPages = new string[] { PageName };
             string[] childPages = new string[] { ChildPage1, ChildPage2 };
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
 
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(navTemplateClass, parentPages);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyChildPagesFrontEndNavigation(navTemplateChildClass, childPages);

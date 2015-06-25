@@ -31,9 +31,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// <param name="itemName">Name of the item.</param>
         public void SelectItemsInFlatSelector(params string[] itemNames)
         {
+            HtmlDiv activeTab = this.EM.Selectors.SelectorsScreen.ActiveTab.AssertIsPresent("active tab");
+
             foreach (var itemName in itemNames)
             {
-                var itemsToSelect = ActiveBrowser.Find.AllByCustom<HtmlContainerControl>(a => a.InnerText.Equals(itemName));
+                var itemsToSelect = activeTab.Find.AllByCustom<HtmlContainerControl>(a => a.InnerText.Equals(itemName));
                 foreach (var item in itemsToSelect)
                 {
                     if (item.IsVisible())
