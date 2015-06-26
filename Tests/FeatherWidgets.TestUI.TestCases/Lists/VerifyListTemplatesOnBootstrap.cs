@@ -44,19 +44,19 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
             //// verify List templates on frontend
-            BAT.Macros().NavigateTo().CustomPage("~/" + AnchorListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + AnchorListPage.ToLower(), false);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyAnchorListTemplate(ListTitle, this.listItems);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SimpleListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SimpleListPage.ToLower(), false);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifySimpleListTemplate(ListTitle, this.listItemTitles);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PagesListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PagesListPage.ToLower(), false);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyPagesListTemplateOnBootstrap(ListTitle, this.listItems);
             
-            BAT.Macros().NavigateTo().CustomPage("~/" + ExpandedListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + ExpandedListPage.ToLower(), false);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyExpandedListTemplateOnBootstrap(ListTitle, this.listItems);
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + ExpandableListPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + ExpandableListPage.ToLower(), false);
             BATFeather.Wrappers().Frontend().Lists().ListsWidgetWrapper().VerifyExpandableListTemplateOnBootstrap(ListTitle, this.listItems);
         }
 

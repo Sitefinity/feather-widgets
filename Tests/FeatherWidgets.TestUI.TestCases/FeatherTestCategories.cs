@@ -144,5 +144,10 @@ namespace FeatherWidgets.TestUI.TestCases
         /// New category for Categories and Tags tests
         /// </summary>
         public const string Classifications = "Classifications";
+
+        /// <summary>
+        /// New category for EmailCampaigns tests
+        /// </summary>
+        public const string EmailCampaigns = "EmailCampaigns";
     }
 }

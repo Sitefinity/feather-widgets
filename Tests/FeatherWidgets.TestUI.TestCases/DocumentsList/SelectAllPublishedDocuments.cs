@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
 
             foreach (var doc in this.documentTitles)
             {

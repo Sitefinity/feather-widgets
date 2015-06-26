@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestUI.TestCases.SocialShare
             BATFeather.Wrappers().Backend().SocialShare().SocialSharePageEditorWrapper().VerifySocialShareTextPresentOnBackend(this.optionTitlesTextToBeVisible);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             Assert.AreEqual(5, BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().CountOfSocialShareOptions(), "Count is not correct");
             BATFeather.Wrappers().Frontend().SocialShare().SocialShareWrapper().VerifySocialShareTextPresentOnFrontend(this.optionTitlesTextToBeVisible);
         }

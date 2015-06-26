@@ -95,6 +95,9 @@
     <Compile Include="Framework\ElementMap\CommentsAndReviews\CommentsFrontend.cs" />
     <Compile Include="Framework\ElementMap\CommentsAndReviews\ReviewsEditScreen.cs" />
     <Compile Include="Framework\ElementMap\CommentsAndReviews\ReviewsFrontend.cs" />
+    <Compile Include="Framework\ElementMap\EmailCampaigns\EmailCampaignsMap.cs" />
+    <Compile Include="Framework\ElementMap\EmailCampaigns\SubscribeFormEditScreen.cs" />
+    <Compile Include="Framework\ElementMap\EmailCampaigns\SubscribeFormFrontend.cs" />
     <Compile Include="Framework\ElementMap\ScriptsAndStyles\JavaScriptEditScreen.cs" />
     <Compile Include="Framework\ElementMap\ScriptsAndStyles\ScriptsAndStylesMap.cs" />
     <Compile Include="Framework\ElementMap\Identity\IdentityMap.cs" />
@@ -158,6 +161,8 @@
     <Compile Include="Framework\Wrappers\Backend\CommentsAndReviews\CommentsAndReviewsWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Backend\CommentsAndReviews\CommentsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\CommentsAndReviews\ReviewsWrapper.cs" />
+    <Compile Include="Framework\Wrappers\Backend\EmailCampaigns\EmailCampaignsWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Backend\EmailCampaigns\SubscribeFormWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\Pages\PageZoneEditorMediaWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ScriptsAndStylesWidgets\JavaScriptWidgetEditWrapper.cs" />
     <Compile Include="Framework\Wrappers\Backend\ScriptsAndStylesWidgets\CssWidgetEditWrapper.cs" />
@@ -213,6 +218,8 @@
     <Compile Include="Framework\Wrappers\Frontend\CommentsAndReviews\ReviewsWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ContentBlock\ContentBlockWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\EmailCampaigns\EmailCampaignsWrapperFacade.cs" />
+    <Compile Include="Framework\Wrappers\Frontend\EmailCampaigns\SubscibeFormWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ScriptsAndStyles\ScriptsAndStylesWrapper.cs" />
     <Compile Include="Framework\Wrappers\Frontend\ScriptsAndStyles\ScriptsAndStylesWrapperFacade.cs" />
     <Compile Include="Framework\Wrappers\Frontend\DocumentList\DocumentListWrapper.cs" />

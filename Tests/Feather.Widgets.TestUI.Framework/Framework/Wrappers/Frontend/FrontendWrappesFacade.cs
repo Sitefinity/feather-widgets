@@ -1,5 +1,6 @@
 ﻿using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Classifications;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsAndReviews;
+using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCampaigns;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Identity;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.Lists;
 using Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.ModuleBuilder;
@@ -154,6 +155,15 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         public CommentsAndReviewsWrapperFacade CommentsAndReviews()
         {
             return new CommentsAndReviewsWrapperFacade();
+        }
+
+        /// <summary>
+        /// Provides access to subscribe form and unsubscribe frontend wrapper. 
+        /// </summary>
+        /// <returns></returns>
+        public EmailCampaignsWrapperFacade EmailCampaigns()
+        {
+            return new EmailCampaignsWrapperFacade();
         }
     }
 }
