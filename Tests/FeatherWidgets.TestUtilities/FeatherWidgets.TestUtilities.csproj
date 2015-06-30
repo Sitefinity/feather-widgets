@@ -185,7 +185,7 @@
       <Project>{F4D16A33-FEAA-4008-B941-AFC1AE95DB31}</Project>
       <Name>Telerik.Sitefinity.Frontend.DynamicContent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.EmailCampaingns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj">
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.EmailCampaigns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj">
       <Project>{c70bd0bd-d081-48a0-af6d-3fa7e584cb04}</Project>
       <Name>Telerik.Sitefinity.Frontend.EmailCampaigns</Name>
     </ProjectReference>
