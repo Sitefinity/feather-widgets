@@ -34,6 +34,10 @@ namespace FeatherWidgets.TestUnit.DummyClasses.Media
 
         internal class DummyList : List
         {
+            public DummyList()
+            { 
+            }
+
             public DummyList(string name, Guid id)
                 : base(name, id)
             {
