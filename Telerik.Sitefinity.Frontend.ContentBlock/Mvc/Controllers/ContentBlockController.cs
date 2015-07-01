@@ -313,7 +313,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                     CssClass = "sfWidgetOverrideItm"
                 });
 
-            if (SiteMapBase.GetCurrentNode() != null)
+            if (this.ResolveCurrentSitemapNode() != null)
             {
                 commandsList.Add(
                     new WidgetMenuItem
@@ -369,6 +369,15 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CssClass = "sfPermItm"
                     });
             return commandsList;
+        }
+
+        /// <summary>
+        /// Resolves the current sitemap node.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual PageSiteNode ResolveCurrentSitemapNode()
+        {
+            return SiteMapBase.GetCurrentNode();
         }
 
         /// <summary>
