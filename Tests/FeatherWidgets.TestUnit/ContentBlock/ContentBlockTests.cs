@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models;
 using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Configuration;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Project.Configuration;
 using Telerik.Sitefinity.Services;
 
@@ -172,6 +173,7 @@ namespace FeatherWidgets.TestUnit.ContentBlock
         {
             var resourceClassType = typeof(ContentBlockResources);
             var labelsClassType = typeof(Labels);
+            var pageResourcesClassType = typeof(PageResources);
 
             ObjectFactory.Container.RegisterType<ConfigManager, ConfigManager>(typeof(XmlConfigProvider).Name.ToUpperInvariant(), new InjectionConstructor(typeof(XmlConfigProvider).Name));
             ObjectFactory.Container.RegisterType<XmlConfigProvider, DummyConfigProvider>();
@@ -181,6 +183,7 @@ namespace FeatherWidgets.TestUnit.ContentBlock
             Config.RegisterSection<SystemConfig>();
             Res.RegisterResource(resourceClassType);
             Res.RegisterResource(labelsClassType);
+            Res.RegisterResource(pageResourcesClassType);
         }
     }
 }
