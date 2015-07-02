@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
         private const string Page1 = "SemanticUIPage1";
         private const string Page2 = "SemanticUIPage2";
-        private const string PageTemplateName = "SemanticUI.defaultNew";
+        private const string PageTemplateName = "defaultNew";
         private const string ArrangementClassName = "NavigationWidgetOnSemanticTemplate";
         private const string ArrangementMethodName = "CreatePages";
         private const string WidgetName = "Navigation";
