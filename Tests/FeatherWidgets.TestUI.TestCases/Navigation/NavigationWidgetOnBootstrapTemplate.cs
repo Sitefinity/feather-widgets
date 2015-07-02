@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
         private const string Page1 = "BootstrapPage1";
         private const string Page2 = "BootstrapPage2";
-        private const string PageTemplateName = "Bootstrap.defaultNew";
+        private const string PageTemplateName = "defaultNew";
         private const string ArrangementClassName = "NavigationWidgetOnBootstrapTemplate";
         private const string ArrangementMethodName = "CreatePages";
         private const string WidgetName = "Navigation";
