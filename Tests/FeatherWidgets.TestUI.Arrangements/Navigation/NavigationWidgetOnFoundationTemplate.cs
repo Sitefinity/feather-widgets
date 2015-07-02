@@ -59,7 +59,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string Page1 = "FoundationPage1";
         private const string Page2 = "FoundationPage2";
-        private const string PageTemplateName = "Foundation.defaultNew";
+        private const string PageTemplateName = "defaultNew";
         private const string DefaultLayoutFile = "default.cshtml";
         private const string NewLayoutFile = "defaultNew.cshtml";       
     }

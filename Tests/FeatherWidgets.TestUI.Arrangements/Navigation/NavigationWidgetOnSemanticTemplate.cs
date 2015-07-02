@@ -59,7 +59,7 @@ namespace FeatherWidgets.TestUI.Arrangements
 
         private const string Page1 = "SemanticUIPage1";
         private const string Page2 = "SemanticUIPage2";
-        private const string PageTemplateName = "SemanticUI.defaultNew";
+        private const string PageTemplateName = "defaultNew";
         private const string DefaultLayoutFile = "default.cshtml";
         private const string NewLayoutFile = "defaultNew.cshtml";       
     }
