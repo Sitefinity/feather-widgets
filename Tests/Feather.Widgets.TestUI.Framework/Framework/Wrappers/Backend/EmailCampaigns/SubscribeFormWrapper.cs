@@ -48,5 +48,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampa
             bool isPresentSubscribe = errorMessage.InnerText.Contains("The selected mailing list has been deleted.");
             Assert.IsTrue(isPresentSubscribe);
         }
+
+        /// <summary>
+        /// Selects items in flat selector.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void SelectItemsInFlatSelector(params string[] itemNames)
+        {
+            foreach (var itemName in itemNames)
+            {                
+                var itemsToSelect = ActiveBrowser.Find.AllByCustom<HtmlContainerControl>(a => a.InnerText.Equals(itemName));
+                foreach (var item in itemsToSelect)
+                {
+                    if (item.IsVisible())
+                    {
+                        item.Wait.ForVisible();
+                        item.ScrollToVisible();
+                        item.MouseClick();
+                        ActiveBrowser.RefreshDomTree();
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
