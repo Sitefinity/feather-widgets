@@ -917,6 +917,12 @@
             </summary>
             <value>Insert file</value>
         </member>
+        <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertThisFile">
+            <summary>
+            Insert this file
+            </summary>
+            <value>Insert this file</value>
+        </member>
         <member name="P:Telerik.Sitefinity.Frontend.Mvc.StringResources.ClientComponentsResources.InsertVideo">
             <summary>
             Insert video
@@ -3062,11 +3068,32 @@
             This class manages the behavior when a layout file is moved over the application folder structure.
             </summary>
         </member>
+        <member name="F:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.PageTemplateIconPathFormat">
+            <summary>
+            The page template icon path format
+            </summary>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.GetOrCreateTemplateCategoryId(System.String,System.Boolean)">
+            <summary>
+            Gets the or create template category identifier.
+            </summary>
+            <param name="templateCategoryName">The template category name.</param>
+            <param name="createIfNotExist">if set to <c>true</c> [create if not exist].</param>
+            <returns>The id of the category.</returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.AttachImageToTemplate(Telerik.Sitefinity.Pages.Model.PageTemplate,Telerik.Sitefinity.Modules.Pages.PageManager)">
+            <summary>
+            Attaches image to a template (if available).
+            </summary>
+            <param name="template">The template.</param>
+            <param name="pageManager">The page manager.</param>
+        </member>
         <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.FileAdded(System.String,System.String,System.String)">
             <summary>
             Process the file if such is added to the existing folder.
             </summary>
-            <param name="virtualFilePath">The virtual file path.</param>
+            <param name="fileName">The virtual file name.</param>
+            <param name="filePath">The virtual file path.</param>
             <param name="packageName">Name of the package.</param>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.FileDeleted(System.String,System.String)">
@@ -3113,11 +3140,20 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.CreateTemplate(System.String)">
+        <member name="M:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.CreateTemplate(System.String,System.String)">
             <summary>
-            Creates the page template.
+            Creates the template.
             </summary>
-            <param name="templateTitle">The template title.</param>
+            <param name="packageName">Name of the package.</param>
+            <param name="fileNameWithoutExtension">The file name without extension.</param>
+        </member>
+        <member name="P:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.DefaultTemplateNames">
+            <summary>
+            Gets the default template names.
+            </summary>
+            <value>
+            The default template names.
+            </value>
         </member>
         <member name="P:Telerik.Sitefinity.Frontend.FilesMonitoring.LayoutFileManager.FolderPathStructure">
             <summary>
@@ -3360,6 +3396,13 @@
             <param name="htmlHelper">The HTML helper.</param>
             <param name="fieldName">Name of the field.</param>
             <param name="fieldType">Type of the field.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Mvc.Helpers.InlineEditingHtmlHelpers.ShouldRenderInlineEditing(System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Returns if the inline editin section should be rendered.
+            </summary>
+            <param name="htmlHelper">The HTML helper.</param>
             <returns></returns>
         </member>
         <member name="T:Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.ControllerModelFactory">
@@ -5291,6 +5334,12 @@
             Enhances the given URL with information about the current package.
             </summary>
             <param name="url">The URL.</param>
+        </member>
+        <member name="M:Telerik.Sitefinity.Frontend.Resources.PackageManager.PackageExists(System.String)">
+            <summary>
+            Checks whether a given package exists.
+            </summary>
+            <param name="packageName">Name of the package.</param>
         </member>
         <member name="M:Telerik.Sitefinity.Frontend.Resources.PackageManager.StripInvalidCharacters(System.String)">
             <summary>
