@@ -118,7 +118,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
                     result = viewModel.JavaScriptCode;
                 }
 
-                viewModel.DesignModeContent = result;
+                if (!this.IsEmpty)
+                {
+                    viewModel.DesignModeContent = result;
+                }
 
                 if (!string.IsNullOrEmpty(result) && string.IsNullOrEmpty(this.Model.Description))
                 {
