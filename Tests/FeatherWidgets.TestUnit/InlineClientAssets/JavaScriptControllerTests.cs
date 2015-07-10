@@ -84,6 +84,7 @@ namespace FeatherWidgets.TestUnit.InlineClientAssets
         {
             using (var controller = new DummyJavaScriptController())
             {
+                controller.Model.InlineCode = "not empty";
                 controller.Model.Description = "test";
 
                 var result = (ViewResult)controller.Index();
