@@ -84,7 +84,7 @@ describe('Dynamic content designer view tests.',
 
         describe('Tests with default data items.', function () {
             beforeEach(inject(function ($injector) {
-                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
+                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/?pageId=a6f4c965-f18a-6d82-8924-ff0000fd783f')
                     .respond(dataItems);
             }));
 
@@ -128,7 +128,7 @@ describe('Dynamic content designer view tests.',
                 var items = JSON.parse(JSON.stringify(dataItems));
                 items.Items[15].PropertyValue = "Content DESC";
 
-                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
+                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/?pageId=a6f4c965-f18a-6d82-8924-ff0000fd783f')
                     .respond(items);
             }));
 
@@ -143,7 +143,7 @@ describe('Dynamic content designer view tests.',
 
         describe('Tests verifying error mesages.', function () {
             it('[NPetrova] / The error message is populated correctly when property service returns an error.', function () {
-                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
+                $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/?pageId=a6f4c965-f18a-6d82-8924-ff0000fd783f')
                     .respond(500, errorResponse);
 
                 var controller = createController();
