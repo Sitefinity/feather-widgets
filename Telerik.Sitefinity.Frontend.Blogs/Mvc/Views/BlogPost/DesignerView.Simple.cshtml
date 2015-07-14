@@ -159,13 +159,20 @@
             </div>
         </div>
         
-        <expander expander-title='@Html.Resource("MoreOptions")'>
-            <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
+        <expander expander-title='@Html.Resource("MoreOptions")'>                    
+            
+            <div class="row">
+                <div class="col-xs-6">
 
-            <div class="form-group">
-                <label>@Html.Resource("CssClasses")
-                    <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
-                </label>
+                    <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
+
+                    <div class="form-group">
+                        <label>@Html.Resource("CssClasses")
+                            <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
+                        </label>
+                    </div>
+
+                </div>
             </div>
         </expander>
     </tab>
@@ -208,14 +215,22 @@
             </div>
         </div>
 
-        <expander expander-title='@Html.Resource("MoreOptions")'>
-            <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
+        <expander expander-title='@Html.Resource("MoreOptions")'>            
+            
+            <div class="row">
+                <div class="col-xs-6">
 
-            <div class="form-group">
-                <label>@Html.Resource("CssClasses")
-                    <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
-                </label>
+                    <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
+
+                    <div class="form-group">
+                        <label>@Html.Resource("CssClasses")
+                            <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                        </label>
+                    </div>
+
+                 </div>                    
             </div>
+
         </expander>
     </tab>
 </tabset>
