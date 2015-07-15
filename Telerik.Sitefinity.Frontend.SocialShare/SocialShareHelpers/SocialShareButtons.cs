@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web;
 
 namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
@@ -19,10 +20,9 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             get
             {
                 var shareUrl = string.Empty;
-                var currentNode = SiteMapBase.GetCurrentProvider().CurrentNode;
-                if (currentNode != null && currentNode.Url != null)
+                if(SystemManager.CurrentHttpContext!=null)
                 {
-                    shareUrl = RouteHelper.GetAbsoluteUrl(currentNode.Url);
+                    shareUrl = SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri;
                 }
 
                 return shareUrl;
