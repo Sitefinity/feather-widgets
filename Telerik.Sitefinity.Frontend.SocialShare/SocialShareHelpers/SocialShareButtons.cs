@@ -20,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.SocialShare.SocialShareHelpers
             get
             {
                 var shareUrl = string.Empty;
-                if(SystemManager.CurrentHttpContext!=null)
+                if (SystemManager.CurrentHttpContext != null)
                 {
                     shareUrl = SystemManager.CurrentHttpContext.Request.Url.AbsoluteUri;
                 }
