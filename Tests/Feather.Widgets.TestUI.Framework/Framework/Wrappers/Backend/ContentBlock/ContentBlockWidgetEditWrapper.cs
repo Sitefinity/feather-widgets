@@ -223,20 +223,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         }
 
         /// <summary>
-        /// Switches to design view.
-        /// </summary>
-        public void SwitchToDesignView()
-        {
-            HtmlButton designButton = EM.GenericContent
-                                        .ContentBlockWidget
-                                        .DesignButton
-                                        .AssertIsPresent("design view");
-            designButton.Click();
-            ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
-        }
-
-        /// <summary>
         /// Presses the full screen button.
         /// </summary>
         public void PressFullScreenButton()
