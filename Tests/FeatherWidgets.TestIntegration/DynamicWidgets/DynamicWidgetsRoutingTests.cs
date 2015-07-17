@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds all hierarchical MVC dynamic widgets on page and verifies the proper cities are displayed when selecting a country on the frontend.")]
         public void DynamicWidgets_HierarchicalWidgetsOnPage_DisplayCitiesFromCurrentlyOpenedCountry()
         {
@@ -112,7 +112,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds Cities MVC dynamic widgets on page and verifies the proper cities are displayed when navigating a country on the frontend when no Country widget is added on the page.")]
         public void DynamicWidgets_ChildWidget_DisplayCitiesFromCurrentlyOpenedCountryWithoutCountryWidget()
         {
@@ -151,7 +151,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds all hierarchical MVC dynamic widgets on page and verifies the proper hotels are displayed when selecting a city on the frontend.")]
         public void DynamicWidgets_HierarchicalWidgetsOnPage_DisplayHotelsFromCurrentlyOpenedCity()
         {
@@ -216,7 +216,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds Hotels MVC dynamic widgets on page and verifies the proper hotels are displayed when navigating a city on the frontend without Cities widget on page.")]
         public void DynamicWidgets_ChildWidget_DisplayHotelsFromCurrentlyOpenedCityWithoutCityWidget()
         {
@@ -254,7 +254,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds countries and hotels MVC dynamic widgets on page and verifies the proper hotels are displayed when selecting a country on the frontend.")]
         public void DynamicWidgets_HierarchicalWidgetsOnPage_DisplayHotelsFromCurrentlyOpenedCountry()
         {
@@ -313,7 +313,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds cities MVC dynamic widget on page and verifies the proper cities are displayed when selecting a country from the widget.")]
         public void DynamicWidgets_HierarchicalWidgetsOnPage_DisplayCitiesFromSelectedCountry()
         {
@@ -354,7 +354,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Adds cities MVC dynamic widget on page and verifies the proper cities are displayed when selecting more than 1 country from the widget.")]
         public void DynamicWidgets_HierarchicalWidgetsOnPage_DisplayCitiesFromSelectedCountries()
         {

@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
     {
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Creates a pure MVC template and page, based on the template, with content block widget, verifies the search result is correct")]
         [Ignore("Ignored, because it is unstable")]
         public void ContentBlock_PureMvcPageWithContentBlockWidget_VerifySearch()
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Creates normal page (hybrid mode - web forms + MVC) with content block widget and verifies the search result is correct ")]
         [Ignore("Ignored, because it is unstable")]
         public void ContentBlock_PageWithContentBlockWidget_VerifySearch()

@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
     {
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that blog posts controller is filtering blog posts by tags.")]
         public void BlogPostsWidget_FilterBlogPostsByTags()
         {
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that blog posts controller is filtering blog posts by categories.")]
         public void BlogPostsWidget_FilterBlogPostsByCategories()
         {

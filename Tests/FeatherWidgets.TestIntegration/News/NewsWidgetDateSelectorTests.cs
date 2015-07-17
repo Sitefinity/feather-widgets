@@ -41,7 +41,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that the date selector - any time resolves the correct news.")]
         public void NewsWidget_VerifyDateSelectorAnyTimeOption()
         {
@@ -71,7 +71,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that the date selector -last 1 day resolves the correct news.")]
         public void NewsWidget_VerifyDateSelectorLastOneDayOption()
         {
@@ -132,7 +132,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that the date selector -last 1 week resolves the correct news.")]
         public void NewsWidget_VerifyDateSelectorLastOneWeekOption()
         {
@@ -193,7 +193,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that the date selector -last 1 month resolves the correct news.")]
         public void NewsWidget_VerifyDateSelectorLastOneMonthOption()
         {
@@ -254,7 +254,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that the date selector -last 1 year resolves the correct news.")]
         public void NewsWidget_VerifyDateSelectorLastOneYearOption()
         {
@@ -315,7 +315,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that the date selector - custom range resolves the correct news.")]
         public void NewsWidget_VerifyDateSelectorCustomRangeOption()
         {
@@ -395,7 +395,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that the date selector - not existing custom range resolves the correct news.")]
         public void NewsWidget_VerifyDateSelectorCustomRangeOptionNotExisting()
         {

@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void NewsWidget_SocialShareButtonsFunctionality()
         {
             string socialShare = "list-inline sf-social-share";

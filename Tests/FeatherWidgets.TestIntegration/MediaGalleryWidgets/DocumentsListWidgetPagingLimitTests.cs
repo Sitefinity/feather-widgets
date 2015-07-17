@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifyPaging()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -72,7 +72,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifyLimit()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -94,7 +94,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifyNoLimit()
         {
             var mvcProxy = new MvcControllerProxy();

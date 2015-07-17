@@ -56,7 +56,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies language selector current language included")]
         public void LanguageSelectorWidget_CurrentLanguageIncluded()
         {
@@ -102,7 +102,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies language selector current language not included")]
         public void LanguageSelectorWidget_CurrentLanguageNotIncluded()
         {
@@ -145,7 +145,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies language selector, with current language included, is included in detail view of content items")]
         public void LanguageSelectorWidget_DetailsViewOfNewsItemWithENTranslationOnly()
         {
@@ -200,7 +200,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
         [Test]
         [Multilingual]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies language selector with redirect option")]
         public void LanguageSelectorWidget_RedirectToHomePageOfTheMissingTranslations()
         {

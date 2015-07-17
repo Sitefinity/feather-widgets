@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
     {
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display blogs in pages.")]
         public void BlogsWidget_UsePaging_OneItemPerPage()
         {
@@ -66,7 +66,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display blogs limited.")]
         public void BlogsWidget_UseLimit_OneItem()
         {
@@ -103,7 +103,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display blogs with no limit and paging.")]
         public void BlogsWidget_NoLimitAndPaging_AllItems()
         {
@@ -140,7 +140,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display blogs sorted by title from A to Z")]
         public void BlogsWidget_SortBlogs_ByTitle_AZ()
         {
@@ -179,7 +179,7 @@ namespace FeatherWidgets.TestIntegration.BlogsWidget
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blogs widget to a page and display blogs sorted by title from A to Z")]
         public void BlogsWidget_SortBlogs_ByTitle_ZA()
         {
