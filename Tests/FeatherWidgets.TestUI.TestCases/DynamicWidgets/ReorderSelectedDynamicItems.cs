@@ -18,7 +18,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test ReorderSelectedDynamicItems.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void ReorderSelectedDynamicItems()
         {

@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.VideoSelector
         /// UI test UploadVideoWithCategoryAndTag
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void UploadVideoWithCategoryAndTag()

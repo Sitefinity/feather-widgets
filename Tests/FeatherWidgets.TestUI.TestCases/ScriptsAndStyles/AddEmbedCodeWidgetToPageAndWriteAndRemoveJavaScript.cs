@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript()

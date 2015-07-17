@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         /// UI test SubscribeFormWidgetOnHybridPageAndSetCssClass
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.EmailCampaigns),
         TestCategory(FeatherTestCategories.Bootstrap)]

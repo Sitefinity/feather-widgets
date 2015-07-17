@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test AddContentBlockWidgetToTemplateBasedOnLayoutFile
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2), 
+        Owner(FeatherTeams.FeatherTeam), 
         TestCategory(FeatherTestCategories.ContentBlock), Ignore]
         public void AddContentBlockWidgetToTemplateBasedOnLayoutFile()
         {

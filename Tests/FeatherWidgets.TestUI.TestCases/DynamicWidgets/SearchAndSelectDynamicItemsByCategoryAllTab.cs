@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test SearchAndSelectDynamicItemsByCategoryAllTab
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.DynamicWidgets)]       
         public void SearchAndSelectDynamicItemsByCategoryAllTab()
         {

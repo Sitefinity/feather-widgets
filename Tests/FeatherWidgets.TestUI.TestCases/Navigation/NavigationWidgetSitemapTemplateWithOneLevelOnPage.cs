@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetSitemapTemplateWithOneLevelOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -48,7 +48,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetSitemapTemplateWithOneLevelOnPageFoundation
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetSitemapTemplateWithOneLevelOnPageFoundation()
@@ -75,7 +75,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetSitemapTemplateWithOneLevelOnPageSemantic
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigationWidgetSitemapTemplateWithOneLevelOnPageSemantic()

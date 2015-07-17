@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test SelectMoreThanOneNewsItem.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News), 
         TestCategory(FeatherTestCategories.Selectors)]
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test UnselectNewsItemInTheSelector.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent)]
         public void UnselectNewsItemInTheSelector()
         {

@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test NavigateDetailTemplateOfNewsOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test NavigateDetailTemplateOfNewsOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnFoundationTemplate()
         {
@@ -69,7 +69,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test NavigateDetailTemplateOfNewsOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigateDetailTemplateOfNewsOnPageBasedOnSemanticUITemplate()
         {

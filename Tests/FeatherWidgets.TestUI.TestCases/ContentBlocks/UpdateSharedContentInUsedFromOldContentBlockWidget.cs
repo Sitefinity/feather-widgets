@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test UpdateSharedContentInUsedFromOldContentBlockWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void UpdateSharedContentInUsedFromOldContentBlockWidget()
         {

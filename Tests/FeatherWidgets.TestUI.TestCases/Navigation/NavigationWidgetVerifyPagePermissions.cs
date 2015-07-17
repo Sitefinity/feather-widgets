@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -46,7 +46,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetFoundationVerifyPageWithUserNotAllowedAndRoleChanged
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void NavigationWidgetFoundationVerifyPageWithUserNotAllowedAndRoleChanged()
@@ -72,7 +72,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test NavigationWidgetSemanticUIVerifyPageWithUserNotAllowedAndRoleChanged
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void NavigationWidgetSemanticUIVerifyPageWithUserNotAllowedAndRoleChanged()

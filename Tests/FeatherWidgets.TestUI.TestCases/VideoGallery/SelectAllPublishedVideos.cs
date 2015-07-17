@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         /// UI test SelectAllPublishedVideos
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.VideoGallery)]
         public void SelectAllPublishedVideos()

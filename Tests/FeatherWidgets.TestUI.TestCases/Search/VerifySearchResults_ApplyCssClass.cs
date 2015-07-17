@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         /// UI test VerifySearchResults_ApplyCssClass
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Search)]
         public void VerifySearchResults_ApplyCssClass()

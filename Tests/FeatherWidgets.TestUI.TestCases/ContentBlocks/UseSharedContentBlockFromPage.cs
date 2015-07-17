@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test UseSharedContentBlockFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void UseSharedContentBlockFromPage()
         {

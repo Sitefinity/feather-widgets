@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks.ImageSelector
         /// UI test InsertImageFromAlreadyUploaded
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock)]
         public void InsertImageFromAlreadyUploaded()

@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test SelectCssFileInCssWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void SelectCssFileInCssWidget()

@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.BlogPosts
         /// and verifies on the frontend.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Blogs)]
         public void AddBlogPostsWidgetToPageOpenSingleItemInExistingPage()

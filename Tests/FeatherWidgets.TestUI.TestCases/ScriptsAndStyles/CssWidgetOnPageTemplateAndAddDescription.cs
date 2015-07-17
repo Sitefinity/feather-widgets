@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test CssWidgetOnPageTemplateAndAddDescription
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void CssWidgetOnPageTemplateAndAddDescription()

@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         /// UI test verifying Pages list template, sort A-Z, filter by category
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]

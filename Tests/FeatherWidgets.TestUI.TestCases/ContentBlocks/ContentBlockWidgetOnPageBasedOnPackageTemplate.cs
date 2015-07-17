@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void ContentBlockWidgetOnPageBasedOnBootstrapTemplate()
@@ -42,7 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Foundation)]
         public void ContentBlockWidgetOnPageBasedOnFoundationTemplate()
         {
@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test ContentBlockWidgetOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void ContentBlockWidgetOnPageBasedOnSemanticUITemplate()
         {

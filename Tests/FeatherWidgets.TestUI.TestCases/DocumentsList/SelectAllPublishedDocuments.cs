@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         /// UI test SelectAllPublishedDocuments
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.DocumentsList)]
         public void SelectAllPublishedDocuments()

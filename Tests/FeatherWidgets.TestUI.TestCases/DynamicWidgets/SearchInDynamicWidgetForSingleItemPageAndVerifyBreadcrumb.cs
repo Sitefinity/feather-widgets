@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb()
         {

@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         /// UI test verifying all tags option with css class applied in hybrid page
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
         public void SelectAllTagsOptionAndCssClasses()

@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
     public class LightNavigationAndMvcNavigation : FeatherTestCase
     {
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation)]
         public void AddLightNavigationAndMvcNavigationOnTheSamePage()

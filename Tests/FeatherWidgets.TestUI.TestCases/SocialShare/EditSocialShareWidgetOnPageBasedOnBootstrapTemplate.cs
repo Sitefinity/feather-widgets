@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.SocialShare
         /// UI test EditSocialShareWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.SocialShare)]
         public void EditSocialShareWidgetOnPageBasedOnBootstrapTemplate()
