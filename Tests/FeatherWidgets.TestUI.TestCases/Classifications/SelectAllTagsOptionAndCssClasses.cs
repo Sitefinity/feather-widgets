@@ -30,14 +30,11 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().VerifySelectedTagsTemplateOption(TagsTemplates.SimpleList);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ApplyCssClasses(CssClass);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 1);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 2);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + 3);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();           
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 2, TagTitle + 1 }));
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 3 }));
             BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().VerifyCssClass(CssClass);
