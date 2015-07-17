@@ -212,17 +212,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Media
         }
 
         /// <summary>
-        /// Gets no media icon element.
-        /// </summary>
-        public HtmlDiv NoMediaIcon
-        {
-            get
-            {
-                return this.Get<HtmlDiv>("tagName=div", "class=icon-no-image");
-            }
-        }
-
-        /// <summary>
         /// Notes the media text.
         /// </summary>
         /// <param name="text">The text.</param>

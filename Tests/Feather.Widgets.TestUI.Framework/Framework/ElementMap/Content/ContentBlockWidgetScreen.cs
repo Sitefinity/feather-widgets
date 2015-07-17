@@ -203,18 +203,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Content
         }
 
         /// <summary>
-        /// Gets the design button.
-        /// </summary>
-        /// <value>The design button.</value>
-        public HtmlButton DesignButton
-        {
-            get
-            {
-                return this.Get<HtmlButton>("tagname=button", "InnerText=Design");
-            }
-        }
-
-        /// <summary>
         /// Gets the link selector.
         /// </summary>
         /// <value>The link selector.</value>

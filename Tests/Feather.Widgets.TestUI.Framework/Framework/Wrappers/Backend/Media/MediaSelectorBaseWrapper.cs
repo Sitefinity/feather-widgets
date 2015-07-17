@@ -53,18 +53,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
 
             Assert.IsTrue(tooltipContent.Contains(type), "Media type not found in the tooltip");
         }
-
-        /// <summary>
-        /// Verifies that all elements from no media screen are present.
-        /// </summary>
-        public void VerifyNoMediaEmptyScreen(string text)
-        {
-            this.EM.Media.MediaSelectorScreen.NoMediaIcon.AssertIsPresent("No media icon");
-            this.EM.Media.MediaSelectorScreen.NoMediaText(text).AssertIsPresent("No media text");
-            this.EM.Media.MediaSelectorScreen.SelectMediaFileFromYourComputerLink.AssertIsPresent("Select media link");
-            this.EM.Media.MediaSelectorScreen.DragAndDropLabel.AssertIsPresent("Drag and drop label");
-        }
-
+       
         /// <summary>
         /// Selects media from media selector.
         /// </summary>
