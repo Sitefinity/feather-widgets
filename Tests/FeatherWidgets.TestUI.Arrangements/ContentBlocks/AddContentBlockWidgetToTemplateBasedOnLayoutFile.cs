@@ -21,6 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
+
             int templatesCount = ServerOperationsFeather.TemplateOperations().GetTemplatesCount;
             string folderPath = Path.Combine(ServerOperationsFeather.TemplateOperations().SfPath, "MVC", "Views", "Layouts");
 
@@ -56,6 +58,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             File.Delete(filePath);
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string TemplateTitle = "TestLayout";
         private const string PageName = "FeatherPage";
         private const string LayoutFileResource = "Telerik.Sitefinity.Frontend.TestUtilities.Data.TestLayout.cshtml";
