@@ -213,7 +213,6 @@
     <Compile Include="DocumentsList\SelectSortedDocumentsInTableView.cs" />
     <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
     <Compile Include="DynamicWidgets\EditDeleteTagAndEditDynamicWidget.cs" />
-    <Compile Include="DynamicWidgets\ZActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\EditDynamicWidgetViaInlineEditing.cs" />
