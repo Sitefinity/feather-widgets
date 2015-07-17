@@ -224,6 +224,7 @@
     <Compile Include="EmailCampaigns\SetSpeciallyPreparedPageToSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\WriteAndEditCssInEmbedCodeWidget.cs" />
