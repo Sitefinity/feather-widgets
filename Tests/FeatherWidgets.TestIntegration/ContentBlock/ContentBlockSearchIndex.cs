@@ -27,7 +27,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
         [Test]
         [Category(TestCategories.ContentBlock)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Creates a pure MVC template and page, based on the template, with content block widget, verifies the search result is correct")]
+        [Description("Creates a pure MVC template and page, based on the template, with content block widget, verifies the search result is correct"), Ignore]
         public void ContentBlock_PureMvcPageWithContentBlockWidget_VerifySearch()
         {
             string searchIndex = "TestSearchIndex";
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
         [Test]
         [Category(TestCategories.ContentBlock)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Creates normal page (hybrid mode - web forms + MVC) with content block widget and verifies the search result is correct ")]
+        [Description("Creates normal page (hybrid mode - web forms + MVC) with content block widget and verifies the search result is correct "), Ignore]
         public void ContentBlock_PageWithContentBlockWidget_VerifySearch()
         {
             string searchIndex = "TestSearchIndex";

@@ -11,19 +11,19 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
     /// <summary>
-    /// CssWidgetOnPageTemplateAndAddDescription test class.
+    /// CssAndJavaScriptWidgetOnPageTemplateAndAddDescription test class.
     /// </summary>
     [TestClass]
-    public class CssWidgetOnPageTemplateAndAddDescription_ : FeatherTestCase
+    public class CssAndJavaScriptWidgetOnPageTemplateAndAddDescription_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test CssWidgetOnPageTemplateAndAddDescription
+        /// UI test CssAndJavaScriptWidgetOnPageTemplateAndAddDescription
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
-        public void CssWidgetOnPageTemplateAndAddDescription()
+        public void CssAndJavaScriptWidgetOnPageTemplateAndAddDescription()
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();
             this.OpenTemplateEditor();
@@ -38,7 +38,19 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().MoreOptions();
             BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillDescription(TestDescription);
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, CssValue);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TestDescription);
+
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetNameJavaScript, PlaceHolder);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetNameJavaScript);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillCodeInEditableArea(JavaScriptValue);
+            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().MoreOptions();
+            BATFeather.Wrappers().Backend().ScriptAndStyles().JavaScriptWidgetEditWrapper().FillDescription(TestDescriptionJavaScript);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetNameJavaScript, TestDescriptionJavaScript);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetNameJavaScript, JavaScriptValue);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetNameJavaScript, Script);
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetNameJavaScript, JavaScriptLocation);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateModifyScreen().PublishTemplate();
 
             this.VerifyPageOnTheFrontend();
@@ -52,6 +64,10 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
             bool isContained = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(CssValue);
             Assert.IsTrue(isContained, string.Concat("Expected ", CssValue, " but the style is not found"));
+
+            bool isContainedJavaScript = BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().IsCodePresentOnFrontend(JavaScriptValue);
+            Assert.IsTrue(isContainedJavaScript, string.Concat("Expected ", JavaScriptValue, " but the style is not found"));
+            BATFeather.Wrappers().Frontend().ScriptsAndStyles().ScriptsAndStylesWrapper().VerifyJavaScriptInHeadTag(JavaScriptValue);
         }
 
         /// <summary>
@@ -74,7 +90,6 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         private void OpenTemplateEditor()
         {
             var templateId = BAT.Arrange(this.TestName).ExecuteArrangement("GetTemplateId").Result.Values["templateId"];
-
             BAT.Macros().NavigateTo().CustomPage("~/Sitefinity/Template/" + templateId, false);
             ActiveBrowser.WaitForAsyncOperations();
         }
@@ -84,10 +99,15 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         private const string WidgetName = "CSS";
         private const string CssValue = "div { color: #FF0000; font-size: 20px;} ";
         private const string PlaceHolder = "TestPlaceHolder";
-        private const string TestDescription = "Test description";
+        private const string TestDescription = "Test description css";
         private const string LayoutText = "Test Layout";
         private const string ServerErrorMessage = "Server Error";
         private const string ContentBlockContent = "Test content";
         private const string WidgetNameContentBlock = "Content block";
+        private const string WidgetNameJavaScript = "JavaScript";
+        private const string JavaScriptValue = "var a = 5;";
+        private const string TestDescriptionJavaScript = "Test description java script";
+        private const string Script = "<script type=\"text/javascript\">";
+        private const string JavaScriptLocation = "In the head tag";
     }
 }

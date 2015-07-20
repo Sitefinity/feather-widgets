@@ -57,6 +57,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.CommentsA
             HtmlButton submitButton = this.EM.CommentsAndReviews.CommentsFrontend.SubmitButton
             .AssertIsPresent("Submit button");
             submitButton.Click();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.RefreshDomTree();
         }

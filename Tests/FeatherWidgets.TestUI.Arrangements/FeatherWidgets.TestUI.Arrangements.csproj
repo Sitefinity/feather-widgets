@@ -245,7 +245,7 @@
     <Compile Include="ScriptsAndStyles\AddCssWidgetToPageAndWriteAndRemoveCss.cs" />
     <Compile Include="ContentBlocks\VideoSelector\UploadVideoWithCategoryAndTag.cs" />
     <Compile Include="ScriptsAndStyles\CssWidgetAndNewsWidgetOnTheSamePage.cs" />
-    <Compile Include="ScriptsAndStyles\CssWidgetOnPageTemplateAndAddDescription.cs" />
+    <Compile Include="ScriptsAndStyles\CssAndJavaScriptWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="ScriptsAndStyles\SelectCssFileInCssWidget.cs" />
     <Compile Include="DocumentList\FilterDocumentsWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="DocumentList\SelectAllPublishedDocuments.cs" />

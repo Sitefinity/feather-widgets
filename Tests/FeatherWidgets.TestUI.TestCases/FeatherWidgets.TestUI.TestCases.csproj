@@ -193,7 +193,6 @@
     <Compile Include="ScriptsAndStyles\AddCssWidgetToPageAndWriteAndRemoveCss.cs" />
     <Compile Include="ScriptsAndStyles\AddJavaScriptBeforeTheClosingBodyTag.cs" />
     <Compile Include="ScriptsAndStyles\AddJavaScriptWhereTheWidgetIsDropped.cs" />
-    <Compile Include="ScriptsAndStyles\JavaScriptWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="ScriptsAndStyles\SelectJavaScriptFileInJavaScriptWidget.cs" />
     <Compile Include="ScriptsAndStyles\DuplicateCssWidgetOnPage.cs" />
     <Compile Include="MediaWidgets\VideoWidgetInsertVideo.cs" />
@@ -202,7 +201,7 @@
     <Compile Include="ScriptsAndStyles\AddJavaScriptWidgetToPageAndWriteAndRemoveCode.cs" />
     <Compile Include="ContentBlocks\VideoSelector\UploadVideoWithCategoryAndTag.cs" />
     <Compile Include="ScriptsAndStyles\CssWidgetAndNewsWidgetOnTheSamePage.cs" />
-    <Compile Include="ScriptsAndStyles\CssWidgetOnPageTemplateAndAddDescription.cs" />
+    <Compile Include="ScriptsAndStyles\CssAndJavaScriptWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="ScriptsAndStyles\SelectCssFileInCssWidget.cs" />
     <Compile Include="DocumentsList\FilterDocumentsWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="DocumentsList\SelectAllPublishedDocuments.cs" />

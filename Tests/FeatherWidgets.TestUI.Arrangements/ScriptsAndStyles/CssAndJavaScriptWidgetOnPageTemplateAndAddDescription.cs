@@ -13,9 +13,9 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
-    /// CssWidgetOnPageTemplateAndAddDescription arrangement class.
+    /// CssAndJavaScriptWidgetOnPageTemplateAndAddDescription arrangement class.
     /// </summary>
-    public class CssWidgetOnPageTemplateAndAddDescription : ITestArrangement
+    public class CssAndJavaScriptWidgetOnPageTemplateAndAddDescription : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
