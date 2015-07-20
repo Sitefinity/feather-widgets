@@ -55,5 +55,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
                 return this.Get<HtmlDiv>("tagname=div", "class=alert alert-danger");
             }
         }
+
+        /// <summary>
+        /// Hybrid page div
+        /// </summary>
+        public HtmlDiv UnsubscribeDiv
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "id=defaultForm");
+            }
+        }
+
+        /// <summary>
+        /// Gets unsubscribe button.
+        /// </summary>
+        public HtmlInputSubmit UnsubscribeButtonHybridPage
+        {
+            get
+            {
+                return this.Get<HtmlInputSubmit>("type=submit", "value=Unsubscribe");
+            }
+        }
     }
 }

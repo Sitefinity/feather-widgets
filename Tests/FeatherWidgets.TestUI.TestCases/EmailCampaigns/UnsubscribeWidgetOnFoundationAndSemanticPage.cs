@@ -10,50 +10,52 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 {
     /// <summary>
-    /// SubscribeFormWidgetOnFoundationAndSemanticPage test class.
+    /// UnsubscribeWidgetOnFoundationAndSemanticPage test class.
     /// </summary>
     [TestClass]
-    public class SubscribeFormWidgetOnFoundationAndSemanticPage_ : FeatherTestCase
+    public class UnsubscribeWidgetOnFoundationAndSemanticPage_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test SubscribeFormWidgetOnFoundationAndSemanticPage
+        /// UI test UnsubscribeWidgetOnFoundationAndSemanticPage
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.EmailCampaigns),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void SubscribeFormWidgetOnFoundationAndSemanticPage()
+        public void UnsubscribeWidgetOnFoundationAndSemanticPage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageNameSemantic);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().EmailCampaigns().UnsubscribeWrapper().SelectEmailAddress();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(MailingList);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageNameSemantic.ToLower(), false);
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySubscribeMessageOnTheFrontend();
+            BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().VerifyUnsubscribeMessageOnTheFrontend();
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmailNotStyledPage(SubscriberEmail);
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().ClickSubscribeButtonNotStyledPage();
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySuccessfullySubscribeMessageOnTheFrontend(SubscriberEmail);
+            BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().ClickUnsubscribeButtonNotStyled();
+            BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().VerifySuccessfullyUnsubscribedMessageOnTheFrontend(SubscriberEmail);
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageNameFoundation);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
+            BATFeather.Wrappers().Backend().EmailCampaigns().UnsubscribeWrapper().SelectEmailAddress();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(MailingList);
+            BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(SecondMailingList);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageNameFoundation.ToLower(), false);
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySubscribeMessageOnTheFrontend();
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmailNotStyledPage(SubscriberEmail);
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().ClickSubscribeButtonNotStyledPage();
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySuccessfullySubscribeMessageOnTheFrontend(SubscriberEmail);
+            BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().VerifyUnsubscribeMessageOnTheFrontend();
+            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmailNotStyledPage(SubscriberEmail2);
+            BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().ClickUnsubscribeButtonNotStyled();
+            BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().VerifySuccessfullyUnsubscribedMessageOnTheFrontend(SubscriberEmail2);
         }
 
         /// <summary>
@@ -73,11 +75,13 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
             BAT.Arrange(this.TestName).ExecuteTearDown();
         }
 
-        private const string PageNameSemantic = "SubscribeFormPageSemantic";
-        private const string PageNameFoundation = "SubscribeFormPageFoundation";
+        private const string PageNameSemantic = "UnsubscribePageSemantic";
+        private const string PageNameFoundation = "UnsubscribeFoundation";
         private const string PageTemplateName = "Bootstrap.default";
         private const string MailingList = "MailList";
-        private const string SubscriberEmail = "testNew@email.com";
-        private const string WidgetName = "Subscribe form";
+        private const string SecondMailingList = "SecondMailList";
+        private const string SubscriberEmail = "test@email.com";
+        private const string SubscriberEmail2 = "test2@email.com";
+        private const string WidgetName = "Unsubscribe";
     }
 }

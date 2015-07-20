@@ -33,5 +33,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
                 return this.Get<HtmlInputRadioButton>("id=emailAddress");
             }
         }
+
+        /// <summary>
+        /// Gets CSS classes textbox.
+        /// </summary>
+        public HtmlInputText CssClassesTextbox
+        {
+            get
+            {
+                return this.Get<HtmlInputText>("tagname=input", "id=emailAddressCssClass");
+            }
+        }
     }
 }

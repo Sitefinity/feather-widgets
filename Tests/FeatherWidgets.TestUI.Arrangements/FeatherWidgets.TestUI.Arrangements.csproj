@@ -227,6 +227,8 @@
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
+    <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
+    <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
