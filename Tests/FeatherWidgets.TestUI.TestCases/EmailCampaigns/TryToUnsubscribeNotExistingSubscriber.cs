@@ -10,24 +10,23 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 {
     /// <summary>
-    /// DragAndDropUnsubscribeWidgetAndSelectMailingList test class.
+    /// TryToUnsubscribeNotExistingSubscriber test class.
     /// </summary>
     [TestClass]
-    public class DragAndDropUnsubscribeWidgetAndSelectMailingList_ : FeatherTestCase
+    public class TryToUnsubscribeNotExistingSubscriber_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DragAndDropUnsubscribeWidgetAndSelectMailingList
+        /// UI test TryToUnsubscribeNotExistingSubscriber
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.EmailCampaigns),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void DragAndDropUnsubscribeWidgetAndSelectMailingList()
+        public void TryToUnsubscribeNotExistingSubscriber()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);           
             BATFeather.Wrappers().Backend().EmailCampaigns().UnsubscribeWrapper().SelectEmailAddress();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
@@ -39,7 +38,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
             BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().VerifyUnsubscribeMessageOnTheFrontend();
             BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmail(UnsubscriberEmail);
             BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().ClickUnsubscribeButton();
-            BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().VerifySuccessfullyUnsubscribedMessageOnTheFrontend(UnsubscriberEmail);
+            BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().VerifyNotExistingEmailMessageOnTheFrontend(UnsubscriberEmail);
         }
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 
         private const string PageName = "UnsubscribeWidgetOnPage";
         private const string MailingList = "MailList";
-        private const string UnsubscriberEmail = "test@email.com";
+        private const string UnsubscriberEmail = "testNotExisting@email.com";
         private const string WidgetName = "Unsubscribe";
     }
 }

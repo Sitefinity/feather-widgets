@@ -68,7 +68,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
             saveButton.Click();
 
             ActiveBrowser.WaitUntilReady();
-            ActiveBrowser.WaitForAsyncRequests();
+            ActiveBrowser.WaitForAsyncJQueryRequests();
             ActiveBrowser.RefreshDomTree();
         }
 

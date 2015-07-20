@@ -35,13 +35,24 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
         }
 
         /// <summary>
-        /// Selected existing page
+        /// Selected existing mail list
         /// </summary>
-        public HtmlDiv ErrorMessage
+        public HtmlDiv ErrorMessageMailingList
         {
             get
             {
-                return this.Get<HtmlDiv>("tagname=div", "class=alert alert-danger ng-scope");
+                return this.Get<HtmlDiv>("tagname=div", "ng-show=errors.missingSelectedItems");
+            }
+        }
+
+        /// <summary>
+        /// Selected existing page
+        /// </summary>
+        public HtmlDiv ErrorMessagePage
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "ng-show=errors.missingSelectedPage");
             }
         }
     }

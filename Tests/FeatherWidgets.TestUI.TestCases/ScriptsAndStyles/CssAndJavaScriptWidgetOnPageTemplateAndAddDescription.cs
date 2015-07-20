@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
-        TestCategory(FeatherTestCategories.ScriptsAndStyles)]
+        TestCategory(FeatherTestCategories.ScriptsAndStyles), Ignore]
         public void CssAndJavaScriptWidgetOnPageTemplateAndAddDescription()
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();

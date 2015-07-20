@@ -172,11 +172,13 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
+    <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInUnsubscribeWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListInSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropUnsubscribeWidgetAndSelectMailingList.cs" />
     <Compile Include="EmailCampaigns\SetSpeciallyPreparedPageToSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
     <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />

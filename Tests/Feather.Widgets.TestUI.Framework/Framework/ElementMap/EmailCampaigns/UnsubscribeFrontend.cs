@@ -44,5 +44,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
                 return this.Get<HtmlButton>("type=submit", "Innertext=Unsubscribe");
             }
         }
+
+        /// <summary>
+        /// Gets not existing email.
+        /// </summary>
+        public HtmlDiv NotExisting
+        {
+            get
+            {
+                return this.Get<HtmlDiv>("tagname=div", "class=alert alert-danger");
+            }
+        }
     }
 }

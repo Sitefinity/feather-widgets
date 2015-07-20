@@ -44,10 +44,21 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
         ///  Verify successfully unsubscribed message
         /// </summary>
         /// <param name="email">Email</param>
-        public void VerifySuccessfullyUnsubscribeMessageOnTheFrontend(string email)
+        public void VerifySuccessfullyUnsubscribedMessageOnTheFrontend(string email)
         {
             HtmlForm unsubscribeForm = this.EM.EmailCampaigns.UnsubscribeFrontend.UnsubscribeForm.AssertIsPresent("Unsubscribe form");
             bool isPresentSubscribe = unsubscribeForm.InnerText.Contains("You have been successfully unsubscribed from our newsletter (" + email + ")");
+            Assert.IsTrue(isPresentSubscribe);
+        }
+
+        /// <summary>
+        ///  Verify not existing email address message
+        /// </summary>
+        /// <param name="email">Email</param>
+        public void VerifyNotExistingEmailMessageOnTheFrontend(string email)
+        {
+            HtmlDiv notExistingMail = this.EM.EmailCampaigns.UnsubscribeFrontend.NotExisting.AssertIsPresent("Not existing");
+            bool isPresentSubscribe = notExistingMail.InnerText.Contains(email.ToLower() + " does not exist in our mailing list");
             Assert.IsTrue(isPresentSubscribe);
         }
     }
