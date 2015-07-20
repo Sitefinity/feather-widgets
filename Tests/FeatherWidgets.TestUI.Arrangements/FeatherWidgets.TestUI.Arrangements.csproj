@@ -221,7 +221,7 @@
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInUnsubscribeWidget.cs" />
-    <Compile Include="EmailCampaigns\DeleteSelectedMailListInSubscribeFormWidget.cs" />
+    <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropUnsubscribeWidgetAndSelectMailingList.cs" />
     <Compile Include="EmailCampaigns\DuplicateAndDeleteSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\DuplicateAndDeleteUnsubscribeWidget.cs" />

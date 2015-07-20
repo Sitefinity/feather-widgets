@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DeleteSelectedMailListInSubscribeFormWidget arrangement class.
     /// </summary>
-    public class DeleteSelectedMailListInSubscribeFormWidget : ITestArrangement
+    public class DeleteSelectedMailListAndPageInSubscribeFormWidget : ITestArrangement
     {
         /// <summary>
         /// Server side set up.
@@ -30,18 +30,31 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.NewsLetter().CreateMailingList(mailingListId, MailingList, string.Empty, string.Empty, string.Empty);            
             ServerOperations.NewsLetter().CreateSubscriber(subscriberId, SubscriberFirstName, SubscriberLastName, SubscriberEmail);
             ServerOperations.NewsLetter().AddSubscriberToMailingList(subscriberId, mailingListId);
+
+            Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(FirstPageName, templateId);
+            pageId = ServerOperations.Pages().GetPageNodeId(pageId);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, ContentBlockContent, PlaceHolderId);
         }
 
         /// <summary>
-        /// Delete mailing list
+        /// Delete mailing list and page
         /// </summary>
         [ServerArrangement]
-        public void DeleteMailingList()
+        public void DeleteMailingListAndPage()
         {
             ServerOperations.NewsLetter().DeleteAllSubscribers();
             ServerOperations.NewsLetter().DeleteAllMailingLists();
+            ServerOperations.Pages().DeletePage(FirstPageName);
+
+            Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
+            Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(SecondPageName, templateId);
+            pageId = ServerOperations.Pages().GetPageNodeId(pageId);
+            ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(pageId, ContentBlockContent, PlaceHolderId);
             Guid secondMailingListId = Guid.NewGuid();
+            Guid subscriberId = Guid.NewGuid();
             ServerOperations.NewsLetter().CreateMailingList(secondMailingListId, SecondMailingList, string.Empty, string.Empty, string.Empty);
+            ServerOperations.NewsLetter().CreateSubscriber(subscriberId, SubscriberFirstName, SubscriberLastName, SubscriberEmail);
+            ServerOperations.NewsLetter().AddSubscriberToMailingList(subscriberId, secondMailingListId);
         }
 
         /// <summary>
@@ -63,5 +76,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string SubscriberLastName = "LastName";
         private const string SubscriberEmail = "test@email.com";
         private const string PlaceHolderId = "Contentplaceholder1";
+        private const string FirstPageName = "FirstPage";
+        private const string SecondPageName = "SecondPage";
+        private const string ContentBlockContent = "You are redirect to second page";
     }
 }
