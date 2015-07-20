@@ -10,20 +10,20 @@ using Telerik.Sitefinity.Frontend.TestUtilities;
 namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 {
     /// <summary>
-    /// DeleteSelectedMailListInSubscribeFormWidget test class.
+    /// DuplicateAndDeleteSubscribeFormWidget test class.
     /// </summary>
     [TestClass]
-    public class DeleteSelectedMailListInSubscribeFormWidget_ : FeatherTestCase
+    public class DuplicateAndDeleteSubscribeFormWidget_ : FeatherTestCase
     {
         /// <summary>
-        /// UI test DeleteSelectedMailListInSubscribeFormWidget
+        /// UI test DuplicateAndDeleteSubscribeFormWidget
         /// </summary>
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.EmailCampaigns),
         TestCategory(FeatherTestCategories.Bootstrap)]
-        public void DeleteSelectedMailListInSubscribeFormWidget()
+        public void DuplicateAndDeleteSubscribeFormWidget()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
@@ -32,25 +32,16 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
             BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(MailingList);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDuplicate);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySubscribeMessageOnTheFrontend();
-            BAT.Arrange(this.TestName).ExecuteArrangement("DeleteMailingList");
-
+            Assert.AreEqual(2, BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().ListWithSubscribeAndUnsubscribeWidgets().Count);
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
-            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
-            BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().VerifyErrorMessageForDeletedMailList();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(SecondMailingList);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().SelectExtraOptionForWidget(OperationNameDelete);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false); 
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySubscribeMessageOnTheFrontend();
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().FillEmail(SubscriberEmail);
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().ClickSubscribeButton();
-            BATFeather.Wrappers().Frontend().EmailCampaigns().SubscibeFormWrapper().VerifySuccessfullySubscribeMessageOnTheFrontend(SubscriberEmail);
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), false);
+            Assert.AreEqual(1, BATFeather.Wrappers().Frontend().EmailCampaigns().UnsubscribeWrapper().ListWithSubscribeAndUnsubscribeWidgets().Count);
         }
 
         /// <summary>
@@ -72,8 +63,8 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 
         private const string PageName = "SubscribeFormPage";
         private const string MailingList = "MailList";
-        private const string SecondMailingList = "SecondMailList";
-        private const string SubscriberEmail = "testNew@email.com";
         private const string WidgetName = "Subscribe form";
+        private const string OperationNameDuplicate = "Duplicate";
+        private const string OperationNameDelete = "Delete";
     }
 }

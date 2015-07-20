@@ -97,5 +97,16 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncJQueryRequests();
         }
+
+        /// <summary>
+        /// Provides list of all unsubscribe and subscribe widgets
+        /// </summary>
+        /// <returns>Returns list of all subscribe and unsubscribe widgets</returns>
+        public List<HtmlControl> ListWithSubscribeAndUnsubscribeWidgets()
+        {
+            List<HtmlControl> list = ActiveBrowser.Find.AllByTagName<HtmlControl>("form").ToList<HtmlControl>();
+
+            return list;
+        }
     }
 }

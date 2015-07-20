@@ -77,7 +77,6 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 
         private const string PageNameSemantic = "UnsubscribePageSemantic";
         private const string PageNameFoundation = "UnsubscribeFoundation";
-        private const string PageTemplateName = "Bootstrap.default";
         private const string MailingList = "MailList";
         private const string SecondMailingList = "SecondMailList";
         private const string SubscriberEmail = "test@email.com";

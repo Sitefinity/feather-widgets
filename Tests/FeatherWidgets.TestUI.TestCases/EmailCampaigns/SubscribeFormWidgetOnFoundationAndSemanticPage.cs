@@ -75,7 +75,6 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 
         private const string PageNameSemantic = "SubscribeFormPageSemantic";
         private const string PageNameFoundation = "SubscribeFormPageFoundation";
-        private const string PageTemplateName = "Bootstrap.default";
         private const string MailingList = "MailList";
         private const string SubscriberEmail = "testNew@email.com";
         private const string WidgetName = "Subscribe form";

@@ -78,7 +78,6 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         }
 
         private const string PageName = "UnsubscribeWidgetOnPage";
-        private const string PageTemplateName = "Bootstrap.default";
         private const string MailingList = "MailList";
         private const string SecondMailingList = "SecondMailList";
         private const string SubscriberEmail = "test@email.com";

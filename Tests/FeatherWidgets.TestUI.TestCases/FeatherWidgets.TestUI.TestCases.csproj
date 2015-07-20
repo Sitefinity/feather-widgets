@@ -175,6 +175,8 @@
     <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInUnsubscribeWidget.cs" />
     <Compile Include="EmailCampaigns\DeleteSelectedMailListInSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\DragAndDropUnsubscribeWidgetAndSelectMailingList.cs" />
+    <Compile Include="EmailCampaigns\DuplicateAndDeleteSubscribeFormWidget.cs" />
+    <Compile Include="EmailCampaigns\DuplicateAndDeleteUnsubscribeWidget.cs" />
     <Compile Include="EmailCampaigns\SetSpeciallyPreparedPageToSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnHybridPageAndSetCssClass.cs" />
