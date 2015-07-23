@@ -26,10 +26,8 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
-
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(SearchResultsWidget);
-
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().SelectSearchIndex(SearchIndexName);
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().VerifyWhereToDisplaySearchResultsLabel();
@@ -39,11 +37,9 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(new string[] { SearchPage });
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().SelectTemplate(SearchBoxTemplate);
-
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().ExpandMoreOptions();
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().ApplyCssClasses(SearchBoxCssClassesToApply);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(SearchResultsWidget);
             BATFeather.Wrappers().Backend().Search().SearchResultsWrapper().VerifyUsePaging();
             BATFeather.Wrappers().Backend().Search().SearchResultsWrapper().VerifyUseLimit();
@@ -51,13 +47,10 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Search().SearchResultsWrapper().SelectSortingOption(SortResultsOption);
             BATFeather.Wrappers().Backend().Search().SearchResultsWrapper().AllowUsersToSortResults();
             BATFeather.Wrappers().Backend().Search().SearchResultsWrapper().SelectTemplate(SearchResultsTemplate);
-
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().ExpandMoreOptions();
             BATFeather.Wrappers().Backend().Search().SearchBoxWrapper().ApplyCssClasses(SearchResultsCssClassesToApply);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-
             BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchBoxCssClass(SearchBoxCssClassesToApply);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(SearchText);

@@ -18,9 +18,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void DoneSelecting()
         {
-            HtmlButton shareButton = this.EM.Selectors.SelectorsScreen.DoneSelectingButton.AssertIsPresent("Done selecting button");
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
 
-            shareButton.Click();
+            HtmlButton doneButton = this.EM.Selectors.SelectorsScreen.DoneSelectingButton.AssertIsPresent("Done selecting button");
+            doneButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }

@@ -27,7 +27,10 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         {
             BAT.Macros().NavigateTo().Design().PageTemplates();
             this.OpenTemplateEditor();
-
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetNameContentBlock, PlaceHolder);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetNameContentBlock);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().FillContentToContentBlockWidget(ContentBlockContent);
+            BATFeather.Wrappers().Backend().ContentBlocks().ContentBlocksWrapper().SaveChanges();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, PlaceHolder);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(Script);
@@ -77,12 +80,14 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
             ActiveBrowser.WaitForAsyncOperations();
         }
 
-        private const string TestArrangement = "CssWidgetOnPageTemplateAndAddDescription";
+        private const string TestArrangement = "CssAndJavaScriptWidgetOnPageTemplateAndAddDescription";
         private const string PageName = "FeatherPage";
         private const string WidgetName = "Embed code";
         private const string Script = "<style type=\"text/css\">div { color: #FF0000; font-size: 20px;}</style>";
         private const string PlaceHolder = "TestPlaceHolder";
         private const string TestDescription = "Test description";
         private const string CssLocation = "In the head tag";
+        private const string ContentBlockContent = "Test content";
+        private const string WidgetNameContentBlock = "Content block";
     }
 }
