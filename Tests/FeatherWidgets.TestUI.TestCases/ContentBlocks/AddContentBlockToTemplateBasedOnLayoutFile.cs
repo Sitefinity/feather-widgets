@@ -23,8 +23,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test AddContentBlockWidgetToTemplateBasedOnLayoutFile
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.FeatherTeam), 
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock), Ignore]
         public void AddContentBlockWidgetToTemplateBasedOnLayoutFile()
         {
             RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/design/pagetemplates", false));

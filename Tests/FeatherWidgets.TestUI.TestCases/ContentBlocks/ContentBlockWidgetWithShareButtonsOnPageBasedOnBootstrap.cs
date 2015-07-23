@@ -23,7 +23,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock),
-        TestCategory(FeatherTestCategories.SocialShare)]
+        TestCategory(FeatherTestCategories.SocialShare), Ignore]
         public void ContentBlockWidgetWithShareButtonsOnPageBasedOnBootstrap()
         {
             BAT.Macros().NavigateTo().Pages();

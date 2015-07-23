@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         [TestMethod,
         Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock),
-        TestCategory(FeatherTestCategories.Bootstrap)]
+        TestCategory(FeatherTestCategories.Bootstrap), Ignore]
         public void ContentBlockWidgetOnPageBasedOnBootstrapTemplate()
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
