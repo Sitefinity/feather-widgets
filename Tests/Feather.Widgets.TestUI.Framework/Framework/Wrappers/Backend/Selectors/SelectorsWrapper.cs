@@ -195,7 +195,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenSelectedTab()
         {
-            HtmlAnchor selectedTab = this.EM.Selectors.SelectorsScreen.SelectedTab.AssertIsPresent("selected tab");
+            HtmlSpan selectedTab = this.EM.Selectors.SelectorsScreen.SelectedTab.AssertIsPresent("selected tab");
             selectedTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -206,7 +206,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenAllTab()
         {
-            HtmlAnchor allTab = this.EM.Selectors.SelectorsScreen.AllTab.AssertIsPresent("all tab");
+            HtmlSpan allTab = this.EM.Selectors.SelectorsScreen.AllTab.AssertIsPresent("all tab");
 
             allTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
