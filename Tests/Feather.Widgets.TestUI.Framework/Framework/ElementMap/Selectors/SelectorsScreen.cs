@@ -151,11 +151,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.Selectors
         /// Gets the external urls tab.
         /// </summary>
         /// <value>The external urls tab.</value>
-        public HtmlAnchor ExternalUrlsTab
+        public HtmlSpan ExternalUrlsTab
         {
             get
             {
-                return this.Get<HtmlAnchor>("class=k-link", "innertext=~External URLs");
+                return this.Get<HtmlSpan>("class=k-link", "innertext=~External URLs");
             }
         }
 

@@ -34,13 +34,6 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().VerifyPageStatusAndIcon(this.pagesToSelect[0], "Published");
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(this.selectedPages);
-
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().WaitForItemsToAppear(SelectedItemsCount);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().ReorderSelectedItems(this.expectedOrderOfItems, this.selectedPages, this.reorderedIndexMapping);
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
-            BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromHierarchicalSelector(this.expectedOrderOfItems);
-
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
@@ -66,7 +59,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         private readonly string[] selectedPages = new string[] { "RootPage1 > ChildPage1", "RootPage2" };
         private readonly string[] pagesNotPresentOnFrontend = new string[] { "RootPage1" };
         private readonly string[] expectedOrderOfItems = new string[] { "RootPage2", "RootPage1 > ChildPage1" };
-        private readonly string[] pagesOrderFrontend = new string[] { "RootPage2", "ChildPage1" };
+        private readonly string[] pagesOrderFrontend = new string[] { "ChildPage1", "RootPage2"  };
         private const int SelectedItemsCount = 2;
 
         private readonly Dictionary<int, int> reorderedIndexMapping = new Dictionary<int, int>()

@@ -218,7 +218,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenExternalUrlsTab()
         {
-            HtmlAnchor externalUrlsTab = this.EM.Selectors.SelectorsScreen.ExternalUrlsTab.AssertIsPresent("external urls tab");
+            HtmlSpan externalUrlsTab = this.EM.Selectors.SelectorsScreen.ExternalUrlsTab.AssertIsPresent("external urls tab");
 
             externalUrlsTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
