@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<TestSettings name="UITestCasesRemote" id="a38b8bb3-bace-4a57-8cdb-1968dece9c64" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
-  <Description>These are default test settings for a local test run.</Description>
+<TestSettings name="UITestCasesRemote" id="1d0b4ce2-c116-1f11-8609-4a6bfe37db2c" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description>These are default test settings for a remote test run.</Description>
   <Deployment>
-	<DeploymentItem filename="app.config" />
+    <DeploymentItem filename="app.config" />
     <DeploymentItem filename="MediaFiles\" />
     <DeploymentItem filename="..\..\..\Tooling\Feather\SetupScripts\" />
   </Deployment>
-  <NamingScheme baseName="TestExecution@Sitefinity_UITestCases" useDefault="false" />
+  <NamingScheme baseName="TestExecution@Sitefinity_UITests" useDefault="false" />
   <Scripts setupScript=".\Tooling\Feather\SetupScripts\Setup.bat" cleanupScript=".\Tooling\Feather\SetupScripts\Cleanup.bat" />
-  <RemoteController name="FEATHER-CI" />
+  <RemoteController name="FEATHER-CI-UI1" />
   <Execution location="Remote">
     <Buckets size="1" />
-    <Timeouts runTimeout="18000000" testTimeout="900000" agentNotRespondingTimeout="90000" scriptTimeout="600000" />
+    <Timeouts agentNotRespondingTimeout="90000" scriptTimeout="900000" />
     <TestTypeSpecific>
       <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
         <AssemblyResolution>
           <TestDirectory useLoadContext="true" />
-			<RuntimeResolution>
+          <RuntimeResolution>
             <Directory path="%ProgramFiles(x86)%\Microsoft Visual Studio 11.0\Common7\IDE\PrivateAssemblies" includeSubDirectories="true" />
           </RuntimeResolution>
         </AssemblyResolution>
@@ -32,8 +32,10 @@
         </Browser>
       </WebTestRunConfiguration>
     </TestTypeSpecific>
-    <AgentRule name="AllAgentsDefaultRole">
+    <AgentRule name="roleExecutor1">
+		<SelectionCriteria>
+			<AgentProperty name="batch" value="ui1" />
+		</SelectionCriteria>
     </AgentRule>
   </Execution>
-  <Properties />
 </TestSettings>
