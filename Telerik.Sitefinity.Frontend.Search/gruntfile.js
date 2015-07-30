@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 		sass: {
 			dist: {
 				files: {
-					'<%= dist.path %>/css/sf-search-box.css': '<%= src.path %>/sass/sf-search-box.sass'
+				    '<%= dist.path %>/css/sf-autocomplete.css': '<%= src.path %>/sass/searchBox/sf-autocomplete.sass'
 				}
 			}
 		},
