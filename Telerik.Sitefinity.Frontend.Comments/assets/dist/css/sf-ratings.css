@@ -1,18 +1,22 @@
-.sf-Ratings .sf-Ratings-stars {
+.sf-Ratings-stars {
   display: inline-block;
   vertical-align: middle; }
-  .sf-Ratings .sf-Ratings-stars span {
+  .sf-Ratings-stars span {
     font-size: 24px;
     color: #ccc;
     cursor: pointer; }
-    .sf-Ratings .sf-Ratings-stars span.hover, .sf-Ratings .sf-Ratings-stars span.on {
+    .sf-Ratings-stars span.sf--is-hover,
+    .sf-Ratings-stars span.sf--is-on {
       color: #006cd8; }
-  .sf-Ratings .sf-Ratings-stars.sf-Ratings-stars--ronly span {
+  .sf-Ratings-stars.sf-Ratings-stars--ronly span {
     cursor: default; }
-    .sf-Ratings .sf-Ratings-stars.sf-Ratings-stars--ronly span.on {
+    .sf-Ratings-stars.sf-Ratings-stars--ronly span.sf--is-on {
       color: #fc0; }
-.sf-Ratings .sf-Ratings-average, .sf-Ratings .sf-Ratings-count {
+
+.sf-Ratings-average,
+.sf-Ratings-count {
   font-size: 16px;
   vertical-align: middle; }
-.sf-Ratings .sf-Ratings-count span {
+
+.sf-Ratings-count span {
   vertical-align: middle; }

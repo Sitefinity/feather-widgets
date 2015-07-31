@@ -9,8 +9,8 @@
             step: 1,  //setting for selecting stars. Could be floating number.
             readOnly: false,
             template: '', //defines template for the separate elements. Inner Html will be rendered as many times as {{maxValue}}
-            selectedClass: 'on', //Class applied to the element when it is selected
-            hoverClass: 'hover' //Class applied to the element when it is hovered
+            selectedClass: 'sf--is-on', //Class applied to the element when it is selected
+            hoverClass: 'sf--is-hover' //Class applied to the element when it is hovered
         };
 
         if (options) {

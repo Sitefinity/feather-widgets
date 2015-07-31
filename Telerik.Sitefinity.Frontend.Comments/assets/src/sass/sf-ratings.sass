@@ -1,28 +1,27 @@
-.sf-Ratings
-	.sf-Ratings-stars
-		display: inline-block
-		vertical-align: middle
+.sf-Ratings-stars
+	display: inline-block
+	vertical-align: middle
 
+	span
+		font-size: 24px
+		color: #ccc
+		cursor: pointer
+
+		&.sf--is-hover,
+		&.sf--is-on
+			color: #006cd8
+
+	&.sf-Ratings-stars--ronly
 		span
-			font-size: 24px
-			color: #ccc
-			cursor: pointer
+			cursor: default
+			&.sf--is-on
+				color: #fc0
 
-			&.hover,
-			&.on
-				color: #006cd8
+.sf-Ratings-average,
+.sf-Ratings-count,
+	font-size: 16px
+	vertical-align: middle
 
-		&.sf-Ratings-stars--ronly
-			span
-				cursor: default
-				&.on
-					color: #fc0
-
-	.sf-Ratings-average,
-	.sf-Ratings-count,
-		font-size: 16px
+.sf-Ratings-count
+	span
 		vertical-align: middle
-
-	.sf-Ratings-count
-		span
-			vertical-align: middle
