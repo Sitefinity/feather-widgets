@@ -237,8 +237,8 @@
     <EmbeddedResource Include="Mvc\Scripts\SearchResults\Search-results.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\dist\css\sf-autocomplete.css" />
-    <Content Include="assets\dist\css\sf-autocomplete.min.css" />
+    <EmbeddedResource Include="assets\dist\css\sf-autocomplete.css" />
+    <EmbeddedResource Include="assets\dist\css\sf-autocomplete.min.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
