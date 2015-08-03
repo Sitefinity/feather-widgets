@@ -13,7 +13,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     public class TextFieldController : Controller, IFormFieldControl, IHasValue
     {
-        public ActionResult Read(string fieldName)
+        public ActionResult Read()
         {
             var stringValue = this.Value != null ? this.Value.ToString() : "[no value]";
             return this.Content("Read me: " + stringValue);

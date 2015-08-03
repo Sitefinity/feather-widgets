@@ -46,6 +46,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 using (var writer = new StreamWriter(output))
                 {
                     writer.WriteLine("@using Telerik.Sitefinity.UI.MVC;");
+                    writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helper;");
                     writer.WriteLine("@using (Html.BeginFormSitefinity(\"Submit\", null)){");
 
                     var controllerFactory = ControllerBuilder.Current.GetControllerFactory() as ISitefinityControllerFactory;
@@ -59,14 +60,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                             var controllerName = controllerFactory.GetControllerName(controllerFactory.ResolveControllerType(proxy.ControllerName));
 
                             var fieldControl = proxy.GetController() as IFormFieldControl;
-                            if (fieldControl != null)
-                            {
-                                writer.WriteLine("@Html.Action((string)Model.Mode, \"{0}\", new { fieldName = \"{1}\" })", controllerName, fieldControl.MetaField.FieldName);
-                            }
-                            else
-                            {
-                                writer.WriteLine("@Html.Action((string)Model.Mode, \"{0}\")", controllerName);
-                            }
+                            writer.WriteLine("@Html.FormController(new Guid(\"{0}\"), (string)Model.Mode, null)", formControl.Id.ToString("D"));
                         }
                         else
                         {
