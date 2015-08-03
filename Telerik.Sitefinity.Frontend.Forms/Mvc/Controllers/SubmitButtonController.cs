@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
