@@ -36,6 +36,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="RazorEngine">
       <HintPath>..\packages\Sitefinity.RazorEngine.3.0.8.0\lib\net40\RazorEngine.dll</HintPath>
     </Reference>
@@ -131,18 +134,26 @@
     </Compile>
     <Compile Include="FormsVirtualRazorResolver.cs" />
     <Compile Include="Initializer.cs" />
+    <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FormController.cs" />
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
+    <Compile Include="Mvc\Models\IFormsFieldModel.cs" />
+    <Compile Include="Mvc\Models\FormsFieldModel.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
     <Compile Include="Mvc\Models\SubmitButtonModel.cs" />
+    <Compile Include="Mvc\Models\TextField\TextFieldModel.cs" />
+    <Compile Include="Mvc\Models\TextField\ITextFieldModel.cs" />
+    <Compile Include="Mvc\StringResources\FieldResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Mvc\Views\TextField\Write.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\TextField\Write.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubmitButton\Write.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

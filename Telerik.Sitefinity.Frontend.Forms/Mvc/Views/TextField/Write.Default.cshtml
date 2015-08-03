@@ -1,0 +1,9 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField.TextFieldModel
+
+<div>
+    <label>
+        @ViewBag.MetaField.Title
+        <input type="text" name="@ViewBag.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@ViewBag.MetaField.DefaultValue"></input>
+        @ViewBag.MetaField.Description
+    </label>
+</div>

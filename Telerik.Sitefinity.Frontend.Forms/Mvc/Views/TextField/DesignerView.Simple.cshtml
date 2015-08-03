@@ -31,7 +31,7 @@
                 ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Required.PropertyValue === 'True'" >
                 @Html.Resource("RequiredField")
             </input>
-            <label for="example" class="full-width" ng-show="properties.Required.PropertyValue">
+            <label for="example" class="full-width" ng-show="properties.Required.PropertyValue === 'True'">
                 @Html.Resource("RequiredErrorMessageTitle")
                 <input type="text" id="example" ng-model="properties.RequiredViolationMessage.PropertyValue" class="form-control" />
             </label>
@@ -43,7 +43,7 @@
 
                 <div class="row">
                     <div class="col-xs-6">
-                        <select id="textFieldTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
+                        <select id="textFieldTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">
                             @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))
                             {
                                 <option value="@viewName">@viewName</option>
@@ -67,11 +67,11 @@
             <h4>@Html.Resource("Range")</h4>
 
             <label for="minLength">@Html.Resource("Min")
-                <input type="number" id="minLength" ng-model="properties.MinLength.PropertyValue" class="form-control" />
+                <input type="text" id="minLength" ng-model="properties.MinLength.PropertyValue" class="form-control" />
             </label>
 
             <label for="maxLength">@Html.Resource("Max")
-                <input type="number" id="maxLength" ng-model="properties.MaxLength.PropertyValue" class="form-control" />
+                <input type="text" id="maxLength" ng-model="properties.MaxLength.PropertyValue" class="form-control" />
             </label>
 
             <label>@Html.Resource("Characters")</label>
