@@ -19,6 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helper
             var manager = FormsManager.GetManager();
             var controlData = manager.GetControl<FormControl>(id);
             var control = manager.LoadControl(controlData);
+
             var mvcProxy = control as MvcProxyBase;
             if (mvcProxy == null)
                 throw new InvalidOperationException("Cannot render form controller with the given ID becaouse the control with this ID is not an MVC proxy.");

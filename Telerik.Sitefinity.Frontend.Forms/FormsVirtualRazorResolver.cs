@@ -89,12 +89,12 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
         private class ControlPlaceholder
         {
-            private readonly List<Control> _children;
-            private readonly ISitefinityControllerFactory _controllerFactory;
+            private readonly List<Control> children;
+            private readonly ISitefinityControllerFactory controllerFactory;
 
             public ControlPlaceholder(string placeholderId, IEnumerable<ControlData> loadedControls)
             {
-                this._controllerFactory = ControllerBuilder.Current.GetControllerFactory() as ISitefinityControllerFactory;
+                this.controllerFactory = ControllerBuilder.Current.GetControllerFactory() as ISitefinityControllerFactory;
 
                 var manager = FormsManager.GetManager();
 
@@ -108,7 +108,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                         notRelevantControls.Add(controlData);
                 }
 
-                this._children = new List<Control>(relevantControls.Count);
+                this.children = new List<Control>(relevantControls.Count);
 
                 var siblingId = Guid.Empty;
                 while (relevantControls.Count > 0)
@@ -131,12 +131,12 @@ namespace Telerik.Sitefinity.Frontend.Forms
                                 childPlaceholder.Controls.Add(childControl);
                         }
 
-                        this._children.Add(layoutControl);
+                        this.children.Add(layoutControl);
                     }
                     else
                     {
                         var literal = this.FormControllerLiteral(controlInstance, currentControl.Id);
-                        this._children.Add(new LiteralControl(literal));
+                        this.children.Add(new LiteralControl(literal));
                     }
                 }
             }
@@ -145,18 +145,24 @@ namespace Telerik.Sitefinity.Frontend.Forms
             {
                 get
                 {
-                    return this._children;
+                    return this.children;
                 }
             }
 
             public string Render()
             {
-                var writer = new StringWriter();
-                var htmlWriter = new HtmlTextWriter(writer);
-                for (var i = 0; i < this._children.Count; i++)
-                    this._children[i].RenderControl(htmlWriter);
+                using (var writer = new StringWriter())
+                {
+                    using (var htmlWriter = new HtmlTextWriter(writer))
+                    {
+                        for (var i = 0; i < this.Children.Count; i++)
+                        {
+                            this.Children[i].RenderControl(htmlWriter);
+                        }
+                    }
 
-                return writer.ToString();
+                    return writer.ToString();
+                }
             }
 
             private string FormControllerLiteral(Control controlInstance, Guid controlDataId)
@@ -164,8 +170,6 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 var proxy = controlInstance as MvcProxyBase;
                 if (proxy != null)
                 {
-                    var controllerName = this._controllerFactory.GetControllerName(this._controllerFactory.ResolveControllerType(proxy.ControllerName));
-                    var fieldControl = proxy.GetController() as IFormFieldControl;
                     return string.Format("@Html.FormController(new Guid(\"{0}\"), (string)Model.Mode, null)", controlDataId.ToString("D"));
                 }
                 else

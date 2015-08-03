@@ -86,9 +86,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 var fieldControl = (IFormFieldControl)behaviorResolver.GetBehaviorObject(controlInstance);
 
                 if (fieldControl.MetaField.Required && collection[fieldControl.MetaField.FieldName].IsNullOrEmpty())
-                {
                     return false;
-                }
             }
 
             return true;
