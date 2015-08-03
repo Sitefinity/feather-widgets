@@ -6,7 +6,6 @@ using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
