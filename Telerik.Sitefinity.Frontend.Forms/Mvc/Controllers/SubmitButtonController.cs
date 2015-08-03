@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "MvcSubmitButton", Toolbox = "FormControls", SectionName = "Common")]
     public class SubmitButtonController : Controller
     {
+        public SubmitButtonController()
+        {
+            this.Model = new SubmitButtonModel();
+        }
+
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public SubmitButtonModel Model { get; set; }
+
         public ActionResult Read()
         {
             return new EmptyResult();
@@ -18,7 +27,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         public ActionResult Write()
         {
-            return this.Content("<input type=\"submit\" ></input>");
+            return this.View("Write", this.Model);
         }
 
         protected override void HandleUnknownAction(string actionName)

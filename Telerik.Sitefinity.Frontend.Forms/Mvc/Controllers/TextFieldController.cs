@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Metadata.Model;
@@ -11,18 +12,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
     [ControllerToolboxItem(Name = "MvcTextField", Title = "MvcTextField", Toolbox = "FormControls", SectionName = "Common")]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
-    public class TextFieldController : Controller, IFormFieldControl, IHasValue
+    public class TextFieldController : Controller, IFormFieldControl
     {
-        public ActionResult Read()
+        public ActionResult Read(object value)
         {
-            var stringValue = this.Value != null ? this.Value.ToString() : "[no value]";
+            var stringValue = value != null ? value.ToString() : "[no value]";
             return this.Content("Read me: " + stringValue);
         }
 
         public ActionResult Write()
         {
-            var content = string.Format("<input type=\"text\" name=\"{0}\"></input>", this.MetaField.FieldName ?? string.Empty);
-            return this.Content(content);
+            return this.View("Write", this.MetaField);
         }
 
         public bool IsValid()
@@ -40,6 +40,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 if (this.metaField == null)
                 {
                     this.metaField = this.LoadDefaultMetaField();
+                    string validFieldName;
+                    if (MetaDataExtensions.TryCreateValidFieldName(this.GetType().Name, out validFieldName))
+                    {
+                        this.metaField.FieldName = validFieldName + Guid.NewGuid().ToString("N");
+                    }
                 }
 
                 return this.metaField;

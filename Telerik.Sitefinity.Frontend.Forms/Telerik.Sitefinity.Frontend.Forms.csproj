@@ -132,15 +132,17 @@
     <Compile Include="FormsVirtualRazorResolver.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Mvc\Controllers\FormController.cs" />
-    <Compile Include="Mvc\Controllers\IHasValue.cs" />
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
+    <Compile Include="Mvc\Models\SubmitButtonModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Mvc\Views\TextField\Write.cshtml" />
+    <None Include="Mvc\Views\SubmitButton\Write.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

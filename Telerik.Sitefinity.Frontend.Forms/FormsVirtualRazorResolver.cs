@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Mvc;
+using System.Web.UI;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Forms.Model;
@@ -16,6 +17,8 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -49,24 +52,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
                     writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helper;");
                     writer.WriteLine("@using (Html.BeginFormSitefinity(\"Submit\", null)){");
 
-                    var controllerFactory = ControllerBuilder.Current.GetControllerFactory() as ISitefinityControllerFactory;
-
-                    foreach (var formControl in form.Controls)
-                    {
-                        var control = formManager.LoadControl(formControl);
-                        var proxy = control as MvcProxyBase;
-                        if (proxy != null && controllerFactory != null)
-                        {
-                            var controllerName = controllerFactory.GetControllerName(controllerFactory.ResolveControllerType(proxy.ControllerName));
-
-                            var fieldControl = proxy.GetController() as IFormFieldControl;
-                            writer.WriteLine("@Html.FormController(new Guid(\"{0}\"), (string)Model.Mode, null)", formControl.Id.ToString("D"));
-                        }
-                        else
-                        {
-                            writer.WriteLine("[Non-MVC Form control]");
-                        }
-                    }
+                    var content = new ControlPlaceholder("Body", form.Controls.ToArray());
+                    writer.Write(content.Render());
 
                     writer.WriteLine("}");
 
@@ -98,6 +85,94 @@ namespace Telerik.Sitefinity.Frontend.Forms
         {
             var formManager = FormsManager.GetManager();
             return formManager.GetForms().Any(f => f.Id == id);
+        }
+
+        private class ControlPlaceholder
+        {
+            private readonly List<Control> _children;
+            private readonly ISitefinityControllerFactory _controllerFactory;
+
+            public ControlPlaceholder(string placeholderId, IEnumerable<ControlData> loadedControls)
+            {
+                this._controllerFactory = ControllerBuilder.Current.GetControllerFactory() as ISitefinityControllerFactory;
+
+                var manager = FormsManager.GetManager();
+
+                List<ControlData> relevantControls = new List<ControlData>();
+                List<ControlData> notRelevantControls = new List<ControlData>();
+                foreach (var controlData in loadedControls)
+                {
+                    if (controlData.PlaceHolder == placeholderId)
+                        relevantControls.Add(controlData);
+                    else
+                        notRelevantControls.Add(controlData);
+                }
+
+                this._children = new List<Control>(relevantControls.Count);
+
+                var siblingId = Guid.Empty;
+                while (relevantControls.Count > 0)
+                {
+                    var currentControl = relevantControls.FirstOrDefault(c => c.SiblingId == siblingId);
+                    if (currentControl == null)
+                        break;
+
+                    relevantControls.Remove(currentControl);
+                    siblingId = currentControl.Id;
+
+                    var controlInstance = manager.LoadControl(currentControl);
+                    if (currentControl.IsLayoutControl)
+                    {
+                        var layoutControl = (LayoutControl)controlInstance;
+                        foreach (var childPlaceholder in layoutControl.Placeholders)
+                        {
+                            var childControls = new ControlPlaceholder(childPlaceholder.ID, notRelevantControls).Children;
+                            foreach (var childControl in childControls)
+                                childPlaceholder.Controls.Add(childControl);
+                        }
+
+                        this._children.Add(layoutControl);
+                    }
+                    else
+                    {
+                        var literal = this.FormControllerLiteral(controlInstance, currentControl.Id);
+                        this._children.Add(new LiteralControl(literal));
+                    }
+                }
+            }
+
+            public IReadOnlyList<Control> Children
+            {
+                get
+                {
+                    return this._children;
+                }
+            }
+
+            public string Render()
+            {
+                var writer = new StringWriter();
+                var htmlWriter = new HtmlTextWriter(writer);
+                for (var i = 0; i < this._children.Count; i++)
+                    this._children[i].RenderControl(htmlWriter);
+
+                return writer.ToString();
+            }
+
+            private string FormControllerLiteral(Control controlInstance, Guid controlDataId)
+            {
+                var proxy = controlInstance as MvcProxyBase;
+                if (proxy != null)
+                {
+                    var controllerName = this._controllerFactory.GetControllerName(this._controllerFactory.ResolveControllerType(proxy.ControllerName));
+                    var fieldControl = proxy.GetController() as IFormFieldControl;
+                    return string.Format("@Html.FormController(new Guid(\"{0}\"), (string)Model.Mode, null)", controlDataId.ToString("D"));
+                }
+                else
+                {
+                    return "[Non-MVC Form control]";
+                }
+            }
         }
     }
 }
