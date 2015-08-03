@@ -141,8 +141,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Mvc\Views\TextField\Write.cshtml" />
-    <None Include="Mvc\Views\SubmitButton\Write.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\TextField\Write.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SubmitButton\Write.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
