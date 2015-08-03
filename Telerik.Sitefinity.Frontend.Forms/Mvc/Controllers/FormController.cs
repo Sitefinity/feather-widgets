@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -16,7 +17,7 @@ using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
-    [ControllerToolboxItem(Name = "Form_MVC", Title = "MVC Form", SectionName = "Content", CssClass = "sfMvcIcon")]
+    [ControllerToolboxItem(Name = "Form_MVC", Title = "Form", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = FormController.WidgetIconCssClass)]
     public class FormController : Controller
     {
         public FormController()
@@ -29,9 +30,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         public ActionResult Index()
         {
-            var currentPackage = new PackageManager().GetCurrentPackage();
-            var viewPath = FormsVirtualRazorResolver.Path + (currentPackage ?? "default") + "/" + this.Model.FormId.ToString("D") + ".cshtml";
-            return this.View(viewPath, this.Model);
+            if (this.Model.FormId == Guid.Empty)
+            {
+                return new EmptyResult();
+            }
+            else
+            {
+                var currentPackage = new PackageManager().GetCurrentPackage();
+                var viewPath = FormsVirtualRazorResolver.Path + (currentPackage ?? "default") + "/" + this.Model.FormId.ToString("D") + ".cshtml";
+
+                return this.View(viewPath, this.Model);
+            }
         }
 
         [HttpPost]
@@ -86,5 +95,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
             return true;
         }
+
+        internal const string WidgetIconCssClass = "sfMvcIcon sfFormsIcn";
     }
 }
