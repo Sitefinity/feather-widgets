@@ -98,6 +98,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             return true;
         }
 
-        internal const string WidgetIconCssClass = "sfMvcIcon sfFormsIcn";
+        internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcon";
     }
 }
