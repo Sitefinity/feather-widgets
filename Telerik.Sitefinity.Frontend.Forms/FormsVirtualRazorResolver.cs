@@ -34,7 +34,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
         public System.Web.Caching.CacheDependency GetCacheDependency(PathDefinition definition, string virtualPath, IEnumerable virtualPathDependencies, DateTime utcStart)
         {
-            return new System.Web.Caching.CacheDependency("D:\\changeme.txt");
+            return null;
         }
 
         public Stream Open(PathDefinition definition, string virtualPath)
