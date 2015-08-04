@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Web.UI.ContentUI;
 using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
@@ -36,7 +37,7 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
         frameworkSection.ExpandableDefinition.Expanded = false;
 
         frameworkSection.CssClass = "sfExpandableForm";
-        frameworkSection.Title = "Framework Settings";
+        frameworkSection.Title = "Settings";
 
         return frameworkSection;
     }
@@ -61,14 +62,14 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
         {
             Text = "MVCOnly",
             ResourceClassId = typeof(PageResources).Name,
-            Value = "1"
+            Value = ((int)FormFramework.Mvc).ToString()
         });
 
         frameworkField.Choices.Add(new ChoiceDefinition()
         {
             Text = "WebFormsOnly",
             ResourceClassId = typeof(PageResources).Name,
-            Value = "0"
+            Value = ((int)FormFramework.WebForms).ToString()
         });
 
         return frameworkField;

@@ -44,25 +44,23 @@ namespace Telerik.Sitefinity.Frontend.Forms
             var id = this.ResolveFormDescriptionId(virtualPath);
             var form = formManager.GetForm(id.Value);
 
-            using (var output = new MemoryStream())
-            {
-                using (var writer = new StreamWriter(output))
-                {
-                    writer.WriteLine("@using Telerik.Sitefinity.UI.MVC;");
-                    writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helper;");
-                    writer.WriteLine("@using (Html.BeginFormSitefinity(\"Submit\", null)){");
+            var output = new MemoryStream();
+            var writer = new StreamWriter(output);
 
-                    var content = new ControlPlaceholder("Body", form.Controls.ToArray());
-                    writer.Write(content.Render());
+            writer.WriteLine("@using Telerik.Sitefinity.UI.MVC;");
+            writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;");
+            writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;");
+            writer.WriteLine("@using (Html.BeginFormSitefinity(\"Submit\", null)){");
 
-                    writer.WriteLine("}");
+            var content = new ControlPlaceholder("Body", form.Controls.ToArray());
+            writer.Write(content.Render());
 
-                    writer.Flush();
-                    output.Seek(0, SeekOrigin.Begin);
-                }
+            writer.WriteLine("}");
 
-                return output;
-            }
+            writer.Flush();
+            output.Seek(0, SeekOrigin.Begin);
+
+            return output;
         }
 
         private Guid? ResolveFormDescriptionId(string virtualPath)
@@ -170,7 +168,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 var proxy = controlInstance as MvcProxyBase;
                 if (proxy != null)
                 {
-                    return string.Format("@Html.FormController(new Guid(\"{0}\"), (string)Model.Mode, null)", controlDataId.ToString("D"));
+                    return string.Format("@Html.FormController(new Guid(\"{0}\"), (FormViewMode)Model.ViewMode, null)", controlDataId.ToString("D"));
                 }
                 else
                 {

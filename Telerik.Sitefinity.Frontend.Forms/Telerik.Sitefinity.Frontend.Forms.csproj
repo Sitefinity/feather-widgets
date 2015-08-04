@@ -138,6 +138,7 @@
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
+    <Compile Include="Mvc\Models\FormViewMode.cs" />
     <Compile Include="Mvc\Models\SubmitButtonModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

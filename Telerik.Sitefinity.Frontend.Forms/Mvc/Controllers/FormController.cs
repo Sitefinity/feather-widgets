@@ -8,9 +8,11 @@ using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.Modules.Forms;
+using Telerik.Sitefinity.Modules.Forms.Web;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web.UI;
@@ -58,9 +60,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 {
                     formData[i] = new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]);
                 }
+                
+                FormsHelper.SaveFormsEntry(form, formData, null, this.Request.UserHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
 
-                // TODO: Fix this
-                // FormsHelper.SaveFormsEntry(form, formData, null, this.Request.UserHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
                 return this.Content("Successfully submitted!");
             }
             else
