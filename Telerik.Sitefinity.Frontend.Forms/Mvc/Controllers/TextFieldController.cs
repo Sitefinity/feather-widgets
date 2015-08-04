@@ -39,11 +39,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 if (this.metaField == null)
                 {
                     this.metaField = this.LoadDefaultMetaField();
-                    string validFieldName;
-                    if (MetaDataExtensions.TryCreateValidFieldName(this.GetType().Name, out validFieldName))
-                    {
-                        this.metaField.FieldName = validFieldName + Guid.NewGuid().ToString("N");
-                    }
                 }
 
                 return this.metaField;

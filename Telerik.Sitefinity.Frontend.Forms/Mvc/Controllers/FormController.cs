@@ -53,14 +53,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
             if (this.IsValid(form, collection, manager))
             {
-                var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-
                 var formData = new KeyValuePair<string, object>[collection.Count];
                 for (int i = 0; i < collection.Count; i++)
                 {
                     formData[i] = new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]);
                 }
-                
+
+                var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
+
                 FormsHelper.SaveFormsEntry(form, formData, null, this.Request.UserHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
 
                 return this.Content("Successfully submitted!");
@@ -80,10 +80,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                     continue;
 
                 Type controlType;
-                if (!control.ObjectType.StartsWith("~/"))
-                    controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
-                else
+                if (control.ObjectType.StartsWith("~/"))
                     controlType = FormsManager.GetControlType(control);
+                else
+                    controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
 
                 if (!typeof(IFormFieldControl).IsAssignableFrom(controlType))
                     continue;
