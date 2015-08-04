@@ -85,8 +85,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             return this.Content("Read me: " + stringValue);
         }
 
-        public ActionResult Write()
+        public ActionResult Write(object value)
         {
+            this.Model.Value = value;
             var fullTemplateName = this.templateNamePrefix + this.WriteTemplateName;
             this.ViewBag.MetaField = this.MetaField;
 
@@ -112,7 +113,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Write().ExecuteResult(this.ControllerContext);
+            this.Write(null).ExecuteResult(this.ControllerContext);
         }
 
         #endregion

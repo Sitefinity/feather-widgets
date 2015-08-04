@@ -90,8 +90,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
                 var controlInstance = manager.LoadControl(control);
                 var fieldControl = (IFormFieldControl)behaviorResolver.GetBehaviorObject(controlInstance);
+                
+                ((TextFieldController)fieldControl).Model.Value = collection[fieldControl.MetaField.FieldName];
 
-                if (fieldControl.MetaField.Required && collection[fieldControl.MetaField.FieldName].IsNullOrEmpty())
+                if (!fieldControl.IsValid())
                     return false;
             }
 

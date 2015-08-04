@@ -14,12 +14,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
     public interface IFormsFieldModel
     {
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the value of the form field.
         /// </summary>
         /// <value>
         /// The value.
         /// </value>
         object Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets the validation attributes.
+        /// </summary>
+        /// <value>
+        /// The validation attributes.
+        /// </value>
+        string ValidationAttributes { get;}
 
         /// <summary>
         /// Gets or sets a validation mechanism for the control.

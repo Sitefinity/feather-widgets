@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Text;
 using System.Web.UI;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Metadata.Model;
@@ -15,6 +16,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
         {
             get;
             set;
+        }
+
+        protected override string BuildValidationAttributes()
+        {
+            var attributes = new StringBuilder();
+
+            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
+                attributes.Append("required='required' ");
+            if (this.ValidatorDefinition.MaxLength > 0)
+                attributes.Append("maxlength=' " + this.ValidatorDefinition.MaxLength + "'");
+
+            return attributes.ToString();
         }
     }
 }

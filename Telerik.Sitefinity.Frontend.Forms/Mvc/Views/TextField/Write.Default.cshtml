@@ -3,7 +3,9 @@
 <div>
     <label>
         @ViewBag.MetaField.Title
-        <input type="text" name="@ViewBag.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@ViewBag.MetaField.DefaultValue"></input>
+        <input type="text" name="@ViewBag.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@ViewBag.MetaField.DefaultValue" @Model.ValidationAttributes></input>
         @ViewBag.MetaField.Description
+
+        <p data-sf-role="sf-error-@ViewBag.MetaField.FieldName" style="display:none;"></p>
     </label>
 </div>
