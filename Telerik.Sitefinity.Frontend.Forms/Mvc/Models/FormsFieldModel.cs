@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Text;
+using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Metadata.Model;
@@ -26,11 +27,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDocs />
-        public virtual string ValidationAttributes
+        public virtual MvcHtmlString ValidationAttributes
         {
             get
             {
-                return this.BuildValidationAttributes();
+                var attributesString = this.BuildValidationAttributes();
+
+                return new MvcHtmlString(attributesString);
             }
         }
 

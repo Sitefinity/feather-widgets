@@ -25,7 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
                 attributes.Append("required='required' ");
             if (this.ValidatorDefinition.MaxLength > 0)
-                attributes.Append("maxlength=' " + this.ValidatorDefinition.MaxLength + "'");
+                attributes.Append("maxlength='" + this.ValidatorDefinition.MaxLength + "' ");
 
             return attributes.ToString();
         }

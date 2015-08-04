@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
@@ -27,7 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <value>
         /// The validation attributes.
         /// </value>
-        string ValidationAttributes { get;}
+        MvcHtmlString ValidationAttributes { get; }
 
         /// <summary>
         /// Gets or sets a validation mechanism for the control.
