@@ -4,16 +4,17 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.Proxy;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helper
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 {
     public static class ControllerHelpers
     {
-        public static MvcHtmlString FormController(this HtmlHelper htmlHelper, Guid id, string action, object routeValues)
+        public static MvcHtmlString FormController(this HtmlHelper htmlHelper, Guid id, FormViewMode viewMode, object routeValues)
         {
             var manager = FormsManager.GetManager();
             var controlData = manager.GetControl<FormControl>(id);
@@ -35,6 +36,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helper
 
             var controller = mvcProxy.GetController();
             var controllerFactory = (ISitefinityControllerFactory)ControllerBuilder.Current.GetControllerFactory();
+
+            var action = viewMode.ToString();
 
             routeData.Values["controller"] = controllerFactory.GetControllerName(controller.GetType());
             routeData.Values["action"] = action;
