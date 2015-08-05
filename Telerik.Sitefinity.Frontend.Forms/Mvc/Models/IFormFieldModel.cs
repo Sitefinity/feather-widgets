@@ -12,7 +12,7 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
-    public interface IFormsFieldModel
+    public interface IFormFieldModel
     {
         /// <summary>
         /// Gets or sets the value of the form field.
@@ -57,7 +57,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <summary>
         /// Determines whether this instance is valid.
         /// </summary>
+        /// <param name="value">The value.</param>
         /// <returns></returns>
-        bool IsValid();
+        bool IsValid(object value);
     }
 }

@@ -9,7 +9,7 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
 {
-    public class TextFieldModel : FormsFieldModel, ITextFieldModel
+    public class TextFieldModel : FormFieldModel, ITextFieldModel
     {
         /// <inheritDocs />
         public string PlaceholderText
@@ -18,12 +18,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
             set;
         }
 
+        /// <inheritDocs />
         protected override string BuildValidationAttributes()
         {
             var attributes = new StringBuilder();
 
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
                 attributes.Append("required='required' ");
+
             if (this.ValidatorDefinition.MaxLength > 0)
                 attributes.Append("pattern='.{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}' ");
             else if (this.ValidatorDefinition.MinLength > 0)

@@ -142,8 +142,8 @@
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
-    <Compile Include="Mvc\Models\IFormsFieldModel.cs" />
-    <Compile Include="Mvc\Models\FormsFieldModel.cs" />
+    <Compile Include="Mvc\Models\IFormFieldModel.cs" />
+    <Compile Include="Mvc\Models\FormFieldModel.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
     <Compile Include="Mvc\Models\FormViewMode.cs" />
     <Compile Include="Mvc\Models\SubmitButtonModel.cs" />

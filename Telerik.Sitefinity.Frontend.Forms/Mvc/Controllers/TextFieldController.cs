@@ -21,6 +21,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     {
         #region Properties
 
+        /// <inheritDocs />
+        public virtual IFormFieldModel FieldModel
+        {
+            get
+            {
+                return this.Model;
+            }
+        }
+
         /// <summary>
         /// Gets the text field model.
         /// </summary>
@@ -28,7 +37,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public virtual IFormsFieldModel Model
+        public virtual ITextFieldModel Model
         {
             get
             {
@@ -154,7 +163,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <returns></returns>
         public bool IsValid()
         {
-            return this.Model.IsValid();
+            return this.Model.IsValid(this.Model.Value);
         }
 
         /// <summary>

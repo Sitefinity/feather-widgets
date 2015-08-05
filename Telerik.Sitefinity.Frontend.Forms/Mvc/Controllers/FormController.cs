@@ -85,15 +85,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 else
                     controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
 
-                if (!typeof(IFormFieldControl).IsAssignableFrom(controlType))
+                if (!typeof(IFormFieldController).IsAssignableFrom(controlType))
                     continue;
 
                 var controlInstance = manager.LoadControl(control);
                 var fieldControl = (IFormFieldController)behaviorResolver.GetBehaviorObject(controlInstance);
 
-                fieldControl.Model.Value = collection[fieldControl.MetaField.FieldName];
+                var fieldValue = collection[fieldControl.MetaField.FieldName];
 
-                if (!fieldControl.IsValid())
+                if (!fieldControl.FieldModel.IsValid(fieldValue))
                     return false;
             }
 

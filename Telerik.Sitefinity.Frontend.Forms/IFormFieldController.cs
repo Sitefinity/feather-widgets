@@ -8,12 +8,12 @@ namespace Telerik.Sitefinity.Frontend.Forms
     public interface IFormFieldController : IFormFieldControl, IHasFieldDisplayMode
     {
         /// <summary>
-        /// Gets the forms field model.
+        /// Gets the form field model.
         /// </summary>
         /// <value>
         /// The model.
         /// </value>
-        IFormsFieldModel Model { get; }
+        IFormFieldModel FieldModel { get; }
 
         /// <summary>
         /// Provides view for Read mode of the forms field

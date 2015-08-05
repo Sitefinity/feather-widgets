@@ -12,7 +12,7 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
 {
-    public interface ITextFieldModel : IFormsFieldModel
+    public interface ITextFieldModel : IFormFieldModel
     {
         /// <summary>
         /// Gets or sets the placeholder text.
