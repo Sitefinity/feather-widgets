@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="FormsDefinitionsExtender.cs" />
     <Compile Include="FormsVirtualRazorResolver.cs" />
+    <Compile Include="IFormFieldController.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Mvc\Controllers\FormController.cs" />
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
