@@ -22,6 +22,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #region Properties
 
         /// <inheritDocs />
+        [Browsable(false)]
         public virtual IFormFieldModel FieldModel
         {
             get
