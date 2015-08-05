@@ -172,7 +172,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 }
                 else
                 {
-                    return "[Non-MVC Form control]";
+                    return "<span>[Non-MVC Form control]</span>";
                 }
             }
         }
