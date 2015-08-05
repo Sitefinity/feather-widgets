@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web.UI;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.GridSystem;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations;
-using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
@@ -15,6 +15,9 @@ using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssential
 
 namespace FeatherWidgets.TestIntegration.Forms
 {
+    /// <summary>
+    /// This is a class with Forms widget tests.
+    /// </summary>
     [TestFixture]
     public class FormsWidgetTests
     {
@@ -71,7 +74,7 @@ namespace FeatherWidgets.TestIntegration.Forms
             var controller = new FormController();
 
             controller.Model.FormId = formId;
-            controller.Model.Mode = "Write";
+            controller.Model.ViewMode = FormViewMode.Write;
 
             mvcProxy.Settings = new ControllerSettings(controller);
 
