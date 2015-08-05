@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="FormsDefinitionsExtender.cs" />
     <Compile Include="FormsVirtualRazorResolver.cs" />
+    <Compile Include="IFormFieldController.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FormController.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Mvc\Models\TextField\TextFieldModel.cs" />
     <Compile Include="Mvc\Models\TextField\ITextFieldModel.cs" />
     <Compile Include="Mvc\StringResources\FieldResources.cs" />
+    <Compile Include="Mvc\StringResources\FormResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -157,11 +159,14 @@
     <EmbeddedResource Include="Mvc\Views\SubmitButton\Write.cshtml" />
     <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\TextField\text-field.js" />
+    <EmbeddedResource Include="Mvc\Scripts\Form\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

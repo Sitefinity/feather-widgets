@@ -12,7 +12,7 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
 {
-    public interface ITextFieldModel
+    public interface ITextFieldModel: IFormsFieldModel
     {
         /// <summary>
         /// Gets or sets the value of the form field.

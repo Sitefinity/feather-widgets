@@ -1,0 +1,7 @@
+﻿{
+	"priority": 1,
+	"scripts": [
+		"client-components/selectors/media/sf-media-markup-service.js"
+	],
+	"components": ["sf-image-field", "sf-page-selector", "sf-thumbnail-size-selection", "sf-expander", "sf-style-dropdown"]
+}

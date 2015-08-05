@@ -10,24 +10,25 @@ using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
     [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = "FormControls", SectionName = "Common")]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
-    public class TextFieldController : Controller, IFormFieldControl
+    public class TextFieldController : Controller, IFormFieldController
     {
         #region Properties
 
         /// <summary>
-        /// Gets the text field field model.
+        /// Gets the text field model.
         /// </summary>
         /// <value>
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public virtual ITextFieldModel Model
+        public virtual IFormsFieldModel Model
         {
             get
             {
@@ -40,6 +41,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
+        /// <inheritDocs />
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public IMetaField MetaField
         {
@@ -56,6 +58,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             {
                 this.metaField = value;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the display mode.
+        /// </summary>
+        /// <value>
+        /// The display mode.
+        /// </value>
+        public FieldDisplayMode DisplayMode
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -79,12 +93,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #region Actions
 
+        /// <inheritDocs />
         public ActionResult Read(object value)
         {
             var stringValue = value != null ? value.ToString() : "[no value]";
             return this.Content("Read me: " + stringValue);
         }
 
+        /// <inheritDocs />
         public ActionResult Write(object value)
         {
             this.Model.Value = value;
