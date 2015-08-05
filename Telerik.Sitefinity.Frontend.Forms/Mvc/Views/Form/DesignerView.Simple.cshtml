@@ -1,1 +1,61 @@
-DESIGNER
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
+<tabset class="nav-tabs-wrapper">
+    <tab heading="@Html.Resource("Form")">
+        <div class="form-group">
+            <strong>@Html.Resource("SelectForm")</strong>
+            
+            <div>
+                <span>TODO: Selector</span>
+                <input type="text" ng-model="properties.FormId.PropertyValue" />
+            </div>
+        </div>
+               
+        <expander expander-title='@Html.Resource("MoreOptions")'>
+            <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name ="todo"></style-dropdown>
+
+            <div class="form-group">
+                <label>@Html.Resource("CssClasses") </label>
+                <input type="text" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+            </div>
+        </expander>
+    </tab>
+
+    <tab heading="@Html.Resource("Settings")">
+        <div class="form-group">
+            <strong>@Html.Resource("ConfirmationOptions")</strong>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="properties.UseCustomConfirmation.PropertyValue" ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.UseCustomConfirmation.PropertyValue === 'True'" />
+                    @Html.Resource("UseCustomConfirmation")
+                </label>
+            </div>
+
+            <div ng-show="properties.UseCustomConfirmation.PropertyValue === 'True'" class="label-content">
+                <div class="radio">
+                    <label for="ShowMessageForSuccess">
+                        <input id="ShowMessageForSuccess" type="radio" ng-model="properties.CustomConfirmationMode.PropertyValue" value="ShowMessageForSuccess" />
+                        @Html.Resource("ShowMessageForSuccess")
+                    </label>
+                </div>
+                
+                <div class="sf-textarea" ng-show="properties.CustomConfirmationMode.PropertyValue == 'ShowMessageForSuccess'">
+                    <textarea ng-model="properties.CustomConfirmationMessage.PropertyValue"></textarea>
+                </div>
+
+                <div class="radio">
+                    <label for="RedirectToAPage">
+                        <input id="RedirectToAPage" type="radio" ng-model="properties.CustomConfirmationMode.PropertyValue" value="RedirectToAPage" />
+                        @Html.Resource("RedirectToAPage")
+                    </label>
+                </div>
+
+                <sf-list-selector
+                    sf-page-selector
+                    sf-selected-item-id="properties.CustomConfirmationPageId.PropertyValue"
+                    ng-show="properties.CustomConfirmationMode.PropertyValue == 'RedirectToAPage'"></sf-list-selector>
+            </div>
+        </div>
+    </tab>
+</tabset>
