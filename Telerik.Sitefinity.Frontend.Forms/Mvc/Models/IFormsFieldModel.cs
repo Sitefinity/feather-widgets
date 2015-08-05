@@ -23,6 +23,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         object Value { get; set; }
 
         /// <summary>
+        /// Gets or sets the CSS class.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        string CssClass { get; set; }
+
+        /// <summary>
         /// Gets or sets the validation attributes.
         /// </summary>
         /// <value>

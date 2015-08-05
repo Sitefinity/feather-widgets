@@ -23,6 +23,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
         string PlaceholderText { get; set; }
 
         /// <summary>
+        /// Gets or sets the CSS class.
+        /// </summary>
+        /// <value>
+        /// The CSS class.
+        /// </value>
+        string CssClass { get; set; }
+
+        /// <summary>
         /// Gets or sets a validation mechanism for the control.
         /// </summary>
         /// <value>The validation.</value>

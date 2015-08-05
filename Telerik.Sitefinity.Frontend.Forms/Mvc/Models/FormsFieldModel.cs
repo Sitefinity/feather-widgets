@@ -27,6 +27,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDocs />
+        public string CssClass { get; set; }
+
+        /// <inheritDocs />
         [Browsable(false)]
         public virtual MvcHtmlString ValidationAttributes
         {
