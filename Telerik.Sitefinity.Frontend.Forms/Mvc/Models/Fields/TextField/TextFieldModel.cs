@@ -9,6 +9,9 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 {
+    /// <summary>
+    /// Implements API for working with form text fields.
+    /// </summary>
     public class TextFieldModel : FormFieldModel, ITextFieldModel
     {
         /// <inheritDocs />

@@ -12,6 +12,9 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 {
+    /// <summary>
+    /// This interface provides API for form text fields.
+    /// </summary>
     public interface ITextFieldModel : IFormFieldModel
     {
         /// <summary>
@@ -31,7 +34,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         string CssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets a validation mechanism for the control.
+        /// Gets or sets a validation mechanism for the field.
         /// </summary>
         /// <value>The validation.</value>
         [PersistenceMode(PersistenceMode.InnerProperty)]

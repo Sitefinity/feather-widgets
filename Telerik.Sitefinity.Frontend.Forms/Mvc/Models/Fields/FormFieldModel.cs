@@ -12,6 +12,9 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
 {
+    /// <summary>
+    /// Implements API for working with form fields.
+    /// </summary>
     public class FormFieldModel : IFormFieldModel
     {
         /// <summary>
@@ -42,7 +45,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         }
 
         /// <summary>
-        /// Gets or sets a validation mechanism for the control.
+        /// Gets or sets a validation mechanism for the field.
         /// </summary>
         /// <value>The validation.</value>
         [PersistenceMode(PersistenceMode.InnerProperty)]
@@ -66,7 +69,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         }
 
         /// <summary>
-        /// Gets the instance of <see cref="Validator"/> configured with the field controls' <see cref="ValidatorDefinition"/>.
+        /// Gets the instance of <see cref="Validator"/> configured for the field's <see cref="ValidatorDefinition"/>.
         /// </summary>
         /// <value></value>
         public virtual Validator Validator

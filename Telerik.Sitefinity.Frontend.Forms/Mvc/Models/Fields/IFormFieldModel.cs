@@ -12,6 +12,9 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
 {
+    /// <summary>
+    /// This interface provides API for working with forms fields.
+    /// </summary>
     public interface IFormFieldModel
     {
         /// <summary>

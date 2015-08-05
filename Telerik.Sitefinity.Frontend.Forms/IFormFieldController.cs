@@ -6,6 +6,9 @@ using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
+    /// <summary>
+    /// This interface defines API for working with forms field's controllers.
+    /// </summary>
     public interface IFormFieldController : IFormFieldControl, IHasFieldDisplayMode
     {
         /// <summary>
