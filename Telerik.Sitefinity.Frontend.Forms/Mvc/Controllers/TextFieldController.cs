@@ -69,8 +69,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// </value>
         public FieldDisplayMode DisplayMode
         {
-            get;
-            set;
+            get
+            {
+                return this.displayMode;
+            }
+
+            set
+            {
+                this.displayMode = value;
+            }
         }
 
         /// <summary>
@@ -156,13 +163,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Write(null).ExecuteResult(this.ControllerContext);
+            if (this.DisplayMode == FieldDisplayMode.Read)
+            {
+                this.Read(null).ExecuteResult(this.ControllerContext);
+            }
+            else if (this.DisplayMode == FieldDisplayMode.Write)
+            {
+                this.Write(null).ExecuteResult(this.ControllerContext);
+            }
         }
 
         #endregion
 
         private string writeTemplateName = "Default";
         private string readTemplateName = "Default";
+        private FieldDisplayMode displayMode = FieldDisplayMode.Write;
         private readonly string writeTemplateNamePrefix = "Write.";
         private readonly string readTemplateNamePrefix = "Read.";
         private IMetaField metaField;
