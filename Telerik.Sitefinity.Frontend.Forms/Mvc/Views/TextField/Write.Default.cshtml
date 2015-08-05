@@ -1,11 +1,19 @@
 ﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField.TextFieldModel
 
-<div>
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+
+<div data-sf-role="text-field-container">
+    <input data-sf-role="violation-messages" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLengthViolationMessage", "required": "@Model.ValidatorDefinition.RequiredViolationMessage"}' />
     <label>
         @ViewBag.MetaField.Title
-        <input type="text" name="@ViewBag.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@ViewBag.MetaField.DefaultValue" @Model.ValidationAttributes></input>
-        @ViewBag.MetaField.Description
-
-        <p data-sf-role="sf-error-@ViewBag.MetaField.FieldName" style="display:none;"></p>
+        <input data-sf-role="text-field-input" type="text" name="@ViewBag.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@ViewBag.MetaField.DefaultValue" @Model.ValidationAttributes></input>
     </label>
+    <p>@ViewBag.MetaField.Description</p>
 </div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/TextField/text-field.js"), "bottom", false)

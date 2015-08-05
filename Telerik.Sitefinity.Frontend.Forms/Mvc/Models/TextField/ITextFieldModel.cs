@@ -28,6 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
         /// <value>
         /// The validation attributes.
         /// </value>
+        [Browsable(false)]
         MvcHtmlString ValidationAttributes { get; }
 
         /// <summary>
