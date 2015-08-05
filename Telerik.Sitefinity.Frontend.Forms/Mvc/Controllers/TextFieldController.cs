@@ -6,7 +6,6 @@ using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
@@ -40,11 +39,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 if (this.metaField == null)
                 {
                     this.metaField = this.LoadDefaultMetaField();
-                    string validFieldName;
-                    if (MetaDataExtensions.TryCreateValidFieldName(this.GetType().Name, out validFieldName))
-                    {
-                        this.metaField.FieldName = validFieldName + Guid.NewGuid().ToString("N");
-                    }
                 }
 
                 return this.metaField;
