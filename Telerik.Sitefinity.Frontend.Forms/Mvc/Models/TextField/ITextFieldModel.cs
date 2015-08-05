@@ -12,25 +12,8 @@ using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
 {
-    public interface ITextFieldModel: IFormsFieldModel
+    public interface ITextFieldModel : IFormsFieldModel
     {
-        /// <summary>
-        /// Gets or sets the value of the form field.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        object Value { get; set; }
-
-        /// <summary>
-        /// Gets or sets the validation attributes.
-        /// </summary>
-        /// <value>
-        /// The validation attributes.
-        /// </value>
-        [Browsable(false)]
-        MvcHtmlString ValidationAttributes { get; }
-
         /// <summary>
         /// Gets or sets the placeholder text.
         /// </summary>
@@ -46,18 +29,5 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
         [PersistenceMode(PersistenceMode.InnerProperty)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         ValidatorDefinition ValidatorDefinition { get; set; }
-
-        /// <summary>
-        /// Gets the meta field.
-        /// </summary>
-        /// <param name="formFieldControl">The form field control.</param>
-        /// <returns></returns>
-        IMetaField GetMetaField(IFormFieldControl formFieldControl);
-
-        /// <summary>
-        /// Determines whether this instance is valid.
-        /// </summary>
-        /// <returns></returns>
-        bool IsValid();
     }
 }

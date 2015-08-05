@@ -54,6 +54,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
                 return this.metaField;
             }
+
             set
             {
                 this.metaField = value;
@@ -133,7 +134,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         #endregion
-
 
         private string writeTemplateName = "Default";
         private readonly string templateNamePrefix = "Write.";

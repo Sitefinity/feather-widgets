@@ -9,6 +9,5 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
     [ObjectInfo(typeof(FormResources), ResourceClassId = "FormResources", Title = "FormResourcesTitle", Description = "FormResourcesDescription")]
     public class FormResources : Resource
     {
-
     }
 }

@@ -52,8 +52,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 {
                     this.validatorDefinition = new ValidatorDefinition();
                 }
+
                 return this.validatorDefinition;
             }
+
             set
             {
                 this.validatorDefinition = value;
@@ -78,6 +80,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                     // If the validator is already instantiated synchronies the validatorDefinition changes to the old instance.
                     this.validator.Configure(this.ValidatorDefinition);
                 }
+
                 return this.validator;
             }
         }
@@ -104,7 +107,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             return this.Validator.IsValid(this.Value);
         }
 
-        
+        /// <summary>
+        /// Builds the validation attributes.
+        /// </summary>
+        /// <returns></returns>
         protected virtual string BuildValidationAttributes()
         {
             var attributes = string.Empty;
