@@ -74,7 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         /// <summary>
-        /// Gets or sets the name of the template that will be displayed when widget is in write view.
+        /// Gets or sets the name of the template that will be displayed when field is in write view.
         /// </summary>
         /// <value></value>
         public string WriteTemplateName
@@ -90,6 +90,23 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the template that will be displayed when field is in read view.
+        /// </summary>
+        /// <value></value>
+        public string ReadTemplateName
+        {
+            get
+            {
+                return this.readTemplateName;
+            }
+
+            set
+            {
+                this.readTemplateName = value;
+            }
+        }
+
         #endregion
 
         #region Actions
@@ -97,16 +114,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <inheritDocs />
         public ActionResult Read(object value)
         {
-            var stringValue = value != null ? value.ToString() : "[no value]";
-            return this.Content("Read me: " + stringValue);
+            if (value == null || !(value is string))
+                value = this.MetaField.DefaultValue;
+
+            this.Model.Value = value;
+            this.ViewBag.MetaField = this.MetaField;
+            var fullTemplateName = this.readTemplateNamePrefix + this.ReadTemplateName;
+
+            return this.View(fullTemplateName, this.Model);
         }
 
         /// <inheritDocs />
         public ActionResult Write(object value)
         {
+            if (value == null || !(value is string))
+                value = this.MetaField.DefaultValue;
+
             this.Model.Value = value;
-            var fullTemplateName = this.templateNamePrefix + this.WriteTemplateName;
             this.ViewBag.MetaField = this.MetaField;
+            var fullTemplateName = this.writeTemplateNamePrefix + this.WriteTemplateName;
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -136,7 +162,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #endregion
 
         private string writeTemplateName = "Default";
-        private readonly string templateNamePrefix = "Write.";
+        private string readTemplateName = "Default";
+        private readonly string writeTemplateNamePrefix = "Write.";
+        private readonly string readTemplateNamePrefix = "Read.";
         private IMetaField metaField;
         private ITextFieldModel model;
     }

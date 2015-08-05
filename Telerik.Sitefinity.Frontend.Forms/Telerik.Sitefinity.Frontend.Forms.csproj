@@ -161,6 +161,7 @@
     <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\TextField\Read.Default.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
