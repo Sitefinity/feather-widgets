@@ -164,7 +164,9 @@
     <EmbeddedResource Include="Mvc\Views\TextField\Read.Default.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\TextField\designerview-simple.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\TextField\text-field.js" />
     <EmbeddedResource Include="Mvc\Scripts\Form\designerview-simple.js" />

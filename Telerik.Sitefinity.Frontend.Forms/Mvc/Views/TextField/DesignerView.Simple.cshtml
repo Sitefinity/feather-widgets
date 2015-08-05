@@ -6,34 +6,34 @@
         <div class="form-group">
             <label for="title" class="full-width">
                 @Html.Resource("Label")
-                <input id="title" type="text" ng-model="properties.Title.PropertyValue" class="form-control" />
+                <input id="title" type="text" ng-model="properties.MetaField.Title.PropertyValue" class="form-control" />
                 <div class="text-muted">@Html.Resource("ExampleTitle")</div>
             </label>
 
             <label for="placeholderText" class="full-width">
                 @Html.Resource("PlaceholderText")
-                <input id="placeholderText" type="text" ng-model="properties.PlaceholderText.PropertyValue" class="form-control" />
+                <input id="placeholderText" type="text" ng-model="properties.Model.PlaceholderText.PropertyValue" class="form-control" />
             </label>
 
             <a ng-show="!showInstructionalText" ng-click="showInstructionalText=true;">@Html.Resource("AddInstructionalText")</a>
             <label for="example" class="full-width" ng-show="showInstructionalText">
                 @Html.Resource("InstructionalText")
-                <textarea id="example" ng-model="properties.Description.PropertyValue" class="form-control" />
+                <textarea id="example" ng-model="properties.MetaField.Description.PropertyValue" class="form-control" />
                 <div class="text-muted">@Html.Resource("ExampleExplanation")</div>
             </label>
 
             <label for="predefinedValue" class="full-width">
                 @Html.Resource("PredefinedValue")
-                <input id="predefinedValue" type="text" ng-model="properties.DefaultValue.PropertyValue" class="form-control" />
+                <input id="predefinedValue" type="text" ng-model="properties.MetaField.DefaultValue.PropertyValue" class="form-control" />
             </label>
 
-            <input type="checkbox" ng-model="properties.Required.PropertyValue" 
-                ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Required.PropertyValue === 'True'" >
+            <input type="checkbox" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
+                ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'" >
                 @Html.Resource("RequiredField")
             </input>
-            <label for="example" class="full-width" ng-show="properties.Required.PropertyValue === 'True'">
+            <label for="example" class="full-width" ng-show="properties.Model.ValidatorDefinition.Required.PropertyValue === 'True'">
                 @Html.Resource("RequiredErrorMessageTitle")
-                <input type="text" id="example" ng-model="properties.RequiredViolationMessage.PropertyValue" class="form-control" />
+                <input type="text" id="example" ng-model="properties.Model.ValidatorDefinition.RequiredViolationMessage.PropertyValue" class="form-control" />
             </label>
         </div>
         
@@ -53,11 +53,11 @@
                 </div>
             </div>
 
-            <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
+            <style-dropdown selected-class="properties.Model.CssClass.PropertyValue" view-name="properties.TemplateName.PropertyValue"></style-dropdown>
 
             <div class="form-group">
                 <label for="cssClass">@Html.Resource("CssClasses")</label>
-                <input type="text" id="cssClass" ng-model="properties.CssClass.PropertyValue" class="form-control" />
+                <input type="text" id="cssClass" ng-model="properties.Model.CssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
     </tab>
@@ -67,11 +67,11 @@
             <h4>@Html.Resource("Range")</h4>
 
             <label for="minLength">@Html.Resource("Min")
-                <input type="text" id="minLength" ng-model="properties.MinLength.PropertyValue" class="form-control" />
+                <input type="text" id="minLength" ng-model="properties.Model.ValidatorDefinition.MinLength.PropertyValue" class="form-control" />
             </label>
 
             <label for="maxLength">@Html.Resource("Max")
-                <input type="text" id="maxLength" ng-model="properties.MaxLength.PropertyValue" class="form-control" />
+                <input type="text" id="maxLength" ng-model="properties.Model.ValidatorDefinition.MaxLength.PropertyValue" class="form-control" />
             </label>
 
             <label>@Html.Resource("Characters")</label>
@@ -79,7 +79,7 @@
 
         <div class="form-group">
             <label for="tooLarge">@Html.Resource("TooLargeErrorMessageTitle")
-                <input type="text" id="tooLarge" ng-model="properties.MaxLengthViolationMessage.PropertyValue" class="form-control" />
+                <input type="text" id="tooLarge" ng-model="properties.Model.ValidatorDefinition.MaxLengthViolationMessage.PropertyValue" class="form-control" />
             </label>
         </div>
     </tab>
