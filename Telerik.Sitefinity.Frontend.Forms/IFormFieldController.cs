@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 

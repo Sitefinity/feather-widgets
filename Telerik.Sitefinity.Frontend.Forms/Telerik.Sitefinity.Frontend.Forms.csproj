@@ -142,13 +142,13 @@
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
-    <Compile Include="Mvc\Models\IFormFieldModel.cs" />
-    <Compile Include="Mvc\Models\FormFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\IFormFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
     <Compile Include="Mvc\Models\FormViewMode.cs" />
     <Compile Include="Mvc\Models\SubmitButtonModel.cs" />
-    <Compile Include="Mvc\Models\TextField\TextFieldModel.cs" />
-    <Compile Include="Mvc\Models\TextField\ITextFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\TextField\TextFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\TextField\ITextFieldModel.cs" />
     <Compile Include="Mvc\StringResources\FieldResources.cs" />
     <Compile Include="Mvc\StringResources\FormResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

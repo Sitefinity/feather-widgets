@@ -1,5 +1,5 @@
 ﻿using Ninject.Modules;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {

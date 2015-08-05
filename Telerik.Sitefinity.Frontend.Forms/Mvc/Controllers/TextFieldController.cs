@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -185,6 +185,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #endregion
 
+        #region Private fields and Constants
+
         private string writeTemplateName = "Default";
         private string readTemplateName = "Default";
         private FieldDisplayMode displayMode = FieldDisplayMode.Write;
@@ -192,5 +194,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         private readonly string readTemplateNamePrefix = "Read.";
         private IMetaField metaField;
         private ITextFieldModel model;
+
+        #endregion
     }
 }

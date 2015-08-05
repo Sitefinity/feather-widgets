@@ -10,7 +10,7 @@ using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.TextField
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 {
     public interface ITextFieldModel : IFormFieldModel
     {

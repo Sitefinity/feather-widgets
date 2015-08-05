@@ -10,7 +10,7 @@ using Telerik.Sitefinity.Web.UI.Validation;
 using Telerik.Sitefinity.Web.UI.Validation.Contracts;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
 {
     public class FormFieldModel : IFormFieldModel
     {
