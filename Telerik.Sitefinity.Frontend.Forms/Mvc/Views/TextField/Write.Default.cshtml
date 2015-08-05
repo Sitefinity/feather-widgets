@@ -7,7 +7,7 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 
-<div data-sf-role="text-field-container">
+<div class="@Model.CssClass" data-sf-role="text-field-container">
     <input data-sf-role="violation-messages" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLengthViolationMessage", "required": "@Model.ValidatorDefinition.RequiredViolationMessage"}' />
     <label>
         @ViewBag.MetaField.Title
