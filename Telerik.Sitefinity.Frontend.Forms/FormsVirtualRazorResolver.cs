@@ -3,20 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
-using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Mvc.Proxy;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
-using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Web.UI;
 
@@ -34,7 +28,15 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
         public System.Web.Caching.CacheDependency GetCacheDependency(PathDefinition definition, string virtualPath, IEnumerable virtualPathDependencies, DateTime utcStart)
         {
-            return null;
+            var id = this.ResolveFormDescriptionId(virtualPath);
+            if (id != null && this.DescriptionExists(id.Value))
+            {
+                return new DataItemSystemCacheDependency(typeof(FormDescription), itemId: id.Value.ToString("D"));
+            }
+            else
+            {
+                return new DataItemSystemCacheDependency(typeof(FormDescription));
+            }
         }
 
         public Stream Open(PathDefinition definition, string virtualPath)
