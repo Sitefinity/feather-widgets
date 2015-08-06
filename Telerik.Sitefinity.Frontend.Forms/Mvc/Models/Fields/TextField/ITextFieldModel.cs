@@ -40,5 +40,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         [PersistenceMode(PersistenceMode.InnerProperty)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         ValidatorDefinition ValidatorDefinition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the meta field.
+        /// </summary>
+        /// <value>
+        /// The meta field.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        IMetaField MetaField { get; set; }
     }
 }

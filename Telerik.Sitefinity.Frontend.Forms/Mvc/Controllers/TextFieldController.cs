@@ -55,22 +55,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         /// <inheritDocs />
-        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [Browsable(false)]
         public IMetaField MetaField
         {
             get
             {
-                if (this.metaField == null)
+                if (this.Model.MetaField == null)
                 {
-                    this.metaField = this.Model.GetMetaField(this);
+                    this.Model.MetaField = this.Model.GetMetaField(this);
                 }
 
-                return this.metaField;
+                return this.Model.MetaField;
             }
 
             set
             {
-                this.metaField = value;
+                this.Model.MetaField = value;
             }
         }
 

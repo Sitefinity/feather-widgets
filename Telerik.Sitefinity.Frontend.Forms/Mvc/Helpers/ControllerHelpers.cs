@@ -45,6 +45,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             using (var writer = new StringWriter())
             {
                 var context = new HttpContextWrapper(new HttpContext(HttpContext.Current.Request, new HttpResponse(writer)));
+                context.Handler = HttpContext.Current.Handler;
+
                 controller.ControllerContext = new ControllerContext(context, routeData, controller);
                 controller.ActionInvoker.InvokeAction(controller.ControllerContext, action);
 

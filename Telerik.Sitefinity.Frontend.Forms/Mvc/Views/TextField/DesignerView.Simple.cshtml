@@ -6,7 +6,7 @@
         <div class="form-group">
             <label for="title" class="full-width">
                 @Html.Resource("Label")
-                <input id="title" type="text" ng-model="properties.MetaField.Title.PropertyValue" class="form-control" />
+                <input id="title" type="text" ng-model="properties.Model.MetaField.Title.PropertyValue" class="form-control" />
                 <div class="text-muted">@Html.Resource("ExampleTitle")</div>
             </label>
 
@@ -18,13 +18,13 @@
             <a ng-show="!showInstructionalText" ng-click="showInstructionalText=true;">@Html.Resource("AddInstructionalText")</a>
             <label for="example" class="full-width" ng-show="showInstructionalText">
                 @Html.Resource("InstructionalText")
-                <textarea id="example" ng-model="properties.MetaField.Description.PropertyValue" class="form-control" />
+                <textarea id="example" ng-model="properties.Model.MetaField.Description.PropertyValue" class="form-control" />
                 <div class="text-muted">@Html.Resource("ExampleExplanation")</div>
             </label>
 
             <label for="predefinedValue" class="full-width">
                 @Html.Resource("PredefinedValue")
-                <input id="predefinedValue" type="text" ng-model="properties.MetaField.DefaultValue.PropertyValue" class="form-control" />
+                <input id="predefinedValue" type="text" ng-model="properties.Model.MetaField.DefaultValue.PropertyValue" class="form-control" />
             </label>
 
             <input type="checkbox" ng-model="properties.Model.ValidatorDefinition.Required.PropertyValue" 
