@@ -1,105 +1,101 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Abstractions;
-using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
-using Telerik.Sitefinity.Frontend.Resources;
-using Telerik.Sitefinity.Modules.Forms;
-using Telerik.Sitefinity.Modules.Forms.Web;
-using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Services;
-using Telerik.Sitefinity.Utilities.TypeConverters;
-using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
+    /// <summary>
+    /// This class represents the controller of Form widget.
+    /// </summary>
     [ControllerToolboxItem(Name = "Form_MVC", Title = "Form", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = FormController.WidgetIconCssClass)]
-    public class FormController : Controller
+    [Localization(typeof(FormResources))]
+    public class FormController : Controller, IContentLocatableView
     {
-        public FormController()
+        /// <summary>
+        /// Gets the Form widget model.
+        /// </summary>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public IFormModel Model
         {
-            this.Model = new FormModel();
+            get
+            {
+                if (this.model == null)
+                    this.model = this.InitializeModel();
+
+                return this.model;
+            }
         }
 
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        public FormModel Model { get; set; }
-
+        /// <summary>
+        /// Renders the form selected via the FormId property of the model.
+        /// </summary>
         public ActionResult Index()
         {
-            if (this.Model.FormId == Guid.Empty)
-            {
-                return new EmptyResult();
-            }
-            else
-            {
-                var currentPackage = new PackageManager().GetCurrentPackage();
-                var viewPath = FormsVirtualRazorResolver.Path + (currentPackage ?? "default") + "/" + this.Model.FormId.ToString("D") + ".cshtml";
+            var viewPath = this.Model.GetViewPath();
+            var viewModel = this.Model.GetViewModel();
 
-                return this.View(viewPath, this.Model);
-            }
+            if (string.IsNullOrEmpty(viewPath))
+                return new EmptyResult();
+            else
+                return this.View(viewPath, viewModel);
         }
 
+        /// <summary>
+        /// Submits the form selected via the FormId property of the model.
+        /// </summary>
         [HttpPost]
         public ActionResult Submit(FormCollection collection)
         {
-            var manager = FormsManager.GetManager();
-            var form = manager.GetForm(this.Model.FormId);
+            var success = this.Model.TrySubmitForm(collection, this.Request.UserHostAddress);
 
-            if (this.IsValid(form, collection, manager))
-            {
-                var formData = new KeyValuePair<string, object>[collection.Count];
-                for (int i = 0; i < collection.Count; i++)
-                {
-                    formData[i] = new KeyValuePair<string, object>(collection.Keys[i], collection[collection.Keys[i]]);
-                }
-
-                var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
-
-                FormsHelper.SaveFormsEntry(form, formData, null, this.Request.UserHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
-
+            // TODO: Post Get redirect ?
+            if (success)
                 return this.Content("Successfully submitted!");
-            }
             else
-            {
                 return this.Content("Entry is not valid!");
-            }
-        }
+        }       
 
-        private bool IsValid(FormDescription form, FormCollection collection, FormsManager manager)
+        #region IContentLocatableView
+
+        /// <inheritDoc/>
+        public bool? DisableCanonicalUrlMetaTag
         {
-            var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
-            foreach (var control in form.Controls)
-            {
-                if (control.IsLayoutControl)
-                    continue;
+            get { return this.disableCanonicalUrlMetaTag; }
 
-                Type controlType;
-                if (control.ObjectType.StartsWith("~/"))
-                    controlType = FormsManager.GetControlType(control);
-                else
-                    controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
-
-                if (!typeof(IFormFieldController).IsAssignableFrom(controlType))
-                    continue;
-
-                var controlInstance = manager.LoadControl(control);
-                var fieldControl = (IFormFieldController)behaviorResolver.GetBehaviorObject(controlInstance);
-
-                var fieldValue = collection[fieldControl.MetaField.FieldName];
-
-                if (!fieldControl.FieldModel.IsValid(fieldValue))
-                    return false;
-            }
-
-            return true;
+            set { this.disableCanonicalUrlMetaTag = value; }
         }
+
+        /// <inheritDoc/>
+        public IEnumerable<IContentLocationInfo> GetLocations()
+        {
+            return this.Model.GetLocations();
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private IFormModel InitializeModel()
+        {
+            return ControllerModelFactory.GetModel<IFormModel>(this.GetType());
+        }
+
+        #endregion
+
+        #region Private fields and constants
 
         internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcon";
+
+        private IFormModel model;
+        private bool? disableCanonicalUrlMetaTag;
+
+        #endregion
     }
 }

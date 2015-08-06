@@ -144,6 +144,9 @@
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
     <Compile Include="Mvc\Models\Fields\IFormFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />
+    <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
+    <Compile Include="Mvc\Models\FormViewModel.cs" />
+    <Compile Include="Mvc\Models\IFormModel.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
     <Compile Include="Mvc\Models\FormViewMode.cs" />
     <Compile Include="Mvc\Models\SubmitButtonModel.cs" />
