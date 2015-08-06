@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
 using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail.Contracts;
 using Telerik.Sitefinity.Web.UI.Extenders.Definitions;
 using Telerik.Sitefinity.Web.UI.Fields;
+using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 using Telerik.Sitefinity.Web.UI.Fields.Definitions;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
@@ -21,25 +22,12 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
 
         if (backendInsertViewDefinition != null)
         {
-            var frameworkSectionDefinition = this.BuildContentViewSectionDefinition();
-            var frameworkSectionChoiceFieldDefinition = this.BuildFrameworkChoiceFieldDefinition();
-            frameworkSectionDefinition.Fields.Add(frameworkSectionChoiceFieldDefinition);
-
-            ((IList<IContentViewSectionDefinition>)backendInsertViewDefinition.Sections).Add(frameworkSectionDefinition);
+            var advancedSection = backendInsertViewDefinition.Sections.FirstOrDefault(s => s.Name == "MarketoConnectorSection");
+            if (advancedSection != null)
+            {
+                ((List<IFieldDefinition>)advancedSection.Fields).Add(this.BuildFrameworkChoiceFieldDefinition());
+            }
         }
-    }
-
-    private ContentViewSectionDefinition BuildContentViewSectionDefinition()
-    {
-        var frameworkSection = new ContentViewSectionDefinition();
-
-        frameworkSection.ExpandableDefinition = new ExpandableControlDefinition();
-        frameworkSection.ExpandableDefinition.Expanded = false;
-
-        frameworkSection.CssClass = "sfExpandableForm";
-        frameworkSection.Title = "Settings";
-
-        return frameworkSection;
     }
 
     private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition()
@@ -55,6 +43,7 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
             MutuallyExclusive = true,
             ResourceClassId = typeof(PageResources).Name,
             RenderChoiceAs = RenderChoicesAs.RadioButtons,
+            CssClass = "sfFormSeparator",
             FieldType = typeof(ChoiceField)
         };
 
