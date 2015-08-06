@@ -134,6 +134,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="FormFieldController.cs" />
+    <Compile Include="FormsConstants.cs" />
     <Compile Include="FormsDefinitionsExtender.cs" />
     <Compile Include="FormsVirtualRazorResolver.cs" />
     <Compile Include="IFormFieldController.cs" />
@@ -146,11 +147,12 @@
     <Compile Include="Mvc\Models\Fields\IFormFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
+    <Compile Include="Mvc\Models\Fields\SubmitButton\ISubmitButtonModel.cs" />
     <Compile Include="Mvc\Models\FormViewModel.cs" />
     <Compile Include="Mvc\Models\IFormModel.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
     <Compile Include="Mvc\Models\FormViewMode.cs" />
-    <Compile Include="Mvc\Models\SubmitButtonModel.cs" />
+    <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\TextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\ITextFieldModel.cs" />
     <Compile Include="Mvc\StringResources\FieldResources.cs" />
@@ -160,7 +162,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Mvc\Views\TextField\Write.Default.cshtml" />
-    <EmbeddedResource Include="Mvc\Views\SubmitButton\Write.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SubmitButton\Index.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.cshtml" />

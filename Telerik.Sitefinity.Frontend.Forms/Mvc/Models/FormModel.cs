@@ -96,6 +96,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 var formLanguage = SystemManager.CurrentContext.AppSettings.Multilingual ? CultureInfo.CurrentUICulture.Name : null;
 
                 FormsHelper.SaveFormsEntry(form, formData, null, userHostAddress, ClaimsManager.GetCurrentUserId(), formLanguage);
+
+                success = true;
             }
 
             return success;

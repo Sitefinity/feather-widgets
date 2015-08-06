@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms text field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = "FormControls", SectionName = "Common")]
+    [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class TextFieldController : FormFieldController
@@ -126,7 +126,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 value = this.MetaField.DefaultValue;
 
             this.Model.Value = value;
-            var fullTemplateName = this.readTemplateNamePrefix + this.ReadTemplateName;
+            this.ViewBag.MetaField = this.MetaField;
+            var fullTemplateName = TextFieldController.ReadTemplateNamePrefix + this.ReadTemplateName;
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -138,7 +139,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 value = this.MetaField.DefaultValue;
 
             this.Model.Value = value;
-            var fullTemplateName = this.writeTemplateNamePrefix + this.WriteTemplateName;
+            this.ViewBag.MetaField = this.MetaField;
+            var fullTemplateName = TextFieldController.WriteTemplateNamePrefix + this.WriteTemplateName;
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -162,8 +164,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         private string writeTemplateName = "Default";
         private string readTemplateName = "Default";
-        private readonly string writeTemplateNamePrefix = "Write.";
-        private readonly string readTemplateNamePrefix = "Read.";
+        private const string WriteTemplateNamePrefix = "Write.";
+        private const string ReadTemplateNamePrefix = "Read.";
         private ITextFieldModel model;
 
         #endregion
