@@ -1,6 +1,7 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.SubmitButton;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -14,8 +15,9 @@ namespace Telerik.Sitefinity.Frontend.Forms
         /// </summary>
         public override void Load()
         {
-            Bind<ITextFieldModel>().To<TextFieldModel>();
             Bind<IFormModel>().To<FormModel>();
+            Bind<ITextFieldModel>().To<TextFieldModel>();
+            Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
         }
     }
 }

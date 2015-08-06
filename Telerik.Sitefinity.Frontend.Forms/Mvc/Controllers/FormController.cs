@@ -36,18 +36,32 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <summary>
         /// Renders the form selected via the FormId property of the model.
         /// </summary>
-        public ActionResult Index()
+        public ActionResult Index(bool? submitedSuccessfully = null)
         {
-            var viewPath = this.Model.GetViewPath();
-
-            if (string.IsNullOrEmpty(viewPath))
+            if (submitedSuccessfully.HasValue)
             {
-                return new EmptyResult();
+                if (submitedSuccessfully.Value)
+                {
+                    return this.Content("Successfully submitted!");
+                }
+                else
+                {
+                    return this.Content("Entry is not valid!");
+                }
             }
             else
             {
-                var viewModel = this.Model.GetViewModel();
-                return this.View(viewPath, viewModel);
+                var viewPath = this.Model.GetViewPath();
+                if (string.IsNullOrEmpty(viewPath))
+                {
+                    return new EmptyResult();
+                }
+                else
+                {
+                    var viewModel = this.Model.GetViewModel();
+
+                    return this.View(viewPath, viewModel);
+                }
             }
         }
 
@@ -59,16 +73,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             var success = this.Model.TrySubmitForm(collection, this.Request.UserHostAddress);
 
-            // TODO: Post Get redirect ?
-            if (success)
-            {
-                return this.Content("Successfully submitted!");
-            }
-            else
-            {
-                return this.Content("Entry is not valid!");
-            }
-        }       
+            return this.RedirectToAction("Index", new { submitedSuccessfully = success });
+        }
 
         #region IContentLocatableView
 

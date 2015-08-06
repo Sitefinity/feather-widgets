@@ -35,11 +35,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             }
 
             var controller = mvcProxy.GetController();
+
             var controllerFactory = (ISitefinityControllerFactory)ControllerBuilder.Current.GetControllerFactory();
-
-            var action = viewMode.ToString();
-
             routeData.Values["controller"] = controllerFactory.GetControllerName(controller.GetType());
+
+            var action = controller is IFormFieldController ? viewMode.ToString() : "Index";
             routeData.Values["action"] = action;
 
             using (var writer = new StringWriter())

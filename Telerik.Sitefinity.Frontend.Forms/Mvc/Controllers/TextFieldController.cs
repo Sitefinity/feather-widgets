@@ -17,7 +17,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms text field.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = "FormControls", SectionName = "Common")]
+    [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
     public class TextFieldController : Controller, IFormFieldController
@@ -139,7 +139,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
             this.Model.Value = value;
             this.ViewBag.MetaField = this.MetaField;
-            var fullTemplateName = this.readTemplateNamePrefix + this.ReadTemplateName;
+            var fullTemplateName = TextFieldController.ReadTemplateNamePrefix + this.ReadTemplateName;
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -152,7 +152,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
             this.Model.Value = value;
             this.ViewBag.MetaField = this.MetaField;
-            var fullTemplateName = this.writeTemplateNamePrefix + this.WriteTemplateName;
+            var fullTemplateName = TextFieldController.WriteTemplateNamePrefix + this.WriteTemplateName;
 
             return this.View(fullTemplateName, this.Model);
         }
@@ -193,8 +193,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         private string writeTemplateName = "Default";
         private string readTemplateName = "Default";
         private FieldDisplayMode displayMode = FieldDisplayMode.Write;
-        private readonly string writeTemplateNamePrefix = "Write.";
-        private readonly string readTemplateNamePrefix = "Read.";
+        private const string WriteTemplateNamePrefix = "Write.";
+        private const string ReadTemplateNamePrefix = "Read.";
         private IMetaField metaField;
         private ITextFieldModel model;
 

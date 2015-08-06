@@ -1,0 +1,10 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.SubmitButton.SubmitButtonModel
+
+@if (Telerik.Sitefinity.Services.SystemManager.IsDesignMode || Telerik.Sitefinity.Services.SystemManager.IsInlineEditingMode)
+{
+    <div>Submit button is not visible in edit mode.</div>
+}
+else
+{
+    <input type="submit" value="@Model.Label"></input>
+}
