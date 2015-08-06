@@ -55,22 +55,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         /// <inheritDocs />
-        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [Browsable(false)]
         public IMetaField MetaField
         {
             get
             {
-                if (this.metaField == null)
+                if (this.Model.MetaField == null)
                 {
-                    this.metaField = this.Model.GetMetaField(this);
+                    this.Model.MetaField = this.Model.GetMetaField(this);
                 }
 
-                return this.metaField;
+                return this.Model.MetaField;
             }
 
             set
             {
-                this.metaField = value;
+                this.Model.MetaField = value;
             }
         }
 
@@ -138,7 +138,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 value = this.MetaField.DefaultValue;
 
             this.Model.Value = value;
-            this.ViewBag.MetaField = this.MetaField;
             var fullTemplateName = this.readTemplateNamePrefix + this.ReadTemplateName;
 
             return this.View(fullTemplateName, this.Model);
@@ -151,7 +150,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                 value = this.MetaField.DefaultValue;
 
             this.Model.Value = value;
-            this.ViewBag.MetaField = this.MetaField;
             var fullTemplateName = this.writeTemplateNamePrefix + this.WriteTemplateName;
 
             return this.View(fullTemplateName, this.Model);

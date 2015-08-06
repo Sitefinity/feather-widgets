@@ -51,6 +51,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         ValidatorDefinition ValidatorDefinition { get; set; }
 
         /// <summary>
+        /// Gets or sets the meta field.
+        /// </summary>
+        /// <value>
+        /// The meta field.
+        /// </value>
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        IMetaField MetaField { get; set; }
+
+        /// <summary>
         /// Gets the meta field.
         /// </summary>
         /// <param name="formFieldControl">The form field control.</param>
