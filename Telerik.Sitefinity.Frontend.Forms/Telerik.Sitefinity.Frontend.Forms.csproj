@@ -142,25 +142,36 @@
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
+    <Compile Include="Mvc\Models\Fields\IFormFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
     <Compile Include="Mvc\Models\FormViewModel.cs" />
     <Compile Include="Mvc\Models\IFormModel.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
     <Compile Include="Mvc\Models\FormViewMode.cs" />
     <Compile Include="Mvc\Models\SubmitButtonModel.cs" />
+    <Compile Include="Mvc\Models\Fields\TextField\TextFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\TextField\ITextFieldModel.cs" />
+    <Compile Include="Mvc\StringResources\FieldResources.cs" />
     <Compile Include="Mvc\StringResources\FormResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Mvc\Views\TextField\Write.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\TextField\Write.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubmitButton\Write.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\TextField\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\TextField\Read.Default.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\TextField\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\TextField\text-field.js" />
     <EmbeddedResource Include="Mvc\Scripts\Form\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
