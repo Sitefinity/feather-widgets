@@ -20,13 +20,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = "FormControls", SectionName = "Common")]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
-    public class TextFieldController : Controller, IFormFieldController
+    public class TextFieldController : FormFieldController
     {
         #region Properties
 
         /// <inheritDocs />
         [Browsable(false)]
-        public virtual IFormFieldModel FieldModel
+        public override IFormFieldModel FieldModel
         {
             get
             {
@@ -56,40 +56,28 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         /// <inheritDocs />
         [Browsable(false)]
-        public IMetaField MetaField
+        public override IMetaField MetaField
         {
             get
             {
-                if (this.Model.MetaField == null)
-                {
-                    this.Model.MetaField = this.Model.GetMetaField(this);
-                }
-
-                return this.Model.MetaField;
+                return base.MetaField;
             }
-
             set
             {
-                this.Model.MetaField = value;
+                base.MetaField = value;
             }
         }
 
-        /// <summary>
-        /// Gets or sets the display mode.
-        /// </summary>
-        /// <value>
-        /// The display mode.
-        /// </value>
-        public FieldDisplayMode DisplayMode
+        /// <inheritDocs />
+        public override FieldDisplayMode DisplayMode
         {
             get
             {
-                return this.displayMode;
+                return base.DisplayMode;
             }
-
             set
             {
-                this.displayMode = value;
+                base.DisplayMode = value;
             }
         }
 
@@ -132,7 +120,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #region Actions
 
         /// <inheritDocs />
-        public ActionResult Read(object value)
+        public override ActionResult Read(object value)
         {
             if (value == null || !(value is string))
                 value = this.MetaField.DefaultValue;
@@ -144,7 +132,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         /// <inheritDocs />
-        public ActionResult Write(object value)
+        public override ActionResult Write(object value)
         {
             if (value == null || !(value is string))
                 value = this.MetaField.DefaultValue;
@@ -160,28 +148,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #region Public methods
 
         /// <summary>
-        /// Determines whether this instance is valid.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsValid()
-        {
-            return this.Model.IsValid(this.Model.Value);
-        }
-
-        /// <summary>
         /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
         /// </summary>
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            if (this.DisplayMode == FieldDisplayMode.Read)
-            {
-                this.Read(null).ExecuteResult(this.ControllerContext);
-            }
-            else if (this.DisplayMode == FieldDisplayMode.Write)
-            {
-                this.Write(null).ExecuteResult(this.ControllerContext);
-            }
+            base.HandleUnknownAction(actionName);
         }
 
         #endregion
@@ -190,10 +162,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         private string writeTemplateName = "Default";
         private string readTemplateName = "Default";
-        private FieldDisplayMode displayMode = FieldDisplayMode.Write;
         private readonly string writeTemplateNamePrefix = "Write.";
         private readonly string readTemplateNamePrefix = "Read.";
-        private IMetaField metaField;
         private ITextFieldModel model;
 
         #endregion

@@ -133,6 +133,7 @@
     <Compile Include="..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="FormFieldController.cs" />
     <Compile Include="FormsDefinitionsExtender.cs" />
     <Compile Include="FormsVirtualRazorResolver.cs" />
     <Compile Include="IFormFieldController.cs" />
