@@ -6,12 +6,11 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-
 <div class="@Model.CssClass" data-sf-role="text-field-container">
     <input data-sf-role="violation-messages" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLengthViolationMessage", "required": "@Model.ValidatorDefinition.RequiredViolationMessage"}' />
     <label>
         @ViewBag.MetaField.Title
-        <input data-sf-role="text-field-input" type="text" name="@ViewBag.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@Model.Value" @Model.ValidationAttributes></input>
+        <input data-sf-role="text-field-input" type="text" name="@ViewBag.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@Model.Value" @Model.ValidationAttributes />
     </label>
     <p>@ViewBag.MetaField.Description</p>
 </div>
