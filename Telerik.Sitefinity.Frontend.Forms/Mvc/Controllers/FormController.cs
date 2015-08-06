@@ -39,12 +39,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         public ActionResult Index()
         {
             var viewPath = this.Model.GetViewPath();
-            var viewModel = this.Model.GetViewModel();
 
             if (string.IsNullOrEmpty(viewPath))
+            {
                 return new EmptyResult();
+            }
             else
+            {
+                var viewModel = this.Model.GetViewModel();
                 return this.View(viewPath, viewModel);
+            }
         }
 
         /// <summary>
@@ -57,9 +61,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
             // TODO: Post Get redirect ?
             if (success)
+            {
                 return this.Content("Successfully submitted!");
+            }
             else
+            {
                 return this.Content("Entry is not valid!");
+            }
         }       
 
         #region IContentLocatableView

@@ -4,11 +4,8 @@
     <tab heading="@Html.Resource("Form")">
         <div class="form-group">
             <strong>@Html.Resource("SelectForm")</strong>
-            
-            <div>
-                <span>TODO: Selector</span>
-                <input type="text" ng-model="properties.FormId.PropertyValue" />
-            </div>
+
+            <sf-form-field sf-model="properties.FormId.PropertyValue"/>
         </div>
                
         <expander expander-title='@Html.Resource("MoreOptions")'>

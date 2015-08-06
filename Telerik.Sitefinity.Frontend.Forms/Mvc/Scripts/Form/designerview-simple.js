@@ -1,7 +1,7 @@
 ﻿(function ($) {
-    angular.module('designer').requires.push('expander', 'sfSelectors');
-
-    angular.module('designer').controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
+    var simpleViewModule = angular.module('simpleViewModule', ['expander', 'designer', 'sfFields', 'sfSelectors']);
+    angular.module('designer').requires.push('simpleViewModule');
+    simpleViewModule.controller('SimpleCtrl', ['$scope', 'propertyService', function ($scope, propertyService) {
         propertyService.get()
             .then(function (data) {
                 if (data) {
