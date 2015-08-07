@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Mvc.Proxy;
+using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.TestIntegration.Data.Content;
 using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssentials.Modules.Forms;
 using Telerik.Sitefinity.Web.UI;
@@ -46,6 +47,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations.Forms
             formControls.Add(widget, "Body");
 
             FormsModuleCodeSnippets.CreateForm(formId, "form_" + formId.ToString("N"), formId.ToString("N"), formSuccessMessage, formControls);
+
+            SystemManager.ClearCurrentTransactions();
+            SystemManager.RestartApplication(false);
+            System.Threading.Thread.Sleep(1000);
 
             return formId;
         }

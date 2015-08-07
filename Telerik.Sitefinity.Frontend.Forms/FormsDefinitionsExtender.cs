@@ -11,77 +11,66 @@ using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 using Telerik.Sitefinity.Web.UI.Fields.Definitions;
 using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
-internal class FormsDefinitionsExtender : IControlDefinitionExtender
+namespace Telerik.Sitefinity.Frontend.Forms
 {
-    public void ExtendDefinition(IContentViewControlDefinition contentViewControlDefinition)
+    internal class FormsDefinitionsExtender : IControlDefinitionExtender
     {
-        this.ExtendBackendInsertDefinition(contentViewControlDefinition);
-        this.ExtendBackendEditDefinition(contentViewControlDefinition);
-    }
-
-    private void ExtendBackendInsertDefinition(IContentViewControlDefinition contentViewControlDefinition)
-    {
-        var backendInsertViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == "FormsBackendInsert") as IDetailFormViewDefinition;
-
-        if (backendInsertViewDefinition != null)
+        public void ExtendDefinition(IContentViewControlDefinition contentViewControlDefinition)
         {
-            var advancedSection = backendInsertViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
-            if (advancedSection != null)
+            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendInsert", FieldDisplayMode.Write);
+            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendEdit", FieldDisplayMode.Read);
+            this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendDuplicate", FieldDisplayMode.Read);
+        }
+
+        private void ExtendBackendDefinition(IContentViewControlDefinition contentViewControlDefinition, string backendViewName, FieldDisplayMode displayMode)
+        {
+            var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == backendViewName) as IDetailFormViewDefinition;
+
+            if (backendEditViewDefinition != null)
             {
-                var frameworkChoiceFieldDefinition = this.BuildFrameworkChoiceFieldDefinition(FieldDisplayMode.Write);
-                ((List<IFieldDefinition>)advancedSection.Fields).Add(frameworkChoiceFieldDefinition);
+                var advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
+                if (advancedSection != null)
+                {
+                    var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode);
+                    ((IList<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
+                }
             }
         }
-    }
-    
-    private void ExtendBackendEditDefinition(IContentViewControlDefinition contentViewControlDefinition)
-    {
-        var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == "FormsBackendEdit") as IDetailFormViewDefinition;
 
-        if (backendEditViewDefinition != null)
+        private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition(FieldDisplayMode displayMode)
         {
-            var advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
-            if (advancedSection != null)
+            var frameworkField = new ChoiceFieldDefinition()
             {
-                var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(FieldDisplayMode.Read);
-                ((List<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
-            }
+                ID = "FormFramework",
+                DataFieldName = "Framework",
+                Title = "WebFrameworkTitle",
+                Description = "WebFrameworkDescription",
+                DisplayMode = displayMode,
+                WrapperTag = HtmlTextWriterTag.Li,
+                MutuallyExclusive = true,
+                ResourceClassId = typeof(PageResources).Name,
+                RenderChoiceAs = RenderChoicesAs.RadioButtons,
+                CssClass = "sfFormSeparator",
+                FieldType = typeof(ChoiceField)
+            };
+
+            frameworkField.Choices.Add(new ChoiceDefinition()
+            {
+                Text = "MVCOnly",
+                ResourceClassId = typeof(PageResources).Name,
+                Value = ((int)FormFramework.Mvc).ToString()
+            });
+
+            frameworkField.Choices.Add(new ChoiceDefinition()
+            {
+                Text = "WebFormsOnly",
+                ResourceClassId = typeof(PageResources).Name,
+                Value = ((int)FormFramework.WebForms).ToString()
+            });
+
+            return frameworkField;
         }
+
+        private const string AdvancedSectionName = "MarketoConnectorSection";
     }
-    
-    private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition(FieldDisplayMode mode)
-    {
-        var frameworkField = new ChoiceFieldDefinition()
-        {
-            ID = "FormFramework",
-            DataFieldName = "Framework",
-            Title = "WebFrameworkTitle",
-            Description = "WebFrameworkDescription",
-            DisplayMode = mode,
-            WrapperTag = HtmlTextWriterTag.Li,
-            MutuallyExclusive = true,
-            ResourceClassId = typeof(PageResources).Name,
-            RenderChoiceAs = RenderChoicesAs.RadioButtons,
-            CssClass = "sfFormSeparator",
-            FieldType = typeof(ChoiceField)
-        };
-
-        frameworkField.Choices.Add(new ChoiceDefinition()
-        {
-            Text = "MVCOnly",
-            ResourceClassId = typeof(PageResources).Name,
-            Value = ((int)FormFramework.Mvc).ToString()
-        });
-
-        frameworkField.Choices.Add(new ChoiceDefinition()
-        {
-            Text = "WebFormsOnly",
-            ResourceClassId = typeof(PageResources).Name,
-            Value = ((int)FormFramework.WebForms).ToString()
-        });
-
-        return frameworkField;
-    }
-
-    private const string AdvancedSectionName = "MarketoConnectorSection";
 }

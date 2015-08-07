@@ -16,5 +16,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Gets or sets the view mode.
         /// </summary>
         public FormViewMode ViewMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the error if any.
+        /// </summary>
+        public string Error { get; set; }
     }
 }
