@@ -28,7 +28,7 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
             var advancedSection = backendInsertViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
             if (advancedSection != null)
             {
-                var frameworkChoiceFieldDefinition = this.BuildFrameworkChoiceFieldDefinition();
+                var frameworkChoiceFieldDefinition = this.BuildFrameworkChoiceFieldDefinition(FieldDisplayMode.Write);
                 ((List<IFieldDefinition>)advancedSection.Fields).Add(frameworkChoiceFieldDefinition);
             }
         }
@@ -43,13 +43,13 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
             var advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
             if (advancedSection != null)
             {
-                var frameworkTextFieldDefinition = this.BuildFrameworkTextFieldDefinition();
-                ((List<IFieldDefinition>)advancedSection.Fields).Add(frameworkTextFieldDefinition);
+                var fieldDefinition = this.BuildFrameworkChoiceFieldDefinition(FieldDisplayMode.Read);
+                ((List<IFieldDefinition>)advancedSection.Fields).Add(fieldDefinition);
             }
         }
     }
     
-    private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition()
+    private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition(FieldDisplayMode mode)
     {
         var frameworkField = new ChoiceFieldDefinition()
         {
@@ -57,7 +57,7 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
             DataFieldName = "Framework",
             Title = "WebFrameworkTitle",
             Description = "WebFrameworkDescription",
-            DisplayMode = FieldDisplayMode.Write,
+            DisplayMode = mode,
             WrapperTag = HtmlTextWriterTag.Li,
             MutuallyExclusive = true,
             ResourceClassId = typeof(PageResources).Name,
@@ -81,22 +81,6 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
         });
 
         return frameworkField;
-    }
-
-    private TextFieldDefinition BuildFrameworkTextFieldDefinition()
-    {
-        return new TextFieldDefinition()
-        {
-            ID = "FormFramework",
-            DataFieldName = "Framework",
-            Title = "WebFrameworkTitle",
-            Description = "WebFrameworkDescription",
-            DisplayMode = FieldDisplayMode.Read,
-            WrapperTag = HtmlTextWriterTag.Li,
-            ResourceClassId = typeof(PageResources).Name,
-            CssClass = "sfFormSeparator",
-            FieldType = typeof(TextField)
-        };
     }
 
     private const string AdvancedSectionName = "MarketoConnectorSection";
