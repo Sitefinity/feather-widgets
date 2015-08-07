@@ -6,7 +6,6 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Web.UI.ContentUI;
 using Telerik.Sitefinity.Web.UI.ContentUI.Contracts;
 using Telerik.Sitefinity.Web.UI.ContentUI.Views.Backend.Detail.Contracts;
-using Telerik.Sitefinity.Web.UI.Extenders.Definitions;
 using Telerik.Sitefinity.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Fields.Contracts;
 using Telerik.Sitefinity.Web.UI.Fields.Definitions;
@@ -14,22 +13,42 @@ using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 internal class FormsDefinitionsExtender : IControlDefinitionExtender
 {
-    public const string BackendInsertViewName = "FormsBackendInsert";
-
     public void ExtendDefinition(IContentViewControlDefinition contentViewControlDefinition)
     {
-        var backendInsertViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == BackendInsertViewName) as IDetailFormViewDefinition;
+        this.ExtendBackendInsertDefinition(contentViewControlDefinition);
+        this.ExtendBackendEditDefinition(contentViewControlDefinition);
+    }
+
+    private void ExtendBackendInsertDefinition(IContentViewControlDefinition contentViewControlDefinition)
+    {
+        var backendInsertViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == "FormsBackendInsert") as IDetailFormViewDefinition;
 
         if (backendInsertViewDefinition != null)
         {
-            var advancedSection = backendInsertViewDefinition.Sections.FirstOrDefault(s => s.Name == "MarketoConnectorSection");
+            var advancedSection = backendInsertViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
             if (advancedSection != null)
             {
-                ((List<IFieldDefinition>)advancedSection.Fields).Add(this.BuildFrameworkChoiceFieldDefinition());
+                var frameworkChoiceFieldDefinition = this.BuildFrameworkChoiceFieldDefinition();
+                ((List<IFieldDefinition>)advancedSection.Fields).Add(frameworkChoiceFieldDefinition);
             }
         }
     }
+    
+    private void ExtendBackendEditDefinition(IContentViewControlDefinition contentViewControlDefinition)
+    {
+        var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == "FormsBackendEdit") as IDetailFormViewDefinition;
 
+        if (backendEditViewDefinition != null)
+        {
+            var advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
+            if (advancedSection != null)
+            {
+                var frameworkTextFieldDefinition = this.BuildFrameworkTextFieldDefinition();
+                ((List<IFieldDefinition>)advancedSection.Fields).Add(frameworkTextFieldDefinition);
+            }
+        }
+    }
+    
     private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition()
     {
         var frameworkField = new ChoiceFieldDefinition()
@@ -63,4 +82,22 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
 
         return frameworkField;
     }
+
+    private TextFieldDefinition BuildFrameworkTextFieldDefinition()
+    {
+        return new TextFieldDefinition()
+        {
+            ID = "FormFramework",
+            DataFieldName = "Framework",
+            Title = "WebFrameworkTitle",
+            Description = "WebFrameworkDescription",
+            DisplayMode = FieldDisplayMode.Read,
+            WrapperTag = HtmlTextWriterTag.Li,
+            ResourceClassId = typeof(PageResources).Name,
+            CssClass = "sfFormSeparator",
+            FieldType = typeof(TextField)
+        };
+    }
+
+    private const string AdvancedSectionName = "MarketoConnectorSection";
 }
