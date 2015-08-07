@@ -14,6 +14,23 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 {
     public static class ControllerHelpers
     {
+        /// <summary>
+        /// Gets HTML markup for required HTML attributes for a submit button on the current request.
+        /// </summary>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <returns>The required HTML attributes.</returns>
+        public static MvcHtmlString SubmitButtonRequiredAttributes(this HtmlHelper htmlHelper)
+        {
+            if (Telerik.Sitefinity.Services.SystemManager.IsDesignMode || Telerik.Sitefinity.Services.SystemManager.IsInlineEditingMode)
+            {
+                return MvcHtmlString.Create("onclick=\"return false;\"");
+            }
+            else
+            {
+                return MvcHtmlString.Empty;
+            }
+        }
+
         public static MvcHtmlString FormController(this HtmlHelper htmlHelper, Guid id, FormViewMode viewMode, object routeValues)
         {
             var manager = FormsManager.GetManager();
