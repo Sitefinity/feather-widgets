@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Resources;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms;
@@ -60,7 +61,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 ViewMode = this.ViewMode
             };
 
-            if (!FormsManager.GetManager().GetForms().Any(f => f.Id == this.FormId))
+            if (!FormsManager.GetManager().GetForms().Any(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible))
             {
                 viewModel.Error = Res.Get<FormsResources>().TheSpecifiedFormNoLongerExists;
             }
