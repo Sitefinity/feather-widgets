@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Resources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Modules.Forms.Web;
@@ -15,6 +16,7 @@ using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web.UI;
+using Telerik.Sitefinity.Web.UI.Fields;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 {
@@ -47,32 +49,35 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <inheritDoc/>
         public FormViewModel GetViewModel()
         {
-            return new FormViewModel()
+            if (this.FormId == Guid.Empty)
+            {
+                return null;
+            }
+
+            var viewModel = new FormViewModel()
             {
                 FormId = this.FormId,
                 ViewMode = this.ViewMode
             };
+
+            if (!FormsManager.GetManager().GetForms().Any(f => f.Id == this.FormId))
+            {
+                viewModel.Error = Res.Get<FormsResources>().TheSpecifiedFormNoLongerExists;
+            }
+
+            return viewModel;
         }
 
         /// <inheritDoc/>
         public string GetViewPath()
         {
-            string viewPath;
-
-            if (this.FormId == Guid.Empty)
+            var currentPackage = new PackageManager().GetCurrentPackage();
+            if (string.IsNullOrEmpty(currentPackage))
             {
-                viewPath = string.Empty;
+                currentPackage = "default";
             }
-            else
-            {
-                var currentPackage = new PackageManager().GetCurrentPackage();
-                if (string.IsNullOrEmpty(currentPackage))
-                {
-                    currentPackage = "default";
-                }
 
-                viewPath = FormsVirtualRazorResolver.Path + currentPackage + "/" + this.FormId.ToString("D") + ".cshtml";
-            }
+            var viewPath = FormsVirtualRazorResolver.Path + currentPackage + "/" + this.FormId.ToString("D") + ".cshtml";
 
             return viewPath;
         }

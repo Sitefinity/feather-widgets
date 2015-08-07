@@ -40,29 +40,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             if (submitedSuccessfully.HasValue)
             {
-                if (submitedSuccessfully.Value)
-                {
-                    return this.Content("Successfully submitted!");
-                }
-                else
-                {
-                    return this.Content("Entry is not valid!");
-                }
+                return this.Content(submitedSuccessfully.Value ? "Successfully submitted!" : "Entry is not valid!");
             }
-            else
-            {
-                var viewPath = this.Model.GetViewPath();
-                if (string.IsNullOrEmpty(viewPath))
-                {
-                    return new EmptyResult();
-                }
-                else
-                {
-                    var viewModel = this.Model.GetViewModel();
 
+            var viewModel = this.Model.GetViewModel();
+            if (viewModel != null)
+            {
+                if (string.IsNullOrEmpty(viewModel.Error))
+                {
+                    var viewPath = this.Model.GetViewPath();
                     return this.View(viewPath, viewModel);
                 }
+                else
+                {
+                    return this.Content(viewModel.Error);
+                }
             }
+
+            return new EmptyResult();
         }
 
         /// <summary>
