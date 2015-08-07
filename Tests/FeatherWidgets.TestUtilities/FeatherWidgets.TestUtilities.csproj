@@ -208,6 +208,7 @@
     <Compile Include="CommonOperations\DynamicModules\DynamicModuleModule2Operations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulePressArticleOperations.cs" />
     <Compile Include="CommonOperations\DynamicModules\DynamicModulesOperations.cs" />
+    <Compile Include="CommonOperations\Forms\FormsOperations.cs" />
     <Compile Include="CommonOperations\Pages\CommentsAndReviews.cs" />
     <Compile Include="CommonOperations\Pages\ContentBlockOperations.cs" />
     <Compile Include="CommonOperations\PageInvoker.cs" />
@@ -264,6 +265,10 @@
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.EmailCampaigns\Telerik.Sitefinity.Frontend.EmailCampaigns.csproj">
       <Project>{c70bd0bd-d081-48a0-af6d-3fa7e584cb04}</Project>
       <Name>Telerik.Sitefinity.Frontend.EmailCampaigns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Forms\Telerik.Sitefinity.Frontend.Forms.csproj">
+      <Project>{35e2549f-113b-4b81-bdde-f06e78f4bdf8}</Project>
+      <Name>Telerik.Sitefinity.Frontend.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Telerik.Sitefinity.Frontend.Identity\Telerik.Sitefinity.Frontend.Identity.csproj">
       <Project>{3b1b1ee2-84ee-4744-a8fb-bed1236da342}</Project>

@@ -1,4 +1,5 @@
 ﻿using FeatherWidgets.TestUtilities.CommonOperations.Blogs;
+using FeatherWidgets.TestUtilities.CommonOperations.Forms;
 using FeatherWidgets.TestUtilities.CommonOperations.Pages;
 using FeatherWidgets.TestUtilities.CommonOperations.Templates;
 using FeatherWidgets.TestUtilities.CommonOperations.Users;
@@ -161,6 +162,15 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         public static CommentsAndReviews CommentsAndReviews()
         {
             return new CommentsAndReviews();
+        }
+
+        /// <summary>
+        /// Entry point for common operations related to forms.
+        /// </summary>
+        /// <returns></returns>
+        public static FormsOperations Forms()
+        {
+            return new FormsOperations();
         }
     }
 }

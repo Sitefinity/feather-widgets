@@ -216,6 +216,7 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsRoutingTests.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
+    <Compile Include="Forms\Fields\TextFieldTests.cs" />
     <Compile Include="Forms\FormsWidgetTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Identity\LoginStatus\LoginTests.cs" />
