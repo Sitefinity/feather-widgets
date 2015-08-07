@@ -104,11 +104,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         public virtual IMetaField GetMetaField(IFormFieldControl formFieldControl)
         {
             var metaField = formFieldControl.LoadDefaultMetaField();
-            string validFieldName;
-            if (MetaDataExtensions.TryCreateValidFieldName(formFieldControl.GetType().Name, out validFieldName))
-            {
-                metaField.FieldName = validFieldName + Guid.NewGuid().ToString("N");
-            }
 
             return metaField;
         }
