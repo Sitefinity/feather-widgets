@@ -15,41 +15,27 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
 {
     public void ExtendDefinition(IContentViewControlDefinition contentViewControlDefinition)
     {
-        this.ExtendBackendInsertDefinition(contentViewControlDefinition);
-        this.ExtendBackendEditDefinition(contentViewControlDefinition);
+        this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendInsert", FieldDisplayMode.Write);
+        this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendEdit", FieldDisplayMode.Read);
+        this.ExtendBackendDefinition(contentViewControlDefinition, "FormsBackendDuplicate", FieldDisplayMode.Read);
     }
 
-    private void ExtendBackendInsertDefinition(IContentViewControlDefinition contentViewControlDefinition)
+    private void ExtendBackendDefinition(IContentViewControlDefinition contentViewControlDefinition, string backendViewName, FieldDisplayMode displayMode)
     {
-        var backendInsertViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == "FormsBackendInsert") as IDetailFormViewDefinition;
+        var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == backendViewName) as IDetailFormViewDefinition;
 
-        if (backendInsertViewDefinition != null)
+        if (backendEditViewDefinition != null)
         {
-            var advancedSection = backendInsertViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
+            var advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == "MarketoConnectorSection");
             if (advancedSection != null)
             {
-                var frameworkChoiceFieldDefinition = this.BuildFrameworkChoiceFieldDefinition();
+                var frameworkChoiceFieldDefinition = this.BuildFrameworkChoiceFieldDefinition(displayMode);
                 ((List<IFieldDefinition>)advancedSection.Fields).Add(frameworkChoiceFieldDefinition);
             }
         }
     }
-    
-    private void ExtendBackendEditDefinition(IContentViewControlDefinition contentViewControlDefinition)
-    {
-        var backendEditViewDefinition = contentViewControlDefinition.Views.FirstOrDefault(v => v.ViewName == "FormsBackendEdit") as IDetailFormViewDefinition;
 
-        if (backendEditViewDefinition != null)
-        {
-            var advancedSection = backendEditViewDefinition.Sections.FirstOrDefault(s => s.Name == FormsDefinitionsExtender.AdvancedSectionName);
-            if (advancedSection != null)
-            {
-                var frameworkTextFieldDefinition = this.BuildFrameworkTextFieldDefinition();
-                ((List<IFieldDefinition>)advancedSection.Fields).Add(frameworkTextFieldDefinition);
-            }
-        }
-    }
-    
-    private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition()
+    private ChoiceFieldDefinition BuildFrameworkChoiceFieldDefinition(FieldDisplayMode displayMode)
     {
         var frameworkField = new ChoiceFieldDefinition()
         {
@@ -57,7 +43,7 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
             DataFieldName = "Framework",
             Title = "WebFrameworkTitle",
             Description = "WebFrameworkDescription",
-            DisplayMode = FieldDisplayMode.Write,
+            DisplayMode = displayMode,
             WrapperTag = HtmlTextWriterTag.Li,
             MutuallyExclusive = true,
             ResourceClassId = typeof(PageResources).Name,
@@ -82,22 +68,4 @@ internal class FormsDefinitionsExtender : IControlDefinitionExtender
 
         return frameworkField;
     }
-
-    private TextFieldDefinition BuildFrameworkTextFieldDefinition()
-    {
-        return new TextFieldDefinition()
-        {
-            ID = "FormFramework",
-            DataFieldName = "Framework",
-            Title = "WebFrameworkTitle",
-            Description = "WebFrameworkDescription",
-            DisplayMode = FieldDisplayMode.Read,
-            WrapperTag = HtmlTextWriterTag.Li,
-            ResourceClassId = typeof(PageResources).Name,
-            CssClass = "sfFormSeparator",
-            FieldType = typeof(TextField)
-        };
-    }
-
-    private const string AdvancedSectionName = "MarketoConnectorSection";
 }
