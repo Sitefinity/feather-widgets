@@ -100,7 +100,16 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
                 model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
 
                 if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
+                {
                     return this.Redirect(model.RedirectUrlAfterLogin);
+                }
+                else if (!model.IncorrectCredentials && this.Request.UrlReferrer != null)
+                {
+                    var returnUrlFromQS = System.Web.HttpUtility.ParseQueryString(this.Request.UrlReferrer.Query)["ReturnUrl"];
+
+                    if (!string.IsNullOrEmpty(returnUrlFromQS))
+                        return this.Redirect(returnUrlFromQS);
+                }
             }
 
             this.Model.InitializeLoginViewModel(model);
