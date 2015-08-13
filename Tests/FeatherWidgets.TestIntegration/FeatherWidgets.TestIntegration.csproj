@@ -217,6 +217,7 @@
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\OldDynamicWidgetsWithFeatherTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Identity\LoginForm\LoginFormTests.cs" />
     <Compile Include="Identity\LoginStatus\LoginTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetPagingLimitTests.cs" />
     <Compile Include="Identity\UsersList\UsersListWidgetSortingTests.cs" />
