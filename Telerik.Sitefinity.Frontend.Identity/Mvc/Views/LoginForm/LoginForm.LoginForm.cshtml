@@ -14,7 +14,7 @@
     @if (Telerik.Sitefinity.Security.SecurityManager.GetCurrentUserId() == Guid.Empty || SystemManager.IsInlineEditingMode || SystemManager.IsDesignMode)
     {
     <div>
-        @using (Html.BeginFormSitefinity())
+        @using (Html.BeginFormSitefinity(@Request.Url.Query, null))
         {
          @Html.ValidationSummary(true)
             <h3>@Html.Resource("LoginFormLogInLegendHeader")</h3>
@@ -44,8 +44,6 @@
                 </label>
             </div>
             }
-            
-            @Html.HiddenFor(u => u.RedirectUrlAfterLogin, new { @Value = @Model.RedirectUrlAfterLogin})
 
            <div><input type="submit" value='@Html.Resource("LoginFormLogInButton")' /></div>
         
