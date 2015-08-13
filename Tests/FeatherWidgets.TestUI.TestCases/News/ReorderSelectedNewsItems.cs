@@ -32,17 +32,13 @@ namespace FeatherWidgets.TestUI.TestCases.News
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(this.selectedNewsNames);
             var countOfSelectedItems = this.selectedNewsNames.Count();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().CheckNotificationInSelectedTab(countOfSelectedItems);
-
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().OpenSelectedTab();
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().VerifySelectedItemsFromFlatSelector(this.selectedNewsNames);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SwitchToListSettingsTab();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SelectSortingOption(SortingOption);
-
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().VerifyCorrectOrderOfItemsOnBackend(this.selectedNewsNames);
-
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
         }
 
@@ -67,12 +63,6 @@ namespace FeatherWidgets.TestUI.TestCases.News
         private const string WidgetName = "News";
         private const string WhichNewsToDisplay = "Selected news";
         private readonly string[] selectedNewsNames = { "News Item Title1", "News Item Title5", "News Item Title6", "News Item Title9" };
-        private readonly string[] expectedOrderOfNames = { "News Item Title9", "News Item Title1", "News Item Title5", "News Item Title6" };
         private const string SortingOption = "AsSetManually";
-
-        private readonly Dictionary<int, int> reorderedIndexMapping = new Dictionary<int, int>()
-        {
-            { 3, 0 }        
-        };
     }
 }
