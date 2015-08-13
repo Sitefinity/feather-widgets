@@ -113,7 +113,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
             {
                 viewModel.ServiceUrl = this.ServiceUrl;
                 viewModel.MembershipProvider = this.MembershipProvider;
-                viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId, viewModel.RedirectUrlAfterLogin);
+                viewModel.RedirectUrlAfterLogin = this.GetPageUrl(this.LoginRedirectPageId);
                 viewModel.RegisterPageUrl = this.GetPageUrl(this.RegisterRedirectPageId);
                 viewModel.ShowRegistrationLink = this.RegisterRedirectPageId.HasValue;
                 viewModel.ShowForgotPasswordLink = this.AllowResetPassword && (this.EnablePasswordReset || this.EnablePasswordRetrieval);
@@ -235,11 +235,17 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         }
 
         /// <inheritDoc/>
-        public virtual string GetPageUrl(Guid? pageId, string fallbackRedirectUrl = null)
+        public virtual string GetPageUrl(Guid? pageId)
         {
-            var url = pageId.HasValue ? HyperLinkHelpers.GetFullPageUrl(pageId.Value) : fallbackRedirectUrl;
-
-            return url;
+            if (pageId.HasValue)
+            {
+                return HyperLinkHelpers.GetFullPageUrl(pageId.Value);
+            }
+            else
+            {
+                var currentNode = SiteMapBase.GetActualCurrentNode();
+                return currentNode != null ? HyperLinkHelpers.GetFullPageUrl(currentNode.Id) : null;
+            }
         }
 
         /// <inheritDoc/>
@@ -271,7 +277,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                 string redirectUrl;
                 if (!this.TryResolveUrlFromUrlReferrer(context, out redirectUrl))
                 {
-                    redirectUrl = this.GetPageUrl(this.LoginRedirectPageId, input.RedirectUrlAfterLogin);
+                    redirectUrl = this.GetPageUrl(this.LoginRedirectPageId);
                 }
 
                 input.RedirectUrlAfterLogin = redirectUrl;
@@ -317,7 +323,7 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
                             redirectUrl = string.Format("{0}{1}", redirectUrl, queryString.Replace("redirect_uri=", string.Empty));
                         }
                     }
-                    return !string.IsNullOrEmpty(redirectUrl);
+                    return true;
                 }
             }
             catch (UriFormatException)

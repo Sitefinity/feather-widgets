@@ -141,11 +141,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm
         /// Gets the page URL.
         /// </summary>
         /// <param name="pageId">The page identifier.</param>
-        /// <param name="fallbackRedirectUrl">The fallback redirect URL.</param>
         /// <returns>
         /// The page url as string.
         /// </returns>
-        string GetPageUrl(Guid? pageId, string fallbackRedirectUrl = null);
+        string GetPageUrl(Guid? pageId);
 
         /// <summary>
         /// Authenticates a specific user.
