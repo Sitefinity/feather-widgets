@@ -98,21 +98,23 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 model = this.Model.Authenticate(model, this.ControllerContext.HttpContext);
+                this.Model.InitializeLoginViewModel(model);
+
+                if (string.IsNullOrEmpty(model.RedirectUrlAfterLogin))
+                {
+                    var returnUrlFromQS = this.Request.UrlReferrer != null ? HttpUtility.ParseQueryString(this.Request.UrlReferrer.Query)["ReturnUrl"] : null;
+                    model.RedirectUrlAfterLogin = returnUrlFromQS;
+                }
 
                 if (!model.IncorrectCredentials && !string.IsNullOrWhiteSpace(model.RedirectUrlAfterLogin))
                 {
                     return this.Redirect(model.RedirectUrlAfterLogin);
                 }
-                else if (!model.IncorrectCredentials && this.Request.UrlReferrer != null)
-                {
-                    var returnUrlFromQS = System.Web.HttpUtility.ParseQueryString(this.Request.UrlReferrer.Query)["ReturnUrl"];
-
-                    if (!string.IsNullOrEmpty(returnUrlFromQS))
-                        return this.Redirect(returnUrlFromQS);
-                }
             }
-
-            this.Model.InitializeLoginViewModel(model);
+            else
+            {
+                this.Model.InitializeLoginViewModel(model);
+            }
 
             var fullTemplateName = this.loginFormTemplatePrefix + this.LoginFormTemplate;
             return this.View(fullTemplateName, model);

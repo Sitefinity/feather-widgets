@@ -44,6 +44,8 @@
                 </label>
             </div>
             }
+            
+            @Html.HiddenFor(u => u.RedirectUrlAfterLogin, new { @Value = @Model.RedirectUrlAfterLogin})
 
            <div><input type="submit" value='@Html.Resource("LoginFormLogInButton")' /></div>
         
