@@ -14,7 +14,7 @@
     @if (Telerik.Sitefinity.Security.SecurityManager.GetCurrentUserId() == Guid.Empty || SystemManager.IsInlineEditingMode || SystemManager.IsDesignMode)
     {
     <div>
-        @using (Html.BeginFormSitefinity(@Request.Url.Query, null))
+        @using (Html.BeginFormSitefinity(@Request.Url.Query, null, null, FormMethod.Post, null, true))
         {
          @Html.ValidationSummary(true)
             <h3>@Html.Resource("LoginFormLogInLegendHeader")</h3>
