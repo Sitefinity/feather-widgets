@@ -14,6 +14,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
@@ -25,6 +26,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         SectionName = ToolboxesConfig.NavigationControlsSectionName,
         CssClass = BreadcrumbController.WidgetIconCssClass)]
     [Localization(typeof(BreadcrumbResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class BreadcrumbController : Controller
     {
         /// <summary>
