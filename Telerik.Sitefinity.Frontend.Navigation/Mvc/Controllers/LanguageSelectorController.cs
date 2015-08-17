@@ -16,6 +16,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
@@ -27,6 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
         SectionName = ToolboxesConfig.NavigationControlsSectionName,
         CssClass = LanguageSelectorController.WidgetIconCssClass)]
     [Localization(typeof(LanguageSelectorResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class LanguageSelectorController : Controller
     {
         #region Properties

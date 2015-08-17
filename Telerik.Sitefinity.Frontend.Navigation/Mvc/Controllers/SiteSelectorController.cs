@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
@@ -24,6 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
        SectionName = ToolboxesConfig.NavigationControlsSectionName,
        CssClass = SiteSelectorController.WidgetIconCssClass)]
     [Localization(typeof(SiteSelectorResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class SiteSelectorController : Controller
     {
         #region Properties
