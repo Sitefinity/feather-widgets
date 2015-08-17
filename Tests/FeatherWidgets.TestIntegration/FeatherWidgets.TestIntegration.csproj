@@ -73,6 +73,10 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.0.8.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Sitefinity.RazorEngine.3.0.8.0\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -265,6 +269,8 @@
     <Compile Include="Taxonomies\FlatTaxonomyTests.cs" />
     <Compile Include="Taxonomies\HierarchicalTaxonomyTests.cs" />
     <Compile Include="TestCategories.cs" />
+    <Compile Include="Views\MvcTemplateBase.cs" />
+    <Compile Include="Views\ViewsCompilationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
