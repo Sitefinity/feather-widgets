@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
         /// UI test verifying selected tags option with CloudList template in bootstrap
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Classifications)]
         public void SelectedTagsOptionAndCloudListTemplate()
@@ -31,15 +31,9 @@ namespace FeatherWidgets.TestUI.TestCases.Classifications
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Classifications().TagsWrapper().SelectTagsTemplate(TagsTemplates.CloudList);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
-
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContent(WidgetName, TagTitle + 2);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + 1);
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().CheckWidgetContentForNotExistingContent(WidgetName, TagTitle + 3);
-
-            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            
+            BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();           
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
-
             Assert.IsTrue(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 2 }));
             Assert.IsFalse(BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().IsTagsTitlesPresentOnTheFrontendPage(new string[] { TagTitle + 1, TagTitle + 3 }));
             BATFeather.Wrappers().Frontend().Classifications().ClassificationsWrapper().VerifyCloudStyleTemplate(this.stylesTags, TagsTemplates.CloudList);

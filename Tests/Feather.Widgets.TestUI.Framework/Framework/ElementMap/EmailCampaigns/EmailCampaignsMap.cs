@@ -43,6 +43,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.ElementMap.EmailCampaigns
             }
         }
 
+        /// <summary>
+        /// Gets the unsubscribe edit screen
+        /// </summary>
+        public UnsubscribeEditScreen UnsubscribeEditScreen
+        {
+            get
+            {
+                return new UnsubscribeEditScreen(this.find);
+            }
+        }
+
+        /// <summary>
+        /// Gets the unsubscribe frontend
+        /// </summary>
+        public UnsubscribeFrontend UnsubscribeFrontend
+        {
+            get
+            {
+                return new UnsubscribeFrontend(this.find);
+            }
+        }
+
         private Find find;
     }
 }

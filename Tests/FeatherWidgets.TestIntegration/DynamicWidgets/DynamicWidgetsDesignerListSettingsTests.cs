@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUsePagingFunctionality()
         {
@@ -101,7 +101,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify use limit functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyUseLimitFunctionality()
         {
@@ -149,7 +149,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify No limit and paging functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyNoLimitAndPagingFunctionality()
         {
@@ -197,7 +197,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify sort Descending functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifySortDescending()
         {
@@ -244,7 +244,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify sort Ascending functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifySortAscending()
         {
@@ -294,7 +294,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify sort Last modified functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifySortLastModified()
         {
@@ -343,7 +343,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Telerik.Sitefinity", "SF1002:AvoidToListOnIEnumerable"), Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify sort Publication date descending functionality.")]
         public void DynamicWidgetsDesignerListSettings_VerifyPublicationDateDescending()
         {
@@ -394,7 +394,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify select list template functionality.")]
         public void DynamicWidgetsDesignerListSettings_SetListTemplate()
         {          
@@ -448,7 +448,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when delete selected list template functionality.")]
         public void DynamicWidgetsDesignerListSettings_DeleteSelectedListTemplate()
         {

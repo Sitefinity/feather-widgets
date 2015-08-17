@@ -19,6 +19,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             Guid templateId = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = ServerOperations.Pages().CreatePage(PageName, templateId);
             Guid pageNodeId = ServerOperations.Pages().GetPageNodeId(pageId);
@@ -57,6 +58,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             this.listOperations.AddTaxonomiesToListItem(listItemId, null, tags); 
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "TagsPage";
         private const string TaxonTitle = "Tag";
         private const string PageTemplateName = "Bootstrap.default";

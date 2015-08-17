@@ -105,8 +105,8 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.Media
         public void ConfirmMediaPropertiesDocsTemporary()
         {
             HtmlButton doneBtn = ActiveBrowser.Find
-                                              .ByExpression<HtmlButton>("tagName=button", "InnerText=Done")
-                                              .AssertIsPresent("done button");
+                                              .ByExpression<HtmlButton>("tagName=button", "InnerText=Insert this file")
+                                              .AssertIsPresent("Insert this file");
 
             doneBtn.Click();
             ActiveBrowser.WaitForAsyncOperations();

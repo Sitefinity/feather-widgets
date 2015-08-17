@@ -17,7 +17,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// The test is ignored, because it is unstable.
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void EditDynamicWidgetViaInlineEditing()
         {

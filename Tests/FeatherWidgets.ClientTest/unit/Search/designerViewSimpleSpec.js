@@ -267,7 +267,7 @@ describe('Search designer view tests.', function () {
         }));
 
         it('[NPetrova] / The search indexes are populated correctly for the dropdown.', function () {
-            $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
+            $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/?pageId=a6f4c965-f18a-6d82-8924-ff0000fd783f')
                 .respond(dataItems);
 
             var controller = createController();
@@ -280,7 +280,7 @@ describe('Search designer view tests.', function () {
         });
 
         it('[NPetrova] / The error message is populated correctly when property service returns an error.', function () {
-            $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/')
+            $httpBackend.expectGET('/Sitefinity/Services/Pages/ControlPropertyService.svc/16fcc965-f18a-6d82-8924-ff0000fd783f/?pageId=a6f4c965-f18a-6d82-8924-ff0000fd783f')
                 .respond(500, errorResponse);
 
             var controller = createController();

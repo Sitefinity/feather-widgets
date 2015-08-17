@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectAllPublishedImagesWithOverlayGalleryTemplate_Bootstrap
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithOverlayGalleryTemplate_Bootstrap()
@@ -52,7 +52,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectAllPublishedImagesWithThumbnailStripTemplate_Foundation
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithThumbnailStripTemplate_Foundation()
@@ -96,7 +96,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         /// UI test SelectAllPublishedImagesWithSimpleListTemplateSemantics
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void SelectAllPublishedImagesWithSimpleListTemplate_Semantics()

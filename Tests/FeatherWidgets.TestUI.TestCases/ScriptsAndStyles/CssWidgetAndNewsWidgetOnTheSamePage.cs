@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using ArtOfTest.WebAii.Controls.HtmlControls;
 
 namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
 {
@@ -19,13 +20,18 @@ namespace FeatherWidgets.TestUI.TestCases.ScriptsAndStyles
         /// UI test SelectCssFileInCssWidget
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.ScriptsAndStyles)]
         public void CssWidgetAndNewsWidgetOnTheSamePage()
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
+            //// Switch the focus to the zone editor
+            HtmlDiv radDockZone = ActiveBrowser.Find
+                                              .ByExpression<HtmlDiv>("placeholderid=" + "Body")
+              .AssertIsPresent<HtmlDiv>("Contentplaceholder1");
+            radDockZone.MouseClick();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().ScriptAndStyles().CssWidgetEditWrapper().FillCodeInEditableArea(CssValueExpected);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();

@@ -1,4 +1,5 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Mvc;
 
 @Html.QueryBuilderScriptReferences()
 
@@ -149,7 +150,7 @@
             <div class="row">
                 <div class="col-xs-6">
                     <select id="listTemplateName" ng-model="properties.ListTemplateName.PropertyValue" class="form-control">
-                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"List\.(?<viewName>[\w\s]*)$"))
+                         @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"List\.(?<viewName>[\w\s]*)$"))
                          {
                              <option value="@viewName"> @viewName</option>
                          }
@@ -158,13 +159,20 @@
             </div>
         </div>
         
-        <expander expander-title='@Html.Resource("MoreOptions")'>
-            <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
+        <expander expander-title='@Html.Resource("MoreOptions")'>                    
+            
+            <div class="row">
+                <div class="col-xs-6">
 
-            <div class="form-group">
-                <label>@Html.Resource("CssClasses")
-                    <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
-                </label>
+                    <style-dropdown selected-class="properties.ListCssClass.PropertyValue" view-name="properties.ListTemplateName.PropertyValue"></style-dropdown>
+
+                    <div class="form-group">
+                        <label>@Html.Resource("CssClasses")
+                            <input type="text" ng-model="properties.ListCssClass.PropertyValue" class="form-control" />
+                        </label>
+                    </div>
+
+                </div>
             </div>
         </expander>
     </tab>
@@ -199,7 +207,7 @@
                 <label for="detailTemplateName">@Html.Resource("DetailTemplate")</label>
 
                 <select id="detailTemplateName" ng-model="properties.DetailTemplateName.PropertyValue" class="form-control">
-                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"Detail\.(?<viewName>[\w\s]*)$"))
+                     @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"Detail\.(?<viewName>[\w\s]*)$"))
                      {
                          <option value="@viewName"> @viewName</option>
                      }
@@ -207,14 +215,22 @@
             </div>
         </div>
 
-        <expander expander-title='@Html.Resource("MoreOptions")'>
-            <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
+        <expander expander-title='@Html.Resource("MoreOptions")'>            
+            
+            <div class="row">
+                <div class="col-xs-6">
 
-            <div class="form-group">
-                <label>@Html.Resource("CssClasses")
-                    <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
-                </label>
+                    <style-dropdown selected-class="properties.DetailCssClass.PropertyValue" view-name ="properties.DetailTemplateName.PropertyValue"></style-dropdown>
+
+                    <div class="form-group">
+                        <label>@Html.Resource("CssClasses")
+                            <input type="text" ng-model="properties.DetailCssClass.PropertyValue" class="form-control" />
+                        </label>
+                    </div>
+
+                 </div>                    
             </div>
+
         </expander>
     </tab>
 </tabset>

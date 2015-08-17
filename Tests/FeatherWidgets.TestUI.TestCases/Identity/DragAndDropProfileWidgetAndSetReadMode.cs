@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test DragAndDropProfileWidgetAndSetReadMode
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Profile),
         TestCategory(FeatherTestCategories.Bootstrap)]

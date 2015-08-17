@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         /// UI test verifying Expandable list template, sort Last modified, no filter applied
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]

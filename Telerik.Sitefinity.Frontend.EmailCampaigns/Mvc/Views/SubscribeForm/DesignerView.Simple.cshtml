@@ -1,5 +1,6 @@
 @model System.Web.UI.Control
 
+@using Telerik.Sitefinity.Mvc;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Frontend.EmailCampaigns.Mvc.Helpers;
 @using Telerik.Sitefinity.Licensing;
@@ -71,7 +72,7 @@ else
         <div class="row">
             <div class="col-md-6">
                 <select id="templateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">
-                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).Controller, @"^SubscribeForm\.(?<viewName>[\w\s]*)$"))
+                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^SubscribeForm\.(?<viewName>[\w\s]*)$"))
                     {
                         <option value="@viewName"> @viewName</option>
                     }

@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.Lists
         /// UI test verifying Simple list template, sort Z-A, filter by date
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Lists),
         TestCategory(FeatherTestCategories.Selectors)]

@@ -23,8 +23,8 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test DeactivateContentBlockModule
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock), Ignore]
         public void DeactivateContentBlockModule()
         {
             BAT.Arrange(this.TestName).ExecuteArrangement("DeactivateModule");

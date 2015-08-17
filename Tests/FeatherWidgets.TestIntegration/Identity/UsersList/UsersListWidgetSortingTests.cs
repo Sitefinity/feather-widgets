@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         /// </summary>
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void UsersList_VerifySortingFirstNameAZ()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         /// </summary>
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void UsersList_VerifySortingFirstNameZA()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -91,7 +91,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         /// </summary>
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void UsersList_VerifySortingLastNameAZ()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -115,7 +115,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         /// </summary>
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void UsersList_VerifySortingLastNameZA()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -139,7 +139,7 @@ namespace FeatherWidgets.TestIntegration.Identity.UsersList
         /// </summary>
         [Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void UsersList_VerifySortingLastCreated()
         {
             var mvcProxy = new MvcControllerProxy();

@@ -10,6 +10,7 @@ using FeatherWidgets.TestUI.TestCases;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Backend.PageTemplates;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -23,12 +24,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test AddContentBlockWidgetToPageTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
-        TestCategory(FeatherTestCategories.ContentBlock)]
+        Owner(FeatherTeams.FeatherTeam),
+        TestCategory(FeatherTestCategories.ContentBlock), Ignore]
         public void AddContentBlockWidgetToPageTemplate()
         {
-            BAT.Macros().NavigateTo().Design().PageTemplates();
-
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/design/pagetemplates", false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());    
             BAT.Wrappers().Backend().PageTemplates().PageTemplateMainScreen().ClickOnCreateNewTemplateBtn();
             BAT.Wrappers().Backend().PageTemplates().PageTemplateCreateScreen().SetTemplateName(TemplateName);
             BAT.Wrappers().Backend().PageTemplates().PageTemplateCreateScreen().ClickOnCreateTemplateAndGoToAddContentBtn();
@@ -48,14 +49,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
             BATFeather.Wrappers().Frontend().ContentBlock().ContentBlockWrapper().VerifyContentOfContentBlockOnThePageFrontend(ContentBlockContent);
-        }
-
-        /// <summary>
-        /// Performs Server Setup and prepare the system with needed data.
-        /// </summary>
-        protected override void ServerSetup()
-        {
-            BAT.Macros().User().EnsureAdminLoggedIn();
         }
 
         /// <summary>

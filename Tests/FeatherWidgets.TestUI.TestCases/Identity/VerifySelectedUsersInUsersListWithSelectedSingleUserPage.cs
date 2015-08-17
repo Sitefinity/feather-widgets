@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         /// UI test that verifies user list with selected users and set page for single user
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.UsersList),
         TestCategory(FeatherTestCategories.Selectors)]

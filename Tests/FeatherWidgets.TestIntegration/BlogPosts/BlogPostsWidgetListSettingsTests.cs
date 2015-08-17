@@ -24,7 +24,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
     {
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blog posts widget to a page and display posts in paging - one item per page")]
         public void BlogPostsWidget_UsePaging_OneItemPerPage()
         {
@@ -71,7 +71,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blog posts widget to a page and display limited posts.")]
         public void BlogPostsWidget_UseLimit_OneItem()
         {
@@ -110,7 +110,7 @@ namespace FeatherWidgets.TestIntegration.BlogPosts
 
         [Test]
         [Category(TestCategories.Blogs)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Add Blog posts widget to a page and display posts with no limit and paging.")]
         public void BlogPostsWidget_NoLimitAndPaging()
         {

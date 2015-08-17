@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling"), Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void VideoGallery_VerifyPaging()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -73,7 +73,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void VideoGallery_VerifyLimit()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -95,7 +95,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void VideoGallery_VerifyNoLimit()
         {
             var mvcProxy = new MvcControllerProxy();

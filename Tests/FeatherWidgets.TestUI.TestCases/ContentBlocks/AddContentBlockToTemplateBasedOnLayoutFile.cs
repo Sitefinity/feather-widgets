@@ -9,6 +9,7 @@ using Feather.Widgets.TestUI.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Sitefinity.Frontend.TestUtilities;
 using Telerik.Sitefinity.TestUI.Framework.Framework.Wrappers.Backend.PageTemplates;
+using Telerik.Sitefinity.TestUI.Framework.Utilities;
 
 namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
 {
@@ -22,11 +23,12 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// UI test AddContentBlockWidgetToTemplateBasedOnLayoutFile
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2), 
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ContentBlock), Ignore]
         public void AddContentBlockWidgetToTemplateBasedOnLayoutFile()
         {
-            BAT.Macros().NavigateTo().Design().PageTemplates();
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().NavigateTo().CustomPage("~/sitefinity/design/pagetemplates", false));
+            RuntimeSettingsModificator.ExecuteWithClientTimeout(800000, () => BAT.Macros().User().EnsureAdminLoggedIn());    
             this.OpenTemplateEditor();
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName, PlaceHolder);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -46,7 +48,6 @@ namespace FeatherWidgets.TestUI.TestCases.ContentBlocks
         /// </summary>
         protected override void ServerSetup()
         {
-            BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
         }
 

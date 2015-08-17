@@ -34,7 +34,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_AddTableToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -58,7 +58,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_InsertHyperlinkToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaBoldFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -106,7 +106,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaItalicFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -130,7 +130,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaUnderlineFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -154,7 +154,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaAlignTextLeftFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -178,7 +178,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaCenterTextFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -202,7 +202,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_FormatContentViaAlignTextRightFunctionalityToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";
@@ -226,7 +226,7 @@ namespace FeatherWidgets.TestIntegration.ContentBlock
 
         [Test]
         [Category(TestCategories.ContentBlock)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void ContentBlockWidget_InsertImageToContentBlock()
         {
             string pageNamePrefix = "ContentBlockPage";

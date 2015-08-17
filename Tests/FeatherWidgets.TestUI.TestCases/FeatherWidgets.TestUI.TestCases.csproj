@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>.\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
     <Reference Include="System" />
@@ -57,22 +58,28 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Telerik.Sitefinity.Frontend.TestUtilities">
-      <HintPath>..\..\ReferenceAssemblies\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+      <HintPath>packages\Telerik.Sitefinity.Frontend.TestUtilities.1.3.330.1\lib\net45\Telerik.Sitefinity.Frontend.TestUtilities.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.MS.TestUI.Framework">
       <HintPath>packages\Telerik.Sitefinity.MS.TestUI.Framework.1.0.6\lib\net45\Telerik.Sitefinity.MS.TestUI.Framework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.Core">
       <HintPath>packages\Telerik.Sitefinity.TestUI.Core.1.0.6\lib\net45\Telerik.Sitefinity.TestUI.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.Framework">
       <HintPath>packages\Telerik.Sitefinity.TestUI.Framework.1.0.7\lib\net40\Telerik.Sitefinity.TestUI.Framework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUI.UIArrangement">
       <HintPath>.\packages\Telerik.Sitefinity.TestUI.UIArrangement.1.0.0\lib\net40\Telerik.Sitefinity.TestUI.UIArrangement.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.TestUI.Core">
       <HintPath>packages\Telerik.TestUI.Core.1.5.2\lib\net40\Telerik.TestUI.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Telerik.WebAii.Controls.Html, Version=2015.1.319.0, Culture=neutral, PublicKeyToken=528163f3e645de45, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,21 +87,21 @@
     </Reference>
     <Reference Include="UITests.Configuration">
       <HintPath>packages\UITests.Core.1.6.2\lib\net45\UITests.Configuration.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="UITests.Core">
       <HintPath>packages\UITests.Core.1.6.2\lib\net45\UITests.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="UITests.Web">
       <HintPath>packages\UITests.Core.1.6.2\lib\net45\UITests.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfoShare\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BlogPosts\A_Test1.cs" />
-    <Compile Include="BlogPosts\A_Test2.cs" />
-    <Compile Include="BlogPosts\A_Test3.cs" />
     <Compile Include="BlogPosts\BlogPostsWidgetOnPage.cs" />
     <Compile Include="Blogs\BlogsWidgetOnPage.cs" />
     <Compile Include="Classifications\ContentTagsOptionAndTagCloudTemplate.cs" />
@@ -175,10 +182,18 @@
     <Compile Include="ContentBlocks\UseSharedContentBlockFromPage.cs" />
     <Compile Include="ContentBlocks\VideoSelector\CheckNavigationInVideoSelector.cs" />
     <Compile Include="ContentBlocks\VideoSelector\EditAllPropertiesOfSelectedVideoAndSearch.cs" />
-    <Compile Include="EmailCampaigns\DeleteSelectedMailListInSubscribeFormWidget.cs" />
+    <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInUnsubscribeWidget.cs" />
+    <Compile Include="EmailCampaigns\DeleteSelectedMailListAndPageInSubscribeFormWidget.cs" />
+    <Compile Include="EmailCampaigns\DragAndDropUnsubscribeWidgetAndSelectMailingList.cs" />
+    <Compile Include="EmailCampaigns\DuplicateAndDeleteSubscribeFormWidget.cs" />
+    <Compile Include="EmailCampaigns\DuplicateAndDeleteUnsubscribeWidget.cs" />
     <Compile Include="EmailCampaigns\SetSpeciallyPreparedPageToSubscribeFormWidget.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnFoundationAndSemanticPage.cs" />
     <Compile Include="EmailCampaigns\SubscribeFormWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="EmailCampaigns\TryToUnsubscribeNotExistingSubscriber.cs" />
+    <Compile Include="EmailCampaigns\UnsubscribeWidgetOnFoundationAndSemanticPage.cs" />
+    <Compile Include="EmailCampaigns\UnsubscribeWidgetOnHybridPageAndSetCssClass.cs" />
+    <Compile Include="FeedWidget\DragAndDropFeedWidgetAndSetDefaultRssOnPage.cs" />
     <Compile Include="Lists\VerifyListTemplatesOnBootstrap.cs" />
     <Compile Include="ScriptsAndStyles\AddEmbedCodeWidgetToPageAndWriteAndRemoveJavaScript.cs" />
     <Compile Include="ScriptsAndStyles\EmbedCodeWidgetOnPageTemplateAndAddDescription.cs" />
@@ -195,7 +210,6 @@
     <Compile Include="ScriptsAndStyles\AddCssWidgetToPageAndWriteAndRemoveCss.cs" />
     <Compile Include="ScriptsAndStyles\AddJavaScriptBeforeTheClosingBodyTag.cs" />
     <Compile Include="ScriptsAndStyles\AddJavaScriptWhereTheWidgetIsDropped.cs" />
-    <Compile Include="ScriptsAndStyles\JavaScriptWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="ScriptsAndStyles\SelectJavaScriptFileInJavaScriptWidget.cs" />
     <Compile Include="ScriptsAndStyles\DuplicateCssWidgetOnPage.cs" />
     <Compile Include="MediaWidgets\VideoWidgetInsertVideo.cs" />
@@ -204,7 +218,7 @@
     <Compile Include="ScriptsAndStyles\AddJavaScriptWidgetToPageAndWriteAndRemoveCode.cs" />
     <Compile Include="ContentBlocks\VideoSelector\UploadVideoWithCategoryAndTag.cs" />
     <Compile Include="ScriptsAndStyles\CssWidgetAndNewsWidgetOnTheSamePage.cs" />
-    <Compile Include="ScriptsAndStyles\CssWidgetOnPageTemplateAndAddDescription.cs" />
+    <Compile Include="ScriptsAndStyles\CssAndJavaScriptWidgetOnPageTemplateAndAddDescription.cs" />
     <Compile Include="ScriptsAndStyles\SelectCssFileInCssWidget.cs" />
     <Compile Include="DocumentsList\FilterDocumentsWithCategoryTagAndDateOnPage.cs" />
     <Compile Include="DocumentsList\SelectAllPublishedDocuments.cs" />
@@ -212,7 +226,6 @@
     <Compile Include="DocumentsList\SelectSortedDocumentsInTableView.cs" />
     <Compile Include="DynamicWidgets\CheckSelectorsAfterSelectUnselectAndUNPublishingDynamicItem.cs" />
     <Compile Include="DynamicWidgets\EditDeleteTagAndEditDynamicWidget.cs" />
-    <Compile Include="DynamicWidgets\ZActivateAndDeactivateModuleBuilder.cs" />
     <Compile Include="DynamicWidgets\DuplicateAndDeleteDynamicWidgetOnPage.cs" />
     <Compile Include="DynamicWidgets\DynamicWidgetsToolboxTests.cs" />
     <Compile Include="DynamicWidgets\EditDynamicWidgetViaInlineEditing.cs" />

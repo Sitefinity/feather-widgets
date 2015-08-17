@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DynamicModuleAddNewContentTypeVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleAddNewContentTypeVerifyPageToolbox()
         {
@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DynamicModuleRemoveContentTypeVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DynamicModuleRemoveContentTypeVerifyPageToolbox()
         {
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         /// UI test DeactivateAndActivateDynamicModuleVerifyPageToolbox
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.ModuleBuilder)]
         public void DeactivateAndActivateDynamicModuleVerifyPageToolbox()
         {

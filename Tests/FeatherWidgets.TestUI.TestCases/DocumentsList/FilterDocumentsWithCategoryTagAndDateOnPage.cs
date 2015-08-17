@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         /// UI test FilterDocumentsWithCategoryTagAndDateOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.DocumentsList)]
         public void FilterDocumentsWithCategoryTagAndDateOnPage()

@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         /// UI test DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.EmailCampaigns),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -59,7 +59,6 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         }
 
         private const string PageName = "SubscribeFormPage";
-        private const string PageTemplateName = "Bootstrap.default";
         private const string MailingList = "MailList";
         private const string SubscriberEmail = "testNew@email.com";
         private const string WidgetName = "Subscribe form";

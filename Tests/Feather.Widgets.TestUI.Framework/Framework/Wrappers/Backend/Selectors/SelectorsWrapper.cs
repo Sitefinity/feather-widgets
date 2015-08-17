@@ -18,9 +18,11 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void DoneSelecting()
         {
-            HtmlButton shareButton = this.EM.Selectors.SelectorsScreen.DoneSelectingButton.AssertIsPresent("Done selecting button");
+            ActiveBrowser.RefreshDomTree();
+            ActiveBrowser.WaitUntilReady();
 
-            shareButton.Click();
+            HtmlButton doneButton = this.EM.Selectors.SelectorsScreen.DoneSelectingButton.AssertIsPresent("Done selecting button");
+            doneButton.Click();
             ActiveBrowser.WaitUntilReady();
             ActiveBrowser.WaitForAsyncRequests();
         }
@@ -193,7 +195,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenSelectedTab()
         {
-            HtmlAnchor selectedTab = this.EM.Selectors.SelectorsScreen.SelectedTab.AssertIsPresent("selected tab");
+            HtmlSpan selectedTab = this.EM.Selectors.SelectorsScreen.SelectedTab.AssertIsPresent("selected tab");
             selectedTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
             ActiveBrowser.RefreshDomTree();
@@ -204,7 +206,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenAllTab()
         {
-            HtmlAnchor allTab = this.EM.Selectors.SelectorsScreen.AllTab.AssertIsPresent("all tab");
+            HtmlSpan allTab = this.EM.Selectors.SelectorsScreen.AllTab.AssertIsPresent("all tab");
 
             allTab.Click();
             ActiveBrowser.WaitForAsyncRequests();
@@ -216,7 +218,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         /// </summary>
         public void OpenExternalUrlsTab()
         {
-            HtmlAnchor externalUrlsTab = this.EM.Selectors.SelectorsScreen.ExternalUrlsTab.AssertIsPresent("external urls tab");
+            HtmlSpan externalUrlsTab = this.EM.Selectors.SelectorsScreen.ExternalUrlsTab.AssertIsPresent("external urls tab");
 
             externalUrlsTab.Click();
             ActiveBrowser.WaitForAsyncRequests();

@@ -22,7 +22,7 @@ namespace FeatherWidgets.TestUI.TestCases.CommentsAndReviews
         /// UI test DeleteNewsItemWithSubmittedComments
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.CommentsAndReviews),
         TestCategory(FeatherTestCategories.Bootstrap)]

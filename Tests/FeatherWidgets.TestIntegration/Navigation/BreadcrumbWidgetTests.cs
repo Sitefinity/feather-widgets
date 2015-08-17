@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
     {
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that BreadcrumbModel works properly when we want bradcrumb from the home page to the current one.")]
         public void BreadcrumbModel_FromHomeToCurrentPage()
         {
@@ -39,7 +39,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that BreadcrumbModel works properly when we want bradcrumb from the home page to the last before the current one.")]
         public void BreadcrumbModel_FromHomeToLastWithoutCurrentPage()
         {
@@ -62,7 +62,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that BreadcrumbModel works properly when we want bradcrumb from the first after home page to the current one.")]
         public void BreadcrumbModel_WithoutHomeToCurrentPage()
         {
@@ -85,7 +85,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that BreadcrumbModel workds properly when group pages should be shown.")]
         public void BreadcrumbModel_WithGroupPages()
         {
@@ -106,7 +106,7 @@ namespace FeatherWidgets.TestIntegration.Navigation
 
         [Test]
         [Category(TestCategories.Navigation)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verifies that BreadcrumbModel works properly when there is a registered breadcrumb extender.")]
         public void BreadcrumbModel_BreadcrumbExtender_VirtualNodes()
         {

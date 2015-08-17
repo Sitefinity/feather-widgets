@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
@@ -271,7 +272,15 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
         protected virtual IList<WidgetMenuItem> InitializeCommands()
         {
             var packageManager = new PackageManager();
-            var commandsList = new List<WidgetMenuItem>(5);
+            var commandsList = new List<WidgetMenuItem>();
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorEnablePageOverrideDisplayContenxtMenuInfo,
+                    CommandName = "displayWidgetOverrideText",
+                    CssClass = "sfDisplayText"
+                });
 
             commandsList.Add(
                 new WidgetMenuItem
@@ -287,6 +296,33 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CommandName = "duplicate", 
                         CssClass = "sfDuplicateItm"
                     });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorEnablePageOverride,
+                    CommandName = "widgetOverride",
+                    CssClass = "sfWidgetOverrideItm"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorDisablePageOverride,
+                    CommandName = "widgetDisableOverride",
+                    CssClass = "sfWidgetOverrideItm"
+                });
+
+            if (this.ResolveCurrentSitemapNode() != null)
+            {
+                commandsList.Add(
+                    new WidgetMenuItem
+                    {
+                        Text = Res.Get<PageResources>().ZoneEditorRollback,
+                        CommandName = "rollback",
+                        CssClass = "sfDisableWidgetOverrideItm"
+                    });
+            }
 
             if (this.SharedContentID == Guid.Empty)
             {
@@ -333,6 +369,15 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CssClass = "sfPermItm"
                     });
             return commandsList;
+        }
+
+        /// <summary>
+        /// Resolves the current sitemap node.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual PageSiteNode ResolveCurrentSitemapNode()
+        {
+            return SiteMapBase.GetCurrentNode();
         }
 
         /// <summary>

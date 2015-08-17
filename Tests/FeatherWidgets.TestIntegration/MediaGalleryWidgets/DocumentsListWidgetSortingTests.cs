@@ -43,7 +43,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifySortingLastPublished()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -67,7 +67,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifySortingTitleAZ()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -91,7 +91,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifySortingTitleZA()
         {
             var mvcProxy = new MvcControllerProxy();
@@ -115,7 +115,7 @@ namespace FeatherWidgets.TestIntegration.MediaGalleryWidgets
         /// </summary>
         [Test]
         [Category(TestCategories.Media)]
-        [Author(FeatherTeams.Team7)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void DocumentsList_VerifySortingLastModified()
         {
             var mvcProxy = new MvcControllerProxy();

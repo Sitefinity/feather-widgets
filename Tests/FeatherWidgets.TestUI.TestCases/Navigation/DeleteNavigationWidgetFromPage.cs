@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DeleteNavigationWidgetFromPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -56,7 +56,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DeleteNavigationWidgetFromPageFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.Foundation)]
         public void DeleteNavigationWidgetFromPageFoundationTemplate()
@@ -90,7 +90,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         /// UI test DeleteNavigationWidgetFromPageSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Navigation),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void DeleteNavigationWidgetFromPageSemanticUITemplate()

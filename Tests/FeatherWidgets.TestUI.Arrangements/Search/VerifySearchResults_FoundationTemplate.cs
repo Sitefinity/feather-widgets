@@ -20,6 +20,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.News().CreateNewsItem(NewsTitle1);
             ServerOperations.News().CreateNewsItem(NewsTitle2);
 
@@ -43,6 +44,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.News().DeleteAllNews();
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string SearchIndexName = "news index";
         private const string NewsTitle1 = "test news";
         private const string NewsTitle2 = "another news";

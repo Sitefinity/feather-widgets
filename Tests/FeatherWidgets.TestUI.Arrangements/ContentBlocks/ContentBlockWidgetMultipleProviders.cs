@@ -17,6 +17,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
+            AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
             ServerOperations.ContentBlocks().CreateSecondDataProvider();
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddContentBlockWidgetToPage(page1Id, Content);
@@ -36,6 +37,8 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.ContentBlocks().RemoveSecondDataProvider();
         }
 
+        private const string AdminUserName = "admin";
+        private const string AdminPass = "admin@2";
         private const string PageName = "ContentBlock";
         private const string SecondProviderName = "ContentSecondDataProvider";
         private const string DefaultProviderName = "OpenAccessDataProvider";

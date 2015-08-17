@@ -62,7 +62,10 @@ namespace Telerik.Sitefinity.Frontend.InlineClientAssets.Mvc.Controllers
             if (this.ShouldDisplayContent())
             {
                 string markup = null;
-                if (!string.IsNullOrEmpty(this.Model.Description))
+                var hasDescription = !string.IsNullOrEmpty(this.Model.Description);
+                this.ViewBag.HasDescription = hasDescription;
+
+                if (hasDescription)
                 {
                     markup = this.Model.Description;                  
                 }

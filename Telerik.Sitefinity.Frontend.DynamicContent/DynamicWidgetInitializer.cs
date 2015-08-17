@@ -9,6 +9,9 @@ using Telerik.Sitefinity.Frontend.DynamicContent.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields;
 using Telerik.Sitefinity.Frontend.DynamicContent.WidgetTemplates.Fields.Impl;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Mvc.Proxy.TypeDescription;
+using Telerik.Sitefinity.Pages;
 using Telerik.Sitefinity.Services;
 
 namespace Telerik.Sitefinity.Frontend.DynamicContent
@@ -31,6 +34,9 @@ namespace Telerik.Sitefinity.Frontend.DynamicContent
             DynamicWidgetInitializer.RegisterDynamicTemplatableControl();
 
             DynamicWidgetInitializer.RegisterFields();
+
+            string mvcControllerProxySettingsPropertyDescriptorName = string.Format("{0}.{1}", typeof(MvcWidgetProxy).FullName, "Settings");
+            ObjectFactory.Container.RegisterType<IControlPropertyDescriptor, ControllerSettingsPropertyDescriptor>(mvcControllerProxySettingsPropertyDescriptorName);
         }
 
         /// <summary>

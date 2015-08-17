@@ -44,8 +44,18 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend.EmailCampa
         /// </summary>
         public void VerifyErrorMessageForDeletedMailList()
         {
-            HtmlDiv errorMessage = this.EM.EmailCampaigns.SubscribeFormEditScreen.ErrorMessage.AssertIsPresent("Error message");
+            HtmlDiv errorMessage = this.EM.EmailCampaigns.SubscribeFormEditScreen.ErrorMessageMailingList.AssertIsPresent("Error message");
             bool isPresentSubscribe = errorMessage.InnerText.Contains("The selected mailing list has been deleted.");
+            Assert.IsTrue(isPresentSubscribe);
+        }
+
+        /// <summary>
+        ///  Verify error message for deleted page
+        /// </summary>
+        public void VerifyErrorMessageForDeletedPage()
+        {
+            HtmlDiv errorMessage = this.EM.EmailCampaigns.SubscribeFormEditScreen.ErrorMessagePage.AssertIsPresent("Error message");
+            bool isPresentSubscribe = errorMessage.InnerText.Contains("The selected page has been deleted.");
             Assert.IsTrue(isPresentSubscribe);
         }
 

@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test DragAndDropNewsWidgetOnPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -44,7 +44,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test DragAndDropNewsWidgetOnPageBasedOnFoundationTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.Foundation)]
         public void DragAndDropNewsWidgetOnPageBasedOnFoundationTemplate()
         {
@@ -65,7 +65,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test DragAndDropNewsWidgetOnPageBasedOnSemanticUITemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.SemanticUI)]
         public void DragAndDropNewsWidgetOnPageBasedOnSemanticUITemplate()
         {

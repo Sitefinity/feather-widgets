@@ -32,7 +32,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Create a page with dynamic widget and verify content location of the dynamic item.")]
         public void DynamicWidgets_ContentLocationService_VerifyDynamicItemLocation()
         {
@@ -75,7 +75,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Create 2 pages with the same dynamic widget and verify content locations of the dynamic item.")]
         public void DynamicWidgets_ContentLocationService_VerifyDynamicItemLocationOnMoreThanOnePage()
         {
@@ -115,7 +115,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Create page with dynamic widget and selected to display one item and verify content location of the dynamic item.")]
         public void DynamicWidgets_ContentLocationService_SingleItemSelectedFromWidget()
         {
@@ -163,7 +163,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Create page with dynamic widget and selected to display several items and verify content location of the dynamic item.")]
         public void DynamicWidgets_ContentLocationService_MultipleItemsSelectedFromWidget()
         {
@@ -215,7 +215,7 @@ namespace FeatherWidgets.TestIntegration.DynamicWidgets
 
         [Test]
         [Category(TestCategories.DynamicWidgets)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Create page with child widget and verify content location of the child dynamic item.")]
         public void DynamicWidgets_ContentLocationService_VerifyChildItemLocation()
         {

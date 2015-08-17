@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News), 
         TestCategory(FeatherTestCategories.Selectors)]

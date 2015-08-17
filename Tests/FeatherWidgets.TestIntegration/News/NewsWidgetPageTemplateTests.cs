@@ -45,7 +45,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void NewsWidget_OnPageTemplate()
         {
             string templateName = "TemplateWithNewsWidget";
@@ -57,7 +57,7 @@ namespace FeatherWidgets.TestIntegration.News
             var newsController = new NewsController();
             mvcProxy.Settings = new ControllerSettings(newsController);
 
-            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().CreatePageTemplateReturnId(templateName);
+            Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().CreatePageTemplate(templateName);
 
             try
             {
@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestIntegration.News
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "FeatherWidgets.TestUtilities.CommonOperations.Templates.TemplateOperations.AddControlToTemplate(System.Guid,System.Web.UI.Control,System.String,System.String)"), Test]
         [Category(TestCategories.News)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         public void NewsWidget_OnBootstrapPageTemplate()
         {
             string templateName = "Bootstrap.defaultNew3";

@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         /// UI test SubscribeFormWidgetOnFoundationAndSemanticPage
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team2),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.EmailCampaigns),
         TestCategory(FeatherTestCategories.Bootstrap)]
@@ -27,6 +27,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
         {
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageNameSemantic);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(MailingList);
@@ -41,6 +42,7 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 
             BAT.Macros().NavigateTo().Pages();
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageNameFoundation);
+            BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
             BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(MailingList);
@@ -73,7 +75,6 @@ namespace FeatherWidgets.TestUI.TestCases.EmailCampaigns
 
         private const string PageNameSemantic = "SubscribeFormPageSemantic";
         private const string PageNameFoundation = "SubscribeFormPageFoundation";
-        private const string PageTemplateName = "Bootstrap.default";
         private const string MailingList = "MailList";
         private const string SubscriberEmail = "testNew@email.com";
         private const string WidgetName = "Subscribe form";

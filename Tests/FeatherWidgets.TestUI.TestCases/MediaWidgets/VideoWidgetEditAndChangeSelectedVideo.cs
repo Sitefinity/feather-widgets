@@ -19,7 +19,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         /// UI test VideoWidgetEditAndChangeSelectedVideo
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.MediaSelector),
         TestCategory(FeatherTestCategories.ContentBlock),
         TestCategory(FeatherTestCategories.PagesAndContent)]
@@ -82,7 +82,7 @@ namespace FeatherWidgets.TestUI.TestCases.MediaWidgets
         private const string LibraryName = "TestVideoLibrary";
         private const string VideoName1 = "big_buck_bunny1";
         private const string VideoName2 = "big_buck_bunny2";
-        private const string Size = "1117 KB";
+        private const string Size = "375 KB";
         private const string VideoType = ".mp4";
         private const int Width = 600;
         private const int Height = 450;

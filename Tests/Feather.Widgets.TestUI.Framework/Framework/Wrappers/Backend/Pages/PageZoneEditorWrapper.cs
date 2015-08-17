@@ -66,7 +66,6 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Backend
         public void AddWidgetToPlaceHolderPureMvcMode(string widgetName, string placeHolder = "Contentplaceholder1")
         {            
             HtmlDiv widget = this.GetMvcWidget(widgetName);
-
             HtmlDiv radDockZone = ActiveBrowser.Find
                                                .ByExpression<HtmlDiv>("placeholderid=" + placeHolder)
                .AssertIsPresent<HtmlDiv>(placeHolder);

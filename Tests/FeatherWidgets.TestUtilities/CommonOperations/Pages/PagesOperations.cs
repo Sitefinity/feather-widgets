@@ -561,6 +561,26 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
         }
 
         /// <summary>
+        /// Adds unsubscribe widget to existing page
+        /// </summary>
+        /// <param name="pageId">Page id value</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
+        public void AddUnsubscribeWidgetToPage(Guid pageId, string placeholder = "Body")
+        {
+            PageManager pageManager = PageManager.GetManager();
+            pageManager.Provider.SuppressSecurityChecks = true;
+            var pageDataId = pageManager.GetPageNode(pageId).PageId;
+            var page = pageManager.EditPage(pageDataId, CultureInfo.CurrentUICulture);
+
+            using (var mvcWidget = new Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy())
+            {
+                mvcWidget.ControllerName = typeof(UnsubscribeFormController).FullName;
+
+                this.CreateControl(pageManager, page, mvcWidget, "Unsubscribe", placeholder);
+            }
+        }
+
+        /// <summary>
         /// Deletes the pages.
         /// </summary>
         public void DeletePages()

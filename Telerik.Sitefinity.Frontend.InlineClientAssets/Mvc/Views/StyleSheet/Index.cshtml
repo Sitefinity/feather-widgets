@@ -2,5 +2,9 @@
 
 <pre>
 @ViewBag.DesignModeContent
-@Html.Resource("IncludedInHead")
+
+@if(!ViewBag.HasDescription)
+{
+    @Html.Resource("IncludedInHead");
+}
 </pre>

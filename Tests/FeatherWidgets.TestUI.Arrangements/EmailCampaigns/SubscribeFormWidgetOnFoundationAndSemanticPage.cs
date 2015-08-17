@@ -21,32 +21,16 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid templateIdSemantic = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameSemantic);
-            Guid pageIdSubscribeSemantic = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageNameSemantic, templateIdSemantic);
-            pageIdSubscribeSemantic = ServerOperations.Pages().GetPageNodeId(pageIdSubscribeSemantic);
-            ServerOperationsFeather.Pages().AddSubscribeFormWidgetToPage(pageIdSubscribeSemantic, PlaceHolderId);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageNameSemantic, templateIdSemantic);
 
             Guid templateIdFoundation = ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateNameFoundation);
-            Guid pageIdSubscribeFoundation = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageNameFoundation, templateIdFoundation);
-            pageIdSubscribeFoundation = ServerOperations.Pages().GetPageNodeId(pageIdSubscribeFoundation);
-            ServerOperationsFeather.Pages().AddSubscribeFormWidgetToPage(pageIdSubscribeFoundation, PlaceHolderId);
+            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageNameFoundation, templateIdFoundation);           
 
             Guid mailingListId = Guid.NewGuid();
             Guid subscriberId = Guid.NewGuid();
             ServerOperations.NewsLetter().CreateMailingList(mailingListId, MailingList, string.Empty, string.Empty, string.Empty);
             ServerOperations.NewsLetter().CreateSubscriber(subscriberId, SubscriberFirstName, SubscriberLastName, SubscriberEmail);
             ServerOperations.NewsLetter().AddSubscriberToMailingList(subscriberId, mailingListId);
-        }
-
-        /// <summary>
-        /// Delete mailing list
-        /// </summary>
-        [ServerArrangement]
-        public void DeleteMailingList()
-        {
-            ServerOperations.NewsLetter().DeleteAllSubscribers();
-            ServerOperations.NewsLetter().DeleteAllMailingLists();
-            Guid secondMailingListId = Guid.NewGuid();
-            ServerOperations.NewsLetter().CreateMailingList(secondMailingListId, SecondMailingList, string.Empty, string.Empty, string.Empty);
         }
 
         /// <summary>

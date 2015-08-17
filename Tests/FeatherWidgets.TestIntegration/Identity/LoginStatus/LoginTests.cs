@@ -39,7 +39,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when External login page url is provided, redirect link is constructed correctly.")]
         public void Login_RedirectToExternalPage_VerifyLoginRedirectUrlIsCorrect()
         {
@@ -59,7 +59,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when Page id is provided, redirect link is constructed correctly.")]
         public void Login_WithPageId_VerifyLoginRedirectUrlIsCorrect()
         {
@@ -90,7 +90,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when AllowWindowsStsLogin is set to true, redirect link is constructed correctly.")]
         public void Login_WithInstantLogin_VerifyLoginRedirectUrlIsCorrect()
         {
@@ -113,7 +113,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout"), Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when External logout page url is provided, redirect link is constructed correctly.")]
         public void Logout_RedirectToExternalPage_VerifyLogoutRedirectUrlIsCorrect()
         {
@@ -133,7 +133,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout"), Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when logout Page id is provided, redirect link is constructed correctly.")]
         public void Logout_WithPageId_VerifyLogoutRedirectUrlIsCorrect()
         {
@@ -165,7 +165,7 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginStatus
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Logout"), Test]
         [Category(TestCategories.Identity)]
-        [Author(FeatherTeams.Team2)]
+        [Author(FeatherTeams.FeatherTeam)]
         [Description("Verify when logout Page id and external redirect url are provided, redirect link is constructed correctly.")]
         public void Logout_WithPageIdAndRedirectUrl_VerifyLogoutRedirectUrlIsCorrect()
         {

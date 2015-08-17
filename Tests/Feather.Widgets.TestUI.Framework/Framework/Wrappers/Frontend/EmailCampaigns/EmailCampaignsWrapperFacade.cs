@@ -19,5 +19,14 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend.EmailCamp
         {
             return new SubscibeFormWrapper();
         }
+
+        /// <summary>
+        /// Provides unified access to the UnsubscribeWrapper
+        /// </summary>
+        /// <returns>Returns the UnsubscribeWrapper</returns>
+        public UnsubscribeWrapper UnsubscribeWrapper()
+        {
+            return new UnsubscribeWrapper();
+        }
     }
 }

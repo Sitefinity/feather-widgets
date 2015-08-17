@@ -20,7 +20,7 @@ namespace FeatherWidgets.TestUI.TestCases.News
         /// UI test SearchAndSelectNewsByCategorySelectedTab
         /// </summary>
         [TestMethod,
-        Owner(FeatherTeams.Team7),
+        Owner(FeatherTeams.FeatherTeam),
         TestCategory(FeatherTestCategories.PagesAndContent),
         TestCategory(FeatherTestCategories.News),
         TestCategory(FeatherTestCategories.Selectors)]
