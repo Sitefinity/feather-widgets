@@ -30,7 +30,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ClickSelectButton();
-            BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().SelectItemsInFlatSelector(SelectedRoles);
+            BATFeather.Wrappers().Backend().EmailCampaigns().SubscribeFormWrapper().SelectItemsInFlatSelector(SelectedRoles);
             BATFeather.Wrappers().Backend().Widgets().SelectorsWrapper().DoneSelecting();
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
