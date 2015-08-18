@@ -1,8 +1,11 @@
-﻿using FeatherWidgets.TestUtilities.CommonOperations;
+﻿using System;
+using System.Linq;
+using FeatherWidgets.TestUtilities.CommonOperations;
 using MbUnit.Framework;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers;
 using Telerik.Sitefinity.Frontend.Identity.Mvc.Models.LoginForm;
 using Telerik.Sitefinity.Frontend.TestUtilities;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
@@ -79,6 +82,43 @@ namespace FeatherWidgets.TestIntegration.Identity.LoginForm
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login"), Test]
+        [Author(FeatherTeams.FeatherTeam)]
+        [Description("Checks whether login form will submit only to its post action.")]
+        public void PostForm_Login_PostsItselfOnly()
+        {
+            this.pageOperations = new PagesOperations();
+            var pageManager = PageManager.GetManager();
+            Guid pageId = Guid.Empty;
+            string loginFormPageUrl = UrlPath.ResolveAbsoluteUrl("~/" + this.urlNamePrefix);
+
+            try
+            {
+                var template = pageManager.GetTemplates().Where(t => t.Name == this.templateName).FirstOrDefault();
+                Assert.IsNotNull(template, "Template was not found");
+
+                pageId = Telerik.Sitefinity.Frontend.TestUtilities.CommonOperations.FeatherServerOperations.Pages().CreatePageWithTemplate(template, this.pageNamePrefix, this.urlNamePrefix);
+                this.pageOperations.AddLoginFormWidgetToPage(pageId, "Contentplaceholder1");
+
+                SecurityManager.Logout();
+                var responseContent = PageInvoker.ExecuteWebRequest(loginFormPageUrl);
+
+                var expectedActionUrl = "?sf_cntrl_id=";
+                Assert.IsTrue(responseContent.Contains(string.Format("action=\"{0}", expectedActionUrl)), "The action URL doesn't contain controller ID.");
+            }
+            finally
+            {
+                SitefinityTestUtilities.ServerOperations.Users().AuthenticateAdminUser();
+                var pageNode = pageManager.GetPageNodes().Where(p => p.Id == pageId).SingleOrDefault();
+                if (pageNode != null)
+                {
+                    pageManager.Delete(pageNode);
+                    pageManager.SaveChanges();
+                }
+            }
+        }
+
+        private string templateName = "Bootstrap.default";
         private string pageNamePrefix = "LoginFormPage";
         private string pageTitlePrefix = "Login Form";
         private string urlNamePrefix = "login-form";
