@@ -207,6 +207,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.Redirect(string.Format("{0}/ResetPassword?{1}", pageUrl, queryString));
         }
 
+        /// <inheritDocs/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+
         #endregion
 
         #region Private methods
