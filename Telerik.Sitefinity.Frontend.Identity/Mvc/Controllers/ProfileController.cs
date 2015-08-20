@@ -185,7 +185,10 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
         /// <inheritDocs/>
         protected override void HandleUnknownAction(string actionName)
         {
-            this.Index().ExecuteResult(this.ControllerContext);
+            var indexActionResult = this.Index();
+
+            if(indexActionResult != null)
+                indexActionResult.ExecuteResult(this.ControllerContext);
         }
 
         #endregion
