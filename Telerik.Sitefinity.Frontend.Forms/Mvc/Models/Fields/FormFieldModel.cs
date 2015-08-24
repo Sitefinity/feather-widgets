@@ -32,18 +32,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         /// <inheritDocs />
         public string CssClass { get; set; }
 
-        /// <inheritDocs />
-        [Browsable(false)]
-        public virtual MvcHtmlString ValidationAttributes
-        {
-            get
-            {
-                var attributesString = this.BuildValidationAttributes();
-
-                return new MvcHtmlString(attributesString);
-            }
-        }
-
         /// <summary>
         /// Gets or sets a validation mechanism for the field.
         /// </summary>
@@ -121,14 +109,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         /// Builds the validation attributes.
         /// </summary>
         /// <returns></returns>
-        protected virtual string BuildValidationAttributes()
+        protected virtual MvcHtmlString BuildValidationAttributes()
         {
             var attributes = string.Empty;
 
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
                 attributes = "required='required'";
 
-            return attributes;
+            return new MvcHtmlString(attributes);
         }
 
         private Validator validator;

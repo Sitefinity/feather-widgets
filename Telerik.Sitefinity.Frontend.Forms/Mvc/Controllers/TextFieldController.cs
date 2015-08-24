@@ -125,11 +125,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             if (value == null || !(value is string))
                 value = this.MetaField.DefaultValue;
 
-            this.Model.Value = value;
-            this.ViewBag.MetaField = this.MetaField;
+
+            var model = this.Model.GetViewModel(value, this.MetaField);
             var fullTemplateName = TextFieldController.ReadTemplateNamePrefix + this.ReadTemplateName;
 
-            return this.View(fullTemplateName, this.Model);
+            return this.View(fullTemplateName, model);
         }
 
         /// <inheritDocs />
@@ -138,11 +138,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             if (value == null || !(value is string))
                 value = this.MetaField.DefaultValue;
 
-            this.Model.Value = value;
-            this.ViewBag.MetaField = this.MetaField;
+            var model = this.Model.GetViewModel(value, this.MetaField);
             var fullTemplateName = TextFieldController.WriteTemplateNamePrefix + this.WriteTemplateName;
 
-            return this.View(fullTemplateName, this.Model);
+            return this.View(fullTemplateName, model);
         }
 
         #endregion

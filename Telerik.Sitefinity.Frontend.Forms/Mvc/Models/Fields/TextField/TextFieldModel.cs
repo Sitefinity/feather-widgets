@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Text;
+using System.Web.Mvc;
 using System.Web.UI;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Metadata.Model;
@@ -22,7 +23,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         }
 
         /// <inheritDocs />
-        protected override string BuildValidationAttributes()
+        public TextFieldViewModel GetViewModel(object value, IMetaField metaField)
+        {
+            this.Value = value;
+            var viewModel = new TextFieldViewModel()
+            {
+                Value = value,
+                MetaField = metaField,
+                ValidationAttributes = this.BuildValidationAttributes(),
+                CssClass = this.CssClass,
+                ValidatorDefinition = this.ValidatorDefinition,
+                PlaceholderText = this.PlaceholderText
+            };
+
+            return viewModel;
+        }
+
+        /// <inheritDocs />
+        protected override MvcHtmlString BuildValidationAttributes()
         {
             var attributes = new StringBuilder();
 
@@ -34,7 +52,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             else if (this.ValidatorDefinition.MinLength > 0)
                 attributes.Append("pattern='.{" + this.ValidatorDefinition.MinLength + ",}' ");
 
-            return attributes.ToString();
+            return new MvcHtmlString(attributes.ToString());
         }
     }
 }
