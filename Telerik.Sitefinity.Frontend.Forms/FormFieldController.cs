@@ -100,7 +100,6 @@ namespace Telerik.Sitefinity.Frontend.Forms
             }
         }
 
-        private IMetaField metaField;
         private FieldDisplayMode displayMode = FieldDisplayMode.Write;
     }
 }
