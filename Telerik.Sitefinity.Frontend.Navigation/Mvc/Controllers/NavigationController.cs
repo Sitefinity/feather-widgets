@@ -9,6 +9,7 @@ using Telerik.Sitefinity.Frontend.Navigation.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Navigation.Mvc.StringResources;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI;
 
 namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
 {
@@ -17,6 +18,7 @@ namespace Telerik.Sitefinity.Frontend.Navigation.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "Navigation_MVC", Title = "Navigation", SectionName = ToolboxesConfig.NavigationControlsSectionName, CssClass = NavigationController.WidgetIconCssClass)]
     [Localization(typeof(NavigationResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class NavigationController : Controller
     {
         #region Properties

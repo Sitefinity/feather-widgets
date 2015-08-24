@@ -151,6 +151,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return Json(isSend, JsonRequestBehavior.AllowGet);
         }
 
+        /// <inheritDocs/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
+        }
+
         #endregion
 
         #region Private methods

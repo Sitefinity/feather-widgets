@@ -151,6 +151,12 @@ namespace Telerik.Sitefinity.Frontend.Identity.Mvc.Controllers
             return this.GetCurrentPageUrl();
         }
 
+        /// <inheritDocs/>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index(null).ExecuteResult(this.ControllerContext);
+        }
+
         #endregion
 
         #region Private methods

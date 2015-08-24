@@ -20,6 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Taxonomies.Mvc.Controllers
         SectionName = "Classifications",
         CssClass = FlatTaxonomyController.WidgetIconCssClass)]
     [Localization(typeof(FlatTaxonomyResources))]
+    [IndexRenderMode(IndexRenderModes.NoOutput)]
     public class FlatTaxonomyController : Controller
     {
         #region Properties
