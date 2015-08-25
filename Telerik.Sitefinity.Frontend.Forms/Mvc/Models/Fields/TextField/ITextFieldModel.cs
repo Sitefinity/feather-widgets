@@ -42,6 +42,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         string CssClass { get; set; }
 
         /// <summary>
+        /// Gets the serialized input type regex patterns.
+        /// </summary>
+        /// <value>
+        /// The serialized input type regex patterns.
+        /// </value>
+        string SerializedInputTypeRegexPatterns { get; }
+
+        /// <summary>
         /// Gets or sets a validation mechanism for the field.
         /// </summary>
         /// <value>The validation.</value>
