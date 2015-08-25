@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.SubmitButton;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
 
@@ -11,8 +12,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// <summary>
     /// This class represents the controller of the MVC forms submit button.
     /// </summary>
-    [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "MvcSubmitButton", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
+    [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "Submit Button", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [FormSubmitField]
+    [Localization(typeof(FieldResources))]
     public class SubmitButtonController : Controller
     {
         /// <summary>
@@ -52,7 +54,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         public ActionResult Index()
         {
             var viewPath = SubmitButtonController.TemplateNamePrefix + this.TemplateName;
-            return this.View(viewPath, this.Model);
+            var viewModel = this.Model.GetViewModel();
+
+            return this.View(viewPath, viewModel);
         }
 
         protected override void HandleUnknownAction(string actionName)

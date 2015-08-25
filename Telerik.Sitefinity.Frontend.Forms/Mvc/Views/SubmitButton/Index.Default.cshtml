@@ -1,5 +1,7 @@
-﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.SubmitButton.ISubmitButtonModel
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton.SubmitButtonViewModel
 
 @using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 
-<input type="submit" value="@Model.Label" @Html.SubmitButtonRequiredAttributes() />
+<div class="@Model.CssClass">
+    <input type="submit" value="@Model.Label" @Html.SubmitButtonRequiredAttributes() />
+</div>

@@ -381,5 +381,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["Type"];
             }
         }
+
+        /// <summary>
+        /// Gets word : Submit
+        /// </summary>
+        [ResourceEntry("SubmitButtonLabel",
+            Value = "Submit",
+            Description = "word : Submit",
+            LastModified = "2015/08/24")]
+        public string SubmitButtonLabel
+        {
+            get
+            {
+                return this["SubmitButtonLabel"];
+            }
+        }
     }
 }

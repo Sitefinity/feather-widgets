@@ -149,6 +149,7 @@
     <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\ISubmitButtonModel.cs" />
+    <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\TextFieldViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\TextType.cs" />
     <Compile Include="Mvc\Models\FormViewModel.cs" />
@@ -172,6 +173,8 @@
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\TextField\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +183,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\TextField\text-field.js" />
     <EmbeddedResource Include="Mvc\Scripts\Form\designerview-simple.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\SubmitButton\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
