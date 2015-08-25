@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DeleteTagAndEditNewsWidget arrangement class.
     /// </summary>
-    public class DeleteTagAndEditNewsWidget : ITestArrangement
+    public class DeleteTagAndEditNewsWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -54,6 +54,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string PageName = "News";
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
-        private const string NewsProvider = "Default News";
     }
 }

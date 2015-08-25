@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectMoreThanOneNewsItem arragement.
     /// </summary>
-    public class CheckSelectorsAfterUNPublishingNewsItem : ITestArrangement
+    public class CheckSelectorsAfterUNPublishingNewsItem : TestArrangementBase
     {
         private const string PageName = "News";
         private const string NewsItemTitle = "News Item Title";

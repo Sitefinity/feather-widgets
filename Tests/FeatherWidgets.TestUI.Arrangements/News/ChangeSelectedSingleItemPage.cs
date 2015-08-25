@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ChangeSelectedSingleItemPage arrangement class.
     /// </summary>
-    public class ChangeSelectedSingleItemPage : ITestArrangement
+    public class ChangeSelectedSingleItemPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
