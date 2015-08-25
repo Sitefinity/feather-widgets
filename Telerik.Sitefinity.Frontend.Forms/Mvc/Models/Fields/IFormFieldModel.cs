@@ -34,15 +34,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         string CssClass { get; set; }
 
         /// <summary>
-        /// Gets or sets the validation attributes.
-        /// </summary>
-        /// <value>
-        /// The validation attributes.
-        /// </value>
-        [Browsable(false)]
-        MvcHtmlString ValidationAttributes { get; }
-
-        /// <summary>
         /// Gets or sets a validation mechanism for the control.
         /// </summary>
         /// <value>The validation.</value>
