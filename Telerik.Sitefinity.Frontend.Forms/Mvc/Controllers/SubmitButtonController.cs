@@ -4,7 +4,6 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Mvc;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
@@ -13,7 +12,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// This class represents the controller of the MVC forms submit button.
     /// </summary>
     [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "Submit Button", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
-    [FormSubmitField]
     [Localization(typeof(FieldResources))]
     public class SubmitButtonController : Controller
     {
