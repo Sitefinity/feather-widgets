@@ -2,7 +2,7 @@
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.SubmitButton;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {

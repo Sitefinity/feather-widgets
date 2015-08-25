@@ -148,6 +148,7 @@
     <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\ISubmitButtonModel.cs" />
+    <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonViewModel.cs" />
     <Compile Include="Mvc\Models\FormViewModel.cs" />
     <Compile Include="Mvc\Models\IFormModel.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />
@@ -168,6 +169,8 @@
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\Form\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\TextField\Read.Default.cshtml" />
+    <None Include="Mvc\Views\SubmitButton\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
