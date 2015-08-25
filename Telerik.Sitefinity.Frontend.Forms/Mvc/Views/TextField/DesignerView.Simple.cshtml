@@ -1,3 +1,5 @@
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Mvc;
 
@@ -64,6 +66,19 @@
 
     <tab heading="@Html.Resource("Limitations")">
         <div class="form-group">
+
+            <label for="inputType">@Html.Resource("Type")</label>
+            <div class="row">
+                <div class="col-xs-6">
+                    <select id="inputType" ng-model="properties.Model.InputType.PropertyValue" class="form-control">
+                        @foreach (var typeName in Enum.GetNames(typeof(TextType)))
+                        {
+                            <option value="@typeName">@(((TextType) Enum.Parse(typeof(TextType), typeName)).GetInputType())</option>
+                        }
+                    </select>
+                </div>
+            </div>
+		
             <h4>@Html.Resource("Range")</h4>
 
             <label for="minLength">@Html.Resource("Min")
