@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ExpandPagesAndSelectChildPageForSingleItemPage arrangement class.
     /// </summary>
-    public class ExpandPagesAndSelectChildPageForSingleItemPage : ITestArrangement
+    public class ExpandPagesAndSelectChildPageForSingleItemPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

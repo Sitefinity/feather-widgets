@@ -16,7 +16,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// EditSelectedTagInNewsWidget arragement.
     /// </summary>
-    public class EditSelectedTagInNewsWidget : ITestArrangement
+    public class EditSelectedTagInNewsWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

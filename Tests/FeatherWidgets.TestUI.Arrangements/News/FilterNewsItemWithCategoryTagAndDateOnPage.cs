@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterNewsItemWithCategoryTagAndDateOnPage arrangement class.
     /// </summary>
-    public class FilterNewsItemWithCategoryTagAndDateOnPage : ITestArrangement
+    public class FilterNewsItemWithCategoryTagAndDateOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
