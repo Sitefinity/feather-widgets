@@ -26,6 +26,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         string PlaceholderText { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the input element.
+        /// </summary>
+        /// <value>
+        /// The type of the input element.
+        /// </value>
+        TextType InputType { get; set; }
+
+        /// <summary>
         /// Gets or sets the CSS class.
         /// </summary>
         /// <value>

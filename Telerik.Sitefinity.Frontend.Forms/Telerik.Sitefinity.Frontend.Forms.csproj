@@ -144,11 +144,13 @@
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
+    <Compile Include="Mvc\Helpers\TextTypeHelpers.cs" />
     <Compile Include="Mvc\Models\Fields\IFormFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\ISubmitButtonModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\TextFieldViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\TextField\TextType.cs" />
     <Compile Include="Mvc\Models\FormViewModel.cs" />
     <Compile Include="Mvc\Models\IFormModel.cs" />
     <Compile Include="Mvc\Models\FormModel.cs" />

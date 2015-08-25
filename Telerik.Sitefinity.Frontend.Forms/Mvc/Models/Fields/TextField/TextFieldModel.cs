@@ -23,6 +23,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         }
 
         /// <inheritDocs />
+        public TextType InputType 
+        { 
+            get; 
+            set; 
+        }
+
+        /// <inheritDocs />
         public TextFieldViewModel GetViewModel(object value, IMetaField metaField)
         {
             this.Value = value;
@@ -33,7 +40,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 ValidationAttributes = this.BuildValidationAttributes(),
                 CssClass = this.CssClass,
                 ValidatorDefinition = this.ValidatorDefinition,
-                PlaceholderText = this.PlaceholderText
+                PlaceholderText = this.PlaceholderText,
+                InputType = this.InputType
             };
 
             return viewModel;
