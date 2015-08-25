@@ -73,7 +73,7 @@
                     <select id="inputType" ng-model="properties.Model.InputType.PropertyValue" class="form-control">
                         @foreach (var typeName in Enum.GetNames(typeof(TextType)))
                         {
-                            <option value="@typeName">@(((TextType) Enum.Parse(typeof(TextType), typeName)).GetInputType())</option>
+                            <option value="@typeName">@(((TextType) Enum.Parse(typeof(TextType), typeName)).ToHtmlInputType())</option>
                         }
                     </select>
                 </div>

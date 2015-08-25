@@ -19,7 +19,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public static string GetInputType(this TextType textType)
+        public static string ToHtmlInputType(this TextType textType)
         {
             string typeString;
 

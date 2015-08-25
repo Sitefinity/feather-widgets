@@ -35,7 +35,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         /// Gets or sets a validation mechanism for the field.
         /// </summary>
         /// <value>The validation.</value>
-        [PersistenceMode(PersistenceMode.InnerProperty)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public override ValidatorDefinition ValidatorDefinition
         {
