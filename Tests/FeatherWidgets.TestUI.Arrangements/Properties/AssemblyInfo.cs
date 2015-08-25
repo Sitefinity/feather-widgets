@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Web;
 using FeatherWidgets.TestUI.Arrangements;
-using Telerik.Sitefinity.TestUI.Arrangements.Core.Framework.Attributes;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information

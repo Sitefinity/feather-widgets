@@ -6,8 +6,8 @@ using FeatherWidgets.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lists.Model;
 using Telerik.Sitefinity.Modules.Lists;
+using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
-using Telerik.Sitefinity.TestUI.Arrangements.Framework.Attributes;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Workflow;
 
