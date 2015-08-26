@@ -128,6 +128,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : Untitled
+        /// </summary>
+        [ResourceEntry("Untitled",
+            Value = "Untitled",
+            Description = "word : Untitled",
+            LastModified = "2015/08/26")]
+        public string Untitled
+        {
+            get
+            {
+                return this["Untitled"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Predefined value
         /// </summary>
         [ResourceEntry("PredefinedValue",
@@ -203,6 +218,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : This field is required
+        /// </summary>
+        [ResourceEntry("RequiredErrorMessageValue",
+            Value = "This field is required",
+            Description = "phrase : This field is required",
+            LastModified = "2015/08/26")]
+        public string RequiredErrorMessageValue
+        {
+            get
+            {
+                return this["RequiredErrorMessageValue"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Error message displayed when the entry is out of range
         /// </summary>
         [ResourceEntry("TooLargeErrorMessageTitle",
@@ -214,6 +244,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             get
             {
                 return this["TooLargeErrorMessageTitle"];
+            }
+        }
+
+
+        /// <summary>
+        /// Gets phrase : Entered text is too long
+        /// </summary>
+        [ResourceEntry("TooLargeErrorMessageValue",
+            Value = "Entered text is too long",
+            Description = "phrase : Entered text is too long",
+            LastModified = "2015/08/26")]
+        public string TooLargeErrorMessageValue
+        {
+            get
+            {
+                return this["TooLargeErrorMessageValue"];
             }
         }
 

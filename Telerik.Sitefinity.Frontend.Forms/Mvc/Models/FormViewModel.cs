@@ -42,5 +42,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// The AJAX submit target URL.
         /// </value>
         public string AjaxSubmitTargetUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.
+        /// </summary>
+        public string CssClass { get; set; }
     }
 }

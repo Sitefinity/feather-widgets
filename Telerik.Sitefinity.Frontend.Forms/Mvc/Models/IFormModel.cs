@@ -74,6 +74,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         string GetViewPath();
 
         /// <summary>
+        /// Gets the redirect page url
+        /// </summary>
+        string GetRedirectPageUrl();
+
+        /// <summary>
         /// Tries to submit the form.
         /// </summary>
         bool TrySubmitForm(FormCollection collection, string userHostAddress);

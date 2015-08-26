@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -65,7 +66,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var viewModel = new FormViewModel()
             {
                 FormId = this.FormId,
-                ViewMode = this.ViewMode
+                ViewMode = this.ViewMode,
+                CssClass = this.CssClass
             };
 
             if (!FormsManager.GetManager().GetForms().Any(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible))
@@ -121,6 +123,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             }
 
             return success;
+        }
+
+        /// <inheritDoc/>
+        public string GetRedirectPageUrl()
+        {
+            if (this.CustomConfirmationPageId == Guid.Empty)
+            {
+                var currentNode = SiteMapBase.GetActualCurrentNode();
+                if (currentNode == null)
+                    return null;
+
+                this.CustomConfirmationPageId = currentNode.Id;
+            }
+
+            return HyperLinkHelpers.GetFullPageUrl(this.CustomConfirmationPageId);
         }
 
         #region ContentModelBase

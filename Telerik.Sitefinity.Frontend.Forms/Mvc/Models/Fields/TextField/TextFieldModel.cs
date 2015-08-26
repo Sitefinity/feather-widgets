@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using Telerik.Sitefinity.Data.Metadata;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
@@ -40,19 +42,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         {
             get
             {
-                var validatorDefinition = base.ValidatorDefinition;
-
-                if (string.IsNullOrEmpty(validatorDefinition.RegularExpression))
+                if (this.validatorDefinition == null)
                 {
-                    validatorDefinition.RegularExpression = this.InputTypeRegexPatterns.ContainsKey(this.InputType.ToString()) ? this.InputTypeRegexPatterns[this.InputType.ToString()] : string.Empty;
+                    this.validatorDefinition = new ValidatorDefinition();
+                    this.validatorDefinition.RequiredViolationMessage = Res.Get<FieldResources>().RequiredErrorMessageValue;
+                    this.validatorDefinition.MaxLengthViolationMessage = Res.Get<FieldResources>().TooLargeErrorMessageValue;
                 }
 
-                return validatorDefinition;
+                if (string.IsNullOrEmpty(this.validatorDefinition.RegularExpression))
+                {
+                    this.validatorDefinition.RegularExpression = this.InputTypeRegexPatterns.ContainsKey(this.InputType.ToString()) ? this.InputTypeRegexPatterns[this.InputType.ToString()] : string.Empty;
+                }
+
+                return this.validatorDefinition;
             }
 
             set
             {
-                base.ValidatorDefinition = value;
+                this.validatorDefinition = value;
             }
         }
 
@@ -70,6 +77,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 
                 return serializedInputTypeRegexPatterns;
             }
+        }
+
+        /// <inheritDocs />
+        public override IMetaField GetMetaField(IFormFieldControl formFieldControl)
+        {
+            var metaField = base.GetMetaField(formFieldControl);
+
+            if (string.IsNullOrEmpty(metaField.Title))
+                metaField.Title = Res.Get<FieldResources>().Untitled;
+
+            return metaField;
         }
 
         /// <summary>
@@ -127,5 +145,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 
             return new MvcHtmlString(attributes.ToString());
         }
+
+        private ValidatorDefinition validatorDefinition;
     }
 }
