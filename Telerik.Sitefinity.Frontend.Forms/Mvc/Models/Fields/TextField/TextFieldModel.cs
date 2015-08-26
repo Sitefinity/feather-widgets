@@ -84,11 +84,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             get
             {
                 var dictionary = new Dictionary<string, string>();
-                dictionary.Add(TextType.Email.ToString(), ValidatorPattern.EmailRegexPattern);
-                dictionary.Add(TextType.Color.ToString(), ValidatorPattern.ColorRegexPattern);
-                dictionary.Add(TextType.Number.ToString(), ValidatorPattern.NumericRegexPattern);
-                dictionary.Add(TextType.Range.ToString(), ValidatorPattern.NumericRegexPattern);
-                dictionary.Add(TextType.Url.ToString(), ValidatorPattern.UrlRegexPattern);
+                dictionary.Add(TextType.Email.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.EmailAddressRegexPattern);
+                dictionary.Add(TextType.Color.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.ColorRegexPattern);
+                dictionary.Add(TextType.Number.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.NumericRegexPattern);
+                dictionary.Add(TextType.Range.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.NumericRegexPattern);
+                dictionary.Add(TextType.Url.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.InternetUrlRegexPattern);
 
                 return dictionary;
             }
