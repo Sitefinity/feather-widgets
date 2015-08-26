@@ -68,7 +68,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             var success = this.Model.TrySubmitForm(collection, this.Request.UserHostAddress);
 
-            return this.RedirectToAction("Index", new { submitedSuccessfully = success });
+            if (this.Model.CustomConfirmationMode == CustomConfirmationMode.ShowMessageForSuccess)
+            {
+                return this.RedirectToAction("Index", new { submitedSuccessfully = success });
+            }
+            else
+            {
+                return this.Redirect(this.Model.GetRedirectPageUrl());
+            }
         }
 
         #region IContentLocatableView

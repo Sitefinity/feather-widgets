@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Resources;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -16,6 +17,7 @@ using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Web;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.Fields;
 
@@ -108,6 +110,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             }
 
             return success;
+        }
+
+        /// <inheritDoc/>
+        public string GetRedirectPageUrl()
+        {
+            if (this.CustomConfirmationPageId == Guid.Empty)
+            {
+                var currentNode = SiteMapBase.GetActualCurrentNode();
+                if (currentNode == null)
+                    return null;
+
+                this.CustomConfirmationPageId = currentNode.Id;
+            }
+
+            return HyperLinkHelpers.GetFullPageUrl(this.CustomConfirmationPageId);
         }
 
         #region ContentModelBase
