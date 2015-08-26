@@ -37,7 +37,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields
         /// Gets or sets a validation mechanism for the control.
         /// </summary>
         /// <value>The validation.</value>
-        [PersistenceMode(PersistenceMode.InnerProperty)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         ValidatorDefinition ValidatorDefinition { get; set; }
 

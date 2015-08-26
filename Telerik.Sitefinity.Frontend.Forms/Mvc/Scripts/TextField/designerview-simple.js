@@ -10,6 +10,17 @@
         // scope variables and set up
         // ------------------------------------------------------------------------
 
+        $scope.$watch(
+           'properties.Model.InputType.PropertyValue',
+           function (newInputType, oldInputType) {
+               if (newInputType !== oldInputType) {
+                   var inputTypeRegexPatterns = JSON.parse($scope.properties.Model.SerializedInputTypeRegexPatterns.PropertyValue);
+                   $scope.properties.Model.ValidatorDefinition.RegularExpression.PropertyValue = inputTypeRegexPatterns[newInputType];
+               }
+           },
+           true
+       );
+
         $scope.feedback.showLoadingIndicator = true;
 
         var onGetPropertiesSuccess = function (data) {

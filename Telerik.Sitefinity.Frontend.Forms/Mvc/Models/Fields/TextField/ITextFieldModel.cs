@@ -26,6 +26,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         string PlaceholderText { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the input element.
+        /// </summary>
+        /// <value>
+        /// The type of the input element.
+        /// </value>
+        TextType InputType { get; set; }
+
+        /// <summary>
         /// Gets or sets the CSS class.
         /// </summary>
         /// <value>
@@ -34,10 +42,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         string CssClass { get; set; }
 
         /// <summary>
+        /// Gets the serialized input type regex patterns.
+        /// </summary>
+        /// <value>
+        /// The serialized input type regex patterns.
+        /// </value>
+        string SerializedInputTypeRegexPatterns { get; }
+
+        /// <summary>
         /// Gets or sets a validation mechanism for the field.
         /// </summary>
         /// <value>The validation.</value>
-        [PersistenceMode(PersistenceMode.InnerProperty)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         ValidatorDefinition ValidatorDefinition { get; set; }
 
