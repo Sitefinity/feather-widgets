@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using Telerik.Sitefinity.Data.Metadata;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Web.UI.Validation.Definitions;
@@ -70,6 +72,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
 
                 return serializedInputTypeRegexPatterns;
             }
+        }
+
+        /// <inheritDocs />
+        public override IMetaField GetMetaField(IFormFieldControl formFieldControl)
+        {
+            var metaField = base.GetMetaField(formFieldControl);
+
+            if (string.IsNullOrEmpty(metaField.Title))
+                metaField.Title = Res.Get<FieldResources>().Untitled;
+
+            return metaField;
         }
 
         /// <summary>
