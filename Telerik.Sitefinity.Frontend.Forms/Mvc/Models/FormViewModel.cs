@@ -21,5 +21,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// Gets or sets the error if any.
         /// </summary>
         public string Error { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CSS class that will be applied on the wrapper div of the widget.
+        /// </summary>
+        public string CssClass { get; set; }
     }
 }

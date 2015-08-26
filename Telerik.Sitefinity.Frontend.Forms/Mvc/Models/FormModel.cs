@@ -58,7 +58,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             var viewModel = new FormViewModel()
             {
                 FormId = this.FormId,
-                ViewMode = this.ViewMode
+                ViewMode = this.ViewMode,
+                CssClass = this.CssClass
             };
 
             if (!FormsManager.GetManager().GetForms().Any(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible))

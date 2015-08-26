@@ -52,12 +52,14 @@ namespace Telerik.Sitefinity.Frontend.Forms
             writer.WriteLine("@using Telerik.Sitefinity.UI.MVC;");
             writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;");
             writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;");
+            writer.WriteLine("<div class=\"@Model.CssClass\">");
             writer.WriteLine("@using (Html.BeginFormSitefinity(\"Submit\", null)){");
 
             var content = new ControlPlaceholder("Body", form.Controls.ToArray());
             writer.Write(content.Render());
 
             writer.WriteLine("}");
+            writer.WriteLine("</div>");
 
             writer.Flush();
             output.Seek(0, SeekOrigin.Begin);
