@@ -64,6 +64,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
                 var context = new HttpContextWrapper(new HttpContext(HttpContext.Current.Request, new HttpResponse(writer)));
                 context.Handler = HttpContext.Current.Handler;
 
+                foreach (var key in HttpContext.Current.Items.Keys)
+                {
+                    if (context.Items.Contains(key))
+                        context.Items[key] = HttpContext.Current.Items[key];
+                    else
+                        context.Items.Add(key, HttpContext.Current.Items[key]);
+                }
+
                 controller.ControllerContext = new ControllerContext(context, routeData, controller);
                 controller.ActionInvoker.InvokeAction(controller.ControllerContext, action);
 
