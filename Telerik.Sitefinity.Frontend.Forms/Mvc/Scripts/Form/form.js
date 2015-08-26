@@ -1,5 +1,6 @@
 ﻿(function ($) {
     var submitButtonControllerTypeName = 'Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers.SubmitButtonController';
+    var mvcControllerProxyTypeName = 'Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy';
 
     var findSubmitButtonDock = function (wrapperDockingZones) {
         if (wrapperDockingZones && wrapperDockingZones.length) {
@@ -24,7 +25,7 @@
 
     $(function () {
         $(document).on('sf-zone-editor-item-dropped', function (e) {
-            if (e && e.args && e.args.ControlType === 'Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy' && e.args.Attributes && e.args.Attributes.isLayoutControl !== 'True') {
+            if (e && e.sender && e.args && e.args.ControlType === mvcControllerProxyTypeName) {
                 var droppedMvcFields = $('#RadDockZoneBody').find('[id^="RadDockClone"][behaviourobjecttype]');
                 if (droppedMvcFields && droppedMvcFields.length) {
                     var hasSubmitButton = Array.prototype.some.call(droppedMvcFields, function (el) {
