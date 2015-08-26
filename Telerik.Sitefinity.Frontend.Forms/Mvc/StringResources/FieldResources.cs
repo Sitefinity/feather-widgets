@@ -128,6 +128,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets word : Untitled
+        /// </summary>
+        [ResourceEntry("Untitled",
+            Value = "Untitled",
+            Description = "word : Untitled",
+            LastModified = "2015/08/26")]
+        public string Untitled
+        {
+            get
+            {
+                return this["Untitled"];
+            }
+        }
+
+        /// <summary>
         /// Gets phrase : Predefined value
         /// </summary>
         [ResourceEntry("PredefinedValue",
