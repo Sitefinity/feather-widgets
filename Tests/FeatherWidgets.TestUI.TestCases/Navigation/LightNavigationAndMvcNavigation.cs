@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         TestCategory(FeatherTestCategories.Navigation)]
         public void AddLightNavigationAndMvcNavigationOnTheSamePage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToDropZone(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(WidgetName);
@@ -29,7 +29,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
 
             string[] pages = new string[] { PageName, Page1, Page2 };
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             Assert.IsFalse(ActiveBrowser.ContainsText(ServerErrorMessage), ServerErrorMessage);
             BATFeather.Wrappers().Frontend().Navigation().NavigationWrapper().VerifyNavigationOnThePageFrontend(MvcNavClass, pages);

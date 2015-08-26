@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// NavigationWidgetAllLevelsToInclude arrangement class.
     /// </summary>
-    public class NavigationWidgetAllLevelsToInclude : ITestArrangement
+    public class NavigationWidgetAllLevelsToInclude : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// NavigationWidgetAddChangeRemoveCssClass arrangement class.
     /// </summary>
-    public class NavigationWidgetAddChangeRemoveCssClass : ITestArrangement
+    public class NavigationWidgetAddChangeRemoveCssClass : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// NavigationWidgetTabsTemplateWithOneLevelOnPage arrangement class.
     /// </summary>
-    public class NavigationWidgetTabsTemplateWithOneLevelOnPage : ITestArrangement
+    public class NavigationWidgetTabsTemplateWithOneLevelOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

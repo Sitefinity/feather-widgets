@@ -26,7 +26,7 @@ namespace FeatherWidgets.TestUI.TestCases.Navigation
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void NavigationWidgetAddChangeRemoveCSSClass()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Navigation().NavigationWidgetEditWrapper().MoreOptions();

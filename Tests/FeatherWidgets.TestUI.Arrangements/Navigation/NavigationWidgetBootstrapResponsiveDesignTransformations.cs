@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for NavigationWidgetBootstrapResponsiveDesignTransformations
     /// </summary>
-    public class NavigationWidgetBootstrapResponsiveDesignTransformations : ITestArrangement
+    public class NavigationWidgetBootstrapResponsiveDesignTransformations : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

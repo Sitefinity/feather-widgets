@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DeleteNavigationWidgetFromPage arrangement class.
     /// </summary>
-    public class DeleteNavigationWidgetFromPage : ITestArrangement
+    public class DeleteNavigationWidgetFromPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

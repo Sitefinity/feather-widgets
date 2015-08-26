@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// This is a class with arrangement methods for AddLightNavigationAndMvcNavigationOnTheSamePage
     /// </summary>
-    public class AddLightNavigationAndMvcNavigationOnTheSamePage : ITestArrangement
+    public class AddLightNavigationAndMvcNavigationOnTheSamePage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

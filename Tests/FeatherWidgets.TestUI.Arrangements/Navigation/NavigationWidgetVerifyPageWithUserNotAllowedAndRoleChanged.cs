@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// A class with arrangement methods for NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged
     /// </summary>
-    public class NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged : ITestArrangement
+    public class NavigationWidgetVerifyPageWithUserNotAllowedAndRoleChanged : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

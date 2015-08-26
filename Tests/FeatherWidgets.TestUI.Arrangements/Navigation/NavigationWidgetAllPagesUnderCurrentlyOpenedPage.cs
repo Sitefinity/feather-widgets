@@ -15,7 +15,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// NavigationWidgetAllPagesUnderCurrentlyOpenedPage arrangement class.
     /// </summary>
-    public class NavigationWidgetAllPagesUnderCurrentlyOpenedPage : ITestArrangement
+    public class NavigationWidgetAllPagesUnderCurrentlyOpenedPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

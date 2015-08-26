@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for UI tests related to navigation widget and custom selection of pages with external urls. 
     /// </summary>
-    public class NavigationWidgetCustomSelectionOfPagesWithExternalUrls : ITestArrangement
+    public class NavigationWidgetCustomSelectionOfPagesWithExternalUrls : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

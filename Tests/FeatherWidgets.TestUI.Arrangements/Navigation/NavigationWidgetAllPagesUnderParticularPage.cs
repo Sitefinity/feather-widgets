@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement class related to tests for navigation widget and "All pages under particular page" option.
     /// </summary>
-    public class NavigationWidgetAllPagesUnderParticularPage : ITestArrangement
+    public class NavigationWidgetAllPagesUnderParticularPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// NavigationWidgetAndContentBlockWidgetOnTheSamePage arrangement class.
     /// </summary>
-    public class NavigationWidgetAndContentBlockWidgetOnTheSamePage : ITestArrangement
+    public class NavigationWidgetAndContentBlockWidgetOnTheSamePage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

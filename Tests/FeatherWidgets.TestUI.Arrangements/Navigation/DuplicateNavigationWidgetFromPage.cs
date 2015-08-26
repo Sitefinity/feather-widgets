@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DuplicateNavigationWidgetFromPage arrangement class.
     /// </summary>
-    public class DuplicateNavigationWidgetFromPage : ITestArrangement
+    public class DuplicateNavigationWidgetFromPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 
