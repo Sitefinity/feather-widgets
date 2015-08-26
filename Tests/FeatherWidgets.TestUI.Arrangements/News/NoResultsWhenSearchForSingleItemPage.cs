@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// NoResultsWhenSearchForSingleItemPage arrangement class.
     /// </summary>
-    public class NoResultsWhenSearchForSingleItemPage : ITestArrangement
+    public class NoResultsWhenSearchForSingleItemPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

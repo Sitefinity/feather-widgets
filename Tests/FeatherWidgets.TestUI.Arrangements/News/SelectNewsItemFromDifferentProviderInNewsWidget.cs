@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectNewsItemFromDifferentProviderInNewsWidget arrangement class.
     /// </summary>
-    public class SelectNewsItemFromDifferentProviderInNewsWidget : ITestArrangement
+    public class SelectNewsItemFromDifferentProviderInNewsWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

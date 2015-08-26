@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate arrangement class.
     /// </summary>
-    public class SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate : ITestArrangement
+    public class SelectCustomDateInNewsWidgetOnPageBasedOnBootstrapTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

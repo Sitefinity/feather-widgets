@@ -9,7 +9,7 @@ using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
 namespace FeatherWidgets.TestUI.Arrangements
 {
-    public class OldAndNewNewsWidgetOnTheSamePage : ITestArrangement
+    public class OldAndNewNewsWidgetOnTheSamePage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -18,8 +18,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             Guid pageId = ServerOperations.Pages().CreatePage(PageName);
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitleOld, NewsContentOld, NewsProvider);
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitleNew, NewsContentOld, NewsProvider);
+            ServerOperations.News().CreatePublishedNewsItem(NewsTitleOld, NewsContentOld, null);
+            ServerOperations.News().CreatePublishedNewsItem(NewsTitleNew, NewsContentOld, null);
             ServerOperationsFeather.Pages().AddNewsWidgetToPage(pageId);
             ServerOperations.Widgets().AddControlToPage(pageId, ControlTypes.NewsView, "Body", "News");
         }
@@ -39,6 +39,5 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsTitleOld = "NewsTitleOld";
         private const string NewsContentNew = "News content new";
         private const string NewsTitleNew = "NewsTitleNew";
-        private const string NewsProvider = "Default News";
     }
 }

@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SearchForNotExistingTag arrangement class.
     /// </summary>
-    public class SearchForNotExistingTag : ITestArrangement
+    public class SearchForNotExistingTag : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

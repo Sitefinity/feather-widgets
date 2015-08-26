@@ -10,7 +10,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ReorderSelectedNewsItems arragement.
     /// </summary>
-    public class ReorderSelectedNewsItems : ITestArrangement
+    public class ReorderSelectedNewsItems : TestArrangementBase
     {
         [ServerSetUp]
         public void SetUp()

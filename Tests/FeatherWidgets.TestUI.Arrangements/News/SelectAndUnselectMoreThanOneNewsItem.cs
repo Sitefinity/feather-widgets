@@ -10,7 +10,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectAndUnselectMoreThanOneNewsItem arragement.
     /// </summary>
-    public class SelectAndUnselectMoreThanOneNewsItem : ITestArrangement
+    public class SelectAndUnselectMoreThanOneNewsItem : TestArrangementBase
     {
         [ServerSetUp]
         public void SetUp()

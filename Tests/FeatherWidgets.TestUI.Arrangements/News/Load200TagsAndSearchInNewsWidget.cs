@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DeleteTagAndEditNewsWidget arrangement class.
     /// </summary>
-    public class Load200TagsAndSearchInNewsWidget : ITestArrangement
+    public class Load200TagsAndSearchInNewsWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

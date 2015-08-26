@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectSingleNewsPageAndVerifyFrontendPage arrangement class.
     /// </summary>
-    public class SelectSingleNewsPageAndVerifyFrontendPage : ITestArrangement
+    public class SelectSingleNewsPageAndVerifyFrontendPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

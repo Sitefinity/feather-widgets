@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SearchForSingleItemPageAndVerifyBreadcrumb arrangement class.
     /// </summary>
-    public class SearchForSingleItemPageAndVerifyBreadcrumb : ITestArrangement
+    public class SearchForSingleItemPageAndVerifyBreadcrumb : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

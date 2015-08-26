@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SearchAndSelectNewsByCategoryAllTab arrangement class.
     /// </summary>
-    public class SearchAndSelectNewsByCategoryAllTab : ITestArrangement
+    public class SearchAndSelectNewsByCategoryAllTab : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
