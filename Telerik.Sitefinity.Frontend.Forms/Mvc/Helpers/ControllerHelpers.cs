@@ -66,10 +66,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
 
                 foreach (var key in HttpContext.Current.Items.Keys)
                 {
-                    if (context.Items.Contains(key))
-                        context.Items[key] = HttpContext.Current.Items[key];
-                    else
-                        context.Items.Add(key, HttpContext.Current.Items[key]);
+                    context.Items[key] = HttpContext.Current.Items[key];
                 }
 
                 controller.ControllerContext = new ControllerContext(context, routeData, controller);
