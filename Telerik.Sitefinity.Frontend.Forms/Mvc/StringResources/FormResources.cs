@@ -169,6 +169,36 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["RedirectToAPage"];
             }
         }
+        
+        /// <summary>
+        /// Gets phrase : Success! Thanks for filling out our form!
+        /// </summary>
+        [ResourceEntry("SuccessfullySubmittedMessage",
+            Value = "Success! Thanks for filling out our form!",
+            Description = "phrase: Success! Thanks for filling out our form!",
+            LastModified = "2015/08/27")]
+        public string SuccessfullySubmittedMessage
+        {
+            get
+            {
+                return this["SuccessfullySubmittedMessage"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Entry is not valid!
+        /// </summary>
+        [ResourceEntry("UnsuccessfullySubmittedMessage",
+            Value = "Entry is not valid!",
+            Description = "phrase: Entry is not valid!",
+            LastModified = "2015/08/27")]
+        public string UnsuccessfullySubmittedMessage
+        {
+            get
+            {
+                return this["UnsuccessfullySubmittedMessage"];
+            }
+        }
 
         #endregion
     }

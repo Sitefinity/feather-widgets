@@ -79,6 +79,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         string GetRedirectPageUrl();
 
         /// <summary>
+        /// Gets the submit message.
+        /// </summary>
+        /// <param name="submitedSuccessfully">Did the form submited successfully</param>
+        string GetSubmitMessage(bool submitedSuccessfully);
+
+        /// <summary>
         /// Tries to submit the form.
         /// </summary>
         bool TrySubmitForm(FormCollection collection, string userHostAddress);

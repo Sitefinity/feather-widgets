@@ -36,13 +36,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <summary>
         /// Renders the form selected via the FormId property of the model.
         /// </summary>
-        public ActionResult Index(bool? submitedSuccessfully = null)
+        public ActionResult Index()
         {
-            if (submitedSuccessfully.HasValue)
-            {
-                return this.Content(submitedSuccessfully.Value ? "Successfully submitted!" : "Entry is not valid!");
-            }
-
             var viewModel = this.Model.GetViewModel();
             if (viewModel != null)
             {
@@ -70,12 +65,22 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
             if (this.Model.CustomConfirmationMode == CustomConfirmationMode.ShowMessageForSuccess)
             {
-                return this.RedirectToAction("Index", new { submitedSuccessfully = success });
+                return this.RedirectToAction("Submit", new { submitedSuccessfully = success });
             }
             else
             {
                 return this.Redirect(this.Model.GetRedirectPageUrl());
             }
+        }
+
+        /// <summary>
+        /// Redirected after a submit to avoid re-post of the form on page refresh
+        /// </summary>
+        [HttpGet]
+        public ActionResult Submit(bool submitedSuccessfully = false)
+        {
+            var message = this.Model.GetSubmitMessage(submitedSuccessfully);
+            return this.Content(message);
         }
 
         #region IContentLocatableView

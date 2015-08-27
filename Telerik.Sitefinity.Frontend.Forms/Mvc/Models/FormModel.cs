@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Resources;
@@ -41,7 +42,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         public CustomConfirmationMode CustomConfirmationMode { get; set; }
 
         /// <inheritDoc/>
-        public string CustomConfirmationMessage { get; set; }
+        public string CustomConfirmationMessage
+        {
+            get
+            {
+                return this.customConfirmationMessage;
+            }
+            set
+            {
+                this.customConfirmationMessage = value;
+            }
+        }
 
         /// <inheritDoc/>
         public Guid CustomConfirmationPageId { get; set; }
@@ -140,6 +151,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             return HyperLinkHelpers.GetFullPageUrl(this.CustomConfirmationPageId);
         }
 
+        /// <inheritDoc/>
+        public string GetSubmitMessage(bool submitedSuccessfully)
+        {
+            if (submitedSuccessfully)
+            {
+                return this.CustomConfirmationMessage;
+            }
+
+            return Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
+        }
+
         #region ContentModelBase
 
         /// <inheritDoc/>
@@ -158,7 +180,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         #endregion
 
         #region Private Methods
-        
+
         private bool IsValidForm(FormDescription form, FormCollection collection, FormsManager manager)
         {
             var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
@@ -187,6 +209,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
             return true;
         }
+
+        #endregion
+
+        #region Private fields
+
+        private string customConfirmationMessage = Res.Get<FormResources>().SuccessfullySubmittedMessage;
 
         #endregion
     }
