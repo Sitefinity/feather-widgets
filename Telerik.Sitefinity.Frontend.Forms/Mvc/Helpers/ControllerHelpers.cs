@@ -3,6 +3,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
@@ -41,7 +42,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             if (mvcProxy == null)
                 throw new InvalidOperationException("Cannot render form controller with the given ID becaouse the control with this ID is not an MVC proxy.");
 
-            Telerik.Sitefinity.Mvc.ControllerActionInvoker.DeserializeControllerProperties(mvcProxy);
+            var actionInvoker = ObjectFactory.Resolve<IControllerActionInvoker>();
+            actionInvoker.DeserializeControllerProperties(mvcProxy);
 
             var routeData = new RouteData();
             if (routeValues != null)
