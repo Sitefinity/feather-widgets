@@ -26,7 +26,7 @@
     $(function () {
         $(document).on('sf-zone-editor-item-dropped', function (e) {
             if (e && e.sender && e.args && e.args.ControlType === mvcControllerProxyTypeName) {
-                var droppedMvcFields = $('#RadDockZoneBody').find('[id^="RadDockClone"][behaviourobjecttype]');
+                var droppedMvcFields = $('#RadDockZoneBody').find('[behaviourobjecttype]');
                 if (droppedMvcFields && droppedMvcFields.length) {
                     var hasSubmitButton = Array.prototype.some.call(droppedMvcFields, function (el) {
                         return el.attributes.behaviourobjecttype.value === submitButtonControllerTypeName;
