@@ -50,6 +50,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         public string CssClass { get; set; }
 
         /// <inheritDoc/>
+        public bool UseAjaxSubmit { get; set; }
+
+        /// <inheritDoc/>
+        public string AjaxSubmitTargetUrl { get; set; }
+
+        /// <inheritDoc/>
         public FormViewModel GetViewModel()
         {
             if (this.FormId == Guid.Empty)
@@ -67,6 +73,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             if (!FormsManager.GetManager().GetForms().Any(f => f.Id == this.FormId && f.Status == ContentLifecycleStatus.Live && f.Visible))
             {
                 viewModel.Error = Res.Get<FormsResources>().TheSpecifiedFormNoLongerExists;
+            }
+
+            viewModel.UseAjaxSubmit = this.UseAjaxSubmit;
+            if (this.UseAjaxSubmit)
+            {
+                viewModel.AjaxSubmitTargetUrl = this.AjaxSubmitTargetUrl.IsNullOrEmpty() ? "~/Forms/Submit" : this.AjaxSubmitTargetUrl;
+                viewModel.FormName = FormsManager.GetManager().GetForm(this.FormId).Name;
             }
 
             return viewModel;
