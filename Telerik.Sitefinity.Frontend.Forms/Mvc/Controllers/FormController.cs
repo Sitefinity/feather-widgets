@@ -38,17 +38,29 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// </summary>
         public ActionResult Index()
         {
-            var viewModel = this.Model.GetViewModel();
-            if (viewModel != null)
+            var success = this.TempData[sfSubmitSuccessKey];
+            if (success == null)
             {
-                if (string.IsNullOrEmpty(viewModel.Error))
+                var viewModel = this.Model.GetViewModel();
+                if (viewModel != null)
                 {
-                    var viewPath = this.Model.GetViewPath();
-                    return this.View(viewPath, viewModel);
+                    if (string.IsNullOrEmpty(viewModel.Error))
+                    {
+                        var viewPath = this.Model.GetViewPath();
+                        return this.View(viewPath, viewModel);
+                    }
+                    else
+                    {
+                        return this.Content(viewModel.Error);
+                    }
                 }
-                else
+            }
+            else
+            {
+                var successValue = success as bool?;
+                if (successValue.HasValue)
                 {
-                    return this.Content(viewModel.Error);
+                    return this.Content(this.Model.GetSubmitMessage(successValue.Value));
                 }
             }
 
@@ -59,28 +71,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// Submits the form selected via the FormId property of the model.
         /// </summary>
         [HttpPost]
-        public ActionResult Submit(FormCollection collection)
+        public ActionResult Index(FormCollection collection)
         {
             var success = this.Model.TrySubmitForm(collection, this.Request.UserHostAddress);
 
-            if (this.Model.CustomConfirmationMode == CustomConfirmationMode.ShowMessageForSuccess)
-            {
-                return this.RedirectToAction("Submit", new { submitedSuccessfully = success });
-            }
-            else
+            if (success && this.Model.CustomConfirmationMode == CustomConfirmationMode.RedirectToAPage)
             {
                 return this.Redirect(this.Model.GetRedirectPageUrl());
             }
-        }
 
-        /// <summary>
-        /// Redirected after a submit to avoid re-post of the form on page refresh
-        /// </summary>
-        [HttpGet]
-        public ActionResult Submit(bool submitedSuccessfully = false)
-        {
-            var message = this.Model.GetSubmitMessage(submitedSuccessfully);
-            return this.Content(message);
+            this.TempData[sfSubmitSuccessKey] = success;
+            return this.RedirectToAction(string.Empty);
         }
 
         #region IContentLocatableView
@@ -116,6 +117,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         private IFormModel model;
         private bool? disableCanonicalUrlMetaTag;
+        private string sfSubmitSuccessKey = "sfSubmitSuccess";
 
         #endregion
     }
