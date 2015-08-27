@@ -3,6 +3,8 @@ using System.Web.UI;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Abstractions.VirtualPath;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers;
+using Telerik.Sitefinity.Modules.ControlTemplates;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
@@ -19,6 +21,16 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             EventHub.Unsubscribe<IScriptsRegisteringEvent>(RegisteringFormScriptsHandler);
             EventHub.Subscribe<IScriptsRegisteringEvent>(RegisteringFormScriptsHandler);
+
+            Bootstrapper.Initialized += Bootstrapper_Initialized;
+        }
+
+        private static void Bootstrapper_Initialized(object sender, Data.ExecutedEventArgs e)
+        {
+            if (e.CommandName == "Bootstrapped")
+            {
+                ControlTemplates.UnregisterTemplatableControl(new ControlTemplateInfo() { ControlType = typeof(FormController), AreaName = "Form" });
+            }
         }
 
         private static void RegisteringFormScriptsHandler(IScriptsRegisteringEvent @event)
