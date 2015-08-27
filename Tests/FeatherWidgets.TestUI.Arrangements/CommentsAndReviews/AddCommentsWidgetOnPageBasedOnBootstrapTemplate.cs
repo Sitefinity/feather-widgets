@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddCommentsWidgetOnPageBasedOnBootstrapTemplate arrangement class.
     /// </summary>
-    public class AddCommentsWidgetOnPageBasedOnBootstrapTemplate : ITestArrangement
+    public class AddCommentsWidgetOnPageBasedOnBootstrapTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

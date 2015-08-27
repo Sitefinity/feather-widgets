@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddReviewsWidgetOnPageBasedOnBootstrapTemplate arrangement class.
     /// </summary>
-    public class AddReviewsWidgetOnPageBasedOnBootstrapTemplate : ITestArrangement
+    public class AddReviewsWidgetOnPageBasedOnBootstrapTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
