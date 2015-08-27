@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -12,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ReviewsFrontendShowOldestAndNewestOptions arrangement class.
     /// </summary>
-    public class ReviewsFrontendShowOldestAndNewestOptions : ITestArrangement
+    public class ReviewsFrontendShowOldestAndNewestOptions : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -39,7 +40,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             ServerOperations.Configuration().EnableRatings(false);
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.News().DeleteAllNews();
-            ServerOperations.Comments().DeleteAllComments(Key);
+            ServerOperations.Comments().DeleteAllComments(this.key);
         }
 
         private const string PageName = "NewsPage";
@@ -49,7 +50,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string NewsAuthor = "TestNewsAuthor";
         private const string NewsSource = "TestNewsSource";
         private const string NewsProvider = "Default News";
-        private const string Key = "Telerik.Sitefinity.Modules.News.NewsManager_OpenAccessDataProvider";
+        private string key = "Telerik.Sitefinity.Modules.News.NewsManager_" + NewsManager.GetManager().Provider.Name;
         private const string AdminUserName = "admin";
         private const string AdminPass = "admin@2";
     }

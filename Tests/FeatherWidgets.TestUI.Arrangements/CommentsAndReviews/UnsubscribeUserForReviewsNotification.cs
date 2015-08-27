@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// UnsubscribeUserForReviewsNotification arrangement class.
     /// </summary>
-    public class UnsubscribeUserForReviewsNotification
+    public class UnsubscribeUserForReviewsNotification : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

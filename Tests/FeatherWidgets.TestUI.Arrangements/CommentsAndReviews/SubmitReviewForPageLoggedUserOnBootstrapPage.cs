@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubmitReviewForPageLoggedUserOnBootstrapPage arrangement class.
     /// </summary>
-    public class SubmitReviewForPageLoggedUserOnBootstrapPage : ITestArrangement
+    public class SubmitReviewForPageLoggedUserOnBootstrapPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

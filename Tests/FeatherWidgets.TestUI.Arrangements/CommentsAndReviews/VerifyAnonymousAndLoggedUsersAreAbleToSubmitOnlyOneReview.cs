@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview arrangement class.
     /// </summary>
-    public class VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview : ITestArrangement
+    public class VerifyAnonymousAndLoggedUsersAreAbleToSubmitOnlyOneReview : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

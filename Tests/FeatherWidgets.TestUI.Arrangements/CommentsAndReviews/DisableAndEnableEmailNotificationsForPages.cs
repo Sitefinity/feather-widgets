@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DisableAndEnableEmailNotificationsForPages arrangement class.
     /// </summary>
-    public class DisableAndEnableEmailNotificationsForPages : ITestArrangement
+    public class DisableAndEnableEmailNotificationsForPages : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

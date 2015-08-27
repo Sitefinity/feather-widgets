@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FeatherWidgets.TestUtilities.CommonOperations;
+using Telerik.Sitefinity.Modules.News;
 using Telerik.Sitefinity.TestArrangementService.Attributes;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
@@ -12,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubmitCommentForNewsLoggedUserOnBootstrapPage arrangement class.
     /// </summary>
-    public class SubmitCommentForNewsLoggedUserOnBootstrapPage : ITestArrangement
+    public class SubmitCommentForNewsLoggedUserOnBootstrapPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -20,8 +21,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.News().CreatePublishedNewsItem(NewsTitle, NewsContent, NewsProvider);
-
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle, NewsContent, NewsAuthor, NewsSource);
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
             Guid pageId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
@@ -36,14 +36,15 @@ namespace FeatherWidgets.TestUI.Arrangements
         {
             ServerOperations.Pages().DeleteAllPages();
             ServerOperations.News().DeleteAllNews();
-            ServerOperations.Comments().DeleteAllComments(Key);
+            ServerOperations.Comments().DeleteAllComments(this.key);
         }
 
         private const string PageName = "NewsPage";
         private const string PageTemplateName = "Bootstrap.default";
         private const string NewsContent = "News content";
         private const string NewsTitle = "NewsTitle";
-        private const string NewsProvider = "Default News";
-        private const string Key = "Telerik.Sitefinity.Modules.News.NewsManager_OpenAccessDataProvider";
+        private const string NewsAuthor = "TestNewsAuthor";
+        private const string NewsSource = "TestNewsSource";
+        private string key = "Telerik.Sitefinity.Modules.News.NewsManager_" + NewsManager.GetManager().Provider.Name;
     }
 }

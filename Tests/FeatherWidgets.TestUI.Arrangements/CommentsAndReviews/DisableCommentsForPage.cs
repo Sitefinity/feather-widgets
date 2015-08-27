@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DisableCommentsForPage arrangement class.
     /// </summary>
-    public class DisableCommentsForPage : ITestArrangement
+    public class DisableCommentsForPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

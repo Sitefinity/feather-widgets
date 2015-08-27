@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ValidateAllFieldsInCommentsWidgetOnFrontend arrangement class.
     /// </summary>
-    public class ValidateAllFieldsInCommentsWidgetOnFrontend : ITestArrangement
+    public class ValidateAllFieldsInCommentsWidgetOnFrontend : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage arrangement class.
     /// </summary>
-    public class SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage : ITestArrangement
+    public class SubmitWaitingForApprovalCommentForPageNotLoggedUserOnBootstrapPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -38,7 +38,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void PublishComment()
         {
             Guid pageId = ServerOperations.Pages().GetPageId(PageName);
-            string threadKey = pageId.ToString() + "_en";
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+            string threadKey = pageId.ToString() + "_" + culture;
             ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(CommentStatusPublish, threadKey);
         }
 

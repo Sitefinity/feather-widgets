@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubscribeUserForReviewsNotificationAndVerifyReceivedEmail arrangement class.
     /// </summary>
-    public class SubscribeUserForReviewsNotificationAndVerifyReceivedEmail : ITestArrangement
+    public class SubscribeUserForReviewsNotificationAndVerifyReceivedEmail : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

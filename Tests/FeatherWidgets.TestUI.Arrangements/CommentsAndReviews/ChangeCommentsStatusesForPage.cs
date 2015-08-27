@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ChangeCommentsStatusesForPage arrangement class.
     /// </summary>
-    public class ChangeCommentsStatusesForPage : ITestArrangement
+    public class ChangeCommentsStatusesForPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -34,7 +34,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void PublishComment()
         {
             Guid pageId = ServerOperations.Pages().GetPageId(PageName);
-            string threadKey = pageId.ToString() + "_en";
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+            string threadKey = pageId.ToString() + "_" + culture;
             ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(CommentStatusPublish, threadKey);
         }
 
@@ -45,7 +46,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void MarkAsSpamComment()
         {
             Guid pageId = ServerOperations.Pages().GetPageId(PageName);
-            string threadKey = pageId.ToString() + "_en";
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+            string threadKey = pageId.ToString() + "_" + culture;
             ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(CommentStatusSpam, threadKey);
         }
 
@@ -56,7 +58,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void HideComment()
         {
             Guid pageId = ServerOperations.Pages().GetPageId(PageName);
-            string threadKey = pageId.ToString() + "_en";
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+            string threadKey = pageId.ToString() + "_" + culture;
             ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(CommentStatusHidden, threadKey);
         }
 

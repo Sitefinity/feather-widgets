@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
      /// <summary>
     /// ChangeReviewsStatusesForPage arrangement class.
     /// </summary>
-    public class ChangeReviewsStatusesForPage : ITestArrangement
+    public class ChangeReviewsStatusesForPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -38,7 +38,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void PublishReview()
         {
             Guid pageId = ServerOperations.Pages().GetPageId(PageName);
-            string threadKey = pageId.ToString() + "_en_review";
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+            string threadKey = pageId.ToString() + "_" + culture + "_review";
             ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(ReviewsStatusPublish, threadKey);
         }
 
@@ -49,7 +50,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void MarkAsSpamReview()
         {
             Guid pageId = ServerOperations.Pages().GetPageId(PageName);
-            string threadKey = pageId.ToString() + "_en_review";
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+            string threadKey = pageId.ToString() + "_" + culture + "_review";
             ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(ReviewsStatusSpam, threadKey);
         }
 
@@ -60,7 +62,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void HideReview()
         {
             Guid pageId = ServerOperations.Pages().GetPageId(PageName);
-            string threadKey = pageId.ToString() + "_en_review";
+            string culture = ServerOperationsFeather.CommentsAndReviews().GetCurrentCulture();
+            string threadKey = pageId.ToString() + "_" + culture + "_review";
             ServerOperationsFeather.CommentsAndReviews().ChangeCommentsAndReviewsStatus(ReviewsStatusHidden, threadKey);
         }
 

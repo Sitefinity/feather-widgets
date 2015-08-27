@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// EditCommentWidgetAndCloseCommentsForPage arrangement class.
     /// </summary>
-    public class EditCommentWidgetAndCloseCommentsForPage : ITestArrangement
+    public class EditCommentWidgetAndCloseCommentsForPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
