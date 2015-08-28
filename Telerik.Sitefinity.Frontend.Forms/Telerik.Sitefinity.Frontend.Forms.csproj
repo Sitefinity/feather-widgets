@@ -140,6 +140,7 @@
     </Compile>
     <Compile Include="FormFieldController.cs" />
     <Compile Include="FormRazorRenderer.cs" />
+    <Compile Include="FormRendererBase.cs" />
     <Compile Include="FormsConstants.cs" />
     <Compile Include="FormsDefinitionsExtender.cs" />
     <Compile Include="FormsVirtualRazorResolver.cs" />

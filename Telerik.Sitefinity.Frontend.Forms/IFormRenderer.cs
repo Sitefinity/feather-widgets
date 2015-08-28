@@ -13,6 +13,6 @@ namespace Telerik.Sitefinity.Frontend.Forms
         /// </summary>
         /// <param name="writer">The writer.</param>
         /// <param name="form">The form.</param>
-        void RenderForm(StreamWriter writer, FormDescription form);
+        void Render(StreamWriter writer, FormDescription form);
     }
 }
