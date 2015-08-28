@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// CheckAllOptionsInSocialnShareWidget arragement.
     /// </summary>
-    public class CheckAllOptionsInSocialShareWidget : ITestArrangement
+    public class CheckAllOptionsInSocialShareWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

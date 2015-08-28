@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList arrangement class.
     /// </summary>
-    public class DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList : ITestArrangement
+    public class DragAndDropSubscribeFormWidgetOnPageAndSelectMailingList : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

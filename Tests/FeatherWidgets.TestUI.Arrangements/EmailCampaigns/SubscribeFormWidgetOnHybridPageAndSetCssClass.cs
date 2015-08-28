@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubscribeFormWidgetOnHybridPageAndSetCssClass arrangement class.
     /// </summary>
-    public class SubscribeFormWidgetOnHybridPageAndSetCssClass : ITestArrangement
+    public class SubscribeFormWidgetOnHybridPageAndSetCssClass : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

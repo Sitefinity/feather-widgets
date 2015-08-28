@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// TryToUnsubscribeNotExistingSubscriber arrangement class.
     /// </summary>
-    public class TryToUnsubscribeNotExistingSubscriber : ITestArrangement
+    public class TryToUnsubscribeNotExistingSubscriber : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

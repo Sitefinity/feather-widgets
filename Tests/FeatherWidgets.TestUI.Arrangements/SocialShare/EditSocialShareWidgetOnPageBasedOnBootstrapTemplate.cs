@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// EditSocialShareWidgetOnPageBasedOnBootstrapTemplate arrangement class.
     /// </summary>
-    public class EditSocialShareWidgetOnPageBasedOnBootstrapTemplate : ITestArrangement
+    public class EditSocialShareWidgetOnPageBasedOnBootstrapTemplate : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

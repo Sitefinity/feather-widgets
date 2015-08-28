@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DuplicateAndDeleteSubscribeFormWidget arrangement class.
     /// </summary>
-    public class DuplicateAndDeleteSubscribeFormWidget : ITestArrangement
+    public class DuplicateAndDeleteSubscribeFormWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

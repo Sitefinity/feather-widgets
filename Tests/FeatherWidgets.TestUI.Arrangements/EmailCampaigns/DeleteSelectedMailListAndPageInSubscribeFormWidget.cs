@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DeleteSelectedMailListInSubscribeFormWidget arrangement class.
     /// </summary>
-    public class DeleteSelectedMailListAndPageInSubscribeFormWidget : ITestArrangement
+    public class DeleteSelectedMailListAndPageInSubscribeFormWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

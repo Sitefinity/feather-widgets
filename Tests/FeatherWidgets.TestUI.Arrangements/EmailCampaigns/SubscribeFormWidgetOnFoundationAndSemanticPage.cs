@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SubscribeFormWidgetOnFoundationAndSemanticPage arrangement class.
     /// </summary>
-    public class SubscribeFormWidgetOnFoundationAndSemanticPage : ITestArrangement
+    public class SubscribeFormWidgetOnFoundationAndSemanticPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

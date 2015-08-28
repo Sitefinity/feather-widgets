@@ -7,7 +7,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// CreateSocialShareWidgetTemplateAndCheckTheDesigner arragement.
     /// </summary>
-    public class CreateSocialShareWidgetTemplateAndCheckTheDesigner : ITestArrangement
+    public class CreateSocialShareWidgetTemplateAndCheckTheDesigner : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

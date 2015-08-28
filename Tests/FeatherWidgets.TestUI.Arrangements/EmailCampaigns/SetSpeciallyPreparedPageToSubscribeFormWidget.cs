@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SetSpeciallyPreparedPageToSubscribeFormWidget arrangement class.
     /// </summary>
-    public class SetSpeciallyPreparedPageToSubscribeFormWidget : ITestArrangement
+    public class SetSpeciallyPreparedPageToSubscribeFormWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

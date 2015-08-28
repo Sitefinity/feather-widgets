@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DragAndDropUnsubscribeWidgetAndSelectMailingList arrangement class.
     /// </summary>
-    public class DragAndDropUnsubscribeWidgetAndSelectMailingList : ITestArrangement
+    public class DragAndDropUnsubscribeWidgetAndSelectMailingList : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
