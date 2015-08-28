@@ -20,13 +20,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
-    public class TextFieldController : FormFieldController
+    public class TextFieldController : Controller, IFormFieldController
     {
         #region Properties
 
         /// <inheritDocs />
         [Browsable(false)]
-        public override IFormFieldModel FieldModel
+        public virtual IFormFieldModel FieldModel
         {
             get
             {
@@ -56,29 +56,17 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         /// <inheritDocs />
         [Browsable(false)]
-        public override IMetaField MetaField
+        public virtual IMetaField MetaField
         {
-            get
-            {
-                return base.MetaField;
-            }
-            set
-            {
-                base.MetaField = value;
-            }
+            get;
+            set;
         }
 
         /// <inheritDocs />
-        public override FieldDisplayMode DisplayMode
+        public virtual FieldDisplayMode DisplayMode
         {
-            get
-            {
-                return base.DisplayMode;
-            }
-            set
-            {
-                base.DisplayMode = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -120,7 +108,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #region Actions
 
         /// <inheritDocs />
-        public override ActionResult Read(object value)
+        public virtual ActionResult Read(object value)
         {
             if (value == null || !(value is string))
                 value = this.MetaField.DefaultValue;
@@ -133,7 +121,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         /// <inheritDocs />
-        public override ActionResult Write(object value)
+        public virtual ActionResult Write(object value)
         {
             if (value == null || !(value is string))
                 value = this.MetaField.DefaultValue;
@@ -146,7 +134,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #endregion
 
-        #region Public methods
+        #region Public and protected methods
+
+        /// <inheritDocs />
+        public bool IsValid()
+        {
+            return this.FieldModel.IsValid(this.FieldModel.Value);
+        }
 
         /// <summary>
         /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
@@ -154,7 +148,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            base.HandleUnknownAction(actionName);
+            if (this.DisplayMode == FieldDisplayMode.Read)
+            {
+                this.Read(null).ExecuteResult(this.ControllerContext);
+            }
+            else if (this.DisplayMode == FieldDisplayMode.Write)
+            {
+                this.Write(null).ExecuteResult(this.ControllerContext);
+            }
         }
 
         #endregion
