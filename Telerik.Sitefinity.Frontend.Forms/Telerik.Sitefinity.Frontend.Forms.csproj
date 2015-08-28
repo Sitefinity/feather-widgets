@@ -139,10 +139,12 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="FormFieldController.cs" />
+    <Compile Include="FormRazorRenderer.cs" />
     <Compile Include="FormsConstants.cs" />
     <Compile Include="FormsDefinitionsExtender.cs" />
     <Compile Include="FormsVirtualRazorResolver.cs" />
     <Compile Include="IFormFieldController.cs" />
+    <Compile Include="IFormRenderer.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FormController.cs" />

@@ -20,6 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
     /// </summary>
     public class FormRazorRenderer : IFormRenderer
     {
+        /// <inheritDoc/>
         public void RenderForm(StreamWriter writer, FormDescription form)
         {
             writer.WriteLine("@using Telerik.Sitefinity.UI.MVC;");
