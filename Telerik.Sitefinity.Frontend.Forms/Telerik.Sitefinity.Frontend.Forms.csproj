@@ -186,6 +186,8 @@
     <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\Recaptcha\Write.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Recaptcha\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\Recaptcha\DesignerView.Simple.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +202,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\Form\form.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\Recaptcha\designerview-simple.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

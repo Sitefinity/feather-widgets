@@ -442,5 +442,189 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["SubmitButtonLabel"];
             }
         }
+
+        #region ReCAPTCHA
+
+        /// <summary>
+        /// Gets phrase : What's this?
+        /// </summary>
+        [ResourceEntry("WhatsThis",
+            Value = "What's this?",
+            Description = "phrase : What's this?",
+            LastModified = "2015/08/28")]
+        public string WhatsThis
+        {
+            get
+            {
+                return this["WhatsThis"];
+            }
+        }
+
+        /// <summary>
+        /// Gets description for reCapthca widget
+        /// </summary>
+        [ResourceEntry("WhatsRecaptchaDescription",
+            Value = "reCAPTCHA is a free service by Google to protect your website from spam and abuse.",
+            Description = "Description for reCapthca widget",
+            LastModified = "2015/08/28")]
+        public string WhatsRecaptchaDescription
+        {
+            get
+            {
+                return this["WhatsRecaptchaDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Request unauthenticated users only
+        /// </summary>
+        [ResourceEntry("RequestUnauthenticatedUsersOnly",
+            Value = "Request unauthenticated users only",
+            Description = "phrase : Request unauthenticated users only",
+            LastModified = "2015/08/28")]
+        public string RequestUnauthenticatedUsersOnly
+        {
+            get
+            {
+                return this["RequestUnauthenticatedUsersOnly"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Light
+        /// </summary>
+        [ResourceEntry("Light",
+            Value = "Light",
+            Description = "word : Light",
+            LastModified = "2015/08/28")]
+        public string Light
+        {
+            get
+            {
+                return this["Light"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Dark
+        /// </summary>
+        [ResourceEntry("Dark",
+            Value = "Dark",
+            Description = "word : Dark",
+            LastModified = "2015/08/28")]
+        public string Dark
+        {
+            get
+            {
+                return this["Dark"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Theme
+        /// </summary>
+        [ResourceEntry("Theme",
+            Value = "Theme",
+            Description = "word : Theme",
+            LastModified = "2015/08/28")]
+        public string Theme
+        {
+            get
+            {
+                return this["Theme"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Image
+        /// </summary>
+        [ResourceEntry("Image",
+            Value = "Image",
+            Description = "word : Image",
+            LastModified = "2015/08/28")]
+        public string Image
+        {
+            get
+            {
+                return this["Image"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Audio
+        /// </summary>
+        [ResourceEntry("Audio",
+            Value = "Audio",
+            Description = "word : Audio",
+            LastModified = "2015/08/28")]
+        public string Audio
+        {
+            get
+            {
+                return this["Audio"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Size
+        /// </summary>
+        [ResourceEntry("Size",
+            Value = "Size",
+            Description = "word : Size",
+            LastModified = "2015/08/28")]
+        public string Size
+        {
+            get
+            {
+                return this["Size"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Normal
+        /// </summary>
+        [ResourceEntry("Normal",
+            Value = "Normal",
+            Description = "word : Normal",
+            LastModified = "2015/08/28")]
+        public string Normal
+        {
+            get
+            {
+                return this["Normal"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Compact
+        /// </summary>
+        [ResourceEntry("Compact",
+            Value = "Compact",
+            Description = "word : Compact",
+            LastModified = "2015/08/28")]
+        public string Compact
+        {
+            get
+            {
+                return this["Compact"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Learn more.
+        /// </summary>
+        [ResourceEntry("LearnMore",
+            Value = "Learn more",
+            Description = "phrase : Learn more",
+            LastModified = "2015/08/28")]
+        public string LearnMore
+        {
+            get
+            {
+                return this["LearnMore"];
+            }
+        }
+
+        #endregion
     }
 }
