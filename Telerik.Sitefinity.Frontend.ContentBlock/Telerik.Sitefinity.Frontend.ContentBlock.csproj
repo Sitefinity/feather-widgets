@@ -207,6 +207,8 @@
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Unshare.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.Share.cshtml" />
     <None Include="app.config" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.AddPersonalization.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\ContentBlock\DesignerView.AddPersonalization.json" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -218,6 +220,9 @@
     <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-unshare.js" />
     <EmbeddedResource Include="Mvc\Scripts\Designer\modal-dialog.js" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\ContentBlock\designerview-addpersonalization.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="OpenAccessNuget.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
@@ -226,6 +231,7 @@
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(SolutionDir)FxCop\CustomDictionary.xml" DestinationFolder="$(CodeAnalysisPath)" OverwriteReadOnlyFiles="true" Retries="10" ContinueOnError="false" />
   </Target>
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <Import Project="$(SolutionDir)\StyleCop\StyleCop.targets" />
 </Project>

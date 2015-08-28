@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Personalization;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Web;
@@ -31,7 +32,8 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                                           ICustomWidgetVisualizationExtended, 
                                           ICustomWidgetTitlebar, 
                                           IHasEditCommands, 
-                                          IContentItemControl
+                                          IContentItemControl,
+                                          IPersonalizable
     {
         #region Explicit Interface Properties
 
@@ -274,6 +276,26 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
             var packageManager = new PackageManager();
             var commandsList = new List<WidgetMenuItem>();
 
+            var personalizationActionLink =
+                    packageManager.EnhanceUrl(
+                        RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "AddPersonalization"), UrlResolveOptions.Rooted));
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorAddPersonalizedVersion,
+                    ActionUrl = personalizationActionLink,
+                    NeedsModal = true,
+                    CssClass = "sfPersonalizeItm"
+                });
+
+            commandsList.Add(
+                new WidgetMenuItem
+                {
+                    Text = Res.Get<PageResources>().ZoneEditorRemovePersonalizedVersion,
+                    CommandName = "removePersonalizedVersion",
+                    CssClass = "sfRemPersonalizedItm"
+                });
+
             commandsList.Add(
                 new WidgetMenuItem
                 {
@@ -289,6 +311,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                         CommandName = "beforedelete", 
                         CssClass = "sfDeleteItm"
                     });
+
             commandsList.Add(
                 new WidgetMenuItem
                     {

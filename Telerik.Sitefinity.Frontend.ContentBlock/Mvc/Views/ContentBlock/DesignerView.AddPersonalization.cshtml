@@ -1,0 +1,18 @@
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@using Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Helpers
+
+<server-data blank-content-item='@Html.GetBlankContentItem()'></server-data>
+ Add a personalized version of Content block
+
+<div>
+    Which user segment is this personalized version for?
+
+    <select id="segmentSelector" ng-model="model.segmentId" class="form-control">
+        <option ng-repeat="segment in segments" value="{{ segment.Id }}">{{ segment.Name }}</option>
+    </select>
+</div>
+
+<script type="text/ng-template" section="modal-footer">
+    <button type="button" class="btn btn-primary pull-left" ng-click="addPersonalization()">@Html.Resource("Add")</button>
+    <a class="btn btn-link" data-dismiss="modal" ng-click="cancel()">@Html.Resource("Cancel")</a>
+</script>

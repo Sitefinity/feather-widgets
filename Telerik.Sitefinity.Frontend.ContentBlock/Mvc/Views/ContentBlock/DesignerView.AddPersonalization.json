@@ -1,0 +1,6 @@
+﻿{
+  "hidden": true,
+  "scripts": [
+    "client-components/personalization/services/personalization-services.js"
+  ]
+}
