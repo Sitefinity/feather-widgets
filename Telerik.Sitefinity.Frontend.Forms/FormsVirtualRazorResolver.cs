@@ -50,8 +50,17 @@ namespace Telerik.Sitefinity.Frontend.Forms
             var output = new MemoryStream();
             var writer = new StreamWriter(output);
 
-            var formRenderer = FrontendModule.Current.DependencyResolver.Get<IFormRenderer>();
-            formRenderer.RenderForm(writer, form);
+            writer.WriteLine("@using Telerik.Sitefinity.UI.MVC;");
+            writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;");
+            writer.WriteLine("@using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;");
+            writer.WriteLine("<div class=\"@Model.CssClass\">");
+            writer.WriteLine("@using (Html.BeginFormSitefinity(\"Index\", null)){");
+
+            var content = new ControlPlaceholder("Body", form.Controls.ToArray());
+            writer.Write(content.Render());
+
+            writer.WriteLine("}");
+            writer.WriteLine("</div>");
 
             writer.Flush();
             output.Seek(0, SeekOrigin.Begin);
