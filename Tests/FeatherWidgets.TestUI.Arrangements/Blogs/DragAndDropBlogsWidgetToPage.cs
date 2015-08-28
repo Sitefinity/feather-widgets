@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// This is a test class with arrangement methods related to UI test DragAndDropBlogsWidgetToPage
     /// </summary>
-    public class DragAndDropBlogsWidgetToPage : ITestArrangement
+    public class DragAndDropBlogsWidgetToPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

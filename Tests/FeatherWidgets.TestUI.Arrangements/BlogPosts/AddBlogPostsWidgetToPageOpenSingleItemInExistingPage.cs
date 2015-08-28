@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// This is a class with arrangement methods related to UI test AddBlogPostsWidgetToPageOpenSingleItemInExistingPage
     /// </summary>
-    public class AddBlogPostsWidgetToPageOpenSingleItemInExistingPage : ITestArrangement
+    public class AddBlogPostsWidgetToPageOpenSingleItemInExistingPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

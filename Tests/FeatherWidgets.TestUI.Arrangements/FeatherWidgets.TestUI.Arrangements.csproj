@@ -218,10 +218,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestArrangementService.Attributes">
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Attributes.1.0.7\lib\net40\Telerik.Sitefinity.TestArrangementService.Attributes.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Attributes.1.0.8\lib\net40\Telerik.Sitefinity.TestArrangementService.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestArrangementService.Core">
-      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.7\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Sitefinity.TestArrangementService.Core.1.0.8\lib\net40\Telerik.Sitefinity.TestArrangementService.Core.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.TestUtilities">
       <SpecificVersion>False</SpecificVersion>
