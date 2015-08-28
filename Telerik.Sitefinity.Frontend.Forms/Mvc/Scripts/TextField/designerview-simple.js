@@ -26,6 +26,9 @@
         var onGetPropertiesSuccess = function (data) {
             if (data) {
                 $scope.properties = propertyService.toHierarchyArray(data.Items);
+
+                if ($scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue === '0')
+                    $scope.properties.Model.ValidatorDefinition.MaxLength.PropertyValue = '';
             }
         };
 

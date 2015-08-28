@@ -202,7 +202,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
             formController.ControllerContext = new ControllerContext();
             formController.ControllerContext.HttpContext = new System.Web.HttpContextWrapper(HttpContext.Current);
 
-            return formController.Submit(formCollection);
+            return formController.Index(formCollection);
         }
 
         private string GetTextFieldName(FormsManager formManager, FormDescription form)
