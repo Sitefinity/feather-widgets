@@ -148,6 +148,7 @@
     <Compile Include="Initializer.cs" />
     <Compile Include="InterfaceMappings.cs" />
     <Compile Include="Mvc\Controllers\FormController.cs" />
+    <Compile Include="Mvc\Controllers\RecaptchaController.cs" />
     <Compile Include="Mvc\Controllers\SubmitButtonController.cs" />
     <Compile Include="Mvc\Controllers\TextFieldController.cs" />
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
@@ -155,6 +156,9 @@
     <Compile Include="Mvc\Models\Fields\IFormFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />
     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />
+    <Compile Include="Mvc\Models\Fields\RecaptchaField\IRecaptchaFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\RecaptchaField\RecaptchaFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\RecaptchaField\RecaptchaFieldViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\ISubmitButtonModel.cs" />
     <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\TextField\TextFieldViewModel.cs" />
@@ -181,6 +185,7 @@
     <EmbeddedResource Include="Mvc\Views\TextField\Read.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.cshtml" />
     <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\Recaptcha\Write.Default.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
