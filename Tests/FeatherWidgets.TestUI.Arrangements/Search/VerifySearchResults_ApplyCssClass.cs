@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for VerifySearchResults_ApplyCssClass
     /// </summary>
-    public class VerifySearchResults_ApplyCssClass : ITestArrangement
+    public class VerifySearchResults_ApplyCssClass : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -21,9 +21,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void SetUp()
         {
             AuthenticationHelper.AuthenticateUser(AdminUserName, AdminPass, true);
-
-            ServerOperations.News().CreateNewsItem(NewsTitle1);
-            ServerOperations.News().CreateNewsItem(NewsTitle2);
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle1, NewsContent, NewsAuthor, NewsSource);
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle2, NewsContent, NewsAuthor, NewsSource);
 
             ServerOperations.Pages().CreatePage(SearchPageTitle);
             Guid newsPageId = ServerOperations.Pages().CreatePage(NewsPageTitle);
@@ -49,6 +48,9 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string SearchIndexName = "news index";
         private const string NewsTitle1 = "test news";
         private const string NewsTitle2 = "another news";
+        private const string NewsAuthor = "TestNewsAuthor";
+        private const string NewsSource = "TestNewsSource";
+        private const string NewsContent = "News content";
         private const string SearchPageTitle = "SearchPage";
         private const string NewsPageTitle = "NewsPage";
     }

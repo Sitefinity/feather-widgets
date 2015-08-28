@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// VerifySearchResults_SortingOnFrontend arragement.
     /// </summary>
-    public class VerifySearchResults_SortingOnFrontend : ITestArrangement
+    public class VerifySearchResults_SortingOnFrontend : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -20,8 +20,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerSetUp]
         public void SetUp()
         {
-            ServerOperations.News().CreateNewsItem(NewsTitle1);
-            ServerOperations.News().CreateNewsItem(NewsTitle2);
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle1, NewsContent, NewsAuthor, NewsSource);
+            ServerOperations.News().CreatePublishedNewsItemLiveId(NewsTitle2, NewsContent, NewsAuthor, NewsSource);
 
             ServerOperations.Pages().CreatePage(SearchPageTitle);
             ServerOperations.Pages().CreatePage(ResultsPageTitle);
@@ -49,5 +49,8 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string SearchPageTitle = "SearchPage";
         private const string ResultsPageTitle = "ResultsPage";
         private const string NewsPageTitle = "NewsPage";
+        private const string NewsAuthor = "TestNewsAuthor";
+        private const string NewsSource = "TestNewsSource";
+        private const string NewsContent = "News content";
     }
 }

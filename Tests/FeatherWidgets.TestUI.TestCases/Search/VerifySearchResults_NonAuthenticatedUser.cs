@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
         TestCategory(FeatherTestCategories.Search)]
         public void VerifySearchResults_NonAuthenticatedUser()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(SearchPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(SearchBoxWidget);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddMvcWidgetHybridModePage(SearchResultsWidget);
@@ -40,7 +40,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().SaveChanges();
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().ClickSearchButton(SearchPage.ToLower());
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
@@ -50,7 +50,7 @@ namespace FeatherWidgets.TestUI.TestCases.Search
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsList(NewsTitle1);
 
             BAT.Macros().User().LogOut();
-            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + SearchPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().EnterSearchText(NoResultsSearchText);
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().PressEnter();
             BATFeather.Wrappers().Frontend().Search().SearchWrapper().VerifySearchResultsLabel(0, NoResultsSearchText);
