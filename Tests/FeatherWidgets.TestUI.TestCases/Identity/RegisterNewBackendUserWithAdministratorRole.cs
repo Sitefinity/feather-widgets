@@ -25,7 +25,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
         TestCategory(FeatherTestCategories.Bootstrap)]
         public void RegisterNewBackendUserWithAdministratorRole()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(RegistrationPage);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().AddWidgetToPlaceHolderPureMvcMode(WidgetName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
@@ -36,7 +36,7 @@ namespace FeatherWidgets.TestUI.TestCases.Identity
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
             BAT.Macros().User().LogOut();
 
-            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + RegistrationPage.ToLower(), true, this.Culture);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillFirstName(FirstName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillLastName(LastName);
             BATFeather.Wrappers().Frontend().Identity().RegistrationWrapper().FillEmail(Email);

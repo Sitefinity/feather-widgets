@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for VerifySelectedRolesInUsersListOnBootstrapPage
     /// </summary>
-    public class VerifySelectedRolesInUsersListOnBootstrapPage : ITestArrangement
+    public class VerifySelectedRolesInUsersListOnBootstrapPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

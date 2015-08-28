@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for RegisterNewBackendUserWithAdministratorRole
     /// </summary>
-    public class RegisterNewBackendUserWithAdministratorRole : ITestArrangement
+    public class RegisterNewBackendUserWithAdministratorRole : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
