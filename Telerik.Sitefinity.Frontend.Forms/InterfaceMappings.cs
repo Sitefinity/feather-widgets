@@ -1,8 +1,9 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -21,6 +22,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IFormModel>().To<FormModel>();
             Bind<IFormFieldModel>().To<FormFieldModel>();
             Bind<ITextFieldModel>().To<TextFieldModel>();
+            Bind<IRecaptchaFieldModel>().To<RecaptchaFieldModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
         }
     }
