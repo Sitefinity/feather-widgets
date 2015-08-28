@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for AddAndChangeUserAvatarInProfileWidget
     /// </summary>
-    public class AddAndChangeUserAvatarInProfileWidget : ITestArrangement
+    public class AddAndChangeUserAvatarInProfileWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

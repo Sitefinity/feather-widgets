@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// Arrangement methods for RegisterNewUserAndLoginTheUser
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login")]
-    public class RegisterNewUserAndLoginTheUser : ITestArrangement
+    public class RegisterNewUserAndLoginTheUser : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

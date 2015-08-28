@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for DragAndDropProfileWidgetAndSetReadMode
     /// </summary>
-    public class DragAndDropProfileWidgetAndSetReadMode : ITestArrangement
+    public class DragAndDropProfileWidgetAndSetReadMode : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for VerifySelectedUsersInUsersListWithSelectedSingleUserPage
     /// </summary>
-    public class VerifySelectedUsersInUsersListWithSelectedSingleUserPage : ITestArrangement
+    public class VerifySelectedUsersInUsersListWithSelectedSingleUserPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

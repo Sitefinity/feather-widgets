@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for EditProfileWidgetInBothModeAndSetSpeciallyPreparedPage
     /// </summary>
-    public class EditProfileWidgetInBothModeAndSetSpeciallyPreparedPage : ITestArrangement
+    public class EditProfileWidgetInBothModeAndSetSpeciallyPreparedPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

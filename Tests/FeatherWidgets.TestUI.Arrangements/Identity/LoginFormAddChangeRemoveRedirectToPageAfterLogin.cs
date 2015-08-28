@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// Arrangement methods for UI test LoginFormAddChangeRemoveRedirectToPageAfterLogin
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Login")]
-    public class LoginFormAddChangeRemoveRedirectToPageAfterLogin : ITestArrangement
+    public class LoginFormAddChangeRemoveRedirectToPageAfterLogin : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

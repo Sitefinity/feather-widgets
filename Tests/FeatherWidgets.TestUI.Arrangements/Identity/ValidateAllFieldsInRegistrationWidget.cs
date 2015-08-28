@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for ValidateAllFieldsInRegistrationWidget
     /// </summary>
-    public class ValidateAllFieldsInRegistrationWidget : ITestArrangement
+    public class ValidateAllFieldsInRegistrationWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

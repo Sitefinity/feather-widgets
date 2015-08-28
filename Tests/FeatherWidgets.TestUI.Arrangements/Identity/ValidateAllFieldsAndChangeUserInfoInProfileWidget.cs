@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for ValidateAllFieldsAndChangeUserInfoInProfileWidget
     /// </summary>
-    public class ValidateAllFieldsAndChangeUserInfoInProfileWidget : ITestArrangement
+    public class ValidateAllFieldsAndChangeUserInfoInProfileWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
