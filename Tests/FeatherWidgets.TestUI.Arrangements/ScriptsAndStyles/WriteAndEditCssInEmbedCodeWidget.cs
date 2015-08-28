@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// WriteAndEditCssInEmbedCodeWidget arrangement class.
     /// </summary>
-    public class WriteAndEditCssInEmbedCodeWidget : ITestArrangement
+    public class WriteAndEditCssInEmbedCodeWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

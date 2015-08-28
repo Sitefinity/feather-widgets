@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddCssWidgetToPageAndWriteAndRemoveCss arrangement class.
     /// </summary>
-    public class AddCssWidgetToPageAndWriteAndRemoveCss : ITestArrangement
+    public class AddCssWidgetToPageAndWriteAndRemoveCss : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

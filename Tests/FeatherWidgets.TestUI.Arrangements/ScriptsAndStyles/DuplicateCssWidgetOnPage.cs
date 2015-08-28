@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// DuplicateCssWidgetOnPage arrangement class.
     /// </summary>
-    public class DuplicateCssWidgetOnPage : ITestArrangement
+    public class DuplicateCssWidgetOnPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddJavaScriptWidgetToPageAndWriteAndRemoveCode arrangement class.
     /// </summary>
-    public class AddJavaScriptWidgetToPageAndWriteAndRemoveCode : ITestArrangement
+    public class AddJavaScriptWidgetToPageAndWriteAndRemoveCode : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

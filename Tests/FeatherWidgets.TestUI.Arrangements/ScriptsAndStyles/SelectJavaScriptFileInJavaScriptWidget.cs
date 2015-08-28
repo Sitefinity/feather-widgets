@@ -14,7 +14,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SelectCssFileInCssWidget arrangement class.
     /// </summary>
-    public class SelectJavaScriptFileInJavaScriptWidget : ITestArrangement
+    public class SelectJavaScriptFileInJavaScriptWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 

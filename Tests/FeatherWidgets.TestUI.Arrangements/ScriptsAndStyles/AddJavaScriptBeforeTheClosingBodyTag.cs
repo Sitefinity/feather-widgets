@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// AddJavaScriptBeforeTheClosingBodyTag arrangement class.
     /// </summary>
-    public class AddJavaScriptBeforeTheClosingBodyTag : ITestArrangement
+    public class AddJavaScriptBeforeTheClosingBodyTag : TestArrangementBase
     {
         /// <summary>
         /// Server side set up. 
