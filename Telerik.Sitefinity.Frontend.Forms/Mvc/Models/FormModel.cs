@@ -47,6 +47,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         {
             get
             {
+                if (string.IsNullOrEmpty(this.customConfirmationMessage))
+                {
+                    return Res.Get<FormResources>().SuccessfullySubmittedMessage;
+                }
+
                 return this.customConfirmationMessage;
             }
             set
@@ -215,7 +220,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
 
         #region Private fields
 
-        private string customConfirmationMessage = Res.Get<FormResources>().SuccessfullySubmittedMessage;
+        private string customConfirmationMessage;
 
         #endregion
     }

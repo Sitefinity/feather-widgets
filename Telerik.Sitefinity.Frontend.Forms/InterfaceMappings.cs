@@ -16,8 +16,10 @@ namespace Telerik.Sitefinity.Frontend.Forms
         /// </summary>
         public override void Load()
         {
-            Bind<IFormFieldModel>().To<FormFieldModel>();
+            Bind<IFormRenderer>().To<FormRazorRenderer>();
+
             Bind<IFormModel>().To<FormModel>();
+            Bind<IFormFieldModel>().To<FormFieldModel>();
             Bind<ITextFieldModel>().To<TextFieldModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
         }
