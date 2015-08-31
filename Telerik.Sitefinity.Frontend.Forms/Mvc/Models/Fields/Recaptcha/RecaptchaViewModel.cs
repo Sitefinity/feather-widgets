@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
 {
     /// <summary>
     /// This class represents view model for reCaptcha field.
     /// </summary>
-    public class RecaptchaFieldViewModel
+    public class RecaptchaViewModel
     {
         /// <summary>
         /// Gets or sets the  color theme of the widget.

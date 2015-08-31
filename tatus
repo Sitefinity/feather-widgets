@@ -1,0 +1,547 @@
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/InterfaceMappings.cs b/Telerik.Sitefinity.Frontend.Forms/InterfaceMappings.cs[m
+[1mindex 0e9df60..d874f81 100644[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/InterfaceMappings.cs[m
+[1m+++ b/Telerik.Sitefinity.Frontend.Forms/InterfaceMappings.cs[m
+[36m@@ -1,7 +1,7 @@[m
+ ﻿using Ninject.Modules;[m
+ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;[m
+ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;[m
+[31m-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;[m
+[32m+[m[32musing Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;[m
+ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;[m
+ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;[m
+ [m
+[36m@@ -22,7 +22,7 @@[m [mnamespace Telerik.Sitefinity.Frontend.Forms[m
+             Bind<IFormModel>().To<FormModel>();[m
+             Bind<IFormFieldModel>().To<FormFieldModel>();[m
+             Bind<ITextFieldModel>().To<TextFieldModel>();[m
+[31m-            Bind<IRecaptchaFieldModel>().To<RecaptchaFieldModel>();[m
+[32m+[m[32m            Bind<IRecaptchaModel>().To<RecaptchaModel>();[m
+             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();[m
+         }[m
+     }[m
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/Mvc/Controllers/RecaptchaController.cs b/Telerik.Sitefinity.Frontend.Forms/Mvc/Controllers/RecaptchaController.cs[m
+[1mindex ebdb7a9..a3d896f 100644[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/Mvc/Controllers/RecaptchaController.cs[m
+[1m+++ b/Telerik.Sitefinity.Frontend.Forms/Mvc/Controllers/RecaptchaController.cs[m
+[36m@@ -7,7 +7,7 @@[m [musing System.Threading.Tasks;[m
+ using System.Web.Mvc;[m
+ using Telerik.Sitefinity.Data.Metadata;[m
+ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;[m
+[31m-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;[m
+[32m+[m[32musing Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;[m
+ using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;[m
+ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;[m
+ using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;[m
+[36m@@ -24,20 +24,19 @@[m [mnamespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers[m
+     [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)][m
+     [DatabaseMapping(UserFriendlyDataType.YesNo)][m
+     [Localization(typeof(FieldResources))][m
+[31m-    public class RecaptchaController : FormFieldController[m
+[32m+[m[32m    public class RecaptchaController : Controller, IFormFieldController<IRecaptchaModel>[m
+     {[m
+[31m-        #region Properties[m
+[32m+[m[32m        #region Constructors[m
+ [m
+[31m-        /// <inheritDocs />[m
+[31m-        [Browsable(false)][m
+[31m-        public override IFormFieldModel FieldModel[m
+[32m+[m[32m        public RecaptchaController()[m
+         {[m
+[31m-            get[m
+[31m-            {[m
+[31m-                return this.Model;[m
+[31m-            }[m
+[32m+[m[32m            this.DisplayMode = FieldDisplayMode.Write;[m
+         }[m
+ [m
+[32m+[m[32m        #endregion[m
+[32m+[m
+[32m+[m[32m        #region Properties[m
+[32m+[m
+         /// <summary>[m
+         /// Gets the reCaptcha field model.[m
+         /// </summary>[m
+[36m@@ -45,13 +44,13 @@[m [mnamespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers[m
+         /// The model.[m
+         /// </value>[m
+         [TypeConverter(typeof(ExpandableObjectConverter))][m
+[31m-        public virtual IRecaptchaFieldModel Model[m
+[32m+[m[32m        public virtual IRecaptchaModel Model[m
+         {[m
+             get[m
+             {[m
+                 if (this.model == null)[m
+                 {[m
+[31m-                    this.model = ControllerModelFactory.GetModel<IRecaptchaFieldModel>(this.GetType());[m
+[32m+[m[32m                    this.model = ControllerModelFactory.GetModel<IRecaptchaModel>(this.GetType());[m
+                 }[m
+ [m
+                 return this.model;[m
+[36m@@ -60,45 +59,44 @@[m [mnamespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers[m
+ [m
+         /// <inheritDocs />[m
+         [Browsable(false)][m
+[31m-        public override IMetaField MetaField[m
+[32m+[m[32m        public virtual IMetaField MetaField[m
+         {[m
+             get[m
+             {[m
+[31m-                return base.MetaField;[m
+[32m+[m[32m                if (this.Model.MetaField == null)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    this.Model.MetaField = this.Model.GetMetaField(this);[m
+[32m+[m[32m                }[m
+[32m+[m
+[32m+[m[32m                return this.Model.MetaField;[m
+             }[m
+             set[m
+             {[m
+[31m-                base.MetaField = value;[m
+[32m+[m[32m                this.Model.MetaField = value;[m
+             }[m
+         }[m
+ [m
+         /// <inheritDocs />[m
+[31m-        public override FieldDisplayMode DisplayMode[m
+[32m+[m[32m        public virtual FieldDisplayMode DisplayMode[m
+         {[m
+[31m-            get[m
+[31m-            {[m
+[31m-                return base.DisplayMode;[m
+[31m-            }[m
+[31m-            set[m
+[31m-            {[m
+[31m-                base.DisplayMode = value;[m
+[31m-            }[m
+[32m+[m[32m            get;[m
+[32m+[m[32m            set;[m
+         }[m
+ [m
+         /// <summary>[m
+         /// Gets or sets the name of the template that will be displayed when field is in write view.[m
+         /// </summary>[m
+         /// <value></value>[m
+[31m-        public string WriteTemplateName[m
+[32m+[m[32m        public string TemplateName[m
+         {[m
+             get[m
+             {[m
+[31m-                return this.writeTemplateName;[m
+[32m+[m[32m                return this.templateName;[m
+             }[m
+ [m
+             set[m
+             {[m
+[31m-                this.writeTemplateName = value;[m
+[32m+[m[32m                this.templateName = value;[m
+             }[m
+         }[m
+ [m
+[36m@@ -107,45 +105,36 @@[m [mnamespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers[m
+         #region Actions[m
+ [m
+         /// <inheritDocs />[m
+[31m-        public override ActionResult Read(object value)[m
+[32m+[m[32m        public virtual ActionResult Index(object value)[m
+         {[m
+[31m-            return this.View();[m
+[31m-        }[m
+[31m-[m
+[31m-        /// <inheritDocs />[m
+[31m-        public override ActionResult Write(object value)[m
+[31m-        {[m
+[31m-            if (this.Model.ShouldRenderCaptcha())[m
+[32m+[m[32m            if (this.DisplayMode == FieldDisplayMode.Write && this.Model.ShouldRenderCaptcha())[m
+             {[m
+[31m-                var model = this.Model.GetViewModel(value, this.MetaField); [m
+[31m-                var fullTemplateName = RecaptchaController.WriteTemplateNamePrefix + this.WriteTemplateName;[m
+[32m+[m[32m                var viewPath = RecaptchaController.TemplateNamePrefix + this.TemplateName;[m
+[32m+[m[32m                var viewModel = this.Model.GetViewModel(value, this.MetaField);[m
+ [m
+[31m-                return this.View(fullTemplateName, model);[m
+[32m+[m[32m                return this.View(viewPath, viewModel);[m
+             }[m
+ [m
+[31m-            return this.View();[m
+[32m+[m[32m            return new EmptyResult();[m
+         }[m
+ [m
+         #endregion[m
+ [m
+         #region Public methods[m
+ [m
+[31m-        /// <summary>[m
+[31m-        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.[m
+[31m-        /// </summary>[m
+[31m-        /// <param name="actionName">The name of the attempted action.</param>[m
+[31m-        protected override void HandleUnknownAction(string actionName)[m
+[32m+[m[32m        /// <inheritDocs />[m
+[32m+[m[32m        public bool IsValid()[m
+         {[m
+[31m-            base.HandleUnknownAction(actionName);[m
+[32m+[m[32m            return this.Model.IsValid(this.Model.Value);[m
+         }[m
+ [m
+         #endregion[m
+ [m
+         #region Private fields and Constants[m
+ [m
+[31m-        private string writeTemplateName = "Default";[m
+[31m-        private const string WriteTemplateNamePrefix = "Write.";[m
+[31m-        private IRecaptchaFieldModel model;[m
+[32m+[m[32m        private string templateName = "Default";[m
+[32m+[m[32m        private const string TemplateNamePrefix = "Index.";[m
+[32m+[m[32m        private IRecaptchaModel model;[m
+ [m
+         #endregion[m
+     }[m
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/Mvc/Controllers/TextFieldController.cs b/Telerik.Sitefinity.Frontend.Forms/Mvc/Controllers/TextFieldController.cs[m
+[1mindex 88f52af..d325bc1 100644[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/Mvc/Controllers/TextFieldController.cs[m
+[1m+++ b/Telerik.Sitefinity.Frontend.Forms/Mvc/Controllers/TextFieldController.cs[m
+[36m@@ -25,7 +25,6 @@[m [mnamespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers[m
+         #region Constructors[m
+ [m
+         public TextFieldController()[m
+[31m-            :base()[m
+         {[m
+             this.DisplayMode = FieldDisplayMode.Write;[m
+         }[m
+[36m@@ -121,10 +120,10 @@[m [mnamespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers[m
+         {[m
+             if (value == null || !(value is string))[m
+                 value = this.MetaField.DefaultValue;[m
+[31m-            [m
+[31m-            string templateName;[m
+[32m+[m
+             var viewModel = this.Model.GetViewModel(value, this.MetaField);[m
+[31m-            [m
+[32m+[m
+[32m+[m[32m            string templateName;[m
+             if (this.DisplayMode == FieldDisplayMode.Read)[m
+                 templateName = TextFieldController.ReadTemplateNamePrefix + this.ReadTemplateName;[m
+             else[m
+[36m@@ -142,7 +141,7 @@[m [mnamespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers[m
+         {[m
+             return this.Model.IsValid(this.Model.Value);[m
+         }[m
+[31m-        [m
+[32m+[m
+         #endregion[m
+ [m
+         #region Private fields and Constants[m
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/IRecaptchaFieldModel.cs b/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/IRecaptchaFieldModel.cs[m
+[1mdeleted file mode 100644[m
+[1mindex 77835bb..0000000[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/IRecaptchaFieldModel.cs[m
+[1m+++ /dev/null[m
+[36m@@ -1,69 +0,0 @@[m
+[31m-﻿using System;[m
+[31m-using System.Collections.Generic;[m
+[31m-using System.ComponentModel;[m
+[31m-using System.Linq;[m
+[31m-using System.Text;[m
+[31m-using System.Threading.Tasks;[m
+[31m-using Telerik.Sitefinity.Metadata.Model;[m
+[31m-[m
+[31m-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField[m
+[31m-{[m
+[31m-    /// <summary>[m
+[31m-    /// This interface provides API for form reCaptcha field.[m
+[31m-    /// </summary>[m
+[31m-    public interface IRecaptchaFieldModel: IFormFieldModel[m
+[31m-    {[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets the  color theme of the widget.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// The theme.[m
+[31m-        /// </value>[m
+[31m-        string Theme { get; set; }[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets the type of CAPTCHA to serve.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// The type of the media.[m
+[31m-        /// </value>[m
+[31m-        string DataType { get; set; }[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets the size of the widget.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// The size.[m
+[31m-        /// </value>[m
+[31m-        string Size { get; set; }[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets a value indicating whether to display only for unauthenticated users.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// <c>true</c> if will be visible only for unauthenticated users; otherwise, <c>false</c>.[m
+[31m-        /// </value>[m
+[31m-        bool DisplayOnlyForUnauthenticatedUsers { get; set; }[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets the meta field.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// The meta field.[m
+[31m-        /// </value>[m
+[31m-        [TypeConverter(typeof(ExpandableObjectConverter))][m
+[31m-        IMetaField MetaField { get; set; }[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Gets the view model.[m
+[31m-        /// </summary>[m
+[31m-        /// <returns></returns>[m
+[31m-        RecaptchaFieldViewModel GetViewModel(object value, IMetaField metaField);[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Should the render captcha.[m
+[31m-        /// </summary>[m
+[31m-        /// <returns></returns>[m
+[31m-        bool ShouldRenderCaptcha();[m
+[31m-    }[m
+[31m-}[m
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/RecaptchaFieldModel.cs b/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/RecaptchaFieldModel.cs[m
+[1mdeleted file mode 100644[m
+[1mindex 95dda6a..0000000[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/RecaptchaFieldModel.cs[m
+[1m+++ /dev/null[m
+[36m@@ -1,111 +0,0 @@[m
+[31m-﻿using System;[m
+[31m-using System.Collections.Generic;[m
+[31m-using System.Linq;[m
+[31m-using System.Text;[m
+[31m-using System.Threading.Tasks;[m
+[31m-using Telerik.Sitefinity.Metadata.Model;[m
+[31m-using Telerik.Sitefinity.Services;[m
+[31m-[m
+[31m-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField[m
+[31m-{[m
+[31m-    /// <summary>[m
+[31m-    /// Implements API for working with form reCaptcha fields.[m
+[31m-    /// </summary>[m
+[31m-    public class RecaptchaFieldModel : FormFieldModel, IRecaptchaFieldModel[m
+[31m-    {[m
+[31m-        /// <inheritDocs/>[m
+[31m-        public string Theme[m
+[31m-        {[m
+[31m-            get[m
+[31m-            {[m
+[31m-                return this.theme;[m
+[31m-            }[m
+[31m-            set[m
+[31m-            {[m
+[31m-                this.theme = value;[m
+[31m-            }[m
+[31m-        }[m
+[31m-[m
+[31m-        /// <inheritDocs/>[m
+[31m-        public string DataType[m
+[31m-        {[m
+[31m-            get[m
+[31m-            {[m
+[31m-                return this.dataType;[m
+[31m-            }[m
+[31m-            set[m
+[31m-            {[m
+[31m-                this.dataType = value;[m
+[31m-            }[m
+[31m-        }[m
+[31m-[m
+[31m-        /// <inheritDocs/>[m
+[31m-        public string Size[m
+[31m-        {[m
+[31m-            get[m
+[31m-            {[m
+[31m-                return this.size;[m
+[31m-            }[m
+[31m-            set[m
+[31m-            {[m
+[31m-                this.size = value;[m
+[31m-            }[m
+[31m-        }[m
+[31m-[m
+[31m-        /// <inheritDocs/>[m
+[31m-        public string DataSitekey[m
+[31m-        {[m
+[31m-            get[m
+[31m-            {[m
+[31m-                return this.dataSitekey;[m
+[31m-            }[m
+[31m-            set[m
+[31m-            {[m
+[31m-                this.dataSitekey = value;[m
+[31m-            }[m
+[31m-        }[m
+[31m-[m
+[31m-        /// <inheritDocs/>[m
+[31m-        public bool DisplayOnlyForUnauthenticatedUsers[m
+[31m-        {[m
+[31m-            get;[m
+[31m-            set;[m
+[31m-        }[m
+[31m-[m
+[31m-        /// <inheritDocs/>[m
+[31m-        public RecaptchaFieldViewModel GetViewModel(object value, IMetaField metaField)[m
+[31m-        {[m
+[31m-            var viewModel = new RecaptchaFieldViewModel()[m
+[31m-            {[m
+[31m-                 DataType = this.DataType,[m
+[31m-                 Size = this.Size,[m
+[31m-                 Theme = this.Theme,[m
+[31m-                 DataSitekey = this.DataSitekey,[m
+[31m-[m
+[31m-            };[m
+[31m-[m
+[31m-            return viewModel;[m
+[31m-        }[m
+[31m-[m
+[31m-        /// <inheritDocs/>[m
+[31m-        public bool ShouldRenderCaptcha()[m
+[31m-        {[m
+[31m-            var isVisible = true;[m
+[31m-[m
+[31m-            if (SystemManager.CurrentHttpContext.User != null &&[m
+[31m-                    SystemManager.CurrentHttpContext.User.Identity != null &&[m
+[31m-                    SystemManager.CurrentHttpContext.User.Identity.IsAuthenticated &&[m
+[31m-                    this.DisplayOnlyForUnauthenticatedUsers)[m
+[31m-            {[m
+[31m-                isVisible = false;[m
+[31m-            }[m
+[31m-[m
+[31m-            return isVisible;[m
+[31m-        }[m
+[31m-[m
+[31m-        private string size = "normal";[m
+[31m-        private string dataType = "image";[m
+[31m-        private string theme = "light";[m
+[31m-        private string dataSitekey = "6Ldj-gsTAAAAAJ3yIz0mOEVoLIl4FLbGZr7e-sc_";[m
+[31m-    }[m
+[31m-}[m
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/RecaptchaFieldViewModel.cs b/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/RecaptchaFieldViewModel.cs[m
+[1mdeleted file mode 100644[m
+[1mindex b405cdf..0000000[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/Mvc/Models/Fields/RecaptchaField/RecaptchaFieldViewModel.cs[m
+[1m+++ /dev/null[m
+[36m@@ -1,45 +0,0 @@[m
+[31m-﻿using System;[m
+[31m-using System.Collections.Generic;[m
+[31m-using System.Linq;[m
+[31m-using System.Text;[m
+[31m-[m
+[31m-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField[m
+[31m-{[m
+[31m-    /// <summary>[m
+[31m-    /// This class represents view model for reCaptcha field.[m
+[31m-    /// </summary>[m
+[31m-    public class RecaptchaFieldViewModel[m
+[31m-    {[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets the  color theme of the widget.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// The theme.[m
+[31m-        /// </value>[m
+[31m-        public string Theme { get; set; }[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets the type of CAPTCHA to serve.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// The type of the media.[m
+[31m-        /// </value>[m
+[31m-        public string DataType { get; set; }[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets the size of the widget.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// The size.[m
+[31m-        /// </value>[m
+[31m-        public string Size { get; set; }[m
+[31m-[m
+[31m-        /// <summary>[m
+[31m-        /// Gets or sets the data sitekey.[m
+[31m-        /// </summary>[m
+[31m-        /// <value>[m
+[31m-        /// The data sitekey.[m
+[31m-        /// </value>[m
+[31m-        public string DataSitekey { get; set; }[m
+[31m-    }[m
+[31m-}[m
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/Mvc/Views/Recaptcha/DesignerView.Simple.cshtml b/Telerik.Sitefinity.Frontend.Forms/Mvc/Views/Recaptcha/DesignerView.Simple.cshtml[m
+[1mindex 04d11b3..f1c2014 100644[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/Mvc/Views/Recaptcha/DesignerView.Simple.cshtml[m
+[1m+++ b/Telerik.Sitefinity.Frontend.Forms/Mvc/Views/Recaptcha/DesignerView.Simple.cshtml[m
+[36m@@ -64,8 +64,8 @@[m
+ [m
+         <div class="row">[m
+             <div class="col-xs-6">[m
+[31m-                <select id="captchaTemplateName" ng-model="properties.WriteTemplateName.PropertyValue" class="form-control">[m
+[31m-                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Write\.(?<viewName>[\w\s]*)$"))[m
+[32m+[m[32m                <select id="captchaTemplateName" ng-model="properties.TemplateName.PropertyValue" class="form-control">[m
+[32m+[m[32m                    @foreach (var viewName in Html.GetViewNames(((Telerik.Sitefinity.Mvc.Proxy.MvcProxyBase)Model).GetController(), @"^Index\.(?<viewName>[\w\s]*)$"))[m
+                     {[m
+                         <option value="@viewName">@viewName</option>[m
+                     }[m
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/Mvc/Views/Recaptcha/Write.Default.cshtml b/Telerik.Sitefinity.Frontend.Forms/Mvc/Views/Recaptcha/Write.Default.cshtml[m
+[1mdeleted file mode 100644[m
+[1mindex fa80753..0000000[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/Mvc/Views/Recaptcha/Write.Default.cshtml[m
+[1m+++ /dev/null[m
+[36m@@ -1,13 +0,0 @@[m
+[31m-﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField.RecaptchaFieldViewModel[m
+[31m-[m
+[31m-<script src="https://www.google.com/recaptcha/api.js" async defer></script>[m
+[31m-[m
+[31m-<div class="g-recaptcha" data-sitekey="@Model.DataSitekey" data-size="@Model.Size" data-type="@Model.DataType" data-theme="@Model.Theme"></div>[m
+[31m-[m
+[31m-<script>[m
+[31m-    (function ($) {[m
+[31m-        $(function () {[m
+[31m-            console.log('loaded');[m
+[31m-        });[m
+[31m-    }(jQuery));[m
+[31m-</script>[m
+\ No newline at end of file[m
+[1mdiff --git a/Telerik.Sitefinity.Frontend.Forms/Telerik.Sitefinity.Frontend.Forms.csproj b/Telerik.Sitefinity.Frontend.Forms/Telerik.Sitefinity.Frontend.Forms.csproj[m
+[1mindex f237522..d71a06d 100644[m
+[1m--- a/Telerik.Sitefinity.Frontend.Forms/Telerik.Sitefinity.Frontend.Forms.csproj[m
+[1m+++ b/Telerik.Sitefinity.Frontend.Forms/Telerik.Sitefinity.Frontend.Forms.csproj[m
+[36m@@ -156,9 +156,9 @@[m
+     <Compile Include="Mvc\Models\Fields\IFormFieldModel.cs" />[m
+     <Compile Include="Mvc\Models\Fields\FormFieldModel.cs" />[m
+     <Compile Include="Mvc\Models\CustomConfirmationMode.cs" />[m
+[31m-    <Compile Include="Mvc\Models\Fields\RecaptchaField\IRecaptchaFieldModel.cs" />[m
+[31m-    <Compile Include="Mvc\Models\Fields\RecaptchaField\RecaptchaFieldModel.cs" />[m
+[31m-    <Compile Include="Mvc\Models\Fields\RecaptchaField\RecaptchaFieldViewModel.cs" />[m
+[32m+[m[32m    <Compile Include="Mvc\Models\Fields\Recaptcha\IRecaptchaModel.cs" />[m
+[32m+[m[32m    <Compile Include="Mvc\Models\Fields\Recaptcha\RecaptchaModel.cs" />[m
+[32m+[m[32m    <Compile Include="Mvc\Models\Fields\Recaptcha\RecaptchaViewModel.cs" />[m
+     <Compile Include="Mvc\Models\Fields\SubmitButton\ISubmitButtonModel.cs" />[m
+     <Compile Include="Mvc\Models\Fields\SubmitButton\SubmitButtonViewModel.cs" />[m
+     <Compile Include="Mvc\Models\Fields\TextField\TextFieldViewModel.cs" />[m
+[36m@@ -185,7 +185,7 @@[m
+     <EmbeddedResource Include="Mvc\Views\TextField\Read.Default.cshtml" />[m
+     <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.cshtml" />[m
+     <EmbeddedResource Include="Mvc\Views\SubmitButton\DesignerView.Simple.json" />[m
+[31m-    <EmbeddedResource Include="Mvc\Views\Recaptcha\Write.Default.cshtml" />[m
+[32m+[m[32m    <EmbeddedResource Include="Mvc\Views\Recaptcha\Index.Default.cshtml" />[m
+     <EmbeddedResource Include="Mvc\Views\Recaptcha\DesignerView.Simple.cshtml" />[m
+     <EmbeddedResource Include="Mvc\Views\Recaptcha\DesignerView.Simple.json" />[m
+     <None Include="packages.config" />[m
+[36m@@ -206,6 +206,9 @@[m
+   <ItemGroup>[m
+     <EmbeddedResource Include="Mvc\Scripts\Recaptcha\designerview-simple.js" />[m
+   </ItemGroup>[m
+[32m+[m[32m  <ItemGroup>[m
+[32m+[m[32m    <EmbeddedResource Include="Mvc\Scripts\Recaptcha\recaptcha.js" />[m
+[32m+[m[32m  </ItemGroup>[m
+   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />[m
+   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />[m
+   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">[m

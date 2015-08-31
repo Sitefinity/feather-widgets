@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -24,19 +24,18 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [DatabaseMapping(UserFriendlyDataType.YesNo)]
     [Localization(typeof(FieldResources))]
-    public class RecaptchaController : FormFieldController
+    public class RecaptchaController : Controller, IFormFieldController<IRecaptchaModel>
     {
-        #region Properties
+        #region Constructors
 
-        /// <inheritDocs />
-        [Browsable(false)]
-        public override IFormFieldModel FieldModel
+        public RecaptchaController()
         {
-            get
-            {
-                return this.Model;
-            }
+            this.DisplayMode = FieldDisplayMode.Write;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets the reCaptcha field model.
@@ -45,13 +44,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public virtual IRecaptchaFieldModel Model
+        public virtual IRecaptchaModel Model
         {
             get
             {
                 if (this.model == null)
                 {
-                    this.model = ControllerModelFactory.GetModel<IRecaptchaFieldModel>(this.GetType());
+                    this.model = ControllerModelFactory.GetModel<IRecaptchaModel>(this.GetType());
                 }
 
                 return this.model;
@@ -60,45 +59,44 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         /// <inheritDocs />
         [Browsable(false)]
-        public override IMetaField MetaField
+        public virtual IMetaField MetaField
         {
             get
             {
-                return base.MetaField;
+                if (this.Model.MetaField == null)
+                {
+                    this.Model.MetaField = this.Model.GetMetaField(this);
+                }
+
+                return this.Model.MetaField;
             }
             set
             {
-                base.MetaField = value;
+                this.Model.MetaField = value;
             }
         }
 
         /// <inheritDocs />
-        public override FieldDisplayMode DisplayMode
+        public virtual FieldDisplayMode DisplayMode
         {
-            get
-            {
-                return base.DisplayMode;
-            }
-            set
-            {
-                base.DisplayMode = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
         /// Gets or sets the name of the template that will be displayed when field is in write view.
         /// </summary>
         /// <value></value>
-        public string WriteTemplateName
+        public string TemplateName
         {
             get
             {
-                return this.writeTemplateName;
+                return this.templateName;
             }
 
             set
             {
-                this.writeTemplateName = value;
+                this.templateName = value;
             }
         }
 
@@ -107,45 +105,36 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         #region Actions
 
         /// <inheritDocs />
-        public override ActionResult Read(object value)
+        public virtual ActionResult Index(object value)
         {
-            return this.View();
-        }
-
-        /// <inheritDocs />
-        public override ActionResult Write(object value)
-        {
-            if (this.Model.ShouldRenderCaptcha())
+            if (this.DisplayMode == FieldDisplayMode.Write && this.Model.ShouldRenderCaptcha())
             {
-                var model = this.Model.GetViewModel(value, this.MetaField); 
-                var fullTemplateName = RecaptchaController.WriteTemplateNamePrefix + this.WriteTemplateName;
+                var viewPath = RecaptchaController.TemplateNamePrefix + this.TemplateName;
+                var viewModel = this.Model.GetViewModel(value, this.MetaField);
 
-                return this.View(fullTemplateName, model);
+                return this.View(viewPath, viewModel);
             }
 
-            return this.View();
+            return new EmptyResult();
         }
 
         #endregion
 
         #region Public methods
 
-        /// <summary>
-        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
-        /// </summary>
-        /// <param name="actionName">The name of the attempted action.</param>
-        protected override void HandleUnknownAction(string actionName)
+        /// <inheritDocs />
+        public bool IsValid()
         {
-            base.HandleUnknownAction(actionName);
+            return this.Model.IsValid(this.Model.Value);
         }
 
         #endregion
 
         #region Private fields and Constants
 
-        private string writeTemplateName = "Default";
-        private const string WriteTemplateNamePrefix = "Write.";
-        private IRecaptchaFieldModel model;
+        private string templateName = "Default";
+        private const string TemplateNamePrefix = "Index.";
+        private IRecaptchaModel model;
 
         #endregion
     }

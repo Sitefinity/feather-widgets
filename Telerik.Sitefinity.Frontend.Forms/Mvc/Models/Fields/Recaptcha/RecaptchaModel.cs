@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Services;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
 {
     /// <summary>
     /// Implements API for working with form reCaptcha fields.
     /// </summary>
-    public class RecaptchaFieldModel : FormFieldModel, IRecaptchaFieldModel
+    public class RecaptchaModel : FormFieldModel, IRecaptchaModel
     {
         /// <inheritDocs/>
         public string Theme
@@ -73,15 +73,14 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         }
 
         /// <inheritDocs/>
-        public RecaptchaFieldViewModel GetViewModel(object value, IMetaField metaField)
+        public RecaptchaViewModel GetViewModel(object value, IMetaField metaField)
         {
-            var viewModel = new RecaptchaFieldViewModel()
+            var viewModel = new RecaptchaViewModel()
             {
                  DataType = this.DataType,
                  Size = this.Size,
                  Theme = this.Theme,
-                 DataSitekey = this.DataSitekey,
-
+                 DataSitekey = this.DataSitekey
             };
 
             return viewModel;
@@ -101,6 +100,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
             }
 
             return isVisible;
+        }
+
+        public override bool IsValid(object value)
+        {
+            // TODO:
+            return true;
         }
 
         private string size = "normal";

@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.Metadata.Model;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
 {
     /// <summary>
     /// This interface provides API for form reCaptcha field.
     /// </summary>
-    public interface IRecaptchaFieldModel: IFormFieldModel
+    public interface IRecaptchaModel: IFormFieldModel
     {
         /// <summary>
         /// Gets or sets the  color theme of the widget.
@@ -58,7 +58,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         /// Gets the view model.
         /// </summary>
         /// <returns></returns>
-        RecaptchaFieldViewModel GetViewModel(object value, IMetaField metaField);
+        RecaptchaViewModel GetViewModel(object value, IMetaField metaField);
 
         /// <summary>
         /// Should the render captcha.
