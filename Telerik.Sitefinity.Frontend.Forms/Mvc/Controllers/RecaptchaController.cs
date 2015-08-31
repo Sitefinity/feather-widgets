@@ -115,18 +115,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <inheritDocs />
         public override ActionResult Write(object value)
         {
-            if (!this.Model.ShouldRenderCaptcha())
+            if (this.Model.ShouldRenderCaptcha())
             {
-                return this.View();
+                var model = this.Model.GetViewModel(value, this.MetaField); 
+                var fullTemplateName = RecaptchaController.WriteTemplateNamePrefix + this.WriteTemplateName;
+
+                return this.View(fullTemplateName, model);
             }
 
-            if (value == null || !(value is string))
-                value = this.MetaField.DefaultValue;
-
-            var model = this.Model.GetViewModel(value, this.MetaField);
-            var fullTemplateName = RecaptchaController.WriteTemplateNamePrefix + this.WriteTemplateName;
-
-            return this.View(fullTemplateName, model);
+            return this.View();
         }
 
         #endregion

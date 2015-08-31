@@ -74,3 +74,15 @@
         </div>
     </div>
 </expander>
+
+<script>
+    (function ($) {
+        var updatePreview = function () {
+            $('#preview-holder');
+        };
+
+        $(function () {
+            $('#captchaTemplateName').change(updatePreview);
+        });
+    }(jQuery));
+</script>

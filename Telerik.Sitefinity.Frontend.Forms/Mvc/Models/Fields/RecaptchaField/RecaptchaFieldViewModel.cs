@@ -35,11 +35,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         public string Size { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to display only for unauthenticated users.
+        /// Gets or sets the data sitekey.
         /// </summary>
         /// <value>
-        /// <c>true</c> if will be visible only for unauthenticated users; otherwise, <c>false</c>.
+        /// The data sitekey.
         /// </value>
-        public bool DisplayOnlyForUnauthenticatedUsers { get; set; }
+        public string DataSitekey { get; set; }
     }
 }

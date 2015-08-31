@@ -53,6 +53,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         }
 
         /// <inheritDocs/>
+        public string DataSitekey
+        {
+            get
+            {
+                return this.dataSitekey;
+            }
+            set
+            {
+                this.dataSitekey = value;
+            }
+        }
+
+        /// <inheritDocs/>
         public bool DisplayOnlyForUnauthenticatedUsers
         {
             get;
@@ -67,7 +80,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
                  DataType = this.DataType,
                  Size = this.Size,
                  Theme = this.Theme,
-                 DisplayOnlyForUnauthenticatedUsers = this.DisplayOnlyForUnauthenticatedUsers
+                 DataSitekey = this.DataSitekey,
+
             };
 
             return viewModel;
@@ -92,5 +106,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
         private string size = "normal";
         private string dataType = "image";
         private string theme = "light";
+        private string dataSitekey = "6Ldj-gsTAAAAAJ3yIz0mOEVoLIl4FLbGZr7e-sc_";
     }
 }

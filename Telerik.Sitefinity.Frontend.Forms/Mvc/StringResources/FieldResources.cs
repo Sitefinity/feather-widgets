@@ -625,6 +625,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets word : Preview.
+        /// </summary>
+        [ResourceEntry("Preview",
+            Value = "Preview",
+            Description = "word : Preview",
+            LastModified = "2015/08/31")]
+        public string Preview
+        {
+            get
+            {
+                return this["Preview"];
+            }
+        }
+
         #endregion
     }
 }
