@@ -22,6 +22,16 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [Localization(typeof(FieldResources))]
     public class TextFieldController : Controller, IFormFieldController<ITextFieldModel>
     {
+        #region Constructors
+
+        public TextFieldController()
+            :base()
+        {
+            this.DisplayMode = FieldDisplayMode.Write;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -115,10 +125,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             string templateName;
             var viewModel = this.Model.GetViewModel(value, this.MetaField);
             
-            if (this.DisplayMode == FieldDisplayMode.Write)
-                templateName = TextFieldController.WriteTemplateNamePrefix + this.WriteTemplateName;
-            else
+            if (this.DisplayMode == FieldDisplayMode.Read)
                 templateName = TextFieldController.ReadTemplateNamePrefix + this.ReadTemplateName;
+            else
+                templateName = TextFieldController.WriteTemplateNamePrefix + this.WriteTemplateName;
 
             return this.View(templateName, viewModel);
         }
