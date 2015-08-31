@@ -105,10 +105,28 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <param name="imageType">Type of the image.</param>
         /// <param name="baseUrl">The base URL.</param>
         /// <returns></returns>
-        public string GetMediaSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl, string contentType = "images")
+        public string GetMediaSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl, string contentType = "images", string providerUrl = "default-source", string culture = null)
         {
-            string providerUrl = "default-source";
+            if (isBaseUrlIncluded)
+            {
+                return baseUrl + culture + "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+            }
+            else
+            {
+                return "/" + culture + "/" +contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+            }
+        }
 
+        /// <summary>
+        /// Gets the download source.
+        /// </summary>
+        /// <param name="isBaseUrlIncluded">The is base URL included.</param>
+        /// <param name="libraryUrl">The library URL.</param>
+        /// <param name="imageType">Type of the image.</param>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <returns></returns>
+        public string GetDownloadButtonSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl, string contentType = "images", string providerUrl = "default-source")
+        {
             if (isBaseUrlIncluded)
             {
                 return baseUrl + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
