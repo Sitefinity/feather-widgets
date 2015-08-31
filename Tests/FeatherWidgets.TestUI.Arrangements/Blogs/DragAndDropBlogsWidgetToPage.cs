@@ -50,7 +50,7 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string DefaultPageTitle = "BlogsDefaultPage";
         private const string PlaceHolderId = "Contentplaceholder1";
         private const string TemplateTitle = "Bootstrap.default";
-        private const string BlogTitle = "TestBlog";
-        private const string PostTitle = "post1";
+        private const string BlogTitle = "TestBlog2";
+        private const string PostTitle = "post2";
     }
 }
