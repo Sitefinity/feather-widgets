@@ -4,7 +4,9 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
@@ -13,8 +15,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "Submit Button", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [Localization(typeof(FieldResources))]
-    public class SubmitButtonController : Controller
+    public class SubmitButtonController : Controller, IFormFieldController<ISubmitButtonModel>
     {
+        #region Constructors
+
+        public SubmitButtonController()
+        {
+            this.DisplayMode = FieldDisplayMode.Write;
+        }
+
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets the Form widget model.
         /// </summary>
@@ -24,9 +37,28 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             get
             {
                 if (this.model == null)
-                    this.model = this.InitializeModel();
+                    this.model = ControllerModelFactory.GetModel<ISubmitButtonModel>(this.GetType());
 
                 return this.model;
+            }
+        }
+
+        /// <inheritDocs />
+        [Browsable(false)]
+        public virtual IMetaField MetaField
+        {
+            get
+            {
+                if (this.Model.MetaField == null)
+                {
+                    this.Model.MetaField = this.Model.GetMetaField(this);
+                }
+
+                return this.Model.MetaField;
+            }
+            set
+            {
+                this.Model.MetaField = value;
             }
         }
 
@@ -46,27 +78,43 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
+        /// <inheritDocs />
+        public virtual FieldDisplayMode DisplayMode
+        {
+            get;
+            set;
+        }
+
+        #endregion
+
+        #region Actions
+
         /// <summary>
         /// Provides the default view of this field
         /// </summary>
-        public ActionResult Index()
+        public virtual ActionResult Index(object value = null)
         {
-            var viewPath = SubmitButtonController.TemplateNamePrefix + this.TemplateName;
-            var viewModel = this.Model.GetViewModel();
+            if (this.DisplayMode == FieldDisplayMode.Write)
+            {
+                var viewPath = SubmitButtonController.TemplateNamePrefix + this.TemplateName;
+                var viewModel = this.Model.GetViewModel();
 
-            return this.View(viewPath, viewModel);
+                return this.View(viewPath, viewModel);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
         }
 
-        protected override void HandleUnknownAction(string actionName)
-        {
-            this.Index().ExecuteResult(this.ControllerContext);
-        }
+        #endregion
 
-        #region Private methods
+        #region IValidatable
 
-        private ISubmitButtonModel InitializeModel()
+        /// <inheritDocs />
+        public bool IsValid()
         {
-            return ControllerModelFactory.GetModel<ISubmitButtonModel>(this.GetType());
+            return true;
         }
 
         #endregion

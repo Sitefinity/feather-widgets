@@ -120,7 +120,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #endregion
 
-        #region Public methods
+        #region IValidatable
 
         /// <inheritDocs />
         public bool IsValid()

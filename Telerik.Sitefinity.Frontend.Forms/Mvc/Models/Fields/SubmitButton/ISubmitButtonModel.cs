@@ -3,7 +3,7 @@
     /// <summary>
     /// This interface provides API for form submit button.
     /// </summary>
-    public interface ISubmitButtonModel
+    public interface ISubmitButtonModel : IFormFieldModel
     {
         /// <summary>
         /// Gets or sets the label.
