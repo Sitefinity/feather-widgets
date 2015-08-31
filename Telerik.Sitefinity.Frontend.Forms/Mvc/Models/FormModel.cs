@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Models;
@@ -195,15 +196,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
                 else
                     controlType = TypeResolutionService.ResolveType(behaviorResolver.GetBehaviorObjectType(control), true);
 
-                if (!typeof(IFormFieldController).IsAssignableFrom(controlType))
+                if (!typeof(IFormFieldController<IFormFieldModel>).IsAssignableFrom(controlType))
                     continue;
 
                 var controlInstance = manager.LoadControl(control);
-                var fieldControl = (IFormFieldController)behaviorResolver.GetBehaviorObject(controlInstance);
+                var fieldControl = (IFormFieldController<IFormFieldModel>)behaviorResolver.GetBehaviorObject(controlInstance);
 
                 var fieldValue = collection[fieldControl.MetaField.FieldName];
 
-                if (!fieldControl.FieldModel.IsValid(fieldValue))
+                if (!fieldControl.Model.IsValid(fieldValue))
                     return false;
             }
 

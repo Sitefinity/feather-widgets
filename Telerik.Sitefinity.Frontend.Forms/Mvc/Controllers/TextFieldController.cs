@@ -20,19 +20,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "MvcTextField", Title = "Text box", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [DatabaseMapping(UserFriendlyDataType.ShortText)]
     [Localization(typeof(FieldResources))]
-    public class TextFieldController : Controller, IFormFieldController
+    public class TextFieldController : Controller, IFormFieldController<ITextFieldModel>
     {
         #region Properties
-
-        /// <inheritDocs />
-        [Browsable(false)]
-        public virtual IFormFieldModel FieldModel
-        {
-            get
-            {
-                return this.Model;
-            }
-        }
 
         /// <summary>
         /// Gets the text field model.
@@ -46,9 +36,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             get
             {
                 if (this.model == null)
-                {
                     this.model = ControllerModelFactory.GetModel<ITextFieldModel>(this.GetType());
-                }
 
                 return this.model;
             }
@@ -58,8 +46,20 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         [Browsable(false)]
         public virtual IMetaField MetaField
         {
-            get;
-            set;
+            get
+            {
+                if (this.Model.MetaField == null)
+                {
+                    this.Model.MetaField = this.Model.GetMetaField(this);
+                }
+
+                return this.Model.MetaField;
+            }
+
+            set
+            {
+                this.Model.MetaField = value;
+            }
         }
 
         /// <inheritDocs />
@@ -107,57 +107,32 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #region Actions
 
-        /// <inheritDocs />
-        public virtual ActionResult Read(object value)
+        public virtual ActionResult Index(object value = null)
         {
             if (value == null || !(value is string))
                 value = this.MetaField.DefaultValue;
+            
+            string templateName;
+            var viewModel = this.Model.GetViewModel(value, this.MetaField);
+            
+            if (this.DisplayMode == FieldDisplayMode.Write)
+                templateName = TextFieldController.WriteTemplateNamePrefix + this.WriteTemplateName;
+            else
+                templateName = TextFieldController.ReadTemplateNamePrefix + this.ReadTemplateName;
 
-
-            var model = this.Model.GetViewModel(value, this.MetaField);
-            var fullTemplateName = TextFieldController.ReadTemplateNamePrefix + this.ReadTemplateName;
-
-            return this.View(fullTemplateName, model);
+            return this.View(templateName, viewModel);
         }
-
-        /// <inheritDocs />
-        public virtual ActionResult Write(object value)
-        {
-            if (value == null || !(value is string))
-                value = this.MetaField.DefaultValue;
-
-            var model = this.Model.GetViewModel(value, this.MetaField);
-            var fullTemplateName = TextFieldController.WriteTemplateNamePrefix + this.WriteTemplateName;
-
-            return this.View(fullTemplateName, model);
-        }
-
+        
         #endregion
 
-        #region Public and protected methods
+        #region Public methods
 
         /// <inheritDocs />
         public bool IsValid()
         {
-            return this.FieldModel.IsValid(this.FieldModel.Value);
+            return this.Model.IsValid(this.Model.Value);
         }
-
-        /// <summary>
-        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
-        /// </summary>
-        /// <param name="actionName">The name of the attempted action.</param>
-        protected override void HandleUnknownAction(string actionName)
-        {
-            if (this.DisplayMode == FieldDisplayMode.Read)
-            {
-                this.Read(null).ExecuteResult(this.ControllerContext);
-            }
-            else if (this.DisplayMode == FieldDisplayMode.Write)
-            {
-                this.Write(null).ExecuteResult(this.ControllerContext);
-            }
-        }
-
+        
         #endregion
 
         #region Private fields and Constants

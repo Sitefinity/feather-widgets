@@ -9,7 +9,8 @@ namespace Telerik.Sitefinity.Frontend.Forms
     /// <summary>
     /// This interface defines API for working with forms field's controllers.
     /// </summary>
-    public interface IFormFieldController : IFormFieldControl, IHasFieldDisplayMode
+    public interface IFormFieldController<T> : IFormFieldControl, IHasFieldDisplayMode 
+        where T : IFormFieldModel
     {
         /// <summary>
         /// Gets the form field model.
@@ -18,20 +19,12 @@ namespace Telerik.Sitefinity.Frontend.Forms
         /// The model.
         /// </value>
         [Browsable(false)]
-        IFormFieldModel FieldModel { get; }
+        T Model { get; }
 
         /// <summary>
-        /// Provides view for Read mode of the forms field
+        /// Provides the view depending on the current <see cref="FieldDisplayMode"/> of the field.
         /// </summary>
-        /// <param name="value">The value of the forms field.</param>
-        /// <returns></returns>
-        ActionResult Read(object value);
-
-        /// <summary>
-        /// Provides view for Write mode of the forms field
-        /// </summary>
-        /// <param name="value">The value of the forms field.</param>
-        /// <returns></returns>
-        ActionResult Write(object value);
+        /// <returns>The value of the forms field.</returns>
+        ActionResult Index(object value = null);
     }
 }
