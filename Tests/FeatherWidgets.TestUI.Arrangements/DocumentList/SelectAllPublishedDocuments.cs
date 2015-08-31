@@ -27,7 +27,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid templateId = Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Templates().GetTemplateIdByTitle(PageTemplateName);
            Telerik.Sitefinity.TestUtilities.CommonOperations.ServerOperations.Pages().CreatePage(PageName, templateId);
 
-            ServerOperations.Documents().CreateDocumentLibrary(LibraryTitle);
+           string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+           ServerSideUpload.CreateDocumentLibrary(LibraryTitle, null, urlName);
+
             ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 1, DocumentResource1);
             ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 2, DocumentResource2);
             ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 3, DocumentResource3);

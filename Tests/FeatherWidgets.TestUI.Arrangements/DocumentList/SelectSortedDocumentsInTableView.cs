@@ -29,8 +29,9 @@ namespace FeatherWidgets.TestUI.Arrangements
             pageId = ServerOperations.Pages().GetPageNodeId(pageId);
             ServerOperationsFeather.Pages().AddDocumentsListWidgetToPage(pageId, "Contentplaceholder1");
 
-            ServerSideUpload.CreateDocumentLibrary(LibraryTitle);
-            ServerSideUpload.CreateDocumentLibrary(AnotherDocumentLibraryTitle);
+            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
+            ServerSideUpload.CreateDocumentLibrary(LibraryTitle, null, urlName);
+            ServerSideUpload.CreateDocumentLibrary(AnotherDocumentLibraryTitle, null, urlName);
 
             ServerSideUpload.UploadDocument(LibraryTitle, DocumentTitle + 1, ImageResource1);
             ServerSideUpload.UploadDocument(AnotherDocumentLibraryTitle, DocumentTitle + 2, ImageResource2);
