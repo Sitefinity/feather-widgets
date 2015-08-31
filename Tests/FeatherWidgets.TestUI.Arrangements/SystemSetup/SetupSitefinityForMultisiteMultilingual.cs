@@ -6,7 +6,7 @@ using Telerik.Sitefinity.TestIntegration.Helpers;
 using Telerik.Sitefinity.TestUI.Arrangements.Framework;
 using Telerik.Sitefinity.TestUtilities.CommonOperations;
 
-namespace Telerik.Sitefinity.TestUI.Arrangements
+namespace FeatherWidgets.TestUI.Arrangements
 {
     /// <summary>
     /// SetupSitefinityForMultisiteMultilingual Arrangement
