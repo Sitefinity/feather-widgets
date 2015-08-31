@@ -6,6 +6,7 @@ using System.Web.Routing;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Modules.Forms;
 using Telerik.Sitefinity.Mvc;
@@ -62,7 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             var controllerFactory = (ISitefinityControllerFactory)ControllerBuilder.Current.GetControllerFactory();
             routeData.Values["controller"] = controllerFactory.GetControllerName(controller.GetType());
 
-            var action = controller is IFormFieldController ? viewMode.ToString() : "Index";
+            var action = controller is IFormFieldController<IFormFieldModel> ? viewMode.ToString() : "Index";
             routeData.Values["action"] = action;
 
             using (var writer = new StringWriter())
