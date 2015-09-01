@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Forms.Model;
@@ -30,6 +32,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
     /// </summary>
     public class FormModel : ContentModelBase, IFormModel
     {
+        #region Properties
+
         /// <inheritDoc/>
         public Guid FormId { get; set; }
 
@@ -72,8 +76,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         /// <inheritDoc/>
         public string AjaxSubmitTargetUrl { get; set; }
 
+        #endregion
+
+        #region Public methods
+
         /// <inheritDoc/>
-        public FormViewModel GetViewModel()
+        public virtual FormViewModel GetViewModel()
         {
             if (this.FormId == Guid.Empty)
             {
@@ -103,7 +111,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public string GetViewPath()
+        public virtual string GetViewPath()
         {
             var currentPackage = new PackageManager().GetCurrentPackage();
             if (string.IsNullOrEmpty(currentPackage))
@@ -117,7 +125,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public bool TrySubmitForm(FormCollection collection, string userHostAddress)
+        public virtual bool TrySubmitForm(FormCollection collection, string userHostAddress)
         {
             var success = false;
 
@@ -143,7 +151,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public string GetRedirectPageUrl()
+        public virtual string GetRedirectPageUrl()
         {
             if (this.CustomConfirmationPageId == Guid.Empty)
             {
@@ -158,7 +166,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
         }
 
         /// <inheritDoc/>
-        public string GetSubmitMessage(bool submitedSuccessfully)
+        public virtual string GetSubmitMessage(bool submitedSuccessfully)
         {
             if (submitedSuccessfully)
             {
@@ -168,27 +176,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             return Res.Get<FormResources>().UnsuccessfullySubmittedMessage;
         }
 
-        #region ContentModelBase
-
         /// <inheritDoc/>
-        public override Type ContentType
+        public virtual bool IsValidForm(FormDescription form, FormCollection collection, FormsManager manager)
         {
-            get { return typeof(FormDescription); }
-            set { }
-        }
-
-        /// <inheritDoc/>
-        protected override IQueryable<IDataItem> GetItemsQuery()
-        {
-            return ((FormsManager)this.GetManager()).GetForms().Where(f => f.Framework == FormFramework.Mvc);
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private bool IsValidForm(FormDescription form, FormCollection collection, FormsManager manager)
-        {
+            this.SanitizeFormCollection(collection);
             var behaviorResolver = ObjectFactory.Resolve<IControlBehaviorResolver>();
             foreach (var control in form.Controls)
             {
@@ -214,6 +205,49 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models
             }
 
             return true;
+        }
+
+        /// <inheritDoc/>
+        public virtual void SanitizeFormCollection(FormCollection collection)
+        {
+            const char ReplacementSymbol = '_';
+            var forbidenSymbols = new char[] { '-' };
+
+            if (collection != null)
+            {
+                var forbidenKeys = collection.AllKeys.Where(k => k.IndexOfAny(forbidenSymbols) >= 0);
+                foreach (var key in forbidenKeys)
+                {
+                    var newKey = key.ToCharArray();
+                    for (int i = 0; i < newKey.Length; i++)
+                    {
+                        if (forbidenSymbols.Contains(newKey[i]))
+                        {
+                            newKey[i] = ReplacementSymbol;
+                        }
+                    }
+
+                    collection.Add(new string(newKey), collection[key]);
+                    collection.Remove(key);
+                }
+            }
+        }
+
+        #endregion
+
+        #region ContentModelBase
+
+        /// <inheritDoc/>
+        public override Type ContentType
+        {
+            get { return typeof(FormDescription); }
+            set { }
+        }
+
+        /// <inheritDoc/>
+        protected override IQueryable<IDataItem> GetItemsQuery()
+        {
+            return ((FormsManager)this.GetManager()).GetForms().Where(f => f.Framework == FormFramework.Mvc);
         }
 
         #endregion
