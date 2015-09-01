@@ -15,17 +15,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     /// </summary>
     [ControllerToolboxItem(Name = "MvcSubmitButton", Title = "Submit Button", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [Localization(typeof(FieldResources))]
-    public class SubmitButtonController : Controller, IFormFieldController<ISubmitButtonModel>
+    public class SubmitButtonController : Controller
     {
-        #region Constructors
-
-        public SubmitButtonController()
-        {
-            this.DisplayMode = FieldDisplayMode.Write;
-        }
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -40,25 +31,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                     this.model = ControllerModelFactory.GetModel<ISubmitButtonModel>(this.GetType());
 
                 return this.model;
-            }
-        }
-
-        /// <inheritDocs />
-        [Browsable(false)]
-        public virtual IMetaField MetaField
-        {
-            get
-            {
-                if (this.Model.MetaField == null)
-                {
-                    this.Model.MetaField = this.Model.GetMetaField(this);
-                }
-
-                return this.Model.MetaField;
-            }
-            set
-            {
-                this.Model.MetaField = value;
             }
         }
 
@@ -78,13 +50,6 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
-        /// <inheritDocs />
-        public virtual FieldDisplayMode DisplayMode
-        {
-            get;
-            set;
-        }
-
         #endregion
 
         #region Actions
@@ -94,27 +59,10 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// </summary>
         public virtual ActionResult Index(object value = null)
         {
-            if (this.DisplayMode == FieldDisplayMode.Write)
-            {
-                var viewPath = SubmitButtonController.TemplateNamePrefix + this.TemplateName;
-                var viewModel = this.Model.GetViewModel();
+            var viewPath = SubmitButtonController.TemplateNamePrefix + this.TemplateName;
+            var viewModel = this.Model.GetViewModel();
 
-                return this.View(viewPath, viewModel);
-            }
-            else
-            {
-                return new EmptyResult();
-            }
-        }
-
-        #endregion
-
-        #region IValidatable
-
-        /// <inheritDocs />
-        public bool IsValid()
-        {
-            return true;
+            return this.View(viewPath, viewModel);
         }
 
         #endregion

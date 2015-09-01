@@ -1,11 +1,13 @@
 ﻿using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Metadata.Model;
+using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
 {
     /// <summary>
     /// Implements API for working with form submit button.
     /// </summary>
-    public class SubmitButtonModel : FormFieldModel, ISubmitButtonModel
+    public class SubmitButtonModel : ISubmitButtonModel
     {
         /// <inheritDocs />
         public string Label
@@ -19,6 +21,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
                 this.label = value;
             }
         }
+
+        /// <inheritDocs />
+        public string CssClass { get; set; }
 
         /// <inheritDocs />
         public SubmitButtonViewModel GetViewModel()

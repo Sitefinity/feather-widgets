@@ -38,6 +38,30 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
         string Size { get; set; }
 
         /// <summary>
+        /// Gets or sets the data sitekey.
+        /// </summary>
+        /// <value>
+        /// The data sitekey.
+        /// </value>
+        string DataSitekey { get; set; }
+
+        /// <summary>
+        /// The shared key between your site and ReCAPTCHA.
+        /// </summary>
+        /// <value>
+        /// The secret.
+        /// </value>
+        string Secret { get; set; }
+
+        /// <summary>
+        /// Gets or sets the validation timeout miliseconds.
+        /// </summary>
+        /// <value>
+        /// The validation timeout miliseconds.
+        /// </value>
+        long ValidationTimeoutMiliseconds { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to display only for unauthenticated users.
         /// </summary>
         /// <value>

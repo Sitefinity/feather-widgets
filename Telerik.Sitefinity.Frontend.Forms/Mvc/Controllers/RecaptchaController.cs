@@ -68,6 +68,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
                     this.Model.MetaField = this.Model.GetMetaField(this);
                 }
 
+                this.Model.MetaField.FieldName = "g-recaptcha-response";
                 return this.Model.MetaField;
             }
             set
