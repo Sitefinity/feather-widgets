@@ -118,14 +118,14 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private string GetImageSource(bool isBaseUrlIncluded, string imageName, string imageType, string libraryUrl, string imageThumbnailSize = "")
         {
             string imageUrl = imageName.ToLower() + imageType.ToLower() + imageThumbnailSize;
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture.ToLower());
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
         private string GetImageHref(bool isBaseUrlIncluded, string imageName, string libraryUrl)
         {
             string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture.ToLower());
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), imageUrl, this.BaseUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
             return href;
         }
 

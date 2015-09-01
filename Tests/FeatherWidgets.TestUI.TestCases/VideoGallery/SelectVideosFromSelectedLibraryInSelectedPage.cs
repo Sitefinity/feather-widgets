@@ -99,7 +99,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildVideoLibrary.ToLower();
             string imageUrl = videoName.ToLower() + videoType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos", currentProviderUrlName, this.Culture.ToLower());
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, "videos", currentProviderUrlName, this.Culture);
             return scr;
         }
 

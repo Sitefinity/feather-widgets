@@ -102,7 +102,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture.ToLower());
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 

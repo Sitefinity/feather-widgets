@@ -105,7 +105,7 @@ namespace FeatherWidgets.TestUI.TestCases.DocumentsList
         private string GetDocumentHref(bool isBaseUrlIncluded, string documentName, string contentType, string libraryUrl)
         {
             string documentUrl = documentName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, contentType, currentProviderUrlName, this.Culture.ToLower());
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, documentUrl, this.BaseUrl, contentType, currentProviderUrlName, this.Culture);
             return href;
         }
 

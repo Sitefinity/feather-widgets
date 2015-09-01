@@ -120,14 +120,14 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         private string GetVideoSource(bool isBaseUrlIncluded, string videoName, string videoType, string libraryUrl, string videoThumbnailSize = "")
         {
             string videoUrl = videoName.ToLower() + videoType.ToLower() + videoThumbnailSize;
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), videoUrl, this.BaseUrl, "videos", currentProviderUrlName, this.Culture.ToLower());
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), videoUrl, this.BaseUrl, "videos", currentProviderUrlName, this.Culture);
             return scr;
         }
 
         private string GetVideoHref(bool isBaseUrlIncluded, string videoName, string libraryUrl)
         {
             string videoUrl = videoName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), videoUrl, this.BaseUrl, PageName.ToLower() + "/videos", currentProviderUrlName, this.Culture.ToLower());
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl.ToLower(), videoUrl, this.BaseUrl, PageName.ToLower() + "/videos", currentProviderUrlName, this.Culture);
             return href;
         }
 

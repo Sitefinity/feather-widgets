@@ -107,13 +107,27 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
         /// <returns></returns>
         public string GetMediaSource(bool isBaseUrlIncluded, string libraryUrl, string imageUrl, string baseUrl, string contentType = "images", string providerUrl = "default-source", string culture = null)
         {
-            if (isBaseUrlIncluded)
+            if (culture != null)
             {
-                return baseUrl + culture + "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+                if (isBaseUrlIncluded)
+                {
+                    return baseUrl + culture.ToLower() + "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+                }
+                else
+                {
+                    return "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+                }
             }
-            else
+            else 
             {
-                return "/"  + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+                if (isBaseUrlIncluded)
+                {
+                    return baseUrl + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+                }
+                else
+                {
+                    return "/" + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+                }
             }
         }
 

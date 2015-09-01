@@ -99,7 +99,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture.ToLower());
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture);
             return scr;
         }
 
@@ -107,7 +107,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             string libraryUrl = LibraryName.ToLower() + "/" + ChildImageLibrary.ToLower();
             string imageUrl = imageName.ToLower();
-            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture.ToLower());
+            string href = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, PageName.ToLower() + "/images", currentProviderUrlName, this.Culture);
             return href;
         }
 
