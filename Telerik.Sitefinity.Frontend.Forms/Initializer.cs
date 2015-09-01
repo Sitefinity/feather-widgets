@@ -62,7 +62,10 @@ namespace Telerik.Sitefinity.Frontend.Forms
                 formsConfigSection.Parameters.Add(RecaptchaModel.GRecaptchaParameterSecretKey, TestGRecaptchaSecret);
             }
 
-            manager.SaveSection(formsConfigSection);
+            using (var a = new ElevatedConfigModeRegion())
+            {
+                manager.SaveSection(formsConfigSection);
+            }
         }
 
         private static void RegisteringFormScriptsHandler(IScriptsRegisteringEvent @event)
