@@ -30,8 +30,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid singleItemPageId = ServerOperations.Pages().CreatePage(SingleItemPage);
             ServerOperationsFeather.Pages().AddDocumentsListWidgetToPage(singleItemPageId);
 
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
-            var parentId = ServerSideUpload.CreateDocumentLibrary(DocumentLibraryTitle, null, urlName);
+            var parentId = ServerSideUpload.CreateDocumentLibrary(DocumentLibraryTitle);
             var childId = ServerSideUpload.CreateFolder(ChildLibraryTitle, parentId);
 
             ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 1, ImageResource1);

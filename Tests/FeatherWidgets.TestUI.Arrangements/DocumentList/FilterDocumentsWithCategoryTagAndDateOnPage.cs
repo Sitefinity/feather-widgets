@@ -27,8 +27,7 @@ namespace FeatherWidgets.TestUI.Arrangements
             Guid page1Id = ServerOperations.Pages().CreatePage(PageName);
             ServerOperationsFeather.Pages().AddDocumentsListWidgetToPage(page1Id);
 
-            string urlName = ServerOperations.Libraries().GetCurrentProviderUrlName;
-            ServerSideUpload.CreateDocumentLibrary(DocumentLibraryTitle, null, urlName);
+            ServerSideUpload.CreateDocumentLibrary(DocumentLibraryTitle);
 
             List<Guid> listOfIds = new List<Guid>();
             var guidDoc1 = ServerSideUpload.UploadDocument(DocumentLibraryTitle, DocumentTitle + 1, ImageResource1);
