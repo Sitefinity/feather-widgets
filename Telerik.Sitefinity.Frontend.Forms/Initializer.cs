@@ -14,7 +14,7 @@ using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.Web.UI;
 using Telerik.Sitefinity.Web.UI.ContentUI;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
 
 namespace Telerik.Sitefinity.Frontend.Forms
 {
@@ -52,14 +52,14 @@ namespace Telerik.Sitefinity.Frontend.Forms
 
             var manager = ConfigManager.GetManager();
             var formsConfigSection = manager.GetSection<FormsConfig>();
-            if (formsConfigSection.Parameters[RecaptchaModel.GRecaptchaParameterDataSiteKey] == null)
+            if (formsConfigSection.Parameters[RecaptchaFieldModel.GRecaptchaParameterDataSiteKey] == null)
             {
-                formsConfigSection.Parameters.Add(RecaptchaModel.GRecaptchaParameterDataSiteKey, TestGRecaptchaDataSitekey);
+                formsConfigSection.Parameters.Add(RecaptchaFieldModel.GRecaptchaParameterDataSiteKey, TestGRecaptchaDataSitekey);
             }
 
-            if (formsConfigSection.Parameters[RecaptchaModel.GRecaptchaParameterSecretKey] == null)
+            if (formsConfigSection.Parameters[RecaptchaFieldModel.GRecaptchaParameterSecretKey] == null)
             {
-                formsConfigSection.Parameters.Add(RecaptchaModel.GRecaptchaParameterSecretKey, TestGRecaptchaSecret);
+                formsConfigSection.Parameters.Add(RecaptchaFieldModel.GRecaptchaParameterSecretKey, TestGRecaptchaSecret);
             }
 
             using (var a = new ElevatedConfigModeRegion())

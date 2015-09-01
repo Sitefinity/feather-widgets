@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Data.Metadata;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
-using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
@@ -24,11 +24,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "MvcReCaptchaField", Title = "reCAPTCHA", Toolbox = FormsConstants.FormControlsToolboxName, SectionName = FormsConstants.CommonSectionName)]
     [DatabaseMapping(UserFriendlyDataType.YesNo)]
     [Localization(typeof(FieldResources))]
-    public class RecaptchaController : Controller, IFormFieldController<IRecaptchaModel>
+    public class RecaptchaFieldController : Controller, IFormFieldController<IRecaptchaFieldModel>
     {
         #region Constructors
 
-        public RecaptchaController()
+        public RecaptchaFieldController()
         {
             this.DisplayMode = FieldDisplayMode.Write;
         }
@@ -44,13 +44,13 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// The model.
         /// </value>
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public virtual IRecaptchaModel Model
+        public virtual IRecaptchaFieldModel Model
         {
             get
             {
                 if (this.model == null)
                 {
-                    this.model = ControllerModelFactory.GetModel<IRecaptchaModel>(this.GetType());
+                    this.model = ControllerModelFactory.GetModel<IRecaptchaFieldModel>(this.GetType());
                 }
 
                 return this.model;
@@ -110,7 +110,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         {
             if (this.DisplayMode == FieldDisplayMode.Write && this.Model.ShouldRenderCaptcha())
             {
-                var viewPath = RecaptchaController.TemplateNamePrefix + this.TemplateName;
+                var viewPath = RecaptchaFieldController.TemplateNamePrefix + this.TemplateName;
                 var viewModel = this.Model.GetViewModel(value, this.MetaField);
 
                 return this.View(viewPath, viewModel);
@@ -135,7 +135,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         private string templateName = "Default";
         private const string TemplateNamePrefix = "Index.";
-        private IRecaptchaModel model;
+        private IRecaptchaFieldModel model;
 
         #endregion
     }

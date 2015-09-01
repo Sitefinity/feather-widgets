@@ -12,12 +12,12 @@ using Newtonsoft.Json;
 using Telerik.Sitefinity.Modules.Forms.Web.UI.Fields;
 using Telerik.Sitefinity.Modules.Forms.Configuration;
 
-namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField
 {
     /// <summary>
     /// Implements API for working with form reCaptcha fields.
     /// </summary>
-    public class RecaptchaModel : FormFieldModel, IRecaptchaModel
+    public class RecaptchaFieldModel : FormFieldModel, IRecaptchaFieldModel
     {
         /// <inheritDocs/>
         public string Theme
@@ -65,7 +65,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
             {
                 if (string.IsNullOrEmpty(this.dataSitekey))
                 {
-                    this.dataSitekey = ConfigManager.GetManager().GetSection<FormsConfig>().Parameters[RecaptchaModel.GRecaptchaParameterDataSiteKey];
+                    this.dataSitekey = ConfigManager.GetManager().GetSection<FormsConfig>().Parameters[RecaptchaFieldModel.GRecaptchaParameterDataSiteKey];
                 }
 
                 return this.dataSitekey;
@@ -83,7 +83,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
             {
                 if (string.IsNullOrEmpty(this.secret))
                 {
-                    this.secret = ConfigManager.GetManager().GetSection<FormsConfig>().Parameters[RecaptchaModel.GRecaptchaParameterSecretKey];
+                    this.secret = ConfigManager.GetManager().GetSection<FormsConfig>().Parameters[RecaptchaFieldModel.GRecaptchaParameterSecretKey];
                 }
 
                 return this.secret;
@@ -115,9 +115,9 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.Recaptcha
         }
 
         /// <inheritDocs/>
-        public RecaptchaViewModel GetViewModel(object value, IMetaField metaField)
+        public RecaptchaFieldViewModel GetViewModel(object value, IMetaField metaField)
         {
-            var viewModel = new RecaptchaViewModel()
+            var viewModel = new RecaptchaFieldViewModel()
             {
                 DataType = this.DataType,
                 Size = this.Size,
