@@ -113,7 +113,7 @@ namespace Feather.Widgets.TestUI.Framework.Framework.Wrappers.Frontend
             }
             else
             {
-                return "/" + culture + "/" +contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
+                return "/"  + contentType + "/" + providerUrl + "/" + libraryUrl + "/" + imageUrl;
             }
         }
 

@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         TestCategory(FeatherTestCategories.ImageGallery)]
         public void FilterImagesWithCategoryTagAndDateOnPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ExpandNarrowSelectionByArrow();
@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             for (int i = 1; i <= 4; i++)
             {
@@ -87,6 +87,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string imageUrl = imageName.ToLower() + imageType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl);
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, imageUrl, this.BaseUrl, ContentType, currentProviderUrlName, this.Culture.ToLower());
             return scr;
         }
 
@@ -119,5 +120,7 @@ namespace FeatherWidgets.TestUI.TestCases.ImageGallery
         private const string TagTitle = "Tag3";
         private const string TaxonomyCategory = "Category";
         private const string TaxonomyTags = "Tags";
+        private string currentProviderUrlName;
+        private const string ContentType = "images";
     }
 }
