@@ -641,5 +641,24 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         #endregion
+
+        #region Section header
+
+        /// <summary>
+        /// Gets phrase : Enter section header here...
+        /// </summary>
+        [ResourceEntry("SectionHeaderPlaceholderText",
+            Value = "Enter section header here...",
+            Description = "phrase : Enter section header here...",
+            LastModified = "2015/09/01")]
+        public string SectionHeaderPlaceholderText
+        {
+            get
+            {
+                return this["SectionHeaderPlaceholderText"];
+            }
+        }
+
+        #endregion
     }
 }

@@ -2,6 +2,7 @@
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField;
 
@@ -24,6 +25,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<ITextFieldModel>().To<TextFieldModel>();
             Bind<IRecaptchaFieldModel>().To<RecaptchaFieldModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
+            Bind<ISectionHeaderFieldModel>().To<SectionHeaderFieldModel>();
         }
     }
 }
