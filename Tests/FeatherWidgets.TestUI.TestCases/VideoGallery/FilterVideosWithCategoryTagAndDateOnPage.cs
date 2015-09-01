@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         TestCategory(FeatherTestCategories.VideoGallery)]
         public void FilterVideosWithCategoryTagAndDateOnPage()
         {
-            BAT.Macros().NavigateTo().Pages();
+            BAT.Macros().NavigateTo().Pages(this.Culture);
             BAT.Wrappers().Backend().Pages().PagesWrapper().OpenPageZoneEditor(PageName);
             BATFeather.Wrappers().Backend().Pages().PageZoneEditorWrapper().EditWidget(WidgetName);
             BATFeather.Wrappers().Backend().Widgets().WidgetDesignerWrapper().ExpandNarrowSelectionByArrow();
@@ -64,7 +64,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
             }
 
             BAT.Wrappers().Backend().Pages().PageZoneEditorWrapper().PublishPage();
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower());
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower(), true, this.Culture);
 
             for (int i = 1; i <= 4; i++)
             {
@@ -87,6 +87,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             BAT.Macros().User().EnsureAdminLoggedIn();
             BAT.Arrange(this.TestName).ExecuteSetUp();
+            currentProviderUrlName = BAT.Arrange(this.TestName).ExecuteArrangement("GetCurrentProviderUrlName").Result.Values["CurrentProviderUrlName"];
         }
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         {
             string libraryUrl = LibraryName.ToLower();
             string videoUrl = videoName.ToLower() + videoType.ToLower();
-            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, this.BaseUrl, "videos");
+            string scr = BATFeather.Wrappers().Frontend().MediaWidgets().MediaWidgetsWrapper().GetMediaSource(isBaseUrlIncluded, libraryUrl, videoUrl, this.BaseUrl, "videos", currentProviderUrlName, this.Culture.ToLower());
             return scr;
         }
 
@@ -120,5 +121,6 @@ namespace FeatherWidgets.TestUI.TestCases.VideoGallery
         private const string TaxonomyCategory = "Category";
         private const string TaxonomyTags = "Tags";
         private const string ImageType = ".TMB";
+        private string currentProviderUrlName;
     }
 }
