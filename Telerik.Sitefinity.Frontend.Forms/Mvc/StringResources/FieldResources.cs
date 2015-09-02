@@ -113,11 +113,11 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
-        /// Gets phrase : Placeholder text
+        /// Gets word : Placeholder
         /// </summary>
         [ResourceEntry("PlaceholderText",
-            Value = "Placeholder text",
-            Description = "phrase : Placeholder text",
+            Value = "Placeholder",
+            Description = "word : Placeholder",
             LastModified = "2015/08/03")]
         public string PlaceholderText
         {

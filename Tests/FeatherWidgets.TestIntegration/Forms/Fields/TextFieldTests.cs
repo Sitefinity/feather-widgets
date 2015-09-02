@@ -141,8 +141,8 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var pageDataId = pageManager.GetPageNode(pageId).GetPageData().Id;
 
                 var textFieldName = this.GetTextFieldName(formManager, form);
-                var actionResult = this.FindAndSubmitForm(pageManager, pageDataId, textFieldName) as RedirectToRouteResult;
-                Assert.IsFalse((bool)actionResult.RouteValues["submitedSuccessfully"], "The Submit result was not correct");
+                var formController = this.FindAndSubmitForm(pageManager, pageDataId, textFieldName);
+                Assert.IsFalse((bool)formController.TempData["sfSubmitSuccess"], "The Submit result was not correct");
                 
                 var formEntry = formManager.GetFormEntries(form).LastOrDefault();
                 Assert.IsNull(formEntry, "Form entry has been submitted even when the form is not valid.");
@@ -192,7 +192,7 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
             }
         }
 
-        private ActionResult FindAndSubmitForm(PageManager pageManager, System.Guid pageDataId, string textFieldName)
+        private Controller FindAndSubmitForm(PageManager pageManager, System.Guid pageDataId, string textFieldName)
         {
             var formCollection = new FormCollection();
             formCollection.Add(textFieldName, "Submitted value");
@@ -202,7 +202,9 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
             formController.ControllerContext = new ControllerContext();
             formController.ControllerContext.HttpContext = new System.Web.HttpContextWrapper(HttpContext.Current);
 
-            return formController.Index(formCollection);
+            formController.Index(formCollection);
+
+            return formController;
         }
 
         private string GetTextFieldName(FormsManager formManager, FormDescription form)
