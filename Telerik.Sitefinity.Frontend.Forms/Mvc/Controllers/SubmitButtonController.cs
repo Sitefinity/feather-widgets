@@ -4,7 +4,9 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Web.UI.Fields.Enums;
 
 namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 {
@@ -15,6 +17,8 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [Localization(typeof(FieldResources))]
     public class SubmitButtonController : Controller
     {
+        #region Properties
+
         /// <summary>
         /// Gets the Form widget model.
         /// </summary>
@@ -24,7 +28,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             get
             {
                 if (this.model == null)
-                    this.model = this.InitializeModel();
+                    this.model = ControllerModelFactory.GetModel<ISubmitButtonModel>(this.GetType());
 
                 return this.model;
             }
@@ -46,27 +50,19 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
             }
         }
 
+        #endregion
+
+        #region Actions
+
         /// <summary>
         /// Provides the default view of this field
         /// </summary>
-        public ActionResult Index()
+        public virtual ActionResult Index(object value = null)
         {
             var viewPath = SubmitButtonController.TemplateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 
             return this.View(viewPath, viewModel);
-        }
-
-        protected override void HandleUnknownAction(string actionName)
-        {
-            this.Index().ExecuteResult(this.ControllerContext);
-        }
-
-        #region Private methods
-
-        private ISubmitButtonModel InitializeModel()
-        {
-            return ControllerModelFactory.GetModel<ISubmitButtonModel>(this.GetType());
         }
 
         #endregion

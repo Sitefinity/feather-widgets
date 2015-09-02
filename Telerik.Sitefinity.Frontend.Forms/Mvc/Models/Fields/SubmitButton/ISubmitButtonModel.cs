@@ -1,4 +1,6 @@
-﻿namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
+﻿using System.ComponentModel;
+using Telerik.Sitefinity.Metadata.Model;
+namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton
 {
     /// <summary>
     /// This interface provides API for form submit button.
