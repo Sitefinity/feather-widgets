@@ -12,23 +12,24 @@ using Telerik.Sitefinity.TestIntegration.SDK.DevelopersGuide.SitefinityEssential
 namespace FeatherWidgets.TestIntegration.Forms.Fields
 {
     /// <summary>
-    /// This class contains ensures Recaptcha functionalities work correctly.
+    /// This class contains ensures Section header functionalities work correctly.
     /// </summary>
     [TestFixture]
-    public class RecaptchaTests
+    public class SectionHeaderFieldTests
     {
         /// <summary>
-        /// Ensures that when a recaptcha field widget is added to form the default value is presented in the page markup.
+        /// Ensures that when a Section header field widget is added to form the default value is presented in the page markup.
         /// </summary>
         [Test]
         [Category(TestCategories.Forms)]
         [Author(FeatherTeams.FeatherTeam)]
-        [Description("Ensures that when a recaptcha field widget is added to form the default value is presented in the page markup.")]
-        public void Recaptcha_MarkupIsCorrect()
+        [Description("Ensures that when a Section header field widget is added to form the default value is presented in the page markup.")]
+        public void SectionHeader_MarkupIsCorrect()
         {
-            var controller = new RecaptchaFieldController();
+            var controller = new SectionHeaderFieldController();
+            controller.Model.Text = "Hello";
             var control = new MvcWidgetProxy();
-            control.ControllerName = typeof(RecaptchaFieldController).FullName;
+            control.ControllerName = typeof(SectionHeaderFieldController).FullName;
             control.Settings = new ControllerSettings(controller);
 
             var formId = ServerOperationsFeather.Forms().CreateFormWithWidget(control);
@@ -40,12 +41,12 @@ namespace FeatherWidgets.TestIntegration.Forms.Fields
                 var template = pageManager.GetTemplates().FirstOrDefault(t => t.Name == "SemanticUI.default" && t.Title == "default");
                 Assert.IsNotNull(template, "Template was not found");
 
-                var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "RecaptchaFieldValueTest", "recaptcha-field-value-test");
+                var pageId = FeatherServerOperations.Pages().CreatePageWithTemplate(template, "SectionHeaderFieldValueTest", "section-header-field-value-test");
                 ServerOperationsFeather.Forms().AddFormControlToPage(pageId, formId);
 
                 var pageContent = FeatherServerOperations.Pages().GetPageContent(pageId);
 
-                Assert.IsNotNull(pageContent.Contains("g-recaptcha"), "Form did not render recaptcha");
+                Assert.IsNotNull(pageContent.Contains("Hello"), "Form did not render section header");
             }
             finally
             {

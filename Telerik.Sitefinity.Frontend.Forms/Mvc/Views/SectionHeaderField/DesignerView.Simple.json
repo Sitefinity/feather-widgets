@@ -1,0 +1,4 @@
+﻿{
+	"priority": 1,
+	"components": ["sf-expander", "sf-style-dropdown"]
+}
