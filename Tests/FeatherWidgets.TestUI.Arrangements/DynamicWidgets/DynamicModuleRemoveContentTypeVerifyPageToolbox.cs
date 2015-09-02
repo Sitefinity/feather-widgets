@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Test arrangements for DynamicModuleRemoveContentTypeVerifyPageToolbox
     /// </summary>
-    public class DynamicModuleRemoveContentTypeVerifyPageToolbox : ITestArrangement
+    public class DynamicModuleRemoveContentTypeVerifyPageToolbox : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

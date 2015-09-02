@@ -21,7 +21,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         TestCategory(FeatherTestCategories.DynamicWidgets)]
         public void EditDynamicWidgetViaInlineEditing()
         {
-            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/SomeUrlName");
+            BAT.Macros().NavigateTo().CustomPage("~/" + PageName.ToLower() + "/SomeUrlName", true, this.Culture);
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().OpenPageForEdit();
             BAT.Wrappers().Frontend().InlineEditing().InlineEditingWrapper().VerifyEditIsOn(PageName);
 
@@ -70,7 +70,7 @@ namespace FeatherWidgets.TestUI.TestCases.DynamicWidgets
         private const string YesNoValue = "No";
         private const string DateTime = "DateTime";
         private const string Date = "1/5/2015 10:00 PM";
-        private const string DateValue = "Jan 5, 2015, 22:00 PM";
+        private const string DateValue = "5, 2015, 22:00";
         private const string ShortText = "ShortText";
         private const string NewShortText = "New short text";
         private const string LongText = "LongText";

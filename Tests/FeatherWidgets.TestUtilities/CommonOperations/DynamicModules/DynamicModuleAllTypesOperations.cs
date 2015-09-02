@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Taxonomies;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.TestUtilities.CommonOperations;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace FeatherWidgets.TestUtilities.CommonOperations
@@ -25,6 +26,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type allTypes = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.AllTypesModule.Alltypes");
@@ -52,6 +57,11 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type pressArticleType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.AllTypesModule.Alltypes");
 
@@ -67,6 +77,10 @@ namespace FeatherWidgets.TestUtilities.CommonOperations
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
             var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            } 
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
             Type alltypesType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.AllTypesModule.Alltypes");

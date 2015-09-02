@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Test arrangement methods for DeactivateAndActivateDynamicModuleVerifyPageToolbox
     /// </summary>
-    public class DeactivateAndActivateDynamicModuleVerifyPageToolbox : ITestArrangement
+    public class DeactivateAndActivateDynamicModuleVerifyPageToolbox : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

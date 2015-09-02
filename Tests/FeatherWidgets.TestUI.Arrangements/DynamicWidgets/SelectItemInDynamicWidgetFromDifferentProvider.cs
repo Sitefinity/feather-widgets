@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Test arrangements for SelectItemInDynamicWidgetFromDifferentProvider
     /// </summary>
-    public class SelectItemInDynamicWidgetFromDifferentProvider : ITestArrangement
+    public class SelectItemInDynamicWidgetFromDifferentProvider : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -35,8 +35,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles(ProviderName), ProviderName);
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
+            ServerOperations.Pages().DeleteAllPages();           
             ServerOperations.Configuration().RemoveOpenAccessDynamicModuleProvider(ProviderName);
             ServerOperations.SystemManager().RestartApplication(false);
         }

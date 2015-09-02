@@ -13,7 +13,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Arrangement methods for DynamicModuleAddNewContentTypeVerifyPageToolbox
     /// </summary>
-    public class DynamicModuleAddNewContentTypeVerifyPageToolbox : ITestArrangement
+    public class DynamicModuleAddNewContentTypeVerifyPageToolbox : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

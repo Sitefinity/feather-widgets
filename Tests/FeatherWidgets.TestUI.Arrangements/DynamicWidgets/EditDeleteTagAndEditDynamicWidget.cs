@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// EditDeleteTagAndEdiDynamicWidget arrangement class.
     /// </summary>
-    public class EditDeleteTagAndEditDynamicWidget : ITestArrangement
+    public class EditDeleteTagAndEditDynamicWidget : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -58,9 +58,16 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {
-            ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
+            ServerOperations.Pages().DeleteAllPages();           
             ServerOperations.Taxonomies().ClearAllTags(TaxonomiesConstants.TagsTaxonomyId);
+
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
         }
 
         private const string PageName = "TestPage";

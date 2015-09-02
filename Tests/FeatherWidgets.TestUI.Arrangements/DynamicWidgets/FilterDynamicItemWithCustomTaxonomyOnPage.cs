@@ -11,7 +11,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// FilterDynamicItemWithCustomTaxonomyOnPage arrangement class.
     /// </summary>
-    public class FilterDynamicItemWithCustomTaxonomyOnPage : ITestArrangement
+    public class FilterDynamicItemWithCustomTaxonomyOnPage : TestArrangementBase
     {   
         /// <summary>
         /// Server side set up.
@@ -42,11 +42,17 @@ namespace FeatherWidgets.TestUI.Arrangements
         [ServerTearDown]
         public void TearDown()
         {           
-            ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
-              
+            ServerOperations.Pages().DeleteAllPages();                          
             ServerOperationsFeather.DynamicModulePressArticle().RemoveCustomFieldFromContext(CustomFlatTaxonomyName);
-            ServerOperations.Taxonomies().DeleteFlatTaxonomy(CustomFlatTaxonomyName); 
+            ServerOperations.Taxonomies().DeleteFlatTaxonomy(CustomFlatTaxonomyName);
+
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
         }
         
         private const string PageName = "TestPage";

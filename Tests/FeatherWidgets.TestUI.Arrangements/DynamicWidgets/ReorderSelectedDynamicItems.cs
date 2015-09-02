@@ -10,7 +10,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ReorderSelectedDynamicItems arragement.
     /// </summary>
-    public class ReorderSelectedDynamicItems : ITestArrangement
+    public class ReorderSelectedDynamicItems : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -37,7 +37,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
+
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
         }
 
         private const string ItemTitle = "Dynamic Item Title";

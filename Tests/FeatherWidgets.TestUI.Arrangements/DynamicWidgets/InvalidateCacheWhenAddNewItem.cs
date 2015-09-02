@@ -8,7 +8,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Test arrangements for InvalidateCacheWhenAddNewItem
     /// </summary>
-    public class InvalidateCacheWhenAddNewItem : ITestArrangement
+    public class InvalidateCacheWhenAddNewItem : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -40,7 +40,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
+
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
         }
 
         private const string ModuleName = "Press Release";

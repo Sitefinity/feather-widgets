@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage arrangement class.
     /// </summary>
-    public class ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage : ITestArrangement
+    public class ExpandPagesInDynamicWidgetAndSelectChildPageForSingleItemPage : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -47,7 +47,6 @@ namespace FeatherWidgets.TestUI.Arrangements
         private const string ChildPagesPrefix = "ChildPage";
         private const string ModuleName = "Press Release";
         private const string ModuleResource = "FeatherWidgets.TestUtilities.Data.DynamicModules.PressReleaseWithCategoriesField.zip";
-
         private const int PageHierarchyLevelsCount = 10; 
     }
 }

@@ -9,7 +9,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// Test arrangements for EditDynamicWidgetViaInlineEditing
     /// </summary>
-    public class EditDynamicWidgetViaInlineEditing : ITestArrangement
+    public class EditDynamicWidgetViaInlineEditing : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.

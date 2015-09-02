@@ -12,7 +12,7 @@ namespace FeatherWidgets.TestUI.Arrangements
     /// <summary>
     /// SearchForSingleItemPageAndVerifyBreadcrumb arrangement class.
     /// </summary>
-    public class SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb : ITestArrangement
+    public class SearchInDynamicWidgetForSingleItemPageAndVerifyBreadcrumb : TestArrangementBase
     {
         /// <summary>
         /// Server side set up.
@@ -41,7 +41,14 @@ namespace FeatherWidgets.TestUI.Arrangements
         public void TearDown()
         {
             ServerOperations.Pages().DeleteAllPages();
-            ServerOperationsFeather.DynamicModulePressArticle().DeleteDynamicItems(ServerOperationsFeather.DynamicModulePressArticle().RetrieveCollectionOfPressArticles());
+
+            var providerName = string.Empty;
+            if (ServerOperations.MultiSite().CheckIsMultisiteMode())
+            {
+                providerName = "dynamicContentProvider";
+            }
+
+            ServerOperationsFeather.DynamicModulePressArticle().DeleteAllDynamicItemsInProvider(providerName);
         }
 
         private const string PageName = "TestPage";
