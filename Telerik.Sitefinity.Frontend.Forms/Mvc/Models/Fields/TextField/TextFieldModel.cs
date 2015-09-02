@@ -135,7 +135,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         {
             var attributes = new StringBuilder();
 
-            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
+            if ((this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value) || this.ValidatorDefinition.MinLength > 0)
                 attributes.Append("required='required' ");
 
             if (this.ValidatorDefinition.MaxLength > 0)

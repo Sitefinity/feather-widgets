@@ -1,6 +1,7 @@
 ﻿using Ninject.Modules;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SubmitButton;
@@ -26,6 +27,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<IRecaptchaFieldModel>().To<RecaptchaFieldModel>();
             Bind<ISubmitButtonModel>().To<SubmitButtonModel>();
             Bind<ISectionHeaderFieldModel>().To<SectionHeaderFieldModel>();
+            Bind<IParagraphTextFieldModel>().To<ParagraphTextFieldModel>();
         }
     }
 }
