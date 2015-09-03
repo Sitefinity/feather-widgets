@@ -293,7 +293,7 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
                 {
                     Text = Res.Get<PageResources>().ZoneEditorRemovePersonalizedVersion,
                     CommandName = "removePersonalizedVersion",
-                    CssClass = "sfRemPersonalizedItm"
+                    CssClass = "sfRemPersonalizedItm sfSeparatorDown"
                 });
 
             commandsList.Add(
