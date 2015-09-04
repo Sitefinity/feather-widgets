@@ -74,7 +74,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
         {
             var attributes = new StringBuilder();
 
-            if ((this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value) || this.ValidatorDefinition.MinLength > 0)
+            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
             {
                 attributes.Append("required='required' ");
             }
