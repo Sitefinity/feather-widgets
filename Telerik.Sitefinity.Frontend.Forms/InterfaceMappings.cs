@@ -2,6 +2,7 @@
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField;
+using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.RecaptchaField;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.SectionHeaderField;
@@ -30,6 +31,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
             Bind<ISectionHeaderFieldModel>().To<SectionHeaderFieldModel>();
             Bind<IParagraphTextFieldModel>().To<ParagraphTextFieldModel>();
             Bind<IDropdownListFieldModel>().To<DropdownListFieldModel>();
+            Bind<IMultipleChoiceFieldModel>().To<MultipleChoiceFieldModel>();
         }
     }
 }

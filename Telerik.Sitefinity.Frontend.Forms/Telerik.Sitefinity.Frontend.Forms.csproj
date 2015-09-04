@@ -151,6 +151,7 @@
     <Compile Include="IFormRenderer.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\MultipleChoiceFieldController.cs" />
     <Compile Include="Mvc\Controllers\DropdownListFieldController.cs" />
     <Compile Include="Mvc\Controllers\ParagraphTextFieldController.cs" />
     <Compile Include="Mvc\Controllers\FormController.cs" />
@@ -164,6 +165,9 @@
     <Compile Include="Mvc\Models\Fields\DropdownListField\DropdownListFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\DropdownListField\DropdownListFieldViewModel.cs" />
     <Compile Include="Mvc\Models\Fields\DropdownListField\IDropdownListFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\MultipleChoiceField\MultipleChoiceFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\MultipleChoiceField\MultipleChoiceFieldViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\MultipleChoiceField\IMultipleChoiceFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\IParagraphTextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\ParagraphTextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\ParagraphTextFieldViewModel.cs" />
@@ -217,6 +221,11 @@
     <EmbeddedResource Include="Mvc\Views\DropdownListField\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\DropdownListField\Read.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\DropdownListField\Write.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\Write.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\Write.Default_Inline.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -244,7 +253,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ParagraphTextField\paragraph-text-field.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\MultipleChoiceField\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\MultipleChoiceField\multiple-choice-field.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\DropdownListField\designerview-simple.js" />
     <EmbeddedResource Include="Mvc\Scripts\DropdownListField\dropdown-list-field.js" />
