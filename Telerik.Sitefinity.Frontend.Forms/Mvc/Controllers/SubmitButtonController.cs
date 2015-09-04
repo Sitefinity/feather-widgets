@@ -57,12 +57,25 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         /// <summary>
         /// Provides the default view of this field
         /// </summary>
-        public virtual ActionResult Index(object value = null)
+        public virtual ActionResult Index()
         {
             var viewPath = SubmitButtonController.TemplateNamePrefix + this.TemplateName;
             var viewModel = this.Model.GetViewModel();
 
             return this.View(viewPath, viewModel);
+        }
+
+        #endregion
+
+        #region Controller overrides
+
+        /// <summary>
+        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
+        /// </summary>
+        /// <param name="actionName">The name of the attempted action.</param>
+        protected override void HandleUnknownAction(string actionName)
+        {
+            this.Index().ExecuteResult(this.ControllerContext);
         }
 
         #endregion
