@@ -1,0 +1,40 @@
+﻿@model Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.MultipleChoiceField.MultipleChoiceFieldViewModel
+
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+@Html.Script(ScriptRef.JQuery, "top", false)
+
+@{
+    var fieldName = string.IsNullOrEmpty(Model.MetaField.FieldName) ? "multiple-choice-field-name" : Model.MetaField.FieldName;
+    var requiredAttributes = MvcHtmlString.Create(Model.ValidationAttributes);
+}
+
+<div class="@Model.CssClass" data-sf-role="multiple-choice-field-container">
+    <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
+    <label>
+        @Model.MetaField.Title
+        <p>@Model.MetaField.Description</p>
+        
+        @foreach (var choice in Model.Choices)
+        {
+            <div>
+                <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @requiredAttributes />
+                <label>@choice</label>
+            </div>
+        }
+
+        @if(Model.HasOtherChoice)
+        {
+            <input type="radio" name="@fieldName" data-sf-multiple-choice-role="other-choice-radio" data-sf-role="multiple-choice-field-input"/>
+            <label>@Html.Resource("Other")</label>
+            <input type="hidden" data-sf-multiple-choice-role="other-choice-text" />
+        }
+
+        <input type="radio" hidden name="@fieldName" value="" data-sf-role="multiple-choice-field-input" @requiredAttributes />
+    </label>
+</div>
+
+@Html.Script(Url.WidgetContent("Mvc/Scripts/MultipleChoiceField/multiple-choice-field.js"), "bottom", false)

@@ -336,6 +336,66 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
                 return this["OptionSecondChoice"];
             }
         }
+
+        /// <summary>
+        /// Gets phrase : Third choice
+        /// </summary>
+        [ResourceEntry("OptionThirdChoice",
+            Value = "Third choice",
+            Description = "phrase : Third choice",
+            LastModified = "2015/09/04")]
+        public string OptionThirdChoice
+        {
+            get
+            {
+                return this["OptionThirdChoice"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets phrase : Add "Other" as a last choice
+        /// </summary>
+        [ResourceEntry("AddOtherLastChoice",
+            Value = "Add \"Other\" as a last choice",
+            Description = "phrase : Add \"Other\" as a last choice",
+            LastModified = "2015/09/04")]
+        public string AddOtherLastChoice
+        {
+            get
+            {
+                return this["AddOtherLastChoice"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : (expanding a text box)
+        /// </summary>
+        [ResourceEntry("ExpandingTextBox",
+            Value = "(expanding a text box)",
+            Description = "phrase : (expanding a text box)",
+            LastModified = "2015/09/04")]
+        public string ExpandingTextBox
+        {
+            get
+            {
+                return this["ExpandingTextBox"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Other...
+        /// </summary>
+        [ResourceEntry("Other",
+            Value = "Other...",
+            Description = "phrase : Other...",
+            LastModified = "2015/09/04")]
+        public string Other
+        {
+            get
+            {
+                return this["Other"];
+            }
+        }
                 
         /// <summary>
         /// Gets phrase : Predefined value
