@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Metadata.Model;
@@ -25,7 +22,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
             {
                 if (string.IsNullOrEmpty(this.serializedChoices))
                 {
-                    this.serializedChoices = this.BuildInitialChoices();
+                    this.serializedChoices = this.BuildInitialChoicesString();
                 }
 
                 return this.serializedChoices;
@@ -101,7 +98,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
         /// Prepopulates the initial choices.
         /// </summary>
         /// <returns></returns>
-        public virtual string BuildInitialChoices()
+        public virtual string BuildInitialChoicesString()
         {
             var initialChoices = new string[]
             {
@@ -111,6 +108,29 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.DropdownListField
             };
 
             return JsonConvert.SerializeObject(initialChoices);
+        }
+
+        /// <inheritDocs />
+        public override bool IsValid(object value)
+        {
+            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
+            {
+                var strValue = value as string;
+                if (!string.IsNullOrEmpty(strValue))
+                {
+                    var choices = this.DeserializeChoices();
+                    if (choices.Contains(strValue))
+                    {
+                        return base.IsValid(value);
+                    }
+                }
+
+                return false;
+            }
+            else
+            {
+                return base.IsValid(value);
+            }
         }
 
         private IEnumerable<string> DeserializeChoices()
