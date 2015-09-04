@@ -2,11 +2,11 @@
 
 <tabset class="nav-tabs-wrapper">
     <tab heading="@Html.Resource("Form")">
-        <div class="form-group">
-            <strong>@Html.Resource("SelectForm")</strong>
 
-            <sf-form-field sf-model="properties.FormId.PropertyValue"/>
-        </div>
+        <strong class="u-db m-bottom-xs">@Html.Resource("SelectForm")</strong>
+
+        <sf-form-field sf-model="properties.FormId.PropertyValue"/>
+
                
         <expander expander-title='@Html.Resource("MoreOptions")'>
             <style-dropdown selected-class="properties.CssClass.PropertyValue" view-name ="todo"></style-dropdown>
@@ -37,7 +37,8 @@
                     </label>
                 </div>
                 
-                <div class="sf-textarea" ng-show="properties.CustomConfirmationMode.PropertyValue == 'ShowMessageForSuccess'">
+                
+                <div class="label-content" ng-show="properties.CustomConfirmationMode.PropertyValue == 'ShowMessageForSuccess'">
                     <textarea ng-model="properties.CustomConfirmationMessage.PropertyValue"></textarea>
                 </div>
 
@@ -48,10 +49,13 @@
                     </label>
                 </div>
 
-                <sf-list-selector
-                    sf-page-selector
-                    sf-selected-item-id="properties.CustomConfirmationPageId.PropertyValue"
-                    ng-show="properties.CustomConfirmationMode.PropertyValue == 'RedirectToAPage'"></sf-list-selector>
+                <div class="label-content">
+                   <sf-list-selector
+                        sf-page-selector
+                        sf-selected-item-id="properties.CustomConfirmationPageId.PropertyValue"
+                        ng-show="properties.CustomConfirmationMode.PropertyValue == 'RedirectToAPage'"></sf-list-selector>
+                </div>
+ 
             </div>
         </div>
     </tab>
