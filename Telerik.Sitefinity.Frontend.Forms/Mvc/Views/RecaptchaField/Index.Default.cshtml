@@ -6,7 +6,7 @@
 
 @Html.Script(ScriptRef.JQuery, "top", false)
 
-<div sf-role="recaptcha-field" data-sitekey="@Model.DataSitekey" data-size="@Model.Size" data-type="@Model.DataType" data-theme="@Model.Theme"></div>
+<div data-sf-role="recaptcha-field" data-sitekey="@Model.DataSitekey" data-size="@Model.Size" data-type="@Model.DataType" data-theme="@Model.Theme"></div>
 
 @Html.Script(Url.WidgetContent("Mvc/Scripts/RecaptchaField/recaptcha-field.js"), "bottom", false)
 

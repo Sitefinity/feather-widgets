@@ -4,17 +4,17 @@
     var initRecaptcha = function (idx, element) {
         var options = {};
         for (var i = 0; i < element.attributes.length; i++) {
-            if (element.attributes[i].name.startsWith('data-')) {
+            if (element.attributes[i].name.startsWith('data-') && !element.attributes[i].name.startsWith('data-sf-')) {
                 var name = element.attributes[i].name.substring(5, element.attributes[i].name.length);
                 options[name] = element.attributes[i].value;
             }
         }
 
-        $(element).attr('sf-role', null);
+        $(element).attr('data-sf-role', null);
         grecaptcha.render(element, options);
     };
 
     sf_captchaCallback = function () {
-        $('[sf-role="recaptcha-field"]').each(initRecaptcha);
+        $('[data-sf-role="recaptcha-field"]').each(initRecaptcha);
     };
 }(jQuery));
