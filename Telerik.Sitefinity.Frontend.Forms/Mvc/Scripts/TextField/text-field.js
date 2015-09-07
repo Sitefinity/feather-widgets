@@ -2,6 +2,9 @@
     $(function () {
 
         function changeOrInput(e) {
+            if (!e.srcElement.validity)
+                return;
+
             if (e.srcElement.required && e.srcElement.validity.valueMissing) {
                 var validationMessages = getValidationMessages(e.srcElement);
                 e.srcElement.setCustomValidity(validationMessages.required);
@@ -11,6 +14,9 @@
         }
 
         function invalid(e) {
+            if (!e.srcElement.validity)
+                return;
+
             var validationMessages = getValidationMessages(e.srcElement);
 
             if (e.srcElement.validity.valueMissing) {
