@@ -297,7 +297,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         /// Gets phrase : Example: First name
         /// </summary>
         [ResourceEntry("ExampleTitle",
-            Value = "Example: First name",
+            Value = "Example: <i>First name</i>",
             Description = "phrase : Example: <i>First name</i>",
             LastModified = "2015/08/03")]
         public string ExampleTitle
