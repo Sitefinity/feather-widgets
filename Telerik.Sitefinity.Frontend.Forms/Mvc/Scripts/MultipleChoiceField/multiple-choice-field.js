@@ -39,7 +39,7 @@
                 input.addEventListener('input', changeOrInput);
                 input.addEventListener('invalid', invalid);
             }
-        };
+        }
 
         var radios = containers.find('input[data-sf-role="multiple-choice-field-input"]');
 

@@ -261,6 +261,9 @@
     <EmbeddedResource Include="Mvc\Scripts\DropdownListField\designerview-simple.js" />
     <EmbeddedResource Include="Mvc\Scripts\DropdownListField\dropdown-list-field.js" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\RecaptchaField\recaptcha-field.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
