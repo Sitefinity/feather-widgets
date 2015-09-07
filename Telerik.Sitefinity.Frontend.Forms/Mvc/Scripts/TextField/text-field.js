@@ -2,7 +2,10 @@
     $(function () {
 
         function changeOrInput(e) {
-            if (e.srcElement.value === '') {
+            if (typeof e.srcElement.validity == 'undefined')
+                return;
+
+            if (e.srcElement.required && e.srcElement.validity.valueMissing) {
                 var validationMessages = getValidationMessages(e.srcElement);
                 e.srcElement.setCustomValidity(validationMessages.required);
             } else {
@@ -11,6 +14,9 @@
         }
 
         function invalid(e) {
+            if (typeof e.srcElement.validity == 'undefined')
+                return;
+
             var validationMessages = getValidationMessages(e.srcElement);
 
             if (e.srcElement.validity.valueMissing) {
@@ -18,6 +24,9 @@
             }
             else if (e.srcElement.validity.patternMismatch) {
                 e.srcElement.setCustomValidity(validationMessages.maxLength);
+            }
+            else if (!e.srcElement.validity.valid) {
+                e.srcElement.setCustomValidity(validationMessages.invalid);
             }
         }
 

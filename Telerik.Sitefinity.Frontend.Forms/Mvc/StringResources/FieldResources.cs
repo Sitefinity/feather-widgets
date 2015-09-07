@@ -698,6 +698,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             }
         }
 
+        /// <summary>
+        /// Gets phrase : Entry is not valid!
+        /// </summary>
+        [ResourceEntry("InvalidEntryMessage",
+            Value = "Entry is not valid!",
+            Description = "phrase: Entry is not valid!",
+            LastModified = "2015/09/07")]
+        public string InvalidEntryMessage
+        {
+            get
+            {
+                return this["InvalidEntryMessage"];
+            }
+        }
+
         #region ReCAPTCHA
 
         /// <summary>
