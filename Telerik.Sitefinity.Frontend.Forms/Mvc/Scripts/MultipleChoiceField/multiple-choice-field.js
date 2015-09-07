@@ -32,7 +32,7 @@
             return;
 
         for (var i = 0; i < containers.length; i++) {
-            var input = $(containers[i]).find('[data-sf-role="multiple-choice-field-other-input"]')[0];
+            var input = $(containers[i]).find('[data-sf-role="multiple-choice-field-input"]');
 
             if (input) {
                 input.addEventListener('change', changeOrInput);
@@ -47,7 +47,7 @@
         var hiddenRadioIndex = radios.index(hiddenRadio);
 
         var otherRadio = $(containers.find('[data-sf-multiple-choice-role="other-choice-radio"]').first());
-        var otherInput = containers.find('[data-sf-multiple-choice-role="other-choice-text"]');
+        var otherInput = $(containers.find('[data-sf-multiple-choice-role="other-choice-text"]').first());
         var otherRadioIndex = radios.index(otherRadio);
 
         var currentIndex = -1;
