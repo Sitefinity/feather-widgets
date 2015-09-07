@@ -39,7 +39,7 @@
                 input.addEventListener('input', changeOrInput);
                 input.addEventListener('invalid', invalid);
             }
-        };
+        }
 
         containers.find('label').click(function () {
             $(this).prev().click();
