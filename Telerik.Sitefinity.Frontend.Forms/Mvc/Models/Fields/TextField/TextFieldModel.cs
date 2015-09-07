@@ -107,6 +107,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 dictionary.Add(TextType.Number.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.NumericRegexPattern);
                 dictionary.Add(TextType.Range.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.NumericRegexPattern);
                 dictionary.Add(TextType.Url.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.InternetUrlRegexPattern);
+                dictionary.Add(TextType.Tel.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.TelRegexPattern);
 
                 return dictionary;
             }

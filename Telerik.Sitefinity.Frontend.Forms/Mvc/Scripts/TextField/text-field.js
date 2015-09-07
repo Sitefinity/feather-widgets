@@ -2,7 +2,7 @@
     $(function () {
 
         function changeOrInput(e) {
-            if (e.srcElement.value === '') {
+            if (e.srcElement.required && e.srcElement.validity.valueMissing) {
                 var validationMessages = getValidationMessages(e.srcElement);
                 e.srcElement.setCustomValidity(validationMessages.required);
             } else {
@@ -18,6 +18,9 @@
             }
             else if (e.srcElement.validity.patternMismatch) {
                 e.srcElement.setCustomValidity(validationMessages.maxLength);
+            }
+            else if (!e.srcElement.validity.valid) {
+                e.srcElement.setCustomValidity(validationMessages.invalid);
             }
         }
 

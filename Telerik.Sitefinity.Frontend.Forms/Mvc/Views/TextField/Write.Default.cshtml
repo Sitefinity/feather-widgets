@@ -8,7 +8,7 @@
 @Html.Script(ScriptRef.JQuery, "top", false)
 
 <div class="@Model.CssClass" data-sf-role="text-field-container">
-    <input data-sf-role="violation-messages" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLengthViolationMessage", "required": "@Model.ValidatorDefinition.RequiredViolationMessage"}' />
+    <input data-sf-role="violation-messages" type="hidden" value='{"maxLength":"@Model.ValidatorDefinition.MaxLengthViolationMessage", "required": "@Model.ValidatorDefinition.RequiredViolationMessage", "invalid": "@Html.Resource("InvalidEntryMessage")"}' />
     <label>
         @Model.MetaField.Title
         <input data-sf-role="text-field-input" type="@Model.InputType.ToHtmlInputType()" name="@Model.MetaField.FieldName" placeholder="@Model.PlaceholderText" value="@Model.Value" @Model.ValidationAttributes></input>
