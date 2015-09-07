@@ -143,6 +143,261 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
         }
 
         /// <summary>
+        /// Gets phrase : Select a choice
+        /// </summary>
+        [ResourceEntry("SelectChoice",
+            Value = "Select a choice",
+            Description = "phrase : Select a choice",
+            LastModified = "2015/09/03")]
+        public string SelectChoice
+        {
+            get
+            {
+                return this["SelectChoice"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Select choices
+        /// </summary>
+        [ResourceEntry("SelectChoices",
+            Value = "Select choices",
+            Description = "phrase : Select choices",
+            LastModified = "2015/09/03")]
+        public string SelectChoices
+        {
+            get
+            {
+                return this["SelectChoices"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Label (Question)
+        /// </summary>
+        [ResourceEntry("LabelQuestion",
+            Value = "Label (Question)",
+            Description = "phrase : Label (Question)",
+            LastModified = "2015/09/03")]
+        public string LabelQuestion
+        {
+            get
+            {
+                return this["LabelQuestion"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Choices
+        /// </summary>
+        [ResourceEntry("Choices",
+            Value = "Choices",
+            Description = "word : Choices",
+            LastModified = "2015/09/03")]
+        public string Choices
+        {
+            get
+            {
+                return this["Choices"];
+            }
+        }
+
+        /// <summary>
+        /// Gets word : Default
+        /// </summary>
+        [ResourceEntry("Default",
+            Value = "Default",
+            Description = "word : Default",
+            LastModified = "2015/09/03")]
+        public string Default
+        {
+            get
+            {
+                return this["Default"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Enter label
+        /// </summary>
+        [ResourceEntry("EnterLabel",
+            Value = "Enter label",
+            Description = "phrase : Enter label",
+            LastModified = "2015/09/03")]
+        public string EnterLabel
+        {
+            get
+            {
+                return this["EnterLabel"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Click to add a choice
+        /// </summary>
+        [ResourceEntry("ClickToAddChoice",
+            Value = "Click to add a choice",
+            Description = "phrase : Click to add a choice",
+            LastModified = "2015/09/03")]
+        public string ClickToAddChoice
+        {
+            get
+            {
+                return this["ClickToAddChoice"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : (Default choice have to be changed)
+        /// </summary>
+        [ResourceEntry("DefaultChoiceHaveToBeChanged",
+            Value = "(Default choice have to be changed)",
+            Description = "phrase : (Default choice have to be changed)",
+            LastModified = "2015/09/03")]
+        public string DefaultChoiceHaveToBeChanged
+        {
+            get
+            {
+                return this["DefaultChoiceHaveToBeChanged"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Make default
+        /// </summary>
+        [ResourceEntry("MakeDefault",
+            Value = "Make default",
+            Description = "phrase : Make default",
+            LastModified = "2015/09/03")]
+        public string MakeDefault
+        {
+            get
+            {
+                return this["MakeDefault"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Error message displayed if choice is not made
+        /// </summary>
+        [ResourceEntry("ErrorMessageDisplayedLabel",
+            Value = "Error message displayed if choice is not made",
+            Description = "phrase : Error message displayed if choice is not made",
+            LastModified = "2015/09/03")]
+        public string ErrorMessageDisplayedLabel
+        {
+            get
+            {
+                return this["ErrorMessageDisplayedLabel"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : - Select -
+        /// </summary>
+        [ResourceEntry("OptionSelect",
+            Value = "- Select -",
+            Description = "phrase : - Select -",
+            LastModified = "2015/09/03")]
+        public string OptionSelect
+        {
+            get
+            {
+                return this["OptionSelect"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : First choice
+        /// </summary>
+        [ResourceEntry("OptionFirstChoice",
+            Value = "First choice",
+            Description = "phrase : First choice",
+            LastModified = "2015/09/03")]
+        public string OptionFirstChoice
+        {
+            get
+            {
+                return this["OptionFirstChoice"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Second choice
+        /// </summary>
+        [ResourceEntry("OptionSecondChoice",
+            Value = "Second choice",
+            Description = "phrase : Second choice",
+            LastModified = "2015/09/03")]
+        public string OptionSecondChoice
+        {
+            get
+            {
+                return this["OptionSecondChoice"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Third choice
+        /// </summary>
+        [ResourceEntry("OptionThirdChoice",
+            Value = "Third choice",
+            Description = "phrase : Third choice",
+            LastModified = "2015/09/04")]
+        public string OptionThirdChoice
+        {
+            get
+            {
+                return this["OptionThirdChoice"];
+            }
+        }
+        
+        /// <summary>
+        /// Gets phrase : Add "Other" as a last choice
+        /// </summary>
+        [ResourceEntry("AddOtherLastChoice",
+            Value = "Add \"Other\" as a last choice",
+            Description = "phrase : Add \"Other\" as a last choice",
+            LastModified = "2015/09/04")]
+        public string AddOtherLastChoice
+        {
+            get
+            {
+                return this["AddOtherLastChoice"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : (expanding a text box)
+        /// </summary>
+        [ResourceEntry("ExpandingTextBox",
+            Value = "(expanding a text box)",
+            Description = "phrase : (expanding a text box)",
+            LastModified = "2015/09/04")]
+        public string ExpandingTextBox
+        {
+            get
+            {
+                return this["ExpandingTextBox"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Other...
+        /// </summary>
+        [ResourceEntry("Other",
+            Value = "Other...",
+            Description = "phrase : Other...",
+            LastModified = "2015/09/04")]
+        public string Other
+        {
+            get
+            {
+                return this["Other"];
+            }
+        }
+                
+        /// <summary>
         /// Gets phrase : Predefined value
         /// </summary>
         [ResourceEntry("PredefinedValue",
@@ -440,6 +695,21 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources
             get
             {
                 return this["SubmitButtonLabel"];
+            }
+        }
+
+        /// <summary>
+        /// Gets phrase : Entry is not valid!
+        /// </summary>
+        [ResourceEntry("InvalidEntryMessage",
+            Value = "Entry is not valid!",
+            Description = "phrase: Entry is not valid!",
+            LastModified = "2015/09/07")]
+        public string InvalidEntryMessage
+        {
+            get
+            {
+                return this["InvalidEntryMessage"];
             }
         }
 

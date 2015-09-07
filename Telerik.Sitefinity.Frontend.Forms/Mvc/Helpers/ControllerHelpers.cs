@@ -63,7 +63,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             var controllerFactory = (ISitefinityControllerFactory)ControllerBuilder.Current.GetControllerFactory();
             routeData.Values["controller"] = controllerFactory.GetControllerName(controller.GetType());
 
-            var action = controller is IFormFieldController<IFormFieldModel> ? viewMode.ToString() : "Index";
+            const string action = "Index";
             routeData.Values["action"] = action;
 
             using (var writer = new StringWriter())

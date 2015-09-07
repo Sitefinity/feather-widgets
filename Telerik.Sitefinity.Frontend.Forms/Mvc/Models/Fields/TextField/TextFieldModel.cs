@@ -107,6 +107,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
                 dictionary.Add(TextType.Number.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.NumericRegexPattern);
                 dictionary.Add(TextType.Range.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.NumericRegexPattern);
                 dictionary.Add(TextType.Url.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.InternetUrlRegexPattern);
+                dictionary.Add(TextType.Tel.ToString(), Telerik.Sitefinity.Web.UI.Validation.Validator.TelRegexPattern);
 
                 return dictionary;
             }
@@ -135,7 +136,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
         {
             var attributes = new StringBuilder();
 
-            if ((this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value) || this.ValidatorDefinition.MinLength > 0)
+            if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
                 attributes.Append("required='required' ");
 
             if (this.ValidatorDefinition.MaxLength > 0)

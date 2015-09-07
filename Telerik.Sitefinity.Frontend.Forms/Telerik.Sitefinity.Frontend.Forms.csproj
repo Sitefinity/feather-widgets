@@ -151,6 +151,9 @@
     <Compile Include="IFormRenderer.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="InterfaceMappings.cs" />
+    <Compile Include="Mvc\Controllers\CheckboxesFieldController.cs" />
+    <Compile Include="Mvc\Controllers\MultipleChoiceFieldController.cs" />
+    <Compile Include="Mvc\Controllers\DropdownListFieldController.cs" />
     <Compile Include="Mvc\Controllers\ParagraphTextFieldController.cs" />
     <Compile Include="Mvc\Controllers\FormController.cs" />
     <Compile Include="Mvc\Controllers\RecaptchaFieldController.cs" />
@@ -160,6 +163,15 @@
     <Compile Include="Mvc\Helpers\ControllerHelpers.cs" />
     <Compile Include="Mvc\Helpers\SectionHeaderFieldHelpers.cs" />
     <Compile Include="Mvc\Helpers\TextTypeHelpers.cs" />
+    <Compile Include="Mvc\Models\Fields\CheckboxesField\ICheckboxesFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\CheckboxesField\CheckboxesFieldViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\DropdownListField\DropdownListFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\DropdownListField\DropdownListFieldViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\DropdownListField\IDropdownListFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\MultipleChoiceField\MultipleChoiceFieldModel.cs" />
+    <Compile Include="Mvc\Models\Fields\MultipleChoiceField\MultipleChoiceFieldViewModel.cs" />
+    <Compile Include="Mvc\Models\Fields\MultipleChoiceField\IMultipleChoiceFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\IParagraphTextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\ParagraphTextFieldModel.cs" />
     <Compile Include="Mvc\Models\Fields\ParagraphTextField\ParagraphTextFieldViewModel.cs" />
@@ -209,6 +221,20 @@
     <EmbeddedResource Include="Mvc\Views\ParagraphTextField\DesignerView.Simple.json" />
     <EmbeddedResource Include="Mvc\Views\ParagraphTextField\Read.Default.cshtml" />
     <EmbeddedResource Include="Mvc\Views\ParagraphTextField\Write.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\DropdownListField\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\DropdownListField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\DropdownListField\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\DropdownListField\Write.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\Write.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\MultipleChoiceField\Write.Default_Inline.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\CheckboxesField\DesignerView.Simple.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\CheckboxesField\DesignerView.Simple.json" />
+    <EmbeddedResource Include="Mvc\Views\CheckboxesField\Read.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\CheckboxesField\Write.Default.cshtml" />
+    <EmbeddedResource Include="Mvc\Views\CheckboxesField\Write.Default_Inline.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\RecaptchaField\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\RecaptchaField\recaptcha-field.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\SectionHeaderField\designerview-simple.js" />
@@ -235,6 +262,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\ParagraphTextField\paragraph-text-field.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\MultipleChoiceField\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\MultipleChoiceField\multiple-choice-field.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\DropdownListField\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\DropdownListField\dropdown-list-field.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mvc\Scripts\CheckboxesField\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\CheckboxesField\checkboxes-field.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

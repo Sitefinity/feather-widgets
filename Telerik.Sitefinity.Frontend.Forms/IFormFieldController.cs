@@ -9,7 +9,7 @@ namespace Telerik.Sitefinity.Frontend.Forms
     /// <summary>
     /// This interface defines API for working with forms field's controllers.
     /// </summary>
-    public interface IFormFieldController<T> : IFormFieldControl, IHasFieldDisplayMode 
+    public interface IFormFieldController<out T> : IFormFieldControl, IHasFieldDisplayMode 
         where T : IFormFieldModel
     {
         /// <summary>
