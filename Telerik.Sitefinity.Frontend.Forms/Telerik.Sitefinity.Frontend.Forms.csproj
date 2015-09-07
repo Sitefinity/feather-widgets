@@ -252,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\RecaptchaField\designerview-simple.js" />
+    <EmbeddedResource Include="Mvc\Scripts\RecaptchaField\recaptcha-field.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\SectionHeaderField\designerview-simple.js" />
@@ -272,8 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\CheckboxesField\designerview-simple.js" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Mvc\Scripts\CheckboxesField\checkboxes-field.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
