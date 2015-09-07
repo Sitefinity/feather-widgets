@@ -2,7 +2,7 @@
     $(function () {
 
         function changeOrInput(e) {
-            if (!e.srcElement.validity)
+            if (typeof e.srcElement.validity == 'undefined')
                 return;
 
             if (e.srcElement.required && e.srcElement.validity.valueMissing) {
@@ -14,7 +14,7 @@
         }
 
         function invalid(e) {
-            if (!e.srcElement.validity)
+            if (typeof e.srcElement.validity == 'undefined')
                 return;
 
             var validationMessages = getValidationMessages(e.srcElement);
