@@ -81,11 +81,12 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.ParagraphTextField
 
             if (this.ValidatorDefinition.MaxLength > 0)
             {
-                attributes.Append("pattern='.{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}' ");
+                attributes.Append("maxlength='" + this.ValidatorDefinition.MaxLength + "' ");
             }
-            else if (this.ValidatorDefinition.MinLength > 0)
+
+            if (this.ValidatorDefinition.MinLength > 0)
             {
-                attributes.Append("pattern='.{" + this.ValidatorDefinition.MinLength + ",}' ");
+                attributes.Append("minlength='" + this.ValidatorDefinition.MinLength + "' ");
             }
 
             return attributes.ToString();
