@@ -190,11 +190,9 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Models
                 }
                 else
                 {
-                    bool isEditable;
+                    bool isEditable = false;
                     if (this.ContainerType != null)
                         isEditable = this.ContainerType.GetCustomAttributes(typeof(EditableControlsContainerAttribute), false).Length > 0;
-                    else
-                        isEditable = true;
 
                     if (isEditable)
                         this.ContentType = typeof(PageDraftControl).FullName;
