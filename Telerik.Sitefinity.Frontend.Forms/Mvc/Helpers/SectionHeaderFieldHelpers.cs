@@ -33,7 +33,15 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers
             foreach (HeadingType headingType in Enum.GetValues(typeof(HeadingType)))
             {
                 var headingTypeStr = headingType.ToString();
-                dict.Add(string.Format("Heading {0}", headingTypeStr.Substring(headingTypeStr.IndexOfAny(allDigits))), headingTypeStr);
+
+                if (headingType != HeadingType.p)
+                {
+                    dict.Add(string.Format("Heading {0}", headingTypeStr.Substring(headingTypeStr.IndexOfAny(allDigits))), headingTypeStr);
+                }
+                else
+                {
+                    dict.Add("Paragraph", headingTypeStr);
+                }
             }
 
             return dict;

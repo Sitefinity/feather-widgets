@@ -139,10 +139,30 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Models.Fields.TextField
             if (this.ValidatorDefinition.Required.HasValue && this.ValidatorDefinition.Required.Value)
                 attributes.Append("required='required' ");
 
+            var minMaxLength = string.Empty;
             if (this.ValidatorDefinition.MaxLength > 0)
-                attributes.Append("pattern='.{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}' ");
+                minMaxLength = ".{" + this.ValidatorDefinition.MinLength + "," + this.ValidatorDefinition.MaxLength + "}";
             else if (this.ValidatorDefinition.MinLength > 0)
-                attributes.Append("pattern='.{" + this.ValidatorDefinition.MinLength + ",}' ");
+                minMaxLength = ".{" + this.ValidatorDefinition.MinLength + ",}";
+
+            if (this.InputType == TextType.Tel)
+            {
+                attributes.Append("pattern='");
+                if(!string.IsNullOrEmpty(minMaxLength))
+                {
+                    attributes.Append("(?=^");
+                    attributes.Append(minMaxLength);
+                    attributes.Append("$)");
+                }
+                attributes.Append(Telerik.Sitefinity.Web.UI.Validation.Validator.TelRegexPattern);
+                attributes.Append("' ");
+            }
+            else if (!string.IsNullOrEmpty(minMaxLength))
+            {
+                attributes.Append("pattern='");
+                attributes.Append(minMaxLength);
+                attributes.Append("' ");
+            }
 
             return new MvcHtmlString(attributes.ToString());
         }
