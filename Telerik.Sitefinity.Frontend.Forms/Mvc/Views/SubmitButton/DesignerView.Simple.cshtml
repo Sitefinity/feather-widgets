@@ -2,10 +2,14 @@
 @using Telerik.Sitefinity.Mvc;
 
 <div class="form-group">
-    <label for="title" class="full-width">
+    <label for="title">
         @Html.Resource("Label")
-        <input id="title" type="text" ng-model="properties.Label.PropertyValue" class="form-control" />
     </label>
+    <div class="row">
+        <div class="col-xs-6">
+            <input id="title" type="text" ng-model="properties.Label.PropertyValue" class="form-control" />
+        </div>
+    </div>
 </div>
 
 <expander expander-title='@Html.Resource("MoreOptions")'>
