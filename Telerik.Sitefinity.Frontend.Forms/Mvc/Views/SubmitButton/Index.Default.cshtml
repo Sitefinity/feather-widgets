@@ -3,5 +3,5 @@
 @using Telerik.Sitefinity.Frontend.Forms.Mvc.Helpers;
 
 <div class="@Model.CssClass">
-    <input type="submit" value="@Model.Label" @Html.SubmitButtonRequiredAttributes() />
+    <button type="submit" @Html.SubmitButtonRequiredAttributes() >@Model.Label</button>
 </div>
