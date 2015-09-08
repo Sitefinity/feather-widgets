@@ -66,12 +66,12 @@
         
         $scope.sortableOptions = {
             hint: function (element) {
-                return $('<div class="sf-backend-wrp"><div class="list-group-item list-group-item-multiselect list-group-item-draggable list-group-item-hint">' +
+                return $('<div class="sf-backend-wrp"><div class="list-group-item-radio list-group-item list-group-item-draggable-2 list-group-item-hint">' +
                             element.html() +
                         '</div></div>');
             },
             placeholder: function (element) {
-                return $('<div class="list-group-item list-group-item-placeholder"></div>');
+                return $('<div class="list-group-item list-group-item-placeholder list-group-item-placeholder--bt"></div>');
             },
             handler: ".handler",
             axis: "y"
