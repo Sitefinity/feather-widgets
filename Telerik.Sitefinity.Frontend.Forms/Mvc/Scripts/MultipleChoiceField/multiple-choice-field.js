@@ -1,12 +1,11 @@
 ﻿(function ($) {
     var changeOrInput = function (e) {
-        if (e.srcElement.value === '') {
-            var validationMessages = getValidationMessages(e.srcElement);
-            e.srcElement.setCustomValidity(validationMessages.required);
-        }
-        else {
-            e.srcElement.setCustomValidity('');
-        }
+        var container = $(e.srcElement).parents('[data-sf-role="multiple-choice-field-container"]');
+        var inputs = $(container).find('[data-sf-role="multiple-choice-field-input"]');
+        inputs.each(function (index, input) {
+            input.validity.valueMissing = false;
+            input.setCustomValidity('');
+        });
     };
 
     var invalid = function (e) {
@@ -31,53 +30,51 @@
         if (!containers || containers.length < 1)
             return;
 
+        var attachHandlers = function (index, input) {
+            input.addEventListener('change', changeOrInput);
+            input.addEventListener('input', changeOrInput);
+            input.addEventListener('invalid', invalid);
+        };
+
+        var radioClickHandler = function (e) {
+            var container = $(e.target).parents('[data-sf-role="multiple-choice-field-container"]');
+            var radios = container.find('input[data-sf-role="multiple-choice-field-input"]');
+            var otherInput = $(container.find('[data-sf-multiple-choice-role="other-choice-text"]').first());
+            var otherRadio = $(container.find('[data-sf-multiple-choice-role="other-choice-radio"]').first());
+            var otherRadioIndex = radios.index(otherRadio);
+            var currentIndex = radios.index($(e.target));
+            var isRequired = $(radios).first().attr('required');
+
+            if (currentIndex == otherRadioIndex) {
+                otherInput.attr('type', 'text');
+
+                if (isRequired)
+                    otherInput.attr('required', 'required');
+            }
+            else {
+                otherInput.attr('type', 'hidden');
+                otherInput.removeAttr('required');
+            }
+        };
+
+        var inputChangeHandler = function (e) {
+            var container = $(e.srcElement).parents('[data-sf-role="multiple-choice-field-container"]');
+            var otherRadio = $(container.find('[data-sf-multiple-choice-role="other-choice-radio"]').first());
+            otherRadio.val($(e.srcElement).val());
+        };
+
         for (var i = 0; i < containers.length; i++) {
-            var input = $(containers[i]).find('[data-sf-role="multiple-choice-field-input"]');
+            var container = $(containers[i]);
+            var inputs = container.find('[data-sf-role="multiple-choice-field-input"]');
 
-            if (input) {
-                input.addEventListener('change', changeOrInput);
-                input.addEventListener('input', changeOrInput);
-                input.addEventListener('invalid', invalid);
-            }
+            inputs.each(attachHandlers);
+
+            var radios = container.find('input[data-sf-role="multiple-choice-field-input"]');
+
+            var otherInput = $(container.find('[data-sf-multiple-choice-role="other-choice-text"]').first());
+
+            radios.click(radioClickHandler);
+            otherInput.change(inputChangeHandler);
         }
-
-        var radios = containers.find('input[data-sf-role="multiple-choice-field-input"]');
-
-        var hiddenRadio = $(radios.last());
-        var hiddenRadioIndex = radios.index(hiddenRadio);
-
-        var otherRadio = $(containers.find('[data-sf-multiple-choice-role="other-choice-radio"]').first());
-        var otherInput = $(containers.find('[data-sf-multiple-choice-role="other-choice-text"]').first());
-        var otherRadioIndex = radios.index(otherRadio);
-
-        var currentIndex = -1;
-
-        radios.click(function () {
-            var index = radios.index($(this));
-            if (index != hiddenRadioIndex) {
-                if (index == currentIndex) {
-                    currentIndex = -1;
-                    otherInput.attr('type', 'hidden');
-                    hiddenRadio.click();
-                }
-                else {
-                    currentIndex = index;
-                    if (currentIndex == otherRadioIndex) {
-                        otherInput.attr('type', 'text');
-                    }
-                    else {
-                        otherInput.attr('type', 'hidden');
-                    }
-                }
-            }
-        });
-
-        otherInput.change(function () {
-            otherRadio.val($(this).val());
-        });
-
-        containers.find('label').click(function () {
-            $(this).prev().click();
-        });
     });
 }(jQuery));
