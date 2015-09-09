@@ -158,7 +158,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
 
         #region Private fields and constants
 
-        internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcon";
+        internal const string WidgetIconCssClass = "sfFormsIcn sfMvcIcn";
 
         private IFormModel model;
         private bool? disableCanonicalUrlMetaTag;
