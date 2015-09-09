@@ -14,6 +14,7 @@
 
 <div class="@Model.CssClass" data-sf-role="checkboxes-field-container">
     <input type="hidden" data-sf-role="violation-messages" value='{ "required": "@Model.RequiredViolationMessage"}' />
+    <input type="hidden" data-sf-role="required-validator" value='@Model.IsRequired' />
    
     <strong>@Model.MetaField.Title</strong>
     <p>@Model.MetaField.Description</p>
@@ -22,7 +23,7 @@
     {
         <div>
             <label>
-                <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" @requiredAttributes />
+                <input type="checkbox" name="@fieldName" value="@choice" data-sf-role="checkboxes-field-input" />
                 @choice
             </label>
         </div>
