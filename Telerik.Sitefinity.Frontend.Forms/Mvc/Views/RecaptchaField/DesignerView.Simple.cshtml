@@ -45,11 +45,11 @@
     </div>
 
     <div class="form-group">
-        <label for="captchaTheme">@Html.Resource("Size")</label>
+        <label for="captchaSize">@Html.Resource("Size")</label>
 
         <div class="row">
             <div class="col-xs-6">
-                <select id="captchaTheme" ng-model="properties.Model.Size.PropertyValue" class="form-control">
+                <select id="captchaSize" ng-model="properties.Model.Size.PropertyValue" class="form-control">
                     <option value="normal">@Html.Resource("Normal")</option>
                     <option value="compact">@Html.Resource("Compact")</option>
                 </select>
@@ -57,6 +57,13 @@
         </div>
     </div>
 </div>
+<div class="Options Options-section">
+    
+  <label>@Html.Resource("Preview")</label>
+  <div data-sf-role="recaptcha-preview" data-sitekey="{{properties.Model.DataSitekey.PropertyValue}}" data-size="{{properties.Model.Size.PropertyValue}}" data-type="{{properties.Model.DataType.PropertyValue}}" data-theme="{{properties.Model.Theme.PropertyValue}}"></div>
+
+</div>
+
         
 <expander expander-title='@Html.Resource("MoreOptions")'>
     <div class="form-group">
@@ -74,3 +81,36 @@
         </div>
     </div>
 </expander>
+
+
+
+ <script type="text/javascript">
+
+     (function ($) {
+
+         $.fn.refreshCaptcha = function () {
+             setTimeout(function () { 
+                 $('[data-sf-role="recaptcha-preview"]').html('');
+                 var element = $('[data-sf-role="recaptcha-preview"]')[0];
+                 var options = {};
+                 for (var i = 0; i < element.attributes.length; i++) {
+                     if (element.attributes[i].name.startsWith('data-') && !element.attributes[i].name.startsWith('data-sf-')) {
+                         var name = element.attributes[i].name.substring(5, element.attributes[i].name.length);
+                         options[name] = element.attributes[i].value;
+                     }
+                 }
+
+                 grecaptcha.render(element, options);
+             }, 500);
+         }
+
+         $('#captchaTheme, #captchaType, #captchaSize').on('change', function () {
+             $.fn.refreshCaptcha();          
+         })
+         
+
+         $.fn.refreshCaptcha();
+
+     }(jQuery));
+
+ </script>
