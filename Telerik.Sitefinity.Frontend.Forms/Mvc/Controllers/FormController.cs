@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
@@ -6,6 +7,7 @@ using Telerik.Sitefinity.Frontend.Forms.Mvc.Models;
 using Telerik.Sitefinity.Frontend.Forms.Mvc.StringResources;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Modules.Pages.Configuration;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Web.UI;
@@ -18,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "Form_MVC", Title = "Form", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = FormController.WidgetIconCssClass)]
     [Localization(typeof(FormResources))]
     [RequiresEmbeddedWebResource("Telerik.Sitefinity.Resources.Themes.LayoutsBasics.css", "Telerik.Sitefinity.Resources.Reference")]
-    public class FormController : Controller, IContentLocatableView
+    public class FormController : Controller, IContentLocatableView, ICustomWidgetVisualization
     {
         /// <summary>
         /// Gets the Form widget model.
@@ -103,6 +105,34 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
         }
 
         #endregion
+
+        #region ICustomWidgetVisualization
+
+        /// <inheritDocs />
+        [Browsable(false)]
+        public string EmptyLinkText
+        {
+            get { return Res.Get<FormResources>().SelectForm; }
+        }
+
+        /// <inheritDocs />
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get { return (this.Model.FormId == Guid.Empty); }
+        }
+
+        /// <inheritDocs />
+        [Browsable(false)]
+        public string WidgetCssClass
+        {
+            get
+            {
+                return FormController.WidgetIconCssClass;
+            }
+        }
+
+        #endregion 
 
         #region Controller overrides
 
