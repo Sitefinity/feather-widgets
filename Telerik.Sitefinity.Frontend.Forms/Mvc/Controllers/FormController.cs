@@ -20,7 +20,7 @@ namespace Telerik.Sitefinity.Frontend.Forms.Mvc.Controllers
     [ControllerToolboxItem(Name = "Form_MVC", Title = "Form", SectionName = ToolboxesConfig.ContentToolboxSectionName, CssClass = FormController.WidgetIconCssClass)]
     [Localization(typeof(FormResources))]
     [RequiresEmbeddedWebResource("Telerik.Sitefinity.Resources.Themes.LayoutsBasics.css", "Telerik.Sitefinity.Resources.Reference")]
-    public class FormController : Controller, IContentLocatableView, ICustomWidgetVisualization
+    public class FormController : Controller, IContentLocatableView, ICustomWidgetVisualizationExtended
     {
         /// <summary>
         /// Gets the Form widget model.
