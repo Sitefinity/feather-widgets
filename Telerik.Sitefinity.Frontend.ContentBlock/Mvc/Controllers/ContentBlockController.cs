@@ -276,15 +276,11 @@ namespace Telerik.Sitefinity.Frontend.ContentBlock.Mvc.Controllers
             var packageManager = new PackageManager();
             var commandsList = new List<WidgetMenuItem>();
 
-            var personalizationActionLink =
-                    packageManager.EnhanceUrl(
-                        RouteHelper.ResolveUrl(string.Format(CultureInfo.InvariantCulture, DesignerTemplate, "AddPersonalization"), UrlResolveOptions.Rooted));
             commandsList.Add(
                 new WidgetMenuItem
                 {
                     Text = Res.Get<PageResources>().ZoneEditorAddPersonalizedVersion,
-                    ActionUrl = personalizationActionLink,
-                    NeedsModal = true,
+                    CommandName = "addPersonalizedVersion",
                     CssClass = "sfPersonalizeItm"
                 });
 
