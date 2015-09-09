@@ -20,7 +20,8 @@
         
         @foreach (var choice in Model.Choices)
         {
-            <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @requiredAttributes />
+            var selctedAttributes = !Model.IsRequired && choice == Model.MetaField.DefaultValue as string ? "checked" : string.Empty;
+            <input type="radio" name="@fieldName" value="@choice" data-sf-role="multiple-choice-field-input" @selctedAttributes @requiredAttributes />
             <label>@choice</label>
         }
 

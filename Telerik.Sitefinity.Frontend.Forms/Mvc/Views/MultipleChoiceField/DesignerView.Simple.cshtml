@@ -15,7 +15,7 @@
             <div ng-repeat="item in currentItems track by $index" class="list-group-item list-group-item-multiselect" ng-class="currentItems.length > 1 ? 'list-group-item-draggable' : ''" >
                 <span ng-show="currentItems.length > 1" class="handler list-group-item-drag"></span>
                 <div>
-                    <input type="radio" name="default" ng-click="setDefault(item)" />
+                    <input type="radio" name="default" ng-change="setDefault(item)" ng-model='defaultValue' ng-value="currentItems[$index]" />
                     <input ng-click="itemClicked($event)" ng-model="currentItems[$index]" placeholder='@Html.Resource("EnterLabel")' type="text" />
                     <button ng-show="currentItems.length > 2" ng-click="removeItem(item, $index)" type="button" class="close text-right" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
