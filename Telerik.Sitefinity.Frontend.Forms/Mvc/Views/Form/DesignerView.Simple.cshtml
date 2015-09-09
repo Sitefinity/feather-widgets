@@ -5,7 +5,7 @@
 
         <strong class="u-db m-bottom-xs">@Html.Resource("SelectForm")</strong>
 
-        <sf-form-field sf-model="properties.FormId.PropertyValue"/>
+        <sf-form-field sf-model="properties.FormId.PropertyValue"></sf-form-field>
 
                
         <expander expander-title='@Html.Resource("MoreOptions")'>
@@ -16,6 +16,8 @@
                 <input type="text" ng-model="properties.CssClass.PropertyValue" class="form-control" />
             </div>
         </expander>
+
+
     </tab>
 
     <tab heading="@Html.Resource("Settings")">
